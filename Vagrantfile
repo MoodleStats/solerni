@@ -56,6 +56,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 	# The directory vagrant/log/nginx on the host machine will be synced with the
 	# directory /var/log/nginx on the guest VM.
-	config.vm.synced_folder "vagrant/log/nginx", "/var/log/nginx/"
+	config.vm.synced_folder "vagrant/system/var/log/nginx", "/var/log/nginx/"
+
+	# The directory vagrant/system/var/lib/dhcp on the host machine will be
+	# synced with the directory /var/lib/dhcp on the guest VM.
+	config.vm.synced_folder "vagrant/system/var/lib/dhcp", "/var/lib/dhcp/"
 
 end
