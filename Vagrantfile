@@ -19,6 +19,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	# this file.
 	config.ssh.private_key_path = "ssh_key.priv"
 
+	# This is a workaround for the issue mitchellh/vagrant#1673
+	# See https://github.com/mitchellh/vagrant/issues/1673 for more information
+	config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
+
 
 	# This is the name of the box used by Vagrant.
 	config.vm.box = "SolerniDevBox"
@@ -44,6 +48,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	# The local port 13306 on the host machine will be fowarded to the port 3306
 	# of the guest VM.
 	config.vm.network :forwarded_port, host: 13306, guest: 3306
+
+	# The command executed by default after the first run or explicitly with
+	# the command vagrant provision
+	config.vm.provision :shell, :inline => "service nginx restart"
 
 
 	# The directory vagrant/SolerniCMS on the host machine will be synced with the
