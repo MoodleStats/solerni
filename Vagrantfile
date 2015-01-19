@@ -5,37 +5,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 	ui = Vagrant::UI::Colored.new
 
-	hostname = ENV['HOSTNAME']
-	if hostname.nil?
-		ui.say(:error, "==> Error: unable to get the environment variable HOSTNAME")
-		ui.say(:info, "    Run the below command:")
-		ui.say(:info, "    export HOSTNAME=\`hostname | cut -f1 -d \'.\'\`")
-		exit(1)
-	end
-
-
 	# This is the path of the file containing the SSH private key. It's used by
 	# Vagrant to connect to your VM. This file must be at the same path level with
 	# this file.
 	config.ssh.private_key_path = "ssh_key.priv"
-
-	# This is a workaround for the issue mitchellh/vagrant#1673
-	# See https://github.com/mitchellh/vagrant/issues/1673 for more information
-	config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
-
+	config.ssh.pty= true
 
 	# This is the name of the box used by Vagrant.
-	config.vm.box = "SolerniDevBox"
+	config.vm.box = "Solerni2DevBox"
 
 	# The URL where Vagrant will download the box.
-	config.vm.box_url ="http://10.192.228.115/vagrant/solerni_dev_box.box"
-
-
-	# The public name of your VM on the network. This name will be send on the
-	# Orange DNS server. So your VM can be resolved by
-	# <hostname>-solerni.rd.francetelecom.fr.
-	config.vm.hostname = "#{hostname}-solerni"
-
+	config.vm.box_url ="http://10.192.228.115/vagrant/solerni2_dev_box.box"
 
 	# The VM will bring up with a bridged adapter, and use the Orange DHCP server
 	# to obtain an IP.
@@ -49,25 +29,22 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	# of the guest VM.
 	config.vm.network :forwarded_port, host: 13306, guest: 3306
 
-	# The command executed by default after the first run or explicitly with
-	# the command vagrant provision
-	config.vm.provision :shell, :inline => "service nginx restart"
+	# configuration for the VirtualBox provider
+	config.vm.provider "virtualbox" do |v|
+		# number of CPU cores used by the VirtualBox VM
+		v.cpus = 1
+		# Host CPU execution cap used by the VirtualBox VM
+		v.customize ["modifyvm", :id, "--cpuexecutioncap", "100"]
+		# memory in MB used by the VirtualBox VM
+		v.memory = 1024
+		# name the VirtualBox VM
+		v.name = "Solerni2 Dev"
+	end
 
-
-	# The directory vagrant/SolerniCMS on the host machine will be synced with the
-	# directory /usr/share/Solerni/SolerniCMS on the guest VM.
-	config.vm.synced_folder "vagrant/SolerniCMS", "/usr/share/Solerni/SolerniCMS"
-
-	# The directory vagrant/SolerniMooc on the host machine will be synced with
-	# the directory /usr/share/Solerni/SolerniMooc on the guest VM.
-	config.vm.synced_folder "vagrant/SolerniMooc", "/usr/share/Solerni/SolerniMooc"
-
-	# The directory vagrant/log/nginx on the host machine will be synced with the
-	# directory /var/log/nginx on the guest VM.
-	config.vm.synced_folder "vagrant/system/var/log/nginx", "/var/log/nginx/"
-
-	# The directory vagrant/system/var/lib/dhcp on the host machine will be
-	# synced with the directory /var/lib/dhcp on the guest VM.
-	config.vm.synced_folder "vagrant/system/var/lib/dhcp", "/var/lib/dhcp/"
+	config.vm.synced_folder "vagrant/override", "/opt/solerni/override", type: "rsync"
+	config.vm.synced_folder "vagrant/moodle", "/opt/solerni/moodle", type: "rsync"
+	config.vm.synced_folder "vagrant/moodledata", "/opt/solerni/moodledata"
+	config.vm.synced_folder "vagrant/solerni", "/opt/solerni/solerni", type: "rsync"
+	config.vm.synced_folder "vagrant/system/root/backups", "/root/backups"
 
 end
