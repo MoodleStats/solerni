@@ -41,7 +41,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		v.name = "Solerni2 Dev"
 	end
 
-	config.vm.synced_folder "vagrant/override", "/opt/solerni/override", type: "rsync"
+	config.vm.synced_folder "vagrant/override", "/opt/solerni/override"
 	config.vm.synced_folder "vagrant/moodle", "/opt/solerni/moodle", type: "rsync"
 	config.vm.synced_folder "vagrant/moodledata", "/opt/solerni/moodledata"
 	config.vm.synced_folder "vagrant/solerni", "/opt/solerni/solerni", type: "rsync"
