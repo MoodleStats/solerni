@@ -29,7 +29,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	# of the guest VM.
 	config.vm.network :forwarded_port, host: 13306, guest: 3306
 
-	# configuration for the VirtualBox provider
+	# Configuration for the VirtualBox provider
 	config.vm.provider "virtualbox" do |v|
 		# number of CPU cores used by the VirtualBox VM
 		v.cpus = 1
@@ -39,12 +39,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		v.memory = 1024
 		# name the VirtualBox VM
 		v.name = "Solerni2 Dev"
+
 	end
+
+	# This script will be executing when the VM will be creating from a vagrant 
+	# box. If the VM already exists, the script is ignored.
+	config.vm.provision "shell", inline: "/root/scripts/vagrant/provision_vm.sh", privileged: true
 
 	config.vm.synced_folder "vagrant/override", "/opt/solerni/override"
 	config.vm.synced_folder "vagrant/moodle", "/opt/solerni/moodle", type: "rsync"
 	config.vm.synced_folder "vagrant/moodledata", "/opt/solerni/moodledata"
 	config.vm.synced_folder "vagrant/solerni", "/opt/solerni/solerni", type: "rsync"
 	config.vm.synced_folder "vagrant/system/root/backups", "/root/backups"
+	config.vm.synced_folder "vagrant/system/mnt/samba", "/mnt/samba"
 
 end
