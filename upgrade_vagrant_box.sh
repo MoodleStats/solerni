@@ -8,7 +8,7 @@ function upgrade_vagrant_box () {
 	vagrant halt
 	vagrant destroy
 	vagrant box remove Solerni2DevBox
-	export http_proxy=http://niceway:3128 && export https_proxy=http://niceway:3128 && export ftp_proxy=http://niceway:3128
+	export http_proxy=http://niceway:3128 && export https_proxy=https://niceway:3128 && export ftp_proxy=http://niceway:3128
 	vagrant up
 }
 
