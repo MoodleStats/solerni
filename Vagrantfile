@@ -19,7 +19,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 	# The VM will bring up with a bridged adapter, and use the Orange DHCP server
 	# to obtain an IP.
-	config.vm.network "public_network"
+	config.vm.network "public_network", :mac => "XXXXXXXXXXXX"
 
 	# The local port 10080 on the host machine will be fowarded to the port 80 of
 	# the guest VM.
