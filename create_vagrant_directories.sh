@@ -76,7 +76,6 @@ function create_vagrant_share_directories () {
 	                        "vagrant/override/lib/editor/tinymce/plugins"
 	                        "vagrant/override/admin/tool/log/store"
 	                        "vagrant/override/local"
-	                        "vagrant/mod"
 	                        "vagrant/moodle"
 	                        "vagrant/moodledata"
 	                        "vagrant/moodledata/lang"
