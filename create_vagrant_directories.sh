@@ -79,6 +79,7 @@ function create_vagrant_share_directories () {
 	                        "vagrant/mod"
 	                        "vagrant/moodle"
 	                        "vagrant/moodledata"
+	                        "vagrant/moodledata/lang"
 	                        "vagrant/solerni"
 	                        "vagrant/system/root/backups/db"
 	                        "vagrant/system/root/conf"
@@ -95,7 +96,20 @@ function create_vagrant_share_directories () {
 		fi
 	done
 
-	log_ok "- DONE"
+	if [[ ! -d ${BASE_DIR}/vagrant/moodledata/lang/fr ]]; then
+
+		log_action "> Installing french language for Moodle...";
+		export http_proxy=http://niceway:3128 && export https_proxy=https://niceway:3128 && export ftp_proxy=http://niceway:3128
+
+		wget -O vagrant/moodledata/lang/fr.zip https://download.moodle.org/download.php/direct/langpack/2.8/fr.zip
+		log_info "+ The french language package is downloaded."
+		cd vagrant/moodledata/lang
+		unzip fr.zip
+		log_info "+ The french language package is extracted."
+		rm fr.zip
+
+		log_ok "- DONE"
+	fi
 }
 
 function main () {
