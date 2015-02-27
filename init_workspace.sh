@@ -10,14 +10,19 @@
 ## 	- keeps track of all required repositories for a Solerni instance
 ## 	- easily deploy development environment with subtrees remotes
 ##
-## This script will download and install a development VM
-## and creating the workspace with all plugins
+## 	This script will download and install a development VM
+## 	and creating the workspace with all plugins
 ##
 ####### Using subtrees
 ## 
-## We use subtrees to maitain the Solerni/Moodle working directory
-## All remotes (official third-party repos and orange repos) are named remote-source
-## All remote fork from which some pull-request could be requested will be named remote-fork (non currently)
+## 	We use subtrees to maitain the Solerni/Moodle working directory
+## 	All remotes (official third-party repos and orange repos) are named <remotename>-source
+## 	All remote fork from which some pull-request could be requested will be named <remotename>-fork
+## 	(non currently implemented)
+##
+## 	Reinstall or delete a subtree : 
+## 	simply delete the prefix (folder) and remove the branch name (same as the <remotename>-source)
+##	then lauch the script again
 ##
 ####### Quick note of all current remote names :
 ## 	- moodle-source 	: official Moodle Mirror (Github)	
@@ -32,7 +37,8 @@
 ## 	- makeanon-source 	: official Moodle Mirror (Github)
 ## 	- autoenrol-source 	: official Moodle Mirror (Github)
 ##
-## Wiki documentation : https://www.forge.orange-labs.fr/plugins/mediawiki/wiki/e-educ/index.php/Les_plugins_%C3%A0_installer
+## 	Wiki documentation 
+## 	https://www.forge.orange-labs.fr/plugins/mediawiki/wiki/e-educ/index.php/Les_plugins_%C3%A0_installer
 ##
 ########
 
