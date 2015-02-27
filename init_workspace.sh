@@ -250,7 +250,7 @@ function create_subtrees () {
 	init_subtree vagrant/solerni/mod/customlabel customlabel-source https://github.com/vfremaux/moodle-mod_customlabel.git master
 
 	# Flexible Format (master = 2.8.1)
-	init_subtree vagrant/solerni/course/format/flexible flexibleformat-source https://github.com/marinaglancy/moodle-format_flexsections.git master
+	init_subtree vagrant/solerni/course/format/flexible flexibleformat-source https://github.com/marinaglancy/moodle-format_flexsections.git MOODLE_27_STABLE
 
 	# Flexpage Format (master = 2.7.0)
 	init_subtree vagrant/solerni/course/format/flexpage flexpageformat-source https://github.com/moodlerooms/moodle-format_flexpage.git master
