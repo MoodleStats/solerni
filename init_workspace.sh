@@ -20,7 +20,7 @@
 ## All remote fork from which some pull-request could be requested will be named remote-fork (non currently)
 ##
 ####### Quick note of all current remote names :
-## 	- moodle-source 	: official Moodle Mirror (Github)
+## 	- moodle-source 	: official Moodle Mirror (Github)	
 ## 	- theme-source 		: Solerni Theme (Orange Forge)
 ## 	- flavours-source 	: official Moodle Mirror (Github)
 ## 	- navbuttons-source 	: official Moodle Mirror (Github)
@@ -30,6 +30,7 @@
 ## 	- flexpageformat-source : official Moodle Mirror (Github)
 ## 	- goodbye-source 	: official Moodle Mirror (Github)
 ## 	- makeanon-source 	: official Moodle Mirror (Github)
+## 	- autoenrol-source 	: official Moodle Mirror (Github)
 ##
 ## Wiki documentation : https://www.forge.orange-labs.fr/plugins/mediawiki/wiki/e-educ/index.php/Les_plugins_%C3%A0_installer
 ##
@@ -142,7 +143,7 @@ function create_vagrant_share_directories () {
 		unzip fr.zip
 		log_info "+ The french language package is extracted."
 		rm fr.zip
-		cd ${BASE_DIR}
+		cd -
 
 		log_ok "- DONE"
 	fi
@@ -189,6 +190,7 @@ function init_subtree {
   #Deploy subtree if directory not present
   log_action "> Checking subtree..."
   if [ ! -d $1 ]; then
+    cd ${BASE_DIR}
     CREATE_SUBTREE='git subtree add --prefix='$1' '$2' '$4' --squash';
     log_action "> Create subtree: $CREATE_SUBTREE"
     $CREATE_SUBTREE
@@ -258,6 +260,9 @@ function create_subtrees () {
 
 	# Makeanonymous (tag v_28 = 0.5)
 	init_subtree vagrant/solerni/local/makeanonymous makeanon-source https://github.com/eledia/local_eledia_makeanonymous.git v_28
+
+	# Autoenrol (master = 1.3)
+	init_subtree vagrant/solerni autoenrol-source https://github.com/markward/enrol_autoenrol.git master
 }
 
 
