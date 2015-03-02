@@ -250,7 +250,7 @@ function create_subtrees () {
 	init_subtree vagrant/solerni/auth/googleoauth2 goauth-source https://github.com/mouneyrac/moodle-auth_googleoauth2.git master
 
 	# Progress bar (master = 2015021100)
-	init_subtree vagrant/solerni/blocks/progressbar progressbar-source https://github.com/deraadt/Moodle-block_progress.git master
+	init_subtree vagrant/solerni/blocks/progress progressbar-source https://github.com/deraadt/Moodle-block_progress.git master
 
 	# Course Element (master = 2.4.0)
 	init_subtree vagrant/solerni/mod/customlabel customlabel-source https://github.com/vfremaux/moodle-mod_customlabel.git master
