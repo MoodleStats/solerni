@@ -244,13 +244,13 @@ function create_subtrees () {
 	init_subtree vagrant/solerni/local/flavours flavours-source https://github.com/dmonllao/moodle-local_flavours.git master
 
 	# Navigation Buttons (master = 2.2)
-	init_subtree vagrant/solerni/block/navbuttons navbuttons-source https://github.com/davosmith/moodle-navbuttons.git master
+	init_subtree vagrant/solerni/blocks/navbuttons navbuttons-source https://github.com/davosmith/moodle-navbuttons.git master
 
 	# oAuth Google (master = 1.5)
 	init_subtree vagrant/solerni/auth/googleoauth2 goauth-source https://github.com/mouneyrac/moodle-auth_googleoauth2.git master
 
 	# Progress bar (master = 2015021100)
-	init_subtree vagrant/solerni/block/progressbar progressbar-source https://github.com/deraadt/Moodle-block_progress.git master
+	init_subtree vagrant/solerni/blocks/progressbar progressbar-source https://github.com/deraadt/Moodle-block_progress.git master
 
 	# Course Element (master = 2.4.0)
 	init_subtree vagrant/solerni/mod/customlabel customlabel-source https://github.com/vfremaux/moodle-mod_customlabel.git master
@@ -262,10 +262,10 @@ function create_subtrees () {
 	init_subtree vagrant/solerni/course/format/flexpage flexpage-source https://github.com/moodlerooms/moodle-format_flexpage.git MOODLE_27_STABLE
 
 		#Flexpage Format Dependencies : block_flexpagenav
-		init_subtree vagrant/solerni/block/flexpagenav flexpagenav-source https://github.com/moodlerooms/moodle-block_flexpagenav.git MOODLE_27_STABLE
+		init_subtree vagrant/solerni/blocks/flexpagenav flexpagenav-source https://github.com/moodlerooms/moodle-block_flexpagenav.git MOODLE_27_STABLE
 
 		#Flexpage Format Dependencies : block_flexpagemod
-		init_subtree vagrant/solerni/block/flexpagemod flexpagemod-source https://github.com/moodlerooms/moodle-block_flexpagemod.git MOODLE_27_STABLE
+		init_subtree vagrant/solerni/blocks/flexpagemod flexpagemod-source https://github.com/moodlerooms/moodle-block_flexpagemod.git MOODLE_27_STABLE
 
 		#Flexpage Format Dependencies : theme_flexpage
 		init_subtree vagrant/solerni/theme/flexpage flexpagetheme-source https://github.com/moodlerooms/moodle-theme_flexpage.git MOODLE_27_STABLE
