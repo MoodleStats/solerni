@@ -262,13 +262,13 @@ function create_subtrees () {
 	#init_subtree vagrant/solerni/course/format/flexpage flexpage-source https://github.com/moodlerooms/moodle-format_flexpage.git MOODLE_27_STABLE
 
 		#Flexpage Format Dependencies : block_flexpagenav
-		#init_subtree vagrant/solerni/blocks/flexpagenav flexpagenav-source https://github.com/moodlerooms/moodle-block_flexpagenav.git MOODLE_27_STABLE
+		init_subtree vagrant/solerni/blocks/flexpagenav flexpagenav-source https://github.com/moodlerooms/moodle-block_flexpagenav.git MOODLE_27_STABLE
 
 		#Flexpage Format Dependencies : block_flexpagemod
 		#init_subtree vagrant/solerni/blocks/flexpagemod flexpagemod-source https://github.com/moodlerooms/moodle-block_flexpagemod.git MOODLE_27_STABLE
 
 		#Flexpage Format Dependencies : theme_flexpage
-		init_subtree vagrant/solerni/theme/flexpage flexpagetheme-source https://github.com/moodlerooms/moodle-theme_flexpage.git MOODLE_27_STABLE
+		#init_subtree vagrant/solerni/theme/flexpage flexpagetheme-source https://github.com/moodlerooms/moodle-theme_flexpage.git MOODLE_27_STABLE
 
 		#Flexpage Format Dependencies : local_mr
 		init_subtree vagrant/solerni/local/mr mr-source https://github.com/moodlerooms/moodle-local_mr.git MOODLE_27_STABLE
