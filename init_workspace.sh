@@ -271,7 +271,7 @@ function create_subtrees () {
 		#init_subtree vagrant/solerni/theme/flexpage flexpagetheme-source https://github.com/moodlerooms/moodle-theme_flexpage.git MOODLE_27_STABLE
 
 		#Flexpage Format Dependencies : local_mr
-		#init_subtree vagrant/solerni/local/mr mr-source https://github.com/moodlerooms/moodle-local_mr.git MOODLE_27_STABLE
+		init_subtree vagrant/solerni/local/mr mr-source https://github.com/moodlerooms/moodle-local_mr.git MOODLE_27_STABLE
 
 	# Goodbye (master = 1)
 	init_subtree vagrant/solerni/local/goodbye goodbye-source https://github.com/bmbrands/moodle-local_goodbye.git master
