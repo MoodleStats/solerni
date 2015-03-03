@@ -247,7 +247,7 @@ function create_subtrees () {
 	init_subtree vagrant/solerni/blocks/navbuttons navbuttons-source https://github.com/davosmith/moodle-navbuttons.git master
 
 	# oAuth Google (master = 1.5)
-	#init_subtree vagrant/solerni/auth/googleoauth2 goauth-source https://github.com/mouneyrac/moodle-auth_googleoauth2.git master
+	init_subtree vagrant/solerni/auth/googleoauth2 goauth-source https://github.com/mouneyrac/moodle-auth_googleoauth2.git master
 
 	# Progress bar (master = 2015021100)
 	#init_subtree vagrant/solerni/blocks/progress progressbar-source https://github.com/deraadt/Moodle-block_progress.git master
