@@ -1,0 +1,33 @@
+#region-main td.custombox-thumb.pedagogicadvice {
+    width:65px;
+    min-width:65px;
+	background-image: url("/mod/customlabel/type/pedagogicadvice/icon_infop.png"); 
+	background-repeat: no-repeat;
+    height:73px;
+}
+
+td.custombox-thumb.pedagogicadvice {
+    width:25px;
+	background-image: url("/mod/customlabel/type/pedagogicadvice/icon_infop_small.png"); 
+	background-repeat: no-repeat;
+    height:73px;
+}
+
+.custombox-header-caption.pedagogicadvice
+{
+	font-weight:bolder;
+}
+
+.custombox-content.pedagogicadvice,
+.custombox-control.pedagogicadvice {
+   width: 98%;
+   border: 1px solid #d0d0d0;
+   background-color: #f8e0f8;
+   color: #404040;
+   padding: 3px;
+}
+
+.custombox-helper.pedagogicadvice {
+   font-size:80%
+   color: #606060;
+}
