@@ -253,7 +253,7 @@ function create_subtrees () {
 	init_subtree vagrant/solerni/blocks/progress progressbar-source https://github.com/deraadt/Moodle-block_progress.git master
 
 	# Course Element (master = 2.4.0)
-	#init_subtree vagrant/solerni/mod/customlabel customlabel-source https://github.com/vfremaux/moodle-mod_customlabel.git master
+	init_subtree vagrant/solerni/mod/customlabel customlabel-source https://github.com/vfremaux/moodle-mod_customlabel.git master
 
 	# Flexsections Format (master = 2.8.1)
 	#init_subtree vagrant/solerni/course/format/flexsections flexsections-source https://github.com/marinaglancy/moodle-format_flexsections.git MOODLE_27_STABLE
