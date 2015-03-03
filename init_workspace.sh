@@ -277,7 +277,7 @@ function create_subtrees () {
 	init_subtree vagrant/solerni/local/goodbye goodbye-source https://github.com/bmbrands/moodle-local_goodbye.git master
 
 	# Makeanonymous (tag v_28 = 0.5)
-	#init_subtree vagrant/solerni/local/makeanonymous makeanon-source https://github.com/eledia/local_eledia_makeanonymous.git v_28
+	init_subtree vagrant/solerni/local/makeanonymous makeanon-source https://github.com/eledia/local_eledia_makeanonymous.git v_28
 
 	# Autoenrol (master = 1.3)
 	#init_subtree vagrant/solerni autoenrol-source https://github.com/markward/enrol_autoenrol.git master
