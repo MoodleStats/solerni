@@ -280,7 +280,7 @@ function create_subtrees () {
 	init_subtree vagrant/solerni/local/makeanonymous makeanon-source https://github.com/eledia/local_eledia_makeanonymous.git v_28
 
 	# Autoenrol (master = 1.3)
-	#init_subtree vagrant/solerni autoenrol-source https://github.com/markward/enrol_autoenrol.git master
+	init_subtree vagrant/solerni autoenrol-source https://github.com/markward/enrol_autoenrol.git master
 }
 
 
