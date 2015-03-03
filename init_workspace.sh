@@ -244,7 +244,7 @@ function create_subtrees () {
 	init_subtree vagrant/solerni/local/flavours flavours-source https://github.com/dmonllao/moodle-local_flavours.git master
 
 	# Navigation Buttons (master = 2.2)
-	#init_subtree vagrant/solerni/blocks/navbuttons navbuttons-source https://github.com/davosmith/moodle-navbuttons.git master
+	init_subtree vagrant/solerni/blocks/navbuttons navbuttons-source https://github.com/davosmith/moodle-navbuttons.git master
 
 	# oAuth Google (master = 1.5)
 	#init_subtree vagrant/solerni/auth/googleoauth2 goauth-source https://github.com/mouneyrac/moodle-auth_googleoauth2.git master
