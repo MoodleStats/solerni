@@ -36,7 +36,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		# Host CPU execution cap used by the VirtualBox VM
 		v.customize ["modifyvm", :id, "--cpuexecutioncap", "100"]
 		# memory in MB used by the VirtualBox VM
-		v.memory = 1512
+		v.memory = 1218
 		# name the VirtualBox VM
 		v.name = "Solerni2 Dev"
 
