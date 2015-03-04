@@ -232,7 +232,7 @@ function create_subtrees () {
 
 	# Theme Solerni
 	#@Todo : type branch as command parameter to deploy either develop or master or orange branch
-	#init_subtree vagrant/solerni/theme/solerni theme-source https://www.forge.orange-labs.fr/git/e-educ/solerni_theme.git develop
+	init_subtree vagrant/solerni/theme/solerni theme-source https://www.forge.orange-labs.fr/git/e-educ/solerni_theme.git develop
 
 	##########
 	# Plugins
