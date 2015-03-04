@@ -15,137 +15,113 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This is built using the bootstrapbase template to allow for new theme's using
- * Moodle's new Bootstrap theme engine
+ * Configuration for Aarvark theme.
  *
- * @package     theme_solerni
- * @copyright   2013 Julian Ridden
- * @copyright   2014 Gareth J Barnard, David Bezemer
- * @copyright   2015 Orange
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * DO NOT MODIFY THIS THEME!
+ * COPY IT FIRST, THEN RENAME THE COPY AND MODIFY IT INSTEAD.
+ *
+ * For full information about creating Moodle themes, see:
+ * http://docs.moodle.org/dev/Themes_2.0
+ *
+ * @package   theme_aardvark
+ * @authors   Shaun Daubney
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$THEME->name = 'solerni';
 $THEME->doctype = 'html5';
+
 $THEME->yuicssmodules = array();
-$THEME->parents = array();
 
-$THEME->sheets[] = 'moodle-rtl';
-$THEME->sheets[] = 'essential-pix';
-$THEME->sheets[] = 'settings';
-$THEME->sheets[] = 'fontawesome';
+$THEME->name = 'aardvark';
 
-if ((get_config('theme_solerni', 'enablealternativethemecolors1')) ||
-    (get_config('theme_solerni', 'enablealternativethemecolors2')) ||
-    (get_config('theme_solerni', 'enablealternativethemecolors3'))
-) {
-    $THEME->sheets[] = 'alternative';
-}
+$THEME->parents = array('bootstrapbase');
 
-$THEME->sheets[] = 'custom';
-$THEME->sheets[] = 'solerni';
+$THEME->sheets = array('custom', 'blockicons', 'profilebar', 'font-awesome', 'settings');
 
 $THEME->supportscssoptimisation = false;
 
-if (floatval($CFG->version) >= 2013111803.02) { // 2.6.3+ (Build: 20140522) which has MDL-43995 integrated into it.
-    $THEME->enable_dock = true;
-    $THEME->javascripts_footer[] = 'dock';
-}
-
 $THEME->editor_sheets = array('editor');
 
-$THEME->plugins_exclude_sheets = array('mod' => array('quiz'));
-
-$addregions = array();
-if (get_config('theme_solerni', 'frontpagemiddleblocks') > 0) {
-    $addregions = array('home-left', 'home-middle', 'home-right');
-}
-
+$THEME->rendererfactory = 'theme_overridden_renderer_factory';
 
 $THEME->layouts = array(
     // Most backwards compatible layout without the blocks - this is the layout used by default.
     'base' => array(
         'file' => 'columns1.php',
-        'regions' => array('footer-left', 'footer-middle', 'footer-right'),
-        'defaultregion' => '',
-    ),
-    // Front page.
-    'frontpage' => array(
-        'file' => 'frontpage.php',
-        'regions' => array_merge(array('side-pre', 'footer-left', 'footer-middle', 'footer-right', 'hidden-dock'), $addregions),
-        'defaultregion' => 'side-pre',
+        'regions' => array(),
     ),
     // Standard layout with blocks, this is recommended for most pages with general information.
     'standard' => array(
-        'file' => 'columns2.php',
-        'regions' => array('side-pre', 'footer-left', 'footer-middle', 'footer-right'),
-        'defaultregion' => 'side-pre',
-    ),
-    // Standard layout with blocks, this is recommended for most pages with general information.
-    'message-index' => array(
-        'file' => 'columns2.php',
-        'regions' => array('side-pre', 'footer-left', 'footer-middle', 'footer-right'),
+        'file' => 'columns3.php',
+        'regions' => array('side-pre', 'side-post'),
         'defaultregion' => 'side-pre',
     ),
     // Main course page.
     'course' => array(
         'file' => 'columns3.php',
-        'regions' => array('side-pre', 'side-post', 'footer-left', 'footer-middle', 'footer-right'),
-        'defaultregion' => 'side-post',
+        'regions' => array('side-pre', 'side-post'),
+        'defaultregion' => 'side-pre',
+        'options' => array('langmenu'=>true),
     ),
     'coursecategory' => array(
-        'file' => 'columns2.php',
-        'regions' => array('side-pre', 'footer-left', 'footer-middle', 'footer-right'),
+        'file' => 'columns3.php',
+        'regions' => array('side-pre', 'side-post'),
         'defaultregion' => 'side-pre',
     ),
     // part of course, typical for modules - default page layout if $cm specified in require_login().
     'incourse' => array(
-        'file' => 'columns2.php',
-        'regions' => array('side-pre', 'footer-left', 'footer-middle', 'footer-right'),
+        'file' => 'columns3.php',
+        'regions' => array('side-pre', 'side-post'),
         'defaultregion' => 'side-pre',
+    ),
+    // The site home page.
+    'frontpage' => array(
+        'file' => 'columns3.php',
+        'regions' => array('side-pre', 'side-post'),
+        'defaultregion' => 'side-pre',
+        'options' => array('nonavbar'=>true),
     ),
     // Server administration scripts.
     'admin' => array(
-        'file' => 'admin.php',
-        'regions' => array('side-pre', 'footer-left', 'footer-middle', 'footer-right'),
+        'file' => 'columns2.php',
+        'regions' => array('side-pre'),
         'defaultregion' => 'side-pre',
     ),
     // My dashboard page.
     'mydashboard' => array(
         'file' => 'columns3.php',
-        'regions' => array('side-pre', 'side-post', 'footer-left', 'footer-middle', 'footer-right'),
-        'defaultregion' => 'side-post',
+        'regions' => array('side-pre', 'side-post'),
+        'defaultregion' => 'side-pre',
+        'options' => array('langmenu'=>true),
     ),
     // My public page.
     'mypublic' => array(
         'file' => 'columns3.php',
-        'regions' => array('side-pre', 'side-post', 'footer-left', 'footer-middle', 'footer-right'),
-        'defaultregion' => 'side-post',
+        'regions' => array('side-pre', 'side-post'),
+        'defaultregion' => 'side-pre',
     ),
     'login' => array(
-        'file' => 'login.php',
-        'regions' => array('footer-left', 'footer-middle', 'footer-right', 'sub-nav-header'),
-        'defaultregion' => '',
+        'file' => 'columns1.php',
+        'regions' => array(),
+        'options' => array('langmenu'=>true),
     ),
 
     // Pages that appear in pop-up windows - no navigation, no blocks, no header.
     'popup' => array(
         'file' => 'popup.php',
         'regions' => array(),
-        'options' => array('nofooter' => true, 'nonavbar' => true),
+        'options' => array('nofooter'=>true, 'nonavbar'=>true),
     ),
     // No blocks and minimal footer - used for legacy frame layouts only!
     'frametop' => array(
         'file' => 'columns1.php',
-        'regions' => array('footer-left', 'footer-middle', 'footer-right'),
-        'defaultregion' => 'footer-right',
-        'options' => array('nofooter' => true, 'nocoursefooter' => true),
+        'regions' => array(),
+        'options' => array('nofooter'=>true, 'nocoursefooter'=>true),
     ),
     // Embeded pages, like iframe/object embeded in moodleform - it needs as much space as possible.
     'embedded' => array(
         'file' => 'embedded.php',
-        'regions' => array(),
-        'defaultregion' => '',
+        'regions' => array()
     ),
     // Used during upgrade and install, and for the 'This site is undergoing maintenance' message.
     // This must not have any blocks, links, or API calls that would lead to database or cache interaction.
@@ -153,25 +129,22 @@ $THEME->layouts = array(
     'maintenance' => array(
         'file' => 'maintenance.php',
         'regions' => array(),
-        'defaultregion' => '',
     ),
     // Should display the content and basic headers only.
     'print' => array(
         'file' => 'columns1.php',
-        'regions' => array('footer-left', 'footer-middle', 'footer-right'),
-        'defaultregion' => '',
-        'options' => array('nofooter' => true),
+        'regions' => array(),
+        'options' => array('nofooter'=>true, 'nonavbar'=>false),
     ),
     // The pagelayout used when a redirection is occuring.
     'redirect' => array(
-        'file' => 'redirect.php',
+        'file' => 'embedded.php',
         'regions' => array(),
-        'defaultregion' => '',
     ),
     // The pagelayout used for reports.
     'report' => array(
-        'file' => 'report.php',
-        'regions' => array('side-pre', 'footer-left', 'footer-middle', 'footer-right'),
+        'file' => 'columns2.php',
+        'regions' => array('side-pre'),
         'defaultregion' => 'side-pre',
     ),
     // The pagelayout used for safebrowser and securewindow.
@@ -182,7 +155,12 @@ $THEME->layouts = array(
     ),
 );
 
-$THEME->javascripts_footer[] = 'coloursswitcher';
+$THEME->javascripts = array(
+);
+$THEME->javascripts_footer = array(
+    'moodlebootstrap',
+);
 
-$THEME->rendererfactory = 'theme_overridden_renderer_factory';
-$THEME->csspostprocess = 'theme_solerni_process_css';
+$THEME->csspostprocess = 'aardvark_process_css';
+
+
