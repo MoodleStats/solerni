@@ -2,11 +2,11 @@
 
 /*
  * @author    Shaun Daubney
- * @package   theme_aardvark
+ * @package   theme_solerni
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-function aardvark_process_css($css, $theme) {
+function solerni_process_css($css, $theme) {
 	
     // Set the menu background color
     if (!empty($theme->settings->menubackcolor)) {
@@ -14,7 +14,7 @@ function aardvark_process_css($css, $theme) {
     } else {
         $menubackcolor = null;
     }
-    $css = aardvark_set_menubackcolor($css, $menubackcolor);
+    $css = solerni_set_menubackcolor($css, $menubackcolor);
 	
 	    // Set the menu hover color
     if (!empty($theme->settings->menuhovercolor)) {
@@ -22,7 +22,7 @@ function aardvark_process_css($css, $theme) {
     } else {
         $menuhovercolor = null;
     }
-    $css = aardvark_set_menuhovercolor($css, $menuhovercolor);
+    $css = solerni_set_menuhovercolor($css, $menuhovercolor);
 
     
 	// Set the background image for the graphic wrap 
@@ -31,7 +31,7 @@ function aardvark_process_css($css, $theme) {
     } else {
         $backimage = null;
     }
-    $css = aardvark_set_backimage($css, $backimage);
+    $css = solerni_set_backimage($css, $backimage);
 	
 	// Set the graphic position
     if (!empty($theme->settings->backposition)) {
@@ -39,7 +39,7 @@ function aardvark_process_css($css, $theme) {
     } else {
        $backposition = null;
     }
-    $css = aardvark_set_backposition($css,$backposition);
+    $css = solerni_set_backposition($css,$backposition);
 	
 	// Set the background color
     if (!empty($theme->settings->backcolor)) {
@@ -47,7 +47,7 @@ function aardvark_process_css($css, $theme) {
     } else {
         $backcolor = null;
     }
-    $css = aardvark_set_backcolor($css, $backcolor);
+    $css = solerni_set_backcolor($css, $backcolor);
 	
 	// Set the background image for the logo 
     if (!empty($theme->settings->logo)) {
@@ -55,7 +55,7 @@ function aardvark_process_css($css, $theme) {
     } else {
         $logo = null;
     }
-    $css = aardvark_set_logo($css, $logo);
+    $css = solerni_set_logo($css, $logo);
 	
 	    // Set custom CSS
     if (!empty($theme->settings->customcss)) {
@@ -63,12 +63,12 @@ function aardvark_process_css($css, $theme) {
     } else {
         $customcss = null;
     }
-    $css = aardvark_set_customcss($css, $customcss);
+    $css = solerni_set_customcss($css, $customcss);
     
     return $css;
 }
 
-function aardvark_set_menubackcolor($css, $menubackcolor) {
+function solerni_set_menubackcolor($css, $menubackcolor) {
     $tag = '[[setting:menubackcolor]]';
     $replacement = $menubackcolor;
     if (is_null($replacement)) {
@@ -78,7 +78,7 @@ function aardvark_set_menubackcolor($css, $menubackcolor) {
     return $css;
 }
 
-function aardvark_set_menuhovercolor($css, $menuhovercolor) {
+function solerni_set_menuhovercolor($css, $menuhovercolor) {
     $tag = '[[setting:menuhovercolor]]';
     $replacement = $menuhovercolor;
     if (is_null($replacement)) {
@@ -88,7 +88,7 @@ function aardvark_set_menuhovercolor($css, $menuhovercolor) {
     return $css;
 }
 
-function aardvark_set_backimage($css, $backimage) {
+function solerni_set_backimage($css, $backimage) {
 	global $OUTPUT;  
 	$tag = '[[setting:backimage]]';
 	$replacement = $backimage;
@@ -99,14 +99,14 @@ function aardvark_set_backimage($css, $backimage) {
 	return $css;
 }
 
-function aardvark_set_backposition($css, $backposition = 'no-repeat', $tag = '[[setting:backposition]]'){
+function solerni_set_backposition($css, $backposition = 'no-repeat', $tag = '[[setting:backposition]]'){
 if($backposition == "no-repeat" || $backposition == "no-repeat fixed" || $backposition == "repeat" || $backposition == "repeat-x"){
 $css = str_replace($tag, $backposition, $css);
 }
 return $css;
 }
 
-function aardvark_set_backcolor($css, $backcolor) {
+function solerni_set_backcolor($css, $backcolor) {
     $tag = '[[setting:backcolor]]';
     $replacement = $backcolor;
     if (is_null($replacement)) {
@@ -116,7 +116,7 @@ function aardvark_set_backcolor($css, $backcolor) {
     return $css;
 }
 
-function aardvark_set_logo($css, $logo) {
+function solerni_set_logo($css, $logo) {
 	global $OUTPUT;  
 	$tag = '[[setting:logo]]';
 	$replacement = $logo;
@@ -124,7 +124,7 @@ function aardvark_set_logo($css, $logo) {
 	return $css;
 }
 
-function aardvark_set_customcss($css, $customcss) {
+function solerni_set_customcss($css, $customcss) {
     $tag = '[[setting:customcss]]';
     $replacement = $customcss;
     if (is_null($replacement)) {

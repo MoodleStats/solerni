@@ -23,7 +23,7 @@
  * For full information about creating Moodle themes, see:
  * http://docs.moodle.org/dev/Themes_2.0
  *
- * @package   theme_aardvark
+ * @package   theme_solerni
  * @authors   Shaun Daubney
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -32,7 +32,7 @@ $THEME->doctype = 'html5';
 
 $THEME->yuicssmodules = array();
 
-$THEME->name = 'aardvark';
+$THEME->name = 'solerni';
 
 $THEME->parents = array('bootstrapbase');
 
@@ -161,6 +161,6 @@ $THEME->javascripts_footer = array(
     'moodlebootstrap',
 );
 
-$THEME->csspostprocess = 'aardvark_process_css';
+$THEME->csspostprocess = 'solerni_process_css';
 
 

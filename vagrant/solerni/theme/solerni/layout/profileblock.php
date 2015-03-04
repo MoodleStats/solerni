@@ -16,7 +16,7 @@
 
 /*
  * @author    Shaun Daubney
- * @package   theme_aardvark
+ * @package   theme_solerni
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -87,7 +87,7 @@ if ($hasemailurl) {
 echo '<li>';
 echo '<a href="'.$PAGE->theme->settings->emailurl.'">';
 echo '<img class="profileicon" src="'.$OUTPUT->pix_url('profile/email', 'theme').'" />';
-echo get_string('email','theme_aardvark');
+echo get_string('email','theme_solerni');
 echo '</a>';
 echo '</li>';
 }

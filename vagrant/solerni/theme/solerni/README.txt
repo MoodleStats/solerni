@@ -12,7 +12,7 @@
  *  icons.
  *  ------------------------------------------------------------------------------
  *  More information and documentation can be
- *  found at https://moodle.org/plugins/view.php?plugin=theme_aardvark
+ *  found at https://moodle.org/plugins/view.php?plugin=theme_solerni
  *
  *  Licenses
  *  ------------------------------------------------------------------------------
