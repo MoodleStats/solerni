@@ -15,22 +15,18 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This is built using the bootstrapbase template to allow for new theme's using
- * Moodle's new Bootstrap theme engine
+ * Theme version info
  *
- * @package     theme_solerni
- * @copyright   2013 Julian Ridden
- * @copyright   2014 Gareth J Barnard, David Bezemer
- * @copyright   2015 Orange
- * @author      Simon Vart
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    theme_solerni
+ * @copyright  Shaun Daubney
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version = 2015012901; // YYYYMMDDVV.
-$plugin->maturity = MATURITY_ALPHA; // this version's maturity level.
-$plugin->release = '2.7.9.4.3 (Build: 2015012901)';
-$plugin->requires = 2014050800; // Requires Moodle 2.7
-$plugin->component = 'theme_solerni';
-$plugin->dependencies = array();
+$plugin->component = 'theme_solerni'; // Full name of the plugin (used for diagnostics)
+$plugin->release   = '2.8';
+$plugin->version   = 2015030400; // The current module version (Date: YYYYMMDDXX)
+$plugin->requires  = 2013051400; // Requires this Moodle version
+$plugin->dependencies = array('theme_bootstrapbase'  => 2013050100);
+$plugin->maturity  = MATURITY_STABLE;
