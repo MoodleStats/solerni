@@ -308,7 +308,6 @@ function create_subtrees () {
 # Start main 
 function main () {
 	check_system
-	exit 0
 	create_vagrant_share_directories
 	create_subtrees
 	exit 0;
