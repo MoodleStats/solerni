@@ -70,6 +70,27 @@ function log_ok () {
 	tput sgr0
 }
 
+function check_system () {	
+	log_action "> Checking system...";
+	git subtree &> /dev/null
+	if [ $? -eq 1 ]; then
+		log_error "+ git subtree is not present on your machine. Please activate subtree command for git."
+		exit 1
+	else
+		log_info "+ git subtree is activated."
+	fi
+	
+	
+	if [ $(git status --porcelain 2>/dev/null | wc -l) -ne 0 ]; then
+		log_error "+ Your git repository is dirty. Please commit your change before calling this script."
+		exit 1
+	else
+		log_info "+ git repository is clean."
+	fi
+
+	log_ok "- DONE"
+}
+
 # Create directories
 function create_vagrant_share_directories () {
 
@@ -277,7 +298,7 @@ function create_subtrees () {
 	init_subtree vagrant/solerni/local/goodbye goodbye-source https://github.com/bmbrands/moodle-local_goodbye.git master
 
 	# Makeanonymous (tag v_28 = 0.5)
-	init_subtree vagrant/solerni/local/makeanonymous makeanon-source https://github.com/eledia/local_eledia_makeanonymous.git v_28
+	init_subtree vagrant/solerni makeanon-source https://github.com/eledia/local_eledia_makeanonymous.git v_28
 
 	# Autoenrol (master = 1.3)
 	init_subtree vagrant/solerni autoenrol-source https://github.com/markward/enrol_autoenrol.git master
@@ -286,6 +307,7 @@ function create_subtrees () {
 
 # Start main 
 function main () {
+	check_system
 	create_vagrant_share_directories
 	create_subtrees
 	exit 0;
