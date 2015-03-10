@@ -1,5 +1,4 @@
-ls
-vagrant/moodledata
-vagrant/override
-vagrant/system
+vagrant/moodledata/*
+vagrant/override/*
+vagrant/system/*
 .vagrant
