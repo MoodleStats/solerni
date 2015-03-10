@@ -14,82 +14,57 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * This is built using the bootstrapbase template to allow for new theme's using
- * Moodle's new Bootstrap theme engine
- *
- * @package     theme_solerni
- * @copyright   2013 Julian Ridden
- * @copyright   2014 Gareth J Barnard, David Bezemer
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
-require_once(dirname(__FILE__) . '/includes/pagesettings.php');
-require_once(dirname(__FILE__) . '/../lib.php');
-
 echo $OUTPUT->doctype() ?>
 <html <?php echo $OUTPUT->htmlattributes(); ?>>
 <head>
     <title><?php echo $OUTPUT->page_title(); ?></title>
-    <link rel="shortcut icon" href="<?php echo $OUTPUT->favicon(); ?>"/>
-    <?php echo '<link rel="stylesheet" href="'.theme_solerni_get_csswww().'">'; ?>
+    <link rel="shortcut icon" href="<?php echo $OUTPUT->favicon(); ?>" />
     <?php echo $OUTPUT->standard_head_html() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<body <?php echo $OUTPUT->body_attributes($bodyclasses); ?>>
+<body <?php echo $OUTPUT->body_attributes(); ?>>
 
 <?php echo $OUTPUT->standard_top_of_body_html() ?>
 
-<header role="banner" class="navbar navbar-fixed-top">
+<header role="banner" class="navbar navbar-fixed-top moodle-has-zindex">
     <nav role="navigation" class="navbar-inner">
         <div class="container-fluid">
-            <a class="brand" href="<?php echo preg_replace("(https?:)", "", $CFG->wwwroot); ?>"><?php echo $SITE->shortname; ?></a>
+            <a class="brand" href="<?php echo $CFG->wwwroot;?>"><?php echo $SITE->shortname; ?></a>
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <div class="nav-collapse collapse">
+                <ul class="nav pull-right">
+                    <li><?php echo $OUTPUT->page_heading_menu(); ?></li>
+                </ul>
+            </div>
         </div>
     </nav>
 </header>
 
 <div id="page" class="container-fluid">
-    <section role="main-content">
-        <div id="page-content" class="row-fluid">
-            <div id="region-bs-main-and-pre" class="span9">
-                <div class="row-fluid">
-                    <section id="region-main" class="span8 pull-right">
-                        <?php echo $OUTPUT->main_content(); ?>
-                    </section>
-                    <?php echo $OUTPUT->blocks('side-pre', 'span4 desktop-first-column'); ?>
-                </div>
+
+    <header id="page-header" class="clearfix">
+        <?php echo $OUTPUT->page_heading(); ?>
+    </header>
+
+    <div id="page-content" class="row-fluid">
+        <div id="region-bs-main-and-pre" class="span9">
+            <div class="row-fluid">
+                <section id="region-main" class="span8 pull-right">
+                    <?php echo $OUTPUT->main_content(); ?>
+                </section>
+                <?php echo $OUTPUT->blocks('side-pre', 'span4 desktop-first-column'); ?>
             </div>
-            <?php echo $OUTPUT->blocks('side-post', 'span3'); ?>
         </div>
-    </section>
+        <?php echo $OUTPUT->blocks('side-post', 'span3'); ?>
+    </div>
+
+    <?php echo $OUTPUT->standard_end_of_body_html() ?>
+
 </div>
-
-<footer>
-    <a href="#top" class="back-to-top" ><i class="fa fa-angle-up "></i></a>
-    <script type="text/javascript">
-        jQuery(document).ready(function () {
-            var offset = 220;
-            var duration = 500;
-            jQuery(window).scroll(function () {
-                if (jQuery(this).scrollTop() > offset) {
-                    jQuery('.back-to-top').fadeIn(duration);
-                } else {
-                    jQuery('.back-to-top').fadeOut(duration);
-                }
-            });
-
-            jQuery('.back-to-top').click(function (event) {
-                event.preventDefault();
-                jQuery('html, body').animate({scrollTop: 0}, duration);
-                return false;
-            });
-
-            $('.mediaplugin').fitVids();
-        });
-    </script>
-</footer>
-
-<?php echo $OUTPUT->standard_end_of_body_html() ?>
 </body>
 </html>
