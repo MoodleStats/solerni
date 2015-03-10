@@ -15,16 +15,6 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This is built using the bootstrapbase template to allow for new theme's using
- * Moodle's new Bootstrap theme engine
- *
- * @package     theme_solerni
- * @copyright   2013 Julian Ridden
- * @copyright   2014 Gareth J Barnard, David Bezemer
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
-/**
  * This layout file is designed maintenance related tasks such as upgrade and installation of plugins.
  *
  * It's ultra important that this layout file makes no use of API's unless it absolutely needs to.
@@ -34,50 +24,39 @@
  * breaking installation or upgrade unwittingly.
  */
 
-require_once(dirname(__FILE__) . '/includes/pagesettings.php');
-
 echo $OUTPUT->doctype() ?>
 <html <?php echo $OUTPUT->htmlattributes(); ?>>
 <head>
     <title><?php echo $OUTPUT->page_title(); ?></title>
-    <link rel="shortcut icon" href="<?php echo $OUTPUT->favicon(); ?>"/>
-    <?php echo '<link rel="stylesheet" href="'.theme_solerni_get_csswww().'">'; ?>
+    <link rel="shortcut icon" href="<?php echo $OUTPUT->favicon(); ?>" />
     <?php echo $OUTPUT->standard_head_html() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<body <?php echo $OUTPUT->body_attributes($bodyclasses); ?>>
+<body <?php echo $OUTPUT->body_attributes(); ?>>
 
 <?php echo $OUTPUT->standard_top_of_body_html() ?>
 
-<header id="page-header" class="clearfix">
-    <div class="container-fluid maintenance">
-        <div class="row-fluid">
-            <?php echo $OUTPUT->page_heading(); ?>
-        </div>
+<div id="page" class="container-fluid">
+
+    <header id="page-header" class="clearfix">
+        <?php echo $OUTPUT->page_heading(); ?>
+    </header>
+
+    <div id="page-content" class="row-fluid">
+        <section id="region-main" class="span12">
+            <?php echo $OUTPUT->main_content(); ?>
+        </section>
     </div>
-</header>
 
-<section role="main-content">
-    <div id="page" class="container-fluid maintenance">
+    <footer id="page-footer">
+        <?php
+        echo $OUTPUT->standard_footer_html();
+        ?>
+    </footer>
 
-        <div id="page-content" class="row-fluid">
-            <section id="region-main" class="span12">
-                <?php echo $OUTPUT->main_content(); ?>
-            </section>
-        </div>
+    <?php echo $OUTPUT->standard_end_of_body_html() ?>
 
-    </div>
-</section>
-
-<footer id="page-footer">
-    <div class="container-fluid maintenance">
-        <div class="row-fluid">
-            <?php echo $OUTPUT->standard_footer_html(); ?>
-        </div>
-    </div>
-</footer>
-
-<?php echo $OUTPUT->standard_end_of_body_html() ?>
+</div>
 </body>
 </html>

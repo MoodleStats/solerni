@@ -14,45 +14,32 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * This is built using the bootstrapbase template to allow for new theme's using
- * Moodle's new Bootstrap theme engine
- *
- * @package     theme_solerni
- * @copyright   2013 Julian Ridden
- * @copyright   2014 Gareth J Barnard, David Bezemer
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+echo $OUTPUT->doctype() ?>
+<html <?php echo $OUTPUT->htmlattributes(); ?>>
+<?php require('head.php'); ?>
 
-require_once(dirname(__FILE__) . '/includes/header.php'); ?>
+<body <?php echo $OUTPUT->body_attributes(); ?>>
 
-<div id="page" class="container-fluid">
-    <div id="page-navbar" class="clearfix row-fluid">
-        <div
-            class="breadcrumb-nav pull-<?php echo ($left) ? 'left' : 'right'; ?>"><?php echo $OUTPUT->navbar(); ?></div>
-        <nav
-            class="breadcrumb-button pull-<?php echo ($left) ? 'right' : 'left'; ?>"><?php echo $OUTPUT->page_heading_button(); ?></nav>
+<?php echo $OUTPUT->standard_top_of_body_html() ?>
+
+<?php require('header.php'); ?>
+
+    <div id="page-content" class="row-fluid">
+        <section id="region-main" class="span12">
+            <?php
+            echo $OUTPUT->course_content_header();
+            echo $OUTPUT->main_content();
+            echo $OUTPUT->course_content_footer();
+            ?>
+        </section>
     </div>
-    <section role="main-content">
-        <!-- Start Main Regions -->
-        <div id="page-content" class="row-fluid">
-            <section id="region-main" class="span12">
-                <?php if ($COURSE->id > 1) {
-                    echo $OUTPUT->heading(format_string($COURSE->fullname), 1, 'coursetitle');
-                    echo '<div class="bor"></div>';
-                } ?>
-                <?php echo $OUTPUT->course_content_header(); ?>
-                <?php echo $OUTPUT->main_content(); ?>
-                <?php if (empty($PAGE->layout_options['nocoursefooter'])) {
-                    echo $OUTPUT->course_content_footer();
-                }?>
-            </section>
-        </div>
-        <!-- End Main Regions -->
 
-    </section>
+    <footer id="page-footer">
+        <?php require('footer.php'); ?>
+    </footer>
+
+    <?php echo $OUTPUT->standard_end_of_body_html() ?>
+
 </div>
-
-<?php require_once(dirname(__FILE__) . '/includes/footer.php'); ?>
 </body>
 </html>
