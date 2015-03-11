@@ -1,6 +1,6 @@
-ls
 vagrant/moodledata
 vagrant/override
+!vagrant/override/lang
 vagrant/system
 .vagrant
 vagrant/solerni/nbproject
