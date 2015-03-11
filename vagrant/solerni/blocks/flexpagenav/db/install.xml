@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="blocks/flexpagenav/db" VERSION="20110916" COMMENT="XMLDB file for flexpagenav block"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="block_flexpagenav" COMMENT="Linked flexpage menus" NEXT="block_flexpagenav_menu">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="instanceid"/>
+        <FIELD NAME="instanceid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="id" NEXT="menuid"/>
+        <FIELD NAME="menuid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="instanceid"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" NEXT="instanceid"/>
+        <KEY NAME="instanceid" TYPE="foreign" FIELDS="instanceid" REFTABLE="block_instances" REFFIELDS="id" PREVIOUS="primary" NEXT="menuid"/>
+        <KEY NAME="menuid" TYPE="foreign" FIELDS="menuid" REFTABLE="block_flexpagenav_menu" REFFIELDS="id" PREVIOUS="instanceid"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="block_flexpagenav_menu" COMMENT="Flexpage menus" PREVIOUS="block_flexpagenav" NEXT="block_flexpagenav_link">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="courseid"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="id" NEXT="name"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" PREVIOUS="courseid" NEXT="render"/>
+        <FIELD NAME="render" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="list" SEQUENCE="false" PREVIOUS="name" NEXT="displayname"/>
+        <FIELD NAME="displayname" TYPE="int" LENGTH="3" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" COMMENT="Display the module name with the menu" PREVIOUS="render" NEXT="useastab"/>
+        <FIELD NAME="useastab" TYPE="int" LENGTH="3" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" COMMENT="Use this menu as a top tab" PREVIOUS="displayname"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key for pagemenu" NEXT="courseid"/>
+        <KEY NAME="courseid" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id" PREVIOUS="primary"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="block_flexpagenav_link" COMMENT="The link items that make up the menu" PREVIOUS="block_flexpagenav_menu" NEXT="block_flexpagenav_config">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" COMMENT="id of the table, please edit me" NEXT="menuid"/>
+        <FIELD NAME="menuid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" COMMENT="Flexpage menu ID" PREVIOUS="id" NEXT="type"/>
+        <FIELD NAME="type" TYPE="char" LENGTH="20" NOTNULL="true" SEQUENCE="false" COMMENT="Link type" PREVIOUS="menuid" NEXT="weight"/>
+        <FIELD NAME="weight" TYPE="int" LENGTH="5" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" COMMENT="Link ordering" PREVIOUS="type"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="primary key of the table, please edit me" NEXT="menuid"/>
+        <KEY NAME="menuid" TYPE="foreign" FIELDS="menuid" REFTABLE="block_flexpagenav_menu" REFFIELDS="id" PREVIOUS="primary"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="block_flexpagenav_config" COMMENT="Holds menu link properties" PREVIOUS="block_flexpagenav_link">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" COMMENT="id of the table, please edit me" NEXT="linkid"/>
+        <FIELD NAME="linkid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="id" NEXT="name"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="100" NOTNULL="true" SEQUENCE="false" COMMENT="Name of the link property" PREVIOUS="linkid" NEXT="value"/>
+        <FIELD NAME="value" TYPE="text" LENGTH="small" NOTNULL="false" SEQUENCE="false" COMMENT="Property value" PREVIOUS="name"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="primary key of the table, please edit me" NEXT="linkid"/>
+        <KEY NAME="linkid" TYPE="foreign" FIELDS="linkid" REFTABLE="block_flexpagenav_link" REFFIELDS="id" PREVIOUS="primary"/>
+      </KEYS>
+    </TABLE>
+  </TABLES>
+</XMLDB>
