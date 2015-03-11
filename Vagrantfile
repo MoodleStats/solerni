@@ -19,7 +19,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 	# The VM will bring up with a bridged adapter, and use the Orange DHCP server
 	# to obtain an IP.
-	config.vm.network "public_network", :mac => "XXXXXXXXXXXX"
+	config.vm.network "public_network", :mac => "08002710BC03"
 
 	# The local port 10080 on the host machine will be fowarded to the port 80 of
 	# the guest VM.
@@ -32,11 +32,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	# Configuration for the VirtualBox provider
 	config.vm.provider "virtualbox" do |v|
 		# number of CPU cores used by the VirtualBox VM
-		v.cpus = 1
+		v.cpus = 2
 		# Host CPU execution cap used by the VirtualBox VM
 		v.customize ["modifyvm", :id, "--cpuexecutioncap", "100"]
 		# memory in MB used by the VirtualBox VM
-		v.memory = 1024
+		v.memory = 1218
 		# name the VirtualBox VM
 		v.name = "Solerni2 Dev"
 
