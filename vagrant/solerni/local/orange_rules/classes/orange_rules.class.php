@@ -171,8 +171,9 @@ class orange_rules  {
     $stredit   = get_string('edit');
     $strdelete = get_string('delete');
     $strsuspend = get_string('suspendrule', 'local_orange_rules');
-    $strunsuspend = get_string('unsuspendrule', 'local_orange_rules');
-
+    $strunsuspend = get_string('unsuspendrule', 'local_orange_rules');    
+    $strimpossibleaction = get_string('impossibleaction', 'local_orange_rules');
+    
 	$table = new html_table();
         $table->head = array ();
         $table->colclasses = array();
@@ -190,6 +191,9 @@ class orange_rules  {
     foreach ($rules as $rule) {
             $buttons = array();
             // delete button
+            
+            $cohortexist = rule_existcohort($rule->cohortid);
+
             if (has_capability('orange/rules:edit', $sitecontext)) {
                     //$buttons[] = html_writer::link(new moodle_url('confirm.php', array('id'=>$rule->id, 'sesskey'=>sesskey())), html_writer::empty_tag('img', array('src'=>$OUTPUT->pix_url('t/delete'), 'alt'=>$strdelete, 'class'=>'iconsmall')), array('title'=>$strdelete));
             		//$buttons[] = html_writer::link(new moodle_url('index.php', array('action'=>'rules_delete','id'=>$rule->id, 'sesskey'=>sesskey())), html_writer::empty_tag('img', array('src'=>$OUTPUT->pix_url('t/delete'), 'alt'=>$strdelete, 'class'=>'iconsmall')), array('title'=>$strdelete));
@@ -200,9 +204,19 @@ class orange_rules  {
                     		                       );                                                          
                     if ($rule->suspended)
 					{
-                        $buttons[] = html_writer::link(new moodle_url('index.php', array('action'=>'rules_unsuspend', 'id'=>$rule->id, 'sesskey'=>sesskey())),
+						//The cohort was removed, add error message on the icon show/hidden
+						
+						if (!$cohortexist)
+						{
+							$buttons[] = html_writer::empty_tag('img', array('src'=>$OUTPUT->pix_url('t/show'), 'title'=>$strimpossibleaction, 'class'=>'iconsmall'));
+							
+						}
+						else 
+						{
+                        	$buttons[] = html_writer::link(new moodle_url('index.php', array('action'=>'rules_unsuspend', 'id'=>$rule->id, 'sesskey'=>sesskey())),
                         		 					   html_writer::empty_tag('img', array('src'=>$OUTPUT->pix_url('t/show'), 'alt'=>$strunsuspend, 'class'=>'iconsmall')), 
                         							   array('title'=>$strunsuspend));
+						}
 					}
 					else
 					{

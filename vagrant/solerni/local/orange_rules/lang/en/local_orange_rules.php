@@ -23,7 +23,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'orange_rules';
+$string['pluginname'] = 'Orange rules';
 $string['addrule'] = 'Add new rule';
 $string['listrules'] = 'List of rules';
 $string['definerulesheader'] = 'Managing rules';
@@ -44,6 +44,7 @@ $string['rulecohorts_help'] = 'Only cohorts that are not associated with any rul
 
 $string['suspendrule'] = 'Deactivate a rule';
 $string['unsuspendrule'] = 'Activate a rule';
+$string['impossibleaction'] = "Action impossible, the associated cohort was deleted";
 $string['confirmdeleterule'] = 'Are you sure you want to delete the rule <b>{$a}</b> ?';
 $string['ruledeleted'] = 'The rule {$a} has been deleted.';
 $string['selectcohort'] = 'Select a cohort';

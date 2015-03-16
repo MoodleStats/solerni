@@ -51,35 +51,53 @@ function rule_add_rule($rule) {
 		$rule->domains = "";
 	}
 
-	if ($rule->id == 0) {
-		// before insert : verified if rule name not exist and if cohort is not used by other rules						
+	
+	
+	if ($rule->id == 0) 
+	{	
+		// before insert or update : verified if rule name not exist and if cohort is not used by other rules
 		if (rule_existname($rule->name) || rule_existcohortid($rule->cohortid) )
 			return false;
 		
 		$lastinsertid = $DB->insert_record('orange_rules', $rule, false);
-				
-		//Affects users that match the rule to the cohort
-
-		$emails = explode(PHP_EOL, $rule->emails);
-		$domains = explode(PHP_EOL, $rule->domains);				
-		
-		//list of users who are not in the cohort
-		$users = $DB->get_records_sql("SELECT U.id,U.email from mdl_user U
-		where U.id not in (select C.userid from mdl_cohort_members C where C.cohortid=".$rule->cohortid . ")");
-
-		foreach($users as $user) {
-			// If email match whitelist then add to cohort
-			$emailparts = explode('@', $user->email);
-			$userdomain = $emailparts[1];
-			
-			// If the domains of the email match the whitelist then add to cohort
-			if ( (in_array($userdomain, $domains)) || (in_array($user->email, $emails)) )						
-				cohort_add_member($rule->cohortid, $user->id);
-		}
-		
+					
 	}
 	else
+	{
 		$DB->update_record('orange_rules', $rule);		
+	}
+	
+	//Affects users that match the rule to the cohort	
+	$emails = explode(PHP_EOL, $rule->emails);
+	$domains = explode(PHP_EOL, $rule->domains);
+	
+	//list of users who are not in the cohort
+	$users = $DB->get_records_sql("SELECT U.id,U.email from mdl_user U
+			where U.id not in (select C.userid from mdl_cohort_members C where C.cohortid=".$rule->cohortid . ")");
+	
+	foreach($users as $user) 
+	{
+		// If email match whitelist then add to cohort
+		$emailparts = explode('@', $user->email);
+		$userdomain = $emailparts[1];
+			
+		//echo $userdomain . " - " . $user->email . "<br>";
+		// If the domains of the email match the whitelist then add to cohort
+		if ( (in_array($userdomain, $domains)) || (in_array($user->email, $emails)) ) 
+		{
+			//echo "ajout de l'user : " . $user->email . " dans la cohorte <BR>";
+			cohort_add_member($rule->cohortid, $user->id);
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	//return $rule->id;
 	return true;
@@ -116,8 +134,17 @@ function rule_existname($name) {
 
 
 function rule_existcohortid($cohortid) {
+	// in orange_rule
 	global $DB;
 
 	return $DB->record_exists('orange_rules', array('cohortid'=>$cohortid));
+
+}
+
+function rule_existcohort($cohortid) {
+	//in cohort
+	global $DB;
+
+	return $DB->record_exists('cohort', array('id'=>$cohortid));
 
 }
