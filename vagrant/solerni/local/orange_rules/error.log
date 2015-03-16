@@ -1,0 +1,438 @@
+[27-Feb-2015 14:22:00 Europe/Moscow] PHP Fatal error:  Class 'solerni_packaging' not found in C:\Winginx\home\moodle\public_html\local\solerni\index.php on line 47
+[27-Feb-2015 14:23:38 Europe/Moscow] PHP Fatal error:  Class 'solerni_packaging' not found in C:\Winginx\home\moodle\public_html\local\solerni\index.php on line 47
+[27-Feb-2015 14:27:07 Europe/Moscow] PHP Fatal error:  Class 'solerni_packaging' not found in C:\Winginx\home\moodle\public_html\local\solerni\index.php on line 47
+[27-Feb-2015 14:27:55 Europe/Moscow] PHP Fatal error:  Class 'solerni_packaging' not found in C:\Winginx\home\moodle\public_html\local\solerni\index.php on line 47
+[27-Feb-2015 14:28:15 Europe/Moscow] Default exception handler: local_solerni/actionnotsupported Debug: 
+Error code: actionnotsupported
+$a contents: 
+* line 463 of \lib\setuplib.php: moodle_exception thrown
+* line 55 of \local\solerni\index.php: call to print_error()
+
+[27-Feb-2015 14:29:28 Europe/Moscow] PHP Fatal error:  Call to undefined method solerni_companies::render() in C:\Winginx\home\moodle\public_html\local\solerni\index.php on line 59
+[27-Feb-2015 14:30:34 Europe/Moscow] Default exception handler: Coding error detected, it must be fixed by a programmer: Request for an unknown renderer class local_solerni_renderer Debug: 
+Error code: codingerror
+* line 299 of \lib\outputfactories.php: coding_exception thrown
+* line 1791 of \lib\outputlib.php: call to theme_overridden_renderer_factory->get_renderer()
+* line 812 of \lib\pagelib.php: call to theme_config->get_renderer()
+* line 53 of \local\solerni\classes\solerni_companies.class.php: call to moodle_page->get_renderer()
+* line 59 of \local\solerni\index.php: call to solerni_companies->render()
+
+[27-Feb-2015 14:34:43 Europe/Moscow] PHP Notice:  Undefined property: solerni_companies::$renderable in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_companies.class.php on line 55
+[27-Feb-2015 14:34:43 Europe/Moscow] PHP Notice:  Undefined property: solerni_companies::$action in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_companies.class.php on line 55
+[27-Feb-2015 14:34:43 Europe/Moscow] Default exception handler: Coding error detected, it must be fixed by a programmer: PHP catchable fatal error Debug: Argument 1 passed to local_solerni_renderer::render_solerni_wrapper() must implement interface renderable, null given, called in [dirroot]\local\solerni\classes\solerni_companies.class.php on line 55 and defined
+Error code: codingerror
+* line 393 of \lib\setuplib.php: coding_exception thrown
+* line 44 of \local\solerni\renderer.php: call to default_error_handler()
+* line 55 of \local\solerni\classes\solerni_companies.class.php: call to local_solerni_renderer->render_solerni_wrapper()
+* line 59 of \local\solerni\index.php: call to solerni_companies->render()
+
+[02-Mar-2015 12:54:04 Europe/Moscow] PHP Notice:  Undefined property: solerni_companies::$renderable in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_companies.class.php on line 55
+[02-Mar-2015 12:54:04 Europe/Moscow] PHP Notice:  Undefined property: solerni_companies::$action in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_companies.class.php on line 55
+[02-Mar-2015 12:54:04 Europe/Moscow] Default exception handler: Coding error detected, it must be fixed by a programmer: PHP catchable fatal error Debug: Argument 1 passed to local_solerni_renderer::render_solerni_wrapper() must implement interface renderable, null given, called in [dirroot]\local\solerni\classes\solerni_companies.class.php on line 55 and defined
+Error code: codingerror
+* line 393 of \lib\setuplib.php: coding_exception thrown
+* line 44 of \local\solerni\renderer.php: call to default_error_handler()
+* line 55 of \local\solerni\classes\solerni_companies.class.php: call to local_solerni_renderer->render_solerni_wrapper()
+* line 59 of \local\solerni\index.php: call to solerni_companies->render()
+
+[02-Mar-2015 13:06:35 Europe/Moscow] PHP Fatal error:  Class 'solerni_rules_form' not found in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 46
+[02-Mar-2015 13:06:49 Europe/Moscow] PHP Warning:  require_once(C:\Winginx\home\moodle\public_html/local/solerni/forms/solerni_rules_form.php): failed to open stream: No such file or directory in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 26
+[02-Mar-2015 13:07:42 Europe/Moscow] PHP Notice:  Undefined property: solerni_rules::$url in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 47
+[02-Mar-2015 13:07:42 Europe/Moscow] PHP Notice:  Undefined property: solerni_rules::$action in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 56
+[02-Mar-2015 13:07:43 Europe/Moscow] Default exception handler: Coding error detected, it must be fixed by a programmer: Unknown method called against local_solerni_renderer :: render_solerni_ Debug: 
+Error code: codingerror
+* line 242 of \lib\outputrenderers.php: coding_exception thrown
+* line 55 of \local\solerni\renderer.php: call to plugin_renderer_base->__call()
+* line 55 of \local\solerni\renderer.php: call to local_solerni_renderer->render_solerni_()
+* line 56 of \local\solerni\classes\solerni_rules.class.php: call to local_solerni_renderer->render_solerni_wrapper()
+* line 59 of \local\solerni\index.php: call to solerni_rules->render()
+
+[02-Mar-2015 13:21:25 Europe/Moscow] PHP Notice:  Undefined property: solerni_rules::$url in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 47
+[02-Mar-2015 13:21:25 Europe/Moscow] PHP Notice:  Undefined property: solerni_rules::$action in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 56
+[02-Mar-2015 13:21:25 Europe/Moscow] Default exception handler: Coding error detected, it must be fixed by a programmer: Unknown method called against local_solerni_renderer :: render_solerni_ Debug: 
+Error code: codingerror
+* line 242 of \lib\outputrenderers.php: coding_exception thrown
+* line 55 of \local\solerni\renderer.php: call to plugin_renderer_base->__call()
+* line 55 of \local\solerni\renderer.php: call to local_solerni_renderer->render_solerni_()
+* line 56 of \local\solerni\classes\solerni_rules.class.php: call to local_solerni_renderer->render_solerni_wrapper()
+* line 59 of \local\solerni\index.php: call to solerni_rules->render()
+
+[02-Mar-2015 13:30:09 Europe/Moscow] PHP Notice:  Undefined property: solerni_rules::$url in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 47
+[02-Mar-2015 13:30:09 Europe/Moscow] PHP Notice:  Undefined property: solerni_rules::$action in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 56
+[02-Mar-2015 13:30:10 Europe/Moscow] Default exception handler: Coding error detected, it must be fixed by a programmer: Unknown method called against local_solerni_renderer :: render_solerni_ Debug: 
+Error code: codingerror
+* line 242 of \lib\outputrenderers.php: coding_exception thrown
+* line 55 of \local\solerni\renderer.php: call to plugin_renderer_base->__call()
+* line 55 of \local\solerni\renderer.php: call to local_solerni_renderer->render_solerni_()
+* line 56 of \local\solerni\classes\solerni_rules.class.php: call to local_solerni_renderer->render_solerni_wrapper()
+* line 59 of \local\solerni\index.php: call to solerni_rules->render()
+
+[02-Mar-2015 13:32:48 Europe/Moscow] PHP Notice:  Undefined property: solerni_rules::$url in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 47
+[02-Mar-2015 13:32:48 Europe/Moscow] PHP Notice:  Undefined property: solerni_rules::$action in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 56
+[02-Mar-2015 13:32:49 Europe/Moscow] Default exception handler: Coding error detected, it must be fixed by a programmer: Unknown method called against local_solerni_renderer :: render_solerni_ Debug: 
+Error code: codingerror
+* line 242 of \lib\outputrenderers.php: coding_exception thrown
+* line 55 of \local\solerni\renderer.php: call to plugin_renderer_base->__call()
+* line 55 of \local\solerni\renderer.php: call to local_solerni_renderer->render_solerni_()
+* line 56 of \local\solerni\classes\solerni_rules.class.php: call to local_solerni_renderer->render_solerni_wrapper()
+* line 59 of \local\solerni\index.php: call to solerni_rules->render()
+
+[02-Mar-2015 13:48:42 Europe/Moscow] PHP Parse error:  syntax error, unexpected ')' in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 56
+[02-Mar-2015 13:49:00 Europe/Moscow] PHP Warning:  Missing argument 2 for local_solerni_renderer::render_solerni_wrapper(), called in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 56 and defined in C:\Winginx\home\moodle\public_html\local\solerni\renderer.php on line 44
+[02-Mar-2015 13:49:00 Europe/Moscow] PHP Notice:  Undefined variable: action in C:\Winginx\home\moodle\public_html\local\solerni\renderer.php on line 48
+[02-Mar-2015 13:49:00 Europe/Moscow] PHP Notice:  Undefined variable: action in C:\Winginx\home\moodle\public_html\local\solerni\renderer.php on line 51
+[02-Mar-2015 13:49:00 Europe/Moscow] PHP Notice:  Undefined variable: action in C:\Winginx\home\moodle\public_html\local\solerni\renderer.php on line 54
+[02-Mar-2015 13:49:00 Europe/Moscow] Default exception handler: Coding error detected, it must be fixed by a programmer: Unknown method called against local_solerni_renderer :: render_solerni_ Debug: 
+Error code: codingerror
+* line 242 of \lib\outputrenderers.php: coding_exception thrown
+* line 55 of \local\solerni\renderer.php: call to plugin_renderer_base->__call()
+* line 55 of \local\solerni\renderer.php: call to local_solerni_renderer->render_solerni_()
+* line 56 of \local\solerni\classes\solerni_rules.class.php: call to local_solerni_renderer->render_solerni_wrapper()
+* line 59 of \local\solerni\index.php: call to solerni_rules->render()
+
+[03-Mar-2015 13:54:24 Europe/Moscow] Default exception handler: Sorry, but your session key could not be confirmed to carry out this action.  This security feature prevents against accidental or malicious execution of important functions in your name.  Please make sure you really wanted to execute this function. Debug: 
+Error code: confirmsesskeybad
+* line 463 of \lib\setuplib.php: moodle_exception thrown
+* line 34 of \local\solerni\index.php: call to print_error()
+
+[03-Mar-2015 14:14:49 Europe/Moscow] PHP Fatal error:  Class 'solerni_add' not found in C:\Winginx\home\moodle\public_html\local\solerni\index.php on line 47
+[03-Mar-2015 14:18:18 Europe/Moscow] PHP Fatal error:  Class 'solerni_' not found in C:\Winginx\home\moodle\public_html\local\solerni\index.php on line 47
+[03-Mar-2015 14:19:34 Europe/Moscow] PHP Fatal error:  Class 'solerni_' not found in C:\Winginx\home\moodle\public_html\local\solerni\index.php on line 47
+[03-Mar-2015 14:20:13 Europe/Moscow] PHP Fatal error:  Class 'solerni_' not found in C:\Winginx\home\moodle\public_html\local\solerni\index.php on line 47
+[03-Mar-2015 14:23:20 Europe/Moscow] PHP Fatal error:  Class 'solerni_' not found in C:\Winginx\home\moodle\public_html\local\solerni\index.php on line 47
+[03-Mar-2015 14:23:41 Europe/Moscow] PHP Fatal error:  Class 'solerni_rule' not found in C:\Winginx\home\moodle\public_html\local\solerni\index.php on line 47
+[03-Mar-2015 14:23:57 Europe/Moscow] Default exception handler: local_solerni/actionnotsupported Debug: 
+Error code: actionnotsupported
+$a contents: 
+* line 463 of \lib\setuplib.php: moodle_exception thrown
+* line 55 of \local\solerni\index.php: call to print_error()
+
+[03-Mar-2015 14:24:42 Europe/Moscow] Default exception handler: local_solerni/actionnotsupported Debug: 
+Error code: actionnotsupported
+$a contents: 
+* line 463 of \lib\setuplib.php: moodle_exception thrown
+* line 55 of \local\solerni\index.php: call to print_error()
+
+[03-Mar-2015 14:28:50 Europe/Moscow] PHP Fatal error:  Class 'solerni_rules_list' not found in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 56
+[03-Mar-2015 14:31:59 Europe/Moscow] PHP Notice:  Undefined property: solerni_rules::$action in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 65
+[03-Mar-2015 14:31:59 Europe/Moscow] Default exception handler: Coding error detected, it must be fixed by a programmer: Unknown method called against local_solerni_renderer :: render_solerni_ Debug: 
+Error code: codingerror
+* line 242 of \lib\outputrenderers.php: coding_exception thrown
+* line 55 of \local\solerni\renderer.php: call to plugin_renderer_base->__call()
+* line 55 of \local\solerni\renderer.php: call to local_solerni_renderer->render_solerni_()
+* line 65 of \local\solerni\classes\solerni_rules.class.php: call to local_solerni_renderer->render_solerni_wrapper()
+* line 59 of \local\solerni\index.php: call to solerni_rules->render()
+
+[03-Mar-2015 14:44:19 Europe/Moscow] Default exception handler: local_solerni/actionnotsupported Debug: 
+Error code: actionnotsupported
+$a contents: 
+* line 463 of \lib\setuplib.php: moodle_exception thrown
+* line 55 of \local\solerni\index.php: call to print_error()
+
+[03-Mar-2015 16:51:49 Europe/Moscow] Default exception handler: Sorry, but your session key could not be confirmed to carry out this action.  This security feature prevents against accidental or malicious execution of important functions in your name.  Please make sure you really wanted to execute this function. Debug: 
+Error code: confirmsesskeybad
+* line 463 of \lib\setuplib.php: moodle_exception thrown
+* line 34 of \local\solerni\index.php: call to print_error()
+
+[03-Mar-2015 16:52:31 Europe/Moscow] PHP Fatal error:  Call to undefined method solerni_rules_list::standard_coursemodule_elements() in C:\Winginx\home\moodle\public_html\local\solerni\forms\solerni_rules_list.php on line 66
+[03-Mar-2015 16:57:07 Europe/Moscow] PHP Parse error:  syntax error, unexpected end of file in C:\Winginx\home\moodle\public_html\local\solerni\lang\en\local_solerni.php on line 34
+[03-Mar-2015 17:41:36 Europe/Moscow] Default exception handler: local_solerni/actionnotsupported Debug: 
+Error code: actionnotsupported
+$a contents: 
+* line 463 of \lib\setuplib.php: moodle_exception thrown
+* line 55 of \local\solerni\index.php: call to print_error()
+
+[03-Mar-2015 17:44:39 Europe/Moscow] Default exception handler: Coding error detected, it must be fixed by a programmer: PHP catchable fatal error Debug: Argument 1 passed to local_solerni_renderer::render_solerni_wrapper() must implement interface renderable, null given, called in [dirroot]\local\solerni\classes\solerni_rules.class.php on line 81 and defined
+Error code: codingerror
+* line 393 of \lib\setuplib.php: coding_exception thrown
+* line 44 of \local\solerni\renderer.php: call to default_error_handler()
+* line 81 of \local\solerni\classes\solerni_rules.class.php: call to local_solerni_renderer->render_solerni_wrapper()
+* line 59 of \local\solerni\index.php: call to solerni_rules->render()
+
+[03-Mar-2015 17:46:44 Europe/Moscow] Default exception handler: Coding error detected, it must be fixed by a programmer: Unknown method called against local_solerni_renderer :: render_solerni_rules_add Debug: 
+Error code: codingerror
+* line 242 of \lib\outputrenderers.php: coding_exception thrown
+* line 55 of \local\solerni\renderer.php: call to plugin_renderer_base->__call()
+* line 55 of \local\solerni\renderer.php: call to local_solerni_renderer->render_solerni_rules_add()
+* line 86 of \local\solerni\classes\solerni_rules.class.php: call to local_solerni_renderer->render_solerni_wrapper()
+* line 59 of \local\solerni\index.php: call to solerni_rules->render()
+
+[03-Mar-2015 18:04:25 Europe/Moscow] Default exception handler: Coding error detected, it must be fixed by a programmer: PHP catchable fatal error Debug: Argument 1 passed to local_solerni_renderer::render_solerni_wrapper() must implement interface renderable, null given, called in [dirroot]\local\solerni\classes\solerni_rules.class.php on line 91 and defined
+Error code: codingerror
+* line 393 of \lib\setuplib.php: coding_exception thrown
+* line 44 of \local\solerni\renderer.php: call to default_error_handler()
+* line 91 of \local\solerni\classes\solerni_rules.class.php: call to local_solerni_renderer->render_solerni_wrapper()
+* line 59 of \local\solerni\index.php: call to solerni_rules->render()
+
+[03-Mar-2015 18:31:02 Europe/Moscow] PHP Notice:  Undefined variable: DB in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 75
+[03-Mar-2015 18:31:02 Europe/Moscow] PHP Fatal error:  Call to a member function insert_record() on a non-object in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 75
+[03-Mar-2015 18:36:30 Europe/Moscow] Default exception handler: A required parameter (sesskey) was missing Debug: 
+Error code: missingparam
+* line 463 of \lib\setuplib.php: moodle_exception thrown
+* line 545 of \lib\moodlelib.php: call to print_error()
+* line 73 of \lib\sessionlib.php: call to required_param()
+* line 33 of \local\solerni\index.php: call to confirm_sesskey()
+
+[03-Mar-2015 18:48:52 Europe/Moscow] Default exception handler: Coding error detected, it must be fixed by a programmer: PHP catchable fatal error Debug: Argument 3 passed to moodle_database::get_recordset_list() must be of the type array, string given, called in [dirroot]\local\solerni\forms\solerni_rules_list.php on line 62 and defined
+Error code: codingerror
+* line 393 of \lib\setuplib.php: coding_exception thrown
+* line 1168 of \lib\dml\moodle_database.php: call to default_error_handler()
+* line 62 of \local\solerni\forms\solerni_rules_list.php: call to moodle_database->get_recordset_list()
+* line 191 of \lib\formslib.php: call to solerni_rules_list->definition()
+* line 85 of \local\solerni\classes\solerni_rules.class.php: call to moodleform->moodleform()
+* line 57 of \local\solerni\index.php: call to solerni_rules->rules_list()
+
+[03-Mar-2015 18:49:52 Europe/Moscow] Default exception handler: Coding error detected, it must be fixed by a programmer: PHP catchable fatal error Debug: Argument 3 passed to moodle_database::get_recordset_list() must be of the type array, string given, called in [dirroot]\local\solerni\forms\solerni_rules_list.php on line 62 and defined
+Error code: codingerror
+* line 393 of \lib\setuplib.php: coding_exception thrown
+* line 1168 of \lib\dml\moodle_database.php: call to default_error_handler()
+* line 62 of \local\solerni\forms\solerni_rules_list.php: call to moodle_database->get_recordset_list()
+* line 191 of \lib\formslib.php: call to solerni_rules_list->definition()
+* line 85 of \local\solerni\classes\solerni_rules.class.php: call to moodleform->moodleform()
+* line 57 of \local\solerni\index.php: call to solerni_rules->rules_list()
+
+[03-Mar-2015 18:50:05 Europe/Moscow] Default exception handler: Coding error detected, it must be fixed by a programmer: PHP catchable fatal error Debug: Argument 3 passed to moodle_database::get_recordset_list() must be of the type array, string given, called in [dirroot]\local\solerni\forms\solerni_rules_list.php on line 62 and defined
+Error code: codingerror
+* line 393 of \lib\setuplib.php: coding_exception thrown
+* line 1168 of \lib\dml\moodle_database.php: call to default_error_handler()
+* line 62 of \local\solerni\forms\solerni_rules_list.php: call to moodle_database->get_recordset_list()
+* line 191 of \lib\formslib.php: call to solerni_rules_list->definition()
+* line 85 of \local\solerni\classes\solerni_rules.class.php: call to moodleform->moodleform()
+* line 57 of \local\solerni\index.php: call to solerni_rules->rules_list()
+
+[03-Mar-2015 18:50:54 Europe/Moscow] Default exception handler: Coding error detected, it must be fixed by a programmer: PHP catchable fatal error Debug: Argument 3 passed to moodle_database::get_recordset_list() must be of the type array, string given, called in [dirroot]\local\solerni\forms\solerni_rules_list.php on line 62 and defined
+Error code: codingerror
+* line 393 of \lib\setuplib.php: coding_exception thrown
+* line 1168 of \lib\dml\moodle_database.php: call to default_error_handler()
+* line 62 of \local\solerni\forms\solerni_rules_list.php: call to moodle_database->get_recordset_list()
+* line 191 of \lib\formslib.php: call to solerni_rules_list->definition()
+* line 85 of \local\solerni\classes\solerni_rules.class.php: call to moodleform->moodleform()
+* line 57 of \local\solerni\index.php: call to solerni_rules->rules_list()
+
+[03-Mar-2015 18:51:49 Europe/Moscow] Default exception handler: Coding error detected, it must be fixed by a programmer: PHP catchable fatal error Debug: Argument 3 passed to moodle_database::get_recordset_list() must be of the type array, string given, called in [dirroot]\local\solerni\forms\solerni_rules_list.php on line 62 and defined
+Error code: codingerror
+* line 393 of \lib\setuplib.php: coding_exception thrown
+* line 1168 of \lib\dml\moodle_database.php: call to default_error_handler()
+* line 62 of \local\solerni\forms\solerni_rules_list.php: call to moodle_database->get_recordset_list()
+* line 191 of \lib\formslib.php: call to solerni_rules_list->definition()
+* line 85 of \local\solerni\classes\solerni_rules.class.php: call to moodleform->moodleform()
+* line 57 of \local\solerni\index.php: call to solerni_rules->rules_list()
+
+[03-Mar-2015 18:54:16 Europe/Moscow] PHP Fatal error:  Cannot use object of type stdClass as array in C:\Winginx\home\moodle\public_html\local\solerni\forms\solerni_rules_list.php on line 66
+[03-Mar-2015 19:47:44 Europe/Moscow] Default exception handler: local_solerni/actionnotsupported Debug: 
+Error code: actionnotsupported
+$a contents: 
+* line 463 of \lib\setuplib.php: moodle_exception thrown
+* line 55 of \local\solerni\index.php: call to print_error()
+
+[03-Mar-2015 19:56:51 Europe/Moscow] Default exception handler: Coding error detected, it must be fixed by a programmer: PHP catchable fatal error Debug: Argument 1 passed to local_solerni_renderer::render_list() must be an instance of html_table, instance of solerni_rules_list given, called in [dirroot]\local\solerni\renderer.php on line 77 and defined
+Error code: codingerror
+* line 393 of \lib\setuplib.php: coding_exception thrown
+* line 101 of \local\solerni\renderer.php: call to default_error_handler()
+* line 77 of \local\solerni\renderer.php: call to local_solerni_renderer->render_list()
+* line 55 of \local\solerni\renderer.php: call to local_solerni_renderer->render_solerni_rules_list()
+* line 94 of \local\solerni\classes\solerni_rules.class.php: call to local_solerni_renderer->render_solerni_wrapper()
+* line 59 of \local\solerni\index.php: call to solerni_rules->render()
+
+[03-Mar-2015 20:00:18 Europe/Moscow] Default exception handler: Coding error detected, it must be fixed by a programmer: PHP catchable fatal error Debug: Argument 1 passed to local_solerni_renderer::render_list() must be an instance of html_table, instance of solerni_rules_list given, called in [dirroot]\local\solerni\renderer.php on line 77 and defined
+Error code: codingerror
+* line 393 of \lib\setuplib.php: coding_exception thrown
+* line 101 of \local\solerni\renderer.php: call to default_error_handler()
+* line 77 of \local\solerni\renderer.php: call to local_solerni_renderer->render_list()
+* line 55 of \local\solerni\renderer.php: call to local_solerni_renderer->render_solerni_rules_list()
+* line 94 of \local\solerni\classes\solerni_rules.class.php: call to local_solerni_renderer->render_solerni_wrapper()
+* line 62 of \local\solerni\index.php: call to solerni_rules->render()
+
+[03-Mar-2015 20:01:42 Europe/Moscow] Default exception handler: Coding error detected, it must be fixed by a programmer: PHP catchable fatal error Debug: Object of class solerni_rules could not be converted to string
+Error code: codingerror
+* line 393 of \lib\setuplib.php: coding_exception thrown
+* line 8551 of \lib\moodlelib.php: call to default_error_handler()
+* line 51 of \local\solerni\index.php: call to mtrace()
+
+[03-Mar-2015 20:02:01 Europe/Moscow] Default exception handler: Coding error detected, it must be fixed by a programmer: PHP catchable fatal error Debug: Argument 1 passed to local_solerni_renderer::render_list() must be an instance of html_table, instance of solerni_rules_list given, called in [dirroot]\local\solerni\renderer.php on line 77 and defined
+Error code: codingerror
+* line 393 of \lib\setuplib.php: coding_exception thrown
+* line 101 of \local\solerni\renderer.php: call to default_error_handler()
+* line 77 of \local\solerni\renderer.php: call to local_solerni_renderer->render_list()
+* line 55 of \local\solerni\renderer.php: call to local_solerni_renderer->render_solerni_rules_list()
+* line 94 of \local\solerni\classes\solerni_rules.class.php: call to local_solerni_renderer->render_solerni_wrapper()
+* line 63 of \local\solerni\index.php: call to solerni_rules->render()
+
+[03-Mar-2015 20:04:11 Europe/Moscow] Default exception handler: Coding error detected, it must be fixed by a programmer: PHP catchable fatal error Debug: Argument 1 passed to local_solerni_renderer::render_solerni_wrapper() must implement interface renderable, null given, called in [dirroot]\local\solerni\classes\solerni_rules.class.php on line 118 and defined
+Error code: codingerror
+* line 393 of \lib\setuplib.php: coding_exception thrown
+* line 44 of \local\solerni\renderer.php: call to default_error_handler()
+* line 118 of \local\solerni\classes\solerni_rules.class.php: call to local_solerni_renderer->render_solerni_wrapper()
+* line 63 of \local\solerni\index.php: call to solerni_rules->render()
+
+[03-Mar-2015 20:14:30 Europe/Moscow] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in C:\Winginx\home\moodle\public_html\local\solerni\renderer.php on line 56
+[03-Mar-2015 20:14:51 Europe/Moscow] Default exception handler: Coding error detected, it must be fixed by a programmer: PHP catchable fatal error Debug: Argument 1 passed to local_solerni_renderer::render_solerni_wrapper() must implement interface renderable, null given, called in [dirroot]\local\solerni\classes\solerni_rules.class.php on line 119 and defined
+Error code: codingerror
+* line 393 of \lib\setuplib.php: coding_exception thrown
+* line 44 of \local\solerni\renderer.php: call to default_error_handler()
+* line 119 of \local\solerni\classes\solerni_rules.class.php: call to local_solerni_renderer->render_solerni_wrapper()
+* line 63 of \local\solerni\index.php: call to solerni_rules->render()
+
+[03-Mar-2015 20:15:42 Europe/Moscow] PHP Parse error:  syntax error, unexpected ';' in C:\Winginx\home\moodle\public_html\local\solerni\renderer.php on line 55
+[03-Mar-2015 20:15:57 Europe/Moscow] Default exception handler: Coding error detected, it must be fixed by a programmer: PHP catchable fatal error Debug: Argument 1 passed to local_solerni_renderer::render_solerni_wrapper() must implement interface renderable, null given, called in [dirroot]\local\solerni\classes\solerni_rules.class.php on line 119 and defined
+Error code: codingerror
+* line 393 of \lib\setuplib.php: coding_exception thrown
+* line 44 of \local\solerni\renderer.php: call to default_error_handler()
+* line 119 of \local\solerni\classes\solerni_rules.class.php: call to local_solerni_renderer->render_solerni_wrapper()
+* line 63 of \local\solerni\index.php: call to solerni_rules->render()
+
+[03-Mar-2015 20:31:47 Europe/Moscow] PHP Parse error:  syntax error, unexpected '$rules' (T_VARIABLE), expecting function (T_FUNCTION) in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 111
+[03-Mar-2015 20:32:07 Europe/Moscow] PHP Notice:  Undefined variable: sitecontext in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 98
+[03-Mar-2015 20:32:07 Europe/Moscow] Default exception handler: Coding error detected, it must be fixed by a programmer: PHP catchable fatal error Debug: Argument 2 passed to has_capability() must be an instance of context, null given, called in [dirroot]\local\solerni\classes\solerni_rules.class.php on line 98 and defined
+Error code: codingerror
+* line 393 of \lib\setuplib.php: coding_exception thrown
+* line 367 of \lib\accesslib.php: call to default_error_handler()
+* line 98 of \local\solerni\classes\solerni_rules.class.php: call to has_capability()
+* line 61 of \local\solerni\index.php: call to solerni_rules->rules_list()
+
+[03-Mar-2015 20:32:25 Europe/Moscow] PHP Notice:  Undefined variable: returnurl in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 98
+[03-Mar-2015 20:32:25 Europe/Moscow] PHP Notice:  Undefined variable: OUTPUT in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 98
+[03-Mar-2015 20:32:25 Europe/Moscow] PHP Fatal error:  Call to a member function pix_url() on a non-object in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 98
+[03-Mar-2015 20:33:07 Europe/Moscow] PHP Notice:  Undefined variable: OUTPUT in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 98
+[03-Mar-2015 20:33:07 Europe/Moscow] PHP Fatal error:  Call to a member function pix_url() on a non-object in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 98
+[03-Mar-2015 20:33:28 Europe/Moscow] PHP Notice:  Undefined variable: strdelete in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 98
+[03-Mar-2015 20:33:28 Europe/Moscow] PHP Notice:  Undefined variable: strdelete in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 98
+[03-Mar-2015 20:33:28 Europe/Moscow] PHP Notice:  Undefined variable: strdelete in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 98
+[03-Mar-2015 20:33:28 Europe/Moscow] PHP Notice:  Undefined variable: strdelete in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 98
+[03-Mar-2015 20:33:28 Europe/Moscow] PHP Notice:  Undefined variable: strdelete in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 98
+[03-Mar-2015 20:33:28 Europe/Moscow] PHP Notice:  Undefined variable: strdelete in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 98
+[03-Mar-2015 20:33:28 Europe/Moscow] PHP Notice:  Undefined variable: strdelete in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 98
+[03-Mar-2015 20:33:28 Europe/Moscow] PHP Notice:  Undefined variable: strdelete in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 98
+[03-Mar-2015 20:33:28 Europe/Moscow] PHP Notice:  Undefined variable: strdelete in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 98
+[03-Mar-2015 20:33:28 Europe/Moscow] PHP Notice:  Undefined variable: strdelete in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 98
+[03-Mar-2015 20:37:17 Europe/Moscow] PHP Notice:  Undefined variable: returnurl in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 102
+[03-Mar-2015 20:37:17 Europe/Moscow] PHP Notice:  Undefined variable: user in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 102
+[03-Mar-2015 20:37:17 Europe/Moscow] PHP Notice:  Trying to get property of non-object in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 102
+[03-Mar-2015 20:37:17 Europe/Moscow] PHP Notice:  Undefined variable: returnurl in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 102
+[03-Mar-2015 20:37:17 Europe/Moscow] PHP Notice:  Undefined variable: user in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 102
+[03-Mar-2015 20:37:17 Europe/Moscow] PHP Notice:  Trying to get property of non-object in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 102
+[03-Mar-2015 20:37:17 Europe/Moscow] PHP Notice:  Undefined variable: returnurl in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 102
+[03-Mar-2015 20:37:17 Europe/Moscow] PHP Notice:  Undefined variable: user in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 102
+[03-Mar-2015 20:37:17 Europe/Moscow] PHP Notice:  Trying to get property of non-object in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 102
+[03-Mar-2015 20:37:17 Europe/Moscow] PHP Notice:  Undefined variable: returnurl in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 102
+[03-Mar-2015 20:37:17 Europe/Moscow] PHP Notice:  Undefined variable: user in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 102
+[03-Mar-2015 20:37:17 Europe/Moscow] PHP Notice:  Trying to get property of non-object in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 102
+[03-Mar-2015 20:37:17 Europe/Moscow] PHP Notice:  Undefined variable: returnurl in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 102
+[03-Mar-2015 20:37:17 Europe/Moscow] PHP Notice:  Undefined variable: user in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 102
+[03-Mar-2015 20:37:17 Europe/Moscow] PHP Notice:  Trying to get property of non-object in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 102
+[03-Mar-2015 20:37:36 Europe/Moscow] PHP Notice:  Undefined variable: user in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 102
+[03-Mar-2015 20:37:36 Europe/Moscow] PHP Notice:  Trying to get property of non-object in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 102
+[03-Mar-2015 20:37:36 Europe/Moscow] PHP Notice:  Undefined variable: user in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 102
+[03-Mar-2015 20:37:36 Europe/Moscow] PHP Notice:  Trying to get property of non-object in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 102
+[03-Mar-2015 20:37:36 Europe/Moscow] PHP Notice:  Undefined variable: user in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 102
+[03-Mar-2015 20:37:36 Europe/Moscow] PHP Notice:  Trying to get property of non-object in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 102
+[03-Mar-2015 20:37:36 Europe/Moscow] PHP Notice:  Undefined variable: user in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 102
+[03-Mar-2015 20:37:36 Europe/Moscow] PHP Notice:  Trying to get property of non-object in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 102
+[03-Mar-2015 20:37:36 Europe/Moscow] PHP Notice:  Undefined variable: user in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 102
+[03-Mar-2015 20:37:36 Europe/Moscow] PHP Notice:  Trying to get property of non-object in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 102
+[04-Mar-2015 11:24:30 Europe/Moscow] Default exception handler: Sorry, but your session key could not be confirmed to carry out this action.  This security feature prevents against accidental or malicious execution of important functions in your name.  Please make sure you really wanted to execute this function. Debug: 
+Error code: confirmsesskeybad
+* line 463 of \lib\setuplib.php: moodle_exception thrown
+* line 35 of \local\solerni\index.php: call to print_error()
+
+[04-Mar-2015 11:24:45 Europe/Moscow] Default exception handler: Sorry, but your session key could not be confirmed to carry out this action.  This security feature prevents against accidental or malicious execution of important functions in your name.  Please make sure you really wanted to execute this function. Debug: 
+Error code: confirmsesskeybad
+* line 463 of \lib\setuplib.php: moodle_exception thrown
+* line 35 of \local\solerni\index.php: call to print_error()
+
+[04-Mar-2015 11:27:09 Europe/Moscow] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\Winginx\home\moodle\public_html\lib\moodlelib.php:8551) in C:\Winginx\home\moodle\public_html\blocks\twitter_feed\block_twitter_feed.php on line 2
+[04-Mar-2015 11:27:14 Europe/Moscow] Default exception handler: Section error! Debug: 
+Error code: sectionerror
+* line 463 of \lib\setuplib.php: moodle_exception thrown
+* line 6545 of \lib\adminlib.php: call to print_error()
+* line 57 of \local\solerni\index.php: call to admin_externalpage_setup()
+
+[04-Mar-2015 11:28:49 Europe/Moscow] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\Winginx\home\moodle\public_html\lib\moodlelib.php:8551) in C:\Winginx\home\moodle\public_html\blocks\twitter_feed\block_twitter_feed.php on line 2
+[04-Mar-2015 11:28:54 Europe/Moscow] Default exception handler: Section error! Debug: 
+Error code: sectionerror
+* line 463 of \lib\setuplib.php: moodle_exception thrown
+* line 6545 of \lib\adminlib.php: call to print_error()
+* line 57 of \local\solerni\index.php: call to admin_externalpage_setup()
+
+[04-Mar-2015 11:31:22 Europe/Moscow] Default exception handler: Section error! Debug: 
+Error code: sectionerror
+* line 463 of \lib\setuplib.php: moodle_exception thrown
+* line 6545 of \lib\adminlib.php: call to print_error()
+* line 57 of \local\solerni\index.php: call to admin_externalpage_setup()
+
+[04-Mar-2015 11:31:38 Europe/Moscow] Default exception handler: Section error! Debug: 
+Error code: sectionerror
+* line 463 of \lib\setuplib.php: moodle_exception thrown
+* line 6545 of \lib\adminlib.php: call to print_error()
+* line 57 of \local\solerni\index.php: call to admin_externalpage_setup()
+
+[04-Mar-2015 11:32:15 Europe/Moscow] Default exception handler: Section error! Debug: 
+Error code: sectionerror
+* line 463 of \lib\setuplib.php: moodle_exception thrown
+* line 6545 of \lib\adminlib.php: call to print_error()
+* line 57 of \local\solerni\index.php: call to admin_externalpage_setup()
+
+[04-Mar-2015 11:41:21 Europe/Moscow] PHP Fatal error:  Class 'solerni_delete' not found in C:\Winginx\home\moodle\public_html\local\solerni\index.php on line 52
+[04-Mar-2015 11:44:29 Europe/Moscow] PHP Fatal error:  Class 'solerni_rule' not found in C:\Winginx\home\moodle\public_html\local\solerni\index.php on line 52
+[04-Mar-2015 11:45:12 Europe/Moscow] Default exception handler: Coding error detected, it must be fixed by a programmer: PHP catchable fatal error Debug: Argument 1 passed to local_solerni_renderer::render_solerni_wrapper() must implement interface renderable, null given, called in [dirroot]\local\solerni\classes\solerni_rules.class.php on line 140 and defined
+Error code: codingerror
+* line 393 of \lib\setuplib.php: coding_exception thrown
+* line 44 of \local\solerni\renderer.php: call to default_error_handler()
+* line 140 of \local\solerni\classes\solerni_rules.class.php: call to local_solerni_renderer->render_solerni_wrapper()
+* line 65 of \local\solerni\index.php: call to solerni_rules->render()
+
+[04-Mar-2015 11:55:07 Europe/Moscow] PHP Parse error:  syntax error, unexpected '}' in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 72
+[04-Mar-2015 12:07:15 Europe/Moscow] PHP Notice:  Trying to get property of non-object in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 80
+[04-Mar-2015 12:10:21 Europe/Moscow] PHP Notice:  Undefined variable: tobedeleted in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 106
+[04-Mar-2015 12:10:21 Europe/Moscow] PHP Notice:  Trying to get property of non-object in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 106
+[04-Mar-2015 12:22:33 Europe/Moscow] Default exception handler: A required parameter (sesskey) was missing Debug: 
+Error code: missingparam
+* line 463 of \lib\setuplib.php: moodle_exception thrown
+* line 545 of \lib\moodlelib.php: call to print_error()
+* line 73 of \lib\sessionlib.php: call to required_param()
+* line 35 of \local\solerni\index.php: call to confirm_sesskey()
+
+[04-Mar-2015 12:23:25 Europe/Moscow] PHP Parse error:  syntax error, unexpected '=>' (T_DOUBLE_ARROW) in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 145
+[04-Mar-2015 12:24:09 Europe/Moscow] PHP Notice:  Undefined variable: DB in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 66
+[04-Mar-2015 12:24:09 Europe/Moscow] PHP Fatal error:  Call to a member function get_record() on a non-object in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 66
+[04-Mar-2015 12:34:02 Europe/Moscow] PHP Notice:  Undefined property: stdClass::$email in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 70
+[04-Mar-2015 14:14:21 Europe/Moscow] PHP Notice:  Undefined variable: user in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 183
+[04-Mar-2015 14:14:21 Europe/Moscow] PHP Notice:  Trying to get property of non-object in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 183
+[04-Mar-2015 14:15:02 Europe/Moscow] Default exception handler: Coding error detected, it must be fixed by a programmer: PHP catchable fatal error Debug: Argument 1 passed to local_solerni_renderer::render_solerni_wrapper() must implement interface renderable, null given, called in [dirroot]\local\solerni\classes\solerni_rules.class.php on line 216 and defined
+Error code: codingerror
+* line 393 of \lib\setuplib.php: coding_exception thrown
+* line 44 of \local\solerni\renderer.php: call to default_error_handler()
+* line 216 of \local\solerni\classes\solerni_rules.class.php: call to local_solerni_renderer->render_solerni_wrapper()
+* line 65 of \local\solerni\index.php: call to solerni_rules->render()
+
+[04-Mar-2015 18:29:08 Europe/Moscow] Default exception handler: Sorry, but your session key could not be confirmed to carry out this action.  This security feature prevents against accidental or malicious execution of important functions in your name.  Please make sure you really wanted to execute this function. Debug: 
+Error code: confirmsesskeybad
+* line 463 of \lib\setuplib.php: moodle_exception thrown
+* line 36 of \local\solerni\index.php: call to print_error()
+
+[04-Mar-2015 18:34:11 Europe/Moscow] Default exception handler: Sorry, but your session key could not be confirmed to carry out this action.  This security feature prevents against accidental or malicious execution of important functions in your name.  Please make sure you really wanted to execute this function. Debug: 
+Error code: confirmsesskeybad
+* line 463 of \lib\setuplib.php: moodle_exception thrown
+* line 36 of \local\solerni\index.php: call to print_error()
+
+[04-Mar-2015 19:11:44 Europe/Moscow] PHP Notice:  Undefined variable: clause in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 76
+[04-Mar-2015 19:15:30 Europe/Moscow] PHP Notice:  Undefined variable: clause in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 76
+[04-Mar-2015 19:17:13 Europe/Moscow] PHP Notice:  Undefined variable: clause in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 76
+[04-Mar-2015 19:17:13 Europe/Moscow] PHP Notice:  Undefined variable: clause in C:\Winginx\home\moodle\public_html\local\solerni\forms\solerni_rules_form.php on line 58
+[04-Mar-2015 19:21:57 Europe/Moscow] PHP Parse error:  syntax error, unexpected 'foreach' (T_FOREACH) in C:\Winginx\home\moodle\public_html\local\solerni\forms\solerni_rules_form.php on line 62
+[04-Mar-2015 19:22:18 Europe/Moscow] PHP Notice:  Undefined variable: clause in C:\Winginx\home\moodle\public_html\local\solerni\classes\solerni_rules.class.php on line 76
+[04-Mar-2015 19:26:49 Europe/Moscow] Default exception handler: Sorry, but your session key could not be confirmed to carry out this action.  This security feature prevents against accidental or malicious execution of important functions in your name.  Please make sure you really wanted to execute this function. Debug: 
+Error code: confirmsesskeybad
+* line 463 of \lib\setuplib.php: moodle_exception thrown
+* line 36 of \local\solerni\index.php: call to print_error()
+
+[05-Mar-2015 11:26:58 Europe/Moscow] Default exception handler: Sorry, but your session key could not be confirmed to carry out this action.  This security feature prevents against accidental or malicious execution of important functions in your name.  Please make sure you really wanted to execute this function. Debug: 
+Error code: confirmsesskeybad
+* line 463 of \lib\setuplib.php: moodle_exception thrown
+* line 36 of \local\solerni\index.php: call to print_error()
+
+[05-Mar-2015 11:41:52 Europe/Moscow] Default exception handler: Sorry, but your session key could not be confirmed to carry out this action.  This security feature prevents against accidental or malicious execution of important functions in your name.  Please make sure you really wanted to execute this function. Debug: 
+Error code: confirmsesskeybad
+* line 463 of \lib\setuplib.php: moodle_exception thrown
+* line 36 of \local\solerni\index.php: call to print_error()
+
