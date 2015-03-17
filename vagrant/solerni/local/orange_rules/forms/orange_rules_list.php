@@ -15,11 +15,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * To select which ingredients will be deployed
+ * To manage list of rules
  *
  * @package    local
  * @subpackage orange_rules
- * @copyright  2011 David Monllaó
+ * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

@@ -15,21 +15,21 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Moodle flavours renderers
+ * Moodle local orange rules renderers
  *
  * @package    local
- * @subpackage flavours
- * @copyright  2011 David Monllaó
+ * @subpackage orange_rules
+ * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 
 /**
- * Moodle flavours renderer class
+ * Moodle local_orange_rules renderer class
  *
  * @package local
- * @subpackage flavours
- * @copyright 2011 David Monllaó
+ * @subpackage orange_rules
+ * @copyright  2015 Orange
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class local_orange_rules_renderer extends plugin_renderer_base {

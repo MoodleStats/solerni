@@ -15,9 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Capabilities for Solerni plugin.
+ * Capabilities for Orange_rules plugin.
  *
- * @package    orange_local
+ * @package    local
+ * @subpackage orange_rules
  * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

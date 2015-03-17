@@ -1,8 +1,9 @@
 <?php
 /**
- * Forum event handler definition.
+ * Orange rules event handler definition.
  *
- * @package local_orange_rules
+ * @package    local
+ * @subpackage orange_rules
  * @category event
  * @copyright 2015 Orange
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later

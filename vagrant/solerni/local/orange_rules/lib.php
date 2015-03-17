@@ -15,8 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package   mod_forum
-* @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
+ * @package    local
+ * @subpackage orange_rules
+ * @copyright  2015 Orange
 * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 */
 
@@ -27,13 +28,11 @@ defined('MOODLE_INTERNAL') || die();
 
 /**
  * Given an object containing all the necessary data,
- * (defined by the form in mod_form.php) this function
- * will create a new instance and return the id number
- * of the new instance.
+ * (defined by the form) this function
+ * will create or update a new instance and return true if it was created or updated
  *
- * @param stdClass $rule add forum instance
- * @param mod_forum_mod_form $mform
- * @return int intance id
+ * @param stdClass $rule 
+ * @return boolean
  */
 function rule_add_rule($rule) {
 	global $CFG, $DB;
@@ -89,21 +88,17 @@ function rule_add_rule($rule) {
 			cohort_add_member($rule->cohortid, $user->id);
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	//return $rule->id;
 	return true;
 		
 }
 
+/**
+ * Return the rule identified by $id
+ *
+ * @param int $id id of rule
+ * @return stdClass $rule 
+ */
 function rule_get_rule($id) {
 	global $CFG, $DB;
 	
@@ -114,6 +109,12 @@ function rule_get_rule($id) {
 
 }
 
+/**
+ * Return the name of cohort if exist or error message (cohort deleted)
+ *
+ * @param int $cohortid id of cohort
+ * @return string
+ */
 function rule_get_cohortname($cohortid) {
 	global $CFG, $DB;
 
@@ -125,6 +126,12 @@ function rule_get_cohortname($cohortid) {
 
 }
 
+/**
+ * Return true if this name of rule already exist
+ *
+ * @param string $name of rule
+ * @return boolean
+ */
 function rule_existname($name) {
 	global $DB;
 
@@ -132,7 +139,12 @@ function rule_existname($name) {
 	
 }
 
-
+/**
+ * Return true if this cohortid is already affected to one rule
+ *
+ * @param string $cohortid of rule
+ * @return boolean
+ */
 function rule_existcohortid($cohortid) {
 	// in orange_rule
 	global $DB;
@@ -141,6 +153,12 @@ function rule_existcohortid($cohortid) {
 
 }
 
+/**
+ * Return true if this cohort exist
+ *
+ * @param string $cohortid id of cohort
+ * @return boolean
+ */
 function rule_existcohort($cohortid) {
 	//in cohort
 	global $DB;

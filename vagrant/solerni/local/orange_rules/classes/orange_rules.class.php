@@ -15,11 +15,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Flavours packaging system
+ * Orange_rules packaging system
  *
  * @package    local
- * @subpackage flavours
- * @copyright  2011 David Monllaó
+ * @subpackage orange_rules
+ * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

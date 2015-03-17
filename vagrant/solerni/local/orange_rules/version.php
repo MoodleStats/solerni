@@ -17,9 +17,9 @@
 /**
  * version.php
  *
- * @package    local
- * @subpackage flavours
- * @copyright  2011 David Monllaó
+* @package    local
+ * @subpackage orange_rules
+ * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

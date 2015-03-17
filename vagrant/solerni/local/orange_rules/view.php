@@ -15,11 +15,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Solerni front controller
+ * Orange_rules front controller
  *
- * @package    local
+* @package    local
  * @subpackage orange_rules
- * @copyright  2011 David Monllaó
+ * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -70,7 +70,7 @@ if($mform->is_cancelled()) {
 		redirect($returnurl);
 	}
 	else {
-		//Ajout d'un message d'erreur sur la page du formulaire :
+		//Add message in the page of form
 		echo $OUTPUT->header();
 		echo html_writer::tag('div', clean_text(get_string('noaddrulewarning', 'local_orange_rules')), array('class' => renderer_base::prepare_classes('notifyproblem')));
 		$mform->display();

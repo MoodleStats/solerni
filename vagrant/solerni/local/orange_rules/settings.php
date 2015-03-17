@@ -15,18 +15,17 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * To add the flavours links to the administration block
+ * To add the Orange_rules links to the administration block
  *
  * @package    local
- * @subpackage flavours
- * @copyright  2011 David Monllaó
+ * @subpackage orange_rules
+ * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die;
 
 $orangeplugin = 'local_orange_rules';
-//$orangeaddruleurl = '/local/orange_rules/index.php?sesskey=' . sesskey().'&action=rules_form';
 $orangeaddruleurl = '/local/orange_rules/view.php?sesskey=' . sesskey();
 $orangelistrulesurl = '/local/orange_rules/index.php?sesskey=' . sesskey().'&action=rules_list';
 
@@ -40,16 +39,3 @@ $ADMIN->add('orange_rules', new admin_externalpage('orange_rule_level2',
 $ADMIN->add('orange_rules', new admin_externalpage('orange_rules_level2',
     get_string('listrules', $orangeplugin),
     new moodle_url($orangelistrulesurl)));    
-
-/*
-$blocks = core_plugin_manager::instance()->get_plugins_of_type('block');
-$foundBlockOrange = false;
-foreach ($blocks as $block) {
-	if ($block->name == "orange_rules")
-	{
-		$foundBlockOrange = true;
-	}
-}
-if (!$foundBlockOrange) echo html_writer::tag('div', clean_text(get_string('blockorangewarning', 'local_orange_rules')), array('class' => renderer_base::prepare_classes('notifyproblem')));
-
-*/
