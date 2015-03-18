@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Event observers used in forum.
+ * Event observers used in Orange Rules block.
  *
  * @package    block_orange_rules
  * @copyright  2015 Orange
@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot.'/cohort/lib.php');
 
 /**
- * Event observer for mod_forum.
+ * Event observer for block orange_ruels.
  */
 class block_orange_rules_observer {
 
