@@ -16,9 +16,9 @@
 
 
 /**
- * Local Redirect
+ * Goodbye
  *
- * This local plugin enrols and redirects users to a pre-configured course after login
+ * This module has been created to provide users the option to delete their account
  *
  * @package    local
  * @subpackage local_goodbye
@@ -38,4 +38,18 @@ $string['noself'] = 'We are sorry, only self registration accounts are allowed t
 $string['disabled'] = 'Account removal disabled';
 $string['farewell'] = 'Goodby text';
 $string['farewell_desc'] = 'Text shown on delete account form';
-$string['defaultfarewell'] = 'To delete your account please enter your username and password. <br>Thank you for using Moodle!';
+$string['defaultfarewell'] = 'To delete your account please enter your username/email and password. <br>Thank you for using Solerni!';
+$string['anotheraccount'] = "You can only delete your own account";
+$string['mailerror'] = "the mail can't be sent";
+$string['emailsubject'] = 'mail subject';
+$string['emailsubject_desc'] = 'Subject shown on sent mail';
+$string['defaultemailsubject'] = 'Your account has been deleted from Solerni';
+$string['emailmsg'] = 'mail message';
+$string['emailmsg_desc'] = 'Message shown on sent mail';
+$string['defaultemailmsg'] = 'Your account has been deleted from Solerni. <br>Thank you for using Solerni!';
+$string['enabledemail'] = 'Enabled email';
+$string['enabledemail_desc'] = 'Enable plateform to send mail to confirm user deletion';
+$string['logfilename'] = 'Log filename';
+$string['logfilename_desc'] = 'Filename of logfile to trace deleted users';
+$string['defaullogfilename'] = '{$a}/solerni/delete_users.log';
+

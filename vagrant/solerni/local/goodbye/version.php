@@ -25,8 +25,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$plugin->version  = 2013092204;
-$plugin->requires = 2011033010;
-$plugin->release = '1.0 (Build: 2013071500)';
+$plugin->version  = 2015031012;
+$plugin->requires = 2014051205;
+$plugin->release = '1.0 (Build: 2015031012)';
 $plugin->maturity = MATURITY_STABLE;
 $plugin->component = 'local_goodbye';

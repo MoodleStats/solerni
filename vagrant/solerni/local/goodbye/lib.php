@@ -21,7 +21,7 @@
  * This module has been created to provide users the option to delete their account
  *
  * @package    local
- * @subpackage goodbye, delete your moodle account
+ * @subpackage local_goodbye
  * @copyright  2013 Bas Brands, www.basbrands.nl
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -35,10 +35,37 @@ function local_goodbye_extends_navigation(global_navigation $navigation) {
     $enabled = get_config('local_goodbye', 'enabled');
 
     if ($enabled ) {
-        if ($USER->auth != 'email') {
+	// not limited to auth method 'email' : 'googleoauth2', 'manual' should have too
+        if (is_siteadmin($USER)) {
+            // no deleting admins allowed
             return '';
         }
         $container2 = $navigation->add(get_string('myaccount', 'local_goodbye'));
         $userview2 = $container2->add(get_string('manageaccount', 'local_goodbye'), new moodle_url('/local/goodbye/index.php'));
     }
+}
+
+/**
+ * Called from send deletion email to user
+ */
+function local_goodbye_send_email($user) {
+    $supportuser = core_user::get_support_user();
+    $messagetext = get_config('local_goodbye', 'emailmsg');
+    $messagehtml = text_to_html($messagetext, null, false, true);
+    $subject = get_config('local_goodbye', 'emailsubject');
+    if (! email_to_user($user, $supportuser, $subject, $messagetext, $messagehtml)) {
+        //print_error('mailerror','local_goodbye');
+	error_log('mail error : mail was not sent to '. $user->email);
+    } 
+}
+
+/**
+ * Writing user deletion in log file
+ */
+function local_goodbye_write_log($user) {
+
+    $today = date("Y-m-d H:i:s"); 
+    $msg = $today . " - User deleted : id=" . $user->id .  ", username=" . $user->username . ", email=" . $user->email. ", firstname=" . $user->firstname. ", lastname=" . $user->lastname . ", timecreated=" . $user->timecreated . ", country=" . $user->country . ", city=" . $user->city . ", auth=" . $user->auth .", department=" . $user->department . ", address=" . $user->address . ", lang=" . $user->lang . "\n";
+
+    error_log($msg, 3, get_config('local_goodbye', 'logfilename'));
 }
