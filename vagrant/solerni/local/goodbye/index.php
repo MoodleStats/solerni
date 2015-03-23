@@ -29,7 +29,6 @@ require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
 require_once($CFG->dirroot . '/local/goodbye/check_account_form.php');
 
-//$PAGE->set_context(get_system_context());
 $PAGE->set_context(context_system::instance());
 $PAGE->set_url('/local/goodbye/index.php');
 $PAGE->set_title(format_string(get_string('deleteaccount', 'local_goodbye')));
@@ -44,24 +43,24 @@ if ($enabled) {
 
     $error = '';
 
-    if ($local_user = $checkaccount->get_data()) {
-        if ($local_user->username != '' && $local_user->password != '') {
+    if ($localuser = $checkaccount->get_data()) {
+        if ($localuser->username != '' && $localuser->password != '') {
             // User Exists, Check pass.
-            if ($user = authenticate_user_login($local_user->username, $local_user->password) ) {
+            if ($user = authenticate_user_login($localuser->username, $localuser->password) ) {
                 if ($user->id == $USER->id ) {
-                    // add trace for legal purpose
+                    // Add trace for legal purpose.
                     local_goodbye_write_log($user);
-                    // send an email to user
+                    // Send an email to user.
                     if (get_config('local_goodbye', 'enabledemail')) {
                         local_goodbye_send_email($user);
-                    }   			
+                    }
                     delete_user($user);
                     redirect(new moodle_url('/'));
                 } else {
                     $error = get_string('anotheraccount', 'local_goodbye');
                 }
             } else {
-               $error = get_string('loginerror', 'local_goodbye');
+                $error = get_string('loginerror', 'local_goodbye');
             }
         }
     }

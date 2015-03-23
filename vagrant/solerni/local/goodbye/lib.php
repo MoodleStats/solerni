@@ -35,9 +35,9 @@ function local_goodbye_extends_navigation(global_navigation $navigation) {
     $enabled = get_config('local_goodbye', 'enabled');
 
     if ($enabled ) {
-	// not limited to auth method 'email' : 'googleoauth2', 'manual' should have too
+        // Not limited to auth method 'email' : 'googleoauth2', 'manual' should have too.
         if (is_siteadmin($USER)) {
-            // no deleting admins allowed
+            // No deleting admins allowed.
             return '';
         }
         $container2 = $navigation->add(get_string('myaccount', 'local_goodbye'));
@@ -54,9 +54,9 @@ function local_goodbye_send_email($user) {
     $messagehtml = text_to_html($messagetext, null, false, true);
     $subject = get_config('local_goodbye', 'emailsubject');
     if (! email_to_user($user, $supportuser, $subject, $messagetext, $messagehtml)) {
-        //print_error('mailerror','local_goodbye');
-	error_log('mail error : mail was not sent to '. $user->email);
-    } 
+        mtrace('mail error : mail was not sent to '. $user->email);
+        print_error('mailerror', 'local_goodbye');
+    }
 }
 
 /**
@@ -64,8 +64,12 @@ function local_goodbye_send_email($user) {
  */
 function local_goodbye_write_log($user) {
 
-    $today = date("Y-m-d H:i:s"); 
-    $msg = $today . " - User deleted : id=" . $user->id .  ", username=" . $user->username . ", email=" . $user->email. ", firstname=" . $user->firstname. ", lastname=" . $user->lastname . ", timecreated=" . $user->timecreated . ", country=" . $user->country . ", city=" . $user->city . ", auth=" . $user->auth .", department=" . $user->department . ", address=" . $user->address . ", lang=" . $user->lang . "\n";
+    $today = date("Y-m-d H:i:s");
+    $msg = $today . " - User deleted : id=" . $user->id .  ", username=" . $user->username . ", email=" . $user->email. ", firstname=" . $user->firstname;
+    $msg = $msg . ", lastname=" . $user->lastname . ", timecreated=" . $user->timecreated . ", country=" . $user->country . ", city=" . $user->city;
+    $msg = $msg . ", auth=" . $user->auth .", department=" . $user->department . ", address=" . $user->address . ", lang=" . $user->lang . "\n";
 
-    error_log($msg, 3, get_config('local_goodbye', 'logfilename'));
+    $fp = fopen(get_config('local_goodbye', 'logfilename'), 'a');
+    fwrite($fp, $msg);
+    fclose($fp);
 }
