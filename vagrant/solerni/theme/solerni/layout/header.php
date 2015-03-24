@@ -16,6 +16,7 @@
 
 /*
  * @author    Shaun Daubney
+ * @author    Orange / Solerni
  * @package   theme_solerni
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -24,56 +25,54 @@ $hasheading = ($PAGE->heading);
 $hasnavbar = (empty($PAGE->layout_options['nonavbar']) && $PAGE->has_navbar());
 $hasfooter = (empty($PAGE->layout_options['nofooter']));
 $hasheader = (empty($PAGE->layout_options['noheader']));
-
 $hassidepre = (empty($PAGE->layout_options['noblocks']) && $PAGE->blocks->region_has_content('side-pre', $OUTPUT));
 $hassidepost = (empty($PAGE->layout_options['noblocks']) && $PAGE->blocks->region_has_content('side-post', $OUTPUT));
-
 $showsidepre = ($hassidepre && !$PAGE->blocks->region_completely_docked('side-pre', $OUTPUT));
 $showsidepost = ($hassidepost && !$PAGE->blocks->region_completely_docked('side-post', $OUTPUT));
-
-$isfrontpage = $PAGE->bodyid == "page-site-index";
-
-$haslogo = (!empty($PAGE->theme->settings->logo));
-$hastitledate = (!empty($PAGE->theme->settings->titledate));
-$hasemailurl = (!empty($PAGE->theme->settings->emailurl));
-
-$hasgeneralalert = (!empty($PAGE->theme->settings->generalalert));
-$hassnowalert = (!empty($PAGE->theme->settings->snowalert));
-
-
-$custommenu = $OUTPUT->custom_menu();
-$hascustommenu = (empty($PAGE->layout_options['nocustommenu']) && !empty($custommenu));
-$hashidemenu = (!empty($PAGE->theme->settings->hidemenu));
-
+$isfrontpage = ( $PAGE->bodyid == "page-site-index" );
 $courseheader = $coursecontentheader = $coursecontentfooter = $coursefooter = '';
 
 ?>
 
-<header role="banner" class="navbar navbar-fixed-top">
-    <nav role="navigation" class="navbar-inner">
-        <div class="container-fluid">
-		
-            <a href="<?php echo $CFG->wwwroot;?>"><?php if ($haslogo) {
- echo html_writer::empty_tag('img', array('src'=>$PAGE->theme->settings->logo, 'class'=>'logo')); }
+<header role="banner" class="navbar navbar-fixed-top slrn-top-header">
+    <nav role="navigation">
+        <div class="container-fluid slrn-top-header__inner">
 
- else { ?><a class="brand" href="<?php echo $CFG->wwwroot;?>"><?php echo $SITE->shortname; }?></a>
-			
+            <a class="slrn-top-header__logo -sprite-solerni"
+               href="<?php echo $CFG->wwwroot;?>">
+            </a>
+
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
+            
             <div class="nav-collapse collapse">
-          <?php  if ((!isloggedin()) && ($hashidemenu)){}
+                <?php 
+                $modinfo = get_fast_modinfo($PAGE->course);
+                if (!empty($modinfo->sections[0])) {
+                    foreach( $modinfo->sections[0] as $cmid ) {
+                        echo $cm = $modinfo->cms[$cmid]->get_formatted_name();
+                    }
+                }
+ 
+                ?>
+                <?php
+                // echo language dropdown menu for unlogged visitor
+                if ( ! isloggedin() ) {
+                    echo $OUTPUT->render_custom_menu( new custom_menu( '', current_language() ) );
+                } ?>
 
-		  else if ($hascustommenu) {
-                echo $custommenu;
-				
-            } ?>
-            <ul class="nav pull-right">
-            <li><?php echo $PAGE->headingmenu;
-			include('profileblock.php');?></li>
-            </ul>
+                <ul class="nav pull-right">
+                    <li>
+                        <?php 
+                        echo $PAGE->headingmenu;
+                        include('profileblock.php');
+                        ?>
+                        
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
@@ -91,20 +90,5 @@ $courseheader = $coursecontentheader = $coursecontentfooter = $coursefooter = ''
     <?php if (!empty($courseheader)) { ?>
         <div id="course-header"><?php echo $courseheader; ?></div>
     <?php } ?>
-	
-<?php  if (($isfrontpage) && ($hastitledate)) {?>
-	<div id="page-header-date"><h1><?php echo strftime("%A %d %B %Y"); ?></h1></div>
-	<?php } ?>
-	<?php if (($isfrontpage) && $hasgeneralalert) {?>
-	<div id="page-header-generalalert">
-	<?php echo $PAGE->theme->settings->generalalert; ?>
-	</div>
-	<?php } ?>
-	
-		<?php if (($isfrontpage) && $hassnowalert) {?>
-	<div id="page-header-snowalert">
-	<?php echo $PAGE->theme->settings->snowalert; ?>
-	</div>
-	<?php } ?>
 
 </header>

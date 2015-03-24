@@ -1,0 +1,3 @@
+# This file references Solerni V2 theme issues, decisions and updates
+
+# Removed url logo setting from Basic Settings

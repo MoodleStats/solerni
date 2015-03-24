@@ -2,138 +2,69 @@
 
 /*
  * @author    Shaun Daubney
+ * @author    Orange / Solerni
  * @package   theme_solerni
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+/*
+ * Return associative array ( setting_name => default_value )
+ * List and default values for theme colors
+ */
+function solerni_get_colors_array() {
+    
+    // Array of solerni color settings ( setting name => default value )
+    return $solerni_colors = array(
+        'backcolor'         => '#FFFFFF',
+        'primary'           => '#4B667C',
+        'primaryhover'      => '#334554',
+        'secondary'         => '#FF004F',
+        'secondaryhover'    => '#D90045',
+        'tertiary'          => '#AAC044',
+        'tertiaryhover'     => '#92A63A',
+        'dark'              => '#000000',
+        'light'             => '#FFFFFF',
+        'grey1'             => '#F6F6F6',
+        'grey2'             => '#EEEEEF',
+        'grey3'             => '#999999',
+        'grey4'             => '#606060',
+        'grey5'             => '#333333'
+    );
+}
+
+/*
+ * Return associative array ( setting_name => default_value )
+ * List and default values for social networks
+ */
+function solerni_get_social_array() {
+    
+    // Array of solerni social settings ( setting name => default value )
+    return $solerni_socials = array(
+        'website'           => '',
+        'facebook'          => '',
+        'twitter'           => '',
+        'googleplus'        => '',
+        'linkedin'          => '',
+        'youtube'           => ''
+    );
+}
+
 function solerni_process_css($css, $theme) {
-	
-    // Set the menu background color
-    if (!empty($theme->settings->menubackcolor)) {
-        $menubackcolor = $theme->settings->menubackcolor;
-    } else {
-        $menubackcolor = null;
-    }
-    $css = solerni_set_menubackcolor($css, $menubackcolor);
-	
-	    // Set the menu hover color
-    if (!empty($theme->settings->menuhovercolor)) {
-        $menuhovercolor = $theme->settings->menuhovercolor;
-    } else {
-        $menuhovercolor = null;
-    }
-    $css = solerni_set_menuhovercolor($css, $menuhovercolor);
-
     
-	// Set the background image for the graphic wrap 
-    if (!empty($theme->settings->backimage)) {
-        $backimage = $theme->settings->backimage;
-    } else {
-        $backimage = null;
+    $color_settings = solerni_get_colors_array();
+    
+    foreach ( $color_settings as $key => $value ) {
+        
+        // Use default if not set
+        if (!empty( $theme->settings->$key ) ) {
+            $value = $theme->settings->$key;
+        }
+        // Search and replace
+        $tag = "[[setting:$key]]";
+        $css = str_replace( $tag, $value, $css );  
     }
-    $css = solerni_set_backimage($css, $backimage);
-	
-	// Set the graphic position
-    if (!empty($theme->settings->backposition)) {
-       $backposition = $theme->settings->backposition;
-    } else {
-       $backposition = null;
-    }
-    $css = solerni_set_backposition($css,$backposition);
-	
-	// Set the background color
-    if (!empty($theme->settings->backcolor)) {
-        $backcolor = $theme->settings->backcolor;
-    } else {
-        $backcolor = null;
-    }
-    $css = solerni_set_backcolor($css, $backcolor);
-	
-	// Set the background image for the logo 
-    if (!empty($theme->settings->logo)) {
-        $logo = $theme->settings->logo;
-    } else {
-        $logo = null;
-    }
-    $css = solerni_set_logo($css, $logo);
-	
-	    // Set custom CSS
-    if (!empty($theme->settings->customcss)) {
-        $customcss = $theme->settings->customcss;
-    } else {
-        $customcss = null;
-    }
-    $css = solerni_set_customcss($css, $customcss);
     
     return $css;
+
 }
-
-function solerni_set_menubackcolor($css, $menubackcolor) {
-    $tag = '[[setting:menubackcolor]]';
-    $replacement = $menubackcolor;
-    if (is_null($replacement)) {
-        $replacement = '#333333';
-    }
-    $css = str_replace($tag, $replacement, $css);
-    return $css;
-}
-
-function solerni_set_menuhovercolor($css, $menuhovercolor) {
-    $tag = '[[setting:menuhovercolor]]';
-    $replacement = $menuhovercolor;
-    if (is_null($replacement)) {
-        $replacement = '#f42941';
-    }
-    $css = str_replace($tag, $replacement, $css);
-    return $css;
-}
-
-function solerni_set_backimage($css, $backimage) {
-	global $OUTPUT;  
-	$tag = '[[setting:backimage]]';
-	$replacement = $backimage;
-	if (is_null($replacement)) {
- 		$replacement = '';
- 	}
-	$css = str_replace($tag, $replacement, $css);
-	return $css;
-}
-
-function solerni_set_backposition($css, $backposition = 'no-repeat', $tag = '[[setting:backposition]]'){
-if($backposition == "no-repeat" || $backposition == "no-repeat fixed" || $backposition == "repeat" || $backposition == "repeat-x"){
-$css = str_replace($tag, $backposition, $css);
-}
-return $css;
-}
-
-function solerni_set_backcolor($css, $backcolor) {
-    $tag = '[[setting:backcolor]]';
-    $replacement = $backcolor;
-    if (is_null($replacement)) {
-        $replacement = '#ffffff';
-    }
-    $css = str_replace($tag, $replacement, $css);
-    return $css;
-}
-
-function solerni_set_logo($css, $logo) {
-	global $OUTPUT;  
-	$tag = '[[setting:logo]]';
-	$replacement = $logo;
-	$css = str_replace($tag, $replacement, $css);
-	return $css;
-}
-
-function solerni_set_customcss($css, $customcss) {
-    $tag = '[[setting:customcss]]';
-    $replacement = $customcss;
-    if (is_null($replacement)) {
-        $replacement = '';
-    }
-
-    $css = str_replace($tag, $replacement, $css);
-
-    return $css;
-}
-
 

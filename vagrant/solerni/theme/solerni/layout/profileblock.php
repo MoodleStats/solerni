@@ -83,15 +83,6 @@ echo get_string('calendar','calendar');
 echo '</a>';
 echo '</li>';
 
-if ($hasemailurl) {
-echo '<li>';
-echo '<a href="'.$PAGE->theme->settings->emailurl.'">';
-echo '<img class="profileicon" src="'.$OUTPUT->pix_url('profile/email', 'theme').'" />';
-echo get_string('email','theme_solerni');
-echo '</a>';
-echo '</li>';
-}
-
 echo '<li>';
 echo '<a href="'.$CFG->wwwroot.'/login/logout.php">';
 echo '<img class="profileicon" src="'.$OUTPUT->pix_url('profile/logout', 'theme').'" />';

@@ -6,14 +6,8 @@ $string['choosereadme'] = 'Solerni is a clone of Aardvark which is a three colum
 
 $string['configtitle'] = 'Solerni';
 
-$string['basicheading'] = 'Basic Settings';
-$string['basicheadingdesc'] = 'Customise basic elements of the theme.';
-
-$string['frontpageheading'] = 'Frontpage';
-$string['frontpageheadingdesc'] = 'Customise frontpage elements of the theme such as user alerts and date.';
-
-$string['colourheading'] = 'Colours and Background';
-$string['colourheadingdesc'] = 'Customise site colours and background image.';
+$string['colourheading'] = 'Theme Colours';
+$string['colourheadingdesc'] = 'Customise site colours.';
 
 $string['footeroptheading'] = 'Footer';
 $string['footeroptdesc'] = 'Customise basic elements of the theme\'s footer.';
@@ -21,52 +15,47 @@ $string['footeroptdesc'] = 'Customise basic elements of the theme\'s footer.';
 $string['socialiconsheading'] = 'Social Icons';
 $string['socialiconsheadingdesc'] = 'Customise social network icons.';
 
-$string['hidemenu'] = 'Hide Menu when Logged Out';
-$string['hidemenudesc'] = 'Force users to log in before accessing the menu. If YES then menu options are hidden from users before they log in.';
-
-$string['backimage'] = 'Background Image';
-$string['backimagedesc'] = 'Change the background image in the graphic wrap. It\'s currently a cloud blue blur, but if that\'s making you a bit light headed then paste the URL of the image you want to use in here or clear it for a blank background.';
-
-$string['backposition'] = 'Background Image Position';
-$string['backpositiondesc'] = 'Choose between a centred image or a tiled image.';
-$string['backpositioncentred'] = 'Centred';
-$string['backpositionfixed'] = 'Centred (Fixed)';
-$string['backpositiontiled'] = 'Repeat (Tiled)';
-$string['backpositionrepeat'] = 'Repeat (Horizonal)';
-
 $string['backcolor'] = 'Background Colour';
 $string['backcolordesc'] = 'Change the colour of the background. (This is the area either side of the main content and does not affect the main content area)';
 
-$string['logo'] = 'Logo';
-$string['logodesc'] = 'Change the logo of this theme by entering the URL to a new one (i.e., http://www.somesite/logo.png). Ideally a transparent .png with a maximium height of 38px will work best.';
+$string['primary'] = 'Primary Colour';
+$string['primarydesc'] = 'Theme main colour';
 
-$string['menuhovercolor'] = 'Menu Hover Colour';
-$string['menuhovercolordesc'] = 'Change the colour of linked items on the menu bar.';
+$string['primaryhover'] = 'Primary Colour : hover contrast';
+$string['primaryhoverdesc'] = 'Theme main colour (on mouse hover)';
 
-$string['titledate'] = 'Frontpage Date';
-$string['titledatedesc'] = 'Display today&apos;s date on the frontpage.';
+$string['secondary'] = 'Secondary Colour';
+$string['secondarydesc'] = 'Theme secondary colour';
 
-$string['generalalert'] = 'General Alert';
-$string['generalalertdesc'] = 'This will display an alert on your frontpage to advise users of a particular event/situation.';
+$string['secondaryhover'] = 'Secondary Colour : hover contrast';
+$string['secondaryhoverdesc'] = 'Theme secondary colour (on mouse hover)';
 
-$string['snowalert'] = 'Snow Alert';
-$string['snowalertdesc'] = 'This will display an alert on your frontpage to advise users of closures or information regarding inclement weather.';
+$string['tertiary'] = 'Tertiary Colour';
+$string['tertiarydesc'] = 'Theme tertiary colour';
 
-$string['disclaimer'] = 'Disclaimer';
-$string['disclaimerdesc'] = 'The content from this textarea will be displayed in the footer of every page.';
+$string['tertiaryhover'] = 'Tertiary Colour : hover contrast';
+$string['tertiaryhoverdesc'] = 'Theme tertiary colour (on mouse hover)';
 
-$string['copyright'] = 'Copyright';
-$string['copyrightdesc'] = 'The name of your organisation.';
+$string['dark'] = 'Dark Colour';
+$string['darkdesc'] = 'Theme darkest colour';
 
-$string['ceop'] = 'CEOP';
-$string['ceopdesc'] = 'Enable CEOP reporting.';
-$string['ceopnone'] = 'Disabled';
-$string['ceopaus'] = 'Enable Australia';
-$string['ceopuk'] = 'Enable United Kingdom';
+$string['light'] = 'Light Colour';
+$string['lightdesc'] = 'Theme lightest colour';
 
-$string['email'] = 'Email';
-$string['emailurl'] = 'Email URL';
-$string['emailurldesc'] = 'Enter the URL of your email service. (i.e http://mail.mycollege.ac.uk or http://www.mycollege.edu/mail)';
+$string['grey1'] = 'Grey 1';
+$string['grey1desc'] = 'Very light grey';
+
+$string['grey2'] = 'Grey 2';
+$string['grey2desc'] = 'Light grey';
+
+$string['grey3'] = 'Grey 3';
+$string['grey3desc'] = 'Medium grey';
+
+$string['grey4'] = 'Grey 4';
+$string['grey4desc'] = 'Dark grey';
+
+$string['grey5'] = 'Grey 5';
+$string['grey5desc'] = 'Very dark grey';
 
 $string['website'] = 'Website URL';
 $string['websitedesc'] = 'Enter the URL of your main website. (i.e http://www.mycollege.ac.uk)';
@@ -103,8 +92,5 @@ $string['appledesc'] = 'Enter the URL of your Apple App Store page. (i.e https:/
 
 $string['android'] = 'Google Play Store URL';
 $string['androiddesc'] = 'Enter the URL of your Google Play Store Store page. (i.e https://play.google.com/store/apps/developer?id=mycollege)';
-
-$string['customcss'] = 'Custom CSS';
-$string['customcssdesc'] = 'Whatever CSS rules you add to this area will be reflected in every page, making for easier customisation of this theme.';
 
 $string['credit'] = 'Based on an original theme created by Shaun Daubney';

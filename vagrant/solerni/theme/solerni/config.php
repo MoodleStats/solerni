@@ -36,7 +36,7 @@ $THEME->name = 'solerni';
 
 $THEME->parents = array('bootstrapbase');
 
-$THEME->sheets = array('custom', 'blockicons', 'profilebar', 'font-awesome', 'settings');
+$THEME->sheets = array('custom', 'blockicons', 'profilebar', 'font-awesome', 'settings', 'solerni');
 
 $THEME->supportscssoptimisation = false;
 
@@ -155,12 +155,13 @@ $THEME->layouts = array(
     ),
 );
 
-$THEME->javascripts = array(
-);
+$THEME->javascripts = array();
+
 $THEME->javascripts_footer = array(
     'moodlebootstrap',
 );
 
+// Moodle parses CSS files for urls / images / variables replacement
 $THEME->csspostprocess = 'solerni_process_css';
 
 

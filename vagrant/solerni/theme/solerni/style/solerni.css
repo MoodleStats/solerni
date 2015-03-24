@@ -1,0 +1,44 @@
+/*
+ * @package   theme_solerni
+ * @author    Orange / Solerni
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+html, 
+body {
+    font-family:            Arial, Helvetica, sans-serif;
+    line-height:            1.5;
+    font-size:              16px; /* browser default */
+    color:                  [[setting:dark]];
+}
+
+body {
+    padding-top: 100px;
+}
+
+.slrn-top-header {
+    background-color: [[setting:primary]];
+}
+
+.slrn-top-header__inner {
+    height:         3.125em;    /* 50px / 16px = 3,125 */
+    line-height:    3.125em;    /* 50px / 16px = 3,125 */
+    padding:        0.4375em 0; /* 7px /  16px = 0,4375 */
+}
+
+.slrn-top-header__logo {
+    display:    inline-block;
+    width:      150px;
+    height:     40px;
+    
+    background-position: -182px 0;
+}
+
+/*
+ *  Utils
+ */
+
+/* Uses the solerni sprite */
+.-sprite-solerni {
+    background-image: url([[pix:theme|sprite-solerni]]]);
+}
