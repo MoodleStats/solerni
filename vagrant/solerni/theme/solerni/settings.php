@@ -56,7 +56,7 @@ if ($ADMIN->fulltree) {
             $default = $value;
             $previewconfig = NULL;
             // Admin setting generation
-            $setting = new admin_setting_configcolourpicker($name, $title, $description, $default, $previewconfig);
+            $setting = new admin_setting_configtext($name, $title, $description, $default, $previewconfig);
             $settings->add($setting);
         }
 

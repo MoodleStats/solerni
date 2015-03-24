@@ -16,6 +16,10 @@ body {
     padding-top: 100px;
 }
 
+/*
+ *  Header
+ */
+
 .slrn-top-header {
     background-color: [[setting:primary]];
 }
@@ -23,15 +27,37 @@ body {
 .slrn-top-header__inner {
     height:         3.125em;    /* 50px / 16px = 3,125 */
     line-height:    3.125em;    /* 50px / 16px = 3,125 */
-    padding:        0.4375em 0; /* 7px /  16px = 0,4375 */
+    padding:        0.4375em;   /* 7px /  16px = 0,4375 */
+}
+
+.slrn-top-header__item {
+    display:    inline-block;
+    vertical-align: top;
 }
 
 .slrn-top-header__logo {
-    display:    inline-block;
     width:      150px;
     height:     40px;
     
     background-position: -182px 0;
+}
+
+.slrn-header-search-form {
+    width:          11.25em;      /* 180px / 16 = 11.25 */
+    line-height:    2.5em;      /* 40px / 16px =  2.5 */
+}
+
+.slrn-header-search-input {
+    border:             0;
+    padding:            .2em .5em .2em 2.8em;
+    background-color:   [[setting:grey3]];
+    color:              [[setting:grey1]];
+    outline:            0;
+    width:              100%;
+}
+
+.slrn-top-header__menu {
+    width: 55%;
 }
 
 /*
@@ -41,4 +67,22 @@ body {
 /* Uses the solerni sprite */
 .-sprite-solerni {
     background-image: url([[pix:theme|sprite-solerni]]]);
+}
+
+.-slrn-radius {
+    border-radius: 4px;
+}
+
+.-inactive {
+    
+}
+
+.-wrapper-justified {
+    text-align: justify;
+}
+
+.-wrapper-justified::after {
+    content:    "";
+    display:    inline-block;
+    width:      100%;
 }

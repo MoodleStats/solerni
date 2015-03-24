@@ -93,4 +93,4 @@ $string['appledesc'] = 'Enter the URL of your Apple App Store page. (i.e https:/
 $string['android'] = 'Google Play Store URL';
 $string['androiddesc'] = 'Enter the URL of your Google Play Store Store page. (i.e https://play.google.com/store/apps/developer?id=mycollege)';
 
-$string['credit'] = 'Based on an original theme created by Shaun Daubney';
+include( 'theme_solerni_front.php' );

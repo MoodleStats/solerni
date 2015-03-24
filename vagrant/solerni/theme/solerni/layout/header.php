@@ -30,50 +30,45 @@ $hassidepost = (empty($PAGE->layout_options['noblocks']) && $PAGE->blocks->regio
 $showsidepre = ($hassidepre && !$PAGE->blocks->region_completely_docked('side-pre', $OUTPUT));
 $showsidepost = ($hassidepost && !$PAGE->blocks->region_completely_docked('side-post', $OUTPUT));
 $isfrontpage = ( $PAGE->bodyid == "page-site-index" );
-$courseheader = $coursecontentheader = $coursecontentfooter = $coursefooter = '';
 
 ?>
 
 <header role="banner" class="navbar navbar-fixed-top slrn-top-header">
     <nav role="navigation">
-        <div class="container-fluid slrn-top-header__inner">
+        <div class="container-fluid slrn-top-header__inner -wrapper-justified">
 
-            <a class="slrn-top-header__logo -sprite-solerni"
+            <a class="slrn-top-header__item slrn-top-header__logo -sprite-solerni"
                href="<?php echo $CFG->wwwroot;?>">
             </a>
-
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </a>
             
-            <div class="nav-collapse collapse">
-                <?php 
-                $modinfo = get_fast_modinfo($PAGE->course);
-                if (!empty($modinfo->sections[0])) {
-                    foreach( $modinfo->sections[0] as $cmid ) {
-                        echo $cm = $modinfo->cms[$cmid]->get_formatted_name();
-                    }
-                }
- 
-                ?>
-                <?php
-                // echo language dropdown menu for unlogged visitor
-                if ( ! isloggedin() ) {
-                    echo $OUTPUT->render_custom_menu( new custom_menu( '', current_language() ) );
-                } ?>
-
-                <ul class="nav pull-right">
+            <?php $OUTPUT->solerni_search_box(); ?>
+            
+            <div class="nav-collapse collapse slrn-top-header__item slrn-top-header__menu -wrapper-justified">
+           
+                <?php $OUTPUT->solerni_header_pages(); ?>
+            
+                <?php $OUTPUT->solerni_catalogue(); ?>
+                              
+                <ul class="slrn-top-header__item">
                     <li>
-                        <?php 
-                        echo $PAGE->headingmenu;
-                        include('profileblock.php');
+                        <?php
+                        // echo language dropdown menu for unlogged visitor
+                        if ( ! isloggedin() ) {
+                            echo $OUTPUT->solerni_lang_menu();
+                        } else {
+                            echo $PAGE->headingmenu;
+                            include('profileblock.php');
+                        }
                         ?>
                         
                     </li>
                 </ul>
             </div>
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
         </div>
     </nav>
 </header>
@@ -86,9 +81,4 @@ $courseheader = $coursecontentheader = $coursecontentfooter = $coursefooter = ''
         <?php echo $OUTPUT->navbar(); ?>
     <?php } ?>
     <h1><?php echo $PAGE->heading ?></h1>
-
-    <?php if (!empty($courseheader)) { ?>
-        <div id="course-header"><?php echo $courseheader; ?></div>
-    <?php } ?>
-
 </header>
