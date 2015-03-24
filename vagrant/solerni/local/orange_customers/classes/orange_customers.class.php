@@ -144,6 +144,14 @@ class orange_customers  {
 
 	$customers = $DB->get_recordset('orange_customers');
 	
+	/*
+	$draftitemid = file_get_submitted_draft_itemid('logo');
+
+	file_prepare_draft_area($draftitemid, $sitecontext->id, 'local_orange_customers', 'logo', $customer->id,
+			array('subdirs' => 0, 'maxbytes' => $maxbytes, 'maxfiles' => 1));
+
+	var_dump($draftitemid);
+	*/
     foreach ($customers as $customer) {
     	
             $buttons = array();
@@ -151,7 +159,7 @@ class orange_customers  {
             
             if (has_capability('orange/customers:edit', $sitecontext)) {
                 	$msgpopup = get_string('confirmdeletecustomer', 'local_orange_customers', $customer->name);
-            		$buttons[] = html_writer::link( new moodle_url('index.php', array('action'=>'customer_delete','id'=>$customer->id, 'sesskey'=>sesskey())), 
+            		$buttons[] = html_writer::link( new moodle_url('index.php', array('action'=>'customers_delete','id'=>$customer->id, 'sesskey'=>sesskey())), 
                     		                        html_writer::empty_tag('img', array('src'=>$OUTPUT->pix_url('t/delete'), 'alt'=>$strdelete, 'class'=>'iconsmall')), 
                     		                        array('title'=>$strdelete,'onclick'=>"return confirm('$msgpopup')")
                     		                       );                                                          
@@ -163,8 +171,26 @@ class orange_customers  {
 			$row[] = "<a href=\"view.php?sesskey=".sesskey()."&action=customers_form&id=$customer->id\">$customer->name</a>";
 
 			$row[] = $customer->summary;  
-            $row[] = "emplacement du logo ?"; 
-              
+            			
+			$fs = get_file_storage();			
+			$files = $fs->get_area_files($sitecontext->id, 'local_orange_customers', 'logo', $customer->id);
+			
+			foreach ($files as $file) {			
+				$imgurl = moodle_url::make_pluginfile_url($file->get_contextid(), $file->get_component(), $file->get_filearea(), $file->get_itemid(), $file->get_filepath(), $file->get_filename());											
+				//On ne garde que la dernière (celle ou il y a le nom du fichier)
+				$urlimg = "<img src='{$imgurl}' />";
+			
+			}			
+			
+			$row[] =$urlimg;
+			//$row[] =$customer->logo;
+			
+			/*
+			$toto = file_rewrite_pluginfile_urls($customer->logo, 'pluginfile.php', $sitecontext->id, 'local_orange_customers', 'logo', $customer->logo);
+            var_dump($customer->logo);
+            //$row[] = "en attente du logo !!!";
+             * */
+			
             $row[] = implode(' ', $buttons);
             $table->data[] = $row;
 

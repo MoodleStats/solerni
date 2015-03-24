@@ -50,6 +50,7 @@ if ($id) {
 	$customer->name        = '';
 	$customer->description = '';
 	$customer->summary = '';
+	$customer->logo = 0;
 }
 
 $url = new moodle_url('/local/orange_customers/view.php');
@@ -57,13 +58,22 @@ $url->param('action', $action);
 $PAGE->set_url($url);
 $PAGE->set_context($context);
 admin_externalpage_setup('orange_customers_level2');
-//$mform = new orange_customers_form();
 
 $editoroptions = array('maxfiles'=>0, 'context'=>$context);
+$optionsfilemanager = array(
+		'maxfiles' => 1,
+		'maxbytes' => $CFG->maxbytes,
+		'subdirs' => 0,
+		'accepted_types' => 'web_image'
+);
+
 $customer = file_prepare_standard_editor($customer, 'summary', $editoroptions, $context);
 $customer = file_prepare_standard_editor($customer, 'description', $editoroptions, $context);
+$customer = file_prepare_standard_filemanager($customer, 'logo', $optionsfilemanager, $context,'local_orange_customers','logo',$customer->logo);
 
 $editform = new orange_customers_form(null, array('editoroptions'=>$editoroptions, 'data'=>$customer));
+
+
 
 
 if($editform->is_cancelled()) {
@@ -76,15 +86,35 @@ else if ($data = $editform->get_data()) {
 	$data->name=$customer->name;
 	$data = file_postupdate_standard_editor($data, 'summary', $editoroptions, $context);	
 	$data = file_postupdate_standard_editor($data, 'description', $editoroptions, $context);
+
+	$draftitemid = file_get_submitted_draft_itemid('logo');
+	//error_log ("\n *******" . $draftitemid. "**** \n");
+
+	file_save_draft_area_files($draftitemid, $context->id,'local_orange_customers', 'logo', $data->id, $optionsfilemanager );
+		
 	
+	/*	
+	//file_prepare_standard_filemanager
+	//file_prepare_draft_area
+	//file_postupdate_standard_filemanager
+	//file_save_draft_area_files
+	
+	$customer = file_prepare_standard_filemanager($customer, 'picture', $optionsfilemanager, $context,'local_orange_customers','pictures',0);
+	
+	file_prepare_draft_area($draftitemid, $context->id, 'local_orange_customers','logo', $customer->id,$optionsfilemanager);
+
+	$data = file_postupdate_standard_filemanager($data, 'logo', $optionsfilemanager, $context,'local_orange_customers','logo',$data->id);	
+	
+	//file_save_draft_area_files($draftitemid, $context->id,'local_orange_customers', 'logo', $data->id, $optionsfilemanager );
+	*/			
+			
 	$added = customer_add_customer($data);
 		
 	$returnurl = new moodle_url('index.php', array('action'=>'customers_list','sesskey'=>sesskey()));	
 	redirect($returnurl);		
 	
 	
-} else {
-	
+} else {	
 	echo $OUTPUT->header();	
 	
 	if (isset($_GET['id'])) {		
