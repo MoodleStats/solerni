@@ -89,7 +89,7 @@ else if ($data = $editform->get_data()) {
     //error_log ("\n *******" . $draftitemid. "**** \n");
 
     file_save_draft_area_files($draftitemid, $context->id,'local_orange_customers', 'logo', $data->id, $optionsfilemanager );
-    file_save_draft_area_files($draftitemid, $context->id,'local_orange_customers', 'picture', $data->id, $optionsfilemanager );
+    //file_save_draft_area_files($draftitemid, $context->id,'local_orange_customers', 'picture', $data->id, $optionsfilemanager );
 
     /*	
     //file_prepare_standard_filemanager
