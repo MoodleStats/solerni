@@ -51,7 +51,7 @@ class block_orange_rules_observer {
 
         foreach ($rules as $rule) {
             // If email match whitelist then add to cohort.
-            $emails = explode(PHP_EOL, $rule->emails);
+            $emails = array_map("rtrim", explode("\n", $rule->emails));
             if (in_array($user->email, $emails)) {
                 if (!cohort_is_member ($rule->cohortid, $user->id)) {
                     cohort_add_member($rule->cohortid, $user->id);
@@ -59,7 +59,7 @@ class block_orange_rules_observer {
             }
 
             // If the domains of the email match the whitelist.
-            $domains = explode(PHP_EOL, $rule->domains);
+            $domains = array_map("rtrim", explode("\n", $rule->domains));
             if (in_array($userdomain, $domains)) {
                 if (!cohort_is_member ($rule->cohortid, $user->id)) {
                     cohort_add_member($rule->cohortid, $user->id);
