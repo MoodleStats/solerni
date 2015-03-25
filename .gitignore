@@ -1,4 +1,6 @@
-vagrant/moodledata/*
-vagrant/override/*
-vagrant/system/*
+vagrant/moodledata
+vagrant/override
+vagrant/system
 .vagrant
+vagrant/solerni/nbproject
+Vagrantfile

@@ -39,7 +39,7 @@ class orange_customers  {
 
     protected $action;
     protected $renderable;
-	protected $list;
+    protected $list;
 
     public function __construct($action) {
 
@@ -56,80 +56,61 @@ class orange_customers  {
     public function customers_form() {		
         global $CFG, $PAGE, $DB;
 		
-		$get = new stdClass();
+        $get = new stdClass();
+        
         foreach ($_GET as $varname => $value) {
-			$get->{"$varname"} = $value;
-		}
-		// Create or modify
-		$toform = new stdClass();
-		if (isset($get->id))
-		{
-			$tobemodified = $DB->get_record('orange_customers', array ('id'=>$get->id));
-			
-			$toform->id = $tobemodified->id;
-			$toform->name = $tobemodified->name;
-			$toform->summary = $tobemodified->summary;
-			$toform->description = $tobemodified->description;
-			$toform->logo = $tobemodified->logo;
-			$toform->picture = $tobemodified->picture;
-		}
+            $get->{"$varname"} = $value;
+	}
+        
+        // Create or modify
+        $toform = new stdClass();
+        if (isset($get->id)) {
+            $tobemodified = $DB->get_record('orange_customers', array ('id' => $get->id));
+            $toform->id = $tobemodified->id;
+            $toform->name = $tobemodified->name;
+            $toform->summary = $tobemodified->summary;
+            $toform->description = $tobemodified->description;
+            $toform->logo = $tobemodified->logo;
+            $toform->picture = $tobemodified->picture;
+        }
 
         $this->renderable = new orange_customers_form();
-		$this->renderable->set_data($toform);
+	$this->renderable->set_data($toform);
 
     }
 
+    /*
+     * 
+     */
     public function customers_delete() {
         global $CFG, $PAGE, $DB;
-		
-		if (empty($_GET)) {
+        
+        if (empty($_GET)) {
             return false;
         }
 
-		$get = new stdClass();
+        $get = new stdClass();
         foreach ($_GET as $varname => $value) {
-			$get->{"$varname"} = $value;
-		}
-		
-		$tobedeleted = $DB->get_record('orange_customers', array ('id'=>$get->id));
-		$DB->delete_records('orange_customers', array ('id'=>$get->id));
-		$returnurl = new moodle_url('index.php', array('action'=>'customers_list','sesskey'=>sesskey()));
-        redirect($returnurl, get_string('customerdeleted', 'local_orange_customers', $tobedeleted->name));
-	}
-
-	
-	/*
-	public function rules_add() {		
-        global $CFG, $PAGE, $DB;        
-		
-		if (empty($_POST)) {
-            return false;
+            $get->{"$varname"} = $value;
         }
 
-		$rule = new stdClass();
-        foreach ($_POST as $varname => $value) {
-			//mtrace($varname."=".$value."<br/>");
-			$rule->{"$varname"} = $value;
-		}
-		if ($rule->id == 0) 
-			$lastinsertid = $DB->insert_record('orange_rules', $rule, false);			
-		else 
-			$DB->update_record('orange_rules', $rule);
+	$tobedeleted = $DB->get_record('orange_customers', array ('id'=>$get->id));
+	$DB->delete_records('orange_customers', array ('id'=>$get->id));
+	$returnurl = new moodle_url('index.php', array('action'=>'customers_list','sesskey'=>sesskey()));
+        
+        redirect($returnurl, get_string('customerdeleted', 'local_orange_customers', $tobedeleted->name));
+    }
 
-		$returnurl = new moodle_url('index.php', array('action'=>'rules_list','sesskey'=>sesskey()));	
-		//var_dump($returnurl);	
-        redirect($returnurl);
-	}
-	
-	*/
-	
+    /*
+     * 
+     */
     public function customers_list() {    	
         global $CFG, $PAGE, $DB, $OUTPUT;
 
-		$sitecontext = context_system::instance();
+        $sitecontext = context_system::instance();
 		
-    $stredit   = get_string('edit');
-    $strdelete = get_string('delete');    
+        $stredit   = get_string('edit');
+        $strdelete = get_string('delete');    
     
 	$table = new html_table();
         $table->head = array ();
@@ -144,73 +125,55 @@ class orange_customers  {
 
 	$customers = $DB->get_recordset('orange_customers');
 	
-	/*
+	
 	$draftitemid = file_get_submitted_draft_itemid('logo');
 
 	file_prepare_draft_area($draftitemid, $sitecontext->id, 'local_orange_customers', 'logo', $customer->id,
 			array('subdirs' => 0, 'maxbytes' => $maxbytes, 'maxfiles' => 1));
 
-	var_dump($draftitemid);
-	*/
-    foreach ($customers as $customer) {
-    	
+        foreach ($customers as $customer) {
+
             $buttons = array();
             // delete button
-            
+
             if (has_capability('orange/customers:edit', $sitecontext)) {
-                	$msgpopup = get_string('confirmdeletecustomer', 'local_orange_customers', $customer->name);
-            		$buttons[] = html_writer::link( new moodle_url('index.php', array('action'=>'customers_delete','id'=>$customer->id, 'sesskey'=>sesskey())), 
-                    		                        html_writer::empty_tag('img', array('src'=>$OUTPUT->pix_url('t/delete'), 'alt'=>$strdelete, 'class'=>'iconsmall')), 
-                    		                        array('title'=>$strdelete,'onclick'=>"return confirm('$msgpopup')")
-                    		                       );                                                          
-
-                    $buttons[] = html_writer::link(new moodle_url('view.php', array('action'=>'customer_form', 'id'=>$customer->id, 'sesskey'=>sesskey())), html_writer::empty_tag('img', array('src'=>$OUTPUT->pix_url('t/edit'), 'alt'=>$stredit, 'class'=>'iconsmall')), array('title'=>$stredit));
-			}
-			$row = array ();
+                $msgpopup =     get_string('confirmdeletecustomer', 'local_orange_customers', $customer->name);
+                $buttons[] =    html_writer::link( new moodle_url('index.php', array('action'=>'customers_delete','id'=>$customer->id, 'sesskey'=>sesskey())), 
+                                html_writer::empty_tag('img', array('src'=>$OUTPUT->pix_url('t/delete'), 'alt'=>$strdelete, 'class'=>'iconsmall')), array('title'=>$strdelete,'onclick'=>"return confirm('$msgpopup')"));                                                          
+                $buttons[] =    html_writer::link(new moodle_url('view.php', array('action'=>'customer_form', 'id'=>$customer->id, 'sesskey'=>sesskey())), html_writer::empty_tag('img', array('src'=>$OUTPUT->pix_url('t/edit'), 'alt'=>$stredit, 'class'=>'iconsmall')), array('title'=>$stredit));
+            }
+            $row = array ();
             $row[] = $customer->id;
-			$row[] = "<a href=\"view.php?sesskey=".sesskey()."&action=customers_form&id=$customer->id\">$customer->name</a>";
-
-			$row[] = $customer->summary;  
-            			
-			$fs = get_file_storage();			
-			$files = $fs->get_area_files($sitecontext->id, 'local_orange_customers', 'logo', $customer->id);
-			
-			foreach ($files as $file) {			
-				$imgurl = moodle_url::make_pluginfile_url($file->get_contextid(), $file->get_component(), $file->get_filearea(), $file->get_itemid(), $file->get_filepath(), $file->get_filename());											
-				//On ne garde que la dernière (celle ou il y a le nom du fichier)
-				$urlimg = "<img src='{$imgurl}' />";
-			
-			}			
-			
-			$row[] =$urlimg;
-			//$row[] =$customer->logo;
-			
-			/*
-			$toto = file_rewrite_pluginfile_urls($customer->logo, 'pluginfile.php', $sitecontext->id, 'local_orange_customers', 'logo', $customer->logo);
-            var_dump($customer->logo);
-            //$row[] = "en attente du logo !!!";
-             * */
-			
+            $row[] = "<a href=\"view.php?sesskey=".sesskey()."&action=customers_form&id=$customer->id\">$customer->name</a>";
+            $row[] = $customer->summary;  
+            $fs = get_file_storage();
+            $files = $fs->get_area_files($sitecontext->id, 'local_orange_customers', 'logo', $customer->id);
+            foreach ($files as $file) {
+                $imgurl = moodle_url::make_pluginfile_url($file->get_contextid(), $file->get_component(), $file->get_filearea(), $file->get_itemid(), $file->get_filepath(), $file->get_filename());											
+                //On ne garde que la dernière (celle ou il y a le nom du fichier)
+                $urlimg = "<img src='{$imgurl}' />";
+            }			
+            $row[] =$urlimg;
             $row[] = implode(' ', $buttons);
             $table->data[] = $row;
-
-    }
-	$customers->close();
-	$this->list = $table;
-	
-	html_writer::empty_tag('input', array('type'=>'submit', 'value'=>'hello world !'));
-	
-
-        $this->renderable = new orange_customers_list(/* $this->url */);
-    }
-	
-    public function render() {
-
-        global $PAGE;
-
-        $renderer = $PAGE->get_renderer('local_orange_customers');
+        }
         
+        $customers->close();
+        $this->list = $table;
+	
+        html_writer::empty_tag('input', array('type'=>'submit', 'value'=>'hello world !'));
+        $this->renderable = new orange_customers_list();
+    }
+
+    /*
+     * 
+     */
+    public function render() {
+        global $PAGE;
+        
+        $renderer = $PAGE->get_renderer('local_orange_customers');
         return $renderer->render_orange_wrapper($this->renderable, $this->action, $this->list);
+        
     }
 
 }

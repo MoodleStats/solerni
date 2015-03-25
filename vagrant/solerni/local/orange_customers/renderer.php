@@ -45,16 +45,18 @@ class local_orange_customers_renderer extends plugin_renderer_base {
         global $PAGE, $SITE;
        
         $PAGE->set_heading($SITE->fullname);        		
-        
         $PAGE->set_title(get_string('action' . $action, 'local_orange_customers'));
 
         $output = $this->output->header();
         $output .= $this->output->heading(get_string('action' . $action, 'local_orange_customers'));
 
         // Redirects the flow to the specific method
-        $actiontorender = 'render_orange_' . $action;        
-        if ($action == "customers_list") $output .= $this->$actiontorender($list);
-		else $output .= $this->$actiontorender($renderable);
+        $actiontorender = 'render_orange_' . $action;  
+        if ($action == "customers_list") {
+            $output .= $this->$actiontorender($list);
+        } else {
+            $output .= $this->$actiontorender($renderable);
+        }
 							
         $output .= $this->output->footer();
 
@@ -92,10 +94,8 @@ class local_orange_customers_renderer extends plugin_renderer_base {
     protected function render_form(moodleform $form) {
 
         ob_start();
-
         $form->display();
         $output = ob_get_contents();
-
         ob_end_clean();
 
         return $output;
@@ -104,11 +104,11 @@ class local_orange_customers_renderer extends plugin_renderer_base {
     	
         ob_start();
 
-		if (!empty($list)) {
-			echo html_writer::table($list);
-		}
+        if (!empty($list)) {
+            echo html_writer::table($list);
+        }
+        
         $output = ob_get_contents();
-
         ob_end_clean();
 
         return $output;

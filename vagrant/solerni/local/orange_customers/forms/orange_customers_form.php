@@ -70,7 +70,7 @@ class orange_customers_form extends moodleform implements renderable {
         $mform->addElement('hidden', 'id', 0);
         $mform->setType('id',PARAM_RAW);        
 
-		$this->add_action_buttons();			
+	$this->add_action_buttons();			
     }
 
 /*

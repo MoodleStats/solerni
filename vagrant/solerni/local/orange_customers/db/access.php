@@ -27,14 +27,13 @@ defined('MOODLE_INTERNAL') || die();
 
 $capabilities = array(
     'orange/customers:edit' => array(
-		'riskbitmask'  => RISK_CONFIG,
+        'riskbitmask'  => RISK_CONFIG,
         'captype' => 'write',
         'contextlevel' => CONTEXT_COURSE,
         'archetypes' => array(
-            'manager' => CAP_ALLOW,
+        'manager' => CAP_ALLOW,
         )
-    ),
-
+    )
 );
 
 
