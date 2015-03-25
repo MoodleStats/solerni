@@ -71,19 +71,21 @@ class block_orange_rules_events_testcase extends advanced_testcase {
             'description' => 'This is a description for cohorttest3'
             );
 
-			// Call the external function.
+        // Call the external function.
         $createdcohorts = core_cohort_external::create_cohorts(array($cohort1, $cohort2, $cohort3));
         // Check we retrieve the good total number of created cohorts + no error on capability.
-        $this->assertEquals(3, count($createdcohorts),"Create cohort");
+        $this->assertEquals(3, count($createdcohorts), "Create cohort");
 
-		$username = 'orangerules'.sha1(time());
+        $username = 'orangerules'.sha1(time());
 
         // Create the rule based on emails.
         $rule1 = new stdClass();
         $rule1->id = 0;
         $rule1->name = "Rule 1";
         $rule1->cohortid = $createdcohorts[0]['id'];
-        $rule1->emails = "11111111@yopmail.com\n22222222@yopmail.com\n" . $username . "@orangetest.com\n"."33333333@yopmail.com\n44444444@yopmail.com\n";
+        $rule1->emails = "11111111@yopmail.com\n22222222@yopmail.com\n";
+        $rule1->emails .= $username . "@orangetest.com\n";
+        $rule1->emails .= "33333333@yopmail.com\n44444444@yopmail.com\n";
         $rule1->domains = "";
         rule_add_rule($rule1);
 
@@ -104,23 +106,25 @@ class block_orange_rules_events_testcase extends advanced_testcase {
         $rule3->emails = "12345678@orangetest.com";
         $rule3->domains = "";
         rule_add_rule($rule3);
-		
-		// Create a user.
+
+        // Create a user.
         $record = array('firstname' => 'User',
         'lastname' => 'User', 'username' => $username, 'email' => $username . '@orangetest.com', 'confirm' => true);
         $user = $this->getDataGenerator()->create_user($record);
-        $this->assertEquals(1, count($user),"Create user in database");
-		
-		// Create the event related to the user create.
-		\core\event\user_created::create_from_userid($user->id)->trigger();
-		
+        $this->assertEquals(1, count($user), "Create user in database");
+
+        // Create the event related to the user create.
+        \core\event\user_created::create_from_userid($user->id)->trigger();
+
         // Check if user has been asign to the cohort 1.
-        $this->assertEquals(true, cohort_is_member($createdcohorts[0]['id'], $user->id),"Assign to cohort based on rule 1 - emails");
+        $this->assertEquals(true, cohort_is_member($createdcohorts[0]['id'], $user->id),
+            "Assign to cohort based on rule 1 - emails");
 
         // Check if user has been asign to the cohort 2.
-        $this->assertEquals(true, cohort_is_member($createdcohorts[1]['id'], $user->id),"Assign to cohort based on rule 2 - domains");
+        $this->assertEquals(true, cohort_is_member($createdcohorts[1]['id'], $user->id),
+            "Assign to cohort based on rule 2 - domains");
 
         // Check that user has not been asign to the cohort 3.
-        $this->assertEquals(false, cohort_is_member($createdcohorts[2]['id'], $user->id),"No assign to cohort based on rule 3");
-	}
+        $this->assertEquals(false, cohort_is_member($createdcohorts[2]['id'], $user->id), "No assign to cohort based on rule 3");
+    }
 }
