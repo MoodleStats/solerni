@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -25,7 +24,7 @@
 $string['configtitle'] = 'Titre du bloc';
 $string['configtitleblankhides'] = 'Titre du block (pas de titre si le champ est vide)';
 $string['leaveblanktohide'] = 'Laisser vide pour masquer le titre';
-$string['solerni:addinstance'] = 'Rajouter un nouveau block Règles Orange';
-$string['solerni:myaddinstance'] = 'Add a new orange rules block to My home';
+$string['orangerules:addinstance'] = 'Rajouter un nouveau block Règles Orange';
+$string['orangerules:myaddinstance'] = 'Add a new orange rules block to My home';
 $string['neworangerulesblock'] = '(Nouveau block Règles Orange)';
 $string['pluginname'] = 'Règles Orange';
