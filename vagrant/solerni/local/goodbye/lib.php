@@ -65,9 +65,10 @@ function local_goodbye_send_email($user) {
 function local_goodbye_write_log($user) {
 
     $today = date("Y-m-d H:i:s");
-    $msg = $today . " - User deleted : id=" . $user->id .  ", username=" . $user->username . ", email=" . $user->email. ", firstname=" . $user->firstname;
-    $msg = $msg . ", lastname=" . $user->lastname . ", timecreated=" . $user->timecreated . ", country=" . $user->country . ", city=" . $user->city;
-    $msg = $msg . ", auth=" . $user->auth .", department=" . $user->department . ", address=" . $user->address . ", lang=" . $user->lang . "\n";
+    $msg = $today . " - User deleted : id=" . $user->id .  ", username=" . $user->username . ", email=" . $user->email;
+    $msg .= ", firstname=" . $user->firstname . ", lastname=" . $user->lastname . ", timecreated=" . $user->timecreated;
+    $msg .= ", country=" . $user->country . ", city=" . $user->city . ", auth=" . $user->auth .", department=" . $user->department;
+    $msg .= ", address=" . $user->address . ", lang=" . $user->lang . "\n";
 
     $fp = fopen(get_config('local_goodbye', 'logfilename'), 'a');
     fwrite($fp, $msg);

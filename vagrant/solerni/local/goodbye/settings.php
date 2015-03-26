@@ -70,7 +70,8 @@ if ($hassiteconfig) {
     $name = 'local_goodbye/logfilename';
     $title = get_string('logfilename', 'local_goodbye');
     $description = get_string('logfilename_desc', 'local_goodbye');
-    $setting = new admin_setting_configtext($name, $title, $description, get_string('defaullogfilename', 'local_goodbye', $CFG->dataroot));
+    $a = $CFG->dataroot;
+    $setting = new admin_setting_configtext($name, $title, $description, get_string('defaullogfilename', 'local_goodbye', $a));
     $settings->add($setting);
 }
 
