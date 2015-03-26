@@ -18,13 +18,13 @@
  * @package    local
  * @subpackage orange_rules
  * @copyright  2015 Orange
-* @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
-*/
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
 defined('MOODLE_INTERNAL') || die();
 
 
-/// STANDARD FUNCTIONS ///////////////////////////////////////////////////////////
+// STANDARD FUNCTIONS ///////////////////////////////////////////////////////////
 
 /**
  * Given an object containing all the necessary data,
@@ -35,62 +35,56 @@ defined('MOODLE_INTERNAL') || die();
  * @return boolean
  */
 function rule_add_rule($rule) {
-	global $CFG, $DB;
+    global $CFG, $DB;
 
-	if (!isset($rule->name)) {
-		throw new coding_exception('Missing rule name in rule_add_rule().');
-	}
-	if (!isset($rule->cohortid)) {
-		throw new coding_exception('Missing cohortid in rule_add_rule().');
-	}
-	if (!isset($rule->emails)) {
-		$rule->emails = '';
-	}
-	if (!isset($rule->domains)) {
-		$rule->domains = "";
-	}
+    if (!isset($rule->name)) {
+        throw new coding_exception('Missing rule name in rule_add_rule().');
+    }
+    if (!isset($rule->cohortid)) {
+        throw new coding_exception('Missing cohortid in rule_add_rule().');
+    }
+    if (!isset($rule->emails)) {
+        $rule->emails = '';
+    }
+    if (!isset($rule->domains)) {
+        $rule->domains = "";
+    }
 
-	
-	
-	if ($rule->id == 0) 
-	{	
-		// before insert or update : verified if rule name not exist and if cohort is not used by other rules
-		if (rule_existname($rule->name) || rule_existcohortid($rule->cohortid) )
-			return false;
-		
-		$lastinsertid = $DB->insert_record('orange_rules', $rule, false);
-					
-	}
-	else
-	{
-		$DB->update_record('orange_rules', $rule);		
-	}
-	
-	//Affects users that match the rule to the cohort	
-	$emails = explode(PHP_EOL, $rule->emails);
-	$domains = explode(PHP_EOL, $rule->domains);
-	
-	//list of users who are not in the cohort
-	$users = $DB->get_records_sql("SELECT U.id,U.email from mdl_user U
-			where U.id not in (select C.userid from mdl_cohort_members C where C.cohortid=".$rule->cohortid . ")");
-	
-	foreach($users as $user) 
-	{
-		// If email match whitelist then add to cohort
-		$emailparts = explode('@', $user->email);
-		$userdomain = $emailparts[1];
-			
-		//echo $userdomain . " - " . $user->email . "<br>";
-		// If the domains of the email match the whitelist then add to cohort
-		if ( (in_array($userdomain, $domains)) || (in_array($user->email, $emails)) ) 
-		{
-			//echo "ajout de l'user : " . $user->email . " dans la cohorte <BR>";
-			cohort_add_member($rule->cohortid, $user->id);
-		}
-	}
-	//return $rule->id;
-	return true;
-		
+    if ($rule->id == 0) {
+        // Before insert or update : verified if rule name not exist and if cohort is not used by other rules.
+        if ( rule_existname($rule->name) || rule_existcohortid($rule->cohortid) ) {
+            return false;
+        }
+
+        $lastinsertid = $DB->insert_record('orange_rules', $rule, false);
+
+    } else {
+        $DB->update_record('orange_rules', $rule);
+    }
+
+    // Affects users that match the rule to the cohort.
+    $emails = array_map("rtrim", explode("\n", $rule->emails));
+    $domains = array_map("rtrim", explode("\n", $rule->domains));
+
+    // List of users who are not in the cohort.
+    $users = $DB->get_records_sql("SELECT U.id,U.email from mdl_user U
+            where U.id not in (select C.userid from mdl_cohort_members C where C.cohortid=".$rule->cohortid . ")");
+
+    foreach ($users as $user) {
+        // If email match whitelist then add to cohort.
+        $emailparts = explode('@', $user->email);
+        $userdomain = $emailparts[1];
+
+        // echo $userdomain . " - " . $user->email . "<br>";
+        // If the domains of the email match the whitelist then add to cohort.
+        if ( (in_array($userdomain, $domains)) || (in_array($user->email, $emails)) ) {
+            // echo "ajout de l'user : " . $user->email . " dans la cohorte <BR>";
+            cohort_add_member($rule->cohortid, $user->id);
+        }
+    }
+    // return $rule->id;
+    return true;
+
 }
 
 /**
@@ -100,12 +94,11 @@ function rule_add_rule($rule) {
  * @return stdClass $rule 
  */
 function rule_get_rule($id) {
-	global $CFG, $DB;
-	
-	$rule = $DB->get_record('orange_rules', array('id'=>$id));
+    global $CFG, $DB;
 
-	return $rule;
+    $rule = $DB->get_record('orange_rules', array('id' => $id));
 
+    return $rule;
 
 }
 
@@ -116,14 +109,14 @@ function rule_get_rule($id) {
  * @return string
  */
 function rule_get_cohortname($cohortid) {
-	global $CFG, $DB;
+    global $CFG, $DB;
 
-	$cohort = $DB->get_record('cohort', array('id'=>$cohortid));
-	if (isset($cohort->name))
-		return $cohort->name;
-	else
-		return (get_string('cohortdeleted','local_orange_rules'));
-
+    $cohort = $DB->get_record('cohort', array('id' => $cohortid));
+    if (isset($cohort->name)) {
+        return $cohort->name;
+    } else {
+        return (get_string('cohortdeleted', 'local_orange_rules'));
+    }
 }
 
 /**
@@ -133,10 +126,10 @@ function rule_get_cohortname($cohortid) {
  * @return boolean
  */
 function rule_existname($name) {
-	global $DB;
+    global $DB;
 
-	return $DB->record_exists('orange_rules', array('name'=>$name));
-	
+    return $DB->record_exists('orange_rules', array('name' => $name));
+
 }
 
 /**
@@ -146,10 +139,10 @@ function rule_existname($name) {
  * @return boolean
  */
 function rule_existcohortid($cohortid) {
-	// in orange_rule
-	global $DB;
+    // In orange_rule.
+    global $DB;
 
-	return $DB->record_exists('orange_rules', array('cohortid'=>$cohortid));
+    return $DB->record_exists('orange_rules', array('cohortid' => $cohortid));
 
 }
 
@@ -160,9 +153,9 @@ function rule_existcohortid($cohortid) {
  * @return boolean
  */
 function rule_existcohort($cohortid) {
-	//in cohort
-	global $DB;
+    // In cohort.
+    global $DB;
 
-	return $DB->record_exists('cohort', array('id'=>$cohortid));
+    return $DB->record_exists('cohort', array('id' => $cohortid));
 
 }

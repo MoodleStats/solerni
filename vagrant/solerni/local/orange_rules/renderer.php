@@ -15,16 +15,6 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Moodle local orange rules renderers
- *
- * @package    local
- * @subpackage orange_rules
- * @copyright  2015 Orange
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
-
-/**
  * Moodle local_orange_rules renderer class
  *
  * @package local
@@ -43,18 +33,21 @@ class local_orange_rules_renderer extends plugin_renderer_base {
      */
     public function render_orange_wrapper(renderable $renderable, $action, $list) {
         global $PAGE, $SITE;
-       
+
         $PAGE->set_heading($SITE->fullname);
         $PAGE->set_title(get_string('action' . $action, 'local_orange_rules'));
 
         $output = $this->output->header();
         $output .= $this->output->heading(get_string('action' . $action, 'local_orange_rules'));
 
-        // Redirects the flow to the specific method
-        $actiontorender = 'render_orange_' . $action;        
-        if ($action == "rules_list") $output .= $this->$actiontorender($list);
-		else $output .= $this->$actiontorender($renderable);
-							
+        // Redirects the flow to the specific method.
+        $actiontorender = 'render_orange_' . $action;
+        if ($action == "rules_list") {
+            $output .= $this->$actiontorender($list);
+        } else {
+            $output .= $this->$actiontorender($renderable);
+        }
+
         $output .= $this->output->footer();
 
         return $output;
@@ -73,15 +66,15 @@ class local_orange_rules_renderer extends plugin_renderer_base {
      * Packaging form renderer
      * @param renderable $renderable
      */
-    protected function render_orange_rules_list(html_table $list) {    	
+    protected function render_orange_rules_list(html_table $list) {
         return $this->render_list($list);
     }
-	
+
     protected function render_orange_rules_add(renderable $renderable) {
         return $this->render_form($renderable);
     }
 
-    
+
     /**
      * Gets the HTML of a moodle form
      *
@@ -100,12 +93,12 @@ class local_orange_rules_renderer extends plugin_renderer_base {
         return $output;
     }
     protected function render_list(html_table $list) {
-    	
+
         ob_start();
 
-		if (!empty($list)) {
-			echo html_writer::table($list);
-		}
+        if (!empty($list)) {
+            echo html_writer::table($list);
+        }
         $output = ob_get_contents();
 
         ob_end_clean();

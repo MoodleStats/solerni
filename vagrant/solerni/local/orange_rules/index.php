@@ -31,14 +31,14 @@ require_once($CFG->dirroot . '/local/orange_rules/forms/orange_rules_form.php');
 $action = optional_param('action', 'rules_form', PARAM_ALPHAEXT);
 
 
-// Access control
+// Access control.
 require_login();
 require_capability('moodle/site:config', context_system::instance());
 if (!confirm_sesskey()) {
     print_error('confirmsesskeybad', 'error');
 }
-//mtrace("Action=",$action);
-//$context = get_context_instance(CONTEXT_SYSTEM);
+// mtrace("Action=", $action);
+// $context = get_context_instance(CONTEXT_SYSTEM);
 $context = context_system::instance();
 
 $url = new moodle_url('/local/local_orange_rules/index.php');
@@ -49,9 +49,9 @@ $PAGE->set_context($context);
 /*
 // Calling the appropiate class
 $manager = substr($action, 0, strpos($action, '_'));
-//mtrace("Manager=",$manager);
+// mtrace("Manager=",$manager);
 $classname = 'orange_' . $manager;
-//mtrace("Classname=",$classname);
+// mtrace("Classname=",$classname);
 $instance = new $classname($action);
 */
 
@@ -59,7 +59,7 @@ $instance = new orange_rules($action);
 
 admin_externalpage_setup('orange_rules_level2');
 
-// Process the action
+// Process the action.
 if (!method_exists($instance, $action)) {
     print_error('actionnotsupported', 'local_orange_rules');
 }
@@ -67,4 +67,3 @@ if (!method_exists($instance, $action)) {
 $instance->$action();
 
 echo $instance->render();
-

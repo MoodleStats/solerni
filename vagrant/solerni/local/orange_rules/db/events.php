@@ -11,10 +11,9 @@
 
 $observers = array(
 
-	array(
-		'eventname'   => '\core\event\cohort_deleted',
-		'callback'    => 'local_orange_rules_observer::rule_suspended',
-	)
-		
-		
+    array(
+        'eventname'   => '\core\event\cohort_deleted',
+        'callback'    => 'local_orange_rules_observer::rule_suspended',
+    )
+
 );

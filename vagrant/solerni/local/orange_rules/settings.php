@@ -34,8 +34,8 @@ $ADMIN->add('localplugins', new admin_category('orange_rules', get_string('plugi
 
 $ADMIN->add('orange_rules', new admin_externalpage('orange_rule_level2',
     get_string('addrule', $orangeplugin),
-    new moodle_url($orangeaddruleurl)));    
-	
+    new moodle_url($orangeaddruleurl)));
+
 $ADMIN->add('orange_rules', new admin_externalpage('orange_rules_level2',
     get_string('listrules', $orangeplugin),
-    new moodle_url($orangelistrulesurl)));    
+    new moodle_url($orangelistrulesurl)));

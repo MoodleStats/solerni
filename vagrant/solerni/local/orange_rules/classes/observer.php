@@ -32,19 +32,18 @@ require_once($CFG->dirroot.'/cohort/lib.php');
  */
 class local_orange_rules_observer {
 
-
     /**
      * Triggered via cohort_deleted event.
      *
      * @param \core\event\cohort_deleted $event
      */
     public static function rule_suspended(\core\event\cohort_deleted $event) {
-    	global $DB;
-    
-    	$cohort = (object)$event->get_record_snapshot('cohort', $event->objectid);
-    	
-    	$DB->execute("UPDATE {orange_rules} SET suspended = 1 WHERE cohortid = ". $cohort->id );
-    	
+        global $DB;
+
+        $cohort = (object)$event->get_record_snapshot('cohort', $event->objectid);
+
+        $DB->execute("UPDATE {orange_rules} SET suspended = 1 WHERE cohortid = ". $cohort->id );
+
     }
-    
+
 }

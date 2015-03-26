@@ -17,7 +17,7 @@
 /**
  * Orange_rules front controller
  *
-* @package    local
+ * @package    local
  * @subpackage orange_rules
  * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -32,18 +32,17 @@ require_once($CFG->dirroot . '/cohort/lib.php');
 
 
 $blocks = core_plugin_manager::instance()->get_plugins_of_type('block');
-$foundBlockOrange = false;
+$foundblockorange = false;
 foreach ($blocks as $block) {
-	if ($block->name == "orange_rules")
-	{
-		$foundBlockOrange = true;
-	}
+    if ($block->name == "orange_rules") {
+        $foundblockorange = true;
+    }
 }
 
 
 $action = optional_param('action', 'rules_form', PARAM_ALPHAEXT);
 
-// Access control
+// Access control.
 require_login();
 require_capability('moodle/site:config', context_system::instance());
 if (!confirm_sesskey()) {
@@ -60,31 +59,36 @@ admin_externalpage_setup('orange_rules_level2');
 $mform = new orange_rules_form();
 
 
-if($mform->is_cancelled()) {
-	$returnurl = new moodle_url('index.php', array('action'=>'rules_list','sesskey'=>sesskey()));
-	redirect($returnurl);
-} else if ($fromform = $mform->get_data()) {		
-	$added = rule_add_rule($fromform);
-	if ($added) {			
-		$returnurl = new moodle_url('index.php', array('action'=>'rules_list','sesskey'=>sesskey()));	
-		redirect($returnurl);
-	}
-	else {
-		//Add message in the page of form
-		echo $OUTPUT->header();
-		echo html_writer::tag('div', clean_text(get_string('noaddrulewarning', 'local_orange_rules')), array('class' => renderer_base::prepare_classes('notifyproblem')));
-		$mform->display();
-		echo $OUTPUT->footer();
-	}	
-} else {	
-	echo $OUTPUT->header();	
-	if (!$foundBlockOrange) echo html_writer::tag('div', clean_text(get_string('blockorangewarning', 'local_orange_rules')), array('class' => renderer_base::prepare_classes('notifyproblem')));
-	
-	if (isset($_GET['id'])) {		
-		$rule = rule_get_rule($_GET['id']);	
-		$mform->set_data($rule);		
-	}
-	$mform->display();	
-			
-	echo $OUTPUT->footer();
+if ($mform->is_cancelled()) {
+    $returnurl = new moodle_url('index.php', array('action' => 'rules_list', 'sesskey' => sesskey()));
+    redirect($returnurl);
+} else if ($fromform = $mform->get_data()) {
+    $added = rule_add_rule($fromform);
+    if ($added) {
+        $returnurl = new moodle_url('index.php', array('action' => 'rules_list', 'sesskey' => sesskey()));
+        redirect($returnurl);
+    } else {
+        // Add message in the page of form.
+        echo $OUTPUT->header();
+        echo html_writer::tag('div',
+                              clean_text(get_string('noaddrulewarning', 'local_orange_rules')),
+                              array('class' => renderer_base::prepare_classes('notifyproblem')));
+        $mform->display();
+        echo $OUTPUT->footer();
+    }
+} else {
+    echo $OUTPUT->header();
+    if (!$foundblockorange) {
+        echo html_writer::tag('div',
+                              clean_text(get_string('blockorangewarning', 'local_orange_rules')),
+                              array('class' => renderer_base::prepare_classes('notifyproblem')));
+    }
+
+    if (isset($_GET['id'])) {
+        $rule = rule_get_rule($_GET['id']);
+        $mform->set_data($rule);
+    }
+    $mform->display();
+
+    echo $OUTPUT->footer();
 }

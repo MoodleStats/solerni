@@ -29,7 +29,6 @@ $string['listrules'] = 'Liste des règles';
 $string['definerulesheader'] = 'Gestion des règles';
 $string['actionrules_list'] = 'Liste des règles';
 $string['actionrules_form'] = 'Ajouter une nouvelle règle';
-//$string['saverules'] = 'Save the rule';
 
 $string['ruleid'] = 'Id.';
 $string['rulename'] = 'Nom de la règle';
