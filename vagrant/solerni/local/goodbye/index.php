@@ -48,12 +48,6 @@ if ($enabled) {
             // User Exists, Check pass.
             if ($user = authenticate_user_login($localuser->username, $localuser->password) ) {
                 if ($user->id == $USER->id ) {
-                    // Add trace for legal purpose.
-                    local_goodbye_write_log($user);
-                    // Send an email to user.
-                    if (get_config('local_goodbye', 'enabledemail')) {
-                        local_goodbye_send_email($user);
-                    }
                     delete_user($user);
                     redirect(new moodle_url('/'));
                 } else {

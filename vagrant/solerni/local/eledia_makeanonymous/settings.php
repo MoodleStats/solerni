@@ -57,6 +57,26 @@ if ($hassiteconfig) {
     $settings->add(new admin_setting_configtext('local_eledia_makeanonymous/delaytime',
                    get_string('makeanonymous_delay_time', 'local_eledia_makeanonymous'), '', '1440', PARAM_INT, 6));
 
+    $name = 'local_eledia_makeanonymous/enabledemail';
+    $title = get_string('enabledemail', 'local_eledia_makeanonymous');
+    $description = get_string('enabledemail_desc', 'local_eledia_makeanonymous');
+    $setting = new admin_setting_configcheckbox($name, $title, $description, 0);
+    $settings->add($setting);
+
+    $name = 'local_eledia_makeanonymous/emailsubject';
+    $title = get_string('emailsubject', 'local_eledia_makeanonymous');
+    $description = get_string('emailsubject_desc', 'local_eledia_makeanonymous');
+    $setting = new admin_setting_configtext($name, $title, $description,
+                                            get_string('defaultemailsubject', 'local_eledia_makeanonymous'));
+    $settings->add($setting);
+
+    $name = 'local_eledia_makeanonymous/emailmsg';
+    $title = get_string('emailmsg', 'local_eledia_makeanonymous');
+    $description = get_string('emailmsg_desc', 'local_eledia_makeanonymous');
+    $setting = new admin_setting_confightmleditor($name, $title, $description,
+                                                  get_string('defaultemailmsg', 'local_eledia_makeanonymous'));
+    $settings->add($setting);
+
     $deletedusers = $DB->get_records('user', array('deleted' => 1));
 
     $toanonymize = array();

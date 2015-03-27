@@ -48,30 +48,5 @@ if ($hassiteconfig) {
     $description = get_string('farewell_desc', 'local_goodbye');
     $setting = new admin_setting_confightmleditor($name, $title, $description, get_string('defaultfarewell', 'local_goodbye'));
     $settings->add($setting);
-
-    $name = 'local_goodbye/enabledemail';
-    $title = get_string('enabledemail', 'local_goodbye');
-    $description = get_string('enabledemail_desc', 'local_goodbye');
-    $setting = new admin_setting_configcheckbox($name, $title, $description, 0);
-    $settings->add($setting);
-
-    $name = 'local_goodbye/emailsubject';
-    $title = get_string('emailsubject', 'local_goodbye');
-    $description = get_string('emailsubject_desc', 'local_goodbye');
-    $setting = new admin_setting_configtext($name, $title, $description, get_string('defaultemailsubject', 'local_goodbye'));
-    $settings->add($setting);
-
-    $name = 'local_goodbye/emailmsg';
-    $title = get_string('emailmsg', 'local_goodbye');
-    $description = get_string('emailmsg_desc', 'local_goodbye');
-    $setting = new admin_setting_confightmleditor($name, $title, $description, get_string('defaultemailmsg', 'local_goodbye'));
-    $settings->add($setting);
-
-    $name = 'local_goodbye/logfilename';
-    $title = get_string('logfilename', 'local_goodbye');
-    $description = get_string('logfilename_desc', 'local_goodbye');
-    $a = $CFG->dataroot;
-    $setting = new admin_setting_configtext($name, $title, $description, get_string('defaullogfilename', 'local_goodbye', $a));
-    $settings->add($setting);
 }
 

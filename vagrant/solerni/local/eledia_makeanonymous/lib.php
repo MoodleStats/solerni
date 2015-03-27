@@ -98,6 +98,10 @@ function make_anonymous($user) {
     $updateuser->alternatename = '';
 
     $DB->update_record('user', $updateuser);
+    // Send an email to user.
+    if (get_config('local_eledia_makeanonymous', 'enabledemail')) {
+        send_email_deletion($user);
+    }
 }
 
 /**
@@ -144,5 +148,18 @@ function anonymize_task() {
         $DB->delete_records_select('local_eledia_makeanonymous', "timedeleted < ?", array($delaytime));
 
         return true;
+    }
+}
+
+/**
+ * Called from send deletion email to user
+ */
+function send_email_deletion($user) {
+    $supportuser = core_user::get_support_user();
+    $messagetext = get_config('local_eledia_makeanonymous', 'emailmsg');
+    $messagehtml = text_to_html($messagetext, null, false, true);
+    $subject = get_config('local_eledia_makeanonymous', 'emailsubject');
+    if (! email_to_user($user, $supportuser, $subject, $messagetext, $messagehtml)) {
+        mtrace('mail error : mail was not sent to '. $user->email);
     }
 }
