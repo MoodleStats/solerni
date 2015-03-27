@@ -61,7 +61,6 @@ body {
     margin:     .55em 0 0 .6em;
 }
 
-
 .slrn-header-search-input {
     border:             0;
     padding:            .2em .5em .2em 2.8em;
@@ -97,6 +96,19 @@ body {
     width: 55%;
 }
 
+.slrn-top-header__menu > .nav {
+    width: 100%;
+}
+
+/* bootstrap specificity ! */
+.navbar .nav li.slrn-top-header__item,
+.navbar .nav li.slrn-top-header__item a {
+    color: [[setting:grey2]];
+    float: none;
+    
+    text-transform: uppercase;
+}
+
 /*
  *  Utils
  */
@@ -110,10 +122,6 @@ body {
     border-radius: 4px;
 }
 
-.-inactive {
-    
-}
-
 .-wrapper-justified {
     text-align: justify;
 }
@@ -122,4 +130,8 @@ body {
     content:    "";
     display:    inline-block;
     width:      100%;
+}
+
+.-text-right {
+    text-align: right;
 }

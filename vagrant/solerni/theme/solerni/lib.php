@@ -9,9 +9,10 @@
 
 /*
  * Function executed at theme init
+ * Insert jQuery library
  */
 function theme_solerni_page_init(moodle_page $page) {
-    /* current JQuery version for 2.7 is jQuery 1.1 which is IE8 */
+    /* current JQuery version for 2.7 is jQuery 1.11 which is IE8 compatible */
     $page->requires->jquery();
 }
 

@@ -17,7 +17,7 @@
 /**
  * Renderers to align Moodle's HTML with that expected by Bootstrap
  *
- * @package    theme_bootstrapbase
+ * @package    theme_solerni
  * @copyright  2013
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

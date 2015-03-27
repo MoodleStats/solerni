@@ -21,7 +21,6 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$hasheading = ($PAGE->heading);
 $hasnavbar = (empty($PAGE->layout_options['nonavbar']) && $PAGE->has_navbar());
 $hasfooter = (empty($PAGE->layout_options['nofooter']));
 $hasheader = (empty($PAGE->layout_options['noheader']));
@@ -38,33 +37,19 @@ $isfrontpage = ( $PAGE->bodyid == "page-site-index" );
         <div class="container-fluid slrn-top-header__inner -wrapper-justified">
 
             <a class="slrn-top-header__item slrn-top-header__logo -sprite-solerni"
-               href="<?php echo $CFG->wwwroot;?>">
+               href="<?php echo $CFG->wwwroot; ?>">
             </a>
             
             <?php $OUTPUT->solerni_search_box(); ?>
             
             <div class="nav-collapse collapse slrn-top-header__item slrn-top-header__menu -wrapper-justified">
-           
-                <?php $OUTPUT->solerni_header_pages(); ?>
-            
-                <?php $OUTPUT->solerni_catalogue(); ?>
-                              
-                <ul class="slrn-top-header__item">
-                    <li>
-                        <?php
-                        // echo language dropdown menu for unlogged visitor
-                        if ( ! isloggedin() ) {
-                            echo $OUTPUT->solerni_lang_menu();
-                        } else {
-                            echo $PAGE->headingmenu;
-                            include('profileblock.php');
-                        }
-                        ?>
-                        
-                    </li>
+                <ul class="nav navbar-nav -wrapper-justified">
+                    <?php $OUTPUT->solerni_header_links(); ?>
+                    <?php $OUTPUT->solerni_user_menu(); ?>
                 </ul>
             </div>
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            
+            <a class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>

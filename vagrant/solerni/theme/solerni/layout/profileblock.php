@@ -21,9 +21,10 @@
  */
 
 	function get_content () {
-	global $USER, $CFG, $SESSION, $COURSE;
-	$wwwroot = '';
-	$signup = '';}
+            global $USER, $CFG, $SESSION, $COURSE;
+            $wwwroot = '';
+            $signup = '';       
+        }
 
 	if (empty($CFG->loginhttps)) {
 		$wwwroot = $CFG->wwwroot;
@@ -40,57 +41,6 @@ if (!isloggedin() or isguestuser()) {
 } else { 
 
 
-	echo '<ul class="nav">
-
-<li class="dropdown">
-<a class="dropdown-toggle" data-toggle="dropdown" href="#cm_submenu_5"><img class="profilepic" src="'.$CFG->wwwroot.'/user/pix.php?file=/'.$USER->id.'/f1.jpg" width="80px" height="80px" title="'.$USER->firstname.' '.$USER->lastname.'" alt="'.$USER->firstname.' '.$USER->lastname.'" />
-'.$USER->firstname.'
-<b class="caret"></b>
-</a>
-<ul class="dropdown-menu profiledrop">';
-echo '<li>';
-echo '<a href="'.$CFG->wwwroot.'/my">';
-echo '<img class="profileicon" src="'.$OUTPUT->pix_url('profile/course', 'theme').'" />';
-echo get_string('mycourses');
-echo '</a>';
-echo '</li>';
-
-echo '<li>';
-echo '<a href="'.$CFG->wwwroot.'/user/profile.php">';
-echo '<img class="profileicon" src="'.$OUTPUT->pix_url('profile/profile', 'theme').'" />';
-echo get_string('viewprofile');
-echo '</a>';
-echo '</li>';
-
-echo '<li>';
-echo '<a href="'.$CFG->wwwroot.'/user/edit.php">';
-echo '<img class="profileicon" src="'.$OUTPUT->pix_url('profile/edit', 'theme').'" />';
-echo get_string('editmyprofile');
-echo '</a>';
-echo '</li>';
-
-echo '<li>';
-echo '<a href="'.$CFG->wwwroot.'/user/files.php">';
-echo '<img class="profileicon" src="'.$OUTPUT->pix_url('profile/files', 'theme').'" />';
-echo get_string('myfiles');
-echo '</a>';
-echo '</li>';
-
-echo '<li>';
-echo '<a href="'.$CFG->wwwroot.'/calendar/view.php?view=month">';
-echo '<img class="profileicon" src="'.$OUTPUT->pix_url('profile/calendar', 'theme').'" />';
-echo get_string('calendar','calendar');
-echo '</a>';
-echo '</li>';
-
-echo '<li>';
-echo '<a href="'.$CFG->wwwroot.'/login/logout.php">';
-echo '<img class="profileicon" src="'.$OUTPUT->pix_url('profile/logout', 'theme').'" />';
-echo get_string('logout');
-echo '</a>';
-echo '</li>';
-
-
-echo '</ul></li></ul>';
+	echo '';
 
 }?>
