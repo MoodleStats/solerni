@@ -4,6 +4,10 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+* {
+    box-sizing: border-box;
+}
+
 html, 
 body {
     font-family:            Arial, Helvetica, sans-serif;
@@ -43,9 +47,20 @@ body {
 }
 
 .slrn-header-search-form {
-    width:          11.25em;      /* 180px / 16 = 11.25 */
-    line-height:    2.5em;      /* 40px / 16px =  2.5 */
+    width:          15%;
+    min-width:      11.25em;        /* 180px / 16 = 11.25 */
+    line-height:    2.5em;          /* 40px / 16px =  2.5 */
 }
+
+.slrn-header-search-form:before {
+    content:    "";
+    position:   absolute;
+    width:      18px;
+    height:     18px;
+    background: transparent url([[pix:theme|sprite-solerni]]]) no-repeat 0 -48px;
+    margin:     .55em 0 0 .6em;
+}
+
 
 .slrn-header-search-input {
     border:             0;
@@ -54,6 +69,28 @@ body {
     color:              [[setting:grey1]];
     outline:            0;
     width:              100%;
+    vertical-align:     top;
+    margin-top:         .375em;      /* 6px / 16px = 0,375 */
+}
+
+.slrn-header-search-input::-webkit-input-placeholder {
+	color:          [[setting:grey2]];
+	text-transform: uppercase;
+}
+
+.slrn-header-search-input::-moz-placeholder {
+	color:          [[setting:grey2]];
+	text-transform: uppercase;
+}
+
+.slrn-header-search-input:-moz-placeholder {   /* Older versions of Firefox */
+	color:          [[setting:grey2]];
+	text-transform: uppercase;
+}
+
+.slrn-header-search-input:-ms-input-placeholder { 
+	color:          [[setting:grey2]];
+	text-transform: uppercase;
 }
 
 .slrn-top-header__menu {

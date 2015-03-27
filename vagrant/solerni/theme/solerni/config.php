@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Configuration for Aarvark theme.
+ * Configuration for Solerni theme.
  *
  * DO NOT MODIFY THIS THEME!
  * COPY IT FIRST, THEN RENAME THE COPY AND MODIFY IT INSTEAD.
@@ -24,7 +24,8 @@
  * http://docs.moodle.org/dev/Themes_2.0
  *
  * @package   theme_solerni
- * @authors   Shaun Daubney
+ * @author    Orange
+ * @author   Shaun Daubney
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -155,13 +156,14 @@ $THEME->layouts = array(
     ),
 );
 
-$THEME->javascripts = array();
+$THEME->javascripts = array( 'modernizr' );
 
 $THEME->javascripts_footer = array(
     'moodlebootstrap',
+    'jquery.placeholder.min',
+    'solerni-general'
 );
 
 // Moodle parses CSS files for urls / images / variables replacement
 $THEME->csspostprocess = 'solerni_process_css';
-
 

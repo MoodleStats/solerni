@@ -1,4 +1,4 @@
-<?php
+<?php // EN
 $string['pluginname'] = 'Solerni';
 $string['region-side-post'] = 'Right';
 $string['region-side-pre'] = 'Left';
@@ -8,9 +8,6 @@ $string['configtitle'] = 'Solerni';
 
 $string['colourheading'] = 'Theme Colours';
 $string['colourheadingdesc'] = 'Customise site colours.';
-
-$string['footeroptheading'] = 'Footer';
-$string['footeroptdesc'] = 'Customise basic elements of the theme\'s footer.';
 
 $string['socialiconsheading'] = 'Social Icons';
 $string['socialiconsheadingdesc'] = 'Customise social network icons.';
@@ -93,4 +90,13 @@ $string['appledesc'] = 'Enter the URL of your Apple App Store page. (i.e https:/
 $string['android'] = 'Google Play Store URL';
 $string['androiddesc'] = 'Enter the URL of your Google Play Store Store page. (i.e https://play.google.com/store/apps/developer?id=mycollege)';
 
-include( 'theme_solerni_front.php' );
+$string['about'] = 'About';
+$string['aboutdesc'] = 'URL of the About page (Header)';
+
+$string['catalogue'] = 'Catalogue';
+$string['cataloguedesc'] = 'URL of the catalogue page (Header)';
+
+$string['themelinksheading'] = 'Interface Static Links';
+$string['themelinksheadingdesc'] = 'Set the static link of header and footer';
+
+$string['search'] = 'Search';

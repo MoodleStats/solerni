@@ -16,8 +16,7 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
     public function solerni_search_box() {
         ?>
         <form id="search_form" class="slrn-top-header__item slrn-header-search-form -inactive" method="GET" action="<?php echo $this->page->url; ?>">
-            <label class="hidden" for="q">Rechercher</label>
-            <input class="slrn-header-search-input -slrn-radius" id="search_input" name="search_input" placeholder="Rechercher" />
+            <input class="slrn-header-search-input -slrn-radius" id="search_input" name="search_input" placeholder="<?php echo get_string('search', 'theme_solerni'); ?>" value=""/>
         </form>
     <?php }
     
@@ -27,7 +26,7 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
      */
     public function solerni_header_pages() {
         ?>
-        <a href="slrn-top-header__item"><?php echo get_string('aboutsolerni'); ?></a>
+        <a class="slrn-top-header__item" href="<?php echo $this->page->theme->settings->about; ?>"><?php echo get_string('about', 'theme_solerni'); ?></a>
     <?php }
     
     /*
@@ -36,7 +35,7 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
      */
     public function solerni_catalogue() {
         ?>
-        <a href="slrn-top-header__item"><?php echo get_string('catalogue'); ?></a>
+        <a class="slrn-top-header__item" href="<?php echo $this->page->theme->settings->catalogue; ?>"><?php echo get_string('catalogue', 'theme_solerni'); ?></a>
     <?php }
     
     /*

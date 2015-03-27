@@ -1,8 +1,8 @@
-<?php
+<?php // FR
 $string['pluginname'] = 'Solerni';
 $string['region-side-post'] = 'Droite';
 $string['region-side-pre'] = 'Gauche';
-$string['choosereadme'] = 'Solerni is a clone of Aardvark which is a three column theme for Moodle 2.5+ originally created by Shaun Daubney for <a href="http://www.newbury-college.ac.uk">Newbury College</a> based on Bootstrap';
+$string['choosereadme'] = 'Solerni is a clone of Aardvark which is a three column theme for Moodle 2.5+ based on Bootstraptheme and created by Shaun Daubney for <a href="http://www.newbury-college.ac.uk">Newbury College</a>';
 
 $string['configtitle'] = 'Solerni';
 
@@ -15,14 +15,11 @@ $string['frontpageheadingdesc'] = 'Modifier les éléments de la page d\'accueil
 $string['colourheading'] = 'Couleurs du thème ';
 $string['colourheadingdesc'] = 'Modifier les couleurs du thème.';
 
-$string['footeroptheading'] = 'Pied de page';
-$string['footeroptdesc'] = 'Modifie les éléments de base du pied de page.';
-
 $string['socialiconsheading'] = 'Icônes des réseaux sociaux';
 $string['socialiconsheadingdesc'] = 'Modifie les icônes utilisées pour symboliser les réseaux sociaux.';
 
 $string['backcolor'] = 'Couleur de fond';
-$string['backcolordesc'] = 'Change la couleur de fond de la pag';
+$string['backcolordesc'] = 'Change la couleur de fond de la page';
 
 $string['primary'] = 'Couleur primaire';
 $string['primarydesc'] = 'Couleur principale du thème';
@@ -87,4 +84,13 @@ $string['appledesc'] = 'Entrez l\'URL de votre page Apple App Store. (ex : https
 $string['android'] = 'Lien Google Play Store';
 $string['androiddesc'] = 'Entrez l\'URL de votre page Google Play Store. (ex : https://play.google.com/store/apps/developer?id=mycollege)';
 
-include( 'theme_solerni_front.php' );
+$string['about'] = 'A propos';
+$string['aboutdesc'] = 'URL de la page A propos (Header)';
+
+$string['catalogue'] = 'Catalogue';
+$string['cataloguedesc'] = 'URL de la page Catalogue (Header)';
+
+$string['themelinksheading'] = 'Liens statiques de l\'interface';
+$string['themelinksheadingdesc'] = 'Indiquez ici les liens statiques utilisés dans l\'entête et le footer';
+
+$string['search'] = 'Rechercher';

@@ -8,50 +8,25 @@
  */
 
 /*
- * Return associative array ( setting_name => default_value )
- * List and default values for theme colors
+ * Function executed at theme init
  */
-function solerni_get_colors_array() {
-    
-    // Array of solerni color settings ( setting name => default value )
-    return $solerni_colors = array(
-        'backcolor'         => '#FFFFFF',
-        'primary'           => '#4B667C',
-        'primaryhover'      => '#334554',
-        'secondary'         => '#FF004F',
-        'secondaryhover'    => '#D90045',
-        'tertiary'          => '#AAC044',
-        'tertiaryhover'     => '#92A63A',
-        'dark'              => '#000000',
-        'light'             => '#FFFFFF',
-        'grey1'             => '#F6F6F6',
-        'grey2'             => '#EEEEEF',
-        'grey3'             => '#999999',
-        'grey4'             => '#606060',
-        'grey5'             => '#333333'
-    );
+function theme_solerni_page_init(moodle_page $page) {
+    /* current JQuery version for 2.7 is jQuery 1.1 which is IE8 */
+    $page->requires->jquery();
 }
 
 /*
- * Return associative array ( setting_name => default_value )
- * List and default values for social networks
+ * Replace each occurence of color settings in css 
+ * by the value from admin settings
+ * 
+ * @param $css string
+ * 
+ * @return $css
+ * 
  */
-function solerni_get_social_array() {
-    
-    // Array of solerni social settings ( setting name => default value )
-    return $solerni_socials = array(
-        'website'           => '',
-        'facebook'          => '',
-        'twitter'           => '',
-        'googleplus'        => '',
-        'linkedin'          => '',
-        'youtube'           => ''
-    );
-}
-
 function solerni_process_css($css, $theme) {
     
-    $color_settings = solerni_get_colors_array();
+    $color_settings = \theme_solerni\settings\options::solerni_get_colors_array();
     
     foreach ( $color_settings as $key => $value ) {
         
