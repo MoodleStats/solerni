@@ -15,7 +15,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.vm.box = "Solerni2DevBox"
 
 	# The URL where Vagrant will download the box.
-	config.vm.box_url ="http://10.192.228.115/vagrant/solerni2_dev_box.box"
+	config.vm.box_url ="http://10.192.230.120/vagrant/solerni2_dev_box.box"
 
 	# The VM will bring up with a bridged adapter, and use the Orange DHCP server
 	# to obtain an IP.
