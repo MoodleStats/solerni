@@ -108,7 +108,7 @@ class core_calendar_lib_testcase extends advanced_testcase {
         $subscription = new stdClass();
         $subscription->eventtype = 'site';
         $subscription->name = 'test';
-        $subscription->url = 'brokenurl';
+        $subscription->url = 'brokenurl_moodle';
         $subscription->pollinterval = 86400;
         $subscription->lastupdated = 0;
         calendar_add_subscription($subscription);

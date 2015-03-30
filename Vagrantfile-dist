@@ -15,7 +15,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.vm.box = "Solerni2DevBox"
 
 	# The URL where Vagrant will download the box.
-	config.vm.box_url ="http://10.192.228.115/vagrant/solerni2_dev_box.box"
+	config.vm.box_url ="http://10.192.230.120/vagrant/solerni2_dev_box.box"
 
 	# The VM will bring up with a bridged adapter, and use the Orange DHCP server
 	# to obtain an IP.
@@ -46,10 +46,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	# box. If the VM already exists, the script is ignored.
 	config.vm.provision "shell", inline: "/root/scripts/vagrant/provision_vm.sh", privileged: true
 
-	config.vm.synced_folder "vagrant/override", "/opt/solerni/override"
-	config.vm.synced_folder "vagrant/moodle", "/opt/solerni/moodle", type: "rsync"
-	config.vm.synced_folder "vagrant/moodledata", "/opt/solerni/moodledata"
-	config.vm.synced_folder "vagrant/solerni", "/opt/solerni/solerni", type: "rsync"
+	config.vm.synced_folder "vagrant/override", "/opt/solerni/customers/solerni/dev/override"
+	config.vm.synced_folder "vagrant/moodle", "/opt/solerni/customers/solerni/dev/moodle", type: "rsync"
+	config.vm.synced_folder "vagrant/moodledata", "/opt/solerni/customers/solerni/data"
+	config.vm.synced_folder "vagrant/solerni", "/opt/solerni/customers/solerni/dev/solerni", type: "rsync"
 	config.vm.synced_folder "vagrant/system/root/backups", "/root/backups"
 	config.vm.synced_folder "vagrant/system/mnt/samba", "/mnt/samba"
 
