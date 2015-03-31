@@ -23,33 +23,17 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Orange rules';
-$string['addrule'] = 'Ajouter une nouvelle règle';
-$string['listrules'] = 'Liste des règles';
-$string['definerulesheader'] = 'Gestion des règles';
-$string['actionrules_list'] = 'Liste des règles';
-$string['actionrules_form'] = 'Ajouter une nouvelle règle';
-//$string['saverules'] = 'Save the rule';
+$string['pluginname'] = 'Orange customers';
+$string['customers'] = 'Clients';
+$string['definecustomersheader'] = 'Gestion des clients';
+$string['customerid'] = 'Id.';
+$string['customername'] = 'Nom du client';
+$string['categoryname'] = 'Categorie associée';
+$string['customersummary'] = "Desccription courte";
+$string['customerdescription'] = "Description détaillée";
+$string['customerlogo'] = "Logo";
+$string['customerpicture'] = "Bandeau";
+$string['actioncustomers_list'] = 'Liste des clients';
+$string['confirmdeletecustomer'] = 'Etes-vous sur de vouloir supprimer le client <b>{$a}</b> ?';
 
-$string['ruleid'] = 'Id.';
-$string['rulename'] = 'Nom de la règle';
-$string['nbruleemails'] = 'Nombre d\'emails autorisés';
-$string['nbruledomains'] = 'Nombre de domaines autorisés';
-$string['ruleemails'] = 'Liste des emails autorisés';
-$string['ruledomains'] = 'Liste des domaines autorisés';
-$string['ruleemails_help'] = 'Liste des emails autorisés. Un email par ligne.';
-$string['ruledomains_help'] = 'Liste des domaines autorisés. Un domaine par ligne.';
-$string['rulecohorts'] = 'Cohorte associée à la règle';
-$string['rulecohorts_help'] = 'Seules les cohortes qui ne sont associées à aucune règle sont présentées ici';
-
-$string['suspendrule'] = 'Désactiver la règle';
-$string['unsuspendrule'] = 'Activer la règle';
-$string['impossibleaction'] = "Action impossible, la cohorte associée a été supprimée";
-$string['confirmdeleterule'] = 'Voulez-vous vraiment supprimer la règle <b>{$a}</b> ?';
-$string['ruledeleted'] = 'La règle {$a} a été supprimée';
-$string['selectcohort'] = 'Sélectionner une cohorte';
-$string['cohortempty'] = 'Vous devez sélectionner une cohorte';
-$string['cohortdeleted'] = 'Cette règle n\'est affectée à aucune cohorte';
-
-$string['blockorangewarning'] = 'The orange_rules block is not installed. Users will not be affected to cohort based on rules definition.';
-$string['noaddrulewarning'] = 'La règle ne peut être créée. Deux raisons possibles : son nom existe déjà ou la cohorte choisie a déjà été affectée à une autre règle.';
+$string['customerdeleted'] = 'Le client {$a} a été supprimé.';

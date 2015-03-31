@@ -35,6 +35,7 @@ require_once($CFG->dirroot . '/local/orange_customers/lib.php');
  * @copyright 2015 Orange
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 class orange_customers  {
 
     protected $action;
@@ -48,21 +49,21 @@ class orange_customers  {
         $this->action = $action;
         $this->url = $CFG->wwwroot.'/local/orange_customers/index.php';
     }
-	
-	
+
+
     /**
      * Outputs the packaging form
      */
-    public function customers_form() {		
+    public function customers_form() {
         global $CFG, $PAGE, $DB;
-		
+
         $get = new stdClass();
-        
+
         foreach ($_GET as $varname => $value) {
             $get->{"$varname"} = $value;
-	}
-        
-        // Create or modify
+        }
+
+        // Create or modify.
         $toform = new stdClass();
         if (isset($get->id)) {
             $tobemodified = $DB->get_record('orange_customers', array ('id' => $get->id));
@@ -75,16 +76,16 @@ class orange_customers  {
         }
 
         $this->renderable = new orange_customers_form();
-	$this->renderable->set_data($toform);
+        $this->renderable->set_data($toform);
 
     }
 
     /*
-     * 
+     *
      */
     public function customers_delete() {
         global $CFG, $PAGE, $DB;
-        
+
         if (empty($_GET)) {
             return false;
         }
@@ -94,86 +95,96 @@ class orange_customers  {
             $get->{"$varname"} = $value;
         }
 
-	$tobedeleted = $DB->get_record('orange_customers', array ('id'=>$get->id));
-	$DB->delete_records('orange_customers', array ('id'=>$get->id));
-	$returnurl = new moodle_url('index.php', array('action'=>'customers_list','sesskey'=>sesskey()));
-        
+        $tobedeleted = $DB->get_record('orange_customers', array ('id' => $get->id));
+        $DB->delete_records('orange_customers', array ('id' => $get->id));
+        $returnurl = new moodle_url('index.php', array('action' => 'customers_list', 'sesskey' => sesskey()));
+
         redirect($returnurl, get_string('customerdeleted', 'local_orange_customers', $tobedeleted->name));
     }
 
     /*
-     * 
+     *
      */
-    public function customers_list() {    	
+    public function customers_list() {
         global $CFG, $PAGE, $DB, $OUTPUT;
 
         $sitecontext = context_system::instance();
-		
+
         $stredit   = get_string('edit');
-        $strdelete = get_string('delete');    
-    
-	$table = new html_table();
+        $strdelete = get_string('delete');
+
+        $table = new html_table();
         $table->head = array ();
         $table->colclasses = array();
         $table->attributes['class'] = 'admintable generaltable';
         $table->head[] = get_string('customerid', 'local_orange_customers');
         $table->head[] = get_string('customername', 'local_orange_customers');
+        $table->head[] = get_string('categoryname', 'local_orange_customers');
         $table->head[] = get_string('customersummary', 'local_orange_customers');
         $table->head[] = get_string('customerlogo', 'local_orange_customers');
-        $table->head[] = get_string('edit');
+
         $table->id = "customers";
 
-	$customers = $DB->get_recordset('orange_customers');
-	
-	
-	$draftitemid = file_get_submitted_draft_itemid('logo');
+        $customers = $DB->get_recordset('orange_customers');
 
-	file_prepare_draft_area($draftitemid, $sitecontext->id, 'local_orange_customers', 'logo', $customer->id,
-			array('subdirs' => 0, 'maxbytes' => $maxbytes, 'maxfiles' => 1));
+        $draftitemid = file_get_submitted_draft_itemid('logo');
 
         foreach ($customers as $customer) {
 
-            $buttons = array();
-            // delete button
+            // Path of category.
+            $category = $DB->get_record('course_categories', array('id' => $customer->categoryid));
+            $parentid = $category->parent;
+            $namecategory = $category->name;
+            $cpt = 0;
+            while ( ($parentid != 0) || ($cpt == 10) ) {
 
-            if (has_capability('orange/customers:edit', $sitecontext)) {
-                $msgpopup =     get_string('confirmdeletecustomer', 'local_orange_customers', $customer->name);
-                $buttons[] =    html_writer::link( new moodle_url('index.php', array('action'=>'customers_delete','id'=>$customer->id, 'sesskey'=>sesskey())), 
-                                html_writer::empty_tag('img', array('src'=>$OUTPUT->pix_url('t/delete'), 'alt'=>$strdelete, 'class'=>'iconsmall')), array('title'=>$strdelete,'onclick'=>"return confirm('$msgpopup')"));                                                          
-                $buttons[] =    html_writer::link(new moodle_url('view.php', array('action'=>'customer_form', 'id'=>$customer->id, 'sesskey'=>sesskey())), html_writer::empty_tag('img', array('src'=>$OUTPUT->pix_url('t/edit'), 'alt'=>$stredit, 'class'=>'iconsmall')), array('title'=>$stredit));
+                $category = $DB->get_record('course_categories', array('id' => $parentid));
+                $namecategory = $category->name . "/" . $namecategory;
+                $parentid = $category->parent;
+                $cpt++;
             }
+
             $row = array ();
             $row[] = $customer->id;
-            $row[] = "<a href=\"view.php?sesskey=".sesskey()."&action=customers_form&id=$customer->id\">$customer->name</a>";
-            $row[] = $customer->summary;  
+            $row[] = "<a href=\"view.php?sesskey=".sesskey()."&action=customers_form&id=$customer->id&categoryname=$namecategory\">$customer->name</a>";
+
+            $row[] = $namecategory;
+
+            $row[] = $customer->summary;
             $fs = get_file_storage();
             $files = $fs->get_area_files($sitecontext->id, 'local_orange_customers', 'logo', $customer->id);
+            $urlimg = "";
             foreach ($files as $file) {
-                $imgurl = moodle_url::make_pluginfile_url($file->get_contextid(), $file->get_component(), $file->get_filearea(), $file->get_itemid(), $file->get_filepath(), $file->get_filename());											
-                //On ne garde que la dernière (celle ou il y a le nom du fichier)
+                $imgurl = moodle_url::make_pluginfile_url($file->get_contextid(),
+                        $file->get_component(),
+                        $file->get_filearea(),
+                        $file->get_itemid(),
+                        $file->get_filepath(),
+                        $file->get_filename());
+                // We keep only the last (there are a filename).
                 $urlimg = "<img src='{$imgurl}' />";
-            }			
-            $row[] =$urlimg;
-            $row[] = implode(' ', $buttons);
+            }
+            $row[] = $urlimg;
+
             $table->data[] = $row;
         }
-        
+
         $customers->close();
         $this->list = $table;
-	
-        html_writer::empty_tag('input', array('type'=>'submit', 'value'=>'hello world !'));
+
+        html_writer::empty_tag('input', array('type' => 'submit', 'value' => 'hello world !'));
         $this->renderable = new orange_customers_list();
     }
 
     /*
-     * 
+     *
      */
     public function render() {
         global $PAGE;
-        
+
         $renderer = $PAGE->get_renderer('local_orange_customers');
         return $renderer->render_orange_wrapper($this->renderable, $this->action, $this->list);
-        
+
     }
 
 }

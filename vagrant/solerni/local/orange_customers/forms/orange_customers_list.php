@@ -37,7 +37,7 @@ class orange_customers_list extends moodleform implements renderable {
 
     public function definition() {
         global $DB;
-                       
+
         $mform = & $this->_form;
 
     }

@@ -17,15 +17,15 @@
 /**
  * version.php
  *
-* @package    local
- * @subpackage orange_customer
+ * @package    local
+ * @subpackage orange_customers
  * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version  = 2015031716;
+$plugin->version  = 20150317178;
 $plugin->requires = 2012110900;
 
 $plugin->maturity = MATURITY_RC;

@@ -25,7 +25,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-//require_once($CFG->dirroot.'/cohort/lib.php');
 
 /**
  * Event observer for local_orange_customers.
@@ -38,16 +37,16 @@ class local_orange_customers_observer {
      *
      * @param \core\event\course_category_created $event
      */
-    public static function customer_created(\core\event\course_category_created $event) {
-    	global $DB;
-    	
-    	$category = (object)$event->get_record_snapshot('course_categories', $event->objectid);
-    	
-    	$customer = new stdClass();
-    	$customer->name=$category->name;
-    	$customer->categoryid=$category->id;
 
-    	$DB->insert_record('orange_customers', $customer, false);
+    public static function customer_created(\core\event\course_category_created $event) {
+        global $DB;
+
+        $category = (object)$event->get_record_snapshot('course_categories', $event->objectid);
+        $customer = new stdClass();
+        $customer->name = $category->name;
+        $customer->categoryid = $category->id;
+
+        $DB->insert_record('orange_customers', $customer, false);
 
     }
 
@@ -57,12 +56,26 @@ class local_orange_customers_observer {
      * @param \core\event\course_category_updated $event
      */
     public static function customer_updated(\core\event\course_category_updated $event) {
-    	global $DB;
-    
-    	$category = (object)$event->get_record_snapshot('course_categories', $event->objectid);
-    	 
-    	$DB->execute("UPDATE {orange_customers} SET name = '". str_replace("'","\'",$category->name) . "'  WHERE categoryid = ". $category->id );
-    	 
+        global $DB;
+
+        $category = (object)$event->get_record_snapshot('course_categories', $event->objectid);
+
+        $DB->execute("UPDATE {orange_customers}
+        		SET name = '". str_replace("'", "\'", $category->name) . "'
+        		WHERE categoryid = ". $category->id );
+
     }
-    
+
+    /**
+     * Triggered via course_category_deleted event.
+     *
+     * @param \core\event\course_category_deleted $event
+     */
+    public static function customer_deleted(\core\event\course_category_deleted $event) {
+        global $DB;
+
+        $DB->execute("DELETE FROM {orange_customers} WHERE categoryid = ". $event->objectid );
+
+    }
+
 }

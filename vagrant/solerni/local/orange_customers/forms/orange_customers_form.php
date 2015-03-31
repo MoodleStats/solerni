@@ -36,86 +36,83 @@ require_once($CFG->libdir . '/formslib.php');
 class orange_customers_form extends moodleform implements renderable {
 
     public function definition() {
-		global $CFG;
-	
+        global $CFG;
+
         $mform = & $this->_form;
-        // Step header
+        // Step header.
         $steplabel = get_string('definecustomersheader', 'local_orange_customers');
         $mform->addElement('header', 'flavourdata', $steplabel);
 
         $mform->addElement('static', 'name', get_string('customername', 'local_orange_customers'));
-        
-        //$mform->addRule('name', null, 'required', null, 'client');
-        //$mform->setType('name', PARAM_TEXT);		
-		
+        $mform->addElement('static', 'categoryname', get_string('categoryname', 'local_orange_customers'));
+
         $mform->addElement('editor', 'summary_editor', get_string('customersummary', 'local_orange_customers'));
         $mform->setType('summary_editor', PARAM_RAW);
-		
+
         $mform->addElement('editor', 'description_editor', get_string('customerdescription', 'local_orange_customers'));
         $mform->setType('description_editor', PARAM_RAW);
-        
-        
-        
-        $optionsfilemanager = array(
-        		'maxfiles' => 1,
-        		'maxbytes' => $CFG->maxbytes,
-        		'subdirs' => 0,
-        		'accepted_types' => 'web_image'
-        );
-        
-        $mform->addElement('filemanager', 'logo', get_string('customerlogo', 'local_orange_customers'), null, $optionsfilemanager);
-        
-        $mform->addElement('filemanager', 'picture', get_string('customerpicture', 'local_orange_customers'), null, $optionsfilemanager);
-		
-        $mform->addElement('hidden', 'id', 0);
-        $mform->setType('id',PARAM_RAW);        
 
-	$this->add_action_buttons();			
+        $optionsfilemanager = array(
+                'maxfiles' => 1,
+                'maxbytes' => $CFG->maxbytes,
+                'subdirs' => 0,
+                'accepted_types' => 'web_image'
+        );
+
+        $mform->addElement('filemanager', 'logo', get_string('customerlogo', 'local_orange_customers'), null, $optionsfilemanager);
+
+        $mform->addElement('filemanager', 'picture', get_string('customerpicture', 'local_orange_customers'),
+                           null, $optionsfilemanager);
+
+        $mform->addElement('hidden', 'id', 0);
+        $mform->setType('id', PARAM_RAW);
+
+        $this->add_action_buttons();
     }
 
-/*
-    function definition_after_data() {   
-    	global $DB;    	
-    	parent::definition_after_data();
-    	$mform     =& $this->_form;
-    	$cohortid      =& $mform->getElement('cohortid');
-    	$cohortidvalue = $mform->getElementValue('cohortid');
-    	     	
-    	$sql = "SELECT c.id, c.name, r.cohortid AS idcohortrule
-    	FROM {cohort} c left outer join {orange_rules} r
-    	ON r.cohortid = c.id
-    	group by c.id, c.name";
-    	
-    	$cohorts = $DB->get_records_sql($sql);
-    	
-    	foreach ($cohorts as $cohort) {    		
-    		if ($cohort->idcohortrule == null || $cohort->id==$cohortidvalue[0] )
-    			$cohortid->addOption($cohort->name, $cohort->id);    		
-    		else
-    			$cohortid->addOption($cohort->name, $cohort->id, array( 'disabled' => 'disabled' ));
-    	}
-    	    	    	    	  	
-   }
-  */
-    
-    
+    /*
+    function definition_after_data() {
+        global $DB;
+        parent::definition_after_data();
+        $mform     =& $this->_form;
+        $cohortid      =& $mform->getElement('cohortid');
+        $cohortidvalue = $mform->getElementValue('cohortid');
+
+        $sql = "SELECT c.id, c.name, r.cohortid AS idcohortrule
+        FROM {cohort} c left outer join {orange_rules} r
+        ON r.cohortid = c.id
+        group by c.id, c.name";
+
+        $cohorts = $DB->get_records_sql($sql);
+
+        foreach ($cohorts as $cohort) {
+            if ($cohort->idcohortrule == null || $cohort->id==$cohortidvalue[0] )
+                $cohortid->addOption($cohort->name, $cohort->id);
+            else
+                $cohortid->addOption($cohort->name, $cohort->id, array( 'disabled' => 'disabled' ));
+        }
+
+    }
+    */
+
+
     public function validation($data, $files) {
         global $DB;
-        $errors=array();
-        
-/*
+        $errors = array();
+
+        /*
         $errors = parent::validation($data, $files);
 
         $cohortid = trim($data['cohortid']);
-		mtrace($cohortid);
-		die;
-		if ($cohortid === 0)
-		{
-			$errors['cohortid'] = get_string('cohortempty', 'local_orange_customers');
-		}
-		*/
+        mtrace($cohortid);
+        die;
+        if ($cohortid === 0)
+        {
+            $errors['cohortid'] = get_string('cohortempty', 'local_orange_customers');
+        }
+        */
 
-		return $errors;
+        return $errors;
     }
 
 

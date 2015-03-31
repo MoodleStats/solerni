@@ -31,11 +31,7 @@ $orangelistcustomersurl = '/local/orange_customers/index.php?sesskey=' . sesskey
 
 
 $ADMIN->add('localplugins', new admin_category('orange_customers', get_string('pluginname', $orangeplugin)));
-/*
-$ADMIN->add('orange_customers', new admin_externalpage('orange_customers_level2',
-    get_string('addcustomers', $orangeplugin),
-    new moodle_url($orangeaddcustomersurl)));    
-*/	
+
 $ADMIN->add('orange_customers', new admin_externalpage('orange_customers_level2',
     get_string('customers', $orangeplugin),
-    new moodle_url($orangelistcustomersurl)));    
+    new moodle_url($orangelistcustomersurl)));
