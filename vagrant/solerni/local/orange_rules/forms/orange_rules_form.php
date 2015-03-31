@@ -64,7 +64,7 @@ class orange_rules_form extends moodleform implements renderable {
     }
 
 
-    function definition_after_data() {
+    public function definition_after_data() {
         global $DB;
         parent::definition_after_data();
         $mform     =& $this->_form;
