@@ -22,7 +22,7 @@
  * @copyright  2012 onwards Totara Learning Solutions Ltd {@link http://www.totaralms.com/}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @author     Yuliya Bozhko <yuliya.bozhko@totaralms.com>
- */
+*/
 
 defined('MOODLE_INTERNAL') || die();
 require_once($CFG->libdir . '/completionlib.php');
@@ -35,198 +35,198 @@ require_once($CFG->libdir . '/gradelib.php');
  */
 class award_criteria_course extends award_criteria {
 
-    /* @var int Criteria [BADGE_CRITERIA_TYPE_COURSE] */
-    public $criteriatype = BADGE_CRITERIA_TYPE_COURSE;
+	/* @var int Criteria [BADGE_CRITERIA_TYPE_COURSE] */
+	public $criteriatype = BADGE_CRITERIA_TYPE_COURSE;
 
-    private $courseid;
-    private $coursestartdate;
+	private $courseid;
+	private $coursestartdate;
 
-    public $required_param = 'course';
-    public $optional_params = array('grade', 'bydate');
+	public $required_param = 'course';
+	public $optional_params = array('grade', 'bydate');
 
-    public function __construct($record) {
-        global $DB;
-        parent::__construct($record);
+	public function __construct($record) {
+		global $DB;
+		parent::__construct($record);
 
-        $course = $DB->get_record_sql('SELECT b.courseid, c.startdate
-                        FROM {badge} b INNER JOIN {course} c ON b.courseid = c.id
-                        WHERE b.id = :badgeid ', array('badgeid' => $this->badgeid));
-        $this->courseid = $course->courseid;
-        $this->coursestartdate = $course->startdate;
-    }
+		$course = $DB->get_record_sql('SELECT b.courseid, c.startdate
+				FROM {badge} b INNER JOIN {course} c ON b.courseid = c.id
+				WHERE b.id = :badgeid ', array('badgeid' => $this->badgeid));
+		$this->courseid = $course->courseid;
+		$this->coursestartdate = $course->startdate;
+	}
 
-    /**
-     * Add appropriate form elements to the criteria form
-     *
-     * @param moodleform $mform  Moodle forms object
-     * @param stdClass $data details of various modules
-     */
-    public function config_form_criteria($data) {
-        global $OUTPUT;
+	/**
+	 * Add appropriate form elements to the criteria form
+	 *
+	 * @param moodleform $mform  Moodle forms object
+	 * @param stdClass $data details of various modules
+	 */
+	public function config_form_criteria($data) {
+		global $OUTPUT;
 
-        $editurl = new moodle_url('/badges/criteria_settings.php', array('badgeid' => $this->badgeid, 'edit' => true, 'type' => $this->criteriatype, 'crit' => $this->id));
-        $deleteurl = new moodle_url('/badges/criteria_action.php', array('badgeid' => $this->badgeid, 'delete' => true, 'type' => $this->criteriatype));
-        $editaction = $OUTPUT->action_icon($editurl, new pix_icon('t/edit', get_string('edit')), null, array('class' => 'criteria-action'));
-        $deleteaction = $OUTPUT->action_icon($deleteurl, new pix_icon('t/delete', get_string('delete')), null, array('class' => 'criteria-action'));
+		$editurl = new moodle_url('/badges/criteria_settings.php', array('badgeid' => $this->badgeid, 'edit' => true, 'type' => $this->criteriatype, 'crit' => $this->id));
+		$deleteurl = new moodle_url('/badges/criteria_action.php', array('badgeid' => $this->badgeid, 'delete' => true, 'type' => $this->criteriatype));
+		$editaction = $OUTPUT->action_icon($editurl, new pix_icon('t/edit', get_string('edit')), null, array('class' => 'criteria-action'));
+		$deleteaction = $OUTPUT->action_icon($deleteurl, new pix_icon('t/delete', get_string('delete')), null, array('class' => 'criteria-action'));
 
-        echo $OUTPUT->box_start();
-        if (!$data->is_locked() && !$data->is_active()) {
-            echo $OUTPUT->box($deleteaction . $editaction, array('criteria-header'));
-        }
-        echo $OUTPUT->heading($this->get_title() . $OUTPUT->help_icon('criteria_' . $this->criteriatype, 'badges'), 3, 'main help');
+		echo $OUTPUT->box_start();
+		if (!$data->is_locked() && !$data->is_active()) {
+			echo $OUTPUT->box($deleteaction . $editaction, array('criteria-header'));
+		}
+		echo $OUTPUT->heading($this->get_title() . $OUTPUT->help_icon('criteria_' . $this->criteriatype, 'badges'), 3, 'main help');
 
-        if (!empty($this->params)) {
-            echo $OUTPUT->box(get_string('criteria_descr_' . $this->criteriatype, 'badges') . $this->get_details(), array('clearfix'));
-        }
-        echo $OUTPUT->box_end();
-    }
+		if (!empty($this->params)) {
+			echo $OUTPUT->box(get_string('criteria_descr_' . $this->criteriatype, 'badges') . $this->get_details(), array('clearfix'));
+		}
+		echo $OUTPUT->box_end();
+	}
 
-    /**
-     * Get criteria details for displaying to users
-     *
-     * @return string
-     */
-    public function get_details($short = '') {
-        global $DB;
-        $param = reset($this->params);
+	/**
+	 * Get criteria details for displaying to users
+	 *
+	 * @return string
+	 */
+	public function get_details($short = '') {
+		global $DB;
+		$param = reset($this->params);
 
-        $course = $DB->get_record('course', array('id' => $param['course']));
-        if (!$course) {
-            $str = $OUTPUT->error_text(get_string('error:nosuchcourse', 'badges'));
-        } else {
-            $options = array('context' => context_course::instance($course->id));
-            $str = html_writer::tag('b', '"' . format_string($course->fullname, true, $options) . '"');
-            if (isset($param['bydate'])) {
-                $str .= get_string('criteria_descr_bydate', 'badges', userdate($param['bydate'], get_string('strftimedate', 'core_langconfig')));
-            }
-            if (isset($param['grade'])) {
-                $str .= get_string('criteria_descr_grade', 'badges', $param['grade']);
-            }
-        }
-        return $str;
-    }
+		$course = $DB->get_record('course', array('id' => $param['course']));
+		if (!$course) {
+			$str = $OUTPUT->error_text(get_string('error:nosuchcourse', 'badges'));
+		} else {
+			$options = array('context' => context_course::instance($course->id));
+			$str = html_writer::tag('b', '"' . format_string($course->fullname, true, $options) . '"');
+			if (isset($param['bydate'])) {
+				$str .= get_string('criteria_descr_bydate', 'badges', userdate($param['bydate'], get_string('strftimedate', 'core_langconfig')));
+			}
+			if (isset($param['grade'])) {
+				$str .= get_string('criteria_descr_grade', 'badges', $param['grade']);
+			}
+		}
+		return $str;
+	}
 
-    /**
-     * Add appropriate new criteria options to the form
-     *
-     */
-    public function get_options(&$mform) {
-        global $DB;
-        $param = array();
+	/**
+	 * Add appropriate new criteria options to the form
+	 *
+	 */
+	public function get_options(&$mform) {
+		global $DB;
+		$param = array();
 
-        if ($this->id !== 0) {
-            $param = reset($this->params);
-        } else {
-            $param['course'] = $mform->getElementValue('course');
-            $mform->removeElement('course');
-        }
-        $course = $DB->get_record('course', array('id' => $param['course']));
+		if ($this->id !== 0) {
+			$param = reset($this->params);
+		} else {
+			$param['course'] = $mform->getElementValue('course');
+			$mform->removeElement('course');
+		}
+		$course = $DB->get_record('course', array('id' => $param['course']));
 
-        if (!($course->enablecompletion == COMPLETION_ENABLED)) {
-            $none = true;
-            $message = get_string('completionnotenabled', 'badges');
-        } else {
-            $mform->addElement('header', 'criteria_course', $this->get_title());
-            $mform->addHelpButton('criteria_course', 'criteria_' . $this->criteriatype, 'badges');
-            $parameter = array();
-            $parameter[] =& $mform->createElement('static', 'mgrade_', null, get_string('mingrade', 'badges'));
-            $parameter[] =& $mform->createElement('text', 'grade_' . $param['course'], '', array('size' => '5'));
-            $parameter[] =& $mform->createElement('static', 'complby_' . $param['course'], null, get_string('bydate', 'badges'));
-            $parameter[] =& $mform->createElement('date_selector', 'bydate_' . $param['course'], '', array('optional' => true));
-            $mform->setType('grade_' . $param['course'], PARAM_INT);
-            $mform->addGroup($parameter, 'param_' . $param['course'], '', array(' '), false);
+		if (!($course->enablecompletion == COMPLETION_ENABLED)) {
+			$none = true;
+			$message = get_string('completionnotenabled', 'badges');
+		} else {
+			$mform->addElement('header', 'criteria_course', $this->get_title());
+			$mform->addHelpButton('criteria_course', 'criteria_' . $this->criteriatype, 'badges');
+			$parameter = array();
+			$parameter[] =& $mform->createElement('static', 'mgrade_', null, get_string('mingrade', 'badges'));
+			$parameter[] =& $mform->createElement('text', 'grade_' . $param['course'], '', array('size' => '5'));
+			$parameter[] =& $mform->createElement('static', 'complby_' . $param['course'], null, get_string('bydate', 'badges'));
+			$parameter[] =& $mform->createElement('date_selector', 'bydate_' . $param['course'], '', array('optional' => true));
+			$mform->setType('grade_' . $param['course'], PARAM_INT);
+			$mform->addGroup($parameter, 'param_' . $param['course'], '', array(' '), false);
 
-            $mform->disabledIf('bydate_' . $param['course'] . '[day]', 'bydate_' . $param['course'] . '[enabled]', 'notchecked');
-            $mform->disabledIf('bydate_' . $param['course'] . '[month]', 'bydate_' . $param['course'] . '[enabled]', 'notchecked');
-            $mform->disabledIf('bydate_' . $param['course'] . '[year]', 'bydate_' . $param['course'] . '[enabled]', 'notchecked');
+			$mform->disabledIf('bydate_' . $param['course'] . '[day]', 'bydate_' . $param['course'] . '[enabled]', 'notchecked');
+			$mform->disabledIf('bydate_' . $param['course'] . '[month]', 'bydate_' . $param['course'] . '[enabled]', 'notchecked');
+			$mform->disabledIf('bydate_' . $param['course'] . '[year]', 'bydate_' . $param['course'] . '[enabled]', 'notchecked');
 
-            // Set existing values.
-            if (isset($param['bydate'])) {
-                $mform->setDefault('bydate_' . $param['course'], $param['bydate']);
-            }
+			// Set existing values.
+			if (isset($param['bydate'])) {
+				$mform->setDefault('bydate_' . $param['course'], $param['bydate']);
+			}
 
-            if (isset($param['grade'])) {
-                $mform->setDefault('grade_' . $param['course'], $param['grade']);
-            }
+			if (isset($param['grade'])) {
+				$mform->setDefault('grade_' . $param['course'], $param['grade']);
+			}
 
-            // Add hidden elements.
-            $mform->addElement('hidden', 'course_' . $course->id, $course->id);
-            $mform->setType('course_' . $course->id, PARAM_INT);
-            $mform->addElement('hidden', 'agg', BADGE_CRITERIA_AGGREGATION_ALL);
-            $mform->setType('agg', PARAM_INT);
+			// Add hidden elements.
+			$mform->addElement('hidden', 'course_' . $course->id, $course->id);
+			$mform->setType('course_' . $course->id, PARAM_INT);
+			$mform->addElement('hidden', 'agg', BADGE_CRITERIA_AGGREGATION_ALL);
+			$mform->setType('agg', PARAM_INT);
 
-            $none = false;
-            $message = '';
-        }
-        return array($none, $message);
-    }
+			$none = false;
+			$message = '';
+		}
+		return array($none, $message);
+	}
 
-    /**
-     * Review this criteria and decide if it has been completed
-     *
-     * @param int $userid User whose criteria completion needs to be reviewed.
-     * @param bool $filtered An additional parameter indicating that user list
-     *        has been reduced and some expensive checks can be skipped.
-     *
-     * @return bool Whether criteria is complete
-     */
-    public function review($userid, $filtered = false) {
-        $course = new stdClass();
-        $course->id = $this->courseid;
+	/**
+	 * Review this criteria and decide if it has been completed
+	 *
+	 * @param int $userid User whose criteria completion needs to be reviewed.
+	 * @param bool $filtered An additional parameter indicating that user list
+	 *        has been reduced and some expensive checks can be skipped.
+	 *
+	 * @return bool Whether criteria is complete
+	 */
+	public function review($userid, $filtered = false) {
+		$course = new stdClass();
+		$course->id = $this->courseid;
 
-        if ($this->coursestartdate > time()) {
-            return false;
-        }
+		if ($this->coursestartdate > time()) {
+			return false;
+		}
 
-        $info = new completion_info($course);
+		$info = new completion_info($course);
 
-        foreach ($this->params as $param) {
-            $check_grade = true;
-            $check_date = true;
+		foreach ($this->params as $param) {
+			$check_grade = true;
+			$check_date = true;
 
-            if (isset($param['grade'])) {
-                $grade = grade_get_course_grade($userid, $course->id);
-                $check_grade = ($grade->grade >= $param['grade']);
-            }
+			if (isset($param['grade'])) {
+				$grade = grade_get_course_grade($userid, $course->id);
+				$check_grade = ($grade->grade >= $param['grade']);
+			}
 
-            if (!$filtered && isset($param['bydate'])) {
-                $cparams = array(
-                        'userid' => $userid,
-                        'course' => $course->id,
-                );
-                $completion = new completion_completion($cparams);
-                $date = $completion->timecompleted;
-                $check_date = ($date <= $param['bydate']);
-            }
+			if (!$filtered && isset($param['bydate'])) {
+				$cparams = array(
+						'userid' => $userid,
+						'course' => $course->id,
+				);
+				$completion = new completion_completion($cparams);
+				$date = $completion->timecompleted;
+				$check_date = ($date <= $param['bydate']);
+			}
 
-            if ($info->is_course_complete($userid) && $check_grade && $check_date) {
-                return true;
-            }
-        }
+			if ($info->is_course_complete($userid) && $check_grade && $check_date) {
+				return true;
+			}
+		}
 
-        return false;
-    }
+		return false;
+	}
 
-    /**
-     * Returns array with sql code and parameters returning all ids
-     * of users who meet this particular criterion.
-     *
-     * @return array list($join, $where, $params)
-     */
-    public function get_completed_criteria_sql() {
-        // We have only one criterion here, so taking the first one.
-        $coursecriteria = reset($this->params);
+	/**
+	 * Returns array with sql code and parameters returning all ids
+	 * of users who meet this particular criterion.
+	 *
+	 * @return array list($join, $where, $params)
+	 */
+	public function get_completed_criteria_sql() {
+		// We have only one criterion here, so taking the first one.
+		$coursecriteria = reset($this->params);
 
-        $join = " LEFT JOIN {course_completions} cc ON cc.userid = u.id AND cc.timecompleted > 0";
-        $where = ' AND cc.course = :courseid ';
-        $params['courseid'] = $this->courseid;
+		$join = " LEFT JOIN {course_completions} cc ON cc.userid = u.id AND cc.timecompleted > 0";
+		$where = ' AND cc.course = :courseid ';
+		$params['courseid'] = $this->courseid;
 
-        // Add by date parameter.
-        if (isset($param['bydate'])) {
-            $where .= ' AND cc.timecompleted <= :completebydate';
-            $params['completebydate'] = $coursecriteria['bydate'];
-        }
+		// Add by date parameter.
+		if (isset($param['bydate'])) {
+			$where .= ' AND cc.timecompleted <= :completebydate';
+			$params['completebydate'] = $coursecriteria['bydate'];
+		}
 
-        return array($join, $where, $params);
-    }
+		return array($join, $where, $params);
+	}
 }

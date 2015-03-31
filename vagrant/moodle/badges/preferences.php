@@ -35,19 +35,19 @@ $PAGE->set_url($url);
 $PAGE->set_pagelayout('standard');
 
 if (empty($CFG->enablebadges)) {
-    print_error('badgesdisabled', 'badges');
+	print_error('badgesdisabled', 'badges');
 }
 
 $mform = new badges_preferences_form();
 $mform->set_data(array('badgeprivacysetting' => get_user_preferences('badgeprivacysetting')));
 
 if (!$mform->is_cancelled() && $data = $mform->get_data()) {
-    $setting = $data->badgeprivacysetting;
-    set_user_preference('badgeprivacysetting', $setting);
+	$setting = $data->badgeprivacysetting;
+	set_user_preference('badgeprivacysetting', $setting);
 }
 
 if ($mform->is_cancelled()) {
-    redirect($CFG->wwwroot . '/badges/mybadges.php');
+	redirect($CFG->wwwroot . '/badges/mybadges.php');
 }
 
 $strpreferences = get_string('preferences');

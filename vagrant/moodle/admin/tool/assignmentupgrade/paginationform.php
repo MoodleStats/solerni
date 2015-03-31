@@ -34,24 +34,24 @@ require_once($CFG->libdir.'/formslib.php');
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class tool_assignmentupgrade_pagination_form extends moodleform {
-    /**
-     * Define this form - called from the parent constructor
-     */
-    public function definition() {
-        $mform = $this->_form;
-        $instance = $this->_customdata;
+	/**
+	 * Define this form - called from the parent constructor
+	 */
+	public function definition() {
+		$mform = $this->_form;
+		$instance = $this->_customdata;
 
-        $mform->addElement('header', 'general', get_string('assignmentsperpage', 'tool_assignmentupgrade'));
-        // Visible elements.
-        $options = array(10=>'10', 20=>'20', 50=>'50', 100=>'100');
-        $mform->addElement('select', 'perpage', get_string('assignmentsperpage', 'assign'), $options);
+		$mform->addElement('header', 'general', get_string('assignmentsperpage', 'tool_assignmentupgrade'));
+		// Visible elements.
+		$options = array(10=>'10', 20=>'20', 50=>'50', 100=>'100');
+		$mform->addElement('select', 'perpage', get_string('assignmentsperpage', 'assign'), $options);
 
-        // Hidden params.
-        $mform->addElement('hidden', 'action', 'saveoptions');
-        $mform->setType('action', PARAM_ALPHA);
+		// Hidden params.
+		$mform->addElement('hidden', 'action', 'saveoptions');
+		$mform->setType('action', PARAM_ALPHA);
 
-        // Buttons.
-        $this->add_action_buttons(false, get_string('updatetable', 'tool_assignmentupgrade'));
-    }
+		// Buttons.
+		$this->add_action_buttons(false, get_string('updatetable', 'tool_assignmentupgrade'));
+	}
 }
 

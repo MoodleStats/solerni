@@ -31,11 +31,11 @@ defined('MOODLE_INTERNAL') || die();
  */
 abstract class root_backup_setting extends backup_setting {
 
-    /**
-     * {@inheritdoc}
-     */
-    public function __construct($name, $vtype, $value = null, $visibility = self::VISIBLE, $status = self::NOT_LOCKED) {
-        $this->level = self::ROOT_LEVEL;
-        parent::__construct($name, $vtype, $value, $visibility, $status);
-    }
+	/**
+	 * {@inheritdoc}
+	 */
+	public function __construct($name, $vtype, $value = null, $visibility = self::VISIBLE, $status = self::NOT_LOCKED) {
+		$this->level = self::ROOT_LEVEL;
+		parent::__construct($name, $vtype, $value, $visibility, $status);
+	}
 }

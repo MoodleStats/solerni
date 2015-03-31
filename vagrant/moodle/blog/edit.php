@@ -35,14 +35,14 @@ $modid = optional_param('modid', 0, PARAM_INT); // To associate the entry with a
 $courseid = optional_param('courseid', 0, PARAM_INT); // To associate the entry with a course.
 
 if ($action == 'edit') {
-    $id = required_param('entryid', PARAM_INT);
+	$id = required_param('entryid', PARAM_INT);
 }
 
 $PAGE->set_url('/blog/edit.php', array('action' => $action, 'entryid' => $id, 'confirm' => $confirm, 'modid' => $modid, 'courseid' => $courseid));
 
 // If action is add, we ignore $id to avoid any further problems
 if (!empty($id) && $action == 'add') {
-    $id = null;
+	$id = null;
 }
 
 // Blogs are always in system context.
@@ -52,52 +52,52 @@ $PAGE->set_context($sitecontext);
 require_login($courseid);
 
 if (empty($CFG->enableblogs)) {
-    print_error('blogdisable', 'blog');
+	print_error('blogdisable', 'blog');
 }
 
 if (isguestuser()) {
-    print_error('noguestentry', 'blog');
+	print_error('noguestentry', 'blog');
 }
 
 $returnurl = new moodle_url('/blog/index.php');
 
 if (!empty($courseid) && empty($modid)) {
-    $returnurl->param('courseid', $courseid);
+	$returnurl->param('courseid', $courseid);
 }
 
 // If a modid is given, guess courseid
 if (!empty($modid)) {
-    $returnurl->param('modid', $modid);
-    $courseid = $DB->get_field('course_modules', 'course', array('id' => $modid));
-    $returnurl->param('courseid', $courseid);
+	$returnurl->param('modid', $modid);
+	$courseid = $DB->get_field('course_modules', 'course', array('id' => $modid));
+	$returnurl->param('courseid', $courseid);
 }
 
 $blogheaders = blog_get_headers();
 
 if (!has_capability('moodle/blog:create', $sitecontext) && !has_capability('moodle/blog:manageentries', $sitecontext)) {
-    print_error('cannoteditentryorblog');
+	print_error('cannoteditentryorblog');
 }
 
 // Make sure that the person trying to edit has access right
 if ($id) {
-    if (!$entry = new blog_entry($id)) {
-        print_error('wrongentryid', 'blog');
-    }
+	if (!$entry = new blog_entry($id)) {
+		print_error('wrongentryid', 'blog');
+	}
 
-    if (!blog_user_can_edit_entry($entry)) {
-        print_error('notallowedtoedit', 'blog');
-    }
-    $userid = $entry->userid;
-    $entry->subject      = clean_text($entry->subject);
-    $entry->summary      = clean_text($entry->summary, $entry->format);
+	if (!blog_user_can_edit_entry($entry)) {
+		print_error('notallowedtoedit', 'blog');
+	}
+	$userid = $entry->userid;
+	$entry->subject      = clean_text($entry->subject);
+	$entry->summary      = clean_text($entry->summary, $entry->format);
 
 } else {
-    if (!has_capability('moodle/blog:create', $sitecontext)) {
-        print_error('noentry', 'blog'); // manageentries is not enough for adding
-    }
-    $entry  = new stdClass();
-    $entry->id = null;
-    $userid = $USER->id;
+	if (!has_capability('moodle/blog:create', $sitecontext)) {
+		print_error('noentry', 'blog'); // manageentries is not enough for adding
+	}
+	$entry  = new stdClass();
+	$entry->id = null;
+	$userid = $USER->id;
 }
 $returnurl->param('userid', $userid);
 
@@ -107,63 +107,63 @@ $output = $PAGE->get_renderer('blog');
 $strblogs = get_string('blogs','blog');
 
 if ($action === 'delete'){
-    if (empty($entry->id)) {
-        print_error('wrongentryid', 'blog');
-    }
-    if (data_submitted() && $confirm && confirm_sesskey()) {
-        // Make sure the current user is the author of the blog entry, or has some deleteanyentry capability
-        if (!blog_user_can_edit_entry($entry)) {
-            print_error('nopermissionstodeleteentry', 'blog');
-        } else {
-            $entry->delete();
-            blog_rss_delete_file($userid);
-            redirect($returnurl);
-        }
-    } else if (blog_user_can_edit_entry($entry)) {
-        $optionsyes = array('entryid'=>$id, 'action'=>'delete', 'confirm'=>1, 'sesskey'=>sesskey(), 'courseid'=>$courseid);
-        $optionsno = array('userid'=>$entry->userid, 'courseid'=>$courseid);
-        $PAGE->set_title("$SITE->shortname: $strblogs");
-        $PAGE->set_heading($SITE->fullname);
-        echo $OUTPUT->header();
+	if (empty($entry->id)) {
+		print_error('wrongentryid', 'blog');
+	}
+	if (data_submitted() && $confirm && confirm_sesskey()) {
+		// Make sure the current user is the author of the blog entry, or has some deleteanyentry capability
+		if (!blog_user_can_edit_entry($entry)) {
+			print_error('nopermissionstodeleteentry', 'blog');
+		} else {
+			$entry->delete();
+			blog_rss_delete_file($userid);
+			redirect($returnurl);
+		}
+	} else if (blog_user_can_edit_entry($entry)) {
+		$optionsyes = array('entryid'=>$id, 'action'=>'delete', 'confirm'=>1, 'sesskey'=>sesskey(), 'courseid'=>$courseid);
+		$optionsno = array('userid'=>$entry->userid, 'courseid'=>$courseid);
+		$PAGE->set_title("$SITE->shortname: $strblogs");
+		$PAGE->set_heading($SITE->fullname);
+		echo $OUTPUT->header();
 
-        // Output the entry.
-        $entry->prepare_render();
-        echo $output->render($entry);
+		// Output the entry.
+		$entry->prepare_render();
+		echo $output->render($entry);
 
-        echo '<br />';
-        echo $OUTPUT->confirm(get_string('blogdeleteconfirm', 'blog'), new moodle_url('edit.php', $optionsyes),new moodle_url( 'index.php', $optionsno));
-        echo $OUTPUT->footer();
-        die;
-    }
+		echo '<br />';
+		echo $OUTPUT->confirm(get_string('blogdeleteconfirm', 'blog'), new moodle_url('edit.php', $optionsyes),new moodle_url( 'index.php', $optionsno));
+		echo $OUTPUT->footer();
+		die;
+	}
 } else if ($action == 'add') {
-    $PAGE->set_title("$SITE->shortname: $strblogs: " . get_string('addnewentry', 'blog'));
-    $PAGE->set_heading($SITE->shortname);
+	$PAGE->set_title("$SITE->shortname: $strblogs: " . get_string('addnewentry', 'blog'));
+	$PAGE->set_heading($SITE->shortname);
 } else if ($action == 'edit') {
-    $PAGE->set_title("$SITE->shortname: $strblogs: " . get_string('editentry', 'blog'));
-    $PAGE->set_heading($SITE->shortname);
+	$PAGE->set_title("$SITE->shortname: $strblogs: " . get_string('editentry', 'blog'));
+	$PAGE->set_heading($SITE->shortname);
 }
 
 if (!empty($entry->id)) {
-    if ($CFG->useblogassociations && ($blogassociations = $DB->get_records('blog_association', array('blogid' => $entry->id)))) {
+	if ($CFG->useblogassociations && ($blogassociations = $DB->get_records('blog_association', array('blogid' => $entry->id)))) {
 
-        foreach ($blogassociations as $assocrec) {
-            $context = context::instance_by_id($assocrec->contextid);
+		foreach ($blogassociations as $assocrec) {
+			$context = context::instance_by_id($assocrec->contextid);
 
-            switch ($context->contextlevel) {
-                case CONTEXT_COURSE:
-                    $entry->courseassoc = $assocrec->contextid;
-                    break;
-                case CONTEXT_MODULE:
-                    $entry->modassoc = $assocrec->contextid;
-                    break;
-            }
-        }
-    }
+			switch ($context->contextlevel) {
+				case CONTEXT_COURSE:
+					$entry->courseassoc = $assocrec->contextid;
+					break;
+				case CONTEXT_MODULE:
+					$entry->modassoc = $assocrec->contextid;
+					break;
+			}
+		}
+	}
 }
 
 require_once('edit_form.php');
 $summaryoptions = array('maxfiles'=> 99, 'maxbytes'=>$CFG->maxbytes, 'trusttext'=>true, 'context'=>$sitecontext,
-    'subdirs'=>file_area_contains_subdirs($sitecontext, 'blog', 'post', $entry->id));
+		'subdirs'=>file_area_contains_subdirs($sitecontext, 'blog', 'post', $entry->id));
 $attachmentoptions = array('subdirs'=>false, 'maxfiles'=> 99, 'maxbytes'=>$CFG->maxbytes);
 
 $blogeditform = new blog_edit_form(null, compact('entry', 'summaryoptions', 'attachmentoptions', 'sitecontext', 'courseid', 'modid'));
@@ -172,8 +172,8 @@ $entry = file_prepare_standard_editor($entry, 'summary', $summaryoptions, $sitec
 $entry = file_prepare_standard_filemanager($entry, 'attachment', $attachmentoptions, $sitecontext, 'blog', 'attachment', $entry->id);
 
 if (!empty($CFG->usetags) && !empty($entry->id)) {
-    include_once($CFG->dirroot.'/tag/lib.php');
-    $entry->tags = tag_get_tags_array('post', $entry->id);
+	include_once($CFG->dirroot.'/tag/lib.php');
+	$entry->tags = tag_get_tags_array('post', $entry->id);
 }
 
 $entry->action = $action;
@@ -181,68 +181,68 @@ $entry->action = $action;
 $blogeditform->set_data($entry);
 
 if ($blogeditform->is_cancelled()) {
-    redirect($returnurl);
+	redirect($returnurl);
 
 } else if ($data = $blogeditform->get_data()){
 
-    switch ($action) {
-        case 'add':
-            $blogentry = new blog_entry(null, $data, $blogeditform);
-            $blogentry->add();
-            $blogentry->edit($data, $blogeditform, $summaryoptions, $attachmentoptions);
-        break;
+	switch ($action) {
+		case 'add':
+			$blogentry = new blog_entry(null, $data, $blogeditform);
+			$blogentry->add();
+			$blogentry->edit($data, $blogeditform, $summaryoptions, $attachmentoptions);
+			break;
 
-        case 'edit':
-            if (empty($entry->id)) {
-                print_error('wrongentryid', 'blog');
-            }
+		case 'edit':
+			if (empty($entry->id)) {
+				print_error('wrongentryid', 'blog');
+			}
 
-            $entry->edit($data, $blogeditform, $summaryoptions, $attachmentoptions);
-        break;
+			$entry->edit($data, $blogeditform, $summaryoptions, $attachmentoptions);
+			break;
 
-        default :
-            print_error('invalidaction');
-    }
+		default :
+			print_error('invalidaction');
+	}
 
-    redirect($returnurl);
+	redirect($returnurl);
 }
 
 
 // gui setup
 switch ($action) {
-    case 'add':
-        // prepare new empty form
-        $entry->publishstate = 'site';
-        $strformheading = get_string('addnewentry', 'blog');
-        $entry->action       = $action;
+	case 'add':
+		// prepare new empty form
+		$entry->publishstate = 'site';
+		$strformheading = get_string('addnewentry', 'blog');
+		$entry->action       = $action;
 
-        if ($CFG->useblogassociations) {
+		if ($CFG->useblogassociations) {
 
-            //pre-select the course for associations
-            if ($courseid) {
-                $context = context_course::instance($courseid);
-                $entry->courseassoc = $context->id;
-            }
+			//pre-select the course for associations
+			if ($courseid) {
+				$context = context_course::instance($courseid);
+				$entry->courseassoc = $context->id;
+			}
 
-            //pre-select the mod for associations
-            if ($modid) {
-                $context = context_module::instance($modid);
-                $entry->modassoc = $context->id;
-            }
-        }
-        break;
+			//pre-select the mod for associations
+			if ($modid) {
+				$context = context_module::instance($modid);
+				$entry->modassoc = $context->id;
+			}
+		}
+		break;
 
-    case 'edit':
-        if (empty($entry->id)) {
-            print_error('wrongentryid', 'blog');
-        }
-        $entry->tags = tag_get_tags_array('post', $entry->id);
-        $strformheading = get_string('updateentrywithid', 'blog');
+	case 'edit':
+		if (empty($entry->id)) {
+			print_error('wrongentryid', 'blog');
+		}
+		$entry->tags = tag_get_tags_array('post', $entry->id);
+		$strformheading = get_string('updateentrywithid', 'blog');
 
-        break;
+		break;
 
-    default :
-        print_error('unknowaction');
+	default :
+		print_error('unknowaction');
 }
 
 $entry->modid = $modid;

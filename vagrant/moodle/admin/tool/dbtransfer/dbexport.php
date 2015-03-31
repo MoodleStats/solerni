@@ -35,8 +35,8 @@ admin_externalpage_setup('tooldbexport');
 $form = new database_export_form();
 
 if ($data = $form->get_data()) {
-    tool_dbtransfer_export_xml_database($data->description, $DB);
-    die;
+	tool_dbtransfer_export_xml_database($data->description, $DB);
+	die;
 }
 
 echo $OUTPUT->header();

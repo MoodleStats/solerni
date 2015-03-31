@@ -35,7 +35,7 @@ $award = optional_param('award', false, PARAM_BOOL);
 require_login();
 
 if (empty($CFG->enablebadges)) {
-    print_error('badgesdisabled', 'badges');
+	print_error('badgesdisabled', 'badges');
 }
 
 $badge = new badge($badgeid);
@@ -45,16 +45,16 @@ $isadmin = is_siteadmin($USER);
 $navurl = new moodle_url('/badges/index.php', array('type' => $badge->type));
 
 if ($badge->type == BADGE_TYPE_COURSE) {
-    if (empty($CFG->badges_allowcoursebadges)) {
-        print_error('coursebadgesdisabled', 'badges');
-    }
-    require_login($badge->courseid);
-    $navurl = new moodle_url('/badges/index.php', array('type' => $badge->type, 'id' => $badge->courseid));
-    $PAGE->set_pagelayout('standard');
-    navigation_node::override_active_url($navurl);
+	if (empty($CFG->badges_allowcoursebadges)) {
+		print_error('coursebadgesdisabled', 'badges');
+	}
+	require_login($badge->courseid);
+	$navurl = new moodle_url('/badges/index.php', array('type' => $badge->type, 'id' => $badge->courseid));
+	$PAGE->set_pagelayout('standard');
+	navigation_node::override_active_url($navurl);
 } else {
-    $PAGE->set_pagelayout('admin');
-    navigation_node::override_active_url($navurl, true);
+	$PAGE->set_pagelayout('admin');
+	navigation_node::override_active_url($navurl, true);
 }
 
 require_capability('moodle/badges:awardbadge', $context);
@@ -70,10 +70,10 @@ $PAGE->set_title($strrecipients);
 $PAGE->set_heading($badge->name);
 
 if (!$badge->is_active()) {
-    echo $OUTPUT->header();
-    echo $OUTPUT->notification(get_string('donotaward', 'badges'));
-    echo $OUTPUT->footer();
-    die();
+	echo $OUTPUT->header();
+	echo $OUTPUT->notification(get_string('donotaward', 'badges'));
+	echo $OUTPUT->footer();
+	die();
 }
 
 $output = $PAGE->get_renderer('core', 'badges');
@@ -82,101 +82,101 @@ $output = $PAGE->get_renderer('core', 'badges');
 $acceptedroles = array_keys($badge->criteria[BADGE_CRITERIA_TYPE_MANUAL]->params);
 
 if (empty($acceptedroles)) {
-    echo $OUTPUT->header();
-    $return = html_writer::link(new moodle_url('recipients.php', array('id' => $badge->id)), $strrecipients);
-    echo $OUTPUT->notification(get_string('notacceptedrole', 'badges', $return));
-    echo $OUTPUT->footer();
-    die();
+	echo $OUTPUT->header();
+	$return = html_writer::link(new moodle_url('recipients.php', array('id' => $badge->id)), $strrecipients);
+	echo $OUTPUT->notification(get_string('notacceptedrole', 'badges', $return));
+	echo $OUTPUT->footer();
+	die();
 }
 
 if (count($acceptedroles) > 1) {
-    // If there is more than one role that can award a badge, prompt user to make a selection.
-    // If it is an admin, include all accepted roles, otherwise only the ones that current user has in this context.
-    if ($isadmin) {
-        $selection = $acceptedroles;
-    } else {
-        // Get all the roles that user has and use the ones required by this badge.
-        $roles = get_user_roles($context, $USER->id);
-        $roleids = array_map(create_function('$o', 'return $o->roleid;'), $roles);
-        $selection = array_intersect($acceptedroles, $roleids);
-    }
+	// If there is more than one role that can award a badge, prompt user to make a selection.
+	// If it is an admin, include all accepted roles, otherwise only the ones that current user has in this context.
+	if ($isadmin) {
+		$selection = $acceptedroles;
+	} else {
+		// Get all the roles that user has and use the ones required by this badge.
+		$roles = get_user_roles($context, $USER->id);
+		$roleids = array_map(create_function('$o', 'return $o->roleid;'), $roles);
+		$selection = array_intersect($acceptedroles, $roleids);
+	}
 
-    if (!empty($selection)) {
-        list($usertest, $userparams) = $DB->get_in_or_equal($selection, SQL_PARAMS_NAMED, 'existing', true);
-        $options = $DB->get_records_sql('SELECT * FROM {role} WHERE id ' . $usertest, $userparams);
-        foreach ($options as $p) {
-            $select[$p->id] = role_get_name($p);
-        }
-        if (!$role) {
-            $pageurl = new moodle_url('/badges/award.php', array('id' => $badgeid));
-            echo $OUTPUT->header();
-            echo $OUTPUT->box(get_string('selectaward', 'badges') . $OUTPUT->single_select(new moodle_url($pageurl), 'role', $select));
-            echo $OUTPUT->footer();
-            die();
-        } else {
-            $pageurl = new moodle_url('/badges/award.php', array('id' => $badgeid));
-            $issuerrole = new stdClass();
-            $issuerrole->roleid = $role;
-            $roleselect = get_string('selectaward', 'badges') . $OUTPUT->single_select(new moodle_url($pageurl), 'role', $select, $role, null);
-        }
-    } else {
-        echo $OUTPUT->header();
-        $return = html_writer::link(new moodle_url('recipients.php', array('id' => $badge->id)), $strrecipients);
-        echo $OUTPUT->notification(get_string('notacceptedrole', 'badges', $return));
-        echo $OUTPUT->footer();
-        die();
-    }
+	if (!empty($selection)) {
+		list($usertest, $userparams) = $DB->get_in_or_equal($selection, SQL_PARAMS_NAMED, 'existing', true);
+		$options = $DB->get_records_sql('SELECT * FROM {role} WHERE id ' . $usertest, $userparams);
+		foreach ($options as $p) {
+			$select[$p->id] = role_get_name($p);
+		}
+		if (!$role) {
+			$pageurl = new moodle_url('/badges/award.php', array('id' => $badgeid));
+			echo $OUTPUT->header();
+			echo $OUTPUT->box(get_string('selectaward', 'badges') . $OUTPUT->single_select(new moodle_url($pageurl), 'role', $select));
+			echo $OUTPUT->footer();
+			die();
+		} else {
+			$pageurl = new moodle_url('/badges/award.php', array('id' => $badgeid));
+			$issuerrole = new stdClass();
+			$issuerrole->roleid = $role;
+			$roleselect = get_string('selectaward', 'badges') . $OUTPUT->single_select(new moodle_url($pageurl), 'role', $select, $role, null);
+		}
+	} else {
+		echo $OUTPUT->header();
+		$return = html_writer::link(new moodle_url('recipients.php', array('id' => $badge->id)), $strrecipients);
+		echo $OUTPUT->notification(get_string('notacceptedrole', 'badges', $return));
+		echo $OUTPUT->footer();
+		die();
+	}
 } else {
-    // User has to be an admin or the one with the required role.
-    $users = get_role_users($acceptedroles[0], $context, true, 'u.id', 'u.id ASC');
-    $usersids = array_keys($users);
-    if (!$isadmin && !in_array($USER->id, $usersids)) {
-        echo $OUTPUT->header();
-        $return = html_writer::link(new moodle_url('recipients.php', array('id' => $badge->id)), $strrecipients);
-        echo $OUTPUT->notification(get_string('notacceptedrole', 'badges', $return));
-        echo $OUTPUT->footer();
-        die();
-    } else {
-        $issuerrole = new stdClass();
-        $issuerrole->roleid = $acceptedroles[0];
-    }
+	// User has to be an admin or the one with the required role.
+	$users = get_role_users($acceptedroles[0], $context, true, 'u.id', 'u.id ASC');
+	$usersids = array_keys($users);
+	if (!$isadmin && !in_array($USER->id, $usersids)) {
+		echo $OUTPUT->header();
+		$return = html_writer::link(new moodle_url('recipients.php', array('id' => $badge->id)), $strrecipients);
+		echo $OUTPUT->notification(get_string('notacceptedrole', 'badges', $return));
+		echo $OUTPUT->footer();
+		die();
+	} else {
+		$issuerrole = new stdClass();
+		$issuerrole->roleid = $acceptedroles[0];
+	}
 }
 
 $options = array(
-        'badgeid' => $badge->id,
-        'context' => $context,
-        'issuerid' => $USER->id,
-        'issuerrole' => $issuerrole->roleid
-        );
+		'badgeid' => $badge->id,
+		'context' => $context,
+		'issuerid' => $USER->id,
+		'issuerrole' => $issuerrole->roleid
+);
 $existingselector = new badge_existing_users_selector('existingrecipients', $options);
 $recipientselector = new badge_potential_users_selector('potentialrecipients', $options);
 $recipientselector->set_existing_recipients($existingselector->find_users(''));
 
 if ($award && data_submitted() && has_capability('moodle/badges:awardbadge', $context)) {
-    require_sesskey();
-    $users = $recipientselector->get_selected_users();
-    foreach ($users as $user) {
-        if (process_manual_award($user->id, $USER->id, $issuerrole->roleid, $badgeid)) {
-            // If badge was successfully awarded, review manual badge criteria.
-            $data = new stdClass();
-            $data->crit = $badge->criteria[BADGE_CRITERIA_TYPE_MANUAL];
-            $data->userid = $user->id;
-            badges_award_handle_manual_criteria_review($data);
-        } else {
-            echo $OUTPUT->error_text(get_string('error:cannotawardbadge', 'badges'));
-        }
-    }
+	require_sesskey();
+	$users = $recipientselector->get_selected_users();
+	foreach ($users as $user) {
+		if (process_manual_award($user->id, $USER->id, $issuerrole->roleid, $badgeid)) {
+			// If badge was successfully awarded, review manual badge criteria.
+			$data = new stdClass();
+			$data->crit = $badge->criteria[BADGE_CRITERIA_TYPE_MANUAL];
+			$data->userid = $user->id;
+			badges_award_handle_manual_criteria_review($data);
+		} else {
+			echo $OUTPUT->error_text(get_string('error:cannotawardbadge', 'badges'));
+		}
+	}
 
-    $recipientselector->invalidate_selected_users();
-    $existingselector->invalidate_selected_users();
-    $recipientselector->set_existing_recipients($existingselector->find_users(''));
+	$recipientselector->invalidate_selected_users();
+	$existingselector->invalidate_selected_users();
+	$recipientselector->set_existing_recipients($existingselector->find_users(''));
 }
 
 echo $OUTPUT->header();
 echo $OUTPUT->heading($strrecipients);
 
 if (count($acceptedroles) > 1) {
-    echo $OUTPUT->box($roleselect);
+	echo $OUTPUT->box($roleselect);
 }
 
 echo $output->recipients_selection_form($existingselector, $recipientselector);

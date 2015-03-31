@@ -34,14 +34,14 @@ $currentpage            = optional_param('p', 0, PARAM_INT);
 $translatorsubmitted    = optional_param('translatorsubmitted', 0, PARAM_BOOL);
 
 admin_externalpage_setup('toolcustomlang', '', null,
-    new moodle_url('/admin/tool/customlang/edit.php', array('lng' => $lng)),
-    array('pagelayout' => 'report')); // Hack: allows for wide page contents.
+		new moodle_url('/admin/tool/customlang/edit.php', array('lng' => $lng)),
+		array('pagelayout' => 'report')); // Hack: allows for wide page contents.
 
 $PAGE->requires->js_init_call('M.tool_customlang.init_editor', array(), true);
 
 if (empty($lng)) {
-    // PARAM_LANG validation failed
-    print_error('missingparameter');
+	// PARAM_LANG validation failed
+	print_error('missingparameter');
 }
 
 // pre-output processing
@@ -50,65 +50,65 @@ $filterdata = tool_customlang_utils::load_filter($USER);
 $filter->set_data($filterdata);
 
 if ($filter->is_cancelled()) {
-    redirect($PAGE->url);
+	redirect($PAGE->url);
 
 } elseif ($submitted = $filter->get_data()) {
-    tool_customlang_utils::save_filter($submitted, $USER);
-    redirect(new moodle_url($PAGE->url, array('p'=>0)));
+	tool_customlang_utils::save_filter($submitted, $USER);
+	redirect(new moodle_url($PAGE->url, array('p'=>0)));
 }
 
 if ($translatorsubmitted) {
-    $strings = optional_param_array('cust', array(), PARAM_RAW);
-    $updates = optional_param_array('updates', array(), PARAM_INT);
-    $checkin = optional_param('savecheckin', false, PARAM_RAW);
+	$strings = optional_param_array('cust', array(), PARAM_RAW);
+	$updates = optional_param_array('updates', array(), PARAM_INT);
+	$checkin = optional_param('savecheckin', false, PARAM_RAW);
 
-    if ($checkin === false) {
-        $nexturl = $PAGE->url;
-    } else {
-        $nexturl = new moodle_url('/admin/tool/customlang/index.php', array('action'=>'checkin', 'lng' => $lng, 'sesskey'=>sesskey()));
-    }
+	if ($checkin === false) {
+		$nexturl = $PAGE->url;
+	} else {
+		$nexturl = new moodle_url('/admin/tool/customlang/index.php', array('action'=>'checkin', 'lng' => $lng, 'sesskey'=>sesskey()));
+	}
 
-    if (!is_array($strings)) {
-        $strings = array();
-    }
-    $current = $DB->get_records_list('tool_customlang', 'id', array_keys($strings));
-    $now = time();
+	if (!is_array($strings)) {
+		$strings = array();
+	}
+	$current = $DB->get_records_list('tool_customlang', 'id', array_keys($strings));
+	$now = time();
 
-    foreach ($strings as $recordid => $customization) {
-        $customization = trim($customization);
+	foreach ($strings as $recordid => $customization) {
+		$customization = trim($customization);
 
-        if (empty($customization) and !is_null($current[$recordid]->local)) {
-            $current[$recordid]->local = null;
-            $current[$recordid]->modified = 1;
-            $current[$recordid]->outdated = 0;
-            $current[$recordid]->timecustomized = null;
-            $DB->update_record('tool_customlang', $current[$recordid]);
-            continue;
-        }
+		if (empty($customization) and !is_null($current[$recordid]->local)) {
+			$current[$recordid]->local = null;
+			$current[$recordid]->modified = 1;
+			$current[$recordid]->outdated = 0;
+			$current[$recordid]->timecustomized = null;
+			$DB->update_record('tool_customlang', $current[$recordid]);
+			continue;
+		}
 
-        if (empty($customization)) {
-            continue;
-        }
+		if (empty($customization)) {
+			continue;
+		}
 
-        if ($customization !== $current[$recordid]->local) {
-            $current[$recordid]->local = $customization;
-            $current[$recordid]->modified = 1;
-            $current[$recordid]->outdated = 0;
-            $current[$recordid]->timecustomized = $now;
-            $DB->update_record('tool_customlang', $current[$recordid]);
-            continue;
-        }
-    }
+		if ($customization !== $current[$recordid]->local) {
+			$current[$recordid]->local = $customization;
+			$current[$recordid]->modified = 1;
+			$current[$recordid]->outdated = 0;
+			$current[$recordid]->timecustomized = $now;
+			$DB->update_record('tool_customlang', $current[$recordid]);
+			continue;
+		}
+	}
 
-    if (!is_array($updates)) {
-        $updates = array();
-    }
-    if (!empty($updates)) {
-        list($sql, $params) = $DB->get_in_or_equal($updates);
-        $DB->set_field_select('tool_customlang', 'outdated', 0, "local IS NOT NULL AND id $sql", $params);
-    }
+	if (!is_array($updates)) {
+		$updates = array();
+	}
+	if (!empty($updates)) {
+		list($sql, $params) = $DB->get_in_or_equal($updates);
+		$DB->set_field_select('tool_customlang', 'outdated', 0, "local IS NOT NULL AND id $sql", $params);
+	}
 
-    redirect($nexturl);
+	redirect($nexturl);
 }
 
 $translator = new tool_customlang_translator($PAGE->url, $lng, $filterdata, $currentpage);

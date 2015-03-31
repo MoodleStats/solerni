@@ -18,7 +18,7 @@ require_once($CFG->libdir.'/adminlib.php');
 include_once($CFG->dirroot.'/mnet/lib.php');
 
 if ($CFG->mnet_dispatcher_mode === 'off') {
-    print_error('mnetdisabled', 'mnet');
+	print_error('mnetdisabled', 'mnet');
 }
 
 require_login();
@@ -31,7 +31,7 @@ error_reporting(DEBUG_ALL);
 
 echo $OUTPUT->header();
 if (!extension_loaded('openssl')) {
-    print_error('requiresopenssl', 'mnet', '', NULL, true);
+	print_error('requiresopenssl', 'mnet', '', NULL, true);
 }
 
 // optional drilling down parameters
@@ -47,165 +47,165 @@ $PAGE->set_url($url);
 
 echo $OUTPUT->heading(get_string('hostlist', 'mnet'));
 foreach ($hosts as $id => $host) {
-    if (empty($host->wwwroot) || $host->wwwroot == $CFG->wwwroot) {
-        continue;
-    }
-    $newurl = new moodle_url($url, array('hostid' => $host->id));
-    echo '<p>' . html_writer::link($newurl, $host->wwwroot) . '</p>';
+	if (empty($host->wwwroot) || $host->wwwroot == $CFG->wwwroot) {
+		continue;
+	}
+	$newurl = new moodle_url($url, array('hostid' => $host->id));
+	echo '<p>' . html_writer::link($newurl, $host->wwwroot) . '</p>';
 }
 
 if (!empty($hostid) && array_key_exists($hostid, $hosts)) {
-    $host = $hosts[$hostid];
-    if ($host->applicationid != $moodleapplicationid) {
-        echo $OUTPUT->notification(get_string('notmoodleapplication', 'mnet'));
-    }
-    $mnet_peer = new mnet_peer();
-    $mnet_peer->set_wwwroot($host->wwwroot);
+	$host = $hosts[$hostid];
+	if ($host->applicationid != $moodleapplicationid) {
+		echo $OUTPUT->notification(get_string('notmoodleapplication', 'mnet'));
+	}
+	$mnet_peer = new mnet_peer();
+	$mnet_peer->set_wwwroot($host->wwwroot);
 
-    $mnet_request = new mnet_xmlrpc_client();
+	$mnet_request = new mnet_xmlrpc_client();
 
-    $mnet_request->set_method('system/listServices');
-    $mnet_request->send($mnet_peer);
-    $services = $mnet_request->response;
-    $yesno = array('No', 'Yes');
-    $servicenames = array();
+	$mnet_request->set_method('system/listServices');
+	$mnet_request->send($mnet_peer);
+	$services = $mnet_request->response;
+	$yesno = array('No', 'Yes');
+	$servicenames = array();
 
-    echo $OUTPUT->heading(get_string('servicesavailableonhost', 'mnet', $host->wwwroot));
+	echo $OUTPUT->heading(get_string('servicesavailableonhost', 'mnet', $host->wwwroot));
 
-    $table = new html_table();
-    $table->head = array(
-        get_string('serviceid', 'mnet'),
-        get_string('service', 'mnet'),
-        get_string('version', 'mnet'),
-        get_string('theypublish', 'mnet'),
-        get_string('theysubscribe', 'mnet'),
-        get_string('options', 'mnet'),
-    );
-    $table->data = array();
+	$table = new html_table();
+	$table->head = array(
+			get_string('serviceid', 'mnet'),
+			get_string('service', 'mnet'),
+			get_string('version', 'mnet'),
+			get_string('theypublish', 'mnet'),
+			get_string('theysubscribe', 'mnet'),
+			get_string('options', 'mnet'),
+	);
+	$table->data = array();
 
-    $yesno = array(get_string('no'), get_string('yes'));
+	$yesno = array(get_string('no'), get_string('yes'));
 
-    // this query is horrible and has to be remapped afterwards, because of the non-uniqueness
-    // of the remoterep service (it has two plugins so far that use it)
-    // it's possible to get a unique list back using a subquery with LIMIT but that would break oracle
-    // so it's best to just do this small query and then remap the results afterwards
-    $sql = '
-        SELECT DISTINCT
-            ' . $DB->sql_concat('r.plugintype', "'_'", 'r.pluginname', "'_'", 's.name')  . ' AS uniqueid,
-             s.name,
-             r.plugintype,
-             r.pluginname
-        FROM
-            {mnet_service} s
-       JOIN {mnet_remote_service2rpc} s2r ON s2r.serviceid = s.id
-       JOIN {mnet_remote_rpc} r ON r.id = s2r.rpcid';
+	// this query is horrible and has to be remapped afterwards, because of the non-uniqueness
+	// of the remoterep service (it has two plugins so far that use it)
+	// it's possible to get a unique list back using a subquery with LIMIT but that would break oracle
+	// so it's best to just do this small query and then remap the results afterwards
+	$sql = '
+	SELECT DISTINCT
+	' . $DB->sql_concat('r.plugintype', "'_'", 'r.pluginname', "'_'", 's.name')  . ' AS uniqueid,
+	s.name,
+	r.plugintype,
+	r.pluginname
+	FROM
+	{mnet_service} s
+	JOIN {mnet_remote_service2rpc} s2r ON s2r.serviceid = s.id
+	JOIN {mnet_remote_rpc} r ON r.id = s2r.rpcid';
 
-    $serviceinfo = array();
+	$serviceinfo = array();
 
-    foreach ($DB->get_records_sql($sql) as $result) {
-        $serviceinfo[$result->name] = $result->plugintype . '_' . $result->pluginname;
-    }
+	foreach ($DB->get_records_sql($sql) as $result) {
+		$serviceinfo[$result->name] = $result->plugintype . '_' . $result->pluginname;
+	}
 
-    foreach ($services as $id => $servicedata) {
-        if (array_key_exists($servicedata['name'], $serviceinfo)) {
-            $service = $serviceinfo[$servicedata['name']];
-            $servicedata['humanname'] = get_string($servicedata['name'].'_name', $service);
-        } else {
-            $servicedata['humanname'] = get_string('unknown', 'mnet');
-        }
-        $newurl = new moodle_url($url, array('hostid' => $host->id, 'servicename' => $servicedata['name']));
-        $table->data[] = array(
-            $servicedata['name'],
-            $servicedata['humanname'],
-            $servicedata['apiversion'],
-            $yesno[$servicedata['publish']],
-            $yesno[$servicedata['subscribe']],
-            html_writer::link($newurl, get_string('listservices', 'mnet'))
-        );
+	foreach ($services as $id => $servicedata) {
+		if (array_key_exists($servicedata['name'], $serviceinfo)) {
+			$service = $serviceinfo[$servicedata['name']];
+			$servicedata['humanname'] = get_string($servicedata['name'].'_name', $service);
+		} else {
+			$servicedata['humanname'] = get_string('unknown', 'mnet');
+		}
+		$newurl = new moodle_url($url, array('hostid' => $host->id, 'servicename' => $servicedata['name']));
+		$table->data[] = array(
+				$servicedata['name'],
+				$servicedata['humanname'],
+				$servicedata['apiversion'],
+				$yesno[$servicedata['publish']],
+				$yesno[$servicedata['subscribe']],
+				html_writer::link($newurl, get_string('listservices', 'mnet'))
+		);
 
-    }
-    echo html_writer::table($table);
-
-
-    $mnet_request->set_method('system/listMethods');
-    if (isset($servicename) && array_key_exists($servicename, $serviceinfo)) {
-        echo $OUTPUT->heading(get_string('methodsavailableonhostinservice', 'mnet', (object)array('host' => $host->wwwroot, 'service' => $servicename)));
-        $service = $serviceinfo[$servicename];
-        $mnet_request->add_param($servicename, 'string');
-    } else {
-        echo $OUTPUT->heading(get_string('methodsavailableonhost', 'mnet', $host->wwwroot));
-    }
-
-    $mnet_request->send($mnet_peer);
-    $methods = $mnet_request->response;
+	}
+	echo html_writer::table($table);
 
 
-    $table = new html_table();
-    $table->head = array(
-        get_string('method', 'mnet'),
-        get_string('options', 'mnet'),
-    );
-    $table->data = array();
+	$mnet_request->set_method('system/listMethods');
+	if (isset($servicename) && array_key_exists($servicename, $serviceinfo)) {
+		echo $OUTPUT->heading(get_string('methodsavailableonhostinservice', 'mnet', (object)array('host' => $host->wwwroot, 'service' => $servicename)));
+		$service = $serviceinfo[$servicename];
+		$mnet_request->add_param($servicename, 'string');
+	} else {
+		echo $OUTPUT->heading(get_string('methodsavailableonhost', 'mnet', $host->wwwroot));
+	}
 
-    foreach ($methods as $id => $method) {
-        $params = array('hostid' => $host->id, 'method' => $id+1);
-        if (isset($servicename)) {
-            $params['servicename'] = $servicename;
-        }
-        $newurl = new moodle_url($url, $params);
-        $table->data[] = array(
-            $method,
-            html_writer::link($newurl, get_string('inspect', 'mnet'))
-        );
-    }
-    echo html_writer::table($table);
+	$mnet_request->send($mnet_peer);
+	$methods = $mnet_request->response;
 
-    if (isset($methodid) && array_key_exists($methodid-1, $methods)) {
-        $method = $methods[$methodid-1];
 
-        $mnet_request = new mnet_xmlrpc_client();
-        $mnet_request->set_method('system/methodSignature');
-        $mnet_request->add_param($method, 'string');
-        $mnet_request->send($mnet_peer);
-        $signature = $mnet_request->response;
+	$table = new html_table();
+	$table->head = array(
+			get_string('method', 'mnet'),
+			get_string('options', 'mnet'),
+	);
+	$table->data = array();
 
-        echo $OUTPUT->heading(get_string('methodsignature', 'mnet', $method));
+	foreach ($methods as $id => $method) {
+		$params = array('hostid' => $host->id, 'method' => $id+1);
+		if (isset($servicename)) {
+			$params['servicename'] = $servicename;
+		}
+		$newurl = new moodle_url($url, $params);
+		$table->data[] = array(
+				$method,
+				html_writer::link($newurl, get_string('inspect', 'mnet'))
+		);
+	}
+	echo html_writer::table($table);
 
-        $table = new html_table();
-        $table->head = array(
-            get_string('position', 'mnet'),
-            get_string('name', 'mnet'),
-            get_string('type', 'mnet'),
-            get_string('description', 'mnet'),
-        );
-        $table->data = array();
+	if (isset($methodid) && array_key_exists($methodid-1, $methods)) {
+		$method = $methods[$methodid-1];
 
-        $params = $signature['parameters'];
-        foreach ($params as $pos => $details) {
-            $table->data[] = array(
-                $pos,
-                $details['name'],
-                $details['type'],
-                $details['description'],
-            );
-        }
-        $table->data[] = array(
-            get_string('returnvalue', 'mnet'),
-            '',
-            $signature['return']['type'],
-            $signature['return']['description']
-        );
+		$mnet_request = new mnet_xmlrpc_client();
+		$mnet_request->set_method('system/methodSignature');
+		$mnet_request->add_param($method, 'string');
+		$mnet_request->send($mnet_peer);
+		$signature = $mnet_request->response;
 
-        echo html_writer::table($table);
+		echo $OUTPUT->heading(get_string('methodsignature', 'mnet', $method));
 
-        $mnet_request->set_method('system/methodHelp');
-        $mnet_request->add_param($method, 'string');
-        $mnet_request->send($mnet_peer);
-        $help = $mnet_request->response;
+		$table = new html_table();
+		$table->head = array(
+				get_string('position', 'mnet'),
+				get_string('name', 'mnet'),
+				get_string('type', 'mnet'),
+				get_string('description', 'mnet'),
+		);
+		$table->data = array();
 
-        echo $OUTPUT->heading(get_string('methodhelp', 'mnet', $method));
-        echo(str_replace('\n', '<br />',$help));
-    }
+		$params = $signature['parameters'];
+		foreach ($params as $pos => $details) {
+			$table->data[] = array(
+					$pos,
+					$details['name'],
+					$details['type'],
+					$details['description'],
+			);
+		}
+		$table->data[] = array(
+				get_string('returnvalue', 'mnet'),
+				'',
+				$signature['return']['type'],
+				$signature['return']['description']
+		);
+
+		echo html_writer::table($table);
+
+		$mnet_request->set_method('system/methodHelp');
+		$mnet_request->add_param($method, 'string');
+		$mnet_request->send($mnet_peer);
+		$help = $mnet_request->response;
+
+		echo $OUTPUT->heading(get_string('methodhelp', 'mnet', $method));
+		echo(str_replace('\n', '<br />',$help));
+	}
 }
 
 echo $OUTPUT->footer();

@@ -39,24 +39,24 @@ use Behat\Gherkin\Node\TableNode as TableNode;
  */
 class behat_calendar extends behat_base {
 
-    /**
-     * Create event.
-     *
-     * @Given /^I create a calendar event with form data:$/
-     * @param TableNode $data
-     * @return array the list of actions to perform
-     */
-    public function i_create_a_calendar_event_with_form_data($data) {
-        // Get the event name.
-        $eventname = $data->getRow(1);
-        $eventname = $eventname[1];
+	/**
+	 * Create event.
+	 *
+	 * @Given /^I create a calendar event with form data:$/
+	 * @param TableNode $data
+	 * @return array the list of actions to perform
+	 */
+	public function i_create_a_calendar_event_with_form_data($data) {
+		// Get the event name.
+		$eventname = $data->getRow(1);
+		$eventname = $eventname[1];
 
-        return array(
-            new Given('I follow "' . get_string('monththis', 'calendar') . '"'),
-            new Given('I click on "' . get_string('newevent', 'calendar') .'" "button"'),
-            new Given('I set the following fields to these values:', $data),
-            new Given('I press "' . get_string('savechanges') . '"'),
-            new Given('I should see "' . $eventname . '"')
-        );
-    }
+		return array(
+				new Given('I follow "' . get_string('monththis', 'calendar') . '"'),
+				new Given('I click on "' . get_string('newevent', 'calendar') .'" "button"'),
+				new Given('I set the following fields to these values:', $data),
+				new Given('I press "' . get_string('savechanges') . '"'),
+				new Given('I should see "' . $eventname . '"')
+		);
+	}
 }

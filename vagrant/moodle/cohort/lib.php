@@ -31,40 +31,40 @@ defined('MOODLE_INTERNAL') || die();
  * @return int new cohort id
  */
 function cohort_add_cohort($cohort) {
-    global $DB;
+	global $DB;
 
-    if (!isset($cohort->name)) {
-        throw new coding_exception('Missing cohort name in cohort_add_cohort().');
-    }
-    if (!isset($cohort->idnumber)) {
-        $cohort->idnumber = NULL;
-    }
-    if (!isset($cohort->description)) {
-        $cohort->description = '';
-    }
-    if (!isset($cohort->descriptionformat)) {
-        $cohort->descriptionformat = FORMAT_HTML;
-    }
-    if (empty($cohort->component)) {
-        $cohort->component = '';
-    }
-    if (!isset($cohort->timecreated)) {
-        $cohort->timecreated = time();
-    }
-    if (!isset($cohort->timemodified)) {
-        $cohort->timemodified = $cohort->timecreated;
-    }
+	if (!isset($cohort->name)) {
+		throw new coding_exception('Missing cohort name in cohort_add_cohort().');
+	}
+	if (!isset($cohort->idnumber)) {
+		$cohort->idnumber = NULL;
+	}
+	if (!isset($cohort->description)) {
+		$cohort->description = '';
+	}
+	if (!isset($cohort->descriptionformat)) {
+		$cohort->descriptionformat = FORMAT_HTML;
+	}
+	if (empty($cohort->component)) {
+		$cohort->component = '';
+	}
+	if (!isset($cohort->timecreated)) {
+		$cohort->timecreated = time();
+	}
+	if (!isset($cohort->timemodified)) {
+		$cohort->timemodified = $cohort->timecreated;
+	}
 
-    $cohort->id = $DB->insert_record('cohort', $cohort);
+	$cohort->id = $DB->insert_record('cohort', $cohort);
 
-    $event = \core\event\cohort_created::create(array(
-        'context' => context::instance_by_id($cohort->contextid),
-        'objectid' => $cohort->id,
-    ));
-    $event->add_record_snapshot('cohort', $cohort);
-    $event->trigger();
+	$event = \core\event\cohort_created::create(array(
+			'context' => context::instance_by_id($cohort->contextid),
+			'objectid' => $cohort->id,
+	));
+	$event->add_record_snapshot('cohort', $cohort);
+	$event->trigger();
 
-    return $cohort->id;
+	return $cohort->id;
 }
 
 /**
@@ -73,19 +73,19 @@ function cohort_add_cohort($cohort) {
  * @return void
  */
 function cohort_update_cohort($cohort) {
-    global $DB;
-    if (property_exists($cohort, 'component') and empty($cohort->component)) {
-        // prevent NULLs
-        $cohort->component = '';
-    }
-    $cohort->timemodified = time();
-    $DB->update_record('cohort', $cohort);
+	global $DB;
+	if (property_exists($cohort, 'component') and empty($cohort->component)) {
+		// prevent NULLs
+		$cohort->component = '';
+	}
+	$cohort->timemodified = time();
+	$DB->update_record('cohort', $cohort);
 
-    $event = \core\event\cohort_updated::create(array(
-        'context' => context::instance_by_id($cohort->contextid),
-        'objectid' => $cohort->id,
-    ));
-    $event->trigger();
+	$event = \core\event\cohort_updated::create(array(
+			'context' => context::instance_by_id($cohort->contextid),
+			'objectid' => $cohort->id,
+	));
+	$event->trigger();
 }
 
 /**
@@ -94,21 +94,21 @@ function cohort_update_cohort($cohort) {
  * @return void
  */
 function cohort_delete_cohort($cohort) {
-    global $DB;
+	global $DB;
 
-    if ($cohort->component) {
-        // TODO: add component delete callback
-    }
+	if ($cohort->component) {
+		// TODO: add component delete callback
+	}
 
-    $DB->delete_records('cohort_members', array('cohortid'=>$cohort->id));
-    $DB->delete_records('cohort', array('id'=>$cohort->id));
+	$DB->delete_records('cohort_members', array('cohortid'=>$cohort->id));
+	$DB->delete_records('cohort', array('id'=>$cohort->id));
 
-    $event = \core\event\cohort_deleted::create(array(
-        'context' => context::instance_by_id($cohort->contextid),
-        'objectid' => $cohort->id,
-    ));
-    $event->add_record_snapshot('cohort', $cohort);
-    $event->trigger();
+	$event = \core\event\cohort_deleted::create(array(
+			'context' => context::instance_by_id($cohort->contextid),
+			'objectid' => $cohort->id,
+	));
+	$event->add_record_snapshot('cohort', $cohort);
+	$event->trigger();
 }
 
 /**
@@ -119,22 +119,22 @@ function cohort_delete_cohort($cohort) {
  * @return void
  */
 function cohort_delete_category($category) {
-    global $DB;
-    // TODO: make sure that cohorts are really, really not used anywhere and delete, for now just move to parent or system context
+	global $DB;
+	// TODO: make sure that cohorts are really, really not used anywhere and delete, for now just move to parent or system context
 
-    $oldcontext = context_coursecat::instance($category->id);
+	$oldcontext = context_coursecat::instance($category->id);
 
-    if ($category->parent and $parent = $DB->get_record('course_categories', array('id'=>$category->parent))) {
-        $parentcontext = context_coursecat::instance($parent->id);
-        $sql = "UPDATE {cohort} SET contextid = :newcontext WHERE contextid = :oldcontext";
-        $params = array('oldcontext'=>$oldcontext->id, 'newcontext'=>$parentcontext->id);
-    } else {
-        $syscontext = context_system::instance();
-        $sql = "UPDATE {cohort} SET contextid = :newcontext WHERE contextid = :oldcontext";
-        $params = array('oldcontext'=>$oldcontext->id, 'newcontext'=>$syscontext->id);
-    }
+	if ($category->parent and $parent = $DB->get_record('course_categories', array('id'=>$category->parent))) {
+		$parentcontext = context_coursecat::instance($parent->id);
+		$sql = "UPDATE {cohort} SET contextid = :newcontext WHERE contextid = :oldcontext";
+		$params = array('oldcontext'=>$oldcontext->id, 'newcontext'=>$parentcontext->id);
+	} else {
+		$syscontext = context_system::instance();
+		$sql = "UPDATE {cohort} SET contextid = :newcontext WHERE contextid = :oldcontext";
+		$params = array('oldcontext'=>$oldcontext->id, 'newcontext'=>$syscontext->id);
+	}
 
-    $DB->execute($sql, $params);
+	$DB->execute($sql, $params);
 }
 
 /**
@@ -144,26 +144,26 @@ function cohort_delete_category($category) {
  * @return void
  */
 function cohort_add_member($cohortid, $userid) {
-    global $DB;
-    if ($DB->record_exists('cohort_members', array('cohortid'=>$cohortid, 'userid'=>$userid))) {
-        // No duplicates!
-        return;
-    }
-    $record = new stdClass();
-    $record->cohortid  = $cohortid;
-    $record->userid    = $userid;
-    $record->timeadded = time();
-    $DB->insert_record('cohort_members', $record);
+	global $DB;
+	if ($DB->record_exists('cohort_members', array('cohortid'=>$cohortid, 'userid'=>$userid))) {
+		// No duplicates!
+		return;
+	}
+	$record = new stdClass();
+	$record->cohortid  = $cohortid;
+	$record->userid    = $userid;
+	$record->timeadded = time();
+	$DB->insert_record('cohort_members', $record);
 
-    $cohort = $DB->get_record('cohort', array('id' => $cohortid), '*', MUST_EXIST);
+	$cohort = $DB->get_record('cohort', array('id' => $cohortid), '*', MUST_EXIST);
 
-    $event = \core\event\cohort_member_added::create(array(
-        'context' => context::instance_by_id($cohort->contextid),
-        'objectid' => $cohortid,
-        'relateduserid' => $userid,
-    ));
-    $event->add_record_snapshot('cohort', $cohort);
-    $event->trigger();
+	$event = \core\event\cohort_member_added::create(array(
+			'context' => context::instance_by_id($cohort->contextid),
+			'objectid' => $cohortid,
+			'relateduserid' => $userid,
+	));
+	$event->add_record_snapshot('cohort', $cohort);
+	$event->trigger();
 }
 
 /**
@@ -173,18 +173,18 @@ function cohort_add_member($cohortid, $userid) {
  * @return void
  */
 function cohort_remove_member($cohortid, $userid) {
-    global $DB;
-    $DB->delete_records('cohort_members', array('cohortid'=>$cohortid, 'userid'=>$userid));
+	global $DB;
+	$DB->delete_records('cohort_members', array('cohortid'=>$cohortid, 'userid'=>$userid));
 
-    $cohort = $DB->get_record('cohort', array('id' => $cohortid), '*', MUST_EXIST);
+	$cohort = $DB->get_record('cohort', array('id' => $cohortid), '*', MUST_EXIST);
 
-    $event = \core\event\cohort_member_removed::create(array(
-        'context' => context::instance_by_id($cohort->contextid),
-        'objectid' => $cohortid,
-        'relateduserid' => $userid,
-    ));
-    $event->add_record_snapshot('cohort', $cohort);
-    $event->trigger();
+	$event = \core\event\cohort_member_removed::create(array(
+			'context' => context::instance_by_id($cohort->contextid),
+			'objectid' => $cohortid,
+			'relateduserid' => $userid,
+	));
+	$event->add_record_snapshot('cohort', $cohort);
+	$event->trigger();
 }
 
 /**
@@ -194,9 +194,9 @@ function cohort_remove_member($cohortid, $userid) {
  * @return bool
  */
 function cohort_is_member($cohortid, $userid) {
-    global $DB;
+	global $DB;
 
-    return $DB->record_exists('cohort_members', array('cohortid'=>$cohortid, 'userid'=>$userid));
+	return $DB->record_exists('cohort_members', array('cohortid'=>$cohortid, 'userid'=>$userid));
 }
 
 /**
@@ -211,40 +211,40 @@ function cohort_is_member($cohortid, $userid) {
  * @return array of cohort names with number of enrolled users
  */
 function cohort_get_visible_list($course, $onlyenrolled=true) {
-    global $DB;
+	global $DB;
 
-    $context = context_course::instance($course->id);
-    list($esql, $params) = get_enrolled_sql($context);
-    list($parentsql, $params2) = $DB->get_in_or_equal($context->get_parent_context_ids(), SQL_PARAMS_NAMED);
-    $params = array_merge($params, $params2);
+	$context = context_course::instance($course->id);
+	list($esql, $params) = get_enrolled_sql($context);
+	list($parentsql, $params2) = $DB->get_in_or_equal($context->get_parent_context_ids(), SQL_PARAMS_NAMED);
+	$params = array_merge($params, $params2);
 
-    if ($onlyenrolled) {
-        $left = "";
-        $having = "HAVING COUNT(u.id) > 0";
-    } else {
-        $left = "LEFT";
-        $having = "";
-    }
+	if ($onlyenrolled) {
+		$left = "";
+		$having = "HAVING COUNT(u.id) > 0";
+	} else {
+		$left = "LEFT";
+		$having = "";
+	}
 
-    $sql = "SELECT c.id, c.name, c.contextid, c.idnumber, COUNT(u.id) AS cnt
-              FROM {cohort} c
-        $left JOIN ({cohort_members} cm
-                   JOIN ($esql) u ON u.id = cm.userid) ON cm.cohortid = c.id
-             WHERE c.contextid $parentsql
-          GROUP BY c.id, c.name, c.contextid, c.idnumber
-           $having
-          ORDER BY c.name, c.idnumber";
+	$sql = "SELECT c.id, c.name, c.contextid, c.idnumber, COUNT(u.id) AS cnt
+	FROM {cohort} c
+	$left JOIN ({cohort_members} cm
+	JOIN ($esql) u ON u.id = cm.userid) ON cm.cohortid = c.id
+	WHERE c.contextid $parentsql
+	GROUP BY c.id, c.name, c.contextid, c.idnumber
+	$having
+	ORDER BY c.name, c.idnumber";
 
-    $cohorts = $DB->get_records_sql($sql, $params);
+	$cohorts = $DB->get_records_sql($sql, $params);
 
-    foreach ($cohorts as $cid=>$cohort) {
-        $cohorts[$cid] = format_string($cohort->name, true, array('context'=>$cohort->contextid));
-        if ($cohort->cnt) {
-            $cohorts[$cid] .= ' (' . $cohort->cnt . ')';
-        }
-    }
+	foreach ($cohorts as $cid=>$cohort) {
+		$cohorts[$cid] = format_string($cohort->name, true, array('context'=>$cohort->contextid));
+		if ($cohort->cnt) {
+			$cohorts[$cid] .= ' (' . $cohort->cnt . ')';
+		}
+	}
 
-    return $cohorts;
+	return $cohorts;
 }
 
 /**
@@ -257,31 +257,31 @@ function cohort_get_visible_list($course, $onlyenrolled=true) {
  * @return array    Array(totalcohorts => int, cohorts => array, allcohorts => int)
  */
 function cohort_get_cohorts($contextid, $page = 0, $perpage = 25, $search = '') {
-    global $DB;
+	global $DB;
 
-    // Add some additional sensible conditions
-    $tests = array('contextid = ?');
-    $params = array($contextid);
+	// Add some additional sensible conditions
+	$tests = array('contextid = ?');
+	$params = array($contextid);
 
-    if (!empty($search)) {
-        $conditions = array('name', 'idnumber', 'description');
-        $searchparam = '%' . $DB->sql_like_escape($search) . '%';
-        foreach ($conditions as $key=>$condition) {
-            $conditions[$key] = $DB->sql_like($condition, "?", false);
-            $params[] = $searchparam;
-        }
-        $tests[] = '(' . implode(' OR ', $conditions) . ')';
-    }
-    $wherecondition = implode(' AND ', $tests);
+	if (!empty($search)) {
+		$conditions = array('name', 'idnumber', 'description');
+		$searchparam = '%' . $DB->sql_like_escape($search) . '%';
+		foreach ($conditions as $key=>$condition) {
+			$conditions[$key] = $DB->sql_like($condition, "?", false);
+			$params[] = $searchparam;
+		}
+		$tests[] = '(' . implode(' OR ', $conditions) . ')';
+	}
+	$wherecondition = implode(' AND ', $tests);
 
-    $fields = "SELECT *";
-    $countfields = "SELECT COUNT(1)";
-    $sql = " FROM {cohort}
-             WHERE $wherecondition";
-    $order = " ORDER BY name ASC, idnumber ASC";
-    $allcohorts = $DB->count_records('cohort', array('contextid'=>$contextid));
-    $totalcohorts = $DB->count_records_sql($countfields . $sql, $params);
-    $cohorts = $DB->get_records_sql($fields . $sql . $order, $params, $page*$perpage, $perpage);
+	$fields = "SELECT *";
+	$countfields = "SELECT COUNT(1)";
+	$sql = " FROM {cohort}
+	WHERE $wherecondition";
+	$order = " ORDER BY name ASC, idnumber ASC";
+	$allcohorts = $DB->count_records('cohort', array('contextid'=>$contextid));
+	$totalcohorts = $DB->count_records_sql($countfields . $sql, $params);
+	$cohorts = $DB->get_records_sql($fields . $sql . $order, $params, $page*$perpage, $perpage);
 
-    return array('totalcohorts' => $totalcohorts, 'cohorts' => $cohorts, 'allcohorts'=>$allcohorts);
+	return array('totalcohorts' => $totalcohorts, 'cohorts' => $cohorts, 'allcohorts'=>$allcohorts);
 }

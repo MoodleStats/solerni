@@ -37,21 +37,21 @@ defined('MOODLE_INTERNAL') || die();
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class callbacks {
-    /**
-     * A user grade has been updated in gradebook.
-     *
-     * @param int $userid User ID
-     */
-    public static function grade_changed($userid) {
-        \cache::make('availability_grade', 'scores')->delete($userid);
-    }
+	/**
+	 * A user grade has been updated in gradebook.
+	 *
+	 * @param int $userid User ID
+	 */
+	public static function grade_changed($userid) {
+		\cache::make('availability_grade', 'scores')->delete($userid);
+	}
 
-    /**
-     * A grade item has been updated in gradebook.
-     *
-     * @param int $courseid Course id
-     */
-    public static function grade_item_changed($courseid) {
-        \cache::make('availability_grade', 'items')->delete($courseid);
-    }
+	/**
+	 * A grade item has been updated in gradebook.
+	 *
+	 * @param int $courseid Course id
+	 */
+	public static function grade_item_changed($courseid) {
+		\cache::make('availability_grade', 'items')->delete($courseid);
+	}
 }

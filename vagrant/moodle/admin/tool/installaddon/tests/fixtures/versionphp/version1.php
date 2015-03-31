@@ -18,21 +18,22 @@ Replace $plugin with $module for activity modules, as in
 
 <pre>
     $module->version = 2012122400;
-</pre><?php // $Id$ $module->version = 1;
+</pre>
+<?php // $Id$ $module->version = 1;
 
-    $plugin->component
-        = 'old_foobar';//$plugin->component='commented';
+$plugin->component
+= 'old_foobar';//$plugin->component='commented';
 
-    $plugin->component      =   
-        'block_foobar';
-    
+$plugin->component      =
+'block_foobar';
+
 $plugin->version = 2013010100;
- ////////$plugin->version = 0;
-    /* for activity
-       modules use:
-    $module->version = 2014131300;
+////////$plugin->version = 0;
+/* for activity
+ modules use:
+$module->version = 2014131300;
 
-    ***/
+***/
 $plugin->version = "2010091855";        // Do not use quotes here.
 $plugin->version = '2010091856.9'; // Do not use quotes here.
 

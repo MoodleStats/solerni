@@ -27,64 +27,64 @@
 
 /**
  * Define the complete rss_client  structure for restore
- */
+*/
 class restore_rss_client_block_structure_step extends restore_structure_step {
 
-    protected function define_structure() {
+	protected function define_structure() {
 
-        $paths = array();
+		$paths = array();
 
-        $paths[] = new restore_path_element('block', '/block', true);
-        $paths[] = new restore_path_element('rss_client', '/block/rss_client');
-        $paths[] = new restore_path_element('feed', '/block/rss_client/feeds/feed');
+		$paths[] = new restore_path_element('block', '/block', true);
+		$paths[] = new restore_path_element('rss_client', '/block/rss_client');
+		$paths[] = new restore_path_element('feed', '/block/rss_client/feeds/feed');
 
-        return $paths;
-    }
+		return $paths;
+	}
 
-    public function process_block($data) {
-        global $DB;
+	public function process_block($data) {
+		global $DB;
 
-        $data = (object)$data;
-        $feedsarr = array(); // To accumulate feeds
+		$data = (object)$data;
+		$feedsarr = array(); // To accumulate feeds
 
-        // For any reason (non multiple, dupe detected...) block not restored, return
-        if (!$this->task->get_blockid()) {
-            return;
-        }
+		// For any reason (non multiple, dupe detected...) block not restored, return
+		if (!$this->task->get_blockid()) {
+			return;
+		}
 
-        // Iterate over all the feed elements, creating them if needed
-        if (isset($data->rss_client['feeds']['feed'])) {
-            foreach ($data->rss_client['feeds']['feed'] as $feed) {
-                $feed = (object)$feed;
-                // Look if the same feed is available by url and (shared or userid)
-                $select = 'url = :url AND (shared = 1 OR userid = :userid)';
-                $params = array('url' => $feed->url, 'userid' => $this->task->get_userid());
-                // The feed already exists, use it
-                if ($feedid = $DB->get_field_select('block_rss_client', 'id', $select, $params, IGNORE_MULTIPLE)) {
-                    $feedsarr[] = $feedid;
+		// Iterate over all the feed elements, creating them if needed
+		if (isset($data->rss_client['feeds']['feed'])) {
+			foreach ($data->rss_client['feeds']['feed'] as $feed) {
+				$feed = (object)$feed;
+				// Look if the same feed is available by url and (shared or userid)
+				$select = 'url = :url AND (shared = 1 OR userid = :userid)';
+				$params = array('url' => $feed->url, 'userid' => $this->task->get_userid());
+				// The feed already exists, use it
+				if ($feedid = $DB->get_field_select('block_rss_client', 'id', $select, $params, IGNORE_MULTIPLE)) {
+					$feedsarr[] = $feedid;
 
-                // The feed doesn't exist, create it
-                } else {
-                    $feed->userid = $this->task->get_userid();
-                    $feedid = $DB->insert_record('block_rss_client', $feed);
-                    $feedsarr[] = $feedid;
-                }
-            }
-        }
+					// The feed doesn't exist, create it
+				} else {
+					$feed->userid = $this->task->get_userid();
+					$feedid = $DB->insert_record('block_rss_client', $feed);
+					$feedsarr[] = $feedid;
+				}
+			}
+		}
 
-        // Adjust the serialized configdata->rssid to the created/mapped feeds
-        // Get the configdata
-        $configdata = $DB->get_field('block_instances', 'configdata', array('id' => $this->task->get_blockid()));
-        // Extract configdata
-        $config = unserialize(base64_decode($configdata));
-        if (empty($config)) {
-            $config = new stdClass();
-        }
-        // Set array of used rss feeds
-        $config->rssid = $feedsarr;
-        // Serialize back the configdata
-        $configdata = base64_encode(serialize($config));
-        // Set the configdata back
-        $DB->set_field('block_instances', 'configdata', $configdata, array('id' => $this->task->get_blockid()));
-    }
+		// Adjust the serialized configdata->rssid to the created/mapped feeds
+		// Get the configdata
+		$configdata = $DB->get_field('block_instances', 'configdata', array('id' => $this->task->get_blockid()));
+		// Extract configdata
+		$config = unserialize(base64_decode($configdata));
+		if (empty($config)) {
+			$config = new stdClass();
+		}
+		// Set array of used rss feeds
+		$config->rssid = $feedsarr;
+		// Serialize back the configdata
+		$configdata = base64_encode(serialize($config));
+		// Set the configdata back
+		$DB->set_field('block_instances', 'configdata', $configdata, array('id' => $this->task->get_blockid()));
+	}
 }

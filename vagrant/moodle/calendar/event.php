@@ -40,11 +40,11 @@
 
 /**
  * This file is part of the Calendar section Moodle
- *
- * @copyright 2003-2004 Jon Papaioannou (pj@moodle.org)
- * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v2 or later
- * @package calendar
- */
+*
+* @copyright 2003-2004 Jon Papaioannou (pj@moodle.org)
+* @license http://www.gnu.org/copyleft/gpl.html GNU GPL v2 or later
+* @package calendar
+*/
 
 require_once('../config.php');
 require_once($CFG->dirroot.'/calendar/event_form.php');
@@ -66,45 +66,45 @@ $time = optional_param('time', 0, PARAM_INT);
 // then we can assume the day, month and year are passed as Gregorian, as no where in core
 // should we be passing these values rather than the time. This is done for BC.
 if (!empty($day) && !empty($month) && !empty($year)) {
-    if (checkdate($month, $day, $year)) {
-        $time = make_timestamp($year, $month, $day);
-    } else {
-        $time = time();
-    }
+	if (checkdate($month, $day, $year)) {
+		$time = make_timestamp($year, $month, $day);
+	} else {
+		$time = time();
+	}
 } else if (empty($time)) {
-    $time = time();
+	$time = time();
 }
 
 $url = new moodle_url('/calendar/event.php', array('action' => $action));
 
 if ($eventid != 0) {
-    $url->param('id', $eventid);
+	$url->param('id', $eventid);
 }
 
 if ($courseid != SITEID) {
-    $url->param('course', $courseid);
+	$url->param('course', $courseid);
 }
 
 $PAGE->set_url($url);
 $PAGE->set_pagelayout('admin');
 
 if ($courseid != SITEID && !empty($courseid)) {
-    $course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
-    $courses = array($course->id => $course);
-    $issite = false;
+	$course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
+	$courses = array($course->id => $course);
+	$issite = false;
 } else {
-    $course = get_site();
-    $courses = calendar_get_default_courses();
-    $issite = true;
+	$course = get_site();
+	$courses = calendar_get_default_courses();
+	$issite = true;
 }
 require_login($course, false);
 
 if ($action === 'delete' && $eventid > 0) {
-    $deleteurl = new moodle_url('/calendar/delete.php', array('id'=>$eventid));
-    if ($courseid > 0) {
-        $deleteurl->param('course', $courseid);
-    }
-    redirect($deleteurl);
+	$deleteurl = new moodle_url('/calendar/delete.php', array('id'=>$eventid));
+	if ($courseid > 0) {
+		$deleteurl->param('course', $courseid);
+	}
+	redirect($deleteurl);
 }
 
 $calendar = new calendar_information(0, 0, 0, $time);
@@ -112,40 +112,40 @@ $calendar->prepare_for_view($course, $courses);
 
 $formoptions = new stdClass;
 if ($eventid !== 0) {
-    $title = get_string('editevent', 'calendar');
-    $event = calendar_event::load($eventid);
-    if (!calendar_edit_event_allowed($event)) {
-        print_error('nopermissions');
-    }
-    $event->action = $action;
-    $event->course = $courseid;
-    $event->timedurationuntil = $event->timestart + $event->timeduration;
-    $event->count_repeats();
+	$title = get_string('editevent', 'calendar');
+	$event = calendar_event::load($eventid);
+	if (!calendar_edit_event_allowed($event)) {
+		print_error('nopermissions');
+	}
+	$event->action = $action;
+	$event->course = $courseid;
+	$event->timedurationuntil = $event->timestart + $event->timeduration;
+	$event->count_repeats();
 
-    if (!calendar_add_event_allowed($event)) {
-        print_error('nopermissions');
-    }
+	if (!calendar_add_event_allowed($event)) {
+		print_error('nopermissions');
+	}
 } else {
-    $title = get_string('newevent', 'calendar');
-    calendar_get_allowed_types($formoptions->eventtypes, $course);
-    $event = new stdClass();
-    $event->action = $action;
-    $event->course = $courseid;
-    $event->courseid = $courseid;
-    $event->timeduration = 0;
-    if ($formoptions->eventtypes->courses) {
-        if (!$issite) {
-            $event->eventtype = 'course';
-        } else {
-            unset($formoptions->eventtypes->courses);
-            unset($formoptions->eventtypes->groups);
-        }
-    }
-    $event->timestart = $time;
-    $event = new calendar_event($event);
-    if (!calendar_add_event_allowed($event)) {
-        print_error('nopermissions');
-    }
+	$title = get_string('newevent', 'calendar');
+	calendar_get_allowed_types($formoptions->eventtypes, $course);
+	$event = new stdClass();
+	$event->action = $action;
+	$event->course = $courseid;
+	$event->courseid = $courseid;
+	$event->timeduration = 0;
+	if ($formoptions->eventtypes->courses) {
+		if (!$issite) {
+			$event->eventtype = 'course';
+		} else {
+			unset($formoptions->eventtypes->courses);
+			unset($formoptions->eventtypes->groups);
+		}
+	}
+	$event->timestart = $time;
+	$event = new calendar_event($event);
+	if (!calendar_add_event_allowed($event)) {
+		print_error('nopermissions');
+	}
 }
 
 $properties = $event->properties(true);
@@ -155,26 +155,26 @@ $mform = new event_form(null, $formoptions);
 $mform->set_data($properties);
 $data = $mform->get_data();
 if ($data) {
-    if ($data->duration == 1) {
-        $data->timeduration = $data->timedurationuntil- $data->timestart;
-    } else if ($data->duration == 2) {
-        $data->timeduration = $data->timedurationminutes * MINSECS;
-    } else {
-        $data->timeduration = 0;
-    }
+	if ($data->duration == 1) {
+		$data->timeduration = $data->timedurationuntil- $data->timestart;
+	} else if ($data->duration == 2) {
+		$data->timeduration = $data->timedurationminutes * MINSECS;
+	} else {
+		$data->timeduration = 0;
+	}
 
-    $event->update($data);
+	$event->update($data);
 
-    $params = array(
-        'view' => 'day',
-        'time' => $event->timestart,
-    );
-    $eventurl = new moodle_url('/calendar/view.php', $params);
-    if (!empty($event->courseid) && $event->courseid != SITEID) {
-        $eventurl->param('course', $event->courseid);
-    }
-    $eventurl->set_anchor('event_'.$event->id);
-    redirect($eventurl);
+	$params = array(
+			'view' => 'day',
+			'time' => $event->timestart,
+	);
+	$eventurl = new moodle_url('/calendar/view.php', $params);
+	if (!empty($event->courseid) && $event->courseid != SITEID) {
+		$eventurl->param('course', $event->courseid);
+	}
+	$eventurl->set_anchor('event_'.$event->id);
+	redirect($eventurl);
 }
 
 $viewcalendarurl = new moodle_url(CALENDAR_URL.'view.php', $PAGE->url->params());
