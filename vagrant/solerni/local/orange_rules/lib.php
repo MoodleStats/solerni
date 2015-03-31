@@ -24,7 +24,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 
-// STANDARD FUNCTIONS ///////////////////////////////////////////////////////////
+// STANDARD FUNCTIONS.
 
 /**
  * Given an object containing all the necessary data,
@@ -75,14 +75,12 @@ function rule_add_rule($rule) {
         $emailparts = explode('@', $user->email);
         $userdomain = $emailparts[1];
 
-        // echo $userdomain . " - " . $user->email . "<br>";
         // If the domains of the email match the whitelist then add to cohort.
         if ( (in_array($userdomain, $domains)) || (in_array($user->email, $emails)) ) {
-            // echo "ajout de l'user : " . $user->email . " dans la cohorte <BR>";
             cohort_add_member($rule->cohortid, $user->id);
         }
     }
-    // return $rule->id;
+
     return true;
 
 }

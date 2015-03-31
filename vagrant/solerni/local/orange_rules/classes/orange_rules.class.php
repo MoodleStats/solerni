@@ -157,7 +157,7 @@ class orange_rules  {
         }
 
         $returnurl = new moodle_url('index.php', array('action' => 'rules_list', 'sesskey' => sesskey()));
-        // Var_dump($returnurl); .
+
         redirect($returnurl);
     }
 

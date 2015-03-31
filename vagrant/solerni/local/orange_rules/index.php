@@ -37,23 +37,13 @@ require_capability('moodle/site:config', context_system::instance());
 if (!confirm_sesskey()) {
     print_error('confirmsesskeybad', 'error');
 }
-// mtrace("Action=", $action);
-// $context = get_context_instance(CONTEXT_SYSTEM);
+
 $context = context_system::instance();
 
 $url = new moodle_url('/local/local_orange_rules/index.php');
 $url->param('action', $action);
 $PAGE->set_url($url);
 $PAGE->set_context($context);
-
-/*
-// Calling the appropiate class
-$manager = substr($action, 0, strpos($action, '_'));
-// mtrace("Manager=",$manager);
-$classname = 'orange_' . $manager;
-// mtrace("Classname=",$classname);
-$instance = new $classname($action);
-*/
 
 $instance = new orange_rules($action);
 

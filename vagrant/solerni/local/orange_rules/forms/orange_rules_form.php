@@ -25,14 +25,6 @@
 
 require_once($CFG->libdir . '/formslib.php');
 
-/**
- * Form to select the ingredients to deploy
- *
- * @package local
- * @subpackage flavours
- * @copyright 2011 David Monllaó
- * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
 class orange_rules_form extends moodleform implements renderable {
 
     public function definition() {
@@ -56,19 +48,6 @@ class orange_rules_form extends moodleform implements renderable {
         $mform->setType('domains', PARAM_TEXT);
         $mform->addHelpButton('domains', 'ruledomains', 'local_orange_rules');
 
-        // Var_dump($mform->getElementValue('cohortid'));
-        // Var_dump($mform->getAttribute('name'));
-
-        /*
-        $options = $this->get_cohorts_options();
-        var_dump($options);
-        $select = $mform->addElement('select', 'cohortid', get_string('rulecohorts', 'local_orange_rules'));
-        foreach ($options as $id=>$values)
-            if ($values[1]==1)
-                $select->addOption($values[0], $id);
-            else
-                $select->addOption($values[0], $id , array( 'disabled' => 'disabled' ) );
-        */
         $mform->addElement('select', 'cohortid', get_string('rulecohorts', 'local_orange_rules'));
 
         $mform->addRule('cohortid', null, 'required', null, 'client');
@@ -106,9 +85,6 @@ class orange_rules_form extends moodleform implements renderable {
                 $cohortid->addOption($cohort->name, $cohort->id, array( 'disabled' => 'disabled' ));
             }
         }
-
-        // $cohortid->freeze();
-        // $cohortid->setPersistantFreeze(true);
     }
 
 
@@ -117,49 +93,7 @@ class orange_rules_form extends moodleform implements renderable {
         global $DB;
         $errors = array();
 
-        /*
-        $errors = parent::validation($data, $files);
-
-        $cohortid = trim($data['cohortid']);
-        mtrace($cohortid);
-        die;
-        if ($cohortid === 0)
-        {
-            $errors['cohortid'] = get_string('cohortempty', 'local_orange_rules');
-        }
-        */
-
         return $errors;
     }
 
-    /*
-    protected function get_cohorts_options() {
-        global $DB;
-
-        //Read the cohort in orange_rules
-        $rules = $DB->get_records('orange_rules');
-        $idscohortselected=array();
-        foreach($rules as $rule) {
-            $idscohortselected[] = $rule->cohortid;
-        }
-        $idscohortselected = array_unique($idscohortselected);
-
-        // Read the cohort list
-        $cohorts = $DB->get_records('cohort');
-
-        $options = array();
-        $options[0] = array(get_string('selectcohort', 'local_orange_rules'),1);
-        foreach($cohorts as $cohort) {
-            $cid = $cohort->id;
-            $cname = format_string($cohort->name);
-            //only the cohort without rule
-            if (!in_array($cid,$idscohortselected))
-                $options[$cid] = array($cname,1);
-            else
-                $options[$cid] = array($cname,0);
-        }
-
-        return $options;
-    }
-    */
 }
