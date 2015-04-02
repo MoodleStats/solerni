@@ -63,7 +63,7 @@ function make_anonymous($user) {
     $updateuser->lastname     = $config->deletedsurname;
     $updateuser->country      = $config->deletedcountry;
     $updateuser->city         = $config->deletedcity;
-    $updateuser->username     = $config->deletedusername_prefix . $uniquestr;
+    $updateuser->username     = $config->deletedprefixusername . $uniquestr;
     $updateuser->email        = $config->deletedprefixemail . $uniquestr . '@' .$config->deletedomainemail;
     $updateuser->emailstop    = 1;
     $updateuser->auth         = $config->deletedauth;

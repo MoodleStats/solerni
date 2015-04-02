@@ -49,7 +49,7 @@ if ($hassiteconfig) {
                    get_string('anonymousprefixemail', 'local_eledia_makeanonymous'), '', 'invité', PARAM_TEXT, 32));
     $settings->add(new admin_setting_configtext('local_eledia_makeanonymous/deletedauth',
                    get_string('anonymousauth', 'local_eledia_makeanonymous'), '', 'manual', PARAM_TEXT, 32));
-    $settings->add(new admin_setting_configtext('local_eledia_makeanonymous/deletedusername_prefix',
+    $settings->add(new admin_setting_configtext('local_eledia_makeanonymous/deletedprefixusername',
                    get_string('anonymoususername_prefix', 'local_eledia_makeanonymous'), '', 'pseudo', PARAM_TEXT, 32));
     $settings->add(new admin_setting_heading('local_eledia_makeanonymous_delayhead', '',
                    get_string('makeanonymous_delay_desc', 'local_eledia_makeanonymous')));
@@ -85,8 +85,11 @@ if ($hassiteconfig) {
     $deletedusers = $DB->get_records('user', array('deleted' => 1));
 
     $toanonymize = array();
+
+    $config = get_config('local_eledia_makeanonymous');
+    $prefix = $config->deletedprefixusername;
     foreach ($deletedusers as $user) {
-        if (substr($user->username, 0, 12) != get_string('anonymoususername_prefix', 'local_eledia_makeanonymous')) {
+        if (substr($user->username, 0, strlen($prefix)) != $prefix) {
             $toanonymize[$user->id] = $user->id;
         }
     }
