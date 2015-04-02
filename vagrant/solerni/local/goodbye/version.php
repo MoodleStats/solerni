@@ -27,6 +27,6 @@
 
 $plugin->version  = 2015031012;
 $plugin->requires = 2014051205;
-$plugin->release = '1.0 (Build: 2015031012)';
+$plugin->release = '1.1 (Build: 2015031012)';
 $plugin->maturity = MATURITY_STABLE;
 $plugin->component = 'local_goodbye';

@@ -49,6 +49,8 @@ if ($hassiteconfig) {
                    get_string('anonymousprefixemail', 'local_eledia_makeanonymous'), '', 'invité', PARAM_TEXT, 32));
     $settings->add(new admin_setting_configtext('local_eledia_makeanonymous/deletedauth',
                    get_string('anonymousauth', 'local_eledia_makeanonymous'), '', 'manual', PARAM_TEXT, 32));
+    $settings->add(new admin_setting_configtext('local_eledia_makeanonymous/deletedusername_prefix',
+                   get_string('anonymoususername_prefix', 'local_eledia_makeanonymous'), '', 'pseudo', PARAM_TEXT, 32));
     $settings->add(new admin_setting_heading('local_eledia_makeanonymous_delayhead', '',
                    get_string('makeanonymous_delay_desc', 'local_eledia_makeanonymous')));
     $settings->add(new admin_setting_configcheckbox('local_eledia_makeanonymous/delay',
@@ -56,6 +58,9 @@ if ($hassiteconfig) {
                    get_string('makeanonymous_delay_config', 'local_eledia_makeanonymous'), 0));
     $settings->add(new admin_setting_configtext('local_eledia_makeanonymous/delaytime',
                    get_string('makeanonymous_delay_time', 'local_eledia_makeanonymous'), '', '1440', PARAM_INT, 6));
+
+    $settings->add(new admin_setting_heading('local_eledia_makeanonymous_emailed', '',
+                   get_string('email_desc', 'local_eledia_makeanonymous')));
 
     $name = 'local_eledia_makeanonymous/enabledemail';
     $title = get_string('enabledemail', 'local_eledia_makeanonymous');
@@ -81,7 +86,7 @@ if ($hassiteconfig) {
 
     $toanonymize = array();
     foreach ($deletedusers as $user) {
-        if (substr($user->username, 0, 12) != 'deletedUser_') {
+        if (substr($user->username, 0, 12) != get_string('anonymoususername_prefix', 'local_eledia_makeanonymous')) {
             $toanonymize[$user->id] = $user->id;
         }
     }

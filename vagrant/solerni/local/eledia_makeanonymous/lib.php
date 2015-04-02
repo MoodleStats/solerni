@@ -52,8 +52,10 @@ function make_anonymous($user) {
 
     $config = get_config('local_eledia_makeanonymous');
 
+    // Mark internal user record as "deleted".
     $updateuser = $user;
 
+    $uniquestr = hash('crc32' , $user->username.time());
     $updateuser->deleted      = 1;
     $updateuser->idnumber     = '';
     $updateuser->picture      = 0;
@@ -61,8 +63,8 @@ function make_anonymous($user) {
     $updateuser->lastname     = $config->deletedsurname;
     $updateuser->country      = $config->deletedcountry;
     $updateuser->city         = $config->deletedcity;
-    $updateuser->username     = $user->username.md5($user->username.time());
-    $updateuser->email        = $config->deletedprefixemail . '@' .$config->deletedomainemail;
+    $updateuser->username     = $config->deletedusername_prefix . $uniquestr;
+    $updateuser->email        = $config->deletedprefixemail . $uniquestr . '@' .$config->deletedomainemail;
     $updateuser->emailstop    = 1;
     $updateuser->auth         = $config->deletedauth;
 
