@@ -26,21 +26,18 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-function local_goodbye_extends_navigation(global_navigation $navigation) {
-    global $USER;
+$string['pluginname'] = 'Goodbye';
+$string['enabled'] = 'Enabled';
+$string['enabled_desc'] = 'Enable users deleting their accounts';
+$string['myaccount'] = 'My Account';
+$string['manageaccount'] = 'Delete my account';
+$string['loginerror'] = 'Invalid username or password';
+$string['deleteaccount'] = 'Delete your account';
+$string['userpass'] = 'Enter your username and password';
+$string['noself'] = 'We are sorry, only self registration accounts are allowed to delete their account';
+$string['disabled'] = 'Account removal disabled';
+$string['farewell'] = 'Goodby text';
+$string['farewell_desc'] = 'Text shown on delete account form';
+$string['defaultfarewell'] = 'To delete your account please enter your username/email and password. <br>Thank you for using Solerni!';
+$string['anotheraccount'] = 'You can only delete your own account';
 
-    if (!isloggedin() || isguestuser()) {
-        return '';
-    }
-    $enabled = get_config('local_goodbye', 'enabled');
-
-    if ($enabled ) {
-        // Not limited to auth method 'email' : 'googleoauth2', 'manual' should have too.
-        if (is_siteadmin($USER)) {
-            // No deleting admins allowed.
-            return '';
-        }
-        $container2 = $navigation->add(get_string('myaccount', 'local_goodbye'));
-        $userview2 = $container2->add(get_string('manageaccount', 'local_goodbye'), new moodle_url('/local/goodbye/index.php'));
-    }
-}

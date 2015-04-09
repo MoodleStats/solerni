@@ -20,7 +20,7 @@
  * This module has been created to provide users the option to delete their account
  *
  * @package    local
- * @subpackage goodbye, delete your moodle account
+ * @subpackage local_goodbye
  * @copyright  2013 Bas Brands, www.basbrands.nl
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -29,7 +29,7 @@ require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
 require_once($CFG->dirroot . '/local/goodbye/check_account_form.php');
 
-$PAGE->set_context(get_system_context());
+$PAGE->set_context(context_system::instance());
 $PAGE->set_url('/local/goodbye/index.php');
 $PAGE->set_title(format_string(get_string('deleteaccount', 'local_goodbye')));
 $PAGE->set_heading(format_string(get_string('userpass', 'local_goodbye')));
@@ -43,19 +43,15 @@ if ($enabled) {
 
     $error = '';
 
-    if ($local_user = $checkaccount->get_data()) {
-        if ($local_user->username != '' && $local_user->password != '') {
-            if ($user = $DB->get_record('user', array('username'=>$local_user->username))) {
-                // User Exists, Check pass.
-                if ($user = authenticate_user_login($local_user->username, $local_user->password) ) {
-                    if ($user->auth != 'email') {
-                        $error = get_string('noself', 'local_goodbye');
-                    } else if ($user->id = $USER->id ) {
-                        delete_user($user);
-                        redirect(new moodle_url('/'));
-                    }
+    if ($localuser = $checkaccount->get_data()) {
+        if ($localuser->username != '' && $localuser->password != '') {
+            // User Exists, Check pass.
+            if ($user = authenticate_user_login($localuser->username, $localuser->password) ) {
+                if ($user->id == $USER->id ) {
+                    delete_user($user);
+                    redirect(new moodle_url('/'));
                 } else {
-                    $error = get_string('loginerror', 'local_goodbye');
+                    $error = get_string('anotheraccount', 'local_goodbye');
                 }
             } else {
                 $error = get_string('loginerror', 'local_goodbye');
