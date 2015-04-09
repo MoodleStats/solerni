@@ -27,16 +27,16 @@
  */
 
 $string['pluginname'] = 'Goodbye';
-$string['enabled'] = 'Enabled';
-$string['enabled_desc'] = 'Enable users deleting their accounts';
-$string['myaccount'] = 'My Account';
-$string['manageaccount'] = 'Delete my account';
-$string['loginerror'] = 'Invalid username or password';
-$string['deleteaccount'] = 'Delete your account';
-$string['userpass'] = 'Enter your username and password';
-$string['noself'] = 'We are sorry, only self registration accounts are allowed to delete their account';
-$string['disabled'] = 'Account removal disabled';
-$string['farewell'] = 'Goodby text';
-$string['farewell_desc'] = 'Text shown on delete account form';
-$string['defaultfarewell'] = 'To delete your account please enter your username/email and password. <br>Thank you for using Solerni!';
-$string['anotheraccount'] = 'You can only delete your own account';
+$string['enabled'] = 'Activé';
+$string['enabled_desc'] = 'Activer la suppression de son compte par l\'utilisateur';
+$string['myaccount'] = 'Mon compte';
+$string['manageaccount'] = 'Supprimer mon compte';
+$string['loginerror'] = 'Nom d\'utilisateur ou mot de passe invalide';
+$string['deleteaccount'] = 'Supprimer votre compte';
+$string['userpass'] = 'Saisissez votre Nom d\'utilisateur et mot de passe';
+$string['noself'] = 'Nous sommes désolés, seule les utilisateurs inscrits en auto enregistrement peuvent supprimer leur compte';
+$string['disabled'] = 'La suppression de compte est désactivée';
+$string['farewell'] = 'Texte à afficher';
+$string['farewell_desc'] = 'Texte à afficher à l\'utilisateur lors de la suppression';
+$string['defaultfarewell'] = 'Pour supprimer votre compte, saisissez votre Nom d\'utilisateur et mot de passe<br>Merci d\'avoir utilisé Solerni!';
+$string['anotheraccount'] = 'Vous ne pouvez supprimer que votre propre compte';

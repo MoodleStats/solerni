@@ -15,18 +15,24 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Goodbye
+ * eledia_makeanonymous cron task.
  *
- * This module has been created to provide users the option to delete their account
- *
- * @package    local
- * @subpackage goodbye, delete your moodle account
- * @copyright  2013 Bas Brands, www.basbrands.nl
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package local_eledia_makeanonymous
+ * @author Matthias Schwabe <support@eledia.de>
+ * @copyright 2013 & 2014 eLeDia GmbH
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$plugin->version  = 2015031012;
-$plugin->requires = 2014051205;
-$plugin->release = '1.1 (Build: 2015031012)';
-$plugin->maturity = MATURITY_STABLE;
-$plugin->component = 'local_goodbye';
+defined('MOODLE_INTERNAL') || die();
+
+$tasks = array(
+    array(
+        'classname' => '\local_eledia_makeanonymous\task\eledia_makeanonymous_task',
+        'blocking' => 0,
+        'minute' => '30',
+        'hour' => '*',
+        'day' => '*',
+        'dayofweek' => '*',
+        'month' => '*'
+    ),
+);
