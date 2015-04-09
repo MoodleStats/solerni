@@ -43,11 +43,12 @@ function customer_add_customer($customer) {
 
     if ($customer->id == 0) {
         $lastinsertid = $DB->insert_record('orange_customers', $customer, false);
+        return $lastinsertid;
+
     } else {
         $DB->update_record('orange_customers', $customer);
+        return $customer->id;
     }
-
-    return $customer->id;
 
 }
 

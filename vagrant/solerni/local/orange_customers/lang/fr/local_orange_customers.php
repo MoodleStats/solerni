@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * English language strings
+ * French language strings
  *
  * @package    local
  * @subpackage orange_customers
@@ -24,18 +24,18 @@
  */
 
 $string['pluginname'] = 'Orange customers';
-$string['customers'] = 'Customers';
-$string['definecustomersheader'] = 'Managing customers';
+$string['customers'] = 'Clients';
+$string['definecustomersheader'] = 'Gestion des clients';
 $string['customerid'] = 'Id.';
-$string['customername'] = 'Customer name';
-$string['categoryname'] = 'Associated category';
-$string['customersummary'] = "Short description";
-$string['customerdescription'] = "Long description";
+$string['customername'] = 'Nom du client';
+$string['categoryname'] = 'Categorie associée';
+$string['customersummary'] = "Desccription courte";
+$string['customerdescription'] = "Description détaillée";
 $string['customerlogo'] = "Logo";
-$string['customerlogo_help'] = "Logo of customer";
-$string['customerpicture'] = "Picture";
-$string['customerpicture_help'] = "Presentation image of customer (top of page)";
-$string['actioncustomers_list'] = 'List of customers';
-$string['confirmdeletecustomer'] = 'Are you sure you want to delete the customer <b>{$a}</b> ?';
+$string['customerlogo_help'] = "Logo du client";
+$string['customerpicture'] = "Bandeau";
+$string['customerpicture_help'] = "Image de présentation du client (haut de page)";
+$string['actioncustomers_list'] = 'Liste des clients';
+$string['confirmdeletecustomer'] = 'Etes-vous sur de vouloir supprimer le client <b>{$a}</b> ?';
 
-$string['customerdeleted'] = 'The customer {$a} has been deleted.';
+$string['customerdeleted'] = 'Le client {$a} a été supprimé.';

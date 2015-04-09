@@ -80,30 +80,9 @@ class orange_customers  {
 
     }
 
-    /*
-     *
-     */
-    public function customers_delete() {
-        global $CFG, $PAGE, $DB;
 
-        if (empty($_GET)) {
-            return false;
-        }
-
-        $get = new stdClass();
-        foreach ($_GET as $varname => $value) {
-            $get->{"$varname"} = $value;
-        }
-
-        $tobedeleted = $DB->get_record('orange_customers', array ('id' => $get->id));
-        $DB->delete_records('orange_customers', array ('id' => $get->id));
-        $returnurl = new moodle_url('index.php', array('action' => 'customers_list', 'sesskey' => sesskey()));
-
-        redirect($returnurl, get_string('customerdeleted', 'local_orange_customers', $tobedeleted->name));
-    }
-
-    /*
-     *
+    /**
+     * Outputs list of customers.
      */
     public function customers_list() {
         global $CFG, $PAGE, $DB, $OUTPUT;
@@ -146,7 +125,8 @@ class orange_customers  {
 
             $row = array ();
             $row[] = $customer->id;
-            $row[] = "<a href=\"view.php?sesskey=".sesskey()."&action=customers_form&id=$customer->id&categoryname=$namecategory\">$customer->name</a>";
+            $row[] = "<a href=\"view.php?sesskey=".sesskey()."&action=customers_form&id=$customer->id&categoryname=$namecategory\">
+                     $customer->name</a>";
 
             $row[] = $namecategory;
 
@@ -161,8 +141,9 @@ class orange_customers  {
                         $file->get_itemid(),
                         $file->get_filepath(),
                         $file->get_filename());
+
                 // We keep only the last (there are a filename).
-                $urlimg = "<img src='{$imgurl}' />";
+                $urlimg = "<img src='{$imgurl}' height=100px />";
             }
             $row[] = $urlimg;
 
@@ -172,12 +153,11 @@ class orange_customers  {
         $customers->close();
         $this->list = $table;
 
-        html_writer::empty_tag('input', array('type' => 'submit', 'value' => 'hello world !'));
         $this->renderable = new orange_customers_list();
     }
 
-    /*
-     *
+    /**
+     * Render.
      */
     public function render() {
         global $PAGE;
