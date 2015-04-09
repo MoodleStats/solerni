@@ -35,9 +35,9 @@ echo $OUTPUT->header();
 echo $OUTPUT->heading(get_string('pageheader', 'tool_replace'));
 
 if (!$DB->replace_all_text_supported()) {
-    echo $OUTPUT->notification(get_string('notimplemented', 'tool_replace'));
-    echo $OUTPUT->footer();
-    die;
+	echo $OUTPUT->notification(get_string('notimplemented', 'tool_replace'));
+	echo $OUTPUT->footer();
+	die;
 }
 
 echo $OUTPUT->box_start();
@@ -48,9 +48,9 @@ echo $OUTPUT->box_end();
 $form = new tool_replace_form();
 
 if (!$data = $form->get_data()) {
-    $form->display();
-    echo $OUTPUT->footer();
-    die();
+	$form->display();
+	echo $OUTPUT->footer();
+	die();
 }
 
 // Scroll to the end when finished.

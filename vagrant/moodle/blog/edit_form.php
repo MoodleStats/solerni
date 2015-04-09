@@ -16,159 +16,159 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 if (!defined('MOODLE_INTERNAL')) {
-    die('Direct access to this script is forbidden.');    ///  It must be included from a Moodle page
+	die('Direct access to this script is forbidden.');    ///  It must be included from a Moodle page
 }
 
 require_once($CFG->libdir.'/formslib.php');
 
 class blog_edit_form extends moodleform {
-    public $modnames = array();
+	public $modnames = array();
 
-    function definition() {
-        global $CFG, $DB;
+	function definition() {
+		global $CFG, $DB;
 
-        $mform =& $this->_form;
+		$mform =& $this->_form;
 
-        $entry = $this->_customdata['entry'];
-        $courseid = $this->_customdata['courseid'];
-        $modid = $this->_customdata['modid'];
-        $summaryoptions = $this->_customdata['summaryoptions'];
-        $attachmentoptions = $this->_customdata['attachmentoptions'];
-        $sitecontext = $this->_customdata['sitecontext'];
+		$entry = $this->_customdata['entry'];
+		$courseid = $this->_customdata['courseid'];
+		$modid = $this->_customdata['modid'];
+		$summaryoptions = $this->_customdata['summaryoptions'];
+		$attachmentoptions = $this->_customdata['attachmentoptions'];
+		$sitecontext = $this->_customdata['sitecontext'];
 
-        $mform->addElement('header', 'general', get_string('general', 'form'));
+		$mform->addElement('header', 'general', get_string('general', 'form'));
 
-        $mform->addElement('text', 'subject', get_string('entrytitle', 'blog'), array('size' => 60, 'maxlength' => 128));
-        $mform->addElement('editor', 'summary_editor', get_string('entrybody', 'blog'), null, $summaryoptions);
+		$mform->addElement('text', 'subject', get_string('entrytitle', 'blog'), array('size' => 60, 'maxlength' => 128));
+		$mform->addElement('editor', 'summary_editor', get_string('entrybody', 'blog'), null, $summaryoptions);
 
-        $mform->setType('subject', PARAM_TEXT);
-        $mform->addRule('subject', get_string('emptytitle', 'blog'), 'required', null, 'client');
-        $mform->addRule('subject', get_string('maximumchars', '', 128), 'maxlength', 128, 'client');
+		$mform->setType('subject', PARAM_TEXT);
+		$mform->addRule('subject', get_string('emptytitle', 'blog'), 'required', null, 'client');
+		$mform->addRule('subject', get_string('maximumchars', '', 128), 'maxlength', 128, 'client');
 
-        $mform->setType('summary_editor', PARAM_RAW);
-        $mform->addRule('summary_editor', get_string('emptybody', 'blog'), 'required', null, 'client');
+		$mform->setType('summary_editor', PARAM_RAW);
+		$mform->addRule('summary_editor', get_string('emptybody', 'blog'), 'required', null, 'client');
 
-        $mform->addElement('filemanager', 'attachment_filemanager', get_string('attachment', 'forum'), null, $attachmentoptions);
+		$mform->addElement('filemanager', 'attachment_filemanager', get_string('attachment', 'forum'), null, $attachmentoptions);
 
-        //disable publishstate options that are not allowed
-        $publishstates = array();
-        $i = 0;
+		//disable publishstate options that are not allowed
+		$publishstates = array();
+		$i = 0;
 
-        foreach (blog_entry::get_applicable_publish_states() as $state => $desc) {
-            $publishstates[$state] = $desc;   //no maximum was set
-            $i++;
-        }
+		foreach (blog_entry::get_applicable_publish_states() as $state => $desc) {
+			$publishstates[$state] = $desc;   //no maximum was set
+			$i++;
+		}
 
-        $mform->addElement('select', 'publishstate', get_string('publishto', 'blog'), $publishstates);
-        $mform->addHelpButton('publishstate', 'publishto', 'blog');
-        $mform->setDefault('publishstate', 0);
+		$mform->addElement('select', 'publishstate', get_string('publishto', 'blog'), $publishstates);
+		$mform->addHelpButton('publishstate', 'publishto', 'blog');
+		$mform->setDefault('publishstate', 0);
 
-        if (!empty($CFG->usetags)) {
-            $mform->addElement('header', 'tagshdr', get_string('tags', 'tag'));
-            $mform->addElement('tags', 'tags', get_string('tags'));
-        }
+		if (!empty($CFG->usetags)) {
+			$mform->addElement('header', 'tagshdr', get_string('tags', 'tag'));
+			$mform->addElement('tags', 'tags', get_string('tags'));
+		}
 
-        $allmodnames = array();
+		$allmodnames = array();
 
-        if (!empty($CFG->useblogassociations)) {
-            if ((!empty($entry->courseassoc) || (!empty($courseid) && empty($modid)))) {
-                if (!empty($courseid)) {
-                    $course = $DB->get_record('course', array('id' => $courseid));
-                    $context = context_course::instance($courseid);
-                    $a = new stdClass();
-                    $a->coursename = format_string($course->fullname, true, array('context' => $context));
-                    $contextid = $context->id;
-                } else {
-                    $context = context::instance_by_id($entry->courseassoc);
-                    $sql = 'SELECT fullname FROM {course} cr LEFT JOIN {context} ct ON ct.instanceid = cr.id WHERE ct.id = ?';
-                    $a = new stdClass();
-                    $a->coursename = $DB->get_field_sql($sql, array($entry->courseassoc));
-                    $contextid = $entry->courseassoc;
-                }
+		if (!empty($CFG->useblogassociations)) {
+			if ((!empty($entry->courseassoc) || (!empty($courseid) && empty($modid)))) {
+				if (!empty($courseid)) {
+					$course = $DB->get_record('course', array('id' => $courseid));
+					$context = context_course::instance($courseid);
+					$a = new stdClass();
+					$a->coursename = format_string($course->fullname, true, array('context' => $context));
+					$contextid = $context->id;
+				} else {
+					$context = context::instance_by_id($entry->courseassoc);
+					$sql = 'SELECT fullname FROM {course} cr LEFT JOIN {context} ct ON ct.instanceid = cr.id WHERE ct.id = ?';
+					$a = new stdClass();
+					$a->coursename = $DB->get_field_sql($sql, array($entry->courseassoc));
+					$contextid = $entry->courseassoc;
+				}
 
-                $mform->addElement('header', 'assochdr', get_string('associations', 'blog'));
-                $mform->addElement('advcheckbox', 'courseassoc', get_string('associatewithcourse', 'blog', $a), null, null, array(0, $contextid));
-                $mform->setDefault('courseassoc', $contextid);
+				$mform->addElement('header', 'assochdr', get_string('associations', 'blog'));
+				$mform->addElement('advcheckbox', 'courseassoc', get_string('associatewithcourse', 'blog', $a), null, null, array(0, $contextid));
+				$mform->setDefault('courseassoc', $contextid);
 
-            } else if ((!empty($entry->modassoc) || !empty($modid))) {
-                if (!empty($modid)) {
-                    $mod = get_coursemodule_from_id(false, $modid);
-                    $a = new stdClass();
-                    $a->modtype = get_string('modulename', $mod->modname);
-                    $a->modname = $mod->name;
-                    $context = context_module::instance($modid);
-                } else {
-                    $context = context::instance_by_id($entry->modassoc);
-                    $cm = $DB->get_record('course_modules', array('id' => $context->instanceid));
-                    $a = new stdClass();
-                    $a->modtype = $DB->get_field('modules', 'name', array('id' => $cm->module));
-                    $a->modname = $DB->get_field($a->modtype, 'name', array('id' => $cm->instance));
-                    $modid = $context->instanceid;
-                }
+			} else if ((!empty($entry->modassoc) || !empty($modid))) {
+				if (!empty($modid)) {
+					$mod = get_coursemodule_from_id(false, $modid);
+					$a = new stdClass();
+					$a->modtype = get_string('modulename', $mod->modname);
+					$a->modname = $mod->name;
+					$context = context_module::instance($modid);
+				} else {
+					$context = context::instance_by_id($entry->modassoc);
+					$cm = $DB->get_record('course_modules', array('id' => $context->instanceid));
+					$a = new stdClass();
+					$a->modtype = $DB->get_field('modules', 'name', array('id' => $cm->module));
+					$a->modname = $DB->get_field($a->modtype, 'name', array('id' => $cm->instance));
+					$modid = $context->instanceid;
+				}
 
-                $mform->addElement('header', 'assochdr', get_string('associations', 'blog'));
-                $mform->addElement('advcheckbox', 'modassoc', get_string('associatewithmodule', 'blog', $a), null, null, array(0, $context->id));
-                $mform->setDefault('modassoc', $context->id);
-            }
-        }
+				$mform->addElement('header', 'assochdr', get_string('associations', 'blog'));
+				$mform->addElement('advcheckbox', 'modassoc', get_string('associatewithmodule', 'blog', $a), null, null, array(0, $context->id));
+				$mform->setDefault('modassoc', $context->id);
+			}
+		}
 
-        $this->add_action_buttons();
-        $mform->addElement('hidden', 'action');
-        $mform->setType('action', PARAM_ALPHANUMEXT);
-        $mform->setDefault('action', '');
+		$this->add_action_buttons();
+		$mform->addElement('hidden', 'action');
+		$mform->setType('action', PARAM_ALPHANUMEXT);
+		$mform->setDefault('action', '');
 
-        $mform->addElement('hidden', 'entryid');
-        $mform->setType('entryid', PARAM_INT);
-        $mform->setDefault('entryid', $entry->id);
+		$mform->addElement('hidden', 'entryid');
+		$mform->setType('entryid', PARAM_INT);
+		$mform->setDefault('entryid', $entry->id);
 
-        $mform->addElement('hidden', 'modid');
-        $mform->setType('modid', PARAM_INT);
-        $mform->setDefault('modid', $modid);
+		$mform->addElement('hidden', 'modid');
+		$mform->setType('modid', PARAM_INT);
+		$mform->setDefault('modid', $modid);
 
-        $mform->addElement('hidden', 'courseid');
-        $mform->setType('courseid', PARAM_INT);
-        $mform->setDefault('courseid', $courseid);
-    }
+		$mform->addElement('hidden', 'courseid');
+		$mform->setType('courseid', PARAM_INT);
+		$mform->setDefault('courseid', $courseid);
+	}
 
-    function validation($data, $files) {
-        global $CFG, $DB, $USER;
+	function validation($data, $files) {
+		global $CFG, $DB, $USER;
 
-        $errors = array();
+		$errors = array();
 
-        // validate course association
-        if (!empty($data['courseassoc'])) {
-            $coursecontext = context::instance_by_id($data['courseassoc']);
+		// validate course association
+		if (!empty($data['courseassoc'])) {
+			$coursecontext = context::instance_by_id($data['courseassoc']);
 
-            if ($coursecontext->contextlevel != CONTEXT_COURSE) {
-                $errors['courseassoc'] = get_string('error');
-            }
-        }
+			if ($coursecontext->contextlevel != CONTEXT_COURSE) {
+				$errors['courseassoc'] = get_string('error');
+			}
+		}
 
-        // validate mod association
-        if (!empty($data['modassoc'])) {
-            $modcontextid = $data['modassoc'];
-            $modcontext = context::instance_by_id($modcontextid);
+		// validate mod association
+		if (!empty($data['modassoc'])) {
+			$modcontextid = $data['modassoc'];
+			$modcontext = context::instance_by_id($modcontextid);
 
-            if ($modcontext->contextlevel == CONTEXT_MODULE) {
-                // get context of the mod's course
-                $coursecontext = $modcontext->get_course_context(true);
+			if ($modcontext->contextlevel == CONTEXT_MODULE) {
+				// get context of the mod's course
+				$coursecontext = $modcontext->get_course_context(true);
 
-                // ensure only one course is associated
-                if (!empty($data['courseassoc'])) {
-                    if ($data['courseassoc'] != $coursecontext->id) {
-                        $errors['modassoc'] = get_string('onlyassociateonecourse', 'blog');
-                    }
-                } else {
-                    $data['courseassoc'] = $coursecontext->id;
-                }
-            } else {
-                $errors['modassoc'] = get_string('error');
-            }
-        }
+				// ensure only one course is associated
+				if (!empty($data['courseassoc'])) {
+					if ($data['courseassoc'] != $coursecontext->id) {
+						$errors['modassoc'] = get_string('onlyassociateonecourse', 'blog');
+					}
+				} else {
+					$data['courseassoc'] = $coursecontext->id;
+				}
+			} else {
+				$errors['modassoc'] = get_string('error');
+			}
+		}
 
-        if ($errors) {
-            return $errors;
-        }
-        return true;
-    }
+		if ($errors) {
+			return $errors;
+		}
+		return true;
+	}
 }

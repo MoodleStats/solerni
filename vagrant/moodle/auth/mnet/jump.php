@@ -38,24 +38,24 @@ if ($wantsurl !== '') $url->param('wantsurl', $wantsurl);
 $PAGE->set_url($url);
 
 if (!isloggedin() or isguestuser()) {
-    $SESSION->wantsurl = $PAGE->url->out(false);
-    redirect(get_login_url());
+	$SESSION->wantsurl = $PAGE->url->out(false);
+	redirect(get_login_url());
 }
 
 if (!is_enabled_auth('mnet')) {
-    print_error('mnetdisable');
+	print_error('mnetdisable');
 }
 
 // If hostid hasn't been specified, try getting it using wwwroot
 if (!$hostid) {
-    $hostwwwroot = trim($hostwwwroot);
-    $hostwwwroot = rtrim($hostwwwroot, '/');
+	$hostwwwroot = trim($hostwwwroot);
+	$hostwwwroot = rtrim($hostwwwroot, '/');
 
-    // ensure the wwwroot starts with a http or https prefix
-    if (strtolower(substr($hostwwwroot, 0, 4)) != 'http') {
-        $hostwwwroot = 'http://'.$hostwwwroot;
-    }
-    $hostid = $DB->get_field('mnet_host', 'id', array('wwwroot' => $hostwwwroot));
+	// ensure the wwwroot starts with a http or https prefix
+	if (strtolower(substr($hostwwwroot, 0, 4)) != 'http') {
+		$hostwwwroot = 'http://'.$hostwwwroot;
+	}
+	$hostid = $DB->get_field('mnet_host', 'id', array('wwwroot' => $hostwwwroot));
 }
 
 // start the mnet session and redirect browser to remote URL
@@ -63,7 +63,7 @@ $mnetauth = get_auth_plugin('mnet');
 $url      = $mnetauth->start_jump_session($hostid, $wantsurl);
 
 if (empty($url)) {
-    print_error('DEBUG: Jump session was not started correctly or blank URL returned.'); // TODO: errors
+	print_error('DEBUG: Jump session was not started correctly or blank URL returned.'); // TODO: errors
 }
 redirect($url);
 

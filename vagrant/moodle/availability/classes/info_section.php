@@ -34,45 +34,45 @@ defined('MOODLE_INTERNAL') || die();
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class info_section extends info {
-    /** @var \section_info Section. */
-    protected $section;
+	/** @var \section_info Section. */
+	protected $section;
 
-    /**
-     * Constructs with item details.
-     *
-     * @param \section_info $section Section object
-     */
-    public function __construct(\section_info $section) {
-        parent::__construct($section->modinfo->get_course(), $section->visible,
-                $section->availability);
-        $this->section = $section;
-    }
+	/**
+	 * Constructs with item details.
+	 *
+	 * @param \section_info $section Section object
+	 */
+	public function __construct(\section_info $section) {
+		parent::__construct($section->modinfo->get_course(), $section->visible,
+				$section->availability);
+		$this->section = $section;
+	}
 
-    protected function get_thing_name() {
-        return get_section_name($this->section->course, $this->section->section);
-    }
+	protected function get_thing_name() {
+		return get_section_name($this->section->course, $this->section->section);
+	}
 
-    public function get_context() {
-        return \context_course::instance($this->get_course()->id);
-    }
+	public function get_context() {
+		return \context_course::instance($this->get_course()->id);
+	}
 
-    protected function get_view_hidden_capability() {
-        return 'moodle/course:viewhiddensections';
-    }
+	protected function get_view_hidden_capability() {
+		return 'moodle/course:viewhiddensections';
+	}
 
-    protected function set_in_database($availability) {
-        global $DB;
-        $DB->set_field('course_sections', 'availability', $availability,
-                array('id' => $this->section->id));
-    }
+	protected function set_in_database($availability) {
+		global $DB;
+		$DB->set_field('course_sections', 'availability', $availability,
+				array('id' => $this->section->id));
+	}
 
-    /**
-     * Gets the section object. Intended for use by conditions.
-     *
-     * @return \section_info Section
-     */
-    public function get_section() {
-        return $this->section;
-    }
+	/**
+	 * Gets the section object. Intended for use by conditions.
+	 *
+	 * @return \section_info Section
+	 */
+	public function get_section() {
+		return $this->section;
+	}
 
 }

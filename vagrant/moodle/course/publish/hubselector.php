@@ -16,12 +16,12 @@
 
 /*
  * @package    course
- * @subpackage publish
- * @author     Jerome Mouneyrac <jerome@mouneyrac.com>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL
- * @copyright  (C) 1999 onwards Martin Dougiamas  http://dougiamas.com
- *
- * On this page the user selects where he wants to publish the course
+* @subpackage publish
+* @author     Jerome Mouneyrac <jerome@mouneyrac.com>
+* @license    http://www.gnu.org/copyleft/gpl.html GNU GPL
+* @copyright  (C) 1999 onwards Martin Dougiamas  http://dougiamas.com
+*
+* On this page the user selects where he wants to publish the course
 */
 
 require('../../config.php');
@@ -41,18 +41,18 @@ $PAGE->set_heading($course->fullname);
 $registrationmanager = new registration_manager();
 $registeredhubs = $registrationmanager->get_registered_on_hubs();
 if (empty($registeredhubs)) {
-    echo $OUTPUT->header();
-    echo $OUTPUT->heading(get_string('publishon', 'hub'), 3, 'main');
-    echo $OUTPUT->box(get_string('notregisteredonhub', 'hub'));
-    echo $OUTPUT->footer();
-    die();
+	echo $OUTPUT->header();
+	echo $OUTPUT->heading(get_string('publishon', 'hub'), 3, 'main');
+	echo $OUTPUT->box(get_string('notregisteredonhub', 'hub'));
+	echo $OUTPUT->footer();
+	die();
 }
 
 
 $share = optional_param('share', false, PARAM_BOOL);
 $advertise = optional_param('advertise', false, PARAM_BOOL);
 $hubselectorform = new hub_publish_selector_form('',
-        array('id' => $id, 'share' => $share, 'advertise' => $advertise));
+		array('id' => $id, 'share' => $share, 'advertise' => $advertise));
 $fromform = $hubselectorform->get_data();
 
 //// Redirect to the registration form if an URL has been chosen ////
@@ -60,11 +60,11 @@ $huburl = optional_param('huburl', false, PARAM_URL);
 
 //redirect
 if (!empty($huburl) and confirm_sesskey()) {
-    $hubname = optional_param(clean_param($huburl, PARAM_ALPHANUMEXT), '', PARAM_TEXT);
-    $params = array('sesskey' => sesskey(), 'id' => $id,
-            'huburl' => $huburl, 'hubname' => $hubname, 'share' => $share, 'advertise' => $advertise);
-    redirect(new moodle_url($CFG->wwwroot."/course/publish/metadata.php",
-            $params));
+	$hubname = optional_param(clean_param($huburl, PARAM_ALPHANUMEXT), '', PARAM_TEXT);
+	$params = array('sesskey' => sesskey(), 'id' => $id,
+			'huburl' => $huburl, 'hubname' => $hubname, 'share' => $share, 'advertise' => $advertise);
+	redirect(new moodle_url($CFG->wwwroot."/course/publish/metadata.php",
+			$params));
 }
 
 

@@ -31,120 +31,120 @@ require_once($CFG->dirroot . '/auth/db/tests/db_test.php');
 
 class auth_db_events_testcase extends advanced_testcase {
 
-    /**
-     * Test set up.
-     */
-    public function setUp() {
-        $this->resetAfterTest(true);
-    }
+	/**
+	 * Test set up.
+	 */
+	public function setUp() {
+		$this->resetAfterTest(true);
+	}
 
-    /**
-     * Tests that the locations in the auth_db API that create a user trigger the user_created event.
-     */
-    public function test_user_created() {
-        global $DB;
+	/**
+	 * Tests that the locations in the auth_db API that create a user trigger the user_created event.
+	 */
+	public function test_user_created() {
+		global $DB;
 
-        $this->preventResetByRollback();
+		$this->preventResetByRollback();
 
-        // Initialise the database.
-        $authdbtestcase = new auth_db_testcase();
-        $authdbtestcase->init_auth_database();
+		// Initialise the database.
+		$authdbtestcase = new auth_db_testcase();
+		$authdbtestcase->init_auth_database();
 
-        $auth = get_auth_plugin('db');
-        $auth->db_init();
+		$auth = get_auth_plugin('db');
+		$auth->db_init();
 
-        // Add a user to the auth_db_users table - we will then call sync_users to
-        // deal with the record here. In this case it will create the user.
-        $user = new stdClass();
-        $user->name = 'mark';
-        $user->pass = 'password123';
-        $user->email = 'what@legend.com';
-        $user->id = $DB->insert_record('auth_db_users', $user);
+		// Add a user to the auth_db_users table - we will then call sync_users to
+		// deal with the record here. In this case it will create the user.
+		$user = new stdClass();
+		$user->name = 'mark';
+		$user->pass = 'password123';
+		$user->email = 'what@legend.com';
+		$user->id = $DB->insert_record('auth_db_users', $user);
 
-        // Run sync_users and capture the user_created event.
-        $sink = $this->redirectEvents();
-        $trace = new null_progress_trace();
-        $auth->sync_users($trace, false);
-        $events = $sink->get_events();
-        $sink->close();
+		// Run sync_users and capture the user_created event.
+		$sink = $this->redirectEvents();
+		$trace = new null_progress_trace();
+		$auth->sync_users($trace, false);
+		$events = $sink->get_events();
+		$sink->close();
 
-        // Check that there is only one event.
-        $this->assertEquals(1, count($events));
+		// Check that there is only one event.
+		$this->assertEquals(1, count($events));
 
-        // Get the event.
-        $event = array_pop($events);
+		// Get the event.
+		$event = array_pop($events);
 
-        // Test that the user created event was triggered - no need to test the other
-        // details of the event as that is done extensively in other unit tests.
-        $this->assertInstanceOf('\core\event\user_created', $event);
-    }
+		// Test that the user created event was triggered - no need to test the other
+		// details of the event as that is done extensively in other unit tests.
+		$this->assertInstanceOf('\core\event\user_created', $event);
+	}
 
-    /**
-     * Tests that the locations in the auth_db API that update a user trigger the user_updated event.
-     */
-    public function test_user_updated() {
-        global $CFG, $DB;
+	/**
+	 * Tests that the locations in the auth_db API that update a user trigger the user_updated event.
+	 */
+	public function test_user_updated() {
+		global $CFG, $DB;
 
-        $this->preventResetByRollback();
+		$this->preventResetByRollback();
 
-        // Initialise the database.
-        $authdbtestcase = new auth_db_testcase();
-        $authdbtestcase->init_auth_database();
+		// Initialise the database.
+		$authdbtestcase = new auth_db_testcase();
+		$authdbtestcase->init_auth_database();
 
-        $auth = get_auth_plugin('db');
-        $auth->db_init();
+		$auth = get_auth_plugin('db');
+		$auth->db_init();
 
-        // Add a suspended user.
-        $user = array();
-        $user['username'] = 'mark';
-        $user['suspended'] = '1';
-        $user['mnethostid'] = $CFG->mnet_localhost_id;
-        $user['auth'] = 'db';
-        $this->getDataGenerator()->create_user($user);
+		// Add a suspended user.
+		$user = array();
+		$user['username'] = 'mark';
+		$user['suspended'] = '1';
+		$user['mnethostid'] = $CFG->mnet_localhost_id;
+		$user['auth'] = 'db';
+		$this->getDataGenerator()->create_user($user);
 
-        // Add a user to the auth_db_users table - we will then call sync_users to
-        // deal with the record here. In this case it will un-suspend the user.
-        $user = new stdClass();
-        $user->name = 'mark';
-        $user->pass = 'password123';
-        $user->email = 'what@legend.com';
-        $user->id = $DB->insert_record('auth_db_users', $user);
+		// Add a user to the auth_db_users table - we will then call sync_users to
+		// deal with the record here. In this case it will un-suspend the user.
+		$user = new stdClass();
+		$user->name = 'mark';
+		$user->pass = 'password123';
+		$user->email = 'what@legend.com';
+		$user->id = $DB->insert_record('auth_db_users', $user);
 
-        // Set the config to remove the suspension on the user.
-        set_config('removeuser', AUTH_REMOVEUSER_SUSPEND, 'auth/db');
-        $auth->config->removeuser = AUTH_REMOVEUSER_SUSPEND;
+		// Set the config to remove the suspension on the user.
+		set_config('removeuser', AUTH_REMOVEUSER_SUSPEND, 'auth/db');
+		$auth->config->removeuser = AUTH_REMOVEUSER_SUSPEND;
 
-        // Run sync_users and capture the user_updated event.
-        $sink = $this->redirectEvents();
-        $trace = new null_progress_trace();
-        $auth->sync_users($trace, false);
-        $events = $sink->get_events();
-        $sink->close();
+		// Run sync_users and capture the user_updated event.
+		$sink = $this->redirectEvents();
+		$trace = new null_progress_trace();
+		$auth->sync_users($trace, false);
+		$events = $sink->get_events();
+		$sink->close();
 
-        // Check that there is only one event.
-        $this->assertEquals(1, count($events));
+		// Check that there is only one event.
+		$this->assertEquals(1, count($events));
 
-        // Get the event.
-        $event = array_pop($events);
+		// Get the event.
+		$event = array_pop($events);
 
-        // Test that the user updated event was triggered - no need to test the other
-        // details of the event as that is done extensively in other unit tests.
-        $this->assertInstanceOf('\core\event\user_updated', $event);
+		// Test that the user updated event was triggered - no need to test the other
+		// details of the event as that is done extensively in other unit tests.
+		$this->assertInstanceOf('\core\event\user_updated', $event);
 
-        // Run sync_users and capture the user_updated event.
-        $sink = $this->redirectEvents();
-        $auth->update_user_record('mark');
-        $events = $sink->get_events();
-        $sink->close();
+		// Run sync_users and capture the user_updated event.
+		$sink = $this->redirectEvents();
+		$auth->update_user_record('mark');
+		$events = $sink->get_events();
+		$sink->close();
 
-        // Check that there is only one event.
-        $this->assertEquals(1, count($events));
+		// Check that there is only one event.
+		$this->assertEquals(1, count($events));
 
-        // Get the event.
-        $event = array_pop($events);
+		// Get the event.
+		$event = array_pop($events);
 
-        // Test that the user updated event was triggered - no need to test the other
-        // details of the event as that is done extensively in other unit tests.
-        $this->assertInstanceOf('\core\event\user_updated', $event);
-    }
+		// Test that the user updated event was triggered - no need to test the other
+		// details of the event as that is done extensively in other unit tests.
+		$this->assertInstanceOf('\core\event\user_updated', $event);
+	}
 }

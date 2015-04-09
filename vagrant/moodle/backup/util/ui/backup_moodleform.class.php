@@ -23,7 +23,7 @@
  * @package   moodlecore
  * @copyright 2010 Sam Hemelryk
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+*/
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -38,20 +38,20 @@ defined('MOODLE_INTERNAL') || die();
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 abstract class backup_moodleform extends base_moodleform {
-    /**
-     * Creates the form
-     *
-     * @param backup_ui_stage $uistage
-     * @param moodle_url|string $action
-     * @param mixed $customdata
-     * @param string $method get|post
-     * @param string $target
-     * @param array $attributes
-     * @param bool $editable
-     */
-    public function __construct(backup_ui_stage $uistage, $action = null, $customdata = null, $method = 'post', $target = '', $attributes = null, $editable = true) {
-        parent::__construct($uistage, $action, $customdata, $method, $target, $attributes, $editable);
-    }
+	/**
+	 * Creates the form
+	 *
+	 * @param backup_ui_stage $uistage
+	 * @param moodle_url|string $action
+	 * @param mixed $customdata
+	 * @param string $method get|post
+	 * @param string $target
+	 * @param array $attributes
+	 * @param bool $editable
+	 */
+	public function __construct(backup_ui_stage $uistage, $action = null, $customdata = null, $method = 'post', $target = '', $attributes = null, $editable = true) {
+		parent::__construct($uistage, $action, $customdata, $method, $target, $attributes, $editable);
+	}
 }
 /**
  * Initial backup user interface stage moodleform.
@@ -75,24 +75,24 @@ class backup_schema_form extends backup_moodleform {}
  */
 class backup_confirmation_form extends backup_moodleform {
 
-    public function definition_after_data() {
-        parent::definition_after_data();
-        $this->_form->addRule('setting_root_filename', get_string('errorfilenamerequired', 'backup'), 'required');
-        $this->_form->setType('setting_root_filename', PARAM_FILE);
-    }
+	public function definition_after_data() {
+		parent::definition_after_data();
+		$this->_form->addRule('setting_root_filename', get_string('errorfilenamerequired', 'backup'), 'required');
+		$this->_form->setType('setting_root_filename', PARAM_FILE);
+	}
 
-    public function validation($data, $files) {
-        $errors = parent::validation($data, $files);
+	public function validation($data, $files) {
+		$errors = parent::validation($data, $files);
 
-        if (!array_key_exists('setting_root_filename', $errors)) {
-            if (trim($data['setting_root_filename']) == '') {
-                $errors['setting_root_filename'] = get_string('errorfilenamerequired', 'backup');
-            } else if (!preg_match('#\.mbz$#i', $data['setting_root_filename'])) {
-                $errors['setting_root_filename'] = get_string('errorfilenamemustbezip', 'backup');
-            }
-        }
+		if (!array_key_exists('setting_root_filename', $errors)) {
+			if (trim($data['setting_root_filename']) == '') {
+				$errors['setting_root_filename'] = get_string('errorfilenamerequired', 'backup');
+			} else if (!preg_match('#\.mbz$#i', $data['setting_root_filename'])) {
+				$errors['setting_root_filename'] = get_string('errorfilenamemustbezip', 'backup');
+			}
+		}
 
-        return $errors;
-    }
+		return $errors;
+	}
 
 }

@@ -43,27 +43,27 @@ $mform = new profiling_import_form();
 
 // If there is any file to import.
 if ($data = $mform->get_data()) {
-    $filename = $mform->get_new_filename('mprfile');
-    $file = $CFG->tempdir . '/' . $tempdir . '/' . $filename;
-    $status = $mform->save_file('mprfile', $file);
-    if ($status) {
-        // File saved properly, let's import it.
-        $status = profiling_import_runs($file, $data->importprefix);
-    }
-    // Delete the temp file, not needed anymore.
-    if (file_exists($file)) {
-        unlink($file);
-    }
-    if ($status) {
-        // Import ended ok, let's redirect to main profiling page.
-        redirect($url, get_string('importok', 'tool_profiling', $filename));
-    }
+	$filename = $mform->get_new_filename('mprfile');
+	$file = $CFG->tempdir . '/' . $tempdir . '/' . $filename;
+	$status = $mform->save_file('mprfile', $file);
+	if ($status) {
+		// File saved properly, let's import it.
+		$status = profiling_import_runs($file, $data->importprefix);
+	}
+	// Delete the temp file, not needed anymore.
+	if (file_exists($file)) {
+		unlink($file);
+	}
+	if ($status) {
+		// Import ended ok, let's redirect to main profiling page.
+		redirect($url, get_string('importok', 'tool_profiling', $filename));
+	}
 } else {
-    echo $OUTPUT->header();
-    echo $OUTPUT->heading(get_string('import', 'tool_profiling'));
-    $mform->display();
-    echo $OUTPUT->footer();
-    die;
+	echo $OUTPUT->header();
+	echo $OUTPUT->heading(get_string('import', 'tool_profiling'));
+	$mform->display();
+	echo $OUTPUT->footer();
+	die;
 }
 
 // Something wrong happened, notice it and done.

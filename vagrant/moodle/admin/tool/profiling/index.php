@@ -41,14 +41,14 @@ $runreference= optional_param('runreference', 0, PARAM_INT);
 $runcomment  = optional_param('runcomment', null, PARAM_TEXT);
 
 $dbfields = 'runid, url, totalexecutiontime, totalcputime, ' .
-            'totalcalls, totalmemory, runreference, runcomment, timecreated';
+		'totalcalls, totalmemory, runreference, runcomment, timecreated';
 
 admin_externalpage_setup('toolprofiling');
 
 // Always add listurl if available
 if ($listurl) {
-    $listurlnav = new moodle_url('/admin/tool/profiling/index.php', array('listurl' => $listurl));
-    $PAGE->navbar->add($listurl, $listurlnav);
+	$listurlnav = new moodle_url('/admin/tool/profiling/index.php', array('listurl' => $listurl));
+	$PAGE->navbar->add($listurl, $listurlnav);
 }
 
 // Header
@@ -56,129 +56,129 @@ echo $OUTPUT->header();
 
 // We have requested the last available run for one script
 if (isset($script)) {
-    // Get the last available run for the given script
-    $run = $DB->get_record_sql("SELECT $dbfields
-                                 FROM {profiling}
-                                WHERE url = ?
-                                  AND id = (SELECT MAX(id)
-                                              FROM {profiling}
-                                             WHERE url = ?)",
-                              array($script, $script), IGNORE_MISSING);
+	// Get the last available run for the given script
+	$run = $DB->get_record_sql("SELECT $dbfields
+			FROM {profiling}
+			WHERE url = ?
+			AND id = (SELECT MAX(id)
+			FROM {profiling}
+			WHERE url = ?)",
+			array($script, $script), IGNORE_MISSING);
 
-    // No run found for script, warn and exit
-    if (!$run) {
-        notice(get_string('cannotfindanyrunforurl', 'tool_profiling', $script), 'index.php');
-    }
+	// No run found for script, warn and exit
+	if (!$run) {
+		notice(get_string('cannotfindanyrunforurl', 'tool_profiling', $script), 'index.php');
+	}
 
-    // Check if there is any previous run marked as reference one
-    $prevreferences = $DB->get_records_select('profiling',
-                                              'url = ? AND runreference = 1 AND timecreated < ?',
-                                              array($run->url, $run->timecreated),
-                                              'timecreated DESC', 'runid, runcomment, timecreated', 0, 10);
-    echo $OUTPUT->box_start('generalbox boxwidthwide boxaligncenter');
-    $header = get_string('lastrunof', 'tool_profiling', $script);
-    echo $OUTPUT->heading($header);
-    $table = profiling_print_run($run, $prevreferences);
-    echo $table;
-    echo $OUTPUT->box_end();
+	// Check if there is any previous run marked as reference one
+	$prevreferences = $DB->get_records_select('profiling',
+			'url = ? AND runreference = 1 AND timecreated < ?',
+			array($run->url, $run->timecreated),
+			'timecreated DESC', 'runid, runcomment, timecreated', 0, 10);
+	echo $OUTPUT->box_start('generalbox boxwidthwide boxaligncenter');
+	$header = get_string('lastrunof', 'tool_profiling', $script);
+	echo $OUTPUT->heading($header);
+	$table = profiling_print_run($run, $prevreferences);
+	echo $table;
+	echo $OUTPUT->box_end();
 
 
-// We have requested the diff between 2 runs
+	// We have requested the diff between 2 runs
 } else if (isset($runid) && isset($runid2)) {
-    $run1 = $DB->get_record('profiling', array('runid'=>$runid), $dbfields, MUST_EXIST);
-    $run2 = $DB->get_record('profiling', array('runid'=>$runid2), $dbfields, MUST_EXIST);
-    if ($run1->url == $run2->url && $run1->runid != $run2->runid) {
-        if ($run2->timecreated < $run1->timecreated) {
-            $runtemp = $run1;
-            $run1 = $run2;
-            $run2 = $runtemp;
-        }
-        echo $OUTPUT->box_start('generalbox boxwidthwide boxaligncenter');
-        $header = get_string('differencesbetween2runsof', 'tool_profiling', $run1->url);
-        echo $OUTPUT->heading($header);
-        $table = profiling_print_rundiff($run1, $run2);
-        echo $table;
-        echo $OUTPUT->box_end();
-    }
+	$run1 = $DB->get_record('profiling', array('runid'=>$runid), $dbfields, MUST_EXIST);
+	$run2 = $DB->get_record('profiling', array('runid'=>$runid2), $dbfields, MUST_EXIST);
+	if ($run1->url == $run2->url && $run1->runid != $run2->runid) {
+		if ($run2->timecreated < $run1->timecreated) {
+			$runtemp = $run1;
+			$run1 = $run2;
+			$run2 = $runtemp;
+		}
+		echo $OUTPUT->box_start('generalbox boxwidthwide boxaligncenter');
+		$header = get_string('differencesbetween2runsof', 'tool_profiling', $run1->url);
+		echo $OUTPUT->heading($header);
+		$table = profiling_print_rundiff($run1, $run2);
+		echo $table;
+		echo $OUTPUT->box_end();
+	}
 
 
-// We have requested one run, invoke it
+	// We have requested one run, invoke it
 } else if (isset($runid)) {
-    // Check if we are trying to update the runreference/runcomment for the run
-    if (isset($runcomment) && confirm_sesskey()) {
-        $id = $DB->get_field('profiling', 'id', array('runid' => $runid), MUST_EXIST);
-        $rec = new stdClass();
-        $rec->id = $id;
-        $rec->runreference = (bool)$runreference;
-        $rec->runcomment   = $runcomment;
-        $DB->update_record('profiling', $rec);
-    }
-    // Get the requested runid
-    $run = $DB->get_record('profiling', array('runid'=>$runid), $dbfields, IGNORE_MISSING);
+	// Check if we are trying to update the runreference/runcomment for the run
+	if (isset($runcomment) && confirm_sesskey()) {
+		$id = $DB->get_field('profiling', 'id', array('runid' => $runid), MUST_EXIST);
+		$rec = new stdClass();
+		$rec->id = $id;
+		$rec->runreference = (bool)$runreference;
+		$rec->runcomment   = $runcomment;
+		$DB->update_record('profiling', $rec);
+	}
+	// Get the requested runid
+	$run = $DB->get_record('profiling', array('runid'=>$runid), $dbfields, IGNORE_MISSING);
 
-    // No run found for runid, warn and exit
-    if (!$run) {
-        notice(get_string('cannotfindanyrunforrunid', 'tool_profiling', $runid), 'index.php');
-    }
+	// No run found for runid, warn and exit
+	if (!$run) {
+		notice(get_string('cannotfindanyrunforrunid', 'tool_profiling', $runid), 'index.php');
+	}
 
-    // Check if there is any previous run marked as reference one
-    $prevreferences = $DB->get_records_select('profiling',
-                                              'url = ? AND runreference = 1 AND timecreated < ?',
-                                              array($run->url, $run->timecreated),
-                                              'timecreated DESC', 'runid, runcomment, timecreated', 0, 10);
-    echo $OUTPUT->box_start('generalbox boxwidthwide boxaligncenter');
-    $header = get_string('summaryof', 'tool_profiling', $run->url);
-    echo $OUTPUT->heading($header);
-    $table = profiling_print_run($run, $prevreferences);
-    echo $table;
-    echo $OUTPUT->box_end();
+	// Check if there is any previous run marked as reference one
+	$prevreferences = $DB->get_records_select('profiling',
+			'url = ? AND runreference = 1 AND timecreated < ?',
+			array($run->url, $run->timecreated),
+			'timecreated DESC', 'runid, runcomment, timecreated', 0, 10);
+	echo $OUTPUT->box_start('generalbox boxwidthwide boxaligncenter');
+	$header = get_string('summaryof', 'tool_profiling', $run->url);
+	echo $OUTPUT->heading($header);
+	$table = profiling_print_run($run, $prevreferences);
+	echo $table;
+	echo $OUTPUT->box_end();
 
 
-// Default: List one page of runs
+	// Default: List one page of runs
 } else {
 
-    // The flexitable that will root listings
-    $table = new xhprof_table_sql('profiling-list-table');
-    $baseurl = $CFG->wwwroot . '/'.$CFG->admin.'/tool/profiling/index.php';
+	// The flexitable that will root listings
+	$table = new xhprof_table_sql('profiling-list-table');
+	$baseurl = $CFG->wwwroot . '/'.$CFG->admin.'/tool/profiling/index.php';
 
-    // Check if we are listing all or some URL ones
-    $sqlconditions = '';
-    $sqlparams = array();
-    if (!isset($listurl)) {
-        $header = get_string('pluginname', 'tool_profiling');
-        $sqlconditions = '1 = 1';
-        $table->set_listurlmode(false);
-    } else {
-        $header =  get_string('profilingrunsfor', 'tool_profiling', $listurl);
-        $sqlconditions = 'url = :url';
-        $sqlparams['url'] = $listurl;
-        $table->set_listurlmode(true);
-        $baseurl .= '?listurl=' . urlencode($listurl);
-    }
+	// Check if we are listing all or some URL ones
+	$sqlconditions = '';
+	$sqlparams = array();
+	if (!isset($listurl)) {
+		$header = get_string('pluginname', 'tool_profiling');
+		$sqlconditions = '1 = 1';
+		$table->set_listurlmode(false);
+	} else {
+		$header =  get_string('profilingrunsfor', 'tool_profiling', $listurl);
+		$sqlconditions = 'url = :url';
+		$sqlparams['url'] = $listurl;
+		$table->set_listurlmode(true);
+		$baseurl .= '?listurl=' . urlencode($listurl);
+	}
 
-    echo $OUTPUT->heading($header);
+	echo $OUTPUT->heading($header);
 
-    // Print the controller block with different options.
-    echo profiling_list_controls($listurl);
+	// Print the controller block with different options.
+	echo profiling_list_controls($listurl);
 
-    // TODO: Fix flexitable to validate tsort/thide/tshow/tifirs/tilast/page
-    // TODO: Fix table_sql to allow it to work without WHERE clause
-    // add silly condition (1 = 1) because of table_sql bug
-    $table->set_sql($dbfields, '{profiling}', $sqlconditions, $sqlparams);
-    $table->set_count_sql("SELECT COUNT(*) FROM {profiling} WHERE $sqlconditions", $sqlparams);
-    $columns = array(
-        'url', 'timecreated', 'totalexecutiontime', 'totalcputime',
-        'totalcalls', 'totalmemory', 'runcomment');
-    $headers = array(
-        get_string('url'), get_string('date'), get_string('executiontime', 'tool_profiling'),
-        get_string('cputime', 'tool_profiling'), get_string('calls', 'tool_profiling'),
-        get_string('memory', 'tool_profiling'), get_string('comment', 'tool_profiling'));
-    $table->define_columns($columns);
-    $table->define_headers($headers);
-    $table->sortable(true, 'timecreated', SORT_DESC);
-    $table->define_baseurl($baseurl);
-    $table->column_suppress('url');
-    $table->out(PROFILING_RUNSPERPAGE, true);
+	// TODO: Fix flexitable to validate tsort/thide/tshow/tifirs/tilast/page
+	// TODO: Fix table_sql to allow it to work without WHERE clause
+	// add silly condition (1 = 1) because of table_sql bug
+	$table->set_sql($dbfields, '{profiling}', $sqlconditions, $sqlparams);
+	$table->set_count_sql("SELECT COUNT(*) FROM {profiling} WHERE $sqlconditions", $sqlparams);
+	$columns = array(
+			'url', 'timecreated', 'totalexecutiontime', 'totalcputime',
+			'totalcalls', 'totalmemory', 'runcomment');
+	$headers = array(
+			get_string('url'), get_string('date'), get_string('executiontime', 'tool_profiling'),
+			get_string('cputime', 'tool_profiling'), get_string('calls', 'tool_profiling'),
+			get_string('memory', 'tool_profiling'), get_string('comment', 'tool_profiling'));
+	$table->define_columns($columns);
+	$table->define_headers($headers);
+	$table->sortable(true, 'timecreated', SORT_DESC);
+	$table->define_baseurl($baseurl);
+	$table->column_suppress('url');
+	$table->out(PROFILING_RUNSPERPAGE, true);
 }
 
 // Footer.

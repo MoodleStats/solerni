@@ -24,40 +24,40 @@
  * @return string
  */
 function fullPath($path,$dirsep=DIRECTORY_SEPARATOR) {
-    $token = '$IMS-CC-FILEBASE$';
-    $path = str_replace($token,'',$path);
-    if ( is_string($path) && ($path != '') ) {
-        $sep   = $dirsep;
-        $dotDir= '.';
-        $upDir = '..';
-        $length= strlen($path);
-        $rtemp= trim($path);
-        $start = strrpos($path, $sep);
-        $canContinue = ($start !== false);
-        $result= $canContinue ? '': $path;
-        $rcount=0;
-        while ($canContinue) {
-            $dirPart = ($start !== false) ? substr($rtemp,$start+1,$length-$start) : $rtemp;
-            $canContinue = ($dirPart !== false);
-            if ($canContinue) {
-                if ($dirPart != $dotDir) {
-                    if ($dirPart == $upDir) {
-                        $rcount++;
-                    } else {
-                        if ($rcount > 0) {
-                            $rcount--;
-                        } else {
-                            $result = ($result == '') ? $dirPart : $dirPart.$sep.$result;
-                        }
-                    }
-                }
-                $rtemp = substr($path,0,$start);
-                $start = strrpos($rtemp, $sep);
-                $canContinue = (($start !== false) || (strlen($rtemp) > 0));
-            }
-        } //end while
-    }
-    return $result;
+	$token = '$IMS-CC-FILEBASE$';
+	$path = str_replace($token,'',$path);
+	if ( is_string($path) && ($path != '') ) {
+		$sep   = $dirsep;
+		$dotDir= '.';
+		$upDir = '..';
+		$length= strlen($path);
+		$rtemp= trim($path);
+		$start = strrpos($path, $sep);
+		$canContinue = ($start !== false);
+		$result= $canContinue ? '': $path;
+		$rcount=0;
+		while ($canContinue) {
+			$dirPart = ($start !== false) ? substr($rtemp,$start+1,$length-$start) : $rtemp;
+			$canContinue = ($dirPart !== false);
+			if ($canContinue) {
+				if ($dirPart != $dotDir) {
+					if ($dirPart == $upDir) {
+						$rcount++;
+					} else {
+						if ($rcount > 0) {
+							$rcount--;
+						} else {
+							$result = ($result == '') ? $dirPart : $dirPart.$sep.$result;
+						}
+					}
+				}
+				$rtemp = substr($path,0,$start);
+				$start = strrpos($rtemp, $sep);
+				$canContinue = (($start !== false) || (strlen($rtemp) > 0));
+			}
+		} //end while
+	}
+	return $result;
 }
 
 
@@ -70,14 +70,14 @@ function fullPath($path,$dirsep=DIRECTORY_SEPARATOR) {
  * @return string
  */
 function stripUrl($path, $rootDir='') {
-    $result = $path;
-    if ( is_string($path) && ($path != '') ) {
-        $start=strpos($path,'(')+1;
-        $length=strpos($path,')')-$start;
-        $rut = $rootDir.substr($path,$start,$length);
-        $result=fullPath($rut,'/');
-    }
-    return $result;
+	$result = $path;
+	if ( is_string($path) && ($path != '') ) {
+		$start=strpos($path,'(')+1;
+		$length=strpos($path,')')-$start;
+		$rut = $rootDir.substr($path,$start,$length);
+		$result=fullPath($rut,'/');
+	}
+	return $result;
 }
 
 /**
@@ -87,12 +87,12 @@ function stripUrl($path, $rootDir='') {
  * @param string $path
  */
 function toNativePath(&$path) {
-    for ($count = 0 ; $count < strlen($path); ++$count) {
-        $chr = $path{$count};
-        if (($chr == '\\') || ($chr == '/')) {
-            $path{$count} = '/';
-        }
-    }
+	for ($count = 0 ; $count < strlen($path); ++$count) {
+		$chr = $path{$count};
+		if (($chr == '\\') || ($chr == '/')) {
+			$path{$count} = '/';
+		}
+	}
 }
 
 
@@ -103,12 +103,12 @@ function toNativePath(&$path) {
  * @param string $path
  */
 function toNativePath2(&$path) {
-    for ($count = 0 ; $count < strlen($path); ++$count) {
-        $chr = $path{$count};
-        if (($chr == '\\') || ($chr == '/')) {
-            $path{$count} = DIRECTORY_SEPARATOR;
-        }
-    }
+	for ($count = 0 ; $count < strlen($path); ++$count) {
+		$chr = $path{$count};
+		if (($chr == '\\') || ($chr == '/')) {
+			$path{$count} = DIRECTORY_SEPARATOR;
+		}
+	}
 }
 
 /**
@@ -117,12 +117,12 @@ function toNativePath2(&$path) {
  * @param string $path
  */
 function toUrlPath(&$path) {
-    for ($count = 0 ; $count < strlen($path); ++$count) {
-        $chr = $path{$count};
-        if (($chr == '\\')) {
-            $path{$count} = '/';
-        }
-    }
+	for ($count = 0 ; $count < strlen($path); ++$count) {
+		$chr = $path{$count};
+		if (($chr == '\\')) {
+			$path{$count} = '/';
+		}
+	}
 }
 
 /**
@@ -133,58 +133,58 @@ function toUrlPath(&$path) {
  * @return string
  */
 function pathDiff($path1, $path2) {
-    toUrlPath($path1);
-    toUrlPath($path2);
-    $result = "";
-    $bl2 = strlen($path2);
-    $a = strpos($path1,$path2);
-    if ($a !== false) {
-        $result = trim(substr($path1,$bl2+$a),'/');
-    }
-    return $result;
+	toUrlPath($path1);
+	toUrlPath($path2);
+	$result = "";
+	$bl2 = strlen($path2);
+	$a = strpos($path1,$path2);
+	if ($a !== false) {
+		$result = trim(substr($path1,$bl2+$a),'/');
+	}
+	return $result;
 }
 
- /**
-  * Copy a file, or recursively copy a folder and its contents
-  *
-  * @author      Aidan Lister <aidan@php.net>
-  * @version     1.0.1
-  * @link        http://aidanlister.com/repos/v/function.copyr.php
-  * @param       string   $source    Source path
-  * @param       string   $dest      Destination path
-  * @return      bool     Returns TRUE on success, FALSE on failure
-  */
- function copyr($source, $dest)
- {
-     global $CFG;
-     // Simple copy for a file
-     if (is_file($source)) {
-         return copy($source, $dest);
-     }
+/**
+ * Copy a file, or recursively copy a folder and its contents
+ *
+ * @author      Aidan Lister <aidan@php.net>
+ * @version     1.0.1
+ * @link        http://aidanlister.com/repos/v/function.copyr.php
+ * @param       string   $source    Source path
+ * @param       string   $dest      Destination path
+ * @return      bool     Returns TRUE on success, FALSE on failure
+ */
+function copyr($source, $dest)
+{
+	global $CFG;
+	// Simple copy for a file
+	if (is_file($source)) {
+		return copy($source, $dest);
+	}
 
-     // Make destination directory
-     if (!is_dir($dest)) {
-         mkdir($dest, $CFG->directorypermissions, true);
-     }
+	// Make destination directory
+	if (!is_dir($dest)) {
+		mkdir($dest, $CFG->directorypermissions, true);
+	}
 
-     // Loop through the folder
-     $dir = dir($source);
-     while (false !== $entry = $dir->read()) {
-         // Skip pointers
-         if ($entry == '.' || $entry == '..') {
-             continue;
-         }
+	// Loop through the folder
+	$dir = dir($source);
+	while (false !== $entry = $dir->read()) {
+		// Skip pointers
+		if ($entry == '.' || $entry == '..') {
+			continue;
+		}
 
-         // Deep copy directories
-         if ($dest !== "$source/$entry") {
-             copyr("$source/$entry", "$dest/$entry");
-         }
-     }
+		// Deep copy directories
+		if ($dest !== "$source/$entry") {
+			copyr("$source/$entry", "$dest/$entry");
+		}
+	}
 
-     // Clean up
-     $dir->close();
-     return true;
- }
+	// Clean up
+	$dir->close();
+	return true;
+}
 
 /**
  * Function returns array with directories contained in folder (only first level)
@@ -198,52 +198,52 @@ function pathDiff($path1, $path2) {
  *                invalid it returns FALSE.
  */
 function getDirectories($rootDir, $contains, $excludeitems = null, $startswith = true) {
-    $result = is_dir($rootDir);
-    if ($result) {
-        $dirlist = dir($rootDir);
-        $entry = null;
-        $result = array();
-        while(false !== ($entry = $dirlist->read())) {
-            $currdir = $rootDir.$entry;
-            if (is_dir($currdir)) {
-                $bret = strpos($entry,$contains);
-                if (($bret !== false)) {
-                    if (($startswith && ($bret == 0)) || !$startswith) {
-                        if (!( is_array($excludeitems) && in_array($entry,$excludeitems) )) {
-                            $result[] = $entry;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    return $result;
+	$result = is_dir($rootDir);
+	if ($result) {
+		$dirlist = dir($rootDir);
+		$entry = null;
+		$result = array();
+		while(false !== ($entry = $dirlist->read())) {
+			$currdir = $rootDir.$entry;
+			if (is_dir($currdir)) {
+				$bret = strpos($entry,$contains);
+				if (($bret !== false)) {
+					if (($startswith && ($bret == 0)) || !$startswith) {
+						if (!( is_array($excludeitems) && in_array($entry,$excludeitems) )) {
+							$result[] = $entry;
+						}
+					}
+				}
+			}
+		}
+	}
+	return $result;
 }
 
 function getFilesOnly($rootDir, $contains, $excludeitems = null, $startswith = true,$extension=null) {
-    $result = is_dir($rootDir);
-    if ($result) {
-        $filelist = dir($rootDir);
-        $entry = null;
-        $result = array();
-        while(false !== ($entry = $filelist->read())) {
-            $curritem = $rootDir.$entry;
-            $pinfo = pathinfo($entry);
-            $ext = array_key_exists('extension',$pinfo) ? $pinfo['extension'] : null;
-            if (is_file($curritem) && (is_null($extension) || ($ext == $extension) )) {
-                $bret = strpos($entry,$contains);
-                if (($bret !== false)) {
-                    if (($startswith && ($bret == 0)) || !$startswith) {
-                        if (!( is_array($excludeitems) && in_array($entry,$excludeitems) )) {
-                            $result[] = $entry;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    natcasesort($result);
-    return $result;
+	$result = is_dir($rootDir);
+	if ($result) {
+		$filelist = dir($rootDir);
+		$entry = null;
+		$result = array();
+		while(false !== ($entry = $filelist->read())) {
+			$curritem = $rootDir.$entry;
+			$pinfo = pathinfo($entry);
+			$ext = array_key_exists('extension',$pinfo) ? $pinfo['extension'] : null;
+			if (is_file($curritem) && (is_null($extension) || ($ext == $extension) )) {
+				$bret = strpos($entry,$contains);
+				if (($bret !== false)) {
+					if (($startswith && ($bret == 0)) || !$startswith) {
+						if (!( is_array($excludeitems) && in_array($entry,$excludeitems) )) {
+							$result[] = $entry;
+						}
+					}
+				}
+			}
+		}
+	}
+	natcasesort($result);
+	return $result;
 }
 
 
@@ -257,18 +257,18 @@ function getFilesOnly($rootDir, $contains, $excludeitems = null, $startswith = t
  */
 
 function search_ident_by_name($array,$name){
-    if (empty($array)){
-        throw new Exception('The array given is null');
-    }
-    $ident = null;
-    foreach ($array as $k => $v){
-        ($k);
-        if ($v[1] == $name){
-            $ident = $v[0];
-            break;
-        }
-    }
-    return $ident;
+	if (empty($array)){
+		throw new Exception('The array given is null');
+	}
+	$ident = null;
+	foreach ($array as $k => $v){
+		($k);
+		if ($v[1] == $name){
+			$ident = $v[0];
+			break;
+		}
+	}
+	return $ident;
 }
 
 
@@ -285,74 +285,74 @@ function search_ident_by_name($array,$name){
  * @return array
  */
 function getRawFiles($startDir, &$fhandle, $rootDir='', $excludedirs = null, $excludefileext = null) {
-    $result = is_dir($startDir);
-    if ($result) {
-        $dirlist = dir($startDir);
-        $entry = null;
-        while(false !== ($entry = $dirlist->read())) {
-            $curritem = $startDir.$entry;
-            if (($entry=='.') || ($entry =='..')) {
-                continue;
-            }
-            if (is_dir($curritem)) {
-                if (!( is_array($excludedirs) && in_array($entry,$excludedirs) )) {
-                    getRawFiles($startDir.$entry."/",$fhandle,$rootDir.$entry."/",$excludedirs,$excludefileext);
-                }
-                continue;
-            }
-            if (is_file($curritem)){
-                $pinfo = pathinfo($entry);
-                $ext = array_key_exists('extension',$pinfo) ? $pinfo['extension'] : '';
-                if (!is_array($excludefileext) ||
-                (is_array($excludefileext) && !in_array($ext,$excludefileext))) {
-                    fwrite($fhandle,$rootDir.$entry."\n");
-                }
-            }
-        }
-    }
-    return $result;
+	$result = is_dir($startDir);
+	if ($result) {
+		$dirlist = dir($startDir);
+		$entry = null;
+		while(false !== ($entry = $dirlist->read())) {
+			$curritem = $startDir.$entry;
+			if (($entry=='.') || ($entry =='..')) {
+				continue;
+			}
+			if (is_dir($curritem)) {
+				if (!( is_array($excludedirs) && in_array($entry,$excludedirs) )) {
+					getRawFiles($startDir.$entry."/",$fhandle,$rootDir.$entry."/",$excludedirs,$excludefileext);
+				}
+				continue;
+			}
+			if (is_file($curritem)){
+				$pinfo = pathinfo($entry);
+				$ext = array_key_exists('extension',$pinfo) ? $pinfo['extension'] : '';
+				if (!is_array($excludefileext) ||
+						(is_array($excludefileext) && !in_array($ext,$excludefileext))) {
+					fwrite($fhandle,$rootDir.$entry."\n");
+				}
+			}
+		}
+	}
+	return $result;
 }
 
 
 function getRawFiles2($startDir,&$arr, $rootDir='', $excludedirs = null, $excludefileext = null) {
 
-    $result = is_dir($startDir);
-    if ($result) {
-        $dirlist = dir($startDir);
-        $entry = null;
-        while(false !== ($entry = $dirlist->read())) {
-            $curritem = $startDir.$entry;
-            if (($entry=='.') || ($entry =='..')) {
-                continue;
-            }
-            if (is_dir($curritem)) {
-                if (!( is_array($excludedirs) && in_array($entry,$excludedirs) )) {
-                    getRawFiles2($startDir.$entry."/",$arr,$rootDir.$entry."/",$excludedirs,$excludefileext);
-                }
-                continue;
-            }
-            if (is_file($curritem)){
-                $pinfo = pathinfo($entry);
-                $ext = array_key_exists('extension',$pinfo) ? $pinfo['extension'] : '';
-                if (!is_array($excludefileext) ||
-                (is_array($excludefileext) && !in_array($ext,$excludefileext))) {
-                    array_push($arr,$rootDir.$entry);
-                   // fwrite($fhandle,$rootDir.$entry."\n");
-                }
-            }
-        }
-    }
-    return $result;
+	$result = is_dir($startDir);
+	if ($result) {
+		$dirlist = dir($startDir);
+		$entry = null;
+		while(false !== ($entry = $dirlist->read())) {
+			$curritem = $startDir.$entry;
+			if (($entry=='.') || ($entry =='..')) {
+				continue;
+			}
+			if (is_dir($curritem)) {
+				if (!( is_array($excludedirs) && in_array($entry,$excludedirs) )) {
+					getRawFiles2($startDir.$entry."/",$arr,$rootDir.$entry."/",$excludedirs,$excludefileext);
+				}
+				continue;
+			}
+			if (is_file($curritem)){
+				$pinfo = pathinfo($entry);
+				$ext = array_key_exists('extension',$pinfo) ? $pinfo['extension'] : '';
+				if (!is_array($excludefileext) ||
+						(is_array($excludefileext) && !in_array($ext,$excludefileext))) {
+					array_push($arr,$rootDir.$entry);
+					// fwrite($fhandle,$rootDir.$entry."\n");
+				}
+			}
+		}
+	}
+	return $result;
 }
 
 
 function GetFiles($startDir, $outfile, $rootDir='', $excludedirs = null, $excludefileext = null) {
-    $fh = @fopen($outfile,"w+");
-    if ($fh !== FALSE) {
-        getRawFiles($startDir,$fh,$rootDir,$excludedirs,$excludefileext);
-        @fclose($fh);
-        @chmod($outfile,0777);
-    }
+	$fh = @fopen($outfile,"w+");
+	if ($fh !== FALSE) {
+		getRawFiles($startDir,$fh,$rootDir,$excludedirs,$excludefileext);
+		@fclose($fh);
+		@chmod($outfile,0777);
+	}
 }
 
 
@@ -367,9 +367,9 @@ function GetFiles($startDir, $outfile, $rootDir='', $excludedirs = null, $exclud
  */
 
 function GetFilesArray($startDir, $rootDir='', $excludedirs = null, $excludefileext = null) {
-    $arr = array();
-    getRawFiles2($startDir,$arr,$rootDir,$excludedirs,$excludefileext);
-    return $arr;
+	$arr = array();
+	getRawFiles2($startDir,$arr,$rootDir,$excludedirs,$excludefileext);
+	return $arr;
 }
 
 
@@ -385,12 +385,12 @@ function GetFilesArray($startDir, $rootDir='', $excludedirs = null, $excludefile
  * @return array
  */
 function getCourseDirs ($rootDir, $contains, $excludeitems=null, $startswith=true) {
-    $result = getDirectories($rootDir,$contains,$excludeitems,$startswith);
-    if ($result !== false) {
-        natcasesort($result);
-        $result = array_values($result);
-    }
-    return $result;
+	$result = getDirectories($rootDir,$contains,$excludeitems,$startswith);
+	if ($result !== false) {
+		natcasesort($result);
+		$result = array_values($result);
+	}
+	return $result;
 }
 
 
@@ -402,19 +402,19 @@ function getCourseDirs ($rootDir, $contains, $excludeitems=null, $startswith=tru
  */
 function rmdirr($dirname)
 {
-    if (!file_exists($dirname)) {
-        return false;
-    }
-    if (is_file($dirname) || is_link($dirname)) {
-        return unlink($dirname);
-    }
-    $dir = dir($dirname);
-    while (false !== $entry = $dir->read()) {
-        if ($entry == '.' || $entry == '..') {
-            continue;
-        }
-        rmdirr($dirname . DIRECTORY_SEPARATOR . $entry);
-    }
-    $dir->close();
-    return rmdir($dirname);
+	if (!file_exists($dirname)) {
+		return false;
+	}
+	if (is_file($dirname) || is_link($dirname)) {
+		return unlink($dirname);
+	}
+	$dir = dir($dirname);
+	while (false !== $entry = $dir->read()) {
+		if ($entry == '.' || $entry == '..') {
+			continue;
+		}
+		rmdirr($dirname . DIRECTORY_SEPARATOR . $entry);
+	}
+	$dir->close();
+	return rmdir($dirname);
 }

@@ -23,11 +23,11 @@
  * @package    tool_behat
  * @copyright  2012 David Monllaó
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+*/
 
 
 if (isset($_SERVER['REMOTE_ADDR'])) {
-    die(); // No access from web!.
+	die(); // No access from web!.
 }
 
 // Basic functions.
@@ -37,21 +37,21 @@ require_once(__DIR__ . '/../../../../lib/behat/lib.php');
 
 // CLI options.
 list($options, $unrecognized) = cli_get_params(
-    array(
-        'help'    => false,
-        'install' => false,
-        'drop'    => false,
-        'enable'  => false,
-        'disable' => false,
-        'diag'    => false
-    ),
-    array(
-        'h' => 'help'
-    )
+		array(
+				'help'    => false,
+				'install' => false,
+				'drop'    => false,
+				'enable'  => false,
+				'disable' => false,
+				'diag'    => false
+		),
+		array(
+				'h' => 'help'
+		)
 );
 
 if ($options['install'] or $options['drop']) {
-    define('CACHE_DISABLE_ALL', true);
+	define('CACHE_DISABLE_ALL', true);
 }
 
 // Checking util.php CLI script usage.
@@ -74,8 +74,8 @@ More info in http://docs.moodle.org/dev/Acceptance_testing#Running_tests
 ";
 
 if (!empty($options['help'])) {
-    echo $help;
-    exit(0);
+	echo $help;
+	exit(0);
 }
 
 // Describe this script.
@@ -108,8 +108,8 @@ require_once($CFG->libdir.'/installlib.php');
 require_once($CFG->libdir.'/testing/classes/test_lock.php');
 
 if ($unrecognized) {
-    $unrecognized = implode("\n  ", $unrecognized);
-    cli_error(get_string('cliunknowoption', 'admin', $unrecognized));
+	$unrecognized = implode("\n  ", $unrecognized);
+	cli_error(get_string('cliunknowoption', 'admin', $unrecognized));
 }
 
 // Behat utilities.
@@ -118,26 +118,26 @@ require_once($CFG->libdir . '/behat/classes/behat_command.php');
 
 // Run command (only one per time).
 if ($options['install']) {
-    behat_util::install_site();
-    mtrace("Acceptance tests site installed");
+	behat_util::install_site();
+	mtrace("Acceptance tests site installed");
 } else if ($options['drop']) {
-    // Ensure no tests are running.
-    test_lock::acquire('behat');
-    behat_util::drop_site();
-    mtrace("Acceptance tests site dropped");
+	// Ensure no tests are running.
+	test_lock::acquire('behat');
+	behat_util::drop_site();
+	mtrace("Acceptance tests site dropped");
 } else if ($options['enable']) {
-    behat_util::start_test_mode();
-    $runtestscommand = behat_command::get_behat_command(true) .
-        ' --config ' . behat_config_manager::get_behat_cli_config_filepath();
-    mtrace("Acceptance tests environment enabled on $CFG->behat_wwwroot, to run the tests use:\n " . $runtestscommand);
+	behat_util::start_test_mode();
+	$runtestscommand = behat_command::get_behat_command(true) .
+	' --config ' . behat_config_manager::get_behat_cli_config_filepath();
+	mtrace("Acceptance tests environment enabled on $CFG->behat_wwwroot, to run the tests use:\n " . $runtestscommand);
 } else if ($options['disable']) {
-    behat_util::stop_test_mode();
-    mtrace("Acceptance tests environment disabled");
+	behat_util::stop_test_mode();
+	mtrace("Acceptance tests environment disabled");
 } else if ($options['diag']) {
-    $code = behat_util::get_behat_status();
-    exit($code);
+	$code = behat_util::get_behat_status();
+	exit($code);
 } else {
-    echo $help;
+	echo $help;
 }
 
 exit(0);

@@ -31,17 +31,17 @@ $returnurl = optional_param('returnurl', null, PARAM_LOCALURL);
 
 // If we have got here as a confirmed aciton, do it.
 if ($confirm && isloggedin() && confirm_sesskey()) {
-    require_capability('moodle/site:config', context_system::instance());
+	require_capability('moodle/site:config', context_system::instance());
 
-    // Valid request. Purge, and redirect the user back to where they came from.
-    purge_all_caches();
+	// Valid request. Purge, and redirect the user back to where they came from.
+	purge_all_caches();
 
-    if ($returnurl) {
-        $returnurl = $CFG->wwwroot . $returnurl;
-    } else {
-        $returnurl = new moodle_url('/admin/purgecaches.php');
-    }
-    redirect($returnurl, get_string('purgecachesfinished', 'admin'));
+	if ($returnurl) {
+		$returnurl = $CFG->wwwroot . $returnurl;
+	} else {
+		$returnurl = new moodle_url('/admin/purgecaches.php');
+	}
+	redirect($returnurl, get_string('purgecachesfinished', 'admin'));
 }
 
 // Otherwise, show a button to actually purge the caches.
@@ -49,7 +49,7 @@ admin_externalpage_setup('purgecaches');
 
 $actionurl = new moodle_url('/admin/purgecaches.php', array('sesskey'=>sesskey(), 'confirm'=>1));
 if ($returnurl) {
-    $actionurl->param('returnurl', $returnurl);
+	$actionurl->param('returnurl', $returnurl);
 }
 
 echo $OUTPUT->header();

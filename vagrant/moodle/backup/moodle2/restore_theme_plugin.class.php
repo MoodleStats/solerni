@@ -26,5 +26,5 @@ defined('MOODLE_INTERNAL') || die();
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 abstract class restore_theme_plugin extends restore_plugin {
-    // Use default parent behaviour
+	// Use default parent behaviour
 }
