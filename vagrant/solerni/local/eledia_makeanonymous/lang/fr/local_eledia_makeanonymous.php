@@ -53,6 +53,6 @@ $string['emailsubject_desc'] = 'Sujet affiché dans le mail';
 $string['defaultemailsubject'] = 'Votre compte a été supprimé dans Solerni';
 $string['emailmsg'] = 'Message du mail';
 $string['emailmsg_desc'] = 'Message affiché dans le mail';
-$string['defaultemailmsg'] = 'Votre compte a été supprimé dans Solerni. <br>Merci d\'avoir utilisé Solerni!';
+$string['defaultemailmsg'] = 'Bonjour {$a->fullname},<br> Votre compte a été supprimé dans Solerni. <br>Merci d\'avoir utilisé Solerni!';
 $string['enabledemail'] = 'Activé l\'envoi de mail';
 $string['enabledemail_desc'] = 'Active l\envoi de mail à l\'utilisateur';

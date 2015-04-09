@@ -78,8 +78,9 @@ if ($hassiteconfig) {
     $name = 'local_eledia_makeanonymous/emailmsg';
     $title = get_string('emailmsg', 'local_eledia_makeanonymous');
     $description = get_string('emailmsg_desc', 'local_eledia_makeanonymous');
-    $setting = new admin_setting_confightmleditor($name, $title, $description,
-                                                  get_string('defaultemailmsg', 'local_eledia_makeanonymous'));
+    $setting = new admin_setting_configtextarea($name, $title, $description,
+                                            get_string('defaultemailmsg', 'local_eledia_makeanonymous'), PARAM_RAW, '60', '8');
+
     $settings->add($setting);
 
     $deletedusers = $DB->get_records('user', array('deleted' => 1));

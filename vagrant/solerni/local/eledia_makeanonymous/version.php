@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2015031903;                     // The current plugin version (Date: YYYYMMDDXX)
+$plugin->version   = 2015031905;                     // The current plugin version (Date: YYYYMMDDXX)
 $plugin->requires  = 2014051200;                     // Requires this Moodle version (2.7).
 $plugin->release   = '0.5 (2014082803)';             // For Moodle 2.7 & 2.8
 $plugin->component = 'local_eledia_makeanonymous';   // Full name of the plugin (used for diagnostics).

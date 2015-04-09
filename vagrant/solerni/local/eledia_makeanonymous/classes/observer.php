@@ -33,7 +33,7 @@ require_once($CFG->dirroot.'/local/eledia_makeanonymous/lib.php');
 class local_eledia_makeanonymous_observer {
 
     public static function anonymize(\core\event\user_deleted $event) {
-
-        start_anonymous($event->relateduserid);
+        $other = $event->other;
+        start_anonymous($event->relateduserid, $other['email']);
     }
 }

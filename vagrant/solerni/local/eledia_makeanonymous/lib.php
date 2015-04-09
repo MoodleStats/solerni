@@ -27,7 +27,7 @@
 /**
  * Called from event observer.
  */
-function start_anonymous($userid) {
+function start_anonymous($userid, $useroldemail) {
     global $DB;
 
     $config = get_config('local_eledia_makeanonymous');
@@ -37,7 +37,7 @@ function start_anonymous($userid) {
         $user = $DB->get_record('user', array('id' => $userid));
 
         if ($config->delay == '0') {
-            make_anonymous($user);
+            make_anonymous($user, $useroldemail);
         } else {
             store_to_table($user);
         }
@@ -47,13 +47,14 @@ function start_anonymous($userid) {
 /**
  * The function which anonymizes the deleted user.
  */
-function make_anonymous($user) {
+function make_anonymous($user, $useroldemail) {
     global $DB;
 
     $config = get_config('local_eledia_makeanonymous');
 
     // Mark internal user record as "deleted".
-    $updateuser = $user;
+    $updateuser = new stdClass();
+    $updateuser->id           = $user->id;
 
     $uniquestr = hash('crc32' , $user->username.time());
     $updateuser->deleted      = 1;
@@ -102,7 +103,7 @@ function make_anonymous($user) {
     $DB->update_record('user', $updateuser);
     // Send an email to user.
     if (get_config('local_eledia_makeanonymous', 'enabledemail')) {
-        send_email_deletion($user);
+        send_email_deletion($user, $useroldemail);
     }
 }
 
@@ -156,11 +157,39 @@ function anonymize_task() {
 /**
  * Called from send deletion email to user
  */
-function send_email_deletion($user) {
+function send_email_deletion($user, $useroldemail) {
     $supportuser = core_user::get_support_user();
-    $messagetext = get_config('local_eledia_makeanonymous', 'emailmsg');
-    $messagehtml = text_to_html($messagetext, null, false, true);
+    $message = get_config('local_eledia_makeanonymous', 'emailmsg');
+
+    // Otherwise email_to_user() method block email.
+    $user->deleted      = 0;
+    $user->email     = $useroldemail;
+
+    $a = new stdClass();
+    $a->fullname = fullname($user);
+    $a->email = $user->email;
+
+    if (trim($message) !== '') {
+        $key = array('{$a->fullname}', '{$a->email}');
+        $value = array($a->fullname, $a->email);
+        $message = str_replace($key, $value, $message);
+
+        if (strpos($message, '<') === false) {
+            // Plain text only.
+            $messagetext = $message;
+            $messagehtml = text_to_html($messagetext, null, false, true);
+        } else {
+            // This is most probably the tag/newline soup known as FORMAT_MOODLE.
+            $messagehtml = format_text($message, FORMAT_MOODLE, array('para' => false, 'newlines' => true, 'filter' => true));
+            $messagetext = html_to_text($messagehtml);
+        }
+    } else {
+        $messagetext = get_string('defaultemailmsg', 'local_eledia_makeanonymous', $a);
+        $messagehtml = text_to_html($messagetext, null, false, true);
+    }
+
     $subject = get_config('local_eledia_makeanonymous', 'emailsubject');
+
     if (! email_to_user($user, $supportuser, $subject, $messagetext, $messagehtml)) {
         mtrace('mail error : mail was not sent to '. $user->email);
     }
