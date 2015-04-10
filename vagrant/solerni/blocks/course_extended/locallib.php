@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -16,11 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Private page module utility functions
- *
- * @package block_course_extended
+ * @package    blocks
+ * @subpackage course_extended
  * @copyright  2015 Orange
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 
@@ -34,9 +32,9 @@ require_once("$CFG->dirroot/blocks/course_extended/lib.php");
 /**#@+
  * Constants defining the visibility levels of blog posts
  */
-define('page_VISIBILITY_COURSEUSER',   100);
-define('page_VISIBILITY_LOGGEDINUSER', 200);
-define('page_VISIBILITY_PUBLIC',       300);
+define('PAGE_VISIBILITY_COURSEUSER',   100);
+define('PAGE_VISIBILITY_LOGGEDINUSER', 200);
+define('PAGE_VISIBILITY_PUBLIC',       300);
 /**#@-*/
 
 
@@ -61,44 +59,44 @@ class page_content_file_info extends file_info_stored {
 
 function page_get_editor_options($context) {
     global $CFG;
-    return array('subdirs'=>1, 'maxbytes'=>$CFG->maxbytes, 'maxfiles'=>-1, 'changeformat'=>1, 'context'=>$context, 'noclean'=>1, 'trusttext'=>0);
+    return array(
+        'subdirs' => 1,
+        'maxbytes' => $CFG->maxbytes,
+        'maxfiles' => -1,
+        'changeformat' => 1,
+        'context' => $context,
+        'noclean' => 1,
+        'trusttext' => 0);
 }
 
-function get_badges(){
-    global $CFG,$DB,$PAGE;
-    static $courseformatoptions = false;
+function get_badges() {
+    global $DB, $PAGE;
     $usedbadges = array();
-        if($badges = $DB->get_records('badge')){
-            foreach ($badges as $badge){
-                if ($badge->courseid == $PAGE->course->id){
-                    $usedbadges[$badge->id]=$badge->name;                        
-                }
-             }
+    if ($badges = $DB->get_records('badge')) {
+        foreach ($badges as $badge) {
+            if ($badge->courseid == $PAGE->course->id) {
+                $usedbadges[$badge->id] = $badge->name;
+            }
         }
-        else
-        {
-            $usedbadges[1]=get_string('certification_default', 'block_course_extended');                
-        }
-     return $usedbadges;
-
+    } else {
+        $usedbadges[1] = get_string('certification_default', 'block_course_extended');
+    }
+    return $usedbadges;
 }
 
-function get_badges_string(){
-    global $CFG,$DB,$PAGE;
-    static $courseformatoptions = false;
+function get_badges_string() {
     $badges = get_badges();
     $stringbadges = get_string('badge', 'block_course_extended');
-    foreach ($badges as $badge){
+    foreach ($badges as $badge) {
         $stringbadges = $stringbadges." ".$badge." ";
     }
 
-     return $stringbadges;
-
+    return $stringbadges;
 }
 
-function count_badges(){
-      global $CFG, $DB;
-  return $DB->count_records('badge');
+function count_badges() {
+    global $DB;
+    return $DB->count_records('badge');
 }
 
 
@@ -113,14 +111,14 @@ function count_badges(){
 function page_check_view_permissions($page, $context, $cm=null) {
     global $COURSE, $PAGE, $DB;
 
-    $capability= 'block/course_extended:view';
+    $capability = 'block/course_extended:view';
 
     switch ($page->maxvisibility) {
-        case page_VISIBILITY_PUBLIC:
+        case PAGE_VISIBILITY_PUBLIC:
             if ($page->course == $COURSE->id or empty($page->course)) {
                 $pagecourse = $COURSE;
             } else {
-                $pagecourse = $DB->get_record('course', array('id'=>$page->course),
+                $pagecourse = $DB->get_record('course', array('id' => $page->course),
                         '*', MUST_EXIST);
             }
             $PAGE->set_course($pagecourse);
@@ -128,26 +126,26 @@ function page_check_view_permissions($page, $context, $cm=null) {
             $PAGE->set_pagelayout('incourse');
             return;
 
-        case page_VISIBILITY_LOGGEDINUSER:
+        case PAGE_VISIBILITY_LOGGEDINUSER:
             require_login(SITEID, false);
             if ($page->course == $COURSE->id or empty($page->course)) {
                 $pagecourse = $COURSE;
             } else {
-                $pagecourse = $DB->get_record('course', array('id'=>$page->course),
+                $pagecourse = $DB->get_record('course', array('id' => $page->course),
                         '*', MUST_EXIST);
             }
             $PAGE->set_course($pagecourse);
             $PAGE->set_cm($cm, $pagecourse);
             $PAGE->set_pagelayout('incourse');
-            // Check page:view cap
+            // Check page:view cap.
             if (!has_capability($capability, $context)) {
                 require_course_login($pagecourse, true, $cm);
             }
             return;
 
-        case page_VISIBILITY_COURSEUSER:
+        case PAGE_VISIBILITY_COURSEUSER:
             require_course_login($page->course, false, $cm);
-            // Check page:view cap
+            // Check page:view cap.
             if (!has_capability($capability, $context)) {
                 require_course_login($pagecourse, true, $cm);
             }

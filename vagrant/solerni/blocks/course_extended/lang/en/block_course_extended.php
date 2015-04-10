@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -16,11 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Defines the block strings
- *
- * @package    block_course_contents
- * @copyright  2009 David Mudrak <david@moodle.com>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    blocks
+ * @subpackage course_extended
+ * @copyright  2015 Orange
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -29,6 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 $string['course_extended:addinstance'] = 'Add a new course contents block';
 $string['course_extended:myaddinstance'] = 'Add a new course contents block to the My Moodle page';
 $string['course_extended'] = 'Course extended contents';
+$string['defaulttitle'] = 'Course extended contents';
 
 $string['headerconfig'] = 'headerconfig';
 $string['descconfig'] = 'descconfig';

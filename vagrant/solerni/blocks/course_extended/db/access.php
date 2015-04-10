@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -36,7 +35,6 @@ $capabilities = array(
             'user' => CAP_ALLOW,
         )
     ),
-    
     'block/course_extended:viewpersonal' => array(
 
         'captype' => 'read',
@@ -45,14 +43,13 @@ $capabilities = array(
             'user' => CAP_ALLOW
         )
     ),
-
     'block/course_extended:myaddinstance' => array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
         'archetypes' => array(
             'user' => CAP_ALLOW
         ),
- 
+
         'clonepermissionsfrom' => 'moodle/my:manageblocks'
     ),
      'block/course_extended:addinstance' => array(
@@ -64,7 +61,6 @@ $capabilities = array(
             'editingteacher' => CAP_ALLOW,
             'manager' => CAP_ALLOW
         ),
-
         'clonepermissionsfrom' => 'moodle/site:manageblocks'
     ),
 );

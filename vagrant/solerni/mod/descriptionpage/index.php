@@ -32,10 +32,6 @@ require_course_login($course, true);
 $PAGE->set_pagelayout('incourse');
 
 $contextarray = array('context' => context_course::instance($course->id));
-// Trigger instances list viewed event.
-$event = \mod_descriptionpage\event\course_module_instance_list_viewed::create($contextarray);
-$event->add_record_snapshot('course', $course);
-$event->trigger();
 
 $strpage         = get_string('modulename', 'descriptionpage');
 $strpages        = get_string('modulenameplural', 'descriptionpage');

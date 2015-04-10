@@ -130,7 +130,7 @@ class mod_descriptionpage_mod_form extends moodleform_mod {
             $defaultvalues['descriptionpage']['format'] = $defaultvalues['contentformat'];
             $ctxid = $this->context->id;
             $moddescpage = 'mod_descriptionpage';
-            $ct = $content;
+            $ct = 'content';
             $descpaggeteditopt = descriptionpage_page_get_editor_options($this->context);
             $defvalues = $defaultvalues['content'];
             $fileprepdraft = file_prepare_draft_area($draftitemid, $ctxid, $moddescpage, $ct, 0, $descpaggeteditopt, $defvalues);

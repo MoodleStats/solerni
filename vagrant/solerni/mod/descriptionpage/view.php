@@ -54,23 +54,12 @@ descriptionpage_page_check_view_permissions($page, $context, $cm);
 // ...$context = context_module::instance($cm->id);.
 require_capability('mod/descriptionpage:view', $context);
 
-// Trigger module viewed event.
-$event = \mod_descriptionpage\event\course_module_viewed::create(array(
-   'objectid' => $page->id,
-   'context' => $context
-));
-$event->add_record_snapshot('course_modules', $cm);
-$event->add_record_snapshot('course', $course);
-$event->add_record_snapshot('descriptionpage', $page);
-$event->trigger();
-
 // Update 'viewed' state if required by completion system.
 require_once($CFG->libdir . '/completionlib.php');
 $completion = new completion_info($course);
 $completion->set_module_viewed($cm);
 
 $PAGE->set_url('/mod/descriptionpage/view.php', array('id' => $cm->id));
-
 $options = empty($page->displayoptions) ? array() : unserialize($page->displayoptions);
 
 if ($inpopup and $page->display == RESOURCELIB_DISPLAY_POPUP) {
