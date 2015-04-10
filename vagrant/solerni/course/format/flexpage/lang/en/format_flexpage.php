@@ -195,3 +195,76 @@ $string['userfield'] = 'User field';
 $string['userfield_help'] = 'You can restrict access based on any field from the users profile.';
 $string['releasecode'] = 'Release code';
 $string['releasecode_help'] = 'This course item will not be available to students until the student acquires the release code entered here.';
+
+/*
+ * Adding the extended page parameters
+ */
+$string['picture'] = 'picture';
+$string['picture_help'] = 'picture_help';
+
+$string['current'] = 'current';
+$string['startingsoon'] = 'startingsoon';
+$string['closed'] = 'closed';
+$string['picture'] = 'picture';
+
+$string['startdate'] = 'start date: ';
+$string['enddate'] = 'end date: ';
+$string['enddate_default'] = "0";
+$string['enddate_help'] = 'enddate_help ';
+
+$string['duration'] = 'duration: ';
+$string['duration_help'] = 'duration_help ';
+$string['duration_default'] = 'in_four_weeks ';
+$string['in_four_weeks'] = 'in_four_weeks';
+$string['four_six_weeks'] = 'four_six_weeks';
+$string['sup_six_weeks'] = 'sup_six_weeks';
+
+$string['workingtime'] = 'working time per day: ';
+$string['workingtime_help'] = 'working time per day_help ';
+$string['workingtime_default'] = 'inf_one';
+$string['inf_one'] = 'inf_one';
+$string['one_two'] = 'one_two';
+$string['two_three'] = 'two_three';
+
+$string['price'] = 'price: ';
+$string['price_help'] = 'price_help';
+$string['price_default'] = 'Free MOOC';
+
+$string['certification'] = 'Certification';
+$string['certification_default'] = 'No Certification';
+$string['certification_help'] = 'No Certification';
+
+$string['language'] = 'Language: ';
+$string['language_default'] = 'No language';
+
+$string['video'] = 'Video: ';
+$string['video_help'] = 'Video_help';
+$string['video_default'] = 'false';
+$string['true'] = 'true';
+$string['false'] = 'false';
+
+$string['registration'] = 'registration: ';
+$string['registration_default'] = 'registration';
+$string['registration_startdate'] = 'registration start date: ';
+$string['registration_enddate'] = 'registration end date: ';
+$string['registration_startdate_default'] = 'registration start date_default';
+$string['registration_enddate_default'] = 'registration end date_default';
+$string['registration_startdate_help'] = 'registration start date_help';
+$string['registration_enddate_help'] = 'registration end date_help ';
+
+$string['registeredusers'] = 'registeredusers: ';
+$string['registeredusers_help'] = 'registeredusers_help';
+$string['registeredusers_default'] = 'no registered users';
+$string['moocstatus_default'] = 'MOOC not started';
+
+$string['status'] = 'status';
+$string['status_help'] = 'status_help';
+$string['status_default'] = 'MOOC not started ';
+
+$string['prerequesites'] = 'Prerequisites';
+$string['prerequesites_help'] = 'Prerequisites_help';
+$string['prerequesites_default'] = 'No Prerequisites';
+
+$string['teachingteam'] = 'Teaching team';
+$string['teachingteam_help'] = 'Teaching team_help';
+$string['teachingteam_default'] = 'Conception : Orange with Learning CRM';

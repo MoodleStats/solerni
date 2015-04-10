@@ -514,7 +514,7 @@ abstract class format_base {
      * @return array of options
      */
     public function course_format_options($foreditform = false) {
-        return array();
+        return array();   
     }
 
     /**
@@ -763,6 +763,9 @@ abstract class format_base {
      * @return bool whether there were any changes to the options values
      */
     public function update_course_format_options($data, $oldcourse = null) {
+        $context = context_course::instance($this->courseid);
+        $saved = file_save_draft_area_files($data->coursepicture, $context->id, 'block_course_extended',
+        'coursepicture', 0, array('subdirs' => 0, 'maxfiles' => 1));
         return $this->update_format_options($data);
     }
 

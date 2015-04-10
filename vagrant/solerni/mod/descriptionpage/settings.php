@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -32,22 +31,30 @@ if ($ADMIN->fulltree) {
     $displayoptions = resourcelib_get_displayoptions(array(RESOURCELIB_DISPLAY_OPEN, RESOURCELIB_DISPLAY_POPUP));
     $defaultdisplayoptions = array(RESOURCELIB_DISPLAY_OPEN);
 
-    //--- general settings -----------------------------------------------------------------------------------
+    /* -------------------------------------------------------
+       // General settings.
+       */
     $settings->add(new admin_setting_configcheckbox('descriptionpage/requiremodintro',
         get_string('requiremodintro', 'admin'), get_string('configrequiremodintro', 'admin'), 1));
     $settings->add(new admin_setting_configmultiselect('descriptionpage/displayoptions',
         get_string('displayoptions', 'descriptionpage'), get_string('configdisplayoptions', 'descriptionpage'),
         $defaultdisplayoptions, $displayoptions));
 
-    //--- modedit defaults -----------------------------------------------------------------------------------
-    $settings->add(new admin_setting_heading('pagemodeditdefaults', get_string('modeditdefaults', 'admin'), get_string('condifmodeditdefaults', 'admin')));
+    /*-------------------------------------------------------
+       // modedit defaults.
+       */
+    $modeditdefaults = get_string('modeditdefaults', 'admin');
+    $condifmodeditdefaults = get_string('condifmodeditdefaults', 'admin');
+    $displayselectexplain = get_string('displayselectexplain', 'descriptionpage');
+    $displayselect = get_string('displayselect', 'descriptionpage');
+    $settings->add(new admin_setting_heading('pagemodeditdefaults', $modeditdefaults, $condifmodeditdefaults));
 
     $settings->add(new admin_setting_configcheckbox('descriptionpage/printheading',
         get_string('printheading', 'descriptionpage'), get_string('printheadingexplain', 'descriptionpage'), 1));
     $settings->add(new admin_setting_configcheckbox('descriptionpage/printintro',
         get_string('printintro', 'descriptionpage'), get_string('printintroexplain', 'descriptionpage'), 0));
     $settings->add(new admin_setting_configselect('descriptionpage/display',
-        get_string('displayselect', 'descriptionpage'), get_string('displayselectexplain', 'descriptionpage'), RESOURCELIB_DISPLAY_OPEN, $displayoptions));
+        $displayselect, $displayselectexplain, RESOURCELIB_DISPLAY_OPEN, $displayoptions));
     $settings->add(new admin_setting_configtext('descriptionpage/popupwidth',
         get_string('popupwidth', 'descriptionpage'), get_string('popupwidthexplain', 'descriptionpage'), 620, PARAM_INT, 7));
     $settings->add(new admin_setting_configtext('descriptionpage/popupheight',

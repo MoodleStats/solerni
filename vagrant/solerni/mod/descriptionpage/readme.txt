@@ -24,4 +24,3 @@ Page module
 =============
 
 Page module is a fork to original 'page' type plugins of Resource module.
-

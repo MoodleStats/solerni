@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -31,17 +30,17 @@ require_once($CFG->dirroot.'/mod/descriptionpage/locallib.php');
 require_once($CFG->libdir.'/filelib.php');
 
 class mod_descriptionpage_mod_form extends moodleform_mod {
-    function definition() {
+    public function definition() {
         global $CFG, $DB;
 
         $mform = $this->_form;
 
         $config = get_config('descriptionpage');
 
-        //-------------------------------------------------------
+        // -------------------------------------------------------
         $mform->addElement('header', 'general', get_string('general', 'form'));
 
-        $mform->addElement('text', 'name', get_string('name'), array('size'=>'48'));
+        $mform->addElement('text', 'name', get_string('name'), array('size' => '48'));
         if (!empty($CFG->formatstringstriptags)) {
             $mform->setType('name', PARAM_TEXT);
         } else {
@@ -52,20 +51,21 @@ class mod_descriptionpage_mod_form extends moodleform_mod {
         $this->add_intro_editor($config->requiremodintro);
 
             // Adding the "maxvisibility" field.
-            $options = array(page_VISIBILITY_COURSEUSER => get_string('visiblecourseusers', 'descriptionpage'),
-                    page_VISIBILITY_LOGGEDINUSER => get_string('visibleloggedinusers', 'descriptionpage'),
-                    page_VISIBILITY_PUBLIC => get_string('visiblepublic', 'descriptionpage'));
+            $options = array(PAGE_VISIBILITY_COURSEUSER => get_string('visiblecourseusers', 'descriptionpage'),
+                    PAGE_VISIBILITY_LOGGEDINUSER => get_string('visibleloggedinusers', 'descriptionpage'),
+                    PAGE_VISIBILITY_PUBLIC => get_string('visiblepublic', 'descriptionpage'));
 
             $mform->addElement('select', 'maxvisibility', get_string('maxvisibility', 'descriptionpage'), $options);
             $mform->setType('maxvisibility', PARAM_INT);
             $mform->addHelpButton('maxvisibility', 'maxvisibility', 'descriptionpage');
 
-        //-------------------------------------------------------
+        // -------------------------------------------------------
         $mform->addElement('header', 'contentsection', get_string('contentheader', 'descriptionpage'));
-        $mform->addElement('editor', 'descriptionpage', get_string('content', 'descriptionpage'), null, page_get_editor_options($this->context));
+        $descpagegeteditoropt = descriptionpage_page_get_editor_options($this->context);
+        $mform->addElement('editor', 'descriptionpage', get_string('content', 'descriptionpage'), null, $descpagegeteditoropt);
         $mform->addRule('descriptionpage', get_string('required'), 'required', null, 'client');
 
-        //-------------------------------------------------------
+        // -------------------------------------------------------
         $mform->addElement('header', 'appearancehdr', get_string('appearance'));
 
         if ($this->current->instance) {
@@ -84,14 +84,14 @@ class mod_descriptionpage_mod_form extends moodleform_mod {
         }
 
         if (array_key_exists(RESOURCELIB_DISPLAY_POPUP, $options)) {
-            $mform->addElement('text', 'popupwidth', get_string('popupwidth', 'descriptionpage'), array('size'=>3));
+            $mform->addElement('text', 'popupwidth', get_string('popupwidth', 'descriptionpage'), array('size' => 3));
             if (count($options) > 1) {
                 $mform->disabledIf('popupwidth', 'display', 'noteq', RESOURCELIB_DISPLAY_POPUP);
             }
             $mform->setType('popupwidth', PARAM_INT);
             $mform->setDefault('popupwidth', $config->popupwidth);
 
-            $mform->addElement('text', 'popupheight', get_string('popupheight', 'descriptionpage'), array('size'=>3));
+            $mform->addElement('text', 'popupheight', get_string('popupheight', 'descriptionpage'), array('size' => 3));
             if (count($options) > 1) {
                 $mform->disabledIf('popupheight', 'display', 'noteq', RESOURCELIB_DISPLAY_POPUP);
             }
@@ -104,7 +104,7 @@ class mod_descriptionpage_mod_form extends moodleform_mod {
         $mform->addElement('advcheckbox', 'printintro', get_string('printintro', 'descriptionpage'));
         $mform->setDefault('printintro', $config->printintro);
 
-        // add legacy files flag only if used
+        // Add legacy files flag only if used.
         if (isset($this->current->legacyfiles) and $this->current->legacyfiles != RESOURCELIB_LEGACYFILES_NO) {
             $options = array(RESOURCELIB_LEGACYFILES_DONE   => get_string('legacyfilesdone', 'descriptionpage'),
                              RESOURCELIB_LEGACYFILES_ACTIVE => get_string('legacyfilesactive', 'descriptionpage'));
@@ -112,38 +112,44 @@ class mod_descriptionpage_mod_form extends moodleform_mod {
             $mform->setAdvanced('legacyfiles', 1);
         }
 
-        //-------------------------------------------------------
+        // -------------------------------------------------------
         $this->standard_coursemodule_elements();
 
-        //-------------------------------------------------------
+        // -------------------------------------------------------
         $this->add_action_buttons();
 
-        //-------------------------------------------------------
+        // -------------------------------------------------------
         $mform->addElement('hidden', 'revision');
         $mform->setType('revision', PARAM_INT);
         $mform->setDefault('revision', 1);
     }
 
-    function data_preprocessing(&$default_values) {
+    public function data_preprocessing(&$defaultvalues) {
         if ($this->current->instance) {
             $draftitemid = file_get_submitted_draft_itemid('descriptionpage');
-            $default_values['descriptionpage']['format'] = $default_values['contentformat'];
-            $default_values['descriptionpage']['text']   = file_prepare_draft_area($draftitemid, $this->context->id, 'mod_descriptionpage', 'content', 0, page_get_editor_options($this->context), $default_values['content']);
-            $default_values['descriptionpage']['itemid'] = $draftitemid;
+            $defaultvalues['descriptionpage']['format'] = $defaultvalues['contentformat'];
+            $ctxid = $this->context->id;
+            $moddescpage = 'mod_descriptionpage';
+            $ct = $content;
+            $descpaggeteditopt = descriptionpage_page_get_editor_options($this->context);
+            $defvalues = $defaultvalues['content'];
+            $fileprepdraft = file_prepare_draft_area($draftitemid, $ctxid, $moddescpage, $ct, 0, $descpaggeteditopt, $defvalues);
+            $defaultvalues['descriptionpage']['text'] = $fileprepdraft;
+            $defaultvalues['descriptionpage']['itemid'] = $draftitemid;
         }
-        if (!empty($default_values['displayoptions'])) {
-            $displayoptions = unserialize($default_values['displayoptions']);
+        if (!empty($defaultvalues['displayoptions'])) {
+            $displayoptions = unserialize($defaultvalues['displayoptions']);
             if (isset($displayoptions['printintro'])) {
-                $default_values['printintro'] = $displayoptions['printintro'];
+                $defaultvalues['printintro'] = $displayoptions['printintro'];
             }
             if (isset($displayoptions['printheading'])) {
-                $default_values['printheading'] = $displayoptions['printheading'];
+                $defaultvalues['printheading'] = $displayoptions['printheading'];
             }
             if (!empty($displayoptions['popupwidth'])) {
-                $default_values['popupwidth'] = $displayoptions['popupwidth'];
+                $defaultvalues['popupwidth'] = $displayoptions['popupwidth'];
             }
             if (!empty($displayoptions['popupheight'])) {
-                $default_values['popupheight'] = $displayoptions['popupheight'];
+                $defaultvalues['popupheight'] = $displayoptions['popupheight'];
             }
         }
     }

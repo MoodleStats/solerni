@@ -44,14 +44,14 @@ class mod_page_generator_testcase extends advanced_testcase {
 
         $this->assertEquals(0, $DB->count_records('descriptionpage'));
 
-        /** @var mod_page_generator $generator */
+        // Comment @var mod_page_generator $generator.
         $generator = $this->getDataGenerator()->get_plugin_generator('mod_descriptionpage');
         $this->assertInstanceOf('mod_page_generator', $generator);
         $this->assertEquals('descriptionpage', $generator->get_modulename());
 
-        $generator->create_instance(array('course'=>$SITE->id));
-        $generator->create_instance(array('course'=>$SITE->id));
-        $page = $generator->create_instance(array('course'=>$SITE->id));
+        $generator->create_instance(array('course' => $SITE->id));
+        $generator->create_instance(array('course' => $SITE->id));
+        $page = $generator->create_instance(array('course' => $SITE->id));
         $this->assertEquals(3, $DB->count_records('descriptionpage'));
 
         $cm = get_coursemodule_from_instance('descriptionpage', $page->id);

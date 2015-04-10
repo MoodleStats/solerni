@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -31,18 +30,29 @@ defined('MOODLE_INTERNAL') || die;
  */
 function descriptionpage_supports($feature) {
     switch($feature) {
-        case FEATURE_MOD_ARCHETYPE:           return MOD_ARCHETYPE_RESOURCE;
-        case FEATURE_GROUPS:                  return false;
-        case FEATURE_GROUPINGS:               return false;
-        case FEATURE_GROUPMEMBERSONLY:        return true;
-        case FEATURE_MOD_INTRO:               return true;
-        case FEATURE_COMPLETION_TRACKS_VIEWS: return true;
-        case FEATURE_GRADE_HAS_GRADE:         return false;
-        case FEATURE_GRADE_OUTCOMES:          return false;
-        case FEATURE_BACKUP_MOODLE2:          return true;
-        case FEATURE_SHOW_DESCRIPTION:        return true;
+        case FEATURE_MOD_ARCHETYPE:
+            return MOD_ARCHETYPE_RESOURCE;
+        case FEATURE_GROUPS:
+            return false;
+        case FEATURE_GROUPINGS:
+            return false;
+        case FEATURE_GROUPMEMBERSONLY:
+            return true;
+        case FEATURE_MOD_INTRO:
+            return true;
+        case FEATURE_COMPLETION_TRACKS_VIEWS:
+            return true;
+        case FEATURE_GRADE_HAS_GRADE:
+            return false;
+        case FEATURE_GRADE_OUTCOMES:
+            return false;
+        case FEATURE_BACKUP_MOODLE2:
+            return true;
+        case FEATURE_SHOW_DESCRIPTION:
+            return true;
 
-        default: return null;
+        default:
+            return null;
     }
 }
 
@@ -74,7 +84,7 @@ function descriptionpage_reset_userdata($data) {
  * @return array
  */
 function descriptionpage_get_view_actions() {
-    return array('view','view all');
+    return array('view' , 'view all');
 }
 
 /**
@@ -120,13 +130,17 @@ function descriptionpage_add_instance($data, $mform = null) {
 
     $data->id = $DB->insert_record('descriptionpage', $data);
 
-    // we need to use context now, so we need to make sure all needed info is already in db
-    $DB->set_field('course_modules', 'instance', $data->id, array('id'=>$cmid));
+    // We need to use context now, so we need to make sure all needed info is already in db.
+    $DB->set_field('course_modules', 'instance', $data->id, array('id' => $cmid));
     $context = context_module::instance($cmid);
 
     if ($mform and !empty($data->descriptionpage['itemid'])) {
         $draftitemid = $data->descriptionpage['itemid'];
-        $data->content = file_save_draft_area_files($draftitemid, $context->id, 'mod_descriptionpage', 'content', 0, page_get_editor_options($context), $data->content);
+        $pgeo = descriptionpage_page_get_editor_options($context);
+        $decpage = 'mod_descriptionpage';
+        $cid = $context->id;
+        $dcontent = $data->content;
+        $data->content = file_save_draft_area_files($draftitemid, $cid, $decpage, 'content', 0, $pgeo, $dcontent);
         $DB->update_record('descriptionpage', $data);
     }
 
@@ -166,7 +180,11 @@ function descriptionpage_update_instance($data, $mform) {
 
     $context = context_module::instance($cmid);
     if ($draftitemid) {
-        $data->content = file_save_draft_area_files($draftitemid, $context->id, 'mod_descriptionpage', 'content', 0, page_get_editor_options($context), $data->content);
+        $cid = $context->id;
+        $mdescpage = 'mod_descriptionpage';
+        $pgeo = descriptionpage_page_get_editor_options($context);
+        $dcontent = $data->content;
+        $data->content = file_save_draft_area_files($draftitemid, $cid, $mdescpage, 'content', 0, $pgeo, $dcontent);
         $DB->update_record('descriptionpage', $data);
     }
 
@@ -181,13 +199,13 @@ function descriptionpage_update_instance($data, $mform) {
 function descriptionpage_delete_instance($id) {
     global $DB;
 
-    if (!$descriptionpage = $DB->get_record('descriptionpage', array('id'=>$id))) {
+    if (!$descriptionpage = $DB->get_record('descriptionpage', array('id' => $id))) {
         return false;
     }
 
-    // note: all context files are deleted automatically
+    // Note: all context files are deleted automatically.
 
-    $DB->delete_records('descriptionpage', array('id'=>$descriptionpage->id));
+    $DB->delete_records('descriptionpage', array('id' => $descriptionpage->id));
 
     return true;
 }
@@ -206,9 +224,9 @@ function descriptionpage_get_coursemodule_info($coursemodule) {
     global $CFG, $DB;
     require_once("$CFG->libdir/resourcelib.php");
 
-    if (!$descriptionpage = $DB->get_record('descriptionpage', array('id'=>$coursemodule->instance),
+    if (!$descriptionpage = $DB->get_record('descriptionpage', array('id' => $coursemodule->instance),
             'id, name, display, displayoptions, intro, introformat')) {
-        return NULL;
+        return null;
     }
 
     $info = new cached_cm_info();
@@ -225,9 +243,13 @@ function descriptionpage_get_coursemodule_info($coursemodule) {
 
     $fullurl = "$CFG->wwwroot/mod/descriptionpage/view.php?id=$coursemodule->id&amp;inpopup=1";
     $options = empty($descriptionpage->displayoptions) ? array() : unserialize($descriptionpage->displayoptions);
-    $width  = empty($options['popupwidth'])  ? 620 : $options['popupwidth'];
+    $width  = empty($options['popupwidth']) ? 620 : $options['popupwidth'];
     $height = empty($options['popupheight']) ? 450 : $options['popupheight'];
-    $wh = "width=$width,height=$height,toolbar=no,location=no,menubar=no,copyhistory=no,status=no,directories=no,scrollbars=yes,resizable=yes";
+    $stringpart1 = "width=$width,height=$height,toolbar=no,location=no,menubar=no,copyhistory=no";
+    $stringpart2 = "status=no,directories=no,scrollbars=yes,resizable=yes";
+    $wh = $stringpart1.$stringpart2;
+    // ..."width=$width,height=$height,toolbar=no,location=no,menubar=no,copyhistory=no,
+    // ...status=no,directories=no,scrollbars=yes,resizable=yes";.
     $info->onclick = "window.open('$fullurl', '', '$wh'); return false;";
 
     return $info;
@@ -270,7 +292,7 @@ function descriptionpage_get_file_info($browser, $areas, $course, $cm, $context,
     global $CFG;
 
     if (!has_capability('moodle/course:managefiles', $context)) {
-        // students can not peak here!
+        // Students can not peak here!
         return null;
     }
 
@@ -285,15 +307,20 @@ function descriptionpage_get_file_info($browser, $areas, $course, $cm, $context,
             if ($filepath === '/' and $filename === '.') {
                 $storedfile = new virtual_root_file($context->id, 'mod_descriptionpage', 'content', 0);
             } else {
-                // not found
+                // Not found.
                 return null;
             }
         }
         require_once("$CFG->dirroot/mod/descriptionpage/locallib.php");
-        return new page_content_file_info($browser, $context, $storedfile, $urlbase, $areas[$filearea], true, true, true, false);
+        $b = $browser;
+        $c = $context;
+        $s = $storedfile;
+        $u = $urlbase;
+        $a = $areas[$filearea];
+        return new descriptionpage_page_content_file_info($b, $c, $s, $u, $a, true, true, true, false);
     }
 
-    // note: page_intro handled in file_browser automatically
+    // Note: page_intro handled in file_browser automatically.
 
     return null;
 }
@@ -326,21 +353,21 @@ function descriptionpage_pluginfile($course, $cm, $context, $filearea, $args, $f
     }
 
     if ($filearea !== 'content') {
-        // intro is handled automatically in pluginfile.php
+        // Intro is handled automatically in pluginfile.php.
         return false;
     }
 
-    // $arg could be revision number or index.html
+    // ...$arg could be revision number or index.html.
     $arg = array_shift($args);
     if ($arg == 'index.html' || $arg == 'index.htm') {
-        // serve page content
+        // Serve page content.
         $filename = $arg;
 
-        if (!$descriptionpage = $DB->get_record('descriptionpage', array('id'=>$cm->instance), '*', MUST_EXIST)) {
+        if (!$descriptionpage = $DB->get_record('descriptionpage', array('id' => $cm->instance), '*', MUST_EXIST)) {
             return false;
         }
 
-        // remove @@PLUGINFILE@@/
+        // Remove @@PLUGINFILE@@/.
         $content = str_replace('@@PLUGINFILE@@/', '', $descriptionpage->content);
 
         $formatoptions = new stdClass;
@@ -355,19 +382,21 @@ function descriptionpage_pluginfile($course, $cm, $context, $filearea, $args, $f
         $relativepath = implode('/', $args);
         $fullpath = "/$context->id/mod_descriptionpage/$filearea/0/$relativepath";
         if (!$file = $fs->get_file_by_hash(sha1($fullpath)) or $file->is_directory()) {
-            $descriptionpage = $DB->get_record('descriptionpage', array('id'=>$cm->instance), 'id, legacyfiles', MUST_EXIST);
+            $arrayid = array('id' => $cm->instance);
+            $moddesc = 'mod_descriptionpage';
+            $descriptionpage = $DB->get_record('descriptionpage', $arrayid, 'id, legacyfiles', MUST_EXIST);
             if ($descriptionpage->legacyfiles != RESOURCELIB_LEGACYFILES_ACTIVE) {
                 return false;
             }
-            if (!$file = resourcelib_try_file_migration('/'.$relativepath, $cm->id, $cm->course, 'mod_descriptionpage', 'content', 0)) {
+            if (!$file = resourcelib_try_file_migration('/'.$relativepath, $cm->id, $cm->course, $moddesc, 'content', 0)) {
                 return false;
             }
-            //file migrate - update flag
+            // File migrate - update flag.
             $descriptionpage->legacyfileslast = time();
             $DB->update_record('descriptionpage', $descriptionpage);
         }
 
-        // finally send the file
+        // Finally send the file.
         send_stored_file($file, null, 0, $forcedownload, $options);
     }
 }
@@ -379,8 +408,8 @@ function descriptionpage_pluginfile($course, $cm, $context, $filearea, $args, $f
  * @param stdClass $currentcontext Current context of block
  */
 function descriptionpage_page_type_list($pagetype, $parentcontext, $currentcontext) {
-    $module_pagetype = array('mod-page-*'=>get_string('page-mod-page-x', 'descriptionpage'));
-    return $module_pagetype;
+    $modulepagetype = array('mod-page-*' => get_string('page-mod-page-x', 'descriptionpage'));
+    return $modulepagetype;
 }
 
 /**
@@ -393,38 +422,43 @@ function descriptionpage_export_contents($cm, $baseurl) {
     $contents = array();
     $context = context_module::instance($cm->id);
 
-    $descriptionpage = $DB->get_record('descriptionpage', array('id'=>$cm->instance), '*', MUST_EXIST);
+    $descriptionpage = $DB->get_record('descriptionpage', array('id' => $cm->instance), '*', MUST_EXIST);
 
-    // page contents
+    // Page contents.
+    $url = "/mod_descriptionpage/content/";
     $fs = get_file_storage();
     $files = $fs->get_area_files($context->id, 'mod_descriptionpage', 'content', 0, 'sortorder DESC, id ASC', false);
     foreach ($files as $fileinfo) {
+        $urlbase = "$CFG->wwwroot/".$baseurl;
+        $url = '/'.$context->id.$url.$descriptionpage->revision.$fileinfo->get_filepath().$fileinfo->get_filename();
         $file = array();
-        $file['type']         = 'file';
-        $file['filename']     = $fileinfo->get_filename();
-        $file['filepath']     = $fileinfo->get_filepath();
-        $file['filesize']     = $fileinfo->get_filesize();
-        $file['fileurl']      = file_encode_url("$CFG->wwwroot/" . $baseurl, '/'.$context->id.'/mod_descriptionpage/content/'.$descriptionpage->revision.$fileinfo->get_filepath().$fileinfo->get_filename(), true);
-        $file['timecreated']  = $fileinfo->get_timecreated();
+        $file['type'] = 'file';
+        $file['filename'] = $fileinfo->get_filename();
+        $file['filepath'] = $fileinfo->get_filepath();
+        $file['filesize'] = $fileinfo->get_filesize();
+        $file['fileurl'] = file_encode_url($urlbase, $url, true);
+        $file['timecreated'] = $fileinfo->get_timecreated();
         $file['timemodified'] = $fileinfo->get_timemodified();
-        $file['sortorder']    = $fileinfo->get_sortorder();
-        $file['userid']       = $fileinfo->get_userid();
-        $file['author']       = $fileinfo->get_author();
-        $file['license']      = $fileinfo->get_license();
+        $file['sortorder'] = $fileinfo->get_sortorder();
+        $file['userid'] = $fileinfo->get_userid();
+        $file['author'] = $fileinfo->get_author();
+        $file['license'] = $fileinfo->get_license();
         $contents[] = $file;
     }
 
-    // page html conent
+    // Page html conent.
     $filename = 'index.html';
     $pagefile = array();
     $pagefile['type']         = 'file';
     $pagefile['filename']     = $filename;
     $pagefile['filepath']     = '/';
     $pagefile['filesize']     = 0;
-    $pagefile['fileurl']      = file_encode_url("$CFG->wwwroot/" . $baseurl, '/'.$context->id.'/mod_descriptionpage/content/' . $filename, true);
+    $url1 = "$CFG->wwwroot/" . $baseurl;
+    $url2 = '/'.$context->id.'/mod_descriptionpage/content/' . $filename;
+    $pagefile['fileurl']      = file_encode_url($url1, $url2, true);
     $pagefile['timecreated']  = null;
     $pagefile['timemodified'] = $descriptionpage->timemodified;
-    // make this file as main file
+    // Make this file as main file.
     $pagefile['sortorder']    = 1;
     $pagefile['userid']       = null;
     $pagefile['author']       = null;

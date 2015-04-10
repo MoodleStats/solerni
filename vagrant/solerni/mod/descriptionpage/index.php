@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -25,15 +24,16 @@
 
 require('../../config.php');
 
-$id = required_param('id', PARAM_INT); // course id
+$id = required_param('id', PARAM_INT); // Course id.
 
-$course = $DB->get_record('course', array('id'=>$id), '*', MUST_EXIST);
+$course = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
 
 require_course_login($course, true);
 $PAGE->set_pagelayout('incourse');
 
+$contextarray = array('context' => context_course::instance($course->id));
 // Trigger instances list viewed event.
-$event = \mod_descriptionpage\event\course_module_instance_list_viewed::create(array('context' => context_course::instance($course->id)));
+$event = \mod_descriptionpage\event\course_module_instance_list_viewed::create($contextarray);
 $event->add_record_snapshot('course', $course);
 $event->trigger();
 
@@ -87,7 +87,7 @@ foreach ($pages as $page) {
         $printsection = '<span class="smallinfo">'.userdate($page->timemodified)."</span>";
     }
 
-    $class = $page->visible ? '' : 'class="dimmed"'; // hidden modules are dimmed
+    $class = $page->visible ? '' : 'class="dimmed"'; // Hidden modules are dimmed.
 
     $table->data[] = array (
         $printsection,

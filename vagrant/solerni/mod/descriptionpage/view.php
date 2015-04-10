@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -28,12 +27,12 @@ require('../../config.php');
 require_once($CFG->dirroot.'/mod/descriptionpage/locallib.php');
 require_once($CFG->libdir.'/completionlib.php');
 
-$id      = optional_param('id', 0, PARAM_INT); // Course Module ID
-$p       = optional_param('p', 0, PARAM_INT);  // Page instance ID
+$id      = optional_param('id', 0, PARAM_INT); // Course Module ID.
+$p       = optional_param('p', 0, PARAM_INT);  // Page instance ID.
 $inpopup = optional_param('inpopup', 0, PARAM_BOOL);
 
 if ($p) {
-    if (!$page = $DB->get_record('descriptionpage', array('id'=>$p))) {
+    if (!$page = $DB->get_record('descriptionpage', array('id' => $p))) {
         print_error('invalidaccessparameter');
     }
     $cm = get_coursemodule_from_instance('descriptionpage', $page->id, $page->course, false, MUST_EXIST);
@@ -42,17 +41,17 @@ if ($p) {
     if (!$cm = get_coursemodule_from_id('descriptionpage', $id)) {
         print_error('invalidcoursemodule');
     }
-    $page = $DB->get_record('descriptionpage', array('id'=>$cm->instance), '*', MUST_EXIST);
+    $page = $DB->get_record('descriptionpage', array('id' => $cm->instance), '*', MUST_EXIST);
 }
 
-$course = $DB->get_record('course', array('id'=>$cm->course), '*', MUST_EXIST);
+$course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 
-//require_course_login($course, true, $cm);
+// Require_course_login($course, true, $cm);.
 $context = context_module::instance($cm->id);
-//$page = $PAGE->get_renderer('mod_page');
-page_check_view_permissions($page, $context, $cm);
+// ...$page = $PAGE->get_renderer('mod_page');.
+descriptionpage_page_check_view_permissions($page, $context, $cm);
 
-//$context = context_module::instance($cm->id);
+// ...$context = context_module::instance($cm->id);.
 require_capability('mod/descriptionpage:view', $context);
 
 // Trigger module viewed event.
@@ -65,7 +64,7 @@ $event->add_record_snapshot('course', $course);
 $event->add_record_snapshot('descriptionpage', $page);
 $event->trigger();
 
-// Update 'viewed' state if required by completion system
+// Update 'viewed' state if required by completion system.
 require_once($CFG->libdir . '/completionlib.php');
 $completion = new completion_info($course);
 $completion->set_module_viewed($cm);
@@ -95,8 +94,12 @@ if (!empty($options['printintro'])) {
         echo $OUTPUT->box_end();
     }
 }
-
-$content = file_rewrite_pluginfile_urls($page->content, 'pluginfile.php', $context->id, 'mod_descriptionpage', 'content', $page->revision);
+$pct = $page->content;
+$phpfile = 'pluginfile.php';
+$ctxid = $context->id;
+$mddesc = 'mod_descriptionpage';
+$prev = $page->revision;
+$content = file_rewrite_pluginfile_urls($pct, $phpfile, $ctxid, $mddesc, 'content', $prev);
 $formatoptions = new stdClass;
 $formatoptions->noclean = true;
 $formatoptions->overflowdiv = true;

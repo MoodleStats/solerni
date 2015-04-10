@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -29,8 +28,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $logs = array(
-    array('module'=>'descriptionpage', 'action'=>'view', 'mtable'=>'descriptionpage', 'field'=>'name'),
-    array('module'=>'descriptionpage', 'action'=>'view all', 'mtable'=>'descriptionpage', 'field'=>'name'),
-    array('module'=>'descriptionpage', 'action'=>'update', 'mtable'=>'descriptionpage', 'field'=>'name'),
-    array('module'=>'descriptionpage', 'action'=>'add', 'mtable'=>'descriptionpage', 'field'=>'name'),
+    array('module' => 'descriptionpage', 'action' => 'view', 'mtable' => 'descriptionpage', 'field' => 'name'),
+    array('module' => 'descriptionpage', 'action' => 'view all', 'mtable' => 'descriptionpage', 'field' => 'name'),
+    array('module' => 'descriptionpage', 'action' => 'update', 'mtable' => 'descriptionpage', 'field' => 'name'),
+    array('module' => 'descriptionpage', 'action' => 'add', 'mtable' => 'descriptionpage', 'field' => 'name'),
 );

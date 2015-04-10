@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -34,9 +33,9 @@ require_once("$CFG->dirroot/mod/descriptionpage/lib.php");
 /**#@+
  * Constants defining the visibility levels of blog posts
  */
-define('page_VISIBILITY_COURSEUSER',   100);
-define('page_VISIBILITY_LOGGEDINUSER', 200);
-define('page_VISIBILITY_PUBLIC',       300);
+define('PAGE_VISIBILITY_COURSEUSER',   100);
+define('PAGE_VISIBILITY_LOGGEDINUSER', 200);
+define('PAGE_VISIBILITY_PUBLIC',       300);
 /**#@-*/
 
 
@@ -44,7 +43,7 @@ define('page_VISIBILITY_PUBLIC',       300);
 /**
  * File browsing support class
  */
-class page_content_file_info extends file_info_stored {
+class descriptionpage_page_content_file_info extends file_info_stored {
     public function get_parent() {
         if ($this->lf->get_filepath() === '/' and $this->lf->get_filename() === '.') {
             return $this->browser->get_file_info($this->context);
@@ -59,9 +58,17 @@ class page_content_file_info extends file_info_stored {
     }
 }
 
-function page_get_editor_options($context) {
+function descriptionpage_page_get_editor_options($context) {
     global $CFG;
-    return array('subdirs'=>1, 'maxbytes'=>$CFG->maxbytes, 'maxfiles'=>-1, 'changeformat'=>1, 'context'=>$context, 'noclean'=>1, 'trusttext'=>0);
+    return array(
+        'subdirs' => 1,
+        'maxbytes' => $CFG->maxbytes,
+        'maxfiles' => -1,
+        'changeformat' => 1,
+        'context' => $context,
+        'noclean' => 1,
+        'trusttext' => 0
+        );
 }
 
 /**
@@ -72,17 +79,17 @@ function page_get_editor_options($context) {
  * @param object $cm
  * @return void
  */
-function page_check_view_permissions($page, $context, $cm=null) {
+function descriptionpage_page_check_view_permissions($page, $context, $cm=null) {
     global $COURSE, $PAGE, $DB;
 
-    $capability= 'mod/descriptionpage:view';
+    $capability = 'mod/descriptionpage:view';
 
     switch ($page->maxvisibility) {
-        case page_VISIBILITY_PUBLIC:
+        case PAGE_VISIBILITY_PUBLIC:
             if ($page->course == $COURSE->id or empty($page->course)) {
                 $pagecourse = $COURSE;
             } else {
-                $pagecourse = $DB->get_record('course', array('id'=>$page->course),
+                $pagecourse = $DB->get_record('course', array('id' => $page->course),
                         '*', MUST_EXIST);
             }
             $PAGE->set_course($pagecourse);
@@ -90,26 +97,26 @@ function page_check_view_permissions($page, $context, $cm=null) {
             $PAGE->set_pagelayout('incourse');
             return;
 
-        case page_VISIBILITY_LOGGEDINUSER:
+        case PAGE_VISIBILITY_LOGGEDINUSER:
             require_login(SITEID, false);
             if ($page->course == $COURSE->id or empty($page->course)) {
                 $pagecourse = $COURSE;
             } else {
-                $pagecourse = $DB->get_record('course', array('id'=>$page->course),
+                $pagecourse = $DB->get_record('course', array('id' => $page->course),
                         '*', MUST_EXIST);
             }
             $PAGE->set_course($pagecourse);
             $PAGE->set_cm($cm, $pagecourse);
             $PAGE->set_pagelayout('incourse');
-            // Check page:view cap
+            // Check page:view cap.
             if (!has_capability($capability, $context)) {
                 require_course_login($pagecourse, true, $cm);
             }
             return;
 
-        case page_VISIBILITY_COURSEUSER:
+        case PAGE_VISIBILITY_COURSEUSER:
             require_course_login($page->course, false, $cm);
-            // Check page:view cap
+            // Check page:view cap.
             if (!has_capability($capability, $context)) {
                 require_course_login($pagecourse, true, $cm);
             }

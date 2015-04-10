@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -43,8 +42,8 @@ function xmldb_descriptionpage_install() {
     $page->intro = '';
     $page->introformat = FORMAT_HTML;
     $page->accesstoken = md5(uniqid(rand(), true));
-    $page->maxvisibility = 300;// page_VISIBILITY_PUBLIC.
+    $page->maxvisibility = 300;// 300 or page_VISIBILITY_PUBLIC.
     $page->global = 1;
-    $page->allowcomments = 2;// page_COMMENTS_ALLOWPUBLIC.
+    $page->allowcomments = 2;// 2 or page_COMMENTS_ALLOWPUBLIC.
 
 }

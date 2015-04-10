@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -16,15 +15,30 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    block_course_contents
- * @copyright  2009 David Mudrak <david@moodle.com>
+ * To manage list of rules
+ *
+ * @package    local
+ * @subpackage orange_customers
+ * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+require_once($CFG->libdir . '/formslib.php');
 
-$plugin->component  = 'block_course_essentials';
-$plugin->release    = '3.0';
-$plugin->version    = 2015032001;
-$plugin->requires   = 2014051200; // Moodle 2.7
-$plugin->maturity   = MATURITY_STABLE;
+/**
+ * Form to select the ingredients to deploy
+ *
+ * @package local
+ * @subpackage orange_customers
+ * @copyright 2015 ORANGE
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+class orange_customers_list extends moodleform implements renderable {
+
+    public function definition() {
+        global $DB;
+                       
+        $mform = & $this->_form;
+
+    }
+}
