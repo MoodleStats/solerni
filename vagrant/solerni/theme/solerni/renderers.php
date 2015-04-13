@@ -15,12 +15,14 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Renderers to align Moodle's HTML with that expected by Bootstrap
+ * This is built using the bootstrapbase template to allow for new theme's using
+ * Moodle's new Bootstrap theme engine
  *
- * @package    theme_solerni
- * @copyright  2013
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     theme_solerni
+ * @copyright   2015 Orange
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+global $CFG;
 
+require_once('renderers/core_course_renderer.php');
 require_once('renderers/core_renderer.php');
-
