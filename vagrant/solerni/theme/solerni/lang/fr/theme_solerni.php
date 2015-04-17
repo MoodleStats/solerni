@@ -94,3 +94,10 @@ $string['themelinksheading'] = 'Liens statiques de l\'interface';
 $string['themelinksheadingdesc'] = 'Indiquez ici les liens statiques utilisés dans l\'entête et le footer';
 
 $string['search'] = 'Rechercher';
+
+$string['register'] = 'Inscription';
+$string['login'] = 'Connexion';
+
+$string['hello']        = 'Bonjour';
+$string['dashboard']    = 'Tableau de bord';
+$string['administration'] = 'Administration';

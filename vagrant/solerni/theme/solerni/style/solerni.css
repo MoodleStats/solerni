@@ -35,15 +35,16 @@ body {
 }
 
 .slrn-top-header__item {
-    display:    inline-block;
+    position:       relative;
+    display:        inline-block;
     vertical-align: top;
 }
 
 .slrn-top-header__logo {
-    width:      150px;
-    height:     40px;
+    width:                  150px;
+    height:                 40px;
     
-    background-position: -182px 0;
+    background-position:    -182px 0;
 }
 
 .slrn-header-search-form {
@@ -57,7 +58,7 @@ body {
     position:   absolute;
     width:      18px;
     height:     18px;
-    background: transparent url([[pix:theme|sprite-solerni]]]) no-repeat 0 -48px;
+    background: transparent url([[pix:theme|sprite-solerni]]) no-repeat 0 -48px;
     margin:     .55em 0 0 .6em;
 }
 
@@ -97,17 +98,114 @@ body {
 }
 
 .slrn-top-header__menu > .nav {
-    width: 100%;
+    height: 100%;
+    width:  100%;
+}
+
+/* header sub menus */
+
+.slrn-top-header .slrn-top-header__item .dropdown-menu {
+    background-color:   [[setting:primary]];
+    box-shadow:         0 0 0 [[setting:grey2]];
+    border:             1px solid [[setting:grey2]];
+    
+    min-width:          100%;
+    float:              none;
+    position:           absolute;
+}
+
+.slrn-top-header .slrn-top-header__item .dropdown-menu li {
+    border-bottom:      1px solid [[setting:grey2]];
+}
+
+.slrn-top-header .slrn-top-header__item .dropdown-menu li:last-child {
+    border-bottom: 0;
+}
+
+.slrn-top-header .slrn-top-header__item .dropdown-menu a:hover, 
+.slrn-top-header .slrn-top-header__item .dropdown-menu a:active,
+.slrn-top-header .slrn-top-header__item .dropdown-menu a:focus {
+    background-color: transparent;
 }
 
 /* bootstrap specificity ! */
 .navbar .nav li.slrn-top-header__item,
 .navbar .nav li.slrn-top-header__item a {
-    color: [[setting:grey2]];
-    float: none;
+    color:          [[setting:grey2]];
+    float:          none;
+
+    font-size:      12px;
+    font-weight:    bold;
     
     text-transform: uppercase;
 }
+
+.navbar .nav li.slrn-top-header__item a:hover {
+    text-decoration: underline;
+}
+.navbar nav .slrn-top-header__inner .slrn-top-header__item {
+    height:         40px !important;
+}
+
+.slrn-dropdown {
+    list-style: none outside none; 
+}
+
+.slrn-lang-menu .dropdown {
+    padding:    10px 15px 10px;
+    margin:     0;  
+}
+
+.slrn-lang-menu .dropdown-menu {
+    left:   auto;
+    right:  0;
+}
+
+.dropdown-menu:after {
+    display: none !important;
+}
+
+.dropdown-menu__item__link {
+    padding: 6px 20px 6px 35px !important;
+}
+
+.dropdown-menu__item .icon-ok {
+    position:           absolute;
+    left:               1em;
+    color:              [[setting:grey2]];
+    background-image:   url([[pix:theme|glyphicons-halflings-white]]);
+}
+
+.slrn-topbar-item__active {
+    position:           absolute;
+    left:               0;
+    right:              0;
+    height:             8px;
+    text-align:         center;
+    overflow:           hidden;
+    background-color:   [[setting:grey3]];
+}
+
+.slrn-topbar-item__active:before {
+    content:            "";
+    width:              10px;
+    height:             10px;
+    border-radius:      100%;
+    display:            inline-block;
+    background-color:   [[setting:primary]];
+    position:           relative;
+    bottom:             100%;
+}
+
+.dropdown-menu .slrn-topbar-item__active {
+    bottom: 100%;
+}
+
+.slrn-top-header__item > .slrn-topbar-item__active {
+      bottom: -3px;  
+}
+
+
 
 /*
  *  Utils
@@ -115,7 +213,7 @@ body {
 
 /* Uses the solerni sprite */
 .-sprite-solerni {
-    background-image: url([[pix:theme|sprite-solerni]]]);
+    background-image: url([[pix:theme|sprite-solerni]]);
 }
 
 .-slrn-radius {
@@ -134,4 +232,13 @@ body {
 
 .-text-right {
     text-align: right;
+}
+
+.caret.-is-white {
+    border-top-color:       #FFF !important;
+    border-bottom-color:    #FFF !important;
+}
+
+.-not-uppercase {
+    text-transform: none !important;
 }

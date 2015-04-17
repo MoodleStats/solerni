@@ -99,4 +99,11 @@ $string['cataloguedesc'] = 'URL of the catalogue page (Header)';
 $string['themelinksheading'] = 'Interface Static Links';
 $string['themelinksheadingdesc'] = 'Set the static link of header and footer';
 
-$string['search'] = 'Search';
+$string['search']       = 'Search';
+
+$string['register']     = 'Registration';
+$string['login']        = 'Login';
+
+$string['hello']        = 'Hello';
+$string['dashboard']    = 'Dashboard';
+$string['administration'] = 'Administration';

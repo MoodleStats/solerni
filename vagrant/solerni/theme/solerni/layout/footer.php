@@ -16,6 +16,7 @@
 
 /*
  * @author    Shaun Daubney
+ * @author    Orange
  * @package   theme_solerni
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -103,14 +104,7 @@ $haswikipedia = (!empty($PAGE->theme->settings->wikipedia));
     	</div>
 	</div>
 
-	<div class="footerlinks row-fluid">
-	<p>
-	
-	<?php  
- echo html_writer::link('http://moodle.org/plugins/view.php?plugin=theme_solerni', get_string('credit', 'theme_solerni'));
- echo ' | ';
- echo html_writer::link('http://moodle.org', 'moodle.org');?> 
-    	</p>
-    	
-    
+	<div class="footerlinks row-fluid">  	
+
+            <?php // print_object($PAGE->url->get_path()); ?>
 	</div>

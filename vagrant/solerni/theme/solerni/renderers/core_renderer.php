@@ -24,13 +24,17 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
      * Echo header links inside <li> to support boostrap
      * @isdummy
      */
-    public function solerni_header_links() {
+    public function solerni_header_links() {       
     ?>
         <li class="slrn-top-header__item">
-            <a class="slrn-top-header__item" href="<?php echo $this->page->theme->settings->about; ?>"><?php echo get_string('about', 'theme_solerni'); ?></a>
+            <a class="slrn-top-header__item slrn-top-header__item--link" href="<?php echo $this->page->theme->settings->about; ?>">
+                <?php echo get_string('about', 'theme_solerni'); ?>
+            </a>
         </li>
         <li class="slrn-top-header__item">
-            <a class="slrn-top-header__item" href="<?php echo $this->page->theme->settings->catalogue; ?>"><?php echo get_string('catalogue', 'theme_solerni'); ?></a>
+            <a class="slrn-top-header__item  slrn-top-header__item--link" href="<?php echo $this->page->theme->settings->catalogue; ?>">
+                <?php echo get_string('catalogue', 'theme_solerni'); ?>
+            </a>
         </li>
     <?php }
 
@@ -46,60 +50,137 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
      * @isdummy
      */
     public function solerni_user_menu() {
-        global $USER, $CFG, $SESSION;
-        ?>
-        <li class="dropdown slrn-top-header__item">
-            <a class="dropdown-toggle" data-toggle="dropdown" role="button">
-                <img class="profilepic" 
-                     src="<?php echo $CFG->wwwroot; ?>/user/pix.php?file=/<?php echo $USER->id; ?>/f1.jpg" 
-                     width="80px" 
-                     height="80px" 
-                     title="<?php echo $USER->firstname ?> <?php $USER->lastname ?>" 
-                     alt="<?php $USER->firstname ?> <?php $USER->lastname ?>" 
-                />
-                <?php echo $USER->firstname ?>
-                <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu profiledrop">
-                <li>
-                    <a href="<?php echo $CFG->wwwroot; ?>/my">
-                        <img class="profileicon" src="<?php echo $this->pix_url('profile/course', 'theme') ?>" />
-                        <?php echo get_string('mycourses'); ?>
-                    </a>
-                </li>
-                <li>
-                    <a href="<?php echo $CFG->wwwroot ?>/user/profile.php">
-                        <img class="profileicon" src="<?php echo $this->pix_url('profile/profile', 'theme') ?>" />
-                        <?php echo get_string('viewprofile'); ?>
-                    </a>
-                </li>
-                <li>
-                    <a href="<?php echo $CFG->wwwroot ?>/user/edit.php">
-                        <img class="profileicon" src="<?php echo $this->pix_url('profile/edit', 'theme') ?>" />
-                        <?php echo get_string('editmyprofile'); ?>
-                    </a>
-                </li>
-                <li>
-                    <a href="<?php echo $CFG->wwwroot ?>/user/files.php">
-                        <img class="profileicon" src="<?php echo $this->pix_url('profile/files', 'theme') ?>" />
-                        <?php echo get_string('myfiles'); ?>
-                    </a>
-                </li>
-                <li>
-                    <a href="<?php echo $CFG->wwwroot ?>/calendar/view.php?view=month">
-                        <img class="profileicon" src="<?php echo $this->pix_url('profile/calendar', 'theme') ?>" />
-                        <?php echo get_string('calendar','calendar'); ?>
-                    </a>
-                </li>
-                <li>
-                    <a href="<?php echo $CFG->wwwroot ?>/login/logout.php">
-                        <img class="profileicon" src="<?php echo $this->pix_url('profile/logout', 'theme') ?>" />
-                        <?php echo get_string('logout'); ?>
-                    </a>
-                </li>
-             </ul>
-        </li>
-    <?php
+        global $USER, $CFG, $SESSION, $PAGE;
+        $localdir = dirname(__FILE__); // we are currently inside solerni/renderers folder
+        
+        // User is logged. Use partials for maintenance
+        if ( isloggedin() ) {
+            include( $localdir . '/../layout/partials/header_user_menu__auth.php' );
+        // User not logged in. Add langage menu
+        } else {
+            include( $localdir . '/../layout/partials/header_user_menu__no_auth.php' );
+            echo $this->solerni_lang_menu();
+        }
     }
     
+    /*
+     * This renders a menu object in the header
+     *
+     * This is an override of bootstrap_base which is a override of core_renderer
+     */
+    protected function render_custom_menu(custom_menu $menu) {
+        global $CFG;
+
+        // TODO: eliminate this duplicated logic, it belongs in core, not
+        // here. See MDL-39565.
+        $addlangmenu = true;
+        $langs = get_string_manager()->get_list_of_translations();
+        if (count($langs) < 2
+            or empty($CFG->langmenu)
+            or ($this->page->course != SITEID and !empty($this->page->course->lang))) {
+            $addlangmenu = false;
+        }
+
+        if (!$menu->has_children() && $addlangmenu === false) {
+            return '';
+        }
+
+        if ($addlangmenu) {
+            $strlang =  get_string('language');
+            $currentlang = current_language();
+            if (isset($langs[$currentlang])) {
+                $currentlang = $langs[$currentlang];
+            } else {
+                $currentlang = $strlang;
+            }
+            $this->language = $menu->add($currentlang, new moodle_url('#'), $strlang, 10000);
+            foreach ($langs as $langtype => $langname) {
+                $this->language->add($langname, new moodle_url($this->page->url, array('lang' => $langtype)), $langname);
+            }
+        }
+
+        $content = '<li class="slrn-top-header__item slrn-lang-menu">';
+        foreach ($menu->get_children() as $item) {
+            $content .= $this->render_custom_menu_item($item, 1);
+        }
+
+        return $content.'</li>';
+    }
+
+    /*
+     * This code renders the custom menu items for the
+     * bootstrap dropdown menu.
+     */
+    protected function render_custom_menu_item(custom_menu_item $menunode, $level = 0, $menu_title = '' ) {
+        
+        static $submenucount = 0;
+        $current_title = str_replace( array( ' (fr)', ' (en)' ), '',  $menunode->get_text() );
+         
+        if ($menunode->has_children()) {
+            
+            $menu_title = $current_title;
+
+            if ($level == 1) {
+                $class = 'dropdown';
+            } else {
+                $class = 'dropdown-submenu';
+            }
+
+            if ($menunode === $this->language) {
+                $class .= ' langmenu';
+            }
+            
+            $content = html_writer::start_tag('ul', array('class' => $class));
+            // If the child has menus render it as a sub menu.
+            $submenucount++;
+            if ($menunode->get_url() !== null) {
+                $url = $menunode->get_url();
+            } else {
+                $url = '#cm_submenu_'.$submenucount;
+            }
+            $content .= html_writer::start_tag('a', array('href'=>$url, 'class'=>'dropdown-toggle', 'data-toggle'=>'dropdown', 'title'=>$menunode->get_title()));
+            // remove lang shortcode from string
+            $content .= $menu_title;
+            if ($level == 1) {
+                $content .= '<b class="caret -is-white"></b>';
+            }
+            $content .= '</a>';
+            $content .= '<ul class="dropdown-menu">';
+            $content .= '<span class="slrn-topbar-item__active"></span>';
+            foreach ($menunode->get_children() as $menunode) {
+                $content .= $this->render_custom_menu_item($menunode, 0, $menu_title);
+            }
+            $content .= '</ul>';
+        } else {
+            $content = '<li class="dropdown-menu__item">';
+            // The node doesn't have children so produce a final menuitem.
+            if ($menunode->get_url() !== null) {
+                $url = $menunode->get_url();
+            } else {
+                $url = '#';
+            }
+
+            $classes = 'dropdown-menu__item__link';
+            if ( $menu_title == $current_title ) {
+                $classes .= ' -is-active';
+                $current_title .= '<i class="icon-ok"></i>';
+            }
+            
+            $content .= html_writer::link($url, $current_title, array('title'=>$menunode->get_title(), 'class' => $classes ));
+        }
+        return $content;
+    }
+
+    /*
+     * Checks if $fragment is part of current page path
+     * 
+     * Return @bool
+     */
+    protected function is_menu_item_active( $fragment ) {
+        global $PAGE;
+        $page_path = $PAGE->url->get_path();
+        
+        return preg_match ( "#$fragment#", $page_path );
+        
+    }
 }

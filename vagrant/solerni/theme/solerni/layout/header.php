@@ -21,15 +21,14 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$hasnavbar = (empty($PAGE->layout_options['nonavbar']) && $PAGE->has_navbar());
-$hasfooter = (empty($PAGE->layout_options['nofooter']));
-$hasheader = (empty($PAGE->layout_options['noheader']));
-$hassidepre = (empty($PAGE->layout_options['noblocks']) && $PAGE->blocks->region_has_content('side-pre', $OUTPUT));
-$hassidepost = (empty($PAGE->layout_options['noblocks']) && $PAGE->blocks->region_has_content('side-post', $OUTPUT));
-$showsidepre = ($hassidepre && !$PAGE->blocks->region_completely_docked('side-pre', $OUTPUT));
-$showsidepost = ($hassidepost && !$PAGE->blocks->region_completely_docked('side-post', $OUTPUT));
-$isfrontpage = ( $PAGE->bodyid == "page-site-index" );
-
+$hasnavbar      = (empty($PAGE->layout_options['nonavbar']) && $PAGE->has_navbar());
+$hasfooter      = (empty($PAGE->layout_options['nofooter']));
+$hasheader      = (empty($PAGE->layout_options['noheader']));
+$hassidepre     = (empty($PAGE->layout_options['noblocks']) && $PAGE->blocks->region_has_content('side-pre', $OUTPUT));
+$hassidepost    = (empty($PAGE->layout_options['noblocks']) && $PAGE->blocks->region_has_content('side-post', $OUTPUT));
+$showsidepre    = ($hassidepre && !$PAGE->blocks->region_completely_docked('side-pre', $OUTPUT));
+$showsidepost   = ($hassidepost && !$PAGE->blocks->region_completely_docked('side-post', $OUTPUT));
+$isfrontpage    = ( $PAGE->bodyid == "page-site-index" );
 ?>
 
 <header role="banner" class="navbar navbar-fixed-top slrn-top-header">
