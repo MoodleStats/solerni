@@ -38,21 +38,22 @@ $isfrontpage    = ( $PAGE->bodyid == "page-site-index" );
             <a class="slrn-top-header__item slrn-top-header__logo -sprite-solerni"
                href="<?php echo $CFG->wwwroot; ?>">
             </a>
-            
+
             <?php $OUTPUT->solerni_search_box(); ?>
-            
-            <div class="nav-collapse collapse slrn-top-header__item slrn-top-header__menu -wrapper-justified">
+
+            <div class="nav-collapse navbar-collapse collapse slrn-top-header__item slrn-top-header__menu -wrapper-justified">
                 <ul class="nav navbar-nav -wrapper-justified">
                     <?php $OUTPUT->solerni_header_links(); ?>
                     <?php $OUTPUT->solerni_user_menu(); ?>
                 </ul>
             </div>
-            
-            <a class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+
+            <a class="btn btn-navbar navbar-toggle slrn-btn-navbar slrn-top-header__item" data-toggle="collapse" data-target=".nav-collapse">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
+
         </div>
     </nav>
 </header>

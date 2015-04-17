@@ -1,4 +1,18 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /*
  * @author    Orange / Solerni
@@ -9,14 +23,14 @@
 namespace theme_solerni\settings;
 
 class options {
-    
+
     /*
     * Return associative array ( setting_name => default_value )
     * List and default values for theme colors
     */
-    static function solerni_get_colors_array() {
-        // Array of solerni color settings ( setting name => default value )
-        return $solerni_colors = array(
+    public static function solerni_get_colors_array() {
+        // Array of solerni color settings ( setting name => default value ).
+        return array(
             'backcolor'         => '#FFFFFF',
             'primary'           => '#4B667C',
             'primaryhover'      => '#334554',
@@ -33,15 +47,15 @@ class options {
             'grey5'             => '#333333'
         );
     }
-    
+
     /*
      * Return associative array ( setting_name => default_value )
      * List and default values for social networks
      */
-    static function solerni_get_social_array() {
+    public static function solerni_get_social_array() {
 
-        // Array of solerni social settings ( setting name => default value )
-        return $solerni_socials = array(
+        // Array of solerni social settings ( setting name => default value ).
+        return array(
             'website'           => '',
             'facebook'          => '',
             'twitter'           => '',
@@ -50,18 +64,17 @@ class options {
             'youtube'           => ''
         );
     }
-    
+
     /*
     * Return associative array ( setting_name => default_value )
-    * List and default values for theme IHM loose links 
+    * List and default values for theme IHM loose links
     */
-   static function solerni_get_links_array() {
+    public static function solerni_get_links_array() {
 
-       // Array of solerni social settings ( setting name => default value )
-       return $solerni_socials = array(
-           'about'     => '',
-           'catalogue' => ''
-       );
-   }
-    
+        // Array of solerni social settings ( setting name => default value ).
+        return array(
+            'about'     => '',
+            'catalogue' => ''
+        );
+    }
 }

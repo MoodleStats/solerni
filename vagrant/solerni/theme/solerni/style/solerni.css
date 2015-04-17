@@ -8,7 +8,7 @@
     box-sizing: border-box;
 }
 
-html, 
+html,
 body {
     font-family:            Arial, Helvetica, sans-serif;
     line-height:            1.5;
@@ -25,7 +25,8 @@ body {
  */
 
 .slrn-top-header {
-    background-color: [[setting:primary]];
+    position:           fixed;
+    background-color:   [[setting:primary]];
 }
 
 .slrn-top-header__inner {
@@ -43,7 +44,7 @@ body {
 .slrn-top-header__logo {
     width:                  150px;
     height:                 40px;
-    
+
     background-position:    -182px 0;
 }
 
@@ -88,7 +89,7 @@ body {
 	text-transform: uppercase;
 }
 
-.slrn-header-search-input:-ms-input-placeholder { 
+.slrn-header-search-input:-ms-input-placeholder {
 	color:          [[setting:grey2]];
 	text-transform: uppercase;
 }
@@ -108,7 +109,7 @@ body {
     background-color:   [[setting:primary]];
     box-shadow:         0 0 0 [[setting:grey2]];
     border:             1px solid [[setting:grey2]];
-    
+
     min-width:          100%;
     float:              none;
     position:           absolute;
@@ -122,7 +123,7 @@ body {
     border-bottom: 0;
 }
 
-.slrn-top-header .slrn-top-header__item .dropdown-menu a:hover, 
+.slrn-top-header .slrn-top-header__item .dropdown-menu a:hover,
 .slrn-top-header .slrn-top-header__item .dropdown-menu a:active,
 .slrn-top-header .slrn-top-header__item .dropdown-menu a:focus {
     background-color: transparent;
@@ -136,7 +137,7 @@ body {
 
     font-size:      12px;
     font-weight:    bold;
-    
+
     text-transform: uppercase;
 }
 
@@ -144,16 +145,16 @@ body {
     text-decoration: underline;
 }
 .navbar nav .slrn-top-header__inner .slrn-top-header__item {
-    height:         40px !important;
+    height: 40px !important;
 }
 
 .slrn-dropdown {
-    list-style: none outside none; 
+    list-style: none outside none;
 }
 
 .slrn-lang-menu .dropdown {
     padding:    10px 15px 10px;
-    margin:     0;  
+    margin:     0;
 }
 
 .slrn-lang-menu .dropdown-menu {
@@ -202,9 +203,29 @@ body {
 }
 
 .slrn-top-header__item > .slrn-topbar-item__active {
-      bottom: -3px;  
+      bottom: -3px;
 }
 
+/*
+ * Burger Menu
+ */
+.slrn-btn-navbar {
+    background-color:   transparent !important;
+    background-image:   none !important;
+    border:             0 !important;
+    box-shadow:         none !important;
+}
+
+.icon-bar {
+    height:             3px !important;
+    width:              25px !important;
+    background-color:   [[setting:grey2]] !important;
+    border-radius:      0 !important;
+}
+
+.btn-navbar .icon-bar+.icon-bar {
+    margin-top: 4px;
+}
 
 
 /*
@@ -241,4 +262,17 @@ body {
 
 .-not-uppercase {
     text-transform: none !important;
+}
+
+
+@media screen and (max-width: 979px ) {
+    .nav-collapse, .nav-collapse.collapse {
+        display: none;
+    }
+
+    .navbar .btn-navbar {
+        display:    inline-block;
+        float:      none;
+        margin:     0;
+    }
 }
