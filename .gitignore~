@@ -7,4 +7,4 @@ vagrant/solerni/nbproject
 vagrant/solerni/theme/solerni/npm-debug.log
 vagrant/solerni/theme/solerni/node_modules
 Vagrantfile
-nbproject
+nbproject/
