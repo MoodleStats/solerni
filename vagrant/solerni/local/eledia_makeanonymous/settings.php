@@ -65,7 +65,7 @@ if ($hassiteconfig) {
     $name = 'local_eledia_makeanonymous/enabledemail';
     $title = get_string('enabledemail', 'local_eledia_makeanonymous');
     $description = get_string('enabledemail_desc', 'local_eledia_makeanonymous');
-    $setting = new admin_setting_configcheckbox($name, $title, $description, 0);
+    $setting = new admin_setting_configcheckbox($name, $title, $description, 1);
     $settings->add($setting);
 
     $name = 'local_eledia_makeanonymous/emailsubject';
@@ -84,9 +84,9 @@ if ($hassiteconfig) {
     $settings->add($setting);
 
     $config = get_config('local_eledia_makeanonymous');
-    if(isset($config->deletedprefixusername)){
+    $toanonymize = array();
+    if (isset($config->deletedprefixusername)) {
         $deletedusers = $DB->get_records('user', array('deleted' => 1));
-        $toanonymize = array();
         $prefix = $config->deletedprefixusername;
 
         foreach ($deletedusers as $user) {

@@ -41,7 +41,7 @@ if (has_capability('moodle/site:config', $context)) {
     $deletedusers = $DB->get_records('user', array('deleted' => 1));
 
     $config = get_config('local_eledia_makeanonymous');
-    if(isset($config->deletedprefixusername)){
+    if (isset($config->deletedprefixusername)) {
         $prefix = $config->deletedprefixusername;
         foreach ($deletedusers as $user) {
             if (substr($user->username, 0, strlen($prefix)) != $prefix) {
