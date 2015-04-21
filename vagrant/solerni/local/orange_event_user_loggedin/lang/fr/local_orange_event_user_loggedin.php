@@ -149,11 +149,11 @@ Plus que l’acquisition de connaissances, nous souhaitons que cette plateforme 
 <br>
 Notre plateforme vient tout juste d’être lancée et s’enrichira au fil des semaines de nouveaux Moocs aux contenus variés. <br>
 <br>
-Vous pouvez d’ores et déjà consulter <a href="http://moocatorange.sii-ouest.fr/mooc/catalogue">notre catalogue</a> et vous inscrire à l’un des Moocs disponibles aujourd’hui. Notre plateforme est ouverte et gratuite, les inscriptions sont donc illimitées&nbsp;! <br>
+Vous pouvez d’ores et déjà consulter <a href="">notre catalogue</a> et vous inscrire à l’un des Moocs disponibles aujourd’hui. Notre plateforme est ouverte et gratuite, les inscriptions sont donc illimitées&nbsp;! <br>
 <br>
 <strong>Restez en contact, restez connecté</strong> <br>
 <br>
-Pour être au courant des nouveautés et des évènements sur {$a->sitename}, rejoignez nous sur Facebook et Twitter, sans oublier d\'aller faire un tour sur notre Blog qui vous informera des actualités liées  à l’univers de ces nouvelles méthodes d’apprentissage sociales et collaboratives.<br>
+Pour être au courant des nouveautés et des évènements sur {$a->sitename}, rejoignez nous sur <a href=\'https://www.facebook.com/pages/Solerni/648508191861244?fref=ts\' target=\'_new\'>Facebook</a> et <a href=\'https://twitter.com/SolerniOfficiel\' target=\'_new\'>Twitter</a>, sans oublier d\'aller faire un tour sur notre <a href=\'http://blog.solerni.org\' target=\'_new\'>Blog</a> qui vous informera des actualités liées  à l’univers de ces nouvelles méthodes d’apprentissage sociales et collaboratives.<br>
 <br>
 <strong>Pour bien communiquer, remplissez votre profil</strong><br>
 <br>

@@ -1,4 +1,6 @@
 vagrant/moodledata
+!vagrant/moddledata/lang/en_local
+!vagrant/moddledata/lang/fr_local
 vagrant/override
 !vagrant/override/lang
 vagrant/system
