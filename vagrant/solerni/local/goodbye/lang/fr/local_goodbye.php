@@ -22,7 +22,8 @@
  *
  * @package    local
  * @subpackage local_goodbye
- * @copyright  2013 Bas Brands, www.basbrands.nl
+ * @copyright  2015 Orange
+ *     Fork : 2013 Bas Brands, www.basbrands.nl
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
