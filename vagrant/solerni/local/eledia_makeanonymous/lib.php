@@ -103,8 +103,9 @@ function make_anonymous($user, $useroldemail='') {
     $DB->update_record('user', $updateuser);
     // Send an email to user.
     if (get_config('local_eledia_makeanonymous', 'enabledemail')) {
-        if(!empty($useroldemail))
+        if (!empty($useroldemail)) {
             send_email_deletion($user, $useroldemail);
+        }
     }
 }
 
