@@ -19,8 +19,8 @@
  * optinally with a delay time.
  *
  * @package local_eledia_makeanonymous
- * @author Matthias Schwabe <support@eledia.de>
- * @copyright 2013 & 2014 eLeDia GmbH
+ * @copyright  2015 Orange
+ *     Fork : author Matthias Schwabe <support@eledia.de>,  copyright 2013 & 2014 eLeDia GmbH
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -47,7 +47,7 @@ function start_anonymous($userid, $useroldemail) {
 /**
  * The function which anonymizes the deleted user.
  */
-function make_anonymous($user, $useroldemail) {
+function make_anonymous($user, $useroldemail='') {
     global $DB;
 
     $config = get_config('local_eledia_makeanonymous');
@@ -103,7 +103,9 @@ function make_anonymous($user, $useroldemail) {
     $DB->update_record('user', $updateuser);
     // Send an email to user.
     if (get_config('local_eledia_makeanonymous', 'enabledemail')) {
-        send_email_deletion($user, $useroldemail);
+        if (!empty($useroldemail)) {
+            send_email_deletion($user, $useroldemail);
+        }
     }
 }
 

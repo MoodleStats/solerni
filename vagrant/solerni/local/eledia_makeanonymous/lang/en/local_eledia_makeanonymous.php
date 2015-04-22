@@ -18,8 +18,8 @@
  * English language file.
  *
  * @package local_eledia_makeanonymous
- * @author Matthias Schwabe <support@eledia.de>
- * @copyright 2013 & 2014 eLeDia GmbH
+ * @copyright  2015 Orange
+ *     Fork : author Matthias Schwabe <support@eledia.de>,  copyright 2013 & 2014 eLeDia GmbH
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
