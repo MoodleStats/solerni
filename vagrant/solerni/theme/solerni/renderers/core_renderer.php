@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * @author    Shaun Daubney
  * @author    Orange / Solerni
  * @package   theme_solerni
@@ -19,12 +19,12 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
             <input class="slrn-header-search-input -slrn-radius" id="search_input" name="search_input" placeholder="<?php echo get_string('search', 'theme_solerni'); ?>" value=""/>
         </form>
     <?php }
-    
+
     /*
      * Echo header links inside <li> to support boostrap
      * @isdummy
      */
-    public function solerni_header_links() {       
+    public function solerni_header_links() {
     ?>
         <li class="slrn-top-header__item">
             <a class="slrn-top-header__item slrn-top-header__item--link" href="<?php echo $this->page->theme->settings->about; ?>">
@@ -44,7 +44,7 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
     public function solerni_lang_menu() {
         return $this->render_custom_menu( new custom_menu( null, current_language() ) );
     }
-    
+
     /*
      * Echo header user menu
      * @isdummy
@@ -52,7 +52,7 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
     public function solerni_user_menu() {
         global $USER, $CFG, $SESSION, $PAGE;
         $localdir = dirname(__FILE__); // we are currently inside solerni/renderers folder
-        
+
         // User is logged. Use partials for maintenance
         if ( isloggedin() ) {
             include( $localdir . '/../layout/partials/header_user_menu__auth.php' );
@@ -62,7 +62,7 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
             echo $this->solerni_lang_menu();
         }
     }
-    
+
     /*
      * This renders a menu object in the header
      *
@@ -75,6 +75,8 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
         // here. See MDL-39565.
         $addlangmenu = true;
         $langs = get_string_manager()->get_list_of_translations();
+
+        // Do not display if only 1 language
         if (count($langs) < 2
             or empty($CFG->langmenu)
             or ($this->page->course != SITEID and !empty($this->page->course->lang))) {
@@ -112,12 +114,12 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
      * bootstrap dropdown menu.
      */
     protected function render_custom_menu_item(custom_menu_item $menunode, $level = 0, $menu_title = '' ) {
-        
+
         static $submenucount = 0;
         $current_title = str_replace( array( ' (fr)', ' (en)' ), '',  $menunode->get_text() );
-         
+
         if ($menunode->has_children()) {
-            
+
             $menu_title = $current_title;
 
             if ($level == 1) {
@@ -129,7 +131,7 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
             if ($menunode === $this->language) {
                 $class .= ' langmenu';
             }
-            
+
             $content = html_writer::start_tag('ul', array('class' => $class));
             // If the child has menus render it as a sub menu.
             $submenucount++;
@@ -165,7 +167,7 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
                 $classes .= ' -is-active';
                 $current_title .= '<i class="icon-ok"></i>';
             }
-            
+
             $content .= html_writer::link($url, $current_title, array('title'=>$menunode->get_title(), 'class' => $classes ));
         }
         return $content;
@@ -173,14 +175,14 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
 
     /*
      * Checks if $fragment is part of current page path
-     * 
+     *
      * Return @bool
      */
     protected function is_menu_item_active( $fragment ) {
         global $PAGE;
         $page_path = $PAGE->url->get_path();
-        
+
         return preg_match ( "#$fragment#", $page_path );
-        
+
     }
 }

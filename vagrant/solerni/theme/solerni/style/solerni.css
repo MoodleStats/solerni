@@ -38,7 +38,7 @@ body {
 .slrn-top-header__item {
     position:       relative;
     display:        inline-block;
-    vertical-align: top;
+    vertical-align: middle;
 }
 
 .slrn-top-header__logo {
@@ -145,7 +145,11 @@ body {
     text-decoration: underline;
 }
 .navbar nav .slrn-top-header__inner .slrn-top-header__item {
-    height: 40px !important;
+    height:     40px !important;
+}
+
+.navbar .nav > li > a {
+    padding: 5px 10px 0 10px;
 }
 
 .slrn-dropdown {
