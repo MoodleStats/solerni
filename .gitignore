@@ -1,5 +1,6 @@
-vagrant/moodledata
-vagrant/override
+vagrant/moodledata/*
+!vagrant/moodledata/lang
+vagrant/override/*
 !vagrant/override/lang
 vagrant/system
 .vagrant
