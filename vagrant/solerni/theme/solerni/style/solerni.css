@@ -164,6 +164,7 @@ body {
 .slrn-lang-menu .dropdown-menu {
     left:   auto;
     right:  0;
+    top:    42px;
 }
 
 .dropdown-menu:after {

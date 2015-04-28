@@ -1,4 +1,4 @@
-vagrant/moodledata/*
+vagrant/moodledata
 !vagrant/moodledata/lang
 vagrant/override/*
 !vagrant/override/lang
