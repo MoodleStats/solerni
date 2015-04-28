@@ -33,9 +33,9 @@ require_once("$CFG->dirroot/mod/descriptionpage/lib.php");
 /**#@+
  * Constants defining the visibility levels of blog posts
  */
-define('PAGE_VISIBILITY_COURSEUSER',   100);
-define('PAGE_VISIBILITY_LOGGEDINUSER', 200);
-define('PAGE_VISIBILITY_PUBLIC',       300);
+define('DESCRIPTIONPAGE_VISIBILITY_COURSEUSER',   100);
+define('DESCRIPTIONPAGE_VISIBILITY_LOGGEDINUSER', 200);
+define('DESCRIPTIONPAGE_VISIBILITY_PUBLIC',       300);
 /**#@-*/
 
 
@@ -85,7 +85,7 @@ function descriptionpage_page_check_view_permissions($page, $context, $cm=null) 
     $capability = 'mod/descriptionpage:view';
 
     switch ($page->maxvisibility) {
-        case PAGE_VISIBILITY_PUBLIC:
+        case DESCRIPTIONPAGE_VISIBILITY_PUBLIC:
             if ($page->course == $COURSE->id or empty($page->course)) {
                 $pagecourse = $COURSE;
             } else {
@@ -97,7 +97,7 @@ function descriptionpage_page_check_view_permissions($page, $context, $cm=null) 
             $PAGE->set_pagelayout('incourse');
             return;
 
-        case PAGE_VISIBILITY_LOGGEDINUSER:
+        case DESCRIPTIONPAGE_VISIBILITY_LOGGEDINUSER:
             require_login(SITEID, false);
             if ($page->course == $COURSE->id or empty($page->course)) {
                 $pagecourse = $COURSE;
@@ -114,7 +114,7 @@ function descriptionpage_page_check_view_permissions($page, $context, $cm=null) 
             }
             return;
 
-        case PAGE_VISIBILITY_COURSEUSER:
+        case DESCRIPTIONPAGE_VISIBILITY_COURSEUSER:
             require_course_login($page->course, false, $cm);
             // Check page:view cap.
             if (!has_capability($capability, $context)) {

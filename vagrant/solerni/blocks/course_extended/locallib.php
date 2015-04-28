@@ -32,9 +32,9 @@ require_once("$CFG->dirroot/blocks/course_extended/lib.php");
 /**#@+
  * Constants defining the visibility levels of blog posts
  */
-define('PAGE_VISIBILITY_COURSEUSER',   100);
-define('PAGE_VISIBILITY_LOGGEDINUSER', 200);
-define('PAGE_VISIBILITY_PUBLIC',       300);
+define('COURSEEXTENDEDPAGE_VISIBILITY_COURSEUSER',   100);
+define('COURSEEXTENDEDPAGE_VISIBILITY_LOGGEDINUSER', 200);
+define('COURSEEXTENDEDPAGE_VISIBILITY_PUBLIC',       300);
 /**#@-*/
 
 
@@ -114,7 +114,7 @@ function page_check_view_permissions($page, $context, $cm=null) {
     $capability = 'block/course_extended:view';
 
     switch ($page->maxvisibility) {
-        case PAGE_VISIBILITY_PUBLIC:
+        case COURSEEXTENDEDPAGE_VISIBILITY_PUBLIC:
             if ($page->course == $COURSE->id or empty($page->course)) {
                 $pagecourse = $COURSE;
             } else {
@@ -126,7 +126,7 @@ function page_check_view_permissions($page, $context, $cm=null) {
             $PAGE->set_pagelayout('incourse');
             return;
 
-        case PAGE_VISIBILITY_LOGGEDINUSER:
+        case COURSEEXTENDEDPAGE_VISIBILITY_LOGGEDINUSER:
             require_login(SITEID, false);
             if ($page->course == $COURSE->id or empty($page->course)) {
                 $pagecourse = $COURSE;
@@ -143,7 +143,7 @@ function page_check_view_permissions($page, $context, $cm=null) {
             }
             return;
 
-        case PAGE_VISIBILITY_COURSEUSER:
+        case COURSEEXTENDEDPAGE_VISIBILITY_COURSEUSER:
             require_course_login($page->course, false, $cm);
             // Check page:view cap.
             if (!has_capability($capability, $context)) {

@@ -50,14 +50,14 @@ class mod_descriptionpage_mod_form extends moodleform_mod {
         $mform->addRule('name', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
         $this->add_intro_editor($config->requiremodintro);
 
-            // Adding the "maxvisibility" field.
-            $options = array(PAGE_VISIBILITY_COURSEUSER => get_string('visiblecourseusers', 'descriptionpage'),
-                    PAGE_VISIBILITY_LOGGEDINUSER => get_string('visibleloggedinusers', 'descriptionpage'),
-                    PAGE_VISIBILITY_PUBLIC => get_string('visiblepublic', 'descriptionpage'));
+        // Adding the "maxvisibility" field.
+        $options = array(DESCRIPTIONPAGE_VISIBILITY_COURSEUSER => get_string('visiblecourseusers', 'descriptionpage'),
+                DESCRIPTIONPAGE_VISIBILITY_LOGGEDINUSER => get_string('visibleloggedinusers', 'descriptionpage'),
+                DESCRIPTIONPAGE_VISIBILITY_PUBLIC => get_string('visiblepublic', 'descriptionpage'));
 
-            $mform->addElement('select', 'maxvisibility', get_string('maxvisibility', 'descriptionpage'), $options);
-            $mform->setType('maxvisibility', PARAM_INT);
-            $mform->addHelpButton('maxvisibility', 'maxvisibility', 'descriptionpage');
+        $mform->addElement('select', 'maxvisibility', get_string('maxvisibility', 'descriptionpage'), $options);
+        $mform->setType('maxvisibility', PARAM_INT);
+        $mform->addHelpButton('maxvisibility', 'maxvisibility', 'descriptionpage');
 
         // -------------------------------------------------------
         $mform->addElement('header', 'contentsection', get_string('contentheader', 'descriptionpage'));

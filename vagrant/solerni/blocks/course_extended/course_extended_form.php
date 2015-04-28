@@ -36,9 +36,9 @@ class course_extended_form extends moodleform {
         $mform->addElement('header', 'displayinfo', get_string('blocktitle', $blockcourseextended));
 
         // Adding the "maxvisibility" field.
-        $options = array(PAGE_VISIBILITY_COURSEUSER => get_string('visiblecourseusers', 'descriptionpage'),
-                PAGE_VISIBILITY_LOGGEDINUSER => get_string('visibleloggedinusers', 'descriptionpage'),
-                PAGE_VISIBILITY_PUBLIC => get_string('visiblepublic', 'descriptionpage'));
+        $options = array(COURSEEXTENDEDPAGE_VISIBILITY_COURSEUSER => get_string('visiblecourseusers', 'descriptionpage'),
+                COURSEEXTENDEDPAGE_VISIBILITY_LOGGEDINUSER => get_string('visibleloggedinusers', 'descriptionpage'),
+                COURSEEXTENDEDPAGE_VISIBILITY_PUBLIC => get_string('visiblepublic', 'descriptionpage'));
 
         $mform->addElement('select', 'maxvisibility', get_string('maxvisibility', 'descriptionpage'), $options);
         $mform->setType('maxvisibility', PARAM_INT);
