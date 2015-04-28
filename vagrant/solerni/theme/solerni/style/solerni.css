@@ -157,7 +157,7 @@ body {
 }
 
 .slrn-lang-menu .dropdown {
-    padding:    10px 15px 10px;
+    padding:    5px 10px 0 10px;
     margin:     0;
 }
 
@@ -207,7 +207,7 @@ body {
 }
 
 .slrn-top-header__item > .slrn-topbar-item__active {
-      bottom: -3px;
+    bottom: -5px;
 }
 
 /*
@@ -218,6 +218,8 @@ body {
     background-image:   none !important;
     border:             0 !important;
     box-shadow:         none !important;
+
+    padding-top:        15px;
 }
 
 .icon-bar {
