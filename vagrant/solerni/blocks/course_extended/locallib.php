@@ -42,7 +42,7 @@ define('COURSEEXTENDEDPAGE_VISIBILITY_PUBLIC',       300);
 /**
  * File browsing support class
  */
-class page_content_file_info extends file_info_stored {
+class courseextended_page_content_file_info extends file_info_stored {
     public function get_parent() {
         if ($this->lf->get_filepath() === '/' and $this->lf->get_filename() === '.') {
             return $this->browser->get_file_info($this->context);
@@ -57,7 +57,7 @@ class page_content_file_info extends file_info_stored {
     }
 }
 
-function page_get_editor_options($context) {
+function courseextended_page_get_editor_options($context) {
     global $CFG;
     return array(
         'subdirs' => 1,
@@ -108,10 +108,11 @@ function count_badges() {
  * @param object $cm
  * @return void
  */
-function page_check_view_permissions($page, $context, $cm=null) {
+function courseextended_page_check_view_permissions($page, $context, $cm=null) {
     global $COURSE, $PAGE, $DB;
-
+echo "courseextended_page_check_view_permissions";
     $capability = 'block/course_extended:view';
+    print_object($page->maxvisibility) ;
 
     switch ($page->maxvisibility) {
         case COURSEEXTENDEDPAGE_VISIBILITY_PUBLIC:

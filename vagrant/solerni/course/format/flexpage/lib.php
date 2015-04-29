@@ -497,7 +497,8 @@ function format_flexpage_pluginfile($course, $cm, $context, $filearea, $args, $f
         return false;
     }
     
-    require_login();
+    //requirelogin supressed to allow course image 
+    //require_login();
     if ($filearea != 'coursepicture') {
         return false;
     }

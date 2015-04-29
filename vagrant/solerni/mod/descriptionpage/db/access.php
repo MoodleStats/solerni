@@ -26,6 +26,7 @@
 defined('MOODLE_INTERNAL') || die;
 
 $capabilities = array(
+    
     'mod/descriptionpage:view' => array(
         'captype' => 'read',
         'contextlevel' => CONTEXT_MODULE,

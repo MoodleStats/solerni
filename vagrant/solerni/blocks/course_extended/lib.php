@@ -36,12 +36,11 @@ function block_course_extended_print_page($courseextended, $return = false) {
 }
 function block_course_extended_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options=array()) {
     global $DB;
-
     if ($context->contextlevel != CONTEXT_COURSE) {
         return false;
     }
 
-    require_login();
+    require_login(0,false);
     if ($filearea != 'coursepicture') {
         return false;
     }
@@ -64,6 +63,5 @@ function block_course_extended_pluginfile($course, $cm, $context, $filearea, $ar
     if (!$file) {
         return false;
     }
-
     send_stored_file($file, 0, 0, $forcedownload, $options);
 }

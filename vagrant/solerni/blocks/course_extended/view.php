@@ -53,7 +53,7 @@ $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST)
 // Require_course_login($course, true, $cm);.
 $context = context_module::instance($cm->id);
 // ...$page = $PAGE->get_renderer('mod_page');.
-descriptionpage_page_check_view_permissions($page, $context, $cm);
+courseextended_page_check_view_permissions($page, $context, $cm);
 
 // ...$context = context_module::instance($cm->id);.
 require_capability('mod/descriptionpage:view', $context);
