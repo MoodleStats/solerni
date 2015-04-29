@@ -25,13 +25,13 @@
 defined('MOODLE_INTERNAL') || die();
 
 $tasks = array(
-    array(
-        'classname' => '\logstore_legacy\task\cleanup_task',
-        'blocking' => 0,
-        'minute' => '*',
-        'hour' => '5',
-        'day' => '*',
-        'dayofweek' => '*',
-        'month' => '*'
-    ),
+		array(
+				'classname' => '\logstore_legacy\task\cleanup_task',
+				'blocking' => 0,
+				'minute' => '*',
+				'hour' => '5',
+				'day' => '*',
+				'dayofweek' => '*',
+				'month' => '*'
+		),
 );

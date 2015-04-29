@@ -37,19 +37,19 @@ $groupid      = optional_param('groupid', null, PARAM_INT);
 
 $url = new moodle_url('/blog/preferences.php');
 if ($courseid !== SITEID) {
-    $url->param('courseid', $courseid);
+	$url->param('courseid', $courseid);
 }
 if ($modid !== null) {
-    $url->param('modid', $modid);
+	$url->param('modid', $modid);
 }
 if ($userid !== null) {
-    $url->param('userid', $userid);
+	$url->param('userid', $userid);
 }
 if ($tagid !== null) {
-    $url->param('tagid', $tagid);
+	$url->param('tagid', $tagid);
 }
 if ($groupid !== null) {
-    $url->param('groupid', $groupid);
+	$url->param('groupid', $groupid);
 }
 
 $PAGE->set_url($url);
@@ -60,7 +60,7 @@ $PAGE->set_context($sitecontext);
 require_login($courseid);
 
 if (empty($CFG->enableblogs)) {
-    print_error('blogdisable', 'blog');
+	print_error('blogdisable', 'blog');
 }
 
 // The preference is site wide not blog specific. Hence user should have permissions in site level.
@@ -72,16 +72,16 @@ $mform = new blog_preferences_form('preferences.php');
 $mform->set_data(array('pagesize' => get_user_preferences('blogpagesize')));
 
 if (!$mform->is_cancelled() && $data = $mform->get_data()) {
-    $pagesize = $data->pagesize;
+	$pagesize = $data->pagesize;
 
-    if ($pagesize < 1) {
-        print_error('invalidpagesize');
-    }
-    set_user_preference('blogpagesize', $pagesize);
+	if ($pagesize < 1) {
+		print_error('invalidpagesize');
+	}
+	set_user_preference('blogpagesize', $pagesize);
 }
 
 if ($mform->is_cancelled()){
-    redirect($CFG->wwwroot . '/blog/index.php');
+	redirect($CFG->wwwroot . '/blog/index.php');
 }
 
 $site = get_site();

@@ -32,89 +32,89 @@ defined('MOODLE_INTERNAL') || die();
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class tool_task_renderer extends plugin_renderer_base {
-    /**
-     * This function will render one beautiful table with all the scheduled tasks.
-     *
-     * @param \core\task\scheduled_task[] $tasks - list of all scheduled tasks.
-     * @return string HTML to output.
-     */
-    public function scheduled_tasks_table($tasks) {
-        global $CFG;
+	/**
+	 * This function will render one beautiful table with all the scheduled tasks.
+	 *
+	 * @param \core\task\scheduled_task[] $tasks - list of all scheduled tasks.
+	 * @return string HTML to output.
+	 */
+	public function scheduled_tasks_table($tasks) {
+		global $CFG;
 
-        $table = new html_table();
-        $table->head  = array(get_string('name'),
-                              get_string('component', 'tool_task'),
-                              get_string('edit'),
-                              get_string('lastruntime', 'tool_task'),
-                              get_string('nextruntime', 'tool_task'),
-                              get_string('taskscheduleminute', 'tool_task'),
-                              get_string('taskschedulehour', 'tool_task'),
-                              get_string('taskscheduleday', 'tool_task'),
-                              get_string('taskscheduledayofweek', 'tool_task'),
-                              get_string('taskschedulemonth', 'tool_task'),
-                              get_string('faildelay', 'tool_task'),
-                              get_string('default', 'tool_task'));
-        $table->attributes['class'] = 'admintable generaltable';
-        $data = array();
-        $yes = get_string('yes');
-        $no = get_string('no');
-        $never = get_string('never');
-        $asap = get_string('asap', 'tool_task');
-        $disabled = get_string('disabled', 'tool_task');
-        foreach ($tasks as $task) {
-            $customised = $task->is_customised() ? $no : $yes;
-            $lastrun = $task->get_last_run_time() ? userdate($task->get_last_run_time()) : $never;
-            $nextrun = $task->get_next_run_time();
-            if ($task->get_disabled()) {
-                $nextrun = $disabled;
-            } else if ($nextrun > time()) {
-                $nextrun = userdate($nextrun);
-            } else {
-                $nextrun = $asap;
-            }
-            if (empty($CFG->preventscheduledtaskchanges)) {
-                $configureurl = new moodle_url('/admin/tool/task/scheduledtasks.php', array('action'=>'edit', 'task' => get_class($task)));
-                $editlink = $this->action_icon($configureurl, new pix_icon('t/edit', get_string('edittaskschedule', 'tool_task', $task->get_name())));
-            } else {
-                $editlink = $this->render(new pix_icon('t/locked', get_string('scheduledtaskchangesdisabled', 'tool_task')));
-            }
+		$table = new html_table();
+		$table->head  = array(get_string('name'),
+				get_string('component', 'tool_task'),
+				get_string('edit'),
+				get_string('lastruntime', 'tool_task'),
+				get_string('nextruntime', 'tool_task'),
+				get_string('taskscheduleminute', 'tool_task'),
+				get_string('taskschedulehour', 'tool_task'),
+				get_string('taskscheduleday', 'tool_task'),
+				get_string('taskscheduledayofweek', 'tool_task'),
+				get_string('taskschedulemonth', 'tool_task'),
+				get_string('faildelay', 'tool_task'),
+				get_string('default', 'tool_task'));
+		$table->attributes['class'] = 'admintable generaltable';
+		$data = array();
+		$yes = get_string('yes');
+		$no = get_string('no');
+		$never = get_string('never');
+		$asap = get_string('asap', 'tool_task');
+		$disabled = get_string('disabled', 'tool_task');
+		foreach ($tasks as $task) {
+			$customised = $task->is_customised() ? $no : $yes;
+			$lastrun = $task->get_last_run_time() ? userdate($task->get_last_run_time()) : $never;
+			$nextrun = $task->get_next_run_time();
+			if ($task->get_disabled()) {
+				$nextrun = $disabled;
+			} else if ($nextrun > time()) {
+				$nextrun = userdate($nextrun);
+			} else {
+				$nextrun = $asap;
+			}
+			if (empty($CFG->preventscheduledtaskchanges)) {
+				$configureurl = new moodle_url('/admin/tool/task/scheduledtasks.php', array('action'=>'edit', 'task' => get_class($task)));
+				$editlink = $this->action_icon($configureurl, new pix_icon('t/edit', get_string('edittaskschedule', 'tool_task', $task->get_name())));
+			} else {
+				$editlink = $this->render(new pix_icon('t/locked', get_string('scheduledtaskchangesdisabled', 'tool_task')));
+			}
 
-            $namecell = new html_table_cell($task->get_name() . "\n" . html_writer::tag('span', '\\'.get_class($task), array('class' => 'task-class')));
-            $namecell->header = true;
+			$namecell = new html_table_cell($task->get_name() . "\n" . html_writer::tag('span', '\\'.get_class($task), array('class' => 'task-class')));
+			$namecell->header = true;
 
-            $component = $task->get_component();
-            list($type, $plugin) = core_component::normalize_component($component);
-            if ($type === 'core') {
-                $componentcell = new html_table_cell(get_string('corecomponent', 'tool_task'));
-            } else {
-                if ($plugininfo = core_plugin_manager::instance()->get_plugin_info($component)) {
-                    $plugininfo->init_display_name();
-                    $componentcell = new html_table_cell($plugininfo->displayname);
-                } else {
-                    $componentcell = new html_table_cell($component);
-                }
-            }
+			$component = $task->get_component();
+			list($type, $plugin) = core_component::normalize_component($component);
+			if ($type === 'core') {
+				$componentcell = new html_table_cell(get_string('corecomponent', 'tool_task'));
+			} else {
+				if ($plugininfo = core_plugin_manager::instance()->get_plugin_info($component)) {
+					$plugininfo->init_display_name();
+					$componentcell = new html_table_cell($plugininfo->displayname);
+				} else {
+					$componentcell = new html_table_cell($component);
+				}
+			}
 
-            $row = new html_table_row(array(
-                        $namecell,
-                        $componentcell,
-                        new html_table_cell($editlink),
-                        new html_table_cell($lastrun),
-                        new html_table_cell($nextrun),
-                        new html_table_cell($task->get_minute()),
-                        new html_table_cell($task->get_hour()),
-                        new html_table_cell($task->get_day()),
-                        new html_table_cell($task->get_day_of_week()),
-                        new html_table_cell($task->get_month()),
-                        new html_table_cell($task->get_fail_delay()),
-                        new html_table_cell($customised)));
+			$row = new html_table_row(array(
+					$namecell,
+					$componentcell,
+					new html_table_cell($editlink),
+					new html_table_cell($lastrun),
+					new html_table_cell($nextrun),
+					new html_table_cell($task->get_minute()),
+					new html_table_cell($task->get_hour()),
+					new html_table_cell($task->get_day()),
+					new html_table_cell($task->get_day_of_week()),
+					new html_table_cell($task->get_month()),
+					new html_table_cell($task->get_fail_delay()),
+					new html_table_cell($customised)));
 
-            if ($task->get_disabled()) {
-                $row->attributes['class'] = 'disabled';
-            }
-            $data[] = $row;
-        }
-        $table->data = $data;
-        return html_writer::table($table);
-    }
+			if ($task->get_disabled()) {
+				$row->attributes['class'] = 'disabled';
+			}
+			$data[] = $row;
+		}
+		$table->data = $data;
+		return html_writer::table($table);
+	}
 }

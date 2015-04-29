@@ -34,5 +34,5 @@ defined('MOODLE_INTERNAL') || die();
  * TODO: Finish phpdocs
  */
 abstract class restore_format_plugin extends restore_plugin {
-    // Love these classes. :-) Nothing special to customize here for now
+	// Love these classes. :-) Nothing special to customize here for now
 }

@@ -21,8 +21,9 @@
  * This module has been created to provide users the option to delete their account
  *
  * @package    local
- * @subpackage goodbye, delete your moodle account
- * @copyright  2013 Bas Brands, www.basbrands.nl
+ * @subpackage local_goodbye
+ * @copyright  2015 Orange
+ *     Fork : 2013 Bas Brands, www.basbrands.nl
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -35,7 +36,9 @@ function local_goodbye_extends_navigation(global_navigation $navigation) {
     $enabled = get_config('local_goodbye', 'enabled');
 
     if ($enabled ) {
-        if ($USER->auth != 'email') {
+        // Not limited to auth method 'email' : 'googleoauth2', 'manual' should have too.
+        if (is_siteadmin($USER)) {
+            // No deleting admins allowed.
             return '';
         }
         $container2 = $navigation->add(get_string('myaccount', 'local_goodbye'));

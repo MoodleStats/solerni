@@ -1,9 +1,15 @@
-vagrant/moodledata
-vagrant/override
+!vagrant/moodledata/lang
+vagrant/moodledata/*
 !vagrant/override/lang
+vagrant/override/*
 vagrant/system
 .vagrant
 vagrant/solerni/nbproject
 vagrant/solerni/theme/solerni/npm-debug.log
 vagrant/solerni/theme/solerni/node_modules
 Vagrantfile
+nbproject
+codechecker
+codecheck
+vagrant/solerni/local/goodbye
+vagrant/solerni/local/codechecker

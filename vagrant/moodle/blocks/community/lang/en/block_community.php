@@ -21,7 +21,7 @@
  * @author    Jerome Mouneyrac <jerome@mouneyrac.com>
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+*/
 
 $string['activities'] = 'Activities';
 $string['add'] = 'Add';
@@ -29,7 +29,7 @@ $string['addedtoblock'] = 'A link to this course has been added in your communit
 $string['addtocommunityblock'] = 'Save a link to this course';
 $string['addcommunitycourse'] = 'Add community course';
 $string['additionalcoursedesc'] = '{$a->lang} Creator: {$a->creatorname} - Publisher: {$a->publishername} - Subject: {$a->subject}
-    - Audience: {$a->audience} - Educational level: {$a->educationallevel} - License: {$a->license}';
+- Audience: {$a->audience} - Educational level: {$a->educationallevel} - License: {$a->license}';
 $string['addcourse'] = 'Search';
 $string['audience'] = 'Designed for';
 $string['audience_help'] = 'What kind of course are you looking for?  As well as traditional courses intended for students, you might search for communities of Educators or Moodle Administrators';

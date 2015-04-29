@@ -31,10 +31,10 @@ require_once($CFG->dirroot . '/course/request_form.php');
 $url = new moodle_url('/course/request.php');
 $return = optional_param('return', null, PARAM_ALPHANUMEXT);
 if ($return === 'management') {
-    $url->param('return', $return);
-    $returnurl = new moodle_url('/course/management.php', array('categoryid' => $CFG->defaultrequestcategory));
+	$url->param('return', $return);
+	$returnurl = new moodle_url('/course/management.php', array('categoryid' => $CFG->defaultrequestcategory));
 } else {
-    $returnurl = new moodle_url('/course/index.php');
+	$returnurl = new moodle_url('/course/index.php');
 }
 
 $PAGE->set_url($url);
@@ -42,10 +42,10 @@ $PAGE->set_url($url);
 // Check permissions.
 require_login();
 if (isguestuser()) {
-    print_error('guestsarenotallowed', '', $returnurl);
+	print_error('guestsarenotallowed', '', $returnurl);
 }
 if (empty($CFG->enablecourserequests)) {
-    print_error('courserequestdisabled', '', $returnurl);
+	print_error('courserequestdisabled', '', $returnurl);
 }
 $context = context_system::instance();
 $PAGE->set_context($context);
@@ -62,13 +62,13 @@ $PAGE->set_heading($strtitle);
 
 // Standard form processing if statement.
 if ($requestform->is_cancelled()){
-    redirect($returnurl);
+	redirect($returnurl);
 
 } else if ($data = $requestform->get_data()) {
-    $request = course_request::create($data);
+	$request = course_request::create($data);
 
-    // And redirect back to the course listing.
-    notice(get_string('courserequestsuccess'), $returnurl);
+	// And redirect back to the course listing.
+	notice(get_string('courserequestsuccess'), $returnurl);
 }
 
 $PAGE->navbar->add($strtitle);

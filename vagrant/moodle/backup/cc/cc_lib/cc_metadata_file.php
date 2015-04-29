@@ -15,13 +15,13 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
-* Metadata management
-*
-* @package    backup-convert
-* @subpackage cc-library
-* @copyright  2011 Darko Miletic <dmiletic@moodlerooms.com>
-* @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
-*/
+ * Metadata management
+ *
+ * @package    backup-convert
+ * @subpackage cc-library
+ * @copyright  2011 Darko Miletic <dmiletic@moodlerooms.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
 
 /**
@@ -30,12 +30,12 @@
  */
 class cc_metadata_file_educational{
 
-    public $value   = array();
+	public $value   = array();
 
-    public function set_value ($value){
-        $arr = array($value);
-        $this->value[] = $arr;
-    }
+	public function set_value ($value){
+		$arr = array($value);
+		$this->value[] = $arr;
+	}
 
 }
 
@@ -45,14 +45,14 @@ class cc_metadata_file_educational{
  */
 class cc_metadata_file implements cc_i_metadata_file {
 
-    public $arrayeducational  = array();
+	public $arrayeducational  = array();
 
-    public function add_metadata_file_educational($obj){
-        if (empty($obj)){
-            throw new Exception('Medatada Object given is invalid or null!');
-        }
-         !is_null($obj->value)? $this->arrayeducational['value']=$obj->value:null;
-    }
+	public function add_metadata_file_educational($obj){
+		if (empty($obj)){
+			throw new Exception('Medatada Object given is invalid or null!');
+		}
+		!is_null($obj->value)? $this->arrayeducational['value']=$obj->value:null;
+	}
 
 
 }

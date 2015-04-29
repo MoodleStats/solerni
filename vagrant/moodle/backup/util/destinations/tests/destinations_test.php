@@ -32,16 +32,16 @@ global $CFG;
  */
 class backup_destinations_testcase extends basic_testcase {
 
-    /**
-     * test backup_destination class
-     */
-    function test_backup_destination() {
-    }
+	/**
+	 * test backup_destination class
+	 */
+	function test_backup_destination() {
+	}
 
-    /**
-     * test backup_destination_osfs class
-     */
-    function test_backup_destination_osfs() {
-    }
+	/**
+	 * test backup_destination_osfs class
+	 */
+	function test_backup_destination_osfs() {
+	}
 }
 

@@ -35,80 +35,80 @@ $previewrows = optional_param('previewrows', 10, PARAM_INT);
 $returnurl = new moodle_url('/admin/tool/uploadcourse/index.php');
 
 if (empty($importid)) {
-    $mform1 = new tool_uploadcourse_step1_form();
-    if ($form1data = $mform1->get_data()) {
-        $importid = csv_import_reader::get_new_iid('uploadcourse');
-        $cir = new csv_import_reader($importid, 'uploadcourse');
-        $content = $mform1->get_file_content('coursefile');
-        $readcount = $cir->load_csv_content($content, $form1data->encoding, $form1data->delimiter_name);
-        unset($content);
-        if ($readcount === false) {
-            print_error('csvfileerror', 'tool_uploadcourse', $returnurl, $cir->get_error());
-        } else if ($readcount == 0) {
-            print_error('csvemptyfile', 'error', $returnurl, $cir->get_error());
-        }
-    } else {
-        echo $OUTPUT->header();
-        echo $OUTPUT->heading_with_help(get_string('uploadcourses', 'tool_uploadcourse'), 'uploadcourses', 'tool_uploadcourse');
-        $mform1->display();
-        echo $OUTPUT->footer();
-        die();
-    }
+	$mform1 = new tool_uploadcourse_step1_form();
+	if ($form1data = $mform1->get_data()) {
+		$importid = csv_import_reader::get_new_iid('uploadcourse');
+		$cir = new csv_import_reader($importid, 'uploadcourse');
+		$content = $mform1->get_file_content('coursefile');
+		$readcount = $cir->load_csv_content($content, $form1data->encoding, $form1data->delimiter_name);
+		unset($content);
+		if ($readcount === false) {
+			print_error('csvfileerror', 'tool_uploadcourse', $returnurl, $cir->get_error());
+		} else if ($readcount == 0) {
+			print_error('csvemptyfile', 'error', $returnurl, $cir->get_error());
+		}
+	} else {
+		echo $OUTPUT->header();
+		echo $OUTPUT->heading_with_help(get_string('uploadcourses', 'tool_uploadcourse'), 'uploadcourses', 'tool_uploadcourse');
+		$mform1->display();
+		echo $OUTPUT->footer();
+		die();
+	}
 } else {
-    $cir = new csv_import_reader($importid, 'uploadcourse');
+	$cir = new csv_import_reader($importid, 'uploadcourse');
 }
 
 // Data to set in the form.
 $data = array('importid' => $importid, 'previewrows' => $previewrows);
 if (!empty($form1data)) {
-    // Get options from the first form to pass it onto the second.
-    foreach ($form1data->options as $key => $value) {
-        $data["options[$key]"] = $value;
-    }
+	// Get options from the first form to pass it onto the second.
+	foreach ($form1data->options as $key => $value) {
+		$data["options[$key]"] = $value;
+	}
 }
 $context = context_system::instance();
 $mform2 = new tool_uploadcourse_step2_form(null, array('contextid' => $context->id, 'columns' => $cir->get_columns(),
-    'data' => $data));
+		'data' => $data));
 
 // If a file has been uploaded, then process it.
 if ($form2data = $mform2->is_cancelled()) {
-    $cir->cleanup(true);
-    redirect($returnurl);
+	$cir->cleanup(true);
+	redirect($returnurl);
 } else if ($form2data = $mform2->get_data()) {
 
-    $options = (array) $form2data->options;
-    $defaults = (array) $form2data->defaults;
+	$options = (array) $form2data->options;
+	$defaults = (array) $form2data->defaults;
 
-    // Restorefile deserves its own logic because formslib does not really appreciate
-    // when the name of a filepicker is an array...
-    $options['restorefile'] = '';
-    if (!empty($form2data->restorefile)) {
-        $options['restorefile'] = $mform2->save_temp_file('restorefile');
-    }
-    $processor = new tool_uploadcourse_processor($cir, $options, $defaults);
+	// Restorefile deserves its own logic because formslib does not really appreciate
+	// when the name of a filepicker is an array...
+	$options['restorefile'] = '';
+	if (!empty($form2data->restorefile)) {
+		$options['restorefile'] = $mform2->save_temp_file('restorefile');
+	}
+	$processor = new tool_uploadcourse_processor($cir, $options, $defaults);
 
-    echo $OUTPUT->header();
-    if (isset($form2data->showpreview)) {
-        echo $OUTPUT->heading(get_string('uploadcoursespreview', 'tool_uploadcourse'));
-        $processor->preview($previewrows, new tool_uploadcourse_tracker(tool_uploadcourse_tracker::OUTPUT_HTML));
-        $mform2->display();
-    } else {
-        echo $OUTPUT->heading(get_string('uploadcoursesresult', 'tool_uploadcourse'));
-        $processor->execute(new tool_uploadcourse_tracker(tool_uploadcourse_tracker::OUTPUT_HTML));
-        echo $OUTPUT->continue_button($returnurl);
-    }
+	echo $OUTPUT->header();
+	if (isset($form2data->showpreview)) {
+		echo $OUTPUT->heading(get_string('uploadcoursespreview', 'tool_uploadcourse'));
+		$processor->preview($previewrows, new tool_uploadcourse_tracker(tool_uploadcourse_tracker::OUTPUT_HTML));
+		$mform2->display();
+	} else {
+		echo $OUTPUT->heading(get_string('uploadcoursesresult', 'tool_uploadcourse'));
+		$processor->execute(new tool_uploadcourse_tracker(tool_uploadcourse_tracker::OUTPUT_HTML));
+		echo $OUTPUT->continue_button($returnurl);
+	}
 
-    // Deleting the file after processing or preview.
-    if (!empty($options['restorefile'])) {
-        @unlink($options['restorefile']);
-    }
+	// Deleting the file after processing or preview.
+	if (!empty($options['restorefile'])) {
+		@unlink($options['restorefile']);
+	}
 
 } else {
-    $processor = new tool_uploadcourse_processor($cir, $form1data->options, array());
-    echo $OUTPUT->header();
-    echo $OUTPUT->heading(get_string('uploadcoursespreview', 'tool_uploadcourse'));
-    $processor->preview($previewrows, new tool_uploadcourse_tracker(tool_uploadcourse_tracker::OUTPUT_HTML));
-    $mform2->display();
+	$processor = new tool_uploadcourse_processor($cir, $form1data->options, array());
+	echo $OUTPUT->header();
+	echo $OUTPUT->heading(get_string('uploadcoursespreview', 'tool_uploadcourse'));
+	$processor->preview($previewrows, new tool_uploadcourse_tracker(tool_uploadcourse_tracker::OUTPUT_HTML));
+	$mform2->display();
 }
 
 echo $OUTPUT->footer();

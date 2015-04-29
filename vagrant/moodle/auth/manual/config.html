@@ -36,43 +36,51 @@
     );
 ?>
 <table cellspacing="0" cellpadding="5" border="0">
-    <tr>
-        <td colspan="3">
-            <h3><?php print_string('passwdexpire_settings', 'auth_manual') ?></h3>
-        </td>
-    </tr>
-    <tr>
-        <td align="right">
-            <label for="menuexpiration">
-                <?php print_string('expiration', 'auth_manual') ?>
-            </label>
-        </td>
-        <td>
-            <?php echo html_writer::select($expirationoptions, 'expiration', $config->expiration, false) ?>
-        </td>
-        <td><?php print_string('expiration_desc', 'auth_manual') ?></td>
-    </tr>
-    <tr>
-        <td align="right">
-            <label for="menuexpirationtime">
-                <?php print_string('passwdexpiretime', 'auth_manual') ?>
-            </label>
-        </td>
-        <td>
-            <?php echo html_writer::select($expirationtimeoptions, 'expirationtime', $config->expirationtime, false) ?>
-        </td>
-        <td><?php print_string('passwdexpiretime_desc', 'auth_manual') ?></td>
-    </tr>
-    <tr>
-        <td align="right">
-            <label for="menuexpiration_warning">
-                <?php print_string('expiration_warning', 'auth_manual') ?>
-            </label>
-        </td>
-        <td>
-            <?php echo html_writer::select($expirationwarningoptions, 'expiration_warning', $config->expiration_warning, false) ?>
-        </td>
-        <td><?php print_string('expiration_warning_desc', 'auth_manual') ?></td>
-    </tr>
-    <?php print_auth_lock_options($this->authtype, $user_fields, get_string('auth_fieldlocks_help', 'auth'), false, false) ?>
+	<tr>
+		<td colspan="3">
+			<h3>
+				<?php print_string('passwdexpire_settings', 'auth_manual') ?>
+			</h3>
+		</td>
+	</tr>
+	<tr>
+		<td align="right">
+			<label for="menuexpiration">
+				<?php print_string('expiration', 'auth_manual') ?>
+			</label>
+		</td>
+		<td>
+			<?php echo html_writer::select($expirationoptions, 'expiration', $config->expiration, false) ?>
+		</td>
+		<td>
+			<?php print_string('expiration_desc', 'auth_manual') ?>
+		</td>
+	</tr>
+	<tr>
+		<td align="right">
+			<label for="menuexpirationtime">
+				<?php print_string('passwdexpiretime', 'auth_manual') ?>
+			</label>
+		</td>
+		<td>
+			<?php echo html_writer::select($expirationtimeoptions, 'expirationtime', $config->expirationtime, false) ?>
+		</td>
+		<td>
+			<?php print_string('passwdexpiretime_desc', 'auth_manual') ?>
+		</td>
+	</tr>
+	<tr>
+		<td align="right">
+			<label for="menuexpiration_warning">
+				<?php print_string('expiration_warning', 'auth_manual') ?>
+			</label>
+		</td>
+		<td>
+			<?php echo html_writer::select($expirationwarningoptions, 'expiration_warning', $config->expiration_warning, false) ?>
+		</td>
+		<td>
+			<?php print_string('expiration_warning_desc', 'auth_manual') ?>
+		</td>
+	</tr>
+	<?php print_auth_lock_options($this->authtype, $user_fields, get_string('auth_fieldlocks_help', 'auth'), false, false) ?>
 </table>

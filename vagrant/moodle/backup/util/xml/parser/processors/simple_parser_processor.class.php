@@ -30,7 +30,7 @@ require_once($CFG->dirroot.'/backup/util/xml/parser/processors/progressive_parse
  */
 class simple_parser_processor extends progressive_parser_processor {
 
-   public function process_chunk($data) {
-       print_r($data); // Simply output chunk, for testing purposes
-   }
+	public function process_chunk($data) {
+		print_r($data); // Simply output chunk, for testing purposes
+	}
 }

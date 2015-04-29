@@ -22,7 +22,7 @@
  * @copyright  2012 onwards Totara Learning Solutions Ltd {@link http://www.totaralms.com/}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @author     Yuliya Bozhko <yuliya.bozhko@totaralms.com>
- */
+*/
 
 defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot . "/user/lib.php");
@@ -33,209 +33,209 @@ require_once($CFG->dirroot . "/user/lib.php");
  */
 class award_criteria_profile extends award_criteria {
 
-    /* @var int Criteria [BADGE_CRITERIA_TYPE_PROFILE] */
-    public $criteriatype = BADGE_CRITERIA_TYPE_PROFILE;
+	/* @var int Criteria [BADGE_CRITERIA_TYPE_PROFILE] */
+	public $criteriatype = BADGE_CRITERIA_TYPE_PROFILE;
 
-    public $required_param = 'field';
-    public $optional_params = array();
+	public $required_param = 'field';
+	public $optional_params = array();
 
-    /**
-     * Add appropriate new criteria options to the form
-     *
-     */
-    public function get_options(&$mform) {
-        global $DB;
+	/**
+	 * Add appropriate new criteria options to the form
+	 *
+	 */
+	public function get_options(&$mform) {
+		global $DB;
 
-        $none = true;
-        $existing = array();
-        $missing = array();
+		$none = true;
+		$existing = array();
+		$missing = array();
 
-        // Note: cannot use user_get_default_fields() here because it is not possible to decide which fields user can modify.
-        $dfields = array('firstname', 'lastname', 'email', 'address', 'phone1', 'phone2', 'icq', 'skype', 'yahoo',
-                         'aim', 'msn', 'department', 'institution', 'description', 'city', 'url', 'country');
+		// Note: cannot use user_get_default_fields() here because it is not possible to decide which fields user can modify.
+		$dfields = array('firstname', 'lastname', 'email', 'address', 'phone1', 'phone2', 'icq', 'skype', 'yahoo',
+				'aim', 'msn', 'department', 'institution', 'description', 'city', 'url', 'country');
 
-        $sql = "SELECT uf.id as fieldid, uf.name as name, ic.id as categoryid, ic.name as categoryname, uf.datatype
-                FROM {user_info_field} uf
-                JOIN {user_info_category} ic
-                ON uf.categoryid = ic.id AND uf.visible <> 0
-                ORDER BY ic.sortorder ASC, uf.sortorder ASC";
+		$sql = "SELECT uf.id as fieldid, uf.name as name, ic.id as categoryid, ic.name as categoryname, uf.datatype
+		FROM {user_info_field} uf
+		JOIN {user_info_category} ic
+		ON uf.categoryid = ic.id AND uf.visible <> 0
+		ORDER BY ic.sortorder ASC, uf.sortorder ASC";
 
-        // Get custom fields.
-        $cfields = $DB->get_records_sql($sql);
-        $cfids = array_map(create_function('$o', 'return $o->fieldid;'), $cfields);
+		// Get custom fields.
+		$cfields = $DB->get_records_sql($sql);
+		$cfids = array_map(create_function('$o', 'return $o->fieldid;'), $cfields);
 
-        if ($this->id !== 0) {
-            $existing = array_keys($this->params);
-            $missing = array_diff($existing, array_merge($dfields, $cfids));
-        }
+		if ($this->id !== 0) {
+			$existing = array_keys($this->params);
+			$missing = array_diff($existing, array_merge($dfields, $cfids));
+		}
 
-        if (!empty($missing)) {
-            $mform->addElement('header', 'category_errors', get_string('criterror', 'badges'));
-            $mform->addHelpButton('category_errors', 'criterror', 'badges');
-            foreach ($missing as $m) {
-                $this->config_options($mform, array('id' => $m, 'checked' => true, 'name' => get_string('error:nosuchfield', 'badges'), 'error' => true));
-                $none = false;
-            }
-        }
+		if (!empty($missing)) {
+			$mform->addElement('header', 'category_errors', get_string('criterror', 'badges'));
+			$mform->addHelpButton('category_errors', 'criterror', 'badges');
+			foreach ($missing as $m) {
+				$this->config_options($mform, array('id' => $m, 'checked' => true, 'name' => get_string('error:nosuchfield', 'badges'), 'error' => true));
+				$none = false;
+			}
+		}
 
-        if (!empty($dfields)) {
-            $mform->addElement('header', 'first_header', $this->get_title());
-            $mform->addHelpButton('first_header', 'criteria_' . $this->criteriatype, 'badges');
-            foreach ($dfields as $field) {
-                $checked = false;
-                if (in_array($field, $existing)) {
-                    $checked = true;
-                }
-                $this->config_options($mform, array('id' => $field, 'checked' => $checked, 'name' => get_user_field_name($field), 'error' => false));
-                $none = false;
-            }
-        }
+		if (!empty($dfields)) {
+			$mform->addElement('header', 'first_header', $this->get_title());
+			$mform->addHelpButton('first_header', 'criteria_' . $this->criteriatype, 'badges');
+			foreach ($dfields as $field) {
+				$checked = false;
+				if (in_array($field, $existing)) {
+					$checked = true;
+				}
+				$this->config_options($mform, array('id' => $field, 'checked' => $checked, 'name' => get_user_field_name($field), 'error' => false));
+				$none = false;
+			}
+		}
 
-        if (!empty($cfields)) {
-            foreach ($cfields as $field) {
-                if (!isset($currentcat) || $currentcat != $field->categoryid) {
-                    $currentcat = $field->categoryid;
-                    $mform->addElement('header', 'category_' . $currentcat, format_string($field->categoryname));
-                }
-                $checked = false;
-                if (in_array($field->fieldid, $existing)) {
-                    $checked = true;
-                }
-                $this->config_options($mform, array('id' => $field->fieldid, 'checked' => $checked, 'name' => $field->name, 'error' => false));
-                $none = false;
-            }
-        }
+		if (!empty($cfields)) {
+			foreach ($cfields as $field) {
+				if (!isset($currentcat) || $currentcat != $field->categoryid) {
+					$currentcat = $field->categoryid;
+					$mform->addElement('header', 'category_' . $currentcat, format_string($field->categoryname));
+				}
+				$checked = false;
+				if (in_array($field->fieldid, $existing)) {
+					$checked = true;
+				}
+				$this->config_options($mform, array('id' => $field->fieldid, 'checked' => $checked, 'name' => $field->name, 'error' => false));
+				$none = false;
+			}
+		}
 
-        // Add aggregation.
-        if (!$none) {
-            $mform->addElement('header', 'aggregation', get_string('method', 'badges'));
-            $agg = array();
-            $agg[] =& $mform->createElement('radio', 'agg', '', get_string('allmethodprofile', 'badges'), 1);
-            $agg[] =& $mform->createElement('static', 'none_break', null, '<br/>');
-            $agg[] =& $mform->createElement('radio', 'agg', '', get_string('anymethodprofile', 'badges'), 2);
-            $mform->addGroup($agg, 'methodgr', '', array(' '), false);
-            if ($this->id !== 0) {
-                $mform->setDefault('agg', $this->method);
-            } else {
-                $mform->setDefault('agg', BADGE_CRITERIA_AGGREGATION_ANY);
-            }
-        }
+		// Add aggregation.
+		if (!$none) {
+			$mform->addElement('header', 'aggregation', get_string('method', 'badges'));
+			$agg = array();
+			$agg[] =& $mform->createElement('radio', 'agg', '', get_string('allmethodprofile', 'badges'), 1);
+			$agg[] =& $mform->createElement('static', 'none_break', null, '<br/>');
+			$agg[] =& $mform->createElement('radio', 'agg', '', get_string('anymethodprofile', 'badges'), 2);
+			$mform->addGroup($agg, 'methodgr', '', array(' '), false);
+			if ($this->id !== 0) {
+				$mform->setDefault('agg', $this->method);
+			} else {
+				$mform->setDefault('agg', BADGE_CRITERIA_AGGREGATION_ANY);
+			}
+		}
 
-        return array($none, get_string('noparamstoadd', 'badges'));
-    }
+		return array($none, get_string('noparamstoadd', 'badges'));
+	}
 
-    /**
-     * Get criteria details for displaying to users
-     *
-     * @return string
-     */
-    public function get_details($short = '') {
-        global $DB, $OUTPUT;
-        $output = array();
-        foreach ($this->params as $p) {
-            if (is_numeric($p['field'])) {
-                $str = $DB->get_field('user_info_field', 'name', array('id' => $p['field']));
-            } else {
-                $str = get_user_field_name($p['field']);
-            }
-            if (!$str) {
-                $output[] = $OUTPUT->error_text(get_string('error:nosuchfield', 'badges'));
-            } else {
-                $output[] = $str;
-            }
-        }
+	/**
+	 * Get criteria details for displaying to users
+	 *
+	 * @return string
+	 */
+	public function get_details($short = '') {
+		global $DB, $OUTPUT;
+		$output = array();
+		foreach ($this->params as $p) {
+			if (is_numeric($p['field'])) {
+				$str = $DB->get_field('user_info_field', 'name', array('id' => $p['field']));
+			} else {
+				$str = get_user_field_name($p['field']);
+			}
+			if (!$str) {
+				$output[] = $OUTPUT->error_text(get_string('error:nosuchfield', 'badges'));
+			} else {
+				$output[] = $str;
+			}
+		}
 
-        if ($short) {
-            return implode(', ', $output);
-        } else {
-            return html_writer::alist($output, array(), 'ul');
-        }
-    }
+		if ($short) {
+			return implode(', ', $output);
+		} else {
+			return html_writer::alist($output, array(), 'ul');
+		}
+	}
 
-    /**
-     * Review this criteria and decide if it has been completed
-     *
-     * @param int $userid User whose criteria completion needs to be reviewed.
-     * @param bool $filtered An additional parameter indicating that user list
-     *        has been reduced and some expensive checks can be skipped.
-     *
-     * @return bool Whether criteria is complete
-     */
-    public function review($userid, $filtered = false) {
-        global $DB;
+	/**
+	 * Review this criteria and decide if it has been completed
+	 *
+	 * @param int $userid User whose criteria completion needs to be reviewed.
+	 * @param bool $filtered An additional parameter indicating that user list
+	 *        has been reduced and some expensive checks can be skipped.
+	 *
+	 * @return bool Whether criteria is complete
+	 */
+	public function review($userid, $filtered = false) {
+		global $DB;
 
-        // Users were already filtered by criteria completion, no checks required.
-        if ($filtered) {
-            return true;
-        }
+		// Users were already filtered by criteria completion, no checks required.
+		if ($filtered) {
+			return true;
+		}
 
-        $join = '';
-        $where = '';
-        $sqlparams = array();
-        $rule = ($this->method == BADGE_CRITERIA_AGGREGATION_ANY) ? ' OR ' : ' AND ';
+		$join = '';
+		$where = '';
+		$sqlparams = array();
+		$rule = ($this->method == BADGE_CRITERIA_AGGREGATION_ANY) ? ' OR ' : ' AND ';
 
-        foreach ($this->params as $param) {
-            if (is_numeric($param['field'])) {
-                $infodata[] = " uid.fieldid = :fieldid{$param['field']} ";
-                $sqlparams["fieldid{$param['field']}"] = $param['field'];
-            } else {
-                $userdata[] = $DB->sql_isnotempty('u', "u.{$param['field']}", false, true);
-            }
-        }
+		foreach ($this->params as $param) {
+			if (is_numeric($param['field'])) {
+				$infodata[] = " uid.fieldid = :fieldid{$param['field']} ";
+				$sqlparams["fieldid{$param['field']}"] = $param['field'];
+			} else {
+				$userdata[] = $DB->sql_isnotempty('u', "u.{$param['field']}", false, true);
+			}
+		}
 
-        // Add user custom field parameters if there are any.
-        if (!empty($infodata)) {
-            $extraon = implode($rule, $infodata);
-            $join = " LEFT JOIN {user_info_data} uid ON uid.userid = u.id AND ({$extraon})";
-        }
+		// Add user custom field parameters if there are any.
+		if (!empty($infodata)) {
+			$extraon = implode($rule, $infodata);
+			$join = " LEFT JOIN {user_info_data} uid ON uid.userid = u.id AND ({$extraon})";
+		}
 
-        // Add user table field parameters if there are any.
-        if (!empty($userdata)) {
-            $extraon = implode($rule, $userdata);
-            $where = " AND ({$extraon})";
-        }
+		// Add user table field parameters if there are any.
+		if (!empty($userdata)) {
+			$extraon = implode($rule, $userdata);
+			$where = " AND ({$extraon})";
+		}
 
-        $sqlparams['userid'] = $userid;
-        $sql = "SELECT u.* FROM {user} u " . $join . " WHERE u.id = :userid " . $where;
-        $overall = $DB->record_exists_sql($sql, $sqlparams);
+		$sqlparams['userid'] = $userid;
+		$sql = "SELECT u.* FROM {user} u " . $join . " WHERE u.id = :userid " . $where;
+		$overall = $DB->record_exists_sql($sql, $sqlparams);
 
-        return $overall;
-    }
+		return $overall;
+	}
 
-    /**
-     * Returns array with sql code and parameters returning all ids
-     * of users who meet this particular criterion.
-     *
-     * @return array list($join, $where, $params)
-     */
-    public function get_completed_criteria_sql() {
-        global $DB;
+	/**
+	 * Returns array with sql code and parameters returning all ids
+	 * of users who meet this particular criterion.
+	 *
+	 * @return array list($join, $where, $params)
+	 */
+	public function get_completed_criteria_sql() {
+		global $DB;
 
-        $join = '';
-        $where = '';
-        $params = array();
-        $rule = ($this->method == BADGE_CRITERIA_AGGREGATION_ANY) ? ' OR ' : ' AND ';
+		$join = '';
+		$where = '';
+		$params = array();
+		$rule = ($this->method == BADGE_CRITERIA_AGGREGATION_ANY) ? ' OR ' : ' AND ';
 
-        foreach ($this->params as $param) {
-            if (is_numeric($param['field'])) {
-                $infodata[] = " uid.fieldid = :fieldid{$param['field']} ";
-                $params["fieldid{$param['field']}"] = $param['field'];
-            } else {
-                $userdata[] = $DB->sql_isnotempty('u', "u.{$param['field']}", false, true);
-            }
-        }
+		foreach ($this->params as $param) {
+			if (is_numeric($param['field'])) {
+				$infodata[] = " uid.fieldid = :fieldid{$param['field']} ";
+				$params["fieldid{$param['field']}"] = $param['field'];
+			} else {
+				$userdata[] = $DB->sql_isnotempty('u', "u.{$param['field']}", false, true);
+			}
+		}
 
-        // Add user custom fields if there are any.
-        if (!empty($infodata)) {
-            $extraon = implode($rule, $infodata);
-            $join = " LEFT JOIN {user_info_data} uid ON uid.userid = u.id AND ({$extraon})";
-        }
+		// Add user custom fields if there are any.
+		if (!empty($infodata)) {
+			$extraon = implode($rule, $infodata);
+			$join = " LEFT JOIN {user_info_data} uid ON uid.userid = u.id AND ({$extraon})";
+		}
 
-        // Add user table fields if there are any.
-        if (!empty($userdata)) {
-            $extraon = implode($rule, $userdata);
-            $where = " AND ({$extraon})";
-        }
-        return array($join, $where, $params);
-    }
+		// Add user table fields if there are any.
+		if (!empty($userdata)) {
+			$extraon = implode($rule, $userdata);
+			$where = " AND ({$extraon})";
+		}
+		return array($join, $where, $params);
+	}
 }
