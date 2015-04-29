@@ -38,10 +38,6 @@ $urlview = '/blocks/course_extended/view.php';
 // Next look for optional variables.
 $id = optional_param('id', 0, PARAM_INT);
 
-//if (!$course = $DB->get_record('course', array('id' => $courseid))) {
-//    print_error('invalidcourse', $blockcourseextended, $courseid);
-//}
-
 if (!$cm = get_coursemodule_from_id($blockcourseextended, $id)) {
     print_error('invalidcoursemodule');
 }
@@ -58,11 +54,11 @@ courseextended_page_check_view_permissions($page, $context, $cm);
 // ...$context = context_module::instance($cm->id);.
 require_capability('mod/descriptionpage:view', $context);
 
-// Access control.
-//require_login($course);
-//require_capability('moodle/site:config', context_system::instance());
+// ...Access control.
+// ...require_login($course);
+// ...require_capability('moodle/site:config', context_system::instance());.
 
-//$context = context_system::instance();
+// ...$context = context_system::instance();.
 
 // New object or update ?
 $extendedcourse = new stdClass();

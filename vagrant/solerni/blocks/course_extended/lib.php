@@ -40,7 +40,7 @@ function block_course_extended_pluginfile($course, $cm, $context, $filearea, $ar
         return false;
     }
 
-    require_login(0,false);
+    require_login(0, false);
     if ($filearea != 'coursepicture') {
         return false;
     }

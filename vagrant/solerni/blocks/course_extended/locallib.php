@@ -110,9 +110,7 @@ function count_badges() {
  */
 function courseextended_page_check_view_permissions($page, $context, $cm=null) {
     global $COURSE, $PAGE, $DB;
-echo "courseextended_page_check_view_permissions";
     $capability = 'block/course_extended:view';
-    print_object($page->maxvisibility) ;
 
     switch ($page->maxvisibility) {
         case COURSEEXTENDEDPAGE_VISIBILITY_PUBLIC:

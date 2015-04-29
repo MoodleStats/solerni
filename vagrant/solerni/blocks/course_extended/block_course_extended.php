@@ -66,20 +66,10 @@ class block_course_extended extends block_base {
         return true;
     }
 
-   public function instance_config_save($data, $nolongerused = false) {
-        //if (get_config('block_course_extended', 'maxvisibility') == '1') {
-        //    $data->text = strip_tags($data->text);
-        //}
-        // And now forward to the default implementation defined in the parent class.
+    public function instance_config_save($data, $nolongerused = false) {
         return parent::instance_config_save($data, $nolongerused);
     }
 
- /*       public function instance_config_commit($nolongerused = false){
-            print_object($this->config);
-            return set_field('block_course_extended','maxvisibility', base64_encode(serialize($this->config)), 'id', $this->instance->id);
-        }
-  * /
- 
     /**
      * Amend the block instance after it is loaded
      */

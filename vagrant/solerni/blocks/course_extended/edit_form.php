@@ -45,7 +45,7 @@ class block_course_extended_edit_form extends block_edit_form {
                 $this->config->text = get_string('defaulttext', 'block_course_extended');
             }
         }
-        
+
         // Adding the "maxvisibility" field.
         $options = array(
             COURSEEXTENDEDPAGE_VISIBILITY_COURSEUSER => get_string('visiblecourseusers', 'block_course_extended'),
