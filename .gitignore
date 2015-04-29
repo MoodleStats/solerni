@@ -1,8 +1,7 @@
-vagrant/moodledata/*
 !vagrant/moodledata/lang
 vagrant/moodledata/*
-vagrant/override
 !vagrant/override/lang
+vagrant/override/*
 vagrant/system
 .vagrant
 vagrant/solerni/nbproject
@@ -14,4 +13,3 @@ codechecker
 codecheck
 vagrant/solerni/local/goodbye
 vagrant/solerni/local/codechecker
-
