@@ -15,9 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Page module version information
+ * Page module view
  *
- * @package mod_descriptionpage
+ * @package mod
+ * @subpackage descriptionpage
  * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -88,12 +89,12 @@ $phpfile = 'pluginfile.php';
 $ctxid = $context->id;
 $mddesc = 'mod_descriptionpage';
 $prev = $page->revision;
-$content = file_rewrite_pluginfile_urls($pct, $phpfile, $ctxid, $mddesc, 'content', $prev);
+$contentrewrited = file_rewrite_pluginfile_urls($pct, $phpfile, $ctxid, $mddesc, 'content', $prev);
 $formatoptions = new stdClass;
 $formatoptions->noclean = true;
 $formatoptions->overflowdiv = true;
 $formatoptions->context = $context;
-$content = format_text($content, $page->contentformat, $formatoptions);
+$content = format_text($contentrewrited, $page->contentformat, $formatoptions);
 echo $OUTPUT->box($content, "generalbox center clearfix");
 
 $strlastmodified = get_string("lastmodified");

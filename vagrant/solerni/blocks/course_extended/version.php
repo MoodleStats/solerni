@@ -24,7 +24,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component  = 'block_course_extended';
-$plugin->release    = '3.0';
-$plugin->version    = 2015041500;
+$plugin->release    = '1.0';
+$plugin->version    = 2015041501;
 $plugin->requires   = 2014051200; // Moodle 2.7.
 $plugin->maturity   = MATURITY_STABLE;

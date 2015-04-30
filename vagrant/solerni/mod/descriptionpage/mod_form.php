@@ -17,7 +17,8 @@
 /**
  * Page configuration form
  *
- * @package mod_descriptionpage
+ * @package mod
+ * @subpackage descriptionpage
  * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -31,7 +32,7 @@ require_once($CFG->libdir.'/filelib.php');
 
 class mod_descriptionpage_mod_form extends moodleform_mod {
     public function definition() {
-        global $CFG, $DB;
+        global $CFG;
 
         $mform = $this->_form;
 

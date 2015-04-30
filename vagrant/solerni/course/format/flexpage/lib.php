@@ -192,7 +192,7 @@ class format_flexpage extends format_base {
         }
         $records->close();
     }
-    
+
     /**
      * Definitions of the additional options that this course format uses for course
      *
@@ -233,9 +233,9 @@ class format_flexpage extends format_base {
      * @return array of options
      */
     public function course_format_options($foreditform = false) {
-        global $CFG,$DB;
+        global $CFG;
         static $courseformatoptions = false;
-           
+
         if ($courseformatoptions === false) {
             $courseconfig = get_config('moodlecourse');
             $courseformatoptions = array(
@@ -252,47 +252,47 @@ class format_flexpage extends format_base {
                     'type' => PARAM_INT,
                 ),
                 'coursestatus' => array(
-                    'default' => get_config('status','format_flexpage'),
+                    'default' => get_config('status', 'format_flexpage'),
                     'type' => PARAM_INT,
                 ),
                 'coursepicture' => array(
-                    'default' => get_config('picture','format_flexpage'),
+                    'default' => get_config('picture', 'format_flexpage'),
                     'type' => PARAM_CLEANFILE,
                 ),
                 'courseenddate' => array(
-                    'default' => get_config('enddate','format_flexpage'),
+                    'default' => get_config('enddate', 'format_flexpage'),
                     'type' => PARAM_INT,
                 ),
                 'courseworkingtime' => array(
-                    'default' => get_config('workingtime','format_flexpage'),
+                    'default' => get_config('workingtime', 'format_flexpage'),
                     'type' => PARAM_INT,
                 ),
                 'courseprice' => array(
-                    'default' => get_config('price','format_flexpage'),
+                    'default' => get_config('price', 'format_flexpage'),
                     'type' => PARAM_INT,
                 ),
                 'coursevideo' => array(
-                    'default' => get_config('video','format_flexpage'),
+                    'default' => get_config('video', 'format_flexpage'),
                     'type' => PARAM_INT,
                 ),
                 'registration_startdate' => array(
-                    'default' => get_config('registration_startdate','format_flexpage'),
+                    'default' => get_config('registration_startdate', 'format_flexpage'),
                     'type' => PARAM_INT,
                 ),
                 'registration_enddate' => array(
-                    'default' => get_config('registration_enddate','format_flexpage'),
+                    'default' => get_config('registration_enddate', 'format_flexpage'),
                     'type' => PARAM_INT,
                 ),
                 'courseteachingteam' => array(
-                    'default' => get_config('teachingteam','format_flexpage'),
+                    'default' => get_config('teachingteam', 'format_flexpage'),
                     'type' => PARAM_NOTAGS,
                 ),
                 'courseprerequesites' => array(
-                    'default' => get_config('prerequesites','format_flexpage'),
+                    'default' => get_config('prerequesites', 'format_flexpage'),
                     'type' => PARAM_TEXT,
                 ),
                 'duration' => array(
-                    'default' => get_config('duration','format_flexpage'),
+                    'default' => get_config('duration', 'format_flexpage'),
                     'type' => PARAM_INT,
                 )
             );
@@ -354,11 +354,11 @@ class format_flexpage extends format_base {
                     'label' => new lang_string('picture', 'format_flexpage'),
                     'element_type' => 'filemanager',
                     'element_attributes' => array(
-                            'subdirs' => 0, 
-                            'maxbytes' => $CFG->maxbytes, 
+                            'subdirs' => 0,
+                            'maxbytes' => $CFG->maxbytes,
                             'maxfiles' => 1,
-                            'accepted_types' => array('document'), 
-                            'return_types'=> FILE_INTERNAL | FILE_EXTERNAL
+                            'accepted_types' => array('document'),
+                            'return_types' => FILE_INTERNAL | FILE_EXTERNAL
                         ),
                     'help' => 'picture',
                     'help_component' => 'format_flexpage',
@@ -367,7 +367,7 @@ class format_flexpage extends format_base {
                     'label' => get_string('enddate', 'format_flexpage'),
                     'help' => 'enddate',
                     'help_component' => 'format_flexpage',
-                    'element_type' => 'date_selector'                 
+                    'element_type' => 'date_selector'
                 ),
                 'courseworkingtime' => array(
                     'label' => get_string('workingtime', 'format_flexpage'),
@@ -404,13 +404,13 @@ class format_flexpage extends format_base {
                     'label' => get_string('registration_startdate', 'format_flexpage'),
                     'help' => 'registration_startdate',
                     'help_component' => 'format_flexpage',
-                    'element_type' => 'date_selector'                 
+                    'element_type' => 'date_selector'
                 ),
                'registration_enddate' => array(
                     'label' => get_string('registration_enddate', 'format_flexpage'),
                     'help' => 'registration_enddate',
                     'help_component' => 'format_flexpage',
-                    'element_type' => 'date_selector'                 
+                    'element_type' => 'date_selector'
                 ),
                 'courseteachingteam' => array(
                     'label' => get_string('teachingteam', 'format_flexpage'),
@@ -440,10 +440,11 @@ class format_flexpage extends format_base {
             );
             $courseformatoptions = array_merge_recursive($courseformatoptions, $courseformatoptionsedit);
         }
-        return $courseformatoptions;    
-        
+        return $courseformatoptions;
+
     }
-        /**
+
+   /**
      * Updates format options for a course
      *
      * If $data does not contain property with the option name, the option will not be updated
@@ -485,42 +486,42 @@ class format_flexpage extends format_base {
     //$cacherepo->delete_course_cache($courseid);
 }*/
 /**
- * 
+ *
  *
  * @param int $courseid
  * @return file
  */
 function format_flexpage_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options=array()) {
     global $DB;
-       
+
     if ($context->contextlevel != CONTEXT_COURSE) {
         return false;
     }
-    
-    //requirelogin supressed to allow course image 
-    //require_login();
+
+    // ...requirelogin supressed to allow course image.
+    // ...require_login();.
     if ($filearea != 'coursepicture') {
         return false;
     }
-    
+
     $itemid = (int)array_shift($args);
     if ($itemid != 0) {
         return false;
     }
-    
+
     $fs = get_file_storage();
     $filename = array_pop($args);
-    
+
     if (empty($args)) {
         $filepath = '/';
     } else {
         $filepath = '/'.implode('/', $args).'/';
     }
-    
+
     $file = $fs->get_file($context->id, 'format_flexpage', $filearea, $itemid, $filepath, $filename);
     if (!$file) {
         return false;
     }
-    
+
     send_stored_file($file, 0, 0, $forcedownload, $options);
 }

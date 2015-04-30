@@ -105,8 +105,8 @@ $string['title_help'] = 'Leave this field empty to use the default block title. 
 $string['enumerate'] = 'Enumerate section titles';
 $string['enumerate_label'] = 'If enabled, the section number is displayed before the section title';
 $string['notusingsections'] = 'This course format does not use sections.';
-$string['pluginname'] = 'Course contents';
-$string['basics_title'] = 'Course contents';
+$string['pluginname'] = 'Extended Course';
+$string['basics_title'] = 'Extended Course';
 
 
 $string['startdate'] = 'start date: ';

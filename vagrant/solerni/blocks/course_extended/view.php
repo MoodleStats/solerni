@@ -18,7 +18,7 @@
  * Orange_customers front controller
  *
  * @package    block
- * @subpackage block_course_extended
+ * @subpackage course_extended
  * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -61,8 +61,6 @@ require_capability('mod/descriptionpage:view', $context);
 // ...$context = context_system::instance();.
 
 // New object or update ?
-$extendedcourse = new stdClass();
-$extendedcourse = $course;
 
 $PAGE->set_url($urlview, array('id' => $courseid));
 $PAGE->set_pagelayout('standard');
@@ -87,13 +85,14 @@ $optionsfilemanager = array(
     'subdirs' => 0,
     'accepted_types' => 'web_image'
 );
-
-if ($fromform = $courseextended->is_cancelled()) {
+$fromformcancelled = $courseextended->is_cancelled();
+$fromformdata = $courseextended->get_data();
+if ($fromformcancelled) {
     // Cancelled forms redirect to the course main page.
     $courseurl = new moodle_url($urlview, array('id' => $id, 'courseid' => $courseid, 'blockid' => $blockid));
     redirect($courseurl);
 
-} else if ($fromform = $courseextended->get_data()) {
+} else if ($fromformdata) {
     // We need to add code to appropriately act on and store the submitted data.
     // But for now we will just redirect back to the course main page.
     $courseurl = new moodle_url($urlview, array('id' => $id, 'courseid' => $courseid, 'blockid' => $blockid));

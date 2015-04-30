@@ -19,7 +19,7 @@
  *
  * @package     block_course_extended
  * @category    access
- * @copyright   2012 David Mudrak <david@moodle.com>
+ * @copyright   2015 Orange
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

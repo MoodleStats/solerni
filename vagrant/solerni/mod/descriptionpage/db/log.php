@@ -17,9 +17,9 @@
 /**
  * Definition of log events
  *
- * @package    mod_descriptionpage
  * @category   log
- * @package mod_descriptionpage
+ * @package mod
+ * @subpackage descriptionpage
  * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

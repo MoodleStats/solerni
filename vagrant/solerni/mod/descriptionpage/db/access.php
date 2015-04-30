@@ -17,7 +17,8 @@
 /**
  * Page module capability definition
  *
- * @package mod_descriptionpage
+ * @package mod
+ * @subpackage descriptionpage
  * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -26,7 +27,7 @@
 defined('MOODLE_INTERNAL') || die;
 
 $capabilities = array(
-    
+
     'mod/descriptionpage:view' => array(
         'captype' => 'read',
         'contextlevel' => CONTEXT_MODULE,
