@@ -264,6 +264,7 @@ class orange_rules  {
             $row[] = implode(' ', $buttons);
             $table->data[] = $row;
         }
+
         $rules->close();
         $this->list = $table;
 

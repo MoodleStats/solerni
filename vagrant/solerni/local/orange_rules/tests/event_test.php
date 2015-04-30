@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Orange Rules block.
  *
- * @package    block_orange_rules
+ * @package    local
+ * @subpackage orange_rules
  * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -31,7 +31,7 @@ require_once($CFG->dirroot . '/cohort/externallib.php');
 require_once($CFG->dirroot . '/local/orange_rules/lib.php');
 require_once($CFG->dirroot . '/cohort/lib.php');
 
-class block_orange_rules_events_testcase extends advanced_testcase {
+class local_orange_rules_events_testcase extends advanced_testcase {
 
     /**
      * Setup test data.
