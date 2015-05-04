@@ -33,7 +33,7 @@ $string['colourheading'] = 'Theme Colours';
 $string['colourheadingdesc'] = 'Customise site colours.';
 
 $string['socialiconsheading'] = 'Social Icons';
-$string['socialiconsheadingdesc'] = 'Customise social network icons.';
+$string['socialiconsheadingdesc'] = 'Customise social network urls.';
 
 $string['backcolor'] = 'Background Colour';
 $string['backcolordesc'] = 'Change the colour of the background. (This is the area either side of the main content and does not affect the main content area)';

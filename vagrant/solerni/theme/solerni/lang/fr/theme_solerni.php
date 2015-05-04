@@ -39,7 +39,7 @@ $string['colourheading'] = 'Couleurs du thème ';
 $string['colourheadingdesc'] = 'Modifier les couleurs du thème.';
 
 $string['socialiconsheading'] = 'Icônes des réseaux sociaux';
-$string['socialiconsheadingdesc'] = 'Modifie les icônes utilisées pour symboliser les réseaux sociaux.';
+$string['socialiconsheadingdesc'] = 'Définit les liens pour les réseaux sociaux.';
 
 $string['backcolor'] = 'Couleur de fond';
 $string['backcolordesc'] = 'Change la couleur de fond de la page';

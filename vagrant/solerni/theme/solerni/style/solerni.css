@@ -149,6 +149,11 @@ body {
     height:     40px;
 }
 
+.slrn-top-header__item.slrn-top-header__menu {
+    height:     40px !important;
+}
+
+
 .navbar .nav > li > a {
     padding: 8px 10px 0 10px;
 }
@@ -309,6 +314,10 @@ body {
         display:        block;
         height:         auto;
         border-bottom:  1px solid [[setting:grey2]];
+    }
+
+    .slrn-top-header__item.slrn-top-header__menu {
+        height:     auto !important;
     }
 
     .nav-collapse.collapse .slrn-topbar-item__active {
