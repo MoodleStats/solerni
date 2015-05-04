@@ -1,4 +1,18 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /*
  * @author    Orange / Solerni
@@ -6,8 +20,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$is_dashboard           = $this->is_menu_item_active( '/my' );
-$has_admin_capacity     = has_capability('moodle/site:config', get_context_instance(CONTEXT_SYSTEM));
+$isdashboard          = $this->is_menu_item_active( '/my' );
+$hasadmincapacity     = has_capability('moodle/site:config', get_context_instance(CONTEXT_SYSTEM));
 
 ?>
 
@@ -15,7 +29,7 @@ $has_admin_capacity     = has_capability('moodle/site:config', get_context_insta
     <a href="<?php echo $CFG->wwwroot; ?>/my">
         <?php echo get_string('dashboard', 'theme_solerni'); ?>
     </a>
-    <?php if ( $is_dashboard ) : ?>
+    <?php if ( $isdashboard ) : ?>
         <span class="slrn-topbar-item__active"></span>
     <?php endif; ?>
 </li>
@@ -38,7 +52,7 @@ $has_admin_capacity     = has_capability('moodle/site:config', get_context_insta
                 <?php echo get_string('editmyprofile'); ?>
             </a>
         </li>
-        <?php if ( $has_admin_capacity ) : ?>
+        <?php if ( $hasadmincapacity ) : ?>
         <li class="dropdown-menu__item">
             <a class="-not-uppercase" href="<?php echo $CFG->wwwroot ?>/admin/index.php">
                 <img class="profileicon" src="<?php echo $this->pix_url('a/settings', 'core') ?>" />

@@ -328,6 +328,11 @@ body {
         border-right:   0;
         margin:         0 !important;
     }
+
+    .slrn-lang-menu > .dropdown {
+        padding:    0;
+    }
+
 }
 
 @media screen and (max-width: 767px ) {

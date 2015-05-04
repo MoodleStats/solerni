@@ -48,7 +48,10 @@ $isfrontpage    = ( $PAGE->bodyid == "page-site-index" );
                 </ul>
             </div>
 
-            <a class="btn btn-navbar navbar-toggle slrn-btn-navbar slrn-top-header__item" data-toggle="collapse" data-target=".nav-collapse">
+            <a class="btn btn-navbar navbar-toggle slrn-btn-navbar slrn-top-header__item"
+               data-toggle="collapse"
+               data-target=".nav-collapse"
+            >
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -61,9 +64,9 @@ $isfrontpage    = ( $PAGE->bodyid == "page-site-index" );
 <div id="page" class="container-fluid">
 
 <header id="page-header" class="clearfix">
-    <?php if ($hasnavbar) { ?>
+    <?php if ($hasnavbar) : ?>
         <nav class="breadcrumb-button"><?php echo $PAGE->button; ?></nav>
         <?php echo $OUTPUT->navbar(); ?>
-    <?php } ?>
+    <?php endif; ?>
     <h1><?php echo $PAGE->heading ?></h1>
 </header>

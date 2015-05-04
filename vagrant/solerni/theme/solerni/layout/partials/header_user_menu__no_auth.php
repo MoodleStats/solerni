@@ -1,4 +1,18 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /*
  * @author    Orange / Solerni
@@ -6,20 +20,20 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$is_login       = $this->is_menu_item_active( '/login/index.php' );
-$is_register    = $this->is_menu_item_active( '/login/signup.php' )
+$islogin       = $this->is_menu_item_active( '/login/index.php' );
+$isregister    = $this->is_menu_item_active( '/login/signup.php' )
 
 ?>
 
-<li class="slrn-top-header__item<?php echo ( $is_login ) ? ' -is-active' : ''; ?>">
+<li class="slrn-top-header__item<?php echo ( $islogin ) ? ' -is-active' : ''; ?>">
     <a href="<?php echo $CFG->wwwroot ?>/login/index.php"><?php echo get_string('login', 'theme_solerni'); ?></a>
-    <?php if ( $is_login ) : ?>
+    <?php if ( $islogin ) : ?>
         <span class="slrn-topbar-item__active"></span>
     <?php endif; ?>
 </li>
-<li class="slrn-top-header__item<?php echo ( $is_register ) ? ' -is-active' : ''; ?>">
+<li class="slrn-top-header__item<?php echo ( $isregister ) ? ' -is-active' : ''; ?>">
     <a href="<?php echo $CFG->wwwroot ?>/login/signup.php"><?php echo get_string('register', 'theme_solerni'); ?></a>
-    <?php if ( $is_register ) : ?>
+    <?php if ( $isregister ) : ?>
         <span class="slrn-topbar-item__active"></span>
     <?php endif; ?>
 </li>

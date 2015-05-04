@@ -43,18 +43,16 @@ $haswikipedia = (!empty($PAGE->theme->settings->wikipedia));
     	<div class="span4">
     		<div id="footer-left" class="block-region">
     			<div class="region-content">
-       			 <?php if ($hascopyright) {
-        echo '&copy; '.date("Y").' '.$hascopyright.'';
-    } 
-	
-            echo $OUTPUT->login_info();			
-			echo $OUTPUT->standard_footer_html();
-			?><p class="helplink"><?php echo page_doc_link(get_string('moodledocslink')); ?></p><?php
+       			 <?php
+                 if ($hascopyright) { echo '&copy; '.date("Y").' '.$hascopyright.''; }
+                echo $OUTPUT->login_info();
+                echo $OUTPUT->standard_footer_html();
+                ?>
+                <p class="helplink"><?php echo page_doc_link(get_string('moodledocslink')); ?></p><?php
             if ($hasceop) {?><a href="<?php echo $PAGE->theme->settings->ceop;?> "><img src="<?php echo $OUTPUT->pix_url('ceopreport', 'theme')?>" /></a><?php }?>
         		</div>
         	</div>
     	</div>
-
     	<!-- widget 2 -->
     	<div class="span4">
     		<div id="footer-middle" class="block-region">
@@ -68,43 +66,43 @@ $haswikipedia = (!empty($PAGE->theme->settings->wikipedia));
     	<div class="span4">
     		<div id="footer-right" class="block-region">
     			<div class="region-content">
-				
+
 
 				<?php if ($hasandroid) {?><a href="<?php echo $PAGE->theme->settings->android;?> "><span class="footer-icon android"><i class="fa fa-android"></i></span></a> <?php } else {}?>
-       			
+
 				<?php if ($hasapple) {?><a href="<?php echo $PAGE->theme->settings->apple;?> "><span class="footer-icon apple"><i class="fa fa-apple"></i></span></a> <?php } else {}?>
-				
+
 				<?php if ($hasyoutube) {?><a href="<?php echo $PAGE->theme->settings->youtube;?> "><span class="footer-icon youtube"><i class="fa fa-youtube"></i></span></a> <?php } else {}?>
-				
+
 				<?php if ($haswikipedia) {?><a href="<?php echo $PAGE->theme->settings->wikipedia;?> "><span class="footer-icon wikipedia"><img src="<?php echo $OUTPUT->pix_url('footer-icons/wikipedia', 'theme')?>" /></span></a> <?php } else {}?>
 
 				<?php if ($haspinterest) {?><a href="<?php echo $PAGE->theme->settings->pinterest;?> "><span class="footer-icon pinterest"><i class="fa fa-pinterest"></i></span></a> <?php } else {}?>
 
 				<?php if ($haslinkedin) {?><a href="<?php echo $PAGE->theme->settings->linkedin;?> "><span class="footer-icon linkedin"><i class="fa fa-linkedin"></i></span></a> <?php } else {}?>
-											
+
 				<?php if ($hasinstagram) {?><a href="<?php echo $PAGE->theme->settings->instagram;?> "><span class="footer-icon instagram"><i class="fa fa-instagram"></i></span></a> <?php } else {}?>
-				
+
 				<?php if ($hasflickr) {?><a href="<?php echo $PAGE->theme->settings->flickr;?> "><span class="footer-icon flickr"><i class="fa fa-flickr"></i></span></a> <?php } else {}?>
-				
+
 				<?php if ($hasgoogleplus) {?><a href="<?php echo $PAGE->theme->settings->googleplus;?> "><span class="footer-icon googleplus"><i class="fa fa-google-plus"></i></span></a> <?php } else {}?>
-				
+
 				<?php if ($hastwitter) {?><a href="<?php echo $PAGE->theme->settings->twitter;?> "><span class="footer-icon twitter"><i class="fa fa-twitter"></i></span></a> <?php } else {}?>
-				
+
 				<?php if ($hasfacebook) {?><a href="<?php echo $PAGE->theme->settings->facebook;?> "><span class="footer-icon facebook"><i class="fa fa-facebook"></i></span></a> <?php } else {}?>
-				
+
 				<?php if ($haswebsite) {?><a href="<?php echo $PAGE->theme->settings->website;?> "><span class="footer-icon website"><i class="fa fa-globe"></i></span></a> <?php } else {}?>
-				
-				
-				
-				
-				
-				
+
+
+
+
+
+
         		</div>
         	</div>
     	</div>
 	</div>
 
-	<div class="footerlinks row-fluid">  	
+	<div class="footerlinks row-fluid">
 
             <?php // print_object($PAGE->url->get_path()); ?>
 	</div>

@@ -42,7 +42,7 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
      * Echo lang menu
      */
     public function solerni_lang_menu() {
-        return $this->render_custom_menu( new custom_menu( null, current_language() ) );
+        return $this->solerni_render_lang_menu( new custom_menu( null, current_language() ) );
     }
 
     /*
@@ -68,7 +68,7 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
      *
      * This is an override of bootstrap_base which is a override of core_renderer
      */
-    protected function render_custom_menu(custom_menu $menu) {
+    protected function solerni_render_lang_menu(custom_menu $menu) {
         global $CFG;
 
         // TODO: eliminate this duplicated logic, it belongs in core, not
@@ -103,7 +103,7 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
 
         $content = '<li class="slrn-top-header__item slrn-lang-menu">';
         foreach ($menu->get_children() as $item) {
-            $content .= $this->render_custom_menu_item($item, 1);
+            $content .= $this->solerni_render_lang_menu_item($item, 1);
         }
 
         return $content.'</li>';
@@ -113,7 +113,7 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
      * This code renders the custom menu items for the
      * bootstrap dropdown menu.
      */
-    protected function render_custom_menu_item(custom_menu_item $menunode, $level = 0, $menu_title = '' ) {
+    protected function solerni_render_lang_menu_item(custom_menu_item $menunode, $level = 0, $menu_title = '' ) {
 
         static $submenucount = 0;
         $current_title = str_replace( array( ' (fr)', ' (en)' ), '',  $menunode->get_text() );
@@ -122,17 +122,6 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
 
             $menu_title = $current_title;
 
-            if ($level == 1) {
-                $class = 'dropdown';
-            } else {
-                $class = 'dropdown-submenu';
-            }
-
-            if ($menunode === $this->language) {
-                $class .= ' langmenu';
-            }
-
-            $content = html_writer::start_tag('ul', array('class' => $class));
             // If the child has menus render it as a sub menu.
             $submenucount++;
             if ($menunode->get_url() !== null) {
@@ -140,19 +129,24 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
             } else {
                 $url = '#cm_submenu_'.$submenucount;
             }
-            $content .= html_writer::start_tag('a', array('href'=>$url, 'class'=>'dropdown-toggle', 'data-toggle'=>'dropdown', 'title'=>$menunode->get_title()));
-            // remove lang shortcode from string
+            $content .= html_writer::start_tag('a', array(
+                                                    'href'=>$url,
+                                                    'class'=>'dropdown-toggle cucul',
+                                                    'data-toggle'=>'dropdown',
+                                                    'title'=>$menunode->get_title()
+            ));
             $content .= $menu_title;
             if ($level == 1) {
                 $content .= '<b class="caret -is-white"></b>';
             }
-            $content .= '</a>';
+            $content .= html_writer::end_tag('a');
+
             $content .= '<ul class="dropdown-menu">';
             $content .= '<span class="slrn-topbar-item__active"></span>';
             foreach ($menunode->get_children() as $menunode) {
-                $content .= $this->render_custom_menu_item($menunode, 0, $menu_title);
+                $content .= $this->solerni_render_lang_menu_item($menunode, 0, $menu_title);
             }
-            $content .= '</ul>';
+            $content .= html_writer::end_tag('ul');
         } else {
             $content = '<li class="dropdown-menu__item">';
             // The node doesn't have children so produce a final menuitem.
