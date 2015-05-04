@@ -41,3 +41,4 @@ $string['farewell'] = 'Goodby text';
 $string['farewell_desc'] = 'Text shown on delete account form';
 $string['defaultfarewell'] = 'To delete your account please enter your username/email and password. <br>Thank you for using Solerni!';
 $string['anotheraccount'] = 'You can only delete your own account';
+$string['useraccountdeleted'] = 'Your account has been deleted from this site.';
