@@ -67,11 +67,9 @@ if ($enabled && !is_siteadmin() && !isguestuser()) {
             // User Exists, Check pass.
             if ($user) {
                 if ($user->id == $USER->id ) {
-                    delete_user($user);
-                    //redirect(new moodle_url('/'));
-
-                    $authsequence = get_enabled_auth_plugins(); // auths, in sequence
-                    foreach($authsequence as $authname) {
+                    // Auths, in sequence.
+                    $authsequence = get_enabled_auth_plugins();
+                    foreach ($authsequence as $authname) {
                         $authplugin = get_auth_plugin($authname);
                         $authplugin->logoutpage_hook();
                     }
