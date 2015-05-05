@@ -44,6 +44,8 @@ class local_orange_rules_renderer extends plugin_renderer_base {
         $actiontorender = 'render_orange_' . $action;
         if ($action == "rules_list") {
             $output .= $this->$actiontorender($list);
+            $output .= $this->output->single_button(new moodle_url('/local/orange_rules/view.php',
+                                                                   array('contextid' => $context->id)), get_string('add'));
         } else {
             $output .= $this->$actiontorender($renderable);
         }

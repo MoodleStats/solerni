@@ -24,7 +24,7 @@
  */
 
 $string['pluginname'] = 'Orange customers';
-$string['customers'] = 'Clients';
+$string['customers'] = 'Gestion des clients';
 $string['definecustomersheader'] = 'Gestion des clients';
 $string['customerid'] = 'Id.';
 $string['customername'] = 'Nom du client';

@@ -15,16 +15,16 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Invitation plugin version specification.
  *
- * @package   block_orange_rules
- * @copyright 2015 Orange
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    enrol
+ * @subpackage orangeinvitation
+ * @copyright  Orange 2015 based on Jerome Mouneyrac invitation plugin{@link http://www.moodleitandme.com}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['configtitle'] = 'Titre du bloc';
-$string['configtitleblankhides'] = 'Titre du block (pas de titre si le champ est vide)';
-$string['leaveblanktohide'] = 'Laisser vide pour masquer le titre';
-$string['orangerules:addinstance'] = 'Rajouter un nouveau block Règles Orange';
-$string['orangerules:myaddinstance'] = 'Add a new orange rules block to My home';
-$string['neworangerulesblock'] = '(Nouveau block Règles Orange)';
-$string['pluginname'] = 'Règles Orange';
+defined('MOODLE_INTERNAL') || die();
+
+$plugin->version  = 2015042903;
+$plugin->requires = 2014051200;   // Requires Moodle 2.7 or later.
+$plugin->maturity = MATURITY_RC;  // This version's maturity level.
