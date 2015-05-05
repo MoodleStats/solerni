@@ -68,7 +68,7 @@ class block_course_extended extends block_base {
     }
 
     public function instance_allow_multiple() {
-        return true;
+        return false;
     }
 
     public function instance_config_save($data, $nolongerused = false) {
@@ -227,19 +227,18 @@ class block_course_extended extends block_base {
      * @return string $text
      */
     private function text_configuration($imgurl, $course) {
-                $text = html_writer::start_tag('div', array('class' => 'sider'));
+        $text = html_writer::start_tag('div', array('class' => 'sider'));
         $text .= html_writer::empty_tag('img', array('src' => $imgurl));
 
         $text .= html_writer::tag('h2', $course->fullname.' ');
             $text .= html_writer::start_tag('div', array('class' => 'sider__content'));
                 $text .= html_writer::start_tag('ul', array('class' => 'essentiels'));
-                    $text .= html_writer::start_tag('li');
+                   $text .= html_writer::start_tag('li');
                         $text .= html_writer::start_tag('i', array('class' => 'essentiels-icon essentiels__date'));
                         $text .= html_writer::end_tag('i');
                         $text .= html_writer::tag('span', get_string('startdate', 'format_flexpage').' ');
                         $text .= html_writer::tag('span', date("Y-m-d", $course->startdate).' ', array('class' => 'slrn-bold'));
-                        $text .= html_writer::start_tag('br');
-                        $text .= html_writer::end_tag('br');
+                        $text .= html_writer::empty_tag('br');
                         $text .= html_writer::tag('span', get_string('enddate', 'format_flexpage').' ');
                         $text .= html_writer::tag('span', $this->extendedcourse->enddate.' ', array('class' => 'slrn-bold'));
                     $text .= html_writer::end_tag('li');
@@ -248,8 +247,7 @@ class block_course_extended extends block_base {
                         $text .= html_writer::end_tag('i');
                         $text .= html_writer::tag('span', get_string('duration', 'format_flexpage').' ');
                         $text .= html_writer::tag('span', $this->extendedcourse->duration.' ', array('class' => 'slrn-bold'));
-                        $text .= html_writer::start_tag('br');
-                        $text .= html_writer::end_tag('br');
+                        $text .= html_writer::empty_tag('br');
                         $text .= html_writer::tag('span', get_string('workingtime', 'format_flexpage').' ');
                         $text .= html_writer::tag('span', $this->extendedcourse->workingtime.' ', array('class' => 'slrn-bold'));
                     $text .= html_writer::end_tag('li');
@@ -284,8 +282,7 @@ class block_course_extended extends block_base {
                         $text .= html_writer::tag('span', get_string('registration_startdate', 'format_flexpage').' ');
                         $extcourseregdate = $this->extendedcourse->registration_startdate;
                         $text .= html_writer::tag('span', $extcourseregdate.' ', array('class' => 'slrn-bold'));
-                        $text .= html_writer::start_tag('br');
-                        $text .= html_writer::end_tag('br');
+                        $text .= html_writer::empty_tag('br');
                         $text .= html_writer::tag('span', get_string('registration_enddate', 'format_flexpage').' ');
                         $extcourseregenddate = $this->extendedcourse->registration_enddate;
                         $text .= html_writer::tag('span', $extcourseregenddate.' ', array('class' => 'slrn-bold'));
@@ -302,7 +299,6 @@ class block_course_extended extends block_base {
                     $text .= html_writer::end_tag('li');
                 $text .= html_writer::end_tag('ul');
             $text .= html_writer::end_tag('div');
-        $text .= html_writer::end_tag('h2');
 
         $text .= html_writer::tag('h2', get_string('prerequesites', 'format_flexpage').' ');
             $text .= html_writer::start_tag('div', array('class' => 'sider__content'));
@@ -311,10 +307,8 @@ class block_course_extended extends block_base {
                     $prerequesites = $this->extendedcourse->prerequesites;
                     $text .= html_writer::tag('span', $prerequesites.' ', array('class' => 'slrn-bold'));
                     $text .= html_writer::end_tag('li');
-                     $text .= html_writer::end_tag('li');
                 $text .= html_writer::end_tag('ul');
             $text .= html_writer::end_tag('div');
-        $text .= html_writer::end_tag('h2');
 
         $text .= html_writer::tag('h2', get_string('teachingteam', 'format_flexpage').' ');
             $text .= html_writer::start_tag('div', array('class' => 'sider__content'));
@@ -325,8 +319,7 @@ class block_course_extended extends block_base {
                     $text .= html_writer::end_tag('li');
                 $text .= html_writer::end_tag('ul');
             $text .= html_writer::end_tag('div');
-        $text .= html_writer::end_tag('h2');
-
+        $text .= html_writer::end_tag('div');
         return $text;
 
     }

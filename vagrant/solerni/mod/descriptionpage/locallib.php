@@ -19,7 +19,7 @@
  *
  * @package mod
  * @subpackage descriptionpage
- * @copyright  2015 Orange
+ * @copyright  2015 Orange based on mod_page plugin from 2009 Petr Skoda (http://skodak.org)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -32,7 +32,7 @@ require_once("$CFG->dirroot/mod/descriptionpage/lib.php");
 
 
 /**#@+
- * Constants defining the visibility levels of blog posts
+ * Constants defining the visibility levels.
  */
 define('DESCRIPTIONPAGE_VISIBILITY_COURSEUSER',   100);
 define('DESCRIPTIONPAGE_VISIBILITY_LOGGEDINUSER', 200);

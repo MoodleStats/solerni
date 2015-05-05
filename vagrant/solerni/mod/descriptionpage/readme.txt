@@ -14,7 +14,7 @@ You should have received a copy of the GNU General Public License
 along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
  * @package mod_descriptionpage
- * @copyright  2015 Orange
+ * @copyright  2015 Orange based on mod_page plugin from 2009 Petr Skoda (http://skodak.org)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -23,4 +23,4 @@ along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 Page module
 =============
 
-Page module is a fork to original 'page' type plugins of Resource module.
+Page module is a fork to original 'mod_page' type plugins from Resource module (Petr Skoda).

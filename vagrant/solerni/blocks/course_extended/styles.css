@@ -51,10 +51,8 @@
     color:#AAAAAA;
 }
 
-.block_course_extended {
-}
 
-.sider h2 {
+.block_course_extended .sider h2 {
     background-color:   #4B667C;
     color:              #EEEEEF;
     pointer-events:     none;
@@ -64,7 +62,7 @@
     line-height:        30px;
     margin:             0;
 }
-.slrn-bold {
+.block_course_extended .slrn-bold {
     font-weight: bold;
 }
 .block_course_extended .sider__content {

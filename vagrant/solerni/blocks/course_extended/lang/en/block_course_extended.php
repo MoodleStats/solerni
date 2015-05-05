@@ -56,20 +56,16 @@ $string['course_extended_settings'] = 'settings';
 
 $string['maxvisibility'] = 'Maximum visibility';
 $string['maxvisibility_help'] = '
-<p><em>On a personal blog:</em> <strong>Visible only to the blog owner (private)</strong> &ndash;
-nobody* else can see this post.</p>
-<p><em>On a course blog:</em> <strong>Visible to participants on this course</strong> &ndash; to view the post you must
-have been granted access to the blog, usually by being enrolled on the course that contains it.</p>
+<p><strong>Visible only to the page owner (private)</strong> &ndash;
+nobody* else can see this page.</p>
+<p><<strong>Visible to participants on this course</strong> &ndash; to view the page you must
+have been granted access to the course, usually by being enrolled on the course that contains it.</p>
 
 <p><strong>Visible to everyone who is logged in to the system</strong> &ndash; everyone who is
-logged in can view the post, even if they\'re not enrolled on a specific course.</p>
-<p><strong>Visible to anyone in the world</strong> &ndash; any Internet user can see this post
-if you give them the blog\'s address.</p>
+logged in can view the page, even if they\'re not enrolled on a specific course.</p>
+<p><strong>Visible to anyone in the world</strong> &ndash; any Internet user can see this page
+if you give them the page\'s address.</p>';
 
-<p>This option exists on the whole blog as well as on individual posts. If the
-option is set on the whole blog, that becomes a maximum. For example, if
-the whole blog is set to the first level, you cannot change the
-level of an individual post at all.</p>';
 $string['visiblecourseusers'] = 'Visible to participants on this course';
 $string['visibleloggedinusers'] = 'Visible to everyone who is logged in to the system';
 $string['visiblepublic'] = 'Visible to anyone in the world';

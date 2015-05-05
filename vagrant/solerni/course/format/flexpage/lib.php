@@ -231,7 +231,10 @@ class format_flexpage extends format_base {
      *
      * @param bool $foreditform
      * @return array of options
-     */
+     *
+     *
+     *  orange 2015050500 : adding extended course data
+     *     */
     public function course_format_options($foreditform = false) {
         global $CFG;
         static $courseformatoptions = false;

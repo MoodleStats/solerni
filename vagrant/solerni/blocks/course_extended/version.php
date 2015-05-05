@@ -28,3 +28,4 @@ $plugin->release    = '1.0';
 $plugin->version    = 2015041501;
 $plugin->requires   = 2014051200; // Moodle 2.7.
 $plugin->maturity   = MATURITY_STABLE;
+$plugin->dependencies = array('format_flexpage' => 2015050500);

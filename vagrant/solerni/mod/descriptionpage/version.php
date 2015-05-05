@@ -19,14 +19,14 @@
  *
  * @package mod
  * @subpackage descriptionpage
- * @copyright  2015 Orange
+ * @copyright  2015 Orange based on mod_page plugin from 2009 Petr Skoda (http://skodak.org)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2015041000;       // The current module version (Date: YYYYMMDDXX).
-$plugin->requires  = 2014050800;    // Requires this Moodle version.
+$plugin->version   = 2015041001;       // The current module version (Date: YYYYMMDDXX).
+$plugin->requires  = 2014051207;    // Requires this Moodle version Moodle 2.7.7.
 $plugin->component = 'mod_descriptionpage';       // Full name of the plugin (used for diagnostics).
 $plugin->cron      = 0;
