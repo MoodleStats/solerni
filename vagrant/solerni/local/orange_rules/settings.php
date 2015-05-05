@@ -29,13 +29,6 @@ $orangeplugin = 'local_orange_rules';
 $orangeaddruleurl = '/local/orange_rules/view.php?sesskey=' . sesskey();
 $orangelistrulesurl = '/local/orange_rules/index.php?sesskey=' . sesskey().'&action=rules_list';
 
-
-$ADMIN->add('localplugins', new admin_category('orange_rules', get_string('pluginname', $orangeplugin)));
-
-$ADMIN->add('orange_rules', new admin_externalpage('orange_rule_level2',
-    get_string('addrule', $orangeplugin),
-    new moodle_url($orangeaddruleurl)));
-
-$ADMIN->add('orange_rules', new admin_externalpage('orange_rules_level2',
+$ADMIN->add('localplugins', new admin_externalpage('orange_rules_level2',
     get_string('listrules', $orangeplugin),
     new moodle_url($orangelistrulesurl)));
