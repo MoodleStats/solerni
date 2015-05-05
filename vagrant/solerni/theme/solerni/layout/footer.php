@@ -21,88 +21,64 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$hascopyright = (empty($PAGE->theme->settings->copyright)) ? false : $PAGE->theme->settings->copyright;
-$hasceop = (!empty($PAGE->theme->settings->ceop));
-$hasdisclaimer = (!empty($PAGE->theme->settings->disclaimer));
 $haswebsite = (!empty($PAGE->theme->settings->website));
 $hasfacebook = (!empty($PAGE->theme->settings->facebook));
 $hastwitter = (!empty($PAGE->theme->settings->twitter));
 $hasgoogleplus = (!empty($PAGE->theme->settings->googleplus));
-$hasflickr = (!empty($PAGE->theme->settings->flickr));
-$haspinterest = (!empty($PAGE->theme->settings->pinterest));
-$hasapple = (!empty($PAGE->theme->settings->apple));
-$hasinstagram = (!empty($PAGE->theme->settings->instagram));
-$hasandroid = (!empty($PAGE->theme->settings->android));
 $haslinkedin = (!empty($PAGE->theme->settings->linkedin));
 $hasyoutube = (!empty($PAGE->theme->settings->youtube));
-$haswikipedia = (!empty($PAGE->theme->settings->wikipedia));
 ?>
-<hr>
-	<div class="row-fluid">
-    	<!-- Widget 1 -->
-    	<div class="span4">
-    		<div id="footer-left" class="block-region">
-    			<div class="region-content">
-       			 <?php
-                 if ($hascopyright) { echo '&copy; '.date("Y").' '.$hascopyright.''; }
-                echo $OUTPUT->login_info();
-                echo $OUTPUT->standard_footer_html();
-                ?>
-                <p class="helplink"><?php echo page_doc_link(get_string('moodledocslink')); ?></p><?php
-            if ($hasceop) {?><a href="<?php echo $PAGE->theme->settings->ceop;?> "><img src="<?php echo $OUTPUT->pix_url('ceopreport', 'theme')?>" /></a><?php }?>
-        		</div>
-        	</div>
-    	</div>
-    	<!-- widget 2 -->
-    	<div class="span4">
-    		<div id="footer-middle" class="block-region">
-    			<div class="region-content">
-        <?php if ($hasdisclaimer) {echo $PAGE->theme->settings->disclaimer;} else {}?>
-        		</div>
-        	</div>
-    	</div>
 
-    	<!-- Widget 3 -->
-    	<div class="span4">
-    		<div id="footer-right" class="block-region">
-    			<div class="region-content">
+<footer id="footer" class="slrn-footer">
+    <div class="col-sm-12 col-md-4 footer-brand">
+        <div class="footer-brand__logo"></div>
+        <p class="footer-brand_title">Apprendre, c'est toujours mieux ensemble</p>
+        <p class="footer-brand__text">Solerni est une solution logicielle complète dédiée à la création et à l'hébergement de parcours d'apprentissage massifs collaboratifs.</p>
+    </div>
+        <div class="col-sm-12 col-md-2 footer-column ">
+            <p class="footer_title">A propos de nous</p>
+            <ul class="footer_cms_menu__column">
+                <li class="footer_cms_menu_column__item"><a class="footer_cms_menu_column__link" href="/mooc/static/page/cms_quoi">A propos de Solerni</a></li>
+                <li class="footer_cms_menu_column__item"><a class="footer_cms_menu_column__link" href="/mooc/static/page/cms_partenaires">Partenaires</a></li>
+                <li class="footer_cms_menu_column__item"><a class="footer_cms_menu_column__link" href="/mooc/static/page/cms_legal">Mentions légales</a></li>
+                <li class="footer_cms_menu_column__item"><a class="footer_cms_menu_column__link js-link_cgu" href="/mooc/static/page/cms_cgu">CGU / Charte</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-12 col-md-2 footer-column ">
+            <p class="footer_title">Support</p>
+            <ul class="footer_cms_menu__column">
+                <li class="footer_cms_menu_column__item"><a class="footer_cms_menu_column__link" href="/mooc/static/page/cms_faq">FAQ</a></li>
+                <li class="footer_cms_menu_column__item"><a class="footer_cms_menu_column__link" href="/mooc/contact">Nous contacter</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-12 col-md-2 footer-column ">
+            <p class="footer_title">Suivez-nous</p>
+            <a href="/mooc/static/page/social_facebook" class="footer_social_link" target="_blank">
+                <span class="footer_social_link__icon social_facebook">Facebook</span><!--
+                --><span class="footer_icon_text">Facebook</span>
+            </a>
+            <a href="/mooc/static/page/social_twitter" class="footer_social_link" target="_blank">
+                <span class="footer_social_link__icon social_twitter">Twitter</span><!--
+                --><span class="footer_icon_text">Twitter</span>
+            </a>
+            <a href="/mooc/static/page/social_blog" class="footer_social_link">
+                <span class="footer_social_link__icon social_blog">Blog</span><!--
+                --><span class="footer_icon_text">Blog</span>
+            </a>
+        </div>
+        <div class="col-sm-12 col-md-2 footer-column ">
+            <p class="footer_title">International</p>
+            <?php echo $OUTPUT->solerni_lang_menu(); ?>
+        </div>
 
+    <div class="container">
+        <hr class="slrn-hr slrn-hr--thin">
+        <a target="_blank" href="http://www.orange.com">
+            <div class="footer_powered">powered by Orange</div>
+        </a>
+    </div>
+    <div class="container">
+        <?php echo $OUTPUT->standard_footer_html(); ?>
+    </div>
+</footer>
 
-				<?php if ($hasandroid) {?><a href="<?php echo $PAGE->theme->settings->android;?> "><span class="footer-icon android"><i class="fa fa-android"></i></span></a> <?php } else {}?>
-
-				<?php if ($hasapple) {?><a href="<?php echo $PAGE->theme->settings->apple;?> "><span class="footer-icon apple"><i class="fa fa-apple"></i></span></a> <?php } else {}?>
-
-				<?php if ($hasyoutube) {?><a href="<?php echo $PAGE->theme->settings->youtube;?> "><span class="footer-icon youtube"><i class="fa fa-youtube"></i></span></a> <?php } else {}?>
-
-				<?php if ($haswikipedia) {?><a href="<?php echo $PAGE->theme->settings->wikipedia;?> "><span class="footer-icon wikipedia"><img src="<?php echo $OUTPUT->pix_url('footer-icons/wikipedia', 'theme')?>" /></span></a> <?php } else {}?>
-
-				<?php if ($haspinterest) {?><a href="<?php echo $PAGE->theme->settings->pinterest;?> "><span class="footer-icon pinterest"><i class="fa fa-pinterest"></i></span></a> <?php } else {}?>
-
-				<?php if ($haslinkedin) {?><a href="<?php echo $PAGE->theme->settings->linkedin;?> "><span class="footer-icon linkedin"><i class="fa fa-linkedin"></i></span></a> <?php } else {}?>
-
-				<?php if ($hasinstagram) {?><a href="<?php echo $PAGE->theme->settings->instagram;?> "><span class="footer-icon instagram"><i class="fa fa-instagram"></i></span></a> <?php } else {}?>
-
-				<?php if ($hasflickr) {?><a href="<?php echo $PAGE->theme->settings->flickr;?> "><span class="footer-icon flickr"><i class="fa fa-flickr"></i></span></a> <?php } else {}?>
-
-				<?php if ($hasgoogleplus) {?><a href="<?php echo $PAGE->theme->settings->googleplus;?> "><span class="footer-icon googleplus"><i class="fa fa-google-plus"></i></span></a> <?php } else {}?>
-
-				<?php if ($hastwitter) {?><a href="<?php echo $PAGE->theme->settings->twitter;?> "><span class="footer-icon twitter"><i class="fa fa-twitter"></i></span></a> <?php } else {}?>
-
-				<?php if ($hasfacebook) {?><a href="<?php echo $PAGE->theme->settings->facebook;?> "><span class="footer-icon facebook"><i class="fa fa-facebook"></i></span></a> <?php } else {}?>
-
-				<?php if ($haswebsite) {?><a href="<?php echo $PAGE->theme->settings->website;?> "><span class="footer-icon website"><i class="fa fa-globe"></i></span></a> <?php } else {}?>
-
-
-
-
-
-
-        		</div>
-        	</div>
-    	</div>
-	</div>
-
-	<div class="footerlinks row-fluid">
-
-            <?php // print_object($PAGE->url->get_path()); ?>
-	</div>

@@ -46,10 +46,8 @@ echo $OUTPUT->doctype() ?>
         <?php echo $OUTPUT->blocks('side-post', 'span3'); ?>
     </div>
 
-    <footer id="page-footer">
-       <?php require('footer.php'); ?>
-    </footer>
-
+    <?php require('footer.php'); ?>
+    
     <?php echo $OUTPUT->standard_end_of_body_html() ?>
 
 </div>
