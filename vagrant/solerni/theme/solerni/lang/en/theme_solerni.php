@@ -1,5 +1,7 @@
 <?php
 $string['pluginname'] = 'Solerni';
+$string['region-main'] = 'Main';
+$string['region-side-top'] = 'Top';
 $string['region-side-post'] = 'Right';
 $string['region-side-pre'] = 'Left';
 $string['choosereadme'] = 'Solerni is a clone of Aardvark which is a three column theme for Moodle 2.5+ originally created by Shaun Daubney for <a href="http://www.newbury-college.ac.uk">Newbury College</a> based on Bootstrap';
