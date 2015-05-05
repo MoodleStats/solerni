@@ -21,7 +21,8 @@
  *
  * @package    local
  * @subpackage local_goodbye
- * @copyright  2013 Bas Brands, www.basbrands.nl
+ * @copyright  2015 Orange
+ *     Fork : 2013 Bas Brands, www.basbrands.nl
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -45,8 +46,25 @@ if ($enabled) {
 
     if ($localuser = $checkaccount->get_data()) {
         if ($localuser->username != '' && $localuser->password != '') {
+            // Authenticate_user_login() will fail it if it's 'googleoauth2'.
+            if (!($user = authenticate_user_login($localuser->username, $localuser->password)) ) {
+                if (!empty($CFG->authloginviaemail)) {
+                    if ($email = clean_param($localuser->username, PARAM_EMAIL)) {
+                        $user = $DB->get_record('user', array('email' => $email, 'deleted' => 0,
+                                                 'auth' => 'googleoauth2'));
+                    } else {
+                        $user = $DB->get_record('user', array('username' => $localuser->username, 'deleted' => 0,
+                                                 'auth' => 'googleoauth2'));
+                    }
+                } else {
+                        $user = $DB->get_record('user', array('username' => $localuser->username, 'deleted' => 0,
+                                                 'auth' => 'googleoauth2'));
+                }
+
+            }
+
             // User Exists, Check pass.
-            if ($user = authenticate_user_login($localuser->username, $localuser->password) ) {
+            if ($user) {
                 if ($user->id == $USER->id ) {
                     delete_user($user);
                     redirect(new moodle_url('/'));

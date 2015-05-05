@@ -19,8 +19,8 @@
  * optinally with a delay time.
  *
  * @package local_eledia_makeanonymous
- * @author Matthias Schwabe <support@eledia.de>
- * @copyright 2013 & 2014 eLeDia GmbH
+ * @copyright  2015 Orange
+ *     Fork : author Matthias Schwabe <support@eledia.de>,  copyright 2013 & 2014 eLeDia GmbH
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -38,17 +38,15 @@ $context = context_system::instance();
 $PAGE->set_context($context);
 
 if (has_capability('moodle/site:config', $context)) {
+    $deletedusers = $DB->get_records('user', array('deleted' => 1));
 
-    $sql = ("SELECT id,
-                    username
-             FROM {user}
-             WHERE deleted = 1");
-    $deletedusers = $DB->get_records_sql($sql);
-
-    $toanonymize = array();
-    foreach ($deletedusers as $user) {
-        if (substr($user->username, 0, 12) != 'deletedUser_') {
-            make_anonymous($user);
+    $config = get_config('local_eledia_makeanonymous');
+    if (isset($config->deletedprefixusername)) {
+        $prefix = $config->deletedprefixusername;
+        foreach ($deletedusers as $user) {
+            if (substr($user->username, 0, strlen($prefix)) != $prefix) {
+                make_anonymous($user);
+            }
         }
     }
 

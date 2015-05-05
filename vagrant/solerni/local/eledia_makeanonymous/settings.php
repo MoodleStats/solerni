@@ -18,8 +18,8 @@
  * Settings.
  *
  * @package local_eledia_makeanonymous
- * @author Matthias Schwabe <support@eledia.de>
- * @copyright 2013 & 2014 eLeDia GmbH
+ * @copyright  2015 Orange
+ *     Fork : author Matthias Schwabe <support@eledia.de>,  copyright 2013 & 2014 eLeDia GmbH
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -36,15 +36,15 @@ if ($hassiteconfig) {
                    get_string('makeanonymous_enable', 'local_eledia_makeanonymous'),
                    get_string('makeanonymous_enable_desc', 'local_eledia_makeanonymous'), 1));
     $settings->add(new admin_setting_configtext('local_eledia_makeanonymous/deletedcountry',
-                   get_string('anonymouscountry', 'local_eledia_makeanonymous'), '', 'DE', PARAM_TEXT, 3));
+                   get_string('anonymouscountry', 'local_eledia_makeanonymous'), '', 'FR', PARAM_TEXT, 3));
     $settings->add(new admin_setting_configtext('local_eledia_makeanonymous/deletedcity',
-                   get_string('anonymouscity', 'local_eledia_makeanonymous'), '', 'Berlin', PARAM_TEXT, 32));
+                   get_string('anonymouscity', 'local_eledia_makeanonymous'), '', 'Paris', PARAM_TEXT, 32));
     $settings->add(new admin_setting_configtext('local_eledia_makeanonymous/deletedfirstname',
-                   get_string('anonymousfirstname', 'local_eledia_makeanonymous'), '', 'deleted', PARAM_TEXT, 32));
+                   get_string('anonymousfirstname', 'local_eledia_makeanonymous'), '', 'invité', PARAM_TEXT, 32));
     $settings->add(new admin_setting_configtext('local_eledia_makeanonymous/deletedsurname',
-                   get_string('anonymoussurname', 'local_eledia_makeanonymous'), '', 'user', PARAM_TEXT, 32));
+                   get_string('anonymoussurname', 'local_eledia_makeanonymous'), '', 'invité', PARAM_TEXT, 32));
     $settings->add(new admin_setting_configtext('local_eledia_makeanonymous/deletedomainemail',
-                   get_string('anonymousdomainemail', 'local_eledia_makeanonymous'), '', 'delet.ed', PARAM_TEXT, 32));
+                   get_string('anonymousdomainemail', 'local_eledia_makeanonymous'), '', 'solerni.org', PARAM_TEXT, 32));
     $settings->add(new admin_setting_configtext('local_eledia_makeanonymous/deletedprefixemail',
                    get_string('anonymousprefixemail', 'local_eledia_makeanonymous'), '', 'invité', PARAM_TEXT, 32));
     $settings->add(new admin_setting_configtext('local_eledia_makeanonymous/deletedauth',
@@ -65,7 +65,7 @@ if ($hassiteconfig) {
     $name = 'local_eledia_makeanonymous/enabledemail';
     $title = get_string('enabledemail', 'local_eledia_makeanonymous');
     $description = get_string('enabledemail_desc', 'local_eledia_makeanonymous');
-    $setting = new admin_setting_configcheckbox($name, $title, $description, 0);
+    $setting = new admin_setting_configcheckbox($name, $title, $description, 1);
     $settings->add($setting);
 
     $name = 'local_eledia_makeanonymous/emailsubject';
@@ -83,15 +83,16 @@ if ($hassiteconfig) {
 
     $settings->add($setting);
 
-    $deletedusers = $DB->get_records('user', array('deleted' => 1));
-
-    $toanonymize = array();
-
     $config = get_config('local_eledia_makeanonymous');
-    $prefix = $config->deletedprefixusername;
-    foreach ($deletedusers as $user) {
-        if (substr($user->username, 0, strlen($prefix)) != $prefix) {
-            $toanonymize[$user->id] = $user->id;
+    $toanonymize = array();
+    if (isset($config->deletedprefixusername)) {
+        $deletedusers = $DB->get_records('user', array('deleted' => 1));
+        $prefix = $config->deletedprefixusername;
+
+        foreach ($deletedusers as $user) {
+            if (substr($user->username, 0, strlen($prefix)) != $prefix) {
+                $toanonymize[$user->id] = $user->id;
+            }
         }
     }
 
