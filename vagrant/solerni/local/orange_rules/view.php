@@ -31,15 +31,6 @@ require_once($CFG->dirroot . '/local/orange_rules/lib.php');
 require_once($CFG->dirroot . '/cohort/lib.php');
 
 
-$blocks = core_plugin_manager::instance()->get_plugins_of_type('block');
-$foundblockorange = false;
-foreach ($blocks as $block) {
-    if ($block->name == "orange_rules") {
-        $foundblockorange = true;
-    }
-}
-
-
 $action = optional_param('action', 'rules_form', PARAM_ALPHAEXT);
 
 // Access control.
@@ -78,12 +69,6 @@ if ($mform->is_cancelled()) {
     }
 } else {
     echo $OUTPUT->header();
-    if (!$foundblockorange) {
-        echo html_writer::tag('div',
-                              clean_text(get_string('blockorangewarning', 'local_orange_rules')),
-                              array('class' => renderer_base::prepare_classes('notifyproblem')));
-    }
-
     if (isset($_GET['id'])) {
         $rule = rule_get_rule($_GET['id']);
         $mform->set_data($rule);
