@@ -133,12 +133,12 @@ class block_course_extended extends block_base {
         if (!empty($this->config->registration_startdate)) {
             $this->registration_startdate = date($this->config->registration_startdate);
         } else {
-            $this->registration_startdate = date("Y-m-d");
+            $this->registration_startdate = date("d-m-Y");
         }
         if (!empty($this->config->registration_enddate)) {
             $this->registration_enddate = date($this->config->registration_enddate);
         } else {
-            $this->registration_enddate = date("Y-m-d");
+            $this->registration_enddate = date("d-m-Y");
         }
         if (!empty($this->config->registredusers)) {
             $this->registredusers = $this->config->registredusers;
@@ -199,11 +199,17 @@ class block_course_extended extends block_base {
         // This is the new code.
         if ($courseid) {
             $extendedcourseflexpagevalues = $DB->get_records('course_format_options', array('courseid' => $courseid));
-            foreach ($extendedcourseflexpagevalues as $extendedcourseflexpagevalue) {
-                $this->set_extendedcourse($extendedcourseflexpagevalue, $context);
+           foreach ($extendedcourseflexpagevalues as $extendedcourseflexpagevalue) {
+                if ($extendedcourseflexpagevalue->format== "flexpage"){
+                    $this->set_extendedcourse($extendedcourseflexpagevalue, $context);
+                }
+                else {
+                    $this->set_extendedcourse_from_config($context);
+                    $imgurl = "/pix/spacer.gif";
+                }
+
+
             }
-        } else {
-            $this->set_extendedcourse_from_config($context);
         }
 
         $this->content->text .= html_writer::start_tag('ul');
@@ -228,7 +234,9 @@ class block_course_extended extends block_base {
      */
     private function text_configuration($imgurl, $course) {
         $text = html_writer::start_tag('div', array('class' => 'sider'));
-        $text .= html_writer::empty_tag('img', array('src' => $imgurl));
+        if ($imgurl){
+            $text .= html_writer::empty_tag('img', array('src' => $imgurl));
+        }
 
         $text .= html_writer::tag('h2', $course->fullname.' ');
             $text .= html_writer::start_tag('div', array('class' => 'sider__content'));
@@ -236,71 +244,87 @@ class block_course_extended extends block_base {
                    $text .= html_writer::start_tag('li');
                         $text .= html_writer::start_tag('i', array('class' => 'essentiels-icon essentiels__date'));
                         $text .= html_writer::end_tag('i');
-                        $text .= html_writer::tag('span', get_string('startdate', 'format_flexpage').' ');
-                        $text .= html_writer::tag('span', date("Y-m-d", $course->startdate).' ', array('class' => 'slrn-bold'));
+                        $text .= html_writer::tag('span', get_string('startdate', 'format_flexpage'));
                         $text .= html_writer::empty_tag('br');
-                        $text .= html_writer::tag('span', get_string('enddate', 'format_flexpage').' ');
-                        $text .= html_writer::tag('span', $this->extendedcourse->enddate.' ', array('class' => 'slrn-bold'));
+                        $text .= html_writer::tag('span', date("d-m-Y", $course->startdate), array('class' => 'slrn-bold'));
+                        $text .= html_writer::empty_tag('br');
+                        $text .= html_writer::tag('span', get_string('enddate', 'format_flexpage'));
+                        $text .= html_writer::empty_tag('br');
+                        $text .= html_writer::tag('span', date("d-m-Y", $this->extendedcourse->enddate), array('class' => 'slrn-bold'));
                     $text .= html_writer::end_tag('li');
                     $text .= html_writer::start_tag('li');
                         $text .= html_writer::start_tag('i', array('class' => 'essentiels-icon essentiels__duration'));
                         $text .= html_writer::end_tag('i');
-                        $text .= html_writer::tag('span', get_string('duration', 'format_flexpage').' ');
+                        $text .= html_writer::tag('span', get_string('duration', 'format_flexpage'));
+                        $text .= html_writer::empty_tag('br');
                         $text .= html_writer::tag('span', $this->extendedcourse->duration.' ', array('class' => 'slrn-bold'));
                         $text .= html_writer::empty_tag('br');
-                        $text .= html_writer::tag('span', get_string('workingtime', 'format_flexpage').' ');
-                        $text .= html_writer::tag('span', $this->extendedcourse->workingtime.' ', array('class' => 'slrn-bold'));
+                        $text .= html_writer::tag('span', get_string('workingtime', 'format_flexpage'));
+                        $text .= html_writer::empty_tag('br');
+                        $text .= html_writer::tag('span', $this->extendedcourse->workingtime, array('class' => 'slrn-bold'));
                     $text .= html_writer::end_tag('li');
                     $text .= html_writer::start_tag('li');
                         $text .= html_writer::start_tag('i', array('class' => 'essentiels-icon essentiels__price'));
                         $text .= html_writer::end_tag('i');
-                        $text .= html_writer::tag('span', get_string('price', 'format_flexpage').' ');
+                        $text .= html_writer::tag('span', get_string('price', 'format_flexpage'));
+                        $text .= html_writer::empty_tag('br');
                         $text .= html_writer::tag('span', $this->extendedcourse->price.' ', array('class' => 'slrn-bold'));
                     $text .= html_writer::end_tag('li');
                     $text .= html_writer::start_tag('li');
                         $text .= html_writer::start_tag('i', array('class' => 'essentiels-icon essentiels__certification'));
                         $text .= html_writer::end_tag('i');
-                        $text .= html_writer::tag('span', get_string('certification', 'format_flexpage').' ');
+                        $text .= html_writer::tag('span', get_string('certification', 'format_flexpage'));
+                        $text .= html_writer::empty_tag('br');
                         $text .= html_writer::tag('span', get_badges_string().' ', array('class' => 'slrn-bold'));
                     $text .= html_writer::end_tag('li');
                     $text .= html_writer::start_tag('li');
                         $text .= html_writer::start_tag('i', array('class' => 'essentiels-icon essentiels__language'));
                         $text .= html_writer::end_tag('i');
-                        $text .= html_writer::tag('span', get_string('language'));
+                        $text .= html_writer::tag('span', get_string('language').':');
+                        $text .= html_writer::empty_tag('br');
                         $text .= html_writer::tag('span', $course->lang.' ', array('class' => 'slrn-bold'));
                     $text .= html_writer::end_tag('li');
                     $text .= html_writer::start_tag('li');
                         $text .= html_writer::start_tag('i', array('class' => 'essentiels-icon essentiels__video'));
                         $text .= html_writer::end_tag('i');
-                        $text .= html_writer::tag('span', get_string('video', 'format_flexpage').' ');
+                        $text .= html_writer::tag('span', get_string('video', 'format_flexpage'));
+                        $text .= html_writer::empty_tag('br');
                         $text .= html_writer::tag('span', $this->extendedcourse->video.' ', array('class' => 'slrn-bold'));
                     $text .= html_writer::end_tag('li');
                     $text .= html_writer::start_tag('li');
                         $text .= html_writer::start_tag('i', array('class' => 'essentiels-icon essentiels__subscription'));
                         $text .= html_writer::end_tag('i');
-                        $text .= html_writer::tag('span', get_string('registration', 'format_flexpage').' ');
-                        $text .= html_writer::tag('span', get_string('registration_startdate', 'format_flexpage').' ');
+                        $text .= html_writer::tag('span', get_string('registration', 'format_flexpage'));
+                        $text .= html_writer::empty_tag('br');
+                        $text .= html_writer::empty_tag('br');
+                        $text .= html_writer::tag('span', get_string('registration_startdate', 'format_flexpage'));
+                        $text .= html_writer::empty_tag('br');
                         $extcourseregdate = $this->extendedcourse->registration_startdate;
                         $text .= html_writer::tag('span', $extcourseregdate.' ', array('class' => 'slrn-bold'));
                         $text .= html_writer::empty_tag('br');
-                        $text .= html_writer::tag('span', get_string('registration_enddate', 'format_flexpage').' ');
+                        $text .= html_writer::empty_tag('br');
+                        $text .= html_writer::tag('span', get_string('registration_enddate', 'format_flexpage'));
+                        $text .= html_writer::empty_tag('br');
                         $extcourseregenddate = $this->extendedcourse->registration_enddate;
                         $text .= html_writer::tag('span', $extcourseregenddate.' ', array('class' => 'slrn-bold'));
                     $text .= html_writer::end_tag('li');
                     $text .= html_writer::start_tag('li');
                         $text .= html_writer::start_tag('i', array('class' => 'essentiels-icon essentiels__subscribers'));
                         $text .= html_writer::end_tag('i');
-                        $text .= html_writer::tag('span', get_string('registeredusers', 'format_flexpage').' ');
+                        $text .= html_writer::tag('span', get_string('registeredusers', 'format_flexpage'));
+                        $text .= html_writer::empty_tag('br');
                         $text .= html_writer::tag('span', $this->extendedcourse->enrolledusers.' ', array('class' => 'slrn-bold'));
                     $text .= html_writer::end_tag('li');
                     $text .= html_writer::start_tag('li');
-                        $text .= html_writer::tag('span', get_string('status', 'format_flexpage').' ');
+                        $text .= html_writer::tag('span', get_string('status', 'format_flexpage'));
+                        $text .= html_writer::empty_tag('br');
                         $text .= html_writer::tag('span', $this->extendedcourse->status.' ', array('class' => 'slrn-bold'));
                     $text .= html_writer::end_tag('li');
                 $text .= html_writer::end_tag('ul');
             $text .= html_writer::end_tag('div');
 
-        $text .= html_writer::tag('h2', get_string('prerequesites', 'format_flexpage').' ');
+        $text .= html_writer::tag('h2', get_string('prerequesites', 'format_flexpage'));
+                        $text .= html_writer::empty_tag('br');
             $text .= html_writer::start_tag('div', array('class' => 'sider__content'));
                 $text .= html_writer::start_tag('ul', array('class' => 'essentiels'));
                     $text .= html_writer::start_tag('li');
@@ -310,7 +334,8 @@ class block_course_extended extends block_base {
                 $text .= html_writer::end_tag('ul');
             $text .= html_writer::end_tag('div');
 
-        $text .= html_writer::tag('h2', get_string('teachingteam', 'format_flexpage').' ');
+        $text .= html_writer::tag('h2', get_string('teachingteam', 'format_flexpage'));
+                        $text .= html_writer::empty_tag('br');
             $text .= html_writer::start_tag('div', array('class' => 'sider__content'));
                 $text .= html_writer::start_tag('ul', array('class' => 'essentiels'));
                     $text .= html_writer::start_tag('li');
@@ -341,10 +366,10 @@ class block_course_extended extends block_base {
                 $this->extendedcourse->picture = $extendedcourseflexpagevalue->value;
                 break;
             case 'courseenddate':
-                $this->extendedcourse->enddate = date("Y-m-d", $extendedcourseflexpagevalue->value);
+                $this->extendedcourse->enddate = $extendedcourseflexpagevalue->value;
                 break;
             case 'courseworkingtime':
-                $this->extendedcourse->workingtime = date("H:i:s", $extendedcourseflexpagevalue->value);
+                $this->get_workingtime($extendedcourseflexpagevalue);
                 break;
             case 'courseprice':
                 $this->extendedcourse->price = $extendedcourseflexpagevalue->value;
@@ -359,7 +384,7 @@ class block_course_extended extends block_base {
                 $this->extendedcourse->prerequesites = $extendedcourseflexpagevalue->value;
                 break;
             case 'duration':
-                $this->extendedcourse->duration = date("H:i:s", $extendedcourseflexpagevalue->value);
+                $this->get_duration($extendedcourseflexpagevalue);
                 break;
             case 'registration_startdate':
                 $this->extendedcourse->registration_startdate = date("Y-m-d", $extendedcourseflexpagevalue->value);
@@ -372,25 +397,68 @@ class block_course_extended extends block_base {
     }
 
     /**
+     *  Set the extended course values from the extended course flexpage values.
+     *
+     * @param object $extendedcourseflexpagevalue
+     * @param object $context
+     * @return string Section title
+     */
+    private function get_workingtime ($extendedcourseflexpagevalue) {
+        switch ($extendedcourseflexpagevalue->value) {
+            case '0':
+                $this->extendedcourse->workingtime = get_string('workingtime0', 'format_flexpage');
+                break;
+            case '1':
+                $this->extendedcourse->workingtime = get_string('workingtime1', 'format_flexpage');
+                break;
+            case '2':
+                $this->extendedcourse->workingtime = get_string('workingtime2', 'format_flexpage');
+                break;
+        }
+    }
+
+        /**
+     *  Set the extended course values from the extended course flexpage values.
+     *
+     * @param object $extendedcourseflexpagevalue
+     * @param object $context
+     * @return string Section title
+     */
+    private function get_duration ($extendedcourseflexpagevalue) {
+        switch ($extendedcourseflexpagevalue->value) {
+            case '0':
+                $this->extendedcourse->duration = get_string('duration0', 'format_flexpage');
+                break;
+            case '1':
+                $this->extendedcourse->duration = get_string('duration1', 'format_flexpage');
+                break;
+            case '2':
+                $this->extendedcourse->duration = get_string('duration2', 'format_flexpage');
+                break;
+        }
+    }
+
+    /**
      * Set the extended course values from config.
      *
      * @param object $context
      * @return object $extendedcourse
      */
     private function set_extendedcourse_from_config($context) {
-
-        $this->extendedcourse->status = get_config('status', 'block_course_extended');
-        $this->extendedcourse->picture = get_config('picture', 'block_course_extended');
-        $this->extendedcourse->enddate = get_config('enddate', 'block_course_extended');
-        $this->extendedcourse->workingtime = get_config('workingtime', 'block_course_extended');
-        $this->extendedcourse->price = get_config('price', 'block_course_extended');
-        $this->extendedcourse->video = get_config('video', 'block_course_extended');
-        $this->extendedcourse->teachingteam = get_config('teachingteam', 'block_course_extended');
-        $this->extendedcourse->prerequesites = get_config('prerequesites', 'block_course_extended');
-        $this->extendedcourse->duration = get_config('duration', 'block_course_extended');
-        $this->extendedcourse->duration = get_config('registration_startdate', 'block_course_extended');
-        $this->extendedcourse->duration = get_config('registration_enddate', 'block_course_extended');
+            $format = 'd-m-Y';
+            $timestamp = time();
+        $this->extendedcourse->status = get_string('moocstatus_default', 'block_course_extended');
+        $this->extendedcourse->picture = get_string('picture', 'block_course_extended');
+        $this->extendedcourse->enddate = $timestamp;
+        $this->extendedcourse->workingtime = get_string('workingtime_default', 'block_course_extended');
+        $this->extendedcourse->price = get_string('price_default', 'block_course_extended');
+        $this->extendedcourse->video = get_string('video_default', 'block_course_extended');
+        $this->extendedcourse->teachingteam = get_string('teachingteam', 'block_course_extended');
+        $this->extendedcourse->prerequesites = get_string('prerequesites', 'block_course_extended');
+        $this->extendedcourse->duration = get_string('duration_default', 'block_course_extended');
         $this->extendedcourse->enrolledusers = count_enrolled_users($context);
+        $this->extendedcourse->registration_startdate = date($format, $timestamp);
+        $this->extendedcourse->registration_enddate = date($format, $timestamp);
     }
 
 }

@@ -115,18 +115,24 @@ $string['enddate_help'] = 'enddate_help ';
 $string['duration'] = 'duration: ';
 $string['duration_help'] = 'duration_help ';
 $string['duration_default'] = 'in_four_weeks ';
+$string['in_four_weeks'] = 'in_four_weeks';
+$string['four_six_weeks'] = 'four_six_weeks';
+$string['sup_six_weeks'] = 'sup_six_weeks';
 
 
 $string['workingtime'] = 'working time per day: ';
 $string['workingtime_help'] = 'working time per day_help ';
 $string['workingtime_default'] = 'inf_one';
+$string['inf_one'] = 'inf_one';
+$string['one_two'] = 'one_two';
+$string['two_three'] = 'two_three';
 
 $string['price'] = 'price: ';
 $string['price_help'] = 'price_help';
 $string['price_default'] = 'Free MOOC';
 
 $string['certification'] = 'Certification';
-$string['certification_default'] = 'No Certification';
+$string['certification_default'] = 'BADGE<br>ATTESTATION DE REUSSITE';
 $string['certification_help'] = 'No Certification';
 
 $string['language'] = 'Language: ';
@@ -134,7 +140,7 @@ $string['language_default'] = 'No language';
 
 $string['video'] = 'Video: ';
 $string['video_help'] = 'Video_help';
-$string['video_default'] = 0;
+$string['video_default'] = '0';
 
 $string['registration'] = 'registration: ';
 $string['registration_default'] = 'registration';
