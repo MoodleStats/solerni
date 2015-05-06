@@ -105,8 +105,8 @@
 .block_course_extended .essentiels__duration {
     background-position: -210px -113px;
 }
-.block_course_extended .essentiels__cost {
-    top: -5px; background-position: -210px -139px;
+.block_course_extended .essentiels__price {
+    background-position: -210px -139px;
 }
 .block_course_extended .essentiels__certification {
     background-position: -210px -164px;

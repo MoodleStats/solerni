@@ -379,9 +379,9 @@ class format_flexpage extends format_base {
                     'element_type' => 'select',
                     'element_attributes' => array(
                         array(
-                            0 => get_string('inf_one', 'format_flexpage'),
-                            1 => get_string('one_two', 'format_flexpage'),
-                            2 => get_string('two_three', 'format_flexpage')
+                            0 => get_string('workingtime0', 'format_flexpage'),
+                            1 => get_string('workingtime1', 'format_flexpage'),
+                            2 => get_string('workingtime2', 'format_flexpage')
                         )
                      )
                 ),
@@ -434,9 +434,9 @@ class format_flexpage extends format_base {
                     'element_type' => 'select',
                     'element_attributes' => array(
                         array(
-                            0 => get_string('in_four_weeks', 'format_flexpage'),
-                            1 => get_string('four_six_weeks', 'format_flexpage'),
-                            2 => get_string('sup_six_weeks', 'format_flexpage')
+                            0 => get_string('duration0', 'format_flexpage'),
+                            1 => get_string('duration1', 'format_flexpage'),
+                            2 => get_string('duration2', 'format_flexpage')
                         )
                     )
                 )
