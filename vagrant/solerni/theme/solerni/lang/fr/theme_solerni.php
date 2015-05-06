@@ -29,17 +29,14 @@ $string['choosereadme'] = 'Solerni is a clone of Aardvark which is a three colum
 
 $string['configtitle'] = 'Solerni';
 
-$string['basicheading'] = 'Réglages de base';
-$string['basicheadingdesc'] = 'Modifications des éléments de base du thème.';
-
-$string['frontpageheading'] = 'Page d\'accueil';
-$string['frontpageheadingdesc'] = 'Modifier les éléments de la page d\'accueil tels que les alertes et la date.';
-
 $string['colourheading'] = 'Couleurs du thème ';
 $string['colourheadingdesc'] = 'Modifier les couleurs du thème.';
 
-$string['socialiconsheading'] = 'Icônes des réseaux sociaux';
-$string['socialiconsheadingdesc'] = 'Définit les liens pour les réseaux sociaux.';
+$string['footertextheading'] = 'Texte du footer';
+$string['footertextheadingdesc'] = 'Définit la marque Solerni dans le footer.';
+
+$string['sociallinksheading'] = 'Liens des réseaux sociaux';
+$string['sociallinksheadingdesc'] = 'Définit les liens pour les réseaux sociaux (footer).';
 
 $string['backcolor'] = 'Couleur de fond';
 $string['backcolordesc'] = 'Change la couleur de fond de la page';
@@ -83,29 +80,23 @@ $string['grey4desc'] = 'Gris foncé';
 $string['grey5'] = 'Gris 5';
 $string['grey5desc'] = 'Gris très foncé';
 
-$string['website'] = 'URL du site';
-$string['websitedesc'] = 'Entrez l\'URL de votre site web. (ex : http://www.mycollege.ac.uk)';
+$string['blog'] = 'Blog';
+$string['blogdesc'] = 'Entrez l\'URL de votre blog.';
 
 $string['facebook'] = 'Lien Facebook';
-$string['facebookdesc'] = 'Entrez l\'URL de votre page Facebook. (ex : http://www.facebook.com/mycollege)';
+$string['facebookdesc'] = 'Entrez l\'URL de votre page Facebook.';
 
 $string['twitter'] = 'Lien Twitter';
-$string['twitterdesc'] = 'Entrez l\'URL de votre flux Twitter. (ex : http://www.twitter.com/mycollege)';
+$string['twitterdesc'] = 'Entrez l\'URL de votre flux Twitter.';
 
 $string['googleplus'] = 'Lien Google+';
-$string['googleplusdesc'] = 'Entrez l\'URL de votre profil Google+. (ex : http://plus.google.com/107817105228930159735)';
+$string['googleplusdesc'] = 'Entrez l\'URL de votre profil Google+.';
 
 $string['linkedin'] = 'Lien LinkedIn';
-$string['linkedindesc'] = 'Entrez l\'URL de votre profil LinkedIn. (ex : http://www.linkedin.com/company/mycollege)';
+$string['linkedindesc'] = 'Entrez l\'URL de votre profil LinkedIn.';
 
 $string['youtube'] = 'Lien YouTube';
-$string['youtubedesc'] = 'Entrez l\'URL de votre chaîne YouTube. (ex : http://www.youtube.com/mycollege)';
-
-$string['apple'] = 'Lien Apple App Store';
-$string['appledesc'] = 'Entrez l\'URL de votre page Apple App Store. (ex : https://itunes.apple.com/gb/artist/my-college/id123456789)';
-
-$string['android'] = 'Lien Google Play Store';
-$string['androiddesc'] = 'Entrez l\'URL de votre page Google Play Store. (ex : https://play.google.com/store/apps/developer?id=mycollege)';
+$string['youtubedesc'] = 'Entrez l\'URL de votre chaîne YouTube.';
 
 $string['about'] = 'A propos';
 $string['aboutdesc'] = 'URL de la page A propos (Header)';
@@ -113,14 +104,19 @@ $string['aboutdesc'] = 'URL de la page A propos (Header)';
 $string['catalogue'] = 'Catalogue';
 $string['cataloguedesc'] = 'URL de la page Catalogue (Header)';
 
-$string['themelinksheading'] = 'Liens statiques de l\'interface';
-$string['themelinksheadingdesc'] = 'Indiquez ici les liens statiques utilisés dans l\'entête et le footer';
+$string['themelinksheading']            = 'Liens statiques de l\'interface';
+$string['themelinksheadingdesc']        = 'Indiquez ici les liens statiques utilisés dans l\'entête et le footer';
 
-$string['search'] = 'Rechercher';
+$string['search']                       = 'Rechercher';
 
-$string['register'] = 'Inscription';
-$string['login'] = 'Connexion';
+$string['register']                     = 'Inscription';
+$string['login']                        = 'Connexion';
 
-$string['hello']        = 'Bonjour';
-$string['dashboard']    = 'Tableau de bord';
-$string['administration'] = 'Administration';
+$string['hello']                        = 'Bonjour';
+$string['dashboard']                    = 'Tableau de bord';
+$string['administration']               = 'Administration';
+
+$string['footertagline']                = 'Apprendre, c\'est toujours mieux ensemble';
+$string['footertaglinedesc']            = 'Footer tagline';
+$string['footerexplaination']           = 'Solerni est une solution logicielle complète dédiée à la création et à l\'hébergement de parcours d\'apprentissage massifs collaboratifs.';
+$string['footerexplainationdesc']       = 'Texte sour la tagline du footer';

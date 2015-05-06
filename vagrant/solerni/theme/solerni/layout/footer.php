@@ -21,21 +21,27 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$haswebsite = (!empty($PAGE->theme->settings->website));
-$hasfacebook = (!empty($PAGE->theme->settings->facebook));
-$hastwitter = (!empty($PAGE->theme->settings->twitter));
-$hasgoogleplus = (!empty($PAGE->theme->settings->googleplus));
-$haslinkedin = (!empty($PAGE->theme->settings->linkedin));
-$hasyoutube = (!empty($PAGE->theme->settings->youtube));
+$haswebsite     = (!empty($PAGE->theme->settings->website));
+$hasfacebook    = (!empty($PAGE->theme->settings->facebook));
+$hastwitter     = (!empty($PAGE->theme->settings->twitter));
+$hasgoogleplus  = (!empty($PAGE->theme->settings->googleplus));
+$haslinkedin    = (!empty($PAGE->theme->settings->linkedin));
+$hasyoutube     = (!empty($PAGE->theme->settings->youtube));
+$tagline        = ($PAGE->theme->settings->footertagline) ?
+                   $PAGE->theme->settings->footertagline :
+                   get_string('footertagline', 'theme_solerni');
+$explaination   = ($PAGE->theme->settings->footerexplaination) ?
+                   $PAGE->theme->settings->footerexplaination :
+                   get_string('footerexplaination', 'theme_solerni');
 ?>
 
-<footer id="footer" class="slrn-footer">
-    <div class="col-sm-12 col-md-4 footer-brand">
-        <div class="footer-brand__logo"></div>
-        <p class="footer-brand_title">Apprendre, c'est toujours mieux ensemble</p>
-        <p class="footer-brand__text">Solerni est une solution logicielle complète dédiée à la création et à l'hébergement de parcours d'apprentissage massifs collaboratifs.</p>
+<footer id="footer" class="row-fluid slrn-footer">
+    <div class="span4 footer-brand">
+        <div class="footer-brand__logo -sprite-solerni"></div>
+        <p class="footer-brand_title"><?php echo $tagline; ?></p>
+        <p class="footer-brand__text"><?php echo $explaination; ?></p>
     </div>
-        <div class="col-sm-12 col-md-2 footer-column ">
+        <div class="span2 footer-column ">
             <p class="footer_title">A propos de nous</p>
             <ul class="footer_cms_menu__column">
                 <li class="footer_cms_menu_column__item"><a class="footer_cms_menu_column__link" href="/mooc/static/page/cms_quoi">A propos de Solerni</a></li>
@@ -44,14 +50,14 @@ $hasyoutube = (!empty($PAGE->theme->settings->youtube));
                 <li class="footer_cms_menu_column__item"><a class="footer_cms_menu_column__link js-link_cgu" href="/mooc/static/page/cms_cgu">CGU / Charte</a></li>
             </ul>
         </div>
-        <div class="col-sm-12 col-md-2 footer-column ">
+        <div class="span2 footer-column ">
             <p class="footer_title">Support</p>
             <ul class="footer_cms_menu__column">
                 <li class="footer_cms_menu_column__item"><a class="footer_cms_menu_column__link" href="/mooc/static/page/cms_faq">FAQ</a></li>
                 <li class="footer_cms_menu_column__item"><a class="footer_cms_menu_column__link" href="/mooc/contact">Nous contacter</a></li>
             </ul>
         </div>
-        <div class="col-sm-12 col-md-2 footer-column ">
+        <div class="span2 footer-column ">
             <p class="footer_title">Suivez-nous</p>
             <a href="/mooc/static/page/social_facebook" class="footer_social_link" target="_blank">
                 <span class="footer_social_link__icon social_facebook">Facebook</span><!--
@@ -66,7 +72,7 @@ $hasyoutube = (!empty($PAGE->theme->settings->youtube));
                 --><span class="footer_icon_text">Blog</span>
             </a>
         </div>
-        <div class="col-sm-12 col-md-2 footer-column ">
+        <div class="span2 footer-column ">
             <p class="footer_title">International</p>
             <?php echo $OUTPUT->solerni_lang_menu(); ?>
         </div>
@@ -77,8 +83,7 @@ $hasyoutube = (!empty($PAGE->theme->settings->youtube));
             <div class="footer_powered">powered by Orange</div>
         </a>
     </div>
-    <div class="container">
-        <?php echo $OUTPUT->standard_footer_html(); ?>
-    </div>
 </footer>
-
+<div class="row-fluid">
+    <?php echo $OUTPUT->standard_footer_html(); ?>
+</div>

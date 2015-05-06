@@ -248,8 +248,16 @@ body {
  * Footer
  */
 
-.footer-logo {
-    
+.slrn-footer {
+    background-color:   [[setting:grey2]];
+    padding:            35px 7px;
+    margin-top:         60px;
+    border-top:         solid 10px [[setting:backcolor]]
+}
+
+.footer-brand__logo {
+    width:      179px;
+    height:     46px;
 }
 
 /*

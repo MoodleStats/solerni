@@ -56,7 +56,7 @@ class options {
 
         // Array of solerni social settings ( setting name => default value ).
         return array(
-            'website'           => '',
+            'blog'              => '',
             'facebook'          => '',
             'twitter'           => '',
             'googleplus'        => '',
@@ -75,6 +75,23 @@ class options {
         return array(
             'about'     => '',
             'catalogue' => ''
+        );
+    }
+
+    /*
+    * Return associative array ( setting_name => default_value )
+    * List and default values for footer text
+     */
+    public static function solerni_get_footertext_array() {
+
+        // Array of solerni social settings ( setting name => default value ).
+        return array(
+            'footertagline'           => array(
+                                            'fieldtype' => 'admin_setting_configtext',
+                                            'defaultvalue' => '' ),
+            'footerexplaination'      => array(
+                                            'fieldtype' => 'admin_setting_configtextarea',
+                                            'defaultvalue' => '' )
         );
     }
 }
