@@ -30,7 +30,7 @@
 function local_goodbye_extends_navigation(global_navigation $navigation) {
     global $USER;
 
-    if (!isloggedin() || isguestuser() && !is_siteadmin($USER)) {
+    if (!isloggedin() || isguestuser() || is_siteadmin($USER)) {
         return '';
     }
     $enabled = get_config('local_goodbye', 'enabled');

@@ -67,6 +67,7 @@ if ($enabled && !is_siteadmin() && !isguestuser()) {
             // User Exists, Check pass.
             if ($user) {
                 if ($user->id == $USER->id ) {
+                    delete_user($user);
                     // Auths, in sequence.
                     $authsequence = get_enabled_auth_plugins();
                     foreach ($authsequence as $authname) {
@@ -75,6 +76,7 @@ if ($enabled && !is_siteadmin() && !isguestuser()) {
                     }
 
                     require_logout();
+                    $PAGE->set_heading(format_string(get_string('deleteaccount', 'local_goodbye')));
                     echo $OUTPUT->header(get_string('deleteaccount', 'local_goodbye'));
                     echo $OUTPUT->notification(get_string('useraccountdeleted', 'local_goodbye'), 'notifysuccess');
                     echo $OUTPUT->footer();
@@ -92,7 +94,9 @@ if ($enabled && !is_siteadmin() && !isguestuser()) {
     $checkaccount->display();
     echo $error;
 } else {
+    $PAGE->set_heading(format_string(get_string('deleteaccount', 'local_goodbye')));
     echo $OUTPUT->header(get_string('disabled', 'local_goodbye'));
+    echo $OUTPUT->notification(get_string('nodeletionmsg', 'local_goodbye'));
 }
 
 echo $OUTPUT->footer();
