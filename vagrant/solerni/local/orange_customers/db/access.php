@@ -29,7 +29,7 @@ $capabilities = array(
     'orange/customers:edit' => array(
         'riskbitmask'  => RISK_CONFIG,
         'captype' => 'write',
-        'contextlevel' => CONTEXT_COURSE,
+        'contextlevel' => CONTEXT_SYSTEM,
         'archetypes' => array(
         'manager' => CAP_ALLOW,
         )

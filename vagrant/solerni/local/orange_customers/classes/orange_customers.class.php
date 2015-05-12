@@ -143,7 +143,7 @@ class orange_customers  {
                         $file->get_filename());
 
                 // We keep only the last (there are a filename).
-                $urlimg = "<img src='{$imgurl}' height=100px />";
+                $urlimg = "<img src='{$imgurl}' height='100px' />";
             }
             $row[] = $urlimg;
 

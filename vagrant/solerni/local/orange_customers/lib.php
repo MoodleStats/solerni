@@ -66,6 +66,8 @@ function customer_get_customer($id) {
     return $customer;
 
 }
+
+
 /*
  * Mandatory callback from pluginfile.php
  * Deals with local specific
@@ -83,14 +85,6 @@ function local_orange_customers_pluginfile($course, $cm, $context, $filearea, $a
 
     // We only use two file areas.
     if ( $filearea != 'logo' && $filearea != 'picture' ) {
-        return false;
-    }
-
-    // We need to be connected (or not ?).
-    require_login($course, true);
-
-    // And have the rights. I think we'll have to extend it to all users so they can see the logo on frontend :).
-    if (! has_capability('orange/customers:edit', $context)) {
         return false;
     }
 
