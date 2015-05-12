@@ -35,8 +35,11 @@ $string['colourheadingdesc'] = 'Modifier les couleurs du thème.';
 $string['footertextheading'] = 'Texte du footer';
 $string['footertextheadingdesc'] = 'Définit la marque Solerni dans le footer.';
 
-$string['sociallinksheading'] = 'Liens des réseaux sociaux';
-$string['sociallinksheadingdesc'] = 'Définit les liens pour les réseaux sociaux (footer).';
+$string['footerlinksheading']       = 'Liens du footer';
+$string['footerlinksheadingdesc']   = 'Définit les liens pour le footer (hors réseaux sociaux).';
+
+$string['sociallinksheading']       = 'Liens des réseaux sociaux';
+$string['sociallinksheadingdesc']   = 'Définit les liens pour les réseaux sociaux (footer).';
 
 $string['backcolor'] = 'Couleur de fond';
 $string['backcolordesc'] = 'Change la couleur de fond de la page';
@@ -116,11 +119,27 @@ $string['hello']                        = 'Bonjour';
 $string['dashboard']                    = 'Tableau de bord';
 $string['administration']               = 'Administration';
 
-$string['footertagline_title']           = 'Slogan solerni (français)';
-$string['footertagline_default']         = 'Apprendre, c\'est toujours mieux ensemble';
-$string['footertagline_desc']            = 'Slogan dans le footer (français)';
-$string['footerexplaination_title']      = 'Texte court explicatif (français)';
-$string['footerexplaination_default']    = 'Solerni est une solution logicielle complète dédiée à la création et à l\'hébergement de parcours d\'apprentissage massifs collaboratifs.';
-$string['footerexplaination_desc']       = 'Texte sour la slogan de la version français du footer';
+$string['footertaglinetitle']           = 'Slogan solerni (français)';
+$string['footertaglinedefault']         = 'Apprendre, c\'est toujours mieux ensemble';
+$string['footertaglinedesc']            = 'Slogan dans le footer (français)';
+$string['footerexplainationtitle']      = 'Texte court explicatif (français)';
+$string['footerexplainationdefault']    = 'Solerni est une solution logicielle complète dédiée à la création et à l\'hébergement de parcours d\'apprentissage massifs collaboratifs.';
+$string['footerexplainationdesc']       = 'Texte complétant le slogan de la version français du footer';
 
 $string['aboutus']                       = 'A propos de nous';
+$string['support']                       = 'Support';
+$string['followus']                      = 'Suivez-nous';
+$string['international']                 = 'International';
+
+$string['aboutsolerni']                  = 'A propos de Solerni';
+$string['aboutsolernidesc']              = 'Entrez l\'URL du lien A propos de Solerni';
+$string['partners']                      = 'Partenaires';
+$string['partnersdesc']                  = 'Entrez l\'URL du lien Partenaires';
+$string['legal']                         = 'Mentions légales';
+$string['legaldesc']                     = 'Entrez l\'URL du lien Mentions légales';
+$string['cgu']                           = 'CGU / Charte';
+$string['cgudesc']                       = 'Entrez l\'URL du lien vers les CGU';
+$string['faq']                           = 'FAQ';
+$string['faqdesc']                       = 'Entrez l\'URL des "Questions Fréquentes"';
+$string['contactus']                     = 'Nous contacter';
+$string['contactusdesc']                 = 'Entrez l\'URL de la page Contact';

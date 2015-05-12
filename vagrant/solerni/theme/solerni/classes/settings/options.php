@@ -52,7 +52,7 @@ class options {
      * Return associative array ( setting_name => default_value )
      * List and default values for social networks
      */
-    public static function solerni_get_social_array() {
+    public static function solerni_get_sociallinks_array() {
 
         // Array of solerni social settings ( setting name => default value ).
         return array(
@@ -69,7 +69,7 @@ class options {
     * Return associative array ( setting_name => default_value )
     * List and default values for theme IHM loose links
     */
-    public static function solerni_get_links_array() {
+    public static function solerni_get_staticlinks_array() {
 
         // Array of solerni social settings ( setting name => default value ).
         return array(
@@ -94,4 +94,22 @@ class options {
                                             'defaultvalue' => '' )
         );
     }
+
+    /*
+    * Return associative array ( setting_name => default_value )
+    * List and default values for footer links
+     */
+    public static function solerni_get_footerlinks_array() {
+
+        // Array of solerni footer links settings ( setting name => default value ).
+        return array(
+            'aboutsolerni'      => '',
+            'partners'          => '',
+            'legal'             => '',
+            'cgu'               => '',
+            'faq'               => '',
+            'contactus'         => '',
+        );
+    }
+
 }

@@ -35,6 +35,9 @@ $string['colourheadingdesc'] = 'Customise site colours.';
 $string['footertextheading'] = 'Footer Text';
 $string['footertextheadingdesc'] = 'Define Solerni branding text in footer.';
 
+$string['footerlinksheading']       = 'Liens du footer';
+$string['footerlinksheadingdesc']   = 'Définit les liens pour le footer (hors réseaux sociaux).';
+
 $string['sociallinksheading'] = 'Social links';
 $string['sociallinksheadingdesc'] = 'Customise social network urls (footer).';
 
@@ -116,11 +119,27 @@ $string['hello']                    = 'Hello';
 $string['dashboard']                = 'Dashboard';
 $string['administration']           = 'Administration';
 
-$string['footertagline_title']       = 'Solerni tagline (english)';
-$string['footertagline_default']     = 'To learn is more fun together';
-$string['footertagline_desc']        = 'Footer tagline for english version';
-$string['footerexplaination_title']  = 'Solerni tagline short text (english)';
-$string['footerexplaination_default']= 'Solerni is a full software suite dedicated to help you creating and hosting massively collaborative learning routes';
-$string['footerexplaination_desc']   = 'Text under the tagline in the english version footer';
+$string['footertaglinetitle']       = 'Solerni tagline (english)';
+$string['footertaglinedefault']     = 'To learn is more fun together';
+$string['footertaglinedesc']        = 'Footer tagline for english version';
+$string['footerexplainationtitle']  = 'Solerni tagline short text (english)';
+$string['footerexplainationdefault']= 'Solerni is a full software suite dedicated to help you creating and hosting massively collaborative learning routes';
+$string['footerexplainationdesc']   = 'Text under the tagline in the english version footer';
 
 $string['aboutus']                   = 'About us';
+$string['support']                   = 'Support';
+$string['followus']                  = 'Follow us';
+$string['international']             = 'International';
+
+$string['aboutsolerni']              = 'About Solerni';
+$string['aboutsolernidesc']         = 'Enter About Solerni URL';
+$string['partners']                  = 'Partners';
+$string['partnersdesc']              = 'Enter Partners URL';
+$string['legal']                     = 'Legal notices';
+$string['legaldesc']                 = 'Enter Legal Notice URL';
+$string['cgu']                       = 'Terms and Conditions';
+$string['cgudesc']                   = 'Enter Terms and Conditions URL';
+$string['faq']                       = 'FAQ';
+$string['faqdesc']                   = 'Enter FAQ URL';
+$string['contactus']                 = 'Contact Us';
+$string['contactusdesc']             = 'Enter Contact URL';
