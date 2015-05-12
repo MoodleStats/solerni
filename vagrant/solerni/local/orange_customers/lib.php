@@ -54,7 +54,7 @@ function customer_add_customer($customer) {
 
 /**
  * Return the customer identified by $id
- *
+ * 
  * @param int $id id of customer
  * @return stdClass $customer 
  */
@@ -63,6 +63,56 @@ function customer_get_customer($id) {
 
     $customer = $DB->get_record('orange_customers', array('id' => $id));
 
+    return $customer;
+
+}
+
+/**
+ * Return the customer associated by $categoryid
+ * 
+ * @param int $categoryid id of category
+ * @return stdClass $customer
+ */
+function customer_get_customerbycategoryid($categoryid) {
+    global $CFG, $DB;
+
+    $customer = $DB->get_record('orange_customers', array('categoryid' => $categoryid));
+
+    $context = context_system::instance();
+         
+    $fs = get_file_storage();
+    $files = $fs->get_area_files($context->id, 'local_orange_customers', 'logo', $customer->id);
+    
+    $urlimg = "";
+			
+    foreach ($files as $file) {
+        $urlimg = moodle_url::make_pluginfile_url($file->get_contextid(),
+                        $file->get_component(),
+                        $file->get_filearea(),
+                        $file->get_itemid(),
+                        $file->get_filepath(),
+                        $file->get_filename());
+        
+
+    }
+
+	$files = $fs->get_area_files($context->id, 'local_orange_customers', 'picture', $customer->id);
+    $urlpicture = "";
+    foreach ($files as $file) {
+        $urlpicture = moodle_url::make_pluginfile_url($file->get_contextid(),
+                        $file->get_component(),
+                        $file->get_filearea(),
+                        $file->get_itemid(),
+                        $file->get_filepath(),
+                        $file->get_filename());
+        
+    }
+    
+    $customer->urlimg = $urlimg;
+    $customer->urlpicture = $urlpicture;
+    
+    
+    
     return $customer;
 
 }
