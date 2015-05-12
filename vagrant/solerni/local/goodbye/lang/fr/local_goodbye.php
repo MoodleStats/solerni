@@ -41,3 +41,5 @@ $string['farewell'] = 'Texte à afficher';
 $string['farewell_desc'] = 'Texte à afficher à l\'utilisateur lors de la suppression';
 $string['defaultfarewell'] = 'Pour supprimer votre compte, saisissez votre Nom d\'utilisateur et mot de passe<br>Merci d\'avoir utilisé Solerni!';
 $string['anotheraccount'] = 'Vous ne pouvez supprimer que votre propre compte';
+$string['useraccountdeleted'] = 'Votre compte a été supprimé de ce site.';
+$string['nodeletionmsg'] = 'Vous ne pouvez pas supprimer votre compte.';
