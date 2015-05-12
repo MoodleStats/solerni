@@ -46,55 +46,55 @@ $sectioninfo = get_fast_modinfo($course)->get_section_info($sectionnum);
 
 $editoroptions = array('context'=>$context ,'maxfiles' => EDITOR_UNLIMITED_FILES, 'maxbytes'=>$CFG->maxbytes, 'trusttext'=>false, 'noclean'=>true);
 $mform = course_get_format($course->id)->editsection_form($PAGE->url,
-        array('cs' => $sectioninfo, 'editoroptions' => $editoroptions));
+		array('cs' => $sectioninfo, 'editoroptions' => $editoroptions));
 // set current value, make an editable copy of section_info object
 // this will retrieve all format-specific options as well
 $initialdata = convert_to_array($sectioninfo);
 if (!empty($CFG->enableavailability)) {
-    $initialdata['availabilityconditionsjson'] = $sectioninfo->availability;
+	$initialdata['availabilityconditionsjson'] = $sectioninfo->availability;
 }
 $mform->set_data($initialdata);
 
 if ($mform->is_cancelled()){
-    // Form cancelled, return to course.
-    redirect(course_get_url($course, $section, array('sr' => $sectionreturn)));
+	// Form cancelled, return to course.
+	redirect(course_get_url($course, $section, array('sr' => $sectionreturn)));
 } else if ($data = $mform->get_data()) {
-    // Data submitted and validated, update and return to course.
+	// Data submitted and validated, update and return to course.
 
-    // For consistency, we set the availability field to 'null' if it is empty.
-    if (!empty($CFG->enableavailability)) {
-        // Renamed field.
-        $data->availability = $data->availabilityconditionsjson;
-        unset($data->availabilityconditionsjson);
-        if ($data->availability === '') {
-            $data->availability = null;
-        }
-    }
-    $DB->update_record('course_sections', $data);
-    rebuild_course_cache($course->id, true);
-    if (isset($data->section)) {
-        // Usually edit form does not change relative section number but just in case.
-        $sectionnum = $data->section;
-    }
-    course_get_format($course->id)->update_section_format_options($data);
+	// For consistency, we set the availability field to 'null' if it is empty.
+	if (!empty($CFG->enableavailability)) {
+		// Renamed field.
+		$data->availability = $data->availabilityconditionsjson;
+		unset($data->availabilityconditionsjson);
+		if ($data->availability === '') {
+			$data->availability = null;
+		}
+	}
+	$DB->update_record('course_sections', $data);
+	rebuild_course_cache($course->id, true);
+	if (isset($data->section)) {
+		// Usually edit form does not change relative section number but just in case.
+		$sectionnum = $data->section;
+	}
+	course_get_format($course->id)->update_section_format_options($data);
 
-    // Set section info, as this might not be present in form_data.
-    if (!isset($data->section))  {
-        $data->section = $sectionnum;
-    }
-    // Trigger an event for course section update.
-    $event = \core\event\course_section_updated::create(
-            array(
-                'objectid' => $data->id,
-                'courseid' => $course->id,
-                'context' => $context,
-                'other' => array('sectionnum' => $data->section)
-            )
-        );
-    $event->trigger();
+	// Set section info, as this might not be present in form_data.
+	if (!isset($data->section))  {
+		$data->section = $sectionnum;
+	}
+	// Trigger an event for course section update.
+	$event = \core\event\course_section_updated::create(
+			array(
+					'objectid' => $data->id,
+					'courseid' => $course->id,
+					'context' => $context,
+					'other' => array('sectionnum' => $data->section)
+			)
+	);
+	$event->trigger();
 
-    $PAGE->navigation->clear_cache();
-    redirect(course_get_url($course, $section, array('sr' => $sectionreturn)));
+	$PAGE->navigation->clear_cache();
+	redirect(course_get_url($course, $section, array('sr' => $sectionreturn)));
 }
 
 // The edit form is displayed for the first time or if there was validation error on the previous step.

@@ -41,15 +41,15 @@ echo $OUTPUT->heading(get_string('testingsettings', 'logstore_database'));
 raise_memory_limit(MEMORY_HUGE);
 $dbtable = get_config('logstore_database', 'dbtable');
 if (empty($dbtable)) {
-    echo $OUTPUT->notification('External table not specified.', 'notifyproblem');
-    die();
+	echo $OUTPUT->notification('External table not specified.', 'notifyproblem');
+	die();
 }
 
 $dbdriver = get_config('logstore_database', 'dbdriver');
 list($dblibrary, $dbtype) = explode('/', $dbdriver);
 if (!$db = \moodle_database::get_driver_instance($dbtype, $dblibrary, true)) {
-    echo $OUTPUT->notification("Unknown driver $dblibrary/$dbtype", "notifyproblem");
-    die();
+	echo $OUTPUT->notification("Unknown driver $dblibrary/$dbtype", "notifyproblem");
+	die();
 }
 
 $olddebug = $CFG->debug;
@@ -66,36 +66,36 @@ $dboptions['dbschema'] = get_config('logstore_database', 'dbschema');
 $dboptions['dbcollation'] = get_config('logstore_database', 'dbcollation');
 
 try {
-    $db->connect(get_config('logstore_database', 'dbhost'), get_config('logstore_database', 'dbuser'),
-        get_config('logstore_database', 'dbpass'), get_config('logstore_database', 'dbname'), false, $dboptions);
+	$db->connect(get_config('logstore_database', 'dbhost'), get_config('logstore_database', 'dbuser'),
+			get_config('logstore_database', 'dbpass'), get_config('logstore_database', 'dbname'), false, $dboptions);
 } catch (\moodle_exception $e) {
-    echo $OUTPUT->notification('Cannot connect to the database.', 'notifyproblem');
-    $CFG->debug = $olddebug;
-    ini_set('display_errors', $olddisplay);
-    error_reporting($CFG->debug);
-    ob_end_flush();
-    echo $OUTPUT->footer();
-    die();
+	echo $OUTPUT->notification('Cannot connect to the database.', 'notifyproblem');
+	$CFG->debug = $olddebug;
+	ini_set('display_errors', $olddisplay);
+	error_reporting($CFG->debug);
+	ob_end_flush();
+	echo $OUTPUT->footer();
+	die();
 }
 echo $OUTPUT->notification('Connection made.', 'notifysuccess');
 $tables = $db->get_tables();
 if (!in_array($dbtable, $tables)) {
-    echo $OUTPUT->notification('Cannot find the specified table ' . $dbtable, 'notifyproblem');
-    $CFG->debug = $olddebug;
-    ini_set('display_errors', $olddisplay);
-    error_reporting($CFG->debug);
-    ob_end_flush();
-    echo $OUTPUT->footer();
-    die();
+	echo $OUTPUT->notification('Cannot find the specified table ' . $dbtable, 'notifyproblem');
+	$CFG->debug = $olddebug;
+	ini_set('display_errors', $olddisplay);
+	error_reporting($CFG->debug);
+	ob_end_flush();
+	echo $OUTPUT->footer();
+	die();
 }
 echo $OUTPUT->notification('Table ' . $dbtable . ' found.', 'notifysuccess');
 
 $cols = $db->get_columns($dbtable);
 if (empty($cols)) {
-    echo $OUTPUT->notification('Can not read external table.', 'notifyproblem');
+	echo $OUTPUT->notification('Can not read external table.', 'notifyproblem');
 } else {
-    $columns = array_keys((array)$cols);
-    echo $OUTPUT->notification('External table contains following columns:<br />' . implode(', ', $columns), 'notifysuccess');
+	$columns = array_keys((array)$cols);
+	echo $OUTPUT->notification('External table contains following columns:<br />' . implode(', ', $columns), 'notifysuccess');
 }
 
 $db->dispose();

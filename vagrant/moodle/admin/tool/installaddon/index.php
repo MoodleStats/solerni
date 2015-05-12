@@ -29,7 +29,7 @@ require_once($CFG->libdir.'/adminlib.php');
 admin_externalpage_setup('tool_installaddon_index');
 
 if (!empty($CFG->disableonclickaddoninstall)) {
-    notice(get_string('featuredisabled', 'tool_installaddon'));
+	notice(get_string('featuredisabled', 'tool_installaddon'));
 }
 
 $installer = tool_installaddon_installer::instance();
@@ -45,21 +45,21 @@ $installer->handle_remote_request($output, $remoterequest, $confirmed);
 $form = $installer->get_installfromzip_form();
 
 if ($form->is_cancelled()) {
-    redirect($PAGE->url);
+	redirect($PAGE->url);
 
 } else if ($data = $form->get_data()) {
-    // Save the ZIP file into a temporary location.
-    $jobid = md5(rand().uniqid('', true));
-    $sourcedir = make_temp_directory('tool_installaddon/'.$jobid.'/source');
-    $zipfilename = $installer->save_installfromzip_file($form, $sourcedir);
-    // Redirect to the validation page.
-    $nexturl = new moodle_url('/admin/tool/installaddon/validate.php', array(
-        'sesskey' => sesskey(),
-        'jobid' => $jobid,
-        'zip' => $zipfilename,
-        'type' => $data->plugintype,
-        'rootdir' => $data->rootdir));
-    redirect($nexturl);
+	// Save the ZIP file into a temporary location.
+	$jobid = md5(rand().uniqid('', true));
+	$sourcedir = make_temp_directory('tool_installaddon/'.$jobid.'/source');
+	$zipfilename = $installer->save_installfromzip_file($form, $sourcedir);
+	// Redirect to the validation page.
+	$nexturl = new moodle_url('/admin/tool/installaddon/validate.php', array(
+			'sesskey' => sesskey(),
+			'jobid' => $jobid,
+			'zip' => $zipfilename,
+			'type' => $data->plugintype,
+			'rootdir' => $data->rootdir));
+	redirect($nexturl);
 }
 
 // Output starts here.

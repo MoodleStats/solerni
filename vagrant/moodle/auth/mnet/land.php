@@ -39,7 +39,7 @@ $PAGE->set_url($url);
 $site = get_site();
 
 if (!is_enabled_auth('mnet')) {
-    print_error('mnetdisable');
+	print_error('mnetdisable');
 }
 
 // confirm the MNET session
@@ -56,12 +56,12 @@ complete_user_login($user);
 $mnetauth->update_mnet_session($user, $token, $remotepeer);
 
 if (!empty($localuser->mnet_foreign_host_array)) {
-    $USER->mnet_foreign_host_array = $localuser->mnet_foreign_host_array;
+	$USER->mnet_foreign_host_array = $localuser->mnet_foreign_host_array;
 }
 
 // redirect
 if ($wantsremoteurl) {
-    redirect($remotewwwroot . $wantsurl);
+	redirect($remotewwwroot . $wantsurl);
 }
 redirect($CFG->wwwroot . $wantsurl);
 

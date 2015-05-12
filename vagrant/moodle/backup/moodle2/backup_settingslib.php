@@ -31,7 +31,7 @@
 
 /**
  * root generic setting to store different things without dependencies
- */
+*/
 class backup_generic_setting extends root_backup_setting {}
 
 /**
@@ -39,23 +39,23 @@ class backup_generic_setting extends root_backup_setting {}
  */
 class backup_filename_setting extends backup_generic_setting {
 
-    /**
-     * Instantiates a setting object
-     *
-     * @param string $name Name of the setting
-     * @param string $vtype Type of the setting, eg {@link base_setting::IS_TEXT}
-     * @param mixed $value Value of the setting
-     * @param bool $visibility Is the setting visible in the UI, eg {@link base_setting::VISIBLE}
-     * @param int $status Status of the setting with regards to the locking, eg {@link base_setting::NOT_LOCKED}
-     */
-    public function __construct($name, $vtype, $value = null, $visibility = self::VISIBLE, $status = self::NOT_LOCKED) {
-        parent::__construct($name, $vtype, $value, $visibility, $status);
-    }
+	/**
+	 * Instantiates a setting object
+	 *
+	 * @param string $name Name of the setting
+	 * @param string $vtype Type of the setting, eg {@link base_setting::IS_TEXT}
+	 * @param mixed $value Value of the setting
+	 * @param bool $visibility Is the setting visible in the UI, eg {@link base_setting::VISIBLE}
+	 * @param int $status Status of the setting with regards to the locking, eg {@link base_setting::NOT_LOCKED}
+	 */
+	public function __construct($name, $vtype, $value = null, $visibility = self::VISIBLE, $status = self::NOT_LOCKED) {
+		parent::__construct($name, $vtype, $value, $visibility, $status);
+	}
 
-    public function set_ui_filename($label, $value, array $options = null) {
-        $this->make_ui(self::UI_HTML_TEXTFIELD, $label, null, $options);
-        $this->set_value($value);
-    }
+	public function set_ui_filename($label, $value, array $options = null) {
+		$this->make_ui(self::UI_HTML_TEXTFIELD, $label, null, $options);
+		$this->set_value($value);
+	}
 }
 
 /**

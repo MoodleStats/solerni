@@ -57,4 +57,3 @@ if (!method_exists($instance, $action)) {
 $instance->$action();
 
 echo $instance->render();
-

@@ -15,19 +15,19 @@ $PAGE->set_pagelayout('standard');
 require_login($course);
 
 if ($courseid == SITEID) {
-    $viewurl = new moodle_url('/calendar/view.php', array('view' => 'month'));
+	$viewurl = new moodle_url('/calendar/view.php', array('view' => 'month'));
 } else {
-    $viewurl = new moodle_url('/calendar/view.php', array('view' => 'month', 'course' => $courseid));
+	$viewurl = new moodle_url('/calendar/view.php', array('view' => 'month', 'course' => $courseid));
 }
 navigation_node::override_active_url($viewurl);
 
 $defaultlookahead = CALENDAR_DEFAULT_UPCOMING_LOOKAHEAD;
 if (isset($CFG->calendar_lookahead)) {
-    $defaultlookahead = intval($CFG->calendar_lookahead);
+	$defaultlookahead = intval($CFG->calendar_lookahead);
 }
 $defaultmaxevents = CALENDAR_DEFAULT_UPCOMING_MAXEVENTS;
 if (isset($CFG->calendar_maxevents)) {
-    $defaultmaxevents = intval($CFG->calendar_maxevents);
+	$defaultmaxevents = intval($CFG->calendar_maxevents);
 }
 
 $prefs = new stdClass;
@@ -41,31 +41,31 @@ $form = new calendar_preferences_form($PAGE->url);
 $form->set_data($prefs);
 
 if ($form->is_cancelled()) {
-    redirect($viewurl);
+	redirect($viewurl);
 } else if ($form->is_submitted() && $form->is_validated() && confirm_sesskey()) {
-    $data = $form->get_data();
-    if ($data->timeformat != CALENDAR_TF_12 && $data->timeformat != CALENDAR_TF_24) {
-        $data->timeformat = '';
-    }
-    set_user_preference('calendar_timeformat', $data->timeformat);
+	$data = $form->get_data();
+	if ($data->timeformat != CALENDAR_TF_12 && $data->timeformat != CALENDAR_TF_24) {
+		$data->timeformat = '';
+	}
+	set_user_preference('calendar_timeformat', $data->timeformat);
 
-    $data->startwday = intval($data->startwday);
-    if ($data->startwday < 0 || $data->startwday > 6) {
-        $data->startwday = abs($data->startwday % 7);
-    }
-    set_user_preference('calendar_startwday', $data->startwday);
+	$data->startwday = intval($data->startwday);
+	if ($data->startwday < 0 || $data->startwday > 6) {
+		$data->startwday = abs($data->startwday % 7);
+	}
+	set_user_preference('calendar_startwday', $data->startwday);
 
-    if (intval($data->maxevents) >= 1) {
-        set_user_preference('calendar_maxevents', $data->maxevents);
-    }
+	if (intval($data->maxevents) >= 1) {
+		set_user_preference('calendar_maxevents', $data->maxevents);
+	}
 
-    if (intval($data->lookahead) >= 1) {
-        set_user_preference('calendar_lookahead', $data->lookahead);
-    }
+	if (intval($data->lookahead) >= 1) {
+		set_user_preference('calendar_lookahead', $data->lookahead);
+	}
 
-    set_user_preference('calendar_persistflt', intval($data->persistflt));
-    redirect($viewurl, get_string('changessaved'), 1);
-    exit;
+	set_user_preference('calendar_persistflt', intval($data->persistflt));
+	redirect($viewurl, get_string('changessaved'), 1);
+	exit;
 }
 
 $strcalendar = get_string('calendar', 'calendar');

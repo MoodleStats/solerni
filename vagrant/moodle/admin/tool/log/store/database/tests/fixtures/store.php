@@ -27,14 +27,14 @@ namespace logstore_database\test;
 defined('MOODLE_INTERNAL') || die();
 
 class store extends \logstore_database\log\store {
-    /**
-     * Public wrapper for testing.
-     *
-     * @param \core\event\base $event
-     *
-     * @return bool
-     */
-    public function is_event_ignored(\core\event\base $event) {
-        return parent::is_event_ignored($event);
-    }
+	/**
+	 * Public wrapper for testing.
+	 *
+	 * @param \core\event\base $event
+	 *
+	 * @return bool
+	 */
+	public function is_event_ignored(\core\event\base $event) {
+		return parent::is_event_ignored($event);
+	}
 }

@@ -153,6 +153,13 @@ $THEME->layouts = array(
         'regions' => array('side-pre', 'side-post'),
         'defaultregion' => 'side-pre'
     ),
+    // The pagelayout used for format_flexpage.
+       'format_flexpage' => array(
+        'file' => 'columns3.php',
+        'regions' => array('side-top', 'side-pre', 'main', 'side-post'),
+        'defaultregion' => 'main',
+        'options' => array('langmenu'=>true),
+    ),
 );
 
 $THEME->javascripts = array(

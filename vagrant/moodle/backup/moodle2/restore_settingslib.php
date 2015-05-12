@@ -113,10 +113,10 @@ class restore_course_overwrite_conf_setting extends restore_course_generic_setti
 
 class restore_course_generic_text_setting extends restore_course_generic_setting {
 
-    public function __construct($name, $vtype, $value = null, $visibility = self::VISIBLE, $status = self::NOT_LOCKED) {
-        parent::__construct($name, $vtype, $value, $visibility, $status);
-        $this->set_ui(new backup_setting_ui_text($this, $name));
-    }
+	public function __construct($name, $vtype, $value = null, $visibility = self::VISIBLE, $status = self::NOT_LOCKED) {
+		parent::__construct($name, $vtype, $value, $visibility, $status);
+		$this->set_ui(new backup_setting_ui_text($this, $name));
+	}
 
 }
 

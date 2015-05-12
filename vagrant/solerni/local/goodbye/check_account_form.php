@@ -15,13 +15,14 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Quick Course Login
+ * Goodbye
  *
- * This module has been created to provide a quick and easy way of loggin into a course
+ * This module has been created to provide users the option to delete their account
  *
  * @package    local
- * @subpackage quickcourselogin
- * @copyright  2013 Bas Brands, www.basbrands.nl
+ * @subpackage local_goodbye
+ * @copyright  2015 Orange
+ *     Fork : 2013 Bas Brands, www.basbrands.nl
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -44,11 +45,17 @@ class check_account_form extends moodleform {
         }
         $mform->addElement('static', 'farewell', '', get_config('local_goodbye', 'farewell'));
 
-        $mform->addElement('text', 'username', 'username');
+        if (empty($CFG->authloginviaemail)) {
+            $strusername = get_string('username');
+        } else {
+            $strusername = get_string('usernameemail');
+        }
+
+        $mform->addElement('text', 'username', $strusername);
         $mform->setType('username', PARAM_TEXT);
         $mform->addRule('username', $strrequired, 'required', null, 'client');
 
-        $mform->addElement('password', 'password', 'password');
+        $mform->addElement('password', 'password', get_string('password'));
         $mform->setType('password', PARAM_TEXT);
         $mform->addRule('password', $strrequired, 'required', null, 'client');
 

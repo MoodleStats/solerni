@@ -17,11 +17,11 @@
 
 /*
  * Comments management interface
- *
- * @package   core
- * @copyright 2010 Dongsheng Cai {@link http://dongsheng.org}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+*
+* @package   core
+* @copyright 2010 Dongsheng Cai {@link http://dongsheng.org}
+* @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+*/
 require_once('../config.php');
 require_once($CFG->libdir.'/adminlib.php');
 require_once($CFG->dirroot.'/comment/locallib.php');
@@ -43,54 +43,54 @@ $confirm    = optional_param('confirm', 0, PARAM_INT);
 $manager = new comment_manager();
 
 if ($action and !confirm_sesskey()) {
-    // no action if sesskey not confirmed
-    $action = '';
+	// no action if sesskey not confirmed
+	$action = '';
 }
 
 if ($action === 'delete') {
-    // delete a single comment
-    if (!empty($commentid)) {
-        if (!$confirm) {
-            echo $OUTPUT->header();
-            $optionsyes = array('action'=>'delete', 'commentid'=>$commentid, 'confirm'=>1, 'sesskey'=>sesskey());
-            $optionsno  = array('sesskey'=>sesskey());
-            $buttoncontinue = new single_button(new moodle_url('/comment/index.php', $optionsyes), get_string('delete'));
-            $buttoncancel = new single_button(new moodle_url('/comment/index.php', $optionsno), get_string('cancel'));
-            echo $OUTPUT->confirm(get_string('confirmdeletecomments', 'admin'), $buttoncontinue, $buttoncancel);
-            echo $OUTPUT->footer();
-            die;
-        } else {
-            if ($manager->delete_comment($commentid)) {
-                redirect($CFG->httpswwwroot.'/comment/');
-            } else {
-                $err = 'cannotdeletecomment';
-            }
-        }
-    }
-    // delete a list of comments
-    if (!empty($commentids)) {
-        if ($manager->delete_comments($commentids)) {
-            die('yes');
-        } else {
-            die('no');
-        }
-    }
+	// delete a single comment
+	if (!empty($commentid)) {
+		if (!$confirm) {
+			echo $OUTPUT->header();
+			$optionsyes = array('action'=>'delete', 'commentid'=>$commentid, 'confirm'=>1, 'sesskey'=>sesskey());
+			$optionsno  = array('sesskey'=>sesskey());
+			$buttoncontinue = new single_button(new moodle_url('/comment/index.php', $optionsyes), get_string('delete'));
+			$buttoncancel = new single_button(new moodle_url('/comment/index.php', $optionsno), get_string('cancel'));
+			echo $OUTPUT->confirm(get_string('confirmdeletecomments', 'admin'), $buttoncontinue, $buttoncancel);
+			echo $OUTPUT->footer();
+			die;
+		} else {
+			if ($manager->delete_comment($commentid)) {
+				redirect($CFG->httpswwwroot.'/comment/');
+			} else {
+				$err = 'cannotdeletecomment';
+			}
+		}
+	}
+	// delete a list of comments
+	if (!empty($commentids)) {
+		if ($manager->delete_comments($commentids)) {
+			die('yes');
+		} else {
+			die('no');
+		}
+	}
 }
 
 echo $OUTPUT->header();
 echo $OUTPUT->heading(get_string('comments'));
 echo $OUTPUT->box_start('generalbox commentsreport');
 if (!empty($err)) {
-    print_error($err, 'error', $CFG->httpswwwroot.'/comment/');
+	print_error($err, 'error', $CFG->httpswwwroot.'/comment/');
 }
 if (empty($action)) {
-    echo '<form method="post">';
-    $return = $manager->print_comments($page);
-    // if no comments available, $return will be false
-    if ($return) {
-        echo '<input type="submit" id="comments_delete" name="batchdelete" value="'.get_string('delete').'" />';
-    }
-    echo '</form>';
+	echo '<form method="post">';
+	$return = $manager->print_comments($page);
+	// if no comments available, $return will be false
+	if ($return) {
+		echo '<input type="submit" id="comments_delete" name="batchdelete" value="'.get_string('delete').'" />';
+	}
+	echo '</form>';
 }
 
 echo $OUTPUT->box_end();

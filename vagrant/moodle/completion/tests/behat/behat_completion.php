@@ -28,7 +28,7 @@
 require_once(__DIR__ . '/../../../lib/behat/behat_base.php');
 
 use Behat\Behat\Context\Step\Given as Given,
-    Behat\Mink\Exception\ElementNotFoundException as ElementNotFoundException;
+Behat\Mink\Exception\ElementNotFoundException as ElementNotFoundException;
 
 /**
  * Steps definitions to deal with course and activities completion.
@@ -40,85 +40,85 @@ use Behat\Behat\Context\Step\Given as Given,
  */
 class behat_completion extends behat_base {
 
-    /**
-     * Checks that the specified user has completed the specified activity of the current course.
-     *
-     * @Then /^"(?P<user_fullname_string>(?:[^"]|\\")*)" user has completed "(?P<activity_name_string>(?:[^"]|\\")*)" activity$/
-     * @param string $userfullname
-     * @param string $activityname
-     */
-    public function user_has_completed_activity($userfullname, $activityname) {
+	/**
+	 * Checks that the specified user has completed the specified activity of the current course.
+	 *
+	 * @Then /^"(?P<user_fullname_string>(?:[^"]|\\")*)" user has completed "(?P<activity_name_string>(?:[^"]|\\")*)" activity$/
+	 * @param string $userfullname
+	 * @param string $activityname
+	 */
+	public function user_has_completed_activity($userfullname, $activityname) {
 
-        // Will throw an exception if the element can not be hovered.
-        $titleliteral = $this->getSession()->getSelectorsHandler()->xpathLiteral($userfullname . ", " . $activityname . ": Completed");
-        $xpath = "//table[@id='completion-progress']" .
-            "/descendant::img[contains(@title, $titleliteral)]";
+		// Will throw an exception if the element can not be hovered.
+		$titleliteral = $this->getSession()->getSelectorsHandler()->xpathLiteral($userfullname . ", " . $activityname . ": Completed");
+		$xpath = "//table[@id='completion-progress']" .
+				"/descendant::img[contains(@title, $titleliteral)]";
 
-        return array(
-            new Given('I go to the current course activity completion report'),
-            new Given('I hover "' . $this->escape($xpath) . '" "xpath_element"')
-        );
-    }
+		return array(
+				new Given('I go to the current course activity completion report'),
+				new Given('I hover "' . $this->escape($xpath) . '" "xpath_element"')
+		);
+	}
 
-    /**
-     * Checks that the specified user has not completed the specified activity of the current course.
-     *
-     * @Then /^"(?P<user_fullname_string>(?:[^"]|\\")*)" user has not completed "(?P<activity_name_string>(?:[^"]|\\")*)" activity$/
-     * @param string $userfullname
-     * @param string $activityname
-     */
-    public function user_has_not_completed_activity($userfullname, $activityname) {
+	/**
+	 * Checks that the specified user has not completed the specified activity of the current course.
+	 *
+	 * @Then /^"(?P<user_fullname_string>(?:[^"]|\\")*)" user has not completed "(?P<activity_name_string>(?:[^"]|\\")*)" activity$/
+	 * @param string $userfullname
+	 * @param string $activityname
+	 */
+	public function user_has_not_completed_activity($userfullname, $activityname) {
 
-        // Will throw an exception if the element can not be hovered.
-        $titleliteral = $this->getSession()->getSelectorsHandler()->xpathLiteral($userfullname . ", " . $activityname . ": Not completed");
-        $xpath = "//table[@id='completion-progress']" .
-            "/descendant::img[contains(@title, $titleliteral)]";
-        return array(
-            new Given('I go to the current course activity completion report'),
-            new Given('I hover "' . $this->escape($xpath) . '" "xpath_element"')
-        );
+		// Will throw an exception if the element can not be hovered.
+		$titleliteral = $this->getSession()->getSelectorsHandler()->xpathLiteral($userfullname . ", " . $activityname . ": Not completed");
+		$xpath = "//table[@id='completion-progress']" .
+				"/descendant::img[contains(@title, $titleliteral)]";
+		return array(
+				new Given('I go to the current course activity completion report'),
+				new Given('I hover "' . $this->escape($xpath) . '" "xpath_element"')
+		);
 
-        return $steps;
-    }
+		return $steps;
+	}
 
-    /**
-     * Goes to the current course activity completion report.
-     *
-     * @Given /^I go to the current course activity completion report$/
-     */
-    public function go_to_the_current_course_activity_completion_report() {
+	/**
+	 * Goes to the current course activity completion report.
+	 *
+	 * @Given /^I go to the current course activity completion report$/
+	 */
+	public function go_to_the_current_course_activity_completion_report() {
 
-        $steps = array();
+		$steps = array();
 
-        // Expand reports node if we can't see the link.
-        try {
-            $this->find('xpath', "//div[@id='settingsnav']" .
-                "/descendant::li" .
-                "/descendant::li[not(contains(concat(' ', normalize-space(@class), ' '), ' collapsed '))]" .
-                "/descendant::p[contains(., '" . get_string('pluginname', 'report_progress') . "')]");
-        } catch (ElementNotFoundException $e) {
-            $steps[] = new Given('I expand "' . get_string('reports') . '" node');
-        }
+		// Expand reports node if we can't see the link.
+		try {
+			$this->find('xpath', "//div[@id='settingsnav']" .
+					"/descendant::li" .
+					"/descendant::li[not(contains(concat(' ', normalize-space(@class), ' '), ' collapsed '))]" .
+					"/descendant::p[contains(., '" . get_string('pluginname', 'report_progress') . "')]");
+		} catch (ElementNotFoundException $e) {
+			$steps[] = new Given('I expand "' . get_string('reports') . '" node');
+		}
 
-        $steps[] = new Given('I follow "' . get_string('pluginname', 'report_progress') . '"');
+		$steps[] = new Given('I follow "' . get_string('pluginname', 'report_progress') . '"');
 
-        return $steps;
-    }
+		return $steps;
+	}
 
-    /**
-     * Toggles completion tracking for course being in the course page.
-     *
-     * @When /^completion tracking is "(?P<completion_status_string>Enabled|Disabled)" in current course$/
-     * @param string $completionstatus The status, enabled or disabled.
-     */
-    public function completion_is_toggled_in_course($completionstatus) {
+	/**
+	 * Toggles completion tracking for course being in the course page.
+	 *
+	 * @When /^completion tracking is "(?P<completion_status_string>Enabled|Disabled)" in current course$/
+	 * @param string $completionstatus The status, enabled or disabled.
+	 */
+	public function completion_is_toggled_in_course($completionstatus) {
 
-        $toggle = strtolower($completionstatus) == 'enabled' ? get_string('yes') : get_string('no');
+		$toggle = strtolower($completionstatus) == 'enabled' ? get_string('yes') : get_string('no');
 
-        return array(
-            new Given('I follow "'.get_string('editsettings').'"'),
-            new Given('I set the field "'.get_string('enablecompletion', 'completion').'" to "'.$toggle.'"'),
-            new Given('I press "'.get_string('savechanges').'"')
-        );
-    }
+		return array(
+				new Given('I follow "'.get_string('editsettings').'"'),
+				new Given('I set the field "'.get_string('enablecompletion', 'completion').'" to "'.$toggle.'"'),
+				new Given('I press "'.get_string('savechanges').'"')
+		);
+	}
 }

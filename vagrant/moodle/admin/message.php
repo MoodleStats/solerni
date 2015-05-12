@@ -38,24 +38,24 @@ $enable     = optional_param('enable', 0, PARAM_INT);
 $headingtitle = get_string('managemessageoutputs', 'message');
 
 if (!empty($disable) && confirm_sesskey()) {
-    if (!$processor = $DB->get_record('message_processors', array('id'=>$disable))) {
-        print_error('outputdoesnotexist', 'message');
-    }
-    $DB->set_field('message_processors', 'enabled', '0', array('id'=>$processor->id));      // Disable output
-    core_plugin_manager::reset_caches();
+	if (!$processor = $DB->get_record('message_processors', array('id'=>$disable))) {
+		print_error('outputdoesnotexist', 'message');
+	}
+	$DB->set_field('message_processors', 'enabled', '0', array('id'=>$processor->id));      // Disable output
+	core_plugin_manager::reset_caches();
 }
 
 if (!empty($enable) && confirm_sesskey()) {
-    if (!$processor = $DB->get_record('message_processors', array('id'=>$enable))) {
-        print_error('outputdoesnotexist', 'message');
-    }
-    $DB->set_field('message_processors', 'enabled', '1', array('id'=>$processor->id));      // Enable output
-    core_plugin_manager::reset_caches();
+	if (!$processor = $DB->get_record('message_processors', array('id'=>$enable))) {
+		print_error('outputdoesnotexist', 'message');
+	}
+	$DB->set_field('message_processors', 'enabled', '1', array('id'=>$processor->id));      // Enable output
+	core_plugin_manager::reset_caches();
 }
 
 if ($disable || $enable) {
-    $url = new moodle_url('message.php');
-    redirect($url);
+	$url = new moodle_url('message.php');
+	redirect($url);
 }
 // Page settings
 $PAGE->set_context(context_system::instance());

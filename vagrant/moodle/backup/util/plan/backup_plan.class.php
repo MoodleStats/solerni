@@ -29,105 +29,105 @@
  */
 class backup_plan extends base_plan implements loggable {
 
-    protected $controller; // The backup controller building/executing this plan
-    protected $basepath;   // Fullpath to dir where backup is created
-    protected $excludingdactivities;
+	protected $controller; // The backup controller building/executing this plan
+	protected $basepath;   // Fullpath to dir where backup is created
+	protected $excludingdactivities;
 
-    /**
-     * Constructor - instantiates one object of this class
-     */
-    public function __construct($controller) {
-        global $CFG;
+	/**
+	 * Constructor - instantiates one object of this class
+	 */
+	public function __construct($controller) {
+		global $CFG;
 
-        if (! $controller instanceof backup_controller) {
-            throw new backup_plan_exception('wrong_backup_controller_specified');
-        }
-        $this->controller = $controller;
-        $this->basepath   = $CFG->tempdir . '/backup/' . $controller->get_backupid();
-        $this->excludingdactivities = false;
-        parent::__construct('backup_plan');
-    }
+		if (! $controller instanceof backup_controller) {
+			throw new backup_plan_exception('wrong_backup_controller_specified');
+		}
+		$this->controller = $controller;
+		$this->basepath   = $CFG->tempdir . '/backup/' . $controller->get_backupid();
+		$this->excludingdactivities = false;
+		parent::__construct('backup_plan');
+	}
 
-    /**
-     * Destroy all circular references. It helps PHP 5.2 a lot!
-     */
-    public function destroy() {
-        // No need to destroy anything recursively here, direct reset
-        $this->controller = null;
-        // Delegate to base plan the rest
-        parent::destroy();
-    }
+	/**
+	 * Destroy all circular references. It helps PHP 5.2 a lot!
+	 */
+	public function destroy() {
+		// No need to destroy anything recursively here, direct reset
+		$this->controller = null;
+		// Delegate to base plan the rest
+		parent::destroy();
+	}
 
-    public function build() {
-        backup_factory::build_plan($this->controller); // Dispatch to correct format
-        $this->built = true;
-    }
+	public function build() {
+		backup_factory::build_plan($this->controller); // Dispatch to correct format
+		$this->built = true;
+	}
 
-    public function get_backupid() {
-        return $this->controller->get_backupid();
-    }
+	public function get_backupid() {
+		return $this->controller->get_backupid();
+	}
 
-    public function get_type() {
-        return $this->controller->get_type();
-    }
+	public function get_type() {
+		return $this->controller->get_type();
+	}
 
-    public function get_mode() {
-        return $this->controller->get_mode();
-    }
+	public function get_mode() {
+		return $this->controller->get_mode();
+	}
 
-    public function get_courseid() {
-        return $this->controller->get_courseid();
-    }
+	public function get_courseid() {
+		return $this->controller->get_courseid();
+	}
 
-    public function get_basepath() {
-        return $this->basepath;
-    }
+	public function get_basepath() {
+		return $this->basepath;
+	}
 
-    public function get_logger() {
-        return $this->controller->get_logger();
-    }
+	public function get_logger() {
+		return $this->controller->get_logger();
+	}
 
-    /**
-     * Gets the progress reporter, which can be used to report progress within
-     * the backup or restore process.
-     *
-     * @return \core\progress\base Progress reporting object
-     */
-    public function get_progress() {
-        return $this->controller->get_progress();
-    }
+	/**
+	 * Gets the progress reporter, which can be used to report progress within
+	 * the backup or restore process.
+	 *
+	 * @return \core\progress\base Progress reporting object
+	 */
+	public function get_progress() {
+		return $this->controller->get_progress();
+	}
 
-    public function is_excluding_activities() {
-        return $this->excludingdactivities;
-    }
+	public function is_excluding_activities() {
+		return $this->excludingdactivities;
+	}
 
-    public function set_excluding_activities() {
-        $this->excludingdactivities = true;
-    }
+	public function set_excluding_activities() {
+		$this->excludingdactivities = true;
+	}
 
-    public function log($message, $level, $a = null, $depth = null, $display = false) {
-        backup_helper::log($message, $level, $a, $depth, $display, $this->get_logger());
-    }
+	public function log($message, $level, $a = null, $depth = null, $display = false) {
+		backup_helper::log($message, $level, $a, $depth, $display, $this->get_logger());
+	}
 
-    /**
-     * Function responsible for executing the tasks of any plan
-     */
-    public function execute() {
-        if ($this->controller->get_status() != backup::STATUS_AWAITING) {
-            throw new backup_controller_exception('backup_not_executable_awaiting_required', $this->controller->get_status());
-        }
-        $this->controller->set_status(backup::STATUS_EXECUTING);
-        parent::execute();
-        $this->controller->set_status(backup::STATUS_FINISHED_OK);
-    }
+	/**
+	 * Function responsible for executing the tasks of any plan
+	 */
+	public function execute() {
+		if ($this->controller->get_status() != backup::STATUS_AWAITING) {
+			throw new backup_controller_exception('backup_not_executable_awaiting_required', $this->controller->get_status());
+		}
+		$this->controller->set_status(backup::STATUS_EXECUTING);
+		parent::execute();
+		$this->controller->set_status(backup::STATUS_FINISHED_OK);
+	}
 }
 
 /*
  * Exception class used by all the @backup_plan stuff
- */
+*/
 class backup_plan_exception extends base_plan_exception {
 
-    public function __construct($errorcode, $a=NULL, $debuginfo=null) {
-        parent::__construct($errorcode, $a, $debuginfo);
-    }
+	public function __construct($errorcode, $a=NULL, $debuginfo=null) {
+		parent::__construct($errorcode, $a, $debuginfo);
+	}
 }

@@ -38,8 +38,8 @@ admin_externalpage_setup('addwebservicetoken');
 $node = $PAGE->settingsnav->find('addwebservicetoken', navigation_node::TYPE_SETTING);
 $newnode = $PAGE->settingsnav->find('webservicetokens', navigation_node::TYPE_SETTING);
 if ($node && $newnode) {
-    $node->display = false;
-    $newnode->make_active();
+	$node->display = false;
+	$newnode->make_active();
 }
 
 require_capability('moodle/site:config', context_system::instance());
@@ -51,74 +51,74 @@ $webservicemanager = new webservice();
 
 switch ($action) {
 
-    case 'create':
-        $mform = new web_service_token_form(null, array('action' => 'create'));
-        $data = $mform->get_data();
-        if ($mform->is_cancelled()) {
-            redirect($tokenlisturl);
-        } else if ($data and confirm_sesskey()) {
-            ignore_user_abort(true);
+	case 'create':
+		$mform = new web_service_token_form(null, array('action' => 'create'));
+		$data = $mform->get_data();
+		if ($mform->is_cancelled()) {
+			redirect($tokenlisturl);
+		} else if ($data and confirm_sesskey()) {
+			ignore_user_abort(true);
 
-            //check the the user is allowed for the service
-            $selectedservice = $webservicemanager->get_external_service_by_id($data->service);
-            if ($selectedservice->restrictedusers) {
-                $restricteduser = $webservicemanager->get_ws_authorised_user($data->service, $data->user);
-                if (empty($restricteduser)) {
-                    $allowuserurl = new moodle_url('/' . $CFG->admin . '/webservice/service_users.php',
-                            array('id' => $selectedservice->id));
-                    $allowuserlink = html_writer::tag('a', $selectedservice->name , array('href' => $allowuserurl));
-                    $errormsg = $OUTPUT->notification(get_string('usernotallowed', 'webservice', $allowuserlink));
-                }
-            }
+			//check the the user is allowed for the service
+			$selectedservice = $webservicemanager->get_external_service_by_id($data->service);
+			if ($selectedservice->restrictedusers) {
+				$restricteduser = $webservicemanager->get_ws_authorised_user($data->service, $data->user);
+				if (empty($restricteduser)) {
+					$allowuserurl = new moodle_url('/' . $CFG->admin . '/webservice/service_users.php',
+							array('id' => $selectedservice->id));
+					$allowuserlink = html_writer::tag('a', $selectedservice->name , array('href' => $allowuserurl));
+					$errormsg = $OUTPUT->notification(get_string('usernotallowed', 'webservice', $allowuserlink));
+				}
+			}
 
-            //check if the user is deleted. unconfirmed, suspended or guest
-            $user = $DB->get_record('user', array('id' => $data->user));
-            if ($user->id == $CFG->siteguest or $user->deleted or !$user->confirmed or $user->suspended) {
-                throw new moodle_exception('forbiddenwsuser', 'webservice');
-            }
+			//check if the user is deleted. unconfirmed, suspended or guest
+			$user = $DB->get_record('user', array('id' => $data->user));
+			if ($user->id == $CFG->siteguest or $user->deleted or !$user->confirmed or $user->suspended) {
+				throw new moodle_exception('forbiddenwsuser', 'webservice');
+			}
 
-            //process the creation
-            if (empty($errormsg)) {
-                //TODO improvement: either move this function from externallib.php to webservice/lib.php
-                // either move most of webservicelib.php functions into externallib.php
-                // (create externalmanager class) MDL-23523
-                external_generate_token(EXTERNAL_TOKEN_PERMANENT, $data->service,
-                        $data->user, context_system::instance(),
-                        $data->validuntil, $data->iprestriction);
-                redirect($tokenlisturl);
-            }
-        }
+			//process the creation
+			if (empty($errormsg)) {
+				//TODO improvement: either move this function from externallib.php to webservice/lib.php
+				// either move most of webservicelib.php functions into externallib.php
+				// (create externalmanager class) MDL-23523
+				external_generate_token(EXTERNAL_TOKEN_PERMANENT, $data->service,
+						$data->user, context_system::instance(),
+						$data->validuntil, $data->iprestriction);
+				redirect($tokenlisturl);
+			}
+		}
 
-        //OUTPUT: create token form
-        echo $OUTPUT->header();
-        echo $OUTPUT->heading(get_string('createtoken', 'webservice'));
-        if (!empty($errormsg)) {
-            echo $errormsg;
-        }
-        $mform->display();
-        echo $OUTPUT->footer();
-        die;
-        break;
+		//OUTPUT: create token form
+		echo $OUTPUT->header();
+		echo $OUTPUT->heading(get_string('createtoken', 'webservice'));
+		if (!empty($errormsg)) {
+			echo $errormsg;
+		}
+		$mform->display();
+		echo $OUTPUT->footer();
+		die;
+		break;
 
-    case 'delete':
-        $token = $webservicemanager->get_created_by_user_ws_token($USER->id, $tokenid);
+	case 'delete':
+		$token = $webservicemanager->get_created_by_user_ws_token($USER->id, $tokenid);
 
-        //Delete the token
-        if ($confirm and confirm_sesskey()) {
-            $webservicemanager->delete_user_ws_token($token->id);
-            redirect($tokenlisturl);
-        }
+		//Delete the token
+		if ($confirm and confirm_sesskey()) {
+			$webservicemanager->delete_user_ws_token($token->id);
+			redirect($tokenlisturl);
+		}
 
-        ////OUTPUT: display delete token confirmation box
-        echo $OUTPUT->header();
-        $renderer = $PAGE->get_renderer('core', 'webservice');
-        echo $renderer->admin_delete_token_confirmation($token);
-        echo $OUTPUT->footer();
-        die;
-        break;
+		////OUTPUT: display delete token confirmation box
+		echo $OUTPUT->header();
+		$renderer = $PAGE->get_renderer('core', 'webservice');
+		echo $renderer->admin_delete_token_confirmation($token);
+		echo $OUTPUT->footer();
+		die;
+		break;
 
-    default:
-        //wrong url access
-        redirect($tokenlisturl);
-        break;
+	default:
+		//wrong url access
+		redirect($tokenlisturl);
+		break;
 }

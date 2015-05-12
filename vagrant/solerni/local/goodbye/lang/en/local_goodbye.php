@@ -16,13 +16,14 @@
 
 
 /**
- * Local Redirect
+ * Goodbye
  *
- * This local plugin enrols and redirects users to a pre-configured course after login
+ * This module has been created to provide users the option to delete their account
  *
  * @package    local
  * @subpackage local_goodbye
- * @copyright  2013 Bas Brands, www.basbrands.nl
+ * @copyright  2015 Orange
+ *     Fork : 2013 Bas Brands, www.basbrands.nl
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -38,4 +39,5 @@ $string['noself'] = 'We are sorry, only self registration accounts are allowed t
 $string['disabled'] = 'Account removal disabled';
 $string['farewell'] = 'Goodby text';
 $string['farewell_desc'] = 'Text shown on delete account form';
-$string['defaultfarewell'] = 'To delete your account please enter your username and password. <br>Thank you for using Moodle!';
+$string['defaultfarewell'] = 'To delete your account please enter your username/email and password. <br>Thank you for using Solerni!';
+$string['anotheraccount'] = 'You can only delete your own account';
