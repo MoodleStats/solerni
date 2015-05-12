@@ -116,7 +116,11 @@ $string['hello']                        = 'Bonjour';
 $string['dashboard']                    = 'Tableau de bord';
 $string['administration']               = 'Administration';
 
-$string['footertagline']                = 'Apprendre, c\'est toujours mieux ensemble';
-$string['footertaglinedesc']            = 'Footer tagline';
-$string['footerexplaination']           = 'Solerni est une solution logicielle complète dédiée à la création et à l\'hébergement de parcours d\'apprentissage massifs collaboratifs.';
-$string['footerexplainationdesc']       = 'Texte sour la tagline du footer';
+$string['footertagline_title']           = 'Slogan solerni (français)';
+$string['footertagline_default']         = 'Apprendre, c\'est toujours mieux ensemble';
+$string['footertagline_desc']            = 'Slogan dans le footer (français)';
+$string['footerexplaination_title']      = 'Texte court explicatif (français)';
+$string['footerexplaination_default']    = 'Solerni est une solution logicielle complète dédiée à la création et à l\'hébergement de parcours d\'apprentissage massifs collaboratifs.';
+$string['footerexplaination_desc']       = 'Texte sour la slogan de la version français du footer';
+
+$string['aboutus']                       = 'A propos de nous';

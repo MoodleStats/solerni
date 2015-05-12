@@ -76,13 +76,13 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
         $addlangmenu = true;
         $langs = get_string_manager()->get_list_of_translations();
 
-        // Do not display if only 1 language
+        // Do not display if only 1 language.
         if (count($langs) < 2
             or empty($CFG->langmenu)
             or ($this->page->course != SITEID and !empty($this->page->course->lang))) {
-            $addlangmenu = false;
+                $addlangmenu = false;
         }
-
+        //
         if (!$menu->has_children() && $addlangmenu === false) {
             return '';
         }
@@ -101,7 +101,7 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
             }
         }
 
-        $content = '<li class="slrn-top-header__item slrn-lang-menu">';
+        $content = '<li class="slrn-selected-in-menu slrn-lang-menu">';
         foreach ($menu->get_children() as $item) {
             $content .= $this->solerni_render_lang_menu_item($item, 1);
         }
@@ -116,6 +116,7 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
     protected function solerni_render_lang_menu_item(custom_menu_item $menunode, $level = 0, $menu_title = '' ) {
 
         static $submenucount = 0;
+        $content = '';
         $current_title = str_replace( array( ' (fr)', ' (en)' ), '',  $menunode->get_text() );
 
         if ($menunode->has_children()) {
@@ -129,15 +130,17 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
             } else {
                 $url = '#cm_submenu_'.$submenucount;
             }
+
             $content .= html_writer::start_tag('a', array(
                                                     'href'=>$url,
-                                                    'class'=>'dropdown-toggle cucul',
+                                                    'class'=>'dropdown-toggle',
                                                     'data-toggle'=>'dropdown',
                                                     'title'=>$menunode->get_title()
             ));
+
             $content .= $menu_title;
             if ($level == 1) {
-                $content .= '<b class="caret -is-white"></b>';
+                $content .= '<b class="caret"></b>';
             }
             $content .= html_writer::end_tag('a');
 

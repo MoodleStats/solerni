@@ -116,7 +116,11 @@ $string['hello']                    = 'Hello';
 $string['dashboard']                = 'Dashboard';
 $string['administration']           = 'Administration';
 
-$string['footertagline']            = 'To learn is more fun together';
-$string['footertaglinedesc']        = 'Footer tagline';
-$string['footerexplaination']       = 'Solerni is a full software suite dedicated to help you creating and hosting massively collaborative learning routes';
-$string['footerexplainationdesc']   = 'Text under the tagline in the footer';
+$string['footertagline_title']       = 'Solerni tagline (english)';
+$string['footertagline_default']     = 'To learn is more fun together';
+$string['footertagline_desc']        = 'Footer tagline for english version';
+$string['footerexplaination_title']  = 'Solerni tagline short text (english)';
+$string['footerexplaination_default']= 'Solerni is a full software suite dedicated to help you creating and hosting massively collaborative learning routes';
+$string['footerexplaination_desc']   = 'Text under the tagline in the english version footer';
+
+$string['aboutus']                   = 'About us';

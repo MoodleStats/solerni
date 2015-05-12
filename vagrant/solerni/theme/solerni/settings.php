@@ -50,10 +50,10 @@ if ($ADMIN->fulltree) {
             foreach( $footer_texts as $key => $value ) {
                 // Settings.
                 $fieldtype = $value['fieldtype'];
-                $name = 'theme_solerni/' . $key;
-                $title = $key;
-                $description = get_string($key . 'desc', 'theme_solerni');
-                $default = get_string($key, 'theme_solerni');
+                $name = 'theme_solerni/' . $key . '_' . $lang;
+                $title = get_string_manager()->get_string( $key. '_title', 'theme_solerni', null, $lang);
+                $description = get_string_manager()->get_string($key . '_desc', 'theme_solerni', null, $lang);
+                $default = get_string_manager()->get_string($key . '_default', 'theme_solerni', null, $lang);
                 // Admin setting generation.
                 $setting = new $fieldtype($name, $title, $description, $default);
                 $settings->add($setting);

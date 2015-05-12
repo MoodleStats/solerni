@@ -29,58 +29,73 @@ $haslinkedin    = (!empty($PAGE->theme->settings->linkedin));
 $hasyoutube     = (!empty($PAGE->theme->settings->youtube));
 $tagline        = ($PAGE->theme->settings->footertagline) ?
                    $PAGE->theme->settings->footertagline :
-                   get_string('footertagline', 'theme_solerni');
+                   get_string('footertagline_default', 'theme_solerni');
 $explaination   = ($PAGE->theme->settings->footerexplaination) ?
                    $PAGE->theme->settings->footerexplaination :
-                   get_string('footerexplaination', 'theme_solerni');
+                   get_string('footerexplaination_default', 'theme_solerni');
 ?>
 
 <footer id="footer" class="row-fluid slrn-footer">
-    <div class="span4 footer-brand">
-        <div class="footer-brand__logo -sprite-solerni"></div>
-        <p class="footer-brand_title"><?php echo $tagline; ?></p>
-        <p class="footer-brand__text"><?php echo $explaination; ?></p>
+    <div class="clearfix">
+        <div class="span4 footer-brand">
+            <div class="footer-brand__logo -sprite-solerni"></div>
+            <p class="footer-brand_title"><?php echo $tagline; ?></p>
+            <p class="footer-brand__text"><?php echo $explaination; ?></p>
+        </div>
+        <div class="span2 footer-column ">
+            <p class="footer_column_title"><?php echo get_string('aboutus', 'theme_solerni'); ?></p>
+            <ul class="footer_column_menu__column">
+                <li class="footer_column__item">
+                    <a class="footer_column_menu_column__link" href="/mooc/static/page/cms_quoi">
+                        A propos de Solerni
+                    </a>
+                </li>
+                <li class="footer_column__item"><a class="footer_column_menu_column__link" href="/mooc/static/page/cms_partenaires">Partenaires</a></li>
+                <li class="footer_column__item"><a class="footer_column_menu_column__link" href="/mooc/static/page/cms_legal">Mentions légales</a></li>
+                <li class="footer_column__item"><a class="footer_column_menu_column__link js-link_cgu" href="/mooc/static/page/cms_cgu">CGU / Charte</a></li>
+            </ul>
+        </div>
+        <div class="span2 footer-column ">
+            <p class="footer_column_title">Support</p>
+            <ul class="footer_column_menu__column">
+                <li class="footer_column__item"><a class="footer_column_menu_column__link" href="/mooc/static/page/cms_faq">FAQ</a></li>
+                <li class="footer_column__item"><a class="footer_column_menu_column__link" href="/mooc/contact">Nous contacter</a></li>
+            </ul>
+        </div>
+        <div class="span2 footer-column ">
+            <p class="footer_column_title">Suivez-nous</p>
+            <ul class="footer_column_menu__column">
+                <li class="footer_column__item">
+                    <a href="/mooc/static/page/social_facebook" class="footer_column_menu_column__link footer_social_link" target="_blank">
+                        <span class="footer_social_link__icon footer_social_facebook  -sprite-solerni">Facebook</span><!--
+                        --><span class="footer_icon_text">Facebook</span>
+                    </a>
+                </li>
+                <li class="footer_column__item">
+                    <a href="/mooc/static/page/social_twitter" class="footer_column_menu_column__link footer_social_link" target="_blank">
+                        <span class="footer_social_link__icon footer_social_twitter -sprite-solerni">Twitter</span><!--
+                        --><span class="footer_icon_text">Twitter</span>
+                    </a>
+                </li>
+                <li class="footer_column__item">
+                    <a href="/mooc/static/page/social_blog" class="footer_column_menu_column__link footer_column_menu_column__linkfooter_social_link">
+                        <span class="footer_social_link__icon footer_social_blog -sprite-solerni">Blog</span><!--
+                        --><span class="footer_icon_text">Blog</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="span2 footer-column">
+            <p class="footer_column_title">International</p>
+            <ul class="footer_lang_menu">
+                <?php echo $OUTPUT->solerni_lang_menu(); ?>
+            </ul>
+        </div>
     </div>
-        <div class="span2 footer-column ">
-            <p class="footer_title">A propos de nous</p>
-            <ul class="footer_cms_menu__column">
-                <li class="footer_cms_menu_column__item"><a class="footer_cms_menu_column__link" href="/mooc/static/page/cms_quoi">A propos de Solerni</a></li>
-                <li class="footer_cms_menu_column__item"><a class="footer_cms_menu_column__link" href="/mooc/static/page/cms_partenaires">Partenaires</a></li>
-                <li class="footer_cms_menu_column__item"><a class="footer_cms_menu_column__link" href="/mooc/static/page/cms_legal">Mentions légales</a></li>
-                <li class="footer_cms_menu_column__item"><a class="footer_cms_menu_column__link js-link_cgu" href="/mooc/static/page/cms_cgu">CGU / Charte</a></li>
-            </ul>
-        </div>
-        <div class="span2 footer-column ">
-            <p class="footer_title">Support</p>
-            <ul class="footer_cms_menu__column">
-                <li class="footer_cms_menu_column__item"><a class="footer_cms_menu_column__link" href="/mooc/static/page/cms_faq">FAQ</a></li>
-                <li class="footer_cms_menu_column__item"><a class="footer_cms_menu_column__link" href="/mooc/contact">Nous contacter</a></li>
-            </ul>
-        </div>
-        <div class="span2 footer-column ">
-            <p class="footer_title">Suivez-nous</p>
-            <a href="/mooc/static/page/social_facebook" class="footer_social_link" target="_blank">
-                <span class="footer_social_link__icon social_facebook">Facebook</span><!--
-                --><span class="footer_icon_text">Facebook</span>
-            </a>
-            <a href="/mooc/static/page/social_twitter" class="footer_social_link" target="_blank">
-                <span class="footer_social_link__icon social_twitter">Twitter</span><!--
-                --><span class="footer_icon_text">Twitter</span>
-            </a>
-            <a href="/mooc/static/page/social_blog" class="footer_social_link">
-                <span class="footer_social_link__icon social_blog">Blog</span><!--
-                --><span class="footer_icon_text">Blog</span>
-            </a>
-        </div>
-        <div class="span2 footer-column ">
-            <p class="footer_title">International</p>
-            <?php echo $OUTPUT->solerni_lang_menu(); ?>
-        </div>
-
-    <div class="container">
+    <div class="row-fluid">
         <hr class="slrn-hr slrn-hr--thin">
-        <a target="_blank" href="http://www.orange.com">
-            <div class="footer_powered">powered by Orange</div>
+        <a class="pull-right" target="_blank" href="http://www.orange.com">
+            <div class="footer_powered  -sprite-solerni">powered by Orange</div>
         </a>
     </div>
 </footer>
