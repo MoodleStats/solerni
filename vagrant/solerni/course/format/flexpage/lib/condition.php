@@ -121,8 +121,11 @@ class course_format_flexpage_lib_condition extends info {
         throw new coding_exception('The set_in_database method has not been implemented for Flexpage');
     }
 
-    protected function get_view_hidden_capability() {
-        
-    }
-
+    /**
+     * Gets the capability used to view hidden activities/sections (as
+     * appropriate).
+     *
+     * @return string Name of capability used to view hidden items of this type
+     */
+    protected function get_view_hidden_capability(){return '';}
 }
