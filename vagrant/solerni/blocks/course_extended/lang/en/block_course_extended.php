@@ -25,6 +25,7 @@ defined('MOODLE_INTERNAL') || die();
 
 
 $string['course_extended:addinstance'] = 'Add a new course contents block';
+$string['course_extended:addinstance'] = 'Add a new course contents block';
 $string['course_extended:myaddinstance'] = 'Add a new course contents block to the My Moodle page';
 $string['course_extended'] = 'Course extended contents';
 $string['defaulttitle'] = 'Course extended contents';
@@ -103,14 +104,12 @@ $string['enumerate_label'] = 'If enabled, the section number is displayed before
 $string['notusingsections'] = 'This course format does not use sections.';
 $string['pluginname'] = 'Extended Course';
 $string['basics_title'] = 'Extended Course';
-
+$string['badges'] = 'badges';
 
 $string['startdate'] = 'start date: ';
 $string['enddate'] = 'end date: ';
 $string['enddate_default'] = "0";
 $string['enddate_help'] = 'enddate_help ';
-
-
 
 $string['duration'] = 'duration: ';
 $string['duration_help'] = 'duration_help ';
@@ -118,7 +117,6 @@ $string['duration_default'] = 'in_four_weeks ';
 $string['in_four_weeks'] = 'in_four_weeks';
 $string['four_six_weeks'] = 'four_six_weeks';
 $string['sup_six_weeks'] = 'sup_six_weeks';
-
 
 $string['workingtime'] = 'working time per day: ';
 $string['workingtime_help'] = 'working time per day_help ';
@@ -130,17 +128,27 @@ $string['two_three'] = 'two_three';
 $string['price'] = 'price: ';
 $string['price_help'] = 'price_help';
 $string['price_default'] = 'Free MOOC';
+$string['price_case1'] = 'free mooc';
+$string['price_case2'] = 'free mooc<br>certification in option';
+$string['price_case3'] = 'professional teaching';
 
 $string['certification'] = 'Certification';
-$string['certification_default'] = 'BADGE<br>ATTESTATION DE REUSSITE';
+$string['certification_default'] = '<br>ATTESTATION DE REUSSITE';
 $string['certification_help'] = 'No Certification';
 
 $string['language'] = 'Language: ';
 $string['language_default'] = 'No language';
+$string['french'] = 'French';
+$string['english'] = 'English';
 
-$string['video'] = 'Video: ';
+$string['video'] = 'Vidéos ';
 $string['video_help'] = 'Video_help';
 $string['video_default'] = '0';
+
+$string['subtitle'] = ' subtitle';
+
+$string['subscribe_to_mooc'] = 'mooc subscription';
+$string['access_to_mooc'] = 'access to the mooc';
 
 $string['registration'] = 'registration: ';
 $string['registration_default'] = 'registration';
@@ -150,6 +158,18 @@ $string['registration_startdate_default'] = 'registration start date_default';
 $string['registration_enddate_default'] = 'registration end date_default';
 $string['registration_startdate_help'] = 'registration start date_help';
 $string['registration_enddate_help'] = 'registration end date_help ';
+$string['registeredusers_limitation'] = 'registeredusers: ';
+$string['registration_case1'] = 'open for everybody ';
+$string['registration_from'] = ' from ';
+$string['registration_to'] = ' to ';
+$string['registrationcompany'] = 'registration_company: ';
+$string['registrationcompany_default'] = 'registration_company';
+$string['registrationcompany_help'] = 'registration_company help';
+
+$string['registration_case2'] = 'limited to ';
+$string['registration_case2_2'] = 'first registered users ';
+
+$string['registration_case3'] = 'You may register by ';
 
 $string['registeredusers'] = 'registeredusers: ';
 $string['registeredusers_help'] = 'registeredusers_help';

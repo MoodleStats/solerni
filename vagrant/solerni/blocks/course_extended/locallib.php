@@ -57,6 +57,8 @@ class courseextended_page_content_file_info extends file_info_stored {
     }
 }
 
+
+
 function get_badges() {
     global $DB, $PAGE;
     $usedbadges = array();
