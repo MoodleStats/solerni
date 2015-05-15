@@ -28,23 +28,22 @@
  * @author   Shaun Daubney
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+global $PAGE;
 
-$THEME->doctype = 'html5';
+$THEME->doctype         = 'html5';
+$THEME->yuicssmodules   = array();
+$THEME->name            = 'solerni';
+$THEME->parents         = array('bootstrapbase');
+$THEME->sheets          = array('custom', 'blockicons', 'profilebar', 'font-awesome', 'settings', 'solerni');
 
-$THEME->yuicssmodules = array();
-
-$THEME->name = 'solerni';
-
-$THEME->parents = array('bootstrapbase');
-
-$THEME->sheets = array('custom', 'blockicons', 'profilebar', 'font-awesome', 'settings', 'solerni');
+// Frontpage styles
+if ( $PAGE->pagetype === 'site-index' ) {
+    $THEME->sheets[] = 'frontpage';
+}
 
 $THEME->supportscssoptimisation = false;
-
-$THEME->editor_sheets = array('editor');
-
-$THEME->rendererfactory = 'theme_overridden_renderer_factory';
-
+$THEME->editor_sheets           = array('editor');
+$THEME->rendererfactory         = 'theme_overridden_renderer_factory';
 $THEME->layouts = array(
     // Most backwards compatible layout without the blocks - this is the layout used by default.
     'base' => array(

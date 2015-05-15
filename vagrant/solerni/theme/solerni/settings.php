@@ -16,13 +16,27 @@ $ADMIN->add('themes', new admin_category('theme_solerni', 'Solerni'));
 
 // frontpage settings. New page.
 $temp = new admin_settingpage('theme_solerni_frontpage', get_string('frontpagesettings','theme_solerni'));
-// frontpage tagline.
+// frontpage header tagline.
 $name = 'theme_solerni/frontpagetagline';
-$title = get_string( 'frontpagetagline', 'theme_solerni' );
-$description = get_string( 'frontpagetaglinedesc', 'theme_solerni');
-$default = get_string( 'footertaglinedefault', 'theme_solerni' );
+$title = get_string('frontpagetagline', 'theme_solerni');
+$description = get_string('frontpagetaglinedesc', 'theme_solerni');
+$default = get_string('footertaglinedefault', 'theme_solerni');
 $setting = new admin_setting_configtext($name, $title, $description, $default);
-$setting->set_updatedcallback('theme_reset_all_caches');
+$temp->add($setting);
+// frontpage header presentation.
+$name = 'theme_solerni/frontpagepresentation';
+$title = get_string('frontpagepresentation', 'theme_solerni');
+$description = get_string('frontpagepresentationdesc', 'theme_solerni');
+$default = get_string('frontpagepresentationdefault', 'theme_solerni');
+$setting = new admin_setting_configtextarea($name, $title, $description, $default);
+$temp->add($setting);
+// frontpage background header image.
+$name = 'theme_solerni/frontpageheaderimage';
+$title = get_string('frontpageheaderimage', 'theme_solerni');
+$description = get_string('frontpageheaderimagedesc', 'theme_solerni');
+$default = get_string('frontpageheaderimagedefault', 'theme_solerni');
+$setting = new admin_setting_configstoredfile($name, $title, $description, 'frontpageheaderimage');
+$setting->set_updatedcallback('theme_reset_all_caches'); // regenerate CSS.
 $temp->add($setting);
 $ADMIN->add('theme_solerni', $temp);
 
@@ -42,7 +56,7 @@ foreach( $color_settings as $key => $value ) {
     $default = $value;
     $previewconfig = NULL;
     $setting = new admin_setting_configcolourpicker($name, $title, $description, $default, $previewconfig);
-    $setting->set_updatedcallback('theme_reset_all_caches');
+    $setting->set_updatedcallback('theme_reset_all_caches'); // regenerate CSS.
     $temp->add($setting);
 }
 $ADMIN->add('theme_solerni', $temp);

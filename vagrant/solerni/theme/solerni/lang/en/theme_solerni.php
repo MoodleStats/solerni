@@ -31,6 +31,11 @@ $string['configtitle']                  = 'Solerni';
 $string['frontpagesettings']            = 'frontpage';
 $string['frontpagetagline']             = 'Header tagline';
 $string['frontpagetaglinedesc']         = 'Tagline displayed on the frontpage, over the header background image. Also DOM main title.';
+$string['frontpagepresentation']        = 'Header text';
+$string['frontpagepresentationdesc']    = 'Text displayed on the frontpage, over the header background image';
+$string['frontpagepresentationdefault'] = 'Develop your skills by following, at your own pace, friendly and collaborative learning courses';
+$string['frontpageheaderimage']         = 'Frontpage header image';
+$string['frontpageheaderimagedesc']     = 'Image used as background on the frontpage header. Recommanded ratio 16:3 and recommanded size about 1600x300px';
 
 $string['colorsettings']                = 'Colors';
 $string['colourheading']                = 'Theme Colours';

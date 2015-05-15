@@ -19,9 +19,17 @@
  * @package   theme_solerni
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+$tagline        = ($PAGE->theme->settings->frontpagetagline) ?
+                   $PAGE->theme->settings->frontpagetagline :
+                   get_string('footertaglinedefault', 'theme_solerni');
+
+$presentation   = ($PAGE->theme->settings->frontpagetagline) ?
+                   $PAGE->theme->settings->frontpagetagline :
+                   get_string('frontpagepresentationdefault', 'theme_solerni');
 ?>
 <div class="frontpage-header">
-    <h1 class="frontpage-header__tagline"></h1>
-    <span class="frontpage-header__presentation"></span>
+    <h1 class="frontpage-header__tagline"><?php echo $tagline; ?></h1>
+    <span class="frontpage-header__presentation"><?php echo $presentation; ?></span>
     <a class="frontpage-header__button" href="<?php echo $CFG->wwwroot ?>/login/index.php"></a>
 </div>

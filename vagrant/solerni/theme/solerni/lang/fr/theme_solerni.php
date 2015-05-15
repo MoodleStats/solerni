@@ -28,9 +28,14 @@ $string['region-side-pre']          = 'Gauche';
 $string['choosereadme']             = 'Solerni is a clone of Aardvark which is a three column theme for Moodle 2.5+ based on Bootstraptheme and created by Shaun Daubney for <a href="http://www.newbury-college.ac.uk">Newbury College</a>';
 $string['configtitle']              = 'Solerni';
 
-$string['frontpagesettings']        = 'Page d\'accueil';
-$string['frontpagetagline']         = 'Slogan de l\'entête';
-$string['frontpagetaglinedesc']     = 'Slogan utilisé sur l\'image d\'entête de la page d\'accueil. Egalement titre de la page.';
+$string['frontpagesettings']            = 'Page d\'accueil';
+$string['frontpagetagline']             = 'Slogan de l\'entête';
+$string['frontpagetaglinedesc']         = 'Slogan utilisé sur l\'image d\'entête de la page d\'accueil. Egalement titre de la page.';
+$string['frontpagepresentation']        = 'Texte d\'entête';
+$string['frontpagepresentationdesc']    = 'Texte affiché sur l\'image d\'entête de la page d\'accueil.';
+$string['frontpagepresentationdefault'] = 'Développez autrement vos compétences en suivant à votre rythme des parcours d\'apprentissage conviviaux et collaboratifs';
+$string['frontpageheaderimage']         = 'Image d\'entete';
+$string['frontpageheaderimagedesc']     = 'Image utilisée comme fond sur l\'entête de la page d\'accueil. Ratio  recommandé 16:3 et taille recommandée : environ 1600x300px';
 
 $string['colorsettings']            = 'Couleurs';
 $string['colourheading']            = 'Couleurs du thème ';

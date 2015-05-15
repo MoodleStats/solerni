@@ -41,8 +41,8 @@ function theme_solerni_page_init(moodle_page $page) {
  */
 function solerni_process_css($css, $theme) {
 
+    // Get colors.
     $colorsettings = \theme_solerni\settings\options::solerni_get_colors_array();
-
     foreach ($colorsettings as $key => $value) {
         // Use default if not set.
         if (!empty( $theme->settings->$key ) ) {
@@ -53,6 +53,34 @@ function solerni_process_css($css, $theme) {
         $css = str_replace( $tag, $value, $css );
     }
 
+    // replace header background image.
+    $backgroundheaderimage = $theme->setting_file_url('frontpageheaderimage', 'frontpageheaderimage');
+    $css = str_replace( '[[setting:frontpageheaderimage]]', $backgroundheaderimage, $css );
+
     return $css;
 }
 
+/*
+ * Mandatory callback from pluginfile.php
+ * Deals with local specific
+ * $args[] = itemid
+ * $args[] = path
+ * $args[] = filename
+ */
+function theme_solerni_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options=array()) {
+    global $CFG, $DB;
+
+    // Not sure about that, I'm not context-fluent. Our module use SYSTEM.
+    if ($context->contextlevel != CONTEXT_SYSTEM) {
+        return false;
+    }
+
+    // We only use one file areas.
+    if ($filearea != 'frontpageheaderimage' ) {
+        return false;
+    }
+
+    $theme = theme_config::load('solerni');
+    return $theme->setting_file_serve($filearea, $args, $forcedownload, $options);
+
+}
