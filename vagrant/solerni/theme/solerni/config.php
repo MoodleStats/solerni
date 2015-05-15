@@ -76,11 +76,10 @@ $THEME->layouts = array(
         'defaultregion' => 'side-pre',
     ),
     // The site home page.
+    // We removed all regions.
     'frontpage' => array(
-        'file' => 'columns3.php',
-        'regions' => array('side-pre', 'side-post'),
-        'defaultregion' => 'side-pre',
-        'options' => array('nonavbar' => true),
+        'file' => 'frontpage.php',
+        'regions' => array()
     ),
     // Server administration scripts.
     'admin' => array(

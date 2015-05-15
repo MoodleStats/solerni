@@ -22,124 +22,102 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Solerni';
-$string['region-side-post'] = 'Droite';
-$string['region-side-pre'] = 'Gauche';
-$string['choosereadme'] = 'Solerni is a clone of Aardvark which is a three column theme for Moodle 2.5+ based on Bootstraptheme and created by Shaun Daubney for <a href="http://www.newbury-college.ac.uk">Newbury College</a>';
+$string['pluginname']               = 'Solerni';
+$string['region-side-post']         = 'Droite';
+$string['region-side-pre']          = 'Gauche';
+$string['choosereadme']             = 'Solerni is a clone of Aardvark which is a three column theme for Moodle 2.5+ based on Bootstraptheme and created by Shaun Daubney for <a href="http://www.newbury-college.ac.uk">Newbury College</a>';
+$string['configtitle']              = 'Solerni';
 
-$string['configtitle'] = 'Solerni';
+$string['frontpagesettings']        = 'Page d\'accueil';
+$string['frontpagetagline']         = 'Slogan de l\'entête';
+$string['frontpagetaglinedesc']     = 'Slogan utilisé sur l\'image d\'entête de la page d\'accueil. Egalement titre de la page.';
 
-$string['colourheading'] = 'Couleurs du thème ';
-$string['colourheadingdesc'] = 'Modifier les couleurs du thème.';
+$string['colorsettings']            = 'Couleurs';
+$string['colourheading']            = 'Couleurs du thème ';
+$string['colourheadingdesc']        = 'Modifier les couleurs du thème.';
+$string['backcolor']                = 'Couleur de fond';
+$string['backcolordesc']            = 'Change la couleur de fond de la page';
+$string['primary']                  = 'Couleur primaire';
+$string['primarydesc']              = 'Couleur principale du thème';
+$string['primaryhover']             = 'Couleur primaire : contraste au survol';
+$string['primaryhoverdesc']         = 'Changement de couleur au passage de la souris';
+$string['secondary']                = 'Couleur secondaire';
+$string['secondarydesc']            = 'Couleur secondaire du thème';
+$string['secondaryhover']           = 'Couleur secondaire : contraste au survol';
+$string['secondaryhoverdesc']       = 'Changement de couleur au passage de la souris';
+$string['tertiary']                 = 'Couleur tertiaire';
+$string['tertiarydesc']             = 'Couleur tertiaire du thème';
+$string['tertiaryhover']            = 'Couleur tertiaire : contraste au survol';
+$string['tertiaryhoverdesc']        = 'Changement de couleur au passage de la souris';
+$string['dark']                     = 'Couleur sombre';
+$string['darkdesc']                 = 'Couleur la plus sombre pour le thème';
+$string['light']                    = 'Couleur claire';
+$string['lightdesc']                = 'Couleur la plus sombre pour le thème';
+$string['grey1']                    = 'Gris 1';
+$string['grey1desc']                = 'Gris très clair';
+$string['grey2']                    = 'Gris 2';
+$string['grey2desc']                = 'Gris clair';
+$string['grey3']                    = 'Gris 3';
+$string['grey3desc']                = 'Gris moyen';
+$string['grey4']                    = 'Gris 4';
+$string['grey4desc']                = 'Gris foncé';
+$string['grey5']                    = 'Gris 5';
+$string['grey5desc']                = 'Gris très foncé';
 
-$string['footertextheading'] = 'Texte du footer';
-$string['footertextheadingdesc'] = 'Définit la marque Solerni dans le footer.';
-
-$string['footerlinksheading']       = 'Liens du footer';
-$string['footerlinksheadingdesc']   = 'Définit les liens pour le footer (hors réseaux sociaux).';
-
-$string['sociallinksheading']       = 'Liens des réseaux sociaux';
-$string['sociallinksheadingdesc']   = 'Définit les liens pour les réseaux sociaux (footer).';
-
-$string['backcolor'] = 'Couleur de fond';
-$string['backcolordesc'] = 'Change la couleur de fond de la page';
-
-$string['primary'] = 'Couleur primaire';
-$string['primarydesc'] = 'Couleur principale du thème';
-
-$string['primaryhover'] = 'Couleur primaire : contraste au survol';
-$string['primaryhoverdesc'] = 'Changement de couleur au passage de la souris';
-
-$string['secondary'] = 'Couleur secondaire';
-$string['secondarydesc'] = 'Couleur secondaire du thème';
-
-$string['secondaryhover'] = 'Couleur secondaire : contraste au survol';
-$string['secondaryhoverdesc'] = 'Changement de couleur au passage de la souris';
-
-$string['tertiary'] = 'Couleur tertiaire';
-$string['tertiarydesc'] = 'Couleur tertiaire du thème';
-
-$string['tertiaryhover'] = 'Couleur tertiaire : contraste au survol';
-$string['tertiaryhoverdesc'] = 'Changement de couleur au passage de la souris';
-
-$string['dark'] = 'Couleur sombre';
-$string['darkdesc'] = 'Couleur la plus sombre pour le thème';
-
-$string['light'] = 'Couleur claire';
-$string['lightdesc'] = 'Couleur la plus sombre pour le thème';
-
-$string['grey1'] = 'Gris 1';
-$string['grey1desc'] = 'Gris très clair';
-
-$string['grey2'] = 'Gris 2';
-$string['grey2desc'] = 'Gris clair';
-
-$string['grey3'] = 'Gris 3';
-$string['grey3desc'] = 'Gris moyen';
-
-$string['grey4'] = 'Gris 4';
-$string['grey4desc'] = 'Gris foncé';
-
-$string['grey5'] = 'Gris 5';
-$string['grey5desc'] = 'Gris très foncé';
-
-$string['blog'] = 'Blog';
-$string['blogdesc'] = 'Entrez l\'URL de votre blog.';
-
-$string['facebook'] = 'Lien Facebook';
-$string['facebookdesc'] = 'Entrez l\'URL de votre page Facebook.';
-
-$string['twitter'] = 'Lien Twitter';
-$string['twitterdesc'] = 'Entrez l\'URL de votre flux Twitter.';
-
-$string['googleplus'] = 'Lien Google+';
-$string['googleplusdesc'] = 'Entrez l\'URL de votre profil Google+.';
-
-$string['linkedin'] = 'Lien LinkedIn';
-$string['linkedindesc'] = 'Entrez l\'URL de votre profil LinkedIn.';
-
-$string['youtube'] = 'Lien YouTube';
-$string['youtubedesc'] = 'Entrez l\'URL de votre chaîne YouTube.';
-
-$string['about'] = 'A propos';
-$string['aboutdesc'] = 'URL de la page A propos (Header)';
-
-$string['catalogue'] = 'Catalogue';
-$string['cataloguedesc'] = 'URL de la page Catalogue (Header)';
-
-$string['themelinksheading']            = 'Liens statiques de l\'interface';
-$string['themelinksheadingdesc']        = 'Indiquez ici les liens statiques utilisés dans l\'entête et le footer';
-
-$string['search']                       = 'Rechercher';
-
-$string['register']                     = 'Inscription';
-$string['login']                        = 'Connexion';
-
-$string['hello']                        = 'Bonjour';
-$string['dashboard']                    = 'Tableau de bord';
-$string['administration']               = 'Administration';
-
+$string['footersettings']               = 'Footer';
+$string['footertextheading']            = 'Textes';
+$string['footertextheadingdesc']        = 'Définit la marque Solerni dans le footer.';
 $string['footertaglinetitle']           = 'Slogan solerni (français)';
 $string['footertaglinedefault']         = 'Apprendre, c\'est toujours mieux ensemble';
 $string['footertaglinedesc']            = 'Slogan dans le footer (français)';
 $string['footerexplainationtitle']      = 'Texte court explicatif (français)';
 $string['footerexplainationdefault']    = 'Solerni est une solution logicielle complète dédiée à la création et à l\'hébergement de parcours d\'apprentissage massifs collaboratifs.';
 $string['footerexplainationdesc']       = 'Texte complétant le slogan de la version français du footer';
+$string['footerlinksheading']           = 'Liens du footer';
+$string['footerlinksheadingdesc']       = 'Définit les liens pour le footer (hors réseaux sociaux).';
+$string['aboutus']                      = 'A propos de nous';
+$string['support']                      = 'Support';
+$string['followus']                     = 'Suivez-nous';
+$string['international']                = 'International';
+$string['aboutsolerni']                 = 'A propos de Solerni';
+$string['aboutsolernidesc']             = 'Entrez l\'URL du lien A propos de Solerni';
+$string['partners']                     = 'Partenaires';
+$string['partnersdesc']                 = 'Entrez l\'URL du lien Partenaires';
+$string['legal']                        = 'Mentions légales';
+$string['legaldesc']                    = 'Entrez l\'URL du lien Mentions légales';
+$string['cgu']                          = 'CGU / Charte';
+$string['cgudesc']                      = 'Entrez l\'URL du lien vers les CGU';
+$string['faq']                          = 'FAQ';
+$string['faqdesc']                      = 'Entrez l\'URL des "Questions Fréquentes"';
+$string['contactus']                    = 'Nous contacter';
+$string['contactusdesc']                = 'Entrez l\'URL de la page Contact';
 
-$string['aboutus']                       = 'A propos de nous';
-$string['support']                       = 'Support';
-$string['followus']                      = 'Suivez-nous';
-$string['international']                 = 'International';
+$string['socialsettings']               = 'Social';
+$string['sociallinksheading']           = 'Liens des réseaux sociaux';
+$string['sociallinksheadingdesc']       = 'Définit les liens pour les réseaux sociaux (footer).';
+$string['blog']                         = 'Blog';
+$string['blogdesc']                     = 'Entrez l\'URL de votre blog.';
+$string['facebook']                     = 'Lien Facebook';
+$string['facebookdesc']                 = 'Entrez l\'URL de votre page Facebook.';
+$string['twitter']                      = 'Lien Twitter';
+$string['twitterdesc']                  = 'Entrez l\'URL de votre flux Twitter.';
+$string['googleplus']                   = 'Lien Google+';
+$string['googleplusdesc']               = 'Entrez l\'URL de votre profil Google+.';
+$string['linkedin']                     = 'Lien LinkedIn';
+$string['linkedindesc']                 = 'Entrez l\'URL de votre profil LinkedIn.';
+$string['youtube']                      = 'Lien YouTube';
+$string['youtubedesc']                  = 'Entrez l\'URL de votre chaîne YouTube.';
 
-$string['aboutsolerni']                  = 'A propos de Solerni';
-$string['aboutsolernidesc']              = 'Entrez l\'URL du lien A propos de Solerni';
-$string['partners']                      = 'Partenaires';
-$string['partnersdesc']                  = 'Entrez l\'URL du lien Partenaires';
-$string['legal']                         = 'Mentions légales';
-$string['legaldesc']                     = 'Entrez l\'URL du lien Mentions légales';
-$string['cgu']                           = 'CGU / Charte';
-$string['cgudesc']                       = 'Entrez l\'URL du lien vers les CGU';
-$string['faq']                           = 'FAQ';
-$string['faqdesc']                       = 'Entrez l\'URL des "Questions Fréquentes"';
-$string['contactus']                     = 'Nous contacter';
-$string['contactusdesc']                 = 'Entrez l\'URL de la page Contact';
+$string['headersettings']               = 'Header';
+$string['headerheading']                = 'Liens statiques de l\'interface';
+$string['headerheadingdesc']            = 'Indiquez ici les liens statiques utilisés dans l\'entête';
+$string['about']                        = 'A propos';
+$string['aboutdesc']                    = 'URL de la page A propos (Header)';
+$string['catalogue']                    = 'Catalogue';
+$string['cataloguedesc']                = 'URL de la page Catalogue (Header)';
+$string['search']                       = 'Rechercher';
+$string['register']                     = 'Inscription';
+$string['login']                        = 'Connexion';
+$string['hello']                        = 'Bonjour';
+$string['dashboard']                    = 'Tableau de bord';
+$string['administration']               = 'Administration';

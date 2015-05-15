@@ -14,6 +14,7 @@ body {
     line-height:            1.5;
     font-size:              16px; /* browser default */
     color:                  [[setting:dark]];
+    background-color:       [[setting:backcolor]];
 }
 
 body {
@@ -252,7 +253,7 @@ body {
     background-color:   [[setting:grey2]];
     padding:            35px 7px;
     margin-top:         60px;
-    border-top:         solid 10px [[setting:backcolor]];
+    border-top:         solid 10px [[setting:light]];
 
     color:              [[setting:grey4]];
     font-size:          .8em;
@@ -412,11 +413,10 @@ body {
 }
 
 .footer_powered {
-    height: 36px;
-    width: 123px;
-    text-indent: -999em;
-
-    background-position: -185px -48px;
+    height:                 36px;
+    width:                  123px;
+    text-indent:            -999em;
+    background-position:    -185px -48px;
 }
 
 /*

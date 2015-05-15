@@ -28,7 +28,7 @@ $hassidepre     = (empty($PAGE->layout_options['noblocks']) && $PAGE->blocks->re
 $hassidepost    = (empty($PAGE->layout_options['noblocks']) && $PAGE->blocks->region_has_content('side-post', $OUTPUT));
 $showsidepre    = ($hassidepre && !$PAGE->blocks->region_completely_docked('side-pre', $OUTPUT));
 $showsidepost   = ($hassidepost && !$PAGE->blocks->region_completely_docked('side-post', $OUTPUT));
-$isfrontpage    = ( $PAGE->bodyid == "page-site-index" );
+$isfrontpage    = ($PAGE->pagetype === 'site-index');
 ?>
 
 <header role="banner" class="navbar navbar-fixed-top slrn-top-header">
@@ -63,10 +63,13 @@ $isfrontpage    = ( $PAGE->bodyid == "page-site-index" );
 
 <div id="page" class="container-fluid">
 
-<header id="page-header" class="clearfix">
-    <?php if ($hasnavbar) : ?>
-        <nav class="breadcrumb-button"><?php echo $PAGE->button; ?></nav>
-        <?php echo $OUTPUT->navbar(); ?>
+    <?php // Not display breadcrumb on frontpage.
+    if (!$isfrontpage) : ?>
+        <header id="page-header" class="clearfix">
+            <?php if ($hasnavbar) : ?>
+                <nav class="breadcrumb-button"><?php echo $PAGE->button; ?></nav>
+                <?php echo $OUTPUT->navbar(); ?>
+            <?php endif; ?>
+            <h1><?php echo $PAGE->heading ?></h1>
+        </header>
     <?php endif; ?>
-    <h1><?php echo $PAGE->heading ?></h1>
-</header>
