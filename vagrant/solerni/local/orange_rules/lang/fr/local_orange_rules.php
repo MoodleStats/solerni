@@ -48,5 +48,4 @@ $string['selectcohort'] = 'Sélectionner une cohorte';
 $string['cohortempty'] = 'Vous devez sélectionner une cohorte';
 $string['cohortdeleted'] = 'Cette règle n\'est affectée à aucune cohorte';
 
-$string['blockorangewarning'] = 'The orange_rules block is not installed. Users will not be affected to cohort based on rules definition.';
 $string['noaddrulewarning'] = 'La règle ne peut être créée. Deux raisons possibles : son nom existe déjà ou la cohorte choisie a déjà été affectée à une autre règle.';
