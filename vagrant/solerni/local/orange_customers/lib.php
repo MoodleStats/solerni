@@ -54,7 +54,7 @@ function customer_add_customer($customer) {
 
 /**
  * Return the customer identified by $id
- *
+ * 
  * @param int $id id of customer
  * @return stdClass $customer 
  */
@@ -66,6 +66,54 @@ function customer_get_customer($id) {
     return $customer;
 
 }
+
+/**
+ * Return the customer associated by $categoryid
+ * 
+ * @param int $categoryid id of category
+ * @return stdClass $customer
+ */
+function customer_get_customerbycategoryid($categoryid) {
+    global $CFG, $DB;
+
+    $customer = $DB->get_record('orange_customers', array('categoryid' => $categoryid));
+
+    $context = context_system::instance();
+
+    $fs = get_file_storage();
+    $files = $fs->get_area_files($context->id, 'local_orange_customers', 'logo', $customer->id, null, false);
+
+    $urlimg = "";
+
+    foreach ($files as $file) {
+
+        $urlimg = moodle_url::make_pluginfile_url($file->get_contextid(),
+                        $file->get_component(),
+                        $file->get_filearea(),
+                        $file->get_itemid(),
+                        $file->get_filepath(),
+                        $file->get_filename());
+    }
+
+    $files = $fs->get_area_files($context->id, 'local_orange_customers', 'picture', $customer->id, null, false);
+    $urlpicture = "";
+    foreach ($files as $file) {
+        $urlpicture = moodle_url::make_pluginfile_url($file->get_contextid(),
+                        $file->get_component(),
+                        $file->get_filearea(),
+                        $file->get_itemid(),
+                        $file->get_filepath(),
+                        $file->get_filename());
+    }
+
+    $customer->urlimg = $urlimg;
+    $customer->urlpicture = $urlpicture;
+
+    return $customer;
+
+}
+
+
 /*
  * Mandatory callback from pluginfile.php
  * Deals with local specific
@@ -83,14 +131,6 @@ function local_orange_customers_pluginfile($course, $cm, $context, $filearea, $a
 
     // We only use two file areas.
     if ( $filearea != 'logo' && $filearea != 'picture' ) {
-        return false;
-    }
-
-    // We need to be connected (or not ?).
-    require_login($course, true);
-
-    // And have the rights. I think we'll have to extend it to all users so they can see the logo on frontend :).
-    if (! has_capability('orange/customers:edit', $context)) {
         return false;
     }
 
@@ -117,5 +157,5 @@ function local_orange_customers_pluginfile($course, $cm, $context, $filearea, $a
     }
 
     // Finally send the file.
-    send_stored_file($file, 86400, 0, true, $options); // download MUST be forced - security!
+    send_stored_file($file, 86400, 0, $forcedownload, $options); // download MUST be forced - security!
 }
