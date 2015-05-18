@@ -25,7 +25,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $plugin->component  = 'block_course_extended';
 $plugin->release    = '1.0';
-$plugin->version    = 2015051400;
+$plugin->version    = 20150514800;
 $plugin->requires   = 2014051200; // Moodle 2.7.
 $plugin->maturity   = MATURITY_STABLE;
 $plugin->dependencies = array('format_flexpage' => 2015050500);

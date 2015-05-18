@@ -91,6 +91,10 @@ $string['badge'] = 'Badge';
 $string['status'] = 'status';
 $string['status_help'] = 'status_help';
 $string['status_default'] = 'MOOC not started ';
+$string['status_closed'] = 'MOOC closed ';
+$string['alert_course'] = 'Alert me for next MOOC session';
+$string['registration_stopped'] = 'registration stopped';
+$string['mooc_complete'] = 'mooc complete';
 
 
 $string['filetitle'] = 'Course image';
@@ -124,6 +128,7 @@ $string['workingtime_default'] = 'inf_one';
 $string['inf_one'] = 'inf_one';
 $string['one_two'] = 'one_two';
 $string['two_three'] = 'two_three';
+$string['course_replay_default'] = 'Replay';
 
 $string['price'] = 'price: ';
 $string['price_help'] = 'price_help';

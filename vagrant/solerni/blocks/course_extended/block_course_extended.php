@@ -202,7 +202,7 @@ class block_course_extended extends block_base {
         }
 
         $course = $this->page->course; // Needed to have numsections property available.
-        $courseid = $course->id;
+        //$courseid = $course->id;
         $context = context_course::instance($course->id);
         $fs = get_file_storage();
         $files = $fs->get_area_files($context->id, 'format_flexpage', 'coursepicture', 0);
@@ -217,20 +217,7 @@ class block_course_extended extends block_base {
             $imgurl = moodle_url::make_pluginfile_url($ctxid, $cmpnt, $filearea, $itemid, $filepath, $filename);
         }
 
-        // This is the new code.
-        if ($courseid) {
-            $extendedcourseflexpagevalues = $DB->get_records('course_format_options', array('courseid' => $courseid));
-           foreach ($extendedcourseflexpagevalues as $extendedcourseflexpagevalue) {
-                if ($extendedcourseflexpagevalue->format== "flexpage"){
-                    $extendedcourse = $this->renderer->set_extendedcourse($extendedcourseflexpagevalue, $context, $extendedcourse);
-                }
-                else {
-                    $extendedcourse = $this->renderer->set_extendedcourse_from_config($context, $extendedcourse);
-                    $imgurl = "/pix/spacer.gif";
-                }
-            }
-            $extendedcourse = $this->renderer->getregistration($extendedcourse);
-        }
+        //$extendedcourse = $this->renderer->get_extendedcourse($context, $courseid, $imgurl);
 
         $this->content->text .= html_writer::start_tag('ul');
         $this->content->text .= html_writer::start_tag('li');
@@ -238,7 +225,7 @@ class block_course_extended extends block_base {
         $this->content->text .= html_writer::end_tag('li');
         $this->content->text .= html_writer::end_tag('ul');
 
-        $text = $this->renderer->text_configuration($imgurl, $course, $extendedcourse);
+        $text = $this->renderer->get_text($imgurl, $course, $context);
         $this->content->text = $text;
         return $this->content;
 
