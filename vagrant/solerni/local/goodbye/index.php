@@ -34,10 +34,11 @@ $PAGE->set_context(context_system::instance());
 $PAGE->set_url('/local/goodbye/index.php');
 $PAGE->set_title(format_string(get_string('deleteaccount', 'local_goodbye')));
 $PAGE->set_heading(format_string(get_string('userpass', 'local_goodbye')));
-
 $enabled = get_config('local_goodbye', 'enabled');
 
-if ($enabled) {
+require_login();
+
+if ($enabled && !is_siteadmin() && !isguestuser()) {
     $checkaccount = new check_account_form();
 
     global $USER;
@@ -67,7 +68,19 @@ if ($enabled) {
             if ($user) {
                 if ($user->id == $USER->id ) {
                     delete_user($user);
-                    redirect(new moodle_url('/'));
+                    // Auths, in sequence.
+                    $authsequence = get_enabled_auth_plugins();
+                    foreach ($authsequence as $authname) {
+                        $authplugin = get_auth_plugin($authname);
+                        $authplugin->logoutpage_hook();
+                    }
+
+                    require_logout();
+                    $PAGE->set_heading(format_string(get_string('deleteaccount', 'local_goodbye')));
+                    echo $OUTPUT->header(get_string('deleteaccount', 'local_goodbye'));
+                    echo $OUTPUT->notification(get_string('useraccountdeleted', 'local_goodbye'), 'notifysuccess');
+                    echo $OUTPUT->footer();
+                    exit;
                 } else {
                     $error = get_string('anotheraccount', 'local_goodbye');
                 }
@@ -81,7 +94,9 @@ if ($enabled) {
     $checkaccount->display();
     echo $error;
 } else {
+    $PAGE->set_heading(format_string(get_string('deleteaccount', 'local_goodbye')));
     echo $OUTPUT->header(get_string('disabled', 'local_goodbye'));
+    echo $OUTPUT->notification(get_string('nodeletionmsg', 'local_goodbye'));
 }
 
 echo $OUTPUT->footer();
