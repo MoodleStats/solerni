@@ -29,5 +29,6 @@
 		    <!-- Google web fonts -->
 <link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' /> 
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type='text/css' />
+    <link href="/theme/solerni/style/catalogue.css" rel="stylesheet" type='text/css' />
 </head>
 

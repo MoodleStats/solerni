@@ -25,6 +25,8 @@
 
 require_once($CFG->dirroot . '/course/renderer.php');
 require_once($CFG->dirroot . '/cohort/lib.php');
+require_once($CFG->dirroot . '/theme/solerni/renderers/catalogue.php');
+require_once($CFG->dirroot . '/blocks/course_extended/locallib.php');
 
 class theme_solerni_core_course_renderer extends core_course_renderer
 {
@@ -65,6 +67,14 @@ class theme_solerni_core_course_renderer extends core_course_renderer
 		// End code to display only allowed MOOC
 		if ($canview)
 		{
+                        $customer = catalogue::solerni_catalogue_get_customer_infos($course->category);
+                        $courseinfos = catalogue::solerni_catalogue_get_course_infos($course);
+        //echo "<pre>";
+        //print_r($courseinfos);
+        //print_r($course);
+        //print_r($customer);
+        //echo "</pre>";
+                        
 			if (!isset($this->strings->summary)) {
 				$this->strings->summary = get_string('summary');
 			}
@@ -92,10 +102,24 @@ class theme_solerni_core_course_renderer extends core_course_renderer
 			));
 
 			$content .= html_writer::start_tag('div', array('class' => 'info'));
+                        if (isset($courseinfos->imgurl)) {
+                            $content .= html_writer::empty_tag('img', array('src' => $courseinfos->imgurl, 'width' => '250px'));
+                        }
 
+                        if (isset($customer->urlimg)) {
+                            $categoryimagelink = html_writer::link(new moodle_url(
+                                '/course/index.php',
+                                array('categoryid' => $course->category)),
+                                html_writer::empty_tag('img', array('src' => $customer->urlimg, 'style' => 'height:35px!important'))
+                                );
+                            $content .= $categoryimagelink;
+                        }
+                        
 			// course name
 			$coursename = $chelper->get_course_formatted_name($course);
-			$coursenamelink = html_writer::link(new moodle_url('/course/view.php', array('id' => $course->id)),
+			
+                        // course image.
+                        $coursenamelink = html_writer::link(new moodle_url('/course/view.php', array('id' => $course->id)),
 												$coursename, array('class' => $course->visible ? '' : 'dimmed'));
 			$content .= html_writer::tag($nametag, $coursenamelink, array('class' => 'coursename'));
 			// If we display course in collapsed form but the course has summary or course contacts, display the link to the info page.
@@ -111,27 +135,139 @@ class theme_solerni_core_course_renderer extends core_course_renderer
 				}
 			}
 			$content .= html_writer::end_tag('div'); // .moreinfo
+                        if (isset($courseinfos)) {
+                            $categorynamelink = html_writer::link(new moodle_url(
+                                '/course/index.php',
+                                array('categoryid' => $course->category)),
+                                $courseinfos->categoryname);
+                            $content .= html_writer::start_tag('span', array('class' => 'presentation__mooc__text__subtitle'));
+                            // TODO à traduire
+                            $content .= "proposé par " . $categorynamelink;
+                            $content .= html_writer::end_tag('span');
+                        }
+                        
+                        // course info.
+			$content .= html_writer::start_tag('div', array('class' => 'presentation__mooc__text'));
+                        if (isset($courseinfos)) {
 
-			// print enrolmenticons
-			if ($icons = enrol_get_course_info_icons($course)) {
-				$content .= html_writer::start_tag('div', array('class' => 'enrolmenticons'));
-				foreach ($icons as $pix_icon) {
-					$content .= $this->render($pix_icon);
-				}
-				$content .= html_writer::end_tag('div'); // .enrolmenticons
-			}
+
+                            // display course summary
+                            if ($course->has_summary()) {
+                                    $content .= html_writer::start_tag('div', array('class' => 'presentation__mooc__text__desc'));
+                                    $content .= $chelper->get_course_formatted_summary($course,
+                                                    array('overflowdiv' => true, 'noclean' => true, 'para' => false));
+                                    $content .= html_writer::end_tag('div'); // .summary
+                            }                            
+                            
+                            // En savoir plus
+                            $ensavoirpluslink = html_writer::link(new moodle_url(
+                                '/course/view.php',
+                                array('id' => $course->id)),
+                                "En savoir plus",
+                                array('class' => 'button_link presentation__mooc__text_link')
+                                );
+
+                            $content .= $ensavoirpluslink;
+
+                            // Icons.
+                            $content .= html_writer::start_tag('div', array('class' => 'presentation__mooc__block presentation__mooc__meta'));
+
+                            // Dates
+                            $content .= html_writer::start_tag('span', array('class' => 'presentation__mooc__meta__date'));
+                            $content .= html_writer::tag('p', get_string('startdate', 'format_flexpage') . date("d.m.Y", $course->startdate));
+                            $content .= html_writer::tag('p', get_string('enddate', 'format_flexpage') . date("d.m.Y", $courseinfos->enddate));
+                            $content .= html_writer::end_tag('span'); // 
+                            
+                            // Badges.
+                            $content .= html_writer::start_tag('span', array('class' => 'presentation__mooc__meta__badge'));
+                            if (count_badges()!=0) {
+                                $content .= html_writer::tag('p', "No Badge");
+                            } else {
+                                $content .= html_writer::tag('p', get_string('certification_default', 'block_course_extended'));
+                            }
+                            $content .= html_writer::end_tag('span'); // Badges
+
+                            // Price.
+                            $content .= html_writer::start_tag('span', array('class' => 'presentation__mooc__meta__price'));
+                            if ($courseinfos->price == 0) {
+                                $content .= html_writer::tag('p', get_string('price_default', 'format_flexpage'));
+                            }    
+                            else { 
+                                $content .= html_writer::tag('p', get_string('price', 'format_flexpage'). $courseinfos->price . "&euro;");
+                            }
+                            $content .= html_writer::end_tag('span'); // Price
+                            
+                            $content .= html_writer::end_tag('div'); // .Icons
+                        }
+			$content .= html_writer::end_tag('div'); // .presentation__mooc__text
 
 			$content .= html_writer::end_tag('div'); // .info
-
-			$content .= html_writer::start_tag('div', array('class' => 'content'));
-			$content .= $this->coursecat_coursebox_content($chelper, $course);
-			$content .= html_writer::end_tag('div'); // .content
 
 			$content .= html_writer::end_tag('div'); // .coursebox
 		}
 		else $content = '';
 
         return $content;
+    }
+
+    /**
+     * Returns HTML to display the subcategories and courses in the given category
+     *
+     * This method is re-used by AJAX to expand content of not loaded category
+     *
+     * @param coursecat_helper $chelper various display options
+     * @param coursecat $coursecat
+     * @param int $depth depth of the category in the current tree
+     * @return string
+     */
+    protected function coursecat_category_content(coursecat_helper $chelper, $coursecat, $depth) {
+
+        Global $CFG, $PAGE;
+
+        // Category header for customer info and logo.
+        $PAGE->requires->css('/theme/solerni/style/catalogue.css');
+        $customer = catalogue::solerni_catalogue_get_customer_infos($coursecat->id);
+
+        $content = '';
+        if (isset($customer->id)) {
+            $content .= "<div class='slrn-header__column'>";
+            $content .= "<div><img class='header-background-img' src='{$customer->urlpicture}' alt='{$customer->name}' /></div>";
+            $content .= "<div class='slrn-header__logo'><img class='header-logo-img' src='{$customer->urlimg}'  /></div>";
+            $content .= "<div class='slrn-header__description'><h1>{$customer->name}</h1><div>{$customer->summary}</div></div>";
+            $content .= "</div>";
+        }
+            // Subcategories
+            $content .= $this->coursecat_subcategories($chelper, $coursecat, $depth);
+
+            // AUTO show courses: Courses will be shown expanded if this is not nested category,
+            // and number of courses no bigger than $CFG->courseswithsummarieslimit.
+            $showcoursesauto = $chelper->get_show_courses() == self::COURSECAT_SHOW_COURSES_AUTO;
+            if ($showcoursesauto && $depth) {
+                    // this is definitely collapsed mode
+                    $chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_COLLAPSED);
+            }
+
+            // Courses
+            if ($chelper->get_show_courses() > core_course_renderer::COURSECAT_SHOW_COURSES_COUNT) {
+                    $courses = array();
+                    if (!$chelper->get_courses_display_option('nodisplay')) {
+                            $courses = $coursecat->get_courses($chelper->get_courses_display_options());
+                    }
+                    if ($viewmoreurl = $chelper->get_courses_display_option('viewmoreurl')) {
+                            // the option for 'View more' link was specified, display more link (if it is link to category view page, add category id)
+                            if ($viewmoreurl->compare(new moodle_url('/course/index.php'), URL_MATCH_BASE)) {
+                                    $chelper->set_courses_display_option('viewmoreurl', new moodle_url($viewmoreurl, array('categoryid' => $coursecat->id)));
+                            }
+                    }
+                    $content .= $this->coursecat_courses($chelper, $courses, $coursecat->get_courses_count());
+            }
+
+            if ($showcoursesauto) {
+                    // restore the show_courses back to AUTO
+                    $chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_AUTO);
+            }
+
+            return $content;
     }
 
 }
