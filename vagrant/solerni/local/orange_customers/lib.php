@@ -79,24 +79,23 @@ function customer_get_customerbycategoryid($categoryid) {
     $customer = $DB->get_record('orange_customers', array('categoryid' => $categoryid));
 
     $context = context_system::instance();
-         
+
     $fs = get_file_storage();
-    $files = $fs->get_area_files($context->id, 'local_orange_customers', 'logo', $customer->id);
-    
+    $files = $fs->get_area_files($context->id, 'local_orange_customers', 'logo', $customer->id, null, false);
+
     $urlimg = "";
-			
+
     foreach ($files as $file) {
+
         $urlimg = moodle_url::make_pluginfile_url($file->get_contextid(),
                         $file->get_component(),
                         $file->get_filearea(),
                         $file->get_itemid(),
                         $file->get_filepath(),
                         $file->get_filename());
-        
-
     }
 
-	$files = $fs->get_area_files($context->id, 'local_orange_customers', 'picture', $customer->id);
+    $files = $fs->get_area_files($context->id, 'local_orange_customers', 'picture', $customer->id, null, false);
     $urlpicture = "";
     foreach ($files as $file) {
         $urlpicture = moodle_url::make_pluginfile_url($file->get_contextid(),
@@ -105,14 +104,11 @@ function customer_get_customerbycategoryid($categoryid) {
                         $file->get_itemid(),
                         $file->get_filepath(),
                         $file->get_filename());
-        
     }
-    
+
     $customer->urlimg = $urlimg;
     $customer->urlpicture = $urlpicture;
-    
-    
-    
+
     return $customer;
 
 }
@@ -161,5 +157,5 @@ function local_orange_customers_pluginfile($course, $cm, $context, $filearea, $a
     }
 
     // Finally send the file.
-    send_stored_file($file, 86400, 0, true, $options); // download MUST be forced - security!
+    send_stored_file($file, 86400, 0, $forcedownload, $options); // download MUST be forced - security!
 }

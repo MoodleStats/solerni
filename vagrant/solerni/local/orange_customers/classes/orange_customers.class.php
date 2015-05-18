@@ -132,7 +132,7 @@ class orange_customers  {
 
             $row[] = $customer->summary;
             $fs = get_file_storage();
-            $files = $fs->get_area_files($sitecontext->id, 'local_orange_customers', 'logo', $customer->id);
+            $files = $fs->get_area_files($sitecontext->id, 'local_orange_customers', 'logo', $customer->id, null, false);
             $urlimg = "";
             foreach ($files as $file) {
                 $imgurl = moodle_url::make_pluginfile_url($file->get_contextid(),
@@ -143,7 +143,7 @@ class orange_customers  {
                         $file->get_filename());
 
                 // We keep only the last (there are a filename).
-                $urlimg = "<img src='{$imgurl}' height='100px' />";
+                $urlimg = "<img src='{$imgurl}'/>";
             }
             $row[] = $urlimg;
 
