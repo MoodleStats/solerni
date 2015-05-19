@@ -20,6 +20,7 @@ moosh config-set roleid 10 enrol_self
 # Self registration (#us_6)
 moosh config-set registerauth email
 
-
+# Enabled - Plugin Local/Goodbye (#us_9)
+moosh config-set enabled 1 local_goodbye
 
 
