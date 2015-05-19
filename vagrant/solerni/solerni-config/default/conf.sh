@@ -23,4 +23,7 @@ moosh config-set registerauth email
 # Enabled - Plugin Local/Goodbye (#us_9)
 moosh config-set enabled 1 local_goodbye
 
+# Guest login button (#us_119)
+moosh config-set guestloginbutton 0
+
 
