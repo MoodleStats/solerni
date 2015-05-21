@@ -105,6 +105,24 @@ function auth_googleoauth2_render_buttons() {
             </a>
         </div>';
 
+    $a->providername = 'Battle.net';
+    // Forcing https (Battlenet fail if you don't use https)
+    $siteurl = $CFG->httpswwwroot;
+    if (strpos($siteurl, 'https://') === false) {
+        $siteurl = str_replace('http://', 'https://', $siteurl);
+    }
+    $providerisenabled = get_config('auth/googleoauth2', 'battlenetclientid');
+    $providerscount = $providerisenabled?$providerscount+1:$providerscount;
+	$displayprovider = ((empty($authprovider) || $authprovider == 'battlenet' || $allauthproviders) && $providerisenabled);
+	$providerdisplaystyle = $displayprovider?'display:inline-block;padding:10px;':'display:none;';
+	$html .= '<div class="singinprovider" style="'. $providerdisplaystyle .'">
+            <a class="zocial battlenet" href="https://eu.battle.net/oauth/authorize?client_id='. get_config('auth/googleoauth2', 'battlenetclientid') .'&auth_flow=auth_code&redirect_uri='. $siteurl .'/auth/googleoauth2/battlenet_redirect.php&state='.auth_googleoauth2_get_state_token().'&scope=sc2.profile&response_type=code">
+                '.get_string('auth_sign-in_with','auth_googleoauth2', $a).'
+            </a>
+        </div>';
+
+
+
     $a->providername = 'Facebook';
     $providerisenabled = get_config('auth/googleoauth2', 'facebookclientid');
     $providerscount = $providerisenabled?$providerscount+1:$providerscount;
@@ -149,6 +167,20 @@ function auth_googleoauth2_render_buttons() {
             </a>
         </div>
     </div>';
+
+    $a->providername = 'VK';
+    $providerisenabled = get_config('auth/googleoauth2', 'vkappid');
+    $providerscount = $providerisenabled?$providerscount+1:$providerscount;
+	$displayprovider = ((empty($authprovider) || $authprovider == 'vk' || $allauthproviders) && $providerisenabled);
+	$providerdisplaystyle = $displayprovider?'display:inline-block;padding:10px;':'display:none;';
+	$html .= '<div class="singinprovider" style="'. $providerdisplaystyle .'">
+            <a class="zocial vk" href="https://oauth.vk.com/authorize?client_id='. get_config('auth/googleoauth2', 'vkappid') .'&redirect_uri='. $CFG->wwwroot .'/auth/googleoauth2/vk_redirect.php&state='.auth_googleoauth2_get_state_token().'&scope=offline&response_type=code&v=5.9">
+                '.get_string('auth_sign-in_with','auth_googleoauth2', $a).'
+            </a>
+        </div>
+    </div>';
+
+
 
 	if (!$allauthproviders and !empty($authprovider) and $providerscount>1) {
 		$html .= '<br /><br /> 
