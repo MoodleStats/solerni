@@ -44,10 +44,19 @@ require_once(__DIR__ . '/../../../../lib/behat/lib.php');
 chdir(__DIR__);
 $output = null;
 exec("php util.php --diag", $output, $code);
+
+// Ensure we have composer installed, before we install or re-install test site.
+if ($code == BEHAT_EXITCODE_COMPOSER || $code == BEHAT_EXITCODE_INSTALL || $code == BEHAT_EXITCODE_REINSTALL) {
+    testing_update_composer_dependencies();
+    chdir(__DIR__);
+    exec("php util.php --diag", $output, $code);
+}
+
 if ($code == 0) {
 	echo "Behat test environment already installed\n";
 
 } else if ($code == BEHAT_EXITCODE_INSTALL) {
+
 
 	testing_update_composer_dependencies();
 
@@ -73,6 +82,7 @@ if ($code == 0) {
 	if ($code != 0) {
 		exit($code);
 	}
+
 
 } else if ($code == BEHAT_EXITCODE_COMPOSER) {
 	// Missing Behat dependencies.

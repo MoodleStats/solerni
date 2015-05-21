@@ -256,6 +256,7 @@ if (($action == 'edit') || ($action == 'new')) {
 	$repositorytype = repository::get_type_by_typename($repository);
 	$repositorytype->move_order('down');
 } else {
+
 	// If page is loaded directly
 	echo $OUTPUT->header();
 	echo $OUTPUT->heading(get_string('manage', 'repository'));
@@ -409,6 +410,7 @@ if (($action == 'edit') || ($action == 'new')) {
 	$output .= $OUTPUT->box_end();
 	print $output;
 	$return = false;
+
 }
 
 if ($return) {
