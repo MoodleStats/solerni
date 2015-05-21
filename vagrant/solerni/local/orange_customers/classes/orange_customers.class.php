@@ -112,15 +112,19 @@ class orange_customers  {
 
             // Path of category.
             $category = $DB->get_record('course_categories', array('id' => $customer->categoryid));
-            $parentid = $category->parent;
-            $namecategory = $category->name;
-            $cpt = 0;
-            while ( ($parentid != 0) || ($cpt == 10) ) {
 
-                $category = $DB->get_record('course_categories', array('id' => $parentid));
-                $namecategory = $category->name . "/" . $namecategory;
+            $namecategory = "";
+            if ($category !== false) {
                 $parentid = $category->parent;
-                $cpt++;
+                $namecategory = $category->name;
+                $cpt = 0;
+                while ( ($parentid != 0) || ($cpt == 10) ) {
+
+                    $category = $DB->get_record('course_categories', array('id' => $parentid));
+                    $namecategory = $category->name . "/" . $namecategory;
+                    $parentid = $category->parent;
+                    $cpt++;
+                }
             }
 
             $row = array ();
