@@ -24,6 +24,13 @@
  */
 
 $string['pluginname'] = 'Oauth2';
+$string['auth_battlenetclientid'] = 'Your Client ID/Secret can be generated in the <a href="https://dev.battle.net/apps/mykeys">Battle.net API site</a>. Enter the following settings when creating an application:
+<br/>Web site: {$a->siteurl}
+<br/>Register callback url: {$a->callbackurl} [it MUST BE a HTTPS url otherwise Battle.net will refuse  to log you in]
+<br/>Franchises: Starcraft II';
+$string['auth_battlenetclientid_key'] = 'Battle.net key';
+$string['auth_battlenetclientsecret'] = 'See above.';
+$string['auth_battlenetclientsecret_key'] = 'Battle.net secret';
 $string['auth_facebookclientid'] = 'Your App ID/Secret can be generated in your <a href="https://developers.facebook.com/apps/">Facebook developer page</a>:
 <br/>Add a new app > Website > Enter your site name as app name > Create new facebook app ID > Enter the Site URL - no need to enter Mobile URL > On the confirmation page, look for the "Skip to Developer Dashboard" link > on the app dashboard you should find the id/secret > Settings > Advanced > enter the Valid OAuth redirect URIs
 <br/>Site URL: {$a->siteurl}
@@ -58,10 +65,17 @@ $string['auth_googleuserprefix_key'] = 'Username prefix';
 $string['auth_googleoauth2description'] = 'Allow a user to connect to the site with an external authentication provider: Google/Facebook/Windows Live. The first time the user connect with an authentication provider, a new account is created. <a href="'.$CFG->wwwroot.'/admin/search.php?query=authpreventaccountcreation">Prevent account creation when authenticating</a> <b>must</b> be unset.';
 $string['auth_linkedinclientid'] = 'Your API/Secret keys can be generated in your <a href="https://www.linkedin.com/secure/developer">Linkedin register application page</a>:
 <br/>Website URL: {$a->siteurl}
-<br/>OAuth 1.0 Accept Redirect URL: {$a->callbackurl}';
+<br/>OAuth 2.0 Accept Redirect URL: {$a->callbackurl}';
 $string['auth_linkedinclientid_key'] = 'Linkedin API Key';
 $string['auth_linkedinclientsecret'] = 'See above.';
 $string['auth_linkedinclientsecret_key'] = 'Linkedin Secret key';
+$string['auth_vkappid_key'] = 'VK app id';
+$string['auth_vkappsecret_key'] = 'VK app secret';
+$string['auth_vkappid'] = 'Your app id and secret keys can be generated in <a href="https://vk.com/editapp?act=create">VK developer page</a>.<br/>
+Base domain: {$a->siteurl} (without http://)<br/>
+Site address: {$a->callbackurl}';
+$string['auth_vkappsecret'] = 'See above';
+
 $string['auth_messengerclientid'] = 'Your Client ID/Secret can be generated in your <a href="https://account.live.com/developers/applications">Windows Live apps page</a>:
 <br/>Redirect domain: {$a->domain}';
 $string['auth_messengerclientid_key'] = 'Messenger Client ID';

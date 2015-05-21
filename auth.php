@@ -140,6 +140,27 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
                     $params['client_secret'] = get_config('auth/googleoauth2', 'linkedinclientsecret');
                     $requestaccesstokenurl = 'https://www.linkedin.com/uas/oauth2/accessToken';
                     break;
+                case 'battlenet':
+                    $client_id = get_config('auth/googleoauth2', 'battlenetclientid');
+                    $client_secret = get_config('auth/googleoauth2', 'battlenetclientsecret');
+                    $requestaccesstokenurl = 'https://'.$client_id.':'.$client_secret.'@eu.battle.net/oauth/token';
+                    $params['grant_type'] = 'authorization_code';
+                    // Forcing https (Battlenet fail if you don't use https)
+                    $siteurl = $CFG->httpswwwroot;
+                    if (strpos($siteurl, 'https://') === false) {
+                        $siteurl = str_replace('http://', 'https://', $siteurl);
+                    }
+                    $params['redirect_uri'] = $siteurl . '/auth/googleoauth2/battlenet_redirect.php';
+                    $params['code'] = $authorizationcode;
+                    break;
+                case 'vk':
+                    $params['grant_type'] = 'authorization_code';
+                    $params['code'] = $authorizationcode;
+                    $params['redirect_uri'] = $CFG->wwwroot . '/auth/googleoauth2/vk_redirect.php';
+                    $params['client_id'] = get_config('auth/googleoauth2', 'vkappid');
+		    $params['client_secret'] = get_config('auth/googleoauth2','vkappsecret');
+                    $requestaccesstokenurl = 'https://oauth.vk.com/access_token';
+                    break;
                 default:
                     throw new moodle_exception('unknown_oauth2_provider');
                     break;
@@ -159,6 +180,7 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
             switch ($authprovider) {
                 case 'google':
                 case 'linkedin':
+                case 'battlenet':
                     $postreturnvalues = json_decode($postreturnvalues);
                     $accesstoken = $postreturnvalues->access_token;
                     //$refreshtoken = $postreturnvalues->refresh_token;
@@ -173,12 +195,18 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
                 case 'messenger':
                     $accesstoken = json_decode($postreturnvalues)->access_token;
                     break;
+                case 'vk':
+                    $accesstoken = json_decode($postreturnvalues)->access_token;
+                    break;
+		    
                 default:
                     break;
             }
 
             //with access token request by curl the email address
             if (!empty($accesstoken)) {
+
+                $provideruserid = '';
 
                 //get the username matching the email
                 switch ($authprovider) {
@@ -249,6 +277,30 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
                         $verified = 1;
                         break;
 
+                    case 'battlenet':
+                        $params = array();
+                        $params['format'] = 'json';
+                        $params['access_token'] = $accesstoken;
+                        $postreturnvalues = $curl->get('https://eu.api.battle.net/sc2/profile/user', $params);
+                        $battlenetuser = json_decode($postreturnvalues);
+                        // Create a fake user email specific to battlenet (TODO - need a table specific to battlenet as as soon the user change he email he will recrate a new user on login)
+                        $useremail = $battlenetuser->characters[0]->id . '@fakebattle.net';
+                        $provideruserid = $battlenetuser->characters[0]->id;
+                        $verified = 1;
+                        break;
+			
+                    case 'vk':
+                        $params = array();
+                        $params['access_token'] = $accesstoken;
+                        $params['v'] = '5.9';
+                        $api_raw_responce = $curl->get('https://api.vk.com/method/users.get',$params);
+                        $vk_user = json_decode($curl->get('https://api.vk.com/method/users.get',$params))->response["0"];
+                        if ($vk_user->id) {
+                           $useremail = 'id'.$vk_user->id.'@vkmessenger.com';
+                        };
+                        $verified = 1;			
+                        break;  
+
                     default:
                         break;
                 }
@@ -315,6 +367,11 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
                             }
                             break;
 
+                        case 'battlenet':
+                            $newuser->firstname = $battlenetuser->characters[0]->displayName;
+                            $newuser->lastname = '[EUROPE]';
+                            break;
+
                         case 'facebook':
                             $newuser->firstname =  $facebookuser->first_name;
                             $newuser->lastname =  $facebookuser->last_name;
@@ -342,7 +399,10 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
                                 $newuser->city = $linkedinuser->location->name;
                             }
                             break;
-
+                       case 'vk':
+                            $newuser->firstname = $vk_user->first_name;
+                            $newuser->lastname = $vk_user->last_name;
+                            break;
                         default:
                             break;
                     }
@@ -371,7 +431,6 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
                     }
 
                     create_user_record($username, '', 'googleoauth2');
-
                 } else {
                     $username = $user->username;
                 }
@@ -398,6 +457,21 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
                     }
 
                     complete_user_login($user);
+
+                    // Let's save/update the access token for this user.
+                    $existingaccesstoken = $DB->get_record('auth_googleoauth2_user_idps', 
+                        array('userid' => $user->id, 'provider' => $authprovider));
+                    if (empty($existingaccesstoken)) {
+                        $accesstokenrow = new stdClass();
+                        $accesstokenrow->userid = $user->id;
+                        $accesstokenrow->provideruserid = $provideruserid;
+                        $accesstokenrow->provider = $authprovider;
+                        $accesstokenrow->accesstoken = $accesstoken;
+                        $DB->insert_record('auth_googleoauth2_user_idps', $accesstokenrow);
+                    } else {
+                        $existingaccesstoken->accesstoken = $accesstoken;
+                        $DB->update_record('auth_googleoauth2_user_idps', $existingaccesstoken);
+                    }
 
                     // Create event for authenticated user.
                     $event = \auth_googleoauth2\event\user_loggedin::create(
@@ -474,6 +548,12 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
         if (!isset($config->googleclientsecret)) {
             $config->googleclientsecret = '';
         }
+        if (!isset($config->battlenetclientid)) {
+            $config->battlenetclientid = '';
+        }
+        if (!isset($config->battlenetclientsecret)) {
+            $config->battlenetclientsecret = '';
+        }
         if (!isset ($config->facebookclientid)) {
             $config->facebookclientid = '';
         }
@@ -501,6 +581,13 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
         if (!isset($config->googleipinfodbkey)) {
             $config->googleipinfodbkey = '';
         }
+        if (!isset($config->vkappid)) {
+            $config->vkappid = '';
+        }
+        if (!isset($config->vkappsecret)) {
+	    $config->vkappsecret = '';
+        }
+
         if (!isset($config->googleuserprefix)) {
             $config->googleuserprefix = 'social_user_';
         }
@@ -770,6 +857,57 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
         echo '</td></tr>';
 
 
+        // Battlenet client id
+
+        echo '<tr>
+                <td align="right"><label for="battlenetclientid">';
+
+        print_string('auth_battlenetclientid_key', 'auth_googleoauth2');
+
+        echo '</label></td><td>';
+
+
+        echo html_writer::empty_tag('input',
+            array('type' => 'text', 'id' => 'battlenetclientid', 'name' => 'battlenetclientid',
+                'class' => 'battlenetclientid', 'value' => $config->battlenetclientid));
+
+        if (isset($err["battlenetclientid"])) {
+            echo $OUTPUT->error_text($err["battlenetclientid"]);
+        }
+
+        echo '</td><td>';
+
+        print_string('auth_battlenetclientid', 'auth_googleoauth2',
+            (object) array('callbackurl' => $CFG->wwwroot . '/auth/googleoauth2/battlenet_redirect.php',
+                'siteurl' => $CFG->wwwroot)) ;
+
+        echo '</td></tr>';
+
+        // Battlenet client secret
+
+        echo '<tr>
+                <td align="right"><label for="battlenetclientsecret">';
+
+        print_string('auth_battlenetclientsecret_key', 'auth_googleoauth2');
+
+        echo '</label></td><td>';
+
+
+        echo html_writer::empty_tag('input',
+            array('type' => 'text', 'id' => 'battlenetclientsecret', 'name' => 'battlenetclientsecret',
+                'class' => 'battlenetclientsecret', 'value' => $config->battlenetclientsecret));
+
+        if (isset($err["battlenetclientsecret"])) {
+            echo $OUTPUT->error_text($err["battlenetclientsecret"]);
+        }
+
+        echo '</td><td>';
+
+        print_string('auth_battlenetclientsecret', 'auth_googleoauth2') ;
+
+        echo '</td></tr>';
+
+
         // IPinfoDB
 
         echo '<tr>
@@ -792,6 +930,41 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
 
         print_string('auth_googleipinfodbkey', 'auth_googleoauth2', (object) array('website' => $CFG->wwwroot)) ;
 
+        echo '</td></tr>';
+
+        // VK app id
+        echo '<tr>
+                <td align="right"><label for="vkappid">';
+        print_string('auth_vkappid_key', 'auth_googleoauth2');
+        echo '</label></td><td>';
+
+
+        echo html_writer::empty_tag('input',
+            array('type' => 'text', 'id' => 'vkappid', 'name' => 'vkappid',
+                'class' => 'vkappid', 'value' => $config->vkappid));
+        if (isset($err["vkappid"])) {
+            echo $OUTPUT->error_text($err["vkappid"]);
+        }
+        echo '</td><td>';
+        print_string('auth_vkappid', 'auth_googleoauth2',
+            (object) array('callbackurl' => $CFG->wwwroot . '/auth/googleoauth2/vk_redirect.php',
+                'siteurl' => $CFG->wwwroot)) ;
+        echo '</td></tr>';
+        
+        // VK app secret
+        echo '<tr>
+                <td align="right"><label for="vkappsecret">';
+        print_string('auth_vkappsecret_key', 'auth_googleoauth2');
+        echo '</label></td><td>';
+
+        echo html_writer::empty_tag('input',
+            array('type' => 'text', 'id' => 'vkappsecret', 'name' => 'vkappsecret',
+                'class' => 'vkappsecret', 'value' => $config->vkappsecret));
+        if (isset($err["vkappsecret"])) {
+            echo $OUTPUT->error_text($err["vkappsecret"]);
+        }
+        echo '</td><td>';
+        print_string('auth_vkappsecret', 'auth_googleoauth2');
         echo '</td></tr>';
 
         // User prefix
@@ -873,6 +1046,12 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
         if (!isset ($config->googleclientsecret)) {
             $config->googleclientsecret = '';
         }
+        if (!isset ($config->battlenetclientid)) {
+            $config->battlenetclientid = '';
+        }
+        if (!isset ($config->battlenetclientsecret)) {
+            $config->battlenetclientsecret = '';
+        }
         if (!isset ($config->facebookclientid)) {
             $config->facebookclientid = '';
         }
@@ -900,6 +1079,13 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
         if (!isset ($config->googleipinfodbkey)) {
             $config->googleipinfodbkey = '';
         }
+        if (!isset ($config->vkappid)) {
+            $config->vkappid = '';
+        }
+        if (!isset ($config->vkappsecret)) {
+            $config->vkappsecret = '';
+        }
+	
         if (!isset ($config->googleuserprefix)) {
             $config->googleuserprefix = 'social_user_';
         }
@@ -910,6 +1096,8 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
         // save settings
         set_config('googleclientid', $config->googleclientid, 'auth/googleoauth2');
         set_config('googleclientsecret', $config->googleclientsecret, 'auth/googleoauth2');
+        set_config('battlenetclientid', $config->battlenetclientid, 'auth/googleoauth2');
+        set_config('battlenetclientsecret', $config->battlenetclientsecret, 'auth/googleoauth2');
         set_config('facebookclientid', $config->facebookclientid, 'auth/googleoauth2');
         set_config('facebookclientsecret', $config->facebookclientsecret, 'auth/googleoauth2');
         set_config('messengerclientid', $config->messengerclientid, 'auth/googleoauth2');
@@ -918,8 +1106,10 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
         set_config('githubclientsecret', $config->githubclientsecret, 'auth/googleoauth2');
         set_config('linkedinclientid', $config->linkedinclientid, 'auth/googleoauth2');
         set_config('linkedinclientsecret', $config->linkedinclientsecret, 'auth/googleoauth2');
+        set_config('vkappid', $config->vkappid, 'auth/googleoauth2');
+        set_config('vkappsecret', $config->vkappsecret, 'auth/googleoauth2');
         set_config('googleipinfodbkey', $config->googleipinfodbkey, 'auth/googleoauth2');
-		set_config('googleuserprefix', core_text::strtolower($config->googleuserprefix), 'auth/googleoauth2');
+        set_config('googleuserprefix', core_text::strtolower($config->googleuserprefix), 'auth/googleoauth2');
         set_config('oauth2displaybuttons', $config->oauth2displaybuttons, 'auth/googleoauth2');
 
         return true;
