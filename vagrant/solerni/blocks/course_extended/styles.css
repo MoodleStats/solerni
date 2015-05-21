@@ -71,13 +71,40 @@
     white-space: nowrap;
     -moz-user-select: none;
 }
+.block_course_extended .btn-unavailable {
+    outline: 0px none;
+    background-color: #999;
+    border-color: #999;
+    color: #FFF;
+    background-image: none;
+}
+.block_course_extended .btn-disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.65;
+    box-shadow: none;
+}
+
+.block_course_extended .btn-access:hover{
+    background-color: #888686;
+    border-color: #888686;
+}
+.block_course_extended .btn:hover, .btn:focus {
+    color: #FFF;
+    text-decoration: none;
+}
 .block_course_extended .btn-primary {
     background-color: #FF004F;
     border-color: #FF004F;
     color: #FFF;
     background-image: none;
 }
-
+.block_course_extended .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active {
+    background-color: #D90045;
+    border-color: #D90045;
+    outline: 0px none;
+    color: #FFF;
+}
 .block_course_extended .btn-access{
     background-color: #4B667C;
     border-color: #4B667C;

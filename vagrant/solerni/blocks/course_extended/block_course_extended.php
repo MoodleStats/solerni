@@ -33,8 +33,6 @@ require_once($CFG->dirroot.'/config.php');
  * section descriptions
  */
 class block_course_extended extends block_base {
-    //private $extendedcourse ;
-
 
     public function has_config() {
         return true;
@@ -48,8 +46,6 @@ class block_course_extended extends block_base {
         $this->title = get_string('pluginname', 'block_course_extended');
         $this->extendedcourse = new stdClass();
         $this->renderer = $PAGE->get_renderer('block_course_extended');
-
-
     }
 
     public function hide_header() {
@@ -73,10 +69,6 @@ class block_course_extended extends block_base {
 
     public function instance_allow_multiple() {
         return false;
-    }
-
-    public function instance_config_save($data, $nolongerused = false) {
-        return parent::instance_config_save($data, $nolongerused);
     }
 
     /**
@@ -202,7 +194,6 @@ class block_course_extended extends block_base {
         }
 
         $course = $this->page->course; // Needed to have numsections property available.
-        //$courseid = $course->id;
         $context = context_course::instance($course->id);
         $fs = get_file_storage();
         $files = $fs->get_area_files($context->id, 'format_flexpage', 'coursepicture', 0);
@@ -216,8 +207,6 @@ class block_course_extended extends block_base {
             $filename = $file->get_filename();
             $imgurl = moodle_url::make_pluginfile_url($ctxid, $cmpnt, $filearea, $itemid, $filepath, $filename);
         }
-
-        //$extendedcourse = $this->renderer->get_extendedcourse($context, $courseid, $imgurl);
 
         $this->content->text .= html_writer::start_tag('ul');
         $this->content->text .= html_writer::start_tag('li');

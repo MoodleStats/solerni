@@ -90,12 +90,6 @@ $string['two_three'] = 'two_three';
 $string['badge'] = 'Badge';
 $string['status'] = 'status';
 $string['status_help'] = 'status_help';
-$string['status_default'] = 'MOOC not started ';
-$string['status_closed'] = 'MOOC closed ';
-$string['alert_course'] = 'Alert me for next MOOC session';
-$string['registration_stopped'] = 'registration stopped';
-$string['mooc_complete'] = 'mooc complete';
-
 
 $string['filetitle'] = 'Course image';
 $string['userfile_default'] = 'undefined';
@@ -154,6 +148,12 @@ $string['subtitle'] = ' subtitle';
 
 $string['subscribe_to_mooc'] = 'mooc subscription';
 $string['access_to_mooc'] = 'access to the mooc';
+$string['status_default'] = 'MOOC not started ';
+$string['status_closed'] = 'MOOC closed ';
+$string['alert_mooc'] = 'Alert me for next MOOC session';
+$string['registration_stopped'] = 'registration stopped';
+$string['mooc_complete'] = 'mooc complete';
+$string['mooc_open_date'] = 'Available on ';
 
 $string['registration'] = 'registration: ';
 $string['registration_default'] = 'registration';
@@ -188,3 +188,9 @@ $string['prerequesites_default'] = 'No Prerequisites';
 $string['teachingteam'] = 'Teaching team';
 $string['teachingteam_help'] = 'Teaching team_help';
 $string['teachingteam_default'] = 'Conception : Orange with Learning CRM';
+
+$string['week'] = 'week(s)';
+$string['day'] = 'day(s)';
+$string['hour'] = 'hour(s)';
+$string['minute'] = 'minute(s)';
+$string['second'] = 'second(s)';

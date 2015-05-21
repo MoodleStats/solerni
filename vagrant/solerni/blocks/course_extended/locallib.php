@@ -77,13 +77,12 @@ function get_badges() {
 
 function get_badges_string() {
     $badges = get_badges();
-    if ($badges){
+    if ($badges) {
         $stringbadges = get_string('badge', 'block_course_extended');
         foreach ($badges as $badge) {
             $stringbadges = $stringbadges."<br>".$badge;
         }
-    }
-    else{
+    } else {
         $stringbadges = get_string('certification_default', 'block_course_extended');
     }
 
