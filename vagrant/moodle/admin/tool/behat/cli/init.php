@@ -23,13 +23,13 @@
  */
 
 if (isset($_SERVER['REMOTE_ADDR'])) {
-	die(); // No access from web!
+    die(); // No access from web!
 }
 
 // Force OPcache reset if used, we do not want any stale caches
 // when preparing test environment.
 if (function_exists('opcache_reset')) {
-	opcache_reset();
+    opcache_reset();
 }
 
 // Is not really necessary but adding it as is a CLI_SCRIPT.
@@ -53,7 +53,7 @@ if ($code == BEHAT_EXITCODE_COMPOSER || $code == BEHAT_EXITCODE_INSTALL || $code
 }
 
 if ($code == 0) {
-	echo "Behat test environment already installed\n";
+    echo "Behat test environment already installed\n";
 
 } else if ($code == BEHAT_EXITCODE_INSTALL) {
 
@@ -78,16 +78,17 @@ if ($code == 0) {
 		exit($code);
 	}
 
+
 } else {
-	// Generic error, we just output it.
-	echo implode("\n", $output)."\n";
-	exit($code);
+    // Generic error, we just output it.
+    echo implode("\n", $output)."\n";
+    exit($code);
 }
 
 // Enable editing mode according to config.php vars.
 passthru("php util.php --enable", $code);
 if ($code != 0) {
-	exit($code);
+    exit($code);
 }
 
 exit(0);
