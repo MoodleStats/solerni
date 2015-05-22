@@ -275,4 +275,100 @@ class theme_solerni_core_course_renderer extends core_course_renderer
         return $content;
     }
 
+    /**
+     * Returns HTML to print list of available courses for the catalog
+     *
+     * @return string
+     */
+    public function catalog_available_courses($filter) {
+            global $CFG;
+            require_once($CFG->libdir. '/coursecatlib.php');
+
+            //$thematicid = NULL, $statusid = NULL, $durationid = NULL, $categoriesid = NULL
+        
+            $params = array();
+            $options = array();
+            $options['summary'] = true;
+            //echo "<PRE>";
+            // TODO : checkvisibility en fonction du profil du user.
+            //print_r(catalogue::get_course_records('c.id != 0',$params, $options, true));
+            //print_r(catalogue::get_courses($options));
+            //echo "</PRE>";
+            $chelper = new coursecat_helper();
+//COURSECAT_SHOW_COURSES_EXPANDED
+            $chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_COLLAPSED)->
+            set_courses_display_options(array(
+                            'recursive' => FALSE,  // TODO, le recursif n'est pas traiter dans catalogue::get_courses
+                            'limit' => $CFG->frontpagecourselimit,
+                            'viewmoreurl' => new moodle_url('/course/index.php'),
+                            'viewmoretext' => new lang_string('fulllistofcourses')));
+            $chelper->set_attributes(array('class' => 'frontpage-course-list-all'));
+
+            $courses = catalogue::get_courses($filter, $chelper->get_courses_display_options());
+            $totalcount = count($courses);
+            //catalogue::get_courses_count($chelper->get_courses_display_options());
+
+            return $this->coursecat_courses($chelper, $courses, $totalcount);
+    }
+
+    /**
+     * Renders html to display a course search form
+     *
+     * @param string $value default value to populate the search field
+     * @param string $format display format - 'plain' (default), 'short' or 'navbar'
+     * @return string
+     */
+    function course_catalog_filter_form($filter) {
+            global $CFG;
+            require_once($CFG->libdir. '/coursecatlib.php');
+            require_once($CFG->dirroot . '/local/orange_customers/lib.php');
+// $thematicid = NULL, $statusid = NULL, $durationid = NULL, $categoriesid = NULL
+            static $count = 0;
+            $formid = 'coursecatalog';
+            if ((++$count) > 1) {
+                    $formid .= $count;
+            }
+
+            $inputid = 'coursesearchbox';
+            $inputsize = 30;
+
+            // Fiels labels
+            $strsearchcourses= get_string("searchcourses");
+            $catalogurl = new moodle_url('/catalog/index.php');
+
+            $categories = coursecat::make_categories_list();
+            
+            $output = html_writer::start_tag('form', array('id' => $formid, 'action' => $catalogurl, 'method' => 'get'));
+            $output .= html_writer::start_tag('fieldset', array('class' => 'coursesearchbox invisiblefieldset'));
+            //$output .= html_writer::tag('label', $strsearchcourses.': ', array('for' => $inputid));
+            //$output .= html_writer::empty_tag('input', array('type' => 'text', 'id' => $inputid,
+            //                'size' => $inputsize, 'name' => 'search', 'value' => s($value)));
+
+            if (count($filter->categoriesid)==0) { 
+                $allchecked = "checked";
+            } else {
+                $allchecked = '';                
+            }
+            $output .= "<br /><input type='checkbox' id='categoryall' name='categoryid[]' class='solerni_checkboxall' value='0' $allchecked/>Toutes les entreprises";
+            $output .= "<ul id='ulcategoryall'>";
+            foreach ($categories as $catid => $category ) {
+                // Get customer information to make sure the category is associated to a customer
+                //echo "CATID:$catid";
+                $customer = customer_get_customerbycategoryid ($catid);
+                if (isset($customer->id)) {
+                    //print_r($customer);
+                    $output .= "<br /><input type='checkbox' name='categoryid[]' class='solerni_checkbox' value='$catid' />$customer->name";
+                }
+            }
+            $output .= "</ul>";
+            
+            $output .= "<br />";
+            $output .= html_writer::empty_tag('input', array('type' => 'submit',
+                            'value' => get_string('go')));
+            $output .= html_writer::end_tag('fieldset');
+            $output .= html_writer::end_tag('form');
+
+            return $output;
+    }
+    
 }

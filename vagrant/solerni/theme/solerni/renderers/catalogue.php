@@ -82,4 +82,221 @@ class catalogue {
             return null;
         }
     }
+    
+    /**
+     * Retrieves number of records from course table
+     *
+     * Not all fields are retrieved. Records are ready for preloading context
+     *
+     * @param string $whereclause
+     * @param array $params
+     * @param array $options may indicate that summary and/or coursecontacts need to be retrieved
+     * @param bool $checkvisibility if true, capability 'moodle/course:viewhiddencourses' will be checked
+     *     on not visible courses
+     * @return array array of stdClass objects
+     */
+    static function get_course_records($whereclause, $params, $options, $checkvisibility = false) {
+        global $DB;
+        $ctxselect = context_helper::get_preload_record_columns_sql('ctx');
+        $fields = array('c.id', 'c.category', 'c.sortorder',
+                        'c.shortname', 'c.fullname', 'c.idnumber',
+                        'c.startdate', 'c.visible', 'c.cacherev');
+        if (!empty($options['summary'])) {
+            $fields[] = 'c.summary';
+            $fields[] = 'c.summaryformat';
+        } else {
+            $fields[] = $DB->sql_substr('c.summary', 1, 1). ' as hassummary';
+        }
+        $sql = "SELECT ". join(',', $fields). ", $ctxselect
+                FROM {course} c
+                JOIN {context} ctx ON c.id = ctx.instanceid AND ctx.contextlevel = :contextcourse
+                WHERE ". $whereclause." ORDER BY c.sortorder";
+        $list = $DB->get_records_sql($sql,
+                array('contextcourse' => CONTEXT_COURSE) + $params);
+
+        if ($checkvisibility) {
+            // Loop through all records and make sure we only return the courses accessible by user.
+            foreach ($list as $course) {
+                if (isset($list[$course->id]->hassummary)) {
+                    $list[$course->id]->hassummary = strlen($list[$course->id]->hassummary) > 0;
+                }
+                if (empty($course->visible)) {
+                    // Load context only if we need to check capability.
+                    context_helper::preload_from_record($course);
+                    if (!has_capability('moodle/course:viewhiddencourses', context_course::instance($course->id))) {
+                        unset($list[$course->id]);
+                    }
+                }
+            }
+        }
+
+        // Preload course contacts if necessary.
+        if (!empty($options['coursecontacts'])) {
+            self::preload_course_contacts($list);
+        }
+        return $list;
+    }
+
+    /**
+     * Retrieves the list of courses accessible by user
+     *
+     * Not all information is cached, try to avoid calling this method
+     * twice in the same request.
+     *
+     * The following fields are always retrieved:
+     * - id, visible, fullname, shortname, idnumber, category, sortorder
+     *
+     * If you plan to use properties/methods course_in_list::$summary and/or
+     * course_in_list::get_course_contacts()
+     * you can preload this information using appropriate 'options'. Otherwise
+     * they will be retrieved from DB on demand and it may end with bigger DB load.
+     *
+     * Note that method course_in_list::has_summary() will not perform additional
+     * DB queries even if $options['summary'] is not specified
+     *
+     * List of found course ids is cached for 10 minutes. Cache may be purged prior
+     * to this when somebody edits courses or categories, however it is very
+     * difficult to keep track of all possible changes that may affect list of courses.
+     *
+     * @param array $options options for retrieving children
+     *    - recursive - return courses from subcategories as well. Use with care,
+     *      this may be a huge list!
+     *    - summary - preloads fields 'summary' and 'summaryformat'
+     *    - coursecontacts - preloads course contacts
+     *    - sort - list of fields to sort. Example
+     *             array('idnumber' => 1, 'shortname' => 1, 'id' => -1)
+     *             will sort by idnumber asc, shortname asc and id desc.
+     *             Default: array('sortorder' => 1)
+     *             Only cached fields may be used for sorting!
+     *    - offset
+     *    - limit - maximum number of children to return, 0 or null for no limit
+     *    - idonly - returns the array or course ids instead of array of objects
+     *               used only in get_courses_count()
+     * @return course_in_list[]
+     */
+    public static function get_courses($filter, $options = array()) {
+        global $DB;
+        $recursive = !empty($options['recursive']);
+        $offset = !empty($options['offset']) ? $options['offset'] : 0;
+        $limit = !empty($options['limit']) ? $options['limit'] : null;
+        $sortfields = !empty($options['sort']) ? $options['sort'] : array('sortorder' => 1);
+
+        // Check if this category is hidden.
+        // Also 0-category never has courses unless this is recursive call.
+        //if (!$this->is_uservisible() || (!$this->id && !$recursive)) {
+          //  return array();
+        //}
+
+// TODO
+// rajouter le filtrage sur les autres paramètres de filtrage du catalogue et pris de course_extended
+
+        // Retrieve list of courses in category.
+        $where = 'c.id <> :siteid';
+        $params = array('siteid' => SITEID);
+        if ($recursive) {
+            if ($this->id) {
+                $context = context_coursecat::instance($this->id);
+                $where .= ' AND ctx.path like :path';
+                $params['path'] = $context->path. '/%';
+            }
+        } else {
+            //$where .= ' AND c.category = :categoryid';
+            //$params['categoryid'] = $this->id;
+        }
+        
+        // Get list of courses without preloaded coursecontacts because we don't need them for every course.
+        if (count($filter->categoriesid)) {
+            $where = "c.category IN (".implode(',', $filter->categoriesid).")" ;
+        } else {
+            $where = "c.id != 0";
+        }
+//echo "WHERE=" . $where;
+    
+        $list = self::get_course_records($where, $params, array_diff_key($options, array('coursecontacts' => 1)), true);
+
+        // Sort and cache list.
+        self::sort_records($list, $sortfields);
+
+        // Apply offset/limit, convert to course_in_list and return.
+        $courses = array();
+        if (isset($list)) {
+            if ($offset || $limit) {
+                $list = array_slice($list, $offset, $limit, true);
+            }
+            // Preload course contacts if necessary - saves DB queries later to do it for each course separately.
+            if (!empty($options['coursecontacts'])) {
+                self::preload_course_contacts($list);
+            }
+            // If option 'idonly' is specified no further action is needed, just return list of ids.
+            if (!empty($options['idonly'])) {
+                return array_keys($list);
+            }
+            // Prepare the list of course_in_list objects.
+            foreach ($list as $record) {
+                $courses[$record->id] = new course_in_list($record);
+            }
+        }
+        return $courses;
+    }
+    /**
+     * Sorts list of records by several fields
+     *
+     * @param array $records array of stdClass objects
+     * @param array $sortfields assoc array where key is the field to sort and value is 1 for asc or -1 for desc
+     * @return int
+     */
+    protected static function sort_records(&$records, $sortfields) {
+        if (empty($records)) {
+            return;
+        }
+        // If sorting by course display name, calculate it (it may be fullname or shortname+fullname).
+        if (array_key_exists('displayname', $sortfields)) {
+            foreach ($records as $key => $record) {
+                if (!isset($record->displayname)) {
+                    $records[$key]->displayname = get_course_display_name_for_list($record);
+                }
+            }
+        }
+        // Sorting by one field - use core_collator.
+        if (count($sortfields) == 1) {
+            $property = key($sortfields);
+            if (in_array($property, array('sortorder', 'id', 'visible', 'parent', 'depth'))) {
+                $sortflag = core_collator::SORT_NUMERIC;
+            } else if (in_array($property, array('idnumber', 'displayname', 'name', 'shortname', 'fullname'))) {
+                $sortflag = core_collator::SORT_STRING;
+            } else {
+                $sortflag = core_collator::SORT_REGULAR;
+            }
+            core_collator::asort_objects_by_property($records, $property, $sortflag);
+            if ($sortfields[$property] < 0) {
+                $records = array_reverse($records, true);
+            }
+            return;
+        }
+        $records = coursecat_sortable_records::sort($records, $sortfields);
+    }
+
+    /**
+     * Returns number of courses visible to the user
+     *
+     * @param array $options similar to get_courses() except some options do not affect
+     *     number of courses (i.e. sort, summary, offset, limit etc.)
+     * @return int
+     */
+    public static function get_courses_count($options = array()) {
+        $cntcachekey = 'lcnt-'. 'c'. '-'. (!empty($options['recursive']) ? 'r' : '');
+        $coursecatcache = cache::make('core', 'coursecat');
+        if (($cnt = $coursecatcache->get($cntcachekey)) === false) {
+            // Cached value not found. Retrieve ALL courses and return their count.
+            unset($options['offset']);
+            unset($options['limit']);
+            unset($options['summary']);
+            unset($options['coursecontacts']);
+            $options['idonly'] = true;
+            $courses = $this->get_courses($options);
+            $cnt = count($courses);
+        }
+        return $cnt;
+    }
+    
 }
