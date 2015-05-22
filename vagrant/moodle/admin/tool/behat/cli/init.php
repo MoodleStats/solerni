@@ -57,27 +57,6 @@ if ($code == 0) {
 
 } else if ($code == BEHAT_EXITCODE_INSTALL) {
 
-<<<<<<< HEAD
-	testing_update_composer_dependencies();
-
-	// Behat and dependencies are installed and we need to install the test site.
-	chdir(__DIR__);
-	passthru("php util.php --install", $code);
-	if ($code != 0) {
-		exit($code);
-	}
-
-} else if ($code == BEHAT_EXITCODE_REINSTALL) {
-
-	testing_update_composer_dependencies();
-
-	// Test site data is outdated.
-	chdir(__DIR__);
-	passthru("php util.php --drop", $code);
-	if ($code != 0) {
-		exit($code);
-	}
-=======
     // Behat and dependencies are installed and we need to install the test site.
     chdir(__DIR__);
     passthru("php util.php --install", $code);
@@ -93,7 +72,6 @@ if ($code == 0) {
     if ($code != 0) {
         exit($code);
     }
->>>>>>> opensource
 
 	passthru("php util.php --install", $code);
 	if ($code != 0) {
