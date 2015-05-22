@@ -78,6 +78,11 @@ function customer_get_customerbycategoryid($categoryid) {
 
     $customer = $DB->get_record('orange_customers', array('categoryid' => $categoryid));
 
+    // If category is not associated with a customer.
+    if ($customer === false) {
+        return false;
+    }
+
     $context = context_system::instance();
 
     $fs = get_file_storage();
