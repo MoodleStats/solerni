@@ -23,6 +23,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+$string['pluginname'] = 'Orange Rules';
 $string['listrules'] = 'Gestion des règles';
 $string['definerulesheader'] = 'Gestion des règles';
 $string['actionrules_list'] = 'Liste des règles';
