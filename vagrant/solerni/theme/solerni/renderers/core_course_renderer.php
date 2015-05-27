@@ -36,7 +36,7 @@ class theme_solerni_core_course_renderer extends core_course_renderer
         // Start code to display only allowed MOOC.
         global $DB, $USER;
 
-        // By defaut the course is not display.
+        // By defaut the course is not displayed.
         $canview = false;
         // If user is loggedIn and has capability to create course then he can view all courses on the system.
         if (isloggedin()) {
@@ -52,7 +52,7 @@ class theme_solerni_core_course_renderer extends core_course_renderer
             foreach ($enrols as $enrol) {
                 // Is self and user in the cohort => display the course, or no cohort set => display the course also.
                 if ($enrol->enrol == 'self') {
-                    // If a cohort is affected to the course, it is store in parameter customint5.
+                    // If a cohort is affected to the course, it is stored in parameter customint5.
                     $cohortid = (int)$enrol->customint5;
                     if ($cohortid == 0) {
                         $canview = true;
@@ -81,6 +81,7 @@ class theme_solerni_core_course_renderer extends core_course_renderer
                 require_once($CFG->libdir. '/coursecatlib.php');
                 $course = new course_in_list($course);
             }
+
             $content = '';
             $classes = trim('coursebox clearfix '. $additionalclasses);
             if ($chelper->get_show_courses() >= self::COURSECAT_SHOW_COURSES_EXPANDED) {
@@ -122,6 +123,7 @@ class theme_solerni_core_course_renderer extends core_course_renderer
             $content .= html_writer::tag($nametag, $coursenamelink, array('class' => 'coursename'));
             // If we display course in collapsed form but the course has summary or course contacts,
             // display the link to the info page.
+
             $content .= html_writer::start_tag('div', array('class' => 'moreinfo'));
             if ($chelper->get_show_courses() < self::COURSECAT_SHOW_COURSES_EXPANDED) {
                 if ($course->has_summary() || $course->has_course_contacts() || $course->has_course_overviewfiles()) {
@@ -133,6 +135,7 @@ class theme_solerni_core_course_renderer extends core_course_renderer
                     $this->coursecat_include_js();
                 }
             }
+
             $content .= html_writer::end_tag('div'); // Moreinfo.
             if (isset($courseinfos)) {
                 $categorynamelink = html_writer::link(new moodle_url(

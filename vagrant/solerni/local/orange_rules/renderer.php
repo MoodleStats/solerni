@@ -34,6 +34,8 @@ class local_orange_rules_renderer extends plugin_renderer_base {
     public function render_orange_wrapper(renderable $renderable, $action, $list) {
         global $PAGE, $SITE;
 
+        $context = context_system::instance();
+
         $PAGE->set_heading($SITE->fullname);
         $PAGE->set_title(get_string('action' . $action, 'local_orange_rules'));
 
