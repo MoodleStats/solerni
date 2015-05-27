@@ -15,12 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Private page module utility functions
- *
- * @package mod
- * @subpackage descriptionpage
- * @copyright  2015 Orange based on mod_page plugin from 2009 Petr Skoda (http://skodak.org)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    blocks
+ * @subpackage course_extended
+ * @copyright  2015 Orange
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 
@@ -28,15 +26,15 @@ defined('MOODLE_INTERNAL') || die;
 
 require_once("$CFG->libdir/filelib.php");
 require_once("$CFG->libdir/resourcelib.php");
-require_once("$CFG->dirroot/mod/descriptionpage/lib.php");
+require_once("$CFG->dirroot/blocks/orange_course_extended/lib.php");
 
 
 /**#@+
- * Constants defining the visibility levels.
+ * Constants defining the visibility levels of blog posts
  */
-define('DESCRIPTIONPAGE_VISIBILITY_COURSEUSER',   100);
-define('DESCRIPTIONPAGE_VISIBILITY_LOGGEDINUSER', 200);
-define('DESCRIPTIONPAGE_VISIBILITY_PUBLIC',       300);
+define('COURSEEXTENDEDPAGE_VISIBILITY_COURSEUSER',   100);
+define('COURSEEXTENDEDPAGE_VISIBILITY_LOGGEDINUSER', 200);
+define('COURSEEXTENDEDPAGE_VISIBILITY_PUBLIC',       300);
 /**#@-*/
 
 
@@ -44,7 +42,7 @@ define('DESCRIPTIONPAGE_VISIBILITY_PUBLIC',       300);
 /**
  * File browsing support class
  */
-class descriptionpage_content_file_info extends file_info_stored {
+class courseextended_page_content_file_info extends file_info_stored {
     public function get_parent() {
         if ($this->lf->get_filepath() === '/' and $this->lf->get_filename() === '.') {
             return $this->browser->get_file_info($this->context);
@@ -59,18 +57,43 @@ class descriptionpage_content_file_info extends file_info_stored {
     }
 }
 
-function descriptionpage_get_editor_options($context) {
-    global $CFG;
-    return array(
-        'subdirs' => 1,
-        'maxbytes' => $CFG->maxbytes,
-        'maxfiles' => -1,
-        'changeformat' => 1,
-        'context' => $context,
-        'noclean' => 1,
-        'trusttext' => 0
-        );
+
+
+function get_badges() {
+    global $DB, $PAGE;
+    $usedbadges = array();
+    $badges = $DB->get_records('badge');
+    if ($badges) {
+        foreach ($badges as $badge) {
+            if ($badge->courseid == $PAGE->course->id) {
+                $usedbadges[$badge->id] = $badge->name;
+            }
+        }
+    } else {
+        $usedbadges[1] = get_string('certification_default', 'block_orange_course_extended');
+    }
+    return $usedbadges;
 }
+
+function get_badges_string() {
+    $badges = get_badges();
+    if ($badges) {
+        $stringbadges = get_string('badge', 'block_orange_course_extended');
+        foreach ($badges as $badge) {
+            $stringbadges = $stringbadges."<br>".$badge;
+        }
+    } else {
+        $stringbadges = get_string('certification_default', 'block_orange_course_extended');
+    }
+
+    return $stringbadges;
+}
+
+function count_badges() {
+    global $DB;
+    return $DB->count_records('badge');
+}
+
 
 /**
  * Checks if a user is allowed to view a blog. If not, will not return (calls
@@ -80,13 +103,12 @@ function descriptionpage_get_editor_options($context) {
  * @param object $cm
  * @return void
  */
-function descriptionpage_check_view_permissions($page, $context, $cm=null) {
+function courseextended_page_check_view_permissions($page, $context, $cm=null) {
     global $COURSE, $PAGE, $DB;
-
-    $capability = 'mod/descriptionpage:view';
+    $capability = 'block/course_extended:view';
 
     switch ($page->maxvisibility) {
-        case DESCRIPTIONPAGE_VISIBILITY_PUBLIC:
+        case COURSEEXTENDEDPAGE_VISIBILITY_PUBLIC:
             if ($page->course == $COURSE->id or empty($page->course)) {
                 $pagecourse = $COURSE;
             } else {
@@ -98,7 +120,7 @@ function descriptionpage_check_view_permissions($page, $context, $cm=null) {
             $PAGE->set_pagelayout('incourse');
             return;
 
-        case DESCRIPTIONPAGE_VISIBILITY_LOGGEDINUSER:
+        case COURSEEXTENDEDPAGE_VISIBILITY_LOGGEDINUSER:
             require_login(SITEID, false);
             if ($page->course == $COURSE->id or empty($page->course)) {
                 $pagecourse = $COURSE;
@@ -115,7 +137,7 @@ function descriptionpage_check_view_permissions($page, $context, $cm=null) {
             }
             return;
 
-        case DESCRIPTIONPAGE_VISIBILITY_COURSEUSER:
+        case COURSEEXTENDEDPAGE_VISIBILITY_COURSEUSER:
             require_course_login($page->course, false, $cm);
             // Check page:view cap.
             if (!has_capability($capability, $context)) {

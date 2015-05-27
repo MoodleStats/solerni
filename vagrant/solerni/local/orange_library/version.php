@@ -17,7 +17,7 @@
 /**
  * Page module version information
  *
- * @package mod
+ * @package local
  * @subpackage descriptionpage
  * @copyright  2015 Orange based on mod_page plugin from 2009 Petr Skoda (http://skodak.org)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -26,6 +26,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2015052701;       // The current module version (Date: YYYYMMDDXX).
+$plugin->version   = 2015052700;       // The current module version (Date: YYYYMMDDXX).
 $plugin->requires  = 2014051207;    // Requires this Moodle version Moodle 2.7.7.
-$plugin->component = 'mod_descriptionpage';       // Full name of the plugin (used for diagnostics).
+$plugin->component = 'local_orange_library';       // Full name of the plugin (used for diagnostics).

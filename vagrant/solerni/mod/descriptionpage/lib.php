@@ -62,7 +62,7 @@ function descriptionpage_supports($feature) {
  * Returns all other caps used in module
  * @return array
  */
-function descriptionpagepage_get_extra_capabilities() {
+function descriptionpage_get_extra_capabilities() {
     return array('moodle/site:accessallgroups');
 }
 
@@ -138,7 +138,7 @@ function descriptionpage_add_instance($data, $mform = null) {
 
     if ($mform and !empty($data->descriptionpage['itemid'])) {
         $draftitemid = $data->descriptionpage['itemid'];
-        $pgeo = descriptionpage_page_get_editor_options($context);
+        $pgeo = descriptionpage_get_editor_options($context);
         $decpage = 'mod_descriptionpage';
         $cid = $context->id;
         $dcontent = $data->content;
@@ -409,7 +409,7 @@ function descriptionpage_pluginfile($course, $cm, $context, $filearea, $args, $f
  * @param stdClass $parentcontext Block's parent context
  * @param stdClass $currentcontext Current context of block
  */
-function descriptionpage_page_type_list($pagetype, $parentcontext, $currentcontext) {
+function descriptionpage_type_list($pagetype, $parentcontext, $currentcontext) {
     $modulepagetype = array('mod-page-*' => get_string('page-mod-page-x', 'descriptionpage'));
     return $modulepagetype;
 }

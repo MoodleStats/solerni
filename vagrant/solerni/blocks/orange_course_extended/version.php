@@ -15,17 +15,17 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Page module version information
- *
- * @package mod
- * @subpackage descriptionpage
- * @copyright  2015 Orange based on mod_page plugin from 2009 Petr Skoda (http://skodak.org)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    blocks
+ * @subpackage course_extended
+ * @copyright  2015 Orange
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2015052701;       // The current module version (Date: YYYYMMDDXX).
-$plugin->requires  = 2014051207;    // Requires this Moodle version Moodle 2.7.7.
-$plugin->component = 'mod_descriptionpage';       // Full name of the plugin (used for diagnostics).
+$plugin->component  = 'block_orange_course_extended';
+$plugin->release    = '1.0';
+$plugin->version    = 2015052700;
+$plugin->requires   = 2014051200; // Moodle 2.7.
+$plugin->maturity   = MATURITY_STABLE;
+$plugin->dependencies = array('format_flexpage' => 2015050500);
