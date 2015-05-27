@@ -6,10 +6,6 @@
 
 html,body {
 color:#747474;
-background-color: [[setting:backcolor]];
-background-image: url([[setting:backimage]]);
-background-position: center top;
-background-repeat:[[setting:backposition]];
 font-family: 'open sans',sans-serif;
 }
 
@@ -33,7 +29,6 @@ a {
 }
 
 a:hover, a:focus {
-    color: [[setting:menuhovercolor]];
     text-decoration: none;
 }
 
@@ -172,13 +167,13 @@ img {
 }
 
 .navbar .nav > li > a:hover, .navbar .nav > li > a:focus, .navbar .nav li.dropdown.open > .dropdown-toggle, .navbar .nav li.dropdown.active > .dropdown-toggle, .navbar .nav li.dropdown.open.active > .dropdown-toggle {
-	color: [[setting:menuhovercolor]];
+	
 	text-shadow: none;
 }
 
 .navbar .nav li.dropdown.open > .dropdown-toggle, .navbar .nav li.dropdown.active > .dropdown-toggle, .navbar .nav li.dropdown.open.active > .dropdown-toggle {
 background-color: #ffffff;
-color:[[setting:menuhovercolor]];
+
 }
 
 .navbar .nav > li > a {
@@ -195,12 +190,11 @@ color:[[setting:menuhovercolor]];
 
 .navbar .nav li.dropdown > a:hover .caret, .navbar .nav li.dropdown > a:focus .caret, 
 .navbar .nav li.dropdown.open > .dropdown-toggle .caret, .navbar .nav li.dropdown.active > .dropdown-toggle .caret, .navbar .nav li.dropdown.open.active > .dropdown-toggle .caret  {
-    border-bottom-color: [[setting:menuhovercolor]];
-    border-top-color: [[setting:menuhovercolor]];
+
 }
 
 .dropdown-submenu:hover > a:after {
-    border-left-color: [[setting:menuhovercolor]];
+    
 }
 
 .dropdown-menu {
@@ -229,7 +223,7 @@ color:[[setting:menuhovercolor]];
     background-color: #ffffff;
 	background-image:none;
 	text-shadow: none;
-	color:[[setting:menuhovercolor]];
+	
 }
 
 

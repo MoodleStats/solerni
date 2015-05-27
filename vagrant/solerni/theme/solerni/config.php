@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Configuration for Aarvark theme.
+ * Configuration for Solerni theme.
  *
  * DO NOT MODIFY THIS THEME!
  * COPY IT FIRST, THEN RENAME THE COPY AND MODIFY IT INSTEAD.
@@ -24,26 +24,26 @@
  * http://docs.moodle.org/dev/Themes_2.0
  *
  * @package   theme_solerni
- * @authors   Shaun Daubney
+ * @author    Orange
+ * @author   Shaun Daubney
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+global $PAGE;
 
-$THEME->doctype = 'html5';
+$THEME->doctype         = 'html5';
+$THEME->yuicssmodules   = array();
+$THEME->name            = 'solerni';
+$THEME->parents         = array('bootstrapbase');
+$THEME->sheets          = array('custom', 'blockicons', 'profilebar', 'font-awesome', 'settings', 'solerni');
 
-$THEME->yuicssmodules = array();
-
-$THEME->name = 'solerni';
-
-$THEME->parents = array('bootstrapbase');
-
-$THEME->sheets = array('custom', 'blockicons', 'profilebar', 'font-awesome', 'settings');
+// Frontpage styles
+if ( $PAGE->pagetype === 'site-index' ) {
+    $THEME->sheets[] = 'frontpage';
+}
 
 $THEME->supportscssoptimisation = false;
-
-$THEME->editor_sheets = array('editor');
-
-$THEME->rendererfactory = 'theme_overridden_renderer_factory';
-
+$THEME->editor_sheets           = array('editor');
+$THEME->rendererfactory         = 'theme_overridden_renderer_factory';
 $THEME->layouts = array(
     // Most backwards compatible layout without the blocks - this is the layout used by default.
     'base' => array(
@@ -61,25 +61,24 @@ $THEME->layouts = array(
         'file' => 'columns3.php',
         'regions' => array('side-pre', 'side-post'),
         'defaultregion' => 'side-pre',
-        'options' => array('langmenu'=>true),
+        'options' => array('langmenu' => true),
     ),
     'coursecategory' => array(
         'file' => 'columns3.php',
         'regions' => array('side-pre', 'side-post'),
         'defaultregion' => 'side-pre',
     ),
-    // part of course, typical for modules - default page layout if $cm specified in require_login().
+    // Part of course, typical for modules - default page layout if $cm specified in require_login().
     'incourse' => array(
         'file' => 'columns3.php',
         'regions' => array('side-pre', 'side-post'),
         'defaultregion' => 'side-pre',
     ),
     // The site home page.
+    // We removed all regions.
     'frontpage' => array(
-        'file' => 'columns3.php',
-        'regions' => array('side-pre', 'side-post'),
-        'defaultregion' => 'side-pre',
-        'options' => array('nonavbar'=>true),
+        'file' => 'frontpage.php',
+        'regions' => array()
     ),
     // Server administration scripts.
     'admin' => array(
@@ -92,7 +91,7 @@ $THEME->layouts = array(
         'file' => 'columns3.php',
         'regions' => array('side-pre', 'side-post'),
         'defaultregion' => 'side-pre',
-        'options' => array('langmenu'=>true),
+        'options' => array('langmenu' => true),
     ),
     // My public page.
     'mypublic' => array(
@@ -103,20 +102,20 @@ $THEME->layouts = array(
     'login' => array(
         'file' => 'columns1.php',
         'regions' => array(),
-        'options' => array('langmenu'=>true),
+        'options' => array('langmenu' => true),
     ),
 
     // Pages that appear in pop-up windows - no navigation, no blocks, no header.
     'popup' => array(
         'file' => 'popup.php',
         'regions' => array(),
-        'options' => array('nofooter'=>true, 'nonavbar'=>true),
+        'options' => array('nofooter' => true, 'nonavbar' => true),
     ),
     // No blocks and minimal footer - used for legacy frame layouts only!
     'frametop' => array(
         'file' => 'columns1.php',
         'regions' => array(),
-        'options' => array('nofooter'=>true, 'nocoursefooter'=>true),
+        'options' => array('nofooter' => true, 'nocoursefooter' => true),
     ),
     // Embeded pages, like iframe/object embeded in moodleform - it needs as much space as possible.
     'embedded' => array(
@@ -134,7 +133,7 @@ $THEME->layouts = array(
     'print' => array(
         'file' => 'columns1.php',
         'regions' => array(),
-        'options' => array('nofooter'=>true, 'nonavbar'=>false),
+        'options' => array('nofooter' => true, 'nonavbar' => false),
     ),
     // The pagelayout used when a redirection is occuring.
     'redirect' => array(
@@ -162,12 +161,14 @@ $THEME->layouts = array(
     ),
 );
 
-$THEME->javascripts = array(
-);
+$THEME->javascripts = array( 'modernizr' );
+
 $THEME->javascripts_footer = array(
     'moodlebootstrap',
+    'jquery.placeholder.min',
+    'solerni-general'
 );
 
+// Moodle parses CSS files for urls / images / variables replacement.
 $THEME->csspostprocess = 'solerni_process_css';
-
 

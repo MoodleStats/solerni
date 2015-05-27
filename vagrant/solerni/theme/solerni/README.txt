@@ -1,5 +1,5 @@
 /*
- *  Aarvark
+ *  Solerni
  *
  *  The original menubar based theme for Moodle rewritten for Moodle 2.6+ to draw
  *  its base from Bootstrap.
@@ -27,14 +27,13 @@
  *  Twitter: http://twitter.com/superawesomeme
  *  Website: http://vle.newbury-college.ac.uk
  */
- 
+
  v2.8
  - updated to fix image widths in version 2.8
- 
+
  v2.6.4
  - updated config.php for gradebook compatibility in Moodle 2.6+ (Thank you Mary)
  - added Wikipedia to Social Network icons in footer
- 
+
  v2.6.3
  - added a workaround for the TinyMCE hyperlink issue in IE11
- 
