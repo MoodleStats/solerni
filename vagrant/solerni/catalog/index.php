@@ -16,37 +16,22 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * My Moodle -- a user's personal dashboard
- *
- * - each user can currently have their own page (cloned from system and then customised)
- * - only the user can see their own dashboard
- * - users can add any blocks they want
- * - the administrators can define a default site dashboard for users who have
- *   not created their own dashboard
- *
- * This script implements the user's view of the dashboard, and allows editing
- * of the dashboard.
- *
  * @package    moodlecore
- * @subpackage my
- * @copyright  2010 Remote-Learner.net
- * @author     Hubert Chathi <hubert@remote-learner.net>
- * @author     Olav Jordan <olav.jordan@remote-learner.net>
+ * @subpackage catalogue
+ * @copyright  Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 require_once(dirname(__FILE__) . '/../config.php');
-//require_once($CFG->dirroot . '/my/lib.php');
 
 redirect_if_major_upgrade_required();
 
 $filter = new stdclass();
-$filter->thematicsid = optional_param('thematicid', 0, PARAM_RAW); // Thematic Id.
-$filter->statusid = optional_param('statusid', 0, PARAM_RAW); // Course status Id.
-$filter->durationsid = optional_param('durationid', 0, PARAM_RAW); // Course duration Id.
+$filter->thematicsid = optional_param_array('thematicid', array(), PARAM_RAW); // Thematic Id.
+$filter->statusid = optional_param_array('statusid', array(), PARAM_RAW); // Course status Id.
+$filter->durationsid = optional_param_array('durationid', array(), PARAM_RAW); // Course duration Id.
 $filter->categoriesid = optional_param_array('categoryid', array(), PARAM_INT); // Category id
 
-//print_r($filter);
 if ($CFG->forcelogin) {
     require_login();
 }
@@ -73,12 +58,11 @@ $context = context_system::instance();  // So we even see non-sticky blocks
 $params = array();
 $PAGE->set_context($context);
 $PAGE->set_url('/catalog/index.php', $params);
-$PAGE->set_pagelayout('mydashboard');
-$PAGE->set_pagetype('catalog-index');
-$PAGE->blocks->add_region('content');
+$PAGE->set_pagelayout('base');
+$PAGE->blocks->add_region('side-post');
 $PAGE->set_title($header);
-$PAGE->set_heading($header);
 $PAGE->requires->js('/lib/jquery/jquery-1.11.0.min.js');
+// TODO
 $PAGE->requires->js('/catalog/catalog.js?a='.rand());
 
 $USER->editing = FALSE;
@@ -86,22 +70,25 @@ $USER->editing = FALSE;
 
 echo $OUTPUT->header();
 
-//echo $OUTPUT->custom_block_region('content');
-    $courserenderer = $PAGE->get_renderer('core', 'course');
+$courserenderer = $PAGE->get_renderer('core', 'course');
 
-    echo $courserenderer->course_catalog_filter_form($filter);
-                $availablecourseshtml = $courserenderer->catalog_available_courses($filter);
-                if (!empty($availablecourseshtml)) {
+$filters = new block_contents();
+$filters->content = $courserenderer->course_catalog_filter_form($filter);
+$filters->footer = '';
+$filters->skiptitle = true;
+echo $OUTPUT->block($filters, 'side-post'); 
 
-                    //wrap frontpage course list in div container
-                    echo html_writer::start_tag('div', array('id'=>'frontpage-course-list'));
+$availablecourseshtml = $courserenderer->catalog_available_courses($filter);
+if (!empty($availablecourseshtml)) {
 
-                    echo $OUTPUT->heading(get_string('availablecourses'));
-                    echo $availablecourseshtml;
+    //wrap frontpage course list in div container
+    echo html_writer::start_tag('div', array('id'=>'frontpage-course-list'));
 
-                    //end frontpage course list div container
-                    echo html_writer::end_tag('div');
+    echo $OUTPUT->heading(get_string('availablecourses'));
+    echo $availablecourseshtml;
 
-                }
+    //end frontpage course list div container
+    echo html_writer::end_tag('div');
+}
 
 echo $OUTPUT->footer();

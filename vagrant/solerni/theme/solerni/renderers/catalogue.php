@@ -100,7 +100,7 @@ class catalogue {
         $ctxselect = context_helper::get_preload_record_columns_sql('ctx');
         $fields = array('c.id', 'c.category', 'c.sortorder',
                         'c.shortname', 'c.fullname', 'c.idnumber',
-                        'c.startdate', 'c.visible', 'c.cacherev');
+                        'c.startdate', 'c.visible', 'c.cacherev', 'co.value');
         if (!empty($options['summary'])) {
             $fields[] = 'c.summary';
             $fields[] = 'c.summaryformat';
@@ -110,6 +110,7 @@ class catalogue {
         $sql = "SELECT ". join(',', $fields). ", $ctxselect
                 FROM {course} c
                 JOIN {context} ctx ON c.id = ctx.instanceid AND ctx.contextlevel = :contextcourse
+                JOIN {course_format_options} co ON c.id = co.courseid AND co.name = 'courseenddate'
                 WHERE ". $whereclause." ORDER BY c.sortorder";
         $list = $DB->get_records_sql($sql,
                 array('contextcourse' => CONTEXT_COURSE) + $params);
@@ -174,7 +175,7 @@ class catalogue {
      *               used only in get_courses_count()
      * @return course_in_list[]
      */
-    public static function get_courses($filter, $options = array()) {
+    public static function get_courses_catalogue($filter, $options = array()) {
         global $DB;
         $recursive = !empty($options['recursive']);
         $offset = !empty($options['offset']) ? $options['offset'] : 0;
@@ -190,29 +191,78 @@ class catalogue {
 // TODO
 // rajouter le filtrage sur les autres paramètres de filtrage du catalogue et pris de course_extended
 
+// TODO
+// Tenir compte du user afin d'afficher ou non les MOOCs privés
         // Retrieve list of courses in category.
-        $where = 'c.id <> :siteid';
+        $wherecategory = array();
+        //$where[] = 'c.id <> :siteid';
         $params = array('siteid' => SITEID);
         if ($recursive) {
             if ($this->id) {
                 $context = context_coursecat::instance($this->id);
-                $where .= ' AND ctx.path like :path';
+                $wherecategory[] .= 'ctx.path like :path';
                 $params['path'] = $context->path. '/%';
             }
         } else {
             //$where .= ' AND c.category = :categoryid';
             //$params['categoryid'] = $this->id;
         }
+
+        if(($key = array_search(0, $filter->categoriesid)) !== false) {
+            unset($filter->categoriesid[$key]);
+        }
         
         // Get list of courses without preloaded coursecontacts because we don't need them for every course.
-        if (count($filter->categoriesid)) {
-            $where = "c.category IN (".implode(',', $filter->categoriesid).")" ;
+        if (is_array($filter->categoriesid) && count($filter->categoriesid)) {
+            $wherecategory[] = "c.category IN (".implode(',', $filter->categoriesid).")" ;
         } else {
-            $where = "c.id != 0";
+            $wherecategory[] = "c.id != 0";
         }
-//echo "WHERE=" . $where;
-    
-        $list = self::get_course_records($where, $params, array_diff_key($options, array('coursecontacts' => 1)), true);
+
+        $wherestatus = array();
+        if (is_array($filter->statusid)) {
+            foreach ($filter->statusid as $statusid) {
+                // En cours : date de début <= NOW et date de fin > NOW.
+                if ($statusid == 1) {
+                    $wherestatus[] = "(c.startdate <= UNIX_TIMESTAMP(CURRENT_TIMESTAMP) AND co.value > UNIX_TIMESTAMP(CURRENT_TIMESTAMP))";
+                }
+                // A venir : date de début > NOW.
+                if ($statusid == 2) {
+                    $wherestatus[] = "(c.startdate > UNIX_TIMESTAMP(CURRENT_TIMESTAMP))";
+                }
+                // Terminé : date de fin < NOW.
+                if ($statusid == 3) {
+                    $wherestatus[] = "(co.value < UNIX_TIMESTAMP(CURRENT_TIMESTAMP))";
+                }
+            }
+        } 
+        
+
+        $whereduration = array();
+        if (is_array($filter->durationsid)) {
+            foreach ($filter->durationsid as $durationid) {
+                // 1 : Moins de 4 semaines.
+                if ($durationid == 1) {
+                    $whereduration[] = "((co.value-c.startdate) < (3600*24*31*4))";
+                }
+                // 2 : de 4 à 6 semaines.
+                if ($durationid == 2) {
+                    $whereduration[] = "((co.value-c.startdate) >= (3600*24*31*4) AND (co.value-c.startdate) <= (3600*24*31*6))";
+                }
+                // 3 : plus de 6 semaines
+                if ($durationid == 3) {
+                    $whereduration[] = "(co.value-c.startdate) > (3600*24*31*6)";
+                }
+            }
+        } 
+        
+        $where = array();
+        if (count($wherecategory) !=0) $where[] = '(' . implode(' OR ',$wherecategory) . ')';
+        if (count($wherestatus) !=0) $where[] = '(' . implode(' OR ',$wherestatus) . ')';
+        if (count($whereduration) !=0) $where[] = '(' . implode(' OR ',$whereduration) . ')';
+// TODO 
+//print_r($where);
+        $list = self::get_course_records(implode(' AND ',$where), $params, array_diff_key($options, array('coursecontacts' => 1)), true);
 
         // Sort and cache list.
         self::sort_records($list, $sortfields);
@@ -283,7 +333,7 @@ class catalogue {
      *     number of courses (i.e. sort, summary, offset, limit etc.)
      * @return int
      */
-    public static function get_courses_count($options = array()) {
+    public static function get_courses_catalogue_count($filter, $options = array()) {
         $cntcachekey = 'lcnt-'. 'c'. '-'. (!empty($options['recursive']) ? 'r' : '');
         $coursecatcache = cache::make('core', 'coursecat');
         if (($cnt = $coursecatcache->get($cntcachekey)) === false) {
@@ -293,7 +343,7 @@ class catalogue {
             unset($options['summary']);
             unset($options['coursecontacts']);
             $options['idonly'] = true;
-            $courses = $this->get_courses($options);
+            $courses = self::get_courses_catalogue($filter,$options);
             $cnt = count($courses);
         }
         return $cnt;

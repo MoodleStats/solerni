@@ -296,26 +296,35 @@ class theme_solerni_core_course_renderer extends core_course_renderer
             //echo "</PRE>";
             $chelper = new coursecat_helper();
 //COURSECAT_SHOW_COURSES_EXPANDED
+                    $perpage = $CFG->coursesperpage;
+                    $page = optional_param('page', 0, PARAM_INT);
             $chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_COLLAPSED)->
-            set_courses_display_options(array(
+            // TODO limite à changer et ne pas prendre celle de la frontpage
+            // TODO avec limit et offset, gestion de la pagination
+                    set_courses_display_options(array(
                             'recursive' => FALSE,  // TODO, le recursif n'est pas traiter dans catalogue::get_courses
-                            'limit' => $CFG->frontpagecourselimit,
-                            'viewmoreurl' => new moodle_url('/course/index.php'),
+                            'limit' => $perpage,
+                            'offset' => $page * $perpage,
+                            'paginationallowall' => false,
+                            'paginationurl' => new moodle_url('/catalog/index.php'),
+                            'viewmoreurl' => new moodle_url('/catalog/index.php'),
                             'viewmoretext' => new lang_string('fulllistofcourses')));
             $chelper->set_attributes(array('class' => 'frontpage-course-list-all'));
 
-            $courses = catalogue::get_courses($filter, $chelper->get_courses_display_options());
-            $totalcount = count($courses);
+            $courses = catalogue::get_courses_catalogue($filter, $chelper->get_courses_display_options());
+            $totalcount = catalogue::get_courses_catalogue_count($filter, $chelper->get_courses_display_options());
+            //$totalcount = 8;
             //catalogue::get_courses_count($chelper->get_courses_display_options());
 
-            return $this->coursecat_courses($chelper, $courses, $totalcount);
+            // TODO à mettre ailleur + trad
+            // TODO : cas 0 et 1 entrée
+            return "<p>$totalcount résultats trouvés</p>" . $this->coursecat_courses($chelper, $courses, $totalcount);
     }
 
     /**
-     * Renders html to display a course search form
+     * Renders html to display the catalog filters
      *
-     * @param string $value default value to populate the search field
-     * @param string $format display format - 'plain' (default), 'short' or 'navbar'
+     * @param string $filter : current filter
      * @return string
      */
     function course_catalog_filter_form($filter) {
@@ -323,11 +332,7 @@ class theme_solerni_core_course_renderer extends core_course_renderer
             require_once($CFG->libdir. '/coursecatlib.php');
             require_once($CFG->dirroot . '/local/orange_customers/lib.php');
 // $thematicid = NULL, $statusid = NULL, $durationid = NULL, $categoriesid = NULL
-            static $count = 0;
             $formid = 'coursecatalog';
-            if ((++$count) > 1) {
-                    $formid .= $count;
-            }
 
             $inputid = 'coursesearchbox';
             $inputsize = 30;
@@ -336,35 +341,142 @@ class theme_solerni_core_course_renderer extends core_course_renderer
             $strsearchcourses= get_string("searchcourses");
             $catalogurl = new moodle_url('/catalog/index.php');
 
-            $categories = coursecat::make_categories_list();
-            
-            $output = html_writer::start_tag('form', array('id' => $formid, 'action' => $catalogurl, 'method' => 'get'));
+            $output = html_writer::start_tag('form', array('id' => $formid, 'action' => $catalogurl, 'method' => 'post'));
             $output .= html_writer::start_tag('fieldset', array('class' => 'coursesearchbox invisiblefieldset'));
             //$output .= html_writer::tag('label', $strsearchcourses.': ', array('for' => $inputid));
             //$output .= html_writer::empty_tag('input', array('type' => 'text', 'id' => $inputid,
             //                'size' => $inputsize, 'name' => 'search', 'value' => s($value)));
 
-            if (count($filter->categoriesid)==0) { 
+            // Filter on status
+            $status = array (0 => 'Tous les moocs', 1 => 'En cours', 2 => 'A venir', 3 => 'Terminé');
+            
+            if ((count($filter->statusid)==0) || (in_array(0,$filter->statusid))) { 
                 $allchecked = "checked";
             } else {
                 $allchecked = '';                
             }
-            $output .= "<br /><input type='checkbox' id='categoryall' name='categoryid[]' class='solerni_checkboxall' value='0' $allchecked/>Toutes les entreprises";
-            $output .= "<ul id='ulcategoryall'>";
-            foreach ($categories as $catid => $category ) {
-                // Get customer information to make sure the category is associated to a customer
-                //echo "CATID:$catid";
-                $customer = customer_get_customerbycategoryid ($catid);
-                if (isset($customer->id)) {
-                    //print_r($customer);
-                    $output .= "<br /><input type='checkbox' name='categoryid[]' class='solerni_checkbox' value='$catid' />$customer->name";
+
+            $output .= "<div class='slrn-filter'>";
+
+            $output .= "<div class='filterstatus'>";
+            // TODO
+            $output .= "<h3 class='filter'>Statuts</h3>";
+            $output .= "<div class='filter'>";
+            $output .= "<input type='checkbox' id='statusall' name='statusid[]' class='solerni_checkboxall' value='0' $allchecked/>".$status[0];
+            $output .= "<ul class='filterstatus' id='ulstatusall'>";
+            foreach ($status as $statusid => $statuslabel ) {
+                if ($statusid != 0) {
+                    if (in_array($statusid,$filter->statusid )) {
+                        $checked = "checked";
+                    } else {
+                        $checked = '';                
+                    }
+                    $output .= "<li><input type='checkbox' name='statusid[]' class='solerni_checkbox' value='$statusid' $checked />$statuslabel</li>";
                 }
             }
             $output .= "</ul>";
+            $output .= "</div>";
+            $output .= "</div>";
             
-            $output .= "<br />";
-            $output .= html_writer::empty_tag('input', array('type' => 'submit',
-                            'value' => get_string('go')));
+            // Filter on thematic
+            // TODO lecture des thématique
+            $thematic = array (0 => 'Tous les thématiques');
+            
+            if ((count($filter->thematicsid)==0) || (in_array(0,$filter->thematicsid))) { 
+                $allchecked = "checked";
+            } else {
+                $allchecked = '';                
+            }
+
+            $output .= "<div class='filterthematic'>";
+            // TODO
+            $output .= "<h3 class='filter'>Thématique</h3>";
+            $output .= "<div class='filter'>";
+            $output .= "<input type='checkbox' id='thematicall' name='thematicid[]' class='solerni_checkboxall' value='0' $allchecked/>".$thematic[0];
+            $output .= "<ul class='filterthematic' id='ulthematicall'>";
+            foreach ($thematic as $thematicid => $thematiclabel ) {
+                if ($thematicid != 0) {
+                    if (in_array($thematicid,$filter->thematicsid )) {
+                        $checked = "checked";
+                    } else {
+                        $checked = '';                
+                    }
+                    $output .= "<li><input type='checkbox' name='thematicid[]' class='solerni_checkbox' value='$thematicid' $checked />$thematiclabel</li>";
+                }
+            }
+            $output .= "</ul>";
+            $output .= "</div>";
+            $output .= "</div>";
+            
+            // Filter on duration
+            // TODO lecture des durée possible
+            $duration = array (0 => 'Tous les durées', 1 => 'Moins de 4 semaines', 2 => 'De 4 à 6 semaines', 3 => 'Plus de 6 semaines');
+            
+            if ((count($filter->durationsid)==0) || (in_array(0,$filter->durationsid))) { 
+                $allchecked = "checked";
+            } else {
+                $allchecked = '';                
+            }
+
+            $output .= "<div class='filterduration'>";
+            // TODO
+            $output .= "<h3 class='filter'>Durée</h3>";
+            $output .= "<div class='filter'>";
+            $output .= "<input type='checkbox' id='durationall' name='durationid[]' class='solerni_checkboxall' value='0' $allchecked/>".$duration[0];
+            $output .= "<ul class='filterduration' id='uldurationall'>";
+            foreach ($duration as $durationid => $durationlabel ) {
+                if ($durationid != 0) {
+                    if (in_array($durationid,$filter->durationsid )) {
+                        $checked = "checked";
+                    } else {
+                        $checked = '';                
+                    }
+                    $output .= "<li><input type='checkbox' name='durationid[]' class='solerni_checkbox' value='$durationid' $checked />$durationlabel</li>";
+                }
+            }
+            $output .= "</ul>";
+            $output .= "</div>";
+            $output .= "</div>";
+            
+            // Filter on companies = moodle categories
+            $categories = coursecat::make_categories_list();
+            
+
+            if ((count($filter->categoriesid)==0) || (in_array(0,$filter->categoriesid))) { 
+                $allchecked = "checked";
+            } else {
+                $allchecked = '';                
+            }
+            $output .= "<div class='filtercategory'>";
+            // TODO
+            $output .= "<h3 class='filter'>Entreprise</h3>";
+            $output .= "<div class='filter'>";
+            $output .= "<input type='checkbox' id='categoryall' name='categoryid[]' class='solerni_checkboxall' value='0' $allchecked/>Toutes les entreprises";
+            $output .= "<ul class='filtercategory' id='ulcategoryall'>";
+            foreach ($categories as $catid => $category ) {
+                if ($catid != 0) {
+                    // Get customer information to make sure the category is associated to a customer
+                    //echo "CATID:$catid";
+                    if (in_array($catid,$filter->categoriesid )) {
+                        $checked = "checked";
+                    } else {
+                        $checked = '';                
+                    }
+                    $customer = customer_get_customerbycategoryid ($catid);
+                    if (isset($customer->id)) {
+                        //print_r($customer);
+                        $output .= "<li><input type='checkbox' name='categoryid[]' class='solerni_checkbox' value='$catid' $checked />$customer->name</li>";
+                    }
+                }
+            }
+            $output .= "</ul>";
+            $output .= "</div>";
+            $output .= "</div>";
+            
+            $output .= "</div>";    // End .slrn-filter
+ 
+            //$output .= html_writer::empty_tag('input', array('type' => 'submit',
+            //                'value' => get_string('filter')));
             $output .= html_writer::end_tag('fieldset');
             $output .= html_writer::end_tag('form');
 

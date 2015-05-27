@@ -154,3 +154,28 @@
   line-height: 32px;
   background-position: 0 -89px;
 }
+
+div.filtercategory, div.filterstatus, div.filterthematic, div.filterduration {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.slrn-filter .filter > ul li {
+  list-style:none;
+}
+
+.slrn-filter h3.filter {
+    font-size: 1.3em;
+    font-weight: bold;
+    background-color: #4B667C;
+    color: #F6F6F6;
+    padding: 0.5em 2em 0.5em 0.5em;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    text-transform: none!important;
+}
+
+.slrn-filter .filter {
+    padding: 1em;
+    background-color: #EEE;  
+}
