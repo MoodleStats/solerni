@@ -184,7 +184,7 @@ function descriptionpage_update_instance($data, $mform) {
     if ($draftitemid) {
         $cid = $context->id;
         $mdescpage = 'mod_descriptionpage';
-        $pgeo = descriptionpage_page_get_editor_options($context);
+        $pgeo = descriptionpage_get_editor_options($context);
         $dcontent = $data->content;
         $data->content = file_save_draft_area_files($draftitemid, $cid, $mdescpage, 'content', 0, $pgeo, $dcontent);
         $DB->update_record('descriptionpage', $data);
@@ -319,7 +319,7 @@ function descriptionpage_get_file_info($browser, $areas, $course, $cm, $context,
         $s = $storedfile;
         $u = $urlbase;
         $a = $areas[$filearea];
-        return new descriptionpage_page_content_file_info($b, $c, $s, $u, $a, true, true, true, false);
+        return new descriptionpage_content_file_info($b, $c, $s, $u, $a, true, true, true, false);
     }
 
     // Note: page_intro handled in file_browser automatically.
