@@ -3,261 +3,144 @@
 /*
  * @author    Shaun Daubney
  * @package   theme_solerni
+ * @author    Orange / Solerni
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+$settings = null;
+
 defined('MOODLE_INTERNAL') || die;
 
-if ($ADMIN->fulltree) {
+// Create new admin category Solerni.
+$ADMIN->add('themes', new admin_category('theme_solerni', 'Solerni'));
 
-    // Basic Heading
-    $name = 'theme_solerni/basicheading';
-    $heading = get_string('basicheading', 'theme_solerni');
-    $information = get_string('basicheadingdesc', 'theme_solerni');
-    $setting = new admin_setting_heading($name, $heading, $information);
-    $settings->add($setting);
-	
-	// Logo file setting
-	$name = 'theme_solerni/logo';
-	$title = get_string('logo','theme_solerni');
-	$description = get_string('logodesc', 'theme_solerni');
-	$setting = new admin_setting_configtext($name, $title, $description, '', PARAM_URL);
-	$settings->add($setting);	
+// frontpage settings. New page.
+$temp = new admin_settingpage('theme_solerni_frontpage', get_string('frontpagesettings','theme_solerni'));
+// frontpage header tagline.
+$name = 'theme_solerni/frontpagetagline';
+$title = get_string('frontpagetagline', 'theme_solerni');
+$description = get_string('frontpagetaglinedesc', 'theme_solerni');
+$default = get_string('footertaglinedefault', 'theme_solerni');
+$setting = new admin_setting_configtext($name, $title, $description, $default);
+$temp->add($setting);
+// frontpage header presentation.
+$name = 'theme_solerni/frontpagepresentation';
+$title = get_string('frontpagepresentation', 'theme_solerni');
+$description = get_string('frontpagepresentationdesc', 'theme_solerni');
+$default = get_string('frontpagepresentationdefault', 'theme_solerni');
+$setting = new admin_setting_configtextarea($name, $title, $description, $default);
+$temp->add($setting);
+// frontpage background header image.
+$name = 'theme_solerni/frontpageheaderimage';
+$title = get_string('frontpageheaderimage', 'theme_solerni');
+$description = get_string('frontpageheaderimagedesc', 'theme_solerni');
+$default = get_string('frontpageheaderimagedefault', 'theme_solerni');
+$setting = new admin_setting_configstoredfile($name, $title, $description, 'frontpageheaderimage');
+$setting->set_updatedcallback('theme_reset_all_caches'); // regenerate CSS.
+$temp->add($setting);
+$ADMIN->add('theme_solerni', $temp);
 
-	// Hide Menu
-	$name = 'theme_solerni/hidemenu';
-	$title = get_string('hidemenu','theme_solerni');
-	$description = get_string('hidemenudesc', 'theme_solerni');
-	$default = 1;
-	$choices = array(1=>get_string('yes',''), 0=>get_string('no',''));
-	$setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
-	$settings->add($setting);
-
-	// Email url setting
-	$name = 'theme_solerni/emailurl';
-	$title = get_string('emailurl','theme_solerni');
-	$description = get_string('emailurldesc', 'theme_solerni');
-	$default = '';
-	$setting = new admin_setting_configtext($name, $title, $description, $default);
-	$settings->add($setting);
-
-	// Custom CSS file
-	$name = 'theme_solerni/customcss';
-	$title = get_string('customcss','theme_solerni');
-	$description = get_string('customcssdesc', 'theme_solerni');
-	$default = '';
-	$setting = new admin_setting_configtextarea($name, $title, $description, $default);
-	$setting->set_updatedcallback('theme_reset_all_caches');
-	$settings->add($setting);
-
-	// Frontpage Heading
-    $name = 'theme_solerni/frontpageheading';
-    $heading = get_string('frontpageheading', 'theme_solerni');
-    $information = get_string('frontpageheadingdesc', 'theme_solerni');
-    $setting = new admin_setting_heading($name, $heading, $information);
-    $settings->add($setting);
-
-	// Title Date setting
-	$name = 'theme_solerni/titledate';
-	$title = get_string('titledate','theme_solerni');
-	$description = get_string('titledatedesc', 'theme_solerni');
-	$default = 1;
-	$choices = array(1=>get_string('yes',''), 0=>get_string('no',''));
-	$setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
-	$settings->add($setting);
-
-	// General Alert setting
-	$name = 'theme_solerni/generalalert';
-	$title = get_string('generalalert','theme_solerni');
-	$description = get_string('generalalertdesc', 'theme_solerni');
-	$default = '';
-	$setting = new admin_setting_configtext($name, $title, $description, $default);
-	$settings->add($setting);
-
-	// Snow Alert setting
-	$name = 'theme_solerni/snowalert';
-	$title = get_string('snowalert','theme_solerni');
-	$description = get_string('snowalertdesc', 'theme_solerni');
-	$default = '';
-	$setting = new admin_setting_configtext($name, $title, $description, $default);
-	$settings->add($setting);
-
-    // Colour Heading
-    $name = 'theme_solerni/colourheading';
-    $heading = get_string('colourheading', 'theme_solerni');
-    $information = get_string('colourheadingdesc', 'theme_solerni');
-    $setting = new admin_setting_heading($name, $heading, $information);
-    $settings->add($setting);
-	
-	// Background colour setting
-	$name = 'theme_solerni/backcolor';
-	$title = get_string('backcolor','theme_solerni');
-	$description = get_string('backcolordesc', 'theme_solerni');
-	$default = '#fafafa';
-	$previewconfig = NULL;
-	$setting = new admin_setting_configcolourpicker($name, $title, $description, $default, $previewconfig);
-	$settings->add($setting);
-
-	// Graphic Wrap (Background Image)
-	$name = 'theme_solerni/backimage';
-	$title=get_string('backimage','theme_solerni');
-	$description = get_string('backimagedesc', 'theme_solerni');
-	$default = '';
-	$setting = new admin_setting_configtext($name, $title, $description, '', PARAM_URL);
-	$settings->add($setting);
-
-	// Graphic Wrap (Background Position)
-	$name = 'theme_solerni/backposition';
-	$title = get_string('backposition','theme_solerni');
-	$description = get_string('backpositiondesc', 'theme_solerni');
-	$default = 'no-repeat';
-	$choices = array('no-repeat'=>get_string('backpositioncentred','theme_solerni'), 'no-repeat fixed'=>get_string('backpositionfixed','theme_solerni'), 'repeat'=>get_string('backpositiontiled','theme_solerni'), 'repeat-x'=>get_string('backpositionrepeat','theme_solerni'));
-	$setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
-	$settings->add($setting);
-
-	// Menu hover background colour setting
-	$name = 'theme_solerni/menuhovercolor';
-	$title = get_string('menuhovercolor','theme_solerni');
-	$description = get_string('menuhovercolordesc', 'theme_solerni');
-	$default = '#f42941';
-	$previewconfig = NULL;
-	$setting = new admin_setting_configcolourpicker($name, $title, $description, $default, $previewconfig);
-	$settings->add($setting);	
-	
-	// Footer Options Heading
-    $name = 'theme_solerni/footeroptheading';
-    $heading = get_string('footeroptheading', 'theme_solerni');
-    $information = get_string('footeroptdesc', 'theme_solerni');
-    $setting = new admin_setting_heading($name, $heading, $information);
-    $settings->add($setting);
-	
-	// Copyright setting
-	$name = 'theme_solerni/copyright';
-	$title = get_string('copyright','theme_solerni');
-	$description = get_string('copyrightdesc', 'theme_solerni');
-	$default = '';
-	$setting = new admin_setting_configtext($name, $title, $description, $default);
-	$settings->add($setting);
-
-	// CEOP
-	$name = 'theme_solerni/ceop';
-	$title = get_string('ceop','theme_solerni');
-	$description = get_string('ceopdesc', 'theme_solerni');
-	$default = '';
-	$choices = array(''=>get_string('ceopnone','theme_solerni'), 'http://www.thinkuknow.org.au/site/report.asp'=>get_string('ceopaus','theme_solerni'), 'http://www.ceop.police.uk/report-abuse/'=>get_string('ceopuk','theme_solerni'));
-	$setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
-	$settings->add($setting);
-
-	// Disclaimer setting
-	$name = 'theme_solerni/disclaimer';
-	$title = get_string('disclaimer','theme_solerni');
-	$description = get_string('disclaimerdesc', 'theme_solerni');
-	$default = '';
-	$setting = new admin_setting_confightmleditor($name, $title, $description, $default);
-	$settings->add($setting);	
-
-	// Social Icons Heading
-    $name = 'theme_solerni/socialiconsheading';
-    $heading = get_string('socialiconsheading', 'theme_solerni');
-    $information = get_string('socialiconsheadingdesc', 'theme_solerni');
-    $setting = new admin_setting_heading($name, $heading, $information);
-    $settings->add($setting);
-	
-	// Website url setting
-	$name = 'theme_solerni/website';
-	$title = get_string('website','theme_solerni');
-	$description = get_string('websitedesc', 'theme_solerni');
-	$default = '';
-	$setting = new admin_setting_configtext($name, $title, $description, $default);
-	$settings->add($setting);
-
-	// Facebook url setting
-	$name = 'theme_solerni/facebook';
-	$title = get_string('facebook','theme_solerni');
-	$description = get_string('facebookdesc', 'theme_solerni');
-	$default = '';
-	$setting = new admin_setting_configtext($name, $title, $description, $default);
-	$settings->add($setting);
-
-	// Twitter url setting
-	$name = 'theme_solerni/twitter';
-	$title = get_string('twitter','theme_solerni');
-	$description = get_string('twitterdesc', 'theme_solerni');
-	$default = '';
-	$setting = new admin_setting_configtext($name, $title, $description, $default);
-	$settings->add($setting);
-
-	// Google+ url setting
-	$name = 'theme_solerni/googleplus';
-	$title = get_string('googleplus','theme_solerni');
-	$description = get_string('googleplusdesc', 'theme_solerni');
-	$default = '';
-	$setting = new admin_setting_configtext($name, $title, $description, $default);
-	$settings->add($setting);
-
-	// Flickr url setting
-	$name = 'theme_solerni/flickr';
-	$title = get_string('flickr','theme_solerni');
-	$description = get_string('flickrdesc', 'theme_solerni');
-	$default = '';
-	$setting = new admin_setting_configtext($name, $title, $description, $default);
-	$settings->add($setting);
-
-	// Pinterest url setting
-	$name = 'theme_solerni/pinterest';
-	$title = get_string('pinterest','theme_solerni');
-	$description = get_string('pinterestdesc', 'theme_solerni');
-	$default = '';
-	$setting = new admin_setting_configtext($name, $title, $description, $default);
-	$settings->add($setting);
-
-	// Instagram url setting
-	$name = 'theme_solerni/instagram';
-	$title = get_string('instagram','theme_solerni');
-	$description = get_string('instagramdesc', 'theme_solerni');
-	$default = '';
-	$setting = new admin_setting_configtext($name, $title, $description, $default);
-	$settings->add($setting);
-
-	// LinkedIn url setting
-	$name = 'theme_solerni/linkedin';
-	$title = get_string('linkedin','theme_solerni');
-	$description = get_string('linkedindesc', 'theme_solerni');
-	$default = '';
-	$setting = new admin_setting_configtext($name, $title, $description, $default);
-	$settings->add($setting);
-	
-	// Wikipedia url setting
-	$name = 'theme_solerni/wikipedia';
-	$title = get_string('wikipedia','theme_solerni');
-	$description = get_string('wikipediadesc', 'theme_solerni');
-	$default = '';
-	$setting = new admin_setting_configtext($name, $title, $description, $default);
-	$settings->add($setting);
-
-	// YouTube url setting
-	$name = 'theme_solerni/youtube';
-	$title = get_string('youtube','theme_solerni');
-	$description = get_string('youtubedesc', 'theme_solerni');
-	$default = '';
-	$setting = new admin_setting_configtext($name, $title, $description, $default);
-	$settings->add($setting);
-
-	// Apple url setting
-	$name = 'theme_solerni/apple';
-	$title = get_string('apple','theme_solerni');
-	$description = get_string('appledesc', 'theme_solerni');
-	$default = '';
-	$setting = new admin_setting_configtext($name, $title, $description, $default);
-	$settings->add($setting);
-
-	// Android url setting
-	$name = 'theme_solerni/android';
-	$title = get_string('android','theme_solerni');
-	$description = get_string('androiddesc', 'theme_solerni');
-	$default = '';
-	$setting = new admin_setting_configtext($name, $title, $description, $default);
-	$settings->add($setting);
-
+// Colours administration. New page.
+$temp = new admin_settingpage('theme_solerni_colors', get_string('colorsettings','theme_solerni'));
+$name = 'theme_solerni/colourheading';
+$heading = get_string('colourheading', 'theme_solerni');
+$information = get_string('colourheadingdesc', 'theme_solerni');
+$setting = new admin_setting_heading($name, $heading, $information);
+$temp->add($setting);
+// Get colors keys and values from options class.
+$color_settings = \theme_solerni\settings\options::solerni_get_colors_array();
+foreach( $color_settings as $key => $value ) {
+    $name = 'theme_solerni/' . $key;
+    $title = get_string( $key, 'theme_solerni' );
+    $description = get_string( $key . 'desc', 'theme_solerni');
+    $default = $value;
+    $previewconfig = NULL;
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, $default, $previewconfig);
+    $setting->set_updatedcallback('theme_reset_all_caches'); // regenerate CSS.
+    $temp->add($setting);
 }
+$ADMIN->add('theme_solerni', $temp);
 
+// Footer elements. New page.
+$temp = new admin_settingpage('theme_solerni_footer', get_string('footersettings','theme_solerni'));
+$name = 'theme_solerni/footertextheading';
+$heading = get_string('footertextheading', 'theme_solerni');
+$information = get_string('footertextheadingdesc', 'theme_solerni');
+$setting = new admin_setting_heading($name, $heading, $information);
+$temp->add($setting);
+// Platform langs.
+$langs = get_string_manager()->get_list_of_translations();
+$footer_texts = \theme_solerni\settings\options::solerni_get_footertext_array();
+if ( $langs ) {
+    foreach ( $langs as $lang => $langname ) {
+        foreach( $footer_texts as $key => $value ) {
+            // Footer tagline and text by lang.
+            $fieldtype = $value['fieldtype'];
+            $name = 'theme_solerni/' . $key . '_' . $lang;
+            $title = get_string_manager()->get_string( $key. 'title', 'theme_solerni', null, $lang);
+            $description = get_string_manager()->get_string($key . 'desc', 'theme_solerni', null, $lang);
+            $default = get_string_manager()->get_string( $key. 'default', 'theme_solerni', null, $lang);
+            $setting = new $fieldtype($name, $title, $description, $default);
+            $temp->add($setting);
+        }
+    }
+}
+// Footer links.
+$name = 'theme_solerni/footerlinksheading';
+$heading = get_string('footerlinksheading', 'theme_solerni');
+$information = get_string('footerlinksheadingdesc', 'theme_solerni');
+$setting = new admin_setting_heading($name, $heading, $information);
+$temp->add($setting);
+// Get social network names and url values.
+$footerlinks_settings = \theme_solerni\settings\options::solerni_get_footerlinks_array();
+// Iterate to create each setting.
+foreach( $footerlinks_settings as $key => $value ) {
+    $name = 'theme_solerni/' . $key;
+    $title = get_string( $key, 'theme_solerni' );
+    $description = get_string( $key . 'desc', 'theme_solerni');
+    $default = $value;
+    $setting = new admin_setting_configtext($name, $title, $description, $default);
+    $temp->add($setting);
+}
+$ADMIN->add('theme_solerni', $temp);
+
+// Socials elements. New page
+$temp = new admin_settingpage('theme_solerni_social', get_string('socialsettings','theme_solerni'));
+// Social Link Heading.
+$name = 'theme_solerni/sociallinksheading';
+$heading = get_string('sociallinksheading', 'theme_solerni');
+$information = get_string('sociallinksheadingdesc', 'theme_solerni');
+$setting = new admin_setting_heading($name, $heading, $information);
+$temp->add($setting);
+// Get social network names and url values.
+$social_settings = \theme_solerni\settings\options::solerni_get_sociallinks_array();
+// Iterate to create each setting.
+foreach( $social_settings as $key => $value ) {
+    $name = 'theme_solerni/' . $key;
+    $title = get_string( $key, 'theme_solerni' );
+    $description = get_string( $key . 'desc', 'theme_solerni');
+    $default = $value;
+    $setting = new admin_setting_configtext($name, $title, $description, $default);
+    $temp->add($setting);
+}
+$ADMIN->add('theme_solerni', $temp);
+
+// Header links admin. New page.
+$temp = new admin_settingpage('theme_solerni_header', get_string('headersettings','theme_solerni'));
+$name = 'theme_solerni/headerheading';
+$heading = get_string('headerheading', 'theme_solerni');
+$information = get_string('headerheadingdesc', 'theme_solerni');
+$setting = new admin_setting_heading($name, $heading, $information);
+$temp->add($setting);
+// Get static links and url values.
+$links_settings = \theme_solerni\settings\options::solerni_get_staticlinks_array();
+// Iterate to create each setting.
+foreach( $links_settings as $key => $value ) {
+    $name = 'theme_solerni/' . $key;
+    $title = get_string( $key, 'theme_solerni' );
+    $description = get_string( $key . 'desc', 'theme_solerni');
+    $default = $value;
+    $setting = new admin_setting_configtext($name, $title, $description, $default);
+    $temp->add($setting);
+}
+$ADMIN->add('theme_solerni', $temp);
