@@ -21,7 +21,7 @@
  */
 
 $isdashboard          = $this->is_menu_item_active( '/my' );
-$hasadmincapacity     = has_capability('moodle/site:config', get_context_instance(CONTEXT_SYSTEM));
+$hasadmincapacity     = has_capability('moodle/site:config', context_system::instance());
 
 ?>
 
