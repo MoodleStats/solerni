@@ -68,6 +68,48 @@ class orange_thematics  {
 
     }
 
+    public function thematics_delete() {
+        global $CFG, $PAGE, $DB;
+
+        if (empty($_GET)) {
+            return false;
+        }
+
+        $get = new stdClass();
+        foreach ($_GET as $varname => $value) {
+            $get->{"$varname"} = $value;
+        }
+
+        $tobedeleted = $DB->get_record('orange_thematics', array ('id' => $get->id));
+        $DB->delete_records('orange_thematics', array ('id' => $get->id));
+        $returnurl = new moodle_url('index.php', array('action' => 'thematics_list', 'sesskey' => sesskey()));
+        redirect($returnurl, get_string('ruledeleted', 'local_orange_thematics', $tobedeleted->name));
+    }
+
+
+    public function thematics_add() {
+        global $CFG, $PAGE, $DB;
+
+        if (empty($_POST)) {
+            return false;
+        }
+
+        $rule = new stdClass();
+        foreach ($_POST as $varname => $value) {
+            // Mtrace($varname."=".$value."<br/>");.
+            $thematic->{"$varname"} = $value;
+        }
+        if ($thematic->id == 0) {
+            $lastinsertid = $DB->insert_record('orange_thematics', $thematics, false);
+        } else {
+            $DB->update_record('orange_thematics', $rule);
+        }
+
+        $returnurl = new moodle_url('index.php', array('action' => 'thematics_list', 'sesskey' => sesskey()));
+
+        redirect($returnurl);
+    }
+
 
     /**
      * Outputs list of thematics.

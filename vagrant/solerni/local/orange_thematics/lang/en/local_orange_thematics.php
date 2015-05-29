@@ -29,7 +29,8 @@ $string['thematicid'] = 'Id.';
 $string['thematicname'] = 'Thématique';
 $string['definethematicsheader'] = 'Managing thematics';
 $string['actionthematics_list'] = 'List of thematics';
-$string['confirmdeletecustomer'] = 'Are you sure you want to delete the thematic <b>{$a}</b> ?';
+$string['confirmdeletethematic'] = 'Are you sure you want to delete the thematic <b>{$a}</b> ?';
+$string['thematicdeleted'] = 'The thematic {$a} has been deleted.';
 
 $string['categoryname'] = 'Associated category';
 $string['customersummary'] = "Short description";
@@ -38,7 +39,3 @@ $string['customerlogo'] = "Logo";
 $string['customerlogo_help'] = "Logo of customer";
 $string['customerpicture'] = "Picture";
 $string['customerpicture_help'] = "Presentation image of customer (top of page)";
-
-
-
-$string['customerdeleted'] = 'The customer {$a} has been deleted.';
