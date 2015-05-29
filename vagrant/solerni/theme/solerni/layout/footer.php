@@ -21,18 +21,20 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$haswebsite     = (!empty($PAGE->theme->settings->website));
-$hasfacebook    = (!empty($PAGE->theme->settings->facebook));
-$hastwitter     = (!empty($PAGE->theme->settings->twitter));
-$hasgoogleplus  = (!empty($PAGE->theme->settings->googleplus));
-$haslinkedin    = (!empty($PAGE->theme->settings->linkedin));
-$hasyoutube     = (!empty($PAGE->theme->settings->youtube));
-$tagline        = ($PAGE->theme->settings->footertagline) ?
-                   $PAGE->theme->settings->footertagline :
-                   get_string('footertaglinedefault', 'theme_solerni');
-$explaination   = ($PAGE->theme->settings->footerexplaination) ?
-                   $PAGE->theme->settings->footerexplaination :
-                   get_string('footerexplainationdefault', 'theme_solerni');
+$haswebsite         = (!empty($PAGE->theme->settings->website));
+$hasfacebook        = (!empty($PAGE->theme->settings->facebook));
+$hastwitter         = (!empty($PAGE->theme->settings->twitter));
+$hasgoogleplus      = (!empty($PAGE->theme->settings->googleplus));
+$haslinkedin        = (!empty($PAGE->theme->settings->linkedin));
+$hasyoutube         = (!empty($PAGE->theme->settings->youtube));
+$footertagline      = 'footertagline_'.current_language();
+$footerexplaination = 'footerexplaination_'.current_language();
+$tagline            = ($PAGE->theme->settings->$footertagline) ?
+                       $PAGE->theme->settings->$footertagline :
+                       get_string('footertaglinedefault', 'theme_solerni');
+$explaination       = ($PAGE->theme->settings->$footerexplaination) ?
+                       $PAGE->theme->settings->$footerexplaination :
+                       get_string('footerexplainationdefault', 'theme_solerni');
 ?>
 
 <footer id="footer" class="row-fluid slrn-footer">
