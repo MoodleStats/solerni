@@ -55,8 +55,8 @@ function thematic_add_thematic($thematic) {
 /**
  * Return the thematic identified by $id or all thematics
  *
- * @param int $id id of rule
- * @return stdClass $rule
+ * @param int $id id of thematic
+ * @return stdClass $thematics
  */
 function thematic_get_thematic($id=null) {
     global $CFG, $DB;
@@ -64,9 +64,9 @@ function thematic_get_thematic($id=null) {
     if ($id == null) {
         $thematics = $DB->get_recordset('orange_thematics');
     } else {
-        $thematic = $DB->get_record('orange_thematics', array('id' => $id));
+        $thematics = $DB->get_record('orange_thematics', array('id' => $id));
     }
 
-    return $thematic;
+    return $thematics;
 
 }

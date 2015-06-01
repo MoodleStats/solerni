@@ -83,7 +83,7 @@ class orange_thematics  {
         $tobedeleted = $DB->get_record('orange_thematics', array ('id' => $get->id));
         $DB->delete_records('orange_thematics', array ('id' => $get->id));
         $returnurl = new moodle_url('index.php', array('action' => 'thematics_list', 'sesskey' => sesskey()));
-        redirect($returnurl, get_string('ruledeleted', 'local_orange_thematics', $tobedeleted->name));
+        redirect($returnurl, get_string('thematicdeleted', 'local_orange_thematics', $tobedeleted->name));
     }
 
 
@@ -94,7 +94,7 @@ class orange_thematics  {
             return false;
         }
 
-        $rule = new stdClass();
+        $thematic = new stdClass();
         foreach ($_POST as $varname => $value) {
             // Mtrace($varname."=".$value."<br/>");.
             $thematic->{"$varname"} = $value;
@@ -102,7 +102,7 @@ class orange_thematics  {
         if ($thematic->id == 0) {
             $lastinsertid = $DB->insert_record('orange_thematics', $thematics, false);
         } else {
-            $DB->update_record('orange_thematics', $rule);
+            $DB->update_record('orange_thematics', $thematic);
         }
 
         $returnurl = new moodle_url('index.php', array('action' => 'thematics_list', 'sesskey' => sesskey()));
