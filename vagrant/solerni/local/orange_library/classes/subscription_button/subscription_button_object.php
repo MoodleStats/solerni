@@ -22,9 +22,11 @@
  */
 namespace local_orange_library\subscription_button;
 use local_orange_library\extended_course\extended_course_object;
+use local_orange_library\enrollment\enrollment_object;
 use html_writer;
 use DateTime;
 use moodle_url;
+
 defined('MOODLE_INTERNAL') || die();
 
 class subscription_button_object {
@@ -47,6 +49,8 @@ class subscription_button_object {
         $date = new DateTime();
         $extendedcourse = new extended_course_object();
         $extendedcourse->get_extended_course($course->id, $context);
+        $selfenrolment = new enrollment_object();
+        $instance = $selfenrolment->get_self_enrolment($course);
 
         $urlmoocsubsription = new moodle_url('/course/view.php', array('id' => $course->id));
         $moocurl = new moodle_url('/course/view.php', array('id' => $course->id));
@@ -97,7 +101,7 @@ class subscription_button_object {
                 }
             } else {
                 //   Mooc en cours";.
-                if ($extendedcourse->registrationenddate < $date->getTimestamp()) {
+                if ($instance->enrolenddate < $date->getTimestamp()) {
                     //   Mooc en cours et date d'inscription passée";.
                     if (!isloggedin()) {
                         //   Utilisateur non connecté à Solerni";.
