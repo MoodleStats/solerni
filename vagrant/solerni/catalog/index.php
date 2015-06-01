@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -30,7 +29,7 @@ $filter = new stdclass();
 $filter->thematicsid = optional_param_array('thematicid', array(), PARAM_RAW); // Thematic Id.
 $filter->statusid = optional_param_array('statusid', array(), PARAM_RAW); // Course status Id.
 $filter->durationsid = optional_param_array('durationid', array(), PARAM_RAW); // Course duration Id.
-$filter->categoriesid = optional_param_array('categoryid', array(), PARAM_INT); // Category id
+$filter->categoriesid = optional_param_array('categoryid', array(), PARAM_INT); // Category id.
 
 if ($CFG->forcelogin) {
     require_login();
@@ -38,8 +37,8 @@ if ($CFG->forcelogin) {
 
 $strcatalog = get_string('configtitle', 'theme_solerni');
 
-if (isguestuser()) {  
-    // guests are not allowed, send them to front page.
+if (isguestuser()) {
+    // Guests are not allowed, send them to front page.
     if (empty($CFG->allowguestmymoodle)) {
         redirect(new moodle_url('/', array('redirect' => 0)));
     }
@@ -47,14 +46,14 @@ if (isguestuser()) {
     $userid = null;
     $header = "$SITE->shortname: $strmymoodle (GUEST)";
 
-} else {        
-    $userid = $USER->id;  // Owner of the page
+} else {
+    $userid = $USER->id;  // Owner of the page.
     $header = "$SITE->shortname: $strcatalog";
 }
 
-$context = context_system::instance();  // So we even see non-sticky blocks
+$context = context_system::instance();  // So we even see non-sticky blocks.
 
-// Start setting up the page
+// Start setting up the page.
 $params = array();
 $PAGE->set_context($context);
 $PAGE->set_url('/catalog/index.php', $params);
@@ -62,10 +61,10 @@ $PAGE->set_pagelayout('base');
 $PAGE->blocks->add_region('side-post');
 $PAGE->set_title($header);
 $PAGE->requires->js('/lib/jquery/jquery-1.11.0.min.js');
-// TODO
+// TODO.
 $PAGE->requires->js('/catalog/catalog.js?a='.rand());
 
-$USER->editing = FALSE;
+$USER->editing = false;
 
 
 echo $OUTPUT->header();
@@ -76,18 +75,17 @@ $filters = new block_contents();
 $filters->content = $courserenderer->course_catalog_filter_form($filter);
 $filters->footer = '';
 $filters->skiptitle = true;
-echo $OUTPUT->block($filters, 'side-post'); 
+echo $OUTPUT->block($filters, 'side-post');
 
 $availablecourseshtml = $courserenderer->catalog_available_courses($filter);
 if (!empty($availablecourseshtml)) {
 
-    //wrap frontpage course list in div container
-    echo html_writer::start_tag('div', array('id'=>'frontpage-course-list'));
+    // TODO-SLP : supprimer l'id.
+    echo html_writer::start_tag('div', array('id' => 'frontpage-course-list'));
 
     echo $OUTPUT->heading(get_string('availablecourses'));
     echo $availablecourseshtml;
 
-    //end frontpage course list div container
     echo html_writer::end_tag('div');
 }
 
