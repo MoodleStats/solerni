@@ -34,7 +34,6 @@ $temp->add($setting);
 $name = 'theme_solerni/frontpageheaderimage';
 $title = get_string('frontpageheaderimage', 'theme_solerni');
 $description = get_string('frontpageheaderimagedesc', 'theme_solerni');
-$default = get_string('frontpageheaderimagedefault', 'theme_solerni');
 $setting = new admin_setting_configstoredfile($name, $title, $description, 'frontpageheaderimage');
 $setting->set_updatedcallback('theme_reset_all_caches'); // regenerate CSS.
 $temp->add($setting);
