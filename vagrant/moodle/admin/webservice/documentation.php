@@ -33,7 +33,7 @@ admin_externalpage_setup('webservicedocumentation');
 $functions = $DB->get_records('external_functions', array(), 'name');
 $functiondescs = array();
 foreach ($functions as $function) {
-    $functiondescs[$function->name] = external_function_info($function);
+	$functiondescs[$function->name] = external_function_info($function);
 }
 
 //display the documentation for all documented protocols,
@@ -50,11 +50,11 @@ echo $OUTPUT->header();
 
 $renderer = $PAGE->get_renderer('core', 'webservice');
 echo $renderer->documentation_html($functiondescs,
-        $printableformat, $protocols, array(), $PAGE->url);
+		$printableformat, $protocols, array(), $PAGE->url);
 
 /// trigger browser print operation
 if (!empty($printableformat)) {
-    $PAGE->requires->js_function_call('window.print', array());
+	$PAGE->requires->js_function_call('window.print', array());
 }
 
 echo $OUTPUT->footer();

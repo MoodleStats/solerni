@@ -31,7 +31,7 @@ navigation_node::override_active_url(new moodle_url('/admin/tool/installaddon/in
 admin_externalpage_setup('tool_installaddon_validate');
 
 if (!empty($CFG->disableonclickaddoninstall)) {
-    notice(get_string('featuredisabled', 'tool_installaddon'));
+	notice(get_string('featuredisabled', 'tool_installaddon'));
 }
 
 require_sesskey();
@@ -43,8 +43,8 @@ $rootdir = optional_param('rootdir', '', PARAM_PLUGIN);
 
 $zipfilepath = $CFG->tempdir.'/tool_installaddon/'.$jobid.'/source/'.$zipfilename;
 if (!file_exists($zipfilepath)) {
-    redirect(new moodle_url('/admin/tool/installaddon/index.php'),
-        get_string('invaliddata', 'core_error'));
+	redirect(new moodle_url('/admin/tool/installaddon/index.php'),
+			get_string('invaliddata', 'core_error'));
 }
 
 $installer = tool_installaddon_installer::instance();
@@ -61,14 +61,14 @@ $validator->assert_moodle_version($CFG->version);
 $result = $validator->execute();
 
 if ($result) {
-    $validator->set_continue_url(new moodle_url('/admin/tool/installaddon/deploy.php', array(
-        'sesskey' => sesskey(),
-        'jobid' => $jobid,
-        'type' => $plugintype,
-        'name' => $validator->get_rootdir())));
+	$validator->set_continue_url(new moodle_url('/admin/tool/installaddon/deploy.php', array(
+			'sesskey' => sesskey(),
+			'jobid' => $jobid,
+			'type' => $plugintype,
+			'name' => $validator->get_rootdir())));
 
 } else {
-    fulldelete($CFG->tempdir.'/tool_installaddon/'.$jobid);
+	fulldelete($CFG->tempdir.'/tool_installaddon/'.$jobid);
 }
 
 // Display the validation results.

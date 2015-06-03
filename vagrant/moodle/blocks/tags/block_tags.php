@@ -23,138 +23,138 @@
  */
 
 class block_tags extends block_base {
-    public function init() {
-        $this->title = get_string('pluginname', 'block_tags');
-    }
+	public function init() {
+		$this->title = get_string('pluginname', 'block_tags');
+	}
 
-    public function instance_allow_multiple() {
-        return true;
-    }
+	public function instance_allow_multiple() {
+		return true;
+	}
 
-    public function has_config() {
-        return true;
-    }
+	public function has_config() {
+		return true;
+	}
 
-    public function applicable_formats() {
-        return array('all' => true);
-    }
+	public function applicable_formats() {
+		return array('all' => true);
+	}
 
-    public function instance_allow_config() {
-        return true;
-    }
+	public function instance_allow_config() {
+		return true;
+	}
 
-    public function specialization() {
+	public function specialization() {
 
-        // Load userdefined title and make sure it's never empty.
-        if (empty($this->config->title)) {
-            $this->title = get_string('pluginname', 'block_tags');
-        } else {
-            $this->title = $this->config->title;
-        }
-    }
+		// Load userdefined title and make sure it's never empty.
+		if (empty($this->config->title)) {
+			$this->title = get_string('pluginname', 'block_tags');
+		} else {
+			$this->title = $this->config->title;
+		}
+	}
 
-    public function get_content() {
+	public function get_content() {
 
-        global $CFG, $COURSE, $USER, $SCRIPT, $OUTPUT;
+		global $CFG, $COURSE, $USER, $SCRIPT, $OUTPUT;
 
-        if (empty($CFG->usetags)) {
-            $this->content = new stdClass();
-            $this->content->text = '';
-            if ($this->page->user_is_editing()) {
-                $this->content->text = get_string('disabledtags', 'block_tags');
-            }
-            return $this->content;
-        }
+		if (empty($CFG->usetags)) {
+			$this->content = new stdClass();
+			$this->content->text = '';
+			if ($this->page->user_is_editing()) {
+				$this->content->text = get_string('disabledtags', 'block_tags');
+			}
+			return $this->content;
+		}
 
-        if (!isset($this->config)) {
-            $this->config = new stdClass();
-        }
+		if (!isset($this->config)) {
+			$this->config = new stdClass();
+		}
 
-        if (empty($this->config->numberoftags)) {
-            $this->config->numberoftags = 80;
-        }
+		if (empty($this->config->numberoftags)) {
+			$this->config->numberoftags = 80;
+		}
 
-        if (empty($this->config->tagtype)) {
-            $this->config->tagtype = '';
-        }
+		if (empty($this->config->tagtype)) {
+			$this->config->tagtype = '';
+		}
 
-        if ($this->content !== NULL) {
-            return $this->content;
-        }
+		if ($this->content !== NULL) {
+			return $this->content;
+		}
 
-        if (empty($this->instance)) {
-            $this->content = '';
-            return $this->content;
-        }
+		if (empty($this->instance)) {
+			$this->content = '';
+			return $this->content;
+		}
 
-        $this->content = new stdClass;
-        $this->content->text = '';
-        $this->content->footer = '';
+		$this->content = new stdClass;
+		$this->content->text = '';
+		$this->content->footer = '';
 
-        // Get a list of tags.
+		// Get a list of tags.
 
-        require_once($CFG->dirroot.'/tag/locallib.php');
+		require_once($CFG->dirroot.'/tag/locallib.php');
 
-        if (empty($CFG->block_tags_showcoursetags) or !$CFG->block_tags_showcoursetags) {
+		if (empty($CFG->block_tags_showcoursetags) or !$CFG->block_tags_showcoursetags) {
 
-            $this->content->text = tag_print_cloud(null, $this->config->numberoftags, true);
+			$this->content->text = tag_print_cloud(null, $this->config->numberoftags, true);
 
-        } else {
-            // Start of show course tags section.
-            require_once($CFG->dirroot.'/tag/coursetagslib.php');
+		} else {
+			// Start of show course tags section.
+			require_once($CFG->dirroot.'/tag/coursetagslib.php');
 
-            // Page awareness.
-            $tagtype = 'all';
-            if ($SCRIPT == '/my/index.php') {
-                $tagtype = 'my';
-            } else if (isset($this->page->course->id)) {
-                if ($this->page->course->id != SITEID) {
-                    $tagtype = 'course';
-                }
-            }
+			// Page awareness.
+			$tagtype = 'all';
+			if ($SCRIPT == '/my/index.php') {
+				$tagtype = 'my';
+			} else if (isset($this->page->course->id)) {
+				if ($this->page->course->id != SITEID) {
+					$tagtype = 'course';
+				}
+			}
 
-            // DB hits to get groups of marked up tags (if available).
-            // TODO check whether time limited personal tags are required.
-            $content = '';
-            $moretags = new moodle_url('/tag/coursetags_more.php', array('show'=>$tagtype));
-            if ($tagtype == 'all') {
-                $tags = coursetag_get_tags(0, 0, $this->config->tagtype, $this->config->numberoftags);
-            } else if ($tagtype == 'course') {
-                $tags = coursetag_get_tags($this->page->course->id, 0, $this->config->tagtype, $this->config->numberoftags);
-                $moretags->param('courseid', $this->page->course->id);
-            } else if ($tagtype == 'my') {
-                $tags = coursetag_get_tags(0, $USER->id, $this->config->tagtype, $this->config->numberoftags);
-            }
-            $tagcloud = tag_print_cloud($tags, 150, true);
-            if (!$tagcloud) {
-                $tagcloud = get_string('notagsyet', 'block_tags');
-            }
+			// DB hits to get groups of marked up tags (if available).
+			// TODO check whether time limited personal tags are required.
+			$content = '';
+			$moretags = new moodle_url('/tag/coursetags_more.php', array('show'=>$tagtype));
+			if ($tagtype == 'all') {
+				$tags = coursetag_get_tags(0, 0, $this->config->tagtype, $this->config->numberoftags);
+			} else if ($tagtype == 'course') {
+				$tags = coursetag_get_tags($this->page->course->id, 0, $this->config->tagtype, $this->config->numberoftags);
+				$moretags->param('courseid', $this->page->course->id);
+			} else if ($tagtype == 'my') {
+				$tags = coursetag_get_tags(0, $USER->id, $this->config->tagtype, $this->config->numberoftags);
+			}
+			$tagcloud = tag_print_cloud($tags, 150, true);
+			if (!$tagcloud) {
+				$tagcloud = get_string('notagsyet', 'block_tags');
+			}
 
-            // Prepare the divs that display the groups of tags.
-            $content = get_string($tagtype."tags", 'block_tags').
-                    '<div class="coursetag_list">'.$tagcloud.'</div>
-                    <div class="coursetag_morelink">
-                        <a href="'.$moretags->out().'" title="'.get_string('moretags', 'block_tags').'">'
-                        .get_string('more', 'block_tags').'</a>
-                    </div>';
-            // Add javascript.
-            coursetag_get_jscript();
+			// Prepare the divs that display the groups of tags.
+			$content = get_string($tagtype."tags", 'block_tags').
+			'<div class="coursetag_list">'.$tagcloud.'</div>
+			<div class="coursetag_morelink">
+			<a href="'.$moretags->out().'" title="'.get_string('moretags', 'block_tags').'">'
+			.get_string('more', 'block_tags').'</a>
+			</div>';
+			// Add javascript.
+			coursetag_get_jscript();
 
-            // Add the divs (containing the tags) to the block's content.
-            $this->content->text .= $content;
+			// Add the divs (containing the tags) to the block's content.
+			$this->content->text .= $content;
 
-            // Add the input form section (allowing a user to tag the current course) and navigation, or login message.
-            if (isloggedin() && !isguestuser()) {
-                // Only show the input form on course pages for those allowed (or not barred).
-                if ($tagtype == 'course' &&
-                                has_capability('moodle/tag:create', context_course::instance($this->page->course->id))) {
-                    $buttonadd = get_string('add', 'block_tags');
-                    $arrowtitle = get_string('arrowtitle', 'block_tags');
-                    $edittags = get_string('edittags', 'block_tags');
-                    $sesskey = sesskey();
-                    $arrowright = $OUTPUT->pix_url('t/arrow_left');
-                    $redirect = $this->page->url->out();
-                    $this->content->footer .= <<<EOT
+			// Add the input form section (allowing a user to tag the current course) and navigation, or login message.
+			if (isloggedin() && !isguestuser()) {
+				// Only show the input form on course pages for those allowed (or not barred).
+				if ($tagtype == 'course' &&
+						has_capability('moodle/tag:create', context_course::instance($this->page->course->id))) {
+					$buttonadd = get_string('add', 'block_tags');
+					$arrowtitle = get_string('arrowtitle', 'block_tags');
+					$edittags = get_string('edittags', 'block_tags');
+					$sesskey = sesskey();
+					$arrowright = $OUTPUT->pix_url('t/arrow_left');
+					$redirect = $this->page->url->out();
+					$this->content->footer .= <<<EOT
                         <hr />
                         <form action="{$CFG->wwwroot}/tag/coursetags_add.php" method="post" id="coursetag"
                                 onsubmit="return ctags_checkinput(this.coursetag_new_tag.value)">
@@ -186,16 +186,16 @@ class block_tags extends block_base {
                             </div>
                         </form>
 EOT;
-                }
-            } else {
-                // If not logged in.
-                $this->content->footer = '<hr />'.get_string('please', 'block_tags').'
-                    <a href="'.get_login_url().'">'.get_string('login', 'block_tags').'
-                        </a> '.get_string('tagunits', 'block_tags');
-            }
-        }
-        // End of show course tags section.
+				}
+			} else {
+				// If not logged in.
+				$this->content->footer = '<hr />'.get_string('please', 'block_tags').'
+				<a href="'.get_login_url().'">'.get_string('login', 'block_tags').'
+				</a> '.get_string('tagunits', 'block_tags');
+			}
+		}
+		// End of show course tags section.
 
-        return $this->content;
-    }
+		return $this->content;
+	}
 }

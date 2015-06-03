@@ -39,10 +39,10 @@ $string['auth_ldap_create_error'] = 'Error creating user in LDAP.';
 $string['auth_ldap_creators'] = 'List of groups or contexts whose members are allowed to create new courses. Separate multiple groups with \';\'. Usually something like \'cn=teachers,ou=staff,o=myorg\'';
 $string['auth_ldap_creators_key'] = 'Creators';
 $string['auth_ldapdescription'] = 'This method provides authentication against an external LDAP server.
-                                  If the given username and password are valid, Moodle creates a new user
-                                  entry in its database. This module can read user attributes from LDAP and prefill
-                                  wanted fields in Moodle.  For following logins only the username and
-                                  password are checked.';
+If the given username and password are valid, Moodle creates a new user
+entry in its database. This module can read user attributes from LDAP and prefill
+wanted fields in Moodle.  For following logins only the username and
+password are checked.';
 $string['auth_ldap_expiration_desc'] = 'Select No to disable expired password checking or LDAP to read passwordexpiration time directly from LDAP';
 $string['auth_ldap_expiration_key'] = 'Expiration';
 $string['auth_ldap_expiration_warning_desc'] = 'Number of days before password expiration warning is issued.';

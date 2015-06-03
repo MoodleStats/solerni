@@ -25,7 +25,7 @@
  * @package   admin
  * @copyright 2010 David Mudrak <david.mudrak@gmail.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+*/
 
 require_once(dirname(dirname(__FILE__)) . '/config.php');
 require_once($CFG->libdir.'/adminlib.php');
@@ -48,29 +48,29 @@ $table->setup();
 
 $plugins = array();
 foreach (core_component::get_plugin_list('local') as $plugin => $plugindir) {
-    if (get_string_manager()->string_exists('pluginname', 'local_' . $plugin)) {
-        $strpluginname = get_string('pluginname', 'local_' . $plugin);
-    } else {
-        $strpluginname = $plugin;
-    }
-    $plugins[$plugin] = $strpluginname;
+	if (get_string_manager()->string_exists('pluginname', 'local_' . $plugin)) {
+		$strpluginname = get_string('pluginname', 'local_' . $plugin);
+	} else {
+		$strpluginname = $plugin;
+	}
+	$plugins[$plugin] = $strpluginname;
 }
 core_collator::asort($plugins);
 
 foreach ($plugins as $plugin => $name) {
-    $uninstall = '';
-    if ($uninstallurl = core_plugin_manager::instance()->get_uninstall_url('local_'.$plugin, 'manage')) {
-        $uninstall = html_writer::link($uninstallurl, get_string('uninstallplugin', 'core_admin'));
-    }
+	$uninstall = '';
+	if ($uninstallurl = core_plugin_manager::instance()->get_uninstall_url('local_'.$plugin, 'manage')) {
+		$uninstall = html_writer::link($uninstallurl, get_string('uninstallplugin', 'core_admin'));
+	}
 
-    $version = get_config('local_' . $plugin);
-    if (!empty($version->version)) {
-        $version = $version->version;
-    } else {
-        $version = '?';
-    }
+	$version = get_config('local_' . $plugin);
+	if (!empty($version->version)) {
+		$version = $version->version;
+	} else {
+		$version = '?';
+	}
 
-    $table->add_data(array($name, $version, $uninstall));
+	$table->add_data(array($name, $version, $uninstall));
 }
 
 $table->print_html();

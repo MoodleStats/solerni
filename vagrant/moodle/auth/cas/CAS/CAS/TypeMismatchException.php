@@ -40,31 +40,31 @@
 class CAS_TypeMismatchException
 extends CAS_InvalidArgumentException
 {
-    /**
-     * Constructor, provides a nice message.
-     *
-     * @param mixed   $argument     Argument
-     * @param string  $argumentName Argument Name
-     * @param string  $type         Type
-     * @param string  $message      Error Message
-     * @param integer $code         Code
-     *
-     * @return void
-     */
-    public function __construct (
-        $argument, $argumentName, $type, $message = '', $code = 0
-    ) {
-        if (is_object($argument)) {
-            $foundType = get_class($argument).' object';
-        } else {
-            $foundType = gettype($argument);
-        }
+	/**
+	 * Constructor, provides a nice message.
+	 *
+	 * @param mixed   $argument     Argument
+	 * @param string  $argumentName Argument Name
+	 * @param string  $type         Type
+	 * @param string  $message      Error Message
+	 * @param integer $code         Code
+	 *
+	 * @return void
+	 */
+	public function __construct (
+			$argument, $argumentName, $type, $message = '', $code = 0
+	) {
+		if (is_object($argument)) {
+			$foundType = get_class($argument).' object';
+		} else {
+			$foundType = gettype($argument);
+		}
 
-        parent::__construct(
-            'type mismatched for parameter '
-            . $argumentName . ' (should be \'' . $type .' \'), '
-            . $foundType . ' given. ' . $message, $code
-        );
-    }
+		parent::__construct(
+				'type mismatched for parameter '
+				. $argumentName . ' (should be \'' . $type .' \'), '
+				. $foundType . ' given. ' . $message, $code
+		);
+	}
 }
 ?>

@@ -39,79 +39,79 @@ admin_externalpage_setup('externalservicefunctions');
 $PAGE->set_url('/' . $CFG->admin . '/webservice/service_functions.php', array('id' => $serviceid));
 $node = $PAGE->settingsnav->find('externalservices', navigation_node::TYPE_SETTING);
 if ($node) {
-    $node->make_active();
+	$node->make_active();
 }
 $PAGE->navbar->add(get_string('functions', 'webservice'),
-        new moodle_url('/' . $CFG->admin . '/webservice/service_functions.php', array('id' => $serviceid)));
+		new moodle_url('/' . $CFG->admin . '/webservice/service_functions.php', array('id' => $serviceid)));
 
 $service = $DB->get_record('external_services', array('id' => $serviceid), '*', MUST_EXIST);
 $webservicemanager = new webservice();
 $renderer = $PAGE->get_renderer('core', 'webservice');
 $functionlisturl = new moodle_url('/' . $CFG->admin . '/webservice/service_functions.php',
-        array('id' => $serviceid));
+		array('id' => $serviceid));
 
 // Add or Delete operations
 switch ($action) {
-    case 'add':
-        $PAGE->navbar->add(get_string('addfunctions', 'webservice'));
-        /// Add function operation
-        if (confirm_sesskey() and $service and empty($service->component)) {
-            $mform = new external_service_functions_form(null,
-                    array('action' => 'add', 'id' => $service->id));
+	case 'add':
+		$PAGE->navbar->add(get_string('addfunctions', 'webservice'));
+		/// Add function operation
+		if (confirm_sesskey() and $service and empty($service->component)) {
+			$mform = new external_service_functions_form(null,
+					array('action' => 'add', 'id' => $service->id));
 
-            //cancelled add operation, redirect to function list page
-            if ($mform->is_cancelled()) {
-                redirect($functionlisturl);
-            }
+			//cancelled add operation, redirect to function list page
+			if ($mform->is_cancelled()) {
+				redirect($functionlisturl);
+			}
 
-            //add the function to the service then redirect to function list page
-            if ($data = $mform->get_data()) {
-                ignore_user_abort(true); // no interruption here!
-                foreach ($data->fids as $fid) {
-                    $function = $webservicemanager->get_external_function_by_id(
-                            $fid, MUST_EXIST);
-                    // make sure the function is not there yet
-                    if (!$webservicemanager->service_function_exists($function->name,
-                            $service->id)) {
-                        $webservicemanager->add_external_function_to_service(
-                                $function->name, $service->id);
-                    }
-                }
-                redirect($functionlisturl);
-            }
+			//add the function to the service then redirect to function list page
+			if ($data = $mform->get_data()) {
+				ignore_user_abort(true); // no interruption here!
+				foreach ($data->fids as $fid) {
+					$function = $webservicemanager->get_external_function_by_id(
+							$fid, MUST_EXIST);
+					// make sure the function is not there yet
+					if (!$webservicemanager->service_function_exists($function->name,
+							$service->id)) {
+						$webservicemanager->add_external_function_to_service(
+								$function->name, $service->id);
+					}
+				}
+				redirect($functionlisturl);
+			}
 
-            //Add function operation page output
-            echo $OUTPUT->header();
-            echo $OUTPUT->heading($service->name);
-            $mform->display();
-            echo $OUTPUT->footer();
-            die;
-        }
+			//Add function operation page output
+			echo $OUTPUT->header();
+			echo $OUTPUT->heading($service->name);
+			$mform->display();
+			echo $OUTPUT->footer();
+			die;
+		}
 
-        break;
+		break;
 
-    case 'delete':
-        $PAGE->navbar->add(get_string('removefunction', 'webservice'));
-        /// Delete function operation
-        if (confirm_sesskey() and $service and empty($service->component)) {
-            //check that the function to remove exists
-            $function = $webservicemanager->get_external_function_by_id(
-                            $functionid, MUST_EXIST);
+	case 'delete':
+		$PAGE->navbar->add(get_string('removefunction', 'webservice'));
+		/// Delete function operation
+		if (confirm_sesskey() and $service and empty($service->component)) {
+			//check that the function to remove exists
+			$function = $webservicemanager->get_external_function_by_id(
+					$functionid, MUST_EXIST);
 
-            //display confirmation page
-            if (!$confirm) {
-                echo $OUTPUT->header();
-                echo $renderer->admin_remove_service_function_confirmation($function, $service);
-                echo $OUTPUT->footer();
-                die;
-            }
+			//display confirmation page
+			if (!$confirm) {
+				echo $OUTPUT->header();
+				echo $renderer->admin_remove_service_function_confirmation($function, $service);
+				echo $OUTPUT->footer();
+				die;
+			}
 
-            //or remove the function from the service, then redirect to the function list
-            $webservicemanager->remove_external_function_from_service($function->name,
-                   $service->id);
-            redirect($functionlisturl);
-        }
-        break;
+			//or remove the function from the service, then redirect to the function list
+			$webservicemanager->remove_external_function_from_service($function->name,
+					$service->id);
+			redirect($functionlisturl);
+		}
+		break;
 }
 
 /// OUTPUT function list page

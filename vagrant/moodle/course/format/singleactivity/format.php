@@ -23,9 +23,9 @@
  * moment
  *
  * @package    format_singleactivity
- * @copyright  2012 Marina Glancy
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+* @copyright  2012 Marina Glancy
+* @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+*/
 
 $courserenderer = $PAGE->get_renderer('format_singleactivity');
 echo $courserenderer->display($course, $section != 0);

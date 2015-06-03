@@ -73,10 +73,11 @@ if ($code == 0) {
         exit($code);
     }
 
-    passthru("php util.php --install", $code);
-    if ($code != 0) {
-        exit($code);
-    }
+	passthru("php util.php --install", $code);
+	if ($code != 0) {
+		exit($code);
+	}
+
 
 } else {
     // Generic error, we just output it.

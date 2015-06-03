@@ -31,7 +31,7 @@ defined('MOODLE_INTERNAL') || die();
  * @return moodle_url
  */
 function tool_assignmentupgrade_url($script, $params = array()) {
-    return new moodle_url('/admin/tool/assignmentupgrade/' . $script . '.php', $params);
+	return new moodle_url('/admin/tool/assignmentupgrade/' . $script . '.php', $params);
 }
 
 /**
@@ -42,36 +42,36 @@ function tool_assignmentupgrade_url($script, $params = array()) {
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class tool_assignmentupgrade_batchoperationconfirm implements renderable {
-    /** @var string $continuemessage The message to show above the continue cancel buttons */
-    public $continuemessage = '';
-    /** @var string $continueurl The url to load if the user clicks continue */
-    public $continueurl;
+	/** @var string $continuemessage The message to show above the continue cancel buttons */
+	public $continuemessage = '';
+	/** @var string $continueurl The url to load if the user clicks continue */
+	public $continueurl;
 
-    /**
-     * Constructor for this class
-     * @param stdClass $data - The data from the previous batch form
-     */
-    public function __construct($data) {
-        if (isset($data->upgradeselected)) {
-            $this->continuemessage = get_string('upgradeselectedcount',
-                                                'tool_assignmentupgrade',
-                                                count(explode(',', $data->selectedassignments)));
-            $urlparams = array('upgradeselected'=>'1',
-                               'confirm'=>'1',
-                               'sesskey'=>sesskey(),
-                               'selected'=>$data->selectedassignments);
-            $this->continueurl = new moodle_url('/admin/tool/assignmentupgrade/batchupgrade.php', $urlparams);
-        } else if (isset($data->upgradeall)) {
-            if (!tool_assignmentupgrade_any_upgradable_assignments()) {
-                $this->continuemessage = get_string('noassignmentstoupgrade', 'tool_assignmentupgrade');
-                $this->continueurl = '';
-            } else {
-                $this->continuemessage = get_string('upgradeallconfirm', 'tool_assignmentupgrade');
-                $urlparams = array('upgradeall'=>'1', 'confirm'=>'1', 'sesskey'=>sesskey());
-                $this->continueurl = new moodle_url('/admin/tool/assignmentupgrade/batchupgrade.php', $urlparams);
-            }
-        }
-    }
+	/**
+	 * Constructor for this class
+	 * @param stdClass $data - The data from the previous batch form
+	 */
+	public function __construct($data) {
+		if (isset($data->upgradeselected)) {
+			$this->continuemessage = get_string('upgradeselectedcount',
+					'tool_assignmentupgrade',
+					count(explode(',', $data->selectedassignments)));
+			$urlparams = array('upgradeselected'=>'1',
+					'confirm'=>'1',
+					'sesskey'=>sesskey(),
+					'selected'=>$data->selectedassignments);
+			$this->continueurl = new moodle_url('/admin/tool/assignmentupgrade/batchupgrade.php', $urlparams);
+		} else if (isset($data->upgradeall)) {
+			if (!tool_assignmentupgrade_any_upgradable_assignments()) {
+				$this->continuemessage = get_string('noassignmentstoupgrade', 'tool_assignmentupgrade');
+				$this->continueurl = '';
+			} else {
+				$this->continuemessage = get_string('upgradeallconfirm', 'tool_assignmentupgrade');
+				$urlparams = array('upgradeall'=>'1', 'confirm'=>'1', 'sesskey'=>sesskey());
+				$this->continueurl = new moodle_url('/admin/tool/assignmentupgrade/batchupgrade.php', $urlparams);
+			}
+		}
+	}
 }
 
 
@@ -83,42 +83,42 @@ class tool_assignmentupgrade_batchoperationconfirm implements renderable {
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class tool_assignmentupgrade_action {
-    /** @var string the name of this action. */
-    public $name;
-    /** @var moodle_url the URL to launch this action. */
-    public $url;
-    /** @var string a description of this aciton. */
-    public $description;
+	/** @var string the name of this action. */
+	public $name;
+	/** @var moodle_url the URL to launch this action. */
+	public $url;
+	/** @var string a description of this aciton. */
+	public $description;
 
-    /**
-     * Constructor to set the fields.
-     *
-     * In order to create a new tool_assignmentupgrade_action instance you must use
-     * the tool_assignmentupgrade_action::make
-     * method.
-     *
-     * @param string $name the name of this action.
-     * @param moodle_url $url the URL to launch this action.
-     * @param string $description a description of this aciton.
-     */
-    protected function __construct($name, moodle_url $url, $description) {
-        $this->name = $name;
-        $this->url = $url;
-        $this->description = $description;
-    }
+	/**
+	 * Constructor to set the fields.
+	 *
+	 * In order to create a new tool_assignmentupgrade_action instance you must use
+	 * the tool_assignmentupgrade_action::make
+	 * method.
+	 *
+	 * @param string $name the name of this action.
+	 * @param moodle_url $url the URL to launch this action.
+	 * @param string $description a description of this aciton.
+	 */
+	protected function __construct($name, moodle_url $url, $description) {
+		$this->name = $name;
+		$this->url = $url;
+		$this->description = $description;
+	}
 
-    /**
-     * Make an action with standard values.
-     * @param string $shortname internal name of the action. Used to get strings and build a URL.
-     * @param array $params any URL params required.
-     * @return tool_assignmentupgrade_action
-     */
-    public static function make($shortname, $params = array()) {
-        return new self(
-                get_string($shortname, 'tool_assignmentupgrade'),
-                tool_assignmentupgrade_url($shortname, $params),
-                get_string($shortname . '_desc', 'tool_assignmentupgrade'));
-    }
+	/**
+	 * Make an action with standard values.
+	 * @param string $shortname internal name of the action. Used to get strings and build a URL.
+	 * @param array $params any URL params required.
+	 * @return tool_assignmentupgrade_action
+	 */
+	public static function make($shortname, $params = array()) {
+		return new self(
+				get_string($shortname, 'tool_assignmentupgrade'),
+				tool_assignmentupgrade_url($shortname, $params),
+				get_string($shortname . '_desc', 'tool_assignmentupgrade'));
+	}
 }
 
 /**
@@ -126,29 +126,29 @@ class tool_assignmentupgrade_action {
  * @return boolean - Are there any assignments that can be upgraded
  */
 function tool_assignmentupgrade_any_upgradable_assignments() {
-    global $DB, $CFG;
-    require_once($CFG->dirroot . '/mod/assign/locallib.php');
-    // First find all the unique assignment types.
-    $types = $DB->get_records_sql('SELECT plugin AS assignmenttype,
-                                          value AS version
-                                   FROM {config_plugins}
-                                   WHERE
-                                       name = ? AND
-                                       plugin LIKE ?', array('version', 'assignment_%'));
+	global $DB, $CFG;
+	require_once($CFG->dirroot . '/mod/assign/locallib.php');
+	// First find all the unique assignment types.
+	$types = $DB->get_records_sql('SELECT plugin AS assignmenttype,
+			value AS version
+			FROM {config_plugins}
+			WHERE
+			name = ? AND
+			plugin LIKE ?', array('version', 'assignment_%'));
 
-    $upgradabletypes = array();
+	$upgradabletypes = array();
 
-    foreach ($types as $assignment) {
-        $shorttype = substr($assignment->assignmenttype, strlen('assignment_'));
-        if (assign::can_upgrade_assignment($shorttype, $assignment->version)) {
-            $upgradabletypes[] = $shorttype;
-        }
-    }
-    list($sql, $params) = $DB->get_in_or_equal($upgradabletypes);
+	foreach ($types as $assignment) {
+		$shorttype = substr($assignment->assignmenttype, strlen('assignment_'));
+		if (assign::can_upgrade_assignment($shorttype, $assignment->version)) {
+			$upgradabletypes[] = $shorttype;
+		}
+	}
+	list($sql, $params) = $DB->get_in_or_equal($upgradabletypes);
 
-    $count = $DB->count_records_sql('SELECT COUNT(id) FROM {assignment} WHERE assignmenttype ' . $sql, $params);
+	$count = $DB->count_records_sql('SELECT COUNT(id) FROM {assignment} WHERE assignmenttype ' . $sql, $params);
 
-    return $count > 0;
+	return $count > 0;
 }
 
 /**
@@ -156,35 +156,35 @@ function tool_assignmentupgrade_any_upgradable_assignments() {
  * @return array of assignment ids
  */
 function tool_assignmentupgrade_load_all_upgradable_assignmentids() {
-    global $DB, $CFG;
-    require_once($CFG->dirroot . '/mod/assign/locallib.php');
-    // First find all the unique assignment types.
-    $types = $DB->get_records_sql('SELECT
-                                       plugin AS assignmenttype,
-                                       value AS version
-                                   FROM {config_plugins}
-                                   WHERE
-                                       name = ? AND
-                                       plugin LIKE ?', array('version', 'assignment_%'));
+	global $DB, $CFG;
+	require_once($CFG->dirroot . '/mod/assign/locallib.php');
+	// First find all the unique assignment types.
+	$types = $DB->get_records_sql('SELECT
+			plugin AS assignmenttype,
+			value AS version
+			FROM {config_plugins}
+			WHERE
+			name = ? AND
+			plugin LIKE ?', array('version', 'assignment_%'));
 
-    $upgradabletypes = array();
+	$upgradabletypes = array();
 
-    foreach ($types as $assignment) {
-        $shorttype = substr($assignment->assignmenttype, strlen('assignment_'));
-        if (assign::can_upgrade_assignment($shorttype, $assignment->version)) {
-            $upgradabletypes[] = $shorttype;
-        }
-    }
+	foreach ($types as $assignment) {
+		$shorttype = substr($assignment->assignmenttype, strlen('assignment_'));
+		if (assign::can_upgrade_assignment($shorttype, $assignment->version)) {
+			$upgradabletypes[] = $shorttype;
+		}
+	}
 
-    list($sql, $params) = $DB->get_in_or_equal($upgradabletypes);
+	list($sql, $params) = $DB->get_in_or_equal($upgradabletypes);
 
-    $records = $DB->get_records_sql('SELECT id from {assignment} where assignmenttype ' . $sql, $params);
-    $ids = array();
-    foreach ($records as $record) {
-        $ids[] = $record->id;
-    }
+	$records = $DB->get_records_sql('SELECT id from {assignment} where assignmenttype ' . $sql, $params);
+	$ids = array();
+	foreach ($records as $record) {
+		$ids[] = $record->id;
+	}
 
-    return $ids;
+	return $ids;
 }
 
 
@@ -199,23 +199,23 @@ function tool_assignmentupgrade_load_all_upgradable_assignmentids() {
  *                      - the upgrade log
  */
 function tool_assignmentupgrade_upgrade_assignment($assignmentid) {
-    global $CFG;
-    require_once($CFG->dirroot . '/mod/assign/upgradelib.php');
+	global $CFG;
+	require_once($CFG->dirroot . '/mod/assign/upgradelib.php');
 
-    $assignment_upgrader = new assign_upgrade_manager();
-    $info = tool_assignmentupgrade_get_assignment($assignmentid);
-    if ($info) {
-        $log = '';
-        $success = $assignment_upgrader->upgrade_assignment($assignmentid, $log);
-    } else {
-        $success = false;
-        $log = get_string('assignmentnotfound', 'tool_assignmentupgrade', $assignmentid);
-        $info = new stdClass();
-        $info->name = get_string('unknown', 'tool_assignmentupgrade');
-        $info->shortname = get_string('unknown', 'tool_assignmentupgrade');
-    }
+	$assignment_upgrader = new assign_upgrade_manager();
+	$info = tool_assignmentupgrade_get_assignment($assignmentid);
+	if ($info) {
+		$log = '';
+		$success = $assignment_upgrader->upgrade_assignment($assignmentid, $log);
+	} else {
+		$success = false;
+		$log = get_string('assignmentnotfound', 'tool_assignmentupgrade', $assignmentid);
+		$info = new stdClass();
+		$info->name = get_string('unknown', 'tool_assignmentupgrade');
+		$info->shortname = get_string('unknown', 'tool_assignmentupgrade');
+	}
 
-    return array($info, $success, $log);
+	return array($info, $success, $log);
 }
 
 /**
@@ -224,11 +224,11 @@ function tool_assignmentupgrade_upgrade_assignment($assignmentid) {
  * @return stdClass the information about that assignment.
  */
 function tool_assignmentupgrade_get_assignment($assignmentid) {
-    global $DB;
-    return $DB->get_record_sql("
-            SELECT a.id, a.name, c.shortname, c.id AS courseid
-            FROM {assignment} a
-            JOIN {course} c ON c.id = a.course
-            WHERE a.id = ?", array($assignmentid));
+	global $DB;
+	return $DB->get_record_sql("
+			SELECT a.id, a.name, c.shortname, c.id AS courseid
+			FROM {assignment} a
+			JOIN {course} c ON c.id = a.course
+			WHERE a.id = ?", array($assignmentid));
 }
 

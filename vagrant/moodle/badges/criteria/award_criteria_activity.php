@@ -22,7 +22,7 @@
  * @copyright  2012 onwards Totara Learning Solutions Ltd {@link http://www.totaralms.com/}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @author     Yuliya Bozhko <yuliya.bozhko@totaralms.com>
- */
+*/
 
 defined('MOODLE_INTERNAL') || die();
 require_once($CFG->libdir . '/completionlib.php');
@@ -33,239 +33,239 @@ require_once($CFG->libdir . '/completionlib.php');
  */
 class award_criteria_activity extends award_criteria {
 
-    /* @var int Criteria [BADGE_CRITERIA_TYPE_ACTIVITY] */
-    public $criteriatype = BADGE_CRITERIA_TYPE_ACTIVITY;
+	/* @var int Criteria [BADGE_CRITERIA_TYPE_ACTIVITY] */
+	public $criteriatype = BADGE_CRITERIA_TYPE_ACTIVITY;
 
-    private $courseid;
-    private $coursestartdate;
+	private $courseid;
+	private $coursestartdate;
 
-    public $required_param = 'module';
-    public $optional_params = array('bydate');
+	public $required_param = 'module';
+	public $optional_params = array('bydate');
 
-    public function __construct($record) {
-        global $DB;
-        parent::__construct($record);
+	public function __construct($record) {
+		global $DB;
+		parent::__construct($record);
 
-        $course = $DB->get_record_sql('SELECT b.courseid, c.startdate
-                        FROM {badge} b INNER JOIN {course} c ON b.courseid = c.id
-                        WHERE b.id = :badgeid ', array('badgeid' => $this->badgeid));
-        $this->courseid = $course->courseid;
-        $this->coursestartdate = $course->startdate;
-    }
+		$course = $DB->get_record_sql('SELECT b.courseid, c.startdate
+				FROM {badge} b INNER JOIN {course} c ON b.courseid = c.id
+				WHERE b.id = :badgeid ', array('badgeid' => $this->badgeid));
+		$this->courseid = $course->courseid;
+		$this->coursestartdate = $course->startdate;
+	}
 
-    /**
-     * Gets the module instance from the database and returns it.
-     * If no module instance exists this function returns false.
-     *
-     * @return stdClass|bool
-     */
-    private function get_mod_instance($cmid) {
-        global $DB;
-        $rec = $DB->get_record_sql("SELECT md.name
-                               FROM {course_modules} cm,
-                                    {modules} md
-                               WHERE cm.id = ? AND
-                                     md.id = cm.module", array($cmid));
+	/**
+	 * Gets the module instance from the database and returns it.
+	 * If no module instance exists this function returns false.
+	 *
+	 * @return stdClass|bool
+	 */
+	private function get_mod_instance($cmid) {
+		global $DB;
+		$rec = $DB->get_record_sql("SELECT md.name
+				FROM {course_modules} cm,
+				{modules} md
+				WHERE cm.id = ? AND
+				md.id = cm.module", array($cmid));
 
-        if ($rec) {
-            return get_coursemodule_from_id($rec->name, $cmid);
-        } else {
-            return null;
-        }
-    }
+		if ($rec) {
+			return get_coursemodule_from_id($rec->name, $cmid);
+		} else {
+			return null;
+		}
+	}
 
-    /**
-     * Get criteria description for displaying to users
-     *
-     * @return string
-     */
-    public function get_details($short = '') {
-        global $DB, $OUTPUT;
-        $output = array();
-        foreach ($this->params as $p) {
-            $mod = self::get_mod_instance($p['module']);
-            if (!$mod) {
-                $str = $OUTPUT->error_text(get_string('error:nosuchmod', 'badges'));
-            } else {
-                $str = html_writer::tag('b', '"' . ucfirst($mod->modname) . ' - ' . $mod->name . '"');
-                if (isset($p['bydate'])) {
-                    $str .= get_string('criteria_descr_bydate', 'badges', userdate($p['bydate'], get_string('strftimedate', 'core_langconfig')));
-                }
-            }
-            $output[] = $str;
-        }
+	/**
+	 * Get criteria description for displaying to users
+	 *
+	 * @return string
+	 */
+	public function get_details($short = '') {
+		global $DB, $OUTPUT;
+		$output = array();
+		foreach ($this->params as $p) {
+			$mod = self::get_mod_instance($p['module']);
+			if (!$mod) {
+				$str = $OUTPUT->error_text(get_string('error:nosuchmod', 'badges'));
+			} else {
+				$str = html_writer::tag('b', '"' . ucfirst($mod->modname) . ' - ' . $mod->name . '"');
+				if (isset($p['bydate'])) {
+					$str .= get_string('criteria_descr_bydate', 'badges', userdate($p['bydate'], get_string('strftimedate', 'core_langconfig')));
+				}
+			}
+			$output[] = $str;
+		}
 
-        if ($short) {
-            return implode(', ', $output);
-        } else {
-            return html_writer::alist($output, array(), 'ul');
-        }
-    }
+		if ($short) {
+			return implode(', ', $output);
+		} else {
+			return html_writer::alist($output, array(), 'ul');
+		}
+	}
 
-    /**
-     * Add appropriate new criteria options to the form
-     *
-     */
-    public function get_options(&$mform) {
-        global $DB;
+	/**
+	 * Add appropriate new criteria options to the form
+	 *
+	 */
+	public function get_options(&$mform) {
+		global $DB;
 
-        $none = true;
-        $existing = array();
-        $missing = array();
+		$none = true;
+		$existing = array();
+		$missing = array();
 
-        $course = $DB->get_record('course', array('id' => $this->courseid));
-        $info = new completion_info($course);
-        $mods = $info->get_activities();
-        $mids = array_keys($mods);
+		$course = $DB->get_record('course', array('id' => $this->courseid));
+		$info = new completion_info($course);
+		$mods = $info->get_activities();
+		$mids = array_keys($mods);
 
-        if ($this->id !== 0) {
-            $existing = array_keys($this->params);
-            $missing = array_diff($existing, $mids);
-        }
+		if ($this->id !== 0) {
+			$existing = array_keys($this->params);
+			$missing = array_diff($existing, $mids);
+		}
 
-        if (!empty($missing)) {
-            $mform->addElement('header', 'category_errors', get_string('criterror', 'badges'));
-            $mform->addHelpButton('category_errors', 'criterror', 'badges');
-            foreach ($missing as $m) {
-                $this->config_options($mform, array('id' => $m, 'checked' => true,
-                        'name' => get_string('error:nosuchmod', 'badges'), 'error' => true));
-                $none = false;
-            }
-        }
+		if (!empty($missing)) {
+			$mform->addElement('header', 'category_errors', get_string('criterror', 'badges'));
+			$mform->addHelpButton('category_errors', 'criterror', 'badges');
+			foreach ($missing as $m) {
+				$this->config_options($mform, array('id' => $m, 'checked' => true,
+						'name' => get_string('error:nosuchmod', 'badges'), 'error' => true));
+				$none = false;
+			}
+		}
 
-        if (!empty($mods)) {
-            $mform->addElement('header', 'first_header', $this->get_title());
-            foreach ($mods as $mod) {
-                $checked = false;
-                if (in_array($mod->id, $existing)) {
-                    $checked = true;
-                }
-                $param = array('id' => $mod->id,
-                        'checked' => $checked,
-                        'name' => ucfirst($mod->modname) . ' - ' . $mod->name,
-                        'error' => false
-                        );
+		if (!empty($mods)) {
+			$mform->addElement('header', 'first_header', $this->get_title());
+			foreach ($mods as $mod) {
+				$checked = false;
+				if (in_array($mod->id, $existing)) {
+					$checked = true;
+				}
+				$param = array('id' => $mod->id,
+						'checked' => $checked,
+						'name' => ucfirst($mod->modname) . ' - ' . $mod->name,
+						'error' => false
+				);
 
-                if ($this->id !== 0 && isset($this->params[$mod->id]['bydate'])) {
-                    $param['bydate'] = $this->params[$mod->id]['bydate'];
-                }
+				if ($this->id !== 0 && isset($this->params[$mod->id]['bydate'])) {
+					$param['bydate'] = $this->params[$mod->id]['bydate'];
+				}
 
-                if ($this->id !== 0 && isset($this->params[$mod->id]['grade'])) {
-                    $param['grade'] = $this->params[$mod->id]['grade'];
-                }
+				if ($this->id !== 0 && isset($this->params[$mod->id]['grade'])) {
+					$param['grade'] = $this->params[$mod->id]['grade'];
+				}
 
-                $this->config_options($mform, $param);
-                $none = false;
-            }
-        }
+				$this->config_options($mform, $param);
+				$none = false;
+			}
+		}
 
-        // Add aggregation.
-        if (!$none) {
-            $mform->addElement('header', 'aggregation', get_string('method', 'badges'));
-            $agg = array();
-            $agg[] =& $mform->createElement('radio', 'agg', '', get_string('allmethodactivity', 'badges'), 1);
-            $agg[] =& $mform->createElement('radio', 'agg', '', get_string('anymethodactivity', 'badges'), 2);
-            $mform->addGroup($agg, 'methodgr', '', array('<br/>'), false);
-            if ($this->id !== 0) {
-                $mform->setDefault('agg', $this->method);
-            } else {
-                $mform->setDefault('agg', BADGE_CRITERIA_AGGREGATION_ANY);
-            }
-        }
+		// Add aggregation.
+		if (!$none) {
+			$mform->addElement('header', 'aggregation', get_string('method', 'badges'));
+			$agg = array();
+			$agg[] =& $mform->createElement('radio', 'agg', '', get_string('allmethodactivity', 'badges'), 1);
+			$agg[] =& $mform->createElement('radio', 'agg', '', get_string('anymethodactivity', 'badges'), 2);
+			$mform->addGroup($agg, 'methodgr', '', array('<br/>'), false);
+			if ($this->id !== 0) {
+				$mform->setDefault('agg', $this->method);
+			} else {
+				$mform->setDefault('agg', BADGE_CRITERIA_AGGREGATION_ANY);
+			}
+		}
 
-        return array($none, get_string('error:noactivities', 'badges'));
-    }
+		return array($none, get_string('error:noactivities', 'badges'));
+	}
 
-    /**
-     * Review this criteria and decide if it has been completed
-     *
-     * @param int $userid User whose criteria completion needs to be reviewed.
-     * @param bool $filtered An additional parameter indicating that user list
-     *        has been reduced and some expensive checks can be skipped.
-     *
-     * @return bool Whether criteria is complete
-     */
-    public function review($userid, $filtered = false) {
-        $completionstates = array(COMPLETION_COMPLETE, COMPLETION_COMPLETE_PASS);
-        $course = new stdClass();
-        $course->id = $this->courseid;
+	/**
+	 * Review this criteria and decide if it has been completed
+	 *
+	 * @param int $userid User whose criteria completion needs to be reviewed.
+	 * @param bool $filtered An additional parameter indicating that user list
+	 *        has been reduced and some expensive checks can be skipped.
+	 *
+	 * @return bool Whether criteria is complete
+	 */
+	public function review($userid, $filtered = false) {
+		$completionstates = array(COMPLETION_COMPLETE, COMPLETION_COMPLETE_PASS);
+		$course = new stdClass();
+		$course->id = $this->courseid;
 
-        if ($this->coursestartdate > time()) {
-            return false;
-        }
+		if ($this->coursestartdate > time()) {
+			return false;
+		}
 
-        $info = new completion_info($course);
+		$info = new completion_info($course);
 
-        $overall = false;
-        foreach ($this->params as $param) {
-            $cm = new stdClass();
-            $cm->id = $param['module'];
+		$overall = false;
+		foreach ($this->params as $param) {
+			$cm = new stdClass();
+			$cm->id = $param['module'];
 
-            $data = $info->get_data($cm, false, $userid);
-            $check_date = true;
+			$data = $info->get_data($cm, false, $userid);
+			$check_date = true;
 
-            if (isset($param['bydate'])) {
-                $date = $data->timemodified;
-                $check_date = ($date <= $param['bydate']);
-            }
+			if (isset($param['bydate'])) {
+				$date = $data->timemodified;
+				$check_date = ($date <= $param['bydate']);
+			}
 
-            if ($this->method == BADGE_CRITERIA_AGGREGATION_ALL) {
-                if (in_array($data->completionstate, $completionstates) && $check_date) {
-                    $overall = true;
-                    continue;
-                } else {
-                    return false;
-                }
-            } else {
-                if (in_array($data->completionstate, $completionstates) && $check_date) {
-                    return true;
-                } else {
-                    $overall = false;
-                    continue;
-                }
-            }
-        }
+			if ($this->method == BADGE_CRITERIA_AGGREGATION_ALL) {
+				if (in_array($data->completionstate, $completionstates) && $check_date) {
+					$overall = true;
+					continue;
+				} else {
+					return false;
+				}
+			} else {
+				if (in_array($data->completionstate, $completionstates) && $check_date) {
+					return true;
+				} else {
+					$overall = false;
+					continue;
+				}
+			}
+		}
 
-        return $overall;
-    }
+		return $overall;
+	}
 
-    /**
-     * Returns array with sql code and parameters returning all ids
-     * of users who meet this particular criterion.
-     *
-     * @return array list($join, $where, $params)
-     */
-    public function get_completed_criteria_sql() {
-        $join = '';
-        $where = '';
-        $params = array();
+	/**
+	 * Returns array with sql code and parameters returning all ids
+	 * of users who meet this particular criterion.
+	 *
+	 * @return array list($join, $where, $params)
+	 */
+	public function get_completed_criteria_sql() {
+		$join = '';
+		$where = '';
+		$params = array();
 
-        if ($this->method == BADGE_CRITERIA_AGGREGATION_ANY) {
-            foreach ($this->params as $param) {
-                $moduledata[] = " cmc.coursemoduleid = :completedmodule{$param['module']} ";
-                $params["completedmodule{$param['module']}"] = $param['module'];
-            }
-            if (!empty($moduledata)) {
-                $extraon = implode(' OR ', $moduledata);
-                $join = " JOIN {course_modules_completion} cmc ON cmc.userid = u.id AND
-                          ( cmc.completionstate = :completionpass OR cmc.completionstate = :completioncomplete ) AND ({$extraon})";
-                $params["completionpass"] = COMPLETION_COMPLETE_PASS;
-                $params["completioncomplete"] = COMPLETION_COMPLETE;
-            }
-            return array($join, $where, $params);
-        } else {
-            foreach ($this->params as $param) {
-                $join .= " LEFT JOIN {course_modules_completion} cmc{$param['module']} ON
-                          cmc{$param['module']}.userid = u.id AND
-                          cmc{$param['module']}.coursemoduleid = :completedmodule{$param['module']} AND
-                          ( cmc{$param['module']}.completionstate = :completionpass{$param['module']} OR
-                            cmc{$param['module']}.completionstate = :completioncomplete{$param['module']} )";
-                $where .= " AND cmc{$param['module']}.coursemoduleid IS NOT NULL ";
-                $params["completedmodule{$param['module']}"] = $param['module'];
-                $params["completionpass{$param['module']}"] = COMPLETION_COMPLETE_PASS;
-                $params["completioncomplete{$param['module']}"] = COMPLETION_COMPLETE;
-            }
-            return array($join, $where, $params);
-        }
-    }
+		if ($this->method == BADGE_CRITERIA_AGGREGATION_ANY) {
+			foreach ($this->params as $param) {
+				$moduledata[] = " cmc.coursemoduleid = :completedmodule{$param['module']} ";
+				$params["completedmodule{$param['module']}"] = $param['module'];
+			}
+			if (!empty($moduledata)) {
+				$extraon = implode(' OR ', $moduledata);
+				$join = " JOIN {course_modules_completion} cmc ON cmc.userid = u.id AND
+				( cmc.completionstate = :completionpass OR cmc.completionstate = :completioncomplete ) AND ({$extraon})";
+				$params["completionpass"] = COMPLETION_COMPLETE_PASS;
+				$params["completioncomplete"] = COMPLETION_COMPLETE;
+			}
+			return array($join, $where, $params);
+		} else {
+			foreach ($this->params as $param) {
+				$join .= " LEFT JOIN {course_modules_completion} cmc{$param['module']} ON
+				cmc{$param['module']}.userid = u.id AND
+				cmc{$param['module']}.coursemoduleid = :completedmodule{$param['module']} AND
+				( cmc{$param['module']}.completionstate = :completionpass{$param['module']} OR
+				cmc{$param['module']}.completionstate = :completioncomplete{$param['module']} )";
+				$where .= " AND cmc{$param['module']}.coursemoduleid IS NOT NULL ";
+				$params["completedmodule{$param['module']}"] = $param['module'];
+				$params["completionpass{$param['module']}"] = COMPLETION_COMPLETE_PASS;
+				$params["completioncomplete{$param['module']}"] = COMPLETION_COMPLETE;
+			}
+			return array($join, $where, $params);
+		}
+	}
 }

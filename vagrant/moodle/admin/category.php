@@ -42,11 +42,11 @@ $adminroot = admin_get_root(); // need all settings
 $settingspage = $adminroot->locate($category, true);
 
 if (empty($settingspage) or !($settingspage instanceof admin_category)) {
-    print_error('categoryerror', 'admin', "$CFG->wwwroot/$CFG->admin/");
+	print_error('categoryerror', 'admin', "$CFG->wwwroot/$CFG->admin/");
 }
 
 if (!($settingspage->check_access())) {
-    print_error('accessdenied', 'admin');
+	print_error('accessdenied', 'admin');
 }
 
 
@@ -54,74 +54,74 @@ $statusmsg = '';
 $errormsg  = '';
 
 if ($data = data_submitted() and confirm_sesskey()) {
-    if (admin_write_settings($data)) {
-        $statusmsg = get_string('changessaved');
-    }
+	if (admin_write_settings($data)) {
+		$statusmsg = get_string('changessaved');
+	}
 
-    if (empty($adminroot->errors)) {
-        switch ($return) {
-            case 'site': redirect("$CFG->wwwroot/");
-            case 'admin': redirect("$CFG->wwwroot/$CFG->admin/");
-        }
-    } else {
-        $errormsg = get_string('errorwithsettings', 'admin');
-        $firsterror = reset($adminroot->errors);
-    }
-    $settingspage = $adminroot->locate($category, true);
+	if (empty($adminroot->errors)) {
+		switch ($return) {
+			case 'site': redirect("$CFG->wwwroot/");
+			case 'admin': redirect("$CFG->wwwroot/$CFG->admin/");
+		}
+	} else {
+		$errormsg = get_string('errorwithsettings', 'admin');
+		$firsterror = reset($adminroot->errors);
+	}
+	$settingspage = $adminroot->locate($category, true);
 }
 
 if ($PAGE->user_allowed_editing() && $adminediting != -1) {
-    $USER->editing = $adminediting;
+	$USER->editing = $adminediting;
 }
 
 if ($PAGE->user_allowed_editing()) {
-    $url = clone($PAGE->url);
-    if ($PAGE->user_is_editing()) {
-        $caption = get_string('blockseditoff');
-        $url->param('adminedit', 'off');
-    } else {
-        $caption = get_string('blocksediton');
-        $url->param('adminedit', 'on');
-    }
-    $buttons = $OUTPUT->single_button($url, $caption, 'get');
+	$url = clone($PAGE->url);
+	if ($PAGE->user_is_editing()) {
+		$caption = get_string('blockseditoff');
+		$url->param('adminedit', 'off');
+	} else {
+		$caption = get_string('blocksediton');
+		$url->param('adminedit', 'on');
+	}
+	$buttons = $OUTPUT->single_button($url, $caption, 'get');
 }
 
 $savebutton = false;
 $outputhtml = '';
 foreach ($settingspage->children as $childpage) {
-    if ($childpage->is_hidden()) {
-        continue;
-    }
-    if ($childpage instanceof admin_externalpage) {
-        $outputhtml .= $OUTPUT->heading(html_writer::link($childpage->url, $childpage->visiblename), 3);
-    } else if ($childpage instanceof admin_settingpage) {
-        $outputhtml .= $OUTPUT->heading(html_writer::link(new moodle_url('/'.$CFG->admin.'/settings.php', array('section' => $childpage->name)), $childpage->visiblename), 3);
-        // If its a settings page and has settings lets display them.
-        if (!empty($childpage->settings)) {
-            $outputhtml .= html_writer::start_tag('fieldset', array('class' => 'adminsettings'));
-            foreach ($childpage->settings as $setting) {
-                if (empty($setting->nosave)) {
-                    $savebutton = true;
-                }
-                $fullname = $setting->get_full_name();
-                if (array_key_exists($fullname, $adminroot->errors)) {
-                    $data = $adminroot->errors[$fullname]->data;
-                } else {
-                    $data = $setting->get_setting();
-                }
-                $outputhtml .= html_writer::tag('div', '<!-- -->', array('class' => 'clearer'));
-                $outputhtml .= $setting->output_html($data);
-            }
-            $outputhtml .= html_writer::end_tag('fieldset');
-        }
-    } else if ($childpage instanceof admin_category) {
-        $outputhtml .= $OUTPUT->heading(html_writer::link(new moodle_url('/'.$CFG->admin.'/category.php', array('category' => $childpage->name)), get_string('admincategory', 'admin', $childpage->visiblename)), 3);
-    }
+	if ($childpage->is_hidden()) {
+		continue;
+	}
+	if ($childpage instanceof admin_externalpage) {
+		$outputhtml .= $OUTPUT->heading(html_writer::link($childpage->url, $childpage->visiblename), 3);
+	} else if ($childpage instanceof admin_settingpage) {
+		$outputhtml .= $OUTPUT->heading(html_writer::link(new moodle_url('/'.$CFG->admin.'/settings.php', array('section' => $childpage->name)), $childpage->visiblename), 3);
+		// If its a settings page and has settings lets display them.
+		if (!empty($childpage->settings)) {
+			$outputhtml .= html_writer::start_tag('fieldset', array('class' => 'adminsettings'));
+			foreach ($childpage->settings as $setting) {
+				if (empty($setting->nosave)) {
+					$savebutton = true;
+				}
+				$fullname = $setting->get_full_name();
+				if (array_key_exists($fullname, $adminroot->errors)) {
+					$data = $adminroot->errors[$fullname]->data;
+				} else {
+					$data = $setting->get_setting();
+				}
+				$outputhtml .= html_writer::tag('div', '<!-- -->', array('class' => 'clearer'));
+				$outputhtml .= $setting->output_html($data);
+			}
+			$outputhtml .= html_writer::end_tag('fieldset');
+		}
+	} else if ($childpage instanceof admin_category) {
+		$outputhtml .= $OUTPUT->heading(html_writer::link(new moodle_url('/'.$CFG->admin.'/category.php', array('category' => $childpage->name)), get_string('admincategory', 'admin', $childpage->visiblename)), 3);
+	}
 }
 if ($savebutton) {
-    $outputhtml .= html_writer::start_tag('div', array('class' => 'form-buttons'));
-    $outputhtml .= html_writer::empty_tag('input', array('class' => 'form-submit', 'type' => 'submit', 'value' => get_string('savechanges','admin')));
-    $outputhtml .= html_writer::end_tag('div');
+	$outputhtml .= html_writer::start_tag('div', array('class' => 'form-buttons'));
+	$outputhtml .= html_writer::empty_tag('input', array('class' => 'form-submit', 'type' => 'submit', 'value' => get_string('savechanges','admin')));
+	$outputhtml .= html_writer::end_tag('div');
 }
 
 $visiblepathtosection = array_reverse($settingspage->visiblepath);
@@ -132,16 +132,16 @@ $PAGE->set_button($buttons);
 echo $OUTPUT->header();
 
 if ($errormsg !== '') {
-    echo $OUTPUT->notification($errormsg);
+	echo $OUTPUT->notification($errormsg);
 } else if ($statusmsg !== '') {
-    echo $OUTPUT->notification($statusmsg, 'notifysuccess');
+	echo $OUTPUT->notification($statusmsg, 'notifysuccess');
 }
 
 $path = array_reverse($settingspage->visiblepath);
 if (is_array($path)) {
-    $visiblename = join(' / ', $path);
+	$visiblename = join(' / ', $path);
 } else {
-    $visiblename = $path;
+	$visiblename = $path;
 }
 echo $OUTPUT->heading(get_string('admincategory', 'admin', $visiblename), 2);
 

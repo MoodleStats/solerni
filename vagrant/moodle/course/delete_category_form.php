@@ -25,8 +25,8 @@
  * @deprecated since 2.6
  * @package core_course
  * @copyright 2002 onwards Martin Dougiamas (http://dougiamas.com)
- * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+* @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+*/
 
 defined('MOODLE_INTERNAL') || die;
 
@@ -43,6 +43,6 @@ defined('MOODLE_INTERNAL') || die;
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class delete_category_form extends core_course_deletecategory_form {
-    // Nothing to do here.
+	// Nothing to do here.
 }
 

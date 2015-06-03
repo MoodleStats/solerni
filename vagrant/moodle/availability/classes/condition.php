@@ -54,137 +54,137 @@ defined('MOODLE_INTERNAL') || die();
  */
 abstract class condition extends tree_node {
 
-    /**
-     * Determines whether a particular item is currently available
-     * according to this availability condition.
-     *
-     * If implementations require a course or modinfo, they should use
-     * the get methods in $info.
-     *
-     * The $not option is potentially confusing. This option always indicates
-     * the 'real' value of NOT. For example, a condition inside a 'NOT AND'
-     * group will get this called with $not = true, but if you put another
-     * 'NOT OR' group inside the first group, then a condition inside that will
-     * be called with $not = false. We need to use the real values, rather than
-     * the more natural use of the current value at this point inside the tree,
-     * so that the information displayed to users makes sense.
-     *
-     * @param bool $not Set true if we are inverting the condition
-     * @param info $info Item we're checking
-     * @param bool $grabthelot Performance hint: if true, caches information
-     *   required for all course-modules, to make the front page and similar
-     *   pages work more quickly (works only for current user)
-     * @param int $userid User ID to check availability for
-     * @return bool True if available
-     */
-    public abstract function is_available($not, info $info, $grabthelot, $userid);
+	/**
+	 * Determines whether a particular item is currently available
+	 * according to this availability condition.
+	 *
+	 * If implementations require a course or modinfo, they should use
+	 * the get methods in $info.
+	 *
+	 * The $not option is potentially confusing. This option always indicates
+	 * the 'real' value of NOT. For example, a condition inside a 'NOT AND'
+	 * group will get this called with $not = true, but if you put another
+	 * 'NOT OR' group inside the first group, then a condition inside that will
+	 * be called with $not = false. We need to use the real values, rather than
+	 * the more natural use of the current value at this point inside the tree,
+	 * so that the information displayed to users makes sense.
+	 *
+	 * @param bool $not Set true if we are inverting the condition
+	 * @param info $info Item we're checking
+	 * @param bool $grabthelot Performance hint: if true, caches information
+	 *   required for all course-modules, to make the front page and similar
+	 *   pages work more quickly (works only for current user)
+	 * @param int $userid User ID to check availability for
+	 * @return bool True if available
+	 */
+	public abstract function is_available($not, info $info, $grabthelot, $userid);
 
-    public function check_available($not, info $info, $grabthelot, $userid) {
-        // Use is_available, and we always display (at this stage).
-        $allow = $this->is_available($not, $info, $grabthelot, $userid);
-        return new result($allow, $this);
-    }
+	public function check_available($not, info $info, $grabthelot, $userid) {
+		// Use is_available, and we always display (at this stage).
+		$allow = $this->is_available($not, $info, $grabthelot, $userid);
+		return new result($allow, $this);
+	}
 
-    public function is_available_for_all($not = false) {
-        // Default is that all conditions may make something unavailable.
-        return false;
-    }
+	public function is_available_for_all($not = false) {
+		// Default is that all conditions may make something unavailable.
+		return false;
+	}
 
-    /**
-     * Display a representation of this condition (used for debugging).
-     *
-     * @return string Text representation of condition
-     */
-    public function __toString() {
-        return '{' . $this->get_type() . ':' . $this->get_debug_string() . '}';
-    }
+	/**
+	 * Display a representation of this condition (used for debugging).
+	 *
+	 * @return string Text representation of condition
+	 */
+	public function __toString() {
+		return '{' . $this->get_type() . ':' . $this->get_debug_string() . '}';
+	}
 
-    /**
-     * Gets the type name (e.g. 'date' for availability_date) of plugin.
-     *
-     * @return string The type name for this plugin
-     */
-    protected function get_type() {
-        return preg_replace('~^availability_(.*?)\\\\condition$~', '$1', get_class($this));
-    }
+	/**
+	 * Gets the type name (e.g. 'date' for availability_date) of plugin.
+	 *
+	 * @return string The type name for this plugin
+	 */
+	protected function get_type() {
+		return preg_replace('~^availability_(.*?)\\\\condition$~', '$1', get_class($this));
+	}
 
-    /**
-     * Obtains a string describing this restriction (whether or not
-     * it actually applies). Used to obtain information that is displayed to
-     * students if the activity is not available to them, and for staff to see
-     * what conditions are.
-     *
-     * The $full parameter can be used to distinguish between 'staff' cases
-     * (when displaying all information about the activity) and 'student' cases
-     * (when displaying only conditions they don't meet).
-     *
-     * If implementations require a course or modinfo, they should use
-     * the get methods in $info.
-     *
-     * The special string <AVAILABILITY_CMNAME_123/> can be returned, where
-     * 123 is any number. It will be replaced with the correctly-formatted
-     * name for that activity.
-     *
-     * @param bool $full Set true if this is the 'full information' view
-     * @param bool $not Set true if we are inverting the condition
-     * @param info $info Item we're checking
-     * @return string Information string (for admin) about all restrictions on
-     *   this item
-     */
-    public abstract function get_description($full, $not, info $info);
+	/**
+	 * Obtains a string describing this restriction (whether or not
+	 * it actually applies). Used to obtain information that is displayed to
+	 * students if the activity is not available to them, and for staff to see
+	 * what conditions are.
+	 *
+	 * The $full parameter can be used to distinguish between 'staff' cases
+	 * (when displaying all information about the activity) and 'student' cases
+	 * (when displaying only conditions they don't meet).
+	 *
+	 * If implementations require a course or modinfo, they should use
+	 * the get methods in $info.
+	 *
+	 * The special string <AVAILABILITY_CMNAME_123/> can be returned, where
+	 * 123 is any number. It will be replaced with the correctly-formatted
+	 * name for that activity.
+	 *
+	 * @param bool $full Set true if this is the 'full information' view
+	 * @param bool $not Set true if we are inverting the condition
+	 * @param info $info Item we're checking
+	 * @return string Information string (for admin) about all restrictions on
+	 *   this item
+	 */
+	public abstract function get_description($full, $not, info $info);
 
-    /**
-     * Obtains a string describing this restriction, used when there is only
-     * a single restriction to display. (I.e. this provides a 'short form'
-     * rather than showing in a list.)
-     *
-     * Default behaviour sticks the prefix text, normally displayed above
-     * the list, in front of the standard get_description call.
-     *
-     * If implementations require a course or modinfo, they should use
-     * the get methods in $info.
-     *
-     * The special string <AVAILABILITY_CMNAME_123/> can be returned, where
-     * 123 is any number. It will be replaced with the correctly-formatted
-     * name for that activity.
-     *
-     * @param bool $full Set true if this is the 'full information' view
-     * @param bool $not Set true if we are inverting the condition
-     * @param info $info Item we're checking
-     * @return string Information string (for admin) about all restrictions on
-     *   this item
-     */
-    public function get_standalone_description($full, $not, info $info) {
-        return get_string('list_root_and', 'availability') . ' ' .
-                $this->get_description($full, $not, $info);
-    }
+	/**
+	 * Obtains a string describing this restriction, used when there is only
+	 * a single restriction to display. (I.e. this provides a 'short form'
+	 * rather than showing in a list.)
+	 *
+	 * Default behaviour sticks the prefix text, normally displayed above
+	 * the list, in front of the standard get_description call.
+	 *
+	 * If implementations require a course or modinfo, they should use
+	 * the get methods in $info.
+	 *
+	 * The special string <AVAILABILITY_CMNAME_123/> can be returned, where
+	 * 123 is any number. It will be replaced with the correctly-formatted
+	 * name for that activity.
+	 *
+	 * @param bool $full Set true if this is the 'full information' view
+	 * @param bool $not Set true if we are inverting the condition
+	 * @param info $info Item we're checking
+	 * @return string Information string (for admin) about all restrictions on
+	 *   this item
+	 */
+	public function get_standalone_description($full, $not, info $info) {
+		return get_string('list_root_and', 'availability') . ' ' .
+				$this->get_description($full, $not, $info);
+	}
 
-    /**
-     * Obtains a representation of the options of this condition as a string,
-     * for debugging.
-     *
-     * @return string Text representation of parameters
-     */
-    protected abstract function get_debug_string();
+	/**
+	 * Obtains a representation of the options of this condition as a string,
+	 * for debugging.
+	 *
+	 * @return string Text representation of parameters
+	 */
+	protected abstract function get_debug_string();
 
-    public function update_dependency_id($table, $oldid, $newid) {
-        // By default, assumes there are no dependent ids.
-        return false;
-    }
+	public function update_dependency_id($table, $oldid, $newid) {
+		// By default, assumes there are no dependent ids.
+		return false;
+	}
 
-    /**
-     * If the plugin has been configured to rely on a particular activity's
-     * completion value, it should return true here. (This is necessary so that
-     * we know the course page needs to update when that activity becomes
-     * complete.)
-     *
-     * Default implementation returns false.
-     *
-     * @param \stdClass $course Moodle course object
-     * @param int $cmid ID of activity whose completion value is considered
-     * @return boolean True if the availability of something else may rely on it
-     */
-    public static function completion_value_used($course, $cmid) {
-        return false;
-    }
+	/**
+	 * If the plugin has been configured to rely on a particular activity's
+	 * completion value, it should return true here. (This is necessary so that
+	 * we know the course page needs to update when that activity becomes
+	 * complete.)
+	 *
+	 * Default implementation returns false.
+	 *
+	 * @param \stdClass $course Moodle course object
+	 * @param int $cmid ID of activity whose completion value is considered
+	 * @return boolean True if the availability of something else may rely on it
+	 */
+	public static function completion_value_used($course, $cmid) {
+		return false;
+	}
 }

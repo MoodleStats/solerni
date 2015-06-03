@@ -41,26 +41,26 @@ admin_externalpage_setup('mnetpeers');
 $form = new mnet_profile_form(null, array('hostid' => $hostid));
 
 if ($data = $form->get_data()) {
-    if (!isset($data->importdefault)) {
-        $data->importdefault = 0;
-    }
-    if (!isset($data->exportdefault)) {
-        $data->exportdefault = 0;
-    }
-    if (!isset($data->importfields)) {
-        $data->importfields = array();
-    }
-    if (!isset($data->exportfields)) {
-        $data->exportfields = array();
-    }
-    set_config('host' . $hostid . 'importdefault', $data->importdefault, 'mnet');
-    set_config('host' . $hostid . 'importfields', implode(',', $data->importfields), 'mnet');
-    set_config('host' . $hostid . 'exportdefault', $data->exportdefault, 'mnet');
-    set_config('host' . $hostid . 'exportfields', implode(',', $data->exportfields), 'mnet');
+	if (!isset($data->importdefault)) {
+		$data->importdefault = 0;
+	}
+	if (!isset($data->exportdefault)) {
+		$data->exportdefault = 0;
+	}
+	if (!isset($data->importfields)) {
+		$data->importfields = array();
+	}
+	if (!isset($data->exportfields)) {
+		$data->exportfields = array();
+	}
+	set_config('host' . $hostid . 'importdefault', $data->importdefault, 'mnet');
+	set_config('host' . $hostid . 'importfields', implode(',', $data->importfields), 'mnet');
+	set_config('host' . $hostid . 'exportdefault', $data->exportdefault, 'mnet');
+	set_config('host' . $hostid . 'exportfields', implode(',', $data->exportfields), 'mnet');
 
-    redirect(new moodle_url('/admin/mnet/peers.php'), get_string('changessaved'));
+	redirect(new moodle_url('/admin/mnet/peers.php'), get_string('changessaved'));
 } elseif ($form->is_cancelled()) {
-    redirect(new moodle_url('/admin/mnet/peers.php', array('hostid' => $hostid)));
+	redirect(new moodle_url('/admin/mnet/peers.php', array('hostid' => $hostid)));
 }
 
 echo $OUTPUT->header();
@@ -77,14 +77,14 @@ $data->importfields = get_config('mnet', 'host' . $hostid . 'importfields');
 $data->exportfields = get_config('mnet', 'host' . $hostid . 'exportfields');
 
 if ($data->importfields === false) {
-    $data->importdefault = true;
+	$data->importdefault = true;
 } else {
-    $data->importfields = explode(',', $data->importfields);
+	$data->importfields = explode(',', $data->importfields);
 }
 if ($data->exportfields === false) {
-    $data->exportdefault = true;
+	$data->exportdefault = true;
 } else {
-    $data->exportfields = explode(',', $data->exportfields);
+	$data->exportfields = explode(',', $data->exportfields);
 }
 
 $form->set_data($data);

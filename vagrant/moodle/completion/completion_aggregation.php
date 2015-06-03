@@ -39,81 +39,82 @@ require_once($CFG->dirroot.'/completion/data_object.php');
  */
 class completion_aggregation extends data_object {
 
-    /* @var string Database table name that stores completion aggregation information */
-    public $table = 'course_completion_aggr_methd';
+	/* @var string Database table name that stores completion aggregation information */
+	public $table = 'course_completion_aggr_methd';
 
-    /**
-     * Array of required table fields, must start with 'id'.
-     * Defaults to id, course, criteriatype, method, value
-     * @var array
-     */
-    public $required_fields = array('id', 'course', 'criteriatype', 'method', 'value');
+	/**
+	 * Array of required table fields, must start with 'id'.
+	 * Defaults to id, course, criteriatype, method, value
+	 * @var array
+	 */
+	public $required_fields = array('id', 'course', 'criteriatype', 'method', 'value');
 
-    /* @var array Array of unique fields, used in where clauses */
-    public $unique_fields = array('course', 'criteriatype');
+	/* @var array Array of unique fields, used in where clauses */
+	public $unique_fields = array('course', 'criteriatype');
 
-    /* @var int Course id */
-    public $course;
+	/* @var int Course id */
+	public $course;
 
-    /* @var int Criteria type this aggregation method applies to, or NULL for overall course aggregation */
-    public $criteriatype;
+	/* @var int Criteria type this aggregation method applies to, or NULL for overall course aggregation */
+	public $criteriatype;
 
-    /* @var int Aggregation method (COMPLETION_AGGREGATION_* constant) */
-    public $method;
+	/* @var int Aggregation method (COMPLETION_AGGREGATION_* constant) */
+	public $method;
 
-    /* @var mixed Method value */
-    public $value;
-
-
-    /**
-     * Finds and returns a data_object instance based on params.
-     *
-     * @param array $params associative arrays varname=>value
-     * @return data_object instance of data_object or false if none found.
-     */
-    public static function fetch($params) {
-        return self::fetch_helper('course_completion_aggr_methd', __CLASS__, $params);
-    }
+	/* @var mixed Method value */
+	public $value;
 
 
-    /**
-     * Finds and returns all data_object instances based on params.
-     *
-     * @param array $params associative arrays varname=>value
-     * @return array array of data_object insatnces or false if none found.
-     */
-    public static function fetch_all($params) {}
-
-    /**
-     * Set the aggregation method
-     *
-     * @param int $method One of COMPLETION_AGGREGATION_ALL or COMPLETION_AGGREGATION_ANY
-     */
-    public function setMethod($method) {
-        $methods = array(
-            COMPLETION_AGGREGATION_ALL,
-            COMPLETION_AGGREGATION_ANY,
-        );
-
-        if (in_array($method, $methods)) {
-            $this->method = $method;
-        } else {
-            $this->method = COMPLETION_AGGREGATION_ALL;
-        }
-    }
+	/**
+	 * Finds and returns a data_object instance based on params.
+	 *
+	 * @param array $params associative arrays varname=>value
+	 * @return data_object instance of data_object or false if none found.
+	 */
+	public static function fetch($params) {
+		return self::fetch_helper('course_completion_aggr_methd', __CLASS__, $params);
+	}
 
 
-    /**
-     * Save aggregation method to database
-     *
-     * @access  public
-     * @return  boolean
-     */
-    public function save() {
-        if ($this->id) {
-            return $this->update();
-        } else {
-            return $this->insert();
-        }
-    }
+	/**
+	 * Finds and returns all data_object instances based on params.
+	 *
+	 * @param array $params associative arrays varname=>value
+	 * @return array array of data_object insatnces or false if none found.
+	 */
+	public static function fetch_all($params) {
+	}
+
+	/**
+	 * Set the aggregation method
+	 *
+	 * @param int $method One of COMPLETION_AGGREGATION_ALL or COMPLETION_AGGREGATION_ANY
+	 */
+	public function setMethod($method) {
+		$methods = array(
+				COMPLETION_AGGREGATION_ALL,
+				COMPLETION_AGGREGATION_ANY,
+		);
+
+		if (in_array($method, $methods)) {
+			$this->method = $method;
+		} else {
+			$this->method = COMPLETION_AGGREGATION_ALL;
+		}
+	}
+
+
+	/**
+	 * Save aggregation method to database
+	 *
+	 * @access  public
+	 * @return  boolean
+	 */
+	public function save() {
+		if ($this->id) {
+			return $this->update();
+		} else {
+			return $this->insert();
+		}
+	}
 }
