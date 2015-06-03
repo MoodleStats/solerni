@@ -126,3 +126,33 @@ $string['login']                        = 'Connexion';
 $string['hello']                        = 'Bonjour';
 $string['dashboard']                    = 'Tableau de bord';
 $string['administration']               = 'Administration';
+
+$string['filterstatustitle']        = 'Statuts';
+$string['filterstatusall']          = 'Tous les MOOCs';
+$string['filterstatusinprogress']   = 'En cours';
+$string['filterstatuscomingsoon']   = 'A venir';
+$string['filterstatuscomplete']     = 'Terminé';
+
+$string['filterthematictitle']      = 'Thématique';
+$string['filterthematicall']        = 'Toutes les thématiques';
+
+$string['filtercategorytitle']      = 'Entreprise';
+$string['filtercategoryall']        = 'Toutes les entreprises';
+
+$string['filterdurationtitle']      = 'Durée';
+$string['filterdurationall']        = 'Toutes les durées';
+$string['filterdurationless4']      = 'Moins de 4 semaines';
+$string['filterdurationfrom4to6']   = 'De 4 à 6 semaines';
+$string['filterdurationmore6']      = 'Plus de 6 semaines';
+
+$string['courseproposedby']         = "Proposé par";
+$string['coursefindoutmore']        = "En savoir +";
+$string['coursestartdate']          = "Début le";
+$string['courseenddate']            = "Fin le";
+$string['coursebadge']              = "Badgeant";
+$string['coursenobadge']            = "Non badgeant";
+
+$string['catalognresults']          = "Résultats trouvés";
+$string['catalog0result']           = "Pas de résultat";
+$string['catalog1result']           = "Résultat trouvé";
+
