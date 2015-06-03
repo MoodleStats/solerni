@@ -25,11 +25,15 @@
 require('../../config.php');
 require($CFG->dirroot . '/enrol/orangeinvitation/locallib.php');
 
+// Get parameter before login redirection and set cookie.
+// The cookie is needed to support the platform inscription process with email validation.
+$enrolinvitationtoken = required_param('enrolinvitationtoken', PARAM_ALPHANUM);
+$id = required_param('id', PARAM_INT);
+setcookie ( 'MoodleEnrolToken', rc4encrypt($enrolinvitationtoken.'-'.$id), time()+3600, '/');
+
 require_login();
 
 // Check if param token exist.
-$enrolinvitationtoken = required_param('enrolinvitationtoken', PARAM_ALPHANUM);
-
 if (!empty($enrolinvitationtoken)) {
 
     $id = required_param('id', PARAM_INT);
@@ -56,5 +60,8 @@ if (!empty($enrolinvitationtoken)) {
     } else {
         $courseurl = new moodle_url('/');
     }
+    
+    // The user is loggedin, then delete the cookie.
+    setcookie ( 'MoodleEnrolToken', '', time()-3600, '/');
     redirect($courseurl, $message);
 }
