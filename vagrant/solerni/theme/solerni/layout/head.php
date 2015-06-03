@@ -28,4 +28,5 @@
     <?php echo $OUTPUT->standard_head_html() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type='text/css' />
+    <link href="/theme/solerni/style/catalogue.css" rel="stylesheet" type='text/css' />
 </head>
