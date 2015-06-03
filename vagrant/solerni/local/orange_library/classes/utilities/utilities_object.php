@@ -90,4 +90,44 @@ class utilities_object {
         $nbenrolledusers = count ($enrolledusers);
         return $nbenrolledusers;
     }
+
+
+    /**
+     * Set the extended course values from config.
+     *
+     * @param object $context
+     * @return object $this->extendedcourse
+     */
+    public function get_categoryid() {
+        global $PAGE, $DB;
+         $context = $PAGE->context;
+        $coursecontext = $context->get_course_context();
+        $categoryid = null;
+        if ($coursecontext) { // No course context for system / user profile
+            $courseid = $coursecontext->instanceid;
+            $course = $DB->get_record('course', array('id' => $courseid), 'id, category');
+            if ($course) { // Should always exist, but just in case ...
+                $categoryid = $course->category;
+            }
+        }
+        return $categoryid;
+    }
+
+    /**
+     * Set the extended course values from config.
+     *
+     * @param object $context
+     * @return object $this->extendedcourse
+     */
+    public function get_categoryid_by_courseid($courseid) {
+        global $DB;
+        $categoryid = NULL;
+        $course = $DB->get_record('course', array('id' => $courseid), 'id, category');
+        if ($course) { // Should always exist, but just in case ...
+            $categoryid = $course->category;
+        }
+        return $categoryid;
+    }
+
+
 }

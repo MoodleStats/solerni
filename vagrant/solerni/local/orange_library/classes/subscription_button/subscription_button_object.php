@@ -34,7 +34,7 @@ class subscription_button_object {
 
     public function init($course, $context) {
         $extendedcourse = new extended_course_object();
-        $extendedcourse->get_extended_course($course->id, $context);
+        $extendedcourse->get_extended_course($course, $context);
     }
     /**
      *  Set the button in the block.
@@ -48,7 +48,7 @@ class subscription_button_object {
         $text = "";
         $date = new DateTime();
         $extendedcourse = new extended_course_object();
-        $extendedcourse->get_extended_course($course->id, $context);
+        $extendedcourse->get_extended_course($course, $context);
         $selfenrolment = new enrollment_object();
         $instance = $selfenrolment->get_self_enrolment($course);
 

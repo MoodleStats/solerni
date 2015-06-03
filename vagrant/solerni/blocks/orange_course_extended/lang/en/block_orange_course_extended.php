@@ -132,7 +132,7 @@ $string['price_case2'] = 'free mooc<br>certification in option';
 $string['price_case3'] = 'professional teaching';
 
 $string['certification'] = 'Certification';
-$string['certification_default'] = '<br>ATTESTATION DE REUSSITE';
+$string['certification_default'] = '<br>Certificate of achievement';
 $string['certification_help'] = 'No Certification';
 
 $string['language'] = 'Language: ';

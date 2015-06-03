@@ -24,7 +24,7 @@
 namespace local_orange_library\extended_course;
 
 use local_orange_library\utilities\utilities_object;
-
+use local_orange_library\enrollment\enrollment_object;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -165,8 +165,14 @@ class extended_course_object {
      * @param moodle_url $imgurl
      * @return object $this->extendedcourse
      */
-    public function get_extended_course ($courseid, $context) {
+    public function get_extended_course ($course, $context) {
         global $DB;
+        $utilities = new utilities_object();
+        $courseid = $course->id;
+        $categoryid = $utilities->get_categoryid_by_courseid($courseid);
+        $customer = customer_get_customerbycategoryid($categoryid);
+        $selfenrolment = new enrollment_object();
+        $instance = $selfenrolment->get_self_enrolment($course);
 
         if ($courseid) {
             $extendedcourseflexpagevalues = $DB->get_records('course_format_options', array('courseid' => $courseid));
@@ -176,6 +182,14 @@ class extended_course_object {
                 }
             }
             $this->enrolledusers = count_enrolled_users($context);
+            if($customer){
+            $this->registrationcompany = $customer->name;
+
+            }
+            $this->enrolstartdate = $instance->enrolstartdate;
+            $this->enrolenddate = $instance->enrolenddate;
+            $this->maxregisteredusers = $instance->customint3;
+
         }
     }
 
@@ -189,6 +203,7 @@ class extended_course_object {
      */
     private function set_extended_course ($extendedcourseflexpagevalue) {
         $utilities = new utilities_object();
+
         switch ($extendedcourseflexpagevalue->name) {
             case 'coursereplay':
                 if ($extendedcourseflexpagevalue->value == 0) {
@@ -253,18 +268,6 @@ class extended_course_object {
             case 'courseduration':
                 $this->duration = $utilities->duration_to_time($extendedcourseflexpagevalue->value);
                 break;
-            case 'courseregistrationcompany':
-                    $this->registrationcompany = $extendedcourseflexpagevalue->value;
-                break;
-            case 'coursemaxregisteredusers':
-                    $this->maxregisteredusers = $extendedcourseflexpagevalue->value;
-                break;
-            case 'courseregistrationstartdate':
-                $this->registrationstartdate = $extendedcourseflexpagevalue->value;
-                break;
-            case 'courseregistrationenddate':
-                $this->registrationenddate = $extendedcourseflexpagevalue->value;
-                break;
             case 'courseregistration':
                 $this->registration = $extendedcourseflexpagevalue->value;
                 break;
@@ -287,4 +290,5 @@ class extended_course_object {
         }
         return $this->extendedcourse->language;
     }
+
 }

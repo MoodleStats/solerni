@@ -22,7 +22,9 @@
  */
 use local_orange_library\extended_course\extended_course_object;
 use local_orange_library\subscription_button\subscription_button_object;
-use local_orange_library\enrollment\enrollment_object;
+
+
+require_once($CFG->dirroot . '/local/orange_customers/lib.php');
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -31,7 +33,7 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
 
     public function init($context, $course) {
         $extendedcourse = new extended_course_object();
-        $extendedcourse->get_extended_course($course->id, $context);
+        $extendedcourse->get_extended_course($course, $context);
     }
 
     /**
@@ -44,11 +46,9 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
      */
     public function get_text($imgurl, $course, $context) {
 
-        $selfenrolment = new enrollment_object();
-        $instance = $selfenrolment->get_self_enrolment($course);
-
         $extendedcourse = new extended_course_object();
-        $extendedcourse->get_extended_course($course->id, $context);
+        $extendedcourse->get_extended_course($course, $context);
+
         $subscriptionbutton = new subscription_button_object();
         $text = html_writer::start_tag('div', array('class' => 'sider'));
         $language = get_string('french', 'format_flexpage');
@@ -95,11 +95,11 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
                         $text .= html_writer::end_tag('i');
                         $text .= html_writer::tag('span', get_string('certification', 'format_flexpage'));
                         $text .= html_writer::empty_tag('br');
-            if (!empty($extendedcourse->badge)) {
-                        $text .= html_writer::tag('span', get_badges_string().' ', array('class' => 'slrn-bold'));
+            if ($extendedcourse->badge !=0) {
+                        $text .= html_writer::tag('span', get_string('badges', 'block_orange_course_extended').' ', array('class' => 'slrn-bold'));
             }
-            if (!empty($extendedcourse->certification)) {
-                        $text .= html_writer::tag('span', $extendedcourse->certification.' ', array('class' => 'slrn-bold'));
+            if ($extendedcourse->certification!=0) {
+                        $text .= html_writer::tag('span', get_string('certification_default', 'block_orange_course_extended').' ', array('class' => 'slrn-bold'));
             }
                     $text .= html_writer::end_tag('li');
         }
@@ -119,10 +119,10 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
                         $text .= html_writer::end_tag('i');
                         $text .= html_writer::tag('span', get_string('video', 'format_flexpage'));
                         $text .= html_writer::empty_tag('br');
-            if (!empty($extendedcourse->subtitle)) {
+            if ($extendedcourse->subtitle!=0) {
                             $language = $extendedcourse->language;
                             $subtitle = $extendedcourse->subtitle;
-                        $text .= html_writer::tag('span', $language.' '.$subtitle.' ', array('class' => 'slrn-bold'));
+                        $text .= html_writer::tag('span', $language.' '.get_string('subtitle', 'block_orange_course_extended').' ', array('class' => 'slrn-bold'));
             }
                     $text .= html_writer::end_tag('li');
         }
@@ -131,7 +131,7 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
                         $text .= html_writer::end_tag('i');
                         $text .= html_writer::tag('span', get_string('registration', 'format_flexpage'));
                         $text .= html_writer::empty_tag('br');
-                        $registrationvalue = $this->get_registration($extendedcourse, $instance);
+                        $registrationvalue = $this->get_registration($extendedcourse);
 
                         $text .= html_writer::tag('span', $registrationvalue.' ', array('class' => 'slrn-bold'));
                     $text .= html_writer::end_tag('li');
@@ -185,34 +185,34 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
      * @param object $extendedcourse
      * @return object $this->extendedcourse
      */
-    private function get_registration ($extendedcourse, $instance) {
+    private function get_registration ($extendedcourse) {
 
         if (!empty($extendedcourse->registration)) {
             switch ($extendedcourse->registration) {
                 case '0':
                     $registrationvalue = get_string('registration_case1', 'block_orange_course_extended').
                     get_string('registration_from', 'block_orange_course_extended').
-                    date("d-m-Y", $instance->enrolstartdate).
+                    date("d-m-Y", $extendedcourse->enrolstartdate).
                     get_string('registration_to', 'block_orange_course_extended').
-                    date("d-m-Y", $instance->enrolenddate);
+                    date("d-m-Y", $extendedcourse->enrolenddate);
                 break;
                 case '1':
                     $registrationvalue = get_string('registration_case2', 'block_orange_course_extended').
                     $extendedcourse->maxregisteredusers.' '.
                     get_string('registration_case2_2', 'block_orange_course_extended').
                     get_string('registration_from', 'block_orange_course_extended').
-                    date("d-m-Y", $instance->enrolstartdate).
+                    date("d-m-Y", $extendedcourse->enrolstartdate).
                     get_string('registration_to', 'block_orange_course_extended').
-                    date("d-m-Y", $instance->enrolenddate);
+                    date("d-m-Y", $extendedcourse->enrolenddate);
                 break;
                 case '2':
 
                     $registrationvalue = get_string('registration_case3', 'block_orange_course_extended').
                     $extendedcourse->registrationcompany.
                     get_string('registration_from', 'block_orange_course_extended').
-                    date("d-m-Y", $instance->enrolstartdate).
+                    date("d-m-Y", $extendedcourse->enrolstartdate).
                     get_string('registration_to', 'block_orange_course_extended').
-                    date("d-m-Y", $instance->enrolenddate);
+                    date("d-m-Y", $extendedcourse->enrolenddate);
                 break;
             }
             return $registrationvalue;
