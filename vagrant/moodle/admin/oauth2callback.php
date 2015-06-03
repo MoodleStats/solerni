@@ -22,11 +22,11 @@
  * This is used because some oauth servers will not allow a redirect urls
  * with get params (like repository callback) and that needs to be called
  * using the state param.
- *
- * @package    core
- * @copyright  2012 Dan Poltawski
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+*
+* @package    core
+* @copyright  2012 Dan Poltawski
+* @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+*/
 
 require_once(dirname(dirname(__FILE__)).'/config.php');
 
@@ -39,8 +39,8 @@ $redirecturl = new moodle_url($state);
 $params = $redirecturl->params();
 
 if (isset($params['sesskey']) and confirm_sesskey($params['sesskey'])) {
-    $redirecturl->param('oauth2code', $code);
-    redirect($redirecturl);
+	$redirecturl->param('oauth2code', $code);
+	redirect($redirecturl);
 } else {
-    print_error('invalidsesskey');
+	print_error('invalidsesskey');
 }

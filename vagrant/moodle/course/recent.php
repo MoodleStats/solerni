@@ -33,7 +33,7 @@ $PAGE->set_url('/course/recent.php', array('id'=>$id));
 $PAGE->set_pagelayout('report');
 
 if (!$course = $DB->get_record('course', array('id'=>$id))) {
-    print_error("That's an invalid course id");
+	print_error("That's an invalid course id");
 }
 
 require_login($course);
@@ -43,9 +43,9 @@ $context = context_course::instance($course->id);
 
 $lastlogin = time() - COURSE_MAX_RECENT_PERIOD;
 if (!isguestuser() and !empty($USER->lastcourseaccess[$COURSE->id])) {
-    if ($USER->lastcourseaccess[$COURSE->id] > $lastlogin) {
-        $lastlogin = $USER->lastcourseaccess[$COURSE->id];
-    }
+	if ($USER->lastcourseaccess[$COURSE->id] > $lastlogin) {
+		$lastlogin = $USER->lastcourseaccess[$COURSE->id];
+	}
 }
 
 $param = new stdClass();
@@ -59,17 +59,17 @@ $param->id     = $COURSE->id;
 $mform = new recent_form();
 $mform->set_data($param);
 if ($formdata = $mform->get_data()) {
-    $param = $formdata;
+	$param = $formdata;
 }
 
 $userinfo = get_string('allparticipants');
 $dateinfo = get_string('alldays');
 
 if (!empty($param->user)) {
-    if (!$u = $DB->get_record('user', array('id'=>$param->user))) {
-        print_error("That's an invalid user!");
-    }
-    $userinfo = fullname($u);
+	if (!$u = $DB->get_record('user', array('id'=>$param->user))) {
+		print_error("That's an invalid user!");
+	}
+	$userinfo = fullname($u);
 }
 
 $strrecentactivity = get_string('recentactivity');
@@ -86,36 +86,36 @@ $modinfo = get_fast_modinfo($course);
 $modnames = get_module_types_names();
 
 if (has_capability('moodle/course:viewhiddensections', $context)) {
-    $hiddenfilter = "";
+	$hiddenfilter = "";
 } else {
-    $hiddenfilter = "AND cs.visible = 1";
+	$hiddenfilter = "AND cs.visible = 1";
 }
 $sections = array();
 foreach ($modinfo->get_section_info_all() as $i => $section) {
-    if (!empty($section->uservisible)) {
-        $sections[$i] = $section;
-    }
+	if (!empty($section->uservisible)) {
+		$sections[$i] = $section;
+	}
 }
 
 if ($param->modid === 'all') {
-    // ok
+	// ok
 
 } else if (strpos($param->modid, 'mod/') === 0) {
-    $modname = substr($param->modid, strlen('mod/'));
-    if (array_key_exists($modname, $modnames) and file_exists("$CFG->dirroot/mod/$modname/lib.php")) {
-        $filter = $modname;
-    }
+	$modname = substr($param->modid, strlen('mod/'));
+	if (array_key_exists($modname, $modnames) and file_exists("$CFG->dirroot/mod/$modname/lib.php")) {
+		$filter = $modname;
+	}
 
 } else if (strpos($param->modid, 'section/') === 0) {
-    $sectionid = substr($param->modid, strlen('section/'));
-    if (isset($sections[$sectionid])) {
-        $sections = array($sectionid=>$sections[$sectionid]);
-    }
+	$sectionid = substr($param->modid, strlen('section/'));
+	if (isset($sections[$sectionid])) {
+		$sections = array($sectionid=>$sections[$sectionid]);
+	}
 
 } else if (is_numeric($param->modid)) {
-    $sectionnum = $modinfo->cms[$param->modid]->sectionnum;
-    $filter_modid = $param->modid;
-    $sections = array($sectionnum => $sections[$sectionnum]);
+	$sectionnum = $modinfo->cms[$param->modid]->sectionnum;
+	$filter_modid = $param->modid;
+	$sections = array($sectionnum => $sections[$sectionnum]);
 }
 
 $activities = array();
@@ -123,147 +123,147 @@ $index = 0;
 
 foreach ($sections as $sectionnum => $section) {
 
-    $activity = new stdClass();
-    $activity->type = 'section';
-    if ($section->section > 0) {
-        $activity->name = get_section_name($course, $section);
-    } else {
-        $activity->name = '';
-    }
+	$activity = new stdClass();
+	$activity->type = 'section';
+	if ($section->section > 0) {
+		$activity->name = get_section_name($course, $section);
+	} else {
+		$activity->name = '';
+	}
 
-    $activity->visible = $section->visible;
-    $activities[$index++] = $activity;
+	$activity->visible = $section->visible;
+	$activities[$index++] = $activity;
 
-    if (empty($modinfo->sections[$sectionnum])) {
-        continue;
-    }
+	if (empty($modinfo->sections[$sectionnum])) {
+		continue;
+	}
 
-    foreach ($modinfo->sections[$sectionnum] as $cmid) {
-        $cm = $modinfo->cms[$cmid];
+	foreach ($modinfo->sections[$sectionnum] as $cmid) {
+		$cm = $modinfo->cms[$cmid];
 
-        if (!$cm->uservisible) {
-            continue;
-        }
+		if (!$cm->uservisible) {
+			continue;
+		}
 
-        if (!empty($filter) and $cm->modname != $filter) {
-            continue;
-        }
+		if (!empty($filter) and $cm->modname != $filter) {
+			continue;
+		}
 
-        if (!empty($filter_modid) and $cmid != $filter_modid) {
-            continue;
-        }
+		if (!empty($filter_modid) and $cmid != $filter_modid) {
+			continue;
+		}
 
-        $libfile = "$CFG->dirroot/mod/$cm->modname/lib.php";
+		$libfile = "$CFG->dirroot/mod/$cm->modname/lib.php";
 
-        if (file_exists($libfile)) {
-            require_once($libfile);
-            $get_recent_mod_activity = $cm->modname."_get_recent_mod_activity";
+		if (file_exists($libfile)) {
+			require_once($libfile);
+			$get_recent_mod_activity = $cm->modname."_get_recent_mod_activity";
 
-            if (function_exists($get_recent_mod_activity)) {
-                $activity = new stdClass();
-                $activity->type    = 'activity';
-                $activity->cmid    = $cmid;
-                $activities[$index++] = $activity;
-                $get_recent_mod_activity($activities, $index, $param->date, $course->id, $cmid, $param->user, $param->group);
-            }
-        }
-    }
+			if (function_exists($get_recent_mod_activity)) {
+				$activity = new stdClass();
+				$activity->type    = 'activity';
+				$activity->cmid    = $cmid;
+				$activities[$index++] = $activity;
+				$get_recent_mod_activity($activities, $index, $param->date, $course->id, $cmid, $param->user, $param->group);
+			}
+		}
+	}
 }
 
 $detail = true;
 
 switch ($param->sortby) {
-    case 'datedesc' : usort($activities, 'compare_activities_by_time_desc'); break;
-    case 'dateasc'  : usort($activities, 'compare_activities_by_time_asc'); break;
-    case 'default'  :
-    default         : $detail = false; $param->sortby = 'default';
+	case 'datedesc' : usort($activities, 'compare_activities_by_time_desc'); break;
+	case 'dateasc'  : usort($activities, 'compare_activities_by_time_asc'); break;
+	case 'default'  :
+	default         : $detail = false; $param->sortby = 'default';
 
 }
 
 if (!empty($activities)) {
 
-    $newsection   = true;
-    $lastsection  = '';
-    $newinstance  = true;
-    $lastinstance = '';
-    $inbox        = false;
+	$newsection   = true;
+	$lastsection  = '';
+	$newinstance  = true;
+	$lastinstance = '';
+	$inbox        = false;
 
-    $section = 0;
+	$section = 0;
 
-    $activity_count = count($activities);
-    $viewfullnames  = array();
+	$activity_count = count($activities);
+	$viewfullnames  = array();
 
-    foreach ($activities as $key => $activity) {
+	foreach ($activities as $key => $activity) {
 
-        if ($activity->type == 'section') {
-            if ($param->sortby != 'default') {
-                continue; // no section if ordering by date
-            }
-            if ($activity_count == ($key + 1) or $activities[$key+1]->type == 'section') {
-            // peak at next activity.  If it's another section, don't print this one!
-            // this means there are no activities in the current section
-                continue;
-            }
-        }
+		if ($activity->type == 'section') {
+			if ($param->sortby != 'default') {
+				continue; // no section if ordering by date
+			}
+			if ($activity_count == ($key + 1) or $activities[$key+1]->type == 'section') {
+				// peak at next activity.  If it's another section, don't print this one!
+				// this means there are no activities in the current section
+				continue;
+			}
+		}
 
-        if (($activity->type == 'section') && ($param->sortby == 'default')) {
-            if ($inbox) {
-                echo $OUTPUT->box_end();
-                echo $OUTPUT->spacer(array('height'=>30, 'br'=>true)); // should be done with CSS instead
-            }
-            echo $OUTPUT->box_start();
-            if (!empty($activity->name)) {
-                echo html_writer::tag('h2', $activity->name);
-            }
-            $inbox = true;
+		if (($activity->type == 'section') && ($param->sortby == 'default')) {
+			if ($inbox) {
+				echo $OUTPUT->box_end();
+				echo $OUTPUT->spacer(array('height'=>30, 'br'=>true)); // should be done with CSS instead
+			}
+			echo $OUTPUT->box_start();
+			if (!empty($activity->name)) {
+				echo html_writer::tag('h2', $activity->name);
+			}
+			$inbox = true;
 
-        } else if ($activity->type == 'activity') {
+		} else if ($activity->type == 'activity') {
 
-            if ($param->sortby == 'default') {
-                $cm = $modinfo->cms[$activity->cmid];
+			if ($param->sortby == 'default') {
+				$cm = $modinfo->cms[$activity->cmid];
 
-                if ($cm->visible) {
-                    $class = '';
-                } else {
-                    $class = 'dimmed';
-                }
-                $name        = format_string($cm->name);
-                $modfullname = $modnames[$cm->modname];
+				if ($cm->visible) {
+					$class = '';
+				} else {
+					$class = 'dimmed';
+				}
+				$name        = format_string($cm->name);
+				$modfullname = $modnames[$cm->modname];
 
-                $image = $OUTPUT->pix_icon('icon', $modfullname, $cm->modname, array('class' => 'icon smallicon'));
-                $link = html_writer::link(new moodle_url("/mod/$cm->modname/view.php",
-                            array("id" => $cm->id)), $name, array('class' => $class));
-                echo html_writer::tag('h3', "$image $modfullname $link");
-           }
+				$image = $OUTPUT->pix_icon('icon', $modfullname, $cm->modname, array('class' => 'icon smallicon'));
+				$link = html_writer::link(new moodle_url("/mod/$cm->modname/view.php",
+						array("id" => $cm->id)), $name, array('class' => $class));
+				echo html_writer::tag('h3', "$image $modfullname $link");
+			}
 
-        } else {
+		} else {
 
-            if (!isset($viewfullnames[$activity->cmid])) {
-                $cm_context = context_module::instance($activity->cmid);
-                $viewfullnames[$activity->cmid] = has_capability('moodle/site:viewfullnames', $cm_context);
-            }
+			if (!isset($viewfullnames[$activity->cmid])) {
+				$cm_context = context_module::instance($activity->cmid);
+				$viewfullnames[$activity->cmid] = has_capability('moodle/site:viewfullnames', $cm_context);
+			}
 
-            if (!$inbox) {
-                echo $OUTPUT->box_start();
-                $inbox = true;
-            }
+			if (!$inbox) {
+				echo $OUTPUT->box_start();
+				$inbox = true;
+			}
 
-            $print_recent_mod_activity = $activity->type.'_print_recent_mod_activity';
+			$print_recent_mod_activity = $activity->type.'_print_recent_mod_activity';
 
-            if (function_exists($print_recent_mod_activity)) {
-                $print_recent_mod_activity($activity, $course->id, $detail, $modnames, $viewfullnames[$activity->cmid]);
-            }
-        }
-    }
+			if (function_exists($print_recent_mod_activity)) {
+				$print_recent_mod_activity($activity, $course->id, $detail, $modnames, $viewfullnames[$activity->cmid]);
+			}
+		}
+	}
 
-    if ($inbox) {
-        echo $OUTPUT->box_end();
-    }
+	if ($inbox) {
+		echo $OUTPUT->box_end();
+	}
 
 
 } else {
 
-    echo html_writer::tag('h3', get_string('norecentactivity'), array('class' => 'mdl-align'));
+	echo html_writer::tag('h3', get_string('norecentactivity'), array('class' => 'mdl-align'));
 
 }
 

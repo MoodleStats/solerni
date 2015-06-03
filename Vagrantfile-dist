@@ -19,7 +19,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 	# The VM will bring up with a bridged adapter, and use the Orange DHCP server
 	# to obtain an IP.
-	config.vm.network "public_network", :mac => "XXXXXXXXXXXX"
+	config.vm.network "public_network", :mac => "XXXXXXXXXXXX", :use_dhcp_assigned_default_route => true
 
 	# The local port 10080 on the host machine will be fowarded to the port 80 of
 	# the guest VM.
@@ -38,7 +38,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		# memory in MB used by the VirtualBox VM
 		v.memory = 1024
 		# name the VirtualBox VM
-		v.name = "Solerni2 Dev"
+		v.name = "Solerni2 Development"
 
 	end
 

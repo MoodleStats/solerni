@@ -26,9 +26,13 @@
  *
  * @author Mark Nielsen
  * @package format_flexpage
+ *
+ *
+ *
+ * orange 2015050500 : adding extended course data
  */
 
-$plugin->version      = 2014093000;
+$plugin->version      = 2015050500;
 $plugin->requires     = 2014051203;
 $plugin->component    = 'format_flexpage';
 $plugin->release      = '2.7.0 (Build: 20141229)';

@@ -13,11 +13,27 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+require_once($CFG->dirroot.'/course/format/flexpage/locallib.php');
 
 if (right_to_left()) {
     $regionbsid = 'region-bs-main-and-post';
 } else {
     $regionbsid = 'region-bs-main-and-pre';
+}
+// Always show block regions when editing so blocks can
+// be dragged into empty block regions.
+if ($PAGE->user_is_editing()) {
+    if ($PAGE->blocks->is_known_region('side-pre')) {
+        $showsidepre = true;
+        $hassidepre  = true;
+    }
+    if ($PAGE->blocks->is_known_region('side-post')) {
+        $showsidepost = true;
+        $hassidepost  = true;
+    }
+    if ($PAGE->blocks->is_known_region('side-top')) {
+        $hassidetop = true;
+    }
 }
 
 echo $OUTPUT->doctype() ?>
@@ -37,6 +53,7 @@ echo $OUTPUT->doctype() ?>
                     <?php
                     echo $OUTPUT->course_content_header();
                     echo $OUTPUT->main_content();
+                    echo $OUTPUT->blocks('main');
                     echo $OUTPUT->course_content_footer();
                     ?>
                 </section>

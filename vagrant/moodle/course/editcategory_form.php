@@ -25,8 +25,8 @@
  *
  * @package core_course
  * @copyright 2002 onwards Martin Dougiamas (http://dougiamas.com)
- * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+* @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+*/
 
 defined('MOODLE_INTERNAL') || die;
 
@@ -46,21 +46,21 @@ debugging('Please update your code to use core_course_editcategory_form (autload
  */
 class editcategory_form extends core_course_editcategory_form {
 
-    /**
-     * Constructs the form.
-     * @param null $action
-     * @param null $customdata
-     * @param string $method
-     * @param string $target
-     * @param null $attributes
-     * @param bool $editable
-     */
-    public function __construct($action = null, $customdata = null, $method = 'post', $target = '', $attributes = null,
-                                $editable = true) {
-        $customdata['categoryid'] = $customdata['category']->id;
-        $customdata['parent'] = $customdata['category']->parent;
-        unset($customdata['category']);
-        parent::moodleform($action, $customdata, $method, $target, $attributes, $editable);
-    }
+	/**
+	 * Constructs the form.
+	 * @param null $action
+	 * @param null $customdata
+	 * @param string $method
+	 * @param string $target
+	 * @param null $attributes
+	 * @param bool $editable
+	 */
+	public function __construct($action = null, $customdata = null, $method = 'post', $target = '', $attributes = null,
+			$editable = true) {
+		$customdata['categoryid'] = $customdata['category']->id;
+		$customdata['parent'] = $customdata['category']->parent;
+		unset($customdata['category']);
+		parent::moodleform($action, $customdata, $method, $target, $attributes, $editable);
+	}
 
 };

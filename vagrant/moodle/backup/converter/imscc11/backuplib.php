@@ -29,136 +29,136 @@ defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot . '/backup/converter/convertlib.php');
 
 class imscc11_export_converter extends base_converter {
-    static public function get_deps() {
-        global $CFG;
-        require_once($CFG->dirroot . '/backup/util/settings/setting_dependency.class.php');
-        return array(
-                'users'   => setting_dependency::DISABLED_VALUE,
-                'filters' => setting_dependency::DISABLED_VALUE,
-                'blocks'  => setting_dependency::DISABLED_VALUE
-        );
+	static public function get_deps() {
+		global $CFG;
+		require_once($CFG->dirroot . '/backup/util/settings/setting_dependency.class.php');
+		return array(
+				'users'   => setting_dependency::DISABLED_VALUE,
+				'filters' => setting_dependency::DISABLED_VALUE,
+				'blocks'  => setting_dependency::DISABLED_VALUE
+		);
 
-    }
-    protected function execute() {
+	}
+	protected function execute() {
 
-    }
-    public static function description() {
+	}
+	public static function description() {
 
-        return array(
-                'from'  => backup::FORMAT_MOODLE,
-                'to'    => backup::FORMAT_IMSCC11,
-                'cost'  => 10
-        );
-    }
+		return array(
+				'from'  => backup::FORMAT_MOODLE,
+				'to'    => backup::FORMAT_IMSCC11,
+				'cost'  => 10
+		);
+	}
 
 }
 
 
 class imscc11_store_backup_file extends backup_execution_step {
 
-    protected function define_execution() {
+	protected function define_execution() {
 
-        // Get basepath
-        $basepath = $this->get_basepath();
+		// Get basepath
+		$basepath = $this->get_basepath();
 
-        // Calculate the zip fullpath (in OS temp area it's always backup.imscc)
-        $zipfile = $basepath . '/backup.imscc';
+		// Calculate the zip fullpath (in OS temp area it's always backup.imscc)
+		$zipfile = $basepath . '/backup.imscc';
 
-        // Perform storage and return it (TODO: shouldn't be array but proper result object)
-        // Let's send the file to file storage, everything already defined
-        // First of all, get some information from the backup_controller to help us decide
-        list($dinfo, $cinfo, $sinfo) = backup_controller_dbops::get_moodle_backup_information($this->get_backupid());
+		// Perform storage and return it (TODO: shouldn't be array but proper result object)
+		// Let's send the file to file storage, everything already defined
+		// First of all, get some information from the backup_controller to help us decide
+		list($dinfo, $cinfo, $sinfo) = backup_controller_dbops::get_moodle_backup_information($this->get_backupid());
 
-        // Extract useful information to decide
-        $file      = $sinfo['filename']->value;
-        $filename  = basename($file,'.'.pathinfo($file, PATHINFO_EXTENSION)).'.imscc';        // Backup filename
-        $userid    = $dinfo[0]->userid;                // User->id executing the backup
-        $id        = $dinfo[0]->id;                    // Id of activity/section/course (depends of type)
-        $courseid  = $dinfo[0]->courseid;              // Id of the course
+		// Extract useful information to decide
+		$file      = $sinfo['filename']->value;
+		$filename  = basename($file,'.'.pathinfo($file, PATHINFO_EXTENSION)).'.imscc';        // Backup filename
+		$userid    = $dinfo[0]->userid;                // User->id executing the backup
+		$id        = $dinfo[0]->id;                    // Id of activity/section/course (depends of type)
+		$courseid  = $dinfo[0]->courseid;              // Id of the course
 
-        $ctxid     = context_user::instance($userid)->id;
-        $component = 'user';
-        $filearea  = 'backup';
-        $itemid    = 0;
-        $fs = get_file_storage();
-        $fr = array(
-                    'contextid'   => $ctxid,
-                    'component'   => $component,
-                    'filearea'    => $filearea,
-                    'itemid'      => $itemid,
-                    'filepath'    => '/',
-                    'filename'    => $filename,
-                    'userid'      => $userid,
-                    'timecreated' => time(),
-                    'timemodified'=> time());
-        // If file already exists, delete if before
-        // creating it again. This is BC behaviour - copy()
-        // overwrites by default
-        if ($fs->file_exists($fr['contextid'], $fr['component'], $fr['filearea'], $fr['itemid'], $fr['filepath'], $fr['filename'])) {
-            $pathnamehash = $fs->get_pathname_hash($fr['contextid'], $fr['component'], $fr['filearea'], $fr['itemid'], $fr['filepath'], $fr['filename']);
-            $sf = $fs->get_file_by_hash($pathnamehash);
-            $sf->delete();
-        }
+		$ctxid     = context_user::instance($userid)->id;
+		$component = 'user';
+		$filearea  = 'backup';
+		$itemid    = 0;
+		$fs = get_file_storage();
+		$fr = array(
+				'contextid'   => $ctxid,
+				'component'   => $component,
+				'filearea'    => $filearea,
+				'itemid'      => $itemid,
+				'filepath'    => '/',
+				'filename'    => $filename,
+				'userid'      => $userid,
+				'timecreated' => time(),
+				'timemodified'=> time());
+		// If file already exists, delete if before
+		// creating it again. This is BC behaviour - copy()
+		// overwrites by default
+		if ($fs->file_exists($fr['contextid'], $fr['component'], $fr['filearea'], $fr['itemid'], $fr['filepath'], $fr['filename'])) {
+			$pathnamehash = $fs->get_pathname_hash($fr['contextid'], $fr['component'], $fr['filearea'], $fr['itemid'], $fr['filepath'], $fr['filename']);
+			$sf = $fs->get_file_by_hash($pathnamehash);
+			$sf->delete();
+		}
 
-        return array('backup_destination' => $fs->create_file_from_pathname($fr, $zipfile));
-    }
+		return array('backup_destination' => $fs->create_file_from_pathname($fr, $zipfile));
+	}
 }
 
 class imscc11_zip_contents extends backup_execution_step {
 
-    protected function define_execution() {
+	protected function define_execution() {
 
-        // Get basepath
-        $basepath = $this->get_basepath();
+		// Get basepath
+		$basepath = $this->get_basepath();
 
-        // Get the list of files in directory
-        $filestemp = get_directory_list($basepath, '', false, true, true);
-        $files = array();
-        foreach ($filestemp as $file) {
-            // Add zip paths and fs paths to all them
-            $files[$file] = $basepath . '/' . $file;
-        }
+		// Get the list of files in directory
+		$filestemp = get_directory_list($basepath, '', false, true, true);
+		$files = array();
+		foreach ($filestemp as $file) {
+			// Add zip paths and fs paths to all them
+			$files[$file] = $basepath . '/' . $file;
+		}
 
-        // Calculate the zip fullpath (in OS temp area it's always backup.mbz)
-        $zipfile = $basepath . '/backup.imscc';
+		// Calculate the zip fullpath (in OS temp area it's always backup.mbz)
+		$zipfile = $basepath . '/backup.imscc';
 
-        // Get the zip packer
-        $zippacker = get_file_packer('application/zip');
+		// Get the zip packer
+		$zippacker = get_file_packer('application/zip');
 
-        // Zip files
-        $zippacker->archive_to_pathname($files, $zipfile);
-    }
+		// Zip files
+		$zippacker->archive_to_pathname($files, $zipfile);
+	}
 }
 
 class imscc11_backup_convert extends backup_execution_step {
 
-    protected function define_execution() {
-        global $CFG;
-        // Get basepath
-        $basepath = $this->get_basepath();
+	protected function define_execution() {
+		global $CFG;
+		// Get basepath
+		$basepath = $this->get_basepath();
 
-        require_once($CFG->dirroot . '/backup/cc/cc_includes.php');
+		require_once($CFG->dirroot . '/backup/cc/cc_includes.php');
 
-        $tempdir = $CFG->tempdir . '/backup/' . uniqid('', true);
+		$tempdir = $CFG->tempdir . '/backup/' . uniqid('', true);
 
-        if (mkdir($tempdir, $CFG->directorypermissions, true)) {
+		if (mkdir($tempdir, $CFG->directorypermissions, true)) {
 
-            cc_convert_moodle2::convert($basepath, $tempdir);
-            //Switch the directories
-            if (empty($CFG->keeptempdirectoriesonbackup)) {
-                fulldelete($basepath);
-            } else {
-                if (!rename($basepath, $basepath  . '_moodle2_source')) {
-                    throw new backup_task_exception('failed_rename_source_tempdir');
-                }
-            }
+			cc_convert_moodle2::convert($basepath, $tempdir);
+			//Switch the directories
+			if (empty($CFG->keeptempdirectoriesonbackup)) {
+				fulldelete($basepath);
+			} else {
+				if (!rename($basepath, $basepath  . '_moodle2_source')) {
+					throw new backup_task_exception('failed_rename_source_tempdir');
+				}
+			}
 
-            if (!rename($tempdir, $basepath)) {
-                throw new backup_task_exception('failed_move_converted_into_place');
-            }
+			if (!rename($tempdir, $basepath)) {
+				throw new backup_task_exception('failed_move_converted_into_place');
+			}
 
-        }
-    }
+		}
+	}
 }
 
 

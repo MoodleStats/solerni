@@ -22,7 +22,7 @@
  * @copyright  2012 onwards Totara Learning Solutions Ltd {@link http://www.totaralms.com/}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @author     Yuliya Bozhko <yuliya.bozhko@totaralms.com>
- */
+*/
 
 require_once(dirname(dirname(__FILE__)) . '/config.php');
 require_once($CFG->libdir . '/badgeslib.php');
@@ -40,45 +40,45 @@ $show        = optional_param('show', 0, PARAM_INT);
 require_login();
 
 if (empty($CFG->enablebadges)) {
-    print_error('badgesdisabled', 'badges');
+	print_error('badgesdisabled', 'badges');
 }
 
 $url = new moodle_url('/badges/mybadges.php');
 $PAGE->set_url($url);
 
 if (isguestuser()) {
-    $PAGE->set_context(context_system::instance());
-    echo $OUTPUT->header();
-    echo $OUTPUT->box(get_string('error:guestuseraccess', 'badges'), 'notifyproblem');
-    echo $OUTPUT->footer();
-    die();
+	$PAGE->set_context(context_system::instance());
+	echo $OUTPUT->header();
+	echo $OUTPUT->box(get_string('error:guestuseraccess', 'badges'), 'notifyproblem');
+	echo $OUTPUT->footer();
+	die();
 }
 
 if ($page < 0) {
-    $page = 0;
+	$page = 0;
 }
 
 if ($clearsearch) {
-    $search = '';
+	$search = '';
 }
 
 if ($hide) {
-    require_sesskey();
-    $DB->set_field('badge_issued', 'visible', 0, array('id' => $hide, 'userid' => $USER->id));
+	require_sesskey();
+	$DB->set_field('badge_issued', 'visible', 0, array('id' => $hide, 'userid' => $USER->id));
 } else if ($show) {
-    require_sesskey();
-    $DB->set_field('badge_issued', 'visible', 1, array('id' => $show, 'userid' => $USER->id));
+	require_sesskey();
+	$DB->set_field('badge_issued', 'visible', 1, array('id' => $show, 'userid' => $USER->id));
 } else if ($download && $hash) {
-    require_sesskey();
-    $badge = new badge($download);
-    $name = str_replace(' ', '_', $badge->name) . '.png';
-    $filehash = badges_bake($hash, $download, $USER->id, true);
-    $fs = get_file_storage();
-    $file = $fs->get_file_by_hash($filehash);
-    send_stored_file($file, 0, 0, true, array('filename' => $name));
+	require_sesskey();
+	$badge = new badge($download);
+	$name = str_replace(' ', '_', $badge->name) . '.png';
+	$filehash = badges_bake($hash, $download, $USER->id, true);
+	$fs = get_file_storage();
+	$file = $fs->get_file_by_hash($filehash);
+	send_stored_file($file, 0, 0, true, array('filename' => $name));
 } else if ($downloadall) {
-    require_sesskey();
-    badges_download($USER->id);
+	require_sesskey();
+	badges_download($USER->id);
 }
 
 $context = context_user::instance($USER->id);

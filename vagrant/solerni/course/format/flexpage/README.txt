@@ -4,3 +4,6 @@ schools and organizations by supporting the software that educators use to manag
 learners in virtual classrooms. Moodlerooms is headquartered in Baltimore, MD. We are proud to be a Moodle Partner company.
 
 For more information about installation, configuration and usage, please see http://docs.moodle.org/dev/Flexpage
+
+orange 2015050500:
+Adding extended course data in the course_format_options() function in lib.php

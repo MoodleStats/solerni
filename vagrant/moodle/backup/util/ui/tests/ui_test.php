@@ -32,9 +32,9 @@ global $CFG;
  */
 class backup_ui_testcase extends basic_testcase {
 
-    /**
-     * test backup_ui class
-     */
-    function test_backup_ui() {
-    }
+	/**
+	 * test backup_ui class
+	 */
+	function test_backup_ui() {
+	}
 }
