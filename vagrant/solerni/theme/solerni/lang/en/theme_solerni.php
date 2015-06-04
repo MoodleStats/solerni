@@ -70,8 +70,9 @@ $string['grey5']                        = 'Grey 5';
 $string['grey5desc']                    = 'Very dark grey';
 
 $string['footersettings']           = 'Footer';
-$string['footertextheading']        = 'Texts';
+$string['footertextheading']        = 'Footer Solerni Texts';
 $string['footertextheadingdesc']    = 'Define Solerni branding text in footer.';
+$string['footertextlangheading']    = 'Version: ';
 $string['footertaglinetitle']       = 'Solerni tagline (english)';
 $string['footertaglinedefault']     = 'To learn is more fun together';
 $string['footertaglinedesc']        = 'Footer tagline for english version';
