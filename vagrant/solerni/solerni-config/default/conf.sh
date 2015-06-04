@@ -26,4 +26,7 @@ moosh config-set enabled 1 local_goodbye
 # Guest login button (#us_119)
 moosh config-set guestloginbutton 0
 
+# Default Course format (#us_77)
+moosh config-set format flexpage moodlecourse
+
 
