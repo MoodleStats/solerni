@@ -56,12 +56,13 @@ class options {
 
         // Array of solerni social settings ( setting name => default value ).
         return array(
-            'blog'              => '',
-            'facebook'          => '',
-            'twitter'           => '',
+            'blog'              => 'https://solerni.org/blog/',
+            'facebook'          => 'https://fr-fr.facebook.com/pages/Solerni/648508191861244',
+            'twitter'           => 'https://twitter.com/solerniofficiel',
             'googleplus'        => '',
             'linkedin'          => '',
-            'youtube'           => ''
+            'youtube'           => '',
+            'dailymotion'       => 'http://www.dailymotion.com/Solerni'
         );
     }
 

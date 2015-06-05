@@ -134,8 +134,7 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
             $content .= html_writer::start_tag('a', array(
                                                     'href'=>$url,
                                                     'class'=>'dropdown-toggle',
-                                                    'data-toggle'=>'dropdown',
-                                                    'title'=>$menunode->get_title()
+                                                    'data-toggle'=>'dropdown'
             ));
 
             $content .= $menu_title;
@@ -165,7 +164,7 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
                 $current_title .= '<i class="icon-ok"></i>';
             }
 
-            $content .= html_writer::link($url, $current_title, array('title'=>$menunode->get_title(), 'class' => $classes ));
+            $content .= html_writer::link($url, $current_title, array('class' => $classes ));
         }
         return $content;
     }
@@ -181,5 +180,89 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
 
         return preg_match ( "#$fragment#", $page_path );
 
+    }
+
+    /*
+     * @param: (array) list of settings
+     *
+     * @return (boolean) true if one of the settings exists, false otherwise
+     */
+    protected function is_theme_settings_exists( $settings = array() ) {
+        global $PAGE;
+
+        $return = false;
+        foreach ( $settings as $setting ) {
+            if ( $PAGE->theme->settings->$setting ) {
+                $return = true;
+            }
+        }
+
+        return $return;
+    }
+
+    /*
+     * @param: (string) title of the columon
+     * @param: (array) list of settings names (translation keys must match)
+     *
+     * Check for each settings if exists
+     *
+     * @return: Footer Column HTML Fragment
+     */
+    protected function render_footer_column_with_links( $title, $settings = array() ) {
+        global $PAGE;
+
+        if ( $title && $this->is_theme_settings_exists($settings) ) :
+    ?>
+        <div class="span2 footer-column ">
+            <p class="footer_column_title">
+                <?php echo get_string($title, 'theme_solerni'); ?>
+            </p>
+            <ul class="footer_column_menu__column">
+                <?php foreach ( $settings as $setting )  :
+                    if ( $PAGE->theme->settings->$setting ) : ?>
+                        <li class="footer_column__item">
+                            <a class="footer_column_menu_column__link" href="<?php echo $PAGE->theme->settings->$setting; ?>">
+                                <?php echo get_string($setting, 'theme_solerni'); ?>
+                            </a>
+                        </li>
+                    <?php endif;
+                endforeach; ?>
+            </ul>
+        </div>
+    <?php endif;
+    }
+
+    /*
+     * @param: (string) title of the columon
+     * @param: (array) list of settings names (translation keys and CSS classes must match)
+     *
+     * Check for each settings if exists
+     *
+     * @return: Footer Column HTML Fragment
+     */
+    protected function render_footer_column_socials( $title, $settings = array() ) {
+        global $PAGE;
+
+        if ( $title && $this->is_theme_settings_exists($settings)) :
+    ?>
+        <div class="span2 footer-column ">
+            <p class="footer_column_title">
+                <?php echo get_string($title, 'theme_solerni'); ?>
+            </p>
+            <ul class="footer_column_menu__column">
+                <?php foreach ( $settings as $setting )  :
+                    if ( $PAGE->theme->settings->$setting ) : ?>
+                    <li class="footer_column__item">
+                        <a href="<?php echo $PAGE->theme->settings->$setting; ?>" class="footer_column_menu_column__link footer_social_link" target="_blank">
+                            <span class="footer_social_link__icon footer_social_<?php echo $setting; ?>  -sprite-solerni"><?php echo $setting; ?></span><!--
+                            --><span class="footer_icon_text">
+                                <?php echo get_string($setting . 'displayname', 'theme_solerni'); ?>
+                            </span>
+                        </a>
+                    </li>
+                 <?php endif; endforeach; ?>
+            </ul>
+        </div>
+    <?php endif;
     }
 }
