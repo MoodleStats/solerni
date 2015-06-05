@@ -31,17 +31,11 @@ defined('MOODLE_INTERNAL') || die();
 
 class subscription_button_object {
 
-
-    public function init($course, $context) {
-        $extendedcourse = new extended_course_object();
-        $extendedcourse->get_extended_course($course, $context);
-    }
     /**
      *  Set the button in the block.
      *
      * @param object $context
      * @param object $course
-     * @param object $this->extendedcourse
      * @return string html_writer::tag
      */
     public static function set_button($context, $course) {
@@ -52,7 +46,8 @@ class subscription_button_object {
         $selfenrolment = new enrollment_object();
         $instance = $selfenrolment->get_self_enrolment($course);
 
-        $urlmoocsubsription = new moodle_url('/course/view.php', array('id' => $course->id));
+        $urlregistration = new moodle_url('/login/signup.php', array('id' => $course->id));
+        $urlmoocsubscription = new moodle_url('/enrol/index.php', array('id' => $course->id));
         $moocurl = new moodle_url('/course/view.php', array('id' => $course->id));
         //   Mooc terminé et rejouable c’est-à-dire que la date du mooc est passée mais l’utilisateur.
         //   Peut demander à être averti lorsque la prochaine session du mooc débutera.
@@ -60,22 +55,22 @@ class subscription_button_object {
         if ($extendedcourse->enrolledusers >= $extendedcourse->maxregisteredusers) {
             //   Mooc complet : l’inscription est limitée aux X premiers inscrits";.
             //   CAS G : FICHE PRODUIT - MOOC COMPLET - UTILISATEUR CONNECTE OU NON CONNECTE";.
-            return html_writer::tag('span', get_string('mooc_complete', 'block_orange_course_extended'));
+            return html_writer::tag('span', get_string('mooc_complete', 'local_orange_library'));
         } else {
             if ($extendedcourse->enddate < $date->getTimestamp()) {
                 //   Mooc terminé";.
                 if ($extendedcourse->replay == get_string('replay', 'format_flexpage')) {
                     //   Mooc rejouable";.
                     //   CAS E : FICHE PRODUIT - MOOC TERMINE ET REJOUABLE - UTILISATEUR CONNECTE OU NON CONNECTE";.
-                    $text .= html_writer::tag('span', get_string('status_closed', 'block_orange_course_extended'));
+                    $text .= html_writer::tag('span', get_string('status_closed', 'local_orange_library'));
                     $text .= html_writer::empty_tag('br');
-                    $text .= html_writer::tag('a', get_string('alert_mooc', 'block_orange_course_extended'),
+                    $text .= html_writer::tag('a', get_string('alert_mooc', 'local_orange_library'),
                             array('class' => 'subscription_btn btn-primary', 'href' => $moocurl));
                     return $text;
                 } else {
                     //   Mooc non rejouable";.
                     //   CAS D : FICHE PRODUIT - MOOC TERMINE - UTILISATEUR CONNECTE OU NON CONNECTE";.
-                    return  html_writer::tag('span', get_string('status_closed', 'block_orange_course_extended'));
+                    return  html_writer::tag('span', get_string('status_closed', 'local_orange_library'));
                 }
             } else if ($course->startdate > $date->getTimestamp()) {
                 //   Mooc non ouvert";.
@@ -83,19 +78,19 @@ class subscription_button_object {
                     //   Utilisateur non connecté à Solerni";.
                     //   Utilisateur non inscrit au mooc";.
                     //   CAS A : FICHE PRODUIT - MOOC NON REJOINT - UTILISATEUR CONNECTE OU NON CONNECTE";.
-                    return html_writer::tag('a', get_string('subscribe_to_mooc', 'block_orange_course_extended'),
-                            array('class' => 'subscription_btn btn-primary', 'href' => $urlmoocsubsription));
+                    return html_writer::tag('a', get_string('subscribe_to_mooc', 'local_orange_library'),
+                            array('class' => 'subscription_btn btn-primary', 'href' => $urlregistration));
                 } else {
                     //   Utilisateur connecté à Solerni";.
                     if (!is_enrolled($context)) {
                         //   Utilisateur non inscrit au mooc";.
                         //   CAS A : FICHE PRODUIT - MOOC NON REJOINT - UTILISATEUR CONNECTE OU NON CONNECTE";.
-                        return html_writer::tag('a', get_string('subscribe_to_mooc', 'block_orange_course_extended'),
-                                array('class' => 'subscription_btn btn-primary', 'href' => $urlmoocsubsription));
+                        return html_writer::tag('a', get_string('subscribe_to_mooc', 'local_orange_library'),
+                                array('class' => 'subscription_btn btn-primary', 'href' => $urlmoocsubscription));
                     } else {
                         //   Utilisateur inscrit au mooc";.
                         //   CAS C : FICHE PRODUIT - MOOC REJOINT A VENIR - UTILISATEUR CONNECTE";.
-                        $text = get_string('mooc_open_date', 'block_orange_course_extended') . date("d-m-Y", $course->startdate);
+                        $text = get_string('mooc_open_date', 'local_orange_library') . date("d-m-Y", $course->startdate);
                         return html_writer::tag('a', $text, array('class' => 'subscription_btn btn-unavailable btn-disabled'));
                     }
                 }
@@ -107,17 +102,17 @@ class subscription_button_object {
                         //   Utilisateur non connecté à Solerni";.
                         //   Utilisateur non inscrit au mooc";.
                         //   CAS F : FICHE PRODUIT - INSCRIPTION AU MOOC TERMINEE - UTILISATEUR CONNECTE OU NON CONNECTE";.
-                        return  html_writer::tag('span', get_string('registration_stopped', 'block_orange_course_extended'));
+                        return  html_writer::tag('span', get_string('registration_stopped', 'local_orange_library'));
                     } else {
                         //   Utilisateur connecté à Solerni";.
                         if (!is_enrolled($context)) {
                             //   Utilisateur non inscrit au mooc";.
                             //   CAS F : FICHE PRODUIT - INSCRIPTION AU MOOC TERMINEE - UTILISATEUR CONNECTE OU NON CONNECTE";.
-                            return  html_writer::tag('span', get_string('registration_stopped', 'block_orange_course_extended'));
+                            return  html_writer::tag('span', get_string('registration_stopped', 'local_orange_library'));
                         } else {
                             //   Utilisateur inscrit au mooc";.
                             //   CAS B : FICHE PRODUIT - MOOC REJOINT EN COURS - UTILISATEUR CONNECTE";.
-                            return html_writer::tag('a', get_string('access_to_mooc', 'block_orange_course_extended'),
+                            return html_writer::tag('a', get_string('access_to_mooc', 'local_orange_library'),
                                     array('class' => 'subscription_btn btn-access', 'href' => $moocurl));
                         }
                     }
@@ -126,19 +121,19 @@ class subscription_button_object {
                         //   Utilisateur non connecté à Solerni";.
                         //   Utilisateur non inscrit au mooc";.
                         //   CAS A : FICHE PRODUIT - MOOC NON REJOINT - UTILISATEUR CONNECTE OU NON CONNECTE";.
-                        return html_writer::tag('a', get_string('subscribe_to_mooc', 'block_orange_course_extended'),
-                                array('class' => 'subscription_btn btn-primary', 'href' => $moocurl));
+                        return html_writer::tag('a', get_string('subscribe_to_mooc', 'local_orange_library'),
+                                array('class' => 'subscription_btn btn-primary', 'href' => $urlregistration));
                     } else {
                         //   Utilisateur connecté à Solerni";.
                         if (!is_enrolled($context)) {
                             //   Utilisateur non inscrit au mooc";.
                             //   CAS A : FICHE PRODUIT - MOOC NON REJOINT - UTILISATEUR CONNECTE OU NON CONNECTE";.
-                            return html_writer::tag('a', get_string('subscribe_to_mooc', 'block_orange_course_extended'),
-                                    array('class' => 'subscription_btn btn-primary', 'href' => $moocurl));
+                            return html_writer::tag('a', get_string('subscribe_to_mooc', 'local_orange_library'),
+                                    array('class' => 'subscription_btn btn-primary', 'href' => $urlmoocsubscription));
                         } else {
                             //   Utilisateur inscrit au mooc";.
                             //   CAS B : FICHE PRODUIT - MOOC REJOINT EN COURS - UTILISATEUR CONNECTE";.
-                            return html_writer::tag('a', get_string('access_to_mooc', 'block_orange_course_extended'),
+                            return html_writer::tag('a', get_string('access_to_mooc', 'local_orange_library'),
                                     array('class' => 'subscription_btn btn-access', 'href' => $moocurl));
                         }
                     }

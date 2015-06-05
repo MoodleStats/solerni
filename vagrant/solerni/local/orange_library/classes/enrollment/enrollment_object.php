@@ -18,7 +18,7 @@ defined('MOODLE_INTERNAL') || die();
 class enrollment_object {
 
     /**
-     *  Set the dicplayed text in the block.
+     *  Get self enrollment instance.
      *
      * @param moodle_url $imgurl
      * @param object $course

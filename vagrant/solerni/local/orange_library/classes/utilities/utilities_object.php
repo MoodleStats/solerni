@@ -68,10 +68,10 @@ class utilities_object {
     }
 
     /**
-     * Set the extended course values from config.
+     * Get the number of users enrelloedin the course
      *
-     * @param object $context
-     * @return object $this->extendedcourse
+     * @param object $course
+     * @return int $nbenrolledusers
      */
     public function get_nb_users_enrolled_in_course ($course) {
         global $DB;
@@ -93,10 +93,9 @@ class utilities_object {
 
 
     /**
-     * Set the extended course values from config.
+     *  Get the category ID of a course.
      *
-     * @param object $context
-     * @return object $this->extendedcourse
+     * @return int $categoryid
      */
     public function get_categoryid() {
         global $PAGE, $DB;

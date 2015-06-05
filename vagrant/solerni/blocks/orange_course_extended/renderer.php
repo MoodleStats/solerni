@@ -31,11 +31,6 @@ defined('MOODLE_INTERNAL') || die();
 
 class block_orange_course_extended_renderer extends plugin_renderer_base {
 
-    public function init($context, $course) {
-        $extendedcourse = new extended_course_object();
-        $extendedcourse->get_extended_course($course, $context);
-    }
-
     /**
      *  Set the dicplayed text in the block.
      *

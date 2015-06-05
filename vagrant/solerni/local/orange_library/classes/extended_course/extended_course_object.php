@@ -235,7 +235,7 @@ class extended_course_object {
                 if ($extendedcourseflexpagevalue->value == 0) {
                     $this->language = get_string('french', 'format_flexpage');
                 } else {
-                    $this->language = get_string('english', 'block_orange_course_extended');
+                    $this->language = get_string('english', 'local_orange_library');
                 }
                 break;
             case 'coursebadge':
@@ -282,11 +282,11 @@ class extended_course_object {
      * @return string $this->extendedcourse->language
      */
     private function get_language ($extendedcourseflexpagevalue) {
-        $this->extendedcourse->language = get_string('french', 'block_orange_course_extended');
+        $this->extendedcourse->language = get_string('french', 'local_orange_library');
         if ($extendedcourseflexpagevalue->value == 0) {
-            $this->extendedcourse->language = get_string('french', 'block_orange_course_extended');
+            $this->extendedcourse->language = get_string('french', 'local_orange_library');
         } else {
-            $this->extendedcourse->language = get_string('english', 'block_orange_course_extended');
+            $this->extendedcourse->language = get_string('english', 'local_orange_library');
         }
         return $this->extendedcourse->language;
     }

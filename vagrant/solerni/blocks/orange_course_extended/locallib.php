@@ -57,44 +57,6 @@ class courseextended_page_content_file_info extends file_info_stored {
     }
 }
 
-
-
-function get_badges() {
-    global $DB, $PAGE;
-    $usedbadges = array();
-    $badges = $DB->get_records('badge');
-    if ($badges) {
-        foreach ($badges as $badge) {
-            if ($badge->courseid == $PAGE->course->id) {
-                $usedbadges[$badge->id] = $badge->name;
-            }
-        }
-    } else {
-        $usedbadges[1] = get_string('certification_default', 'block_orange_course_extended');
-    }
-    return $usedbadges;
-}
-
-function get_badges_string() {
-    $badges = get_badges();
-    if ($badges) {
-        $stringbadges = get_string('badge', 'block_orange_course_extended');
-        foreach ($badges as $badge) {
-            $stringbadges = $stringbadges."<br>".$badge;
-        }
-    } else {
-        $stringbadges = get_string('certification_default', 'block_orange_course_extended');
-    }
-
-    return $stringbadges;
-}
-
-function count_badges() {
-    global $DB;
-    return $DB->count_records('badge');
-}
-
-
 /**
  * Checks if a user is allowed to view a blog. If not, will not return (calls
  * an error function and exits).

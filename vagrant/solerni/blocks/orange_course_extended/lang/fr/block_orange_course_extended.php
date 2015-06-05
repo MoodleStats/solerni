@@ -23,137 +23,160 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['orange_course_extended:addinstance'] = 'Add a new course contents block';
+$string['orange_course_extended:myaddinstance'] = 'Add a new course contents block to the My Moodle page';
+$string['course_extended'] = 'Course extended contents';
 
-$string['orange_course_extended:addinstance'] = 'Ajout d\'un nouveau bloc données étendues du cours';
-$string['orange_course_extended:myaddinstance'] = 'Ajout d\'un nouveau bloc données étendues du cours à la page Mon Moodle';
-$string['course_extended'] = 'Contenus du bloc données étendues du cours';
-$string['defaulttitle'] = 'Contenus';
+// General configuration.
+$string['defaulttitle'] = 'Course extended contents';
+$string['headerconfig'] = 'headerconfig';
+$string['descconfig'] = 'descconfig';
+$string['blocktitle'] = 'Extended Course';
+$string['blocktitle_default'] = 'Extended Course';
+$string['title_help'] = 'Leave this field empty to use the default block title. If you define a title here, it will be used instead of the default one.';
+$string['pluginname'] = 'Extended Course';
+$string['basics_title'] = 'Extended Course';
+$string['course_extended_settings'] = 'settings';
+$string['week'] = 'week(s)';
+$string['day'] = 'day(s)';
+$string['hour'] = 'hour(s)';
+$string['minute'] = 'minute(s)';
+$string['second'] = 'second(s)';
 
-$string['headerconfig'] = 'configuration de l\'entete';
-$string['descconfig'] = 'configuration de la description';
-$string['labelallowhtml'] = 'html autorisé pour le label';
-$string['descallowhtml'] = 'html autorisé pour la description';
-$string['descallow'] = 'descallow';
-$string['title'] = 'Données de cours étendues';
-$string['current'] = 'courant';
-$string['startingsoon'] = 'va bientôt commencer';
-$string['closed'] = 'clos';
-$string['picture'] = 'image';
+// Course visibility.
+$string['maxvisibility'] = 'Maximum visibility';
+$string['maxvisibility_help'] = '
+<p><strong>Visible only to the page owner (private)</strong> &ndash;
+nobody* else can see this page.</p>
+<p><<strong>Visible to participants on this course</strong> &ndash; to view the page you must
+have been granted access to the course, usually by being enrolled on the course that contains it.</p>
+
+<p><strong>Visible to everyone who is logged in to the system</strong> &ndash; everyone who is
+logged in can view the page, even if they\'re not enrolled on a specific course.</p>
+<p><strong>Visible to anyone in the world</strong> &ndash; any Internet user can see this page
+if you give them the page\'s address.</p>';
+
+$string['visiblecourseusers'] = 'Visible to participants on this course';
+$string['visibleloggedinusers'] = 'Visible to everyone who is logged in to the system';
+$string['visiblepublic'] = 'Visible to anyone in the world';
+
+// Extended course parameters.
+$string['title'] = 'Extended Course';
 $string['true'] = 'true';
 $string['false'] = 'false';
-$string['in_four_weeks'] = 'inférieur à 4 semaines';
-$string['four_six_weeks'] = '4 à 6 semaines';
-$string['sup_six_weeks'] = 'supérieur à 6 semaines';
+$string['inserterror'] = 'insert error';
+$string['notinserterror'] = 'not insert error';
+$string['invalidcourse'] = 'Course not defined';
+$string['pagetitle'] = 'pagetitle';
+$string['pagetitle_default'] = 'Extended Course';
+$string['pagetitle_help'] = 'Extended Course';
 
-$string['inserterror'] = 'erreur inscérée';
+// Status.
+$string['status'] = 'status';
+$string['status_help'] = 'status_help';
+$string['current'] = 'current';
+$string['startingsoon'] = 'startingsoon';
+$string['closed'] = 'closed';
+$string['coursestatus'] = 'coursestatus';
+$string['coursestatus_default'] = 'coursestatus_default';
+$string['coursestatus_help'] = 'coursestatus_help';
 
-$string['notinserterror'] = 'pas d\'erreur inscérée';
+// Picture.
+$string['filetitle'] = 'Course image';
+$string['userfile_default'] = 'undefined';
+$string['picturefields'] = 'picturefields';
+$string['displaypicture'] = 'displaypicture';
+$string['pictureselect'] = 'pictureselect';
+$string['picturedesc'] = 'picturedesc';
+$string['picture_help'] = 'picture_help';
+$string['picture'] = 'picture';
 
-$string['invalidcourse'] = 'Cours invalide';
-$string['addpage'] = 'ajout d\'une page';
-$string['editpage'] = 'edition d\'une page';
-$string['course_extended_settings'] = 'configuration';
+// Duration.
+$string['duration'] = 'duration: ';
+$string['duration_help'] = 'duration_help ';
+$string['duration_default'] = 'in_four_weeks ';
+$string['in_four_weeks'] = 'in_four_weeks';
+$string['four_six_weeks'] = 'four_six_weeks';
+$string['sup_six_weeks'] = 'sup_six_weeks';
 
-$string['maxvisibility'] = 'Visibilité';
-$string['maxvisibility_help'] = '
-<p><strong>Visible seulement pour le propriétaire de la page (privé)</strong> &ndash;
-personne ne pourra voir cette page.</p>
-<p><<strong>Visible aux participants à ce cours</strong> &ndash; Pour voir cette page vous devez avoir les droits nécessaires pour accéder à ce cours,
-habituellement par l\'inscription au cours qui contient cette page.</p>
+// Working time.
+$string['workingtime'] = 'working time per day: ';
+$string['workingtime_help'] = 'working time per day_help ';
+$string['workingtime_default'] = 'inf_one';
+$string['inf_one'] = 'inf_one';
+$string['one_two'] = 'one_two';
+$string['two_three'] = 'two_three';
 
-<p><strong>Visible à toute personne identifiée au système</strong> &ndash; Quiconque identifié
-peut voir la page, meme s\'ils ne sont pas inscrit à un cours particulier.</p>
-<p><strong>Visible pour tout le monde</strong> &ndash; Quiconque provenant du web pourra
-voir la page si les utilisateurs ont accès à solerni.org.</p>';
-
-$string['visiblecourseusers'] = 'Visible aux participants de ce cours';
-$string['visibleloggedinusers'] = 'Visible à toute personne identifié au système';
-$string['visiblepublic'] = 'Visible à tout le monde';
-
-$string['coursestatus'] = 'état du cours';
-$string['coursestatus_default'] = 'état du cours par défaut';
-$string['coursestatus_help'] = 'aide état du cours';
-
-$string['pagetitle'] = 'titre de la page';
-$string['pagetitle_default'] = 'Données de cours étendues';
-$string['pagetitle_help'] = 'Aide données de cours étendues';
-$string['displayedhtml'] = 'affichage html';
-$string['picturefields'] = 'champs image';
-$string['displaypicture'] = 'affichage de l\'image';
-$string['pictureselect'] = 'sélection de l\'image';
-$string['picturedesc'] = 'image description';
-$string['picture_help'] = 'aide image';
-$string['inf_one'] = 'inférieur à 1 heure';
-$string['one_two'] = '1 à 2 heures';
-$string['two_three'] = '2 à 3 heures';
+// Certification.
 $string['badge'] = 'Badge';
-$string['status'] = 'état';
-$string['status_help'] = 'Aide état';
-$string['status_default'] = 'MOOC non démarré';
-
-
-$string['filetitle'] = 'image du cours';
-$string['userfile_default'] = 'indéfini';
-
-$string['blocktitle'] = 'Données de cours étendues';
-$string['blocktitle_default'] = 'Données de cours étendues';
-$string['title_help'] = 'Laissez ce champ vide pour utiliser le titre par défaut. Si une titre est défini ici il remplacera celui par défaut.';
-$string['enumerate'] = 'Enumération des titres des sections';
-$string['enumerate_label'] = 'Si activé, le numéro de section est affiché avant le titre de la section';
-$string['notusingsections'] = 'Ce format de cours n\'utilise pas les sections';
-$string['pluginname'] = 'Données de cours étendues';
-$string['basics_title'] = 'Données de cours étendues';
-
-
-$string['startdate'] = 'date de début: ';
-$string['enddate'] = 'date de fin: ';
-$string['enddate_default'] = "0";
-$string['enddate_help'] = 'aide date de fin ';
-
-
-
-$string['duration'] = 'durée: ';
-$string['duration_help'] = 'aide durée ';
-$string['duration_default'] = 'dans 4 semaines';
-
-
-$string['workingtime'] = 'temps de travail par jour: ';
-$string['workingtime_help'] = 'aide temps de travail par jour';
-$string['workingtime_default'] = 'inférieur à 1 heure';
-
-$string['price'] = 'tarif: ';
-$string['price_help'] = 'aide tarif';
-$string['price_default'] = 'MOOC gratuit';
-
+$string['badges'] = 'badges';
 $string['certification'] = 'Certification';
-$string['certification_default'] = 'Pas de Certification';
-$string['certification_help'] = 'Aide pas de Certification';
+$string['certification_default'] = '<br>Certificate of achievement';
+$string['certification_help'] = 'No Certification';
 
-$string['language'] = 'Langue: ';
-$string['language_default'] = 'Pas de langue définie';
+// Start end date.
+$string['startdate'] = 'start date: ';
+$string['enddate'] = 'end date: ';
+$string['enddate_default'] = "0";
+$string['enddate_help'] = 'enddate_help ';
 
-$string['video'] = 'Vidéo: ';
-$string['video_help'] = 'aide vidéo';
-$string['video_default'] = 0;
+// Course replay.
+$string['course_replay_default'] = 'Replay';
 
-$string['registration'] = 'enregistrement: ';
-$string['registration_default'] = 'enregistrement';
-$string['registration_startdate'] = 'date de début d\'enregistrement: ';
-$string['registration_enddate'] = 'date de fin d\'enregistrement: ';
-$string['registration_startdate_default'] = 'date de début d\'enregistrement défaut';
-$string['registration_enddate_default'] = 'date de fin d\'enregistrement défaut';
-$string['registration_startdate_help'] = 'aide date de début d\'enregistrement';
-$string['registration_enddate_help'] = 'aide date de fin d\'enregistrement';
+// Price.
+$string['price'] = 'price: ';
+$string['price_help'] = 'price_help';
+$string['price_default'] = 'Free MOOC';
+$string['price_case1'] = 'free mooc';
+$string['price_case2'] = 'free mooc<br>certification in option';
+$string['price_case3'] = 'professional teaching';
 
-$string['registeredusers'] = 'utilisateurs enregistrés: ';
-$string['registeredusers_help'] = 'aide utilisateurs enregistrés';
-$string['registeredusers_default'] = 'aucun utilisateur enregistré';
-$string['moocstatus_default'] = 'MOOC non débuté';
+// Language.
+$string['language'] = 'Language: ';
+$string['language_default'] = 'No language';
+$string['french'] = 'French';
+$string['english'] = 'English';
 
-$string['prerequesites'] = 'Prérequis';
-$string['prerequesites_help'] = 'Prérequis aide';
-$string['prerequesites_default'] = 'Aucun Prérequis';
+// Video.
+$string['video'] = 'Vidéos ';
+$string['video_help'] = 'Video_help';
+$string['video_default'] = '0';
+$string['subtitle'] = ' subtitle';
 
-$string['teachingteam'] = 'Equipe enseignante';
-$string['teachingteam_help'] = 'Equipe enseignante aide';
-$string['teachingteam_default'] = 'Conception : Orange avec Learning CRM';
+// Registration.
+$string['registration'] = 'registration: ';
+$string['registration_default'] = 'registration';
+$string['registration_startdate'] = 'registration start date: ';
+$string['registration_enddate'] = 'registration end date: ';
+$string['registration_startdate_default'] = 'registration start date_default';
+$string['registration_enddate_default'] = 'registration end date_default';
+$string['registration_startdate_help'] = 'registration start date_help';
+$string['registration_enddate_help'] = 'registration end date_help ';
+$string['registeredusers_limitation'] = 'registeredusers: ';
+$string['registration_case1'] = 'open for everybody ';
+$string['registration_from'] = ' from ';
+$string['registration_to'] = ' to ';
+$string['registrationcompany'] = 'registration_company: ';
+$string['registrationcompany_default'] = 'registration_company';
+$string['registrationcompany_help'] = 'registration_company help';
+$string['registration_case2'] = 'limited to ';
+$string['registration_case2_2'] = 'first registered users ';
+$string['registration_case3'] = 'You may register by ';
+
+// Registered users.
+$string['registeredusers'] = 'registeredusers: ';
+$string['registeredusers_help'] = 'registeredusers_help';
+$string['registeredusers_default'] = 'no registered users';
+$string['moocstatus_default'] = 'MOOC not started';
+
+// Prerequestites.
+$string['prerequesites'] = 'Prerequisites';
+$string['prerequesites_help'] = 'Prerequisites_help';
+$string['prerequesites_default'] = 'No Prerequisites';
+
+// Teaching team
+$string['teachingteam'] = 'Teaching team';
+$string['teachingteam_help'] = 'Teaching team_help';
+$string['teachingteam_default'] = 'Conception : Orange with Learning CRM';
+
+
