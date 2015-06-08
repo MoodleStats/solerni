@@ -59,10 +59,25 @@ class local_orange_customers_observer {
         global $DB;
 
         $category = (object)$event->get_record_snapshot('course_categories', $event->objectid);
+        
+        $customer = customer_get_customerbycategoryid($category->id);
+        
+        // If customer doesn't exist for this category ==> we must create the customer
+        if ($customer===false) {
 
+        	$customer = new stdClass();
+        	$customer->name = $category->name;
+        	$customer->categoryid = $category->id;        	
+        	$DB->insert_record('orange_customers', $customer, false);   
+        	     	
+        } else {
+        	        	        
+        // If customer exist for this category ==> update        
         $DB->execute("UPDATE {orange_customers}
         		SET name = '". str_replace("'", "\'", $category->name) . "'
         		WHERE categoryid = ". $category->id );
+        
+        }
 
     }
 
