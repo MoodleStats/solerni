@@ -32,9 +32,11 @@ $presentation   = ($PAGE->theme->settings->frontpagepresentation) ?
 ?>
 <div class="frontpage-header">
     <div class="frontpage-header__inner">
-        <h1 class="frontpage-header__tagline"><?php echo $tagline; ?></h1>
-        <span class="frontpage-header__presentation"><?php echo $presentation; ?>
-            <a class="btn btn-primary frontpage-header__button" href="<?php echo $CFG->wwwroot ?>/login/index.php"></a>
+        <h1 class="frontpage-header__item frontpage-header__tagline"><?php echo $tagline; ?></h1>
+        <span class="frontpage-header__item frontpage-header__presentation"><?php echo $presentation; ?>
+            <a class="btn btn-primary frontpage-header__button" href="<?php echo $CFG->wwwroot ?>/login/index.php">
+                
+            </a>
         </span>
     </div>
 </div>

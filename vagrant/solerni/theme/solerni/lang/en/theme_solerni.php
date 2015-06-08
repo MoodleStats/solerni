@@ -22,6 +22,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+// Internal.
 $string['pluginname']                   = 'Solerni';
 $string['region-side-post']             = 'Right';
 $string['region-side-pre']              = 'Left';
@@ -29,6 +30,7 @@ $string['choosereadme']                 = 'Solerni is a clone of Aardvark which 
 $string['configtitle']                  = 'Solerni';
 $string['region-side-top']              = 'Top';
 
+// Frontpage settings.
 $string['frontpagesettings']            = 'Frontpage';
 $string['frontpagetagline']             = 'Header tagline';
 $string['frontpagetaglinedesc']         = 'Tagline displayed on the frontpage, over the header background image. Also DOM main title.';
@@ -38,6 +40,7 @@ $string['frontpagepresentationdefault'] = 'Develop your skills by following, at 
 $string['frontpageheaderimage']         = 'Frontpage header image';
 $string['frontpageheaderimagedesc']     = 'Image used as background on the frontpage header. Recommanded ratio 16:3 and recommanded size about 1600x300px. The theme has a default image for this.';
 
+// Color settings.
 $string['colorsettings']                = 'Colors';
 $string['colourheading']                = 'Theme Colours';
 $string['colourheadingdesc']            = 'Customise site colours.';
@@ -70,6 +73,7 @@ $string['grey4desc']                    = 'Dark grey';
 $string['grey5']                        = 'Grey 5';
 $string['grey5desc']                    = 'Very dark grey';
 
+// Footer settings.
 $string['footersettings']           = 'Footer';
 $string['footertextheading']        = 'Footer Solerni Texts';
 $string['footertextheadingdesc']    = 'Define Solerni branding text in footer.';
@@ -99,6 +103,7 @@ $string['faqdesc']                  = 'Enter FAQ URL';
 $string['contactus']                = 'Contact Us';
 $string['contactusdesc']            = 'Enter Contact URL';
 
+// Social settings.
 $string['socialsettings']           = 'Social';
 $string['sociallinksheading']       = 'Social links';
 $string['sociallinksheadingdesc']   = 'Customise social network urls (footer).';
@@ -124,6 +129,7 @@ $string['dailymotion']              = 'Dailymotion URL';
 $string['dailymotiondesc']          = 'Enter the URL of your Dailymotion channel.';
 $string['dailymotiondisplayname']   = 'Dailymotion';
 
+// Header settings.
 $string['headersettings']           = 'Header';
 $string['headerheading']            = 'Interface Static Links';
 $string['headerheadingdesc']        = 'Set the static link of header';
@@ -138,24 +144,26 @@ $string['hello']                    = 'Hello';
 $string['dashboard']                = 'Dashboard';
 $string['administration']           = 'Administration';
 
+// Search filters
 $string['filterstatustitle']        = 'Status';
 $string['filterstatusall']          = 'All MOOCs';
 $string['filterstatusinprogress']   = 'In progress';
 $string['filterstatuscomingsoon']   = 'Coming soon';
 $string['filterstatuscomplete']     = 'Complete';
-
 $string['filterthematictitle']      = 'Theme';
 $string['filterthematicall']        = 'All themes';
-
 $string['filtercategorytitle']      = 'Company';
 $string['filtercategoryall']        = 'All companies';
-
 $string['filterdurationtitle']      = 'Duration';
 $string['filterdurationall']        = 'All durations';
 $string['filterdurationless4']      = 'Less than 4 weeks';
 $string['filterdurationfrom4to6']   = 'From 4 to 6 weeks';
 $string['filterdurationmore6']      = 'More than 6 weeks';
+$string['catalognresults']          = "Results found";
+$string['catalog0result']           = "No result";
+$string['catalog1result']           = "Result found";
 
+// Mooc component
 $string['courseproposedby']         = "Proposed by";
 $string['coursefindoutmore']        = "Find out more";
 $string['coursestartdate']          = "Starts on";
@@ -163,7 +171,5 @@ $string['courseenddate']            = "Ending on";
 $string['coursebadge']              = "Badges available";
 $string['coursenobadge']            = "No badges";
 
-$string['catalognresults']          = "Results found";
-$string['catalog0result']           = "No result";
-$string['catalog1result']           = "Result found";
-
+// Frontpage frontend
+$string['ifreelyregister']          = "I freel register";

@@ -39,6 +39,7 @@ $THEME->sheets          = array(
                             'blockicons',
                             'profilebar',
                             'font-awesome',
+                            'general',
                             'footer-header',
                             'utils',
                             'queries-980',
