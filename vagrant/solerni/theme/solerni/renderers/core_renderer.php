@@ -252,9 +252,9 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
             <ul class="footer_column_menu__column">
                 <?php foreach ( $settings as $setting )  :
                     if ( $PAGE->theme->settings->$setting ) : ?>
-                    <li class="footer_column__item">
-                        <a href="<?php echo $PAGE->theme->settings->$setting; ?>" class="footer_column_menu_column__link footer_social_link" target="_blank">
-                            <span class="footer_social_link__icon footer_social_<?php echo $setting; ?>  -sprite-solerni"><?php echo $setting; ?></span><!--
+                    <li class="button_social_item">
+                        <a href="<?php echo $PAGE->theme->settings->$setting; ?>" class="footer_column_menu_column__link" target="_blank">
+                            <span class="button_social_link__icon button_social_<?php echo $setting; ?>  -sprite-solerni"><?php echo $setting; ?></span><!--
                             --><span class="footer_icon_text">
                                 <?php echo get_string($setting . 'displayname', 'theme_solerni'); ?>
                             </span>

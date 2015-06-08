@@ -22,11 +22,11 @@
  * @copyright   2015 Orange
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+use local_orange_library\badges\badges_object;
 
 require_once($CFG->dirroot . '/course/renderer.php');
 require_once($CFG->dirroot . '/cohort/lib.php');
 require_once($CFG->dirroot . '/theme/solerni/classes/catalogue.php');
-require_once($CFG->dirroot . '/blocks/course_extended/locallib.php');
 
 class theme_solerni_core_course_renderer extends core_course_renderer
 {
@@ -35,6 +35,8 @@ class theme_solerni_core_course_renderer extends core_course_renderer
 
         // Start code to display only allowed MOOC.
         global $DB, $USER;
+
+        $badges = new badges_object();
 
         // By defaut the course is not displayed.
         $canview = false;
@@ -168,10 +170,11 @@ class theme_solerni_core_course_renderer extends core_course_renderer
 
                 // Badges.
                 $content .= html_writer::start_tag('span', array('class' => 'presentation__mooc__meta__badge'));
-                if (count_badges() != 0) {
-                    $content .= html_writer::tag('p', get_string('coursenobadge', 'theme_solerni'));
-                } else {
+
+                if ($badges->count_badges($course->id)) {
                     $content .= html_writer::tag('p', get_string('coursebadge', 'theme_solerni'));
+                } else {
+                    $content .= html_writer::tag('p', get_string('coursenobadge', 'theme_solerni'));
                 }
                 $content .= html_writer::end_tag('span'); // Badges.
 
