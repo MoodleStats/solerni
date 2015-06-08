@@ -131,20 +131,25 @@ class orange_thematics  {
 
         $table->id = "thematics";
 
-        // List of thematics associated to a course
-        $formatoptions = $DB->get_records('course_format_options', array ('name' => 'coursethematics'));
+        // List of thematics associated to a course (Even if table course_format_options doesn't exist, this script is valid).
         $listidthematic = array();
-        foreach($formatoptions as $formatoption) {
-        	$listidthematic = array_merge($listidthematic, explode(",",$formatoption->value));
-        }        
-        $listidthematic = array_unique($listidthematic);
-        
+        try {
+            $formatoptions = $DB->get_records('course_format_options', array ('name' => 'coursethematics'));
+            foreach ($formatoptions as $formatoption) {
+                $listidthematic = array_merge($listidthematic, explode(",", $formatoption->value));
+            }
+            $listidthematic = array_unique($listidthematic);
+
+        } catch (Exception $e) {
+            // If table doesn't exist, the array listidthematic is empty.
+        }
+
         $thematics = $DB->get_recordset('orange_thematics');
 
         foreach ($thematics as $thematic) {
             $buttons = array();
             if (has_capability('local/orange_thematics:edit', $sitecontext)) {
-                    
+
                 $buttons[] = html_writer::link(new moodle_url('view.php',
                                                                   array('action' => 'thematics_form',
                                                                           'id' => $thematic->id,
@@ -154,22 +159,21 @@ class orange_thematics  {
                                                                                 'alt' => $stredit,
                                                                                 'class' => 'iconsmall')),
                                                    array('title' => $stredit));
-                
-                // If thematic is not associated to a course, we can show the button delete
+
+                // If thematic is not associated to a course, we can show the button delete.
                 if (!in_array($thematic->id, $listidthematic)) {
-                	$msgpopup = get_string('confirmdeletethematic', 'local_orange_thematics', $thematic->name);
-                	$buttons[] = html_writer::link( new moodle_url('index.php',
-                			array('action' => 'thematics_delete', 'id' => $thematic->id,
-                					'sesskey' => sesskey())),
-                			html_writer::empty_tag('img',
-                					array('src' => $OUTPUT->pix_url('t/delete'),
-                							'alt' => $strdelete,
-                							'class' => 'iconsmall')),
-                			array('title' => $strdelete, 'onclick' => "return confirm('$msgpopup')")
-                	);
+                    $msgpopup = get_string('confirmdeletethematic', 'local_orange_thematics', $thematic->name);
+                    $buttons[] = html_writer::link( new moodle_url('index.php',
+                            array('action' => 'thematics_delete', 'id' => $thematic->id,
+                                    'sesskey' => sesskey())),
+                            html_writer::empty_tag('img',
+                                    array('src' => $OUTPUT->pix_url('t/delete'),
+                                            'alt' => $strdelete,
+                                            'class' => 'iconsmall')),
+                            array('title' => $strdelete, 'onclick' => "return confirm('$msgpopup')")
+                    );
                 }
-                
-                
+
             }
             $row = array ();
             $row[] = $thematic->id;
