@@ -1,0 +1,135 @@
+.block_orange_course_extended .sider {
+    background-color: #EEEEEF;
+    padding: 0;
+}
+.block_orange_course_extended .section-list {
+    margin: 0px;
+    padding-left: 20px;
+}
+
+.block_orange_course_extended .section-item {
+    margin-bottom: 6pt;
+}
+
+.block_orange_course_extended .section-title:before {
+}
+
+.block_orange_course_extended .section-title:first-line {
+}
+
+.block_orange_course_extended .section-item.current {
+    font-weight: bold;
+}
+
+.block_orange_course_extended .section-item.r0 {
+}
+
+.block_orange_course_extended .section-item.r1 {
+}
+
+.block_orange_course_extended .section-number {
+}
+
+.block_orange_course_extended .section-title {
+    display: block;
+    background-color: #4B667C;
+    color: #EEEEEF;
+    font-weight: bold;
+    font-size: 1em;
+    padding: 5px 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    line-height: 30px;
+    margin: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+
+}
+
+.block_orange_course_extended a.dimmed:link,
+.block_orange_course_extended a.dimmed:visited {
+    color:#AAAAAA;
+}
+
+
+.block_orange_course_extended .sider h2 {
+    background-color:   #4B667C;
+    color:              #EEEEEF;
+    pointer-events:     none;
+    font-weight:        bold;
+    font-size:          1em;
+    padding:            5px 10px;
+    line-height:        30px;
+    margin:             0;
+}
+.block_orange_course_extended .slrn-bold {
+    font-weight: bold;
+}
+.block_orange_course_extended .sider__content {
+    padding:    25px 10px;
+    font-size:  0.9em;
+}
+
+.block_orange_course_extended .essentiels {
+    padding-left:   30px;
+    list-style:     none;
+}
+
+.block_orange_course_extended li {
+    position:       relative;
+    text-transform: uppercase;
+    margin:         25px 0;
+    font-size:      0.90em;
+    min-height:     25px;
+    line-height:    1.2;
+}
+
+.block_orange_course_extended li:first-child {
+    margin-top: 0;
+}
+
+.block_orange_course_extended .essentiels-icon {
+    content:        "";
+    position:       absolute;
+    width:          24px;
+    height:         24px;
+    top:            -3px;
+    left:           -17%;
+    pointer-events: none;
+    background:     transparent url([[pix:block_orange_course_extended|sprites_solerni]]) no-repeat 0 0 scroll;
+}
+
+.block_orange_course_extended .essentiels__date {
+    background-position: -210px -88px;
+}
+.block_orange_course_extended .essentiels__duration {
+    background-position: -210px -113px;
+}
+.block_orange_course_extended .essentiels__price {
+    background-position: -210px -139px;
+}
+.block_orange_course_extended .essentiels__certification {
+    background-position: -210px -164px;
+}
+.block_orange_course_extended .essentiels__language {
+    background-position: -210px -189px;
+}
+.block_orange_course_extended .essentiels__video {
+    background-position: -210px -214px;
+}
+.block_orange_course_extended .essentiels__subscription {
+    background-position: -210px -239px;
+}
+.block_orange_course_extended .essentiels__subscribers {
+    background-position: -207px -299px;
+}
+
+.block_orange_course_extended .sider__content .longText {
+    font-size:      0.95em;
+    white-space:    normal;
+    max-width:      85%;
+}
+
+.block_orange_course_extended .content_center {
+    text-align: center;
+}

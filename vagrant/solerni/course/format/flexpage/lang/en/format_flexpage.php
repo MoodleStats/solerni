@@ -201,11 +201,19 @@ $string['releasecode_help'] = 'This course item will not be available to student
  */
 $string['picture'] = 'picture';
 $string['picture_help'] = 'picture_help';
+$string['coursereplay'] = 'After closed';
+$string['coursereplay_help'] = 'Choose the action';
+$string['replay'] = 'Replay';
+$string['notreplay'] = 'Don\'t replay';
 
 $string['current'] = 'current';
 $string['startingsoon'] = 'startingsoon';
 $string['closed'] = 'closed';
 $string['picture'] = 'picture';
+$string['badge'] = 'Badge';
+$string['badge_help'] = 'Badge_help';
+$string['certification'] = 'Certification';
+$string['certification_help'] = 'Certification_help';
 
 $string['startdate'] = 'start date: ';
 $string['enddate'] = 'end date: ';
@@ -214,28 +222,35 @@ $string['enddate_help'] = 'enddate_help ';
 
 $string['duration'] = 'duration: ';
 $string['duration_help'] = 'duration_help ';
-$string['duration_default'] = 'in_four_weeks ';
-$string['duration0'] = 'in_four_weeks';
-$string['duration1'] = 'four_six_weeks';
-$string['duration2'] = 'sup_six_weeks';
+$string['duration_default'] = 'inferior at four weeks';
+$string['duration0'] = 'inferior at four weeks';
+$string['duration1'] = 'four to six weeks';
+$string['duration2'] = 'superior at six weeks';
 
 $string['workingtime'] = 'working time per day: ';
 $string['workingtime_help'] = 'working time per day_help ';
 $string['workingtime_default'] = 'inf_one';
-$string['workingtime0'] = 'inf_one';
-$string['workingtime1'] = 'one_two';
-$string['workingtime2'] = 'two_three';
+$string['workingtime0'] = 'inferior at one hour';
+$string['workingtime1'] = 'one to two hours';
+$string['workingtime2'] = 'two to three hours';
 
 $string['price'] = 'price: ';
 $string['price_help'] = 'price_help';
-$string['price_default'] = 'Free MOOC';
+$string['price_default'] = '0';
+$string['price_case1'] = 'free mooc';
+$string['price_case2'] = 'free mooc<br>certification in option';
+$string['price_case3'] = 'professional teaching';
 
 $string['certification'] = 'Certification';
-$string['certification_default'] = 'No Certification';
+$string['certification_default'] = 'Badges<br>Certificate of achievement';
 $string['certification_help'] = 'No Certification';
 
 $string['language'] = 'Language: ';
-$string['language_default'] = 'No language';
+$string['language_default'] = 'french';
+$string['language_help'] = 'Language';
+$string['french'] = 'French';
+$string['english'] = 'English';
+
 
 $string['video'] = 'Video: ';
 $string['video_help'] = 'Video_help';
@@ -243,16 +258,30 @@ $string['video_default'] = 'false';
 $string['true'] = 'true';
 $string['false'] = 'false';
 
+$string['subtitle'] = 'Subtitle: ';
+$string['subtitle_help'] = 'subtitle_help';
+$string['subtitle_default'] = 'false';
+
+
 $string['registration'] = 'registration: ';
 $string['registration_default'] = 'registration';
+$string['registration_help'] = 'registration help';
 $string['registration_startdate'] = 'registration start date: ';
 $string['registration_enddate'] = 'registration end date: ';
 $string['registration_startdate_default'] = 'registration start date_default';
 $string['registration_enddate_default'] = 'registration end date_default';
 $string['registration_startdate_help'] = 'registration start date_help';
 $string['registration_enddate_help'] = 'registration end date_help ';
+$string['registeredusers_limitation'] = 'registeredusers: ';
+$string['registration_case1'] = 'registration without quota ';
+$string['registration_case2'] = 'limited registration ';
+$string['registration_case3'] = 'private registration';
+$string['registrationcompany'] = 'registration_company: ';
+$string['registrationcompany_default'] = 'registration_company';
+$string['registrationcompany_help'] = 'registration_company help';
 
-$string['registeredusers'] = 'registeredusers: ';
+
+$string['registeredusers'] = 'registered users: ';
 $string['registeredusers_help'] = 'registeredusers_help';
 $string['registeredusers_default'] = 'no registered users';
 $string['moocstatus_default'] = 'MOOC not started';
@@ -262,9 +291,9 @@ $string['status_help'] = 'status_help';
 $string['status_default'] = 'MOOC not started ';
 
 $string['prerequesites'] = 'Prerequisites';
-$string['prerequesites_help'] = 'Prerequisites_help';
+$string['prerequesites_help'] = ' It allows the user to enter rich text content in a variety of formats.';
 $string['prerequesites_default'] = 'No Prerequisites';
 
 $string['teachingteam'] = 'Teaching team';
-$string['teachingteam_help'] = 'Teaching team_help';
+$string['teachingteam_help'] = 'It allows the user to enter rich text content in a variety of formats.';
 $string['teachingteam_default'] = 'Conception : Orange with Learning CRM';

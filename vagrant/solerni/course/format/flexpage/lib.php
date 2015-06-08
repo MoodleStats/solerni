@@ -193,6 +193,7 @@ class format_flexpage extends format_base {
         $records->close();
     }
 
+
     /**
      * Definitions of the additional options that this course format uses for course
      *
@@ -242,209 +243,212 @@ class format_flexpage extends format_base {
         if ($courseformatoptions === false) {
             $courseconfig = get_config('moodlecourse');
             $courseformatoptions = array(
-                'numsections' => array(
-                    'default' => $courseconfig->numsections,
-                    'type' => PARAM_INT,
-                ),
-                'hiddensections' => array(
-                    'default' => $courseconfig->hiddensections,
-                    'type' => PARAM_INT,
-                ),
-                'coursedisplay' => array(
-                    'default' => $courseconfig->coursedisplay,
-                    'type' => PARAM_INT,
-                ),
-                'coursestatus' => array(
-                    'default' => get_config('status', 'format_flexpage'),
+                'courseenddate' => array(
+                    'default' => get_config('enddate', 'format_flexpage'),
                     'type' => PARAM_INT,
                 ),
                 'coursepicture' => array(
                     'default' => get_config('picture', 'format_flexpage'),
                     'type' => PARAM_CLEANFILE,
                 ),
-                'courseenddate' => array(
-                    'default' => get_config('enddate', 'format_flexpage'),
+                'coursereplay' => array(
+                    'default' => get_config('coursereplay', 'format_flexpage'),
+                    'type' => PARAM_INT,
+                ),
+                'courseduration' => array(
+                    'default' => get_config('duration', 'format_flexpage'),
                     'type' => PARAM_INT,
                 ),
                 'courseworkingtime' => array(
                     'default' => get_config('workingtime', 'format_flexpage'),
                     'type' => PARAM_INT,
                 ),
+                'coursebadge' => array(
+                    'default' => get_config('badge', 'format_flexpage'),
+                    'type' => PARAM_INT,
+                ),
+                'coursecertification' => array(
+                    'default' => get_config('certification', 'format_flexpage'),
+                    'type' => PARAM_INT,
+                ),
                 'courseprice' => array(
                     'default' => get_config('price', 'format_flexpage'),
+                    'type' => PARAM_INT,
+                ),
+                'courselanguage' => array(
+                    'default' => get_config('language', 'format_flexpage'),
                     'type' => PARAM_INT,
                 ),
                 'coursevideo' => array(
                     'default' => get_config('video', 'format_flexpage'),
                     'type' => PARAM_INT,
                 ),
-                'registration_startdate' => array(
-                    'default' => get_config('registration_startdate', 'format_flexpage'),
+                'coursesubtitle' => array(
+                    'default' => get_config('coursesubtitle', 'format_flexpage'),
                     'type' => PARAM_INT,
                 ),
-                'registration_enddate' => array(
-                    'default' => get_config('registration_enddate', 'format_flexpage'),
+                'courseregistration' => array(
+                    'default' => get_config('registration', 'format_flexpage'),
                     'type' => PARAM_INT,
+                ),
+
+                'coursemaxregisteredusers' => array(
+                    'default' => get_config('registeredusers', 'format_flexpage'),
+                    'type' => PARAM_INT,
+                ),
+
+                'courseprerequesites' => array(
+                    'default' => get_config('prerequesites', 'format_flexpage'),
+                    'type' => PARAM_RAW,
                 ),
                 'courseteachingteam' => array(
                     'default' => get_config('teachingteam', 'format_flexpage'),
-                    'type' => PARAM_NOTAGS,
+                    'type' => PARAM_RAW,
                 ),
-                'courseprerequesites' => array(
-                    'default' => get_config('prerequesites', 'format_flexpage'),
-                    'type' => PARAM_TEXT,
-                ),
-                'duration' => array(
-                    'default' => get_config('duration', 'format_flexpage'),
-                    'type' => PARAM_INT,
-                )
             );
         }
         if ($foreditform && !isset($courseformatoptions['coursedisplay']['label'])) {
             $courseconfig = get_config('moodlecourse');
-            $max = $courseconfig->maxsections;
-            if (!isset($max) || !is_numeric($max)) {
-                $max = 52;
-            }
-            $sectionmenu = array();
-            for ($i = 0; $i <= $max; $i++) {
-                $sectionmenu[$i] = "$i";
-            }
+
             $courseformatoptionsedit = array(
-                'numsections' => array(
-                    'label' => new lang_string('numberweeks'),
-                    'element_type' => 'select',
-                    'element_attributes' => array($sectionmenu)
-                ),
-                'hiddensections' => array(
-                    'label' => new lang_string('hiddensections'),
-                    'help' => 'hiddensections',
-                    'help_component' => 'moodle',
-                    'element_type' => 'select',
-                    'element_attributes' => array(
-                        array(
-                            0 => new lang_string('hiddensectionscollapsed'),
-                            1 => new lang_string('hiddensectionsinvisible')
-                        )
-                    )
-                ),
-                'coursedisplay' => array(
-                    'label' => new lang_string('coursedisplay'),
-                    'element_type' => 'select',
-                    'element_attributes' => array(
-                        array(
-                            COURSE_DISPLAY_SINGLEPAGE => new lang_string('coursedisplay_single'),
-                            COURSE_DISPLAY_MULTIPAGE => new lang_string('coursedisplay_multi')
-                        )
-                    ),
-                    'help' => 'coursedisplay',
-                    'help_component' => 'moodle'
-                ),
-                'coursestatus' => array(
-                    'label' => new lang_string('status', 'format_flexpage'),
-                    'help' => 'status',
-                    'help_component' => 'format_flexpage',
-                    'element_type' => 'select',
-                    'element_attributes' => array(
-                        array(
-                            0 => get_string('current', 'format_flexpage'),
-                            1 => get_string('startingsoon', 'format_flexpage'),
-                            2 => get_string('closed', 'format_flexpage')
-                        )
-                    )
-                ),
-                'coursepicture' => array(
-                    'label' => new lang_string('picture', 'format_flexpage'),
-                    'element_type' => 'filemanager',
-                    'element_attributes' => array(
-                            'subdirs' => 0,
-                            'maxbytes' => $CFG->maxbytes,
-                            'maxfiles' => 1,
-                            'accepted_types' => array('document'),
-                            'return_types' => FILE_INTERNAL | FILE_EXTERNAL
-                        ),
-                    'help' => 'picture',
-                    'help_component' => 'format_flexpage',
-                ),
                 'courseenddate' => array(
                     'label' => get_string('enddate', 'format_flexpage'),
                     'help' => 'enddate',
                     'help_component' => 'format_flexpage',
                     'element_type' => 'date_selector'
                 ),
-                'courseworkingtime' => array(
-                    'label' => get_string('workingtime', 'format_flexpage'),
-                    'help' => 'workingtime',
+
+                'coursepicture' => array(
+                    'label' => get_string('picture', 'format_flexpage'),
+                    'element_type' => 'filemanager',
+                    'element_attributes' => array(
+                        array(
+                            'subdirs' => 0,
+                            'maxbytes' => $CFG->maxbytes,
+                            'maxfiles' => 1,
+                            'accepted_types' => array('document'),
+                            'return_types' => FILE_INTERNAL | FILE_EXTERNAL
+                            )
+                        ),
+                    'help' => 'picture',
+                    'help_component' => 'format_flexpage',
+                ),
+                'coursereplay' => array(
+                    'label' => get_string('coursereplay', 'format_flexpage'),
+                    'help' => 'coursereplay',
                     'help_component' => 'format_flexpage',
                     'element_type' => 'select',
                     'element_attributes' => array(
                         array(
-                            0 => get_string('workingtime0', 'format_flexpage'),
-                            1 => get_string('workingtime1', 'format_flexpage'),
-                            2 => get_string('workingtime2', 'format_flexpage')
+                            0 => get_string('replay', 'format_flexpage'),
+                            1 => get_string('notreplay', 'format_flexpage')
+                            )
+                    )
+                ),
+                'courseworkingtime' => array(
+                    'label' => get_string('workingtime', 'format_flexpage'),
+                    'help' => 'workingtime',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'duration',
+                    'element_attributes' => array(
+                    'defaultunit' => 86400,
+                    'units' => array(3600, 86400),
+                    'optional' => true
                         )
-                     )
                 ),
                 'courseprice' => array(
-                    'label' => new lang_string('price', 'format_flexpage'),
-                    'element_type' => 'text',
+                    'label' => get_string('price', 'format_flexpage'),
                     'help' => 'price',
                     'help_component' => 'format_flexpage',
+                    'element_type' => 'select',
+                    'element_attributes' => array(
+                        array(
+                            0 => get_string('price_case1', 'format_flexpage'),
+                            1 => get_string('price_case2', 'format_flexpage'),
+                            2 => get_string('price_case3', 'format_flexpage')
+                        )
+                        )
+                ),
+                'coursebadge' => array(
+                    'label' => get_string('badge', 'format_flexpage'),
+                    'help' => 'badge',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'checkbox'
+                ),
+                'coursecertification' => array(
+                    'label' => get_string('certification', 'format_flexpage'),
+                    'help' => 'certification',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'checkbox'
                 ),
                 'coursevideo' => array(
                     'label' => get_string('video', 'format_flexpage'),
                     'help' => 'video',
                     'help_component' => 'format_flexpage',
+                    'element_type' => 'checkbox'
+                ),
+                'coursesubtitle' => array(
+                    'label' => get_string('subtitle', 'format_flexpage'),
+                    'help' => 'subtitle',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'checkbox'
+                ),
+                'coursemaxregisteredusers' => array(
+                    'label' => get_string('registeredusers', 'format_flexpage'),
+                    'help' => 'registeredusers',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'text'
+                ),
+                'courseregistration' => array(
+                    'label' => get_string('registration', 'format_flexpage'),
+                    'help' => 'registration',
+                    'help_component' => 'format_flexpage',
                     'element_type' => 'select',
                     'element_attributes' => array(
                         array(
-                            0 => get_string('true', 'format_flexpage'),
-                            1 => get_string('false', 'format_flexpage')
+                            0 => get_string('registration_case1', 'format_flexpage'),
+                            1 => get_string('registration_case2', 'format_flexpage'),
+                            2 => get_string('registration_case3', 'format_flexpage')
                         )
+                        )
+                ),
+                'courselanguage' => array(
+                    'label' => get_string('language', 'format_flexpage'),
+                    'help' => 'language',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'select',
+                    'element_attributes' => array(
+                        array(
+                            0 => get_string('french', 'format_flexpage'),
+                            1 => get_string('english', 'format_flexpage')
+                            )
                     )
-                ),
-               'registration_startdate' => array(
-                    'label' => get_string('registration_startdate', 'format_flexpage'),
-                    'help' => 'registration_startdate',
-                    'help_component' => 'format_flexpage',
-                    'element_type' => 'date_selector'
-                ),
-               'registration_enddate' => array(
-                    'label' => get_string('registration_enddate', 'format_flexpage'),
-                    'help' => 'registration_enddate',
-                    'help_component' => 'format_flexpage',
-                    'element_type' => 'date_selector'
                 ),
                 'courseteachingteam' => array(
                     'label' => get_string('teachingteam', 'format_flexpage'),
                     'help' => 'teachingteam',
                     'help_component' => 'format_flexpage',
-                    'element_type' => 'text'
+                    'element_type' => 'htmleditor'
                 ),
                 'courseprerequesites' => array(
                     'label' => get_string('prerequesites', 'format_flexpage'),
-                    'help' => 'prerequesites',
-                    'help_component' => 'format_flexpage',
-                    'element_type' => 'text'
+                    'element_type' => 'htmleditor'
                 ),
-                'duration' => array(
+                'courseduration' => array(
                     'label' => get_string('duration', 'format_flexpage'),
                     'help' => 'duration',
                     'help_component' => 'format_flexpage',
-                    'element_type' => 'select',
+                    'element_type' => 'duration',
                     'element_attributes' => array(
-                        array(
-                            0 => get_string('duration0', 'format_flexpage'),
-                            1 => get_string('duration1', 'format_flexpage'),
-                            2 => get_string('duration2', 'format_flexpage')
+                    'defaultunit' => 86400,
+                    'optional' => false
                         )
                     )
-                )
+
             );
             $courseformatoptions = array_merge_recursive($courseformatoptions, $courseformatoptionsedit);
         }
         return $courseformatoptions;
-
     }
 
    /**
@@ -458,6 +462,7 @@ class format_flexpage extends format_base {
      * @return bool whether there were any changes to the options values
      */
     public function update_course_format_options($data, $oldcourse = null) {
+
         $context = context_course::instance($this->courseid);
         $saved = file_save_draft_area_files($data->coursepicture, $context->id, 'format_flexpage',
         'coursepicture', 0, array('subdirs' => 0, 'maxfiles' => 1));

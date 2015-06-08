@@ -243,58 +243,15 @@ class enrol_orangeinvitation_plugin extends enrol_plugin {
         // If token is valid, enrol the user into the course.
         if (!empty($invitation) && !empty($invitation->courseid) && ($invitation->courseid == $id)) {
             if ($course = $DB->get_record('course', array('id' => $id))) {
-                $course_name = $course->fullname;
+                $coursename = $course->fullname;
             } else {
-                $course_name = "";
+                $coursename = "";
             }
         } else {
-            $course_name = "";
+            $coursename = "";
         }
-           
-        return $course_name;
+
+        return $coursename;
     }
-    
-    /**
-     * This function manage the redirection to a course if the access has been  
-     * done using the enrolment URL to the course => a cookie is set in this case
-     * @param cookie or token/courseid
-     * @return array
-     */
-    public function check_redirection ($cookie=null, $enrolinvitationtoken=null, $courseid=null) {
-        global $DB;
-        
-        if ($cookie != null) {
-            // Decrypt cookie content token-courseId.
-            $cookiecontent = explode("-", rc4decrypt($cookie));
-            $enrolinvitationtoken = $cookiecontent[0];
-            $courseid = $cookiecontent[1];
-        }
-        
-        $message = "";
-        
-        // Retrieve the token info.
-        $invitation = $DB->get_record('enrol_orangeinvitation', array('token' => $enrolinvitationtoken));
-        // If token is valid, enrol the user into the course.
-        if (empty($invitation) or empty($invitation->courseid) or ($invitation->courseid != $courseid)) {
-            $message = get_string('expiredtoken', 'enrol_orangeinvitation');
-        }
 
-        // Get.
-        $invitationmanager = new invitation_manager($courseid);
-        $instance = $invitationmanager->get_invitation_instance($courseid);
-        if ($instance->status == 1) {
-            // The URL Link is not activated.
-            $message = get_string('linknotactivated', 'enrol_orangeinvitation');
-        }
-
-        if ($message == "") {
-            $courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
-        } else {
-            $courseurl = new moodle_url('/');
-        }
-
-        setcookie ( 'MoodleEnrolToken', '', time()-3600, '/');
-        redirect($courseurl, $message);
-        
-    }
 }

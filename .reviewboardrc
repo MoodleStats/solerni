@@ -1,0 +1,5 @@
+REPOSITORY = 'vagrant'
+REVIEWBOARD_URL = "http://10.192.230.120/reviewboard"
+TRACKING_BRANCH = "origin/develop"
+BRANCH = "develop"
+ENABLE_PROXY = False

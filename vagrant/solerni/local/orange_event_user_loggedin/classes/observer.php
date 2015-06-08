@@ -92,12 +92,11 @@ class local_orange_event_user_loggedin_observer {
             $subject = str_replace('{$a->sitename}', format_string($site->fullname), $subject);
 
             email_to_user($user[$event->objectid], $contact, $subject, $messagetext, $messagehtml);
-            
+
             // Redirection to a course page in case of MoodleEnrolToken cookie.
             // This cookie is set when the user subscribe to the platform and to a course at the same time.
-            if (!empty($_COOKIE['MoodleEnrolToken'])) {   
-                $enrolurl = new enrol_orangeinvitation_plugin ();
-                $enrolurl->check_redirection ($_COOKIE['MoodleEnrolToken']);
+            if (!empty($_COOKIE['MoodleEnrolToken'])) {
+                check_course_redirection ($_COOKIE['MoodleEnrolToken']);
             }
         }
 
