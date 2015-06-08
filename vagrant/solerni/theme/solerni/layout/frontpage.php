@@ -24,8 +24,6 @@ echo $OUTPUT->doctype() ?>
 
 <?php require('header.php'); ?>
 
-<?php require('partials/frontpage-header.php'); ?>
-
     <div id="page-content" class="row-fluid">
         <section id="region-main" class="span12">
             <?php

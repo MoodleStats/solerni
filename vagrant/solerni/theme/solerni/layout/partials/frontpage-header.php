@@ -24,12 +24,17 @@ $tagline        = ($PAGE->theme->settings->frontpagetagline) ?
                    $PAGE->theme->settings->frontpagetagline :
                    get_string('footertaglinedefault', 'theme_solerni');
 
-$presentation   = ($PAGE->theme->settings->frontpagetagline) ?
-                   $PAGE->theme->settings->frontpagetagline :
+$presentation   = ($PAGE->theme->settings->frontpagepresentation) ?
+                   $PAGE->theme->settings->frontpagepresentation :
                    get_string('frontpagepresentationdefault', 'theme_solerni');
+
+
 ?>
 <div class="frontpage-header">
-    <h1 class="frontpage-header__tagline"><?php echo $tagline; ?></h1>
-    <span class="frontpage-header__presentation"><?php echo $presentation; ?></span>
-    <a class="frontpage-header__button" href="<?php echo $CFG->wwwroot ?>/login/index.php"></a>
+    <div class="frontpage-header__inner">
+        <h1 class="frontpage-header__tagline"><?php echo $tagline; ?></h1>
+        <span class="frontpage-header__presentation"><?php echo $presentation; ?>
+            <a class="btn btn-primary frontpage-header__button" href="<?php echo $CFG->wwwroot ?>/login/index.php"></a>
+        </span>
+    </div>
 </div>

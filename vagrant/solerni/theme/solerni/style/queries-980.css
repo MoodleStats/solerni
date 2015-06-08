@@ -1,0 +1,70 @@
+/*
+ *
+ * Queries styles before 980 pixels
+ *
+ * @package   theme_solerni
+ * @author    Orange / Solerni
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+@media screen and (max-width: 979px ) {
+    .navbar .btn-navbar {
+        display:    inline-block;
+        float:      none;
+        margin:     0;
+    }
+
+    .slrn-top-header__inner .nav-collapse.collapse {
+        display:    none;
+        height:     auto !important;
+        width:      auto !important;
+        overflow:   visible;
+        line-height:0;
+    }
+
+    .slrn-top-header__item--hello {
+        position:   absolute;
+        top:        0;
+    }
+
+    .nav-collapse.collapse.active {
+        position:           absolute;
+        display:            block;
+        top:                50px;
+        right:              0;
+        background-color:   #4B667C;
+    }
+
+    .nav-collapse.collapse .slrn-top-header__item {
+        display:        block;
+        height:         auto;
+        border-bottom:  1px solid [[setting:grey2]];
+    }
+
+    .slrn-top-header__item.slrn-top-header__menu {
+        height:     auto !important;
+    }
+
+    .nav-collapse.collapse .slrn-topbar-item__active {
+        display: none;
+    }
+
+    .nav-collapse .nav>li>a:hover,
+    .nav-collapse .nav>li>a:focus {
+        background-color: transparent;
+    }
+
+    .nav-collapse.collapse.active .dropdown-menu {
+        display:        block;
+        position:       relative;
+        top:            9px;
+        border-left:    0;
+        border-right:   0;
+        margin:         0 !important;
+    }
+
+    .slrn-lang-menu > .dropdown {
+        padding:    0;
+    }
+
+}

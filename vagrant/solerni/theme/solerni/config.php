@@ -34,7 +34,17 @@ $THEME->doctype         = 'html5';
 $THEME->yuicssmodules   = array();
 $THEME->name            = 'solerni';
 $THEME->parents         = array('bootstrapbase');
-$THEME->sheets          = array('custom', 'blockicons', 'profilebar', 'font-awesome', 'settings', 'solerni');
+$THEME->sheets          = array(
+                            'custom',
+                            'blockicons',
+                            'profilebar',
+                            'font-awesome',
+                            'footer-header',
+                            'utils',
+                            'queries-980',
+                            'queries-767',
+                            'queries-399'
+                        );
 
 // Frontpage styles
 if ( $PAGE->pagetype === 'site-index' ) {

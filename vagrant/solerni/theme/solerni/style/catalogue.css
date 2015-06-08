@@ -1,4 +1,11 @@
-/* Affichage du header par client */
+/*
+ *
+ * Style de la page catalogue (/catalog)
+ *
+ * @package   theme_solerni
+ * @author    Orange / Solerni
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
 .slrn-header__column {
     width: 966px;
@@ -177,5 +184,5 @@ div.filtercategory, div.filterstatus, div.filterthematic, div.filterduration {
 
 .slrn-filter .filter {
     padding: 1em;
-    background-color: #EEE;  
+    background-color: #EEE;
 }

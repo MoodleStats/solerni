@@ -7,6 +7,10 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+/*
+ * @todo : reogarnize content, use array of values to reduce duplicated code
+ */
+
 use \theme_solerni\settings\options;
 
 $settings = null;
