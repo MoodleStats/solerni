@@ -1,25 +1,12 @@
 /*
+ *
+ * Header and Footer CSS
+ *
  * @package   theme_solerni
  * @author    Orange / Solerni
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-* {
-    box-sizing: border-box;
-}
-
-html,
-body {
-    font-family:            Arial, Helvetica, sans-serif;
-    line-height:            1.5;
-    font-size:              16px; /* browser default */
-    color:                  [[setting:dark]];
-    background-color:       [[setting:backcolor]];
-}
-
-body {
-    padding-top: 100px;
-}
 
 /*
  *  Header
@@ -29,6 +16,8 @@ body {
     position:           fixed;
     background-color:   [[setting:primary]];
     height:             50px;
+
+    box-shadow:         0 5px 5px [[setting:grey5]];
 }
 
 .slrn-top-header__inner {
@@ -433,121 +422,4 @@ body {
     width:                  123px;
     text-indent:            -999em;
     background-position:    -185px -48px;
-}
-
-/*
- *  Utils
- */
-
-/* Uses the solerni sprite */
-.-sprite-solerni {
-    background-image: url([[pix:theme|sprite-solerni]]);
-}
-
-.-slrn-radius {
-    border-radius: 4px;
-}
-
-.-wrapper-justified {
-    text-align: justify;
-}
-
-.-wrapper-justified:after {
-    content:    "";
-    display:    inline-block;
-    width:      100%;
-}
-
-.-text-right {
-    text-align: right;
-}
-
-.slrn-top-header__item .caret {
-    border-top-color:       #FFF !important;
-    border-bottom-color:    #FFF !important;
-}
-
-.-not-uppercase {
-    text-transform: none !important;
-}
-
-
-@media screen and (max-width: 979px ) {
-    .navbar .btn-navbar {
-        display:    inline-block;
-        float:      none;
-        margin:     0;
-    }
-
-    .slrn-top-header__inner .nav-collapse.collapse {
-        display:    none;
-        height:     auto !important;
-        width:      auto !important;
-        overflow:   visible;
-        line-height:0;
-    }
-
-    .slrn-top-header__item--hello {
-        position:   absolute;
-        top:        0;
-    }
-
-    .nav-collapse.collapse.active {
-        position:           absolute;
-        display:            block;
-        top:                50px;
-        right:              0;
-        background-color:   #4B667C;
-    }
-
-    .nav-collapse.collapse .slrn-top-header__item {
-        display:        block;
-        height:         auto;
-        border-bottom:  1px solid [[setting:grey2]];
-    }
-
-    .slrn-top-header__item.slrn-top-header__menu {
-        height:     auto !important;
-    }
-
-    .nav-collapse.collapse .slrn-topbar-item__active {
-        display: none;
-    }
-
-    .nav-collapse .nav>li>a:hover,
-    .nav-collapse .nav>li>a:focus {
-        background-color: transparent;
-    }
-
-    .nav-collapse.collapse.active .dropdown-menu {
-        display:        block;
-        position:       relative;
-        top:            9px;
-        border-left:    0;
-        border-right:   0;
-        margin:         0 !important;
-    }
-
-    .slrn-lang-menu > .dropdown {
-        padding:    0;
-    }
-
-}
-
-@media screen and (max-width: 767px ) {
-    .navbar-fixed-top {
-        margin-left:    0;
-        margin-right:   0;
-    }
-
-    .footer-column {
-        padding: 0 2em;
-    }
-
-}
-
-@media screen and (max-width: 399px ) {
-    .slrn-header-search-form {
-        display: none;
-    }
 }

@@ -53,7 +53,7 @@ class block_orange_social_sharing_renderer extends plugin_renderer_base {
 
         $count = count ($shareonarray);
 
-        $text = html_writer::start_tag('div', array('class' => 'sider'));
+        $text = html_writer::start_tag('div', array('class' => 'sider sider_social-sharing'));
                 $text .= html_writer::start_tag('ul', array('class' => 'list-unstyled'));
                    for ($i=0; $i<$count; $i++) {
                    $text .= html_writer::start_tag('li', array('class' => 'button_social_item'));

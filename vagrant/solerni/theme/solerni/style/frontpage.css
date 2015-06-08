@@ -1,9 +1,45 @@
 /*
+ * Frontpage styles
+ *
  * @package   theme_solerni
  * @author    Orange / Solerni
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ *
  */
 
-.frontpage-header {
-    background: transparent url([[setting:frontpageheaderimage]]) no-repeat 0 0;
+.frontpage-header {
+    position:           relative;
+    background:         transparent url([[setting:frontpageheaderimage]]) no-repeat 0 0;
+    background-size:    cover;
+
+    padding:            18.75% 0 0 0;
+}
+
+.frontpage-header__inner {
+    position:   absolute;
+    left:       5%;
+    top:        20%;
+
+    color:      [[setting:light]];
+}
+
+.frontpage-header__item {
+    vertical-align: top;
+}
+
+.frontpage-header__tagline {
+    display:        inline-block;
+    width:          25%;
+    text-align:     right;
+    font-size:      28px;
+    line-height:    1.1;
+    text-transform: uppercase;
+}
+
+.frontpage-header__presentation {
+    display:        inline-block;
+    width:          40%;
+    margin-left:    30px;
+    font-size:      24px;
+    line-height:    1.25;
 }

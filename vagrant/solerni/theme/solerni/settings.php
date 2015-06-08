@@ -7,7 +7,14 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+/*
+ * @todo : reogarnize content, use array of values to reduce duplicated code
+ */
+
+use \theme_solerni\settings\options;
+
 $settings = null;
+$solernioptions = new options();
 
 defined('MOODLE_INTERNAL') || die;
 
@@ -47,8 +54,7 @@ $information = get_string('colourheadingdesc', 'theme_solerni');
 $setting = new admin_setting_heading($name, $heading, $information);
 $temp->add($setting);
 // Get colors keys and values from options class.
-$color_settings = \theme_solerni\settings\options::solerni_get_colors_array();
-foreach( $color_settings as $key => $value ) {
+foreach( $solernioptions::solerni_get_colors_array() as $key => $value ) {
     $name = 'theme_solerni/' . $key;
     $title = get_string( $key, 'theme_solerni' );
     $description = get_string( $key . 'desc', 'theme_solerni');
@@ -64,16 +70,23 @@ $ADMIN->add('theme_solerni', $temp);
 $temp = new admin_settingpage('theme_solerni_footer', get_string('footersettings','theme_solerni'));
 $name = 'theme_solerni/footertextheading';
 $heading = get_string('footertextheading', 'theme_solerni');
-$information = get_string('footertextheadingdesc', 'theme_solerni');
+$information = '';
 $setting = new admin_setting_heading($name, $heading, $information);
 $temp->add($setting);
-// Platform langs.
+// Platform langs. Iterate for tagline and presentation texte.
 $langs = get_string_manager()->get_list_of_translations();
-$footer_texts = \theme_solerni\settings\options::solerni_get_footertext_array();
 if ( $langs ) {
     foreach ( $langs as $lang => $langname ) {
-        foreach( $footer_texts as $key => $value ) {
-            // Footer tagline and text by lang.
+        // Echo title for each language.
+        $temp->add(
+            new admin_setting_heading(
+                'theme_solerni/footertextlangheading' . $lang,
+                '',
+                get_string('footertextlangheading', 'theme_solerni') . $langname
+            )
+        );
+        // Footer tagline and text by lang.
+        foreach( $solernioptions::solerni_get_footertext_array() as $key => $value ) {
             $fieldtype = $value['fieldtype'];
             $name = 'theme_solerni/' . $key . '_' . $lang;
             $title = get_string_manager()->get_string( $key. 'title', 'theme_solerni', null, $lang);
@@ -91,9 +104,8 @@ $information = get_string('footerlinksheadingdesc', 'theme_solerni');
 $setting = new admin_setting_heading($name, $heading, $information);
 $temp->add($setting);
 // Get social network names and url values.
-$footerlinks_settings = \theme_solerni\settings\options::solerni_get_footerlinks_array();
 // Iterate to create each setting.
-foreach( $footerlinks_settings as $key => $value ) {
+foreach( $solernioptions::solerni_get_footerlinks_array() as $key => $value ) {
     $name = 'theme_solerni/' . $key;
     $title = get_string( $key, 'theme_solerni' );
     $description = get_string( $key . 'desc', 'theme_solerni');
@@ -112,9 +124,8 @@ $information = get_string('sociallinksheadingdesc', 'theme_solerni');
 $setting = new admin_setting_heading($name, $heading, $information);
 $temp->add($setting);
 // Get social network names and url values.
-$social_settings = \theme_solerni\settings\options::solerni_get_sociallinks_array();
 // Iterate to create each setting.
-foreach( $social_settings as $key => $value ) {
+foreach( $solernioptions::solerni_get_sociallinks_array() as $key => $value ) {
     $name = 'theme_solerni/' . $key;
     $title = get_string( $key, 'theme_solerni' );
     $description = get_string( $key . 'desc', 'theme_solerni');
@@ -132,9 +143,8 @@ $information = get_string('headerheadingdesc', 'theme_solerni');
 $setting = new admin_setting_heading($name, $heading, $information);
 $temp->add($setting);
 // Get static links and url values.
-$links_settings = \theme_solerni\settings\options::solerni_get_staticlinks_array();
 // Iterate to create each setting.
-foreach( $links_settings as $key => $value ) {
+foreach( $solernioptions::solerni_get_staticlinks_array() as $key => $value ) {
     $name = 'theme_solerni/' . $key;
     $title = get_string( $key, 'theme_solerni' );
     $description = get_string( $key . 'desc', 'theme_solerni');

@@ -1,0 +1,13 @@
+/*
+ * Block social sharing css
+ * 
+ * @package   theme_solerni
+ * @author    Orange / Solerni
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ *
+ */
+
+.sider_social-sharing .button_social_item {
+    display: inline-block;
+    
+}
