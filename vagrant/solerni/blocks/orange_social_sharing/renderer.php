@@ -41,10 +41,10 @@ class block_orange_social_sharing_renderer extends plugin_renderer_base {
             get_string('shareonlinkedin', 'block_orange_social_sharing'),
             get_string('shareongoogleplus', 'block_orange_social_sharing'));
 
-        $socialclassarray = array('footer_social_facebook',
-            'footer_social_twitter',
-            'footer_social_linkedin',
-            'footer_social_googleplus');
+        $socialclassarray = array('button_social_facebook',
+            'button_social_twitter',
+            'button_social_linkedin',
+            'button_social_googleplus');
 
         $socialurlarray = array(get_string('urlshareonfacebook', 'block_orange_social_sharing'),
             get_string('urlshareontwitter', 'block_orange_social_sharing'),
@@ -54,19 +54,17 @@ class block_orange_social_sharing_renderer extends plugin_renderer_base {
         $count = count ($shareonarray);
 
         $text = html_writer::start_tag('div', array('class' => 'sider'));
-        $text .= html_writer::tag('h2', $course->fullname.' ');
                 $text .= html_writer::start_tag('ul', array('class' => 'list-unstyled'));
-                   $text .= html_writer::start_tag('li');
                    for ($i=0; $i<$count; $i++) {
+                   $text .= html_writer::start_tag('li', array('class' => 'button_social_item'));
 
                     $text .= html_writer::tag('a', $shareonarray[$i],
-                            array('class' => 'footer_social_link__icon '.$socialclassarray[$i].' -sprite-solerni',
+                            array('class' => 'button_social_link__icon '.$socialclassarray[$i].' -sprite-solerni',
                             'href' => $socialurlarray[$i].$PAGE->url));
+                    $text .= html_writer::end_tag('li');
 
         }
-                    $text .= html_writer::end_tag('li');
                 $text .= html_writer::end_tag('ul');
-                $text .= html_writer::end_tag('div');
         $text .= html_writer::end_tag('div');
         return $text;
 

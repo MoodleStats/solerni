@@ -292,7 +292,7 @@ body {
     margin:     0;
 }
 
-.footer_column__item {
+.button_social_item {
     margin-bottom:  5px;
     line-height:    2.5;
 }
@@ -306,7 +306,7 @@ body {
     color:              [[setting:grey4]];
 }
 
-.footer_social_link__icon {
+.button_social_link__icon {
     display:        inline-block;
     height:         32px;
     width:          32px;
@@ -314,27 +314,43 @@ body {
     margin:         0 8px 10px 0;
 }
 
-.footer_social_facebook {
+.button_social_facebook {
     background-position: 0 -117px;
 }
 
-.footer_column__item:hover .footer_social_facebook {
+.button_social_item:hover .button_social_facebook {
     background-position: 0 -158px;
 }
 
-.footer_social_twitter {
+.button_social_twitter {
     background-position: -46px -117px;
 }
 
-.footer_column__item:hover .footer_social_twitter {
+.button_social_item:hover .button_social_twitter {
     background-position: -46px -158px;
 }
 
-.footer_social_blog {
+.button_social_linkedin {
+    background-position: -92px -117px;
+}
+
+.button_social_item:hover .button_social_linkedin {
+    background-position: -92px -158px;
+}
+
+.button_social_googleplus {
+    background-position: -140px -117px;
+}
+
+.button_social_item:hover .button_social_googleplus {
+    background-position: -140px -158px;
+}
+
+.button_social_blog {
     background-position: -187px -117px;
 }
 
-.footer_column__item:hover .footer_social_blog {
+.button_social_item:hover .button_social_blog {
     background-position: -187px -158px;
 }
 

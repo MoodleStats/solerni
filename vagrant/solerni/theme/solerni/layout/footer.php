@@ -49,22 +49,22 @@ $explaination       = ($PAGE->theme->settings->$footerexplaination) ?
                 <?php echo get_string('aboutus', 'theme_solerni'); ?>
             </p>
             <ul class="footer_column_menu__column">
-                <li class="footer_column__item">
+                <li class="button_social_item">
                     <a class="footer_column_menu_column__link" href="<?php echo $PAGE->theme->settings->aboutsolerni; ?>">
                         <?php echo get_string('aboutsolerni', 'theme_solerni'); ?>
                     </a>
                 </li>
-                <li class="footer_column__item">
+                <li class="button_social_item">
                     <a class="footer_column_menu_column__link" href="<?php echo $PAGE->theme->settings->partners; ?>">
                         <?php echo get_string('partners', 'theme_solerni'); ?>
                     </a>
                 </li>
-                <li class="footer_column__item">
+                <li class="button_social_item">
                     <a class="footer_column_menu_column__link" href="<?php echo $PAGE->theme->settings->legal; ?>">
                         <?php echo get_string('legal', 'theme_solerni'); ?>
                     </a>
                 </li>
-                <li class="footer_column__item">
+                <li class="button_social_item">
                     <a class="footer_column_menu_column__link js-link_cgu" href="<?php echo $PAGE->theme->settings->cgu; ?>">
                         <?php echo get_string('cgu', 'theme_solerni'); ?>
                     </a>
@@ -76,12 +76,12 @@ $explaination       = ($PAGE->theme->settings->$footerexplaination) ?
                 <?php echo get_string('support', 'theme_solerni'); ?>
             </p>
             <ul class="footer_column_menu__column">
-                <li class="footer_column__item">
+                <li class="button_social_item">
                     <a class="footer_column_menu_column__link" href="<?php echo $PAGE->theme->settings->faq; ?>">
                         <?php echo get_string('faq', 'theme_solerni'); ?>
                     </a>
                 </li>
-                <li class="footer_column__item">
+                <li class="button_social_item">
                     <a class="footer_column_menu_column__link" href="<?php echo $PAGE->theme->settings->contactus; ?>">
                         <?php echo get_string('contactus', 'theme_solerni'); ?>
                     </a>
@@ -93,21 +93,21 @@ $explaination       = ($PAGE->theme->settings->$footerexplaination) ?
                 <?php echo get_string('followus', 'theme_solerni'); ?>
             </p>
             <ul class="footer_column_menu__column">
-                <li class="footer_column__item">
-                    <a href="<?php echo $PAGE->theme->settings->facebook; ?>" class="footer_column_menu_column__link footer_social_link" target="_blank">
-                        <span class="footer_social_link__icon footer_social_facebook  -sprite-solerni">Facebook</span><!--
+                <li class="button_social_item">
+                    <a href="<?php echo $PAGE->theme->settings->facebook; ?>" class="footer_column_menu_column__link" target="_blank">
+                        <span class="button_social_link__icon button_social_facebook -sprite-solerni">Facebook</span><!--
                         --><span class="footer_icon_text">Facebook</span>
                     </a>
                 </li>
-                <li class="footer_column__item">
-                    <a href="<?php echo $PAGE->theme->settings->twitter; ?>" class="footer_column_menu_column__link footer_social_link" target="_blank">
-                        <span class="footer_social_link__icon footer_social_twitter -sprite-solerni">Twitter</span><!--
+                <li class="button_social_item">
+                    <a href="<?php echo $PAGE->theme->settings->twitter; ?>" class="footer_column_menu_column__link" target="_blank">
+                        <span class="button_social_link__icon button_social_twitter -sprite-solerni">Twitter</span><!--
                         --><span class="footer_icon_text">Twitter</span>
                     </a>
                 </li>
-                <li class="footer_column__item">
-                    <a href="<?php echo $PAGE->theme->settings->blog; ?>" class="footer_column_menu_column__link footer_column_menu_column__linkfooter_social_link">
-                        <span class="footer_social_link__icon footer_social_blog -sprite-solerni">Blog</span><!--
+                <li class="button_social_item">
+                    <a href="<?php echo $PAGE->theme->settings->blog; ?>" class="footer_column_menu_column__link">
+                        <span class="button_social_link__icon button_social_blog -sprite-solerni">Blog</span><!--
                         --><span class="footer_icon_text">Blog</span>
                     </a>
                 </li>
