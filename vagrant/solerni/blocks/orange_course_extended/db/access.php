@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $capabilities = array(
 
-    'block/course_extended:view' => array(
+    'block/orange_course_extended:view' => array(
         'captype' => 'read',
         'contextlevel' => CONTEXT_MODULE,
         'archetypes' => array(
@@ -35,7 +35,7 @@ $capabilities = array(
             'user' => CAP_ALLOW,
         )
     ),
-    'block/course_extended:viewpersonal' => array(
+    'block/orange_course_extended:viewpersonal' => array(
 
         'captype' => 'read',
         'contextlevel' => CONTEXT_SYSTEM,
@@ -43,7 +43,7 @@ $capabilities = array(
             'user' => CAP_ALLOW
         )
     ),
-    'block/course_extended:myaddinstance' => array(
+    'block/orange_course_extended:myaddinstance' => array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
         'archetypes' => array(
@@ -52,7 +52,7 @@ $capabilities = array(
 
         'clonepermissionsfrom' => 'moodle/my:manageblocks'
     ),
-     'block/course_extended:addinstance' => array(
+     'block/orange_course_extended:addinstance' => array(
         'riskbitmask' => RISK_SPAM | RISK_XSS,
 
         'captype' => 'write',

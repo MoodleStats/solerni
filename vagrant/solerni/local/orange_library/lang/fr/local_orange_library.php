@@ -15,17 +15,27 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Page module version information
+ * Strings for component 'descriptionpage', language 'en', branch 'MOODLE_20_STABLE'
  *
  * @package mod
- * @subpackage descriptionpage
+ * @subpackage orange libary
  * @copyright  2015 Orange based on mod_page plugin from 2009 Petr Skoda (http://skodak.org)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+$string['pluginname'] = 'Orange Library';
+$string['local_orange_library'] = 'Orange Library';
 
-defined('MOODLE_INTERNAL') || die();
+// Subscription button object.
+$string['subscribe_to_mooc'] = 'souscription';
+$string['access_to_mooc'] = 'acces au mooc';
+$string['status_default'] = 'MOOC non démarré';
+$string['status_closed'] = 'MOOC fermé';
+$string['alert_mooc'] = 'Prévenez moi pour la prochaine session du mooc';
+$string['registration_stopped'] = 'fin d\' enregistrement';
+$string['mooc_complete'] = 'mooc complet';
+$string['mooc_open_date'] = 'Ouvert du ';
 
-$plugin->version   = 2015052701;       // The current module version (Date: YYYYMMDDXX).
-$plugin->requires  = 2014051207;    // Requires this Moodle version Moodle 2.7.7.
-$plugin->component = 'mod_descriptionpage';       // Full name of the plugin (used for diagnostics).
+// Extended course object
+$string['english'] = 'anglais';
+$string['french'] = 'francais';

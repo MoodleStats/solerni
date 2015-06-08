@@ -26,7 +26,7 @@ defined('MOODLE_INTERNAL') || die();
 /**
  * Extends the block instance coinfiguration
  */
-class block_course_extended_edit_form extends block_edit_form {
+class block_orange_course_extended_edit_form extends block_edit_form {
 
     /**
      * Defines fields to add to the settings form
@@ -36,26 +36,26 @@ class block_course_extended_edit_form extends block_edit_form {
     protected function specific_definition($mform) {
         if (isset($this->config)) {
             if (empty($this->config->title)) {
-                $this->title = get_string('defaulttitle', 'block_course_extended');
+                $this->title = get_string('defaulttitle', 'block_orange_course_extended');
             } else {
                 $this->title = $this->config->title;
             }
 
             if (empty($this->config->text)) {
-                $this->config->text = get_string('defaulttext', 'block_course_extended');
+                $this->config->text = get_string('defaulttext', 'block_orange_course_extended');
             }
         }
 
         // Adding the "maxvisibility" field.
         $options = array(
-            COURSEEXTENDEDPAGE_VISIBILITY_COURSEUSER => get_string('visiblecourseusers', 'block_course_extended'),
-            COURSEEXTENDEDPAGE_VISIBILITY_LOGGEDINUSER => get_string('visibleloggedinusers', 'block_course_extended'),
-            COURSEEXTENDEDPAGE_VISIBILITY_PUBLIC => get_string('visiblepublic', 'block_course_extended')
+            COURSEEXTENDEDPAGE_VISIBILITY_COURSEUSER => get_string('visiblecourseusers', 'block_orange_course_extended'),
+            COURSEEXTENDEDPAGE_VISIBILITY_LOGGEDINUSER => get_string('visibleloggedinusers', 'block_orange_course_extended'),
+            COURSEEXTENDEDPAGE_VISIBILITY_PUBLIC => get_string('visiblepublic', 'block_orange_course_extended')
             );
 
-        $mform->addElement('select', 'config_maxvisibility', get_string('maxvisibility', 'block_course_extended'), $options);
+        $mform->addElement('select', 'config_maxvisibility', get_string('maxvisibility', 'block_orange_course_extended'), $options);
         $mform->setType('maxvisibility', PARAM_INT);
-        $mform->addHelpButton('config_maxvisibility', 'maxvisibility', 'block_course_extended');
+        $mform->addHelpButton('config_maxvisibility', 'maxvisibility', 'block_orange_course_extended');
 
     }
 }

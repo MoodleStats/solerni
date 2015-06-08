@@ -1,0 +1,59 @@
+.subscription_btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0px;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    white-space: nowrap;
+    -moz-user-select: none;
+}
+.subscription_btn.btn-unavailable {
+    outline: 0px none;
+    background-color: #999;
+    border-color: #999;
+    color: #FFF;
+    background-image: none;
+}
+.subscription_btn.btn-disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.65;
+    box-shadow: none;
+    background-image: none;
+}
+
+.subscription_btn.btn-access:hover{
+    background-color: #888686;
+    border-color: #888686;
+    background-image: none;
+}
+.subscription_btn.btn:hover, .btn:focus {
+    color: #FFF;
+    text-decoration: none;
+    background-image: none;
+}
+.subscription_btn.btn-primary {
+    background-color: #FF004F;
+    border-color: #FF004F;
+    color: #FFF;
+    background-image: none;
+}
+.subscription_btn.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active {
+    background-color: #D90045;
+    border-color: #D90045;
+    outline: 0px none;
+    color: #FFF;
+    background-image: none;
+}
+.subscription_btn.btn-access{
+    background-color: #4B667C;
+    border-color: #4B667C;
+    color: #FFF;
+    background-image: none;
+}

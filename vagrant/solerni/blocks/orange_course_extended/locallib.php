@@ -26,7 +26,7 @@ defined('MOODLE_INTERNAL') || die;
 
 require_once("$CFG->libdir/filelib.php");
 require_once("$CFG->libdir/resourcelib.php");
-require_once("$CFG->dirroot/blocks/course_extended/lib.php");
+require_once("$CFG->dirroot/blocks/orange_course_extended/lib.php");
 
 
 /**#@+
@@ -56,43 +56,6 @@ class courseextended_page_content_file_info extends file_info_stored {
         return parent::get_visible_name();
     }
 }
-
-function get_badges() {
-    global $DB, $PAGE;
-    $usedbadges = array();
-    $badges = $DB->get_records('badge');
-    if ($badges) {
-        foreach ($badges as $badge) {
-            if ($badge->courseid == $PAGE->course->id) {
-                $usedbadges[$badge->id] = $badge->name;
-            }
-        }
-    } else {
-        $usedbadges[1] = get_string('certification_default', 'block_course_extended');
-    }
-    return $usedbadges;
-}
-
-function get_badges_string() {
-    $badges = get_badges();
-    if ($badges){
-        $stringbadges = get_string('badge', 'block_course_extended');
-        foreach ($badges as $badge) {
-            $stringbadges = $stringbadges."<br>".$badge;
-        }
-    }
-    else{
-        $stringbadges = get_string('certification_default', 'block_course_extended');
-    }
-
-    return $stringbadges;
-}
-
-function count_badges() {
-    global $DB;
-    return $DB->count_records('badge');
-}
-
 
 /**
  * Checks if a user is allowed to view a blog. If not, will not return (calls

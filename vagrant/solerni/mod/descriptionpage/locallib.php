@@ -44,7 +44,7 @@ define('DESCRIPTIONPAGE_VISIBILITY_PUBLIC',       300);
 /**
  * File browsing support class
  */
-class descriptionpage_page_content_file_info extends file_info_stored {
+class descriptionpage_content_file_info extends file_info_stored {
     public function get_parent() {
         if ($this->lf->get_filepath() === '/' and $this->lf->get_filename() === '.') {
             return $this->browser->get_file_info($this->context);
@@ -59,7 +59,7 @@ class descriptionpage_page_content_file_info extends file_info_stored {
     }
 }
 
-function descriptionpage_page_get_editor_options($context) {
+function descriptionpage_get_editor_options($context) {
     global $CFG;
     return array(
         'subdirs' => 1,
@@ -80,7 +80,7 @@ function descriptionpage_page_get_editor_options($context) {
  * @param object $cm
  * @return void
  */
-function descriptionpage_page_check_view_permissions($page, $context, $cm=null) {
+function descriptionpage_check_view_permissions($page, $context, $cm=null) {
     global $COURSE, $PAGE, $DB;
 
     $capability = 'mod/descriptionpage:view';

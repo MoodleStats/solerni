@@ -24,16 +24,16 @@
  */
 
 require_once(dirname(__FILE__) . '/../../config.php');
-require_once($CFG->dirroot.'/blocks/course_extended/course_extended_form.php');
-require_once($CFG->dirroot.'/blocks/course_extended/locallib.php');
+require_once($CFG->dirroot.'/blocks/orange_course_extended/course_extended_form.php');
+require_once($CFG->dirroot.'/blocks/orange_course_extended/locallib.php');
 
 global $DB, $OUTPUT, $PAGE;
 
 // Check for all required variables.
 $courseid = required_param('courseid', PARAM_INT);
 $blockid = required_param('blockid', PARAM_INT);
-$blockcourseextended = 'block_course_extended';
-$urlview = '/blocks/course_extended/view.php';
+$blockcourseextended = 'block_orange_course_extended';
+$urlview = '/blocks/orange_course_extended/view.php';
 
 // Next look for optional variables.
 $id = optional_param('id', 0, PARAM_INT);

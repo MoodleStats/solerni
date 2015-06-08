@@ -62,7 +62,7 @@ class mod_descriptionpage_mod_form extends moodleform_mod {
 
         // -------------------------------------------------------
         $mform->addElement('header', 'contentsection', get_string('contentheader', 'descriptionpage'));
-        $descpagegeteditoropt = descriptionpage_page_get_editor_options($this->context);
+        $descpagegeteditoropt = descriptionpage_get_editor_options($this->context);
         $mform->addElement('editor', 'descriptionpage', get_string('content', 'descriptionpage'), null, $descpagegeteditoropt);
         $mform->addRule('descriptionpage', get_string('required'), 'required', null, 'client');
 
@@ -132,7 +132,7 @@ class mod_descriptionpage_mod_form extends moodleform_mod {
             $ctxid = $this->context->id;
             $moddescpage = 'mod_descriptionpage';
             $ct = 'content';
-            $descpaggeteditopt = descriptionpage_page_get_editor_options($this->context);
+            $descpaggeteditopt = descriptionpage_get_editor_options($this->context);
             $defvalues = $defaultvalues['content'];
             $fileprepdraft = file_prepare_draft_area($draftitemid, $ctxid, $moddescpage, $ct, 0, $descpaggeteditopt, $defvalues);
             $defaultvalues['descriptionpage']['text'] = $fileprepdraft;
