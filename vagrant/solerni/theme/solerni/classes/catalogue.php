@@ -24,6 +24,8 @@
  */
 
 require_once($CFG->dirroot . '/local/orange_customers/lib.php');
+use local_orange_library\extended_course\extended_course_object;
+use local_orange_library\enrollment\enrollment_object;
 
 class catalogue {
     public static function solerni_catalogue_get_customer_infos ($catid) {
@@ -39,9 +41,14 @@ class catalogue {
 
         // We get more information only when flexpage format is used.
         if ($course->format == "flexpage") {
-            $extendedcourse = new stdClass();
             $courseid = $course->id;
             $context = context_course::instance($course->id);
+
+            $extendedcourse = new extended_course_object();
+            $extendedcourse->get_extended_course($course, $context);
+
+            $category = $DB->get_record('course_categories', array('id' => $course->category));
+            $extendedcourse->categoryname = $category->name;
 
             $fs = get_file_storage();
             $files = $fs->get_area_files($context->id, 'format_flexpage', 'coursepicture', 0);
@@ -57,24 +64,6 @@ class catalogue {
                             $cmpnt, $filearea, $itemid, $filepath, $filename);
                 } else {
                     $extendedcourse->imgurl = null;
-                }
-            }
-
-            $category = $DB->get_record('course_categories', array('id' => $course->category));
-            $extendedcourse->categoryname = $category->name;
-
-            $extendedcourseflexpagevalues = $DB->get_records('course_format_options', array('courseid' => $courseid));
-            foreach ($extendedcourseflexpagevalues as $extendedcourseflexpagevalue) {
-                switch ($extendedcourseflexpagevalue->name) {
-                    case 'coursepicture':
-                        $extendedcourse->picture = $extendedcourseflexpagevalue->value;
-                        break;
-                    case 'courseenddate':
-                        $extendedcourse->enddate = $extendedcourseflexpagevalue->value;
-                        break;
-                    case 'courseprice':
-                        $extendedcourse->price = $extendedcourseflexpagevalue->value;
-                        break;
                 }
             }
 
@@ -97,7 +86,7 @@ class catalogue {
      * @return array array of stdClass objects
      */
     public static function get_course_records($whereclause, $params, $options, $checkvisibility = false) {
-        global $DB;
+        global $DB, $USER;
         $ctxselect = context_helper::get_preload_record_columns_sql('ctx');
         $fields = array('c.id', 'c.category', 'c.sortorder',
                         'c.shortname', 'c.fullname', 'c.idnumber',
@@ -113,11 +102,11 @@ class catalogue {
                 JOIN {context} ctx ON c.id = ctx.instanceid AND ctx.contextlevel = :contextcourse
                 JOIN {course_format_options} co ON c.id = co.courseid AND co.name = 'courseenddate'
                 WHERE ". $whereclause." ORDER BY c.sortorder";
-        $list = $DB->get_records_sql($sql,
-                array('contextcourse' => CONTEXT_COURSE) + $params);
+        $list = $DB->get_records_sql($sql, array('contextcourse' => CONTEXT_COURSE) + $params);
 
         if ($checkvisibility) {
             // Loop through all records and make sure we only return the courses accessible by user.
+            $selfenrolment = new enrollment_object();
             foreach ($list as $course) {
                 if (isset($list[$course->id]->hassummary)) {
                     $list[$course->id]->hassummary = strlen($list[$course->id]->hassummary) > 0;
@@ -127,6 +116,16 @@ class catalogue {
                     context_helper::preload_from_record($course);
                     if (!has_capability('moodle/course:viewhiddencourses', context_course::instance($course->id))) {
                         unset($list[$course->id]);
+                    }
+                }
+                $enrolself = $selfenrolment->get_self_enrolment($course);
+                if ($enrolself != null) {
+                    // If selfenrol and cohort associated, the must must be part of the cohort to see the course
+                    $cohortid = (int)$enrolself->customint5;
+                    if ($cohortid != 0) {
+                        if (!cohort_is_member($cohortid, $USER->id)) {
+                            unset($list[$course->id]);
+                        }
                     }
                 }
             }
@@ -188,10 +187,6 @@ class catalogue {
         // if (!$this->is_uservisible() || (!$this->id && !$recursive)) {
         // return array();
         // }
-
-        // TODO-SLP
-        // Tenir compte du user afin d'afficher ou non les MOOCs privés
-        // Retrieve list of courses in category.
 
         $wherecategory = array();
         $params = array('siteid' => SITEID);
