@@ -34,7 +34,7 @@ $string['displayselectexplain'] = 'Select display type.';
 $string['legacyfiles'] = 'Migration of old course file';
 $string['legacyfilesactive'] = 'Active';
 $string['legacyfilesdone'] = 'Finished';
-$string['modulename'] = 'Description Page';
+$string['modulename'] = 'Orange description page';
 $string['maxvisibility'] = 'Maximum visibility';
 $string['maxvisibility_help'] = '
 <p><em>On a personal blog:</em> <strong>Visible only to the blog owner (private)</strong> &ndash;

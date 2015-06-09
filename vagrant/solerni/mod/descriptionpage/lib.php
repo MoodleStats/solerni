@@ -62,7 +62,7 @@ function descriptionpage_supports($feature) {
  * Returns all other caps used in module
  * @return array
  */
-function descriptionpagepage_get_extra_capabilities() {
+function descriptionpage_get_extra_capabilities() {
     return array('moodle/site:accessallgroups');
 }
 
@@ -138,7 +138,7 @@ function descriptionpage_add_instance($data, $mform = null) {
 
     if ($mform and !empty($data->descriptionpage['itemid'])) {
         $draftitemid = $data->descriptionpage['itemid'];
-        $pgeo = descriptionpage_page_get_editor_options($context);
+        $pgeo = descriptionpage_get_editor_options($context);
         $decpage = 'mod_descriptionpage';
         $cid = $context->id;
         $dcontent = $data->content;
@@ -184,7 +184,7 @@ function descriptionpage_update_instance($data, $mform) {
     if ($draftitemid) {
         $cid = $context->id;
         $mdescpage = 'mod_descriptionpage';
-        $pgeo = descriptionpage_page_get_editor_options($context);
+        $pgeo = descriptionpage_get_editor_options($context);
         $dcontent = $data->content;
         $data->content = file_save_draft_area_files($draftitemid, $cid, $mdescpage, 'content', 0, $pgeo, $dcontent);
         $DB->update_record('descriptionpage', $data);
@@ -319,7 +319,7 @@ function descriptionpage_get_file_info($browser, $areas, $course, $cm, $context,
         $s = $storedfile;
         $u = $urlbase;
         $a = $areas[$filearea];
-        return new descriptionpage_page_content_file_info($b, $c, $s, $u, $a, true, true, true, false);
+        return new descriptionpage_content_file_info($b, $c, $s, $u, $a, true, true, true, false);
     }
 
     // Note: page_intro handled in file_browser automatically.
@@ -409,7 +409,7 @@ function descriptionpage_pluginfile($course, $cm, $context, $filearea, $args, $f
  * @param stdClass $parentcontext Block's parent context
  * @param stdClass $currentcontext Current context of block
  */
-function descriptionpage_page_type_list($pagetype, $parentcontext, $currentcontext) {
+function descriptionpage_type_list($pagetype, $parentcontext, $currentcontext) {
     $modulepagetype = array('mod-page-*' => get_string('page-mod-page-x', 'descriptionpage'));
     return $modulepagetype;
 }
