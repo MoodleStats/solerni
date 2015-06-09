@@ -247,6 +247,10 @@ class format_flexpage extends format_base {
                     'default' => get_config('enddate', 'format_flexpage'),
                     'type' => PARAM_INT,
                 ),
+                'coursethematics' => array(
+                    'default' => get_config('workingtime', 'format_flexpage'),
+                    'type' => PARAM_SEQUENCE,
+                ),
                 'coursepicture' => array(
                     'default' => get_config('picture', 'format_flexpage'),
                     'type' => PARAM_CLEANFILE,
@@ -310,6 +314,15 @@ class format_flexpage extends format_base {
         if ($foreditform && !isset($courseformatoptions['coursedisplay']['label'])) {
             $courseconfig = get_config('moodlecourse');
 
+            // Get list Id of thematic.
+            global $DB;
+            $listthematics = array();
+            $thematics = $DB->get_records('orange_thematics', null, 'name');
+            foreach ($thematics as $thematic) {
+                $listthematics[$thematic->id] = $thematic->name;
+            
+            }
+
             $courseformatoptionsedit = array(
                 'courseenddate' => array(
                     'label' => get_string('enddate', 'format_flexpage'),
@@ -318,7 +331,16 @@ class format_flexpage extends format_base {
                     'element_type' => 'date_selector'
                 ),
 
-                'coursepicture' => array(
+                'coursethematics' => array(
+                    'label' => get_string('coursethematics', 'format_flexpage'),
+                    'help' => 'coursethematics',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'select',
+                    'element_attributes' => array(
+                        $listthematics
+                     )
+                ),
+            		'coursepicture' => array(
                     'label' => get_string('picture', 'format_flexpage'),
                     'element_type' => 'filemanager',
                     'element_attributes' => array(
@@ -466,7 +488,39 @@ class format_flexpage extends format_base {
         $context = context_course::instance($this->courseid);
         $saved = file_save_draft_area_files($data->coursepicture, $context->id, 'format_flexpage',
         'coursepicture', 0, array('subdirs' => 0, 'maxfiles' => 1));
+        $data = (array)$data;
+
+        if (isset($data['coursethematics'])) {
+            $selectedids = implode(",", $data['coursethematics']);
+            $data['coursethematics'] = $selectedids;
+        }
+
         return $this->update_format_options($data);
+    }
+
+    /**
+     * Adds format options elements to the course/section edit form.
+     *
+     * This function is called from {@link course_edit_form::definition_after_data()}.
+     *
+     * @param MoodleQuickForm $mform form the elements are added to.
+     * @param bool $forsection 'true' if this is a section edit form, 'false' if this is course edit form.
+     * @return array array of references to the added form elements.
+     */
+    public function create_edit_form_elements(&$mform, $forsection = false) {
+        $elements = parent::create_edit_form_elements($mform, $forsection);
+
+        // Increase the number of sections combo box values if the user has increased the number of sections
+        // using the icon on the course page beyond course 'maxsections' or course 'maxsections' has been
+        // reduced below the number of sections already set for the course on the site administration course
+        // defaults page.  This is so that the number of sections is not reduced leaving unintended orphaned
+        // activities / resources.
+        if (!$forsection) {
+            $coursethematics = & $mform->getElement('coursethematics');
+            $coursethematics->setMultiple(true);
+        }
+
+        return $elements;
     }
 
 }
