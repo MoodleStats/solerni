@@ -32,7 +32,7 @@ $string['defaulttext']                          = 'Pealse, configure the social 
 $string['orange_social_sharing:addinstance']    = 'Add a new Social sharing block';
 $string['orange_social_sharing:myaddinstance']  = 'Add a new Social sharing block to the My Moodle page';
 
-//Settings configuration.
+// Settings configuration.
 
 $string['headerconfig']                         = 'headerconfig';
 $string['descconfig']                           = 'Social sharing';

@@ -20,6 +20,7 @@
  * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+use local_orange_library\utilities\array_object;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -34,33 +35,49 @@ class block_orange_social_sharing_renderer extends plugin_renderer_base {
      * @param object $context
      * @return string $text
      */
-    public function get_text($course, $context) {
+    public function get_text($course, $context,$config) {
         Global $PAGE;
-        $shareonarray = array(get_string('shareonfacebook', 'block_orange_social_sharing'),
-            get_string('shareontwitter', 'block_orange_social_sharing'),
-            get_string('shareonlinkedin', 'block_orange_social_sharing'),
-            get_string('shareongoogleplus', 'block_orange_social_sharing'));
 
-        $socialclassarray = array('button_social_facebook',
-            'button_social_twitter',
-            'button_social_linkedin',
-            'button_social_googleplus');
+        //todo gerer les differentes config
+        $shareonarray = new array_object();
+        $socialclassarray = new array_object();
+        $socialurlarray = new array_object();
+            if($config->facebook){
+                $shareonarray->add(get_string('shareonfacebook', 'block_orange_social_sharing'));
+                $socialclassarray->add('button_social_facebook');
+                $socialurlarray->add(get_string('urlshareonfacebook', 'block_orange_social_sharing'));
+            }
+            if($config->twitter){
+                $shareonarray->add(get_string('shareontwitter', 'block_orange_social_sharing'));
+                $socialclassarray->add('button_social_twitter');
+                $socialurlarray->add(get_string('urlshareontwitter', 'block_orange_social_sharing'));
+            }
+            if($config->linkedin){
+                $shareonarray->add(get_string('shareonlinkedin', 'block_orange_social_sharing'));
+                $socialclassarray->add('button_social_linkedin');
+                $socialurlarray->add(get_string('urlshareonlinkedin', 'block_orange_social_sharing'));
+            }
+            if($config->googleplus){
+                $shareonarray->add(get_string('shareongoogleplus', 'block_orange_social_sharing'));
+                $socialclassarray->add('button_social_googleplus');
+                $socialurlarray->add(get_string('urlshareongoogleplus', 'block_orange_social_sharing'));
+            }
 
-        $socialurlarray = array(get_string('urlshareonfacebook', 'block_orange_social_sharing'),
-            get_string('urlshareontwitter', 'block_orange_social_sharing'),
-            get_string('urlshareonlinkedin', 'block_orange_social_sharing'),
-            get_string('urlshareongoogleplus', 'block_orange_social_sharing'));
 
-        $count = count ($shareonarray);
-
+        $count = $shareonarray->count;
         $text = html_writer::start_tag('div', array('class' => 'sider sider_social-sharing'));
                 $text .= html_writer::start_tag('ul', array('class' => 'list-unstyled'));
-                   for ($i=0; $i<$count; $i++) {
-                   $text .= html_writer::start_tag('li', array('class' => 'button_social_item'));
 
-                    $text .= html_writer::tag('a', $shareonarray[$i],
-                            array('class' => 'button_social_link__icon '.$socialclassarray[$i].' -sprite-solerni',
-                            'href' => $socialurlarray[$i].$PAGE->url));
+        for ($i = 1; $i <= $count; $i++) {
+                    $shareonarray->setCurrent($i);
+                    $socialclassarray->setCurrent($i);
+                    $socialurlarray->setCurrent($i);
+
+                    $text .= html_writer::start_tag('li', array('class' => 'button_social_item'));
+
+                    $text .= html_writer::tag('a', $shareonarray->getCurrent(),
+                            array('class' => 'button_social_link__icon '.$socialclassarray->getCurrent().' -sprite-solerni',
+                            'href' => $socialurlarray->getCurrent().$PAGE->url));
                     $text .= html_writer::end_tag('li');
 
         }

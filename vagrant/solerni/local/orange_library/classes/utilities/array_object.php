@@ -15,34 +15,49 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    blocks
- * @subpackage orange_social_sharing
+ * @package    orange_library
+ * @subpackage utilities
  * @copyright  2015 Orange
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+namespace local_orange_library\utilities;
+defined('MOODLE_INTERNAL') || die();
+class array_object{
 
-    $capabilities = array(
+    public $all;
+    public $count;
+    public $curr;
 
-    'block/orange_social_sharing:myaddinstance' => array(
-        'captype' => 'write',
-        'contextlevel' => CONTEXT_SYSTEM,
-        'archetypes' => array(
-            'user' => CAP_ALLOW
-        ),
+    public function __construct () {
 
-        'clonepermissionsfrom' => 'moodle/my:manageblocks'
-    ),
+      $this->count = 0;
 
-    'block/orange_social_sharing:addinstance' => array(
-        'riskbitmask' => RISK_SPAM | RISK_XSS,
+    }
 
-        'captype' => 'write',
-        'contextlevel' => CONTEXT_BLOCK,
-        'archetypes' => array(
-            'editingteacher' => CAP_ALLOW,
-            'manager' => CAP_ALLOW
-        ),
+    public function add ($step) {
 
-        'clonepermissionsfrom' => 'moodle/site:manageblocks'
-    ),
-);
+      $this->count++;
+      $this->all[$this->count] = $step;
+
+    }
+
+    public function setCurrent ($step) {
+
+      $this->curr = $this->all[$step];
+
+    }
+
+    public function getCurrent () {
+
+      return $this->curr;
+
+    }
+
+    public function getNext () {
+
+      self::setCurrent($this->curr);
+      return next($this->all);
+
+    }
+
+  }

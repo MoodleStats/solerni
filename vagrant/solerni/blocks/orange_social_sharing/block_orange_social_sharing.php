@@ -21,20 +21,20 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class block_orange_social_sharing extends block_base{
-    function has_config() {return true;}
+    public function has_config() {
+        return true;
+    }
 
     public function init() {
         Global $PAGE;
-
         $this->title = get_string('title', 'block_orange_social_sharing');
         $this->renderer = $PAGE->get_renderer('block_orange_social_sharing');
-        
-
     }
 
     public function get_content() {
         global $DB;
         $extendedcourse = new stdClass();
+        $config = new stdClass();
 
         if (!is_null($this->content)) {
             return $this->content;
@@ -45,7 +45,7 @@ class block_orange_social_sharing extends block_base{
         if (empty($this->instance)) {
             return $this->content;
         }
-
+        $config = $this->config;
         $course = $this->page->course; // Needed to have numsections property available.
         $context = context_course::instance($course->id);
 
@@ -55,14 +55,14 @@ class block_orange_social_sharing extends block_base{
         $this->content->text .= html_writer::end_tag('li');
         $this->content->text .= html_writer::end_tag('ul');
 
-        $text = $this->renderer->get_text($course, $context);
+        $text = $this->renderer->get_text($course, $context,$config);
         $this->content->text = $text;
         return $this->content;
 
     }
 
     public function instance_allow_multiple() {
-        return TRUE;
+        return true;
     }
 
     public function specialization() {
@@ -92,7 +92,7 @@ class block_orange_social_sharing extends block_base{
             } else {
                 $this->google_plus = $this->config->google_plus;
             }
+        }
     }
-}
 }
 
