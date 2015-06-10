@@ -34,6 +34,7 @@ $THEME->doctype         = 'html5';
 $THEME->yuicssmodules   = array();
 $THEME->name            = 'solerni';
 $THEME->parents         = array('bootstrapbase');
+// general style sheets.
 $THEME->sheets          = array(
                             'custom',
                             'blockicons',
@@ -43,15 +44,16 @@ $THEME->sheets          = array(
                             'footer-header',
                             'utils',
                             'block-social',
-                            'queries-980',
-                            'queries-767',
-                            'queries-399'
                         );
 
-// Frontpage styles
+// Specific styles sheets
 if ( $PAGE->pagetype === 'site-index' ) {
     $THEME->sheets[] = 'frontpage';
 }
+
+// Media queries stylesheets.
+array_push($THEME->sheets, 'queries-1180', 'queries-980','queries-768', 'queries-400' );
+
 
 $THEME->supportscssoptimisation = false;
 $THEME->editor_sheets           = array('editor');

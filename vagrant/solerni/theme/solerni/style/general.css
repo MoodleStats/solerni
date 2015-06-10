@@ -37,3 +37,21 @@ body.doublebar {
 h1, h2, h3, h4, h5, h6 {
     margin: 0;
 }
+
+.btn {
+    background-image:   none;
+    box-shadow:         none;
+    font-size:          15px;
+    font-weight:        bold;
+    padding:            8px 15px;
+    border:             transparent 0;
+}
+
+.btn-primary {
+    background-color:   [[setting:secondary]];
+    text-shadow:        none;
+}
+
+.btn-primary:hover {
+    background-color:   [[setting:secondaryhover]];
+}

@@ -1,0 +1,35 @@
+/*
+ *
+ * Before 400px styles
+ *
+ * @package   theme_solerni
+ * @author    Orange / Solerni
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+@media screen and (max-width: 399px ) {
+
+    /*
+     * Header & footer.
+     */
+    .slrn-header-search-form {
+        display: none;
+    }
+
+    /*
+     *  Frontpage header
+     */
+
+    .frontpage-header__tagline {
+        width:      30%;
+        font-size:  12px;
+    }
+
+    .frontpage-header__presentation_text {
+        display: none;
+    }
+
+    .frontpage-header__button {
+        margin-top: 0;
+    }
+}

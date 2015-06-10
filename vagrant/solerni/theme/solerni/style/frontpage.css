@@ -8,18 +8,19 @@
  */
 
 .frontpage-header {
-    position:           relative;
-    background:         transparent url([[setting:frontpageheaderimage]]) no-repeat 0 0;
-    background-size:    cover;
-
-    padding:            18.75% 0 0 0;
+    position:               relative;
+    background:             transparent url([[setting:frontpageheaderimage]]) no-repeat 0 0;
+    background-size:        cover;
+    background-position:    50% 0;
+    overflow:               hidden;
+    padding:                20.5% 0 0 0;
+    border-bottom:          8px solid [[setting:secondary]];
 }
 
 .frontpage-header__inner {
     position:   absolute;
     left:       5%;
-    top:        20%;
-
+    top:        16%;
     color:      [[setting:light]];
 }
 
@@ -43,3 +44,36 @@
     font-size:      24px;
     line-height:    1.25;
 }
+
+.frontpage-header__button {
+    margin-top:     15px;
+    border-radius:  6px;
+    border-top:     2px solid [[setting:light]];
+    border-right:   2px solid [[setting:light]];
+    border-bottom:  4px solid [[setting:light]];
+    border-left:    4px solid [[setting:light]];
+}
+
+
+.front-page_subheader {
+  position:         relative;
+  top:              -50px;
+  text-align:       center;
+}
+
+.front-page_subheader__item__picture {
+    display:    block;
+    width:      100%;
+    height:     auto;
+}
+
+
+.front-page_subheader__item {
+    vertical-align: top;
+    color:          #000000;
+    display:        inline-block;
+    margin:         0 30px;
+    width:          175px;
+    font-size:      12px;
+}
+

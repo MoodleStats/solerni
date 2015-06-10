@@ -8,6 +8,15 @@
  */
 
 @media screen and (max-width: 767px ) {
+
+    body {
+        padding-left:   0;
+        padding-right:  0;
+    }
+
+    /*
+     * Header & footer.
+     */
     .navbar-fixed-top {
         margin-left:    0;
         margin-right:   0;
@@ -15,6 +24,17 @@
 
     .footer-column {
         padding: 0 2em;
+    }
+
+    /*
+     *  Frontpage header.
+     */
+    .frontpage-header__tagline {
+        font-size: 20px;
+    }
+
+    .frontpage-header__presentation {
+        font-size: 16px;
     }
 
 }
