@@ -231,7 +231,8 @@ class theme_solerni_core_course_renderer extends core_course_renderer
         if (isset($customer->id)) {
             $content .= "<div class='slrn-header__column'>";
             if ($customer->urlpicture != "") {
-                $content .= "<div><img class='header-background-img' src='{$customer->urlpicture}' alt='{$customer->name}' /></div>";
+                $content .= "<div><img class='header-background-img' src='{$customer->urlpicture}'";
+                $content .= " alt='{$customer->name}' /></div>";
             }
             if ($customer->urlimg != "") {
                 $content .= "<div class='slrn-header__logo'><img class='header-logo-img' src='{$customer->urlimg}'  /></div>";
@@ -294,9 +295,8 @@ class theme_solerni_core_course_renderer extends core_course_renderer
         $perpage = $CFG->coursesperpage;
         $page = optional_param('pageid', 0, PARAM_INT);
 
-        $chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_COLLAPSED)->
-                set_courses_display_options(array(
-                        'recursive' => false,  // TODO, le recursif n'est pas traiter dans catalogue::get_courses
+        $chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_COLLAPSED)->set_courses_display_options(array(
+                        'recursive' => false,  // TODO, le recursif n'est pas traiter dans catalogue::get_courses.
                         'limit' => $perpage,
                         'offset' => $page * $perpage,
                         'paginationallowall' => false,
@@ -325,7 +325,7 @@ class theme_solerni_core_course_renderer extends core_course_renderer
      * @return string
      */
     public function course_catalog_filter_form($filter) {
-        global $CFG;
+        global $CFG, $DB;
         require_once($CFG->libdir. '/coursecatlib.php');
         require_once($CFG->dirroot . '/local/orange_customers/lib.php');
 
@@ -356,7 +356,8 @@ class theme_solerni_core_course_renderer extends core_course_renderer
         $output .= "<div class='filterstatus'>";
         $output .= "<h3 class='filter'>" . get_string('filterstatustitle', 'theme_solerni') . "</h3>";
         $output .= "<div class='filter'>";
-        $output .= "<input type='checkbox' id='statusall' name='statusid[]' class='solerni_checkboxall' value='0' $allchecked/>".$status[0];
+        $output .= "<input type='checkbox' id='statusall' name='statusid[]' class='solerni_checkboxall' ";
+        $output .= "value='0' $allchecked/>".$status[0];
         $output .= "<ul class='filterstatus' id='ulstatusall'>";
         foreach ($status as $statusid => $statuslabel) {
             if ($statusid != 0) {
@@ -374,8 +375,8 @@ class theme_solerni_core_course_renderer extends core_course_renderer
         $output .= "</div>";
         $output .= "</div>";
 
-        // Filter on thematic
-        // TODO lecture des thématique
+        // Filter on thematic.
+        $thematics = $DB->get_recordset('orange_thematics');
         $thematic = array (0 => get_string('filterthematicall', 'theme_solerni'));
 
         if ((count($filter->thematicsid) == 0) || (in_array(0, $filter->thematicsid))) {
@@ -387,18 +388,19 @@ class theme_solerni_core_course_renderer extends core_course_renderer
         $output .= "<div class='filterthematic'>";
         $output .= "<h3 class='filter'>" . get_string('filterthematictitle', 'theme_solerni'). "</h3>";
         $output .= "<div class='filter'>";
-        $output .= "<input type='checkbox' id='thematicall' name='thematicid[]' class='solerni_checkboxall' value='0' $allchecked/>".$thematic[0];
+        $output .= "<input type='checkbox' id='thematicall' name='thematicid[]' class='solerni_checkboxall'";
+        $output .= " value='0' $allchecked/>".$thematic[0];
         $output .= "<ul class='filterthematic' id='ulthematicall'>";
-        foreach ($thematic as $thematicid => $thematiclabel) {
-            if ($thematicid != 0) {
-                if (in_array($thematicid, $filter->thematicsid )) {
+        foreach ($thematics as $theme) {
+            if ($theme->id != 0) {
+                if (in_array($theme->id, $filter->thematicsid )) {
                     $checked = "checked";
                 } else {
                     $checked = '';
                 }
                 $output .= "<li>";
-                $output .= "<input type='checkbox' name='thematicid[]' class='solerni_checkbox' value='$thematicid' $checked />";
-                $output .= $thematiclabel . "</li>";
+                $output .= "<input type='checkbox' name='thematicid[]' class='solerni_checkbox' value='$theme->id' $checked />";
+                $output .= $theme->name . "</li>";
             }
         }
         $output .= "</ul>";
@@ -420,7 +422,8 @@ class theme_solerni_core_course_renderer extends core_course_renderer
         $output .= "<div class='filterduration'>";
         $output .= "<h3 class='filter'>" . get_string('filterdurationtitle', 'theme_solerni'). "</h3>";
         $output .= "<div class='filter'>";
-        $output .= "<input type='checkbox' id='durationall' name='durationid[]' class='solerni_checkboxall' value='0' $allchecked/>".$duration[0];
+        $output .= "<input type='checkbox' id='durationall' name='durationid[]' class='solerni_checkboxall' ";
+        $output .= "value='0' $allchecked/>".$duration[0];
         $output .= "<ul class='filterduration' id='uldurationall'>";
         foreach ($duration as $durationid => $durationlabel) {
             if ($durationid != 0) {
@@ -449,16 +452,17 @@ class theme_solerni_core_course_renderer extends core_course_renderer
         $output .= "<div class='filtercategory'>";
         $output .= "<h3 class='filter'>" . get_string('filtercategorytitle', 'theme_solerni'). "</h3>";
         $output .= "<div class='filter'>";
-        $output .= "<input type='checkbox' id='categoryall' name='categoryid[]' class='solerni_checkboxall' value='0' $allchecked/>" . get_string('filtercategoryall', 'theme_solerni');
+        $output .= "<input type='checkbox' id='categoryall' name='categoryid[]' class='solerni_checkboxall' ";
+        $output .= "value='0' $allchecked/>" . get_string('filtercategoryall', 'theme_solerni');
         $output .= "<ul class='filtercategory' id='ulcategoryall'>";
         foreach ($categories as $catid => $category) {
             if ($catid != 0) {
-                // Get customer information to make sure the category is associated to a customer
                 if (in_array($catid, $filter->categoriesid)) {
                     $checked = "checked";
                 } else {
                     $checked = '';
                 }
+                // Get customer information to make sure the category is associated to a customer.
                 $customer = customer_get_customerbycategoryid ($catid);
                 if (isset($customer->id)) {
                     $output .= "<li>";
