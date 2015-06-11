@@ -27,10 +27,13 @@
 require('../../config.php');
 require_once($CFG->dirroot.'/mod/descriptionpage/locallib.php');
 require_once($CFG->libdir.'/completionlib.php');
+use local_orange_library\subscription_button\subscription_button_object;
+
 
 $id      = optional_param('id', 0, PARAM_INT); // Course Module ID.
 $p       = optional_param('p', 0, PARAM_INT);  // Page instance ID.
 $inpopup = optional_param('inpopup', 0, PARAM_BOOL);
+$subscriptionbutton = new subscription_button_object();
 
 if ($p) {
     if (!$page = $DB->get_record('descriptionpage', array('id' => $p))) {
@@ -50,7 +53,7 @@ $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST)
 // Require_course_login($course, true, $cm);.
 $context = context_module::instance($cm->id);
 // ...$page = $PAGE->get_renderer('mod_page');.
-descriptionpage_page_check_view_permissions($page, $context, $cm);
+descriptionpage_check_view_permissions($page, $context, $cm);
 
 // ...$context = context_module::instance($cm->id);.
 require_capability('mod/descriptionpage:view', $context);
@@ -98,6 +101,6 @@ $content = format_text($contentrewrited, $page->contentformat, $formatoptions);
 echo $OUTPUT->box($content, "generalbox center clearfix");
 
 $strlastmodified = get_string("lastmodified");
-echo "<div class=\"modified\">$strlastmodified: ".userdate($page->timemodified)."</div>";
+echo '<div class="text-center">'.$subscriptionbutton->set_button($context, $course).'</div>';
 
 echo $OUTPUT->footer();

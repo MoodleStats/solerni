@@ -24,12 +24,20 @@
  */
 require('../../config.php');
 require($CFG->dirroot . '/enrol/orangeinvitation/locallib.php');
+require($CFG->dirroot . '/enrol/self/lib.php');
 
 // Get parameter before login redirection and set cookie.
 // The cookie is needed to support the platform inscription process with email validation.
 $enrolinvitationtoken = required_param('enrolinvitationtoken', PARAM_ALPHANUM);
+// Course id.
 $id = required_param('id', PARAM_INT);
-setcookie ( 'MoodleEnrolToken', rc4encrypt($enrolinvitationtoken.'-'.$id), time()+3600, '/');
+// Enrol : true/false.
+$enrol = optional_param('id2', null, PARAM_INT);
+if ($enrol == null) {
+    setcookie ( 'MoodleEnrolToken', rc4encrypt($enrolinvitationtoken.'-'.$id), time() + 3600, '/');
+} else {
+    setcookie ( 'MoodleEnrolToken', rc4encrypt($enrolinvitationtoken.'-'.$id.'-'.$enrol), time() + 3600, '/');
+}
 
 require_login();
 
@@ -37,31 +45,7 @@ require_login();
 if (!empty($enrolinvitationtoken)) {
 
     $id = required_param('id', PARAM_INT);
-    $message = "";
 
-    // Retrieve the token info.
-    $invitation = $DB->get_record('enrol_orangeinvitation', array('token' => $enrolinvitationtoken));
-
-    // If token is valid, enrol the user into the course.
-    if (empty($invitation) or empty($invitation->courseid) or ($invitation->courseid != $id)) {
-        $message = get_string('expiredtoken', 'enrol_orangeinvitation');
-    }
-
-    // Get.
-    $invitationmanager = new invitation_manager($id);
-    $instance = $invitationmanager->get_invitation_instance($id);
-    if ($instance->status == 1) {
-        // The URL Link is not activated.
-        $message = get_string('linknotactivated', 'enrol_orangeinvitation');
-    }
-
-    if ($message == "") {
-        $courseurl = new moodle_url('/course/view.php', array('id' => $id));
-    } else {
-        $courseurl = new moodle_url('/');
-    }
-    
-    // The user is loggedin, then delete the cookie.
-    setcookie ( 'MoodleEnrolToken', '', time()-3600, '/');
-    redirect($courseurl, $message);
+    // Check if we have to redirect the user to the course presentation page or to enrol him to the course.
+    check_course_redirection  (null, $enrolinvitationtoken, $id, $enrol);
 }

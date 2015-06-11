@@ -75,4 +75,83 @@ class invitation_manager {
         return $instance;
 
     }
+
+}
+/**
+ * This function manage the redirection to a course if the access has been  
+ * done using the enrolment URL to the course => a cookie is set in this case
+ * @param cookie or token/courseid/enrol
+ * @return array
+ */
+function check_course_redirection ($cookie=null, $enrolinvitationtoken=null, $courseid=null, $doenrol=null) {
+    global $DB, $USER;
+
+    if ($cookie != null) {
+        // Decrypt cookie content token-courseId.
+        $cookiecontent = explode("-", rc4decrypt($cookie));
+        $enrolinvitationtoken = $cookiecontent[0];
+        $courseid = $cookiecontent[1];
+        if (isset($cookiecontent[2])) {
+            $doenrol = $cookiecontent[2];
+        } else {
+            $doenrol = null;
+        }
+    }
+
+    $message = "";
+
+    // Retrieve the token info.
+    $invitation = $DB->get_record('enrol_orangeinvitation', array('token' => $enrolinvitationtoken));
+    // If token is valid, enrol the user into the course.
+    if (empty($invitation) or empty($invitation->courseid) or ($invitation->courseid != $courseid)) {
+        $message = get_string('expiredtoken', 'enrol_orangeinvitation');
+    }
+
+    // Get.
+    $invitationmanager = new invitation_manager($courseid);
+    $instance = $invitationmanager->get_invitation_instance($courseid);
+    if ($instance->status == 1) {
+        // The URL Link is not activated.
+        $message = get_string('linknotactivated', 'enrol_orangeinvitation');
+    }
+
+    // Do we have to enrol the user.
+    if ($doenrol == 1) {
+        // This is only possible if the self enrolment method exist and is activated.
+        $instances = enrol_get_instances ($courseid, true);
+        if (count($instances) == 0) {
+            // Error, the user can't enrol.
+            $message = get_string('selfenrolnotavailable', 'enrol_orangeinvitation');
+        } else {
+            $instances = array_filter ($instances, function ($element) {
+                return $element->enrol == "self";
+            });
+            if (count($instances) == 1) {
+                $selfenrol = new enrol_self_plugin();
+                $instanceself = array_pop($instances);
+                // Test that the user is not already enrolled; Already done in can_self_enrol but
+                // wrong error message.
+                if ($DB->get_record('user_enrolments', array('userid' => $USER->id, 'enrolid' => $instanceself->id))) {
+                    // If we need to display a specific message.
+                } else {
+                    $enrolstatus = $selfenrol->can_self_enrol($instanceself);
+                    if (true === $enrolstatus) {
+                        $selfenrol->enrol_self($instanceself);
+                    } else {
+                        $message = $enrolstatus;
+                    }
+                }
+            }
+        }
+    }
+
+    if ($message == "") {
+        $courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
+    } else {
+        $courseurl = new moodle_url('/');
+    }
+
+    setcookie ( 'MoodleEnrolToken', '', time() - 3600, '/');
+    redirect($courseurl, $message);
+
 }
