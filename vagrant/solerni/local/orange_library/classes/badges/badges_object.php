@@ -68,7 +68,6 @@ class badges_object {
     public function count_badges($courseid) {
         global $DB;
         $nbbadges = $DB->count_records('badge', array('courseid'=>$courseid));
-        echo " courseid = ".$courseid." nb badges = ".$nbbadges;
         return $nbbadges;
     }
 }
