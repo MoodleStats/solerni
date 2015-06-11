@@ -58,21 +58,22 @@
 .front-page_subheader {
   position:         relative;
   top:              -50px;
+  margin-bottom:    -50px;
   text-align:       center;
 }
 
 .front-page_subheader__item__picture {
-    display:    block;
-    width:      100%;
-    height:     auto;
+    display:        block;
+    width:          100%;
+    height:         auto;
+    margin-bottom:  8px;
 }
-
 
 .front-page_subheader__item {
     vertical-align: top;
     color:          #000000;
     display:        inline-block;
-    margin:         0 30px;
+    margin:         0 30px 30px 30px;
     width:          175px;
     font-size:      12px;
 }

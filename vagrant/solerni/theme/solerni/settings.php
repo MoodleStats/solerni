@@ -21,7 +21,10 @@ defined('MOODLE_INTERNAL') || die;
 // Create new admin category Solerni.
 $ADMIN->add('themes', new admin_category('theme_solerni', 'Solerni'));
 
-// frontpage settings. New page.
+/*
+ *  Page
+ *  Frontpage Settings
+ */
 $temp = new admin_settingpage('theme_solerni_frontpage', get_string('frontpagesettings','theme_solerni'));
 // frontpage header tagline.
 $name = 'theme_solerni/frontpagetagline';
@@ -45,6 +48,13 @@ $setting = new admin_setting_configstoredfile($name, $title, $description, 'fron
 $setting->set_updatedcallback('theme_reset_all_caches'); // regenerate CSS.
 $temp->add($setting);
 $ADMIN->add('theme_solerni', $temp);
+// frontpage title above the catalog.
+$name = 'theme_solerni/catalogtitle';
+$title = get_string('catalogtitle', 'theme_solerni');
+$description = get_string('catalogtitledesc', 'theme_solerni');
+$default = get_string('catalogtitledefault', 'theme_solerni');
+$setting = new admin_setting_configtext($name, $title, $description, $default);
+$temp->add($setting);
 
 // Colours administration. New page.
 $temp = new admin_settingpage('theme_solerni_colors', get_string('colorsettings','theme_solerni'));

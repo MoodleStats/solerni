@@ -28,14 +28,17 @@ use local_orange_library\extended_course\extended_course_object;
 use local_orange_library\enrollment\enrollment_object;
 
 class catalogue {
+
     public static function solerni_catalogue_get_customer_infos ($catid) {
-        global $DB;
 
         $customer = customer_get_customerbycategoryid ($catid);
 
         return $customer;
     }
 
+    /*
+     *
+     */
     public static function solerni_catalogue_get_course_infos ($course) {
         global $DB;
 
@@ -68,9 +71,10 @@ class catalogue {
             }
 
             return $extendedcourse;
-        } else {
-            return null;
         }
+
+        return null;
+
     }
 
     /**

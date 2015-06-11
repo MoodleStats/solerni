@@ -23,9 +23,7 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 use local_orange_library\badges\badges_object;
-use local_orange_library\subscription_button\subscription_button_object;
-use local_orange_library\extended_course\extended_course_object;
-use local_orange_library\enrollment\enrollment_object;
+use local_orange_library\utilities\utilities_object;
 
 require_once($CFG->dirroot . '/course/renderer.php');
 require_once($CFG->dirroot . '/cohort/lib.php');
@@ -37,39 +35,15 @@ class theme_solerni_core_course_renderer extends core_course_renderer
         global $CFG;
 
         // Start code to display only allowed MOOC.
-        global $DB, $USER;
+        global $USER;
 
-        $badges = new badges_object();
-
-        // By defaut the course is not displayed.
-        $canview = false;
-        // If user is loggedIn and has capability to create course then he can view all courses on the system.
-        if (isloggedin()) {
-            $usercontext = context_user::instance($USER->id);
-            if (has_capability('moodle/course:create', $usercontext)) {
-                $canview = true;
-            }
-        }
-
-        if (!$canview) {
-            // Self enrol enabled for this course.
-            $selfenrolment = new enrollment_object();
-            $enrolself = $selfenrolment->get_self_enrolment($course);
-            if ($enrolself != null) {
-                // If selfenrol and cohort associated, the must must be part of the cohort to see the course.
-                $cohortid = (int)$enrolself->customint5;
-                if ($cohortid == 0) {
-                    $canview = true;
-                } else {
-                    $canview = cohort_is_member($cohortid, $USER->id);
-                }
-            } else {
-                $canview = true;
-            }
-        }
+        $utilities = new utilities_object();
 
         // End code to display only allowed MOOC.
-        if ($canview) {
+        if ($utilities->can_user_view_course($course, $USER)) {
+
+            $badges = new badges_object();
+
             // Get customer info related to Moodle catagory.
             $customer = catalogue::solerni_catalogue_get_customer_infos($course->category);
 
@@ -483,4 +457,5 @@ class theme_solerni_core_course_renderer extends core_course_renderer
 
         return $output;
     }
+
 }

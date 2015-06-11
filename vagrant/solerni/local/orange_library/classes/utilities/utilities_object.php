@@ -21,6 +21,9 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace local_orange_library\utilities;
+
+use local_orange_library\enrollment\enrollment_object;
+
 defined('MOODLE_INTERNAL') || die();
 
 class utilities_object {
@@ -77,15 +80,15 @@ class utilities_object {
         global $DB;
         $courseid = $course->id;
         $sqlrequest = "SELECT DISTINCT u.id AS userid, c.id AS courseid
-        FROM mdl_user u
-        JOIN mdl_user_enrolments ue ON ue.userid = u.id
-        JOIN mdl_enrol e ON e.id = ue.enrolid
-        JOIN mdl_role_assignments ra ON ra.userid = u.id
-        JOIN mdl_context ct ON ct.id = ra.contextid AND ct.contextlevel = 50
-        JOIN mdl_course c ON c.id = ct.instanceid AND e.courseid = ". $courseid."
-        JOIN mdl_role r ON r.id = ra.roleid AND r.shortname = 'student'
-        WHERE e.status = 0 AND u.suspended = 0 AND u.deleted = 0
-        AND (ue.timeend = 0 OR ue.timeend > NOW()) AND ue.status = 0";
+            FROM mdl_user u
+            JOIN mdl_user_enrolments ue ON ue.userid = u.id
+            JOIN mdl_enrol e ON e.id = ue.enrolid
+            JOIN mdl_role_assignments ra ON ra.userid = u.id
+            JOIN mdl_context ct ON ct.id = ra.contextid AND ct.contextlevel = 50
+            JOIN mdl_course c ON c.id = ct.instanceid AND e.courseid = ". $courseid."
+            JOIN mdl_role r ON r.id = ra.roleid AND r.shortname = 'student'
+            WHERE e.status = 0 AND u.suspended = 0 AND u.deleted = 0
+            AND (ue.timeend = 0 OR ue.timeend > NOW()) AND ue.status = 0";
         $enrolledusers = $DB->get_records_sql($sqlrequest);
         $nbenrolledusers = count ($enrolledusers);
         return $nbenrolledusers;
@@ -128,5 +131,45 @@ class utilities_object {
         return $categoryid;
     }
 
+    /**
+     * Check if a user can see a course
+     *
+     * @param   $course object
+     * @param   $user object - if empty, we will use current $USER
+     * @return  (bool)
+     */
+    public function can_user_view_course($course, $user = null ) {
+
+        // Use global $USER if no user
+        if (!$user) {
+            global $USER;
+            $user = $USER;
+        }
+
+        // Check if course has self_enroll
+        $selfenrolment = new enrollment_object();
+        $enrolself = $selfenrolment->get_self_enrolment($course);
+
+        // If no self enrolment method, this is not a private mooc
+        if ( ! $enrolself ) {
+            return true;
+        }
+
+        // Always true if the user can create course
+        if ( isloggedin() && has_capability('moodle/course:create', context_user::instance($user->id)) ) {
+                return true;
+        }
+
+        // If enrolment, check for cohort and return true if no cohort
+        $cohortid = (int)$enrolself->customint5;
+        if ( ! $cohortid ) {
+            return true;
+        }
+
+        // Last case : we'll grant access wheither the user is in the cohort
+        return cohort_is_member($cohortid, $USER->id);
+
+
+    }
 
 }
