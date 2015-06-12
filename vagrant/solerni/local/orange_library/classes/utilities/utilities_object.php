@@ -23,6 +23,7 @@
 namespace local_orange_library\utilities;
 
 use local_orange_library\enrollment\enrollment_object;
+use context_user;
 
 defined('MOODLE_INTERNAL') || die();
 

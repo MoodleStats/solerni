@@ -22,7 +22,9 @@
  * @copyright   2015 Orange
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+namespace theme_solerni;
 
+ // Do we really need this file in all functions ?
 require_once($CFG->dirroot . '/local/orange_customers/lib.php');
 use local_orange_library\extended_course\extended_course_object;
 use local_orange_library\enrollment\enrollment_object;

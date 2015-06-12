@@ -22,160 +22,25 @@
  * @copyright   2015 Orange
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 use local_orange_library\badges\badges_object;
 use local_orange_library\utilities\utilities_object;
+use theme_solerni\catalogue;
 
 require_once($CFG->dirroot . '/course/renderer.php');
 require_once($CFG->dirroot . '/cohort/lib.php');
-require_once($CFG->dirroot . '/theme/solerni/classes/catalogue.php');
 
-class theme_solerni_core_course_renderer extends core_course_renderer
-{
+class theme_solerni_core_course_renderer extends core_course_renderer {
+
     protected function coursecat_coursebox(coursecat_helper $chelper, $course, $additionalclasses = '') {
-        global $CFG;
-
-        // Start code to display only allowed MOOC.
-        global $USER;
+        global $CFG, $USER;
+        $content = '';
 
         $utilities = new utilities_object();
 
         // End code to display only allowed MOOC.
         if ($utilities->can_user_view_course($course, $USER)) {
-
-            $badges = new badges_object();
-
-            // Get customer info related to Moodle catagory.
-            $customer = catalogue::solerni_catalogue_get_customer_infos($course->category);
-
-            // Get course informations.
-            $courseinfos = catalogue::solerni_catalogue_get_course_infos($course);
-
-            if (!isset($this->strings->summary)) {
-                $this->strings->summary = get_string('summary');
-            }
-            if ($chelper->get_show_courses() <= self::COURSECAT_SHOW_COURSES_COUNT) {
-                return '';
-            }
-            if ($course instanceof stdClass) {
-                require_once($CFG->libdir. '/coursecatlib.php');
-                $course = new course_in_list($course);
-            }
-
-            $content = '';
-            $classes = trim('coursebox '. $additionalclasses);
-            if ($chelper->get_show_courses() >= self::COURSECAT_SHOW_COURSES_EXPANDED) {
-                    $nametag = 'h3';
-            } else {
-                    $classes .= ' collapsed';
-                    $nametag = 'div';
-            }
-
-            // Coursebox.
-            $content .= html_writer::start_tag('div', array(
-                    'class' => $classes,
-                    'data-courseid' => $course->id,
-                    'data-type' => self::COURSECAT_TYPE_COURSE,
-            ));
-
-            $content .= html_writer::start_tag('div', array('class' => 'info'));
-            $content .= html_writer::start_tag('div', array('class' => 'presentation__mooc__block presentation__mooc__pic'));
-            if (isset($courseinfos->imgurl) && (is_object($courseinfos->imgurl))) {
-                $content .= html_writer::empty_tag('img', array('src' => $courseinfos->imgurl,
-                    'class' => 'presentation__mooc__block__image'));
-
-                if (isset($customer->urlimg) && (is_object($customer->urlimg))) {
-                    $categoryimagelink = html_writer::link(new moodle_url(
-                        '/course/index.php',
-                        array('categoryid' => $course->category)),
-                        html_writer::empty_tag('img', array('src' => $customer->urlimg,
-                            'class' => 'presentation__mooc__block__logo'))
-                        );
-                    $content .= $categoryimagelink;
-                }
-            }
-            $content .= html_writer::end_tag('div');
-
-            // Course name.
-            $coursename = $chelper->get_course_formatted_name($course);
-            if (isset($courseinfos)) {
-                $content .= html_writer::tag($nametag, $coursename, array('class' => 'presentation__mooc__text__title'));
-            } else {
-                $coursenamelink = html_writer::link(new moodle_url('/course/view.php', array('id' => $course->id)),
-                    $coursename, array('class' => $course->visible ? '' : 'dimmed'));
-                $content .= html_writer::tag($nametag, $coursenamelink, array('class' => 'coursename'));
-            }
-
-            // Course image.
-            if (isset($courseinfos)) {
-                $categorynamelink = html_writer::link(new moodle_url(
-                    '/course/index.php',
-                    array('categoryid' => $course->category)),
-                    $courseinfos->categoryname);
-                $content .= html_writer::start_tag('span', array('class' => 'presentation__mooc__text__subtitle'));
-                $content .= get_string('courseproposedby', 'theme_solerni') . " " . $categorynamelink;
-                $content .= html_writer::end_tag('span');
-            }
-
-            // Course info.
-            $content .= html_writer::start_tag('div', array('class' => 'presentation__mooc__text'));
-            if (isset($courseinfos)) {
-
-                // En savoir plus.
-                $ensavoirpluslink = html_writer::link(new moodle_url(
-                    '/course/view.php',
-                    array('id' => $course->id)),
-                    get_string('coursefindoutmore', 'theme_solerni'),
-                    array('class' => 'subscription_btn btn-primary')
-                    );
-
-                // Display course summary.
-                if ($course->has_summary()) {
-                    $content .= html_writer::start_tag('div', array('class' => 'presentation__mooc__text__desc'));
-                    $content .= $chelper->get_course_formatted_summary($course,
-                        array('overflowdiv' => true, 'noclean' => true, 'para' => false));
-                    $content .= $ensavoirpluslink;
-                    $content .= html_writer::end_tag('div'); // Summary.
-                } else {
-                    $content .= html_writer::start_tag('div', array('class' => 'presentation__mooc__text__desc'));
-                    $content .= $ensavoirpluslink;
-                    $content .= html_writer::end_tag('div');
-                }
-
-                // Icons.
-                $content .= html_writer::start_tag('div', array('class' => 'presentation__mooc__block presentation__mooc__meta'));
-
-                // Dates.
-                $content .= html_writer::start_tag('span', array('class' => 'presentation__mooc__meta__date'));
-                $content .= html_writer::tag('p', get_string('coursestartdate', 'theme_solerni') . " " .
-                        date("d.m.Y", $course->startdate));
-                $content .= html_writer::tag('p', get_string('courseenddate', 'theme_solerni') . " " .
-                        date("d.m.Y", $courseinfos->enddate));
-                $content .= html_writer::end_tag('span');
-
-                // Badges.
-                $content .= html_writer::start_tag('span', array('class' => 'presentation__mooc__meta__badge'));
-
-                if ($badges->count_badges($course->id)) {
-                    $content .= html_writer::tag('p', get_string('coursebadge', 'theme_solerni'));
-                } else {
-                    $content .= html_writer::tag('p', get_string('coursenobadge', 'theme_solerni'));
-                }
-                $content .= html_writer::end_tag('span'); // Badges.
-
-                // Price.
-                $content .= html_writer::start_tag('span', array('class' => 'presentation__mooc__meta__price'));
-                $content .= html_writer::tag('p', $courseinfos->price);
-                $content .= html_writer::end_tag('span'); // Price.
-
-                $content .= html_writer::end_tag('div'); // Icons.
-            }
-            $content .= html_writer::end_tag('div'); // Presentation__mooc__text.
-
-            $content .= html_writer::end_tag('div'); // Info.
-
-            $content .= html_writer::end_tag('div'); // Coursebox.
-        } else {
-            $content = '';
+            $content = $this->render_solerni_mooc_component($chelper, $course, $additionalclasses);
         }
 
         return $content;
@@ -456,6 +321,154 @@ class theme_solerni_core_course_renderer extends core_course_renderer
         $output .= html_writer::end_tag('form');
 
         return $output;
+    }
+
+    /**
+     *  Render a Mooc Component HTML Fragment
+     *
+     * @param $course
+     *
+     * @return (string)
+     */
+    function render_solerni_mooc_component($chelper, $course, $additionalclasses) {
+
+            $badges = new badges_object();
+            $catalogue = new catalogue();
+
+            // Get customer info related to Moodle catagory.
+            $customer = $catalogue->solerni_catalogue_get_customer_infos($course->category);
+            // Get course informations.
+            $courseinfos = $catalogue->solerni_catalogue_get_course_infos($course);
+
+            if (!isset($this->strings->summary)) {
+                $this->strings->summary = get_string('summary');
+            }
+
+            if ($chelper->get_show_courses() <= self::COURSECAT_SHOW_COURSES_COUNT) {
+                return '';
+            }
+
+            if ($course instanceof stdClass) {
+                require_once($CFG->libdir. '/coursecatlib.php');
+                $course = new course_in_list($course);
+            }
+
+            $content = '';
+            $classes = trim('coursebox '. $additionalclasses);
+            if ($chelper->get_show_courses() >= self::COURSECAT_SHOW_COURSES_EXPANDED) {
+                    $nametag = 'h3';
+            } else {
+                    $classes .= ' collapsed';
+                    $nametag = 'div';
+            }
+
+
+            // Coursebox.
+            $content .= html_writer::start_tag('div', array(
+                    'class' => $classes,
+                    'data-courseid' => $course->id,
+                    'data-type' => self::COURSECAT_TYPE_COURSE,
+            ));
+
+            $content .= html_writer::start_tag('div', array('class' => 'info'));
+            $content .= html_writer::start_tag('div', array('class' => 'presentation__mooc__block presentation__mooc__pic'));
+            if (isset($courseinfos->imgurl) && (is_object($courseinfos->imgurl))) {
+                $content .= html_writer::empty_tag('img', array('src' => $courseinfos->imgurl,
+                    'class' => 'presentation__mooc__block__image'));
+
+                if (isset($customer->urlimg) && (is_object($customer->urlimg))) {
+                    $categoryimagelink = html_writer::link(new moodle_url(
+                        '/course/index.php',
+                        array('categoryid' => $course->category)),
+                        html_writer::empty_tag('img', array('src' => $customer->urlimg,
+                            'class' => 'presentation__mooc__block__logo'))
+                        );
+                    $content .= $categoryimagelink;
+                }
+            }
+            $content .= html_writer::end_tag('div');
+
+            // Course name.
+            $coursename = $chelper->get_course_formatted_name($course);
+            if (isset($courseinfos)) {
+                $content .= html_writer::tag($nametag, $coursename, array('class' => 'presentation__mooc__text__title'));
+            } else {
+                $coursenamelink = html_writer::link(new moodle_url('/course/view.php', array('id' => $course->id)),
+                    $coursename, array('class' => $course->visible ? '' : 'dimmed'));
+                $content .= html_writer::tag($nametag, $coursenamelink, array('class' => 'coursename'));
+            }
+
+            // Course image.
+            if (isset($courseinfos)) {
+                $categorynamelink = html_writer::link(new moodle_url(
+                    '/course/index.php',
+                    array('categoryid' => $course->category)),
+                    $courseinfos->categoryname);
+                $content .= html_writer::start_tag('span', array('class' => 'presentation__mooc__text__subtitle'));
+                $content .= get_string('courseproposedby', 'theme_solerni') . " " . $categorynamelink;
+                $content .= html_writer::end_tag('span');
+            }
+
+            // Course info.
+            $content .= html_writer::start_tag('div', array('class' => 'presentation__mooc__text'));
+            if (isset($courseinfos)) {
+
+                // En savoir plus.
+                $ensavoirpluslink = html_writer::link(new moodle_url(
+                    '/course/view.php',
+                    array('id' => $course->id)),
+                    get_string('coursefindoutmore', 'theme_solerni'),
+                    array('class' => 'subscription_btn btn-primary')
+                    );
+
+                // Display course summary.
+                if ($course->has_summary()) {
+                    $content .= html_writer::start_tag('div', array('class' => 'presentation__mooc__text__desc'));
+                    $content .= $chelper->get_course_formatted_summary($course,
+                        array('overflowdiv' => true, 'noclean' => true, 'para' => false));
+                    $content .= $ensavoirpluslink;
+                    $content .= html_writer::end_tag('div'); // Summary.
+                } else {
+                    $content .= html_writer::start_tag('div', array('class' => 'presentation__mooc__text__desc'));
+                    $content .= $ensavoirpluslink;
+                    $content .= html_writer::end_tag('div');
+                }
+
+                // Icons.
+                $content .= html_writer::start_tag('div', array('class' => 'presentation__mooc__block presentation__mooc__meta'));
+
+                // Dates.
+                $content .= html_writer::start_tag('span', array('class' => 'presentation__mooc__meta__date'));
+                $content .= html_writer::tag('p', get_string('coursestartdate', 'theme_solerni') . " " .
+                        date("d.m.Y", $course->startdate));
+                $content .= html_writer::tag('p', get_string('courseenddate', 'theme_solerni') . " " .
+                        date("d.m.Y", $courseinfos->enddate));
+                $content .= html_writer::end_tag('span');
+
+                // Badges.
+                $content .= html_writer::start_tag('span', array('class' => 'presentation__mooc__meta__badge'));
+
+                if ($badges->count_badges($course->id)) {
+                    $content .= html_writer::tag('p', get_string('coursebadge', 'theme_solerni'));
+                } else {
+                    $content .= html_writer::tag('p', get_string('coursenobadge', 'theme_solerni'));
+                }
+                $content .= html_writer::end_tag('span'); // Badges.
+
+                // Price.
+                $content .= html_writer::start_tag('span', array('class' => 'presentation__mooc__meta__price'));
+                $content .= html_writer::tag('p', $courseinfos->price);
+                $content .= html_writer::end_tag('span'); // Price.
+
+                $content .= html_writer::end_tag('div'); // Icons.
+            }
+            $content .= html_writer::end_tag('div'); // Presentation__mooc__text.
+
+            $content .= html_writer::end_tag('div'); // Info.
+
+            $content .= html_writer::end_tag('div'); // Coursebox.
+
+            return $content;
     }
 
 }

@@ -11,7 +11,7 @@
  * @todo : reogarnize content, use array of values to reduce duplicated code
  */
 
-use \theme_solerni\settings\options;
+use theme_solerni\settings\options;
 
 $settings = null;
 $solernioptions = new options();
