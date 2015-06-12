@@ -23,6 +23,9 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 use local_orange_library\badges\badges_object;
+use local_orange_library\subscription_button\subscription_button_object;
+use local_orange_library\extended_course\extended_course_object;
+use local_orange_library\enrollment\enrollment_object;
 
 require_once($CFG->dirroot . '/course/renderer.php');
 require_once($CFG->dirroot . '/cohort/lib.php');
@@ -49,19 +52,19 @@ class theme_solerni_core_course_renderer extends core_course_renderer
         }
 
         if (!$canview) {
-            // Read enrolment method which are active.
-            $enrols = $DB->get_records('enrol', array('courseid' => $course->id, 'status' => 0));
-            foreach ($enrols as $enrol) {
-                // Is self and user in the cohort => display the course, or no cohort set => display the course also.
-                if ($enrol->enrol == 'self') {
-                    // If a cohort is affected to the course, it is stored in parameter customint5.
-                    $cohortid = (int)$enrol->customint5;
-                    if ($cohortid == 0) {
-                        $canview = true;
-                    } else {
-                        $canview = cohort_is_member($cohortid, $USER->id);
-                    }
+            // Self enrol enabled for this course.
+            $selfenrolment = new enrollment_object();
+            $enrolself = $selfenrolment->get_self_enrolment($course);
+            if ($enrolself != null) {
+                // If selfenrol and cohort associated, the must must be part of the cohort to see the course.
+                $cohortid = (int)$enrolself->customint5;
+                if ($cohortid == 0) {
+                    $canview = true;
+                } else {
+                    $canview = cohort_is_member($cohortid, $USER->id);
                 }
+            } else {
+                $canview = true;
             }
         }
 
@@ -85,7 +88,7 @@ class theme_solerni_core_course_renderer extends core_course_renderer
             }
 
             $content = '';
-            $classes = trim('coursebox clearfix '. $additionalclasses);
+            $classes = trim('coursebox '. $additionalclasses);
             if ($chelper->get_show_courses() >= self::COURSECAT_SHOW_COURSES_EXPANDED) {
                     $nametag = 'h3';
             } else {
@@ -105,26 +108,30 @@ class theme_solerni_core_course_renderer extends core_course_renderer
             if (isset($courseinfos->imgurl) && (is_object($courseinfos->imgurl))) {
                 $content .= html_writer::empty_tag('img', array('src' => $courseinfos->imgurl,
                     'class' => 'presentation__mooc__block__image'));
-            }
 
-            if (isset($customer->urlimg) && (is_object($customer->urlimg))) {
-                $categoryimagelink = html_writer::link(new moodle_url(
-                    '/course/index.php',
-                    array('categoryid' => $course->category)),
-                    html_writer::empty_tag('img', array('src' => $customer->urlimg, 'class' => 'presentation__mooc__block__logo'))
-                    );
-                $content .= $categoryimagelink;
+                if (isset($customer->urlimg) && (is_object($customer->urlimg))) {
+                    $categoryimagelink = html_writer::link(new moodle_url(
+                        '/course/index.php',
+                        array('categoryid' => $course->category)),
+                        html_writer::empty_tag('img', array('src' => $customer->urlimg,
+                            'class' => 'presentation__mooc__block__logo'))
+                        );
+                    $content .= $categoryimagelink;
+                }
             }
             $content .= html_writer::end_tag('div');
 
             // Course name.
             $coursename = $chelper->get_course_formatted_name($course);
+            if (isset($courseinfos)) {
+                $content .= html_writer::tag($nametag, $coursename, array('class' => 'presentation__mooc__text__title'));
+            } else {
+                $coursenamelink = html_writer::link(new moodle_url('/course/view.php', array('id' => $course->id)),
+                    $coursename, array('class' => $course->visible ? '' : 'dimmed'));
+                $content .= html_writer::tag($nametag, $coursenamelink, array('class' => 'coursename'));
+            }
 
             // Course image.
-            $coursenamelink = html_writer::link(new moodle_url('/course/view.php', array('id' => $course->id)),
-                $coursename, array('class' => $course->visible ? '' : 'dimmed'));
-            $content .= html_writer::tag($nametag, $coursenamelink, array('class' => 'coursename'));
-
             if (isset($courseinfos)) {
                 $categorynamelink = html_writer::link(new moodle_url(
                     '/course/index.php',
@@ -139,32 +146,35 @@ class theme_solerni_core_course_renderer extends core_course_renderer
             $content .= html_writer::start_tag('div', array('class' => 'presentation__mooc__text'));
             if (isset($courseinfos)) {
 
-                // Display course summary.
-                if ($course->has_summary()) {
-                    $content .= html_writer::start_tag('div', array('class' => 'presentation__mooc__text__desc'));
-                    $content .= $chelper->get_course_formatted_summary($course,
-                                    array('overflowdiv' => true, 'noclean' => true, 'para' => false));
-                    $content .= html_writer::end_tag('div'); // Summary.
-                }
-
                 // En savoir plus.
                 $ensavoirpluslink = html_writer::link(new moodle_url(
                     '/course/view.php',
                     array('id' => $course->id)),
                     get_string('coursefindoutmore', 'theme_solerni'),
-                    array('class' => 'button_link presentation__mooc__text_link')
+                    array('class' => 'subscription_btn btn-primary')
                     );
 
-                $content .= $ensavoirpluslink;
+                // Display course summary.
+                if ($course->has_summary()) {
+                    $content .= html_writer::start_tag('div', array('class' => 'presentation__mooc__text__desc'));
+                    $content .= $chelper->get_course_formatted_summary($course,
+                        array('overflowdiv' => true, 'noclean' => true, 'para' => false));
+                    $content .= $ensavoirpluslink;
+                    $content .= html_writer::end_tag('div'); // Summary.
+                } else {
+                    $content .= html_writer::start_tag('div', array('class' => 'presentation__mooc__text__desc'));
+                    $content .= $ensavoirpluslink;
+                    $content .= html_writer::end_tag('div');
+                }
 
                 // Icons.
                 $content .= html_writer::start_tag('div', array('class' => 'presentation__mooc__block presentation__mooc__meta'));
 
                 // Dates.
                 $content .= html_writer::start_tag('span', array('class' => 'presentation__mooc__meta__date'));
-                $content .= html_writer::tag('p', get_string('coursestartdate', 'theme_solerni') .
+                $content .= html_writer::tag('p', get_string('coursestartdate', 'theme_solerni') . " " .
                         date("d.m.Y", $course->startdate));
-                $content .= html_writer::tag('p', get_string('courseenddate', 'theme_solerni') .
+                $content .= html_writer::tag('p', get_string('courseenddate', 'theme_solerni') . " " .
                         date("d.m.Y", $courseinfos->enddate));
                 $content .= html_writer::end_tag('span');
 
@@ -180,11 +190,7 @@ class theme_solerni_core_course_renderer extends core_course_renderer
 
                 // Price.
                 $content .= html_writer::start_tag('span', array('class' => 'presentation__mooc__meta__price'));
-                if ($courseinfos->price == 0) {
-                    $content .= html_writer::tag('p', get_string('price_default', 'format_flexpage'));
-                } else {
-                    $content .= html_writer::tag('p', get_string('price', 'format_flexpage'). $courseinfos->price . "&euro;");
-                }
+                $content .= html_writer::tag('p', $courseinfos->price);
                 $content .= html_writer::end_tag('span'); // Price.
 
                 $content .= html_writer::end_tag('div'); // Icons.
@@ -217,13 +223,16 @@ class theme_solerni_core_course_renderer extends core_course_renderer
 
         // Category header for customer info and logo.
         $PAGE->requires->css('/theme/solerni/style/catalogue.css');
+        $PAGE->requires->css('/local/orange_library/style.css');
+
         $customer = catalogue::solerni_catalogue_get_customer_infos($coursecat->id);
 
         $content = '';
         if (isset($customer->id)) {
             $content .= "<div class='slrn-header__column'>";
             if ($customer->urlpicture != "") {
-                $content .= "<div><img class='header-background-img' src='{$customer->urlpicture}' alt='{$customer->name}' /></div>";
+                $content .= "<div><img class='header-background-img' src='{$customer->urlpicture}'";
+                $content .= " alt='{$customer->name}' /></div>";
             }
             if ($customer->urlimg != "") {
                 $content .= "<div class='slrn-header__logo'><img class='header-logo-img' src='{$customer->urlimg}'  /></div>";
@@ -280,16 +289,14 @@ class theme_solerni_core_course_renderer extends core_course_renderer
         $options = array();
         $options['summary'] = true;
 
-        // TODO : checkvisibility en fonction du profil du user.
         $chelper = new coursecat_helper();
 
         // Pagination.
         $perpage = $CFG->coursesperpage;
         $page = optional_param('pageid', 0, PARAM_INT);
 
-        $chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_COLLAPSED)->
-                set_courses_display_options(array(
-                        'recursive' => false,  // TODO, le recursif n'est pas traiter dans catalogue::get_courses
+        $chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_COLLAPSED)->set_courses_display_options(array(
+                        'recursive' => false,  // TODO, le recursif n'est pas traiter dans catalogue::get_courses.
                         'limit' => $perpage,
                         'offset' => $page * $perpage,
                         'paginationallowall' => false,
@@ -301,7 +308,6 @@ class theme_solerni_core_course_renderer extends core_course_renderer
         $courses = catalogue::get_courses_catalogue($filter, $chelper->get_courses_display_options());
         $totalcount = catalogue::get_courses_catalogue_count($filter, $chelper->get_courses_display_options());
 
-        // TODO à mettre ailleur.
         if ($totalcount == 0) {
             $countstring = get_string('catalog0result', 'theme_solerni');
         } else if ($totalcount == 1) {
@@ -319,7 +325,7 @@ class theme_solerni_core_course_renderer extends core_course_renderer
      * @return string
      */
     public function course_catalog_filter_form($filter) {
-        global $CFG;
+        global $CFG, $DB;
         require_once($CFG->libdir. '/coursecatlib.php');
         require_once($CFG->dirroot . '/local/orange_customers/lib.php');
 
@@ -350,7 +356,8 @@ class theme_solerni_core_course_renderer extends core_course_renderer
         $output .= "<div class='filterstatus'>";
         $output .= "<h3 class='filter'>" . get_string('filterstatustitle', 'theme_solerni') . "</h3>";
         $output .= "<div class='filter'>";
-        $output .= "<input type='checkbox' id='statusall' name='statusid[]' class='solerni_checkboxall' value='0' $allchecked/>".$status[0];
+        $output .= "<input type='checkbox' id='statusall' name='statusid[]' class='solerni_checkboxall' ";
+        $output .= "value='0' $allchecked/>".$status[0];
         $output .= "<ul class='filterstatus' id='ulstatusall'>";
         foreach ($status as $statusid => $statuslabel) {
             if ($statusid != 0) {
@@ -368,8 +375,8 @@ class theme_solerni_core_course_renderer extends core_course_renderer
         $output .= "</div>";
         $output .= "</div>";
 
-        // Filter on thematic
-        // TODO lecture des thématique
+        // Filter on thematic.
+        $thematics = $DB->get_recordset('orange_thematics');
         $thematic = array (0 => get_string('filterthematicall', 'theme_solerni'));
 
         if ((count($filter->thematicsid) == 0) || (in_array(0, $filter->thematicsid))) {
@@ -381,18 +388,19 @@ class theme_solerni_core_course_renderer extends core_course_renderer
         $output .= "<div class='filterthematic'>";
         $output .= "<h3 class='filter'>" . get_string('filterthematictitle', 'theme_solerni'). "</h3>";
         $output .= "<div class='filter'>";
-        $output .= "<input type='checkbox' id='thematicall' name='thematicid[]' class='solerni_checkboxall' value='0' $allchecked/>".$thematic[0];
+        $output .= "<input type='checkbox' id='thematicall' name='thematicid[]' class='solerni_checkboxall'";
+        $output .= " value='0' $allchecked/>".$thematic[0];
         $output .= "<ul class='filterthematic' id='ulthematicall'>";
-        foreach ($thematic as $thematicid => $thematiclabel) {
-            if ($thematicid != 0) {
-                if (in_array($thematicid, $filter->thematicsid )) {
+        foreach ($thematics as $theme) {
+            if ($theme->id != 0) {
+                if (in_array($theme->id, $filter->thematicsid )) {
                     $checked = "checked";
                 } else {
                     $checked = '';
                 }
                 $output .= "<li>";
-                $output .= "<input type='checkbox' name='thematicid[]' class='solerni_checkbox' value='$thematicid' $checked />";
-                $output .= $thematiclabel . "</li>";
+                $output .= "<input type='checkbox' name='thematicid[]' class='solerni_checkbox' value='$theme->id' $checked />";
+                $output .= $theme->name . "</li>";
             }
         }
         $output .= "</ul>";
@@ -414,7 +422,8 @@ class theme_solerni_core_course_renderer extends core_course_renderer
         $output .= "<div class='filterduration'>";
         $output .= "<h3 class='filter'>" . get_string('filterdurationtitle', 'theme_solerni'). "</h3>";
         $output .= "<div class='filter'>";
-        $output .= "<input type='checkbox' id='durationall' name='durationid[]' class='solerni_checkboxall' value='0' $allchecked/>".$duration[0];
+        $output .= "<input type='checkbox' id='durationall' name='durationid[]' class='solerni_checkboxall' ";
+        $output .= "value='0' $allchecked/>".$duration[0];
         $output .= "<ul class='filterduration' id='uldurationall'>";
         foreach ($duration as $durationid => $durationlabel) {
             if ($durationid != 0) {
@@ -443,16 +452,17 @@ class theme_solerni_core_course_renderer extends core_course_renderer
         $output .= "<div class='filtercategory'>";
         $output .= "<h3 class='filter'>" . get_string('filtercategorytitle', 'theme_solerni'). "</h3>";
         $output .= "<div class='filter'>";
-        $output .= "<input type='checkbox' id='categoryall' name='categoryid[]' class='solerni_checkboxall' value='0' $allchecked/>" . get_string('filtercategoryall', 'theme_solerni');
+        $output .= "<input type='checkbox' id='categoryall' name='categoryid[]' class='solerni_checkboxall' ";
+        $output .= "value='0' $allchecked/>" . get_string('filtercategoryall', 'theme_solerni');
         $output .= "<ul class='filtercategory' id='ulcategoryall'>";
         foreach ($categories as $catid => $category) {
             if ($catid != 0) {
-                // Get customer information to make sure the category is associated to a customer
                 if (in_array($catid, $filter->categoriesid)) {
                     $checked = "checked";
                 } else {
                     $checked = '';
                 }
+                // Get customer information to make sure the category is associated to a customer.
                 $customer = customer_get_customerbycategoryid ($catid);
                 if (isset($customer->id)) {
                     $output .= "<li>";
