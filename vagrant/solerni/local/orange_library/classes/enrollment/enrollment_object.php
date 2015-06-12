@@ -20,10 +20,8 @@ class enrollment_object {
     /**
      *  Get self enrollment instance.
      *
-     * @param moodle_url $imgurl
      * @param object $course
-     * @param object $context
-     * @return string $text
+     * @return object enrollinstance
      */
     public function get_self_enrolment($course) {
 
@@ -35,4 +33,41 @@ class enrollment_object {
         }
     }
 
+    /**
+     *  Get self enrollment instance.
+     *
+     * @param moodle_url $imgurl
+     * @param object $course
+     * @param object $context
+     * @return string $text
+     */
+    public function get_enrolment_startdate($course) {
+
+        $instances = enrol_get_instances($course->id, false);
+        foreach ($instances as $instance) {
+            if($instance->enrolstartdate){
+               return $instance->enrolstartdate;
+            }
+        }
+            return date('c');
+    }
+
+    /**
+     *  Get self enrollment instance.
+     *
+     * @param moodle_url $imgurl
+     * @param object $course
+     * @param object $context
+     * @return string $text
+     */
+    public function get_enrolment_enddate($course) {
+
+        $instances = enrol_get_instances($course->id, false);
+        foreach ($instances as $instance) {
+            if($instance->enrolenddate){
+               return $instance->enrolenddate;
+            }
+        }
+            return date('c');
+    }
 }

@@ -27,12 +27,12 @@ $string['pluginname'] = 'Orange Library';
 $string['local_orange_library'] = 'Orange Library';
 
 // Subscription button object.
-$string['subscribe_to_mooc'] = 'souscription';
-$string['access_to_mooc'] = 'acces au mooc';
+$string['subscribe_to_mooc'] = 's’inscrire au mooc';
+$string['access_to_mooc'] = 'accéder au mooc';
 $string['status_default'] = 'MOOC non démarré';
-$string['status_closed'] = 'MOOC fermé';
-$string['alert_mooc'] = 'Prévenez moi pour la prochaine session du mooc';
-$string['registration_stopped'] = 'fin d\' enregistrement';
+$string['status_closed'] = 'mooc terminé';
+$string['alert_mooc'] = 'm’avertir de la prochaine session';
+$string['registration_stopped'] = 'inscription terminée';
 $string['mooc_complete'] = 'mooc complet';
 $string['mooc_open_date'] = 'Ouvert du ';
 

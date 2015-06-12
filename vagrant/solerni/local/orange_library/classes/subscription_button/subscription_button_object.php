@@ -44,7 +44,10 @@ class subscription_button_object {
         $extendedcourse = new extended_course_object();
         $extendedcourse->get_extended_course($course, $context);
         $selfenrolment = new enrollment_object();
-        $instance = $selfenrolment->get_self_enrolment($course);
+        $instance = new \stdClass();
+        $instance->enrolstartdate = $selfenrolment->get_enrolment_startdate($course);
+
+        $instance->enrolenddate = $selfenrolment->get_enrolment_enddate($course);
 
         $urlregistration = new moodle_url('/login/signup.php', array('id' => $course->id));
         $urlmoocsubscription = new moodle_url('/enrol/index.php', array('id' => $course->id));
