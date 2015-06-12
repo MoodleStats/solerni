@@ -91,7 +91,6 @@ class utilities_object {
         return $nbenrolledusers;
     }
 
-
     /**
      *  Get the category ID of a course.
      *
@@ -102,10 +101,12 @@ class utilities_object {
          $context = $PAGE->context;
         $coursecontext = $context->get_course_context();
         $categoryid = null;
-        if ($coursecontext) { // No course context for system / user profile
+        if ($coursecontext) {
+            // No course context for system / user profile.
             $courseid = $coursecontext->instanceid;
             $course = $DB->get_record('course', array('id' => $courseid), 'id, category');
-            if ($course) { // Should always exist, but just in case ...
+            if ($course) {
+                // Should always exist, but just in case ...
                 $categoryid = $course->category;
             }
         }
@@ -115,18 +116,16 @@ class utilities_object {
     /**
      * Set the extended course values from config.
      *
-     * @param object $context
-     * @return object $this->extendedcourse
+     * @param integer $courseid
+     * @return integer $categoryid
      */
     public function get_categoryid_by_courseid($courseid) {
         global $DB;
-        $categoryid = NULL;
+        $categoryid = null;
         $course = $DB->get_record('course', array('id' => $courseid), 'id, category');
         if ($course) { // Should always exist, but just in case ...
             $categoryid = $course->category;
         }
         return $categoryid;
     }
-
-
 }

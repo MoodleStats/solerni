@@ -29,13 +29,18 @@ $string['local_orange_library'] = 'Orange Library';
 // Subscription button object.
 $string['subscribe_to_mooc'] = 's’inscrire au mooc';
 $string['access_to_mooc'] = 'accéder au mooc';
-$string['status_default'] = 'MOOC non démarré';
-$string['status_closed'] = 'mooc terminé';
+$string['status_default'] = '«mooc à venir';
+$string['status_closed'] = '«mooc terminé';
 $string['alert_mooc'] = 'm’avertir de la prochaine session';
 $string['registration_stopped'] = 'inscription terminée';
 $string['mooc_complete'] = 'mooc complet';
-$string['mooc_open_date'] = 'Ouvert du ';
+$string['mooc_open_date'] = 'ouverte à tous du ';
 
-// Extended course object
+// Extended course object.
 $string['english'] = 'anglais';
 $string['french'] = 'francais';
+
+// Badges.
+$string['certification_default'] = '<br>attestation de réussite';
+$string['badge_default'] = 'Badge ';
+$string['badge'] = 'badge ';
