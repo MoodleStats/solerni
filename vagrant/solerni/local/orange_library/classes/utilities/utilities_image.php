@@ -25,6 +25,8 @@ defined('MOODLE_INTERNAL') || die();
 class utilities_image {
     /**
      * Get an url to the new image processed depending on the options
+     * In case of error, we put an entry on the error_log and send back 
+     * the original URL of image
      *
      * @param url $image
      *        array $opts : 
@@ -81,8 +83,8 @@ class utilities_image {
         if (file_exists($imagepath) == false) {
             $imagepath = $_SERVER['DOCUMENT_ROOT'].$imagepath;
             if (file_exists($imagepath) == false) {
-                throw new coding_exception("Image not found " . $imagepath);
-                return false;
+                error_log ("Image not found " . $imagepath);
+                return $image;
             }
         }
 
@@ -107,8 +109,6 @@ class utilities_image {
                 $newpath = $cachefolder.$filename.'_w'.$w.'.'.$ext;
             } else if (!empty($h)) {
                 $newpath = $cachefolder.$filename.'_h'.$h.'.'.$ext;
-            } else {
-                return false;
             }
         }
 
@@ -162,8 +162,8 @@ class utilities_image {
 
             $c = exec($cmd, $output, $returncode);
             if ($returncode != 0) {
-                throw new coding_exception("Tried to execute : $cmd, return code: $returncode, output: " . print_r($output, true));
-                return false;
+                error_log("Tried to execute : $cmd, return code: $returncode, output: " . print_r($output, true));
+                return $image;
             }
         }
 
