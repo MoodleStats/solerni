@@ -43,14 +43,15 @@ class orange_thematics_form extends moodleform implements renderable {
         $steplabel = get_string('definethematicsheader', 'local_orange_thematics');
         $mform->addElement('header', 'flavourdata', $steplabel);
 
-        $mform->addElement('text', 'name', get_string('thematicname', 'local_orange_thematics'));
+        $mform->addElement('textarea', 'name', get_string('thematicname', 'local_orange_thematics'),
+            'wrap="virtual" rows="10" cols="50"');
         $mform->addRule('name', null, 'required', null, 'client');
         $mform->setType('name', PARAM_TEXT);
+        $mform->addHelpButton('name', 'thematicname', 'local_orange_thematics');
 
         $mform->addElement('hidden', 'id', 0);
         $mform->setType('id', PARAM_RAW);
-        $mform->addElement('hidden', 'suspended', 0);
-        $mform->setType('suspended', PARAM_RAW);
+
         $mform->addElement('hidden', 'action', 'thematics_add');
         $mform->setType('action', PARAM_RAW);
 
