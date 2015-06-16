@@ -28,7 +28,11 @@
  * @author   Shaun Daubney
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-global $PAGE;
+global $PAGE, $CFG;
+
+// Theme variable
+$CFG->themedir = $CFG->dirroot . '/theme/solerni';
+$CFG->partialsdir = $CFG->themedir . '/layout/partials';
 
 $THEME->doctype         = 'html5';
 $THEME->yuicssmodules   = array();

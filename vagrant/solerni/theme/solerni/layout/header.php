@@ -62,7 +62,7 @@ $isfrontpage    = ($PAGE->pagetype === 'site-index');
 </header>
 
 <?php if ( $PAGE->pagetype === 'site-index' ) {
-    require('partials/frontpage-header.php');
+    include($CFG->partialsdir . '/frontpage_header.php');
 } ?>
 
 <div id="page" class="container-fluid">

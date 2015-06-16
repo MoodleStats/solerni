@@ -29,6 +29,7 @@ $string['region-side-pre']          = 'Gauche';
 $string['choosereadme']             = 'Solerni is a clone of Aardvark which is a three column theme for Moodle 2.5+ based on Bootstraptheme and created by Shaun Daubney for <a href="http://www.newbury-college.ac.uk">Newbury College</a>';
 $string['configtitle']              = 'Solerni';
 $string['region-side-top']          = 'Top';
+$string['region-main']              = 'Principale';
 
 // Frontpage settings.
 $string['frontpagesettings']            = 'Page d\'accueil';
@@ -176,3 +177,4 @@ $string['coursenobadge']            = "Non badgeant";
 
 // Frontpage frontend
 $string['ifreelyregister']          = "Je m'inscris gratuitement";
+$string['seecatalog']               = "Voir le catalogue";

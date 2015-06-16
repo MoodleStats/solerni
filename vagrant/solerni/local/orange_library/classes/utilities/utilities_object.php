@@ -68,6 +68,7 @@ class utilities_object {
         if ($seconds > 0) {
             $text = $seconds." ".get_string('second', 'block_orange_course_extended'). " ".$text;
         }
+        
         return $text;
     }
 
@@ -92,6 +93,7 @@ class utilities_object {
             AND (ue.timeend = 0 OR ue.timeend > NOW()) AND ue.status = 0";
         $enrolledusers = $DB->get_records_sql($sqlrequest);
         $nbenrolledusers = count ($enrolledusers);
+
         return $nbenrolledusers;
     }
 
@@ -113,6 +115,7 @@ class utilities_object {
                 $categoryid = $course->category;
             }
         }
+
         return $categoryid;
     }
 
@@ -129,6 +132,7 @@ class utilities_object {
         if ($course) { // Should always exist, but just in case ...
             $categoryid = $course->category;
         }
+
         return $categoryid;
     }
 
@@ -169,8 +173,6 @@ class utilities_object {
 
         // Last case : we'll grant access wheither the user is in the cohort
         return cohort_is_member($cohortid, $USER->id);
-
-
     }
 
 }

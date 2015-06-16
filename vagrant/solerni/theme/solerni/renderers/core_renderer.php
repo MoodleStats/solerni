@@ -25,18 +25,24 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
      * @isdummy
      */
     public function solerni_header_links() {
+        $aboutlink      = $this->page->theme->settings->about;
+        $cataloglink    = $this->page->theme->settings->catalogue;
     ?>
-        <li class="slrn-top-header__item">
-            <a class="slrn-top-header__item slrn-top-header__item--link" href="<?php echo $this->page->theme->settings->about; ?>">
-                <?php echo get_string('about', 'theme_solerni'); ?>
-            </a>
-        </li>
-        <li class="slrn-top-header__item">
-            <a class="slrn-top-header__item  slrn-top-header__item--link" href="<?php echo $this->page->theme->settings->catalogue; ?>">
-                <?php echo get_string('catalogue', 'theme_solerni'); ?>
-            </a>
-        </li>
-    <?php }
+        <?php if ($aboutlink) : ?>
+            <li class="slrn-top-header__item">
+                <a class="slrn-top-header__item slrn-top-header__item--link" href="<?php echo $this->page->theme->settings->about; ?>">
+                    <?php echo get_string('about', 'theme_solerni'); ?>
+                </a>
+            </li>
+        <?php endif; ?>
+        <?php if ($cataloglink) : ?>
+            <li class="slrn-top-header__item">
+                <a class="slrn-top-header__item  slrn-top-header__item--link" href="<?php echo $this->page->theme->settings->catalogue; ?>">
+                    <?php echo get_string('catalogue', 'theme_solerni'); ?>
+                </a>
+            </li>
+        <?php endif;
+    }
 
     /*
      * Echo lang menu
@@ -265,76 +271,4 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
         </div>
     <?php endif;
     }
-
-    /**
-	 * Returns HTML to print list of courses user is enrolled to for the frontpage
-	 *
-	 * Also lists remote courses or remote hosts if MNET authorisation is used
-	 *
-	 * @return string
-	 */
-	public function frontpage_my_courses() {
-		global $USER, $CFG, $DB;
-
-		if (!isloggedin() or isguestuser()) {
-			return '';
-		}
-
-		$output = '';
-		if (!empty($CFG->navsortmycoursessort)) {
-			// sort courses the same as in navigation menu
-			$sortorder = 'visible DESC,'. $CFG->navsortmycoursessort.' ASC';
-		} else {
-			$sortorder = 'visible DESC,sortorder ASC';
-		}
-		$courses  = enrol_get_my_courses('summary, summaryformat', $sortorder);
-		$rhosts   = array();
-		$rcourses = array();
-		if (!empty($CFG->mnet_dispatcher_mode) && $CFG->mnet_dispatcher_mode==='strict') {
-			$rcourses = get_my_remotecourses($USER->id);
-			$rhosts   = get_my_remotehosts();
-		}
-
-		if (!empty($courses) || !empty($rcourses) || !empty($rhosts)) {
-
-			$chelper = new coursecat_helper();
-			if (count($courses) > $CFG->frontpagecourselimit) {
-				// There are more enrolled courses than we can display, display link to 'My courses'.
-				$totalcount = count($courses);
-				$courses = array_slice($courses, 0, $CFG->frontpagecourselimit, true);
-				$chelper->set_courses_display_options(array(
-						'viewmoreurl' => new moodle_url('/my/'),
-						'viewmoretext' => new lang_string('mycourses')
-				));
-			} else {
-				// All enrolled courses are displayed, display link to 'All courses' if there are more courses in system.
-				$chelper->set_courses_display_options(array(
-						'viewmoreurl' => new moodle_url('/course/index.php'),
-						'viewmoretext' => new lang_string('fulllistofcourses')
-				));
-				$totalcount = $DB->count_records('course') - 1;
-			}
-			$chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_EXPANDED)->
-			set_attributes(array('class' => 'frontpage-course-list-enrolled'));
-			$output .= $this->coursecat_courses($chelper, $courses, $totalcount);
-
-			// MNET
-			if (!empty($rcourses)) {
-				// at the IDP, we know of all the remote courses
-				$output .= html_writer::start_tag('div', array('class' => 'courses'));
-				foreach ($rcourses as $course) {
-					$output .= $this->frontpage_remote_course($course);
-				}
-				$output .= html_writer::end_tag('div'); // .courses
-			} elseif (!empty($rhosts)) {
-				// non-IDP, we know of all the remote servers, but not courses
-				$output .= html_writer::start_tag('div', array('class' => 'courses'));
-				foreach ($rhosts as $host) {
-					$output .= $this->frontpage_remote_host($host);
-				}
-				$output .= html_writer::end_tag('div'); // .courses
-			}
-		}
-		return $output;
-	}
 }

@@ -55,21 +55,21 @@
 }
 
 
-.front-page_subheader {
+.frontpage_subheader {
   position:         relative;
   top:              -50px;
   margin-bottom:    -50px;
   text-align:       center;
 }
 
-.front-page_subheader__item__picture {
+.frontpage_subheader__item__picture {
     display:        block;
     width:          100%;
     height:         auto;
     margin-bottom:  8px;
 }
 
-.front-page_subheader__item {
+.frontpage_subheader__item {
     vertical-align: top;
     color:          #000000;
     display:        inline-block;
@@ -78,3 +78,14 @@
     font-size:      12px;
 }
 
+.frontpage_heading {
+    margin: 20px 0;
+}
+
+/*
+ * Hide useless options
+ */
+
+#frontpage-course-list > h2 {
+    display: none; // This HTML fragment cannot be overriden, so hide it
+}

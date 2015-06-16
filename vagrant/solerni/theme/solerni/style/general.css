@@ -55,3 +55,61 @@ h1, h2, h3, h4, h5, h6 {
 .btn-primary:hover {
     background-color:   [[setting:secondaryhover]];
 }
+
+/*
+ * Titles
+ */
+
+h2 {
+    font-size:      20px;
+    font-weight:    bold;
+    line-height:    1;
+}
+
+.link-top-right {
+    float:              right;
+    color:              [[setting:secondary]];
+    text-decoration:    none;
+}
+
+.link-top-right:hover {
+    text-decoration: underline;
+}
+
+/*
+ * Solerni Coursebox
+ */
+
+
+.slrn-coursebox,
+.coursebox.slrn-coursebox:hover {
+    background-color: [[setting:grey2]];
+}
+
+.slrn-coursebox {
+    box-shadow:     none;
+    padding:        0;
+    border:         0;
+    border-radius:  0;
+    margin-bottom:  40px;
+    font-size:      0;
+}
+
+.slrn-coursebox__column {
+    display:    inline-block;
+    font-size:  16px;
+}
+
+.slrn-coursebox__column--image {
+    width: 35%;
+}
+
+.slrn-coursebox__column--description {
+    width: 45%;
+}
+
+.slrn-coursebox__column--metadata {
+    width: 20%;
+}
+
+

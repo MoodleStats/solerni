@@ -20,6 +20,8 @@
  * @copyright  2015 Orange
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+namespace local_orange_library\utilities;
+
 defined('MOODLE_INTERNAL') || die();
 
 class utilities_image {
@@ -27,7 +29,7 @@ class utilities_image {
      * Get an url to the new image processed depending on the options
      *
      * @param url $image
-     *        array $opts : 
+     *        array $opts :
      *              'scale' => resize image with possible 'deformation'
      *              'crop' => resize image with croping
      *              'output-filename' => keep filename
@@ -39,6 +41,7 @@ class utilities_image {
         global $CFG;
 
         $imagepath = urldecode($image);
+
         // Start configuration.
         $cachefolder = $CFG->solerni_images_directory.'/';
         $remotefolder = $CFG->solerni_original_images_directory.'/';

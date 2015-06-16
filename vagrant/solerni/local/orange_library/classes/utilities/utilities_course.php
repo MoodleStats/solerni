@@ -22,7 +22,7 @@
  * @copyright   2015 Orange
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-namespace theme_solerni;
+namespace local_orange_library\utilities;
 
 use local_orange_library\extended_course\extended_course_object;
 use local_orange_library\enrollment\enrollment_object;
@@ -34,7 +34,7 @@ use course_in_list;
 
 class catalogue {
 
-    public static function solerni_catalogue_get_customer_infos ($catid) {
+    public static function solerni_course_get_customer_infos ($catid) {
         global $CFG;
         require_once($CFG->dirroot . '/local/orange_customers/lib.php');
         $customer = customer_get_customerbycategoryid($catid);
@@ -45,7 +45,7 @@ class catalogue {
     /*
      *
      */
-    public static function solerni_catalogue_get_course_infos ($course) {
+    public static function solerni_course_get_course_infos ($course) {
         global $DB;
 
         // We get more information only when flexpage format is used.
