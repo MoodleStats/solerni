@@ -27,15 +27,11 @@ $string['pluginname'] = 'Orange thematics';
 $string['thematics'] = 'Gestion des thematiques';
 $string['thematicid'] = 'Id.';
 $string['thematicname'] = 'Thématique';
+$string['thematicname_help'] = 'Vous devez spécifier le libellé de la thématique pour les langues souhaitées. Exemple :
+		&lt;span class="multilang" lang="fr"&gt;Ma thématique&lt;/span&gt;
+		&lt;span class="multilang" lang="en"&gt;My thematic&lt;/span&gt;';
 $string['definethematicsheader'] = 'Gestion des thématiques';
 $string['actionthematics_list'] = 'Liste des thématiques';
 $string['confirmdeletethematic'] = 'Etes-vous sur de vouloir supprimer la thématique <b>{$a}</b> ?';
 $string['thematiciddeleted'] = 'La thématique {$a} a été supprimée.';
-
-$string['categoryname'] = 'Categorie associée';
-$string['customersummary'] = "Desccription courte";
-$string['customerdescription'] = "Description détaillée";
-$string['customerlogo'] = "Logo";
-$string['customerlogo_help'] = "Logo du client";
-$string['customerpicture'] = "Bandeau";
-$string['customerpicture_help'] = "Image de présentation du client (haut de page)";
+$string['impossiblethematicdeleted'] = 'Impossible de supprimer la thématique {$a}. Elle est associée à un cours.';

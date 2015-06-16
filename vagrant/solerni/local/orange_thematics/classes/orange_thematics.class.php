@@ -75,15 +75,35 @@ class orange_thematics  {
             return false;
         }
 
+        // List of thematics associated to a course (Even if table course_format_options doesn't exist, this script is valid).
+        $listidthematic = array();
+        try {
+            $formatoptions = $DB->get_records('course_format_options', array ('name' => 'coursethematics'));
+            foreach ($formatoptions as $formatoption) {
+                $listidthematic = array_merge($listidthematic, explode(",", $formatoption->value));
+            }
+            $listidthematic = array_unique($listidthematic);
+
+        } catch (Exception $e) {
+            // If table doesn't exist, the array listidthematic is empty.
+        }
+
         $get = new stdClass();
         foreach ($_GET as $varname => $value) {
             $get->{"$varname"} = $value;
         }
 
         $tobedeleted = $DB->get_record('orange_thematics', array ('id' => $get->id));
-        $DB->delete_records('orange_thematics', array ('id' => $get->id));
-        $returnurl = new moodle_url('index.php', array('action' => 'thematics_list', 'sesskey' => sesskey()));
-        redirect($returnurl, get_string('thematicdeleted', 'local_orange_thematics', $tobedeleted->name));
+
+        if (!in_array($get->id, $listidthematic)) {
+            $DB->delete_records('orange_thematics', array ('id' => $get->id));
+            $returnurl = new moodle_url('index.php', array('action' => 'thematics_list', 'sesskey' => sesskey()));
+            redirect($returnurl, get_string('thematicdeleted', 'local_orange_thematics', format_text($tobedeleted->name)));
+        } else {
+            $returnurl = new moodle_url('index.php', array('action' => 'thematics_list', 'sesskey' => sesskey()));
+            redirect($returnurl, get_string('impossiblethematicdeleted', 'local_orange_thematics',
+                format_text($tobedeleted->name)));
+        }
     }
 
 
@@ -144,9 +164,10 @@ class orange_thematics  {
             // If table doesn't exist, the array listidthematic is empty.
         }
 
-        $thematics = $DB->get_recordset('orange_thematics');
+        $thematics = thematic_get_thematic();
 
         foreach ($thematics as $thematic) {
+
             $buttons = array();
             if (has_capability('local/orange_thematics:edit', $sitecontext)) {
 
@@ -183,7 +204,6 @@ class orange_thematics  {
             $table->data[] = $row;
         }
 
-        $thematics->close();
         $this->list = $table;
 
         $this->renderable = new orange_thematics_list(/* $this->url */);
