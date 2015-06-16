@@ -27,17 +27,21 @@ defined('MOODLE_INTERNAL') || die();
 class utilities_image {
     /**
      * Get an url to the new image processed depending on the options
+     * In case of error, we put an entry on the error_log and send back 
+     * the original URL of image
+     * If the moodle file object is given it is use in priority to access the file
      *
-     * @param url $image
-     *        array $opts :
+     * @param url $image (mandatory)
+     *        array $opts (optional)
      *              'scale' => resize image with possible 'deformation'
      *              'crop' => resize image with croping
      *              'output-filename' => keep filename
      *              'w' => new width
      *              'h' => new height
+     *        moodle file object $file (optional)
      * @return $newImageUrl
      */
-    public static function get_resized_url($image, $opts=null) {
+    public static function get_resized_url($image, $opts=null, $file=null) {
         global $CFG;
 
         $imagepath = urldecode($image);
@@ -64,7 +68,20 @@ class utilities_image {
         $ext = $finfo['extension'];
 
         // Check for remote image.
-        if (isset($purl['scheme']) && ($purl['scheme'] == 'http' || $purl['scheme'] == 'https')) {
+        // First try to use the moodle file object.
+        if ($file != null) {
+            $downloadimage = true;
+            $localfilepath = $remotefolder.$file->get_filename();
+            if (file_exists($localfilepath)) {
+                if ($file->get_timecreated() < strtotime('+'.$opts['cache_http_minutes'].' minutes')) {
+                    $downloadimage = false;
+                }
+            }
+            if ($downloadimage == true) {
+                $file->copy_content_to($localfilepath);
+            }
+            $imagepath = $localfilepath;
+        } else if (isset($purl['scheme']) && ($purl['scheme'] == 'http' || $purl['scheme'] == 'https')) {
             // Grab the image, and cache it so we have something to work with.
             list($filename) = explode('?', $finfo['basename']);
             $localfilepath = $remotefolder.$filename;
@@ -81,12 +98,10 @@ class utilities_image {
             $imagepath = $localfilepath;
         }
 
+        // We try to access the image. If an error occurs we return the original url.
         if (file_exists($imagepath) == false) {
-            $imagepath = $_SERVER['DOCUMENT_ROOT'].$imagepath;
-            if (file_exists($imagepath) == false) {
-                throw new coding_exception("Image not found " . $imagepath);
-                return false;
-            }
+            error_log ("Image not found " . $imagepath);
+            return $image;
         }
 
         if (isset($opts['w'])) {
@@ -110,8 +125,6 @@ class utilities_image {
                 $newpath = $cachefolder.$filename.'_w'.$w.'.'.$ext;
             } else if (!empty($h)) {
                 $newpath = $cachefolder.$filename.'_h'.$h.'.'.$ext;
-            } else {
-                return false;
             }
         }
 
@@ -165,8 +178,8 @@ class utilities_image {
 
             $c = exec($cmd, $output, $returncode);
             if ($returncode != 0) {
-                throw new coding_exception("Tried to execute : $cmd, return code: $returncode, output: " . print_r($output, true));
-                return false;
+                error_log("Tried to execute : $cmd, return code: $returncode, output: " . print_r($output, true));
+                return $image;
             }
         }
 

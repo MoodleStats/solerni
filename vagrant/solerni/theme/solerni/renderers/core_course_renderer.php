@@ -28,6 +28,8 @@ use local_orange_library\utilities\utilities_object;
 use local_orange_library\utilities\utilities_image;
 use theme_solerni\catalogue;
 
+require_once($CFG->dirroot . '/local/orange_library/classes/utilities/utilities_image.php');
+
 require_once($CFG->dirroot . '/course/renderer.php');
 require_once($CFG->dirroot . '/cohort/lib.php');
 
@@ -105,11 +107,14 @@ class theme_solerni_core_course_renderer extends core_course_renderer {
         if (isset($customer->id)) {
             $content .= "<div class='slrn-header__column'>";
             if ($customer->urlpicture != "") {
-                $content .= "<div><img class='header-background-img' src='{$customer->urlpicture}'";
-                $content .= " alt='{$customer->name}' /></div>";
+                $content .= "<div><img class='header-background-img' src='";
+                $content .= utilities_image::get_resized_url($customer->urlpicture, array ('scale' => 'true', 'h' => 216, 'w' => 966));
+                $content .= "' alt='{$customer->name}' /></div>";
             }
             if ($customer->urlimg != "") {
-                $content .= "<div class='slrn-header__logo'><img class='header-logo-img' src='{$customer->urlimg}'  /></div>";
+                $content .= "<div class='slrn-header__logo'><img class='header-logo-img' src='";
+                $content .= utilities_image::get_resized_url($customer->urlimg, array ('scale' => 'true', 'h' => 100));
+                $content .= "' /></div>";
             }
             $content .= "<div class='slrn-header__description'><h1>{$customer->name}</h1><div>{$customer->summary}</div></div>";
             $content .= "</div>";
