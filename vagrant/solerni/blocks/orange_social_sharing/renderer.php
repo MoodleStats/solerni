@@ -35,33 +35,38 @@ class block_orange_social_sharing_renderer extends plugin_renderer_base {
      * @param object $context
      * @return string $text
      */
-    public function get_text($course, $context,$config) {
-        Global $PAGE;
+    public function get_text($course, $context) {
+        Global $PAGE, $DB;
 
         //todo gerer les differentes config
         $shareonarray = new array_object();
         $socialclassarray = new array_object();
         $socialurlarray = new array_object();
-            if($config->facebook){
-                $shareonarray->add(get_string('shareonfacebook', 'block_orange_social_sharing'));
-                $socialclassarray->add('button_social_facebook');
-                $socialurlarray->add(get_string('urlshareonfacebook', 'block_orange_social_sharing'));
-            }
-            if($config->twitter){
-                $shareonarray->add(get_string('shareontwitter', 'block_orange_social_sharing'));
-                $socialclassarray->add('button_social_twitter');
-                $socialurlarray->add(get_string('urlshareontwitter', 'block_orange_social_sharing'));
-            }
-            if($config->linkedin){
-                $shareonarray->add(get_string('shareonlinkedin', 'block_orange_social_sharing'));
-                $socialclassarray->add('button_social_linkedin');
-                $socialurlarray->add(get_string('urlshareonlinkedin', 'block_orange_social_sharing'));
-            }
-            if($config->googleplus){
-                $shareonarray->add(get_string('shareongoogleplus', 'block_orange_social_sharing'));
-                $socialclassarray->add('button_social_googleplus');
-                $socialurlarray->add(get_string('urlshareongoogleplus', 'block_orange_social_sharing'));
-            }
+        $coursecontext = context_course::instance($course->id);
+        $blockrecord = $DB->get_record('block_instances', array('blockname' => 'orange_social_sharing',
+            'parentcontextid' => $coursecontext->id), '*', MUST_EXIST);
+        $blockinstance = block_instance('orange_social_sharing', $blockrecord);
+
+        if($blockinstance->config->facebook){
+            $shareonarray->add(get_string('shareonfacebook', 'block_orange_social_sharing'));
+            $socialclassarray->add('button_social_facebook');
+            $socialurlarray->add(get_string('urlshareonfacebook', 'block_orange_social_sharing'));
+        }
+        if($blockinstance->config->twitter){
+            $shareonarray->add(get_string('shareontwitter', 'block_orange_social_sharing'));
+            $socialclassarray->add('button_social_twitter');
+            $socialurlarray->add(get_string('urlshareontwitter', 'block_orange_social_sharing'));
+        }
+        if($blockinstance->config->linkedin){
+            $shareonarray->add(get_string('shareonlinkedin', 'block_orange_social_sharing'));
+            $socialclassarray->add('button_social_linkedin');
+            $socialurlarray->add(get_string('urlshareonlinkedin', 'block_orange_social_sharing'));
+        }
+        if($blockinstance->config->googleplus){
+            $shareonarray->add(get_string('shareongoogleplus', 'block_orange_social_sharing'));
+            $socialclassarray->add('button_social_googleplus');
+            $socialurlarray->add(get_string('urlshareongoogleplus', 'block_orange_social_sharing'));
+        }
 
 
         $count = $shareonarray->count;
