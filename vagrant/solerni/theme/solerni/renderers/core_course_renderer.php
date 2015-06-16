@@ -26,19 +26,20 @@
 use local_orange_library\badges\badges_object;
 use local_orange_library\utilities\utilities_object;
 use local_orange_library\utilities\utilities_image;
-use theme_solerni\catalogue;
+use local_orange_library\utilities\utilities_course;
+use local_orange_library\subscription_button\subscription_button_object;
 
-require_once($CFG->dirroot . '/local/orange_library/classes/utilities/utilities_image.php');
-
+// Required to extend core_course_renderer that does not have a namespace.
 require_once($CFG->dirroot . '/course/renderer.php');
-require_once($CFG->dirroot . '/cohort/lib.php');
+//require_once($CFG->dirroot . '/cohort/lib.php');
 
 class theme_solerni_core_course_renderer extends core_course_renderer {
 
     /**
 	 * Returns HTML to print list of available courses for the frontpage
      *
-     * This is an override for adding a custom heading on frontpage
+     * This is an override from Moodle in order to add a custom heading on frontpage.
+     * That's all Folks.
 	 *
 	 * @return string
 	 */
@@ -68,15 +69,28 @@ class theme_solerni_core_course_renderer extends core_course_renderer {
 		return $this->coursecat_courses($chelper, $courses, $totalcount);
 	}
 
+    /**
+     * Override from Moodle
+     * to remplace Course Component rendering
+     * and check user right to view the course
+     *
+     * @global type $CFG
+     * @global type $USER
+     * @global type $PAGE
+     * @param coursecat_helper $chelper
+     * @param type $course
+     * @param string $additionalclasses
+     * @return type : HTML Fraglent
+     */
     protected function coursecat_coursebox(coursecat_helper $chelper, $course, $additionalclasses = '') {
         global $CFG, $USER, $PAGE;
         $content = '';
 
-        $utilities = new utilities_object();
+        $utilitiescourse = new utilities_course();
         $additionalclasses = 'slrn-coursebox '. $additionalclasses;
 
         // End code to display only allowed MOOC.
-        if ($utilities->can_user_view_course($course, $USER)) {
+        if ($utilitiescourse->can_user_view_course($course, $USER)) {
             $content = $this->render_solerni_mooc_component($chelper, $course, $additionalclasses);
         }
 
@@ -101,7 +115,8 @@ class theme_solerni_core_course_renderer extends core_course_renderer {
         $PAGE->requires->css('/theme/solerni/style/catalogue.css');
         $PAGE->requires->css('/local/orange_library/style.css');
 
-        $customer = catalogue::solerni_catalogue_get_customer_infos($coursecat->id);
+        $utilities_course = new utilities_course();
+        $customer = $utilities_course->solerni_course_get_customer_infos($coursecat->id);
 
         $content = '';
         if (isset($customer->id)) {
@@ -156,15 +171,16 @@ class theme_solerni_core_course_renderer extends core_course_renderer {
     }
 
     /**
-     * Returns HTML to print list of available courses for the catalog
+     * Lists the available courses for the catalogue
      *
-     * @return string
+     * @global type $CFG
+     * @param type $filter
+     * @return type string (HTML)
      */
     public function catalog_available_courses($filter) {
         global $CFG;
         require_once($CFG->libdir. '/coursecatlib.php');
 
-        $params = array();
         $options = array();
         $options['summary'] = true;
 
@@ -184,8 +200,12 @@ class theme_solerni_core_course_renderer extends core_course_renderer {
                         'viewmoretext' => new lang_string('fulllistofcourses')));
         $chelper->set_attributes(array('class' => 'frontpage-course-list-all'));
 
-        $courses = catalogue::get_courses_catalogue($filter, $chelper->get_courses_display_options());
-        $totalcount = catalogue::get_courses_catalogue_count($filter, $chelper->get_courses_display_options());
+        /* @todo
+         * Refacto : init utilities in construct.
+         */
+        $utilities_course = new utilities_course();
+        $courses = $utilities_course->get_courses_catalogue($filter, $chelper->get_courses_display_options());
+        $totalcount = $utilities_course->get_courses_catalogue_count($filter, $chelper->get_courses_display_options());
 
         if ($totalcount == 0) {
             $countstring = get_string('catalog0result', 'theme_solerni');
@@ -194,6 +214,7 @@ class theme_solerni_core_course_renderer extends core_course_renderer {
         } else if ($totalcount > 1) {
             $countstring = $totalcount . " " . get_string('catalognresults', 'theme_solerni');
         }
+
         return "<p>" . $countstring . "</p>" . $this->coursecat_courses($chelper, $courses, $totalcount);
     }
 
@@ -209,10 +230,6 @@ class theme_solerni_core_course_renderer extends core_course_renderer {
         require_once($CFG->dirroot . '/local/orange_customers/lib.php');
 
         $formid = 'coursecatalog';
-
-        $inputid = 'coursesearchbox';
-        $inputsize = 30;
-
         $catalogurl = new moodle_url('/catalog/index.php');
 
         $output = html_writer::start_tag('form', array('id' => $formid, 'action' => $catalogurl, 'method' => 'post'));
@@ -364,11 +381,14 @@ class theme_solerni_core_course_renderer extends core_course_renderer {
     }
 
     /**
-     *  Render a Solerni Mooc (CourseBox) HTML Fragment
+     * Render a Solerni Mooc (CourseBox) HTML Fragment from partials/course_component template
      *
-     * @param $course
      *
-     * @return (string)
+     * @global type $CFG
+     * @param type $chelper
+     * @param type $course
+     * @param type $additionalclasses
+     * @return string
      */
     function render_solerni_mooc_component($chelper, $course, $additionalclasses = '') {
             global $CFG;
@@ -391,14 +411,15 @@ class theme_solerni_core_course_renderer extends core_course_renderer {
             }
 
             // Instanciate Solerni objects
-            $badges = new badges_object();
-            $catalogue = new catalogue();
-            $image_utilities = new utilities_image();
+            $badges                 = new badges_object();
+            $utilities_course       = new utilities_course();
+            $image_utilities        = new utilities_image();
+            $subscription_button    = new subscription_button_object();
 
             // Get customer info related to Moodle catagory.
-            $customer = $catalogue->solerni_catalogue_get_customer_infos($course->category);
+            $customer = $utilities_course->solerni_course_get_customer_infos($course->category);
             // Get course informations.
-            $courseinfos = $catalogue->solerni_catalogue_get_course_infos($course);
+            $courseinfos = $utilities_course->solerni_get_course_infos($course);
 
             $content = '';
             $classes = trim('coursebox '. $additionalclasses);
@@ -411,7 +432,7 @@ class theme_solerni_core_course_renderer extends core_course_renderer {
                     $nametag = 'div';
             }
 
-            include( $CFG->partialsdir . '/mooc_component.php');
+            include( $CFG->partialsdir . '/course_component.php');
             /*
 
             // Coursebox.

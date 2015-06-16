@@ -71,6 +71,7 @@ class catalogue {
                 if ($filename != ".") {
                     $extendedcourse->imgurl = moodle_url::make_pluginfile_url($ctxid,
                             $cmpnt, $filearea, $itemid, $filepath, $filename);
+                    $extendedcourse->imgpath = $filepath;
                 } else {
                     $extendedcourse->imgurl = null;
                 }

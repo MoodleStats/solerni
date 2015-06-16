@@ -27,6 +27,7 @@ use local_orange_library\enrollment\enrollment_object;
 use html_writer;
 use DateTime;
 use moodle_url;
+use context_course;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -39,15 +40,16 @@ class subscription_button_object {
      * @param object $course
      * @return string html_writer::tag
      */
-    public static function set_button($context, $course) {
+    public static function set_button($course) {
         $text = "";
         $date = new DateTime();
         $extendedcourse = new extended_course_object();
+        $context = context_course::instance($course->id);
         $extendedcourse->get_extended_course($course, $context);
+
         $selfenrolment = new enrollment_object();
         $instance = new \stdClass();
         $instance->enrolstartdate = $selfenrolment->get_enrolment_startdate($course);
-
         $instance->enrolenddate = $selfenrolment->get_enrolment_enddate($course);
 
         $urlregistration = new moodle_url('/login/signup.php', array('id' => $course->id));
@@ -56,7 +58,7 @@ class subscription_button_object {
         //   Mooc terminé et rejouable c’est-à-dire que la date du mooc est passée mais l’utilisateur.
         //   Peut demander à être averti lorsque la prochaine session du mooc débutera.
         //   Mooc terminé cad que la date de fin du mooc est dépassée.
-        if ($extendedcourse->enrolledusers >= $extendedcourse->maxregisteredusers) {
+        if ($extendedcourse->maxregisteredusers && $extendedcourse->enrolledusers >= $extendedcourse->maxregisteredusers) {
             //   Mooc complet : l’inscription est limitée aux X premiers inscrits";.
             //   CAS G : FICHE PRODUIT - MOOC COMPLET - UTILISATEUR CONNECTE OU NON CONNECTE";.
             return html_writer::tag('span', get_string('mooc_complete', 'local_orange_library'));
