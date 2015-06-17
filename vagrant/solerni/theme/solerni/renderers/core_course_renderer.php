@@ -27,6 +27,8 @@ use local_orange_library\subscription_button\subscription_button_object;
 use local_orange_library\extended_course\extended_course_object;
 use local_orange_library\enrollment\enrollment_object;
 
+require_once($CFG->dirroot . '/local/orange_library/classes/utilities/utilities_image.php');
+
 require_once($CFG->dirroot . '/course/renderer.php');
 require_once($CFG->dirroot . '/cohort/lib.php');
 require_once($CFG->dirroot . '/theme/solerni/classes/catalogue.php');
@@ -106,14 +108,14 @@ class theme_solerni_core_course_renderer extends core_course_renderer
             $content .= html_writer::start_tag('div', array('class' => 'info'));
             $content .= html_writer::start_tag('div', array('class' => 'presentation__mooc__block presentation__mooc__pic'));
             if (isset($courseinfos->imgurl) && (is_object($courseinfos->imgurl))) {
-                $content .= html_writer::empty_tag('img', array('src' => $courseinfos->imgurl,
+                $content .= html_writer::empty_tag('img', array('src' => utilities_image::get_resized_url($courseinfos->imgurl, array ('w' => 324, 'h' => 232, 'scale' => true)),
                     'class' => 'presentation__mooc__block__image'));
 
                 if (isset($customer->urlimg) && (is_object($customer->urlimg))) {
                     $categoryimagelink = html_writer::link(new moodle_url(
                         '/course/index.php',
                         array('categoryid' => $course->category)),
-                        html_writer::empty_tag('img', array('src' => $customer->urlimg,
+                        html_writer::empty_tag('img', array('src' => utilities_image::get_resized_url($customer->urlimg, array ('scale' => 'true', 'h' => 35)),
                             'class' => 'presentation__mooc__block__logo'))
                         );
                     $content .= $categoryimagelink;
@@ -231,11 +233,14 @@ class theme_solerni_core_course_renderer extends core_course_renderer
         if (isset($customer->id)) {
             $content .= "<div class='slrn-header__column'>";
             if ($customer->urlpicture != "") {
-                $content .= "<div><img class='header-background-img' src='{$customer->urlpicture}'";
-                $content .= " alt='{$customer->name}' /></div>";
+                $content .= "<div><img class='header-background-img' src='";
+                $content .= utilities_image::get_resized_url($customer->urlpicture, array ('scale' => 'true', 'h' => 216, 'w' => 966));
+                $content .= "' alt='{$customer->name}' /></div>";
             }
             if ($customer->urlimg != "") {
-                $content .= "<div class='slrn-header__logo'><img class='header-logo-img' src='{$customer->urlimg}'  /></div>";
+                $content .= "<div class='slrn-header__logo'><img class='header-logo-img' src='";
+                $content .= utilities_image::get_resized_url($customer->urlimg, array ('scale' => 'true', 'h' => 100));
+                $content .= "' /></div>";
             }
             $content .= "<div class='slrn-header__description'><h1>{$customer->name}</h1><div>{$customer->summary}</div></div>";
             $content .= "</div>";
