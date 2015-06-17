@@ -36,11 +36,11 @@ $string['registration_stopped'] = 'registration stopped';
 $string['mooc_complete'] = 'mooc complete';
 $string['mooc_open_date'] = 'Available on ';
 
-// Extended course object
+// Extended course object.
 $string['english'] = 'english';
 $string['french'] = 'french';
 
-// Badges
+// Badges.
 $string['certification_default'] = '<br>Certificate of achievement';
 $string['badge_default'] = 'Badge ';
 $string['badge'] = 'badge ';
