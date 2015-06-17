@@ -422,7 +422,6 @@ class theme_solerni_core_course_renderer extends core_course_renderer {
             // Get course informations.
             $courseinfos = $utilitiescourse->solerni_get_course_infos($course);
 
-            $content = '';
             $classes = trim('coursebox '. $additionalclasses);
             $coursename = $chelper->get_course_formatted_name($course);
 
@@ -433,7 +432,13 @@ class theme_solerni_core_course_renderer extends core_course_renderer {
                     $nametag = 'div';
             }
 
+            // Generate code with buffering to include partial
+            ob_start();
             include( $CFG->partialsdir . '/course_component.php');
+            $content = ob_get_contents();
+            ob_end_clean();
+
+            return $content;
     }
 
     /**
