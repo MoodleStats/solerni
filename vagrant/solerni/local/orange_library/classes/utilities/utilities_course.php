@@ -499,4 +499,14 @@ class utilities_course {
         // Last case : we'll grant access wheither the user is in the cohort
         return cohort_is_member($cohortid, $USER->id);
     }
+
+    public function get_description_page_url($course = null) {
+
+        $url = '#';
+        if ($course) {
+            $url = new moodle_url('mod/descriptionpage/view.php', array('courseid' => $course->id));
+        }
+
+        return $url;
+    }
 }

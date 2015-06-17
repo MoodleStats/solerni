@@ -55,6 +55,9 @@ if ( $courseinfos ) :
                 <?php // @todo adapt length depending on viewport width ?
                 echo $utilities->trim_text( $chelper->get_course_formatted_summary($course,
                             array('overflowdiv' => false, 'noclean' => true, 'para' => false)), 155); ?>
+                <a class="link-secondary" href="<?php echo $utilitiescourse->get_description_page_url($course); ?>">
+                    <?php echo get_string('coursefindoutmore', 'theme_solerni'); ?>
+                </a>
             </div>
             <div class="slrn-coursebox__column--subscription_button">
                 <?php echo $subscriptionbutton->set_button($course); ?>
