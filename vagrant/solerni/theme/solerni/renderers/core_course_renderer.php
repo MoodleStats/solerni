@@ -26,6 +26,7 @@ use local_orange_library\badges\badges_object;
 use local_orange_library\subscription_button\subscription_button_object;
 use local_orange_library\extended_course\extended_course_object;
 use local_orange_library\enrollment\enrollment_object;
+use local_orange_library\utilities\utilities_image;
 
 require_once($CFG->dirroot . '/local/orange_library/classes/utilities/utilities_image.php');
 
