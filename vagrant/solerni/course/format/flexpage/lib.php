@@ -24,6 +24,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 require_once(dirname(dirname(dirname(__FILE__))).'/format/lib.php');
+require_once($CFG->dirroot . '/local/orange_thematics/lib.php');
 
 /**
  * Main class for the Flexpage course format
@@ -317,7 +318,7 @@ class format_flexpage extends format_base {
             // Get list Id of thematic.
             global $DB;
             $listthematics = array();
-            $thematics = $DB->get_records('orange_thematics', null, 'name');
+            $thematics = thematic_get_thematic();
             foreach ($thematics as $thematic) {
                 $listthematics[$thematic->id] = $thematic->name;
             

@@ -68,7 +68,7 @@ if ($mform->is_cancelled()) {
 } else {
     echo $OUTPUT->header();
     if (isset($_GET['id'])) {
-        $thematic = thematic_get_thematic($_GET['id']);
+        $thematic = thematic_get_thematic_alllanguages($_GET['id']);
         $mform->set_data($thematic);
     }
     $mform->display();
