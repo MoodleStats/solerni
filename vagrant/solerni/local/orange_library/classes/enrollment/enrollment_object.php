@@ -53,12 +53,14 @@ class enrollment_object {
     public function get_enrolment_startdate($course) {
 
         $instances = enrol_get_instances($course->id, false);
+        $timestamp = strtotime(date('c'));
         foreach ($instances as $instance) {
             if ($instance->enrolstartdate) {
-                return $instance->enrolstartdate;
+                $timestamp = strtotime($instance->enrolstartdate);
             }
         }
-        return date('c');
+
+        return $timestamp;
     }
 
     /**
@@ -72,11 +74,13 @@ class enrollment_object {
     public function get_enrolment_enddate($course) {
 
         $instances = enrol_get_instances($course->id, false);
+        $timestamp = strtotime(date('c'));
+
         foreach ($instances as $instance) {
             if ($instance->enrolenddate) {
-                return $instance->enrolenddate;
+                $timestamp = strtotime($instance->enrolenddate);
             }
         }
-        return date('c');
+        return $timestamp;
     }
 }
