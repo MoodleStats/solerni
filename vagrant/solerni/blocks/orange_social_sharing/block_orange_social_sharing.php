@@ -25,16 +25,27 @@ class block_orange_social_sharing extends block_base{
         return false;
     }
 
+    /**
+     *  Set the initial values for social sharing block.
+     *
+     * @global type $PAGE
+     * @param none
+     * @return none
+     */
     public function init() {
         Global $PAGE;
         $this->title = get_string('title', 'block_orange_social_sharing');
         $this->renderer = $PAGE->get_renderer('block_orange_social_sharing');
     }
 
+    /**
+     *  Get the content of social sharing block.
+     *
+     * @global none
+     * @param none
+     * @return string $this->content
+     */
     public function get_content() {
-        global $DB;
-        $extendedcourse = new stdClass();
-        $config = new stdClass();
 
         if (!is_null($this->content)) {
             return $this->content;
@@ -45,9 +56,7 @@ class block_orange_social_sharing extends block_base{
         if (empty($this->instance)) {
             return $this->content;
         }
-        $config = $this->config;
-        $course = $this->page->course; // Needed to have numsections property available.
-        $context = context_course::instance($course->id);
+        $course = $this->page->course;
 
         $this->content->text .= html_writer::start_tag('ul');
         $this->content->text .= html_writer::start_tag('li');
@@ -55,12 +64,19 @@ class block_orange_social_sharing extends block_base{
         $this->content->text .= html_writer::end_tag('li');
         $this->content->text .= html_writer::end_tag('ul');
 
-        $text = $this->renderer->get_text($course, $context,$config);
+        $text = $this->renderer->get_text($course);
         $this->content->text = $text;
         return $this->content;
 
     }
 
+    /**
+     *  Allowing multiple instance social sharing block.
+     *
+     * @global none
+     * @param none
+     * @return boolean
+     */
     public function instance_allow_multiple() {
         return false;
     }

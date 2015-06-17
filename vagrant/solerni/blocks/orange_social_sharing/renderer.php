@@ -16,7 +16,7 @@
 
 /**
  * @package    blocks
- * @subpackage course_extended
+ * @subpackage orange_social_sharing
  * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -35,10 +35,9 @@ class block_orange_social_sharing_renderer extends plugin_renderer_base {
      * @param object $context
      * @return string $text
      */
-    public function get_text($course, $context) {
+    public function get_text($course) {
         Global $PAGE, $DB;
 
-        //todo gerer les differentes config
         $shareonarray = new array_object();
         $socialclassarray = new array_object();
         $socialurlarray = new array_object();
@@ -47,27 +46,26 @@ class block_orange_social_sharing_renderer extends plugin_renderer_base {
             'parentcontextid' => $coursecontext->id), '*', MUST_EXIST);
         $blockinstance = block_instance('orange_social_sharing', $blockrecord);
 
-        if($blockinstance->config->facebook){
+        if (!empty($blockinstance->config->facebook)) {
             $shareonarray->add(get_string('shareonfacebook', 'block_orange_social_sharing'));
             $socialclassarray->add('button_social_facebook');
             $socialurlarray->add(get_string('urlshareonfacebook', 'block_orange_social_sharing'));
         }
-        if($blockinstance->config->twitter){
+        if (!empty($blockinstance->config->twitter)) {
             $shareonarray->add(get_string('shareontwitter', 'block_orange_social_sharing'));
             $socialclassarray->add('button_social_twitter');
             $socialurlarray->add(get_string('urlshareontwitter', 'block_orange_social_sharing'));
         }
-        if($blockinstance->config->linkedin){
+        if (!empty($blockinstance->config->linkedin)) {
             $shareonarray->add(get_string('shareonlinkedin', 'block_orange_social_sharing'));
             $socialclassarray->add('button_social_linkedin');
             $socialurlarray->add(get_string('urlshareonlinkedin', 'block_orange_social_sharing'));
         }
-        if($blockinstance->config->googleplus){
+        if (!empty($blockinstance->config->googleplus)) {
             $shareonarray->add(get_string('shareongoogleplus', 'block_orange_social_sharing'));
             $socialclassarray->add('button_social_googleplus');
             $socialurlarray->add(get_string('urlshareongoogleplus', 'block_orange_social_sharing'));
         }
-
 
         $count = $shareonarray->count;
         $text = html_writer::start_tag('div', array('class' => 'sider sider_social-sharing'));
@@ -91,69 +89,4 @@ class block_orange_social_sharing_renderer extends plugin_renderer_base {
         return $text;
 
     }
-
-    /**
-     *  Set the dicplayed text in the block.
-     *
-     * @param moodle_url $imgurl
-     * @param object $course
-     * @param object $context
-     * @return string $text
-     */
-    public function get_social_link($name, $class, $url) {
-        Global $PAGE;
-
-        $text .= html_writer::start_tag('ul', array('class' => 'essentiels'));
-            $text .= html_writer::start_tag('li');
-             return html_writer::tag('a', get_string('shareonfacebook', 'block_orange_social_sharing'),
-                     array('class' => 'footer_social_link__icon footer_social_facebook -sprite-solerni',
-                     'href' => "http://www.facebook.com/sharer.php?u=".$PAGE->url));
-             $text .= html_writer::end_tag('li');
-        $text .= html_writer::end_tag('ul');
-        return $text;
-
-    }
-
-    /**
-     *  Set the extended course registration values from the extended course registration.
-     *
-     * @param object $extendedcourse
-     * @return object $this->extendedcourse
-     */
-    private function get_registration ($extendedcourse) {
-
-        if (!empty($extendedcourse->registration)) {
-            switch ($extendedcourse->registration) {
-                case '0':
-                    $registrationvalue = get_string('registration_case1', 'block_orange_course_extended').
-                    get_string('registration_from', 'block_orange_course_extended').
-                    date("d-m-Y", $extendedcourse->enrolstartdate).
-                    get_string('registration_to', 'block_orange_course_extended').
-                    date("d-m-Y", $extendedcourse->enrolenddate);
-                break;
-                case '1':
-                    $registrationvalue = get_string('registration_case2', 'block_orange_course_extended').
-                    $extendedcourse->maxregisteredusers.' '.
-                    get_string('registration_case2_2', 'block_orange_course_extended').
-                    get_string('registration_from', 'block_orange_course_extended').
-                    date("d-m-Y", $extendedcourse->enrolstartdate).
-                    get_string('registration_to', 'block_orange_course_extended').
-                    date("d-m-Y", $extendedcourse->enrolenddate);
-                break;
-                case '2':
-
-                    $registrationvalue = get_string('registration_case3', 'block_orange_course_extended').
-                    $extendedcourse->registrationcompany.
-                    get_string('registration_from', 'block_orange_course_extended').
-                    date("d-m-Y", $extendedcourse->enrolstartdate).
-                    get_string('registration_to', 'block_orange_course_extended').
-                    date("d-m-Y", $extendedcourse->enrolenddate);
-                break;
-            }
-            return $registrationvalue;
-        }
-    }
-
-
-
 }

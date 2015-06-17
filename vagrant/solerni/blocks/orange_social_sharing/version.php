@@ -16,7 +16,7 @@
 
 /**
  * @package    blocks
- * @subpackage course_extended
+ * @subpackage orange_social_sharing
  * @copyright  2015 Orange
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -25,6 +25,6 @@ defined('MOODLE_INTERNAL') || die();
 
 $plugin->component  = 'block_orange_social_sharing';
 $plugin->release    = '0.1';
-$plugin->version    = 2015060401;
+$plugin->version    = 2015061700;
 $plugin->requires   = 2014051200; // Moodle 2.7.
 $plugin->dependencies = array('local_orange_library' => 2015061000);

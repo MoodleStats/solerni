@@ -35,7 +35,8 @@ class block_orange_social_sharing_edit_form extends block_edit_form {
                 'config_title',
                 get_string('configtitle',
                         'block_orange_social_sharing'));
-        $mform->setDefault('config_title', 'default value');
+        $mform->setDefault('config_title', get_string('configtitle',
+                        'block_orange_social_sharing'));
         $mform->setType('config_title', PARAM_TEXT);
         // A sample string variable with a default value.
         $mform->addElement('advcheckbox',
