@@ -32,4 +32,24 @@
     .frontpage-header__button {
         margin-top: 0;
     }
+
+    /* Course Component */
+
+    .slrn-coursebox__column {
+        width: 100%;
+    }
+
+    .slrn-coursebox__column--subscription_button {
+        bottom: 190px;
+    }
+
+    .slrn-coursebox__column--metadata {
+        text-align: left;
+        padding:    20px 30px;
+    }
+
+    .slrn-coursebox__metadata {
+        width:          100%;
+        margin-bottom:  15px;
+    }
 }

@@ -34,7 +34,7 @@ defined('MOODLE_INTERNAL') || die();
 class subscription_button_object {
 
     /**
-     *  Set the button in the block.
+     *  Set and display the button describing the status of a course.
      *
      * @param object $context
      * @param object $course
@@ -61,14 +61,16 @@ class subscription_button_object {
         if ($extendedcourse->maxregisteredusers && $extendedcourse->enrolledusers >= $extendedcourse->maxregisteredusers) {
             //   Mooc complet : l’inscription est limitée aux X premiers inscrits";.
             //   CAS G : FICHE PRODUIT - MOOC COMPLET - UTILISATEUR CONNECTE OU NON CONNECTE";.
-            return html_writer::tag('span', get_string('mooc_complete', 'local_orange_library'));
+            return html_writer::tag('span', get_string('mooc_complete', 'local_orange_library'),
+                    array('class' => 'subscription_btn subscription_btn--simple-status'));
         } else {
             if ($extendedcourse->enddate < $date->getTimestamp()) {
                 //   Mooc terminé";.
                 if ($extendedcourse->replay == get_string('replay', 'format_flexpage')) {
                     //   Mooc rejouable";.
                     //   CAS E : FICHE PRODUIT - MOOC TERMINE ET REJOUABLE - UTILISATEUR CONNECTE OU NON CONNECTE";.
-                    $text .= html_writer::tag('span', get_string('status_closed', 'local_orange_library'));
+                    $text .= html_writer::tag('span', get_string('status_closed', 'local_orange_library'),
+                            array('class' => 'subscription_btn subscription_btn--simple-status'));
                     $text .= html_writer::empty_tag('br');
                     $text .= html_writer::tag('a', get_string('alert_mooc', 'local_orange_library'),
                             array('class' => 'subscription_btn btn-primary', 'href' => $moocurl));
@@ -76,7 +78,8 @@ class subscription_button_object {
                 } else {
                     //   Mooc non rejouable";.
                     //   CAS D : FICHE PRODUIT - MOOC TERMINE - UTILISATEUR CONNECTE OU NON CONNECTE";.
-                    return  html_writer::tag('span', get_string('status_closed', 'local_orange_library'));
+                    return  html_writer::tag('span', get_string('status_closed', 'local_orange_library'),
+                            array('class' => 'subscription_btn subscription_btn--simple-status'));
                 }
             } else if ($course->startdate > $date->getTimestamp()) {
                 //   Mooc non ouvert";.
@@ -108,13 +111,15 @@ class subscription_button_object {
                         //   Utilisateur non connecté à Solerni";.
                         //   Utilisateur non inscrit au mooc";.
                         //   CAS F : FICHE PRODUIT - INSCRIPTION AU MOOC TERMINEE - UTILISATEUR CONNECTE OU NON CONNECTE";.
-                        return  html_writer::tag('span', get_string('registration_stopped', 'local_orange_library'));
+                        return  html_writer::tag('span', get_string('registration_stopped', 'local_orange_library'),
+                                array('class' => 'subscription_btn subscription_btn--simple-status'));
                     } else {
                         //   Utilisateur connecté à Solerni";.
                         if (!is_enrolled($context)) {
                             //   Utilisateur non inscrit au mooc";.
                             //   CAS F : FICHE PRODUIT - INSCRIPTION AU MOOC TERMINEE - UTILISATEUR CONNECTE OU NON CONNECTE";.
-                            return  html_writer::tag('span', get_string('registration_stopped', 'local_orange_library'));
+                            return  html_writer::tag('span', get_string('registration_stopped', 'local_orange_library'),
+                                    array('class' => 'subscription_btn subscription_btn--simple-status'));
                         } else {
                             //   Utilisateur inscrit au mooc";.
                             //   CAS B : FICHE PRODUIT - MOOC REJOINT EN COURS - UTILISATEUR CONNECTE";.

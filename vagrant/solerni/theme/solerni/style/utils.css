@@ -14,7 +14,8 @@
 
 /* Uses the solerni sprite */
 .-sprite-solerni {
-    background-image: url([[pix:theme|sprite-solerni]]);
+    background-image:   url([[pix:theme|sprite-solerni]]);
+    background-repeat:  no-repeat;
 }
 
 .-slrn-radius {

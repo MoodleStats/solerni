@@ -82,4 +82,34 @@
     .frontpage-header__presentation {
         font-size: 20px;
     }
+
+    /* Course Component */
+
+    .slrn-coursebox__column--description {
+        width: 65%;
+    }
+
+    .slrn-coursebox__column--subscription_button {
+        bottom: 120px;
+    }
+
+    .slrn-coursebox__column--metadata {
+        width:      100%;
+        text-align: justify;
+        padding:    30px 20px 20px;
+    }
+
+    .slrn-coursebox__metadata {
+        display:            inline-block;
+        width:              33%;
+        text-align:         left;
+        vertical-align:     top;
+        margin-bottom:      0;
+    }
+
+    .slrn-coursebox__metadata:after {
+        content:    "";
+        display:    inline-block;
+        width:      100%;
+    }
 }

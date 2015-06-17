@@ -7,8 +7,7 @@
     line-height: 1.42857;
     text-align: center;
     vertical-align: middle;
-    cursor: pointer;
-    border: 1px solid transparent;
+    border: 0;
     border-radius: 4px;
     white-space: nowrap;
     -moz-user-select: none;
@@ -52,8 +51,13 @@
     background-image: none;
 }
 .subscription_btn.btn-access{
-    background-color: #4B667C;
-    border-color: #4B667C;
-    color: #FFF;
-    background-image: none;
+    background-color:   #4B667C;
+    border-color:       #4B667C;
+    color:              #FFF;
+    background-image:   none;
+}
+
+.subscription_btn--simple-status {
+    font-weight:    bold;
+    padding:        0;
 }

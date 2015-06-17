@@ -77,9 +77,32 @@ h2 {
 }
 
 /*
- * Solerni Coursebox
+ * Links
  */
 
+.link-primary {
+    color: [[setting:primary]];
+}
+
+.link-primary:hover {
+    color:              [[setting:primaryhover]];
+    text-decoration:    underline;
+}
+
+/*
+ * Fonts
+ */
+
+
+.font-variant--type1 {
+    font-size:      11px;
+    font-weight:    bold;
+    text-transform: uppercase;
+}
+
+/*
+ * Solerni Coursebox
+ */
 
 .slrn-coursebox,
 .coursebox.slrn-coursebox:hover {
@@ -87,6 +110,7 @@ h2 {
 }
 
 .slrn-coursebox {
+    position:       relative;
     box-shadow:     none;
     padding:        0;
     border:         0;
@@ -102,21 +126,94 @@ h2 {
 }
 
 .slrn-coursebox__column {
-    display:    inline-block;
-    font-size:  16px;
+    display:        inline-block;
+    vertical-align: top;
 }
 
 .slrn-coursebox__column--image {
-    width: 35%;
+    width:      35%;
+    position:   relative;
+}
+
+.slrn-coursebox__course-image-customer {
+    position:   absolute;
+    bottom:     35px;
+    right:      30px;
 }
 
 .slrn-coursebox__column--description {
-    width: 45%;
-    padding: 0 30px;
+    width:      43%;
+    padding:    20px 30px;
+}
+
+.slrn-coursebox__coursename {
+    font-size:      24px;
+    font-weight:    bold;
+    line-height:    1;
+    text-transform: none;
+    margin-bottom: 5px;
+}
+
+.slrn-coursebox__summary {
+    padding:        10px 0;
+    font-size:      12px;
+    font-weight:    bold;
+    color:          [[setting:grey4]];
+}
+
+.slrn-coursebox__column--subscription_button {
+    position:   absolute;
+    bottom:     15px;
 }
 
 .slrn-coursebox__column--metadata {
-    width: 20%;
+    padding:    20px 30px;
+    width:      22%;
+    color:      [[setting:grey4]];
 }
 
+.slrn-coursebox__metadata {
+    margin-bottom: 25px;
+}
 
+.slrn-coursebox__metadata__icone {
+    float:          left;
+    margin-right:   10px;
+    height:         100%;
+}
+
+.slrn-coursebox__metadata__item {
+    display:        inline-block;
+    vertical-align: middle;
+    line-height:    1;
+}
+
+.slrn-coursebox__metadata--dates {
+    height:         31px;
+    line-height:    31px;
+}
+
+.slrn-coursebox__metadata--dates .slrn-coursebox__metadata__icone {
+    width:                  31px;
+    background-position:    -271px -117px;
+}
+
+.slrn-coursebox__metadata--badges {
+    height:         42px;
+    line-height:    42px;
+}
+
+.slrn-coursebox__metadata--badges .slrn-coursebox__metadata__icone {
+    width:                  33px;
+    background-position:    -302px -117px;
+}
+
+.slrn-coursebox__metadata--price {
+    height:         31px;
+    line-height:    31px;
+}
+
+.slrn-coursebox__metadata--price .slrn-coursebox__metadata__icone {
+    width:                  31px;
+    background-position:    -271px -149px;
+}
