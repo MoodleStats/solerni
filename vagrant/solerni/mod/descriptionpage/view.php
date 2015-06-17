@@ -31,6 +31,7 @@ use local_orange_library\subscription_button\subscription_button_object;
 
 
 $id      = optional_param('id', 0, PARAM_INT); // Course Module ID.
+$courseid      = optional_param('courseid', 0, PARAM_INT); // Course Module ID.
 $p       = optional_param('p', 0, PARAM_INT);  // Page instance ID.
 $inpopup = optional_param('inpopup', 0, PARAM_BOOL);
 $subscriptionbutton = new subscription_button_object();
@@ -40,15 +41,28 @@ if ($p) {
         print_error('invalidaccessparameter');
     }
     $cm = get_coursemodule_from_instance('descriptionpage', $page->id, $page->course, false, MUST_EXIST);
+    $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 
+} else if ($courseid) {
+    $course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
+    $timestamp = 0;
+    $descriptionpageid = null;
+    $pages = $DB->get_records('descriptionpage', array('course' => $courseid));
+    foreach ($pages as $page) {
+        if ($timestamp < $page->timemodified) {
+            $timestamp = $page->timemodified;
+            $descriptionpageid = $page->id;
+        }
+    }
+        $page = $DB->get_record('descriptionpage', array('id' => $descriptionpageid), '*', MUST_EXIST);
+        $cm = get_coursemodule_from_instance('descriptionpage', $page->id, $page->course, false, MUST_EXIST);
 } else {
     if (!$cm = get_coursemodule_from_id('descriptionpage', $id)) {
         print_error('invalidcoursemodule');
     }
     $page = $DB->get_record('descriptionpage', array('id' => $cm->instance), '*', MUST_EXIST);
+    $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 }
-
-$course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 
 // Require_course_login($course, true, $cm);.
 $context = context_module::instance($cm->id);

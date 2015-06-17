@@ -174,7 +174,7 @@ $string['prerequesites'] = 'Prerequisites';
 $string['prerequesites_help'] = 'Prerequisites_help';
 $string['prerequesites_default'] = 'No Prerequisites';
 
-// Teaching team
+// Teaching team.
 $string['teachingteam'] = 'Teaching team';
 $string['teachingteam_help'] = 'Teaching team_help';
 $string['teachingteam_default'] = 'Conception : Orange with Learning CRM';

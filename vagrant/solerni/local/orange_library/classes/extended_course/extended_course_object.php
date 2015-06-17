@@ -16,7 +16,7 @@
 
 /**
  * @package    blocks
- * @subpackage course_extended
+ * @subpackage extended_course_object
  * @copyright  2015 Orange
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -173,17 +173,18 @@ class extended_course_object {
         $customer = customer_get_customerbycategoryid($categoryid);
         $selfenrolment = new enrollment_object();
         $instance = $selfenrolment->get_self_enrolment($course);
-        $extendedcourseflexpagevalues = $DB->get_records('course_format_options', array('courseid' => $course->id));
+        $extendedcourseflexpagevalues = $DB->get_records('course_format_options',
+                array('courseid' => $course->id));
         foreach ($extendedcourseflexpagevalues as $extendedcourseflexpagevalue) {
             if ($extendedcourseflexpagevalue->format == "flexpage") {
                 $this->set_extended_course($extendedcourseflexpagevalue);
             }
         }
         $this->enrolledusers = count_enrolled_users($context);
-        if($customer){
-        $this->registrationcompany = $customer->name;
-
+        if ($customer) {
+            $this->registrationcompany = $customer->name;
         }
+        $this->enrolledusers = count_enrolled_users($context);
         $this->enrolstartdate = $instance->enrolstartdate;
         $this->enrolenddate = $instance->enrolenddate;
         $this->maxregisteredusers = $instance->customint3;
