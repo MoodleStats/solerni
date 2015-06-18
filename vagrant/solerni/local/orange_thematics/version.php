@@ -30,3 +30,4 @@ $plugin->requires = 2014051207;
 
 $plugin->maturity = MATURITY_RC;
 $plugin->release = '0.2';
+$plugin->component = 'local_orange_thematics';   // Full name of the plugin (used for diagnostics).
