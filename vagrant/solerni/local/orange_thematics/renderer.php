@@ -62,7 +62,9 @@ class local_orange_thematics_renderer extends plugin_renderer_base {
 
     /**
      * Packaging form renderer
+     * 
      * @param renderable $renderable
+     * @return string
      */
     protected function render_orange_thematics_form(renderable $renderable) {
         return $this->render_form($renderable);
@@ -70,12 +72,19 @@ class local_orange_thematics_renderer extends plugin_renderer_base {
 
     /**
      * Packaging form renderer
-     * @param renderable $renderable
+     * 
+     * @param html_table $list
+     * @return string
      */
     protected function render_orange_thematics_list(html_table $list) {
         return $this->render_list($list);
     }
 
+    /**
+     * Packaging form renderer
+     * @param renderable $renderable
+     * @return string
+     */    
     protected function render_orange_thematics_add(renderable $renderable) {
         return $this->render_form($renderable);
     }
@@ -96,7 +105,14 @@ class local_orange_thematics_renderer extends plugin_renderer_base {
 
         return $output;
     }
-
+    
+    /**
+     * Gets the html table with list parameters
+     *
+     * @param html_table $list
+     * @return string The HTML of the form
+     */
+    
     protected function render_list(html_table $list) {
 
         ob_start();

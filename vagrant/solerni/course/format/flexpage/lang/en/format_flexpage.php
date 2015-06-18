@@ -215,7 +215,7 @@ $string['badge_help'] = 'Badge_help';
 $string['certification'] = 'Certification';
 $string['certification_help'] = 'Certification_help';
 
-$string['coursethematics'] = 'Thématiques';
+$string['coursethematics'] = 'Thematics';
 $string['coursethematics_help'] = 'List of possibles thematics. Choose one or more thematics';
 
 $string['startdate'] = 'start date: ';

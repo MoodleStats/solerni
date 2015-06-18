@@ -32,7 +32,7 @@ defined('MOODLE_INTERNAL') || die();
  * will create or update a new instance and return true if it was created or updated
  *
  * @param stdClass $thematic 
- * @return boolean
+ * @return int
  */
 function thematic_add_thematic($thematic) {
     global $CFG, $DB;
