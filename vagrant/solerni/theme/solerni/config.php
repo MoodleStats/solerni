@@ -48,15 +48,12 @@ $THEME->sheets          = array(
                             'footer-header',
                             'utils',
                             'block-social',
+                            'frontpage',
+                            'queries-1180',
+                            'queries-980',
+                            'queries-768',
+                            'queries-400'
                         );
-
-// Specific styles sheets
-if ( $PAGE->pagetype === 'site-index' ) {
-    $THEME->sheets[] = 'frontpage';
-}
-
-// Media queries stylesheets.
-array_push($THEME->sheets, 'queries-1180', 'queries-980','queries-768', 'queries-400' );
 
 
 $THEME->supportscssoptimisation = false;
