@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Fichier "default_private/conf.sh"
 
 # Force users to log in (#us_119)
