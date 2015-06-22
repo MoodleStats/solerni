@@ -50,3 +50,5 @@ $string['cohortempty'] = 'You must select a cohort';
 $string['cohortdeleted'] = 'this rule is not assigned to any cohort';
 
 $string['noaddrulewarning'] = 'The rule can not be created. Two possible reasons: his name already exists or the selected cohort has already been assigned to another rule.';
+
+$string['eventruleupdated'] = 'Rule updated';

@@ -32,6 +32,13 @@ $observers = array(
     array(
         'eventname'   => '\core\event\user_created',
         'callback'    => 'local_orange_rules_observer::user_created',
+    ),
+    array(
+        'eventname'   => '\local_orange_rules\event\rule_updated',
+        'callback'    => 'local_orange_rules_observer::userregistration_updated',
+    ),
+    array(
+        'eventname'   => '\core\event\user_updated',
+        'callback'    => 'local_orange_rules_observer::user_updated',
     )
-
 );
