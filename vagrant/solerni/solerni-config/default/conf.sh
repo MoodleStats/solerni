@@ -3,13 +3,13 @@
 
 # First install : import Solerni roles
 # Attention : order is important to keep roles assignments
-moosh role-import solerni_utilisateur /tmp/solerni_utilisateur.xml
-moosh role-import solerni_apprenant /tmp/solerni_apprenant.xml
-moosh role-import solerni_power_apprenant /tmp/solerni_power_apprenant.xml
-moosh role-import solerni_animateur /tmp/solerni_animateur.xml
-moosh role-import solerni_teacher /tmp/solerni_teacher.xml
-moosh role-import solerni_marketing /tmp/solerni_marketing.xml
-moosh role-import solerni_course_creator /tmp/solerni_course_creator.xml
+moosh role-import solerni_utilisateur solerni-config/default/users_roles/solerni_utilisateur.xml
+moosh role-import solerni_apprenant solerni-config/default/users_roles/solerni_apprenant.xml
+moosh role-import solerni_power_apprenant solerni-config/default/users_roles/solerni_power_apprenant.xml
+moosh role-import solerni_animateur solerni-config/default/users_roles/solerni_animateur.xml
+moosh role-import solerni_teacher solerni-config/default/users_roles/solerni_teacher.xml
+moosh role-import solerni_marketing solerni-config/default/users_roles/solerni_marketing.xml
+moosh role-import solerni_course_creator solerni-config/default/users_roles/solerni_course_creator.xml
 
 # Default role for all users (#us_62-69)
 moosh role-configset defaultuserroleid solerni_utilisateur
@@ -44,3 +44,8 @@ moosh config-set frontpagecourselimit 5
 # default lang
 moosh config-set lang fr
 
+# User policies : hide user fields (#us_110)
+moosh config-set hiddenuserfields icqnumber,skypeid,yahooid,aimid,msnid,lastip
+
+# update capability : See full user fields identity in lists (#us_110)
+moosh role-update-capability solerni_utilisateur moodle/site:viewuseridentity allow 1
