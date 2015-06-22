@@ -16,7 +16,7 @@
 
 /**
  * @package    blocks
- * @subpackage course_extended
+ * @subpackage extended_course_object
  * @copyright  2015 Orange
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -182,9 +182,8 @@ class extended_course_object {
                 }
             }
             $this->enrolledusers = count_enrolled_users($context);
-            if($customer){
-            $this->registrationcompany = $customer->name;
-
+            if ($customer) {
+                $this->registrationcompany = $customer->name;
             }
             $this->enrolstartdate = $instance->enrolstartdate;
             $this->enrolenddate = $instance->enrolenddate;
