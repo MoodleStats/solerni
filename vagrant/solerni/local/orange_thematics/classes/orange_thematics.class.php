@@ -67,7 +67,11 @@ class orange_thematics  {
         $this->renderable->set_data($toform);
 
     }
+    
 
+    /**
+     * Delete thematic and redirects to the list page
+     */    
     public function thematics_delete() {
         global $CFG, $PAGE, $DB;
 
@@ -107,6 +111,9 @@ class orange_thematics  {
     }
 
 
+    /**
+     * Add new thematic or update if it exists. Redirects to the list page.
+     */    
     public function thematics_add() {
         global $CFG, $PAGE, $DB;
 
@@ -119,12 +126,15 @@ class orange_thematics  {
             // Mtrace($varname."=".$value."<br/>");.
             $thematic->{"$varname"} = $value;
         }
-        if ($thematic->id == 0) {
-            $lastinsertid = $DB->insert_record('orange_thematics', $thematics, false);
-        } else {
-            $DB->update_record('orange_thematics', $thematic);
-        }
 
+        if (isset($thematic->id)) {
+        	if ($thematic->id == 0) {
+            	$lastinsertid = $DB->insert_record('orange_thematics', $thematics, false);
+        	} else {
+            	$DB->update_record('orange_thematics', $thematic);
+        	}
+        }
+        
         $returnurl = new moodle_url('index.php', array('action' => 'thematics_list', 'sesskey' => sesskey()));
 
         redirect($returnurl);

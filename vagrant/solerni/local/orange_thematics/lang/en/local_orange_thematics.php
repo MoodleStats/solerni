@@ -26,7 +26,7 @@
 $string['pluginname'] = 'Orange thematics';
 $string['thematics'] = 'Manage thematics';
 $string['thematicid'] = 'Id.';
-$string['thematicname'] = 'Thématique';
+$string['thematicname'] = 'Thematic';
 $string['thematicname_help'] = 'You must specify the label of the thematic for the desired languages. Example :
 		&lt;span class="multilang" lang="fr"&gt;Ma thématique&lt;/span&gt;
 		&lt;span class="multilang" lang="en"&gt;My thematic&lt;/span&gt;';
