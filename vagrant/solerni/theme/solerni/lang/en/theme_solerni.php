@@ -178,3 +178,19 @@ $string['coursenobadge']            = "No badges";
 // Frontpage frontend
 $string['ifreelyregister']          = "I freel register";
 $string['seecatalog']               = "See the catalogue";
+
+// Login settings
+$string['logintitle']               = "I am logging in with my e-mail *";
+$string['registertitle']            = "I log in";
+$string['rememberme']               = "Remember me";
+$string['loginbutton']              = "login";
+$string['registerbutton']              = "register";
+$string['passwordforgotten']        = "I have forgotten my password";
+$string['fieldsrequired']           = "* All fields required";
+$string['loginsteps']             = "Do you have a Solerni account?<p align=\"center\">
+Create an account from your e-mail or register with Facebook";
+$string['register']                 = "I register";
+$string['registerurl']              = "Register";
+$string['registerlink']             = "signup.php";
+$string['login']                    = "login";
+$string['password']                 = "password";

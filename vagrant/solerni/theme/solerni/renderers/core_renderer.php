@@ -271,4 +271,169 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
         </div>
     <?php endif;
     }
+
+    /*
+     * @param: (string) title of the columon
+     * @param: (array) list of settings names (translation keys must match)
+     *
+     * Check for each settings if exists
+     *
+     * @return: Footer Column HTML Fragment
+     */
+    public function solerni_login_render_form($show_instructions, $frm) {
+        global $PAGE, $CFG;
+
+        if ($show_instructions) {
+            $columns = 'twocolumns';
+        } else {
+            $columns = 'onecolumn';
+        }
+
+        if (!empty($CFG->loginpasswordautocomplete)) {
+            $autocomplete = 'autocomplete="off"';
+        } else {
+            $autocomplete = '';
+        }
+        if (empty($CFG->authloginviaemail)) {
+            $strusername = get_string('username');
+        } else {
+            $strusername = get_string('usernameemail');
+        }
+        ?>
+        <div class="loginbox clearfix <?php echo $columns ?>">
+          <div class="loginpanel">
+        <?php
+          if (($CFG->registerauth == 'email') || !empty($CFG->registerauth)) { ?>
+              <div class="skiplinks"><a class="skip" href="signup.php"><?php print_string("tocreatenewaccount"); ?></a></div>
+        <?php
+          } ?>
+            <h2><?php print_string("logintitle", 'theme_solerni') ?></h2>
+              <div class="subcontent loginsub">
+                <?php
+                  if (!empty($errormsg)) {
+                      echo html_writer::start_tag('div', array('class' => 'loginerrors'));
+                      echo html_writer::link('#', $errormsg, array('id' => 'loginerrormessage', 'class' => 'accesshide'));
+                      echo $this->error_text($errormsg);
+                      echo html_writer::end_tag('div');
+                  }
+                ?>
+                <form action="<?php echo $CFG->httpswwwroot; ?>/login/index.php" method="post" id="login" <?php echo $autocomplete; ?> >
+                  <div class="loginform">
+                    <div class="form-label"><label for="username"><?php echo($strusername) ?></label></div>
+                    <div class="form-input">
+                      <input type="text" name="username" id="username" size="15" value="<?php p($frm->username) ?>" />
+                    </div>
+                    <div class="clearer"><!-- --></div>
+                    <div class="form-label"><label for="password"><?php print_string("password") ?></label></div>
+                    <div class="form-input">
+                      <input type="password" name="password" id="password" size="15" value="" <?php echo $autocomplete; ?> />
+                    </div>
+                  </div>
+                    <div class="clearer"><!-- --></div>
+                      <?php if (isset($CFG->rememberusername) and $CFG->rememberusername == 2) { ?>
+                      <div class="rememberpass">
+                          <input type="checkbox" name="rememberusername" id="rememberusername" value="1" <?php if ($frm->username) {echo 'checked="checked"';} ?> />
+                          <label for="rememberusername"><?php print_string('rememberusername', 'admin') ?></label>
+                      </div>
+                      <?php } ?>
+                  <div class="clearer"><!-- --></div>
+                  <input type="submit" id="loginbtn" value="<?php print_string("login") ?>" />
+                  <div class="forgetpass"><a href="forgot_password.php"><?php print_string("forgotten") ?></a></div>
+                </form>
+                <div class="desc">
+                    <?php
+                        echo get_string("cookiesenabled");
+                        echo $this->help_icon('cookiesenabled');
+                    ?>
+                </div>
+              </div>
+
+        <?php if ($CFG->guestloginbutton and !isguestuser()) {  ?>
+              <div class="subcontent guestsub">
+                <div class="desc">
+                  <?php print_string("someallowguest") ?>
+                </div>
+                <form action="index.php" method="post" id="guestlogin">
+                  <div class="guestform">
+                    <input type="hidden" name="username" value="guest" />
+                    <input type="hidden" name="password" value="guest" />
+                    <input type="submit" value="<?php print_string("loginguest") ?>" />
+                  </div>
+                </form>
+              </div>
+        <?php } ?>
+             </div>
+        <?php if ($show_instructions) { ?>
+            <div class="signuppanel">
+              <h2><?php print_string("register", 'theme_solerni' ) ?></h2>
+              <div class="subcontent">
+                    <p align="center"><?php  print_string("loginsteps", 'theme_solerni');?></p>
+                  <div class="signupform">
+                           <form action="signup.php" method="get" id="signup">
+                           <div><input type="submit" value="<?php print_string("registerbutton", 'theme_solerni') ?>" /></div>
+                           </form>
+                         </div>
+              </div>
+            </div>
+        <?php } ?>
+        </div>
+            <?php
+            }
+
+    /*
+     * @param: (string) title of the columon
+     * @param: (array) list of settings names (translation keys must match)
+     *
+     * Check for each settings if exists
+     *
+     * @return: Footer Column HTML Fragment
+     */
+    public function solerni_register_render_form($show_instructions, $mform_signup) {
+        global $PAGE, $CFG;
+
+        if ($show_instructions) {
+            $columns = 'twocolumns';
+        } else {
+            $columns = 'onecolumn';
+        }
+
+        if (!empty($CFG->loginpasswordautocomplete)) {
+            $autocomplete = 'autocomplete="off"';
+        } else {
+            $autocomplete = '';
+        }
+        if (empty($CFG->authloginviaemail)) {
+            $strusername = get_string('username');
+        } else {
+            $strusername = get_string('usernameemail');
+        }
+
+
+        ?>
+            <?php require_once($CFG->dirroot . '/auth/googleoauth2/lib.php'); auth_googleoauth2_display_buttons(); ?>
+        <div class="loginbox clearfix <?php echo $columns ?>">
+          <div class="loginpanel">
+        <?php $mform_signup->display(); ?>
+             </div>
+        <?php if ($show_instructions) { ?>
+            <div class="signuppanel">
+              <h2><?php echo get_string('registertitle', 'theme_solerni') ?></h2>
+              <div class="subcontent">
+                  <p align="center"><?php  print_string("loginsteps", 'theme_solerni');?></p>
+                <div class="signupform">
+                  <form action="index.php" method="get" id="login">
+                  <div><input type="submit" value="<?php print_string("loginbutton", 'theme_solerni') ?>" /></div>
+                  </form>
+                </div>
+
+              </div>
+            </div>
+        <?php } ?>
+
+        </div>
+
+            <?php
+            }
+
+
 }

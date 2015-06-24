@@ -1,0 +1,51 @@
+/*
+ * Block social sharing css
+ * 
+ * @package   theme_solerni
+ * @author    Orange / Solerni
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ *
+ */
+
+.zocial,
+a.zocial {
+	
+	
+	-moz-box-shadow: 0;
+	-webkit-box-shadow: 0;
+	box-shadow: 0;
+	cursor: pointer;
+	display: inline-block;
+	font: bold 100%/2.1 Arial, Helvetica, sans-serif;
+	
+	text-align: center;
+	text-decoration: none;
+	text-shadow: 0 ;
+	white-space: nowrap;
+	
+            margin: 2em 0px;
+    padding: 0.5em 2.5em;
+    color: #FFF;
+    background-color: #39579A;
+    font-weight: 800;
+    border: 0px none;
+    border-radius: 0.5em;
+    outline: 0px none;
+        box-shadow:none;
+        text-shadow:none;
+        
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+	background-image:none;
+	position: relative;
+	
+
+}
+
+
+/* block social css */
+.sider_social-sharing .button_social_item {
+    display: inline-block;
+    
+}
