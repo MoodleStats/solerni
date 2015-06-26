@@ -59,18 +59,18 @@ $string['emailconfirmation'] = '<meta http-equiv="Content-Type" content="text/ht
 
 Bonjour {$a->firstname}<br>
 <br>
-Nous avons reçu une demande d\'inscription de votre part avec votre adresse e-mail &quot;<a href="mailto:{$a->email}">{$a->email}</a>&quot;.<br>
+Nous avons reçu une demande d’inscription de votre part avec votre adresse e-mail.<br>
 <br>
 Afin de valider cette demande nous vous invitons à cliquer sur le lien suivant :<br>
 <br>
 <a href="{$a->link}">valider mon inscription</a><br>
 <br>
-Si le bouton ne fonctionne pas, copiez-collez le lien suivant dans la barre d\\\'adresse de votre navigateur :  <a href="{$a->link}">{$a->link}</a><br>
+Si le bouton ne fonctionne pas, copiez-collez le lien suivant dans la barre d’adresse de votre navigateur :  <a href="{$a->link}">{$a->link}</a><br>
 <br>
 
 <br>
-<strong>L\\\'équipe de <a href="{$a->sitename}">Solerni.org</a></strong><br>
-Apprendre c\\\'est toujours mieux ensemble
+<strong>L’équipe de <a href="{$a->sitename}">Solerni.org</a></strong><br>
+Apprendre c’est toujours mieux ensemble
 <a href="{$a->sitename}">Solerni.org</a><br>
 
 
@@ -98,11 +98,11 @@ Apprendre c\\\'est toujours mieux ensemble
                                 <tr bgcolor="#f8f7f7">
                                     <td>
                                         <font size="2">
-                                        Vous recevez cet e-mail car votre adresse e-mail <a href="mailto:{$a->email}">{$a->email}</a> a été utilisée pour votre enregistrement sur notre site <a href="https://solerni.org">Solerni.org</a>.Si vous ne vous êtes pas inscrit à Solerni, veuillez simplement ignorer ce message et votre compte sera supprimé automatiquement.
+                                        Vous recevez cet e-mail car votre adresse e-mail a été utilisée pour votre enregistrement sur notre site <a href="https://solerni.org">Solerni.org</a>.Si vous ne vous êtes pas inscrit à Solerni, veuillez simplement ignorer ce message et votre compte sera supprimé automatiquement.
 
                                         Ce message vous est envoyé automatiquement, merci de ne pas y répondre directement.<br>
                                         Si vous avez des questions écrivez-nous à <a href="mailto:contact@solerni.com">contact@solerni.com</a>.<br>
-                                        Afin de bien recevoir nos e-mails, ajoutez cette adresse <a href="mailto:noreply@solerni.com">noreply@solerni.com</a> dans votre carnet d\\\'adresses.<br>
+                                        Afin de bien recevoir nos e-mails, ajoutez cette adresse <a href="mailto:noreply@solerni.com">noreply@solerni.com</a> dans votre carnet d’adresses.<br>
                                         </font>
                                     </td>
                                 </tr>
@@ -115,7 +115,7 @@ Apprendre c\\\'est toujours mieux ensemble
     </tbody></table>
 
 </div></blockquote></body></html>';
-$string['emailconfirmationsubject'] = 'Confirmation de l\'ouverture du compte sur {$a}';
+$string['emailconfirmationsubject'] = 'Confirmation de l’ouverture du compte sur {$a}';
 $string['emailconfirmsent'] = '<h2>Votre inscription a été enregistrée, il ne reste plus qu’à valider votre compte.</h2><p>Pour valider définitivement votre inscription, cliquez sur le lien contenu dans le mail que nous venons de vous envoyer à l’adresse <strong>{$a}</strong></p>
 <ul><li>si vous ne recevez pas notre mail, veuillez vérifier si celui-ci n’est pas bloqué dans vos courriers indésirables.</li>
 <li>Si c’est le cas, merci d’ajouter cette adresse noreply@solerni.com dans votre carnet d’adresses.</li>
