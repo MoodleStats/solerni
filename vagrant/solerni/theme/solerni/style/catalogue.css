@@ -1,6 +1,6 @@
 /*
  *
- * Style de la page catalogue (/catalog)
+ * Style for catalog page (/catalog)
  *
  * @package   theme_solerni
  * @author    Orange / Solerni
@@ -42,8 +42,7 @@
     color: black;
 }
 
-/* Affichage du bloc d'un cours */
-/* surcharge MOODLE */
+/* Course block display - Moodle override */
 
 .presentation__mooc__text__title {
     display: block;
