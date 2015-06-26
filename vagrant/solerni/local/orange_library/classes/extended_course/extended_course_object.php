@@ -188,8 +188,6 @@ class extended_course_object {
         $this->enrolstartdate = $instance->enrolstartdate;
         $this->enrolenddate = $instance->enrolenddate;
         $this->maxregisteredusers = $instance->customint3;
-
-
     }
 
     /**
