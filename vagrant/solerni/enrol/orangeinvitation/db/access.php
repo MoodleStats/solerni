@@ -27,22 +27,14 @@ defined('MOODLE_INTERNAL') || die();
 
 $capabilities = array(
 
+    /* Add or edit orangeinvitation instance in course. */
     'enrol/orangeinvitation:config' => array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_COURSE,
         'archetypes' => array(
+            'coursecreator' => CAP_ALLOW,
             'manager' => CAP_ALLOW,
         )
-    ),
-
-    'enrol/orangeinvitation:manage' => array(
-        'captype' => 'write',
-        'contextlevel' => CONTEXT_COURSE,
-        'archetypes' => array(
-            'manager' => CAP_ALLOW,
-            'editingteacher' => CAP_ALLOW,
-        )
-    ),
-
+    )
 );
 
