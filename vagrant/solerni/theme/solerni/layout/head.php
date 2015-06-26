@@ -16,6 +16,7 @@
 
 /*
  * @author    Shaun Daubney
+ * @author    Orange / Solerni
  * @package   theme_solerni
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -23,11 +24,9 @@
 <head>
     <title><?php echo $PAGE->title ?></title>
     <link rel="shortcut icon" href="<?php echo $OUTPUT->pix_url('favicon', 'theme')?>" />
-	<link rel="apple-touch-icon-precomposed" href="<?php echo $OUTPUT->pix_url('apple-touch-icon', 'theme')?>" />
-	<?php echo $OUTPUT->standard_head_html() ?>
+    <link rel="apple-touch-icon-precomposed" href="<?php echo $OUTPUT->pix_url('apple-touch-icon', 'theme')?>" />
+    <?php echo $OUTPUT->standard_head_html() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		    <!-- Google web fonts -->
-<link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' /> 
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type='text/css' />
+    <link href="/theme/solerni/style/catalogue.css" rel="stylesheet" type='text/css' />
 </head>
-

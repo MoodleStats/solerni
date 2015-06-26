@@ -1,0 +1,194 @@
+/* Affichage du header par client */
+
+.slrn-header__column {
+    width: 966px;
+    margin: 0px auto;
+    position: relative;
+    padding: 0px 1.3em;
+}
+
+.slrn-header__logo {
+    height: 216px;
+    padding: 50px 20px 0px;
+}
+
+.header-background-img {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 216px;
+    width: 966px;
+}
+
+.header-logo-img {
+    position: absolute;
+    height: 100px;
+}
+
+.slrn-header__description {
+    position: absolute;
+    display: block;
+    padding: 30px 140px;
+    top: 0px;
+    color: black;
+}
+
+/* Affichage du bloc d'un cours */
+/* surcharge MOODLE */
+.coursebox {
+  background-color: rgb(238,238,239)!important;
+  margin: 20px 0 40px 0 !important;
+  color: #333333;
+  padding: 0px!important;
+  border: 0px!important;
+}
+
+.presentation__mooc__text__title {
+    display: block;
+    font-size: 24px;
+    margin-top: 30px;
+    height: 33px;
+    overflow: hidden;
+    color: #333;
+    font-weight: bold;
+}
+
+.presentation__mooc__text__subtitle {
+  display: block;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding-left: 25px;
+}
+
+.presentation__mooc__text__desc {
+  color: #606060;
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-left: 10px;
+  width: calc(100% - 210px);
+  min-height: 160px;
+}
+
+.presentation__mooc__text__desc P {
+    background-color: #EEEEEF!important;
+}
+
+.presentation__mooc__text {
+  position: relative;
+  margin-left: 30px;
+  padding-top: 0px;
+}
+
+.presentation__mooc__meta {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  font-weight: bold;
+}
+
+.presentation__mooc__meta {
+  width: 185px;
+  padding-top: 5px;
+  font-size: 11px;
+}
+
+.presentation__mooc__meta P {
+    margin: 0px!important;
+    line-height: 1.2;
+}
+
+.presentation__mooc__meta__date P {
+    padding: 0!important;
+}
+
+.presentation__mooc__meta__badge P {
+    padding: 6px 0 0 0!important;
+}
+
+.presentation__mooc__meta__price P {
+    padding: 9px 0 0 0!important;
+}
+
+.presentation__mooc__block {
+  float: left;
+  padding-right: 10px;
+}
+
+.presentation__mooc__pic {
+  position: relative;
+  width: 324px;
+  height: 232px;
+}
+
+.presentation__mooc__block__image {
+  width: 324px;
+  height: 232px;
+}
+
+.presentation__mooc__block__logo {
+  position: absolute;
+  right: 28px;
+  bottom: 34px;
+  height: 35px;
+  z-index: 1000;
+}
+.presentation__mooc__meta__date {
+  height: 32px;
+  background-position: 0 -5px;
+  padding-top: 3px;
+}
+
+.presentation__mooc__meta__badge {
+  height: 42px;
+  line-height: 42px;
+  background-position: 0 -42px;
+}
+
+.presentation__mooc__meta__date, .presentation__mooc__meta__badge, .presentation__mooc__meta__price {
+  padding-left: 40px;
+  margin-bottom: 15px;
+}
+
+.presentation__mooc__meta__date, .presentation__mooc__meta__badge, .presentation__mooc__meta__price {
+  background-image: url("/blocks/orange_course_extended/pix/sprites_solerni.png");
+  background-repeat: no-repeat;
+  display: block;
+  text-transform: uppercase;
+  color: #606060;
+}
+
+.presentation__mooc__meta__price {
+  height: 32px;
+  line-height: 32px;
+  background-position: 0 -89px;
+}
+
+div.filtercategory, div.filterstatus, div.filterthematic, div.filterduration {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.slrn-filter .filter > ul li {
+  list-style:none;
+}
+
+.slrn-filter h3.filter {
+    font-size: 1.3em;
+    font-weight: bold;
+    background-color: #4B667C;
+    color: #F6F6F6;
+    padding: 0.5em 2em 0.5em 0.5em;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    text-transform: none!important;
+}
+
+.slrn-filter .filter {
+    padding: 1em;
+    background-color: #EEE;
+}

@@ -16,101 +16,119 @@
 
 /*
  * @author    Shaun Daubney
+ * @author    Orange
  * @package   theme_solerni
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$hascopyright = (empty($PAGE->theme->settings->copyright)) ? false : $PAGE->theme->settings->copyright;
-$hasceop = (!empty($PAGE->theme->settings->ceop));
-$hasdisclaimer = (!empty($PAGE->theme->settings->disclaimer));
-$haswebsite = (!empty($PAGE->theme->settings->website));
-$hasfacebook = (!empty($PAGE->theme->settings->facebook));
-$hastwitter = (!empty($PAGE->theme->settings->twitter));
-$hasgoogleplus = (!empty($PAGE->theme->settings->googleplus));
-$hasflickr = (!empty($PAGE->theme->settings->flickr));
-$haspinterest = (!empty($PAGE->theme->settings->pinterest));
-$hasapple = (!empty($PAGE->theme->settings->apple));
-$hasinstagram = (!empty($PAGE->theme->settings->instagram));
-$hasandroid = (!empty($PAGE->theme->settings->android));
-$haslinkedin = (!empty($PAGE->theme->settings->linkedin));
-$hasyoutube = (!empty($PAGE->theme->settings->youtube));
-$haswikipedia = (!empty($PAGE->theme->settings->wikipedia));
+$haswebsite         = (!empty($PAGE->theme->settings->website));
+$hasfacebook        = (!empty($PAGE->theme->settings->facebook));
+$hastwitter         = (!empty($PAGE->theme->settings->twitter));
+$hasgoogleplus      = (!empty($PAGE->theme->settings->googleplus));
+$haslinkedin        = (!empty($PAGE->theme->settings->linkedin));
+$hasyoutube         = (!empty($PAGE->theme->settings->youtube));
+$footertagline      = 'footertagline_'.current_language();
+$footerexplaination = 'footerexplaination_'.current_language();
+$tagline            = ($PAGE->theme->settings->$footertagline) ?
+                       $PAGE->theme->settings->$footertagline :
+                       get_string('footertaglinedefault', 'theme_solerni');
+$explaination       = ($PAGE->theme->settings->$footerexplaination) ?
+                       $PAGE->theme->settings->$footerexplaination :
+                       get_string('footerexplainationdefault', 'theme_solerni');
 ?>
-<hr>
-	<div class="row-fluid">
-    	<!-- Widget 1 -->
-    	<div class="span4">
-    		<div id="footer-left" class="block-region">
-    			<div class="region-content">
-       			 <?php if ($hascopyright) {
-        echo '&copy; '.date("Y").' '.$hascopyright.'';
-    } 
-	
-            echo $OUTPUT->login_info();			
-			echo $OUTPUT->standard_footer_html();
-			?><p class="helplink"><?php echo page_doc_link(get_string('moodledocslink')); ?></p><?php
-            if ($hasceop) {?><a href="<?php echo $PAGE->theme->settings->ceop;?> "><img src="<?php echo $OUTPUT->pix_url('ceopreport', 'theme')?>" /></a><?php }?>
-        		</div>
-        	</div>
-    	</div>
 
-    	<!-- widget 2 -->
-    	<div class="span4">
-    		<div id="footer-middle" class="block-region">
-    			<div class="region-content">
-        <?php if ($hasdisclaimer) {echo $PAGE->theme->settings->disclaimer;} else {}?>
-        		</div>
-        	</div>
-    	</div>
-
-    	<!-- Widget 3 -->
-    	<div class="span4">
-    		<div id="footer-right" class="block-region">
-    			<div class="region-content">
-				
-
-				<?php if ($hasandroid) {?><a href="<?php echo $PAGE->theme->settings->android;?> "><span class="footer-icon android"><i class="fa fa-android"></i></span></a> <?php } else {}?>
-       			
-				<?php if ($hasapple) {?><a href="<?php echo $PAGE->theme->settings->apple;?> "><span class="footer-icon apple"><i class="fa fa-apple"></i></span></a> <?php } else {}?>
-				
-				<?php if ($hasyoutube) {?><a href="<?php echo $PAGE->theme->settings->youtube;?> "><span class="footer-icon youtube"><i class="fa fa-youtube"></i></span></a> <?php } else {}?>
-				
-				<?php if ($haswikipedia) {?><a href="<?php echo $PAGE->theme->settings->wikipedia;?> "><span class="footer-icon wikipedia"><img src="<?php echo $OUTPUT->pix_url('footer-icons/wikipedia', 'theme')?>" /></span></a> <?php } else {}?>
-
-				<?php if ($haspinterest) {?><a href="<?php echo $PAGE->theme->settings->pinterest;?> "><span class="footer-icon pinterest"><i class="fa fa-pinterest"></i></span></a> <?php } else {}?>
-
-				<?php if ($haslinkedin) {?><a href="<?php echo $PAGE->theme->settings->linkedin;?> "><span class="footer-icon linkedin"><i class="fa fa-linkedin"></i></span></a> <?php } else {}?>
-											
-				<?php if ($hasinstagram) {?><a href="<?php echo $PAGE->theme->settings->instagram;?> "><span class="footer-icon instagram"><i class="fa fa-instagram"></i></span></a> <?php } else {}?>
-				
-				<?php if ($hasflickr) {?><a href="<?php echo $PAGE->theme->settings->flickr;?> "><span class="footer-icon flickr"><i class="fa fa-flickr"></i></span></a> <?php } else {}?>
-				
-				<?php if ($hasgoogleplus) {?><a href="<?php echo $PAGE->theme->settings->googleplus;?> "><span class="footer-icon googleplus"><i class="fa fa-google-plus"></i></span></a> <?php } else {}?>
-				
-				<?php if ($hastwitter) {?><a href="<?php echo $PAGE->theme->settings->twitter;?> "><span class="footer-icon twitter"><i class="fa fa-twitter"></i></span></a> <?php } else {}?>
-				
-				<?php if ($hasfacebook) {?><a href="<?php echo $PAGE->theme->settings->facebook;?> "><span class="footer-icon facebook"><i class="fa fa-facebook"></i></span></a> <?php } else {}?>
-				
-				<?php if ($haswebsite) {?><a href="<?php echo $PAGE->theme->settings->website;?> "><span class="footer-icon website"><i class="fa fa-globe"></i></span></a> <?php } else {}?>
-				
-				
-				
-				
-				
-				
-        		</div>
-        	</div>
-    	</div>
-	</div>
-
-	<div class="footerlinks row-fluid">
-	<p>
-	
-	<?php  
- echo html_writer::link('http://moodle.org/plugins/view.php?plugin=theme_solerni', get_string('credit', 'theme_solerni'));
- echo ' | ';
- echo html_writer::link('http://moodle.org', 'moodle.org');?> 
-    	</p>
-    	
-    
-	</div>
+<footer id="footer" class="row-fluid slrn-footer">
+    <div class="clearfix">
+        <div class="span4 footer-brand">
+            <div class="footer-brand__logo -sprite-solerni"></div>
+            <p class="footer-brand_title"><?php echo $tagline; ?></p>
+            <p class="footer-brand__text"><?php echo $explaination; ?></p>
+        </div>
+        <div class="span2 footer-column ">
+            <p class="footer_column_title">
+                <?php echo get_string('aboutus', 'theme_solerni'); ?>
+            </p>
+            <ul class="footer_column_menu__column">
+                <li class="footer_column__item">
+                    <a class="footer_column_menu_column__link" href="<?php echo $PAGE->theme->settings->aboutsolerni; ?>">
+                        <?php echo get_string('aboutsolerni', 'theme_solerni'); ?>
+                    </a>
+                </li>
+                <li class="footer_column__item">
+                    <a class="footer_column_menu_column__link" href="<?php echo $PAGE->theme->settings->partners; ?>">
+                        <?php echo get_string('partners', 'theme_solerni'); ?>
+                    </a>
+                </li>
+                <li class="footer_column__item">
+                    <a class="footer_column_menu_column__link" href="<?php echo $PAGE->theme->settings->legal; ?>">
+                        <?php echo get_string('legal', 'theme_solerni'); ?>
+                    </a>
+                </li>
+                <li class="footer_column__item">
+                    <a class="footer_column_menu_column__link js-link_cgu" href="<?php echo $PAGE->theme->settings->cgu; ?>">
+                        <?php echo get_string('cgu', 'theme_solerni'); ?>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="span2 footer-column ">
+            <p class="footer_column_title">
+                <?php echo get_string('support', 'theme_solerni'); ?>
+            </p>
+            <ul class="footer_column_menu__column">
+                <li class="footer_column__item">
+                    <a class="footer_column_menu_column__link" href="<?php echo $PAGE->theme->settings->faq; ?>">
+                        <?php echo get_string('faq', 'theme_solerni'); ?>
+                    </a>
+                </li>
+                <li class="footer_column__item">
+                    <a class="footer_column_menu_column__link" href="<?php echo $PAGE->theme->settings->contactus; ?>">
+                        <?php echo get_string('contactus', 'theme_solerni'); ?>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="span2 footer-column ">
+            <p class="footer_column_title">
+                <?php echo get_string('followus', 'theme_solerni'); ?>
+            </p>
+            <ul class="footer_column_menu__column">
+                <li class="footer_column__item">
+                    <a href="<?php echo $PAGE->theme->settings->facebook; ?>" class="footer_column_menu_column__link footer_social_link" target="_blank">
+                        <span class="footer_social_link__icon footer_social_facebook  -sprite-solerni">Facebook</span><!--
+                        --><span class="footer_icon_text">Facebook</span>
+                    </a>
+                </li>
+                <li class="footer_column__item">
+                    <a href="<?php echo $PAGE->theme->settings->twitter; ?>" class="footer_column_menu_column__link footer_social_link" target="_blank">
+                        <span class="footer_social_link__icon footer_social_twitter -sprite-solerni">Twitter</span><!--
+                        --><span class="footer_icon_text">Twitter</span>
+                    </a>
+                </li>
+                <li class="footer_column__item">
+                    <a href="<?php echo $PAGE->theme->settings->blog; ?>" class="footer_column_menu_column__link footer_column_menu_column__linkfooter_social_link">
+                        <span class="footer_social_link__icon footer_social_blog -sprite-solerni">Blog</span><!--
+                        --><span class="footer_icon_text">Blog</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="span2 footer-column">
+            <p class="footer_column_title">
+                <?php echo get_string('international', 'theme_solerni'); ?>
+            </p>
+            <ul class="footer_lang_menu">
+                <?php echo $OUTPUT->solerni_lang_menu(); ?>
+            </ul>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <hr class="slrn-hr slrn-hr--thin">
+        <a class="pull-right" target="_blank" href="http://www.orange.com">
+            <div class="footer_powered  -sprite-solerni">powered by Orange</div>
+        </a>
+    </div>
+</footer>
+<div class="row-fluid">
+    <?php echo $OUTPUT->standard_footer_html(); ?>
+</div>

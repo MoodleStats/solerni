@@ -1,112 +1,158 @@
 <?php
-$string['pluginname'] = 'Solerni';
-$string['region-main'] = 'Main';
-$string['region-side-top'] = 'Top';
-$string['region-side-post'] = 'Right';
-$string['region-side-pre'] = 'Left';
-$string['choosereadme'] = 'Solerni is a clone of Aardvark which is a three column theme for Moodle 2.5+ originally created by Shaun Daubney for <a href="http://www.newbury-college.ac.uk">Newbury College</a> based on Bootstrap';
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+//
+// Lang file version EN.
 
-$string['configtitle'] = 'Solerni';
+/*
+ * @author    Orange / Solerni
+ * @package   theme_solerni
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
-$string['basicheading'] = 'Basic Settings';
-$string['basicheadingdesc'] = 'Customise basic elements of the theme.';
+$string['pluginname']                   = 'Solerni';
+$string['region-side-post']             = 'Right';
+$string['region-side-pre']              = 'Left';
+$string['choosereadme']                 = 'Solerni is a clone of Aardvark which is a three column theme for Moodle 2.5+ originally created by Shaun Daubney for <a href="http://www.newbury-college.ac.uk">Newbury College</a> based on Bootstrap';
+$string['configtitle']                  = 'Solerni';
 
-$string['frontpageheading'] = 'Frontpage';
-$string['frontpageheadingdesc'] = 'Customise frontpage elements of the theme such as user alerts and date.';
+$string['frontpagesettings']            = 'frontpage';
+$string['frontpagetagline']             = 'Header tagline';
+$string['frontpagetaglinedesc']         = 'Tagline displayed on the frontpage, over the header background image. Also DOM main title.';
+$string['frontpagepresentation']        = 'Header text';
+$string['frontpagepresentationdesc']    = 'Text displayed on the frontpage, over the header background image';
+$string['frontpagepresentationdefault'] = 'Develop your skills by following, at your own pace, friendly and collaborative learning courses';
+$string['frontpageheaderimage']         = 'Frontpage header image';
+$string['frontpageheaderimagedesc']     = 'Image used as background on the frontpage header. Recommanded ratio 16:3 and recommanded size about 1600x300px';
 
-$string['colourheading'] = 'Colours and Background';
-$string['colourheadingdesc'] = 'Customise site colours and background image.';
+$string['colorsettings']                = 'Colors';
+$string['colourheading']                = 'Theme Colours';
+$string['colourheadingdesc']            = 'Customise site colours.';
+$string['backcolor']                    = 'Background Colour';
+$string['backcolordesc']                = 'Change the colour of the background. (This is the area either side of the main content and does not affect the main content area)';
+$string['primary']                      = 'Primary Colour';
+$string['primarydesc']                  = 'Theme main colour';
+$string['primaryhover']                 = 'Primary Colour : hover contrast';
+$string['primaryhoverdesc']             = 'Theme main colour (on mouse hover)';
+$string['secondary']                    = 'Secondary Colour';
+$string['secondarydesc']                = 'Theme secondary colour';
+$string['secondaryhover']               = 'Secondary Colour : hover contrast';
+$string['secondaryhoverdesc']           = 'Theme secondary colour (on mouse hover)';
+$string['tertiary']                     = 'Tertiary Colour';
+$string['tertiarydesc']                 = 'Theme tertiary colour';
+$string['tertiaryhover']                = 'Tertiary Colour : hover contrast';
+$string['tertiaryhoverdesc']            = 'Theme tertiary colour (on mouse hover)';
+$string['dark']                         = 'Dark Colour';
+$string['darkdesc']                     = 'Theme darkest colour';
+$string['light']                        = 'Light Colour';
+$string['lightdesc']                    = 'Theme lightest colour';
+$string['grey1']                        = 'Grey 1';
+$string['grey1desc']                    = 'Very light grey';
+$string['grey2']                        = 'Grey 2';
+$string['grey2desc']                    = 'Light grey';
+$string['grey3']                        = 'Grey 3';
+$string['grey3desc']                    = 'Medium grey';
+$string['grey4']                        = 'Grey 4';
+$string['grey4desc']                    = 'Dark grey';
+$string['grey5']                        = 'Grey 5';
+$string['grey5desc']                    = 'Very dark grey';
 
-$string['footeroptheading'] = 'Footer';
-$string['footeroptdesc'] = 'Customise basic elements of the theme\'s footer.';
+$string['footersettings']           = 'Footer';
+$string['footertextheading']        = 'Texts';
+$string['footertextheadingdesc']    = 'Define Solerni branding text in footer.';
+$string['footertaglinetitle']       = 'Solerni tagline (english)';
+$string['footertaglinedefault']     = 'To learn is more fun together';
+$string['footertaglinedesc']        = 'Footer tagline for english version';
+$string['footerexplainationtitle']  = 'Solerni tagline short text (english)';
+$string['footerexplainationdefault']= 'Solerni is a full software suite dedicated to help you creating and hosting massively collaborative learning routes';
+$string['footerexplainationdesc']   = 'Text under the tagline in the english version footer';
+$string['footerlinksheading']       = 'Liens du footer';
+$string['footerlinksheadingdesc']   = 'Définit les liens pour le footer (hors réseaux sociaux).';
+$string['aboutus']                  = 'About us';
+$string['support']                  = 'Support';
+$string['followus']                 = 'Follow us';
+$string['international']            = 'International';
+$string['aboutsolerni']             = 'About Solerni';
+$string['aboutsolernidesc']         = 'Enter About Solerni URL';
+$string['partners']                 = 'Partners';
+$string['partnersdesc']             = 'Enter Partners URL';
+$string['legal']                    = 'Legal notices';
+$string['legaldesc']                = 'Enter Legal Notice URL';
+$string['cgu']                      = 'Terms and Conditions';
+$string['cgudesc']                  = 'Enter Terms and Conditions URL';
+$string['faq']                      = 'FAQ';
+$string['faqdesc']                  = 'Enter FAQ URL';
+$string['contactus']                = 'Contact Us';
+$string['contactusdesc']            = 'Enter Contact URL';
 
-$string['socialiconsheading'] = 'Social Icons';
-$string['socialiconsheadingdesc'] = 'Customise social network icons.';
+$string['socialsettings']           = 'Social';
+$string['sociallinksheading']       = 'Social links';
+$string['sociallinksheadingdesc']   = 'Customise social network urls (footer).';
+$string['blog']                     = 'Blog URL';
+$string['blogdesc']                 = 'Enter the URL of your blog.';
+$string['facebook']                 = 'Facebook URL';
+$string['facebookdesc']             = 'Enter the URL of your Facebook page.';
+$string['twitter']                  = 'Twitter URL';
+$string['twitterdesc']              = 'Enter the URL of your Twitter feed.';
+$string['googleplus']               = 'Google+ URL';
+$string['googleplusdesc']           = 'Enter the URL of your Google+ profile.';
+$string['linkedin']                 = 'LinkedIn URL';
+$string['linkedindesc']             = 'Enter the URL of your LinkedIn profile.';
+$string['youtube']                  = 'YouTube URL';
+$string['youtubedesc']              = 'Enter the URL of your YouTube channel.';
 
-$string['hidemenu'] = 'Hide Menu when Logged Out';
-$string['hidemenudesc'] = 'Force users to log in before accessing the menu. If YES then menu options are hidden from users before they log in.';
+$string['headersettings']           = 'Header';
+$string['headerheading']            = 'Interface Static Links';
+$string['headerheadingdesc']        = 'Set the static link of header';
+$string['about']                    = 'About';
+$string['aboutdesc']                = 'URL of the About page (Header)';
+$string['catalogue']                = 'Catalogue';
+$string['cataloguedesc']            = 'URL of the catalogue page (Header)';
+$string['search']                   = 'Search';
+$string['register']                 = 'Registration';
+$string['login']                    = 'Login';
+$string['hello']                    = 'Hello';
+$string['dashboard']                = 'Dashboard';
+$string['administration']           = 'Administration';
 
-$string['backimage'] = 'Background Image';
-$string['backimagedesc'] = 'Change the background image in the graphic wrap. It\'s currently a cloud blue blur, but if that\'s making you a bit light headed then paste the URL of the image you want to use in here or clear it for a blank background.';
+$string['filterstatustitle']        = 'Status';
+$string['filterstatusall']          = 'All MOOCs';
+$string['filterstatusinprogress']   = 'In progress';
+$string['filterstatuscomingsoon']   = 'Coming soon';
+$string['filterstatuscomplete']     = 'Complete';
 
-$string['backposition'] = 'Background Image Position';
-$string['backpositiondesc'] = 'Choose between a centred image or a tiled image.';
-$string['backpositioncentred'] = 'Centred';
-$string['backpositionfixed'] = 'Centred (Fixed)';
-$string['backpositiontiled'] = 'Repeat (Tiled)';
-$string['backpositionrepeat'] = 'Repeat (Horizonal)';
+$string['filterthematictitle']      = 'Theme';
+$string['filterthematicall']        = 'All themes';
 
-$string['backcolor'] = 'Background Colour';
-$string['backcolordesc'] = 'Change the colour of the background. (This is the area either side of the main content and does not affect the main content area)';
+$string['filtercategorytitle']      = 'Company';
+$string['filtercategoryall']        = 'All companies';
 
-$string['logo'] = 'Logo';
-$string['logodesc'] = 'Change the logo of this theme by entering the URL to a new one (i.e., http://www.somesite/logo.png). Ideally a transparent .png with a maximium height of 38px will work best.';
+$string['filterdurationtitle']      = 'Duration';
+$string['filterdurationall']        = 'All durations';
+$string['filterdurationless4']      = 'Less than 4 weeks';
+$string['filterdurationfrom4to6']   = 'From 4 to 6 weeks';
+$string['filterdurationmore6']      = 'More than 6 weeks';
 
-$string['menuhovercolor'] = 'Menu Hover Colour';
-$string['menuhovercolordesc'] = 'Change the colour of linked items on the menu bar.';
+$string['courseproposedby']         = "Proposed by";
+$string['coursefindoutmore']        = "Find out more";
+$string['coursestartdate']          = "Starts on";
+$string['courseenddate']            = "Ending on";
+$string['coursebadge']              = "Badges available";
+$string['coursenobadge']            = "No badges";
 
-$string['titledate'] = 'Frontpage Date';
-$string['titledatedesc'] = 'Display today&apos;s date on the frontpage.';
+$string['catalognresults']          = "Results found";
+$string['catalog0result']           = "No result";
+$string['catalog1result']           = "Result found";
 
-$string['generalalert'] = 'General Alert';
-$string['generalalertdesc'] = 'This will display an alert on your frontpage to advise users of a particular event/situation.';
-
-$string['snowalert'] = 'Snow Alert';
-$string['snowalertdesc'] = 'This will display an alert on your frontpage to advise users of closures or information regarding inclement weather.';
-
-$string['disclaimer'] = 'Disclaimer';
-$string['disclaimerdesc'] = 'The content from this textarea will be displayed in the footer of every page.';
-
-$string['copyright'] = 'Copyright';
-$string['copyrightdesc'] = 'The name of your organisation.';
-
-$string['ceop'] = 'CEOP';
-$string['ceopdesc'] = 'Enable CEOP reporting.';
-$string['ceopnone'] = 'Disabled';
-$string['ceopaus'] = 'Enable Australia';
-$string['ceopuk'] = 'Enable United Kingdom';
-
-$string['email'] = 'Email';
-$string['emailurl'] = 'Email URL';
-$string['emailurldesc'] = 'Enter the URL of your email service. (i.e http://mail.mycollege.ac.uk or http://www.mycollege.edu/mail)';
-
-$string['website'] = 'Website URL';
-$string['websitedesc'] = 'Enter the URL of your main website. (i.e http://www.mycollege.ac.uk)';
-
-$string['facebook'] = 'Facebook URL';
-$string['facebookdesc'] = 'Enter the URL of your Facebook page. (i.e http://www.facebook.com/mycollege)';
-
-$string['twitter'] = 'Twitter URL';
-$string['twitterdesc'] = 'Enter the URL of your Twitter feed. (i.e http://www.twitter.com/mycollege)';
-
-$string['googleplus'] = 'Google+ URL';
-$string['googleplusdesc'] = 'Enter the URL of your Google+ profile. (i.e http://plus.google.com/107817105228930159735)';
-
-$string['flickr'] = 'Flickr URL';
-$string['flickrdesc'] = 'Enter the URL of your Flickr page. (i.e http://www.flickr.com/mycollege)';
-
-$string['pinterest'] = 'Pinterest URL';
-$string['pinterestdesc'] = 'Enter the URL of your Pinterest page. (i.e http://pinterest.com/mycollege)';
-
-$string['instagram'] = 'Instagram URL';
-$string['instagramdesc'] = 'Enter the URL of your Instagram page (via web.stagram). (i.e http://web.stagram.com/n/mycollege/)';
-
-$string['linkedin'] = 'LinkedIn URL';
-$string['linkedindesc'] = 'Enter the URL of your LinkedIn profile. (i.e http://www.linkedin.com/company/mycollege)';
-
-$string['youtube'] = 'YouTube URL';
-$string['youtubedesc'] = 'Enter the URL of your YouTube channel. (i.e http://www.youtube.com/mycollege)';
-
-$string['wikipedia'] = 'Wikipedia URL';
-$string['wikipediadesc'] = 'Enter the URL of your Wikipedia page. (i.e http://en.wikipedia.org/wiki/mycollege)';
-
-$string['apple'] = 'Apple App Store URL';
-$string['appledesc'] = 'Enter the URL of your Apple App Store page. (i.e https://itunes.apple.com/gb/artist/my-college/id123456789)';
-
-$string['android'] = 'Google Play Store URL';
-$string['androiddesc'] = 'Enter the URL of your Google Play Store Store page. (i.e https://play.google.com/store/apps/developer?id=mycollege)';
-
-$string['customcss'] = 'Custom CSS';
-$string['customcssdesc'] = 'Whatever CSS rules you add to this area will be reflected in every page, making for easier customisation of this theme.';
-
-$string['credit'] = 'Based on an original theme created by Shaun Daubney';

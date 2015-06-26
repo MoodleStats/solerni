@@ -1,139 +1,86 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /*
  * @author    Shaun Daubney
+ * @author    Orange / Solerni
  * @package   theme_solerni
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+/*
+ * Function executed at theme init
+ * Insert jQuery library
+ */
+function theme_solerni_page_init(moodle_page $page) {
+    /* current JQuery version for 2.7 is jQuery 1.11 which is IE8 compatible */
+    $page->requires->jquery();
+}
+
+/*
+ * Replace each occurence of color settings in css
+ * by the value from admin settings
+ *
+ * @param $css string
+ *
+ * @return $css
+ *
+ */
 function solerni_process_css($css, $theme) {
-	
-    // Set the menu background color
-    if (!empty($theme->settings->menubackcolor)) {
-        $menubackcolor = $theme->settings->menubackcolor;
-    } else {
-        $menubackcolor = null;
-    }
-    $css = solerni_set_menubackcolor($css, $menubackcolor);
-	
-	    // Set the menu hover color
-    if (!empty($theme->settings->menuhovercolor)) {
-        $menuhovercolor = $theme->settings->menuhovercolor;
-    } else {
-        $menuhovercolor = null;
-    }
-    $css = solerni_set_menuhovercolor($css, $menuhovercolor);
 
-    
-	// Set the background image for the graphic wrap 
-    if (!empty($theme->settings->backimage)) {
-        $backimage = $theme->settings->backimage;
-    } else {
-        $backimage = null;
-    }
-    $css = solerni_set_backimage($css, $backimage);
-	
-	// Set the graphic position
-    if (!empty($theme->settings->backposition)) {
-       $backposition = $theme->settings->backposition;
-    } else {
-       $backposition = null;
-    }
-    $css = solerni_set_backposition($css,$backposition);
-	
-	// Set the background color
-    if (!empty($theme->settings->backcolor)) {
-        $backcolor = $theme->settings->backcolor;
-    } else {
-        $backcolor = null;
-    }
-    $css = solerni_set_backcolor($css, $backcolor);
-	
-	// Set the background image for the logo 
-    if (!empty($theme->settings->logo)) {
-        $logo = $theme->settings->logo;
-    } else {
-        $logo = null;
-    }
-    $css = solerni_set_logo($css, $logo);
-	
-	    // Set custom CSS
-    if (!empty($theme->settings->customcss)) {
-        $customcss = $theme->settings->customcss;
-    } else {
-        $customcss = null;
-    }
-    $css = solerni_set_customcss($css, $customcss);
-    
-    return $css;
-}
-
-function solerni_set_menubackcolor($css, $menubackcolor) {
-    $tag = '[[setting:menubackcolor]]';
-    $replacement = $menubackcolor;
-    if (is_null($replacement)) {
-        $replacement = '#333333';
-    }
-    $css = str_replace($tag, $replacement, $css);
-    return $css;
-}
-
-function solerni_set_menuhovercolor($css, $menuhovercolor) {
-    $tag = '[[setting:menuhovercolor]]';
-    $replacement = $menuhovercolor;
-    if (is_null($replacement)) {
-        $replacement = '#f42941';
-    }
-    $css = str_replace($tag, $replacement, $css);
-    return $css;
-}
-
-function solerni_set_backimage($css, $backimage) {
-	global $OUTPUT;  
-	$tag = '[[setting:backimage]]';
-	$replacement = $backimage;
-	if (is_null($replacement)) {
- 		$replacement = '';
- 	}
-	$css = str_replace($tag, $replacement, $css);
-	return $css;
-}
-
-function solerni_set_backposition($css, $backposition = 'no-repeat', $tag = '[[setting:backposition]]'){
-if($backposition == "no-repeat" || $backposition == "no-repeat fixed" || $backposition == "repeat" || $backposition == "repeat-x"){
-$css = str_replace($tag, $backposition, $css);
-}
-return $css;
-}
-
-function solerni_set_backcolor($css, $backcolor) {
-    $tag = '[[setting:backcolor]]';
-    $replacement = $backcolor;
-    if (is_null($replacement)) {
-        $replacement = '#ffffff';
-    }
-    $css = str_replace($tag, $replacement, $css);
-    return $css;
-}
-
-function solerni_set_logo($css, $logo) {
-	global $OUTPUT;  
-	$tag = '[[setting:logo]]';
-	$replacement = $logo;
-	$css = str_replace($tag, $replacement, $css);
-	return $css;
-}
-
-function solerni_set_customcss($css, $customcss) {
-    $tag = '[[setting:customcss]]';
-    $replacement = $customcss;
-    if (is_null($replacement)) {
-        $replacement = '';
+    // Get colors.
+    $colorsettings = \theme_solerni\settings\options::solerni_get_colors_array();
+    foreach ($colorsettings as $key => $value) {
+        // Use default if not set.
+        if (!empty( $theme->settings->$key ) ) {
+            $value = $theme->settings->$key;
+        }
+        // Search and replace.
+        $tag = "[[setting:$key]]";
+        $css = str_replace( $tag, $value, $css );
     }
 
-    $css = str_replace($tag, $replacement, $css);
+    // replace header background image.
+    $backgroundheaderimage = $theme->setting_file_url('frontpageheaderimage', 'frontpageheaderimage');
+    $css = str_replace( '[[setting:frontpageheaderimage]]', $backgroundheaderimage, $css );
 
     return $css;
 }
 
+/*
+ * Mandatory callback from pluginfile.php
+ * Deals with local specific
+ * $args[] = itemid
+ * $args[] = path
+ * $args[] = filename
+ */
+function theme_solerni_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options=array()) {
+    global $CFG, $DB;
 
+    // Not sure about that, I'm not context-fluent. Our module use SYSTEM.
+    if ($context->contextlevel != CONTEXT_SYSTEM) {
+        return false;
+    }
+
+    // We only use one file areas.
+    if ($filearea != 'frontpageheaderimage' ) {
+        return false;
+    }
+
+    $theme = theme_config::load('solerni');
+    return $theme->setting_file_serve($filearea, $args, $forcedownload, $options);
+
+}

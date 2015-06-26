@@ -1,0 +1,9 @@
+/*
+ * @package   theme_solerni
+ * @author    Orange / Solerni
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+.frontpage-header {
+    background: transparent url([[setting:frontpageheaderimage]]) no-repeat 0 0;
+}

@@ -41,6 +41,7 @@ class local_orange_event_user_loggedin_observer {
         $clause = array('id' => $event->objectid);
         $user = $DB->get_records('user', $clause);
 
+        // Detect if it is the first connexion of the user.
         if (($user[$event->objectid]->firstaccess == 0) ||
             ($user[$event->objectid]->lastaccess == 0) ||
             ($user[$event->objectid]->lastlogin == 0)) {
@@ -91,6 +92,12 @@ class local_orange_event_user_loggedin_observer {
             $subject = str_replace('{$a->sitename}', format_string($site->fullname), $subject);
 
             email_to_user($user[$event->objectid], $contact, $subject, $messagetext, $messagehtml);
+
+            // Redirection to a course page in case of MoodleEnrolToken cookie.
+            // This cookie is set when the user subscribe to the platform and to a course at the same time.
+            if (!empty($_COOKIE['MoodleEnrolToken'])) {
+                check_course_redirection ($_COOKIE['MoodleEnrolToken']);
+            }
         }
 
         return true;

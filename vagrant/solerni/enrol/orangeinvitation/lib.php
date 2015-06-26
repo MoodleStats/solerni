@@ -28,6 +28,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+require_once($CFG->dirroot . '/enrol/orangeinvitation/locallib.php');
+
 /**
  * orangeinvitation enrolment plugin implementation.
  * @author  Jerome Mouneyrac
@@ -220,6 +222,36 @@ class enrol_orangeinvitation_plugin extends enrol_plugin {
      */
     public function get_bulk_operations(course_enrolment_manager $manager) {
         return array();
+    }
+
+
+    /**
+     * This function return the course information related to the token cookie
+     * @param cookie
+     * @return course_name
+     */
+    public function get_course_by_token ($cookie) {
+        global $DB;
+
+        // Decrypt cookie content token-courseId.
+        $cookiecontent = explode("-", rc4decrypt($cookie));
+        $enrolinvitationtoken = $cookiecontent[0];
+        $id = $cookiecontent[1];
+
+        // Retrieve the token info.
+        $invitation = $DB->get_record('enrol_orangeinvitation', array('token' => $enrolinvitationtoken));
+        // If token is valid, enrol the user into the course.
+        if (!empty($invitation) && !empty($invitation->courseid) && ($invitation->courseid == $id)) {
+            if ($course = $DB->get_record('course', array('id' => $id))) {
+                $coursename = $course->fullname;
+            } else {
+                $coursename = "";
+            }
+        } else {
+            $coursename = "";
+        }
+
+        return $coursename;
     }
 
 }

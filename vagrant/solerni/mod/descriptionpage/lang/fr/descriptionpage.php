@@ -23,49 +23,54 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+// General configuration.
+$string['configdisplayoptions'] = 'Sélectionnez toutes les options disponibles, les champs déjà configurés ne sont pas modifiés. Utilisez la touche CTR pour sélectionner des champs multiples.';
+$string['content'] = 'Contenu de la page';
+$string['contentheader'] = 'Entête';
+$string['createpage'] = 'Créer une nouvelle page';
+$string['displayoptions'] = 'affichage des options disponibles';
+$string['displayselect'] = 'Affichage';
+$string['displayselectexplain'] = 'Sélection du type d\'affichge.';
+$string['legacyfiles'] = 'Migration des anciens fichiers du cours';
+$string['legacyfilesactive'] = 'Actif';
+$string['legacyfilesdone'] = 'Fini';
+$string['modulename'] = 'En savoir plus';
 
-$string['configdisplayoptions'] = 'Select all options that should be available, existing settings are not modified. Hold CTRL key to select multiple fields.';
-$string['content'] = 'Page content';
-$string['contentheader'] = 'Content';
-$string['createpage'] = 'Create a new page resource';
-$string['displayoptions'] = 'Available display options';
-$string['displayselect'] = 'Display';
-$string['displayselectexplain'] = 'Select display type.';
-$string['legacyfiles'] = 'Migration of old course file';
-$string['legacyfilesactive'] = 'Active';
-$string['legacyfilesdone'] = 'Finished';
-$string['modulename'] = 'Description Page';
-$string['maxvisibility'] = 'Maximum visibility';
+// Course visibility.
+$string['maxvisibility'] = 'visibilité';
 $string['maxvisibility_help'] = '
-<p><strong>Visible seulement pour le propriétaire de la page (privé)</strong> &ndash;
-personne ne pourra voir cette page.</p>
-<p><<strong>Visible aux participants à ce cours</strong> &ndash; Pour voir cette page vous devez avoir les droits nécessaires pour accéder à ce cours,
-habituellement par l\'inscription au cours qui contient cette page.</p>
+<p><strong>Visible seulement sur la page utilisateur (private)</strong> &ndash;
+personne d\'autre ne peut voir cette page.</p>
+<p><<strong>Visible aux participants de ce cours</strong> &ndash;
+Pour voir ce cours vous devez avoir les droits d\'accès a ce cours, généralement par l\'inscription au cours qui contient cette page.</p>
 
-<p><strong>Visible à toute personne identifiée au système</strong> &ndash; Quiconque identifié
-peut voir la page, meme s\'ils ne sont pas inscrit à un cours particulier.</p>
-<p><strong>Visible pour tout le monde</strong> &ndash; Quiconque provenant du web pourra
-voir la page si les utilisateurs ont accès à solerni.org.</p>';
-$string['visiblecourseusers'] = 'Visible aux participants de ce cours';
-$string['visibleloggedinusers'] = 'Visible à toute personne identifié au système';
-$string['visiblepublic'] = 'Visible à tout le monde';
+<p><strong>Visible à toute personne identifiée sur la plate forme.</strong> &ndash; quiconque est identifié sur la plate forme
+peut voir cette page, même sans être inscrit a un cours.</p>
+<p><strong>Visible pour tous</strong> &ndash; n\'importe quel utilisateur peut consulter cette page. (si l\'adresse de la page a été fournie.).</p>';
 
-$string['modulename_help'] = 'Ce module permet a un rédacteur de créer une page web avec l\'éditeur de texte.
-    Une page peut afficher du texte, des images, du son, des vidéos, des liens web et du code caché, comme Google maps.
-    Cette page peut être limité en accès en fonction des droits des utilisateurs';
+$string['visiblecourseusers'] = 'Visible aux participants du cours';
+$string['visibleloggedinusers'] = 'Visible aux utilisateurs identifiés sur la plate forme.';
+$string['visiblepublic'] = 'Visible a tout le monde';
+
+
+
+
+$string['modulename_help'] = 'Le module En savoir Plus permet au créateur de cours de créer une page de description du cours.
+    Cette page pourra etre visible pour tout le monde, pour les personne indentifiées sur Solerni, ou les personnes abonnées au cours.
+    Ce module permet aisni au créateur du cours d\'ajouter de texte ou des images à travers l\'éditeur de texte.';
 $string['modulename_link'] = 'mod/descriptionpage/view';
 $string['modulenameplural'] = 'Pages';
-$string['optionsheader'] = 'Options';
-$string['page-mod-page-x'] = 'Toutes les pages du module page';
-$string['descriptionpage:addinstance'] = 'Ajout d\'une nouvelle resource page';
-$string['descriptionpage:view'] = 'Affichage du contenu de la page';
-$string['pluginadministration'] = 'Administration';
-$string['pluginname'] = 'Résumé';
-$string['popupheight'] = 'Hauteur du Pop-up (en pixels)';
-$string['popupheightexplain'] = 'Spécifie la hauteur par défaut de la fenêtre affichée en popup.';
-$string['popupwidth'] = 'Largeur du Pop-up (en pixels)';
-$string['popupwidthexplain'] = 'Spécifies la largeur par défault de la fenêtre affichée en popup.';
+$string['optionsheader'] = 'Affichage des options';
+$string['page-mod-page-x'] = 'Any page module page';
+$string['descriptionpage:addinstance'] = 'Add a new page resource';
+$string['descriptionpage:view'] = 'View page content';
+$string['pluginadministration'] = 'administration';
+$string['pluginname'] = 'En savoir plus';
+$string['popupheight'] = 'Pop-up height (in pixels)';
+$string['popupheightexplain'] = 'Specifies default height of popup windows.';
+$string['popupwidth'] = 'Pop-up width (in pixels)';
+$string['popupwidthexplain'] = 'Specifies default width of popup windows.';
 $string['printheading'] = 'Affichage du nom de la page';
-$string['printheadingexplain'] = 'Affichage du nom de la page au dessus du contenu ?';
-$string['printintroexplain'] = 'Affichage du résumé de la page au dessus du contenu ?';
-$string['printintro'] = 'Affichage du résumé de la page';
+$string['printheadingexplain'] = 'Affichage du nom de la page';
+$string['printintroexplain'] = 'Affichage du nom de la page';
+$string['printintro'] = 'Affichage du nom de la page';
