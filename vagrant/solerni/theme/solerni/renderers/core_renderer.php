@@ -6,6 +6,7 @@
  * @package   theme_solerni
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+require_once($CFG->dirroot . '/auth/googleoauth2/lib.php');
 
 class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
 
@@ -299,6 +300,7 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
         } else {
             $strusername = get_string('usernameemail');
         }
+        auth_googleoauth2_display_buttons();
         ?>
         <div class="loginbox clearfix <?php echo $columns ?>">
           <div class="loginpanel">
@@ -337,7 +339,7 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
                       </div>
                       <?php } ?>
                   <div class="clearer"><!-- --></div>
-                  <input type="submit" id="loginbtn" value="<?php print_string("login") ?>" />
+                  <input class="btn btn-primary"type="submit" id="loginbtn" value="<?php print_string("login") ?>" />
                   <div class="forgetpass"><a href="forgot_password.php"><?php print_string("forgotten") ?></a></div>
                 </form>
                 <div class="desc">
@@ -348,20 +350,6 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
                 </div>
               </div>
 
-        <?php if ($CFG->guestloginbutton and !isguestuser()) {  ?>
-              <div class="subcontent guestsub">
-                <div class="desc">
-                  <?php print_string("someallowguest") ?>
-                </div>
-                <form action="index.php" method="post" id="guestlogin">
-                  <div class="guestform">
-                    <input type="hidden" name="username" value="guest" />
-                    <input type="hidden" name="password" value="guest" />
-                    <input type="submit" value="<?php print_string("loginguest") ?>" />
-                  </div>
-                </form>
-              </div>
-        <?php } ?>
              </div>
         <?php if ($show_instructions) { ?>
             <div class="signuppanel">
@@ -370,7 +358,7 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
                     <p align="center"><?php  print_string("loginsteps", 'theme_solerni');?></p>
                   <div class="signupform">
                            <form action="signup.php" method="get" id="signup">
-                           <div><input type="submit" value="<?php print_string("registerbutton", 'theme_solerni') ?>" /></div>
+                           <div><input class="btn btn-primary" type="submit" value="<?php print_string("registerbutton", 'theme_solerni') ?>" /></div>
                            </form>
                          </div>
               </div>
@@ -408,9 +396,9 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
             $strusername = get_string('usernameemail');
         }
 
-
+        auth_googleoauth2_display_buttons();
         ?>
-            <?php require_once($CFG->dirroot . '/auth/googleoauth2/lib.php'); auth_googleoauth2_display_buttons(); ?>
+        
         <div class="loginbox clearfix <?php echo $columns ?>">
           <div class="loginpanel">
         <?php $mform_signup->display(); ?>
@@ -419,10 +407,10 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
             <div class="signuppanel">
               <h2><?php echo get_string('registertitle', 'theme_solerni') ?></h2>
               <div class="subcontent">
-                  <p align="center"><?php  print_string("loginsteps", 'theme_solerni');?></p>
+                  <p ><?php  print_string("loginsteps", 'theme_solerni');?></p>
                 <div class="signupform">
                   <form action="index.php" method="get" id="login">
-                  <div><input type="submit" value="<?php print_string("loginbutton", 'theme_solerni') ?>" /></div>
+                  <div><input class="btn btn-primary" type="submit" value="<?php print_string("loginbutton", 'theme_solerni') ?>" /></div>
                   </form>
                 </div>
 

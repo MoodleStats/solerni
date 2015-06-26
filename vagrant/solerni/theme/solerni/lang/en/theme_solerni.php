@@ -187,7 +187,7 @@ $string['loginbutton']              = "login";
 $string['registerbutton']              = "register";
 $string['passwordforgotten']        = "I have forgotten my password";
 $string['fieldsrequired']           = "* All fields required";
-$string['loginsteps']             = "Do you have a Solerni account?<p align=\"center\">
+$string['loginsteps']             = "Do you have a Solerni account?<p>
 Create an account from your e-mail or register with Facebook";
 $string['register']                 = "I register";
 $string['registerurl']              = "Register";
