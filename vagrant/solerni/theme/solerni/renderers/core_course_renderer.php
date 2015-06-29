@@ -478,7 +478,7 @@ class theme_solerni_core_course_renderer extends core_course_renderer {
 
     /*
      * Print the Solerni frontpage heading
-     * Jus before the courses list
+     * Just before the courses list
      *
      * @return string
      */

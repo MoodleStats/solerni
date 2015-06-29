@@ -176,7 +176,7 @@ $string['coursebadge']              = "Badges available";
 $string['coursenobadge']            = "No badges";
 
 // Frontpage frontend
-$string['ifreelyregister']          = "I freel register";
+$string['ifreelyregister']          = "I freely register";
 $string['seecatalog']               = "See the catalogue";
 
 // Login settings

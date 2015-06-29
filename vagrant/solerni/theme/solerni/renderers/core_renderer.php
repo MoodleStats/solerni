@@ -261,7 +261,7 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
                     if ( $PAGE->theme->settings->$setting ) : ?>
                     <li class="button_social_item">
                         <a href="<?php echo $PAGE->theme->settings->$setting; ?>" class="footer_column_menu_column__link" target="_blank">
-                            <span class="button_social_link__icon button_social_<?php echo $setting; ?>  -sprite-solerni"><?php echo $setting; ?></span><!--
+                            <span class="button_social_link__icon button_social_<?php echo $setting; ?>  -sprite-solerni"><?php echo $setting; ?></span><!-- !!! Do not remove this comment !!! Display Bugfix : Allow no spaces between 2 elements
                             --><span class="footer_icon_text">
                                 <?php echo get_string($setting . 'displayname', 'theme_solerni'); ?>
                             </span>
@@ -398,7 +398,6 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
 
         auth_googleoauth2_display_buttons();
         ?>
-        
         <div class="loginbox clearfix <?php echo $columns ?>">
           <div class="loginpanel">
         <?php $mform_signup->display(); ?>
