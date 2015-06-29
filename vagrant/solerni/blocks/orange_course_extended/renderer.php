@@ -144,7 +144,7 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
                         $text .= html_writer::tag('span', $extendedcourse->enrolledusers.' ', array('class' => 'slrn-bold'));
                     $text .= html_writer::end_tag('li');
                     $text .= html_writer::start_tag('li');
-                    $text .= $subscriptionbutton->set_button($context, $course);
+                    $text .= $subscriptionbutton->set_button($course);
                     $text .= html_writer::end_tag('li');
                     $text .= html_writer::start_tag('li');
                         $text .= html_writer::empty_tag('br');

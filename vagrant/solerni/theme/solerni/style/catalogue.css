@@ -1,4 +1,11 @@
-/* Affichage du header par client */
+/*
+ *
+ * Catalog style (/catalog)
+ *
+ * @package   theme_solerni
+ * @author    Orange / Solerni
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
 .slrn-header__column {
     width: 966px;
@@ -35,15 +42,8 @@
     color: black;
 }
 
-/* Affichage du bloc d'un cours */
-/* surcharge MOODLE */
-.coursebox {
-  background-color: rgb(238,238,239)!important;
-  margin: 20px 0 40px 0 !important;
-  color: #333333;
-  padding: 0px!important;
-  border: 0px!important;
-}
+/* Display a course block */
+/* MOODLE overloaded */
 
 .presentation__mooc__text__title {
     display: block;

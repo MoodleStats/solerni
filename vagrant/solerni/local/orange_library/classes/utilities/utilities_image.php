@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 class utilities_image {
     /**
      * Get an url to the new image processed depending on the options
-     * In case of error, we put an entry on the error_log and send back 
+     * In case of error, we put an entry on the error_log and send back
      * the original URL of image
      * If the moodle file object is given it is use in priority to access the file
      *
@@ -69,7 +69,7 @@ class utilities_image {
 
         // Check for remote image.
         // First try to use the moodle file object.
-        if ($file != null) {
+        if ($file) {
             $downloadimage = true;
             $localfilepath = $remotefolder.$file->get_filename();
             if (file_exists($localfilepath)) {
@@ -139,7 +139,7 @@ class utilities_image {
         }
 
         if ($create == true) {
-            if (!empty($w) and !empty($h)) {
+            if (!empty($w) && !empty($h)) {
 
                 list($width, $height) = getimagesize($imagepath);
                 $resize = $w;

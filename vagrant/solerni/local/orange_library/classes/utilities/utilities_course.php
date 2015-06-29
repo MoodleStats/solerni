@@ -22,19 +22,20 @@
  * @copyright   2015 Orange
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-namespace theme_solerni;
+namespace local_orange_library\utilities;
 
 use local_orange_library\extended_course\extended_course_object;
 use local_orange_library\enrollment\enrollment_object;
+use context_user;
 use context_course;
 use moodle_url;
 use context_helper;
 use coursecat_sortable_records;
 use course_in_list;
 
-class catalogue {
+class utilities_course {
 
-    public static function solerni_catalogue_get_customer_infos ($catid) {
+    public static function solerni_course_get_customer_infos ($catid) {
         global $CFG;
         require_once($CFG->dirroot . '/local/orange_customers/lib.php');
         $customer = customer_get_customerbycategoryid($catid);
@@ -42,15 +43,20 @@ class catalogue {
         return $customer;
     }
 
-    /*
+    /**
+     * Get all Solerni informations for a course
+     * using flexpage format (imply that we use the blocks/orange_course_extended)
      *
+     * @global type $DB
+     * @param type $course
+     * @return extended_course_object
      */
-    public static function solerni_catalogue_get_course_infos ($course) {
+    public static function solerni_get_course_infos ($course) {
         global $DB;
 
+        $extendedcourse = null;
         // We get more information only when flexpage format is used.
         if ($course->format == "flexpage") {
-            $courseid = $course->id;
             $context = context_course::instance($course->id);
 
             $extendedcourse = new extended_course_object();
@@ -61,26 +67,24 @@ class catalogue {
 
             $fs = get_file_storage();
             $files = $fs->get_area_files($context->id, 'format_flexpage', 'coursepicture', 0);
+            $extendedcourse->imgurl = null;
+            $extendedcourse->file = null;
             foreach ($files as $file) {
-                $ctxid = $file->get_contextid();
-                $cmpnt = $file->get_component();
-                $filearea = $file->get_filearea();
-                $itemid = $file->get_itemid();
-                $filepath = $file->get_filepath();
-                $filename = $file->get_filename();
+                $ctxid      = $file->get_contextid();
+                $cmpnt      = $file->get_component();
+                $filearea   = $file->get_filearea();
+                $itemid     = $file->get_itemid();
+                $filepath   = $file->get_filepath();
+                $filename   = $file->get_filename();
                 if ($filename != ".") {
                     $extendedcourse->imgurl = moodle_url::make_pluginfile_url($ctxid,
                             $cmpnt, $filearea, $itemid, $filepath, $filename);
-                    $extendedcourse->imgpath = $filepath;
-                } else {
-                    $extendedcourse->imgurl = null;
+                    $extendedcourse->file = $file;
                 }
             }
-
-            return $extendedcourse;
         }
 
-        return null;
+        return $extendedcourse;
 
     }
 
@@ -175,6 +179,9 @@ class catalogue {
     /**
      * Retrieves the list of courses accessible by user
      *
+     * Not all information is cached, try to avoid calling this method
+     * twice in the same request.
+     *
      * The following fields are always retrieved:
      * - id, visible, fullname, shortname, idnumber, category, sortorder
      *
@@ -199,6 +206,7 @@ class catalogue {
      *             array('idnumber' => 1, 'shortname' => 1, 'id' => -1)
      *             will sort by idnumber asc, shortname asc and id desc.
      *             Default: array('sortorder' => 1)
+     *             Only cached fields may be used for sorting!
      *    - offset
      *    - limit - maximum number of children to return, 0 or null for no limit
      *    - idonly - returns the array or course ids instead of array of objects
@@ -210,7 +218,7 @@ class catalogue {
         $recursive = !empty($options['recursive']);
         $offset = !empty($options['offset']) ? $options['offset'] : 0;
         $limit = !empty($options['limit']) ? $options['limit'] : null;
-        $sortfields = !empty($options['sort']) ? $options['sort'] : array('closed' => 1, 'timeleft' => 1, 'enddate' => -1, 'startdate' => -1);
+        $sortfields = !empty($options['sort']) ? $options['sort'] : array('closed' => 1, 'timeleft' => 1, 'enddate' => -1);
 
         // Check if this category is hidden.
         // Also 0-category never has courses unless this is recursive call.
@@ -310,7 +318,7 @@ class catalogue {
         $list = self::get_course_records(implode(' AND ', $where), $params,
                 array_diff_key($options, array('coursecontacts' => 0)), true);
 
-        // Sort list.
+        // Sort and cache list.
         self::sort_records($list, $sortfields);
 
         // Apply offset/limit, convert to course_in_list and return.
@@ -388,5 +396,117 @@ class catalogue {
         $courses = self::get_courses_catalogue($filter, $options);
         $cnt = count($courses);
         return $cnt;
+    }
+
+    /**
+     * Get the number of users enrolled in the course
+     *
+     * @param object $course
+     * @return int $nbenrolledusers
+     */
+    public function get_nb_users_enrolled_in_course($course) {
+        global $DB;
+        $courseid = $course->id;
+        $sqlrequest = "SELECT DISTINCT u.id AS userid, c.id AS courseid
+            FROM mdl_user u
+            JOIN mdl_user_enrolments ue ON ue.userid = u.id
+            JOIN mdl_enrol e ON e.id = ue.enrolid
+            JOIN mdl_role_assignments ra ON ra.userid = u.id
+            JOIN mdl_context ct ON ct.id = ra.contextid AND ct.contextlevel = 50
+            JOIN mdl_course c ON c.id = ct.instanceid AND e.courseid = ". $courseid."
+            JOIN mdl_role r ON r.id = ra.roleid AND r.shortname = 'student'
+            WHERE e.status = 0 AND u.suspended = 0 AND u.deleted = 0
+            AND (ue.timeend = 0 OR ue.timeend > NOW()) AND ue.status = 0";
+        $enrolledusers = $DB->get_records_sql($sqlrequest);
+        $nbenrolledusers = count ($enrolledusers);
+
+        return $nbenrolledusers;
+    }
+
+    /**
+     *  Get the category ID of a course.
+     *
+     * @return int $categoryid
+     */
+    public function get_categoryid() {
+        global $PAGE, $DB;
+         $context = $PAGE->context;
+        $coursecontext = $context->get_course_context();
+        $categoryid = null;
+        if ($coursecontext) { // No course context for system / user profile
+            $courseid = $coursecontext->instanceid;
+            $course = $DB->get_record('course', array('id' => $courseid), 'id, category');
+            if ($course) { // Should always exist, but just in case ...
+                $categoryid = $course->category;
+            }
+        }
+
+        return $categoryid;
+    }
+
+    /**
+     * Set the extended course values from config.
+     *
+     * @param object $context
+     * @return object $this->extendedcourse
+     */
+    public function get_categoryid_by_courseid($course) {
+        global $DB;
+        $categoryid = NULL;
+        $course = $DB->get_record('course', array('id' => $course->id), 'id, category');
+        if ($course) { // Should always exist, but just in case ...
+            $categoryid = $course->category;
+        }
+
+        return $categoryid;
+    }
+
+     /**
+     * Check if a user can see a course
+     *
+     * @param   $course object
+     * @param   $user object - if empty, we will use current $USER
+     * @return  (bool)
+     */
+    public function can_user_view_course($course, $user = null ) {
+
+        // Use global $USER if no user
+        if (!$user) {
+            global $USER;
+            $user = $USER;
+        }
+
+        // Check if course has self_enroll
+        $selfenrolment = new enrollment_object();
+        $enrolself = $selfenrolment->get_self_enrolment($course);
+
+        // If no self enrolment method, this is not a private mooc
+        if ( ! $enrolself ) {
+            return true;
+        }
+
+        // Always true if the user can create course
+        if ( isloggedin() && has_capability('moodle/course:create', context_user::instance($user->id)) ) {
+                return true;
+        }
+
+        // If enrolment, check for cohort and return true if no cohort
+        $cohortid = (int)$enrolself->customint5;
+        if ( ! $cohortid ) {
+            return true;
+        }
+
+        // Last case : we'll grant access wheither the user is in the cohort
+        return cohort_is_member($cohortid, $USER->id);
+    }
+
+    public function get_description_page_url($course = null) {
+
+        $url = '#';
+        if ($course) {
+            $url = new moodle_url('mod/descriptionpage/view.php', array('courseid' => $course->id));
+        }
+
+        return $url;
     }
 }
