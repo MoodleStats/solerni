@@ -164,9 +164,6 @@ class catalogue {
     /**
      * Retrieves the list of courses accessible by user
      *
-     * Not all information is cached, try to avoid calling this method
-     * twice in the same request.
-     *
      * The following fields are always retrieved:
      * - id, visible, fullname, shortname, idnumber, category, sortorder
      *
@@ -191,7 +188,6 @@ class catalogue {
      *             array('idnumber' => 1, 'shortname' => 1, 'id' => -1)
      *             will sort by idnumber asc, shortname asc and id desc.
      *             Default: array('sortorder' => 1)
-     *             Only cached fields may be used for sorting!
      *    - offset
      *    - limit - maximum number of children to return, 0 or null for no limit
      *    - idonly - returns the array or course ids instead of array of objects
@@ -203,7 +199,7 @@ class catalogue {
         $recursive = !empty($options['recursive']);
         $offset = !empty($options['offset']) ? $options['offset'] : 0;
         $limit = !empty($options['limit']) ? $options['limit'] : null;
-        $sortfields = !empty($options['sort']) ? $options['sort'] : array('closed' => 1, 'timeleft' => 1, 'enddate' => -1);
+        $sortfields = !empty($options['sort']) ? $options['sort'] : array('closed' => 1, 'timeleft' => 1, 'enddate' => -1, 'startdate' => -1);
 
         // Check if this category is hidden.
         // Also 0-category never has courses unless this is recursive call.
@@ -303,7 +299,7 @@ class catalogue {
         $list = self::get_course_records(implode(' AND ', $where), $params,
                 array_diff_key($options, array('coursecontacts' => 0)), true);
 
-        // Sort and cache list.
+        // Sort list.
         self::sort_records($list, $sortfields);
 
         // Apply offset/limit, convert to course_in_list and return.
