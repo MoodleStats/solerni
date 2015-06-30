@@ -455,7 +455,7 @@ class theme_solerni_core_course_renderer extends core_course_renderer {
 	public function course_info_box(stdClass $course) {
 		$content = '';
 		$content .= $this->output->box_start('generalbox info');
-		$content .= $this->render_solerni_mooc_component($course);
+		$content .= $this->render_solerni_mooc_component(null,$course,null);
 		$content .= $this->output->box_end();
 		return $content;
 	}
