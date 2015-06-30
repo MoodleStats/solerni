@@ -35,3 +35,5 @@ $string['actionthematics_list'] = 'Liste des thématiques';
 $string['confirmdeletethematic'] = 'Etes-vous sur de vouloir supprimer la thématique <b>{$a}</b> ?';
 $string['thematiciddeleted'] = 'La thématique {$a} a été supprimée.';
 $string['impossiblethematicdeleted'] = 'Impossible de supprimer la thématique {$a}. Elle est associée à un cours.';
+
+$string['orange_thematics:edit'] = 'Edition des thématiques';
