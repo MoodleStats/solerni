@@ -53,4 +53,4 @@ $string['noaddrulewarning'] = 'The rule can not be created. Two possible reasons
 
 $string['eventruleupdated'] = 'Rule updated';
 
-$string['orange_rules:edit'] = 'Edit a rules';
+$string['orange_rules:edit'] = 'Edit rules';
