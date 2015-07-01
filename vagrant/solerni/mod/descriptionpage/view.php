@@ -115,6 +115,6 @@ $content = format_text($contentrewrited, $page->contentformat, $formatoptions);
 echo $OUTPUT->box($content, "generalbox center clearfix");
 
 $strlastmodified = get_string("lastmodified");
-echo '<div class="text-center">'.$subscriptionbutton->set_button($context, $course).'</div>';
+echo '<div class="text-center">'.$subscriptionbutton->set_button($course).'</div>';
 
 echo $OUTPUT->footer();

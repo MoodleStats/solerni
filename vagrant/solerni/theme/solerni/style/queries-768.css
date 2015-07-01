@@ -1,0 +1,49 @@
+/*
+ *
+ * Queries styles before 768 pixels
+ *
+ * @package   theme_solerni
+ * @author    Orange / Solerni
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+@media screen and (max-width: 767px ) {
+
+    body {
+        padding-left:   0;
+        padding-right:  0;
+    }
+
+    .container-fluid {
+        padding: 0 20px;
+    }
+
+    /*
+     * Header & footer.
+     */
+    .navbar-fixed-top {
+        margin-left:    0;
+        margin-right:   0;
+    }
+
+    .footer-column {
+        padding: 0 2em;
+    }
+
+    /*
+     *  Frontpage header.
+     */
+    .frontpage-header__tagline {
+        font-size: 20px;
+    }
+
+    .frontpage-header__presentation {
+        font-size: 16px;
+    }
+
+    /* Course Component */
+    .slrn-coursebox__column--subscription_button {
+        bottom: 95px;
+    }
+
+}

@@ -3,6 +3,7 @@ vagrant/moodledata/*
 vagrant/solerni/nbproject/
 vagrant/override/*
 !vagrant/override/lang
+!vagrant/override/user/profile/field/menu
 .vagrant
 Vagrantfile
 vagrant/system
