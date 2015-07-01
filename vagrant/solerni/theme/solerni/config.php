@@ -34,6 +34,8 @@ global $PAGE, $CFG;
 $CFG->themedir = $CFG->dirroot . '/theme/solerni';
 $CFG->partialsdir = $CFG->themedir . '/layout/partials';
 
+
+
 $THEME->doctype         = 'html5';
 $THEME->yuicssmodules   = array();
 $THEME->name            = 'solerni';
@@ -47,7 +49,6 @@ $THEME->sheets          = array(
                             'general',
                             'footer-header',
                             'utils',
-                            'block-social',
                             'frontpage',
                             'queries-1180',
                             'queries-980',
@@ -114,11 +115,7 @@ $THEME->layouts = array(
         'regions' => array('side-pre', 'side-post'),
         'defaultregion' => 'side-pre',
     ),
-    'login' => array(
-        'file' => 'columns1.php',
-        'regions' => array(),
-        'options' => array('langmenu' => true),
-    ),
+
 
     // Pages that appear in pop-up windows - no navigation, no blocks, no header.
     'popup' => array(

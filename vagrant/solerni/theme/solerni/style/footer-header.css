@@ -14,7 +14,7 @@
 
 .slrn-top-header {
     position:           fixed;
-    background-color:   [[setting:primary]];
+    background-color:   [[setting:secondary]];
     height:             50px;
 
     box-shadow:         0 5px 5px [[setting:grey5]];
@@ -97,7 +97,7 @@
 /* header sub menus */
 
 .slrn-top-header .slrn-top-header__item .dropdown-menu {
-    background-color:   [[setting:primary]];
+    background-color:   [[setting:secondary]];
     box-shadow:         0 0 0 [[setting:grey2]];
     border:             1px solid [[setting:grey2]];
 
@@ -194,7 +194,7 @@
     height:             10px;
     border-radius:      100%;
     display:            inline-block;
-    background-color:   [[setting:primary]];
+    background-color:   [[setting:secondary]];
     position:           relative;
     bottom:             100%;
 }

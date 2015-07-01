@@ -32,10 +32,10 @@ class options {
         // Array of solerni color settings ( setting name => default value ).
         return array(
             'backcolor'         => '#FFFFFF',
-            'primary'           => '#4B667C',
-            'primaryhover'      => '#334554',
-            'secondary'         => '#FF004F',
-            'secondaryhover'    => '#D90045',
+            'primary'           => '#FF004F',
+            'primaryhover'      => '#D90045',
+            'secondary'         => '#4B667C',
+            'secondaryhover'    => '#334554',
             'tertiary'          => '#AAC044',
             'tertiaryhover'     => '#92A63A',
             'dark'              => '#000000',
