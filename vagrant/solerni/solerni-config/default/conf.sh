@@ -38,14 +38,21 @@ moosh config-set format flexpage moodlecourse
 # Default Theme (#us_185 and #us_186)
 moosh config-set theme solerni
 
-# maximum number of moocs to display in frontPage (#us_114 and #us_119)
+# Maximum number of moocs to display in frontPage (#us_114 and #us_119)
 moosh config-set frontpagecourselimit 5
 
-# default lang
+# Default lang
 moosh config-set lang fr
 
 # User policies : hide user fields (#us_110)
 moosh config-set hiddenuserfields icqnumber,skypeid,yahooid,aimid,msnid,lastip
 
-# update capability : See full user fields identity in lists (#us_110)
+# Update capability : See full user fields identity in lists (#us_110)
 moosh role-update-capability solerni_utilisateur moodle/site:viewuseridentity allow 1
+
+# Activation multilang Filter (#us_110)
+moosh filter-manage -c on multilang
+
+# Add capabilities orangeinvitation:config for coursecreator and solerni_course_creator (#us_7)
+moosh role-update-capability coursecreator enrol/orangeinvitation:config allow 1
+moosh role-update-capability solerni_course_creator enrol/orangeinvitation:config allow 1
