@@ -90,11 +90,15 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
                         $text .= html_writer::end_tag('i');
                         $text .= html_writer::tag('span', get_string('certification', 'format_flexpage'));
                         $text .= html_writer::empty_tag('br');
-            if ($extendedcourse->badge !=0) {
-                        $text .= html_writer::tag('span', get_string('badges', 'block_orange_course_extended').' ', array('class' => 'slrn-bold'));
+            if ($extendedcourse->badge != 0) {
+                        $text .= html_writer::tag('span',
+                                get_string('badges', 'block_orange_course_extended').' ',
+                                array('class' => 'slrn-bold'));
             }
-            if ($extendedcourse->certification!=0) {
-                        $text .= html_writer::tag('span', get_string('certification_default', 'block_orange_course_extended').' ', array('class' => 'slrn-bold'));
+            if ($extendedcourse->certification != 0) {
+                        $text .= html_writer::tag('span',
+                                get_string('certification_default', 'block_orange_course_extended').' ',
+                                array('class' => 'slrn-bold'));
             }
                     $text .= html_writer::end_tag('li');
         }
@@ -114,10 +118,12 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
                         $text .= html_writer::end_tag('i');
                         $text .= html_writer::tag('span', get_string('video', 'format_flexpage'));
                         $text .= html_writer::empty_tag('br');
-            if ($extendedcourse->subtitle!=0) {
+            if ($extendedcourse->subtitle != 0) {
                             $language = $extendedcourse->language;
                             $subtitle = $extendedcourse->subtitle;
-                        $text .= html_writer::tag('span', $language.' '.get_string('subtitle', 'block_orange_course_extended').' ', array('class' => 'slrn-bold'));
+                        $text .= html_writer::tag('span',
+                                $language.' '.get_string('subtitle', 'block_orange_course_extended').' ',
+                                array('class' => 'slrn-bold'));
             }
                     $text .= html_writer::end_tag('li');
         }
@@ -138,7 +144,7 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
                         $text .= html_writer::tag('span', $extendedcourse->enrolledusers.' ', array('class' => 'slrn-bold'));
                     $text .= html_writer::end_tag('li');
                     $text .= html_writer::start_tag('li');
-                    $text .= $subscriptionbutton->set_button($context, $course);
+                    $text .= $subscriptionbutton->set_button($course);
                     $text .= html_writer::end_tag('li');
                     $text .= html_writer::start_tag('li');
                         $text .= html_writer::empty_tag('br');

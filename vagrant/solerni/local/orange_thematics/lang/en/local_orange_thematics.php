@@ -26,16 +26,14 @@
 $string['pluginname'] = 'Orange thematics';
 $string['thematics'] = 'Manage thematics';
 $string['thematicid'] = 'Id.';
-$string['thematicname'] = 'Thématique';
+$string['thematicname'] = 'Thematic';
+$string['thematicname_help'] = 'You must specify the label of the thematic for the desired languages. Example :
+		&lt;span class="multilang" lang="fr"&gt;Ma thématique&lt;/span&gt;
+		&lt;span class="multilang" lang="en"&gt;My thematic&lt;/span&gt;';
 $string['definethematicsheader'] = 'Managing thematics';
 $string['actionthematics_list'] = 'List of thematics';
 $string['confirmdeletethematic'] = 'Are you sure you want to delete the thematic <b>{$a}</b> ?';
 $string['thematicdeleted'] = 'The thematic {$a} has been deleted.';
+$string['impossiblethematicdeleted'] = 'Impossible to delete the thematic {$a}. It is associated to a course.';
 
-$string['categoryname'] = 'Associated category';
-$string['customersummary'] = "Short description";
-$string['customerdescription'] = "Long description";
-$string['customerlogo'] = "Logo";
-$string['customerlogo_help'] = "Logo of customer";
-$string['customerpicture'] = "Picture";
-$string['customerpicture_help'] = "Presentation image of customer (top of page)";
+$string['orange_thematics:edit'] = 'Edit thematics';

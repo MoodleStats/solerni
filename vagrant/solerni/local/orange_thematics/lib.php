@@ -32,7 +32,7 @@ defined('MOODLE_INTERNAL') || die();
  * will create or update a new instance and return true if it was created or updated
  *
  * @param stdClass $thematic 
- * @return boolean
+ * @return int
  */
 function thematic_add_thematic($thematic) {
     global $CFG, $DB;
@@ -54,7 +54,7 @@ function thematic_add_thematic($thematic) {
 
 /**
  * Return the thematic identified by $id or all thematics
- *
+ * Language is calculated
  * @param int $id id of thematic
  * @return stdClass $thematics
  */
@@ -62,7 +62,34 @@ function thematic_get_thematic($id=null) {
     global $CFG, $DB;
 
     if ($id == null) {
-        $thematics = $DB->get_recordset('orange_thematics');
+
+        $thematics = $DB->get_records('orange_thematics');
+
+        foreach ($thematics as $key => $thematic) {
+            $temp = &$thematics[$key];
+            $temp->name = format_text($thematic->name);
+        }
+
+    } else {
+        $thematics = $DB->get_record('orange_thematics', array('id' => $id));
+        $thematics->name = format_text($thematics->name);
+    }
+
+    return $thematics;
+
+}
+
+/**
+ * Return the thematic identified by $id or all thematics
+ * return all languages
+ * @param int $id id of thematic
+ * @return stdClass $thematics
+ */
+function thematic_get_thematic_alllanguages($id=null) {
+    global $CFG, $DB;
+
+    if ($id == null) {
+        $thematics = $DB->get_records('orange_thematics');
     } else {
         $thematics = $DB->get_record('orange_thematics', array('id' => $id));
     }

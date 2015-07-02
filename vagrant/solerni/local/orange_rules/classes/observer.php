@@ -68,7 +68,7 @@ class local_orange_rules_observer {
         foreach ($rules as $rule) {
             // If email match whitelist then add to cohort.
             $emails = array_map("rtrim", explode("\n", $rule->emails));
-            if (in_array($user->email, $emails)) {                
+            if (in_array($user->email, $emails)) {
                     cohort_add_member($rule->cohortid, $user->id);
             }
 
@@ -80,4 +80,82 @@ class local_orange_rules_observer {
         }
     }
 
+    /**
+     * Triggered via user_updated event.
+     *
+     * @param \core\event\user_updated $event
+     */
+    public static function user_updated(\core\event\user_updated $event) {
+        global $DB;
+
+        $user = (object)$event->get_record_snapshot('user', $event->objectid);
+
+        // Read Orange Rules activated.
+        $clause = array('suspended' => 0);
+        $rules = $DB->get_records('orange_rules', $clause);
+
+        // User domain name.
+        $emailparts = explode('@', $user->email);
+        $userdomain = $emailparts[1];
+
+        foreach ($rules as $rule) {
+
+            $added = false;
+
+            // If email match whitelist then add to cohort.
+            $emails = array_map("rtrim", explode("\n", $rule->emails));
+            if (in_array($user->email, $emails)) {
+                cohort_add_member($rule->cohortid, $user->id);
+                $added = true;
+            }
+
+            // If the domains of the email match the whitelist.
+            $domains = array_map("rtrim", explode("\n", $rule->domains));
+            if (in_array($userdomain, $domains)) {
+                cohort_add_member($rule->cohortid, $user->id);
+                $added = true;
+            }
+
+            // If it has not been added and it is not enrolled in a course of the cohort, it is removed.
+            if ($added === false && (!is_user_enrolled_in_course($rule, $user->id)) ) {
+                cohort_remove_member($rule->cohortid, $user->id);
+            }
+        }
+    }
+
+
+    /**
+     * Triggered via rule_updated event.
+     * If an unregistered user at the course no longer satisfies the rule, he is removed from the cohort .
+     * 
+     * @param \local_orange_rules\event\rule_updated $event
+     */
+    public static function userregistration_updated(\local_orange_rules\event\rule_updated $event) {
+        global $DB;
+
+        $rule = (object)$event->get_record_snapshot('orange_rules', $event->objectid);
+
+        // Read Orange Rules.
+        $emails = array_map("rtrim", explode("\n", $rule->emails));
+        $domains = array_map("rtrim", explode("\n", $rule->domains));
+
+        // List of userid in the cohort.
+        $usersmembers = rule_get_users_cohort_member($rule);
+
+        // List of userid enrolled in a course of the cohort.
+        $enrolledusers = rule_get_users_enrolled_in_course($rule);
+
+        // Userid in the cohort but not enrolled in a course.
+        $usersidtotest = array_diff(array_keys($usersmembers), array_keys($enrolledusers));
+
+        // Test if the user must stay in the cohort.
+        foreach ($usersidtotest as $userid) {
+            $emailparts = explode('@', $usersmembers[$userid]->email);
+            $userdomain = $emailparts[1];
+            if ( !in_array($usersmembers[$userid]->email, $emails) && !in_array($userdomain, $domains) ) {
+                cohort_remove_member($rule->cohortid, $userid);
+            }
+
+        }
+    }
 }

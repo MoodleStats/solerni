@@ -28,18 +28,34 @@
  * @author   Shaun Daubney
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-global $PAGE;
+global $PAGE, $CFG;
+
+// Theme variable
+$CFG->themedir = $CFG->dirroot . '/theme/solerni';
+$CFG->partialsdir = $CFG->themedir . '/layout/partials';
+
+
 
 $THEME->doctype         = 'html5';
 $THEME->yuicssmodules   = array();
 $THEME->name            = 'solerni';
 $THEME->parents         = array('bootstrapbase');
-$THEME->sheets          = array('custom', 'blockicons', 'profilebar', 'font-awesome', 'settings', 'solerni');
+// general style sheets.
+$THEME->sheets          = array(
+                            'custom',
+                            'blockicons',
+                            'profilebar',
+                            'font-awesome',
+                            'general',
+                            'footer-header',
+                            'utils',
+                            'frontpage',
+                            'queries-1180',
+                            'queries-980',
+                            'queries-768',
+                            'queries-400'
+                        );
 
-// Frontpage styles
-if ( $PAGE->pagetype === 'site-index' ) {
-    $THEME->sheets[] = 'frontpage';
-}
 
 $THEME->supportscssoptimisation = false;
 $THEME->editor_sheets           = array('editor');
@@ -99,11 +115,7 @@ $THEME->layouts = array(
         'regions' => array('side-pre', 'side-post'),
         'defaultregion' => 'side-pre',
     ),
-    'login' => array(
-        'file' => 'columns1.php',
-        'regions' => array(),
-        'options' => array('langmenu' => true),
-    ),
+
 
     // Pages that appear in pop-up windows - no navigation, no blocks, no header.
     'popup' => array(

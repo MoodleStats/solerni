@@ -22,26 +22,42 @@
  * @copyright   2015 Orange
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+namespace theme_solerni;
 
-require_once($CFG->dirroot . '/local/orange_customers/lib.php');
+use local_orange_library\extended_course\extended_course_object;
+use local_orange_library\enrollment\enrollment_object;
+use context_course;
+use moodle_url;
+use context_helper;
+use coursecat_sortable_records;
+use course_in_list;
 
 class catalogue {
-    public static function solerni_catalogue_get_customer_infos ($catid) {
-        global $DB;
 
-        $customer = customer_get_customerbycategoryid ($catid);
+    public static function solerni_catalogue_get_customer_infos ($catid) {
+        global $CFG;
+        require_once($CFG->dirroot . '/local/orange_customers/lib.php');
+        $customer = customer_get_customerbycategoryid($catid);
 
         return $customer;
     }
 
+    /*
+     *
+     */
     public static function solerni_catalogue_get_course_infos ($course) {
         global $DB;
 
         // We get more information only when flexpage format is used.
         if ($course->format == "flexpage") {
-            $extendedcourse = new stdClass();
             $courseid = $course->id;
             $context = context_course::instance($course->id);
+
+            $extendedcourse = new extended_course_object();
+            $extendedcourse->get_extended_course($course, $context);
+
+            $category = $DB->get_record('course_categories', array('id' => $course->category));
+            $extendedcourse->categoryname = $category->name;
 
             $fs = get_file_storage();
             $files = $fs->get_area_files($context->id, 'format_flexpage', 'coursepicture', 0);
@@ -55,33 +71,17 @@ class catalogue {
                 if ($filename != ".") {
                     $extendedcourse->imgurl = moodle_url::make_pluginfile_url($ctxid,
                             $cmpnt, $filearea, $itemid, $filepath, $filename);
+                    $extendedcourse->imgpath = $filepath;
                 } else {
                     $extendedcourse->imgurl = null;
                 }
             }
 
-            $category = $DB->get_record('course_categories', array('id' => $course->category));
-            $extendedcourse->categoryname = $category->name;
-
-            $extendedcourseflexpagevalues = $DB->get_records('course_format_options', array('courseid' => $courseid));
-            foreach ($extendedcourseflexpagevalues as $extendedcourseflexpagevalue) {
-                switch ($extendedcourseflexpagevalue->name) {
-                    case 'coursepicture':
-                        $extendedcourse->picture = $extendedcourseflexpagevalue->value;
-                        break;
-                    case 'courseenddate':
-                        $extendedcourse->enddate = $extendedcourseflexpagevalue->value;
-                        break;
-                    case 'courseprice':
-                        $extendedcourse->price = $extendedcourseflexpagevalue->value;
-                        break;
-                }
-            }
-
             return $extendedcourse;
-        } else {
-            return null;
         }
+
+        return null;
+
     }
 
     /**
@@ -97,37 +97,70 @@ class catalogue {
      * @return array array of stdClass objects
      */
     public static function get_course_records($whereclause, $params, $options, $checkvisibility = false) {
-        global $DB;
+        global $DB, $USER;
         $ctxselect = context_helper::get_preload_record_columns_sql('ctx');
         $fields = array('c.id', 'c.category', 'c.sortorder',
                         'c.shortname', 'c.fullname', 'c.idnumber',
-                        'c.startdate', 'c.visible', 'c.cacherev', 'co.value');
+                        'c.startdate', 'c.visible', 'c.cacherev', 'co.value AS enddate', 'co2.value AS coursethematics');
         if (!empty($options['summary'])) {
             $fields[] = 'c.summary';
             $fields[] = 'c.summaryformat';
         } else {
             $fields[] = $DB->sql_substr('c.summary', 1, 1). ' as hassummary';
         }
+
         $sql = "SELECT ". join(',', $fields). ", $ctxselect
                 FROM {course} c
                 JOIN {context} ctx ON c.id = ctx.instanceid AND ctx.contextlevel = :contextcourse
-                JOIN {course_format_options} co ON c.id = co.courseid AND co.name = 'courseenddate'
+                LEFT OUTER JOIN {course_format_options} co ON c.id = co.courseid AND co.name = 'courseenddate'
+                LEFT OUTER JOIN {course_format_options} co2 ON c.id = co2.courseid AND co2.name = 'coursethematics'
                 WHERE ". $whereclause." ORDER BY c.sortorder";
-        $list = $DB->get_records_sql($sql,
-                array('contextcourse' => CONTEXT_COURSE) + $params);
+        $list = $DB->get_records_sql($sql, array('contextcourse' => CONTEXT_COURSE) + $params);
 
         if ($checkvisibility) {
             // Loop through all records and make sure we only return the courses accessible by user.
+            $selfenrolment = new enrollment_object();
             foreach ($list as $course) {
                 if (isset($list[$course->id]->hassummary)) {
                     $list[$course->id]->hassummary = strlen($list[$course->id]->hassummary) > 0;
                 }
+
+                // Set a flag if course is closed. Used to sort MOOC.
+                if (isset($list[$course->id]->enddate) && $list[$course->id]->enddate > time()) {
+                    $list[$course->id]->closed = false;
+                    $list[$course->id]->timeleft = $list[$course->id]->enddate - time();
+                } else {
+                    $list[$course->id]->closed = true;
+                    $list[$course->id]->timeleft = 0;
+                }
+
                 if (empty($course->visible)) {
                     // Load context only if we need to check capability.
                     context_helper::preload_from_record($course);
                     if (!has_capability('moodle/course:viewhiddencourses', context_course::instance($course->id))) {
                         unset($list[$course->id]);
                     }
+                }
+                $enrolself = $selfenrolment->get_self_enrolment($course);
+                if ($enrolself != null) {
+                    // We get the start and end for enrolment (is set).
+                    // If not set we set them to the start and end of course.
+                    if ($enrolself->enrolstartdate !=0) $list[$course->id]->enrolstartdate = $enrolself->enrolstartdate;
+                    $list[$course->id]->enrolstartdate = $course->startdate;
+                    if ($enrolself->enrolenddate !=0) $list[$course->id]->enrolenddate = $enrolself->enrolenddate;
+                    $list[$course->id]->enrolenddate = $course->enddate;
+
+                    // If selfenrol and cohort associated, the must must be part of the cohort to see the course.
+                    $cohortid = (int)$enrolself->customint5;
+                    if ($cohortid != 0) {
+                        if (!cohort_is_member($cohortid, $USER->id)) {
+                            unset($list[$course->id]);
+                        }
+                    }
+                } else {
+                    // No self enrolment method, then enrol start/end date = start/end of course.
+                    $list[$course->id]->enrolstartdate = $course->startdate;
+                    $list[$course->id]->enrolenddate = $course->enddate;
                 }
             }
         }
@@ -141,9 +174,6 @@ class catalogue {
 
     /**
      * Retrieves the list of courses accessible by user
-     *
-     * Not all information is cached, try to avoid calling this method
-     * twice in the same request.
      *
      * The following fields are always retrieved:
      * - id, visible, fullname, shortname, idnumber, category, sortorder
@@ -169,7 +199,6 @@ class catalogue {
      *             array('idnumber' => 1, 'shortname' => 1, 'id' => -1)
      *             will sort by idnumber asc, shortname asc and id desc.
      *             Default: array('sortorder' => 1)
-     *             Only cached fields may be used for sorting!
      *    - offset
      *    - limit - maximum number of children to return, 0 or null for no limit
      *    - idonly - returns the array or course ids instead of array of objects
@@ -181,17 +210,13 @@ class catalogue {
         $recursive = !empty($options['recursive']);
         $offset = !empty($options['offset']) ? $options['offset'] : 0;
         $limit = !empty($options['limit']) ? $options['limit'] : null;
-        $sortfields = !empty($options['sort']) ? $options['sort'] : array('sortorder' => 1);
+        $sortfields = !empty($options['sort']) ? $options['sort'] : array('closed' => 1, 'timeleft' => 1, 'enddate' => -1, 'startdate' => -1);
 
         // Check if this category is hidden.
         // Also 0-category never has courses unless this is recursive call.
         // if (!$this->is_uservisible() || (!$this->id && !$recursive)) {
         // return array();
         // }
-
-        // TODO-SLP
-        // Tenir compte du user afin d'afficher ou non les MOOCs privés
-        // Retrieve list of courses in category.
 
         $wherecategory = array();
         $params = array('siteid' => SITEID);
@@ -206,23 +231,36 @@ class catalogue {
             //$params['categoryid'] = $this->id;
         // }
 
+        // Filter on categories.
         if (($key = array_search(0, $filter->categoriesid)) !== false) {
             unset($filter->categoriesid[$key]);
         }
 
-        // Get list of courses without preloaded coursecontacts because we don't need them for every course.
         if (is_array($filter->categoriesid) && count($filter->categoriesid)) {
             $wherecategory[] = "c.category IN (".implode(',', $filter->categoriesid).")";
         } else {
             $wherecategory[] = "c.id != 0";
         }
 
+        // Filter on thematics.
+        $wherethematic = array();
+        if (($key = array_search(0, $filter->thematicsid)) !== false) {
+            unset($filter->thematicsid[$key]);
+        }
+        if (is_array($filter->thematicsid) && count($filter->thematicsid)) {
+            foreach ($filter->thematicsid as $thematicid) {
+                $wherethematic[] = "find_in_set ('" . $thematicid . "', co2.value) <> 0";
+            }
+        }
+
+        // Filter en status.
         $wherestatus = array();
         if (is_array($filter->statusid)) {
             foreach ($filter->statusid as $statusid) {
                 // En cours : date de début <= NOW et date de fin > NOW.
                 if ($statusid == 1) {
-                    $wherestatus[] = "(c.startdate <= UNIX_TIMESTAMP(CURRENT_TIMESTAMP) AND co.value > UNIX_TIMESTAMP(CURRENT_TIMESTAMP))";
+                    $wherestatus[] = "(c.startdate <= UNIX_TIMESTAMP(CURRENT_TIMESTAMP) AND " .
+                            "co.value > UNIX_TIMESTAMP(CURRENT_TIMESTAMP))";
                 }
                 // A venir : date de début > NOW.
                 if ($statusid == 2) {
@@ -235,6 +273,7 @@ class catalogue {
             }
         }
 
+        // Filter en duration.
         $whereduration = array();
         if (is_array($filter->durationsid)) {
             foreach ($filter->durationsid as $durationid) {
@@ -253,9 +292,13 @@ class catalogue {
             }
         }
 
+        // Construct the where claude.
         $where = array();
         if (count($wherecategory) != 0) {
             $where[] = '(' . implode(' OR ', $wherecategory) . ')';
+        }
+        if (count($wherethematic) != 0) {
+            $where[] = '(' . implode(' OR ', $wherethematic) . ')';
         }
         if (count($wherestatus) != 0) {
             $where[] = '(' . implode(' OR ', $wherestatus) . ')';
@@ -265,9 +308,9 @@ class catalogue {
         }
 
         $list = self::get_course_records(implode(' AND ', $where), $params,
-                array_diff_key($options, array('coursecontacts' => 1)), true);
+                array_diff_key($options, array('coursecontacts' => 0)), true);
 
-        // Sort and cache list.
+        // Sort list.
         self::sort_records($list, $sortfields);
 
         // Apply offset/limit, convert to course_in_list and return.
@@ -337,18 +380,13 @@ class catalogue {
      * @return int
      */
     public static function get_courses_catalogue_count($filter, $options = array()) {
-        $cntcachekey = 'lcnt-'. 'c'. '-'. (!empty($options['recursive']) ? 'r' : '');
-        $coursecatcache = cache::make('core', 'coursecat');
-        if (($cnt = $coursecatcache->get($cntcachekey)) === false) {
-            // Cached value not found. Retrieve ALL courses and return their count.
-            unset($options['offset']);
-            unset($options['limit']);
-            unset($options['summary']);
-            unset($options['coursecontacts']);
-            $options['idonly'] = true;
-            $courses = self::get_courses_catalogue($filter, $options);
-            $cnt = count($courses);
-        }
+        unset($options['offset']);
+        unset($options['limit']);
+        unset($options['summary']);
+        unset($options['coursecontacts']);
+        $options['idonly'] = true;
+        $courses = self::get_courses_catalogue($filter, $options);
+        $cnt = count($courses);
         return $cnt;
     }
 }

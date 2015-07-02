@@ -31,7 +31,7 @@ defined('MOODLE_INTERNAL') || die();
  * (defined by the form) this function
  * will create or update a new instance and return true if it was created or updated
  *
- * @param stdClass $customer 
+ * @param stdClass $customer
  * @return boolean
  */
 function customer_add_customer($customer) {
@@ -54,9 +54,9 @@ function customer_add_customer($customer) {
 
 /**
  * Return the customer identified by $id
- * 
+ *
  * @param int $id id of customer
- * @return stdClass $customer 
+ * @return stdClass $customer
  */
 function customer_get_customer($id) {
     global $CFG, $DB;
@@ -69,7 +69,7 @@ function customer_get_customer($id) {
 
 /**
  * Return the customer associated by $categoryid
- * 
+ *
  * @param int $categoryid id of category
  * @return stdClass $customer
  */
@@ -88,34 +88,33 @@ function customer_get_customerbycategoryid($categoryid) {
     $fs = get_file_storage();
     $files = $fs->get_area_files($context->id, 'local_orange_customers', 'logo', $customer->id, null, false);
 
-    $urlimg = "";
+    $customer->urlimg = null;
+    $customer->urlpicture = null;
 
     foreach ($files as $file) {
 
-        $urlimg = moodle_url::make_pluginfile_url($file->get_contextid(),
+        $customer->urlimg = moodle_url::make_pluginfile_url($file->get_contextid(),
                         $file->get_component(),
                         $file->get_filearea(),
                         $file->get_itemid(),
                         $file->get_filepath(),
                         $file->get_filename());
+        $customer->fileimg = $file;
     }
 
     $files = $fs->get_area_files($context->id, 'local_orange_customers', 'picture', $customer->id, null, false);
-    $urlpicture = "";
+
     foreach ($files as $file) {
-        $urlpicture = moodle_url::make_pluginfile_url($file->get_contextid(),
+        $customer->urlpicture = moodle_url::make_pluginfile_url($file->get_contextid(),
                         $file->get_component(),
                         $file->get_filearea(),
                         $file->get_itemid(),
                         $file->get_filepath(),
                         $file->get_filename());
+        $customer->filepicture = $file;
     }
 
-    $customer->urlimg = $urlimg;
-    $customer->urlpicture = $urlpicture;
-
     return $customer;
-
 }
 
 
