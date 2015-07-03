@@ -230,4 +230,35 @@ class block_flexpagemod_lib_mod {
             html_writer::tag('div', $output, array('class' => 'block_flexpagemod_default course-content'))
         );
     }
+
+    /**
+     * Add module commands when not using default rendering and Add completion 
+     *
+     * @return void
+     */
+    public function add_mod_commands_completion() {
+        global $PAGE;
+        $mod = $this->get_cm();
+        $renderer = $this->get_block()->page->get_renderer('core', 'course');
+
+        $buttons = "";
+        if (!$this->defaultused and $PAGE->user_is_editing()) {
+            $editactions = course_get_cm_edit_actions($mod);
+            // Don't allow these actions.
+            unset($editactions['move'], $editactions['title']);
+            $displayoptions = array('constraintselector' => '.block_flexpagemod');
+            $buttons = $renderer->course_section_cm_edit_actions($editactions, $mod, $displayoptions).$mod->afterediticons;
+            $buttons = html_writer::tag('div', $buttons, array('class' => 'block_flexpagemod_commands'));
+        }
+
+        // Add completion.
+        $course = $this->get_block()->page->course;
+        $modicons = $renderer->course_section_cm_completion($course, $completioninfo, $mod, array());
+
+        $this->get_block()->content->text = html_writer::tag(
+            'div',
+            $buttons.html_writer::span($modicons, 'actions').$this->get_block()->content->text,
+            array('class' => 'block_flexpagemod_commands_wrapper')
+        );
+    }
 }

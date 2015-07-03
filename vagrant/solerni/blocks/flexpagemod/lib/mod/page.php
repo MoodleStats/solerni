@@ -76,4 +76,13 @@ class block_flexpagemod_lib_mod_page extends block_flexpagemod_lib_mod {
                  ->append_content(html_writer::div(get_string("lastmodified").': '.userdate($page->timemodified), 'modified'));
         }
     }
+
+    /**
+     * Overload add_mod_commands() to add completion
+     *
+     * @return void
+     */
+    public function add_mod_commands() {
+        $this->add_mod_commands_completion();
+    }
 }
