@@ -8,7 +8,6 @@
 jQuery(window.document).on( 'ready', function() {
    
    jQuery('.slrn-header-search-input').placeholder();
-   console.log('puck');
     
 });
 

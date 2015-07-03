@@ -32,10 +32,10 @@ class options {
         // Array of solerni color settings ( setting name => default value ).
         return array(
             'backcolor'         => '#FFFFFF',
-            'primary'           => '#4B667C',
-            'primaryhover'      => '#334554',
-            'secondary'         => '#FF004F',
-            'secondaryhover'    => '#D90045',
+            'primary'           => '#FF004F',
+            'primaryhover'      => '#D90045',
+            'secondary'         => '#4B667C',
+            'secondaryhover'    => '#334554',
             'tertiary'          => '#AAC044',
             'tertiaryhover'     => '#92A63A',
             'dark'              => '#000000',
@@ -56,12 +56,13 @@ class options {
 
         // Array of solerni social settings ( setting name => default value ).
         return array(
-            'blog'              => '',
-            'facebook'          => '',
-            'twitter'           => '',
+            'blog'              => 'https://solerni.org/blog/',
+            'facebook'          => 'https://fr-fr.facebook.com/pages/Solerni/648508191861244',
+            'twitter'           => 'https://twitter.com/solerniofficiel',
             'googleplus'        => '',
             'linkedin'          => '',
-            'youtube'           => ''
+            'youtube'           => '',
+            'dailymotion'       => 'http://www.dailymotion.com/Solerni'
         );
     }
 
