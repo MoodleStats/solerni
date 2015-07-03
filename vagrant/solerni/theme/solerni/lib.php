@@ -41,6 +41,8 @@ function theme_solerni_page_init(moodle_page $page) {
  */
 function solerni_process_css($css, $theme) {
 
+    global $OUTPUT;
+
     // Get colors.
     $colorsettings = \theme_solerni\settings\options::solerni_get_colors_array();
     foreach ($colorsettings as $key => $value) {
@@ -54,7 +56,12 @@ function solerni_process_css($css, $theme) {
     }
 
     // replace header background image.
-    $backgroundheaderimage = $theme->setting_file_url('frontpageheaderimage', 'frontpageheaderimage');
+    if ( $theme->setting_file_url('frontpageheaderimage', 'frontpageheaderimage') ) {
+        $backgroundheaderimage = $theme->setting_file_url('frontpageheaderimage', 'frontpageheaderimage');
+    } else {
+        $backgroundheaderimage = $OUTPUT->pix_url('images-default/frontpage', 'theme_solerni');
+    }
+
     $css = str_replace( '[[setting:frontpageheaderimage]]', $backgroundheaderimage, $css );
 
     return $css;

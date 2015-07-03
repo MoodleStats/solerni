@@ -6,6 +6,7 @@
  * @package   theme_solerni
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+require_once($CFG->dirroot . '/auth/googleoauth2/lib.php');
 
 class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
 
@@ -25,18 +26,24 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
      * @isdummy
      */
     public function solerni_header_links() {
+        $aboutlink      = $this->page->theme->settings->about;
+        $cataloglink    = $this->page->theme->settings->catalogue;
     ?>
-        <li class="slrn-top-header__item">
-            <a class="slrn-top-header__item slrn-top-header__item--link" href="<?php echo $this->page->theme->settings->about; ?>">
-                <?php echo get_string('about', 'theme_solerni'); ?>
-            </a>
-        </li>
-        <li class="slrn-top-header__item">
-            <a class="slrn-top-header__item  slrn-top-header__item--link" href="<?php echo $this->page->theme->settings->catalogue; ?>">
-                <?php echo get_string('catalogue', 'theme_solerni'); ?>
-            </a>
-        </li>
-    <?php }
+        <?php if ($aboutlink) : ?>
+            <li class="slrn-top-header__item">
+                <a class="slrn-top-header__item slrn-top-header__item--link" href="<?php echo $this->page->theme->settings->about; ?>">
+                    <?php echo get_string('about', 'theme_solerni'); ?>
+                </a>
+            </li>
+        <?php endif; ?>
+        <?php if ($cataloglink) : ?>
+            <li class="slrn-top-header__item">
+                <a class="slrn-top-header__item  slrn-top-header__item--link" href="<?php echo $this->page->theme->settings->catalogue; ?>">
+                    <?php echo get_string('catalogue', 'theme_solerni'); ?>
+                </a>
+            </li>
+        <?php endif;
+    }
 
     /*
      * Echo lang menu
@@ -134,8 +141,7 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
             $content .= html_writer::start_tag('a', array(
                                                     'href'=>$url,
                                                     'class'=>'dropdown-toggle',
-                                                    'data-toggle'=>'dropdown',
-                                                    'title'=>$menunode->get_title()
+                                                    'data-toggle'=>'dropdown'
             ));
 
             $content .= $menu_title;
@@ -165,7 +171,7 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
                 $current_title .= '<i class="icon-ok"></i>';
             }
 
-            $content .= html_writer::link($url, $current_title, array('title'=>$menunode->get_title(), 'class' => $classes ));
+            $content .= html_writer::link($url, $current_title, array('class' => $classes ));
         }
         return $content;
     }
@@ -182,4 +188,239 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
         return preg_match ( "#$fragment#", $page_path );
 
     }
+
+    /*
+     * @param: (array) list of settings
+     *
+     * @return (boolean) true if one of the settings exists, false otherwise
+     */
+    protected function is_theme_settings_exists( $settings = array() ) {
+        global $PAGE;
+
+        $return = false;
+        foreach ( $settings as $setting ) {
+            if ( $PAGE->theme->settings->$setting ) {
+                $return = true;
+            }
+        }
+
+        return $return;
+    }
+
+    /*
+     * @param: (string) title of the columon
+     * @param: (array) list of settings names (translation keys must match)
+     *
+     * Check for each settings if exists
+     *
+     * @return: Footer Column HTML Fragment
+     */
+    protected function render_footer_column_with_links( $title, $settings = array() ) {
+        global $PAGE;
+
+        if ( $title && $this->is_theme_settings_exists($settings) ) :
+    ?>
+        <div class="span2 footer-column ">
+            <p class="footer_column_title">
+                <?php echo get_string($title, 'theme_solerni'); ?>
+            </p>
+            <ul class="footer_column_menu__column">
+                <?php foreach ( $settings as $setting )  :
+                    if ( $PAGE->theme->settings->$setting ) : ?>
+                        <li class="footer_column__item">
+                            <a class="footer_column_menu_column__link" href="<?php echo $PAGE->theme->settings->$setting; ?>">
+                                <?php echo get_string($setting, 'theme_solerni'); ?>
+                            </a>
+                        </li>
+                    <?php endif;
+                endforeach; ?>
+            </ul>
+        </div>
+    <?php endif;
+    }
+
+    /*
+     * @param: (string) title of the columon
+     * @param: (array) list of settings names (translation keys and CSS classes must match)
+     *
+     * Check for each settings if exists
+     *
+     * @return: Footer Column HTML Fragment
+     */
+    protected function render_footer_column_socials( $title, $settings = array() ) {
+        global $PAGE;
+
+        if ( $title && $this->is_theme_settings_exists($settings)) :
+    ?>
+        <div class="span2 footer-column ">
+            <p class="footer_column_title">
+                <?php echo get_string($title, 'theme_solerni'); ?>
+            </p>
+            <ul class="footer_column_menu__column">
+                <?php foreach ( $settings as $setting )  :
+                    if ( $PAGE->theme->settings->$setting ) : ?>
+                    <li class="button_social_item">
+                        <a href="<?php echo $PAGE->theme->settings->$setting; ?>" class="footer_column_menu_column__link" target="_blank">
+                            <span class="button_social_link__icon button_social_<?php echo $setting; ?>  -sprite-solerni"><?php echo $setting; ?></span><!-- !!! Do not remove this comment !!! Display Bugfix : Allow no spaces between 2 elements
+                            --><span class="footer_icon_text">
+                                <?php echo get_string($setting . 'displayname', 'theme_solerni'); ?>
+                            </span>
+                        </a>
+                    </li>
+                 <?php endif; endforeach; ?>
+            </ul>
+        </div>
+    <?php endif;
+    }
+
+    /*
+     * @param: (string) title of the columon
+     * @param: (array) list of settings names (translation keys must match)
+     *
+     * Check for each settings if exists
+     *
+     * @return: Footer Column HTML Fragment
+     */
+    public function solerni_login_render_form($show_instructions, $frm) {
+        global $PAGE, $CFG;
+
+        if ($show_instructions) {
+            $columns = 'twocolumns';
+        } else {
+            $columns = 'onecolumn';
+        }
+
+        if (!empty($CFG->loginpasswordautocomplete)) {
+            $autocomplete = 'autocomplete="off"';
+        } else {
+            $autocomplete = '';
+        }
+        if (empty($CFG->authloginviaemail)) {
+            $strusername = get_string('username');
+        } else {
+            $strusername = get_string('usernameemail');
+        }
+        auth_googleoauth2_display_buttons();
+        ?>
+        <div class="loginbox clearfix <?php echo $columns ?>">
+          <div class="loginpanel">
+        <?php
+          if (($CFG->registerauth == 'email') || !empty($CFG->registerauth)) { ?>
+              <div class="skiplinks"><a class="skip" href="signup.php"><?php print_string("tocreatenewaccount"); ?></a></div>
+        <?php
+          } ?>
+            <h2><?php print_string("logintitle", 'theme_solerni') ?></h2>
+              <div class="subcontent loginsub">
+                <?php
+                  if (!empty($errormsg)) {
+                      echo html_writer::start_tag('div', array('class' => 'loginerrors'));
+                      echo html_writer::link('#', $errormsg, array('id' => 'loginerrormessage', 'class' => 'accesshide'));
+                      echo $this->error_text($errormsg);
+                      echo html_writer::end_tag('div');
+                  }
+                ?>
+                <form action="<?php echo $CFG->httpswwwroot; ?>/login/index.php" method="post" id="login" <?php echo $autocomplete; ?> >
+                  <div class="loginform">
+                    <div class="form-label"><label for="username"><?php echo($strusername) ?></label></div>
+                    <div class="form-input">
+                      <input type="text" name="username" id="username" size="15" value="<?php p($frm->username) ?>" />
+                    </div>
+                    <div class="clearer"><!-- --></div>
+                    <div class="form-label"><label for="password"><?php print_string("password") ?></label></div>
+                    <div class="form-input">
+                      <input type="password" name="password" id="password" size="15" value="" <?php echo $autocomplete; ?> />
+                    </div>
+                  </div>
+                    <div class="clearer"><!-- --></div>
+                      <?php if (isset($CFG->rememberusername) and $CFG->rememberusername == 2) { ?>
+                      <div class="rememberpass">
+                          <input type="checkbox" name="rememberusername" id="rememberusername" value="1" <?php if ($frm->username) {echo 'checked="checked"';} ?> />
+                          <label for="rememberusername"><?php print_string('rememberusername', 'admin') ?></label>
+                      </div>
+                      <?php } ?>
+                  <div class="clearer"><!-- --></div>
+                  <input class="btn btn-primary"type="submit" id="loginbtn" value="<?php print_string("login") ?>" />
+                  <div class="forgetpass"><a href="forgot_password.php"><?php print_string("forgotten") ?></a></div>
+                </form>
+                <div class="desc">
+                    <?php
+                        echo get_string("cookiesenabled");
+                        echo $this->help_icon('cookiesenabled');
+                    ?>
+                </div>
+              </div>
+
+             </div>
+        <?php if ($show_instructions) { ?>
+            <div class="signuppanel">
+              <h2><?php print_string("register", 'theme_solerni' ) ?></h2>
+              <div class="subcontent">
+                    <p align="center"><?php  print_string("loginsteps", 'theme_solerni');?></p>
+                  <div class="signupform">
+                           <form action="signup.php" method="get" id="signup">
+                           <div><input class="btn btn-primary" type="submit" value="<?php print_string("registerbutton", 'theme_solerni') ?>" /></div>
+                           </form>
+                         </div>
+              </div>
+            </div>
+        <?php } ?>
+        </div>
+            <?php
+            }
+
+    /*
+     * @param: (string) title of the columon
+     * @param: (array) list of settings names (translation keys must match)
+     *
+     * Check for each settings if exists
+     *
+     * @return: Footer Column HTML Fragment
+     */
+    public function solerni_register_render_form($show_instructions, $mform_signup) {
+        global $PAGE, $CFG;
+
+        if ($show_instructions) {
+            $columns = 'twocolumns';
+        } else {
+            $columns = 'onecolumn';
+        }
+
+        if (!empty($CFG->loginpasswordautocomplete)) {
+            $autocomplete = 'autocomplete="off"';
+        } else {
+            $autocomplete = '';
+        }
+        if (empty($CFG->authloginviaemail)) {
+            $strusername = get_string('username');
+        } else {
+            $strusername = get_string('usernameemail');
+        }
+
+        auth_googleoauth2_display_buttons();
+        ?>
+        <div class="loginbox clearfix <?php echo $columns ?>">
+          <div class="loginpanel">
+        <?php $mform_signup->display(); ?>
+             </div>
+        <?php if ($show_instructions) { ?>
+            <div class="signuppanel">
+              <h2><?php echo get_string('registertitle', 'theme_solerni') ?></h2>
+              <div class="subcontent">
+                  <p ><?php  print_string("loginsteps", 'theme_solerni');?></p>
+                <div class="signupform">
+                  <form action="index.php" method="get" id="login">
+                  <div><input class="btn btn-primary" type="submit" value="<?php print_string("loginbutton", 'theme_solerni') ?>" /></div>
+                  </form>
+                </div>
+
+              </div>
+            </div>
+        <?php } ?>
+
+        </div>
+
+            <?php
+            }
+
+
 }

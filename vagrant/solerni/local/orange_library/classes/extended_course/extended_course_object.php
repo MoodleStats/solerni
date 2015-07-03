@@ -24,6 +24,7 @@
 namespace local_orange_library\extended_course;
 
 use local_orange_library\utilities\utilities_object;
+use local_orange_library\utilities\utilities_course;
 use local_orange_library\enrollment\enrollment_object;
 
 defined('MOODLE_INTERNAL') || die();
@@ -165,31 +166,33 @@ class extended_course_object {
      * @param moodle_url $imgurl
      * @return object $this->extendedcourse
      */
-    public function get_extended_course ($course, $context) {
+    public function get_extended_course($course, $context) {
         global $DB;
-        $utilities = new utilities_object();
-        $courseid = $course->id;
-        $categoryid = $utilities->get_categoryid_by_courseid($courseid);
+        $utilitiescourse = new utilities_course();
+        $categoryid = $utilitiescourse->get_categoryid_by_courseid($course);
         $customer = customer_get_customerbycategoryid($categoryid);
         $selfenrolment = new enrollment_object();
         $instance = $selfenrolment->get_self_enrolment($course);
-
-        if ($courseid) {
-            $extendedcourseflexpagevalues = $DB->get_records('course_format_options', array('courseid' => $courseid));
-            foreach ($extendedcourseflexpagevalues as $extendedcourseflexpagevalue) {
-                if ($extendedcourseflexpagevalue->format == "flexpage") {
-                    $this->set_extended_course($extendedcourseflexpagevalue);
-                }
-            }
-            $this->enrolledusers = count_enrolled_users($context);
-            if ($customer) {
-                $this->registrationcompany = $customer->name;
-            }
-            $this->enrolstartdate = $instance->enrolstartdate;
-            $this->enrolenddate = $instance->enrolenddate;
-            $this->maxregisteredusers = $instance->customint3;
-
+        if(!is_object($instance)){
+            echo $course->id;
         }
+        $extendedcourseflexpagevalues = $DB->get_records('course_format_options',
+                array('courseid' => $course->id));
+        foreach ($extendedcourseflexpagevalues as $extendedcourseflexpagevalue) {
+            if ($extendedcourseflexpagevalue->format == "flexpage") {
+                $this->set_extended_course($extendedcourseflexpagevalue);
+            }
+        }
+        $this->enrolledusers = count_enrolled_users($context);
+        if ($customer) {
+            $this->registrationcompany = $customer->name;
+        }
+        $this->enrolledusers = count_enrolled_users($context);
+        $this->enrolstartdate = $instance->enrolstartdate;
+        $this->enrolenddate = $instance->enrolenddate;
+        $this->maxregisteredusers = $instance->customint3;
+
+
     }
 
     /**

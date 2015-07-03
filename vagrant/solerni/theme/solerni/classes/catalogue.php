@@ -22,20 +22,29 @@
  * @copyright   2015 Orange
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+namespace theme_solerni;
 
-require_once($CFG->dirroot . '/local/orange_customers/lib.php');
 use local_orange_library\extended_course\extended_course_object;
 use local_orange_library\enrollment\enrollment_object;
+use context_course;
+use moodle_url;
+use context_helper;
+use coursecat_sortable_records;
+use course_in_list;
 
 class catalogue {
-    public static function solerni_catalogue_get_customer_infos ($catid) {
-        global $DB;
 
-        $customer = customer_get_customerbycategoryid ($catid);
+    public static function solerni_catalogue_get_customer_infos ($catid) {
+        global $CFG;
+        require_once($CFG->dirroot . '/local/orange_customers/lib.php');
+        $customer = customer_get_customerbycategoryid($catid);
 
         return $customer;
     }
 
+    /*
+     *
+     */
     public static function solerni_catalogue_get_course_infos ($course) {
         global $DB;
 
@@ -62,15 +71,17 @@ class catalogue {
                 if ($filename != ".") {
                     $extendedcourse->imgurl = moodle_url::make_pluginfile_url($ctxid,
                             $cmpnt, $filearea, $itemid, $filepath, $filename);
+                    $extendedcourse->imgpath = $filepath;
                 } else {
                     $extendedcourse->imgurl = null;
                 }
             }
 
             return $extendedcourse;
-        } else {
-            return null;
         }
+
+        return null;
+
     }
 
     /**
@@ -164,9 +175,6 @@ class catalogue {
     /**
      * Retrieves the list of courses accessible by user
      *
-     * Not all information is cached, try to avoid calling this method
-     * twice in the same request.
-     *
      * The following fields are always retrieved:
      * - id, visible, fullname, shortname, idnumber, category, sortorder
      *
@@ -191,7 +199,6 @@ class catalogue {
      *             array('idnumber' => 1, 'shortname' => 1, 'id' => -1)
      *             will sort by idnumber asc, shortname asc and id desc.
      *             Default: array('sortorder' => 1)
-     *             Only cached fields may be used for sorting!
      *    - offset
      *    - limit - maximum number of children to return, 0 or null for no limit
      *    - idonly - returns the array or course ids instead of array of objects
@@ -203,7 +210,7 @@ class catalogue {
         $recursive = !empty($options['recursive']);
         $offset = !empty($options['offset']) ? $options['offset'] : 0;
         $limit = !empty($options['limit']) ? $options['limit'] : null;
-        $sortfields = !empty($options['sort']) ? $options['sort'] : array('closed' => 1, 'timeleft' => 1, 'enddate' => -1);
+        $sortfields = !empty($options['sort']) ? $options['sort'] : array('closed' => 1, 'timeleft' => 1, 'enddate' => -1, 'startdate' => -1);
 
         // Check if this category is hidden.
         // Also 0-category never has courses unless this is recursive call.
@@ -303,7 +310,7 @@ class catalogue {
         $list = self::get_course_records(implode(' AND ', $where), $params,
                 array_diff_key($options, array('coursecontacts' => 0)), true);
 
-        // Sort and cache list.
+        // Sort list.
         self::sort_records($list, $sortfields);
 
         // Apply offset/limit, convert to course_in_list and return.

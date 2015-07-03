@@ -60,6 +60,12 @@ function rule_add_rule($rule) {
 
     } else {
         $DB->update_record('orange_rules', $rule);
+
+        $event = \local_orange_rules\event\rule_updated::create(array(
+                'context' => context_system::instance(),
+                'objectid' => $rule->id,
+        ));
+        $event->trigger();
     }
 
     // Affects users that match the rule to the cohort.
@@ -155,5 +161,80 @@ function rule_existcohort($cohortid) {
     global $DB;
 
     return $DB->record_exists('cohort', array('id' => $cohortid));
+}
+
+
+/**
+ * Return the list of userid (member to cohort associated to rule, in self enrolment) enrolled in a course 
+ *
+ * @param stdClass $rule 
+ * @return $stdClass
+ */
+function rule_get_users_enrolled_in_course($rule) {
+    // In cohort.
+    global $DB;
+    $enrolledusers = new stdClass();
+
+    $sqlrequest = "select U.id FROM {user} U
+            LEFT OUTER JOIN {user_enrolments} UE ON (U.id = UE.userid)
+            LEFT OUTER JOIN {enrol} E ON (E.id = UE.enrolid)
+            LEFT OUTER JOIN {orange_rules} R ON (R.cohortid = E.customint5)
+            WHERE E.enrol='self' and R.id=" . $rule->id;
+
+    $enrolledusers = $DB->get_records_sql($sqlrequest);
+
+    return $enrolledusers;
+
+}
+
+/**
+ * Return if user is enrolled in a course (associated to rule)
+ *
+ * @param stdClass $rule
+ * @param int $userid
+ * @return $stdClass
+ */
+function is_user_enrolled_in_course($rule, $userid) {
+    // In cohort.
+    global $DB;
+    $enrolledusers = new stdClass();
+
+    $sqlrequest = "select U.id FROM    {user} U
+            LEFT OUTER JOIN {user_enrolments} UE ON (U.id = UE.userid)
+            LEFT OUTER JOIN {enrol} E ON (E.id = UE.enrolid)
+            LEFT OUTER JOIN {orange_rules} R ON (R.cohortid = E.customint5)
+            WHERE E.enrol='self'
+            AND R.id=" . $rule->id . " AND U.id = " . $userid;
+
+    $enrolledusers = $DB->get_records_sql($sqlrequest);
+    $nbenrolledusers = count ($enrolledusers);
+
+    if ($nbenrolledusers == 0) {
+        return false;
+    }
+
+    return true;
+
+}
+
+/**
+ * Return the users member of the cohort associated to the rule
+ *
+ * @param stdClass $rule 
+ * @return $stdClass
+ */
+function rule_get_users_cohort_member($rule) {
+    // In cohort.
+    global $DB;
+    $usersmembers = new stdClass();
+
+    $sqlrequest = "select U.id, U.email FROM {user} U
+            LEFT OUTER JOIN {cohort_members} CM ON (U.id=CM.userid)
+            LEFT OUTER JOIN {orange_rules} R ON (R.cohortid = CM.cohortid)
+            WHERE R.id=" . $rule->id;
+
+    $usersmembers = $DB->get_records_sql($sqlrequest);
+
+    return $usersmembers;
 
 }
