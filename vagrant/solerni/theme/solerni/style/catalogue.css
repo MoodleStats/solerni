@@ -42,8 +42,7 @@
     color: black;
 }
 
-/* Display a course block */
-/* MOODLE overloaded */
+/* Course block display - Moodle override */
 
 .presentation__mooc__text__title {
     display: block;
