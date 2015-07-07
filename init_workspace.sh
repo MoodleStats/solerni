@@ -305,6 +305,9 @@ function create_subtrees () {
 
 	# OU Blog (master = 2.7 r1)
 	init_subtree vagrant/solerni/mod/oublog oublog-source https://github.com/moodleou/moodle-mod_oublog.git MOODLE_27_STABLE
+
+	# mail (master = MOODLE_LEGACY) MOODLE 2.6-2.7
+	init_subtree vagrant/solerni/local/mail mail-source https://github.com/IOC/moodle-local_mail.git MOODLE_LEGACY
 }
 
 
