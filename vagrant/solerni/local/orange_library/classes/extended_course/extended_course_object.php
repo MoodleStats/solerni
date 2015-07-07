@@ -163,7 +163,6 @@ class extended_course_object {
      *
      * @param object $context
      * @param object $course
-     * @param moodle_url $imgurl
      * @return object $this->extendedcourse
      */
     public function get_extended_course($course, $context) {
@@ -173,7 +172,7 @@ class extended_course_object {
         $customer = customer_get_customerbycategoryid($categoryid);
         $selfenrolment = new enrollment_object();
         $instance = $selfenrolment->get_self_enrolment($course);
-        if(!is_object($instance)){
+        if (!is_object($instance)) {
             echo $course->id;
         }
         $extendedcourseflexpagevalues = $DB->get_records('course_format_options',
@@ -192,15 +191,12 @@ class extended_course_object {
         $this->enrolenddate = $instance->enrolenddate;
         $this->maxregisteredusers = $instance->customint3;
 
-
     }
 
     /**
      *  Set the extended course values from the extended course flexpage values.
      *
      * @param object $extendedcourseflexpagevalue
-     * @param object $context
-     * @param object $extendedcourse
      * @return object $this->extendedcourse
      */
     private function set_extended_course ($extendedcourseflexpagevalue) {
@@ -280,7 +276,6 @@ class extended_course_object {
      *  Get the extended course language from the extended course flexpage values.
      *
      * @param object $extendedcourseflexpagevalue
-     * @param object $extendedcourse
      * @return string $this->extendedcourse->language
      */
     private function get_language ($extendedcourseflexpagevalue) {

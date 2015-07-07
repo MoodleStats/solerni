@@ -31,43 +31,41 @@ use local_orange_library\subscription_button\subscription_button_object;
 
 // Required to extend core_course_renderer that does not have a namespace.
 require_once($CFG->dirroot . '/course/renderer.php');
-//require_once($CFG->dirroot . '/cohort/lib.php');
 
 class theme_solerni_core_course_renderer extends core_course_renderer {
 
     /**
-	 * Returns HTML to print list of available courses for the frontpage
+     *  Returns HTML to print list of available courses for the frontpage
      *
      * This is an override from Moodle in order to add a custom heading on frontpage.
      * That's all Folks.
-	 *
-	 * @return string
-	 */
-	public function frontpage_available_courses() {
-		global $CFG;
-		require_once($CFG->libdir. '/coursecatlib.php');
+     *
+     * @return string
+     */
+    public function frontpage_available_courses() {
+        global $CFG;
+        require_once($CFG->libdir. '/coursecatlib.php');
 
-		$chelper = new coursecat_helper();
-		$chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_EXPANDED)->
-		set_courses_display_options(array(
-				'recursive' => true,
-				'limit' => $CFG->frontpagecourselimit,
-				'viewmoreurl' => new moodle_url('/course/index.php'),
-				'viewmoretext' => new lang_string('fulllistofcourses')));
+        $chelper = new coursecat_helper();
+        $chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_EXPANDED)->set_courses_display_options(
+                array(
+                        'recursive' => true,
+                        'limit' => $CFG->frontpagecourselimit,
+                        'viewmoreurl' => new moodle_url('/course/index.php'),
+                        'viewmoretext' => new lang_string('fulllistofcourses')));
 
-		$chelper->set_attributes(array('class' => 'frontpage-course-list-all'));
-		$courses = coursecat::get(0)->get_courses($chelper->get_courses_display_options());
-		$totalcount = coursecat::get(0)->get_courses_count($chelper->get_courses_display_options());
-		if (!$totalcount && !$this->page->user_is_editing() && has_capability('moodle/course:create', context_system::instance())) {
-			// Print link to create a new course, for the 1st available category.
-			return $this->add_new_course_button();
-		}
+        $chelper->set_attributes(array('class' => 'frontpage-course-list-all'));
+        $courses = coursecat::get(0)->get_courses($chelper->get_courses_display_options());
+        $totalcount = coursecat::get(0)->get_courses_count($chelper->get_courses_display_options());
+        if (!$totalcount && !$this->page->user_is_editing() && has_capability('moodle/course:create', context_system::instance())) {
+                // Print link to create a new course, for the 1st available category.
+                return $this->add_new_course_button();
+        }
 
         // Add heading before frontpage mooc list.
         echo $this->solerni_frontpage_heading();
-
-		return $this->coursecat_courses($chelper, $courses, $totalcount);
-	}
+        return $this->coursecat_courses($chelper, $courses, $totalcount);
+    }
 
     /**
      * Override from Moodle
@@ -123,7 +121,8 @@ class theme_solerni_core_course_renderer extends core_course_renderer {
             $content .= "<div class='slrn-header__column'>";
             if ($customer->urlpicture != "") {
                 $content .= "<div><img class='header-background-img' src='";
-                $content .= utilities_image::get_resized_url($customer->urlpicture, array ('scale' => 'true', 'h' => 216, 'w' => 966));
+                $content .= utilities_image::get_resized_url($customer->urlpicture,
+                        array ('scale' => 'true', 'h' => 216, 'w' => 966));
                 $content .= "' alt='{$customer->name}' /></div>";
             }
             if ($customer->urlimg != "") {
@@ -390,75 +389,76 @@ class theme_solerni_core_course_renderer extends core_course_renderer {
      * @param type $additionalclasses
      * @return string
      */
-    function render_solerni_mooc_component($chelper, $course, $additionalclasses = '') {
-            global $CFG;
+    public function render_solerni_mooc_component($chelper, $course, $additionalclasses = '') {
+        global $CFG;
 
-            if (!$chelper) {
-                $chelper = $this->solerni_create_mooc_helper();
-            }
+        if (!$chelper) {
             $chelper = $this->solerni_create_mooc_helper();
-            if ($chelper->get_show_courses() <= self::COURSECAT_SHOW_COURSES_COUNT) {
-                return '';
-            }
+        }
+        $chelper = $this->solerni_create_mooc_helper();
+        if ($chelper->get_show_courses() <= self::COURSECAT_SHOW_COURSES_COUNT) {
+            return '';
+        }
 
-            if ($course instanceof stdClass) {
-                require_once($CFG->libdir. '/coursecatlib.php');
-                $course = new course_in_list($course);
-            }
+        if ($course instanceof stdClass) {
+            require_once($CFG->libdir. '/coursecatlib.php');
+            $course = new course_in_list($course);
+        }
 
-            if (!isset($this->strings->summary)) {
-                $this->strings->summary = get_string('summary');
-            }
+        if (!isset($this->strings->summary)) {
+            $this->strings->summary = get_string('summary');
+        }
 
-            // Instanciate Solerni objects
-            $badges                 = new badges_object();
-            $utilitiescourse        = new utilities_course();
-            $imageutilities         = new utilities_image();
-            $subscriptionbutton     = new subscription_button_object();
-            $utilities              = new utilities_object();
+        // Instanciate Solerni objects.
+        $context = context_course::instance($course->id);
+        $badges                 = new badges_object();
+        $utilitiescourse        = new utilities_course();
+        $imageutilities         = new utilities_image();
+        $subscriptionbutton     = new subscription_button_object($context, $course);
+        $utilities              = new utilities_object();
 
-            // Get customer info related to Moodle catagory.
-            $customer = $utilitiescourse->solerni_course_get_customer_infos($course->category);
-            // Get course informations.
-            $courseinfos = $utilitiescourse->solerni_get_course_infos($course);
+        // Get customer info related to Moodle catagory.
+        $customer = $utilitiescourse->solerni_course_get_customer_infos($course->category);
+        // Get course informations.
+        $courseinfos = $utilitiescourse->solerni_get_course_infos($course);
 
-            $classes = trim('coursebox '. $additionalclasses);
-            $coursename = $chelper->get_course_formatted_name($course);
+        $classes = trim('coursebox '. $additionalclasses);
+        $coursename = $chelper->get_course_formatted_name($course);
 
-            if ($chelper->get_show_courses() >= self::COURSECAT_SHOW_COURSES_EXPANDED) {
-                    $nametag = 'h3';
-            } else {
-                    $classes .= ' collapsed';
-                    $nametag = 'div';
-            }
+        if ($chelper->get_show_courses() >= self::COURSECAT_SHOW_COURSES_EXPANDED) {
+                $nametag = 'h3';
+        } else {
+                $classes .= ' collapsed';
+                $nametag = 'div';
+        }
 
-            // Generate code with buffering to include partial
-            ob_start();
-            include( $CFG->partialsdir . '/course_component.php');
-            $content = ob_get_contents();
-            ob_end_clean();
+        // Generate code with buffering to include partial.
+        ob_start();
+        include( $CFG->partialsdir . '/course_component.php');
+        $content = ob_get_contents();
+        ob_end_clean();
 
-            return $content;
+        return $content;
     }
 
     /**
-	 * Renders course info box.
-	 *
-	 * @param stdClass|course_in_list $course
-	 * @return string
+     * Renders course info box.
+     *
+     * @param stdClass|course_in_list $course
+     * @return string
      *
      * Overriden to make sure we use the same function everywhere
      * and output the Mooc Component
      *
      * @return string
-	 */
-	public function course_info_box(stdClass $course) {
-		$content = '';
-		$content .= $this->output->box_start('generalbox info');
-		$content .= $this->render_solerni_mooc_component($course);
-		$content .= $this->output->box_end();
-		return $content;
-	}
+     */
+    public function course_info_box(stdClass $course) {
+        $content = '';
+        $content .= $this->output->box_start('generalbox info');
+        $content .= $this->render_solerni_mooc_component(null, $course);
+        $content .= $this->output->box_end();
+        return $content;
+    }
 
     /*
      * Create chelper object in case we don't have one
@@ -471,7 +471,7 @@ class theme_solerni_core_course_renderer extends core_course_renderer {
 
         require_once($CFG->libdir. '/coursecatlib.php');
         $chelper = new coursecat_helper();
-		$chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_EXPANDED);
+        $chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_EXPANDED);
 
         return $chelper;
     }
@@ -482,10 +482,10 @@ class theme_solerni_core_course_renderer extends core_course_renderer {
      *
      * @return string
      */
-     public function solerni_frontpage_heading() {
+    public function solerni_frontpage_heading() {
 
          global $PAGE;
-         $heading =    ($PAGE->theme->settings->catalogtitle ) ?
+         $heading = ($PAGE->theme->settings->catalogtitle ) ?
                         $PAGE->theme->settings->catalogtitle :
                         get_string('catalogtitledefault', 'theme_solerni');
 
@@ -493,14 +493,17 @@ class theme_solerni_core_course_renderer extends core_course_renderer {
 
          ?>
         <div class="frontpage_heading">
-            <?php if ($cataloglink) : ?>
+            <?php
+        if ($cataloglink) : ?>
                 <a href="<?php echo $cataloglink; ?>" class="link-top-right">
                      <?php echo get_string('seecatalog', 'theme_solerni'); ?>
                 </a>
-            <?php endif;?>
+            <?php
+        endif;?>
             <h2>
                 <?php echo $heading; ?>
             </h2>
         </div>
-        <?php }
+        <?php
+    }
 }

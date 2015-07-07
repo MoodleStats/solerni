@@ -1,4 +1,18 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /*
  * @author    Shaun Daubney
@@ -16,10 +30,16 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
      */
     public function solerni_search_box() {
     ?>
-        <form id="search_form" class="slrn-top-header__item slrn-header-search-form -inactive" method="GET" action="<?php echo $this->page->url; ?>">
-            <input class="slrn-header-search-input -slrn-radius" id="search_input" name="search_input" placeholder="<?php echo get_string('search', 'theme_solerni'); ?>" value=""/>
+        <form id="search_form" class="slrn-top-header__item slrn-header-search-form -inactive" method="GET" action="<?php
+        echo $this->page->url;
+        ?>">
+            <input class="slrn-header-search-input -slrn-radius" id="search_input" name="search_input" placeholder="<?php
+            echo get_string('search', 'theme_solerni');
+            ?>" value=""/>
         </form>
-    <?php }
+    <?php
+
+    }
 
     /*
      * Echo header links inside <li> to support boostrap
@@ -29,20 +49,26 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
         $aboutlink      = $this->page->theme->settings->about;
         $cataloglink    = $this->page->theme->settings->catalogue;
     ?>
-        <?php if ($aboutlink) : ?>
+        <?php
+        if ($aboutlink) : ?>
             <li class="slrn-top-header__item">
-                <a class="slrn-top-header__item slrn-top-header__item--link" href="<?php echo $this->page->theme->settings->about; ?>">
+                <a class="slrn-top-header__item slrn-top-header__item--link" href="<?php
+                echo $this->page->theme->settings->about; ?>">
                     <?php echo get_string('about', 'theme_solerni'); ?>
                 </a>
             </li>
-        <?php endif; ?>
-        <?php if ($cataloglink) : ?>
+        <?php
+        endif; ?>
+        <?php
+        if ($cataloglink) : ?>
             <li class="slrn-top-header__item">
-                <a class="slrn-top-header__item  slrn-top-header__item--link" href="<?php echo $this->page->theme->settings->catalogue; ?>">
+                <a class="slrn-top-header__item  slrn-top-header__item--link" href="<?php
+                echo $this->page->theme->settings->catalogue; ?>">
                     <?php echo get_string('catalogue', 'theme_solerni'); ?>
                 </a>
             </li>
-        <?php endif;
+        <?php
+        endif;
     }
 
     /*
@@ -58,12 +84,12 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
      */
     public function solerni_user_menu() {
         global $USER, $CFG, $SESSION, $PAGE;
-        $localdir = dirname(__FILE__); // we are currently inside solerni/renderers folder
+        $localdir = dirname(__FILE__); // We are currently inside solerni/renderers folder.
 
-        // User is logged. Use partials for maintenance
+        // User is logged. Use partials for maintenance.
         if ( isloggedin() ) {
             include( $localdir . '/../layout/partials/header_user_menu__auth.php' );
-        // User not logged in. Add langage menu
+            // User not logged in. Add langage menu.
         } else {
             include( $localdir . '/../layout/partials/header_user_menu__no_auth.php' );
             echo $this->solerni_lang_menu();
@@ -89,13 +115,13 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
             or ($this->page->course != SITEID and !empty($this->page->course->lang))) {
                 $addlangmenu = false;
         }
-        //
+
         if (!$menu->has_children() && $addlangmenu === false) {
             return '';
         }
 
         if ($addlangmenu) {
-            $strlang =  get_string('language');
+            $strlang = get_string('language');
             $currentlang = current_language();
             if (isset($langs[$currentlang])) {
                 $currentlang = $langs[$currentlang];
@@ -120,15 +146,15 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
      * This code renders the custom menu items for the
      * bootstrap dropdown menu.
      */
-    protected function solerni_render_lang_menu_item(custom_menu_item $menunode, $level = 0, $menu_title = '' ) {
+    protected function solerni_render_lang_menu_item(custom_menu_item $menunode, $level = 0, $menutitle = '' ) {
 
         static $submenucount = 0;
         $content = '';
-        $current_title = str_replace( array( ' (fr)', ' (en)' ), '',  $menunode->get_text() );
+        $currenttitle = str_replace( array( ' (fr)', ' (en)' ), '',  $menunode->get_text() );
 
         if ($menunode->has_children()) {
 
-            $menu_title = $current_title;
+            $menutitle = $currenttitle;
 
             // If the child has menus render it as a sub menu.
             $submenucount++;
@@ -139,12 +165,12 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
             }
 
             $content .= html_writer::start_tag('a', array(
-                                                    'href'=>$url,
-                                                    'class'=>'dropdown-toggle',
-                                                    'data-toggle'=>'dropdown'
+                                                    'href' => $url,
+                                                    'class' => 'dropdown-toggle',
+                                                    'data-toggle' => 'dropdown'
             ));
 
-            $content .= $menu_title;
+            $content .= $menutitle;
             if ($level == 1) {
                 $content .= '<b class="caret"></b>';
             }
@@ -153,7 +179,7 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
             $content .= '<ul class="dropdown-menu">';
             $content .= '<span class="slrn-topbar-item__active"></span>';
             foreach ($menunode->get_children() as $menunode) {
-                $content .= $this->solerni_render_lang_menu_item($menunode, 0, $menu_title);
+                $content .= $this->solerni_render_lang_menu_item($menunode, 0, $menutitle);
             }
             $content .= html_writer::end_tag('ul');
         } else {
@@ -166,12 +192,12 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
             }
 
             $classes = 'dropdown-menu__item__link';
-            if ( $menu_title == $current_title ) {
+            if ( $menutitle == $currenttitle ) {
                 $classes .= ' -is-active';
-                $current_title .= '<i class="icon-ok"></i>';
+                $currenttitle .= '<i class="icon-ok"></i>';
             }
 
-            $content .= html_writer::link($url, $current_title, array('class' => $classes ));
+            $content .= html_writer::link($url, $currenttitle, array('class' => $classes ));
         }
         return $content;
     }
@@ -183,9 +209,9 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
      */
     protected function is_menu_item_active( $fragment ) {
         global $PAGE;
-        $page_path = $PAGE->url->get_path();
+        $pagepath = $PAGE->url->get_path();
 
-        return preg_match ( "#$fragment#", $page_path );
+        return preg_match ( "#$fragment#", $pagepath );
 
     }
 
@@ -198,7 +224,7 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
         global $PAGE;
 
         $return = false;
-        foreach ( $settings as $setting ) {
+        foreach ($settings as $setting) {
             if ( $PAGE->theme->settings->$setting ) {
                 $return = true;
             }
@@ -225,18 +251,21 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
                 <?php echo get_string($title, 'theme_solerni'); ?>
             </p>
             <ul class="footer_column_menu__column">
-                <?php foreach ( $settings as $setting )  :
-                    if ( $PAGE->theme->settings->$setting ) : ?>
+                <?php
+            foreach ($settings as $setting)  :
+                if ( $PAGE->theme->settings->$setting ) : ?>
                         <li class="footer_column__item">
                             <a class="footer_column_menu_column__link" href="<?php echo $PAGE->theme->settings->$setting; ?>">
                                 <?php echo get_string($setting, 'theme_solerni'); ?>
                             </a>
                         </li>
-                    <?php endif;
-                endforeach; ?>
+                    <?php
+                endif;
+            endforeach; ?>
             </ul>
         </div>
-    <?php endif;
+    <?php
+        endif;
     }
 
     /*
@@ -257,20 +286,30 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
                 <?php echo get_string($title, 'theme_solerni'); ?>
             </p>
             <ul class="footer_column_menu__column">
-                <?php foreach ( $settings as $setting )  :
-                    if ( $PAGE->theme->settings->$setting ) : ?>
+                <?php
+            foreach ($settings as $setting)  :
+                if ( $PAGE->theme->settings->$setting ) : ?>
                     <li class="button_social_item">
-                        <a href="<?php echo $PAGE->theme->settings->$setting; ?>" class="footer_column_menu_column__link" target="_blank">
-                            <span class="button_social_link__icon button_social_<?php echo $setting; ?>  -sprite-solerni"><?php echo $setting; ?></span><!-- !!! Do not remove this comment !!! Display Bugfix : Allow no spaces between 2 elements
+                        <a href="<?php
+                        echo $PAGE->theme->settings->$setting;
+                        ?>" class="footer_column_menu_column__link" target="_blank">
+                            <span class="button_social_link__icon button_social_<?php
+                            echo $setting;
+                            ?>  -sprite-solerni"><?php
+                            echo $setting;
+                            ?></span><!-- !!! Do not remove this comment !!! Display Bugfix : Allow no spaces between 2 elements
                             --><span class="footer_icon_text">
                                 <?php echo get_string($setting . 'displayname', 'theme_solerni'); ?>
                             </span>
                         </a>
                     </li>
-                 <?php endif; endforeach; ?>
+                 <?php
+                endif;
+            endforeach; ?>
             </ul>
         </div>
-    <?php endif;
+    <?php
+        endif;
     }
 
     /*
@@ -281,10 +320,10 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
      *
      * @return: Footer Column HTML Fragment
      */
-    public function solerni_login_render_form($show_instructions, $frm) {
+    public function solerni_login_render_form($showinstructions, $frm) {
         global $PAGE, $CFG;
 
-        if ($show_instructions) {
+        if ($showinstructions) {
             $columns = 'twocolumns';
         } else {
             $columns = 'onecolumn';
@@ -305,21 +344,25 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
         <div class="loginbox clearfix <?php echo $columns ?>">
           <div class="loginpanel">
         <?php
-          if (($CFG->registerauth == 'email') || !empty($CFG->registerauth)) { ?>
+        if (($CFG->registerauth == 'email') || !empty($CFG->registerauth)) { ?>
               <div class="skiplinks"><a class="skip" href="signup.php"><?php print_string("tocreatenewaccount"); ?></a></div>
         <?php
-          } ?>
+        } ?>
             <h2><?php print_string("logintitle", 'theme_solerni') ?></h2>
               <div class="subcontent loginsub">
                 <?php
-                  if (!empty($errormsg)) {
+        if (!empty($errormsg)) {
                       echo html_writer::start_tag('div', array('class' => 'loginerrors'));
                       echo html_writer::link('#', $errormsg, array('id' => 'loginerrormessage', 'class' => 'accesshide'));
                       echo $this->error_text($errormsg);
                       echo html_writer::end_tag('div');
-                  }
+        }
                 ?>
-                <form action="<?php echo $CFG->httpswwwroot; ?>/login/index.php" method="post" id="login" <?php echo $autocomplete; ?> >
+                <form action="<?php
+                echo $CFG->httpswwwroot;
+                ?>/login/index.php" method="post" id="login" <?php
+                echo $autocomplete;
+                ?> >
                   <div class="loginform">
                     <div class="form-label"><label for="username"><?php echo($strusername) ?></label></div>
                     <div class="form-input">
@@ -332,12 +375,19 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
                     </div>
                   </div>
                     <div class="clearer"><!-- --></div>
-                      <?php if (isset($CFG->rememberusername) and $CFG->rememberusername == 2) { ?>
+                      <?php
+        if (isset($CFG->rememberusername) and $CFG->rememberusername == 2) { ?>
                       <div class="rememberpass">
-                          <input type="checkbox" name="rememberusername" id="rememberusername" value="1" <?php if ($frm->username) {echo 'checked="checked"';} ?> />
+                          <input type="checkbox" name="rememberusername" id="rememberusername" value="1" <?php
+            if ($frm->username) {
+                              echo 'checked="checked"';
+
+            } ?> />
                           <label for="rememberusername"><?php print_string('rememberusername', 'admin') ?></label>
                       </div>
-                      <?php } ?>
+                      <?php
+
+        } ?>
                   <div class="clearer"><!-- --></div>
                   <input class="btn btn-primary"type="submit" id="loginbtn" value="<?php print_string("login") ?>" />
                   <div class="forgetpass"><a href="forgot_password.php"><?php print_string("forgotten") ?></a></div>
@@ -351,22 +401,26 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
               </div>
 
              </div>
-        <?php if ($show_instructions) { ?>
+        <?php
+        if ($showinstructions) { ?>
             <div class="signuppanel">
               <h2><?php print_string("register", 'theme_solerni' ) ?></h2>
               <div class="subcontent">
                     <p align="center"><?php  print_string("loginsteps", 'theme_solerni');?></p>
                   <div class="signupform">
                            <form action="signup.php" method="get" id="signup">
-                           <div><input class="btn btn-primary" type="submit" value="<?php print_string("registerbutton", 'theme_solerni') ?>" /></div>
+                           <div><input class="btn btn-primary" type="submit" value="<?php
+                           print_string("registerbutton", 'theme_solerni') ?>" /></div>
                            </form>
                          </div>
               </div>
             </div>
-        <?php } ?>
+        <?php
+
+        } ?>
         </div>
             <?php
-            }
+    }
 
     /*
      * @param: (string) title of the columon
@@ -376,10 +430,10 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
      *
      * @return: Footer Column HTML Fragment
      */
-    public function solerni_register_render_form($show_instructions, $mform_signup) {
+    public function solerni_register_render_form($showinstructions, $mformsignup) {
         global $PAGE, $CFG;
 
-        if ($show_instructions) {
+        if ($showinstructions) {
             $columns = 'twocolumns';
         } else {
             $columns = 'onecolumn';
@@ -400,27 +454,29 @@ class theme_solerni_core_renderer extends theme_bootstrapbase_core_renderer {
         ?>
         <div class="loginbox clearfix <?php echo $columns ?>">
           <div class="loginpanel">
-        <?php $mform_signup->display(); ?>
+        <?php $mformsignup->display(); ?>
              </div>
-        <?php if ($show_instructions) { ?>
+        <?php
+        if ($showinstructions) { ?>
             <div class="signuppanel">
               <h2><?php echo get_string('registertitle', 'theme_solerni') ?></h2>
               <div class="subcontent">
                   <p ><?php  print_string("loginsteps", 'theme_solerni');?></p>
                 <div class="signupform">
                   <form action="index.php" method="get" id="login">
-                  <div><input class="btn btn-primary" type="submit" value="<?php print_string("loginbutton", 'theme_solerni') ?>" /></div>
+                  <div><input class="btn btn-primary" type="submit" value="<?php
+                  print_string("loginbutton", 'theme_solerni') ?>" /></div>
                   </form>
                 </div>
 
               </div>
             </div>
-        <?php } ?>
+        <?php
+        } ?>
 
         </div>
 
             <?php
-            }
-
+    }
 
 }

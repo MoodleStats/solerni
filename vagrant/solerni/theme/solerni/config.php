@@ -30,7 +30,7 @@
  */
 global $PAGE, $CFG;
 
-// Theme variable
+// Theme variable.
 $CFG->themedir = $CFG->dirroot . '/theme/solerni';
 $CFG->partialsdir = $CFG->themedir . '/layout/partials';
 
@@ -40,7 +40,7 @@ $THEME->doctype         = 'html5';
 $THEME->yuicssmodules   = array();
 $THEME->name            = 'solerni';
 $THEME->parents         = array('bootstrapbase');
-// general style sheets.
+// General style sheets.
 $THEME->sheets          = array(
                             'custom',
                             'blockicons',
@@ -169,7 +169,7 @@ $THEME->layouts = array(
         'file' => 'columns3.php',
         'regions' => array('side-top', 'side-pre', 'main', 'side-post'),
         'defaultregion' => 'main',
-        'options' => array('langmenu'=>true),
+        'options' => array('langmenu' => true),
     ),
 );
 
