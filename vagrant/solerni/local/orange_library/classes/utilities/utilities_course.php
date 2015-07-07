@@ -55,7 +55,6 @@ class utilities_course {
         global $DB;
 
         $extendedcourse = null;
-        // We get more information only when flexpage format is used.
         if ($course->format == "flexpage") {
             $context = context_course::instance($course->id);
 

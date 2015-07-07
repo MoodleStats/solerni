@@ -56,3 +56,6 @@ moosh filter-manage -c on multilang
 # Add capabilities orangeinvitation:config for coursecreator and solerni_course_creator (#us_7)
 moosh role-update-capability coursecreator enrol/orangeinvitation:config allow 1
 moosh role-update-capability solerni_course_creator enrol/orangeinvitation:config allow 1
+
+# Add new user profil fields (#us_110)
+moosh userprofilefields-import solerni-config/default/users_profil/profile_fields.csv

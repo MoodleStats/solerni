@@ -60,9 +60,18 @@ class local_orange_customers_observer {
 
         $category = (object)$event->get_record_snapshot('course_categories', $event->objectid);
 
-        $DB->execute("UPDATE {orange_customers}
-        		SET name = '". str_replace("'", "\'", $category->name) . "'
-        		WHERE categoryid = ". $category->id );
+        $customer = customer_get_customerbycategoryid($category->id);
+
+        if ($customer === false) {
+            $customer = new stdClass();
+            $customer->name = $category->name;
+            $customer->categoryid = $category->id;
+            $DB->insert_record('orange_customers', $customer, false);
+        } else {
+            $DB->execute("UPDATE {orange_customers}
+        		          SET name = '". str_replace("'", "\'", $category->name) . "'
+        		          WHERE categoryid = ". $category->id );
+        }
 
     }
 
