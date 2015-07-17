@@ -62,18 +62,7 @@ $isfrontpage    = ($PAGE->pagetype === 'site-index');
 </header>
 
 <?php if ( $PAGE->pagetype === 'site-index' ) {
-    require('partials/frontpage-header.php');
+    include($CFG->partialsdir . '/frontpage_header.php');
 } ?>
 
 <div id="page" class="container-fluid">
-
-    <?php // Not display breadcrumb on frontpage.
-    if (!$isfrontpage) : ?>
-        <header id="page-header" class="clearfix">
-            <?php if ($hasnavbar) : ?>
-                <nav class="breadcrumb-button"><?php echo $PAGE->button; ?></nav>
-                <?php echo $OUTPUT->navbar(); ?>
-            <?php endif; ?>
-            <h1><?php echo $PAGE->heading ?></h1>
-        </header>
-    <?php endif; ?>

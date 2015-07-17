@@ -1,0 +1,14 @@
+/*
+ *
+ * Before 1180px styles
+ *
+ * @package   theme_solerni
+ * @author    Orange / Solerni
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+@media screen and (max-width: 1179px ) {
+    .frontpage-header__presentation {
+        width: 60%;
+    }
+}

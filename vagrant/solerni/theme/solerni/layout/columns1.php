@@ -18,7 +18,7 @@ echo $OUTPUT->doctype() ?>
 <html <?php echo $OUTPUT->htmlattributes(); ?>>
 <?php require('head.php'); ?>
 
-<body <?php echo $OUTPUT->body_attributes(); ?>>
+<body <?php echo $OUTPUT->body_attributes(array('body-solerni')); ?>>
 
 <?php echo $OUTPUT->standard_top_of_body_html() ?>
 

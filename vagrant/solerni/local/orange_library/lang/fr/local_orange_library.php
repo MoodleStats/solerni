@@ -27,15 +27,20 @@ $string['pluginname'] = 'Orange Library';
 $string['local_orange_library'] = 'Orange Library';
 
 // Subscription button object.
-$string['subscribe_to_mooc'] = 'souscription';
-$string['access_to_mooc'] = 'acces au mooc';
-$string['status_default'] = 'MOOC non démarré';
-$string['status_closed'] = 'MOOC fermé';
-$string['alert_mooc'] = 'Prévenez moi pour la prochaine session du mooc';
-$string['registration_stopped'] = 'fin d\' enregistrement';
-$string['mooc_complete'] = 'mooc complet';
-$string['mooc_open_date'] = 'Ouvert du ';
+$string['subscribe_to_mooc'] = 'S’inscrire au mooc';
+$string['access_to_mooc'] = 'Accéder au mooc';
+$string['status_default'] = 'Mooc à venir';
+$string['status_closed'] = 'Mooc terminé';
+$string['alert_mooc'] = 'M’avertir de la prochaine session';
+$string['registration_stopped'] = 'Inscription terminée';
+$string['mooc_complete'] = 'Mooc complet';
+$string['mooc_open_date'] = 'Ouverte à tous du ';
 
-// Extended course object
-$string['english'] = 'anglais';
-$string['french'] = 'francais';
+// Extended course object.
+$string['english'] = 'Anglais';
+$string['french'] = 'Francais';
+
+// Badges.
+$string['certification_default'] = 'Attestation de réussite';
+$string['badge_default'] = 'Badge ';
+$string['badge'] = 'Badge ';

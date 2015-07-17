@@ -40,6 +40,9 @@ $string['frontpagepresentationdesc']    = 'Text displayed on the frontpage, over
 $string['frontpagepresentationdefault'] = 'Develop your skills by following, at your own pace, friendly and collaborative learning courses';
 $string['frontpageheaderimage']         = 'Frontpage header image';
 $string['frontpageheaderimagedesc']     = 'Image used as background on the frontpage header. Recommanded ratio 16:3 and recommanded size about 1600x300px. The theme has a default image for this.';
+$string['catalogtitle']                 = 'Catalog Title';
+$string['catalogtitledesc']             = 'Title above the catalog on frontpage';
+$string['catalogtitledefault']          = 'Headline';
 
 // Color settings.
 $string['colorsettings']                = 'Colors';
@@ -173,4 +176,21 @@ $string['coursebadge']              = "Badges available";
 $string['coursenobadge']            = "No badges";
 
 // Frontpage frontend
-$string['ifreelyregister']          = "I freel register";
+$string['ifreelyregister']          = "I freely register";
+$string['seecatalog']               = "See the catalogue";
+
+// Login settings
+$string['logintitle']               = "I am logging in with my e-mail *";
+$string['registertitle']            = "I log in";
+$string['rememberme']               = "Remember me";
+$string['loginbutton']              = "login";
+$string['registerbutton']              = "register";
+$string['passwordforgotten']        = "I have forgotten my password";
+$string['fieldsrequired']           = "* All fields required";
+$string['loginsteps']             = "Do you have a Solerni account?<p>
+Create an account from your e-mail or register with Facebook";
+$string['register']                 = "I register";
+$string['registerurl']              = "Register";
+$string['registerlink']             = "signup.php";
+$string['login']                    = "login";
+$string['password']                 = "password";

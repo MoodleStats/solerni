@@ -1,0 +1,1074 @@
+#maincontent {
+    height: 0;
+}
+
+/* Recipients */
+
+.mail_recipient {
+    float: left;
+    border: 1px solid #ddd;
+    margin: 0 0.5em 0.5em 0 !important;
+}
+
+.mail_recipients_toolbar {
+    width: 100%;
+    border-bottom: 1px solid #aaa;
+}
+
+.mail_recipients_toolbar .groupselector,
+.mail_recipients_toolbar .roleselector {
+    float: left;
+    margin: 8px 0 10px 10px;
+    width: 45%;
+}
+
+.mail_recipients_toolbar .groupselector {
+    text-align: right;
+}
+
+.mail_recipients_toolbar .groupname {
+    text-align: right;
+}
+
+.mail_recipients_toolbar .groupselector select,
+.mail_recipients_toolbar .roleselector select {
+    width: 75%;
+}
+
+.mail_recipients_toolbar .mail_separator {
+    clear: both;
+    border-top: 1px solid #bbb;
+}
+
+.mail_recipients_search{
+    min-width: 50%;
+    max-width: 100%;
+}
+
+.mail_recipients_search,
+.mail_form_recipients {
+    padding: 10px 10px;
+}
+
+.mail_recipients_search .mail_search{
+    width: 233px;
+}
+
+.mail_recipients_loading {
+    background-color: #fff;
+    height: 395px;
+    top: 120px;
+    left: 1px;
+    min-height: 50px;
+    min-width: 50px;
+    position: absolute;
+    width: 99%;
+    text-align: center;
+}
+
+.mail_recipients_loading .loading_icon {
+    margin: 125px auto auto;
+    vertical-align: middle;
+    opacity: 0.5;
+}
+
+.mail_search_loading {
+    background-color: #fff;
+    min-height: 50px;
+    min-width: 50px;
+    width: 100%;
+    text-align: center;
+}
+
+.mail_search_loading .loading_icon {
+    vertical-align: middle;
+    opacity: 0.5;
+}
+
+.mail_loading_small {
+    position: absolute;
+    background: #f1f1f1;
+    text-align: center;
+    width: 16px;
+    height: 16px;
+}
+
+.mail_adv_search {
+    cursor: pointer;
+}
+
+.mail_toggle_datepicker {
+    margin-left: 10px;
+}
+
+.mail_form_recipient {
+    border: 1px solid #AAAAAA;
+    margin-bottom: -1px;
+    padding: 0.5em 0;
+}
+
+.mail_form_recipient_role {
+    display: inline-block;
+    min-width: 3em;
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+.mail_form_recipient img {
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+.mail_form_recipient_name {
+    display: inline-block;
+    margin-left: 1em;
+    max-width: 48%;
+    vertical-align: middle;
+}
+
+.mail_form_recipient_text {
+    display: inline-block;
+    margin-left: 1em;
+    max-width: 50%;
+    padding: 0.6em 0;
+}
+
+.mail_recipient_selected {
+    background-color: #ffc;
+}
+
+.mail_recipient_actions,
+.mail_all_recipients_actions {
+    float: right;
+}
+
+.mail_all_recipients_actions {
+    margin-top: -8px;
+}
+
+.mail_recipient_actions input,
+.mail_all_recipients_actions input {
+    display: inline-block;
+    background-color: #f1f1f1;
+    margin: 4px 5px 0 0;
+    padding: 0 0.4em;
+    border: 1px solid #ccc;
+    border-radius: 0.2em;
+    text-align: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    font-size: 1em;
+    height: 2em;
+    width: auto;
+    vertical-align: middle;
+}
+
+.mail_recipient_actions input[type="image"],
+.mail_recipients_search input[type="image"] {
+    width: 0.7em;
+    height: 0.7em;
+    padding: 0.57em;
+    margin-bottom: 1px;
+}
+
+.mail_recipient_actions input[disabled],
+.mail_recipients_search input[disabled] {
+    color: grey;
+    opacity: 0.8;
+}
+
+.local_mail_form .yui3-widget-hd {
+    cursor: pointer;
+}
+
+.mail_recipient .userpicture {
+    border-right: 1px solid #ddd;
+    vertical-align: middle;
+}
+
+.mail_recipient span {
+    margin: 0 1em;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.mail_recipient input {
+    padding: 12px 4px;
+    vertical-align: middle;
+    background-color: #eee;
+}
+
+.mail_form_recipients {
+    clear: both;
+    height: 375px;
+    overflow: auto;
+}
+
+/* Add recipients */
+
+.mail-recipients {
+    max-width: 40em;
+}
+
+.mail-recipients .groupselect {
+    margin-bottom: 0.2em;
+}
+
+.mail-recipients .userselector {
+    margin-bottom: 0.5em;
+}
+
+.mail-recipients .buttons {
+    margin-bottom: 1em;
+}
+
+.mail-recipients .buttons input {
+    margin-right: 0.5em;
+}
+
+.mail-recipients .buttons input[name=cancel] {
+    margin-right: 0;
+}
+
+/* Mail list */
+
+.mail_list {
+    background-color: white;
+    border: 1px solid #ddd;
+}
+
+.mail_list .mail_item {
+    padding: 0 0.5em 0 0;
+    border-top: 1px solid #ddd;
+    white-space: nowrap;
+    clear: right;
+}
+
+
+.mail_list .mail_item:first-child {
+    border: 0;
+}
+
+.mail_list .mail_link:focus {
+    outline: 0;
+}
+
+.mail_list .mail_link {
+    margin-left: 0.5em;
+}
+
+.mail_list .mail_link,
+.mail_list .mail_link:hover,
+.mail_list .mail_link:active,
+.mail_list .mail_link:visited {
+    color: black;
+    text-decoration: none;
+}
+
+.mail_list a {
+    outline: 0;
+}
+
+.mail_list .mail_users,
+.mail_list .mail_summary,
+.mail_list .mail_date,
+.mail_list .mail_checkbox{
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 0.5em 0.5em;
+    vertical-align: middle;
+}
+
+.mail_list .mail_checkbox {
+    margin: 0 1em 0 0.5em;
+    text-overflow: ellipsis;
+}
+
+.mail_adv_checkbox {
+    display: inline-block;
+    margin: 0;
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
+}
+
+.mail_list .mail_adv_checkbox {
+    margin: 0 0.5em;
+}
+
+.mail_checkbox0 {
+    background: transparent url('pix/icons.png') no-repeat 0 0;
+}
+
+.mail_checkbox1 {
+    background: transparent url('pix/icons.png') no-repeat -18px 0;
+}
+
+.mail_checkbox2 {
+    background: transparent url('pix/icons.png') no-repeat -36px 0;
+}
+
+.mail_list .mail_users {
+    width: 30%;
+    text-overflow: ellipsis;
+}
+
+.mail_list .mail_summary {
+    width: 45%;
+    text-overflow: ellipsis;
+}
+
+.mail_list .mail_label.mail_draft {
+    background-color: transparent;
+    color: red;
+}
+
+.mail_list .mail_date {
+    float: right;
+    text-align: right;
+    margin-left: -15%;
+}
+
+.mail_list .mail_unread {
+    font-weight: bold;
+}
+
+.mail_list .mail_flags {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: middle;
+    min-width: 1%;
+    height: 18px;
+    text-align: center;
+}
+
+.mail_list .mail_selected {
+    background-color: #ffc;
+}
+
+/* Mail starred */
+
+.mail_unstarred {
+    display:inline-block;
+    width: 18px;
+    height: 18px;
+    background: transparent url('pix/icons.png') no-repeat -54px 0;
+}
+
+.mail_starred {
+    display:inline-block;
+    width: 18px;
+    height: 18px;
+    background: transparent url('pix/icons.png') no-repeat -72px 0;
+}
+
+.mail_attached {
+    vertical-align: middle;
+    margin: 0;
+    display:inline-block;
+    width: 18px;
+    height: 18px;
+    background: transparent url('pix/icons.png') no-repeat -90px 0;
+}
+
+/* Toolbar */
+
+.mail_toolbar,
+.mail_toolbar_down{
+    font-size: 1em;
+    vertical-align: middle;
+}
+
+.mail_toolbar .mail_paging {
+  float: right;
+}
+
+.mail_toolbar .singlebutton,
+.mail_toolbar_down .singlebutton {
+    display: inline-block;
+    margin-top:0.4em;
+    margin-right: 0.5em;
+    min-width: 4em;
+}
+
+.mail_toolbar .mail_checkbox_all {
+    display: inline-block;
+    text-align: middle;
+    width: 40px;
+}
+
+.mail_toolbar .mail_more_actions,
+.mail_toolbar .mail_checkbox_all,
+.mail_toolbar .singlebutton,
+.mail_toolbar_down .singlebutton,
+.mail_toolbar .mail_button.mail_button_disabled:hover,
+.mail_toolbar_down .mail_button.mail_button_disabled:hover{
+    opacity: 0.8;
+}
+
+.mail_toolbar .mail_checkbox_all img,
+.mail_toolbar .mail_more_actions img,
+.mail_toolbar .mail_assignlbl img,
+.mail_toolbar .mail_checkbox_all input,
+.mail_toolbar .mail_search_button img {
+    vertical-align: middle;
+}
+
+.mail_toolbar .mail_checkbox_all:hover,
+.mail_toolbar .mail_more_actions:hover {
+    opacity: 0.9;
+}
+
+.mail_toolbar .mail_optselect,
+.mail_toolbar .mail_actselect,
+.mail_toolbar .mail_labelselect,
+.mail_toolbar .mail_menu_search {
+    background-color: #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 1px solid #bbb;
+    line-height: 2em;
+    min-width: 10em;
+    max-height: 27em;
+    overflow-x: hidden;
+    overflow-y: auto;
+    box-shadow: 2px 1px 1px 0px rgba(0, 0, 0, 0.2);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    z-index: 1;
+}
+
+.mail_toolbar .mail_menu_action_separator,
+.mail_toolbar .mail_menu_label_separator {
+    display: block;
+    border-top: 1px solid #bbb;
+    margin: 0.4em 0;
+}
+
+.mail_toolbar .mail_menu_options,
+.mail_toolbar .mail_menu_actions,
+.mail_toolbar .mail_menu_labels {
+    list-style: none;
+    margin: 0.5em 0;
+}
+
+.mail_toolbar .mail_menu_options li,
+.mail_toolbar .mail_menu_actions li,
+.mail_toolbar .mail_menu_labels li {
+    margin: 0.1em 0;
+    padding: 0;
+    max-width: 100%;
+    white-space: nowrap;
+}
+
+.mail_toolbar .mail_menu_options li:hover,
+.mail_toolbar .mail_menu_actions li:hover,
+.mail_toolbar .mail_menu_labels li:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+.mail_toolbar .mail_menu_labels .mail_adv_checkbox{
+    display: inline-block;
+    margin: 0 0.5em 0 0.1em;
+}
+
+.mail_toolbar .mail_menu_labels .mail_label_name{
+    display: inline-block;
+    width: 80%;
+}
+
+.mail_toolbar .mail_button span {
+    display: inline-block;
+    margin-right: 4px;
+}
+
+.mail_toolbar .mail_button:before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+}
+
+.mail_toolbar .mail_button,
+.mail_toolbar_down .mail_button {
+    display: inline-block;
+    background-color: #f1f1f1;
+    margin: 0.4em 0.5em 0 0;
+    padding: 0.4em 1em;
+    border: 1px solid #ccc;
+    border-radius: 0.2em;
+    text-align: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+    font-size: 1em;
+    height: 2.4em;
+    width: auto;
+    vertical-align: middle;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.mail_toolbar .mail_button_disabled,
+.mail_toolbar_down .mail_button_disabled {
+    color: grey;
+}
+
+.mail_toolbar .mail_button:hover,
+.mail_toolbar_down .mail_button:hover {
+    border: 1px solid #aaa;
+    box-shadow: rgba(0, 0, 0, 0.10) 0px 1px 1px 0px;
+}
+
+.mail_toolbar input.mail_button[disabled]:hover,
+.mail_toolbar .mail_button.mail_button_disabled:hover,
+.mail_toolbar_down input.mail_button[disabled]:hover,
+.mail_toolbar_down .mail_button.mail_button_disabled:hover {
+    border: 1px solid #ccc;
+    box-shadow: 0px 0px 0px #000;
+}
+
+.mail_toolbar_sep {
+    margin-left: 3em;
+}
+
+.mail_toolbar a {
+    display: block;
+    color: #000;
+    padding: 0.1em 2em;
+}
+
+.mail_toolbar_label {
+    display: inline-block;
+    height: 2.4em;
+}
+
+/* Search */
+
+.mail_menu_search {
+    padding: 0 0.5em 0.5em;
+}
+
+.mail_menu_search input[name="textsearch"],
+.mail_menu_search input[name="textsearchfrom"],
+.mail_menu_search input[name="textsearchto"] {
+    margin: 0.4em 0;
+    border: 1px solid #ccc;
+    padding: 0 1em;
+    border-radius: 0.2em;
+    height: 2.3em;
+    width: 26em!important;
+}
+
+.mail_search_date {
+    display: inline-block;
+    margin: 0.4em 0 0 0.5em;
+    border: 1px solid #ccc;
+    padding: 0 1em;
+    border-radius: 0.2em;
+    height: 2.3em;
+    width: 6em;
+    cursor: pointer;
+}
+
+.mail_search_date img,
+.mail_search_date span {
+    vertical-align: middle;
+}
+
+.mail_search_datepicker label {
+    display: inline;
+}
+
+.mail_button_cancel_search {
+    float: left;
+}
+
+.mail_button_search {
+    float: right;
+}
+
+.mail_button_searching {
+    font-weight: bold;
+}
+
+.mail_paging .singlebutton {
+    min-width: 1em;
+}
+
+.mail_paging span {
+    vertical-align: middle;
+}
+
+.mail_paging .singlebutton:nth-child(2) {
+    border-radius: 0.2em 0 0 0.2em;
+    margin-right: 0px;
+}
+
+.mail_paging .singlebutton:last-child {
+    border-radius: 0 0.2em 0.2em 0;
+}
+
+.mail_perpage {
+    float: right;
+    margin-top: 0.5em;
+}
+
+.mail_buttons {
+    float: left;
+ }
+
+.mail_perpage span{
+    margin: 0 0.5em;
+}
+
+/* Notification bar */
+
+.mail_notification {
+    margin: 0.5em 0;
+}
+
+#mail_notification_undo,
+#mail_notification_search {
+    margin-left: 1em;
+}
+
+/* View mail */
+
+
+.mail_subject {
+    margin-bottom: 1em;
+}
+
+.mail_subject .mail_flags {
+    margin-left: 0.5em;
+    vertical-align:middle;
+}
+
+.mail_subject h3 {
+    display:inline;
+}
+
+.mail_header {
+    display:block;
+}
+
+.mail_info {
+    margin-left: 43px;
+}
+
+.mail_info .mail_date {
+    float: right;
+}
+
+.mail_header {
+    margin-botton: 1em;
+}
+
+.mail_header .left,
+.mail_subject .left {
+    float: left;
+}
+
+.user_from {
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.mail_recipients {
+    border-bottom: 1px solid #aaa;
+    font-size: 0.95em;
+}
+
+.mail_recipients .mail_role {
+    display: inline-block;
+    min-width: 1.5em;
+    margin-right: 0.5em;
+}
+
+.mail_body {
+    margin-left: 43px;
+}
+
+.mail_content {
+    margin: 1em 0 0.2em;
+    border-bottom: 2px solid #aaa;
+}
+
+.mail_attachments {
+    margin: 1em 0 0.5em;
+    border-top: 1px solid #aaa;
+    width: 50%;
+}
+
+.mail_attachment {
+    margin: 0.5em 0 0.5em 1em;
+    display: block;
+}
+
+.mail_attachment_size {
+    margin-left: 1em;
+}
+
+.mail_attachment_text {
+    margin-left: 0.5em;
+    font-weight: bold;
+}
+
+.mail_attachment_downloadall {
+    float: right;
+}
+
+.mail_downloadall_text {
+    vertical-align: middle;
+}
+
+/* Mail reply */
+
+.mail_reply .mail_header {
+    margin-top: 1em;
+}
+
+.mail_reply .mail_info .mail_date {
+    float: none;
+    display: block;
+}
+
+/* Mail references */
+
+.mail_references {
+    margin: 1em 0 0 43px;
+}
+
+.mail_references .mail_header {
+    margin-top: 1em;
+}
+
+.mail_references .mail_info .mail_date {
+    float: none;
+    display: block;
+}
+
+/* Label colors */
+
+.mail_label {
+    background-color: #eee;
+    padding: 0.2em 0.4em;
+    margin: 0 0.1em;
+    border-radius: 0.4em;
+}
+
+.mail_label_colors_row {
+    clear: left;
+    width: 100%;
+    text-align: center;
+}
+
+.mail_label_color {
+    float: left;
+    width: 20px;
+    height: 20px;
+}
+
+.mail_label_color_selected {
+    text-transform: uppercase;
+    -ms-transform: scale(1.2, 1.2);
+    -webkit-transform: scale(1.2, 1.2);
+    transform: scale(1.2, 1.2);
+}
+
+.mail_label_colors .mail_label_color:hover {
+    cursor: pointer;
+    -ms-transform: scale(1.2, 1.2);
+    -webkit-transform: scale(1.2, 1.2);
+    transform: scale(1.2, 1.2);
+}
+
+.mail_label_nocolor {
+    background-color: #fefefe;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.mail_label_diagonal_line {
+    width: 25px;
+    border-bottom: 1px solid red;
+    -ms-transform: rotate(-45deg) translate(-9px, 4px);
+    -webkit-transform: rotate(-45deg) translate(-9px, 4px);
+    transform: rotate(-45deg) translate(-9px, 4px);
+}
+
+.mail_label_lightgray, .mail_label_colors option[value="lightgray"] {
+    background-color: #999;
+    color: #fff;
+}
+
+.mail_label_lightred, .mail_label_colors option[value="lightred"] {
+    background-color: #e66550;
+    color: #fff;
+}
+
+.mail_label_lightorange, .mail_label_colors option[value="lightorange"] {
+    background-color: #ffbc6b;
+}
+
+.mail_label_lighbrown, .mail_label_colors option[value="lightbrown"] {
+    background-color: #e9b96e;
+}
+
+.mail_label_lightyellow, .mail_label_colors option[value="lightyellow"] {
+    background-color: #fdee7c;
+}
+
+.mail_label_lightgreen, .mail_label_colors option[value="lightgreen"] {
+    background-color: #b3e622;
+}
+
+.mail_label_lightblue, .mail_label_colors option[value="lightblue"]{
+    background-color: #6d9eeb;
+}
+
+.mail_label_lightpurple, .mail_label_colors option[value="lightpurple"] {
+    background-color: #b694e8;
+    color: #fff;
+}
+
+.mail_label_gray, .mail_label_colors option[value="gray"] {
+    background-color: #555;
+    color: #fff;
+}
+
+.mail_label_red, .mail_label_colors option[value="red"] {
+    background-color: #cc0000;
+    color: #fff;
+}
+
+.mail_label_orange, .mail_label_colors option[value="orange"] {
+    background-color: #f57900;
+    color: #fff;
+}
+
+.mail_label_brown, .mail_label_colors option[value="brown"] {
+    background-color: #c17d11;
+}
+
+.mail_label_yellow, .mail_label_colors option[value="yellow"] {
+    background-color: #edd400;
+}
+
+.mail_label_green, .mail_label_colors option[value="green"] {
+    background-color: #73d216;
+}
+
+.mail_label_blue, .mail_label_colors option[value="blue"]{
+    background-color: #005dd6;
+    color: #fff;
+}
+
+.mail_label_purple, .mail_label_colors option[value="purple"] {
+    background-color: #b100cc;
+    color: #fff;
+}
+
+.mail_label_black, .mail_label_colors option[value="black"] {
+    background-color: #05181e;
+    color: #fff;
+}
+
+.mail_label_darkred, .mail_label_colors option[value="darkred"] {
+    background-color: #8b1818;
+    color: #fff;
+}
+
+.mail_label_darkorange, .mail_label_colors option[value="darkorange"] {
+    background-color: #ad5f1f;
+    color: #fff;
+}
+
+.mail_label_darkbrown, .mail_label_colors option[value="darkbrown"] {
+    background-color: #8f5902;
+    color: #fff;
+}
+
+.mail_label_darkyellow, .mail_label_colors option[value="darkyellow"] {
+    background-color: #a58c1d;
+    color: #fff;
+}
+
+.mail_label_darkgreen, .mail_label_colors option[value="darkgreen"] {
+    background-color: #4d8618;
+    color: #fff;
+}
+
+.mail_label_darkblue, .mail_label_colors option[value="darkblue"]{
+    background-color: #19488f;
+    color: #fff;
+}
+
+.mail_label_darkpurple, .mail_label_colors option[value="darkpurple"] {
+    background-color: #6d1782;
+    color: #fff;
+}
+
+.mail_group_labels {
+    margin-right: 0.5em;
+}
+
+/* Form custom styles */
+
+.mform .fsubmit {
+    text-align: left;
+}
+
+/* hidden */
+
+.mail_hidden {
+    display: none !important;
+}
+
+.mail_novisible {
+    visibility: hidden !important;
+}
+
+#page-local-mail-view #confirmdialog{
+    width: 400px!important;
+}
+
+/* Edit label form */
+.local_mail_form .label_form  {
+    text-align: center;
+    padding: 1em 2em;
+    margin: 0 auto 5em auto;
+    width: 50%;
+}
+
+.local_mail_form .label_name,
+.local_mail_form .label_color{
+   clear: both;
+   padding: 0.5em 0;
+}
+
+.local_mail_form .label_name label,
+.local_mail_form .label_color label{
+    float: left;
+    text-align: right;
+    width: 15%;
+}
+
+.local_mail_form .label_name input,
+.local_mail_form .label_color select,
+.local_mail_form .label_color .mail_label_colors {
+    clear: right;
+    float: left;
+    margin-left: 1em;
+}
+
+.local_mail_form .label_name input,
+.local_mail_form .label_color select {
+    width: 10em;
+}
+
+/* Navigation node */
+
+.local_mail_new_messages {
+    font-weight: bold;
+}
+
+/* Local main form */
+
+#local_mail_main_form {
+    min-height: 30em;
+}
+
+/* User profile */
+
+.local_mail_sendmessage {
+    text-align: center;
+    margin: 1em;
+}
+
+/* RTL Languages */
+
+.dir-rtl .mail_list .mail_item {
+    clear: left;
+}
+
+.dir-rtl .mail_list .mail_date {
+    float: left;
+    margin-left: 0;
+    margin-right: -15%;
+}
+
+.dir-rtl .mail_paging .singlebutton:nth-child(2) {
+    margin-left: 0;
+    border-radius: 0px 0.2em 0.2em 0px;
+}
+
+.dir-rtl .mail_paging .singlebutton:last-child {
+    border-radius: 0.2em 0px 0px 0.2em;
+    margin-right: 0;
+}
+
+.dir-rtl .mail_search_date {
+    width: 7em;
+    margin: 0.4em 0.5em 0 0;
+}
+
+.dir-rtl .mail_toggle_datepicker {
+    float: left;
+    margin-left: 0;
+    margin-right: 10px;
+    margin-top: -20px;
+}
+
+.dir-rtl .mail_label_diagonal_line {
+    transform: rotate(-45deg) translate(-4px, 9px);
+}
+
+.dir-rtl .mail_header .left {
+    float: right;
+}
+
+.dir-rtl .mail_info {
+    margin-left: 0;
+    margin-right: 43px;
+}
+
+.dir-rtl .mail_content {
+    margin: 1em 0px 0.2em;
+}
+
+.dir-rtl .mail_body {
+    margin-left: 0;
+    margin-right: 43px;
+}
+
+.dir-rtl .mail_references {
+    margin: 1em 43px 0 0;
+}
+
+.dir-rtl .mail_subject .mail_flags {
+    margin-left: 0;
+    margin-right: 0.5em;
+}
+
+.dir-rtl .mail_info .mail_date {
+    float: left;
+}
+
+.dir-rtl .mail_references .mail_info .mail_date {
+    float: none;
+}

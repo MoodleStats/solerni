@@ -88,6 +88,7 @@ if (!isset($instance->customtext1) || ($instance->customtext1 == "")) {
 }
 
 $instance->customtext1static = $instance->customtext1;
+$instance->customtext2static = $instance->customtext1."&id2=1";
 $mform = new enrol_orangeinvitation_edit_form(null, array($instance, $plugin, $context));
 
 if ($mform->is_cancelled()) {

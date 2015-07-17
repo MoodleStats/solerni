@@ -16,7 +16,7 @@
 
 /**
  * @package    orange_library
- * @subpackage utilities
+ * @subpackage badges_object
  * @copyright  2015 Orange
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -29,10 +29,10 @@ class badges_object {
      * Get the badges for a course
      * @return array $usedbadges
      */
-        public function get_badges() {
+    public function get_badges() {
         global $DB, $PAGE;
         $usedbadges = array();
-        $badges = $DB->get_records('badge', array('courseid'=>$PAGE->course->id));
+        $badges = $DB->get_records('badge', array('courseid' => $PAGE->course->id));
         if ($badges) {
             foreach ($badges as $badge) {
                     $usedbadges[$badge->id] = $badge->name;
@@ -67,8 +67,7 @@ class badges_object {
      */
     public function count_badges($courseid) {
         global $DB;
-        $nbbadges = $DB->count_records('badge', array('courseid'=>$courseid));
-        echo " courseid = ".$courseid." nb badges = ".$nbbadges;
+        $nbbadges = $DB->count_records('badge', array('courseid' => $courseid));
         return $nbbadges;
     }
 }

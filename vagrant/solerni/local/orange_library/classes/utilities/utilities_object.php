@@ -21,6 +21,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace local_orange_library\utilities;
+
 defined('MOODLE_INTERNAL') || die();
 
 class utilities_object {
@@ -64,70 +65,40 @@ class utilities_object {
         if ($seconds > 0) {
             $text = $seconds." ".get_string('second', 'block_orange_course_extended'). " ".$text;
         }
+
         return $text;
     }
 
     /**
-     * Get the number of users enrelloedin the course
-     *
-     * @param object $course
-     * @return int $nbenrolledusers
+     * trims text to a space then adds ellipses if desired
+     * @param string $input text to trim
+     * @param int $length in characters to trim to
+     * @param bool $ellipses if ellipses (...) are to be added
+     * @param bool $strip_html if html tags are to be stripped
+     * @return string
      */
-    public function get_nb_users_enrolled_in_course ($course) {
-        global $DB;
-        $courseid = $course->id;
-        $sqlrequest = "SELECT DISTINCT u.id AS userid, c.id AS courseid
-        FROM mdl_user u
-        JOIN mdl_user_enrolments ue ON ue.userid = u.id
-        JOIN mdl_enrol e ON e.id = ue.enrolid
-        JOIN mdl_role_assignments ra ON ra.userid = u.id
-        JOIN mdl_context ct ON ct.id = ra.contextid AND ct.contextlevel = 50
-        JOIN mdl_course c ON c.id = ct.instanceid AND e.courseid = ". $courseid."
-        JOIN mdl_role r ON r.id = ra.roleid AND r.shortname = 'student'
-        WHERE e.status = 0 AND u.suspended = 0 AND u.deleted = 0
-        AND (ue.timeend = 0 OR ue.timeend > NOW()) AND ue.status = 0";
-        $enrolledusers = $DB->get_records_sql($sqlrequest);
-        $nbenrolledusers = count ($enrolledusers);
-        return $nbenrolledusers;
-    }
-
-
-    /**
-     *  Get the category ID of a course.
-     *
-     * @return int $categoryid
-     */
-    public function get_categoryid() {
-        global $PAGE, $DB;
-         $context = $PAGE->context;
-        $coursecontext = $context->get_course_context();
-        $categoryid = null;
-        if ($coursecontext) { // No course context for system / user profile
-            $courseid = $coursecontext->instanceid;
-            $course = $DB->get_record('course', array('id' => $courseid), 'id, category');
-            if ($course) { // Should always exist, but just in case ...
-                $categoryid = $course->category;
-            }
+    function trim_text($input, $length, $ellipses = true, $strip_html = true) {
+        //strip tags, if desired
+        if ($strip_html) {
+            $input = strip_tags($input);
         }
-        return $categoryid;
-    }
 
-    /**
-     * Set the extended course values from config.
-     *
-     * @param object $context
-     * @return object $this->extendedcourse
-     */
-    public function get_categoryid_by_courseid($courseid) {
-        global $DB;
-        $categoryid = NULL;
-        $course = $DB->get_record('course', array('id' => $courseid), 'id, category');
-        if ($course) { // Should always exist, but just in case ...
-            $categoryid = $course->category;
+        //no need to trim, already shorter than trim length
+        if (strlen($input) <= $length) {
+            return $input;
         }
-        return $categoryid;
-    }
 
+        //find last space within length
+        $last_space = strrpos(substr($input, 0, $length), ' ');
+        $trimmed_text = substr($input, 0, $last_space);
+
+        //add ellipses (...)
+        if ($ellipses) {
+            $trimmed_text .= '...';
+        }
+
+        return $trimmed_text;
+    }
 
 
 }
