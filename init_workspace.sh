@@ -308,6 +308,18 @@ function create_subtrees () {
 
 	# mail (master = MOODLE_LEGACY) MOODLE 2.6-2.7
 	init_subtree vagrant/solerni/local/mail mail-source https://github.com/IOC/moodle-local_mail.git MOODLE_LEGACY
+
+	# Question Type Drag and drop onto text (master = 1.5 for Moodle 2.6+)
+	init_subtree vagrant/solerni/question/type/ddwtos ddwtos-source https://github.com/moodleou/moodle-qtype_ddwtos.git master
+
+	# Question Type Drag and drop onto image (master = 1.8 for Moodle 2.6+)
+	init_subtree vagrant/solerni/question/type/ddimageortext ddimageortext-source https://github.com/moodleou/moodle-qtype_ddimageortext.git master
+
+    		# Question type Drag and drop onto image and text Dependencies : Select missing words
+		init_subtree vagrant/solerni/question/type/gapselect gapselect-source https://github.com/moodleou/moodle-qtype_gapselect.git master
+
+	# Question type Ordering (master = 2015-02-21 (22))
+	init_subtree vagrant/solerni/question/type/ordering ordering-source https://github.com/gbateson/moodle-qtype_ordering.git master
 }
 
 
