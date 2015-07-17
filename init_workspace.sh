@@ -320,6 +320,12 @@ function create_subtrees () {
 
 	# Question type Ordering (master = 2015-02-21 (22))
 	init_subtree vagrant/solerni/question/type/ordering ordering-source https://github.com/gbateson/moodle-qtype_ordering.git master
+        
+        # mail (master = MOODLE_LEGACY) MOODLE 2.6-2.7
+        init_subtree vagrant/solerni/local/mail mail-source https://github.com/IOC/moodle-local_mail.git MOODLE_LEGACY
+
+        # mediagallery (master = master)
+        init_subtree vagrant/solerni/mod/mediagallery mediagallery-source https://github.com/netspotau/moodle-mod_mediagallery.git master
 }
 
 
