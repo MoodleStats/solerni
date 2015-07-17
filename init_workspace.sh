@@ -309,7 +309,7 @@ function create_subtrees () {
     # mail (master = MOODLE_LEGACY) MOODLE 2.6-2.7
     init_subtree vagrant/solerni/local/mail mail-source https://github.com/IOC/moodle-local_mail.git MOODLE_LEGACY
 
-    # mail (master = MOODLE_LEGACY) MOODLE 2.6-2.7
+    # mediagallery (master = master)
     init_subtree vagrant/solerni/mod/mediagallery mediagallery-source https://github.com/netspotau/moodle-mod_mediagallery.git master
 }
 
