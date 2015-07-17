@@ -5,6 +5,7 @@ vagrant/override/*
 !vagrant/override/lang
 !vagrant/override/user/profile/field/menu
 .vagrant
+vagrant/.*
 Vagrantfile
 vagrant/system
 vagrant/solerni/theme/solerni/npm-debug.log
