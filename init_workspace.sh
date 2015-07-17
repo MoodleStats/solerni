@@ -271,13 +271,13 @@ function create_subtrees () {
 	init_subtree vagrant/solerni/auth/googleoauth2 goauth-source https://github.com/mouneyrac/moodle-auth_googleoauth2.git master
 
 	# Progress bar (master = 2015021100)
-	#init_subtree vagrant/solerni/blocks/progress progressbar-source https://github.com/deraadt/Moodle-block_progress.git master
+	init_subtree vagrant/solerni/blocks/progress progressbar-source https://github.com/deraadt/Moodle-block_progress.git master
 
 	# Course Element (master = 2.4.0)
 	#init_subtree vagrant/solerni/mod/customlabel customlabel-source https://github.com/vfremaux/moodle-mod_customlabel.git master
 
 	# Flexsections Format (master = 2.8.1)
-	#init_subtree vagrant/solerni/course/format/flexsections flexsections-source https://github.com/marinaglancy/moodle-format_flexsections.git MOODLE_27_STABLE
+	init_subtree vagrant/solerni/course/format/flexsections flexsections-source https://github.com/marinaglancy/moodle-format_flexsections.git MOODLE_27_STABLE
 
 	# Flexpage Format (master = 2.7.0)
 	init_subtree vagrant/solerni/course/format/flexpage flexpage-source https://github.com/moodlerooms/moodle-format_flexpage.git MOODLE_27_STABLE
@@ -307,7 +307,7 @@ function create_subtrees () {
 	init_subtree vagrant/solerni/mod/oublog oublog-source https://github.com/moodleou/moodle-mod_oublog.git MOODLE_27_STABLE
 
 	# mail (master = MOODLE_LEGACY) MOODLE 2.6-2.7
-	#init_subtree vagrant/solerni/local/mail mail-source https://github.com/IOC/moodle-local_mail.git MOODLE_LEGACY
+	init_subtree vagrant/solerni/local/mail mail-source https://github.com/IOC/moodle-local_mail.git MOODLE_LEGACY
 }
 
 
