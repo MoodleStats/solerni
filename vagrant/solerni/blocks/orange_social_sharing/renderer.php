@@ -80,7 +80,7 @@ class block_orange_social_sharing_renderer extends plugin_renderer_base {
 
                     $text .= html_writer::tag('a', $shareonarray->getCurrent(),
                             array('class' => 'button_social_link__icon '.$socialclassarray->getCurrent().' -sprite-solerni',
-                            'href' => $socialurlarray->getCurrent().$PAGE->url));
+                            'href' => $socialurlarray->getCurrent().$PAGE->url, 'target' => '_blank'));
                     $text .= html_writer::end_tag('li');
 
         }
