@@ -100,4 +100,7 @@ class utilities_object {
         return $trimmed_text;
     }
 
+
 }
+
+
