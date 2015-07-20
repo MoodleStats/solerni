@@ -39,3 +39,5 @@ $string['actioncustomers_list'] = 'Liste des clients';
 $string['confirmdeletecustomer'] = 'Etes-vous sur de vouloir supprimer le client <b>{$a}</b> ?';
 
 $string['customerdeleted'] = 'Le client {$a} a été supprimé.';
+
+$string['orange_customers:edit'] = 'Edition des clients';

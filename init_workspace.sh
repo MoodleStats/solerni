@@ -265,7 +265,7 @@ function create_subtrees () {
 	#init_subtree vagrant/solerni/local/flavours flavours-source https://github.com/dmonllao/moodle-local_flavours.git master
 
 	# Navigation Buttons (master = 2.2)
-	init_subtree vagrant/solerni/blocks/navbuttons navbuttons-source https://github.com/davosmith/moodle-navbuttons.git master
+	#init_subtree vagrant/solerni/blocks/navbuttons navbuttons-source https://github.com/davosmith/moodle-navbuttons.git master
 
 	# oAuth Google (master = 1.5)
 	init_subtree vagrant/solerni/auth/googleoauth2 goauth-source https://github.com/mouneyrac/moodle-auth_googleoauth2.git master
@@ -277,7 +277,7 @@ function create_subtrees () {
 	#init_subtree vagrant/solerni/mod/customlabel customlabel-source https://github.com/vfremaux/moodle-mod_customlabel.git master
 
 	# Flexsections Format (master = 2.8.1)
-	#init_subtree vagrant/solerni/course/format/flexsections flexsections-source https://github.com/marinaglancy/moodle-format_flexsections.git MOODLE_27_STABLE
+	init_subtree vagrant/solerni/course/format/flexsections flexsections-source https://github.com/marinaglancy/moodle-format_flexsections.git MOODLE_27_STABLE
 
 	# Flexpage Format (master = 2.7.0)
 	init_subtree vagrant/solerni/course/format/flexpage flexpage-source https://github.com/moodlerooms/moodle-format_flexpage.git MOODLE_27_STABLE
@@ -298,13 +298,34 @@ function create_subtrees () {
 	init_subtree vagrant/solerni/local/goodbye goodbye-source https://github.com/bmbrands/moodle-local_goodbye.git master
 
 	# Makeanonymous (tag v_28 = 0.5)
-	init_subtree vagrant/solerni makeanon-source https://github.com/eledia/local_eledia_makeanonymous.git v_28
+	#init_subtree vagrant/solerni makeanon-source https://github.com/eledia/local_eledia_makeanonymous.git v_28
 
 	# Autoenrol (master = 1.3)
-	init_subtree vagrant/solerni autoenrol-source https://github.com/markward/enrol_autoenrol.git master
+	#init_subtree vagrant/solerni autoenrol-source https://github.com/markward/enrol_autoenrol.git master
 
 	# OU Blog (master = 2.7 r1)
 	init_subtree vagrant/solerni/mod/oublog oublog-source https://github.com/moodleou/moodle-mod_oublog.git MOODLE_27_STABLE
+
+	# mail (master = MOODLE_LEGACY) MOODLE 2.6-2.7
+	init_subtree vagrant/solerni/local/mail mail-source https://github.com/IOC/moodle-local_mail.git MOODLE_LEGACY
+
+	# Question Type Drag and drop onto text (master = 1.5 for Moodle 2.6+)
+	init_subtree vagrant/solerni/question/type/ddwtos ddwtos-source https://github.com/moodleou/moodle-qtype_ddwtos.git master
+
+	# Question Type Drag and drop onto image (master = 1.8 for Moodle 2.6+)
+	init_subtree vagrant/solerni/question/type/ddimageortext ddimageortext-source https://github.com/moodleou/moodle-qtype_ddimageortext.git master
+
+    		# Question type Drag and drop onto image and text Dependencies : Select missing words
+		init_subtree vagrant/solerni/question/type/gapselect gapselect-source https://github.com/moodleou/moodle-qtype_gapselect.git master
+
+	# Question type Ordering (master = 2015-02-21 (22))
+	init_subtree vagrant/solerni/question/type/ordering ordering-source https://github.com/gbateson/moodle-qtype_ordering.git master
+        
+        # mail (master = MOODLE_LEGACY) MOODLE 2.6-2.7
+        init_subtree vagrant/solerni/local/mail mail-source https://github.com/IOC/moodle-local_mail.git MOODLE_LEGACY
+
+        # mediagallery (master = master)
+        init_subtree vagrant/solerni/mod/mediagallery mediagallery-source https://github.com/netspotau/moodle-mod_mediagallery.git master
 }
 
 
