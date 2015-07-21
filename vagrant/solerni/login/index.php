@@ -346,8 +346,11 @@ if (isloggedin() and !isguestuser()) {
     echo $OUTPUT->confirm(get_string('alreadyloggedin', 'error', fullname($USER)), $logout, $continue);
     echo $OUTPUT->box_end();
 } else {
-    //include('index_form.html');
-    $OUTPUT->solerni_login_render_form($show_instructions, $frm);
+    if (method_exists($OUTPUT, 'solerni_login_render_form')){
+        $OUTPUT->solerni_login_render_form($show_instructions, $frm);
+    } else {
+        include('index_form.html');
+    }
     if ($errormsg) {
         $PAGE->requires->js_init_call('M.util.focus_login_error', null, true);
     } else if (!empty($CFG->loginpageautofocus)) {
