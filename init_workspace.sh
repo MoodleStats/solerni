@@ -326,6 +326,9 @@ function create_subtrees () {
 
         # mediagallery (master = master)
         init_subtree vagrant/solerni/mod/mediagallery mediagallery-source https://github.com/netspotau/moodle-mod_mediagallery.git master
+
+	# questionnaire (master = 2.7.2)
+	init_subtree vagrant/solerni/mod/questionnaire questionnaire-source https://github.com/remotelearner/moodle-mod_questionnaire.git MOODLE_27_STABLE
 }
 
 
