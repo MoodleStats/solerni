@@ -317,6 +317,9 @@ function create_subtrees () {
 
 	# questionnaire (master = 2.7.2)
 	init_subtree vagrant/solerni/mod/questionnaire questionnaire-source https://github.com/remotelearner/moodle-mod_questionnaire.git MOODLE_27_STABLE
+
+       # forumng (master = 2.7 r2)
+        init_subtree vagrant/solerni/mod/forumng forumng-source https://github.com/moodleou/moodle-mod_forumng.git MOODLE_27_STABLE
 }
 
 
