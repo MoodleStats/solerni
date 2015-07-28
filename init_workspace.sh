@@ -320,6 +320,9 @@ function create_subtrees () {
 
        # forumng (master = 2.7 r2)
         init_subtree vagrant/solerni/mod/forumng forumng-source https://github.com/moodleou/moodle-mod_forumng.git MOODLE_27_STABLE
+
+       # workshopeval_credit (master = master)
+        init_subtree vagrant/solerni/mod/workshop/eval/credit credit-source https://github.com/mudrd8mz/moodle-workshopeval_credit.git master
 }
 
 
