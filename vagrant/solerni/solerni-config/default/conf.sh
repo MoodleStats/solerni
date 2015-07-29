@@ -47,15 +47,11 @@ moosh config-set lang fr
 # User policies : hide user fields (#us_110)
 moosh config-set hiddenuserfields icqnumber,skypeid,yahooid,aimid,msnid,lastip
 
-# Update capability : See full user fields identity in lists (#us_110)
-moosh role-update-capability solerni_utilisateur moodle/site:viewuseridentity allow 1
-
 # Activation multilang Filter (#us_110)
 moosh filter-manage -c on multilang
 
-# Add capabilities orangeinvitation:config for coursecreator and solerni_course_creator (#us_7)
-moosh role-update-capability coursecreator enrol/orangeinvitation:config allow 1
-moosh role-update-capability solerni_course_creator enrol/orangeinvitation:config allow 1
-
 # Add new user profil fields (#us_110)
 moosh userprofilefields-import solerni-config/default/users_profil/profile_fields.csv
+
+# Enable cron via the web (Security)
+moosh config-set cronclionly 1
