@@ -38,32 +38,32 @@ $explaination       = ($PAGE->theme->settings->$footerexplaination) ?
                        get_string('footerexplainationdefault', 'theme_cerulean');
 ?>
 
-<footer id="footer" class="row-fluid slrn-footer">
-    <div class="clearfix">
-        <div class="span4 footer-brand">
-            <div class="footer-brand__logo -sprite-cerulean"></div>
-            <p class="footer-brand_title"><?php echo $tagline; ?></p>
-            <p class="footer-brand__text"><?php echo $explaination; ?></p>
+<footer id="footer" >
+    <div >
+        <div >
+            <div ></div>
+            <p ><?php echo $tagline; ?></p>
+            <p ><?php echo $explaination; ?></p>
         </div>
         <?php $OUTPUT->render_footer_column_with_links( 'aboutus', array('aboutsolerni', 'partners', 'legal', 'cgu') ); ?>
         <?php $OUTPUT->render_footer_column_with_links( 'support', array('faq', 'contactus') ); ?>
         <?php $OUTPUT->render_footer_column_socials( 'followus', array('facebook', 'twitter', 'dailymotion', 'blog') ); ?>
-        <div class="span2 footer-column">
-            <p class="footer_column_title">
+        <div >
+            <p >
                 <?php echo get_string('international', 'theme_cerulean'); ?>
             </p>
-            <ul class="footer_lang_menu">
+            <ul >
                 <?php echo $OUTPUT->cerulean_lang_menu(); ?>
             </ul>
         </div>
     </div>
-    <div class="row-fluid">
-        <hr class="slrn-hr slrn-hr--thin">
-        <a class="pull-right" target="_blank" href="http://www.orange.com">
-            <div class="footer_powered  -sprite-cerulean">powered by Orange</div>
+    <div >
+        <hr >
+        <a  target="_blank" href="http://www.orange.com">
+            <div >powered by Orange</div>
         </a>
     </div>
 </footer>
-<div class="row-fluid">
+<div >
     <?php echo $OUTPUT->standard_footer_html(); ?>
 </div>

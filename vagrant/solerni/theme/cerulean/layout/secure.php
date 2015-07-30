@@ -27,17 +27,17 @@ echo $OUTPUT->doctype() ?>
 
 <?php echo $OUTPUT->standard_top_of_body_html() ?>
 
-<header role="banner" class="navbar navbar-fixed-top moodle-has-zindex">
-    <nav role="navigation" class="navbar-inner">
-        <div class="container-fluid">
-            <a class="brand" href="<?php echo $CFG->wwwroot;?>"><?php echo $SITE->shortname; ?></a>
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
+<header role="banner" >
+    <nav role="navigation" >
+        <div >
+            <a  href="<?php echo $CFG->wwwroot;?>"><?php echo $SITE->shortname; ?></a>
+            <a  data-toggle="collapse" data-target=".nav-collapse">
+                <span ></span>
+                <span ></span>
+                <span ></span>
             </a>
-            <div class="nav-collapse collapse">
-                <ul class="nav pull-right">
+            <div >
+                <ul >
                     <li><?php echo $OUTPUT->page_heading_menu(); ?></li>
                 </ul>
             </div>
@@ -45,16 +45,16 @@ echo $OUTPUT->doctype() ?>
     </nav>
 </header>
 
-<div id="page" class="container-fluid">
+<div id="page" >
 
-    <header id="page-header" class="clearfix">
+    <header id="page-header" >
         <?php echo $OUTPUT->page_heading(); ?>
     </header>
 
-    <div id="page-content" class="row-fluid">
-        <div id="region-bs-main-and-pre" class="span9">
-            <div class="row-fluid">
-                <section id="region-main" class="span8 pull-right">
+    <div id="page-content" >
+        <div id="region-bs-main-and-pre" >
+            <div >
+                <section id="region-main" >
                     <?php echo $OUTPUT->main_content(); ?>
                 </section>
                 <?php echo $OUTPUT->blocks('side-pre', 'span4 desktop-first-column'); ?>

@@ -16,9 +16,17 @@ class theme_cerulean_core_renderer extends theme_bootstrap_core_renderer {
      */
     public function cerulean_search_box() {
     ?>
-        <form id="search_form" class="slrn-top-header__item slrn-header-search-form -inactive" method="GET" action="<?php echo $this->page->url; ?>">
-            <input class="slrn-header-search-input -slrn-radius" id="search_input" name="search_input" placeholder="<?php echo get_string('search', 'theme_cerulean'); ?>" value=""/>
-        </form>
+        <div id="search_form" class="col-sm-12 col-lg-5">
+
+          <form id="search_form" class="form-inline pull-right" method="GET" action="<?php echo $this->page->url; ?>">
+
+            <input type="text" style="width:150px" class="input-sm form-control" id="search_input" name="search_input" placeholder="<?php echo get_string('search', 'theme_cerulean'); ?>" value=""/>
+
+            <button type="submit" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-eye-open"></span> Chercher</button>
+
+          </form>
+
+        </div>
     <?php }
 
     /*
@@ -31,15 +39,15 @@ class theme_cerulean_core_renderer extends theme_bootstrap_core_renderer {
         $cataloglink    = $this->page->theme->settings->catalogue;
     ?>
         <?php if ($aboutlink) : ?>
-            <li class="slrn-top-header__item">
-                <a class="slrn-top-header__item slrn-top-header__item--link" href="<?php echo $this->page->theme->settings->about; ?>">
+            <li >
+                <a  href="<?php echo $this->page->theme->settings->about; ?>">
                     <?php echo get_string('about', 'theme_cerulean'); ?>
                 </a>
             </li>
         <?php endif; ?>
         <?php if ($cataloglink) : ?>
-            <li class="slrn-top-header__item">
-                <a class="slrn-top-header__item  slrn-top-header__item--link" href="<?php echo $this->page->theme->settings->catalogue; ?>">
+            <li >
+                <a  href="<?php echo $this->page->theme->settings->catalogue; ?>">
                     <?php echo get_string('catalogue', 'theme_cerulean'); ?>
                 </a>
             </li>
@@ -109,7 +117,7 @@ class theme_cerulean_core_renderer extends theme_bootstrap_core_renderer {
             }
         }
 
-        $content = '<li class="slrn-selected-in-menu slrn-lang-menu">';
+        $content = '<li >';
         foreach ($menu->get_children() as $item) {
             $content .= $this->cerulean_render_lang_menu_item($item, 1);
         }
@@ -147,18 +155,18 @@ class theme_cerulean_core_renderer extends theme_bootstrap_core_renderer {
 
             $content .= $menu_title;
             if ($level == 1) {
-                $content .= '<b class="caret"></b>';
+                $content .= '<b ></b>';
             }
             $content .= html_writer::end_tag('a');
 
-            $content .= '<ul class="dropdown-menu">';
-            $content .= '<span class="slrn-topbar-item__active"></span>';
+            $content .= '<ul >';
+            $content .= '<span ></span>';
             foreach ($menunode->get_children() as $menunode) {
                 $content .= $this->cerulean_render_lang_menu_item($menunode, 0, $menu_title);
             }
             $content .= html_writer::end_tag('ul');
         } else {
-            $content = '<li class="dropdown-menu__item">';
+            $content = '<li >';
             // The node doesn't have children so produce a final menuitem.
             if ($menunode->get_url() !== null) {
                 $url = $menunode->get_url();
@@ -166,10 +174,10 @@ class theme_cerulean_core_renderer extends theme_bootstrap_core_renderer {
                 $url = '#';
             }
 
-            $classes = 'dropdown-menu__item__link';
+            $classes = '';
             if ( $menu_title == $current_title ) {
                 $classes .= ' -is-active';
-                $current_title .= '<i class="icon-ok"></i>';
+                $current_title .= '<i ></i>';
             }
 
             $content .= html_writer::link($url, $current_title, array('class' => $classes ));
@@ -222,15 +230,15 @@ class theme_cerulean_core_renderer extends theme_bootstrap_core_renderer {
 
         if ( $title && $this->is_theme_settings_exists($settings) ) :
     ?>
-        <div class="span2 footer-column ">
-            <p class="footer_column_title">
+        <div >
+            <p >
                 <?php echo get_string($title, 'theme_cerulean'); ?>
             </p>
-            <ul class="footer_column_menu__column">
+            <ul >
                 <?php foreach ( $settings as $setting )  :
                     if ( $PAGE->theme->settings->$setting ) : ?>
-                        <li class="footer_column__item">
-                            <a class="footer_column_menu_column__link" href="<?php echo $PAGE->theme->settings->$setting; ?>">
+                        <li >
+                            <a  href="<?php echo $PAGE->theme->settings->$setting; ?>">
                                 <?php echo get_string($setting, 'theme_cerulean'); ?>
                             </a>
                         </li>
@@ -254,17 +262,17 @@ class theme_cerulean_core_renderer extends theme_bootstrap_core_renderer {
 
         if ( $title && $this->is_theme_settings_exists($settings)) :
     ?>
-        <div class="span2 footer-column ">
-            <p class="footer_column_title">
+        <div >
+            <p >
                 <?php echo get_string($title, 'theme_cerulean'); ?>
             </p>
-            <ul class="footer_column_menu__column">
+            <ul >
                 <?php foreach ( $settings as $setting )  :
                     if ( $PAGE->theme->settings->$setting ) : ?>
-                    <li class="button_social_item">
-                        <a href="<?php echo $PAGE->theme->settings->$setting; ?>" class="footer_column_menu_column__link" target="_blank">
-                            <span class="button_social_link__icon button_social_<?php echo $setting; ?>  -sprite-cerulean"><?php echo $setting; ?></span><!-- !!! Do not remove this comment !!! Display Bugfix : Allow no spaces between 2 elements
-                            --><span class="footer_icon_text">
+                    <li >
+                        <a href="<?php echo $PAGE->theme->settings->$setting; ?>"  target="_blank">
+                            <span ><?php echo $setting; ?></span><!-- !!! Do not remove this comment !!! Display Bugfix : Allow no spaces between 2 elements
+                            --><span >
                                 <?php echo get_string($setting . 'displayname', 'theme_cerulean'); ?>
                             </span>
                         </a>
@@ -304,47 +312,47 @@ class theme_cerulean_core_renderer extends theme_bootstrap_core_renderer {
         }
         auth_googleoauth2_display_buttons();
         ?>
-        <div class="loginbox clearfix <?php echo $columns ?>">
-          <div class="loginpanel">
+        <div >
+          <div >
         <?php
           if (($CFG->registerauth == 'email') || !empty($CFG->registerauth)) { ?>
-              <div class="skiplinks"><a class="skip" href="signup.php"><?php print_string("tocreatenewaccount"); ?></a></div>
+              <div ><a  href="signup.php"><?php print_string("tocreatenewaccount"); ?></a></div>
         <?php
           } ?>
             <h2><?php print_string("logintitle", 'theme_cerulean') ?></h2>
-              <div class="subcontent loginsub">
+              <div >
                 <?php
                   if (!empty($errormsg)) {
-                      echo html_writer::start_tag('div', array('class' => 'loginerrors'));
-                      echo html_writer::link('#', $errormsg, array('id' => 'loginerrormessage', 'class' => 'accesshide'));
+                      echo html_writer::start_tag('div', array('class' => ''));
+                      echo html_writer::link('#', $errormsg, array('id' => 'loginerrormessage', 'class' => ''));
                       echo $this->error_text($errormsg);
                       echo html_writer::end_tag('div');
                   }
                 ?>
                 <form action="<?php echo $CFG->httpswwwroot; ?>/login/index.php" method="post" id="login" <?php echo $autocomplete; ?> >
-                  <div class="loginform">
-                    <div class="form-label"><label for="username"><?php echo($strusername) ?></label></div>
-                    <div class="form-input">
+                  <div >
+                    <div ><label for="username"><?php echo($strusername) ?></label></div>
+                    <div >
                       <input type="text" name="username" id="username" size="15" value="<?php p($frm->username) ?>" />
                     </div>
-                    <div class="clearer"><!-- --></div>
-                    <div class="form-label"><label for="password"><?php print_string("password") ?></label></div>
-                    <div class="form-input">
+                    <div ><!-- --></div>
+                    <div ><label for="password"><?php print_string("password") ?></label></div>
+                    <div >
                       <input type="password" name="password" id="password" size="15" value="" <?php echo $autocomplete; ?> />
                     </div>
                   </div>
-                    <div class="clearer"><!-- --></div>
+                    <div ><!-- --></div>
                       <?php if (isset($CFG->rememberusername) and $CFG->rememberusername == 2) { ?>
-                      <div class="rememberpass">
+                      <div >
                           <input type="checkbox" name="rememberusername" id="rememberusername" value="1" <?php if ($frm->username) {echo 'checked="checked"';} ?> />
                           <label for="rememberusername"><?php print_string('rememberusername', 'admin') ?></label>
                       </div>
                       <?php } ?>
-                  <div class="clearer"><!-- --></div>
-                  <input class="btn btn-primary"type="submit" id="loginbtn" value="<?php print_string("login") ?>" />
-                  <div class="forgetpass"><a href="forgot_password.php"><?php print_string("forgotten") ?></a></div>
+                  <div ><!-- --></div>
+                  <input type="submit" id="loginbtn" value="<?php print_string("login") ?>" />
+                  <div ><a href="forgot_password.php"><?php print_string("forgotten") ?></a></div>
                 </form>
-                <div class="desc">
+                <div >
                     <?php
                         echo get_string("cookiesenabled");
                         echo $this->help_icon('cookiesenabled');
@@ -354,13 +362,13 @@ class theme_cerulean_core_renderer extends theme_bootstrap_core_renderer {
 
              </div>
         <?php if ($show_instructions) { ?>
-            <div class="signuppanel">
+            <div >
               <h2><?php print_string("register", 'theme_cerulean' ) ?></h2>
-              <div class="subcontent">
+              <div >
                     <p align="center"><?php  print_string("loginsteps", 'theme_cerulean');?></p>
-                  <div class="signupform">
+                  <div >
                            <form action="signup.php" method="get" id="signup">
-                           <div><input class="btn btn-primary" type="submit" value="<?php print_string("registerbutton", 'theme_cerulean') ?>" /></div>
+                           <div><input  type="submit" value="<?php print_string("registerbutton", 'theme_cerulean') ?>" /></div>
                            </form>
                          </div>
               </div>
@@ -400,18 +408,18 @@ class theme_cerulean_core_renderer extends theme_bootstrap_core_renderer {
 
         auth_googleoauth2_display_buttons();
         ?>
-        <div class="loginbox clearfix <?php echo $columns ?>">
-          <div class="loginpanel">
+        <div >
+          <div >
         <?php $mform_signup->display(); ?>
              </div>
         <?php if ($show_instructions) { ?>
-            <div class="signuppanel">
+            <div >
               <h2><?php echo get_string('registertitle', 'theme_cerulean') ?></h2>
-              <div class="subcontent">
+              <div >
                   <p ><?php  print_string("loginsteps", 'theme_cerulean');?></p>
-                <div class="signupform">
+                <div >
                   <form action="index.php" method="get" id="login">
-                  <div><input class="btn btn-primary" type="submit" value="<?php print_string("loginbutton", 'theme_cerulean') ?>" /></div>
+                  <div><input type="submit" value="<?php print_string("loginbutton", 'theme_cerulean') ?>" /></div>
                   </form>
                 </div>
 

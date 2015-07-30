@@ -55,7 +55,7 @@ class theme_cerulean_core_course_renderer extends core_course_renderer {
 				'viewmoreurl' => new moodle_url('/course/index.php'),
 				'viewmoretext' => new lang_string('fulllistofcourses')));
 
-		$chelper->set_attributes(array('class' => 'frontpage-course-list-all'));
+		$chelper->set_attributes(array('class' => ''));
 		$courses = coursecat::get(0)->get_courses($chelper->get_courses_display_options());
 		$totalcount = coursecat::get(0)->get_courses_count($chelper->get_courses_display_options());
 		if (!$totalcount && !$this->page->user_is_editing() && has_capability('moodle/course:create', context_system::instance())) {
@@ -87,7 +87,7 @@ class theme_cerulean_core_course_renderer extends core_course_renderer {
         $content = '';
 
         $utilitiescourse = new utilities_course();
-        $additionalclasses = 'slrn-coursebox '. $additionalclasses;
+        $additionalclasses = ' '. $additionalclasses;
 
         // End code to display only allowed MOOC.
         if ($utilitiescourse->can_user_view_course($course, $USER)) {
@@ -116,22 +116,22 @@ class theme_cerulean_core_course_renderer extends core_course_renderer {
         $PAGE->requires->css('/local/orange_library/style.css');
 
         $utilitiescourse = new utilities_course();
-        $customer = $utilitiescourse->cerulean_course_get_customer_infos($coursecat->id);
+        $customer = $utilitiescourse->solerni_course_get_customer_infos($coursecat->id);
 
         $content = '';
         if (isset($customer->id)) {
-            $content .= "<div class='slrn-header__column'>";
+            $content .= "<div >";
             if ($customer->urlpicture != "") {
-                $content .= "<div><img class='header-background-img' src='";
+                $content .= "<div><img  src='";
                 $content .= utilities_image::get_resized_url($customer->urlpicture, array ('scale' => 'true', 'h' => 216, 'w' => 966));
                 $content .= "' alt='{$customer->name}' /></div>";
             }
             if ($customer->urlimg != "") {
-                $content .= "<div class='slrn-header__logo'><img class='header-logo-img' src='";
+                $content .= "<div ><img  src='";
                 $content .= utilities_image::get_resized_url($customer->urlimg, array ('scale' => 'true', 'h' => 100));
                 $content .= "' /></div>";
             }
-            $content .= "<div class='slrn-header__description'><h1>{$customer->name}</h1><div>{$customer->summary}</div></div>";
+            $content .= "<div ><h1>{$customer->name}</h1><div>{$customer->summary}</div></div>";
             $content .= "</div>";
         }
         // Subcategories.
@@ -198,7 +198,7 @@ class theme_cerulean_core_course_renderer extends core_course_renderer {
                         'paginationurl' => new moodle_url('/catalog/index.php'),
                         'viewmoreurl' => new moodle_url('/catalog/index.php'),
                         'viewmoretext' => new lang_string('fulllistofcourses')));
-        $chelper->set_attributes(array('class' => 'frontpage-course-list-all'));
+        $chelper->set_attributes(array('class' => ''));
 
         /* @todo
          * Refacto : init utilities in construct.
@@ -233,7 +233,7 @@ class theme_cerulean_core_course_renderer extends core_course_renderer {
         $catalogurl = new moodle_url('/catalog/index.php');
 
         $output = html_writer::start_tag('form', array('id' => $formid, 'action' => $catalogurl, 'method' => 'post'));
-        $output .= html_writer::start_tag('fieldset', array('class' => 'coursesearchbox invisiblefieldset'));
+        $output .= html_writer::start_tag('fieldset', array('class' => ''));
 
         // Filter on status.
         $status = array (0 => get_string('filterstatusall', 'theme_cerulean'),
@@ -247,14 +247,14 @@ class theme_cerulean_core_course_renderer extends core_course_renderer {
             $allchecked = '';
         }
 
-        $output .= "<div class='slrn-filter'>";
+        $output .= "<div >";
 
-        $output .= "<div class='filterstatus'>";
-        $output .= "<h3 class='filter'>" . get_string('filterstatustitle', 'theme_cerulean') . "</h3>";
-        $output .= "<div class='filter'>";
-        $output .= "<input type='checkbox' id='statusall' name='statusid[]' class='cerulean_checkboxall' ";
+        $output .= "<div >";
+        $output .= "<h3 >" . get_string('filterstatustitle', 'theme_cerulean') . "</h3>";
+        $output .= "<div >";
+        $output .= "<input type='checkbox' id='statusall' name='statusid[]'  ";
         $output .= "value='0' $allchecked/>".$status[0];
-        $output .= "<ul class='filterstatus' id='ulstatusall'>";
+        $output .= "<ul  id='ulstatusall'>";
         foreach ($status as $statusid => $statuslabel) {
             if ($statusid != 0) {
                 if (in_array($statusid, $filter->statusid )) {
@@ -263,7 +263,7 @@ class theme_cerulean_core_course_renderer extends core_course_renderer {
                     $checked = '';
                 }
                 $output .= "<li>";
-                $output .= "<input type='checkbox' name='statusid[]' class='cerulean_checkbox' value='$statusid' $checked />";
+                $output .= "<input type='checkbox' name='statusid[]' value='$statusid' $checked />";
                 $output .= $statuslabel . "</li>";
             }
         }
@@ -281,12 +281,12 @@ class theme_cerulean_core_course_renderer extends core_course_renderer {
             $allchecked = '';
         }
 
-        $output .= "<div class='filterthematic'>";
-        $output .= "<h3 class='filter'>" . get_string('filterthematictitle', 'theme_cerulean'). "</h3>";
-        $output .= "<div class='filter'>";
-        $output .= "<input type='checkbox' id='thematicall' name='thematicid[]' class='cerulean_checkboxall'";
+        $output .= "<div >";
+        $output .= "<h3 >" . get_string('filterthematictitle', 'theme_cerulean'). "</h3>";
+        $output .= "<div >";
+        $output .= "<input type='checkbox' id='thematicall' name='thematicid[]' ";
         $output .= " value='0' $allchecked/>".$thematic[0];
-        $output .= "<ul class='filterthematic' id='ulthematicall'>";
+        $output .= "<ul  id='ulthematicall'>";
         foreach ($thematics as $theme) {
             if ($theme->id != 0) {
                 if (in_array($theme->id, $filter->thematicsid )) {
@@ -295,7 +295,7 @@ class theme_cerulean_core_course_renderer extends core_course_renderer {
                     $checked = '';
                 }
                 $output .= "<li>";
-                $output .= "<input type='checkbox' name='thematicid[]' class='cerulean_checkbox' value='$theme->id' $checked />";
+                $output .= "<input type='checkbox' name='thematicid[]' value='$theme->id' $checked />";
                 $output .= $theme->name . "</li>";
             }
         }
@@ -315,12 +315,12 @@ class theme_cerulean_core_course_renderer extends core_course_renderer {
             $allchecked = '';
         }
 
-        $output .= "<div class='filterduration'>";
-        $output .= "<h3 class='filter'>" . get_string('filterdurationtitle', 'theme_cerulean'). "</h3>";
-        $output .= "<div class='filter'>";
-        $output .= "<input type='checkbox' id='durationall' name='durationid[]' class='cerulean_checkboxall' ";
+        $output .= "<div >";
+        $output .= "<h3 >" . get_string('filterdurationtitle', 'theme_cerulean'). "</h3>";
+        $output .= "<div >";
+        $output .= "<input type='checkbox' id='durationall' name='durationid[]'  ";
         $output .= "value='0' $allchecked/>".$duration[0];
-        $output .= "<ul class='filterduration' id='uldurationall'>";
+        $output .= "<ul  id='uldurationall'>";
         foreach ($duration as $durationid => $durationlabel) {
             if ($durationid != 0) {
                 if (in_array($durationid, $filter->durationsid )) {
@@ -329,7 +329,7 @@ class theme_cerulean_core_course_renderer extends core_course_renderer {
                     $checked = '';
                 }
                 $output .= "<li>";
-                $output .= "<input type='checkbox' name='durationid[]' class='cerulean_checkbox' value='$durationid' $checked />";
+                $output .= "<input type='checkbox' name='durationid[]'  value='$durationid' $checked />";
                 $output .= $durationlabel. "</li>";
             }
         }
@@ -345,12 +345,12 @@ class theme_cerulean_core_course_renderer extends core_course_renderer {
         } else {
             $allchecked = '';
         }
-        $output .= "<div class='filtercategory'>";
-        $output .= "<h3 class='filter'>" . get_string('filtercategorytitle', 'theme_cerulean'). "</h3>";
-        $output .= "<div class='filter'>";
-        $output .= "<input type='checkbox' id='categoryall' name='categoryid[]' class='cerulean_checkboxall' ";
+        $output .= "<div >";
+        $output .= "<h3 >" . get_string('filtercategorytitle', 'theme_cerulean'). "</h3>";
+        $output .= "<div >";
+        $output .= "<input type='checkbox' id='categoryall' name='categoryid[]'  ";
         $output .= "value='0' $allchecked/>" . get_string('filtercategoryall', 'theme_cerulean');
-        $output .= "<ul class='filtercategory' id='ulcategoryall'>";
+        $output .= "<ul  id='ulcategoryall'>";
         foreach ($categories as $catid => $category) {
             if ($catid != 0) {
                 if (in_array($catid, $filter->categoriesid)) {
@@ -362,7 +362,7 @@ class theme_cerulean_core_course_renderer extends core_course_renderer {
                 $customer = customer_get_customerbycategoryid ($catid);
                 if (isset($customer->id)) {
                     $output .= "<li>";
-                    $output .= "<input type='checkbox' name='categoryid[]' class='cerulean_checkbox' value='$catid' $checked />";
+                    $output .= "<input type='checkbox' name='categoryid[]'  value='$catid' $checked />";
                     $output .= $customer->name ."</li>";
                 }
             }
@@ -422,13 +422,13 @@ class theme_cerulean_core_course_renderer extends core_course_renderer {
             // Get course informations.
             $courseinfos = $utilitiescourse->solerni_get_course_infos($course);
 
-            $classes = trim('coursebox '. $additionalclasses);
+            $classes = '';
             $coursename = $chelper->get_course_formatted_name($course);
 
             if ($chelper->get_show_courses() >= self::COURSECAT_SHOW_COURSES_EXPANDED) {
                     $nametag = 'h3';
             } else {
-                    $classes .= ' collapsed';
+                    $classes .= ' ';
                     $nametag = 'div';
             }
 
@@ -492,9 +492,9 @@ class theme_cerulean_core_course_renderer extends core_course_renderer {
          $cataloglink = $PAGE->theme->settings->catalogue;
 
          ?>
-        <div class="frontpage_heading">
+        <div >
             <?php if ($cataloglink) : ?>
-                <a href="<?php echo $cataloglink; ?>" class="link-top-right">
+                <a href="<?php echo $cataloglink; ?>" >
                      <?php echo get_string('seecatalog', 'theme_cerulean'); ?>
                 </a>
             <?php endif;?>

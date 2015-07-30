@@ -31,30 +31,30 @@ $showsidepost   = ($hassidepost && !$PAGE->blocks->region_completely_docked('sid
 $isfrontpage    = ($PAGE->pagetype === 'site-index');
 ?>
 
-<header role="banner" class="navbar navbar-fixed-top slrn-top-header">
+<header role="banner" >
     <nav role="navigation">
-        <div class="container-fluid slrn-top-header__inner -wrapper-justified">
+        <div >
 
-            <a class="slrn-top-header__item slrn-top-header__logo -sprite-cerulean"
+            <a
                href="<?php echo $CFG->wwwroot; ?>">
             </a>
 
             <?php $OUTPUT->cerulean_search_box(); ?>
 
-            <div class="nav-collapse navbar-collapse collapse slrn-top-header__item slrn-top-header__menu -wrapper-justified">
-                <ul class="nav navbar-nav -wrapper-justified">
+            <div >
+                <ul >
                     <?php $OUTPUT->cerulean_header_links(); ?>
                     <?php $OUTPUT->cerulean_user_menu(); ?>
                 </ul>
             </div>
 
-            <a class="btn btn-navbar navbar-toggle slrn-btn-navbar slrn-top-header__item"
+            <a 
                data-toggle="collapse"
                data-target=".nav-collapse"
             >
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
+                <span ></span>
+                <span ></span>
+                <span ></span>
             </a>
 
         </div>
@@ -65,4 +65,4 @@ $isfrontpage    = ($PAGE->pagetype === 'site-index');
     include($CFG->partialsdir . '/frontpage_header.php');
 } ?>
 
-<div id="page" class="container-fluid">
+<div id="page" >

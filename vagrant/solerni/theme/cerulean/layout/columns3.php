@@ -46,10 +46,10 @@ echo $OUTPUT->doctype() ?>
 
 <?php require('header.php'); ?>
 
-    <div id="page-content" class="row-fluid">
-        <div id="<?php echo $regionbsid ?>" class="span9">
-            <div class="row-fluid">
-                <section id="region-main" class="span8 pull-right">
+    <div id="page-content" >
+        <div id="<?php echo $regionbsid ?>" >
+            <div >
+                <section id="region-main" >
                     <?php
                     echo $OUTPUT->course_content_header();
                     echo $OUTPUT->main_content();

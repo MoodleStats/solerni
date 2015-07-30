@@ -37,32 +37,32 @@ echo $OUTPUT->doctype() ?>
     }
 ?>
 
-<header role="banner" class="navbar navbar-fixed-top moodle-has-zindex <?php echo $hideclass; ?>">
-    <nav role="navigation" class="navbar-inner">
-        <div class="container-fluid">
-            <a class="brand" href="<?php echo $CFG->wwwroot;?>"><?php echo $SITE->shortname; ?></a>
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
+<header role="banner" >
+    <nav role="navigation" >
+        <div >
+            <a  href="<?php echo $CFG->wwwroot;?>"><?php echo $SITE->shortname; ?></a>
+            <a  data-toggle="collapse" data-target=".nav-collapse">
+                <span ></span>
+                <span ></span>
+                <span ></span>
             </a>
-            <div class="nav-collapse collapse">
+            <div >
                 <?php echo $OUTPUT->custom_menu(); ?>
-                <ul class="nav pull-right">
+                <ul >
                     <li><?php echo $OUTPUT->page_heading_menu(); ?></li>
-                    <li class="navbar-text"><?php echo $OUTPUT->login_info() ?></li>
+                    <li ><?php echo $OUTPUT->login_info() ?></li>
                 </ul>
             </div>
         </div>
     </nav>
 </header>
 
-<div id="page" class="container-fluid">
+<div id="page" >
 
-    <header id="page-header" class="clearfix">
-        <div id="page-navbar" class="clearfix">
-            <nav class="breadcrumb-nav"><?php echo $OUTPUT->navbar(); ?></nav>
-            <div class="breadcrumb-button"><?php echo $OUTPUT->page_heading_button(); ?></div>
+    <header id="page-header" >
+        <div id="page-navbar" >
+            <nav ><?php echo $OUTPUT->navbar(); ?></nav>
+            <div ><?php echo $OUTPUT->page_heading_button(); ?></div>
         </div>
         <?php echo $OUTPUT->page_heading(); ?>
         <div id="course-header">
@@ -70,8 +70,8 @@ echo $OUTPUT->doctype() ?>
         </div>
     </header>
 
-    <div id="page-content" class="row-fluid">
-        <section id="region-main" class="span12">
+    <div id="page-content" >
+        <section id="region-main" >
             <?php
             echo $OUTPUT->course_content_header();
             echo $OUTPUT->main_content();
@@ -80,9 +80,9 @@ echo $OUTPUT->doctype() ?>
         </section>
     </div>
 
-    <footer id="page-footer" class="<?php echo $hideclass; ?>">
+    <footer id="page-footer" >
         <div id="course-footer"><?php echo $OUTPUT->course_footer(); ?></div>
-        <p class="helplink"><?php echo $OUTPUT->page_doc_link(); ?></p>
+        <p ><?php echo $OUTPUT->page_doc_link(); ?></p>
         <?php
         echo $OUTPUT->login_info();
         echo $OUTPUT->home_link();

@@ -28,7 +28,30 @@
     <title><?php echo $PAGE->title ?></title>
     <link rel="shortcut icon" href="<?php echo $OUTPUT->pix_url('favicon', 'theme')?>" />
     <link rel="apple-touch-icon-precomposed" href="<?php echo $OUTPUT->pix_url('apple-touch-icon', 'theme')?>" />
-    <?php //echo $OUTPUT->standard_head_html() ?>
+        <meta charset="utf-8">
+
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+
+    <style type="text/css">
+
+      body { background-color:#DDD; }
+
+      [class*="col"] { margin-bottom: 20px; }
+
+      .form-inline { margin-top: 20px}
+
+      img { width: 100%; }
+
+      .well {
+
+        background-color:#CCC;
+
+        padding: 20px;
+
+      }
+
+    </style>
+    <?php echo $OUTPUT->standard_head_html() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type='text/css' />
     <link href="/theme/cerulean/style/catalogue.css" rel="stylesheet" type='text/css' />

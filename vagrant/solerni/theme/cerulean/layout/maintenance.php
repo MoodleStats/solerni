@@ -37,14 +37,14 @@ echo $OUTPUT->doctype() ?>
 
 <?php echo $OUTPUT->standard_top_of_body_html() ?>
 
-<div id="page" class="container-fluid">
+<div id="page" >
 
-    <header id="page-header" class="clearfix">
+    <header id="page-header" >
         <?php echo $OUTPUT->page_heading(); ?>
     </header>
 
-    <div id="page-content" class="row-fluid">
-        <section id="region-main" class="span12">
+    <div id="page-content" >
+        <section id="region-main" >
             <?php echo $OUTPUT->main_content(); ?>
         </section>
     </div>

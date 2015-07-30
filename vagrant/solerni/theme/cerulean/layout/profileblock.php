@@ -1,4 +1,4 @@
-<?php 
+<?php
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -23,7 +23,7 @@
 	function get_content () {
             global $USER, $CFG, $SESSION, $COURSE;
             $wwwroot = '';
-            $signup = '';       
+            $signup = '';
         }
 
 	if (empty($CFG->loginhttps)) {
@@ -33,12 +33,12 @@
 	}
 
 if (!isloggedin() or isguestuser()) {
-	echo '<form class="navbar-form pull-left" method="post" action="'.$wwwroot.'/login/index.php?authldap_skipntlmsso=1">';
-	echo '<input class="span2" type="text" name="username" placeholder="'.get_string('username').'">';
-	echo '<input class="span2" type="password" name="password" placeholder="'.get_string('password').'">';
-	echo '<button class="btn" type="submit"> '.get_string('login').'</button>';
+	echo '<form  method="post" action="'.$wwwroot.'/login/index.php?authldap_skipntlmsso=1">';
+	echo '<input  type="text" name="username" placeholder="'.get_string('username').'">';
+	echo '<input  type="password" name="password" placeholder="'.get_string('password').'">';
+	echo '<button  type="submit"> '.get_string('login').'</button>';
 	echo '</form>';
-} else { 
+} else {
 
 
 	echo '';
