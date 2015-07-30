@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Defines backup_page_activity_task class
+ * Defines backup_descriptionpage_activity_task class
  *
  * @package   mod_descriptionpage
  * @category  backup
@@ -29,7 +29,7 @@ defined('MOODLE_INTERNAL') || die;
 require_once($CFG->dirroot . '/mod/descriptionpage/backup/moodle2/backup_descriptionpage_stepslib.php');
 
 /**
- * Provides the steps to perform one complete backup of the Page instance
+ * Provides the steps to perform one complete backup of the descriptionpage instance
  */
 class backup_descriptionpage_activity_task extends backup_activity_task {
 
@@ -43,7 +43,7 @@ class backup_descriptionpage_activity_task extends backup_activity_task {
      * Defines a backup step to store the instance data in the page.xml file
      */
     protected function define_my_steps() {
-        $this->add_step(new backup_page_activity_structure_step('page_structure', 'page.xml'));
+        $this->add_step(new backup_descriptionpage_activity_structure_step('page_structure', 'page.xml'));
     }
 
     /**

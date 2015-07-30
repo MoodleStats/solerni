@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package   mod_page
+ * @package   mod_descriptionpage
  * @category  backup
  * @copyright 2010 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -25,11 +25,11 @@
 defined('MOODLE_INTERNAL') || die;
 
 /**
- * Define all the backup steps that will be used by the backup_page_activity_task
+ * Define all the backup steps that will be used by the backup_descriptionpage_activity_task
  */
 
 /**
- * Define the complete page structure for backup, with file and id annotations
+ * Define the complete descriptionpage structure for backup, with file and id annotations
  */
 class backup_descriptionpage_activity_structure_step extends backup_activity_structure_step {
 
@@ -39,7 +39,7 @@ class backup_descriptionpage_activity_structure_step extends backup_activity_str
         $userinfo = $this->get_setting_value('userinfo');
 
         // Define each element separated
-        $page = new backup_nested_element('page', array('id'), array(
+        $page = new backup_nested_element('descriptionpage', array('id'), array(
             'name', 'intro', 'introformat', 'content', 'contentformat',
             'legacyfiles', 'legacyfileslast', 'display', 'displayoptions',
             'revision', 'timemodified'));

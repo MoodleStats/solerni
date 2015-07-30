@@ -16,18 +16,18 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package   mod_page
+ * @package   mod_descriptionpage
  * @category  backup
  * @copyright 2010 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 /**
- * Define all the restore steps that will be used by the restore_page_activity_task
+ * Define all the restore steps that will be used by the restore_descriptionpage_activity_task
  */
 
 /**
- * Structure step to restore one page activity
+ * Structure step to restore one descriptionpage activity
  */
 class restore_descriptionpage_activity_structure_step extends restore_activity_structure_step {
 
@@ -47,14 +47,14 @@ class restore_descriptionpage_activity_structure_step extends restore_activity_s
         $oldid = $data->id;
         $data->course = $this->get_courseid();
 
-        // insert the page record
+        // insert the descriptionpage record
         $newitemid = $DB->insert_record('descriptionpage', $data);
         // immediately after inserting "activity" record, call this
         $this->apply_activity_instance($newitemid);
     }
 
     protected function after_execute() {
-        // Add page related files, no need to match by itemname (just internally handled context)
+        // Add descriptionpage related files, no need to match by itemname (just internally handled context)
         $this->add_related_files('mod_descriptionpage', 'intro', null);
         $this->add_related_files('mod_descriptionpage', 'content', null);
     }

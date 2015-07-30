@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package   mod_page
+ * @package   mod_descriptionpage
  * @category  backup
  * @copyright 2010 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -76,7 +76,7 @@ class restore_descriptionpage_activity_task extends restore_activity_task {
     /**
      * Define the restore log rules that will be applied
      * by the {@link restore_logs_processor} when restoring
-     * page logs. It must return one array
+     * descriptionpage logs. It must return one array
      * of {@link restore_log_rule} objects
      */
     static public function define_restore_log_rules() {
