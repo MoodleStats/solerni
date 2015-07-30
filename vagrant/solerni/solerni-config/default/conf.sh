@@ -3,13 +3,13 @@
 
 # First install : import Solerni roles
 # Attention : order is important to keep roles assignments
-moosh role-import solerni_utilisateur solerni-config/default/users_roles/solerni_utilisateur.xml
-moosh role-import solerni_apprenant solerni-config/default/users_roles/solerni_apprenant.xml
-moosh role-import solerni_power_apprenant solerni-config/default/users_roles/solerni_power_apprenant.xml
-moosh role-import solerni_animateur solerni-config/default/users_roles/solerni_animateur.xml
-moosh role-import solerni_teacher solerni-config/default/users_roles/solerni_teacher.xml
-moosh role-import solerni_marketing solerni-config/default/users_roles/solerni_marketing.xml
-moosh role-import solerni_course_creator solerni-config/default/users_roles/solerni_course_creator.xml
+moosh role-import solerni_utilisateur users_roles/solerni_utilisateur.xml
+moosh role-import solerni_apprenant users_roles/solerni_apprenant.xml
+moosh role-import solerni_power_apprenant users_roles/solerni_power_apprenant.xml
+moosh role-import solerni_animateur users_roles/solerni_animateur.xml
+moosh role-import solerni_teacher users_roles/solerni_teacher.xml
+moosh role-import solerni_marketing users_roles/solerni_marketing.xml
+moosh role-import solerni_course_creator users_roles/solerni_course_creator.xml
 
 # Default role for all users (#us_62-69)
 moosh role-configset defaultuserroleid solerni_utilisateur
@@ -51,7 +51,7 @@ moosh config-set hiddenuserfields icqnumber,skypeid,yahooid,aimid,msnid,lastip
 moosh filter-manage -c on multilang
 
 # Add new user profil fields (#us_110)
-moosh userprofilefields-import solerni-config/default/users_profil/profile_fields.csv
+moosh userprofilefields-import users_profil/profile_fields.csv
 
 # Enable cron via the web (Security)
 moosh config-set cronclionly 1
