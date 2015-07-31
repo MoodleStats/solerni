@@ -24,7 +24,7 @@
  */
 
 defined('MOODLE_INTERNAL') || die();
-
+require_once($CFG->dirroot . '/local/orange_customers/lib.php');
 
 /**
  * Event observer for local_orange_customers.
