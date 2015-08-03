@@ -29,9 +29,12 @@ $hasadmincapacity     = has_capability('moodle/site:config', context_system::ins
     <a href="<?php echo $CFG->wwwroot; ?>/my">
         <?php echo get_string('dashboard', 'theme_solerni'); ?>
     </a>
-    <?php if ( $isdashboard ) : ?>
+    <?php
+if ( $isdashboard ) : ?>
         <span class="slrn-topbar-item__active"></span>
-    <?php endif; ?>
+    <?php
+endif;
+?>
 </li>
 <li class="slrn-top-header__item">
     <a class="dropdown-toggle  -not-uppercase" data-toggle="dropdown" role="button">
@@ -52,14 +55,17 @@ $hasadmincapacity     = has_capability('moodle/site:config', context_system::ins
                 <?php echo get_string('editmyprofile'); ?>
             </a>
         </li>
-        <?php if ( $hasadmincapacity ) : ?>
+        <?php
+if ( $hasadmincapacity ) : ?>
         <li class="dropdown-menu__item">
             <a class="-not-uppercase" href="<?php echo $CFG->wwwroot ?>/admin/index.php">
                 <img class="profileicon" src="<?php echo $this->pix_url('a/settings', 'core') ?>" />
                 <?php echo get_string('administration', 'theme_solerni'); ?>
             </a>
         </li>
-        <?php endif; ?>
+        <?php
+endif;
+?>
         <li class="dropdown-menu__item">
             <a class="-not-uppercase" href="<?php echo $CFG->wwwroot ?>/user/files.php">
                 <img class="profileicon" src="<?php echo $this->pix_url('profile/files', 'theme') ?>" />

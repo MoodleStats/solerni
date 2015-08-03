@@ -148,9 +148,13 @@ class utilities_course {
                 if ($enrolself != null) {
                     // We get the start and end for enrolment (is set).
                     // If not set we set them to the start and end of course.
-                    if ($enrolself->enrolstartdate !=0) $list[$course->id]->enrolstartdate = $enrolself->enrolstartdate;
+                    if ($enrolself->enrolstartdate != 0) {
+                        $list[$course->id]->enrolstartdate = $enrolself->enrolstartdate;
+                    }
                     $list[$course->id]->enrolstartdate = $course->startdate;
-                    if ($enrolself->enrolenddate !=0) $list[$course->id]->enrolenddate = $enrolself->enrolenddate;
+                    if ($enrolself->enrolenddate != 0) {
+                        $list[$course->id]->enrolenddate = $enrolself->enrolenddate;
+                    }
                     $list[$course->id]->enrolenddate = $course->enddate;
 
                     // If selfenrol and cohort associated, the must must be part of the cohort to see the course.
@@ -219,24 +223,8 @@ class utilities_course {
         $limit = !empty($options['limit']) ? $options['limit'] : null;
         $sortfields = !empty($options['sort']) ? $options['sort'] : array('closed' => 1, 'timeleft' => 1, 'enddate' => -1);
 
-        // Check if this category is hidden.
-        // Also 0-category never has courses unless this is recursive call.
-        // if (!$this->is_uservisible() || (!$this->id && !$recursive)) {
-        // return array();
-        // }
-
         $wherecategory = array();
         $params = array('siteid' => SITEID);
-        // if ($recursive) {
-            // if ($this->id) {
-            //    $context = context_coursecat::instance($this->id);
-            //    $wherecategory[] .= 'ctx.path like :path';
-            //    $params['path'] = $context->path. '/%';
-            // }
-        // } else {
-            //$where .= ' AND c.category = :categoryid';
-            //$params['categoryid'] = $this->id;
-        // }
 
         // Filter on categories.
         if (($key = array_search(0, $filter->categoriesid)) !== false) {
@@ -432,7 +420,7 @@ class utilities_course {
          $context = $PAGE->context;
         $coursecontext = $context->get_course_context();
         $categoryid = null;
-        if ($coursecontext) { // No course context for system / user profile
+        if ($coursecontext) { // No course context for system / user profile.
             $courseid = $coursecontext->instanceid;
             $course = $DB->get_record('course', array('id' => $courseid), 'id, category');
             if ($course) { // Should always exist, but just in case ...
@@ -451,7 +439,7 @@ class utilities_course {
      */
     public function get_categoryid_by_courseid($course) {
         global $DB;
-        $categoryid = NULL;
+        $categoryid = null;
         $course = $DB->get_record('course', array('id' => $course->id), 'id, category');
         if ($course) { // Should always exist, but just in case ...
             $categoryid = $course->category;
@@ -461,41 +449,41 @@ class utilities_course {
     }
 
      /**
-     * Check if a user can see a course
-     *
-     * @param   $course object
-     * @param   $user object - if empty, we will use current $USER
-     * @return  (bool)
-     */
+      * Check if a user can see a course
+      *
+      * @param   $course object
+      * @param   $user object - if empty, we will use current $USER
+      * @return  (bool)
+      */
     public function can_user_view_course($course, $user = null ) {
 
-        // Use global $USER if no user
+        // Use global $USER if no user.
         if (!$user) {
             global $USER;
             $user = $USER;
         }
 
-        // Check if course has self_enroll
+        // Check if course has self_enroll.
         $selfenrolment = new enrollment_object();
         $enrolself = $selfenrolment->get_self_enrolment($course);
 
-        // If no self enrolment method, this is not a private mooc
+        // If no self enrolment method, this is not a private mooc.
         if ( ! $enrolself ) {
             return true;
         }
 
-        // Always true if the user can create course
+        // Always true if the user can create course.
         if ( isloggedin() && has_capability('moodle/course:create', context_user::instance($user->id)) ) {
                 return true;
         }
 
-        // If enrolment, check for cohort and return true if no cohort
+        // If enrolment, check for cohort and return true if no cohort.
         $cohortid = (int)$enrolself->customint5;
         if ( ! $cohortid ) {
             return true;
         }
 
-        // Last case : we'll grant access wheither the user is in the cohort
+        // Last case : we'll grant access wheither the user is in the cohort.
         return cohort_is_member($cohortid, $USER->id);
     }
 
