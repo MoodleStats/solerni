@@ -365,3 +365,14 @@ moosh role-update-capability solerni_power_apprenant mod/mediagallery:like allow
 # mod/mediagallery : viewall
 moosh role-update-capability solerni_teacher mod/mediagallery:viewall allow 1
 moosh role-update-capability solerni_marketing mod/mediagallery:viewall allow 1
+
+# Flexpage
+# format/flexpage : managepages
+moosh role-update-capability solerni_teacher format/flexpage:managepages allow 1
+# block/flexpagemod : addinstance
+moosh role-update-capability solerni_teacher block/flexpagemod:addinstance allow 1
+# block/flexpagenav : addinstance, manage, view
+moosh role-update-capability solerni_teacher block/flexpagenav:addinstance allow 1
+moosh role-update-capability solerni_teacher block/flexpagenav:manage allow 1
+moosh role-update-capability solerni_teacher block/flexpagenav:view allow 1
+
