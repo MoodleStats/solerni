@@ -50,6 +50,7 @@ $THEME->sheets          = array(
                             'footer-header',
                             'utils',
                             'frontpage',
+                            'block-social',
                             'queries-1180',
                             'queries-980',
                             'queries-768',

@@ -24,6 +24,27 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+require_once($CFG->dirroot . '/auth/googleoauth2/vendor/autoload.php');
+
+function googleoauth2_html_button($authurl, $providerdisplaystyle, $provider) {
+        return '<a class="singinprovider" href="' . $authurl . '" style="' . $providerdisplaystyle .'">
+                  <div class="button-fill ' . $provider->sskstyle . '">
+                    <div class="button-text">' . $provider->readablename . '</div>
+                    <div class="button-inside">
+                      <div class="inside-text">' . get_string('login', 'auth_googleoauth2') . '</div>
+                    </div>
+                  </div></a>';
+}
+
+/**
+ * Return list of supported provider.
+ *
+ * @return array
+ */
+function provider_list() {
+    return array('google', 'facebook', 'battlenet', 'github', 'linkedin', 'messenger', 'vk', 'dropbox');
+}
+
 /**
  * oauth_add_to_log is a quick hack to avoid add_to_log debugging
  */
@@ -34,6 +55,33 @@ function oauth_add_to_log($courseid, $module, $action, $url='', $info='', $cm=0,
     } else if (function_exists('add_to_log')) {
         add_to_log($courseid, $module, $action, $url, $info, $cm, $user);
     }
+}
+
+function googleoauth2_provider_redirect($providername) {
+    global $CFG;
+
+    $code = optional_param('code', '', PARAM_TEXT); // Google can return an error.
+
+    if (empty($code)) {
+        throw new moodle_exception($providername . '_failure', 'auth_googleoauth2');
+    }
+
+    $state = optional_param('state', null, PARAM_TEXT);
+    // Clean the state from a weird #_=_ added to the end by facebook.
+    $state = str_replace('#_=_' , '', $state);
+
+    // Ensure that this is no request forgery going on.
+    // And that the user sending us this connect request is the user that was supposed to.
+    if (empty($state) || ($_SESSION['oauth2state_' . $providername] !== $state)) {
+        throw new moodle_exception('invalidstateparam', 'auth_googleoauth2');
+    }
+
+    $loginurl = '/login/index.php';
+    if (!empty($CFG->alternateloginurl)) {
+        $loginurl = $CFG->alternateloginurl;
+    }
+    $url = new moodle_url($loginurl, array('code' => $code, 'authprovider' => $providername));
+    redirect($url);
 }
 
 /**
@@ -51,11 +99,20 @@ function auth_googleoauth2_get_state_token() {
     return $_SESSION['STATETOKEN'];
 }
 
+function set_state_token($providername, $providerstate) {
+    $_SESSION['oauth2state_' . $providername] = $providerstate;
+}
+
 /**
  * For backwards compatibility only: this echoes the html created in auth_googleoauth2_render_buttons
  */
-function auth_googleoauth2_display_buttons() {
-    echo auth_googleoauth2_render_buttons();
+function auth_googleoauth2_display_buttons($echo = true) {
+    $html = auth_googleoauth2_render_buttons();
+    if ($echo) {
+        echo $html;
+    }
+    return $html;
+
 }
 
 /**
@@ -64,133 +121,56 @@ function auth_googleoauth2_display_buttons() {
  * @return string: returns the html for buttons and some JavaScript 
  */
 function auth_googleoauth2_render_buttons() {
-	global $CFG;
-	$html ='';
-	
+    global $CFG;
+    $html = '';
+
     if (!is_enabled_auth('googleoauth2')) {
         return $html;
     }
 
-	$html .= '
-    <script language="javascript">
-        linkElement = document.createElement("link");
-        linkElement.rel = "stylesheet";
-        linkElement.href = "' . $CFG->httpswwwroot . '/auth/googleoauth2/csssocialbuttons/css/zocial.css";
-        document.head.appendChild(linkElement);
-    </script>
-    ';
-	
-	//get previous auth provider
-	$allauthproviders = optional_param('allauthproviders', false, PARAM_BOOL);
-	$cookiename = 'MOODLEGOOGLEOAUTH2_'.$CFG->sessioncookie;
-	if (empty($_COOKIE[$cookiename])) {
-		$authprovider = '';
-	} else {
-		$authprovider = $_COOKIE[$cookiename];
-	}
-	
-	$html .= "<center>";
-	$html .= "<div style=\"width:'1%'\">";
-    $a = new stdClass();
-    $a->providername = 'Google';
-    $providerscount = 0;
-    $providerisenabled = get_config('auth/googleoauth2', 'googleclientid') && get_config('auth/googleoauth2', 'googleclientsecret');
-    $providerscount = $providerisenabled?$providerscount+1:$providerscount;
-	$displayprovider = ((empty($authprovider) || $authprovider == 'google' || $allauthproviders) && $providerisenabled);
-	$providerdisplaystyle = $displayprovider?'display:inline-block;padding:10px;':'display:none;';
-	$html .= '<div class="singinprovider" style="' . $providerdisplaystyle .'">
-            <a class="zocial googleplus" href="https://accounts.google.com/o/oauth2/auth?client_id='.
-	            get_config('auth/googleoauth2', 'googleclientid') .'&redirect_uri='.$CFG->wwwroot .'/auth/googleoauth2/google_redirect.php&state='.auth_googleoauth2_get_state_token().'&scope=profile email&response_type=code">
-                '.get_string('auth_sign-in_with','auth_googleoauth2', $a).'
-            </a>
-        </div>';
-
-    $a->providername = 'Battle.net';
-    // Forcing https (Battlenet fail if you don't use https)
-    $siteurl = $CFG->httpswwwroot;
-    if (strpos($siteurl, 'https://') === false) {
-        $siteurl = str_replace('http://', 'https://', $siteurl);
+    // Get previous auth provider.
+    $allauthproviders = optional_param('allauthproviders', false, PARAM_BOOL);
+    $cookiename = 'MOODLEGOOGLEOAUTH2_'.$CFG->sessioncookie;
+    $authprovider = '';
+    if (!empty($_COOKIE[$cookiename])) {
+        $authprovider = $_COOKIE[$cookiename];
     }
-    $providerisenabled = get_config('auth/googleoauth2', 'battlenetclientid');
-    $providerscount = $providerisenabled?$providerscount+1:$providerscount;
-	$displayprovider = ((empty($authprovider) || $authprovider == 'battlenet' || $allauthproviders) && $providerisenabled);
-	$providerdisplaystyle = $displayprovider?'display:inline-block;padding:10px;':'display:none;';
-	$html .= '<div class="singinprovider" style="'. $providerdisplaystyle .'">
-            <a class="zocial battlenet" href="https://eu.battle.net/oauth/authorize?client_id='. get_config('auth/googleoauth2', 'battlenetclientid') .'&auth_flow=auth_code&redirect_uri='. $siteurl .'/auth/googleoauth2/battlenet_redirect.php&state='.auth_googleoauth2_get_state_token().'&scope=sc2.profile&response_type=code">
-                '.get_string('auth_sign-in_with','auth_googleoauth2', $a).'
-            </a>
-        </div>';
 
+    $html .= "<div>";
+    $providerscount = 0;
 
+    // TODO get the list from the provider folder instead to hard code it here.
+    $providers = provider_list();
 
-    $a->providername = 'Facebook';
-    $providerisenabled = get_config('auth/googleoauth2', 'facebookclientid');
-    $providerscount = $providerisenabled?$providerscount+1:$providerscount;
-	$displayprovider = ((empty($authprovider) || $authprovider == 'facebook' || $allauthproviders) && $providerisenabled);
-	$providerdisplaystyle = $displayprovider?'display:inline-block;padding:10px;':'display:none;';
-	$html .= '<div class="singinprovider" style="'. $providerdisplaystyle .'">
-            <a class="zocial facebook" href="https://www.facebook.com/dialog/oauth?client_id='. get_config('auth/googleoauth2', 'facebookclientid') .'&redirect_uri='. $CFG->wwwroot .'/auth/googleoauth2/facebook_redirect.php&state='.auth_googleoauth2_get_state_token().'&scope=email&response_type=code">
-                '.get_string('auth_sign-in_with','auth_googleoauth2', $a).'
-            </a>
-        </div>';
+    foreach ($providers as $providername) {
 
-    $a->providername = 'Github';
-    $providerisenabled = get_config('auth/googleoauth2', 'githubclientid');
-    $providerscount = $providerisenabled?$providerscount+1:$providerscount;
-	$displayprovider = ((empty($authprovider) || $authprovider == 'github' || $allauthproviders) && $providerisenabled);
-	$providerdisplaystyle = $displayprovider?'display:inline-block;padding:10px;':'display:none;';
-	$html .= '<div class="singinprovider" style="'. $providerdisplaystyle .'">
-            <a class="zocial github" href="https://github.com/login/oauth/authorize?client_id='. get_config('auth/googleoauth2', 'githubclientid') .'&redirect_uri='. $CFG->wwwroot .'/auth/googleoauth2/github_redirect.php&state='.auth_googleoauth2_get_state_token().'&scope=user:email&response_type=code">
-                '.get_string('auth_sign-in_with','auth_googleoauth2', $a).'
-            </a>
-        </div>';
+        require_once($CFG->dirroot . '/auth/googleoauth2/classes/provider/'.$providername.'.php');
 
-    $a->providername = 'Linkedin';
-    $providerisenabled = get_config('auth/googleoauth2', 'linkedinclientid');
-    $providerscount = $providerisenabled?$providerscount+1:$providerscount;
-	$displayprovider = ((empty($authprovider) || $authprovider == 'linkedin' || $allauthproviders) && $providerisenabled);
-	$providerdisplaystyle = $displayprovider?'display:inline-block;padding:10px;':'display:none;';
-	$html .= '<div class="singinprovider" style="'. $providerdisplaystyle .'">
-            <a class="zocial linkedin" href="https://www.linkedin.com/uas/oauth2/authorization?client_id='. get_config('auth/googleoauth2', 'linkedinclientid') .'&redirect_uri='. $CFG->wwwroot .'/auth/googleoauth2/linkedin_redirect.php&state='.auth_googleoauth2_get_state_token().'&scope=r_basicprofile%20r_emailaddress&response_type=code">
-                '.get_string('auth_sign-in_with','auth_googleoauth2', $a).'
-            </a>
-        </div>';
+        // Load the provider plugin.
+        $providerclassname = 'provideroauth2' . $providername;
+        $provider = new $providerclassname();
+        $authurl = $provider->getAuthorizationUrl();
+        set_state_token($providername, $provider->state);
 
-    $a->providername = 'Windows Live';
-    $providerisenabled = get_config('auth/googleoauth2', 'messengerclientid');
-    $providerscount = $providerisenabled?$providerscount+1:$providerscount;
-	$displayprovider = ((empty($authprovider) || $authprovider == 'messenger' || $allauthproviders) && $providerisenabled);
-	$providerdisplaystyle = $displayprovider?'display:inline-block;padding:10px;':'display:none;';
-	$html .= '<div class="singinprovider" style="'. $providerdisplaystyle .'">
-            <a class="zocial windows" href="https://oauth.live.com/authorize?client_id='. get_config('auth/googleoauth2', 'messengerclientid') .'&redirect_uri='. $CFG->wwwroot .'/auth/googleoauth2/messenger_redirect.php&state='.auth_googleoauth2_get_state_token().'&scope=wl.basic wl.emails wl.signin&response_type=code">
-                '.get_string('auth_sign-in_with','auth_googleoauth2', $a).'
-            </a>
-        </div>
-    </div>';
+        // Check if we should display the button.
+        $providerisenabled = $provider->isenabled();
+        $providerscount = $providerisenabled ? $providerscount + 1 : $providerscount;
+        $displayprovider = ((empty($authprovider) || $authprovider == $providername || $allauthproviders) && $providerisenabled);
+        $providerdisplaystyle = $displayprovider ? 'display:inline-block;padding:10px;' : 'display:none;';
 
-    $a->providername = 'VK';
-    $providerisenabled = get_config('auth/googleoauth2', 'vkappid');
-    $providerscount = $providerisenabled?$providerscount+1:$providerscount;
-	$displayprovider = ((empty($authprovider) || $authprovider == 'vk' || $allauthproviders) && $providerisenabled);
-	$providerdisplaystyle = $displayprovider?'display:inline-block;padding:10px;':'display:none;';
-	$html .= '<div class="singinprovider" style="'. $providerdisplaystyle .'">
-            <a class="zocial vk" href="https://oauth.vk.com/authorize?client_id='. get_config('auth/googleoauth2', 'vkappid') .'&redirect_uri='. $CFG->wwwroot .'/auth/googleoauth2/vk_redirect.php&state='.auth_googleoauth2_get_state_token().'&scope=offline&response_type=code&v=5.9">
-                '.get_string('auth_sign-in_with','auth_googleoauth2', $a).'
-            </a>
-        </div>
-    </div>';
+        // The button html code.
+        $html .= $provider->html_button($authurl, $providerdisplaystyle);
+    }
 
-
-
-	if (!$allauthproviders and !empty($authprovider) and $providerscount>1) {
-		$html .= '<br /><br /> 
+    if (!$allauthproviders and !empty($authprovider) and $providerscount > 1) {
+        $html .= '<br /><br />
            <div class="moreproviderlink">
-                <a href="'. $CFG->wwwroot . (!empty($CFG->alternateloginurl) ? $CFG->alternateloginurl : '/login/index.php') . '?allauthproviders=true' .'" onclick="changecss(\'singinprovider\',\'display\',\'inline-block\');">
+                <a href="'. $CFG->wwwroot . (!empty($CFG->alternateloginurl) ? $CFG->alternateloginurl : '/login/index.php')
+                     . '?allauthproviders=true' .'" onclick="changecss(\\\'singinprovider\\\',\\\'display\\\',\\\'inline-block\\\');">
                     '. get_string('moreproviderlink', 'auth_googleoauth2').'
                 </a>
             </div>';
-	}
+    }
 
-	$html .= "</center>";	
-	return $html;
+    return $html;
 }

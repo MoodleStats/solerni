@@ -1,0 +1,1339 @@
+This file contains a sequence of test cases for most ForumNG features.
+
+Each single section is independent so that tests can be completed without the
+need to do all of them. The exception is the first section; you need to
+complete the first section in order to have the forums in place that other
+parts of the test require.
+
+Each section has a unique (within this test case) three letter code and the
+steps are numbered so that the location where a failure occurs can be reported.
+
+Steps are shown in the following format:
+
+XXX01 / U.S1 [change]
+  Do something
+  - Check something
+
+The unique step number is followed by the user that you should be logged
+in as for that step. If the user changes from the previous step, the word
+[Change] will be noted.
+
+Some steps don't have specific items to check. In that case, the check
+'passes' if there are no errors or warnings while completing the task.
+
+When told to create a discussion or reply, you may wish to use the code number
+for that step inside the text of the discussion/reply. Occasionally, later
+steps might refer to the reply UNR03 or whatever.
+
+
+Initial setup
+=============
+
+Please set up a standard test course as follows.
+
+Course short name
+-----------------
+
+FORUMTEST
+
+Users and groups
+----------------
+
+U.S1 - student in group 1
+U.S2 - student in group 2
+U.ET - editing teacher, not in a group
+
+The testcase.users.csv file can be used to create these users (for U.S1,
+U S1 is the visible name; the login is us1; the password is appleA1;).
+
+The test script also refers to the user 'admin' (the admin user).
+
+User settings
+-------------
+
+Edit the profile for U.S1 so that the 'AJAX and JavaScript' option in their
+profile is set to No.
+
+Ensure that the same option is set to Yes for the other users.
+
+Some parts of the forum have different behaviour in 'fancy' (AJAX/JavaScript)
+mode, so we will test those parts with both U.S1 (No option) and U.S2
+(Yes option).
+
+
+Site settings
+-------------
+
+Under Developer/Debugging, ensure that debug level is set to 'Developer'
+and to display messages.
+
+Under Advanced features, ensure that activity completion is enabled.
+
+
+CRE Creating ForumNG
+====================
+
+CRE01 / admin
+  In any course week, from the add activity dropdown, choose 'ForumNG'. Leave
+  all settings as default except name 'F.WC' (whole course) and group setting
+  'No groups'. Save form and return to course.
+
+CRE02 / admin
+  Create another ForumNG with name F.SG and group setting 'Separate groups'.
+
+CRE03 / admin
+  Create one with name F.VG and group setting 'Visible groups'.
+
+CRE04 / admin
+  Create one with name F.SH, group setting 'no groups', 'Shared' ticked,
+  and idnumber set to 'Frog'.
+  NOTE:
+  We will use the F.SH forum for most testing because there are lots of ways
+  in which the system can go wrong when using shared forums.
+
+** PASSED 2011-02-17
+
+
+BSN Basic usage (non-JS)
+========================
+
+BSN01 / U.S1 [change]
+  Go to the course and click into F.SH.
+  - Verify that there is a 'Start discussion' button.
+
+BSN02 / U.S1
+  Click the 'Start discussion' button.
+  - You should be taken to a new page with a form for starting a discussion.
+  Type in a subject and a message and hit the 'Post discussion' button.
+  - Verify that you are taken to the new discussion page and your message
+    is shown.
+
+BSN03 / U.S1
+  Click the 'Reply' link next to your message.
+  - You should be taken to a new page with a form for starting a discussion.
+    The original message that you are replying to should be shown at top.
+  - The form should contain an 'Attachments' option but should not contain
+    'Mail soon' or 'Mark posts as important' options.
+  Type in a message (no subject) and hit the 'Post reply' button.
+  - Verify that you are returned to the discussion page showing your reply.
+  - Verify that the browser URL now includes the post ID at the end, something
+    like #p12345. If the page is long enough, it will scroll down so the new
+    post is at / near the top.
+
+BSN04 / U.S1
+  The new post is in collapsed mode. To expand it, click the 'Expand all
+  posts' link next to the post.
+  - You should return to the discussion with all posts (= this one) expanded.
+  - Again the URL should still include the post ID so that it scrolls to the
+    post.
+
+BSN05 / U.S1
+  Click the 'Edit' link next to the reply.
+  You should be taken to an edit form which looks similar to the reply form.
+  - Verify that the form contains the text of your message.
+  - Verify that above the form, text appears warning that you must save your
+    changes before a particular time (the time you made the reply plus the
+    permitted editing time, default 30 minutes).
+  Type some text into the subject and change the message text, then hit
+  'Save changes'.
+  - Verify that the browser returns to the discussion page, again with the post
+    ID at end.
+  Expand the post again.
+  - Verify that the post now displays your subject and shows the changed text.
+
+BSN06 / U.S1
+  Click the 'Delete' link next to the reply. You should be taken to a new page
+  with Delete/Cancel confirm buttons.
+  - Verify that the page shows the message you are deleting.
+  Click the Cancel button.
+  - Verify that you are returned to the discussion and the message has not been
+    deleted.
+  Expand posts and click Delete again, and this time click the Delete button.
+  - Verify that you are returned to the discussion but the message is now no
+    longer available. (The URL should not have the post ID #p section.)
+
+** PASSED 2011-02-17
+
+
+BSJ Basic usage (JS)
+====================
+
+BSJ01 / U.S2 [change]
+  Go to the course, click into F.SH, click the 'Start discussion' button.
+  Type in a subject and a message and hit the 'Post discussion' button.
+  - Verify that you are taken to the new discussion page and your message
+    is shown.
+
+BSJ02 / U.S2
+  Click the 'Reply' link next to your message.
+  - A form should appear on the same page (without changing URL, i.e. the
+    URL should still be discuss.php) below the message.
+  Type in a message (no subject) and hit the 'Post reply' button.
+  - After a possible brief delay indicated by a spinny thingy, your reply
+    should appear on the discussion page, already expanded.
+
+BSJ03 / U.S2
+  Click the 'Edit' link next to the reply.
+  - A form should appear on the same page (discuss.php) below the message.
+  - Verify that the form contains the text of your message.
+  Type some text into the subject and change the message text, then hit
+  'Save changes'.
+  - Verify that the form disappears and the main post text updates to show
+    your new message and subject.
+
+BSJ04 / U.S2
+  Click the 'Edit' link next to the top message (the original discussion).
+  - A form should appear as before.
+  Edit the subject and click 'Save changes'.
+  - The message should update as before.
+  - In addition, the discussion subject (in breadcrumbs section) should also
+    update.
+
+BSJ05 / U.S2
+  Click the 'Delete' link next to the reply.
+  - The page should fade out.
+  - A highlight display of some kind (currently an orange box) should appear
+    around the message being deleted.
+  - A delete confirmation prompt should appear in the middle of the screen.
+  Click the Cancel button.
+  - Verify that the page fades back in and the orange box disappears, with no
+    change.
+  Click Delete again, and this time click the Delete button.
+  - Verify that the page fades back in but the message is now removed from it.
+
+BSJ06 / U.S2
+  NOTE: To make this task quicker, change the editing timeout from the default
+  30 minutes to a lower time such as 5 minutes. You can do this by, as admin,
+  searching for 'maxeditingtime' in the site administration settings.
+
+  Click Reply, type another reply, click Post reply.
+  - Reply should appear on page as before. Should have Edit and Delete links.
+  Wait until the editing time runs out (the system is designed to allow a
+  slight safety margin, so it might actually cut at 4 and a half rather than 5).
+  - Verify that the Edit and Delete links disappear.
+
+BSJ07 / U.S2
+  Click Reply, type another reply, click Post reply.
+  - This reply should have Edit and Delete links.
+  Click the Edit link. Change the text of the message, but do not submit the
+  form. Instead, wait until the editing time runs out.
+  - At the start of editing, the standard text should tell you what time
+    you have to save the message by.
+  - When there are about 90 seconds left, the message should go bold.
+  - When time runs out (~30 seconds), the message should go red and change to
+    warn you that time ran out, and the Save changes button should be greyed
+    out so that you can only cancel.
+
+** PASSED 2011-02-21
+
+EEP Edit and email
+==================
+
+NOTE: Before starting this section, check that both users (U.S2, U.ET)
+have email addresses set up that go to an email address that you can read.
+When testing within the OU, note that developer servers will only send email
+to OU (@open.ac.uk) addresses.
+
+EEP01 / admin [change]
+  Go to the course, click into F.SH, click the 'Start discussion' button.
+  Type in a subject and a message and hit the 'Post discussion' button.
+  - Verify that you are taken to the new discussion page and your message
+    is shown.
+
+EEP02 / U.S2 [change]
+  Click the 'Reply' link next to admins message.
+  - A form should appear on the same page (without changing URL, i.e. the
+    URL should still be discuss.php) below the message.
+  Type in a message (no subject) and hit the 'Post reply' button.
+  - After a possible brief delay indicated by a spinny thingy, your reply
+    should appear on the discussion page, already expanded.
+
+EEP03 / admin [change]
+  Click the 'Reply' link next to the post written above by U.S2.
+  - A form should appear on the same page (without changing URL, i.e. the
+    URL should still be discuss.php) below the message.
+  Type in a message (no subject) and hit the 'Post reply' button.
+  - After a possible brief delay indicated by a spinny thingy, your reply
+    should appear on the discussion page, already expanded.
+
+EEP04 / admin
+  Click the 'Edit' link next to the reply to your original message by U.S2 (middle post).
+  - A form should appear on the same page (discuss.php) below the message.
+  - Verify that the form contains the text of the message.
+    Type some text into the subject and change the message text.
+  - Verify that the form contains a label 'Email author' containing a checkbox entitled 'Email author'
+    an e-mail author message text field, a 'send copy to yourself' checkbox and a text box for adding
+    'Email addresses of other recipients'
+-  Verify that the message displayed in the form is:
+
+   'This is a notification to advise you that your forum post with the following details has been
+    edited by '{username}':'
+
+   Subject: DEP03 user two response
+   Forum: F.SH
+   Module: FORUMTEST
+
+  View the discussion
+
+  Click against the 'Email author' checkbox
+  Type some text into the email text field and change the email message text.
+  Click 'Send a copy to yourself'.
+-  Verify that there is a text entry field 'Email address of other recipients'.
+-  Enter multiple checkable user email addresses which you have access to.
+  Click 'Save changes'.
+
+EEP05 / admin
+-  Confirm that you are returned to the discussion.
+  - Verify that the form disappears and the main post text updates to show
+    your new message and subject.
+-  Confirm that user U.S2 has received an email 'Your post has been edited'.
+-  Confirm that user admin has received an email 'Copy - Your post has been edited'.
+-  Confirm that the other users have received an email 'Copy - Your post has been edited'.
+-  Verify that the above form message is reproduced in the emails.
+
+Retest BSJ01 - BSJ04 above
+
+
+GRP Basic group support
+=======================
+
+GRP01 / U.S2
+  Go to forum F.SG.
+  - Verify that it says 'Separate groups: G2' on the main screen, as text
+    and not a dropdown.
+  Click Start discussion and make a new discussion. Once posted, copy the URL
+  of the discussion (includes 'discuss.php') to clipboard, then return to main
+  page.
+  - Discussion that you just made should show on the list.
+  - The list should not include a 'Group' column.
+
+GRP02 / U.S1 [change]
+  Go to forum F.SG.
+  - Verify that it says 'Separate groups: G1', as text and not a dropdown
+  - Verify that the discussion just made by U.S2 is not visible on the list.
+  Paste into the browser the URL of the previous discussion and hit Return.
+  - Verify that an error displays and the user is not permitted to view the
+    discussion.
+  Return to forum main page, start discussion, and make a new discussion. Post
+  it and return to forum page.
+  - This discussion should now show on the list.
+
+GRP03 / U.ET [change]
+  Go to forum F.SG
+  - Verify that it has a dropdown 'Separate groups: [All participants]'.
+  - Verify that both discussions posted in previous steps are visible.
+  - Verify that 'Group' column displays the group of each discussion.
+  - Verify that there is no 'Start discussion' button.
+  Click on one of the discussions.
+  - Verify that it loads correctly.
+  Return to main page. Now choose group G1 from the dropdown.
+  - Verify that the page reloads.
+  - It should no longer shows the discussion created in group G2.
+  - There should be no 'Group' column.
+  - The 'Start discussion' button should appear.
+
+GRP04 / U.ET
+  Start a forum discussion. Post it. On the discussion page, click
+  'Discussion options'.
+  - 'Group' dropdown should show G1.
+  Change 'Group' to 'All participants' and click 'Save changes'. Then click back
+  to the main page.
+  - New discussion should appear.
+  Select 'All participants' group.
+  - New discussion should still be present and should be labelled as 'All
+    participants' in the Group column.
+  Select G2 group.
+  - New discussion should still be present.
+
+GRP05 / U.ET
+  Go to forum F.VG.
+  - Verify that group dropdown appears (same as in separate groups forum).
+  Change group to G1. Post a new discussion.
+
+GRP06 / U.S2 [change]
+  Go to F.VG.
+  - Verify that group dropdown appears.
+  - Verify that G2 is selected (note: it remembers setting, but after logout
+    and close browser, it should have G2 for this user).
+  - Verify that discussion does not appear.
+  Change group to G1.
+  - Verify that discussion now appears.
+  Click on discussion.
+  - Verify that it loads correctly.
+
+** PASSED 2011-02-21
+
+
+UNR Basic unread support
+========================
+
+UNR01 / U.S2
+  Go to F.SG. Click 'Mark all posts read'. Ensure that the setting reads
+  'Automatically mark as read'; if not, change it.
+
+UNR02 / U.ET [change]
+  Go to F.SG. Click 'Mark all posts read'. Ensure that the setting reads
+  'Automatically mark as read'; if not, change it.
+
+  Select group G2. Start a new discussion. Inside the discussion, add a reply.
+
+UNR03 / U.S2 [change]
+  Go to course page.
+  - Verify that an '(Unread posts)' note appears next to F.SG.
+  Go to F.SG
+  - Verify that the new discussion (UNR03) appears on the list.
+  - Verify that it shows 2 unread messages in the discussion, with a
+    'mark read' tick next to it.
+
+UNR04 / U.S2
+  Click into discussion.
+  - Verify that both messages display as unread (on standard theme this means
+    expanded with a blue background and bold date).
+  Click back to the forum main page.
+  - Verify that there are no unread messages any more.
+  Start a new discussion titled UNR04 and post it, then reply to it, then reply to the reply,
+  ensuring that the replies have a reasonable length (e.g. copy/paste this
+  step of the test case into each one) so that the page will scroll later.
+  Then return to the forum main page.
+  - Verify that the new discussion appears but does not show unread.
+  Return to the course page.
+  - Verify that F.SG does not show unread any more.
+
+UNR05 / U.ET [change]
+  Go to course page.
+  - Verify that the F.SG forum shows as unread.
+  Go into F.SG.
+  - Verify that the discussion (UNR04) appears and shows 3 unread posts.
+  Click the 'Change' link next to 'Automatically mark as read'
+  - Verify that it changed to 'Manually mark as read'.
+  Click on the number (3) to enter the discussion.
+  - Verify that you enter the discussion and it scrolls to top of first post,
+    with #firstunread in URL
+  - Verify that each post shows 'Next unread (previous)' links (first, last
+    posts are slightly different but you get the idea).
+  Click on the first 'Next unread' link
+  - Verify that focus moves to the 'Next unread' link in the next post, possibly
+    scrolling the screen.
+  Press Return key
+  - Verify that it 'clicks' Next again, i.e. proceeds to the final unread post.
+  Press Return again a few times
+  - Verify that it cycles through the 'previous unread' again until you get
+    back to the start
+
+UNR06 / U.ET
+  Go back to F.SG main page.
+  - Verify that discussion UNR04 still shows as having 3 unread posts.
+  Click into discussion UNR04 again.
+  - Verify that all 3 messages still show as unread and each has a 'Mark post read' button.
+  Select 'Mark post read' button on the last post.
+  - Verify that the blue background on the last post is removed
+    and it's 'Mark post read' button becomes disabled.
+  Refresh the current page.
+  - Verify the last post is no longer classed as being unread.
+  Go back to F.SG main page.
+  - Verify that UNR04 discussion shows as having 2 unread posts.
+  Return to the course page.
+  - Verify that F.SG shows as unread.
+
+UNR07 / U.ET
+  Go into F.SG main page.
+  - Verify that UNR04 discussion shows as having 2 unread posts.
+  Click into discussion UNR04 again.
+  - Verify that 2 messages still show as unread.
+  Click 'Show readers' button (bottom).
+  - Verify U.ET user is not listed (As long as F.SG is a group forum and U.ET is not in group).
+  Return to discussion.
+  Click 'Mark discussion read' button (bottom left).
+  - Verify that you are returned to main forum page and discussion now shows
+    as read (no unread messages).
+  Add a new reply to the last post (any message content).
+  Go back to F.SG main page.
+  - Verify that UNR04 discussion shows as having no unread posts.
+  Click the 'Change' link next to 'Manually mark as read'
+  - Verify that it changed to 'Automatically mark as read'.
+  - Verify UNR04 discussion shows as having no unread posts.
+  Click the 'Change' link next to 'Automatically mark as read'
+  - Verify that it changed to 'Manually mark as read'.
+  - Verify UNR04 discussion shows as having no unread posts.
+  Return to the course page.
+  - Verify that F.SG does not show as unread.
+
+UNR08 / U.S2
+  Go to course page.
+  - Verify that an '(Unread posts)' note appears next to F.SG.
+  Go to F.SG
+  - Verify that UNR04 discussion shows as having 1 unread post.
+  Click the 'Change' link next to 'Automatically mark as read'
+  - Verify that it changed to 'Manually mark as read'.
+  Enter discussion UNR04
+  Right-click 'Mark post read' and open in new tab
+  - Verify UNR04 loads in new tab, showing last post as read.
+  Close new tab and return to F.SG main page.
+  - Verify UNR04 discussion shows as having no unread posts.
+  Click the 'Change' link next to 'Manually mark as read'
+  - Verify that it changed to 'Automatically mark as read'.
+  - Verify UNR04 discussion shows as having 1 unread posts.
+
+UNR09 / U.ET
+  Go into F.SG main page.
+  Click into discussion UNR04 again.
+  Click 'Show readers' button (bottom).
+  - Verify U.S2 user is listed with time corresponding to marking post as read in UNR08.
+  Return to discussion.
+
+DRP Draft posts
+===============
+
+DRP01 / U.S1
+  Go to F.SH. Click 'Start discussion'. Enter some text into the subject and
+  message, but instead of posting the discussion, click 'Save as draft'.
+  - Verify that the same form reloads with the same content but a message above
+    it that says you've saved a draft, with current date.
+  Return to the main forum page.
+  - A section at the top of the page should show the new draft message you have
+    saved.
+  - It should say '(new discussion)' and show the date at which you saved it.
+  - Verify that the help icon next to heading works.
+  Click on the draft.
+  - You should be returned to the 'start discussion' form with the draft
+    content still present.
+  Click Cancel
+  - You should go back to main forum page with draft still there.
+  Click draft again. This time, click 'Post discussion'.
+  - Verify that you are taken to the posted discussion.
+  Return to main forum page.
+  - Verify that draft has gone.
+
+DRP02 / U.S1
+  Go into discussion (DRP01). Click Reply. Enter some text into the message,
+  but instead of posting the reply, click 'Save as draft'.
+  - Verify that form reloads with message above it that says draft is saved.
+  Return to main forum page.
+  - Verify that draft is present.
+  - Verify that it now has the discussion name in the discussion column, with
+    'Reply to U S1' in brackets, and time that draft was saved.
+  Click on draft.
+  - Verify that it appears including your text.
+  Cancel.
+  Go back to main page.
+  Click on draft again and this time, make a change to the text. Then click
+  'Save draft'.
+  - Form should reload.
+  Go back to main page.
+  - Draft should still be present.
+  Click on it and 'Post reply'.
+  - Taken to discussion page.
+  - Reply with latest text is now shown.
+
+DRP03 / U.S1
+  Go to F.SH main page. Start an new discussion. Type subject and message.
+  Click 'Save draft'. Go back to forum main page.
+  - New draft should be shown.
+  Click on Delete (X) icon next to draft.
+  - Delete confirm page should appear, with Delete / Cancel options.
+  - Content of draft post should be shown.
+  Click Cancel.
+  - Should be back on main page.
+  - Draft still present.
+  Click on Delete icon again. This time, choose Delete.
+  - Should get back to main page.
+  - Draft now gone.
+
+DRP04 / U.S2 [change]
+  Go to F.SH main page. Click on the discussion (DRP01). Click Reply next
+  to the last message in the discussion. Type some text, then click 'Save as
+  draft'.
+  - You should still be on the discussion page (discuss.php).
+  - Text should appear above form indicating the date of the draft saved.
+  Wait until the minute has changed, edit the text a bit, then click
+  'Save as draft' again.
+  - Same thing should happen and time should be updated to the new minute.
+  Go back to F.SH main page.
+  - Draft should be displayed with correct date and reply to (U S1).
+  Click on draft.
+  - Should go back to discussion page (URL discuss.php).
+  - Should automatically open a reply form for the post you replied to.
+  - Form should contain the text you saved.
+  Click cancel, then return to F.SH main page.
+  - Draft still there.
+  Click draft again and this time, when the form opens, 'Post reply'.
+  - Post should appear (just like if you make a reply normally).
+  Return to F.SH main page.
+  - Draft no longer there.
+
+** PASSED 2011-02-21
+
+
+ATT Attachments
+===============
+
+NOTE: In most cases when adding a file here you can use the 'Recent files'
+option to save time rather than uploading from the hard disk in all cases.
+You will need a few different files.
+
+NOTE: This script refers to 'download prompt' as what happens in your browser
+when a file is successfully downloaded. Depending on the file type, in some
+cases (e.g. .txt file) it might actually display the file in current window
+rather than offering a download prompt.
+
+NOTE: The instructions do not mention it explicitly but when adding a
+discussion or reply you need to type some text in the message field and (for
+discussions) the subject field.
+
+ATT01 / U.S1 [change]
+  Go to F.SH main page. Click 'Start discussion'. On the resulting form,
+  in the Attachments area, click 'Add' and upload a suitable file. Click
+  'Post discussion'.
+  - Discussion should appear.
+  - Attachment should be shown in top right of post.
+  Click on attachment.
+  - Browser should load the attachment.
+
+ATT02 / U.S1
+  Click Reply against the post. On the resulting form, add two attachments,
+  then click 'Post reply'. In the resulting discussion view, click 'Expand
+  all' to see your reply.
+  - Reply should show both attachments in top right of post.
+
+ATT03 / U.S1
+  Click Edit link against the reply you just made.
+  - Verify that the edit form shows the 2 attachments.
+  Delete one of the attachments (using the popup menu next to it). Then add
+  another (different) attachment. Save changes. Expand the discussion again.
+  - Verify that the post now displays the different attachments.
+
+ATT04 / U.S1
+  Go back to F.SH main page. Click 'Start discussion'. Add an attachment.
+  Click 'Save as draft'.
+  - Verify that the form reloads, but new page still shows the attachment.
+  Delete the attachment and add a different one. Click 'Save as draft' again.
+  - Form should still show the new attachment.
+  Click Post.
+  - Correct (new) attachment should display alongside post.
+
+ATT05 / U.S1
+  Go to F.SG (different forum) main page. You should be in group G1. Start
+  a new discussion, including an attachment. When the discussion is posted,
+  right-click on the attachment and copy the URL to clipboard.
+
+ATT06 / U.S2 [change]
+  Go to F.SG. You should be in group G2, so the discussion just created is
+  not visible. Paste the URL from clipboard and hit return.
+  - An error should be displayed; you should not be allowed to access the
+    file from the other group.
+
+ATT07 / U.S2
+  Go back to the F.SH forum. Click into the discussion (ATT04). Click reply.
+  In the form that appears, add an attachment, and post the reply.
+  - Reply should display with attachment shown.
+
+ATT08 / U.S2
+  Click Edit next to your new reply. Remove the attachment and add a different
+  one. Save changes.
+  - Reply should be updated with new attachment.
+
+ATT09 / U.S2
+  Click Reply again. Add an attachment. This time, click save as draft. Go
+  back to the F.SH main page.
+  - Draft should display.
+  Click on draft.
+  - Should return to discussion page with form open showing reply, including
+    the attachment.
+  Click post.
+  - Reply should be posted including attachment.
+
+ATT10 / U.ET [change]
+  Go to the discussion (ATT04). Against the reply (ATT07), click the History
+  link to see previous versions of the post.
+  - History page should display showing the old version of the post as well
+    as the current one.
+  - The old version should include the previous attachment file.
+  - Click the link to the previous attachment and check it offers download
+    prompt.
+
+** PASSED 2011-02-23
+
+
+FLG Flags
+=========
+
+FLG01 / U.ET
+  Go into F.SH. Start a discussion. Post a reply in the discussion.
+  Mouse over the flag icon against the discussion (icon at top right of
+  message).
+  - Title should popup 'Flag this message for future reference'.
+  Click the icon.
+  - The flag icon should change to the 'flagged' display.
+  Mouse over it again
+  - New title 'Remove this flag'.
+  Click it again.
+  - Flag icon should disappear.
+  Mouse over it again.
+  - Title should be back to first one.
+  Click the flag icon against the reply.
+  - Reply should now be flagged.
+
+FLG02 / U.ET
+  Return to F.SH main page.
+  - Below the discussion list, a list of flagged posts should appear.
+  - The reply you flagged should be listed (title/summary, author U ET,
+    discussion name, and date posted). It should have a flag icon next to it.
+  Click the help icon next to the 'Flagged posts' title.
+  - Check it works.
+  Click the reply title/summary.
+  - You should be taken to the correct discussion, scrolled down (if possible)
+    so that the reply is at top of screen.
+
+FLG03 / U.ET
+  Return to F.SH main page. This time, click the discussion name where the
+  flagged post was.
+  - Discussion should load as normal (not jumping to flagged post).
+  - However, the flagged reply should be expanded (just because it is flagged;
+    flagged posts are always expanded).
+  Return to F.SH main page. Mouseover flag icon next to flagged post.
+  - Should show 'Remove flag' title.
+  Click flag icon.
+  - Page should reload; flagged message should be removed.
+
+FLG04 / U.S1 [change]
+  Go to F.SH and click into discussion FLG01. Click the flag icon next to
+  the top post.
+  - Page should reload, showing post as flagged, and with the top post at
+    top of screen (if possible).
+  Click flag icon again.
+  - Page should reload once more, showing post not flagged, post at top.
+  Click 'Expand all posts'. Now click flag icon next to reply.
+  - Page should reload with reply flagged. Reply should be already-expanded
+    this time.
+
+** PASSED 2011-02-23
+
+
+DSM Discussion page miscellaneous junk
+======================================
+
+DSM01 / U.S1
+  Go to F.WC (just for variety) and start a new discussion. Paste a reasonable
+  chunk of text (say, this test step) into the post and use subject 'DSM01'.
+  Post it. Reply to it with subject 'r1' and again paste a reasonable chunk of
+  text. Reply to it a second time using subject 'r2' and pasted text. Finally,
+  expand all posts and reply to r1, using subject r3 and again pasting the text.
+  Expand all posts again.
+  Scroll down so that r3 is at the top of the screen. Click on the 'Jump to:
+  parent' link in r3.
+  - Screen should jump to show r1 at top of screen.
+  Scroll so that r2 is near top of screen. Click 'Jump to: Parent'.
+  - Screen should jump to show DSM01 at top of screen.
+  Click the 'Permalink' link in r3.
+  - Page should reload, not expanded, with r3 at top.
+    NOTE: This behaviour (not expanded) is not ideal, but it makes more sense
+    when sharing the link with people using the normal JS version.
+  Copy the current URL into clipboard.
+
+DSM02 / U.S2 [change]
+  Go to F.WC. Click 'Mark all read'. Then paste URL from clipboard and hit
+  return.
+  - Discussion DSM01 should display.
+  - Post r3 should be expanded and at least some of it should appear on screen.
+  - Replies r1, r2 should be collapsed.
+
+DSM03 / U.S2
+  Click Expand next to r2.
+  - Post should appear.
+  Click 'Jump to: Parent' next to r2.
+  - Screen should scroll (fairly) smoothly to show DSM01 at top.
+  Scroll down as far as possible while still able to see the 'Parent' link in
+  r3. Click this link.
+  - r1 should expand, and screen should scroll so that it is at top.
+
+** PASSED 2011-02-23
+
+
+MOD Various moderator features
+==============================
+
+MOD01 / U.ET
+  Go to F.SH main page. Start a new discussion. In discussion, create a reply
+  with no subject and text r1 and an attachment. Reply to this reply with
+  subject MOD01-r2 and text r2. Click Split next to r2.
+  - The 'Split post' form should appear.
+  - It contains a subject field (initially filled in with 'MOD01-r2').
+  - Below is the part of the discussion that would be split (just r2).
+  Click Cancel.
+  - Should return to discussion.
+  Expand r1 this time and click split next to r1.
+  - This time the form should have a blank subject by default.
+  - It should show both r1 and r2 as being split.
+  Type a subject MOD01-r1 and click the Split button.
+  - Should go to viewing a new discussion that starts with message MOD01-r1
+    and contains the reply MOD01-r2 as well.
+  - Click attachment on MOD01-r1 and check it still works.
+  Return to forum main page. The discussion MOD01-r1 should be on top, but
+  MOD01 is still there; click on it.
+  - Discussion MOD01 should contain only the original message and not the two
+    replies.
+
+MOD02 / U.ET
+  Go to F.SH main page. Start a new discussion. On the discussion page, add
+  a reply, and include an attachment in the reply. Once done, click Merge
+  button at bottom of page.
+  - Merge warning should appear. Screen contains information about how to merge
+    and a 'Don't show again' button (there is no way to undo this so don't
+    click it).
+  Click Cancel.
+  - Should be back to discussion.
+  Click Merge again. This time, click 'Begin merge' button.
+  - Should be taken to forum main page.
+  Go to a different form F.WC. Go into a discussion in that forum.
+  - At the bottom of the discussion, the 'Cancel merge' button should be
+    offered (you cannot merge into a different forum).
+  Return to F.SH. Go into the discussion (MOD02).
+  - Again only 'Cancel merge' should be offered (you cannot merge into itself).
+  Click the Cancel option.
+  - You should be returned to discussion with the merge cancelled (no
+    highlighted buttons, only the normal merge button).
+  Click Merge and 'Begin merge' again. Go into the different discussion MOD01.
+  - This time options 'Merge here' and Cancel should appear.
+  Click Merge.
+  - Discussion should reload.
+  - The two messages from MOD02 should appear in the discussion.
+  - The message MOD02 should be a reply to the top-level discussion
+    post.
+  - The reply to MOD02 should still contain an attachment link (you will need
+    to expand it to see).
+  Click the attachment.
+  - Attachment download prompt should show.
+
+MOD03 / U.ET
+  In discussion MOD01, look at bottom of screen in the 'Move this discussion
+  to' dropdown.
+  - Should include 3 options for the other 3 forums on the course (F.VG, F.SG,
+    F.WC).
+  - Move button greyed out.
+  Select F.WC and click Move.
+  - You should be taken to the forum F.WC which now shows the discussion MOD01
+    on the list.
+  - Click on the discussion and check the attachment is still present and still
+    downloads
+
+MOD04 / U.ET
+  In discussion MOD01, use the move dropdown to select F.VG and click Move.
+  - You should get a prompt asking you which group you want to move it to.
+  - The prompt should let you choose from G1, G2, and 'All participants'.
+  Select G2 and click Move.
+  - You should be taken to forum F.VG showing the discussion MOD01 now
+    present in group G2.
+  Go into discussion MOD01. This time, select F.SG and click Move.
+  - There should be no group prompt.
+  - You should be taken to forum F.SG showing the discussion MOD01 still in
+    group G2.
+  Finally go into MOD01, select F.SH, and click Move.
+  - There should be no group prompt.
+  - You should be back in F.SH showing the discussion MOD01 (obviously it
+    doesn't have a group any more).
+
+MOD05 / U.ET
+  Click into discussion MOD01 again. This time, click the Copy button.
+  - Should show an information screen (like for merge).
+  Click Cancel.
+  - Should go back to discussion MOD01.
+  Click Copy again and this time click 'Begin copy'.
+  - Should return to forum main page for F.SH
+  - Next to 'Start discussion' is new buttton 'Paste discussion', Cancel.
+  Click Cancel.
+  - Page should reload without buttons.
+  Go back into MOD01 and copy it again. Go to F.SG and change to group G2.
+  - The two buttons should be visible again.
+  Click 'Paste discussion'.
+  - The page should reload with 'MOD01' discussion now visible in this group.
+  Click into MOD01, expand the last reply, and click the attachment.
+  - Download prompt should appear.
+  Go back to F.SH and click into the original MOD01 again. Click the attachment.
+  - Download prompt should appear.
+
+** PASSED 2011-02-23
+
+
+DEL Deleting and hiding discussions and posts
+=============================================
+
+NOTE: In this test, we will build up a list of URLs that students should not
+be able to access. Use a text editor such as Notepad to store the list so that
+you can test them all when indicated at the end.
+
+DEL01 / U.ET
+  Go to F.SH and start a new discussion. Then click the Delete button at
+  bottom of it.
+  - 'Are you sure?' prompt should appear.
+  Click Cancel.
+  - Should return to discussion.
+  Click Delete again and this time, click Delete.
+  - Should return to forum main page. Discussion (DEL01) is still visible but
+    is greyed out and has a line through.
+  Click on discussion (DEL01).
+  - Discussion displays. All posts show deleted (greyed out).
+  Click 'Undelete' button and then click 'Undelete' on the confirm form.
+  - Discussion should reload, posts are not greyed out any more.
+  Return to F.SH main page.
+  - Discussion should be shown as normal again (not greyed out, no line
+    through).
+  Go into discussion (DEL01) again and delete it once more. Copy the URL
+  and paste it into the list for later checking.
+
+DEL02 / U.ET
+  Return to F.SH and start a new discussion, but under 'Display period' in
+  the form, enable the 'Only show from' option, leaving it set to today's date.
+  Post the discussion.
+  - Should show discussion as normal.
+  Go to F.SH main page.
+  - Verify discussion still appears as normal.
+  Return to discussion, click 'Discussion options'.
+  - Options form should appear.
+  Change show from date to set it to a time in the future e.g. 2020. Save
+  changes.
+  - Should return to discussion.
+  Go to F.SH main page.
+  - Discussion should now show in grey (but not crossed out) with a clock icon
+    to the left. This is supposed to indicate that students cannot see the
+    discussion at present time.
+  Copy the URL of the discussion and paste it into the list for later checking.
+
+DEL03 / U.ET
+  Start another new discussion, this time setting the 'Only show until end'
+  to today's date (probably default). Save changes. Go to F.SH main
+  page.
+  - Verify normal discussion display.
+  Go back into discussion and change options to set the date to some time in
+  the past e.g. yesterday or 2010. Save and go back to F.SH main page.
+  - Verify clock icon and grey colouring.
+  Copy URL of discussion and paste it into list.
+
+DEL04 / U.S2 [change]
+  Go to F.SH.
+  - Verify that the list of recent discussions does not include DEL01, DEL02,
+    or DEL03.
+  One at a time, paste in the three discussion URLs from your text editor to
+  your browser.
+  - Verify that all three give an error and do not display the discussion.
+
+DEL05 / U.S2
+  Go to F.SH main page. Start another new discussion. Reply to it using text
+  r1. Reply to r1 using text r2. Then reply to the original discussion again
+  using text r3. Reply to original discussion again using text r4. Reply to
+  r4 using text r5.
+  Delete your replies r3 and r1.
+  - r3 should disappear entirely when deleted.
+  - r1 should not disappear (because there is a reply to it); the author
+    picture, author information, post date information, and content should
+    all disappear and be replaced by a box showing only the information
+    'Deleted by the author on (time).'
+
+DEL06 / U.ET [change]
+  Go into the discussion (DEL05).
+  - Verify that the deleted posts r1 and r3 are visible but with content
+    ('r1', 'r3') greyed out.
+  - Verify that they show user picture, post date.
+  - Verify that they contain information about who deleted them (U S2) and when.
+  Delete post r4.
+  - Verify that this also now shows information about who deleted it (U ET).
+
+DEL07 / U.S2 [change]
+  Go into the discussion (DEL05).
+  - Verify that the deleted post r4 now shows only the information 'deleted
+    by a moderator on (time)'.
+
+** PASSED 2011-02-24
+
+
+DEP Delete and email posts
+==========================
+
+DEP01 / Admin [Change]
+   Ensure the email addresses of the users U.S2 and U.ET are set to usable accounts
+   that are accessible by the tester, so that they can be checked during testing.
+
+DEP02 / U.ET [Change]
+   Go to F.SH and start a new discussion.
+   Enter the subject as 'DEP02 - testing delete and email post feature'.
+   Enter the message 'DEP02 The requirement is to show the post that is being deleted within the email
+   so the student can see what any comments are in reference to without having to access the discussion'.
+   Click Post discussion.
+-  Should return to discussion.
+
+DEP03 / U.S2
+   Go to F.SH and enter discussion 'DEP02 - testing delete and email post feature'.
+   Click 'reply' beneath the uet teacher post 'DEP02 - testing delete and email post feature'.
+   Enter the subject 'DEP03 user two response'.
+   Enter the message 'DEP03 This message may appear in the email following its deletion'.
+   Click Post reply.
+
+DEP04 / U.S2
+   Click 'reply' beneath the uet teacher post 'DEP02 - testing delete and email post feature'.
+   Enter the subject 'DEP04 user two response two'.
+   Enter the message 'DEP04 This message may also appear in an email following its deletion'.
+   Click Post reply.
+
+DEP04A / U.S2
+   Click 'reply' beneath the uet teacher post 'DEP02 - testing delete and email post feature'.
+   Enter the subject 'DEP04A user two response three'.
+   Enter the message 'DEP04A This message may also appear in an email following its deletion'.
+   Click Post reply.
+
+Return to the forum list.
+
+DEP05 / U.ET [Change]
+   Go to F.SH and enter discussion 'DEP02'
+   Click 'Delete' beneath the message 'DEP03 user two response'
+-  Confirm that the page refreshes with the 'Are you sure you want to delete this post?' box with
+   'Delete and email', 'Delete' and 'Cancel' buttons, above the selected post.
+   Click 'Delete and email'.
+-  Confirm that the page refreshes with the 'Delete and email author' form showing above the selected post.
+-  Verify that the message displayed in the form is:
+
+   'This is a notification to advise you that your forum post with the following details has been
+    deleted by 'uet {username}':'
+
+   Subject: DEP03 user two response
+   Forum: F.SH
+   Module: FORUMTEST
+
+   View the discussion
+
+-  Verify that there are two checkboxes beneath the message box,
+   'Send a copy to yourself' and 'Include post'.
+-  Verify that there is a text entry field 'Email address of other recipients'.
+-  Verify that the form also has a 'Send and delete' and 'Cancel' buttons, and that the selected
+   post is displayed beneath the form.
+   Click 'Send a copy to yourself'.
+   Click 'Send and delete'.
+
+DEP06 / U.ET
+-  Confirm that you are returned to the discussion.
+-  Confirm that the post 'DEP03 user two response' is now visible as deleted by uet {username}.
+-  Confirm that user2 has received an email 'Your post has been deleted'.
+-  Verify that the above message is reproduced in the email.
+
+DEP07 / U.ET
+   Click 'Expand all posts'.
+   Click 'Delete' beneath the message 'DEP04 user two response two'
+-  Confirm that the page refreshes with the 'Are you sure you want to delete this post?' box with
+   'Delete and email', 'Delete' and 'Cancel' buttons, above the selected post.
+   Click 'Delete and email'.
+-  Confirm that the page refreshes with the 'Delete and email author' form showing above the selected post.
+-  Verify that the message displayed in the form is similar to that in DEP05.
+-  Verify that there are two checkboxes beneath the message box,
+   'Send a copy to yourself' and 'Include post'.
+-  Verify that there is a text entry field 'Email address of other recipients'.
+-  Verify that the form also has a 'Send and delete' and 'Cancel' buttons, and that the selected
+   post is displayed beneath the form.
+   Click 'Send a copy to yourself'.
+   Click 'Include post'.
+   Click 'Send and delete'.
+
+DEP08 / U.ET
+-  Confirm that you are returned to the discussion.
+-  Confirm that the post 'DEP04 user two response two' is now visible as deleted by uet {username}.
+-  Confirm that user U.S2 has received an email 'Your post has been deleted'.
+-  Confirm that user U.ET has received an email 'Copy - Your post has been deleted'.
+-  Verify that the above form message is reproduced in the emails, followed by the deleted post.
+
+DEP08A / U.ET
+   Click 'Expand all posts'.
+   Click 'Delete' beneath the message 'DEP04A user two response three'
+-  Confirm that the page refreshes with the 'Are you sure you want to delete this post?' box with
+   'Delete and email', 'Delete' and 'Cancel' buttons, above the selected post.
+   Click 'Delete and email'.
+-  Confirm that the page refreshes with the 'Delete and email author' form showing above the selected post.
+-  Verify that the message displayed in the form is similar to that in DEP05.
+-  Verify that there are two checkboxes beneath the message box,
+   'Send a copy to yourself' and 'Include post'.
+-  Verify that there is a text entry field 'Email address of other recipients'.
+-  Verify that the form also has a 'Send and delete' and 'Cancel' buttons, and that the selected
+   post is displayed beneath the form.
+   Click 'Send a copy to yourself'.
+   Click 'Include post'.
+-  Enter multiple checkable user email addresses which you have access to.
+   Click 'Send and delete'.
+
+DEP08B / U.ET
+-  Confirm that you are returned to the discussion.
+-  Confirm that the post 'DEP04A user two response three' is now visible as deleted by uet {username}.
+-  Confirm that user U.S2 has received an email 'Your post has been deleted'.
+-  Confirm that user U.ET has received an email 'Copy - Your post has been deleted'.
+-  Confirm that the other users have received an email 'Copy - Your post has been deleted'.
+-  Verify that the above form message is reproduced in the emails, followed by the deleted post.
+
+DED Delete and email discussions
+================================
+
+DED01 / Admin
+   Ensure the email addresses of the users U.S2 and Admin are set to usable local accounts
+   that are accessible by the tester, so that they can be checked during testing.
+   Note that the email address for these users should be unique, though they can refer to the same mail account.
+
+DED02 / Admin
+   Create a forum called FR1.
+   Create a discussion called D1.
+   From within D1 discussion choose Delete button to delete the discussion.
+   -  Check that only Delete and Cancel buttons appear as options.
+   Select the Delete button.
+   -  Go to forum FR1 and check that the discussion D1 has been deleted (name is greyed out and struck through).
+   Select discussion D1.
+   Undelete the discussion by selecting 'Undelete' button.
+   -  Verify Undelete and Cancel buttons shown.
+   Select Undelete.
+   -  Check the discussion D1 is no longer deleted (name appears normally).
+
+DED03 / U.S2 [change]
+   Go to the forum FR1.
+   Select the discussion D1.
+   Reply to the initial post made by Admin.
+   Save post.
+
+DED04 / Admin [change]
+   Go to forum FR1.
+   Select the discussion D1.
+   Select 'Delete' button to delete the discussion.
+   -  Check that Delete, Delete and email and Cancel buttons appear on a pop up.
+   Choose the Delete and email button.
+   -  This should bring up the delete and email screen with form.
+   -  The top Message text area should display:
+    'This is a notification to advise you that a discussion you have
+    started with the following details has been deleted by {firstname} {lastname}:
+
+    Subject: {subject}
+    Forum: {forum}
+    Module: {course}'
+
+  Select checkbox marked 'Send a copy to yourself'.
+  In the text area marked 'Email address of other recipients' enter valid email address (should not be same as U.S2's email address).
+  Select checkbox marked 'Notify other contributors'
+  - That notification message should display:
+   'This is a notification to advise you that a discussion you have contributed to
+   with the following details has been deleted by {firstname} {lastname}:
+
+   Subject: {subject}
+   Forum: {forum}
+   Module: {$course}'
+
+  Select the 'Send and delete' button.
+  - Check that the discussion has been deleted.
+  - Check that four emails have been sent/received:
+   An email to Admin informing them that a discussion that they started has been deleted.
+   A COPY email to Admin informing them that a discussion has been deleted.
+   Another COPY email to the email address entered into the area marked 'Email address of other recipients'.
+   An email to U.S2 informing them that a discussion they contributed to has been deleted.
+  Select discussion D1.
+  Undelete the discussion.
+
+DED05 / Admin
+  Go to forum FR1.
+  Select discussion D1.
+  Select the Delete button to delete the discussion.
+  - Check that Delete, Delete and email and Cancel buttons appear on the pop up.
+  Choose the Delete and email button.
+  - This should bring up the delete and email screen.
+  Select the 'Send and delete' button.
+  - Check that the discussion has been deleted.
+  - Check that one email has been sent/received:
+   An email to admin informing them that a discussion that they started has been deleted.
+  Click against the discussion.
+  Undelete the discussion.
+
+DE06 / U.S2 [change]
+  Go to forum FR1.
+  Create a discussion D2 with a single post.
+
+DED07 / Admin [change]
+  Go to forum FR1.
+  Select discussion D2.
+  Choose to delete the discussion.
+  - Check that Delete, Delete and email and Cancel buttons appear on the pop up.
+  Choose the Delete button.
+  - Verify Delete and Cancel buttons appear.
+  Select Delete button.
+  - Verify discussion D2 is shown as deleted.
+  Select discussion D2.
+  Select Undelete and undelete the discussion.
+
+DED08 / Admin
+  Re-test the above with JS switched off using the forum and discussions already created.
+  There is no need to recreate the forum or discussions or the posts.
+  Note Delete popup is replaced with a physical screen when JS is disabled.
+
+EML Email
+=========
+
+NOTE: This section specifies that you create new forums because that ensures
+there is no old subscription information hanging around, reducing the
+potential for confusion.
+
+NOTE: Before starting this section, check that both users (U.S2, U.ET)
+have email addresses set up that go to an email address that you can read.
+When testing within the OU, note that developer servers will only send email
+to OU (@open.ac.uk) addresses.
+
+NOTE: This script uses the phrase 'trigger email sending' to indicate that you
+should make sure the system sends out emails at that point. You can manually
+trigger email sending by visiting the URL admin/cron.php in a browser when
+logged in as admin. It will probably be useful to use multiple browsers for
+this test (one to do the email ending, the other for everything else).
+
+NOTE: Running cron.php also runs periodic tasks for all other modules, not
+just ForumNG. Consequently, cron might be broken even if there is nothing
+wrong with ForumNG.
+
+EML01 / U.ET [change]
+  Create a new forum F.EWC set to 'no groups' mode. Go into the forum and
+  click the Subscribe button to subscribe to the whole forum.
+  - Verify that the text changes to indicate that you are subscribed to the
+    forum and show your email address.
+  Start new discussion EML01. In the form, click the 'Mail soon' box.
+  In that discussion, create a reply EML01-b; but in this reply, do not click
+  the 'Mail soon' box.
+  Trigger email sending [see above].
+  - Verify that you receive email copy of EML01 but not EML01-b.
+  Wait for the system editing timeout (if it's not already set that way, you
+  can change it now to 5 minutes). While waiting, go to your user profile and
+  change the setting about email type from HTML format to text format.
+  Then trigger email sending again.
+  - Verify that you now receive email copy of EML01-b.
+  Change email type back to HTML format.
+
+EML02 / U.ET
+  Check the email copy of EML01.
+  - Verify that it is in HTML format.
+  - Verify that it contains whatever message you typed, along with
+    course shortname, forum name, and at the bottom, an unsubscribe link.
+  Check the email copy of EML01-b.
+  - It should be similar but in plain text format.
+  - Verify that it includes, at the bottom, the message that it was replying
+    to (i.e. the text of the original discussion post).
+
+EML03 / U.ET
+  Go to F.EWC and click the 'View subscribers' link.
+  - List of subscribers should be shown (containing only you).
+  In one of the emails, click the unsubscribe link.
+  - You should be taken to a page confirming that you're unsubscribed.
+  Go back to F.EWC and click the 'View subscribers' link again.
+  - Verify that there are now no subscribers.
+  Go back to F.EWC and use the button to subscribe again. View subscribers.
+  - Now you're on the list again.
+  Click the tickbox next to your name and click the unsubscribe button.
+  - No subscribers again.
+  Go back to F.EWC and click Subscribe then Unsubscribe; check the list.
+  - Still no subscribers.
+
+EML04 / U.ET
+  In F.EWC start a new discussion 'EML04-a' (mail soon). In that discussion,
+  make a reply EML04-b (mail soon). Delete the reply.
+  Start a new discussion EML04-c (mail soon). Delete it.
+  Start a new discussion EML04-d (mail soon). Set it to not appear until the
+  future.
+  Subscribe to F.EWC again. Trigger email sending.
+  - Check that you receive EML04-a but not any of the others.
+    NOTE: It would be good to test EML04-d is actually emailed after the date
+    passes, but I couldn't think of an easy way to test that without actually
+    waiting for the next day; and for a full test (given the safety-net period),
+    it would have to be about a week probably.
+
+EML05 / U.ET
+  Unsubscribe from F.EWC. Start a new discussion 'EML05-a' (mail soon). Start
+  a second new discussion 'EML05-b' (mail soon). Inside EML05-b, click the
+  button at the bottom to subscribe just to that discussion.
+  - Verify that the button changes to say you're subscribed to that discussion.
+  - Trigger email sending.
+  - Check that you receive EML05-b but not EML05-a.
+  Return to F.EWC main page.
+  - Verify that text by subscribe button shows you as subscribed to 'some
+    discussions' and offers a 'subscribe all' / 'unsubscribe' choice.
+  View subscriber list.
+  - Check that it shows you with the note indicating that you are subscribed
+    to 1 discussion, where previously it showed 'whole forum'.
+  Return to F.EWC main page. Click unsubscribe.
+  - Verify that it now says you aren't subscribed at all.
+  Delete forum F.EWC.
+
+EML06 / U.ET
+  Create new forum F.ESG set to separate groups mode. Ensure you are in the
+  'all participants' view, then click subscribe button.
+  - It should say that you are subscribed to the forum.
+  Change to group G1. Start new discussion EML06-a (mail soon).
+  Change to group G2. Start new discussion EML06-b (mail soon).
+
+EML07 / U.S2 [change]
+  Go to new forum F.ESG. (You should be in group G2.) Click subscribe button.
+  - It should say you're subscribed to the group.
+  Trigger email sending.
+  - Verify that the discussion EML06-a and b are both sent to user U.ET's email,
+    but the discussion EML06-b is only sent to user U.S2's email.
+
+EML08 / U.ET [change]
+  In F.ESG, change to 'All participants' and view subscriber list.
+  - Both users should now be shown.
+  - For U.ET it should show 'All'.
+  - For U.S2 it should show the group 'G2'.
+  Change to looking at the group G2.
+  - Both users still shown.
+  Change to looking at G1.
+  - Only U.ET now shown.
+
+** PASSED 2011-02-24
+
+SAV - Post save checking
+========================
+
+SAV01 / U.ET
+  Use any existing form where U.ET can post to, or alternatively create a new course/forum for this test.
+  Acccess the test form, and select the 'Start a new discussion' button (selecting group if necessary)
+  Enter text 'Save check' into Subject field and any text into Message field.
+  Select to Sign out of SAMS from the OU top bar by opening link in a new tab.
+  (For non-SAMS sites such as ttdev open a new tab and access /login/logout.php instead)
+  Close the new (once signed-out) tab.
+  Select 'Post discussion' button.
+  - Verify a warning popup appears notifying that saving the post will fail due to network issues.
+  Select 'Ok' to close the popup.
+  - Verify 'Post discussion' and 'Save as draft' buttons become disabled.
+  Select the 'Cancel' button.
+  - Verify login takes place and you are redirected back to the forum 'Start discussion' page.
+  - If group forum, verify correct group is selected in Group drop-down.
+  Enter text 'Save check' into Subject field and any text into Message field.
+  Select 'Post discussion' button.
+  - Verfiy discussion created and you are redirected to discussion page.
+
+SAV02 / U.ET
+  Select the 'Reply' button against discussion start post.
+  Enter any text into the Message field.
+  Select to Sign out of SAMS from the OU top bar by opening link in a new tab.
+  (For non-SAMS sites such as ttdev open a new tab and access /login/logout.php instead)
+  Close the new (once signed-out) tab.
+  Select 'Save as draft' button.
+  - Verify a warning popup appears notifying that saving the post will fail due to network issues.
+  Select 'Ok' to close the popup.
+  - Verify 'Post discussion' and 'Save as draft' buttons become disabled.
+  Select 'Cancel' button.
+  - Verify new post is removed, to leave just discussion showing.
+
+
+AREAS THAT SHOULD BE TESTED BUT HAVE NOT BEEN
+=============================================
+
+* Backup/restore
+
+* Email digest
+
+* Atom/RSS feeds
+
+* Lock
+
+* Forward by email
+
+* Print
+
+* Show readers
+
+* Shared forums
+
+* Forced/initial subscribe
+
+* Automatic move/delete of old messages

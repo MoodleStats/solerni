@@ -35,7 +35,7 @@ require_once($CFG->dirroot.'/config.php');
 class block_orange_course_extended extends block_base {
 
     public function has_config() {
-        return true;
+        return false;
     }
 
     /**

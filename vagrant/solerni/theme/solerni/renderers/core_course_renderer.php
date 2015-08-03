@@ -451,14 +451,14 @@ class theme_solerni_core_course_renderer extends core_course_renderer {
      * and output the Mooc Component
      *
      * @return string
-     */
-    public function course_info_box(stdClass $course) {
-        $content = '';
-        $content .= $this->output->box_start('generalbox info');
-        $content .= $this->render_solerni_mooc_component(null, $course);
-        $content .= $this->output->box_end();
-        return $content;
-    }
+	 */
+	public function course_info_box(stdClass $course) {
+		$content = '';
+		$content .= $this->output->box_start('generalbox info');
+		$content .= $this->render_solerni_mooc_component(null,$course,null);
+		$content .= $this->output->box_end();
+		return $content;
+	}
 
     /*
      * Create chelper object in case we don't have one
