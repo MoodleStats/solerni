@@ -75,10 +75,9 @@ class enrollment_object {
 
         $instances = enrol_get_instances($course->id, false);
         $timestamp = strtotime(date('c'));
-
         foreach ($instances as $instance) {
-            if ($instance->enrolenddate) {
-                $timestamp = strtotime($instance->enrolenddate);
+            if (($instance->enrol == "self" || $instance->enrol == "manual")&&$instance->enrolenddate) {
+                    $timestamp = $instance->enrolenddate;
             }
         }
         return $timestamp;

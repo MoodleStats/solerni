@@ -1,4 +1,18 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /*
  * @author    Shaun Daubney
@@ -25,30 +39,30 @@ $ADMIN->add('themes', new admin_category('theme_solerni', 'Solerni'));
  *  Page
  *  Frontpage Settings
  */
-$temp = new admin_settingpage('theme_solerni_frontpage', get_string('frontpagesettings','theme_solerni'));
-// frontpage header tagline.
+$temp = new admin_settingpage('theme_solerni_frontpage', get_string('frontpagesettings', 'theme_solerni'));
+// Frontpage header tagline.
 $name = 'theme_solerni/frontpagetagline';
 $title = get_string('frontpagetagline', 'theme_solerni');
 $description = get_string('frontpagetaglinedesc', 'theme_solerni');
 $default = get_string('footertaglinedefault', 'theme_solerni');
 $setting = new admin_setting_configtext($name, $title, $description, $default);
 $temp->add($setting);
-// frontpage header presentation.
+// Frontpage header presentation.
 $name = 'theme_solerni/frontpagepresentation';
 $title = get_string('frontpagepresentation', 'theme_solerni');
 $description = get_string('frontpagepresentationdesc', 'theme_solerni');
 $default = get_string('frontpagepresentationdefault', 'theme_solerni');
 $setting = new admin_setting_configtextarea($name, $title, $description, $default);
 $temp->add($setting);
-// frontpage background header image.
+// Frontpage background header image.
 $name = 'theme_solerni/frontpageheaderimage';
 $title = get_string('frontpageheaderimage', 'theme_solerni');
 $description = get_string('frontpageheaderimagedesc', 'theme_solerni');
 $setting = new admin_setting_configstoredfile($name, $title, $description, 'frontpageheaderimage');
-$setting->set_updatedcallback('theme_reset_all_caches'); // regenerate CSS.
+$setting->set_updatedcallback('theme_reset_all_caches'); // Regenerate CSS.
 $temp->add($setting);
 $ADMIN->add('theme_solerni', $temp);
-// frontpage title above the catalog.
+// Frontpage title above the catalog.
 $name = 'theme_solerni/catalogtitle';
 $title = get_string('catalogtitle', 'theme_solerni');
 $description = get_string('catalogtitledesc', 'theme_solerni');
@@ -57,27 +71,27 @@ $setting = new admin_setting_configtext($name, $title, $description, $default);
 $temp->add($setting);
 
 // Colours administration. New page.
-$temp = new admin_settingpage('theme_solerni_colors', get_string('colorsettings','theme_solerni'));
+$temp = new admin_settingpage('theme_solerni_colors', get_string('colorsettings', 'theme_solerni'));
 $name = 'theme_solerni/colourheading';
 $heading = get_string('colourheading', 'theme_solerni');
 $information = get_string('colourheadingdesc', 'theme_solerni');
 $setting = new admin_setting_heading($name, $heading, $information);
 $temp->add($setting);
 // Get colors keys and values from options class.
-foreach( $solernioptions::solerni_get_colors_array() as $key => $value ) {
+foreach ($solernioptions::solerni_get_colors_array() as $key => $value) {
     $name = 'theme_solerni/' . $key;
     $title = get_string( $key, 'theme_solerni' );
     $description = get_string( $key . 'desc', 'theme_solerni');
     $default = $value;
-    $previewconfig = NULL;
+    $previewconfig = null;
     $setting = new admin_setting_configcolourpicker($name, $title, $description, $default, $previewconfig);
-    $setting->set_updatedcallback('theme_reset_all_caches'); // regenerate CSS.
+    $setting->set_updatedcallback('theme_reset_all_caches'); // Regenerate CSS.
     $temp->add($setting);
 }
 $ADMIN->add('theme_solerni', $temp);
 
 // Footer elements. New page.
-$temp = new admin_settingpage('theme_solerni_footer', get_string('footersettings','theme_solerni'));
+$temp = new admin_settingpage('theme_solerni_footer', get_string('footersettings', 'theme_solerni'));
 $name = 'theme_solerni/footertextheading';
 $heading = get_string('footertextheading', 'theme_solerni');
 $information = '';
@@ -86,7 +100,7 @@ $temp->add($setting);
 // Platform langs. Iterate for tagline and presentation texte.
 $langs = get_string_manager()->get_list_of_translations();
 if ( $langs ) {
-    foreach ( $langs as $lang => $langname ) {
+    foreach ($langs as $lang => $langname) {
         // Echo title for each language.
         $temp->add(
             new admin_setting_heading(
@@ -96,7 +110,7 @@ if ( $langs ) {
             )
         );
         // Footer tagline and text by lang.
-        foreach( $solernioptions::solerni_get_footertext_array() as $key => $value ) {
+        foreach ($solernioptions::solerni_get_footertext_array() as $key => $value) {
             $fieldtype = $value['fieldtype'];
             $name = 'theme_solerni/' . $key . '_' . $lang;
             $title = get_string_manager()->get_string( $key. 'title', 'theme_solerni', null, $lang);
@@ -115,7 +129,7 @@ $setting = new admin_setting_heading($name, $heading, $information);
 $temp->add($setting);
 // Get social network names and url values.
 // Iterate to create each setting.
-foreach( $solernioptions::solerni_get_footerlinks_array() as $key => $value ) {
+foreach ($solernioptions::solerni_get_footerlinks_array() as $key => $value) {
     $name = 'theme_solerni/' . $key;
     $title = get_string( $key, 'theme_solerni' );
     $description = get_string( $key . 'desc', 'theme_solerni');
@@ -125,8 +139,8 @@ foreach( $solernioptions::solerni_get_footerlinks_array() as $key => $value ) {
 }
 $ADMIN->add('theme_solerni', $temp);
 
-// Socials elements. New page
-$temp = new admin_settingpage('theme_solerni_social', get_string('socialsettings','theme_solerni'));
+// Socials elements. New page.
+$temp = new admin_settingpage('theme_solerni_social', get_string('socialsettings', 'theme_solerni'));
 // Social Link Heading.
 $name = 'theme_solerni/sociallinksheading';
 $heading = get_string('sociallinksheading', 'theme_solerni');
@@ -135,7 +149,7 @@ $setting = new admin_setting_heading($name, $heading, $information);
 $temp->add($setting);
 // Get social network names and url values.
 // Iterate to create each setting.
-foreach( $solernioptions::solerni_get_sociallinks_array() as $key => $value ) {
+foreach ($solernioptions::solerni_get_sociallinks_array() as $key => $value) {
     $name = 'theme_solerni/' . $key;
     $title = get_string( $key, 'theme_solerni' );
     $description = get_string( $key . 'desc', 'theme_solerni');
@@ -146,7 +160,7 @@ foreach( $solernioptions::solerni_get_sociallinks_array() as $key => $value ) {
 $ADMIN->add('theme_solerni', $temp);
 
 // Header links admin. New page.
-$temp = new admin_settingpage('theme_solerni_header', get_string('headersettings','theme_solerni'));
+$temp = new admin_settingpage('theme_solerni_header', get_string('headersettings', 'theme_solerni'));
 $name = 'theme_solerni/headerheading';
 $heading = get_string('headerheading', 'theme_solerni');
 $information = get_string('headerheadingdesc', 'theme_solerni');
@@ -154,7 +168,7 @@ $setting = new admin_setting_heading($name, $heading, $information);
 $temp->add($setting);
 // Get static links and url values.
 // Iterate to create each setting.
-foreach( $solernioptions::solerni_get_staticlinks_array() as $key => $value ) {
+foreach ($solernioptions::solerni_get_staticlinks_array() as $key => $value) {
     $name = 'theme_solerni/' . $key;
     $title = get_string( $key, 'theme_solerni' );
     $description = get_string( $key . 'desc', 'theme_solerni');

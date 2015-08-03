@@ -29,30 +29,36 @@ if ( $courseinfos ) :
     <div class="<?php echo $classes; ?>"
          data-course-id="<?php echo $course->id; ?>" data-type="<?php echo self::COURSECAT_TYPE_COURSE; ?>">
         <div class="slrn-coursebox__column slrn-coursebox__column--image">
-            <?php if ($courseinfos->imgurl) : ?>
+            <?php
+    if ($courseinfos->imgurl) : ?>
                 <img class="slrn-coursebox__course-image"
                      src="<?php echo $imageutilities->get_resized_url($courseinfos->imgurl,
                              array('w' => 500, 'h' => 357, 'scale' => false), $courseinfos->file); ?>">
-            <?php endif; ?>
-            <?php if ($customer->urlimg) : ?>
+            <?php
+    endif; ?>
+            <?php
+    if ($customer && $customer->urlimg) : ?>
                 <a class="slrn-coursebox__course-image-customer" href="<?php echo $customerurl; ?>">
                     <img src="<?php echo $imageutilities->get_resized_url($customer->urlimg,
                                  array('w' => 35, 'h' => 35, 'scale' => true), $customer->fileimg); ?>">
                 </a>
-            <?php endif; ?>
+            <?php
+    endif; ?>
         </div>
         <div class="slrn-coursebox__column slrn-coursebox__column--description">
             <h3 class="slrn-coursebox__coursename"><?php echo $coursename; ?></h3>
             <span class="slrn-coursebox__courseby font-variant--type1">
                 <?php echo get_string('courseproposedby', 'theme_solerni'); ?>
-                <?php if ($customerurl) : ?>
+                <?php
+    if ($customer && $customerurl) : ?>
                     <a class="link-primary" href="<?php echo $customerurl; ?>" class="slrn-coursebox__course-customer">
                         <?php echo $customer->name; ?>
                     </a>
-                <?php endif; ?>
+                <?php
+    endif; ?>
             </span>
             <div class="slrn-coursebox__summary">
-                <?php // @todo adapt length depending on viewport width ?
+                <?php
                 echo $utilities->trim_text( $chelper->get_course_formatted_summary($course,
                             array('overflowdiv' => false, 'noclean' => true, 'para' => false)), 155); ?>
                 <a class="link-secondary" href="<?php echo $utilitiescourse->get_description_page_url($course); ?>">
@@ -66,34 +72,43 @@ if ( $courseinfos ) :
         <div class="slrn-coursebox__column slrn-coursebox__column--metadata font-variant--type1">
             <div class="slrn-coursebox__metadata slrn-coursebox__metadata--dates">
                 <div class="slrn-coursebox__metadata__icone -sprite-solerni"></div>
-                <?php if ($course->startdate || $course->startdate ) : ?>
+                <?php
+    if ($course->startdate || $course->startdate ) : ?>
                     <span class="slrn-coursebox__metadata__item">
-                        <?php if ( $course->startdate) : ?>
+                        <?php
+        if ( $course->startdate) : ?>
                             <div class="">
                                 <?php echo get_string('coursestartdate', 'theme_solerni') .
                                         " " . date("d.m.Y", $course->startdate); ?>
                             </div>
-                        <?php endif; ?>
-                        <?php if ( $courseinfos->enddate) : ?>
+                        <?php
+        endif; ?>
+                        <?php
+        if ( $courseinfos->enddate) : ?>
                             <div class="">
                                 <?php echo get_string('courseenddate', 'theme_solerni') .
                                     " " . date("d.m.Y", $courseinfos->enddate); ?>
                             </div>
-                        <?php endif; ?>
+                        <?php
+        endif; ?>
                     </span>
-                <?php endif; ?>
+                <?php
+    endif; ?>
             </div>
             <div class="slrn-coursebox__metadata slrn-coursebox__metadata--badges">
                 <div class="slrn-coursebox__metadata__icone -sprite-solerni"></div>
-                <?php if ( $badges->count_badges($course->id)) : ?>
+                <?php
+    if ( $badges->count_badges($course->id)) : ?>
                     <span class="slrn-coursebox__metadata__item">
                         <?php echo get_string('coursebadge', 'theme_solerni'); ?>
                     </span>
-                <?php else : ?>
+                <?php
+    else : ?>
                     <span class="slrn-coursebox__metadata__item">
                         <?php echo get_string('coursenobadge', 'theme_solerni'); ?>
                     </span>
-                <?php endif; ?>
+                <?php
+    endif; ?>
             </div>
             <div class="slrn-coursebox__metadata slrn-coursebox__metadata--price">
                 <div class="slrn-coursebox__metadata__icone -sprite-solerni"></div>
@@ -103,7 +118,8 @@ if ( $courseinfos ) :
             </div>
         </div>
     </div>
-<?php else : ?>
+<?php
+else : ?>
     <div class="coursebox slrn-coursebox slrn-coursebox--invalid"
          data-course-id="<?php echo $course->id; ?>" data-type="<?php echo self::COURSECAT_TYPE_COURSE; ?>">
         <h3 class="slrn-coursebox__coursename">
@@ -113,7 +129,8 @@ if ( $courseinfos ) :
         </h3>
         <p>(Ce cours n'est pas au format flexpage)</p>
     </div>
-<?php endif;
+<?php
+endif;
 
  /*
 

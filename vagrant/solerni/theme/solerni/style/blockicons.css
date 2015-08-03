@@ -1,5 +1,5 @@
 /*
- * @author    Shaun Daubney
+ *@author    Shaun Daubney
  * @package   theme_solerni
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -65,7 +65,7 @@
 }
 
 .block_quiz_results .header .title h2:before {
-    background-color: #76b900;    
+    background-color: #76b900;
 	content:"\f080";
 }
 
