@@ -27,13 +27,19 @@ $isregister    = $this->is_menu_item_active( '/login/signup.php' )
 
 <li class="slrn-top-header__item<?php echo ( $islogin ) ? ' -is-active' : ''; ?>">
     <a href="<?php echo $CFG->wwwroot ?>/login/index.php"><?php echo get_string('login', 'theme_solerni'); ?></a>
-    <?php if ( $islogin ) : ?>
+    <?php
+if ( $islogin ) : ?>
         <span class="slrn-topbar-item__active"></span>
-    <?php endif; ?>
+    <?php
+endif;
+?>
 </li>
 <li class="slrn-top-header__item<?php echo ( $isregister ) ? ' -is-active' : ''; ?>">
     <a href="<?php echo $CFG->wwwroot ?>/login/signup.php"><?php echo get_string('register', 'theme_solerni'); ?></a>
-    <?php if ( $isregister ) : ?>
+    <?php
+if ( $isregister ) : ?>
         <span class="slrn-topbar-item__active"></span>
-    <?php endif; ?>
+    <?php
+endif;
+?>
 </li>

@@ -271,7 +271,7 @@ h2 {
 }
 /*
  * Plugin Googleauth2
- */ 
+ */
 .body-solerni .zocial {
 
     display:                inline-block;
@@ -297,7 +297,6 @@ h2 {
     user-select:            none;
     background-image:       none;
     position:               relative;
-	
 
 }
 .body-solerni .zocial.googleplus:before {
@@ -314,4 +313,3 @@ h2 {
 .sider_social-sharing .button_social_item {
     display:                inline-block;
 }
-

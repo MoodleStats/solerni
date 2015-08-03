@@ -78,34 +78,34 @@ $string['grey5']                        = 'Grey 5';
 $string['grey5desc']                    = 'Very dark grey';
 
 // Footer settings.
-$string['footersettings']           = 'Footer';
-$string['footertextheading']        = 'Footer Solerni Texts';
-$string['footertextheadingdesc']    = 'Define Solerni branding text in footer.';
-$string['footertextlangheading']    = 'Version: ';
-$string['footertaglinetitle']       = 'Solerni tagline (english)';
-$string['footertaglinedefault']     = 'To learn is more fun together';
-$string['footertaglinedesc']        = 'Footer tagline for english version';
-$string['footerexplainationtitle']  = 'Solerni tagline short text (english)';
-$string['footerexplainationdefault']= 'Solerni is a full software suite dedicated to help you creating and hosting massively collaborative learning routes';
-$string['footerexplainationdesc']   = 'Text under the tagline in the english version footer';
-$string['footerlinksheading']       = 'Liens du footer';
-$string['footerlinksheadingdesc']   = 'Définit les liens pour le footer (hors réseaux sociaux).';
-$string['aboutus']                  = 'About us';
-$string['support']                  = 'Support';
-$string['followus']                 = 'Follow us';
-$string['international']            = 'International';
-$string['aboutsolerni']             = 'About Solerni';
-$string['aboutsolernidesc']         = 'Enter About Solerni URL';
-$string['partners']                 = 'Partners';
-$string['partnersdesc']             = 'Enter Partners URL';
-$string['legal']                    = 'Legal notices';
-$string['legaldesc']                = 'Enter Legal Notice URL';
-$string['cgu']                      = 'Terms and Conditions';
-$string['cgudesc']                  = 'Enter Terms and Conditions URL';
-$string['faq']                      = 'FAQ';
-$string['faqdesc']                  = 'Enter FAQ URL';
-$string['contactus']                = 'Contact Us';
-$string['contactusdesc']            = 'Enter Contact URL';
+$string['footersettings']            = 'Footer';
+$string['footertextheading']         = 'Footer Solerni Texts';
+$string['footertextheadingdesc']     = 'Define Solerni branding text in footer.';
+$string['footertextlangheading']     = 'Version: ';
+$string['footertaglinetitle']        = 'Solerni tagline (english)';
+$string['footertaglinedefault']      = 'To learn is more fun together';
+$string['footertaglinedesc']         = 'Footer tagline for english version';
+$string['footerexplainationtitle']   = 'Solerni tagline short text (english)';
+$string['footerexplainationdefault'] = 'Solerni is a full software suite dedicated to help you creating and hosting massively collaborative learning routes';
+$string['footerexplainationdesc']    = 'Text under the tagline in the english version footer';
+$string['footerlinksheading']        = 'Liens du footer';
+$string['footerlinksheadingdesc']    = 'Définit les liens pour le footer (hors réseaux sociaux).';
+$string['aboutus']                   = 'About us';
+$string['support']                   = 'Support';
+$string['followus']                  = 'Follow us';
+$string['international']             = 'International';
+$string['aboutsolerni']              = 'About Solerni';
+$string['aboutsolernidesc']          = 'Enter About Solerni URL';
+$string['partners']                  = 'Partners';
+$string['partnersdesc']              = 'Enter Partners URL';
+$string['legal']                     = 'Legal notices';
+$string['legaldesc']                 = 'Enter Legal Notice URL';
+$string['cgu']                       = 'Terms and Conditions';
+$string['cgudesc']                   = 'Enter Terms and Conditions URL';
+$string['faq']                       = 'FAQ';
+$string['faqdesc']                   = 'Enter FAQ URL';
+$string['contactus']                 = 'Contact Us';
+$string['contactusdesc']             = 'Enter Contact URL';
 
 // Social settings.
 $string['socialsettings']           = 'Social';
@@ -148,7 +148,7 @@ $string['hello']                    = 'Hello';
 $string['dashboard']                = 'Dashboard';
 $string['administration']           = 'Administration';
 
-// Search filters
+// Search filters.
 $string['filterstatustitle']        = 'Status';
 $string['filterstatusall']          = 'All MOOCs';
 $string['filterstatusinprogress']   = 'In progress';
@@ -167,7 +167,7 @@ $string['catalognresults']          = "Results found";
 $string['catalog0result']           = "No result";
 $string['catalog1result']           = "Result found";
 
-// Mooc component
+// Mooc component.
 $string['courseproposedby']         = "Proposed by";
 $string['coursefindoutmore']        = "Find out more";
 $string['coursestartdate']          = "Starts on";
@@ -175,11 +175,11 @@ $string['courseenddate']            = "Ending on";
 $string['coursebadge']              = "Badges available";
 $string['coursenobadge']            = "No badges";
 
-// Frontpage frontend
+// Frontpage frontend.
 $string['ifreelyregister']          = "I freely register";
 $string['seecatalog']               = "See the catalogue";
 
-// Login settings
+// Login settings.
 $string['logintitle']               = "I am logging in with my e-mail *";
 $string['registertitle']            = "I log in";
 $string['rememberme']               = "Remember me";
