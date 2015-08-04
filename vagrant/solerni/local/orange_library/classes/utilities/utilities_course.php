@@ -32,6 +32,7 @@ use moodle_url;
 use context_helper;
 use coursecat_sortable_records;
 use course_in_list;
+require_once($CFG->dirroot . '/cohort/lib.php'); 
 
 class utilities_course {
 
@@ -484,7 +485,7 @@ class utilities_course {
         }
 
         // Last case : we'll grant access wheither the user is in the cohort.
-        return cohort_is_member($cohortid, $USER->id);
+        return cohort_is_member($cohortid, $user->id);
     }
 
     public function get_description_page_url($course = null) {
