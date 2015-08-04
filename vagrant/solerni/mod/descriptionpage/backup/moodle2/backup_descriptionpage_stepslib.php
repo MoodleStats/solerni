@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -35,29 +34,20 @@ class backup_descriptionpage_activity_structure_step extends backup_activity_str
 
     protected function define_structure() {
 
-        // To know if we are including userinfo
-        $userinfo = $this->get_setting_value('userinfo');
-
-        // Define each element separated
+        // Define each element separated.
         $page = new backup_nested_element('descriptionpage', array('id'), array(
             'name', 'intro', 'introformat', 'content', 'contentformat',
             'legacyfiles', 'legacyfileslast', 'display', 'displayoptions',
             'revision', 'timemodified'));
 
-        // Build the tree
-        // (love this)
-
-        // Define sources
+        // Define sources.
         $page->set_source_table('descriptionpage', array('id' => backup::VAR_ACTIVITYID));
 
-        // Define id annotations
-        // (none)
+        // Define file annotations.
+        $page->annotate_files('mod_descriptionpage', 'intro', null); // This file areas haven't itemid.
+        $page->annotate_files('mod_descriptionpage', 'content', null); // This file areas haven't itemid.
 
-        // Define file annotations
-        $page->annotate_files('mod_descriptionpage', 'intro', null); // This file areas haven't itemid
-        $page->annotate_files('mod_descriptionpage', 'content', null); // This file areas haven't itemid
-
-        // Return the root element (page), wrapped into standard activity structure
+        // Return the root element (page), wrapped into standard activity structure.
         return $this->prepare_activity_structure($page);
     }
 }

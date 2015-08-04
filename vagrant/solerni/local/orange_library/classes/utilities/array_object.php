@@ -30,34 +30,34 @@ class array_object{
 
     public function __construct () {
 
-      $this->count = 0;
+        $this->count = 0;
 
     }
 
     public function add ($step) {
 
-      $this->count++;
-      $this->all[$this->count] = $step;
+        $this->count++;
+        $this->all[$this->count] = $step;
 
     }
 
-    public function setCurrent ($step) {
+    public function setcurrent ($step) {
 
-      $this->curr = $this->all[$step];
-
-    }
-
-    public function getCurrent () {
-
-      return $this->curr;
+        $this->curr = $this->all[$step];
 
     }
 
-    public function getNext () {
+    public function getcurrent () {
 
-      self::setCurrent($this->curr);
-      return next($this->all);
+        return $this->curr;
 
     }
 
-  }
+    public function getnext () {
+
+        self::setCurrent($this->curr);
+        return next($this->all);
+
+    }
+
+}
