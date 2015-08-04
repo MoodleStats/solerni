@@ -16,17 +16,18 @@ class theme_cerulean_core_renderer extends theme_bootstrap_core_renderer {
      */
     public function cerulean_search_box() {
     ?>
-        <div id="search_form" class="col-sm-12 col-lg-5">
+    <form class="navbar-form navbar-right inline-form">
 
-          <form id="search_form" class="form-inline pull-right" method="GET" action="<?php echo $this->page->url; ?>">
+      <div class="form-group">
 
-            <input type="text" style="width:150px" class="input-sm form-control" id="search_input" name="search_input" placeholder="<?php echo get_string('search', 'theme_cerulean'); ?>" value=""/>
+        <input type="search" class="input-sm form-control" placeholder="Recherche">
 
-            <button type="submit" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-eye-open"></span> Chercher</button>
+        <button type="submit" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-eye-open"></span> Chercher</button>
 
-          </form>
+      </div>
 
-        </div>
+    </form>
+
     <?php }
 
     /*
@@ -39,14 +40,14 @@ class theme_cerulean_core_renderer extends theme_bootstrap_core_renderer {
         $cataloglink    = $this->page->theme->settings->catalogue;
     ?>
         <?php if ($aboutlink) : ?>
-            <li >
+            <li class="active">
                 <a  href="<?php echo $this->page->theme->settings->about; ?>">
                     <?php echo get_string('about', 'theme_cerulean'); ?>
                 </a>
             </li>
         <?php endif; ?>
         <?php if ($cataloglink) : ?>
-            <li >
+            <li class="active">
                 <a  href="<?php echo $this->page->theme->settings->catalogue; ?>">
                     <?php echo get_string('catalogue', 'theme_cerulean'); ?>
                 </a>

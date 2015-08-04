@@ -25,15 +25,15 @@ $isregister    = $this->is_menu_item_active( '/login/signup.php' )
 
 ?>
 
-<li class="slrn-top-header__item<?php echo ( $islogin ) ? ' -is-active' : ''; ?>">
+<li class="">
     <a href="<?php echo $CFG->wwwroot ?>/login/index.php"><?php echo get_string('login', 'theme_cerulean'); ?></a>
     <?php if ( $islogin ) : ?>
-        <span class="slrn-topbar-item__active"></span>
+        <span class=""></span>
     <?php endif; ?>
 </li>
-<li class="slrn-top-header__item<?php echo ( $isregister ) ? ' -is-active' : ''; ?>">
+<li class="">
     <a href="<?php echo $CFG->wwwroot ?>/login/signup.php"><?php echo get_string('register', 'theme_cerulean'); ?></a>
     <?php if ( $isregister ) : ?>
-        <span class="slrn-topbar-item__active"></span>
+        <span class=""></span>
     <?php endif; ?>
 </li>

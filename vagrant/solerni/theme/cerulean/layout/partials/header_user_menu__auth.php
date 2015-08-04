@@ -25,21 +25,21 @@ $hasadmincapacity     = has_capability('moodle/site:config', context_system::ins
 
 ?>
 
-<li class="slrn-top-header__item">
+<li class="">
     <a href="<?php echo $CFG->wwwroot; ?>/my">
         <?php echo get_string('dashboard', 'theme_cerulean'); ?>
     </a>
     <?php if ( $isdashboard ) : ?>
-        <span class="slrn-topbar-item__active"></span>
+        <span class=""></span>
     <?php endif; ?>
 </li>
-<li class="slrn-top-header__item">
-    <a class="dropdown-toggle  -not-uppercase" data-toggle="dropdown" role="button">
+<li class="">
+    <a class="dropdown-toggle  -not-uppercase " data-toggle="dropdown" role="button">
         <?php echo get_string('hello', 'theme_cerulean') . ' ' . $USER->firstname . ' ' . $USER->lastname; ?>
-        <b class="caret -is-white"></b>
+        <b class="glyphicon glyphicon-chevron-down pull-right"></b>
     </a>
     <ul class="dropdown-menu">
-        <span class="slrn-topbar-item__active"></span>
+        <span class=""></span>
         <li class="dropdown-menu__item">
             <a class="-not-uppercase" href="<?php echo $CFG->wwwroot ?>/user/profile.php">
                 <img class="profileicon" src="<?php echo $this->pix_url('profile/profile', 'theme') ?>" />

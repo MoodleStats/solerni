@@ -32,33 +32,20 @@ $isfrontpage    = ($PAGE->pagetype === 'site-index');
 ?>
 
 <header role="banner" >
-    <nav role="navigation">
-        <div >
-
-            <a
-               href="<?php echo $CFG->wwwroot; ?>">
-            </a>
-
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="<?php echo $CFG->wwwroot; ?>"></a>
             <?php $OUTPUT->cerulean_search_box(); ?>
 
-            <div >
-                <ul >
+        </div>
+                <ul class="nav navbar-nav">
                     <?php $OUTPUT->cerulean_header_links(); ?>
                     <?php $OUTPUT->cerulean_user_menu(); ?>
                 </ul>
-            </div>
-
-            <a 
-               data-toggle="collapse"
-               data-target=".nav-collapse"
-            >
-                <span ></span>
-                <span ></span>
-                <span ></span>
-            </a>
 
         </div>
-    </nav>
+    </div>
 </header>
 
 <?php if ( $PAGE->pagetype === 'site-index' ) {
