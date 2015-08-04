@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -36,7 +35,7 @@ class restore_descriptionpage_activity_structure_step extends restore_activity_s
         $paths = array();
         $paths[] = new restore_path_element('descriptionpage', '/activity/descriptionpage');
 
-        // Return the paths wrapped into standard activity structure
+        // Return the paths wrapped into standard activity structure.
         return $this->prepare_activity_structure($paths);
     }
 
@@ -47,14 +46,14 @@ class restore_descriptionpage_activity_structure_step extends restore_activity_s
         $oldid = $data->id;
         $data->course = $this->get_courseid();
 
-        // insert the descriptionpage record
+        // Insert the descriptionpage record.
         $newitemid = $DB->insert_record('descriptionpage', $data);
-        // immediately after inserting "activity" record, call this
+        // Immediately after inserting "activity" record, call this.
         $this->apply_activity_instance($newitemid);
     }
 
     protected function after_execute() {
-        // Add descriptionpage related files, no need to match by itemname (just internally handled context)
+        // Add descriptionpage related files, no need to match by itemname (just internally handled context).
         $this->add_related_files('mod_descriptionpage', 'intro', null);
         $this->add_related_files('mod_descriptionpage', 'content', null);
     }
