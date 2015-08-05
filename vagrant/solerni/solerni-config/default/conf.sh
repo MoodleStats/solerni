@@ -10,7 +10,7 @@ moosh role-import solerni_animateur users_roles/solerni_animateur.xml
 moosh role-import solerni_teacher users_roles/solerni_teacher.xml
 moosh role-import solerni_marketing users_roles/solerni_marketing.xml
 moosh role-import solerni_course_creator users_roles/solerni_course_creator.xml
-moosh role-import solerni_course_client users_roles/solerni_course_client.xml
+moosh role-import solerni_client users_roles/solerni_client.xml
 
 # Default role for all users (#us_62-69)
 moosh role-configset defaultuserroleid solerni_utilisateur
@@ -60,3 +60,5 @@ moosh config-set cronclionly 1
 # Completion tracking (#us_99)
 moosh config-set enablecompletion 1 moodlecourse
 
+# Default role assignment - Plugin Enrolments/Manual enrolment
+moosh role-configset roleid solerni_apprenant enrol_manual
