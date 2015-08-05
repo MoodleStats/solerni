@@ -43,6 +43,34 @@ class utilities_course {
         return $customer;
     }
 
+
+    /**
+     * Get all Solerni informations for a course
+     * using flexpage format (imply that we use the blocks/orange_course_extended)
+     *
+     * @global type $DB
+     * @param type $course
+     * @return extended_course_object
+     */
+    public static function solerni_get_mooc_image () {
+        global $COURSE;
+
+        $context = context_course::instance($COURSE->id);
+        $fs = get_file_storage();
+        $files = $fs->get_area_files($context->id, 'format_flexpage', 'coursepicture', 0);
+        $imgurl = '';
+        foreach ($files as $file) {
+            $ctxid = $file->get_contextid();
+            $cmpnt = $file->get_component();
+            $filearea = $file->get_filearea();
+            $itemid = $file->get_itemid();
+            $filepath = $file->get_filepath();
+            $filename = $file->get_filename();
+            $imgurl = moodle_url::make_pluginfile_url($ctxid, $cmpnt, $filearea, $itemid, $filepath, $filename);
+        }
+        return $imgurl;
+    }
+
     /**
      * Get all Solerni informations for a course
      * using flexpage format (imply that we use the blocks/orange_course_extended)

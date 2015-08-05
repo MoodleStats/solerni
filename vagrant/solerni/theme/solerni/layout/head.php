@@ -20,6 +20,9 @@
  * @package   theme_solerni
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+use local_orange_library\utilities\utilities_course;
+
+$utilities_course = new utilities_course();
 ?>
 <head>
     <title><?php echo $PAGE->title ?></title>
@@ -29,4 +32,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type='text/css' />
     <link href="/theme/solerni/style/catalogue.css" rel="stylesheet" type='text/css' />
+    <!-- FACEBOOK LINKEDIN OPEN GRAPH -->
+    <meta property="og:title" content="<?php echo $PAGE->title ?>" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="<?php echo $PAGE->url ?>" />
+    <?php if ($utilities_course->solerni_get_mooc_image()) {
+
+    ?>
+    <meta property="og:image" content="<?php echo $utilities_course->solerni_get_mooc_image(); ?>" />
+    <?php
+    }
+    ?>
+    <meta property="description" content="<?php echo strip_tags($COURSE->summary) ?>" />
+
+    <!-- TWITTER CARDS -->
+    <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@SolerniOfficiel">
+<meta name="twitter:title" content="<?php echo $PAGE->title ?>">
+<meta name="twitter:description" content="<?php echo strip_tags($COURSE->summary) ?>">
+    <?php if ($utilities_course->solerni_get_mooc_image()) {
+
+    ?>
+<meta name="twitter:image" content="<?php echo $utilities_course->solerni_get_mooc_image(); ?>">
+    <?php
+    }
+    ?>
 </head>
