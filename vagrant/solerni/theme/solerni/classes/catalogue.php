@@ -215,7 +215,7 @@ class catalogue {
         $offset = !empty($options['offset']) ? $options['offset'] : 0;
         $limit = !empty($options['limit']) ? $options['limit'] : null;
         $sortfields = !empty($options['sort']) ? $options['sort'] :
-            array('closed' => 1, 'timeleft' => 1, 'enddate' => -1, 'startdate' => -1);
+            array('closed' => 1, 'timeleft' => 1, 'enddate' => -1, 'startdate' => 1);
 
         $wherecategory = array();
         $params = array('siteid' => SITEID);
