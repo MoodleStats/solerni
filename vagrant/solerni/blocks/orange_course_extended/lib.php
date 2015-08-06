@@ -35,7 +35,6 @@ function block_orange_course_extended_print_page($courseextended, $return = fals
     }
 }
 function block_orange_course_extended_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options=array()) {
-    global $DB;
     if ($context->contextlevel != CONTEXT_COURSE) {
         return false;
     }
