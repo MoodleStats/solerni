@@ -261,23 +261,11 @@ function create_subtrees () {
 	#@Todo: workflow when forking a plugin (defining different remotes and/or branch to pull/push)
 	##########
 
-	# Flavours (master = 1.7.2)
-	#init_subtree vagrant/solerni/local/flavours flavours-source https://github.com/dmonllao/moodle-local_flavours.git master
-
-	# Navigation Buttons (master = 2.2)
-	#init_subtree vagrant/solerni/blocks/navbuttons navbuttons-source https://github.com/davosmith/moodle-navbuttons.git master
-
 	# oAuth Google (master = 1.5)
 	init_subtree vagrant/solerni/auth/googleoauth2 goauth-source https://github.com/mouneyrac/moodle-auth_googleoauth2.git master
 
 	# Progress bar (master = 2015021100)
 	init_subtree vagrant/solerni/blocks/progress progressbar-source https://github.com/deraadt/Moodle-block_progress.git master
-
-	# Course Element (master = 2.4.0)
-	#init_subtree vagrant/solerni/mod/customlabel customlabel-source https://github.com/vfremaux/moodle-mod_customlabel.git master
-
-	# Flexsections Format (master = 2.8.1)
-	init_subtree vagrant/solerni/course/format/flexsections flexsections-source https://github.com/marinaglancy/moodle-format_flexsections.git MOODLE_27_STABLE
 
 	# Flexpage Format (master = 2.7.0)
 	init_subtree vagrant/solerni/course/format/flexpage flexpage-source https://github.com/moodlerooms/moodle-format_flexpage.git MOODLE_27_STABLE
@@ -308,6 +296,37 @@ function create_subtrees () {
 
 	# mail (master = MOODLE_LEGACY) MOODLE 2.6-2.7
 	init_subtree vagrant/solerni/local/mail mail-source https://github.com/IOC/moodle-local_mail.git MOODLE_LEGACY
+
+	# Question Type Drag and drop onto text (master = 1.5 for Moodle 2.6+)
+	init_subtree vagrant/solerni/question/type/ddwtos ddwtos-source https://github.com/moodleou/moodle-qtype_ddwtos.git master
+
+	# Question Type Drag and drop onto image (master = 1.8 for Moodle 2.6+)
+	init_subtree vagrant/solerni/question/type/ddimageortext ddimageortext-source https://github.com/moodleou/moodle-qtype_ddimageortext.git master
+
+    		# Question type Drag and drop onto image and text Dependencies : Select missing words
+		init_subtree vagrant/solerni/question/type/gapselect gapselect-source https://github.com/moodleou/moodle-qtype_gapselect.git master
+
+	# Question type Ordering (master = 2015-02-21 (22))
+	init_subtree vagrant/solerni/question/type/ordering ordering-source https://github.com/gbateson/moodle-qtype_ordering.git master
+        
+        # mail (master = MOODLE_LEGACY) MOODLE 2.6-2.7
+        init_subtree vagrant/solerni/local/mail mail-source https://github.com/IOC/moodle-local_mail.git MOODLE_LEGACY
+
+        # mediagallery (master = master)
+        init_subtree vagrant/solerni/mod/mediagallery mediagallery-source https://github.com/netspotau/moodle-mod_mediagallery.git master
+
+	# questionnaire (master = 2.7.2)
+	init_subtree vagrant/solerni/mod/questionnaire questionnaire-source https://github.com/remotelearner/moodle-mod_questionnaire.git MOODLE_27_STABLE
+
+        # forumng (master = 2.7 r2)
+        init_subtree vagrant/solerni/mod/forumng forumng-source https://github.com/moodleou/moodle-mod_forumng.git MOODLE_27_STABLE
+
+        # workshopeval_credit (master = master)
+        init_subtree vagrant/solerni/mod/workshop/eval/credit credit-source https://github.com/mudrd8mz/moodle-workshopeval_credit.git master
+
+        # jmail (master = master)
+        init_subtree vagrant/solerni/blocks/jmail jmail-source https://github.com/jleyva/moodle-block_jmail master
+
 }
 
 

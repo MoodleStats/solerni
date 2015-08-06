@@ -34,7 +34,6 @@ $id      = optional_param('id', 0, PARAM_INT); // Course Module ID.
 $courseid      = optional_param('courseid', 0, PARAM_INT); // Course Module ID.
 $p       = optional_param('p', 0, PARAM_INT);  // Page instance ID.
 $inpopup = optional_param('inpopup', 0, PARAM_BOOL);
-$subscriptionbutton = new subscription_button_object();
 
 if ($p) {
     if (!$page = $DB->get_record('descriptionpage', array('id' => $p))) {
@@ -66,6 +65,8 @@ if ($p) {
 
 // Require_course_login($course, true, $cm);.
 $context = context_module::instance($cm->id);
+$subscriptionbutton = new subscription_button_object($context, $course);
+
 // ...$page = $PAGE->get_renderer('mod_page');.
 descriptionpage_check_view_permissions($page, $context, $cm);
 

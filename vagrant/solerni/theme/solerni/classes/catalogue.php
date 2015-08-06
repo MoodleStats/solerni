@@ -145,9 +145,13 @@ class catalogue {
                 if ($enrolself != null) {
                     // We get the start and end for enrolment (is set).
                     // If not set we set them to the start and end of course.
-                    if ($enrolself->enrolstartdate !=0) $list[$course->id]->enrolstartdate = $enrolself->enrolstartdate;
+                    if ($enrolself->enrolstartdate != 0) {
+                        $list[$course->id]->enrolstartdate = $enrolself->enrolstartdate;
+                    }
                     $list[$course->id]->enrolstartdate = $course->startdate;
-                    if ($enrolself->enrolenddate !=0) $list[$course->id]->enrolenddate = $enrolself->enrolenddate;
+                    if ($enrolself->enrolenddate != 0) {
+                        $list[$course->id]->enrolenddate = $enrolself->enrolenddate;
+                    }
                     $list[$course->id]->enrolenddate = $course->enddate;
 
                     // If selfenrol and cohort associated, the must must be part of the cohort to see the course.
@@ -210,26 +214,11 @@ class catalogue {
         $recursive = !empty($options['recursive']);
         $offset = !empty($options['offset']) ? $options['offset'] : 0;
         $limit = !empty($options['limit']) ? $options['limit'] : null;
-        $sortfields = !empty($options['sort']) ? $options['sort'] : array('closed' => 1, 'timeleft' => 1, 'enddate' => -1, 'startdate' => -1);
-
-        // Check if this category is hidden.
-        // Also 0-category never has courses unless this is recursive call.
-        // if (!$this->is_uservisible() || (!$this->id && !$recursive)) {
-        // return array();
-        // }
+        $sortfields = !empty($options['sort']) ? $options['sort'] :
+            array('closed' => 1, 'timeleft' => 1, 'enddate' => -1, 'startdate' => 1);
 
         $wherecategory = array();
         $params = array('siteid' => SITEID);
-        // if ($recursive) {
-            // if ($this->id) {
-            //    $context = context_coursecat::instance($this->id);
-            //    $wherecategory[] .= 'ctx.path like :path';
-            //    $params['path'] = $context->path. '/%';
-            // }
-        // } else {
-            //$where .= ' AND c.category = :categoryid';
-            //$params['categoryid'] = $this->id;
-        // }
 
         // Filter on categories.
         if (($key = array_search(0, $filter->categoriesid)) !== false) {

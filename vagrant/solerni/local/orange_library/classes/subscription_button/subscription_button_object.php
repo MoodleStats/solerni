@@ -32,6 +32,263 @@ use context_course;
 defined('MOODLE_INTERNAL') || die();
 
 class subscription_button_object {
+    const MOOCCOMPLETE     = 0;
+    const MOOCCLOSED       = 1;
+    const MOOCNOTSTARTED   = 2;
+    const MOOCRUNNING      = 3;
+    const USERLOGGED        = 4;
+    const USERENROLLED      = 5;
+
+    protected $course;
+    protected $context;
+    protected $extendedcourse;
+    protected $date;
+    protected $enrolenddate;
+    protected $coursestatus;
+
+    /**
+     *  Subscription button object constructor
+     * Initialization of :
+     * exented course with course id
+     * redirection urls etc...
+     *
+     * @param type $context
+     * @param type $course
+     */
+    public function __construct($context, $course) {
+
+        $this->course = $course;
+        $this->context = $context;
+        $this->date = new DateTime();
+        $this->extendedcourse = new extended_course_object();
+        $this->extendedcourse->get_extended_course($course, $context);
+        $selfenrolment = new enrollment_object();
+        $this->enrolenddate = $selfenrolment->get_enrolment_enddate($course);
+        $this->coursestatus = $this->get_course_status();
+        $this->urlregistration = new moodle_url('/login/signup.php', array('id' => $this->course->id));
+        $this->urlmoocsubscription = new moodle_url('/enrol/index.php', array('id' => $this->course->id));
+        $this->moocurl = new moodle_url('/course/view.php', array('id' => $this->course->id));
+
+    }
+
+    /**
+     * Return the status of the course
+     * Status could be : MOOCRUNNING
+     *                          MOOCCLOSED
+     *                          MOOCNOTSTARTED
+     *
+     * @param type $context
+     * @param type $course
+     */
+    private function get_course_status() {
+
+        $coursestatus = self::MOOCRUNNING;
+
+        if ($this->extendedcourse->enddate < $this->date->getTimestamp()) {
+            $coursestatus = self::MOOCCLOSED;
+        }
+        if ($this->course->startdate > $this->date->getTimestamp()) {
+            $coursestatus = self::MOOCNOTSTARTED;
+        }
+        return $coursestatus;
+
+    }
+
+    /**
+     * Return the status of the user
+     * Status could be : USERENROLLED
+     *                          USERLOGGED
+     *                          USERENROLLED
+     *
+     * @param type $context
+     * @param type $course
+     */
+    private function get_user_status() {
+
+        $userstatus = self::USERENROLLED;
+
+        if (isloggedin()) {
+            $userstatus = self::USERLOGGED;
+        }
+        if (is_enrolled($this->context)) {
+            $userstatus = self::USERENROLLED;
+        }
+        return $userstatus;
+
+    }
+
+    /**
+     * Display the subscription button
+     *
+     * @param type $url
+     * @return type
+     */
+    private function display_subscribe_to_mooc($url) {
+
+        return html_writer::tag('a', get_string('subscribe_to_mooc', 'local_orange_library'),
+                array('class' => 'btn btn-primary', 'href' => $url));
+
+    }
+
+    /**
+     * Display the access button
+     *
+     *
+     * */
+    private function display_access_to_mooc() {
+
+        return html_writer::tag('a', get_string('access_to_mooc', 'local_orange_library'),
+                array('class' => 'btn btn-secondary', 'href' => $this->moocurl));
+    }
+
+    /**
+     * Display closed status
+     *
+     *
+     * */
+    private function display_status_closed() {
+
+        return  html_writer::tag('span', get_string('status_closed', 'local_orange_library'),
+            array('class' => 'presentation__mooc__text__subtitle'));
+
+    }
+
+    /**
+     * Display status closed with alert me button
+     *
+     *
+     * */
+    private function display_status_closed_alert() {
+
+        $text = "";
+        $text .= html_writer::tag('span', get_string('status_closed', 'local_orange_library'));
+        $text .= html_writer::empty_tag('br');
+        $text .= html_writer::tag('a', get_string('alert_mooc', 'local_orange_library'),
+                array('class' => 'btn btn-primary', 'href' => $this->moocurl));
+        return $text;
+
+    }
+
+    /**
+     * Display registration stopped
+     *
+     *
+     * */
+    private function display_registration_stopped() {
+
+        return  html_writer::tag('span', get_string('registration_stopped', 'local_orange_library'),
+                array('class' => 'presentation__mooc__text__subtitle'));
+
+    }
+
+    /**
+     * Display the open date of the mooc
+     *
+     *
+     * */
+    private function display_mooc_open_date() {
+
+        $text = "";
+        $text = get_string('mooc_open_date', 'local_orange_library') . date("d-m-Y", $course->startdate);
+        return html_writer::tag('a', $text, array('class' => 'btn btn-unavailable btn-disabled'));
+
+    }
+
+    /**
+     * Closed status display redirection
+     *
+     *
+     * */
+    private function controller_mooc_closed() {
+
+        if ($this->extendedcourse->replay == get_string('replay', 'format_flexpage')) {
+            //  Mooc could be replayed";.
+            //  CASE E: MOOC STOPPED AND COULD BE REPLAYED - USER LOGGED OR NOT.
+            return $this->display_status_closed_alert();
+
+        } else {
+            //   Mooc could not be replayed".
+            //   CASE D : MOOC STOPPED - USER LOGGED OR NOT.
+            return $this->display_status_closed();
+
+        }
+
+    }
+
+    /**
+     * Mooc not started display controller
+     *
+     *
+     * */
+    private function controller_mooc_not_started() {
+        if (!isloggedin()) {
+            //   User not logged.
+            //   user not registered.
+            //   CASE A : NOT LOGGED TO THE MOOC - USER LOGGED OR NOT.
+            return $this->display_subscribe_to_mooc($this->urlregistration);
+
+        } else {
+            // User logged to Solerni.
+            if (!is_enrolled($this->context)) {
+                // User not subscribed to the mooc.
+                // CASE A : NOT LOGGED TO THE MOOC - USER LOGGED OR NOT.
+                return $this->display_subscribe_to_mooc($this->urlmoocsubscription);
+
+            } else {
+                // User not subscribed to the mooc.
+                // CASE C : LOGGED TO A FUTUR MOOC - USER REGISTERED.
+                return $this->display_mooc_open_date();
+            }
+        }
+    }
+
+
+    /**
+     *
+     *
+     *
+     * */
+    private function controller_mooc_running() {
+
+        if ($this->enrolenddate < $this->date->getTimestamp()) {
+            // Mooc's running and registration date passed.
+            if (!isloggedin()) {
+                // User not logged to solerni.
+                // User not registered to the mooc.
+                // CASE F : Subscription closed -  USER LOGGED OR NOT.
+                return $this->display_registration_stopped();
+            } else {
+                //   User logged to solerni.
+                if (!is_enrolled($this->context)) {
+                    // User not registered to the mooc.
+                    // CASE F : Subscription closed -  USER LOGGED OR NOT.
+                    return $this->display_registration_stopped();
+                } else {
+                    // User registered to the mooc.
+                    // // CASE B :  LOGGED TO A RUNNIG MOOC - USER LOGGED.
+                    return $this->display_access_to_mooc();
+                }
+            }
+        } else {
+            if (!isloggedin()) {
+                // User not logged to solerni.
+                // User not registered to the mooc.
+                //   CASE A : NOT LOGGED TO THE MOOC - USER LOGGED OR NOT.
+                return $this->display_subscribe_to_mooc($this->urlregistration);
+            } else {
+                //   User logged to solerni.
+                if (!is_enrolled($this->context)) {
+                    // User not registered to the mooc.
+                    //   CASE A : NOT LOGGED TO THE MOOC - USER LOGGED OR NOT.
+                    return $this->display_subscribe_to_mooc($this->urlmoocsubscription);
+                } else {
+                    // User registered to the mooc.
+                    // // CASE B :  LOGGED TO A RUNNIG MOOC - USER LOGGED.
+                    return $this->display_access_to_mooc();
+                }
+            }
+        }
+    }
 
     /**
      *  Set and display the button describing the status of a course.
@@ -40,116 +297,19 @@ class subscription_button_object {
      * @param object $course
      * @return string html_writer::tag
      */
-    public static function set_button($course) {
-        $text = "";
-        $date = new DateTime();
-        $extendedcourse = new extended_course_object();
-        $context = context_course::instance($course->id);
-        $extendedcourse->get_extended_course($course, $context);
+    public function set_button($course) {
 
-        $selfenrolment = new enrollment_object();
-        $instance = new \stdClass();
-        $instance->enrolstartdate = $selfenrolment->get_enrolment_startdate($course);
-        $instance->enrolenddate = $selfenrolment->get_enrolment_enddate($course);
+        switch ($this->coursestatus) {
 
-        $urlregistration = new moodle_url('/login/signup.php', array('id' => $course->id));
-        $urlmoocsubscription = new moodle_url('/enrol/index.php', array('id' => $course->id));
-        $moocurl = new moodle_url('/course/view.php', array('id' => $course->id));
-        //   Mooc terminé et rejouable c’est-à-dire que la date du mooc est passée mais l’utilisateur.
-        //   Peut demander à être averti lorsque la prochaine session du mooc débutera.
-        //   Mooc terminé cad que la date de fin du mooc est dépassée.
-        if ($extendedcourse->maxregisteredusers && $extendedcourse->enrolledusers >= $extendedcourse->maxregisteredusers) {
-            //   Mooc complet : l’inscription est limitée aux X premiers inscrits";.
-            //   CAS G : FICHE PRODUIT - MOOC COMPLET - UTILISATEUR CONNECTE OU NON CONNECTE";.
-            return html_writer::tag('span', get_string('mooc_complete', 'local_orange_library'),
-                    array('class' => 'btn btn--simple-status'));
-        } else {
-            if ($extendedcourse->enddate < $date->getTimestamp()) {
-                //   Mooc terminé";.
-                if ($extendedcourse->replay == get_string('replay', 'format_flexpage')) {
-                    //   Mooc rejouable";.
-                    //   CAS E : FICHE PRODUIT - MOOC TERMINE ET REJOUABLE - UTILISATEUR CONNECTE OU NON CONNECTE";.
-                    $text .= html_writer::tag('span', get_string('status_closed', 'local_orange_library'),
-                            array('class' => 'btn btn--simple-status'));
-                    $text .= html_writer::empty_tag('br');
-                    $text .= html_writer::tag('a', get_string('alert_mooc', 'local_orange_library'),
-                            array('class' => 'btn btn-primary', 'href' => $moocurl));
-                    return $text;
-                } else {
-                    //   Mooc non rejouable";.
-                    //   CAS D : FICHE PRODUIT - MOOC TERMINE - UTILISATEUR CONNECTE OU NON CONNECTE";.
-                    return  html_writer::tag('span', get_string('status_closed', 'local_orange_library'),
-                            array('class' => 'btn btn--simple-status'));
-                }
-            } else if ($course->startdate > $date->getTimestamp()) {
-                //   Mooc non ouvert";.
-                if (!isloggedin()) {
-                    //   Utilisateur non connecté à Solerni";.
-                    //   Utilisateur non inscrit au mooc";.
-                    //   CAS A : FICHE PRODUIT - MOOC NON REJOINT - UTILISATEUR CONNECTE OU NON CONNECTE";.
-                    return html_writer::tag('a', get_string('subscribe_to_mooc', 'local_orange_library'),
-                            array('class' => 'btn btn-primary', 'href' => $urlregistration));
-                } else {
-                    //   Utilisateur connecté à Solerni";.
-                    if (!is_enrolled($context)) {
-                        //   Utilisateur non inscrit au mooc";.
-                        //   CAS A : FICHE PRODUIT - MOOC NON REJOINT - UTILISATEUR CONNECTE OU NON CONNECTE";.
-                        return html_writer::tag('a', get_string('subscribe_to_mooc', 'local_orange_library'),
-                                array('class' => 'btn btn-primary', 'href' => $urlmoocsubscription));
-                    } else {
-                        //   Utilisateur inscrit au mooc";.
-                        //   CAS C : FICHE PRODUIT - MOOC REJOINT A VENIR - UTILISATEUR CONNECTE";.
-                        $text = get_string('mooc_open_date', 'local_orange_library') . date("d-m-Y", $course->startdate);
-                        return html_writer::tag('a', $text, array('class' => 'btn btn-unavailable btn-disabled'));
-                    }
-                }
-            } else {
-                //   Mooc en cours";.
-                if ($instance->enrolenddate < $date->getTimestamp()) {
-                    //   Mooc en cours et date d'inscription passée";.
-                    if (!isloggedin()) {
-                        //   Utilisateur non connecté à Solerni";.
-                        //   Utilisateur non inscrit au mooc";.
-                        //   CAS F : FICHE PRODUIT - INSCRIPTION AU MOOC TERMINEE - UTILISATEUR CONNECTE OU NON CONNECTE";.
-                        return  html_writer::tag('span', get_string('registration_stopped', 'local_orange_library'),
-                                array('class' => 'btn btn--simple-status'));
-                    } else {
-                        //   Utilisateur connecté à Solerni";.
-                        if (!is_enrolled($context)) {
-                            //   Utilisateur non inscrit au mooc";.
-                            //   CAS F : FICHE PRODUIT - INSCRIPTION AU MOOC TERMINEE - UTILISATEUR CONNECTE OU NON CONNECTE";.
-                            return  html_writer::tag('span', get_string('registration_stopped', 'local_orange_library'),
-                                    array('class' => 'btn btn--simple-status'));
-                        } else {
-                            //   Utilisateur inscrit au mooc";.
-                            //   CAS B : FICHE PRODUIT - MOOC REJOINT EN COURS - UTILISATEUR CONNECTE";.
-                            return html_writer::tag('a', get_string('access_to_mooc', 'local_orange_library'),
-                                    array('class' => 'btn btn-access', 'href' => $moocurl));
-                        }
-                    }
-                } else {
-                    if (!isloggedin()) {
-                        //   Utilisateur non connecté à Solerni";.
-                        //   Utilisateur non inscrit au mooc";.
-                        //   CAS A : FICHE PRODUIT - MOOC NON REJOINT - UTILISATEUR CONNECTE OU NON CONNECTE";.
-                        return html_writer::tag('a', get_string('subscribe_to_mooc', 'local_orange_library'),
-                                array('class' => 'btn btn-primary', 'href' => $urlregistration));
-                    } else {
-                        //   Utilisateur connecté à Solerni";.
-                        if (!is_enrolled($context)) {
-                            //   Utilisateur non inscrit au mooc";.
-                            //   CAS A : FICHE PRODUIT - MOOC NON REJOINT - UTILISATEUR CONNECTE OU NON CONNECTE";.
-                            return html_writer::tag('a', get_string('subscribe_to_mooc', 'local_orange_library'),
-                                    array('class' => 'btn btn-primary', 'href' => $urlmoocsubscription));
-                        } else {
-                            //   Utilisateur inscrit au mooc";.
-                            //   CAS B : FICHE PRODUIT - MOOC REJOINT EN COURS - UTILISATEUR CONNECTE";.
-                            return html_writer::tag('a', get_string('access_to_mooc', 'local_orange_library'),
-                                    array('class' => 'btn btn-access', 'href' => $moocurl));
-                        }
-                    }
-                }
-            }
+            case self::MOOCCLOSED:
+                return $this->controller_mooc_closed();
+                break;
+            case self::MOOCNOTSTARTED:
+                return $this->controller_mooc_not_started();
+                break;
+            default:
+                return $this->controller_mooc_running();
+                break;
         }
     }
 

@@ -73,11 +73,12 @@ $optionsfilemanager = array(
 $customer = file_prepare_standard_editor($customer, 'summary', $editoroptions, $context);
 $customer = file_prepare_standard_editor($customer, 'description', $editoroptions, $context);
 $customer = file_prepare_standard_filemanager($customer, 'logo', $optionsfilemanager,
-                                              $context, 'local_orange_customers', 'logo', $customer->logo);
+                                              $context, 'local_orange_customers', 'logo', $customer->id);
 $customer = file_prepare_standard_filemanager($customer, 'picture', $optionsfilemanager,
-                                              $context, 'local_orange_customers', 'picture', $customer->picture);
+                                              $context, 'local_orange_customers', 'picture', $customer->id);
 
-$editform = new orange_customers_form(null, array('editoroptions' => $editoroptions, 'data' => $customer));
+$editform = new orange_customers_form(null,
+        array('editoroptions' => $editoroptions, 'data' => $customer, 'optionsfilemanager' => $optionsfilemanager));
 
 if ($editform->is_cancelled()) {
     $returnurl = new moodle_url('index.php', array('action' => 'customers_list', 'sesskey' => sesskey()));

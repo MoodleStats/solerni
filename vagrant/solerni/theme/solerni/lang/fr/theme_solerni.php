@@ -148,7 +148,7 @@ $string['hello']                        = 'Bonjour';
 $string['dashboard']                    = 'Tableau de bord';
 $string['administration']               = 'Administration';
 
-// Search filters
+// Search filters.
 $string['filterstatustitle']        = 'Statuts';
 $string['filterstatusall']          = 'Tous les MOOCs';
 $string['filterstatusinprogress']   = 'En cours';
@@ -167,7 +167,7 @@ $string['catalognresults']          = "Résultats trouvés";
 $string['catalog0result']           = "Pas de résultat";
 $string['catalog1result']           = "Résultat trouvé";
 
-// Mooc component
+// Mooc component.
 $string['courseproposedby']         = "Proposé par";
 $string['coursefindoutmore']        = "En savoir +";
 $string['coursestartdate']          = "Début le";
@@ -175,6 +175,6 @@ $string['courseenddate']            = "Fin le";
 $string['coursebadge']              = "Badgeant";
 $string['coursenobadge']            = "Non badgeant";
 
-// Frontpage frontend
+// Frontpage frontend.
 $string['ifreelyregister']          = "Je m'inscris gratuitement";
 $string['seecatalog']               = "Voir le catalogue";

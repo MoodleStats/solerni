@@ -24,7 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->component      = 'theme_solerni'; // Full name of the plugin (used for diagnostics)
+$plugin->component      = 'theme_solerni'; // Full name of the plugin (used for diagnostics).
 $plugin->release        = '2.8';
 $plugin->version        = 2015080500; // The current module version (Date: YYYYMMDDXX)
 $plugin->requires       = 2013051400; // Requires this Moodle version
