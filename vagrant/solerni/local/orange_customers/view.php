@@ -77,7 +77,8 @@ $customer = file_prepare_standard_filemanager($customer, 'logo', $optionsfileman
 $customer = file_prepare_standard_filemanager($customer, 'picture', $optionsfilemanager,
                                               $context, 'local_orange_customers', 'picture', $customer->id);
 
-$editform = new orange_customers_form(null, array('editoroptions' => $editoroptions, 'data' => $customer, 'optionsfilemanager' => $optionsfilemanager));
+$editform = new orange_customers_form(null,
+        array('editoroptions' => $editoroptions, 'data' => $customer, 'optionsfilemanager' => $optionsfilemanager));
 
 if ($editform->is_cancelled()) {
     $returnurl = new moodle_url('index.php', array('action' => 'customers_list', 'sesskey' => sesskey()));
@@ -94,7 +95,7 @@ if ($editform->is_cancelled()) {
 
     file_save_draft_area_files($draftitemidl, $context->id, 'local_orange_customers', 'logo', $data->id, $optionsfilemanager );
     file_save_draft_area_files($draftitemidp, $context->id, 'local_orange_customers', 'picture', $data->id, $optionsfilemanager );
-   
+
     $added = customer_add_customer($data);
     $returnurl = new moodle_url('index.php', array('action' => 'customers_list', 'sesskey' => sesskey()));
 

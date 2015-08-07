@@ -26,6 +26,7 @@ namespace local_orange_library\extended_course;
 use local_orange_library\utilities\utilities_object;
 use local_orange_library\utilities\utilities_course;
 use local_orange_library\enrollment\enrollment_object;
+require_once($CFG->dirroot.'/local/orange_customers/lib.php');
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -167,6 +168,7 @@ class extended_course_object {
      */
     public function get_extended_course($course, $context) {
         global $DB;
+
         $utilitiescourse = new utilities_course();
         $categoryid = $utilitiescourse->get_categoryid_by_courseid($course);
         $customer = customer_get_customerbycategoryid($categoryid);

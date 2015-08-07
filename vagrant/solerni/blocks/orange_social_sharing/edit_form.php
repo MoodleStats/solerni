@@ -64,4 +64,5 @@ class block_orange_social_sharing_edit_form extends block_edit_form {
                 array('group' => 1),
                 array(0, 1));
     }
+
 }
