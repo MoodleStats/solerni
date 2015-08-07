@@ -377,3 +377,7 @@ moosh role-update-capability solerni_teacher block/flexpagenav:addinstance allow
 moosh role-update-capability solerni_teacher block/flexpagenav:manage allow 1
 moosh role-update-capability solerni_teacher block/flexpagenav:view allow 1
 
+# Statistics
+moosh role-update-capability solerni_client report/stats:view allow 1
+moosh role-update-capability solerni_client quiz/statistics:view allow 1
+
