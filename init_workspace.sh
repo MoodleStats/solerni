@@ -325,7 +325,7 @@ function create_subtrees () {
         init_subtree vagrant/solerni/mod/workshop/eval/credit credit-source https://github.com/mudrd8mz/moodle-workshopeval_credit.git master
 
         # jmail (master = master)
-        init_subtree vagrant/solerni/blocks/jmail jmail-source https://github.com/jleyva/moodle-block_jmail master
+        #init_subtree vagrant/solerni/blocks/jmail jmail-source https://github.com/jleyva/moodle-block_jmail master
 
 }
 
