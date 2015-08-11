@@ -24,13 +24,13 @@
  */
 
 $string['mode'] = 'Mode d\'évaluation';
-$string['mode_desc'] = 'Mode d\'évaluation par défaut utilisée par la méthode _Participation credit_.';
+$string['mode_desc'] = 'Mode d\'évaluation par défaut utilisé par la méthode _Participation credit_.';
 $string['mode_help'] = 'Le mode détermine la façon dont la note pour l\'évaluation est calculée.
 
-* Tout ou rien - L\'apprenant doit évaluer toutes les copies attribuées afin d\'obtenir la note maximale; sinon ils reçoivent une note de zéro.
+* Tout ou rien - L\'apprenant doit évaluer toutes les copies attribuées afin d\'obtenir la note maximale ; sinon il reçoit une note de zéro.
 * Proportionnel - La note obtenue est proportionnelle au nombre de copies évaluées. Si toutes les copies attribuées sont évaluées, l\'apprenant devra obtenir la note maximale; si la moitié des copies attribuées sont évaluées, l\'apprenant obtiendra 50% de la note maximale.
-* Au moins une copie - L\apprenant doit évaluer au moins une copie pour avoir la note maximum.';
+* Au moins une copie - L\apprenant doit évaluer au moins une copie pour avoir la note maximale.';
 $string['modeall'] = 'Tout ou rien';
 $string['modeone'] = 'Au moins une copie';
 $string['modeproportional'] = 'Proportionnel';
-$string['pluginname'] = 'Participation credit';
+$string['pluginname'] = 'Participation crédit';
