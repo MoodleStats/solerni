@@ -327,6 +327,9 @@ function create_subtrees () {
         # jmail (master = master)
         #init_subtree vagrant/solerni/blocks/jmail jmail-source https://github.com/jleyva/moodle-block_jmail master
 
+ 	# block_configurable_reports
+	init_subtree vagrant/solerni/blocks/configurable_reports configurable-reports-source https://github.com/jleyva/moodle-block_configurablereports.git CR_27_STABLE
+
 }
 
 
