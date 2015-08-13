@@ -1,0 +1,92 @@
+/********************************************************/
+/******************** pointed tab *********************/
+/********************************************************/
+
+.o-nav-tabs {
+  position: relative;  
+  // Reset font and text properties given new insertion method
+  font-family: @font-family-base;
+  font-size: @font-size-base;
+  font-weight: normal;
+  line-height: @line-height-base;
+  text-align: left;
+  background-color: @o-nav-tabs-bg;
+  color: @o-nav-tabs-color;
+  background-clip: padding-box;
+  border: 1px solid @o-nav-tabs-border-color;
+  border-radius: @border-radius-large;
+  .box-shadow(0 5px 10px rgba(0,0,0,.2));
+
+  // Overrides for proper insertion
+  white-space: normal;
+
+  // Offset the o-nav-tabs to account for the o-nav-tabs arrow
+  margin-top: -@o-nav-tabs-arrow-height;  
+  > li.active a{
+      &,
+      &:hover{
+          background-color: @o-nav-tabs-active-bg;
+          color: @o-nav-tabs-active-color;      
+      }
+  }
+  > li.active a{
+      &:focus{          
+          background-color: @brand-orange;
+          color: @brand-orange-white;
+      }
+  }    
+}
+
+.o-nav-tabs-content {
+  padding: 9px 14px;
+}
+
+// Arrows
+//
+// .arrow is outer, .arrow:after is inner
+
+.o-nav-tabs > li.active > .arrow {
+  &,
+  &:after {
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+  }
+}
+.o-nav-tabs > li.active > .arrow {
+  border-width: @o-nav-tabs-arrow-outer-width;
+}
+.o-nav-tabs > li.active > .arrow:after {
+  border-width: @o-nav-tabs-arrow-width;
+  content: "";
+}
+
+.o-nav-tabs > li.active > {
+    .arrow{
+        left: 50%;
+        margin-left: -@o-nav-tabs-arrow-outer-width;
+        border-bottom-width: 0;
+        border-top-color: @o-nav-tabs-arrow-outer-color; // IE8 fallback
+        border-top-color: @o-nav-tabs-arrow-outer-color;
+        bottom: -@o-nav-tabs-arrow-outer-height;
+        &:after {
+          content: " ";
+          bottom: 1px;
+          margin-left: -@o-nav-tabs-arrow-width;
+          border-bottom-width: 0;
+          border-top-color: @o-nav-tabs-arrow-color;
+        }
+    }
+    a:focus{
+        +.arrow{ 
+            border-top-color: @brand-orange;
+            &:after{
+                border-top-color: @brand-orange;
+            }
+        }
+        border-color: @brand-orange;
+    }
+}

@@ -22,8 +22,55 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-function theme_cerulean_process_css($css, $theme) {
+/*
+ * Function executed at theme init
+ * Insert jQuery library
 
+function theme_solerni_page_init(moodle_page $page) {
+    // Current JQuery version for 2.7 is jQuery 1.11 which is IE8 compatible.
+    $page->requires->jquery();
+}
+*/
+
+function theme_cerulean_bootstrap_grid($hassidepre, $hassidepost) {
+
+    if ($hassidepre && $hassidepost) {
+        $regions = array('content' => 'col-sm-6 col-sm-push-3 col-lg-8 col-lg-push-2');
+        $regions['pre'] = 'col-sm-3 col-sm-pull-6 col-lg-2 col-lg-pull-8';
+        $regions['post'] = 'col-sm-3 col-lg-2';
+    } else if ($hassidepre && !$hassidepost) {
+        $regions = array('content' => 'col-sm-9 col-sm-push-3 col-lg-10 col-lg-push-2');
+        $regions['pre'] = 'col-sm-3 col-sm-pull-9 col-lg-2 col-lg-pull-10';
+        $regions['post'] = 'emtpy';
+    } else if (!$hassidepre && $hassidepost) {
+        $regions = array('content' => 'col-sm-9 col-lg-10');
+        $regions['pre'] = 'empty';
+        $regions['post'] = 'col-sm-3 col-lg-2';
+    } else if (!$hassidepre && !$hassidepost) {
+        $regions = array('content' => 'col-md-12');
+        $regions['pre'] = 'empty';
+        $regions['post'] = 'empty';
+    }
+
+    if ('rtl' === get_string('thisdirection', 'langconfig')) {
+        if ($hassidepre && $hassidepost) {
+            $regions['pre'] = 'col-sm-3  col-sm-push-3 col-lg-2 col-lg-push-2';
+            $regions['post'] = 'col-sm-3 col-sm-pull-9 col-lg-2 col-lg-pull-10';
+        } else if ($hassidepre && !$hassidepost) {
+            $regions = array('content' => 'col-sm-9 col-lg-10');
+            $regions['pre'] = 'col-sm-3 col-lg-2';
+            $regions['post'] = 'empty';
+        } else if (!$hassidepre && $hassidepost) {
+            $regions = array('content' => 'col-sm-9 col-sm-push-3 col-lg-10 col-lg-push-2');
+            $regions['pre'] = 'empty';
+            $regions['post'] = 'col-sm-3 col-sm-pull-9 col-lg-2 col-lg-pull-10';
+        }
+    }
+    return $regions;
+}
+
+function theme_cerulean_process_css($css, $theme) {
+    /*
     // Set the background image for the logo.
     $logo = $theme->setting_file_url('logo', 'logo');
     $css = theme_cerulean_set_logo($css, $logo);
@@ -47,33 +94,7 @@ function theme_cerulean_process_css($css, $theme) {
         $customcss = null;
     }
     $css = theme_cerulean_set_customcss($css, $customcss);
-
-    return $css;
-}
-
-
-function theme_cerulean_set_logo($css, $logo) {
-    $logotag = '[[setting:logo]]';
-    $logoheight = '[[logoheight]]';
-    $logowidth = '[[logowidth]]';
-    $logodisplay = '[[logodisplay]]';
-    $width = '0';
-    $height = '0';
-    $display = 'none';
-    $replacement = $logo;
-    if (is_null($replacement)) {
-        $replacement = '';
-    } else {
-        $dimensions = getimagesize('http:'.$logo);
-        $width = $dimensions[0] . 'px';
-        $height = $dimensions[1] . 'px';
-        $display = 'block';
-    }
-    $css = str_replace($logotag, $replacement, $css);
-    $css = str_replace($logoheight, $height, $css);
-    $css = str_replace($logowidth, $width, $css);
-    $css = str_replace($logodisplay, $display, $css);
-
+    */
     return $css;
 }
 
@@ -99,20 +120,34 @@ function theme_cerulean_pluginfile($course, $cm, $context, $filearea, $args, $fo
 }
 
 /**
- * Adds any custom CSS to the CSS before it is cached.
  *
- * @param string $css The original CSS.
- * @param string $customcss The custom CSS to add.
- * @return string The CSS which now contains our custom CSS.
+ * Function declared in theme config.php which gets a theme config objects
+ * and returns a associative array ( bootstrap variable name => value )
+ * which allow us to changes bootstrap variables values on-the-fly.
+ *
+ * We get the colors settings from get_colors_array() in the options object
+ *
+ * Note about the str_replace : As Moodle forbids the use of the dash (-) in variable names, and Boostraps
+ * uses dashes in variables names, we use underscores (_) in Moodle settings variables names,
+ * and replace them on the fly.
+ *
+ * Another solution would had been to do a mapping of variables names in the variables.less file
+ * like @boostrap-name : @moodle_name;
+ *
+ * @param type $themeconfig
+ *
+ * @return array
  */
-function theme_cerulean_set_customcss($css, $customcss) {
-    $tag = '[[setting:customcss]]';
-    $replacement = $customcss;
-    if (is_null($replacement)) {
-        $replacement = '';
+function theme_cerulean_less_variables($themeconfig) {
+
+    $colorsettings = \theme_cerulean\settings\options::get_colors_array();
+
+    foreach ($colorsettings as $key => $value) {
+        if (!empty( $themeconfig->settings->$key ) ) {
+            $value = $themeconfig->settings->$key;
+        }
+        $colorvalues[str_replace('_', '-', $key)] = $value;
     }
 
-    $css = str_replace($tag, $replacement, $css);
-
-    return $css;
+    return $colorvalues;
 }

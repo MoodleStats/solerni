@@ -19,149 +19,120 @@
  *
  * @package    theme_cerulean
  * @copyright  2014 Bas Brands
+ * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+/*
+ *  Add theme variables in $CFG config object.
+ *  Useful for template inclusion files
+ */
+$CFG->themedir = $CFG->dirroot . '/theme/cerulean';
+$CFG->partialsdir = $CFG->themedir . '/layout/partials';
+
+/*
+ * Theme definition and inheritance. We inherite from Moodle Bootstrap Theme
+ * as it is one active theme using Boostrap v3.
+ * See https://github.com/bmbrands/theme_bootstrap
+ *
+ * We fork the current theme from Cerulean which is an almost empty Child theme
+ * for Bootstrap Theme designed for this purpose.
+ * See https://github.com/bmbrands/theme_cerulean
+ *
  */
 
 $THEME->name = 'cerulean';
 $THEME->parents = array('bootstrap');
-// Theme variable
-$CFG->themedir = $CFG->dirroot . '/theme/cerulean';
-$CFG->partialsdir = $CFG->themedir . '/layout/partials';
 
-$THEME->doctype = 'html5';
-//$THEME->sheets = array('custom');
+/**
+ * The LESS file to compile. (Advanced)
+ *
+ * Since Moodle 2.7 it is possible to compile a LESS file on the fly.
+ *
+ * The LESS file has to be located in the less/ folder of the theme. You
+ * can only ever have one LESS file. In order to change the values of
+ * the variables or add custom LESS content on the fly, you must also
+ * declare the settings $THEME->lessvariablescallback and
+ * $THEME->extralesscallback.
+ *
+ * In most cases if you use this setting you should not need to use
+ * $THEME->sheets any more.
+ *
+ * Please note that $THEME->lessfile is NEVER inherited from
+ * the parent theme. Also, as compiling LESS is a slow process, the compiled
+ * file is cached, make sure that you turn designer mode on when you are
+ * working on your theme.
+ *
+ * You can refer to the theme More (theme_more) as an example.
+ */
 
-// general style sheets.
-$THEME->parentsheets = true;
-$THEME->sheets          = array(
-                            'custom',
-                            'blockicons',
-                            'profilebar',
-                            'font-awesome',
-                            'general',
-                            'footer-header',
-                            'utils',
-                            'frontpage',
-                            'block-social',
-                            'queries-1180',
-                            'queries-980',
-                            'queries-768',
-                            'queries-400',
-                            'override'
-                        );
 $THEME->lessfile = 'cerulean';
-//$THEME->parents_exclude_sheets = array('bootstrap' => array('moodle'));
+
+/**
+ * Injecting LESS variables. (Advanced)
+ *
+ * Used in combination with $THEME->lessfile, this declares a callback
+ * function to inject LESS variables. By convention, the name of
+ * this function should start by theme_yourthemename and be placed in
+ * a file call lib.php. That function must return an associative
+ * array of variable names and values. For example, if you want to change
+ * the variable @bodyBackground to #ffffff, you would return the following
+ * array from the function:
+ *
+ *     array('bodyBackground' => '#ffffff');
+ *
+ * The first parameter passed to the function is the theme_config object.
+ */
+
 $THEME->lessvariablescallback = 'theme_cerulean_less_variables';
+
+
+/**
+ * Injecting LESS content. (Advanced)
+ *
+ * Used in combination with $THEME->lessfile, this declares a callback
+ * function to inject LESS code. By convention, the name of
+ * this function should start by theme_yourthemename and be placed in
+ * a file call lib.php. That function must return a string
+ * containing LESS code. This code will be injected after the LESS content
+ * of the file declared in $THEME->lessfile. If you want to dynamically
+ * declare variables it is highly recommended that you use
+ * $THEME->lessvariablescallback instead.
+ */
+
 $THEME->extralesscallback = 'theme_cerulean_extra_less';
-$THEME->supportscssoptimisation = false;
-$THEME->yuicssmodules = array();
-$THEME->enable_dock = true;
-$THEME->editor_sheets = array();
+
+$THEME->parents_exclude_sheets = true;
+
+/**
+ * Post processing the CSS. (Advanced)
+ *
+ * This setting allows you to manipulate the CSS before it is
+ * included in the HTML document. This setting expects the name of the
+ * function that will do the post processing. By convention, the name of
+ * this function should start by theme_yourthemename and be placed in
+ * a file call lib.php.
+ *
+ * The function will receive 2 parameters, the first is the content of
+ * the CSS file. The second is the theme_config object. The function
+ * should return the modified version of the CSS.
+ *
+ * From Moodle 2.7 using $THEME->lessfile and associated callbacks
+ * is a more flexible solution.
+ */
+
+$THEME->csspostprocess = 'theme_cerulean_process_css';
+
+/*
+ * The layout files list
+ * Each page has been attributed a page type. Each page type has
+ * been associated to a specific layout file (see layout directory).
+ * This theme inherits the page type association set in the parent theme.
+ *
+ * The flexpage layout is required to use flexpage_format.
+ */
+
 $THEME->layouts = array(
-    // Most backwards compatible layout without the blocks - this is the layout used by default.
-    'base' => array(
-        'file' => 'columns1.php',
-        'regions' => array(),
-    ),
-    // Standard layout with blocks, this is recommended for most pages with general information.
-    'standard' => array(
-        'file' => 'columns3.php',
-        'regions' => array('side-pre', 'side-post'),
-        'defaultregion' => 'side-pre',
-    ),
-    // Main course page.
-    'course' => array(
-        'file' => 'columns3.php',
-        'regions' => array('side-pre', 'side-post'),
-        'defaultregion' => 'side-pre',
-        'options' => array('langmenu' => true),
-    ),
-    'coursecategory' => array(
-        'file' => 'columns3.php',
-        'regions' => array('side-pre', 'side-post'),
-        'defaultregion' => 'side-pre',
-    ),
-    // Part of course, typical for modules - default page layout if $cm specified in require_login().
-    'incourse' => array(
-        'file' => 'columns3.php',
-        'regions' => array('side-pre', 'side-post'),
-        'defaultregion' => 'side-pre',
-    ),
-    // The site home page.
-    // We removed all regions.
-    'frontpage' => array(
-        'file' => 'frontpage.php',
-        'regions' => array()
-    ),
-    // Server administration scripts.
-    'admin' => array(
-        'file' => 'columns2.php',
-        'regions' => array('side-pre'),
-        'defaultregion' => 'side-pre',
-    ),
-    // My dashboard page.
-    'mydashboard' => array(
-        'file' => 'columns3.php',
-        'regions' => array('side-pre', 'side-post'),
-        'defaultregion' => 'side-pre',
-        'options' => array('langmenu' => true),
-    ),
-    // My public page.
-    'mypublic' => array(
-        'file' => 'columns3.php',
-        'regions' => array('side-pre', 'side-post'),
-        'defaultregion' => 'side-pre',
-    ),
-
-
-    // Pages that appear in pop-up windows - no navigation, no blocks, no header.
-    'popup' => array(
-        'file' => 'popup.php',
-        'regions' => array(),
-        'options' => array('nofooter' => true, 'nonavbar' => true),
-    ),
-    // No blocks and minimal footer - used for legacy frame layouts only!
-    'frametop' => array(
-        'file' => 'columns1.php',
-        'regions' => array(),
-        'options' => array('nofooter' => true, 'nocoursefooter' => true),
-    ),
-    // Embeded pages, like iframe/object embeded in moodleform - it needs as much space as possible.
-    'embedded' => array(
-        'file' => 'embedded.php',
-        'regions' => array()
-    ),
-    // Used during upgrade and install, and for the 'This site is undergoing maintenance' message.
-    // This must not have any blocks, links, or API calls that would lead to database or cache interaction.
-    // Please be extremely careful if you are modifying this layout.
-    'maintenance' => array(
-        'file' => 'maintenance.php',
-        'regions' => array(),
-    ),
-    // Should display the content and basic headers only.
-    'print' => array(
-        'file' => 'columns1.php',
-        'regions' => array(),
-        'options' => array('nofooter' => true, 'nonavbar' => false),
-    ),
-    // The pagelayout used when a redirection is occuring.
-    'redirect' => array(
-        'file' => 'embedded.php',
-        'regions' => array(),
-    ),
-    // The pagelayout used for reports.
-    'report' => array(
-        'file' => 'columns2.php',
-        'regions' => array('side-pre'),
-        'defaultregion' => 'side-pre',
-    ),
-    // The pagelayout used for safebrowser and securewindow.
-    'secure' => array(
-        'file' => 'secure.php',
-        'regions' => array('side-pre', 'side-post'),
-        'defaultregion' => 'side-pre'
-    ),
-    // The pagelayout used for format_flexpage.
        'format_flexpage' => array(
         'file' => 'columns3.php',
         'regions' => array('side-top', 'side-pre', 'main', 'side-post'),
@@ -170,13 +141,16 @@ $THEME->layouts = array(
     ),
 );
 
-$THEME->javascripts = array( 'modernizr' );
+/*
+ * Flexpage format CSS
+ */
 
-$THEME->javascripts_footer = array(
-    'moodlebootstrap',
-    'jquery.placeholder.min',
-    'cerulean-general'
-);
+$THEME->sheets = array('flexpage');
+
+/**
+ * Using renderers.
+ *
+ * Mandatory declaration to use renderers.
+ */
 
 $THEME->rendererfactory = 'theme_overridden_renderer_factory';
-$THEME->csspostprocess = 'theme_cerulean_process_css';

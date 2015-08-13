@@ -15,6 +15,12 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /*
+ * Contains functions and associative arrays useful for the settings page, as the list of colors
+ * that will be used on the CSS, or the list of the social networks.
+ *
+ * All of those are stored into a standard class to be instanciated when necessary.
+ *
+ *
  * @author    Orange / cerulean
  * @package   theme_cerulean
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -24,27 +30,39 @@ namespace theme_cerulean\settings;
 
 class options {
 
-    /*
-    * Return associative array ( setting_name => default_value )
-    * List and default values for theme colors
-    */
-    public static function cerulean_get_colors_array() {
-        // Array of cerulean color settings ( setting name => default value ).
+    /**
+     * This function defines a list of colors with their default values.
+     * The color names matches bootstrap's LESS variable name so the theme
+     * could replace their values with the settings values.
+     * Allowing Moodle Admin to change boostraps defaults.
+     *
+     * @return array
+     */
+    public static function get_colors_array() {
+
         return array(
-            'backcolor'         => '#FFFFFF',
-            'primary'           => '#FF004F',
-            'primaryhover'      => '#D90045',
-            'secondary'         => '#4B667C',
-            'secondaryhover'    => '#334554',
-            'tertiary'          => '#AAC044',
-            'tertiaryhover'     => '#92A63A',
-            'dark'              => '#000000',
-            'light'             => '#FFFFFF',
-            'grey1'             => '#F6F6F6',
-            'grey2'             => '#EEEEEF',
-            'grey3'             => '#999999',
-            'grey4'             => '#606060',
-            'grey5'             => '#333333'
+            'body_bg'           => '#FFFFFF',
+            'brand_primary'     => '#000000',
+            'brand_secondary'   => '#F16E00',
+            'brand_tertiary'    => '#FFFFFF',
+            'brand_success'     => '#32C832',
+            'brand_info'        => '#527EBD',
+            'brand_warning'     => '#FFCC00',
+            'brand_danger'      => '#DC3C14',
+            'orange_yellow'     => '#FFD200',
+            'orange_blue'       => '#4BB4E6',
+            'orange_green'      => '#50BE87',
+            'orange_purple'     => '#A885D8',
+            'orange_pink'       => '#FFB4E6',
+            'orange_light_1'    => '#F6F6F6',
+            'orange_light_2'    => '#EEEEEE',
+            'orange_light_3'    => '#DDDDDD',
+            'orange_light_4'    => '#CCCCCC',
+            'orange_mid_1'      => '#999999',
+            'orange_mid_2'      => '#666666',
+            'orange_dark_1'     => '#444444',
+            'orange_dark_2'     => '#333333',
+            'orange_dark_3'     => '#232323'
         );
     }
 

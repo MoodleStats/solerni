@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
+// This file is part of The Bootstrap 3 Moodle theme
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -24,27 +24,29 @@
  * breaking installation or upgrade unwittingly.
  */
 
+$regions = theme_cerulean_bootstrap_grid(false, false);
+
 echo $OUTPUT->doctype() ?>
 <html <?php echo $OUTPUT->htmlattributes(); ?>>
 <head>
     <title><?php echo $OUTPUT->page_title(); ?></title>
     <link rel="shortcut icon" href="<?php echo $OUTPUT->favicon(); ?>" />
     <?php echo $OUTPUT->standard_head_html() ?>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui">
 </head>
 
 <body <?php echo $OUTPUT->body_attributes(); ?>>
 
 <?php echo $OUTPUT->standard_top_of_body_html() ?>
 
-<div id="page" >
+<div id="page" class="container-fluid">
 
-    <header id="page-header" >
+    <header id="page-header" class="clearfix">
         <?php echo $OUTPUT->page_heading(); ?>
     </header>
 
-    <div id="page-content" >
-        <section id="region-main" >
+    <div id="page-content" class="row">
+        <section id="region-main" class="<?php echo $regions['content']; ?>">
             <?php echo $OUTPUT->main_content(); ?>
         </section>
     </div>
