@@ -2,14 +2,14 @@
  * Import all the rules from the parent,
  * then local variables and files.
  */
-@import "../../bootstrap/less/moodle.less";
-@import "variables.less";
-@import "bootswatch.less";
-@import "orange-css.less"; // Use more variables
-@import "iconOrange.less";
-@import "fontOrangeSans.less";
-@import "classic_tab.less"; // Use more variables
-@import "pointed_tab.less"; // Ues more variables
+@import "../../bootstrap/less/moodle.less"; // parent Bootstrap
+@import "variables.less";       // Definition file : Solerni variables
+@import "orange-css.less";      // Use new variables from Bootstrap
+@import "iconOrange.less";      // Orange iconic Font
+@import "fontOrangeSans.less";  // Orange/Solerni Web Font
+@import "classic_tab.less";     // Use new variables from Bootstrap
+@import "pointed_tab.less";     // Use new variables from Bootstrap
+@import "solerni.less";         // Solerni Objects
 
 /*
 @font-face {

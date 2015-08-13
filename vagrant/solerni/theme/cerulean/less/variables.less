@@ -1,5 +1,9 @@
-// Cerulean 3.1.1
+// Solerni
 // Variables
+// This file is a manually merged version of values and rules from
+// Solerni Guidelines and Orange Boost Initiative.
+// Includes
+//
 // --------------------------------------------------
 
 
@@ -7,12 +11,6 @@
 //
 //## Gray and brand colors for use across Bootstrap.
 //
-
-//@gray-darker:            lighten(#000, 13.5%); // #222
-//@gray-dark:              lighten(#000, 20%);   // #333
-//@gray:                   lighten(#000, 33.5%); // #555
-//@gray-light:             lighten(#000, 60%);   // #999
-//@gray-lighter:           lighten(#000, 93.5%); // #eee
 
 @brand-primary:         #000000; // Black
 @brand-secondary:       #F16E00; // Orange
@@ -89,7 +87,7 @@
 
 @html-font-size-base: 62.5%;
 
-@font-family-titles: "OrangeSans","Orange Sans",Arial,sans-serif;
+@font-family-titles:      "OrangeSans","Orange Sans",Arial,sans-serif;
 @font-family-sans-serif:  "OrangeSans", Arial, Helvetica, sans-serif;
 @font-family-serif:       Georgia, "Times New Roman", Times, serif;
 //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
@@ -212,6 +210,10 @@
 @btn-danger-color:               @brand-tertiary;
 @btn-danger-bg:                  @brand-danger;
 @btn-danger-border:              @btn-danger-bg;
+
+@btn-engage-color:               @brand-tertiary;
+@btn-engage-bg:                  @brand-secondary;
+@btn-engage-border:              @btn-engage-bg;
 
 @btn-link-disabled-color:        @orange-dark-2;
 
@@ -910,8 +912,9 @@
 @component-offset-horizontal: 180px;
 
 
-// Boost extra styling
-// Button variants
+// Boost extra styling from Boost variables.less
+// Slightly modified for Solerni
+// Easy place for changing buttons CSS !
 // -------------------------
 // Easily pump out default styles, as well as :hover, :focus, :active,
 // and disabled options for all buttons
@@ -954,6 +957,7 @@
     background-color: @color;
   }
 }
+
 // Navbar vertical align
 //
 // Vertically center elements in the navbar.
