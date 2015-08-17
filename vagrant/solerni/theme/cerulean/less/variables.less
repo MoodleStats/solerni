@@ -190,30 +190,58 @@
 @btn-default-color:              @brand-primary;
 @btn-default-bg:                 @brand-tertiary;
 @btn-default-border:             @brand-primary;
+@btn-default-color-hover:        @btn-default-bg;
+@btn-default-bg-hover:           @btn-default-color;
+@btn-default-color-active:       @btn-default-bg;
+@btn-default-bg-active:          @brand-secondary;
 
 @btn-primary-color:              @brand-tertiary;
 @btn-primary-bg:                 @brand-primary;
 @btn-primary-border:             @btn-primary-bg;
+@btn-primary-color-hover:        @btn-primary-border;
+@btn-primary-bg-hover:           @btn-primary-color;
+@btn-primary-color-active:       @btn-primary-color;
+@btn-primary-bg-active:          @brand-secondary;
 
 @btn-success-color:              @brand-tertiary;
 @btn-success-bg:                 @brand-success;
 @btn-success-border:             @btn-success-bg;
+@btn-success-color-hover:        @btn-success-color;
+@btn-success-bg-hover:           darken(@btn-success-bg, 12%);
+@btn-success-color-active:       @btn-success-color;
+@btn-success-bg-active:          darken(@btn-success-bg, 24%);
 
 @btn-info-color:                 @brand-tertiary;
 @btn-info-bg:                    @brand-info;
 @btn-info-border:                @btn-info-bg;
+@btn-info-color-hover:          @btn-info-color;
+@btn-info-bg-hover:             darken(@btn-info-bg, 12%);
+@btn-info-color-active:         @btn-info-color;
+@btn-info-bg-active:            darken(@btn-info-bg, 24%);
 
 @btn-warning-color:              @brand-tertiary;
 @btn-warning-bg:                 @brand-warning;
 @btn-warning-border:             @btn-warning-bg;
+@btn-warning-color-hover:        @btn-warning-color;
+@btn-warning-bg-hover:           darken(@btn-warning-bg, 12%);
+@btn-warning-color-active:       @btn-warning-color;
+@btn-warning-bg-active:          darken(@btn-warning-bg, 24%);
 
 @btn-danger-color:               @brand-tertiary;
 @btn-danger-bg:                  @brand-danger;
 @btn-danger-border:              @btn-danger-bg;
+@btn-danger-color-hover:         @btn-danger-color;
+@btn-danger-bg-hover:            darken(@btn-danger-bg, 12%);
+@btn-danger-color-active:        @btn-danger-color;
+@btn-danger-bg-active:           darken(@btn-danger-bg, 24%);
 
 @btn-engage-color:               @brand-tertiary;
 @btn-engage-bg:                  @brand-secondary;
 @btn-engage-border:              @btn-engage-bg;
+@btn-engage-color-hover:         @btn-engage-color;
+@btn-engage-bg-hover:            darken(@btn-engage-bg, 12%);
+@btn-engage-color-active:        @btn-engage-color;
+@btn-engage-bg-active:           darken(@btn-engage-bg, 24%);
 
 @btn-link-disabled-color:        @orange-dark-2;
 
@@ -910,53 +938,6 @@
 
 //** Horizontal offset for forms and lists.
 @component-offset-horizontal: 180px;
-
-
-// Boost extra styling from Boost variables.less
-// Slightly modified for Solerni
-// Easy place for changing buttons CSS !
-// -------------------------
-// Easily pump out default styles, as well as :hover, :focus, :active,
-// and disabled options for all buttons
-.button-variant(@color; @background; @border) {
-  color:            @color;
-  background-color: @background;
-  border-color:     @border;
-
-  &:hover,
-  &:focus,
-  &:active,
-  &.active,
-  .open .dropdown-toggle& {
-    color:              @background;
-    background-color:   @color;
-    border-color:       none;
-    text-decoration:    none;
-  }
-  &:active,
-  &.active,
-  .open .dropdown-toggle& {
-    background-image: none;
-  }
-  &.disabled,
-  &[disabled],
-  fieldset[disabled] & {
-    &,
-    &:hover,
-    &:focus,
-    &:active,
-    &.active {
-      background-color: @background;
-      border-color: @border;
-      color: @color;
-    }
-  }
-
-  .badge {
-    color: @background;
-    background-color: @color;
-  }
-}
 
 // Navbar vertical align
 //
