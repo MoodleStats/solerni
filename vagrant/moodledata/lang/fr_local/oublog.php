@@ -38,15 +38,15 @@ $string['oublog:exportownpost'] = 'Exporter votre billet';
 $string['oublog:exportpost'] = 'Exporter un billet';
 $string['oublog:exportposts'] = 'Exporter des billets';
 $string['mustprovidepost'] = 'Vous devez fournir un postid';
-$string['newpost'] = 'Nouveau {$a} billet';
+$string['newpost'] = 'Nouveau billet {$a}';
 $string['removeblogs'] = 'Supprimer le contenu du blog';
 $string['title'] = 'Titre';
 $string['message'] = 'Message';
 $string['tags'] = 'Tags';
 $string['tagsfield'] = 'Tags (séparés par des virgules)';
 $string['allowcomments'] = 'Autoriser les commentaires';
-$string['allowcommentsmax'] = 'Autoriser les commentaires (si sélectionné pour les billets) [TODO]';
-$string['logincomments'] = 'Oui, pour les utilisateurs authentifiés';
+$string['allowcommentsmax'] = 'Autoriser les commentaires (si sélectionné pour les billets)';
+$string['logincomments'] = 'Oui, pour les utilisateurs connectés';
 $string['permalink'] = 'Permalien';
 $string['publiccomments'] = 'Oui, de tout le monde (anonymes compris)';
 $string['publiccomments_info'] = 'Si une personne non connectée poste un commentaire, vous recevrez une notification par email et pourrez l\'approuver ou le rejeter. Cette validation est nécessaire pour lutter contre les spams.';
@@ -73,7 +73,7 @@ $string['oublogallpostslogin_desc'] = 'Activer pour rendre obligatoire la connex
 $string['globalusageexclude'] = 'Exclure des statistiques d\'usage globales';
 $string['globalusageexclude_desc'] = 'Liste d\'identifiants utilisateurs, séparés par des virgules, à exclure des stats d\'usage du blog global';
 
-$string['introonpost'] = 'Afficher l\'intro lors d\'un billet';
+$string['introonpost'] = 'Afficher l\'intro lors de la rédaction d\'un billet';
 
 $string['displayname_default'] = 'blog';
 $string['displayname'] = 'Nom d\'activité alternatif (laisser vide pour utiliser le nom par défaut)';
@@ -90,7 +90,7 @@ $string['visibleloggedinusers'] = 'Visible par toute personne connectée à ce s
 $string['visiblepublic'] = 'Visible par tout le monde';
 $string['invalidpostid'] = 'Postid (identifiant de billet) invalide';
 
-$string['addpost'] = 'Ajouter un billet';
+$string['addpost'] = 'Enregistrer le billet';
 $string['editpost'] = 'Mettre à jour le billet';
 $string['editsummary'] = 'Modifié par {$a->editby}, le {$a->editdate}';
 $string['editonsummary'] = 'Modifié {$a->editdate}';
@@ -98,9 +98,9 @@ $string['editonsummary'] = 'Modifié {$a->editdate}';
 $string['edit'] = 'Modifier';
 $string['delete'] = 'Effacer';
 
-$string['olderposts'] = 'Posts plus anciens';
-$string['newerposts'] = 'Posts plus récents';
-$string['extranavolderposts'] = 'Posts plus anciens : {$a->from}-{$a->to}';
+$string['olderposts'] = 'Billets plus anciens';
+$string['newerposts'] = 'Billets plus récents';
+$string['extranavolderposts'] = 'Billets plus anciens : {$a->from}-{$a->to}';
 $string['extranavtag'] = 'Tag: {$a}';
 
 $string['comments'] = 'Commentaires';
@@ -137,7 +137,7 @@ $string['rssfeed'] = 'RSS feed';
 
 $string['newblogposts'] = 'Nouveau billet de blog';
 
-$string['blogsummary'] = 'Sommaire du Blog [TODO: confirmer qu\'il s\'agit bien de summary au sens de sommaire et pas de résumé]';
+$string['blogsummary'] = 'Intro du Blog]';
 $string['posts'] = 'Billets';
 
 $string['defaultpersonalblogname'] = '{$a->name}\'s {$a->displayname}';
@@ -186,9 +186,9 @@ $string['completioncommentsgroup'] = 'Exiger des commentaires';
 $string['completioncommentsgroup_help'] = 'Si vous activez cette option, l\'activité blog sera marquée comme effectuée par un étudiant quand il aura publié le nombre spécifié de commentaires.';
 $string['completioncomments'] = 'L\'utilisateur doit publier des commentaires :';
 
-$string['computingguide'] = 'Aide en ligne d\'OU blog [TODO]';
-$string['computingguideurl'] = 'Computing guide URL [TODO: qu\'est-ce que le computing guide ? Le manuel utilsateur dédié à la configuration de l\'activité ?]';
-$string['computingguideurlexplained'] = 'Enter the URL for the OU blogs computing guide [TODO]';
+$string['computingguide'] = 'Aide en ligne d\'OU blog';
+$string['computingguideurl'] = 'URL de l\'aide en ligne';
+$string['computingguideurlexplained'] = 'Entrez l\'URL du guide d\'utilisation d\'OU Blog';
 
 $string['maybehiddenposts'] = 'Ce {$a->name} peut contenir des billets qui sont visibles uniquement
 par les utilisateurs connectés, ou dans lequel les utilisateurs connectés peuvent publier des commentaires. Si vous possédez un compte sur ce site, veuillez vous <a href=\'{$a->link}\'>connecter pour un accès complet</a>.';
@@ -230,8 +230,8 @@ $string['no_blogtogetheroringroups'] = 'Non (bloguez tous ensemble ou par groupe
 $string['separateindividualblogs'] = 'Blogs personnels privés';
 $string['visibleindividualblogs'] = 'Blogs personnels publics';
 
-$string['separateindividual'] = 'Personnels&nbsp;privé';
-$string['visibleindividual'] = 'Personnels&nbsp;public';
+$string['separateindividual'] = 'Blogs Personnels&nbsp;privé';
+$string['visibleindividual'] = 'Blogs Personnels&nbsp;public';
 $string['viewallusers'] = 'Voir tous les utilisateurs';
 $string['viewallusersingroup'] = 'Voir tous les utilisateurs dans le groupe';
 
@@ -338,11 +338,11 @@ $string['displayversion'] = 'Version d\'OU blog : <strong>{$a}</strong>';
 $string['pluginadministration'] = 'Administration d\'OU Blog';
 $string['pluginname'] = 'OU Blog';
 // Help strings.
-$string['allowcomments_help'] = '&lsquo;Oui, par les utilisateurs connectés&rsquo; autorise l\'ajout de commentaires par les utilisateurs qui ont accès à ce billet.
+$string['allowcomments_help'] = '&lsquo;Oui, pour les utilisateurs connectés&rsquo; autorise l\'ajout de commentaires par les utilisateurs qui ont accès à ce billet.
 
 &lsquo;Oui, de tout le monde&rsquo; autorise l\'ajout de commentaires par les utilisateurs connectés et par le public général. Vous recevrez des emails pour approuver ou rejeter les commentaires des utilisateurs non connectés.
 
-&lsquo;No&rsquo; prevents anyone from making a comment on this post.';
+&lsquo;Non&rsquo; interdit l\'ajout de commentaires sur un billet.';
 $string['individualblogs_help'] = '
 <p><strong>Non (bloguez ensemble ou en groupe)</strong>: <em>Les blogs personnels ne sont pas utilisés</em> &ndash;
 Il n\y a pas de blog individuels, tout le monde fait partie d\une communauté plus large
@@ -367,9 +367,9 @@ sur le blog entier, cela devient un maximum. Par exemple, si tout le blog est r�
 vous ne pouvez pas changer le réglage pour un billet donné.</p>';
 $string['tags_help'] = 'Les tags sont des libellés qui vous aident à retrouver et catégoriser les billets.';
 // Used at OU only.
-$string['externaldashboardadd'] = 'Ajouter le blog au panneau de contrôle [TODO: est-ce que le mot dashboard est traduit dans le reste du site ? si oui comment ?]';
+$string['externaldashboardadd'] = 'Ajouter le blog au tableau de bord';
 $string['externaldashboardremove'] = 'Retirer le blog du panneau de contrôle';
-$string['viewblogdetails'] = 'Voir les details du blog ';
+$string['viewblogdetails'] = 'Voir les détails du blog ';
 $string['viewblogposts'] = 'Retourner au blog';
 
 // User participation.
@@ -381,19 +381,19 @@ $string['myparticipation'] = 'Résumé de ma participation';
 $string['savegrades'] = 'Sauver les évaluations';
 $string['participation'] = 'Participation';
 $string['participationbyuser'] = 'Participation par utilisateur';
-$string['details'] = 'Details';
+$string['details'] = 'Détails';
 $string['foruser'] = ' pour {$a}';
 $string['postsby'] = 'Billets par {$a}';
 $string['commentsby'] = 'Commentaires par {$a}';
 $string['commentonby'] = 'Commentaire sur le billet <u>{$a->title}</u> {$a->date} par <u>{$a->author}</u>';
 $string['nouserposts'] = 'Aucun billet publié.';
-$string['nousercomments'] = 'Aucun comentaire ajouté.';
+$string['nousercomments'] = 'Aucun commentaire ajouté.';
 $string['gradesupdated'] = 'Évaluation mise à jour';
 $string['usergrade'] = 'Évaluation de l\'utilisateur';
 $string['nousergrade'] = 'Évaluation de l\'utilisateur non disponible.';
 
 // Participation download strings.
-$string['downloadas'] = 'Télécharger les donnnées au format ';
+$string['downloadas'] = 'Télécharger les données au format ';
 $string['postauthor'] = 'Auteur du billet';
 $string['postdate'] = 'Date du billet';
 $string['posttime'] = 'Heure du billet';
@@ -406,18 +406,18 @@ $string['exportuntitledpost'] = 'Un billet sans titre ';
 
 $string['configmaxattachments'] = 'Nombre maximal de pièces jointes autorisées par défaut sur un billet de blog.';
 $string['configmaxbytes'] = 'Taille maximale par défaut pour toutes les pièces jointes à un billet sur le site.
-(peut être soumis à des limitations par cours ou par d\'autres paramètrages locaux)';
+(peut être soumis à des limitations par cours ou par d\'autres paramétrages locaux)';
 $string['maxattachmentsize'] = 'Taille maximale de la pièce jointe';
 $string['maxattachments'] = 'Nombre maximal de pièces jointes';
 $string['maxattachments_help'] = 'Ce paramètre définit le nombre maximal de fichiers qui peuvent être associés à un billet de blog.';
 $string['maxattachmentsize_help'] = 'Ce paramètre définit la taille maximale des fichiers/images qui peuvent être associés à un billet de blog.';
-$string['attachments_help'] = 'Vous pouvez ajouter un ou plusieurs fichiers à un billet de blog. Si vous ajoutez une une image, elle sera affichée après le message.';
+$string['attachments_help'] = 'Vous pouvez ajouter un ou plusieurs fichiers à un billet de blog. Si vous ajoutez une image, elle sera affichée après le message.';
 
 $string['remoteserver'] = 'Importer à partir d\'un serveur distant';
-$string['configremoteserver'] = 'Adresse (nom de domaine[TODO: le texte original c\'est wwwroot]) du serveur à utiliser pour l\'import.
+$string['configremoteserver'] = 'Adresse (nom de domaine) du serveur à utiliser pour l\'import.
 Les blogs de ce serveur seront affichés en plus de ceux du site local quand vous importerez des billets.';
-$string['remotetoken'] = 'Jeton d\'import du server distant';
-$string['configremotetoken'] = 'Jeton utilisateur du Web Service oublog sur le serveur distant à importer.';
+$string['remotetoken'] = 'Jeton d\'import du serveur distant';
+$string['configremotetoken'] = 'Jeton utilisateur du Web Service OUBlog sur le serveur distant à importer.';
 
 $string['reportingemail'] = 'Adresses email à notifier';
 $string['reportingemail_help'] = 'Ce paramètre définit les adresses email de ceux qui seront informés des problèmes sur les billets ou des commentaires dans OUBlog.
@@ -452,13 +452,13 @@ $string['numbercomments'] = '{$a} commentaires';
 $string['comments_info_alltime'] = '{$a}s avec le plus grand nombre de commentaires';
 $string['comments_info_thisyear'] = '{$a}s avec le plus grand nombre de commentaires ajoutés dans l\'année écoulée';
 $string['comments_info_thismonth'] = '{$a}s avec le plus grand nombre de commentaires ajoutés dans le mois écoulé';
-$string['commentposts'] = 'Le plus de billets commentés';
+$string['commentposts'] = 'Billets les plus commentés';
 $string['commentposts_info_alltime'] = 'Billets avec le plus grand nombre de commentaires';
 $string['commentposts_info_thisyear'] = 'Billets avec le plus grand nombre de commentaires ajoutés dans l\'année écoulée';
 $string['commentposts_info_thismonth'] = 'Billets avec le plus grand nombre de commentaires ajoutés dans le mois écoulé';
 
 // Delete and Email.
-$string['emailcontenthtml'] = 'Cette notification vous avertit que votre billet {$a->activityname} dont les caratéristiques figurent ci-dessous a été effacé par \'{$a->firstname} {$a->lastname}\':<br />
+$string['emailcontenthtml'] = 'Cette notification vous avertit que votre billet du {$a->activityname} dont les caractéristiques figurent ci-dessous a été effacé par \'{$a->firstname} {$a->lastname}\':<br />
 <br />
 Sujet : {$a->subject}<br />
 {$a->activityname} : {$a->blog}<br />
@@ -469,7 +469,7 @@ $string['deleteemailpostbutton'] = 'Effacer et envoyer un email';
 $string['deleteandemail'] = 'Effacer et envoyer un email';
 $string['emailmessage'] = 'Message';
 $string['cancel'] = 'Annuler';
-$string['deleteemailpostdescription'] = 'Sélectionner pour effacer le billet et éventuellement envoyer par email une notification personnalisable.';
+$string['deleteemailpostdescription'] = 'Cliquer sur \'Effacer\' pour supprimer le billet, ou cliquer sur \'Effacer et envoyer un email\' pour supprimer le billet et envoyer par email une notification personnalisée à l\’auteur.';
 $string['copytoself'] = 'Recevoir une copie';
 $string['includepost'] = 'Inclure le billet';
 $string['deletedblogpost'] = 'Billet sans titre.';
@@ -514,7 +514,7 @@ $string['contribution_to'] = 'Participation - Jusqu\'à {$a}';
 $string['contribution_fromto'] = 'Participation - Depuis {$a->start} Jusqu\'à {$a->end}';
 $string['start'] = 'Depuis';
 $string['end'] = 'Jusqu\'à';
-$string['displayperiod'] = 'Sélecteur de participation - Date de début- Date de fin.[TODO - à voir dans le contexte]';
+$string['displayperiod'] = 'Sélecteur de participation - Date de début - Date de fin.';
 $string['info'] = 'Participation durant la période choisie.';
 $string['displayperiod_help'] = '<p>La valeur par défaut affiche toutes les données.</p>
 <p>Vous pouvez sélectionner toutes les participations \'Depuis\' une date et jusqu\'à aujourd\'hui.</p>
@@ -539,7 +539,7 @@ $string['order'] = 'Ordre:';
 $string['alpha'] = 'A à Z';
 $string['use']=  'Les plus utilisés';
 $string['order_help'] = 'Vous pouvez choisir d\'afficher la liste des tags soit par ordre alphabétique, soit par nombre de billets dans lesquels ils sont utilisés.
-Cliquez sur les deux liens pour basculer d\'un mode d\affichage à l\'autre.
+Cliquez sur les deux liens pour basculer d\'un mode d\'affichage à l\'autre.
 Ce choix sera mémorisé et utilisé dans les vues suivantes.';
 $string['predefinedtags'] = 'Tags prédéfinis';
 $string['predefinedtags_help'] = 'Présenter à l\'utilisateur une liste de tags à utiliser quand il ajoute un tag à un billet.
@@ -563,15 +563,15 @@ $string['event:commentcreated'] = 'Commentaire créé';
 $string['event:commentdeleted'] = 'Commentaire effacé';
 $string['event:postdeleted'] = 'Billet effacé';
 $string['event:postupdated'] = 'Billet mis à jour';
-$string['event:postviewed'] = 'Billet affiché [TODO : vu ou affiché ?]';
+$string['event:postviewed'] = 'Billet consulté';
 $string['event:commentapproved'] = 'Commentaire approuvé';
-$string['event:participationviewed'] = 'Participation affichée [TODO : vue ou affichée ?]';
-$string['event:siteentriesviewed'] = 'Billets ou commentaires vus [TODO - à vérifier]';
+$string['event:participationviewed'] = 'Participation consultée';
+$string['event:siteentriesviewed'] = 'Page d\'un blog consultée';
 $string['event:postimported'] = 'Billet importé';
 $string['oublog:rate'] = 'Peut évaluer les billets.';
 $string['oublog:viewallratings'] = 'Afficher toutes les évaluations données par des utilisateurs';
 $string['oublog:viewanyrating'] = 'Afficher toutes les évaluation reçues';
-$string['oublog:viewrating'] = 'Voir votre évalution totale';
+$string['oublog:viewrating'] = 'Voir votre évaluation totale';
 $string['grading'] = 'Note';
 $string['grading_help'] = 'Si vous sélectionnez cette option, une note sera calculée automatiquement et ajoutée au carnet de notes du cours pour ce blog.
  Laissez désactivé pour un blog non noté, ou que vous prévoyez de noter manuellement.';
