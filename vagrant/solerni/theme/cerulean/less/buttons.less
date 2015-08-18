@@ -4,51 +4,81 @@
 // Easy place for changing buttons CSS !
 // -------------------------
 // Easily pump out default styles, as well as :hover, :focus, :active,
-// and disabled options for all buttons
-// Added color definition for reBoost guidelines
+// and disabled options for all buttons.
+// Added color definition for reBoost guidelines.
+// Also added some rules of repetition and specificity,
+// because when the .btn is also a <a>,
+// We have a lot of :focus and :active conflicts.
 .button-variant(
     @color; @background; @border;
     @color-hover; @bg-hover;
     @color-active; @bg-active) {
-  color:            @color;
-  background-color: @background;
-  border-color:     @border;
+    color:            @color;
+    background-color: @background;
+    border-color:     @border;
+    text-decoration:  none;
+    padding:          12px 20px;
 
-  &:hover,
-  &:focus,
-  .open .dropdown-toggle& {
-    color:              @color-hover;
-    background-color:   @bg-hover;
-    border-color:       none;
-    text-decoration:    none;
-  }
-  &:active,
-  &.active,
-  .open .dropdown-toggle& {
-    color:              @color-active;
-    background-color:   @bg-active;
-    border-color:       @bg-active;
-    background-image:   none;
-  }
-  &.disabled,
-  &[disabled],
-  fieldset[disabled] & {
-    &,
+    &:visited {
+        color:            @color;
+    }
+
     &:hover,
     &:focus,
-    &:active,
-    &.active {
-      font-style:       normal;
-      background-color: @background;
-      border-color:     @border;
-      color:            @color;
+    .open .dropdown-toggle& {
+      color:              @color-hover;
+      background-color:   @bg-hover;
+      border-color:       none;
+      text-decoration:    none;
     }
-  }
 
-  .badge {
-    color: @background;
-    background-color: @color;
-  }
+    &:active,
+    &.active,
+    .open .dropdown-toggle& {
+        color:              @color-active;
+        background-color:   @bg-active;
+        border-color:       @bg-active;
+        background-image:   none;
+    }
+
+    &:focus.btn,
+    &.focus.btn {
+        background-color:   @bg-hover;
+        outline:            dotted 1px @color;
+    }
+
+    &:focus.btn:active,
+    &.focus.btn:active {
+        background-color:   @bg-active;
+        outline:            dotted 1px @color;
+    }
+
+    &:active.btn,
+    &.active.btn,
+    &:focus.btn,
+    &.focus.btn {
+        padding:          12px 20px;
+    }
+
+    &.disabled,
+    &[disabled],
+    fieldset[disabled] & {
+        &,
+        &:hover,
+        &:focus,
+        &:active,
+        &.active {
+            font-style:       normal;
+            background-color: @background;
+            border-color:     @border;
+            color:            @color;
+        }
+    }
+
+    .badge {
+        color: @background;
+        background-color: @color;
+    }
 }
 
 // Creation of a new btn-engage button

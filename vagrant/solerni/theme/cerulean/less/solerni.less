@@ -54,15 +54,20 @@ a {
     text-decoration: underline;
 }
 
-a:active {
-    color: @link-active-color;
-}
-
 a:visited {
     color: @link-visited-color;
 }
 
+a:active,
+a:focus {
+    color: @link-active-color;
+}
+
 a:focus {
     padding: 2px 5px;
-    outline: 1px solid @brand-secondary;
+    outline: 1px solid @link-active-color;
+}
+
+a:focus:visited {
+    outline: 1px solid @link-visited-color;
 }
