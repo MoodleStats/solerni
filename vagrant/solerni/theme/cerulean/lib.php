@@ -69,35 +69,6 @@ function theme_cerulean_bootstrap_grid($hassidepre, $hassidepost) {
     return $regions;
 }
 
-function theme_cerulean_process_css($css, $theme) {
-    /*
-    // Set the background image for the logo.
-    $logo = $theme->setting_file_url('logo', 'logo');
-    $css = theme_cerulean_set_logo($css, $logo);
-    // Get colors.
-    $colorsettings = \theme_cerulean\settings\options::cerulean_get_colors_array();
-    foreach ($colorsettings as $key => $value) {
-        // Use default if not set.
-        if (!empty( $theme->settings->$key ) ) {
-            $value = $theme->settings->$key;
-        }
-        // Search and replace.
-        $tag = "[[setting:$key]]";
-        $css = str_replace( $tag, $value, $css );
-    }
-
-
-    // Set custom CSS.
-    if (!empty($theme->settings->customcss)) {
-        $customcss = $theme->settings->customcss;
-    } else {
-        $customcss = null;
-    }
-    $css = theme_cerulean_set_customcss($css, $customcss);
-    */
-    return $css;
-}
-
 /**
  * Serves any files associated with the theme settings.
  *

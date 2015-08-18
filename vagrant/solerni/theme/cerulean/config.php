@@ -104,25 +104,6 @@ $THEME->extralesscallback = 'theme_cerulean_extra_less';
 
 $THEME->parents_exclude_sheets = true;
 
-/**
- * Post processing the CSS. (Advanced)
- *
- * This setting allows you to manipulate the CSS before it is
- * included in the HTML document. This setting expects the name of the
- * function that will do the post processing. By convention, the name of
- * this function should start by theme_yourthemename and be placed in
- * a file call lib.php.
- *
- * The function will receive 2 parameters, the first is the content of
- * the CSS file. The second is the theme_config object. The function
- * should return the modified version of the CSS.
- *
- * From Moodle 2.7 using $THEME->lessfile and associated callbacks
- * is a more flexible solution.
- */
-
-$THEME->csspostprocess = 'theme_cerulean_process_css';
-
 /*
  * The layout files list
  * Each page has been attributed a page type. Each page type has

@@ -33,44 +33,6 @@ $ADMIN->add('themes', new admin_category('theme_cerulean', 'Cerulean'));
 
 /*
  *
- * Frontpage Settings
- *
- */
-
-$temp = new admin_settingpage('theme_cerulean_frontpage', get_string('frontpagesettings','theme_cerulean'));
-/*
-// frontpage header tagline.
-$name = 'theme_cerulean/frontpagetagline';
-$title = get_string('frontpagetagline', 'theme_cerulean');
-$description = get_string('frontpagetaglinedesc', 'theme_cerulean');
-$default = get_string('footertaglinedefault', 'theme_cerulean');
-$setting = new admin_setting_configtext($name, $title, $description, $default);
-$temp->add($setting);
-// frontpage header presentation.
-$name = 'theme_cerulean/frontpagepresentation';
-$title = get_string('frontpagepresentation', 'theme_cerulean');
-$description = get_string('frontpagepresentationdesc', 'theme_cerulean');
-$default = get_string('frontpagepresentationdefault', 'theme_cerulean');
-$setting = new admin_setting_configtextarea($name, $title, $description, $default);
-$temp->add($setting);
-// frontpage background header image.
-$name = 'theme_cerulean/frontpageheaderimage';
-$title = get_string('frontpageheaderimage', 'theme_cerulean');
-$description = get_string('frontpageheaderimagedesc', 'theme_cerulean');
-$setting = new admin_setting_configstoredfile($name, $title, $description, 'frontpageheaderimage');
-$setting->set_updatedcallback('theme_reset_all_caches'); // regenerate CSS.
-$temp->add($setting);
-$ADMIN->add('theme_cerulean', $temp);
-// frontpage title above the catalog.
-$name = 'theme_cerulean/catalogtitle';
-$title = get_string('catalogtitle', 'theme_cerulean');
-$description = get_string('catalogtitledesc', 'theme_cerulean');
-$default = get_string('catalogtitledefault', 'theme_cerulean');
-$setting = new admin_setting_configtext($name, $title, $description, $default);
-$temp->add($setting);
-*/
-/*
- *
  * Colors Page Settings
  *
  */
@@ -153,7 +115,6 @@ $ADMIN->add('theme_cerulean', $temp);
  * Social Page Settings
  *
  */
-
 $temp = new admin_settingpage('theme_cerulean_social', get_string('socialsettings','theme_cerulean'));
 // Social Link Heading.
 $name = 'theme_cerulean/sociallinksheading';
@@ -172,28 +133,3 @@ foreach( $themeoptions::cerulean_get_sociallinks_array() as $key => $value ) {
     $temp->add($setting);
 }
 $ADMIN->add('theme_cerulean', $temp);
-
-/*
- *
- * Header Page Settings
- *
- */
-/*
-$temp = new admin_settingpage('theme_cerulean_header', get_string('headersettings','theme_cerulean'));
-$name = 'theme_cerulean/headerheading';
-$heading = get_string('headerheading', 'theme_cerulean');
-$information = get_string('headerheadingdesc', 'theme_cerulean');
-$setting = new admin_setting_heading($name, $heading, $information);
-$temp->add($setting);
-// Get static links and url values.
-// Iterate to create each setting.
-foreach( $themeoptions::cerulean_get_staticlinks_array() as $key => $value ) {
-    $name = 'theme_cerulean/' . $key;
-    $title = get_string( $key, 'theme_cerulean' );
-    $description = get_string( $key . 'desc', 'theme_cerulean');
-    $default = $value;
-    $setting = new admin_setting_configtext($name, $title, $description, $default);
-    $temp->add($setting);
-}
-$ADMIN->add('theme_cerulean', $temp);
-*/
