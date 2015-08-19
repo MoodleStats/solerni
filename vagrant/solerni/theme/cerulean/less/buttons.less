@@ -43,21 +43,15 @@
 
     &:focus.btn,
     &.focus.btn {
-        background-color:   @bg-hover;
+        background-color:   @background;
+        color:              @color;
         outline:            dotted 1px @color;
     }
 
     &:focus.btn:active,
     &.focus.btn:active {
         background-color:   @bg-active;
-        outline:            dotted 1px @color;
-    }
-
-    &:active.btn,
-    &.active.btn,
-    &:focus.btn,
-    &.focus.btn {
-        padding:          12px 20px;
+        outline:            0;
     }
 
     &.disabled,
