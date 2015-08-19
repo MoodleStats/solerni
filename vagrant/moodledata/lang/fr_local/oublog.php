@@ -442,12 +442,12 @@ $string['activeblogs'] = 'Actifs';
 $string['numberviews'] = '{$a} vues';
 $string['visits_info_alltime'] = '{$a}s avec le plus grand nombre de visites';
 $string['visits_info_active'] = '{$a}s actifs (au moins un billet publié au cours du mois écoulé) avec le plus grand nombre de visites';
-$string['mostposts'] = 'Le plus de billets';
+$string['mostposts'] = 'Blog avec le plus de billets';
 $string['numberposts'] = '{$a} billets';
 $string['posts_info_alltime'] = '{$a}s avec le plus grand nombre de billets';
 $string['posts_info_thisyear'] = '{$a}s avec le plus grand nombre de billets dans l\'année écoulée';
 $string['posts_info_thismonth'] = '{$a}s avec le plus grand nombre de billets dans le mois écoulé';
-$string['mostcomments'] = 'Le plus de commentaires';
+$string['mostcomments'] = 'Blogs les plus commentés';
 $string['numbercomments'] = '{$a} commentaires';
 $string['comments_info_alltime'] = '{$a}s avec le plus grand nombre de commentaires';
 $string['comments_info_thisyear'] = '{$a}s avec le plus grand nombre de commentaires ajoutés dans l\'année écoulée';
@@ -458,7 +458,7 @@ $string['commentposts_info_thisyear'] = 'Billets avec le plus grand nombre de co
 $string['commentposts_info_thismonth'] = 'Billets avec le plus grand nombre de commentaires ajoutés dans le mois écoulé';
 
 // Delete and Email.
-$string['emailcontenthtml'] = 'Cette notification vous avertit que votre billet du {$a->activityname} dont les caractéristiques figurent ci-dessous a été effacé par \'{$a->firstname} {$a->lastname}\':<br />
+$string['emailcontenthtml'] = 'Votre billet du {$a->activityname} dont les caractéristiques figurent ci-dessous a été effacé par \'{$a->firstname} {$a->lastname}\':<br />
 <br />
 Sujet : {$a->subject}<br />
 {$a->activityname} : {$a->blog}<br />
