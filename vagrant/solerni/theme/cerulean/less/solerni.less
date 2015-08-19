@@ -1,0 +1,73 @@
+/*
+ * This file include Solerni CSS specific code
+ * that does not lengthy enough to be into a specific file
+ *
+ */
+
+
+// Probably never use, but we never know.
+.font-primary {
+    font-family: @font-family-base;
+}
+
+.font-secondary {
+    font-family: @font-family-serif;
+}
+
+.font-mono {
+    font-family: @font-family-monospace;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6, p {
+    line-height:    1.5; // 63px, 42px, 36px, 31px, 15px, 13px and 20px baseline
+}
+
+h1, .h1,
+h4, .h4{
+    color: @brand-primary;
+}
+
+// Forms Moodle missing type="email"
+// Overrides same function from boostrap/less/moodle/forms.less # 160
+form select,
+form input[type="text"],
+form input[type="password"],
+form input[type="email"],
+form.atto_form input[type="url"],
+select.singleselect {
+    .form-control;
+    width: auto;
+    max-width: 300px;
+    display: inline;
+    margin: 0 0 5px 0;
+}
+
+// Moodle uses some margins, Bootstrap others : mixing both
+input[type="radio"],
+input[type="checkbox"] {
+    margin: 4px;
+}
+
+// Links rules and colors
+a {
+    text-decoration: underline;
+}
+
+a:visited {
+    color: @link-visited-color;
+}
+
+a:active,
+a:focus {
+    color: @link-active-color;
+}
+
+a:focus {
+    padding: 2px 5px;
+    outline: 1px solid @link-active-color;
+}
+
+a:focus:visited {
+    outline: 1px solid @link-visited-color;
+}
