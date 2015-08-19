@@ -414,7 +414,7 @@ class theme_cerulean_core_course_renderer extends core_course_renderer {
             $badges                 = new badges_object();
             $utilitiescourse        = new utilities_course();
             $imageutilities         = new utilities_image();
-            $subscriptionbutton     = new subscription_button_object();
+            $subscriptionbutton     = new subscription_button_object($course);
             $utilities              = new utilities_object();
 
             // Get customer info related to Moodle catagory.

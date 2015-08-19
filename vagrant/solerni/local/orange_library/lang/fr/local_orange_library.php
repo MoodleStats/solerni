@@ -44,3 +44,6 @@ $string['french'] = 'Francais';
 $string['certification_default'] = 'Attestation de réussite';
 $string['badge_default'] = 'Badge ';
 $string['badge'] = 'Badge ';
+
+// Exception
+$string['missing_course_in_construct'] = 'Vous avez essayé d\'instancier un objet subscription_button_object sans lui passer un objet $course';

@@ -100,10 +100,10 @@
 
 @font-size-h1:            floor((@font-size-base * 3));     // ~42px
 @font-size-h2:            floor((@font-size-base * 2));     // ~28px
-@font-size-h3:            ceil((@font-size-base * 1.7));    // ~24px
-@font-size-h4:            ceil((@font-size-base * 1.5));    // ~21px
-@font-size-h5:            @font-size-base;                  // 14px
-@font-size-h6:            ceil((@font-size-base * 0.85));   // ~12px
+@font-size-h3:            floor((@font-size-base * 1.75));  // ~24px
+@font-size-h4:            floor((@font-size-base * 1.5));   // ~21px
+@font-size-h5:            floor((@font-size-base * 1.3));   // ~18px
+@font-size-h6:            floor((@font-size-base * 1.2));   // ~16px
 
 //** Unit-less `line-height` for use in components like buttons.
 @line-height-base:        1.428571429; // 20/14
@@ -494,14 +494,14 @@
 @nav-tabs-justified-active-link-border-color:   @brand-primary;
 
 // Orange Pointed Nav Tabs
-@o-nav-tabs-arrow-color:                        @brand-orange-black;
+@o-nav-tabs-arrow-color:                        @brand-primary;
 @o-nav-tabs-arrow-width:                        14px;
 @o-nav-tabs-arrow-height:                       7px;
-@o-nav-tabs-border-color:                       @brand-orange-black;
-@o-nav-tabs-bg:                                 @brand-orange-white;
-@o-nav-tabs-color:                              @brand-orange-black;
-@o-nav-tabs-active-bg:                          @brand-orange-black;
-@o-nav-tabs-active-color:                       @brand-orange-white;
+@o-nav-tabs-border-color:                       @brand-primary;
+@o-nav-tabs-bg:                                 @brand-tertiary;
+@o-nav-tabs-color:                              @brand-primary;
+@o-nav-tabs-active-bg:                          @brand-primary;
+@o-nav-tabs-active-color:                       @brand-tertiary;
 @o-nav-tabsackground-color:                     @brand-primary;
 @o-nav-tabsorder-color:                         @brand-primary;
 
@@ -695,21 +695,21 @@
 @alert-border-radius:         @border-radius-base;
 @alert-link-font-weight:      @brand-font-weight-bold;
 
-@alert-success-bg:            @brand-success;
+@alert-success-bg:            @brand-tertiary;
 @alert-success-text:          @brand-primary;
-@alert-success-border:        @state-success-border;
+@alert-success-border:        @brand-success;
 
-@alert-info-bg:               @brand-info;
-@alert-info-text:             @state-info-text;
-@alert-info-border:           @state-info-border;
+@alert-info-bg:               @brand-tertiary;
+@alert-info-text:             @brand-primary;
+@alert-info-border:           @brand-info;
 
-@alert-warning-bg:            @brand-warning;
+@alert-warning-bg:            @brand-tertiary;
 @alert-warning-text:          @brand-primary;
-@alert-warning-border:        @state-warning-border;
+@alert-warning-border:        @brand-warning;
 
-@alert-danger-bg:             @brand-danger;
-@alert-danger-text:           @brand-tertiary;
-@alert-danger-border:         @state-danger-border;
+@alert-danger-bg:             @brand-tertiary;
+@alert-danger-text:           @brand-primary;
+@alert-danger-border:         @brand-danger;
 
 
 //== Progress bars
@@ -1030,4 +1030,32 @@
 .box-shadow(@shadow) {
   -webkit-box-shadow: none;
           box-shadow: none;
+}
+
+// Change the table states color
+.table-row-variant-border(@state; @color) {
+  // Exact selectors below required to override `.table-striped` and prevent
+  // inheritance to nested tables.
+  .table > thead > tr,
+  .table > tbody > tr,
+  .table > tfoot > tr {
+    > td.@{state},
+    > th.@{state},
+    &.@{state} > td,
+    &.@{state} > th {
+      background-color: @color;
+    }
+  }
+
+  // Hover states for `.table-hover`
+  // Note: this is not available for cells or rows within `thead` or `tfoot`.
+  .table-hover > tbody > tr {
+    > td.@{state}:hover,
+    > th.@{state}:hover,
+    &.@{state}:hover > td,
+    &:hover > .@{state},
+    &.@{state}:hover > th {
+      background-color: darken(@color, 5%);
+    }
+  }
 }

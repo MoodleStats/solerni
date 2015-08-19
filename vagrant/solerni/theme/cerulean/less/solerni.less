@@ -24,7 +24,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 h1, .h1,
-h4, .h4{
+h4, .h4 {
     color: @brand-primary;
 }
 
@@ -54,20 +54,21 @@ a {
     text-decoration: underline;
 }
 
-a:visited {
+a:visited,
+a.visited {
     color: @link-visited-color;
 }
 
 a:active,
-a:focus {
+a.active,
+a:focus,
+a.focus {
     color: @link-active-color;
 }
 
-a:focus {
-    padding: 2px 5px;
-    outline: 1px solid @link-active-color;
+a:focus,
+a.focus {
+    outline:        1px dotted currentColor;
+    outline-offset: 2px;
 }
 
-a:focus:visited {
-    outline: 1px solid @link-visited-color;
-}
