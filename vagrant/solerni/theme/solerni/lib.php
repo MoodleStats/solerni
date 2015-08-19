@@ -55,7 +55,7 @@ function solerni_process_css($css, $theme) {
         $css = str_replace( $tag, $value, $css );
     }
 
-    // replace header background image.
+    // Replace header background image.
     if ( $theme->setting_file_url('frontpageheaderimage', 'frontpageheaderimage') ) {
         $backgroundheaderimage = $theme->setting_file_url('frontpageheaderimage', 'frontpageheaderimage');
     } else {

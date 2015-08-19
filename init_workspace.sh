@@ -317,6 +317,19 @@ function create_subtrees () {
 
 	# questionnaire (master = 2.7.2)
 	init_subtree vagrant/solerni/mod/questionnaire questionnaire-source https://github.com/remotelearner/moodle-mod_questionnaire.git MOODLE_27_STABLE
+
+        # forumng (master = 2.7 r2)
+        init_subtree vagrant/solerni/mod/forumng forumng-source https://github.com/moodleou/moodle-mod_forumng.git MOODLE_27_STABLE
+
+        # workshopeval_credit (master = master)
+        init_subtree vagrant/solerni/mod/workshop/eval/credit credit-source https://github.com/mudrd8mz/moodle-workshopeval_credit.git master
+
+        # jmail (master = master)
+        #init_subtree vagrant/solerni/blocks/jmail jmail-source https://github.com/jleyva/moodle-block_jmail master
+
+ 	# block_configurable_reports
+	init_subtree vagrant/solerni/blocks/configurable_reports configurable-reports-source https://github.com/jleyva/moodle-block_configurablereports.git CR_27_STABLE
+
 }
 
 

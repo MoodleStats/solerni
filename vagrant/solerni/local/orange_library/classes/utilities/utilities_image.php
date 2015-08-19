@@ -100,7 +100,6 @@ class utilities_image {
 
         // We try to access the image. If an error occurs we return the original url.
         if (file_exists($imagepath) == false) {
-            error_log ("Image not found " . $imagepath);
             return $image;
         }
 
@@ -178,7 +177,6 @@ class utilities_image {
 
             $c = exec($cmd, $output, $returncode);
             if ($returncode != 0) {
-                error_log("Tried to execute : $cmd, return code: $returncode, output: " . print_r($output, true));
                 return $image;
             }
         }

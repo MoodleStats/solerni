@@ -35,29 +35,41 @@ $presentation   = ($PAGE->theme->settings->frontpagepresentation) ?
         <h1 class="frontpage-header__item frontpage-header__tagline"><?php echo $tagline; ?></h1>
         <span class="frontpage-header__item frontpage-header__presentation">
             <div class="frontpage-header__presentation_text"><?php echo $presentation; ?></div>
-            <?php if (!isloggedin()) : ?>
-                <a class="btn btn-primary frontpage-header__button" href="<?php echo $CFG->wwwroot ?>/login/index.php">
+            <?php
+if (!isloggedin()) : ?>
+                <a class="btn btn-primary frontpage-header__button" href="<?php
+                echo $CFG->wwwroot ?>/login/index.php">
                    <?php echo get_string('ifreelyregister', 'theme_solerni'); ?>
                 </a>
-            <?php endif; ?>
+            <?php
+endif;
+?>
         </span>
     </div>
 </div>
 <div class="frontpage_subheader">
-        <a class="frontpage_subheader__item frontpage_subheader__item--contenus" href="<?php echo $this->page->theme->settings->about; ?>#contents">
-            <img class="frontpage_subheader__item__picture" src="<?php echo $OUTPUT->pix_url('frontpage/header-front-contenus', 'theme'); ?>" alt="" />
+        <a class="frontpage_subheader__item frontpage_subheader__item--contenus" href="<?php
+        echo $this->page->theme->settings->about; ?>#contents">
+            <img class="frontpage_subheader__item__picture" src="<?php
+            echo $OUTPUT->pix_url('frontpage/header-front-contenus', 'theme'); ?>" alt="" />
             Vous êtes libres d'enrichir et de partager des contenus
         </a>
-        <a class="frontpage_subheader__item frontpage_subheader__item--communaute" href="<?php echo $this->page->theme->settings->about; ?>#community">
-            <img class="frontpage_subheader__item__picture" src="<?php echo $OUTPUT->pix_url('frontpage/header-front-communaute', 'theme'); ?>" alt="" />
+        <a class="frontpage_subheader__item frontpage_subheader__item--communaute" href="<?php
+        echo $this->page->theme->settings->about; ?>#community">
+            <img class="frontpage_subheader__item__picture" src="<?php
+            echo $OUTPUT->pix_url('frontpage/header-front-communaute', 'theme'); ?>" alt="" />
             Vous apprenez des autres et avec les autres
          </a>
-        <a class="frontpage_subheader__item frontpage_subheader__item--activites" href="<?php echo $this->page->theme->settings->about; ?>#activities">
-            <img class="frontpage_subheader__item__picture" src="<?php echo $OUTPUT->pix_url('frontpage/header-front-activites', 'theme'); ?>" alt="" />
+        <a class="frontpage_subheader__item frontpage_subheader__item--activites" href="<?php
+        echo $this->page->theme->settings->about; ?>#activities">
+            <img class="frontpage_subheader__item__picture" src="<?php
+            echo $OUTPUT->pix_url('frontpage/header-front-activites', 'theme'); ?>" alt="" />
             Vous progressez en pratiquant seul ou à plusieurs
          </a>
-        <a class="frontpage_subheader__item frontpage_subheader__item--attestation" href="<?php echo $this->page->theme->settings->about; ?>#certifications">
-            <img class="frontpage_subheader__item__picture" src="<?php echo $OUTPUT->pix_url('frontpage/header-front-attestation', 'theme'); ?>" alt="" />
+        <a class="frontpage_subheader__item frontpage_subheader__item--attestation" href="<?php
+        echo $this->page->theme->settings->about; ?>#certifications">
+            <img class="frontpage_subheader__item__picture" src="<?php
+            echo $OUTPUT->pix_url('frontpage/header-front-attestation', 'theme'); ?>" alt="" />
             Vous obtenez une validation de vos apprentissages
         </a>
 </div>
