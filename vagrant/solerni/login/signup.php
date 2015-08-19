@@ -104,6 +104,9 @@ $PAGE->set_title($newaccount);
 $PAGE->set_heading($SITE->fullname);
 
 echo $OUTPUT->header();
-    //echo $OUTPUT->auth_googleoauth2_display_buttons();
-    echo $OUTPUT->solerni_register_render_form(true, $mform_signup);
+if (method_exists($OUTPUT, 'cerulean_register_render_form')){
+    $OUTPUT->cerulean_register_render_form(true, $mform_signup);
+} else {
+    $mform_signup->display();
+}
 echo $OUTPUT->footer();
