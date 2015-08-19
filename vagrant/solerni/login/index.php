@@ -346,8 +346,8 @@ if (isloggedin() and !isguestuser()) {
     echo $OUTPUT->confirm(get_string('alreadyloggedin', 'error', fullname($USER)), $logout, $continue);
     echo $OUTPUT->box_end();
 } else {
-    if (method_exists($OUTPUT, 'solerni_login_render_form')){
-        $OUTPUT->solerni_login_render_form($show_instructions, $frm);
+    if (method_exists($OUTPUT, 'cerulean_login_render_form')){
+        $OUTPUT->cerulean_login_render_form($show_instructions, $frm);
     } else {
         include('index_form.html');
     }
