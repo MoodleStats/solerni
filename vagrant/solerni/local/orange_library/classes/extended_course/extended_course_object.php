@@ -161,12 +161,12 @@ class extended_course_object {
     /**
      *  Get the extended course values from the extended course flexpage values.
      *
-     * @param object $context
+     * @param optionnal object $context
      * @param object $course
      * @param moodle_url $imgurl
      * @return object $this->extendedcourse
      */
-    public function get_extended_course($course, $context) {
+    public function get_extended_course($course, $context = null) {
         global $DB;
         $utilitiescourse = new utilities_course();
         $categoryid = $utilitiescourse->get_categoryid_by_courseid($course);
@@ -182,6 +182,9 @@ class extended_course_object {
             if ($extendedcourseflexpagevalue->format == "flexpage") {
                 $this->set_extended_course($extendedcourseflexpagevalue);
             }
+        }
+        if (!$context) {
+            $context = context_course::instance($course->id);
         }
         $this->enrolledusers = count_enrolled_users($context);
         if ($customer) {

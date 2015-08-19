@@ -36,7 +36,6 @@ class subscription_button_object {
     /**
      *  Set and display the button describing the status of a course.
      *
-     * @param object $context
      * @param object $course
      * @return string html_writer::tag
      */
