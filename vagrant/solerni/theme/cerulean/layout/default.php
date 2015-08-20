@@ -14,6 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/*
+ * Required : include flexpage library
+ */
+require_once($CFG->dirroot.'/course/format/flexpage/locallib.php');
 
 $hassidepre = $PAGE->blocks->region_has_content('side-pre', $OUTPUT);
 $hassidepost = $PAGE->blocks->region_has_content('side-post', $OUTPUT);
@@ -22,6 +26,22 @@ $knownregionpre = $PAGE->blocks->is_known_region('side-pre');
 $knownregionpost = $PAGE->blocks->is_known_region('side-post');
 
 $regions = theme_cerulean_bootstrap_grid($hassidepre, $hassidepost);
+
+// Always show block regions when editing so blocks can
+// be dragged into empty block regions.
+if ($PAGE->user_is_editing()) {
+    if ($PAGE->blocks->is_known_region('side-pre')) {
+        $showsidepre = true;
+        $hassidepre  = true;
+    }
+    if ($PAGE->blocks->is_known_region('side-post')) {
+        $showsidepost = true;
+        $hassidepost  = true;
+    }
+    if ($PAGE->blocks->is_known_region('side-top')) {
+        $hassidetop = true;
+    }
+}
 
 $PAGE->set_popup_notification_allowed(false);
 if ($knownregionpre || $knownregionpost) {
@@ -89,8 +109,8 @@ echo $OUTPUT->doctype() ?>
         <div id="region-main" class="<?php echo $regions['content']; ?>">
             <?php
             echo $OUTPUT->course_content_header();
-
             echo $OUTPUT->main_content();
+            echo $OUTPUT->blocks('main');
             echo $OUTPUT->course_content_footer();
             ?>
         </div>
