@@ -64,10 +64,10 @@ if ($p) {
 }
 
 // Require_course_login($course, true, $cm);.
-$context = context_module::instance($cm->id);
-$subscriptionbutton = new subscription_button_object($context, $course);
+$subscriptionbutton = new subscription_button_object($course);
 
 // ...$page = $PAGE->get_renderer('mod_page');.
+$context = context_module::instance($cm->id);
 descriptionpage_check_view_permissions($page, $context, $cm);
 
 // ...$context = context_module::instance($cm->id);.
