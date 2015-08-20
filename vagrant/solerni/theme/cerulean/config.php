@@ -66,7 +66,7 @@ $THEME->parents = array('bootstrap');
  * You can refer to the theme More (theme_more) as an example.
  */
 
-$THEME->lessfile = 'cerulean';
+$THEME->lessfile = 'reboost-mixin';
 
 /**
  * Injecting LESS variables. (Advanced)
