@@ -330,6 +330,9 @@ function create_subtrees () {
  	# block_configurable_reports
 	init_subtree vagrant/solerni/blocks/configurable_reports configurable-reports-source https://github.com/jleyva/moodle-block_configurablereports.git CR_27_STABLE
 
+        # local_staticpage (master = master)
+        init_subtree vagrant/solerni/local/staticpage staticpage-source https://github.com/moodleuulm/moodle-local_staticpage.git master
+
 }
 
 
