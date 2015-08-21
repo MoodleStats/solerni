@@ -116,6 +116,17 @@
 @headings-line-height:    1.1;
 @headings-color:          @brand-secondary;
 
+// reboost regularities
+// We can find regularities in paddings or margins across the design.
+// We will try to organize those regularities into numeric constants
+
+@s-small-md-margin:      @font-size-base;                        // 14px
+@s-medium-md-margin:     floor(@font-size-base * 1.428571429);   // 20px
+@s-double-md-margin:     floor(@font-size-base * 2.142857143);   // 30px
+
+@s-small-xs-margin:      ceil(@font-size-base * 0.714285714);    // 10px
+@s-medium-xs-margin:     @s-small-xs-margin;                     // 10px
+@s-double-xs-margin:     ceil(@s-small-xs-margin * 2);           // 20px
 
 //-- Iconography
 //
