@@ -62,3 +62,6 @@ moosh config-set enablecompletion 1 moodlecourse
 
 # Default role assignment - Plugin Enrolments/Manual enrolment
 moosh role-configset roleid solerni_apprenant enrol_manual
+
+# Force Apache mod_rewrite - Plugin Local/Static Pages (#us_71)
+moosh config-set apacherewrite 1 local_staticpage
