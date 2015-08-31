@@ -45,3 +45,5 @@ $string['certification_default'] = 'Certificate of achievement';
 $string['badge_default'] = 'Badge ';
 $string['badge'] = 'Badge ';
 
+// Exception
+$string['missing_course_in_construct'] = 'You tried to instanciante a subscription_button_object without passing a $course object';

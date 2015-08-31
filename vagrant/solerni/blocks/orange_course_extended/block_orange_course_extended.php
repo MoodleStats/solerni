@@ -180,9 +180,6 @@ class block_orange_course_extended extends block_base {
      */
     public function get_content() {
 
-        global $DB;
-        $extendedcourse = new stdClass();
-
         if (!is_null($this->content)) {
             return $this->content;
         }

@@ -44,7 +44,7 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
         $extendedcourse = new extended_course_object();
         $extendedcourse->get_extended_course($course, $context);
 
-        $subscriptionbutton = new subscription_button_object($context, $course);
+        $subscriptionbutton = new subscription_button_object($course);
         $text = html_writer::start_tag('div', array('class' => 'sider'));
         $language = get_string('french', 'format_flexpage');
         $registrationvalue = get_string('registration_case1', 'format_flexpage');
@@ -120,8 +120,7 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
                         $text .= html_writer::empty_tag('br');
             if ($extendedcourse->subtitle != 0) {
                             $language = $extendedcourse->language;
-                            $subtitle = $extendedcourse->subtitle;
-                        $text .= html_writer::tag('span',
+                            $text .= html_writer::tag('span',
                                 $language.' '.get_string('subtitle', 'block_orange_course_extended').' ',
                                 array('class' => 'slrn-bold'));
             }

@@ -325,7 +325,13 @@ function create_subtrees () {
         init_subtree vagrant/solerni/mod/workshop/eval/credit credit-source https://github.com/mudrd8mz/moodle-workshopeval_credit.git master
 
         # jmail (master = master)
-        init_subtree vagrant/solerni/blocks/jmail jmail-source https://github.com/jleyva/moodle-block_jmail master
+        #init_subtree vagrant/solerni/blocks/jmail jmail-source https://github.com/jleyva/moodle-block_jmail master
+
+ 	# block_configurable_reports
+	init_subtree vagrant/solerni/blocks/configurable_reports configurable-reports-source https://github.com/jleyva/moodle-block_configurablereports.git CR_27_STABLE
+
+        # local_staticpage (master = master)
+        init_subtree vagrant/solerni/local/staticpage staticpage-source https://github.com/moodleuulm/moodle-local_staticpage.git master
 
 }
 

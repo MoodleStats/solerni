@@ -1,34 +1,35 @@
 #!/bin/bash
 # Fichier "default/role_update_capabilities.sh"
 
-# solerni_utilisateur : See full user fields identity in lists (#us_110)
+# See full user fields identity in lists (#us_110)
 moosh role-update-capability solerni_utilisateur moodle/site:viewuseridentity allow 1
 
 # Orange Invitation (#us_7)
 # coursecreator and solerni_course_creator : Configure MOOC URLs access
 moosh role-update-capability coursecreator enrol/orangeinvitation:config allow 1
 moosh role-update-capability solerni_course_creator enrol/orangeinvitation:config allow 1
+moosh role-update-capability solerni_teacher enrol/orangeinvitation:config allow 1
 
 # Description Page (#us_50)
-# solerni_utilisateur : View page content
+# View page content
 moosh role-update-capability solerni_utilisateur mod/descriptionpage:view allow 1
 moosh role-update-capability solerni_utilisateur mod/descriptionpage:viewpersonal allow 1
-# solerni_course_creator : Add a new page resource
+# Add a new page resource
 moosh role-update-capability solerni_course_creator mod/descriptionpage:addinstance allow 1
 
 # Orange Course Extended
-# solerni_utilisateur : View course contents block to the My Moodle page
+# View course contents block to the My Moodle page
 moosh role-update-capability solerni_utilisateur block/orange_course_extended:view allow 1
 moosh role-update-capability solerni_utilisateur block/orange_course_extended:viewpersonal allow 1
-# solerni_utilisateur : Add a new course contents block to the My Moodle page
+# Add a new course contents block to the My Moodle page
 moosh role-update-capability solerni_utilisateur block/orange_course_extended:myaddinstance allow 1
-# solerni_course_creator : orange_course_extended:addinstance
+# orange_course_extended:addinstance
 moosh role-update-capability solerni_course_creator block/orange_course_extended:addinstance allow 1
 
 # Orange Social Sharing (#us_58)
-# solerni_utilisateur : Add a new Social sharing block to the My Moodle page 
+# Add a new Social sharing block to the My Moodle page 
 moosh role-update-capability solerni_utilisateur block/orange_social_sharing:myaddinstance allow 1
-# solerni_course_creator : orange_social_sharing:addinstance
+# orange_social_sharing:addinstance
 moosh role-update-capability solerni_course_creator block/orange_social_sharing:addinstance allow 1
 
 # Local Mail (#us_113, #us_106)
@@ -365,3 +366,20 @@ moosh role-update-capability solerni_power_apprenant mod/mediagallery:like allow
 # mod/mediagallery : viewall
 moosh role-update-capability solerni_teacher mod/mediagallery:viewall allow 1
 moosh role-update-capability solerni_marketing mod/mediagallery:viewall allow 1
+
+# Flexpage
+# format/flexpage : managepages
+moosh role-update-capability solerni_teacher format/flexpage:managepages allow 1
+# block/flexpagemod : addinstance
+moosh role-update-capability solerni_teacher block/flexpagemod:addinstance allow 1
+# block/flexpagenav : addinstance, manage, view
+moosh role-update-capability solerni_teacher block/flexpagenav:addinstance allow 1
+moosh role-update-capability solerni_teacher block/flexpagenav:manage allow 1
+moosh role-update-capability solerni_teacher block/flexpagenav:view allow 1
+
+# Statistics
+moosh role-update-capability solerni_client report/stats:view allow 1
+moosh role-update-capability solerni_client quiz/statistics:view allow 1
+
+# Workshop (#us_90)
+moosh role-update-capability solerni_apprenant mod/workshop:viewauthornames prevent 1

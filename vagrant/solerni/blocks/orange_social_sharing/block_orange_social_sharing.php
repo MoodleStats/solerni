@@ -64,7 +64,7 @@ class block_orange_social_sharing extends block_base{
         $this->content->text .= html_writer::end_tag('li');
         $this->content->text .= html_writer::end_tag('ul');
 
-        $text = $this->renderer->get_text($course);
+        $text = $this->renderer->get_text(null, $course, null);
         $this->content->text = $text;
         return $this->content;
 
@@ -109,6 +109,13 @@ class block_orange_social_sharing extends block_base{
                 $this->google_plus = $this->config->google_plus;
             }
         }
+    }
+
+
+    public function applicable_formats() {
+        return array(
+            'course-view-flexpage' => true,
+            'mod-descriptionpage' => true);
     }
 }
 

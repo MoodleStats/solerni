@@ -32,6 +32,7 @@ use moodle_url;
 use context_helper;
 use coursecat_sortable_records;
 use course_in_list;
+require_once($CFG->dirroot . '/cohort/lib.php'); 
 
 class utilities_course {
 
@@ -41,6 +42,34 @@ class utilities_course {
         $customer = customer_get_customerbycategoryid($catid);
 
         return $customer;
+    }
+
+
+    /**
+     * Get all Solerni informations for a course
+     * using flexpage format (imply that we use the blocks/orange_course_extended)
+     *
+     * @global type $DB
+     * @param type $course
+     * @return extended_course_object
+     */
+    public static function solerni_get_mooc_image () {
+        global $COURSE;
+
+        $context = context_course::instance($COURSE->id);
+        $fs = get_file_storage();
+        $files = $fs->get_area_files($context->id, 'format_flexpage', 'coursepicture', 0);
+        $imgurl = '';
+        foreach ($files as $file) {
+            $ctxid = $file->get_contextid();
+            $cmpnt = $file->get_component();
+            $filearea = $file->get_filearea();
+            $itemid = $file->get_itemid();
+            $filepath = $file->get_filepath();
+            $filename = $file->get_filename();
+            $imgurl = moodle_url::make_pluginfile_url($ctxid, $cmpnt, $filearea, $itemid, $filepath, $filename);
+        }
+        return $imgurl;
     }
 
     /**
@@ -117,7 +146,7 @@ class utilities_course {
                 JOIN {context} ctx ON c.id = ctx.instanceid AND ctx.contextlevel = :contextcourse
                 LEFT OUTER JOIN {course_format_options} co ON c.id = co.courseid AND co.name = 'courseenddate'
                 LEFT OUTER JOIN {course_format_options} co2 ON c.id = co2.courseid AND co2.name = 'coursethematics'
-                WHERE ". $whereclause." ORDER BY c.sortorder";
+                WHERE ". $whereclause." AND c.id != 1 ORDER BY c.sortorder";
         $list = $DB->get_records_sql($sql, array('contextcourse' => CONTEXT_COURSE) + $params);
 
         if ($checkvisibility) {
@@ -182,9 +211,6 @@ class utilities_course {
     /**
      * Retrieves the list of courses accessible by user
      *
-     * Not all information is cached, try to avoid calling this method
-     * twice in the same request.
-     *
      * The following fields are always retrieved:
      * - id, visible, fullname, shortname, idnumber, category, sortorder
      *
@@ -209,7 +235,6 @@ class utilities_course {
      *             array('idnumber' => 1, 'shortname' => 1, 'id' => -1)
      *             will sort by idnumber asc, shortname asc and id desc.
      *             Default: array('sortorder' => 1)
-     *             Only cached fields may be used for sorting!
      *    - offset
      *    - limit - maximum number of children to return, 0 or null for no limit
      *    - idonly - returns the array or course ids instead of array of objects
@@ -221,7 +246,8 @@ class utilities_course {
         $recursive = !empty($options['recursive']);
         $offset = !empty($options['offset']) ? $options['offset'] : 0;
         $limit = !empty($options['limit']) ? $options['limit'] : null;
-        $sortfields = !empty($options['sort']) ? $options['sort'] : array('closed' => 1, 'timeleft' => 1, 'enddate' => -1);
+        $sortfields = !empty($options['sort']) ? $options['sort'] : 
+            array('closed' => 1, 'timeleft' => 1, 'enddate' => -1, 'startdate' => 1);
 
         $wherecategory = array();
         $params = array('siteid' => SITEID);
@@ -274,15 +300,15 @@ class utilities_course {
             foreach ($filter->durationsid as $durationid) {
                 // 1 : Moins de 4 semaines.
                 if ($durationid == 1) {
-                    $whereduration[] = "((co.value-c.startdate) < (3600*24*31*4))";
+                    $whereduration[] = "((co.value-c.startdate) < (3600*24*7*4))";
                 }
                 // 2 : de 4 à 6 semaines.
                 if ($durationid == 2) {
-                    $whereduration[] = "((co.value-c.startdate) >= (3600*24*31*4) AND (co.value-c.startdate) <= (3600*24*31*6))";
+                    $whereduration[] = "((co.value-c.startdate) >= (3600*24*7*4) AND (co.value-c.startdate) <= (3600*24*7*6))";
                 }
                 // 3 : plus de 6 semaines.
                 if ($durationid == 3) {
-                    $whereduration[] = "(co.value-c.startdate) > (3600*24*31*6)";
+                    $whereduration[] = "(co.value-c.startdate) > (3600*24*7*6)";
                 }
             }
         }
@@ -305,7 +331,7 @@ class utilities_course {
         $list = self::get_course_records(implode(' AND ', $where), $params,
                 array_diff_key($options, array('coursecontacts' => 0)), true);
 
-        // Sort and cache list.
+        // Sort list.
         self::sort_records($list, $sortfields);
 
         // Apply offset/limit, convert to course_in_list and return.
@@ -484,7 +510,7 @@ class utilities_course {
         }
 
         // Last case : we'll grant access wheither the user is in the cohort.
-        return cohort_is_member($cohortid, $USER->id);
+        return cohort_is_member($cohortid, $user->id);
     }
 
     public function get_description_page_url($course = null) {
