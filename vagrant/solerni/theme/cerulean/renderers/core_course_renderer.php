@@ -485,16 +485,14 @@ class theme_cerulean_core_course_renderer extends core_course_renderer {
      public function cerulean_frontpage_heading() {
 
          global $PAGE;
-         $heading =    ($PAGE->theme->settings->catalogtitle ) ?
+         $heading =    (isset($PAGE->theme->settings->catalogtitle) ) ?
                         $PAGE->theme->settings->catalogtitle :
                         get_string('catalogtitledefault', 'theme_cerulean');
 
-         $cataloglink = $PAGE->theme->settings->catalogue;
-
          ?>
         <div >
-            <?php if ($cataloglink) : ?>
-                <a href="<?php echo $cataloglink; ?>" >
+            <?php if (isset($PAGE->theme->settings->catalogue)) : ?>
+                <a href="<?php echo $PAGE->theme->settings->catalogue; ?>" >
                      <?php echo get_string('seecatalog', 'theme_cerulean'); ?>
                 </a>
             <?php endif;?>

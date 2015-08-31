@@ -29,12 +29,12 @@ if ( $courseinfos ) :
     <div class="<?php echo $classes; ?>"
          data-course-id="<?php echo $course->id; ?>" data-type="<?php echo self::COURSECAT_TYPE_COURSE; ?>">
         <div class="slrn-coursebox__column slrn-coursebox__column--image">
-            <?php if ($courseinfos->imgurl) : ?>
+            <?php if (isset($courseinfos->imgurl)) : ?>
                 <img class="slrn-coursebox__course-image"
                      src="<?php echo $imageutilities->get_resized_url($courseinfos->imgurl,
                              array('w' => 500, 'h' => 357, 'scale' => false), $courseinfos->file); ?>">
             <?php endif; ?>
-            <?php if ($customer->urlimg) : ?>
+            <?php if (isset($customer->urlimg)) : ?>
                 <a class="slrn-coursebox__course-image-customer" href="<?php echo $customerurl; ?>">
                     <img src="<?php echo $imageutilities->get_resized_url($customer->urlimg,
                                  array('w' => 35, 'h' => 35, 'scale' => true), $customer->fileimg); ?>">
@@ -47,7 +47,9 @@ if ( $courseinfos ) :
                 <?php echo get_string('courseproposedby', 'theme_cerulean'); ?>
                 <?php if ($customerurl) : ?>
                     <a class="link-primary" href="<?php echo $customerurl; ?>" class="slrn-coursebox__course-customer">
-                        <?php echo $customer->name; ?>
+                        <?php if (isset($customer->name)) {
+                            echo $customer->name;
+                        }?>
                     </a>
                 <?php endif; ?>
             </span>
