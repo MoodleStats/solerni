@@ -108,21 +108,29 @@ a.focus {
     margin-top:         @s-small-xs-margin;
     margin-bottom:      @s-small-xs-margin;
     height:             @s-double-md-margin;
+    background-color:   @brand-primary;
     font-size:          0;
     font-weight:        bold;
-    text-decoration:    none;
-    color:              @brand-primary;
+
+
 
     @media (min-width: @screen-md-min) {
-        height:         floor(@s-double-md-margin * 1.666666667);
+        height:         floor(@s-double-md-margin * 1.666666667);  // 50px
         margin-top:     @s-double-md-margin;
         margin-bottom:  @s-double-md-margin;
     }
 }
 
-.header-logo.mod-inverse {
+.header-logo,
+.header-logo:hover {
+    text-decoration:    none;
     color:              @brand-tertiary;
-    background-color:   @brand-primary;
+}
+
+.header-logo.mod-inverse {
+    background-color:   @body-bg;
+    color:              @brand-primary;
+
 }
 
     .logo-image {
@@ -137,7 +145,7 @@ a.focus {
     }
 
     .logo-brandname {
-        font-size: @s-double-xs-margin;
+        font-size:          @s-double-xs-margin;
 
         @media (min-width:  @screen-md-min) {
             font-size:      @s-double-md-margin;
