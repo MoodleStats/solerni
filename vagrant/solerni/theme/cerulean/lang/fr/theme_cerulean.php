@@ -30,6 +30,7 @@ $string['choosereadme']             = 'Orange Solerni Theme. Built from Bootstra
 $string['configtitle']              = 'Solerni';
 $string['region-side-top']          = 'Top';
 $string['region-main']              = 'Principale';
+$string['region-middle']              = 'Middle';
 
 // Frontpage settings.
 $string['frontpagesettings']            = 'Page d\'accueil';

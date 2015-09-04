@@ -30,6 +30,7 @@ $string['choosereadme']                 = 'Orange Solerni Theme. Built from Boot
 $string['configtitle']                  = 'Solerni';
 $string['region-side-top']              = 'Top';
 $string['region-main']                  = 'Main';
+$string['region-middle']                  = 'Middle';
 
 // Frontpage settings.
 $string['frontpagesettings']            = 'Frontpage';
