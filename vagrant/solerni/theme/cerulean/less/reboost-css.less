@@ -128,7 +128,7 @@ a.focus {
 }
 
 .header-logo.mod-inverse {
-    background-color:   @body-bg;
+    background-color:   @brand-tertiary;
     color:              @brand-primary;
 
 }
@@ -152,3 +152,93 @@ a.focus {
             margin-right:   @s-small-md-margin;
         }
     }
+
+    
+
+/*
+ * Footer nav elements
+  * */
+.list-link {
+    
+}
+
+    .link-item {
+        margin-bottom:  @s-triple-xs-margin;
+        text-align:     center;
+        
+        @media (min-width:  @screen-md-min) {
+            margin-bottom:  @s-triple-md-margin;
+            text-align:     left;
+        }
+    }
+    
+    .link-item:first-child {
+        padding:            @s-small-xs-margin 0;
+        font-weight:        bold;
+        background-color:   @gray-before-light-plus;
+        color:              @brand-primary;
+
+        @media (min-width: @screen-md-min) {
+            background-color:   transparent;
+        } 
+       
+    }
+
+    .link-item:last-child,
+    .link-item:first-child {
+        margin-bottom: @s-double-xs-margin;
+
+        @media (min-width:  @screen-md-min) {
+            margin-bottom: @s-double-md-margin;
+        }        
+    }
+    
+
+/*
+ * inverse color
+  * */
+
+.u-inverse {
+    background-color:   @brand-primary;
+    color:              @brand-tertiary;
+
+    // Links rules and colors
+    & a {
+        color: @brand-tertiary;
+    }
+
+    & a:visited,
+    & a.visited {
+        color:              @orange-light-4;
+        text-decoration:    none;
+    }
+    
+    & a:active,
+    & a.active,
+    & a:focus,
+    & a.focus {
+        color: @orange-light-4;
+    }
+    
+    & a:focus,
+    & a.focus {
+        outline:        1px dotted currentColor;
+        outline-offset: 2px;
+    }
+    
+    & .link-item:first-child {
+        @media (min-width: @screen-md-min) {
+            color: @brand-tertiary;
+        } 
+       
+    }
+
+}
+
+
+
+
+
+
+
+
