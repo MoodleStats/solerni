@@ -65,3 +65,20 @@ moosh role-configset roleid solerni_apprenant enrol_manual
 
 # Force Apache mod_rewrite - Plugin Local/Static Pages (#us_71)
 moosh config-set apacherewrite 1 local_staticpage
+
+# Manage enrolment method
+moosh enrol-manage enable orangeinvitation
+moosh enrol-manage enable self
+moosh enrol-manage disable cohort
+moosh enrol-manage disable guest
+
+# Manage blocks for 'my' page (Dashboard)
+moosh block-add system 0 course_overview my-index content 0
+moosh block-add system 0 calendar_upcoming my-index content 0
+moosh block-add system 0 private_files my-index content 0
+moosh block-add system 0 badges my-index content 0
+moosh block-add system 0 calendar_month my-index content 0
+moosh block-add system 0 news_items my-index content 0
+
+# Profile visible roles : List of roles that are visible on user profiles and participation page
+moosh role-configset profileroles solerni_apprenant,solerni_power_apprenant,solerni_animateur,solerni_teacher
