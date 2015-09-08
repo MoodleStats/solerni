@@ -77,3 +77,16 @@ moosh role-configset profileroles solerni_apprenant,solerni_power_apprenant,sole
 
 # Modify Document directory - Plugin Local/Static Pages (#us_71)
 moosh config-set documentdirectory /opt/solerni/customers/solerni/data/solerni/html local_staticpage
+
+# Block Orange course Dashboard (#us_102)
+moosh config-set catalogurl /catalog block_orange_course_dashboard
+moosh config-set hideblockheader 1 block_orange_course_dashboard
+
+# Manage blocks for 'my' page (Dashboard)
+moosh block-add system 0 course_overview my-index content 0
+moosh block-add system 0 orange_course_dashboard my-index content 0
+moosh block-add system 0 calendar_upcoming my-index content 0
+moosh block-add system 0 private_files my-index content 0
+moosh block-add system 0 badges my-index content 0
+moosh block-add system 0 calendar_month my-index content 0
+moosh block-add system 0 news_items my-index content 0
