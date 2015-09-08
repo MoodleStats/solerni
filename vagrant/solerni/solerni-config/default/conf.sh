@@ -37,7 +37,7 @@ moosh config-set guestloginbutton 0
 moosh config-set format flexpage moodlecourse
 
 # Default Theme (#us_185 and #us_186)
-moosh config-set theme cerulean
+moosh config-set theme halloween
 
 # Maximum number of moocs to display in frontPage (#us_114 and #us_119)
 moosh config-set frontpagecourselimit 5
