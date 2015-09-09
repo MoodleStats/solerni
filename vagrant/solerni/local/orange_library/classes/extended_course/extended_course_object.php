@@ -174,9 +174,7 @@ class extended_course_object {
         $customer = customer_get_customerbycategoryid($categoryid);
         $selfenrolment = new enrollment_object();
         $instance = $selfenrolment->get_self_enrolment($course);
-        if (!is_object($instance)) {
-            echo $course->id;
-        }
+
         $extendedcourseflexpagevalues = $DB->get_records('course_format_options',
                 array('courseid' => $course->id));
         foreach ($extendedcourseflexpagevalues as $extendedcourseflexpagevalue) {
@@ -192,9 +190,15 @@ class extended_course_object {
             $this->registrationcompany = $customer->name;
         }
         $this->enrolledusers = count_enrolled_users($context);
-        $this->enrolstartdate = $instance->enrolstartdate;
-        $this->enrolenddate = $instance->enrolenddate;
-        $this->maxregisteredusers = $instance->customint3;
+        if (isset($instance->enrolstartdate)) {
+            $this->enrolstartdate = $instance->enrolstartdate;
+        }
+        if (isset($instance->enrolenddate)) {
+            $this->enrolenddate = $instance->enrolenddate;
+        }
+        if (isset($instance->customint3)) {
+            $this->maxregisteredusers = $instance->customint3;
+        }
 
     }
 

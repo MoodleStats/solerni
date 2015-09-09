@@ -42,7 +42,7 @@ class backup_descriptionpage_activity_task extends backup_activity_task {
      * Defines a backup step to store the instance data in the page.xml file
      */
     protected function define_my_steps() {
-        $this->add_step(new backup_descriptionpage_activity_structure_step('page_structure', 'page.xml'));
+        $this->add_step(new backup_descriptionpage_activity_structure_step('descriptionpage_structure', 'descriptionpage.xml'));
     }
 
     /**

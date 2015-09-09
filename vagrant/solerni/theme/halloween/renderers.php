@@ -15,17 +15,15 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Page module version information
+ * This is built using the bootstrapbase template to allow for new theme's using
+ * Moodle's new Bootstrap theme engine
  *
- * @package local
- * @subpackage descriptionpage
- * @copyright  2015 Orange based on mod_page plugin from 2009 Petr Skoda (http://skodak.org)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     theme_halloween
+ * @copyright   2015 Orange
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+global $CFG;
 
-
-defined('MOODLE_INTERNAL') || die();
-
-$plugin->version   = 2015270800;       // The current module version (Date: YYYYMMDDXX).
-$plugin->requires  = 2014051207;    // Requires this Moodle version Moodle 2.7.7.
-$plugin->component = 'local_orange_library';       // Full name of the plugin (used for diagnostics).
+require_once('renderers/core_course_renderer.php');
+require_once('renderers/core_renderer.php');
+require_once('renderers/mod_quiz_renderer.php');
