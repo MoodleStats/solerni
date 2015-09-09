@@ -44,7 +44,7 @@ class block_orange_social_sharing_renderer extends plugin_renderer_base {
         $coursecontext = context_course::instance($COURSE->id);
 
         $blockrecord = $DB->get_record('block_instances', array('blockname' => 'orange_social_sharing',
-            'pagetypepattern' => 'mod-descriptionpage-view'), '*', MUST_EXIST);
+            'pagetypepattern' => 'mod-descriptionpage-view'), '*', IGNORE_MULTIPLE);
         $blockinstance = block_instance('orange_social_sharing', $blockrecord);
 
         if (!empty($blockinstance->config->facebook)) {
