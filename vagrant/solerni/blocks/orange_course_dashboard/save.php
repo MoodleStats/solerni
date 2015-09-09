@@ -15,17 +15,20 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Page module version information
+ * Save course order in course_overview block
  *
- * @package local
- * @subpackage descriptionpage
- * @copyright  2015 Orange based on mod_page plugin from 2009 Petr Skoda (http://skodak.org)
+ * @package    block_course_overview
+ * @copyright  2012 Adam Olley <adam.olley@netspot.com.au>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+define('AJAX_SCRIPT', true);
 
+require_once(dirname(__FILE__) . '/../../config.php');
+require_once(dirname(__FILE__) . '/locallib.php');
 
-defined('MOODLE_INTERNAL') || die();
+require_sesskey();
+require_login();
 
-$plugin->version   = 2015270800;       // The current module version (Date: YYYYMMDDXX).
-$plugin->requires  = 2014051207;    // Requires this Moodle version Moodle 2.7.7.
-$plugin->component = 'local_orange_library';       // Full name of the plugin (used for diagnostics).
+$sortorder = required_param_array('sortorder', PARAM_INT);
+
+block_course_overview_update_myorder($sortorder);

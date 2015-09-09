@@ -14,18 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Page module version information
- *
- * @package local
- * @subpackage descriptionpage
- * @copyright  2015 Orange based on mod_page plugin from 2009 Petr Skoda (http://skodak.org)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
-
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2015270800;       // The current module version (Date: YYYYMMDDXX).
-$plugin->requires  = 2014051207;    // Requires this Moodle version Moodle 2.7.7.
-$plugin->component = 'local_orange_library';       // Full name of the plugin (used for diagnostics).
+$plugin->component = 'local_staticpage';
+$plugin->version = 2014051200;
+$plugin->release = '2.7 (Build: 2014063000)';
+$plugin->requires = 2014051200;
+$plugin->maturity = MATURITY_STABLE;

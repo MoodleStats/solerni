@@ -15,17 +15,31 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Page module version information
+ * Orange Course Dashboard block caps.
  *
- * @package local
- * @subpackage descriptionpage
- * @copyright  2015 Orange based on mod_page plugin from 2009 Petr Skoda (http://skodak.org)
+ * @package    block_orange_course_dashboard
+ * @copyright  Orange 2015
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2015270800;       // The current module version (Date: YYYYMMDDXX).
-$plugin->requires  = 2014051207;    // Requires this Moodle version Moodle 2.7.7.
-$plugin->component = 'local_orange_library';       // Full name of the plugin (used for diagnostics).
+$capabilities = array(
+    'block/orange_course_dashboard:myaddinstance' => array(
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes' => array(
+            'user' => CAP_ALLOW
+            ),
+        'clonepermissionsfrom' => 'moodle/my:manageblocks'
+    ),
+    'block/orange_course_dashboard:addinstance' => array(
+        'riskbitmask' => RISK_SPAM | RISK_XSS,
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_BLOCK,
+        'archetypes' => array(
+            'manager' => CAP_ALLOW
+            ),
+        'clonepermissionsfrom' => 'moodle/site:manageblocks'
+    )
+);
