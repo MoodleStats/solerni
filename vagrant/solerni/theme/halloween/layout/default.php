@@ -20,16 +20,12 @@
 require_once($CFG->dirroot.'/course/format/flexpage/locallib.php');
 
 $hassidepre = $PAGE->blocks->region_has_content('side-pre', $OUTPUT);
-$hasmiddle = $PAGE->blocks->region_has_content('middle', $OUTPUT);
 $hassidepost = $PAGE->blocks->region_has_content('side-post', $OUTPUT);
 
 $knownregionpre = $PAGE->blocks->is_known_region('side-pre');
-
-$knownregionmiddle = $PAGE->blocks->is_known_region('middle');
-
 $knownregionpost = $PAGE->blocks->is_known_region('side-post');
 
-$regions = theme_halloween_bootstrap_grid($hassidepre, $hasmiddle, $hassidepost);
+$regions = theme_halloween_bootstrap_grid($hassidepre, $hassidepost);
 
 // Always show block regions when editing so blocks can
 // be dragged into empty block regions.
@@ -37,10 +33,6 @@ if ($PAGE->user_is_editing()) {
     if ($PAGE->blocks->is_known_region('side-pre')) {
         $showsidepre = true;
         $hassidepre  = true;
-    }
-    if ($PAGE->blocks->is_known_region('middle')) {
-        $showsidepost = true;
-        $hasmiddle  = true;
     }
     if ($PAGE->blocks->is_known_region('side-post')) {
         $showsidepost = true;
@@ -52,7 +44,7 @@ if ($PAGE->user_is_editing()) {
 }
 
 $PAGE->set_popup_notification_allowed(false);
-if ($knownregionpre || $knownregionpost || $knownregionmiddle) {
+if ($knownregionpre || $knownregionpost) {
     theme_bootstrap_initialise_zoom($PAGE);
 }
 $setzoom = theme_bootstrap_get_zoom();
@@ -103,7 +95,7 @@ echo $OUTPUT->doctype() ?>
         <div id="page-navbar" class="clearfix">
             <nav class="breadcrumb-nav" role="navigation" aria-label="breadcrumb"><?php echo $OUTPUT->navbar(); ?></nav>
             <div class="breadcrumb-button"><?php echo $OUTPUT->page_heading_button(); ?></div>
-            <?php if ($knownregionpre || $knownregionpost || $knownregionmiddle) { ?>
+            <?php if ($knownregionpre || $knownregionpost) { ?>
                 <div class="breadcrumb-button"> <?php echo $OUTPUT->content_zoom(); ?></div>
             <?php } ?>
         </div>
@@ -126,10 +118,6 @@ echo $OUTPUT->doctype() ?>
         <?php
         if ($knownregionpre) {
             echo $OUTPUT->blocks('side-pre', $regions['pre']);
-        }?>
-        <?php
-        if ($knownregionmiddle) {
-            echo $OUTPUT->blocks('middle', $regions['middle']);
         }?>
         <?php
         if ($knownregionpost) {

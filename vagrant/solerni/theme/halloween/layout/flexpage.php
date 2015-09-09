@@ -39,14 +39,12 @@ $hasnavbar = (empty($PAGE->layout_options['nonavbar']) && $PAGE->has_navbar());
 $hasfooter = (empty($PAGE->layout_options['nofooter']));
 $hassidetop = (empty($PAGE->layout_options['noblocks']) && $PAGE->blocks->region_has_content('side-top', $OUTPUT));
 $hassidepre = (empty($PAGE->layout_options['noblocks']) && $PAGE->blocks->region_has_content('side-pre', $OUTPUT));
-$hasmiddle = (empty($PAGE->layout_options['noblocks']) && $PAGE->blocks->region_has_content('middle', $OUTPUT));
 $hassidepost = (empty($PAGE->layout_options['noblocks']) && $PAGE->blocks->region_has_content('side-post', $OUTPUT));
 $haslogininfo = (empty($PAGE->layout_options['nologininfo']));
 
 $showsidepre = ($hassidepre && !$PAGE->blocks->region_completely_docked('side-pre', $OUTPUT));
 $showsidepost = ($hassidepost && !$PAGE->blocks->region_completely_docked('side-post', $OUTPUT));
-$showmiddle = ($hasmiddle && !$PAGE->blocks->region_completely_docked('middle', $OUTPUT));
-print_object($knownregionmiddle);
+
 // Always show block regions when editing so blocks can
 // be dragged into empty block regions.
 if ($PAGE->user_is_editing()) {
@@ -57,10 +55,6 @@ if ($PAGE->user_is_editing()) {
     if ($PAGE->blocks->is_known_region('side-post')) {
         $showsidepost = true;
         $hassidepost  = true;
-    }
-    if ($PAGE->blocks->is_known_region('middle')) {
-        $showmiddle = true;
-        $hasmiddle  = true;
     }
     if ($PAGE->blocks->is_known_region('side-top')) {
         $hassidetop = true;
@@ -181,8 +175,6 @@ echo $OUTPUT->doctype() ?>
                         <?php
                         if (!right_to_left()) {
                             echo $OUTPUT->blocks('side-pre');
-                        } elseif ($hasmiddle) {
-                            echo $OUTPUT->blocks('middle');
                         } elseif ($hassidepost) {
                             echo $OUTPUT->blocks('side-post');
                         } ?>
@@ -197,8 +189,6 @@ echo $OUTPUT->doctype() ?>
                         <?php
                         if (!right_to_left()) {
                             echo $OUTPUT->blocks('side-post');
-                        } elseif ($hasmiddle) {
-                            echo $OUTPUT->blocks('middle');
                         } elseif ($hassidepre) {
                             echo $OUTPUT->blocks('side-pre');
                         } ?>

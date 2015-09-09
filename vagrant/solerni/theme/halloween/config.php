@@ -116,7 +116,7 @@ $THEME->parents_exclude_sheets = true;
 $THEME->layouts = array(
     'format_flexpage' => array(
         'file' => 'default.php',
-        'regions' => array('side-top', 'side-pre', 'middle', 'main', 'side-post'),
+        'regions' => array('side-top', 'side-pre', 'main', 'side-post'),
         'defaultregion' => 'main',
         'options' => array('langmenu'=>true),
     )

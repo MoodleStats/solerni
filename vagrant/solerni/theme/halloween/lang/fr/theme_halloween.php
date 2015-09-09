@@ -30,7 +30,6 @@ $string['choosereadme']             = 'Halloween Moodle Theme. Built from Bootst
 $string['configtitle']              = 'Halloween';
 $string['region-side-top']          = 'Top';
 $string['region-main']              = 'Principale';
-$string['region-middle']            = 'Milieu';
 
 // Frontpage settings.
 $string['frontpagesettings']            = 'Page d\'accueil';
