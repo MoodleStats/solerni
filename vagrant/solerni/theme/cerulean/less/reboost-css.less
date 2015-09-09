@@ -203,20 +203,27 @@ a.focus {
     color:              @brand-tertiary;
 
     // Links rules and colors
-    & a {
+    & a,
+    & li a {
         color: @brand-tertiary;
     }
 
     & a:visited,
-    & a.visited {
+    & a.visited,
+    & li a:visited,
+    & li a.visited {
         color:              @orange-light-4;
         text-decoration:    none;
     }
     
     & a:active,
     & a.active,
+    & li a.active,
+    & li a:active,
     & a:focus,
-    & a.focus {
+    & a.focus,
+    & li a:focus,
+    & li a.focus {
         color: @orange-light-4;
     }
     
@@ -234,11 +241,3 @@ a.focus {
     }
 
 }
-
-
-
-
-
-
-
-
