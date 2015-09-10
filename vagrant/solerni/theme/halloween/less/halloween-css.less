@@ -1,8 +1,9 @@
 /*
- * This file include Solerni CSS specific code
- * that does not lengthy enough to be into a specific file
- *
+ * This file include Solerni CSS specific code :
+ * First, import CSS files for complex objects, keep code
+ * that is not lengthy enough to be into a specific file
  */
+@import "u-inverse.less";
 
 
 // Probably never use, but we never know.
@@ -18,6 +19,7 @@
     font-family: @font-family-monospace;
 }
 
+// Titles
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6, p {
     line-height:    1.5; // 63px, 42px, 36px, 31px, 15px, 13px and 20px baseline
@@ -111,8 +113,6 @@ a.focus {
     font-size:          0;
     font-weight:        bold;
 
-
-
     @media (min-width: @screen-md-min) {
         height:         floor(@s-double-md-margin * 1.666666667);  // 50px
         margin-top:     @s-double-md-margin;
@@ -124,7 +124,6 @@ a.focus {
 .header-logo:hover {
     text-decoration:    none;
 }
-
 
     .logo-image {
         vertical-align: baseline;
@@ -146,14 +145,10 @@ a.focus {
         }
     }
 
-
-
 /*
  * Footer nav elements
   * */
-.list-link {
-
-}
+.list-link {}
 
     .link-item {
         margin-bottom:  @s-triple-xs-margin;
@@ -187,69 +182,23 @@ a.focus {
     }
 
 
-/*
- * inverse color.
- * This class should tell to any child element that it should adopt
- * an inversed layout between background and foreground.
+ /*
+  * Dropdowns
   * */
 
-.u-inverse {
-    background-color:   @brand-primary;
-    color:              @brand-tertiary;
-
-    // Links rules and colors
-    & a,
-    & li a {
-        color: @brand-tertiary;
-    }
-
-    & a:visited,
-    & a.visited,
-    & li a:visited,
-    & li a.visited {
-        color:              @orange-light-4;
-        text-decoration:    none;
-    }
-
-    & a:active,
-    & a.active,
-    & li a.active,
-    & li a:active,
-    & a:focus,
-    & a.focus,
-    & li a:focus,
-    & li a.focus {
-        color: @orange-light-4;
-    }
-
-    & a:focus,
-    & a.focus {
-        outline:        1px dotted currentColor;
-        outline-offset: 2px;
-    }
-
-    & .link-item:first-child {
-        @media (min-width: @screen-md-min) {
-            color: @brand-tertiary;
-        }
-
-    }
-
-    // button dropdown
-
-    & button {
-        background-color:   @brand-primary;
-        color:              @brand-tertiary;
-    }
-}
+ div[role="main"] button + .dropdown-menu {
+     padding:       0;
+     left:          5px;
+     margin-top:    -3px;
+ }
 
 /*
  * Header
   * */
 
-.header {
+.skip-links {}
 
-}
+.header {}
 
 
 
