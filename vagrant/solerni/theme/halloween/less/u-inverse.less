@@ -58,7 +58,6 @@
 
     // dropdown
     & .dropdown-menu {
-        margin-left: -24px;
         background-color: @brand-primary;
         border: 2px solid @brand-tertiary;
     }
@@ -72,15 +71,14 @@
         }
     }
 
-    & .list-link .btn {
+    // Dropdown button inside the u-inverse footer
+    &.footer .dropdown .btn {
         border:      0;
-        margin-left: -20px;
+        margin-left: -20px;             // Apparently removing left padding
+    }
 
-        &:hover,
-        &:active {
-            color:              currentColor;
-            background-color:   transparent;
-        }
+    &.footer .dropdown .dropdown-menu {
+        margin-left: -25px;
     }
 
 }
