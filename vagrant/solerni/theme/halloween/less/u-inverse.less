@@ -57,9 +57,30 @@
     }
 
     // dropdown
-    & .dropdown-menu a {
-        color: @brand-primary;
+    & .dropdown-menu {
+        margin-left: -24px;
+        background-color: @brand-primary;
+        border: 2px solid @brand-tertiary;
     }
 
+    & .dropdown-menu a {
+        color: @brand-tertiary;
+
+        &:hover {
+            color:              @brand-primary;
+            background-color:   @gray-lighter;
+        }
+    }
+
+    & .list-link .btn {
+        border:      0;
+        margin-left: -20px;
+
+        &:hover,
+        &:active {
+            color:              currentColor;
+            background-color:   transparent;
+        }
+    }
 
 }
