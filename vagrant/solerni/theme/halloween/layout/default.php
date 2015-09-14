@@ -63,7 +63,7 @@ echo $OUTPUT->doctype() ?>
 <?php echo $OUTPUT->standard_top_of_body_html() ?>
 
 <nav role="navigation" class="navbar navbar-default">
-    <div class="container-fluid">
+    <div class="container">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#moodle-navbar">
             <span class="sr-only">Toggle navigation</span>
@@ -84,13 +84,13 @@ echo $OUTPUT->doctype() ?>
     </div>
 </nav>
 <header class="moodleheader">
-    <div class="container-fluid">
+    <div class="container">
     <a href="<?php echo $CFG->wwwroot ?>" class="logo"></a>
     <?php echo $OUTPUT->page_heading(); ?>
     </div>
 </header>
 
-<div id="page" class="container-fluid">
+<div id="page" class="container">
     <header id="page-header" class="clearfix">
         <div id="page-navbar" class="clearfix">
             <nav class="breadcrumb-nav" role="navigation" aria-label="breadcrumb"><?php echo $OUTPUT->navbar(); ?></nav>

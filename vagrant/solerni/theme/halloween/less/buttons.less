@@ -17,7 +17,7 @@
     background-color: @background;
     border-color:     @border;
     text-decoration:  none;
-    padding:          12px 20px;
+    padding:          11px 20px;
 
     &:visited {
         color:            @color;
@@ -70,8 +70,22 @@
     }
 
     .badge {
-        color: @background;
-        background-color: @color;
+        color:              @background;
+        background-color:   @color;
+    }
+
+    .dropdown &:hover.btn,
+    .dropdown &:focus.btn,
+    .dropdown &:active.btn {
+        color:              @color;
+        background-color:   @background;
+        border-color:       @background;
+    }
+
+    .u-inverse .dropdown &:hover.btn,
+    .u-inverse .dropdown &:focus.btn,
+    .u-inverse .dropdown &:active.btn {
+        border-color:   @color;
     }
 }
 
@@ -133,4 +147,11 @@
         @btn-engage-color-active; @btn-engage-bg-active
     );
 }
+
+// Small button
+.btn-sm {
+    font-size:  @font-size-base;
+    padding:    4px 20px 2px 20px;
+}
+
 
