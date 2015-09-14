@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -18,13 +17,27 @@
 /**
  * Strings for component 'auth_google', language 'fr'
  *
- * @package    local
- * @subpackage orange_customers
+ * @package   auth_google
  * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 $string['pluginname'] = 'Oauth2';
+$string['auth_battlenetclientid'] = 'Votre App ID/Secret peut être généré sur <a href="https://dev.battle.net/apps/mykeys">le site Battle.net API</a>.
+Saisissez les paramètres suivants lors de la création d\'une application:
+<br/>Web site: {$a->siteurl}
+<br/>Register callback url: {$a->callbackurl} [Il faut une url HTTPS sinon Battle.net refuse de vous logger]
+<br/>Franchises: Starcraft II';
+$string['auth_battlenetclientid_key'] = 'Battle.net key';
+$string['auth_battlenetclientsecret'] = '';
+$string['auth_battlenetclientsecret_key'] = 'Battle.net secret';
+$string['auth_dropboxclientid'] = 'Votre App ID/Secret peut être généré dans la <a href="https://www.dropbox.com/developers/apps">console Dropbox app</a>.
+Saisissez les paramètres suivants lors de la création d\'une application:
+<br/>App website: {$a->siteurl}
+<br/>Redirect URIs: {$a->callbackurl}';
+$string['auth_dropboxclientid_key'] = 'Dropbox App key';
+$string['auth_dropboxclientsecret'] = '';
+$string['auth_dropboxclientsecret_key'] = 'Dropbox App secret';
 $string['auth_facebookclientid'] = 'Votre App ID/Secret peut être généré dans la <a href="https://developers.facebook.com/apps/">page Facebook pour developer</a>:
 <br/>Add a new app > Website > Enter your site name as app name > Create new facebook app ID > Enter the Site URL - no need to enter Mobile URL > On the confirmation page, look for the "Skip to Developer Dashboard" link > on the app dashboard you should find the id/secret > Settings > Advanced > enter the Valid OAuth redirect URIs
 <br/>Site URL: {$a->siteurl}
@@ -33,7 +46,7 @@ $string['auth_facebookclientid'] = 'Votre App ID/Secret peut être généré dan
 $string['auth_facebookclientid_key'] = 'Facebook App ID';
 $string['auth_facebookclientsecret'] = 'Voir ci-dessus.';
 $string['auth_facebookclientsecret_key'] = 'Facebook App secret';
-$string['auth_githubclientid'] = 'Votre client ID/Secret peut être généré dans la  <a href="https://github.com/settings/applications/new">page Github</a>:
+$string['auth_githubclientid'] = 'Votre client ID/Secret peut être généré dans la <a href="https://github.com/settings/applications/new">page Github</a>:
 <br/>Homepage URL: {$a->siteurl}
 <br/>Authorization callback URL: {$a->callbackurl}';
 $string['auth_githubclientid_key'] = 'ID client Github';
@@ -63,12 +76,17 @@ $string['auth_linkedinclientid'] = 'Votre clef API/Secret peut être générée 
 $string['auth_linkedinclientid_key'] = 'Linkedin API Key';
 $string['auth_linkedinclientsecret'] = 'Voir ci-dessus.';
 $string['auth_linkedinclientsecret_key'] = 'Linkedin Secret key';
+$string['auth_vkclientid_key'] = 'VK app id';
+$string['auth_vkclientsecret_key'] = 'VK app secret';
+$string['auth_vkclientid'] = 'Votre App ID/Secret peut être généré dans la <a href="https://vk.com/editapp?act=create">page VK developer</a>.<br/>
+Base domain: {$a->siteurl} (without http://)<br/>
+Site address: {$a->callbackurl}';
+$string['auth_vkclientsecret'] = '';
 $string['auth_messengerclientid'] = 'Votre clef API/Secret peut être générée dans la <a href="https://account.live.com/developers/applications">page Windows Live apps</a>:
 <br/>Redirect domain: {$a->domain}';
 $string['auth_messengerclientid_key'] = 'Messenger Client ID';
 $string['auth_messengerclientsecret'] = 'Voir ci-dessus.';
 $string['auth_messengerclientsecret_key'] = 'Messenger Client secret';
-
 $string['auth_googlesettings'] = 'Paramétrages';
 $string['couldnotauthenticate'] = 'L\'authentification a échoué - Essayer de vous re-connecter.';
 $string['couldnotgetgoogleaccesstoken'] = 'Il y a une erreur de communication entre Solerni et le site d\'authentification. Essayer de vous re-connecter.';
@@ -82,8 +100,8 @@ $string['oauth2displaybuttonshelp'] = 'Afficher les boutons de logo Google/Faceb
 {$a}';
 $string['emailaddressmustbeverified'] = 'Votre adresse email n\'est pas vérifiée par la méthode d\'authentification que vous avez sélectionné. Vous avez sans doute oublié de cliquer sur le lien "vérifier mon adresse email" que Google ou Facebook vous a envoyé lors de votre inscription à leur service.';
 $string['auth_sign-in_with'] = '{$a->providername}';
-$string['moreproviderlink'] = 'S\'authentifier avec un autre service.';
+$string['moreproviderlink'] = 'S’authentifier avec un autre service.';
 $string['signinwithanaccount'] = 'S\'authentifier avec:';
-$string['noaccountyet'] = 'Vous n\'avez plus la permission d\'utiliser ce sire. Contactez votre administrateur et demander lui d\'activer votre compte.';
+$string['noaccountyet'] = 'Vous n\'avez plus la permission d\'utiliser ce site. Contactez votre administrateur et demander lui d\'activer votre compte.';
 $string['unknownfirstname'] = 'Nom inconnu';
 $string['unknownlastname'] = 'Prénom inconnu';
