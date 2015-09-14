@@ -401,5 +401,4 @@ moosh role-update-capability solerni_course_creator local/orange_thematics:edit 
 moosh role-update-capability solerni_course_creator moodle/user:loginas allow 1
 
 # Update teacher role
-moosh role-update-capability solerni_teacher moodle/role:review allow 1
 moosh role-update-capability solerni_course_creator moodle/user:loginas allow 1

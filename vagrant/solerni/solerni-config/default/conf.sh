@@ -92,4 +92,4 @@ moosh block-add system 0 calendar_month my-index content 0
 moosh block-add system 0 news_items my-index content 0
 
 # Enable self enrolment method in new courses - Plugin Enrolments/Self enrolment
-moosh configset status 1 enrol_self
+moosh config-set status 1 enrol_self
