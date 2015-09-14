@@ -190,7 +190,7 @@ a.focus {
     padding-bottom: @font-size-base;
     margin-bottom: 0;
  }
- 
+
     .social-item {
         display: inline-block;
         vertical-align: middle;
@@ -200,12 +200,12 @@ a.focus {
             margin-right: @s-double-xs-margin;
         }
     }
-    
-    .social-item:first-child { 
+
+    .social-item:first-child {
         margin-right: @font-size-base;
     }
-    
-    .social-item:last-child { 
+
+    .social-item:last-child {
         margin-right: 0;
     }
 
@@ -232,6 +232,11 @@ a.focus {
 .header .btn-sm {
     float:      right;
     margin-top: 10px;
+
+    @media (min-width:  @screen-sm-min) {
+        margin-top: @s-triple-md-margin;
+    }
+
 }
 
 /**
