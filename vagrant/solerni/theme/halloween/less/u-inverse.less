@@ -43,7 +43,11 @@
         @media (min-width: @screen-md-min) {
             color: @brand-tertiary;
         }
-
+    }
+    
+    & h1, & h4, & h5, & h6,
+    & .h1, & .h4, & .h5, & .h6, & p {
+        color: @brand-tertiary;
     }
 
     // button tag
@@ -79,6 +83,11 @@
 
     &.footer .dropdown .dropdown-menu {
         margin-left: -25px;
+    }
+    
+    & .list-social {
+        border-bottom-color: @gray;
+        
     }
 
 }
