@@ -4,6 +4,7 @@
  * that is not lengthy enough to be into a specific file
  */
 @import "u-inverse.less";
+@import "iconHalloween.less";
 
 
 // Probably never use, but we never know.
@@ -162,7 +163,6 @@ a.focus {
 
     .link-item:first-child {
         padding:            @s-small-xs-margin 0;
-        font-weight:        bold;
         background-color:   @gray-before-light-plus;
         color:              @brand-primary;
 
@@ -181,6 +181,28 @@ a.focus {
         }
     }
 
+ /*
+  * Social class
+  * */
+
+ .list-social {
+             border-bottom-style: solid;
+             border-bottom-width: 1px;
+ }
+ 
+    .social-item {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: @s-small-xs-margin;
+
+        @media (min-width:  @screen-md-min) {
+            margin-right: @s-double-xs-margin;
+        }
+    }
+    
+    .social-item:first-child { 
+        margin-right: @font-size-base;
+    }
 
  /*
   * Dropdowns
