@@ -113,7 +113,7 @@ a.focus {
     font-size:          0;
     font-weight:        bold;
 
-    @media (min-width: @screen-md-min) {
+    @media (min-width: @screen-sm-min) {
         height:         floor(@s-double-md-margin * 1.666666667);  // 50px
         margin-top:     @s-double-md-margin;
         margin-bottom:  @s-double-md-margin;
@@ -196,9 +196,16 @@ a.focus {
  * Header
   * */
 
-.skip-links {}
+.skip-links a {
+    display:    inline-block;
+    overflow:   hidden;
+    height:     0;
+}
 
-.header {}
+.header .btn-sm {
+    float:      right;
+    margin-top: 10px;
+}
 
 
 

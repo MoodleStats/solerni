@@ -22,6 +22,7 @@
  * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+namespace orange_thematics;
 
 require_once($CFG->dirroot . '/local/orange_thematics/forms/orange_thematics_form.php');
 require_once($CFG->dirroot . '/local/orange_thematics/forms/orange_thematics_list.php');
