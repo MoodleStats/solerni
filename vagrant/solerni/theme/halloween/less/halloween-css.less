@@ -186,8 +186,9 @@ a.focus {
   * */
 
  .list-social {
-             border-bottom-style: solid;
-             border-bottom-width: 1px;
+    padding-top: @font-size-base;
+    padding-bottom: @font-size-base;
+    margin-bottom: 0;
  }
  
     .social-item {
@@ -202,6 +203,10 @@ a.focus {
     
     .social-item:first-child { 
         margin-right: @font-size-base;
+    }
+    
+    .social-item:last-child { 
+        margin-right: 0;
     }
 
  /*
@@ -222,6 +227,12 @@ a.focus {
 
 .header {}
 
-
+/**
+* Line
+**/
+.full_width_line {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
 
 
