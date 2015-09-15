@@ -1,6 +1,25 @@
 #!/bin/bash
 # Fichier "default/conf.sh"
 
+# load of ansible variables us_290
+. ./env_moosh.cfg
+# ${CUSTOMER_LOG_DB_HOST}
+# ${CUSTOMER_LOG_DB_NAME}
+# ${CUSTOMER_LOG_DB_USERNAME}
+# ${CUSTOMER_LOG_DB_PASSWORD}
+# ${CUSTOMER_STATS_DB_HOST}
+# ${CUSTOMER_STATS_DB_NAME}
+# ${CUSTOMER_STATS_DB_USERNAME}
+# ${CUSTOMER_STATS_DB_PASSWORD}
+# ${CUSTOMER_PIWIK_URL}
+
+# add conf for external logs (#us_289)
+moosh config-set dbhost ${CUSTOMER_LOG_DB_HOST} logstore_database
+moosh config-set dbuser ${CUSTOMER_LOG_DB_USERNAME} logstore_database
+moosh config-set dbpass ${CUSTOMER_LOG_DB_PASSWORD} logstore_database
+moosh config-set dbname ${CUSTOMER_LOG_DB_NAME} logstore_database
+moosh config-set dbtable mdl_logstore_standard_log logstore_database
+
 # First install : import Solerni roles
 # Attention : order is important to keep roles assignments
 moosh role-import solerni_utilisateur solerni-config/default/users_roles/solerni_utilisateur.xml
