@@ -1,6 +1,29 @@
 #!/bin/bash
 # Fichier "default/conf.sh"
 
+# load of ansible variables us_290
+. ./solerni-config/default/env_moosh.cfg
+# ${CUSTOMER_LOG_DB_HOST}
+# ${CUSTOMER_LOG_DB_NAME}
+# ${CUSTOMER_LOG_DB_USERNAME}
+# ${CUSTOMER_LOG_DB_PASSWORD}
+# ${CUSTOMER_STATS_DB_HOST}
+# ${CUSTOMER_STATS_DB_NAME}
+# ${CUSTOMER_STATS_DB_USERNAME}
+# ${CUSTOMER_STATS_DB_PASSWORD}
+# ${CUSTOMER_PIWIK_URL}
+
+# add conf for external logs (#us_289)
+# moosh config-set enabled_stores logstore_standard,logstore_database,logstore_legacy tool_log
+moosh config-set enabled_stores logstore_standard tool_log
+# moosh config-set enabled_stores logstore_standard,logstore_database tool_log
+moosh config-set dbdriver native/mysqli logstore_database
+moosh config-set dbhost ${CUSTOMER_LOG_DB_HOST} logstore_database
+moosh config-set dbuser ${CUSTOMER_LOG_DB_USERNAME} logstore_database
+moosh config-set dbpass ${CUSTOMER_LOG_DB_PASSWORD} logstore_database
+moosh config-set dbname ${CUSTOMER_LOG_DB_NAME} logstore_database
+moosh config-set dbtable mdl_logstore_standard_log logstore_database
+
 # First install : import Solerni roles
 # Attention : order is important to keep roles assignments
 moosh role-import solerni_utilisateur solerni-config/default/users_roles/solerni_utilisateur.xml
@@ -37,7 +60,7 @@ moosh config-set guestloginbutton 0
 moosh config-set format flexpage moodlecourse
 
 # Default Theme (#us_185 and #us_186)
-moosh config-set theme cerulean
+moosh config-set theme halloween
 
 # Maximum number of moocs to display in frontPage (#us_114 and #us_119)
 moosh config-set frontpagecourselimit 5
@@ -80,3 +103,19 @@ moosh config-set documentdirectory /opt/solerni/customers/solerni/data/solerni/h
 
 # Path of geoipfile for geolocation (#us_247)
 moosh config-set geoipfile /opt/solerni/misc/geoip/GeoIP.dat 
+
+# Block Orange course Dashboard (#us_102)
+moosh config-set catalogurl /catalog block_orange_course_dashboard
+moosh config-set hideblockheader 1 block_orange_course_dashboard
+
+# Manage blocks for 'my' page (Dashboard)
+moosh block-add system 0 course_overview my-index content 0
+moosh block-add system 0 orange_course_dashboard my-index content 0
+moosh block-add system 0 calendar_upcoming my-index content 0
+moosh block-add system 0 private_files my-index content 0
+moosh block-add system 0 badges my-index content 0
+moosh block-add system 0 calendar_month my-index content 0
+moosh block-add system 0 news_items my-index content 0
+
+# Enable self enrolment method in new courses - Plugin Enrolments/Self enrolment
+moosh config-set status 1 enrol_self
