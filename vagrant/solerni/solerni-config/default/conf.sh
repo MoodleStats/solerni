@@ -2,7 +2,7 @@
 # Fichier "default/conf.sh"
 
 # load of ansible variables us_290
-. ./env_moosh.cfg
+. ./solerni-config/default/env_moosh.cfg
 # ${CUSTOMER_LOG_DB_HOST}
 # ${CUSTOMER_LOG_DB_NAME}
 # ${CUSTOMER_LOG_DB_USERNAME}
@@ -14,6 +14,10 @@
 # ${CUSTOMER_PIWIK_URL}
 
 # add conf for external logs (#us_289)
+# moosh config-set enabled_stores logstore_standard,logstore_database,logstore_legacy tool_log
+moosh config-set enabled_stores logstore_standard tool_log
+# moosh config-set enabled_stores logstore_standard,logstore_database tool_log
+moosh config-set dbdriver native/mysqli logstore_database
 moosh config-set dbhost ${CUSTOMER_LOG_DB_HOST} logstore_database
 moosh config-set dbuser ${CUSTOMER_LOG_DB_USERNAME} logstore_database
 moosh config-set dbpass ${CUSTOMER_LOG_DB_PASSWORD} logstore_database
