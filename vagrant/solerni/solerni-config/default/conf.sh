@@ -101,6 +101,9 @@ moosh role-configset profileroles solerni_apprenant,solerni_power_apprenant,sole
 # Modify Document directory - Plugin Local/Static Pages (#us_71)
 moosh config-set documentdirectory /opt/solerni/customers/solerni/data/solerni/html local_staticpage
 
+# Path of geoipfile for geolocation (#us_247)
+moosh config-set geoipfile /opt/solerni/misc/geoip/GeoIP.dat 
+
 # Block Orange course Dashboard (#us_102)
 moosh config-set catalogurl /catalog block_orange_course_dashboard
 moosh config-set hideblockheader 1 block_orange_course_dashboard
