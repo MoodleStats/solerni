@@ -15,7 +15,7 @@
 
 # add conf for external logs (#us_289)
 # moosh config-set enabled_stores logstore_standard,logstore_database,logstore_legacy tool_log
-moosh config-set enabled_stores logstore_standard tool_log
+moosh config-set enabled_stores logstore_standard,logstore_database tool_log
 # moosh config-set enabled_stores logstore_standard,logstore_database tool_log
 moosh config-set dbdriver native/mysqli logstore_database
 moosh config-set dbhost ${CUSTOMER_LOG_DB_HOST} logstore_database
