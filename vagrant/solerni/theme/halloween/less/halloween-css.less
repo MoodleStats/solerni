@@ -146,7 +146,7 @@ a.focus {
 
 /*
  * Footer nav elements
-  * */
+ * */
 .list-link {}
 
     .link-item {
@@ -186,8 +186,12 @@ a.focus {
  .list-social {
     padding-top:    @font-size-base;
     padding-bottom: @font-size-base;
-    padding-right:  0;
     margin-bottom:  0;
+ }
+
+  div[role="main"] .list-social {
+    padding-top:    @font-size-base; // Override because bootstrap specificity
+    padding-bottom: @font-size-base;
  }
 
     .social-item {
@@ -220,7 +224,10 @@ a.focus {
 
 /*
  * Header
-  * */
+ * */
+.skip-links {
+    height: 0;
+}
 
 .skip-links a {
     display:    inline-block;
@@ -228,27 +235,28 @@ a.focus {
     height:     0;
 }
 
-.header .btn-sm {
-    float:      right;
-    margin-top: 10px;
-
-    @media (min-width:  @screen-sm-min) {
-        margin-top: @s-triple-md-margin;
-    }
+.skip-links a:focus {
+    height: auto;
+    color:  @brand-tertiary;
 }
 
-/**
-* Line
-**/
+.header{}
+
+    .action-area {
+        position:   absolute;
+        right:      (@grid-gutter-width / 2);
+        bottom:     @s-small-xs-margin;         // Same value as logo margin
+
+        @media (min-width:  @screen-sm-min) {
+            bottom: @s-double-md-margin;
+        }
+    }
+
+/*
+ * Line
+ * */
 .fullwidth-line {
+    border-bottom-color: @brand-primary;
     border-bottom-style: solid;
     border-bottom-width: 1px;
 }
-
-div[role="main"] .list-social,
-.list-social {
-    padding-top:    @font-size-base;
-    padding-bottom: @font-size-base;
-    padding-right:  0;
-}
-
