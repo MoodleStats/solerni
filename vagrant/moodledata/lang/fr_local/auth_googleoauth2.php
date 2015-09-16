@@ -64,12 +64,12 @@ You also need to <strong>enable the "Google+ API"</strong> in Project > APIS & A
 $string['auth_googleclientid_key'] = 'Google Client ID';
 $string['auth_googleclientsecret'] = 'Voir ci-dessus.';
 $string['auth_googleclientsecret_key'] = 'Google Client secret';
-$string['auth_googleipinfodbkey'] = 'IPinfoDB est un service qui vous permet de connaitre le pays et la ville de vos visiteurs. Ce paramétrage est optionel. Vous pouvez souscrire à <a href="http://www.ipinfodb.com/register.php">IPinfoDB</a> pour avoir une clef.<br/>
+$string['auth_googleipinfodbkey'] = 'IPinfoDB est un service qui vous permet de connaître le pays et la ville de vos visiteurs. Ce paramétrage est optionel. Vous pouvez souscrire à <a href="http://www.ipinfodb.com/register.php">IPinfoDB</a> pour avoir une clef.<br/>
 Website: {$a->website}';
 $string['auth_googleipinfodbkey_key'] = 'IPinfoDB Key';
 $string['auth_googleuserprefix'] = 'Le pseudo des utilisateurs commencera par ce prefix. Sur un site Moodle basic, vous n\'avez pas à changer cette option';
 $string['auth_googleuserprefix_key'] = 'Pseudo prefix';
-$string['auth_googleoauth2description'] = 'Ce plugin offre aux utilisateurs la opssibilité de se connecter sur le site via un fournisseur externe: Google/Facebook/Windows Live. La première fois que l\'utilisateur se connecte via ce plugin, un nouveau compte est créé. L\'option <a href="'.$CFG->wwwroot.'/admin/search.php?query=authpreventaccountcreation">Empêcher la création de compte lors de l\'authentification</a> <b>doit</b> être décochée.';
+$string['auth_googleoauth2description'] = 'Ce plugin offre aux utilisateurs la possibilité de se connecter sur le site via un fournisseur externe: Google/Facebook/Windows Live. La première fois que l\'utilisateur se connecte via ce plugin, un nouveau compte est créé. L\'option <a href="'.$CFG->wwwroot.'/admin/search.php?query=authpreventaccountcreation">Empêcher la création de compte lors de l\'authentification</a> <b>doit</b> être décochée.';
 $string['auth_linkedinclientid'] = 'Votre clef API/Secret peut être générée dans la <a href="https://www.linkedin.com/secure/developer">page Linkedin register application</a>:
 <br/>Website URL: {$a->siteurl}
 <br/>OAuth 1.0 Accept Redirect URL: {$a->callbackurl}';
@@ -88,20 +88,20 @@ $string['auth_messengerclientid_key'] = 'Messenger Client ID';
 $string['auth_messengerclientsecret'] = 'Voir ci-dessus.';
 $string['auth_messengerclientsecret_key'] = 'Messenger Client secret';
 $string['auth_googlesettings'] = 'Paramétrages';
-$string['couldnotauthenticate'] = 'L\'authentification a échoué - Essayer de vous re-connecter.';
-$string['couldnotgetgoogleaccesstoken'] = 'Il y a une erreur de communication entre Solerni et le site d\'authentification. Essayer de vous re-connecter.';
+$string['couldnotauthenticate'] = 'L\'authentification a échoué - Essayez de vous re-connecter.';
+$string['couldnotgetgoogleaccesstoken'] = 'Il y a une erreur de communication entre Solerni et le site d\'authentification. Essayez de vous re-connecter.';
 $string['couldnotauthenticateuserlogin'] = 'Erreur d\'authentification.<br/>
 L\'utilisateur existe déjà sur Solerni, connectez-vous avec votre login et mot de passe.<br/>
 <br/>
 <a href="{$a->loginpage}">Essayez de vous re-connecter</a>.<br/>
 <a href="{$a->forgotpass}">Vous avez oublié votre mot de passe</a>?';
 $string['oauth2displaybuttons'] = 'Afficher les boutons sur la page de login';
-$string['oauth2displaybuttonshelp'] = 'Afficher les boutons de logo Google/Facebook/... en haut de la page. Si vous voulez positionner vous-même ces boutons, vous opuvez garder cette option non coché et ajouter vous-même le code suivant:
+$string['oauth2displaybuttonshelp'] = 'Afficher les boutons de logo Google/Facebook/... en haut de la page. Si vous voulez positionner vous-même ces boutons, vous pouvez garder cette option non cochée et ajouter vous-même le code suivant:
 {$a}';
-$string['emailaddressmustbeverified'] = 'Votre adresse email n\'est pas vérifiée par la méthode d\'authentification que vous avez sélectionné. Vous avez sans doute oublié de cliquer sur le lien "vérifier mon adresse email" que Google ou Facebook vous a envoyé lors de votre inscription à leur service.';
+$string['emailaddressmustbeverified'] = 'Votre adresse email n\'est pas vérifiée par la méthode d\'authentification que vous avez sélectionnée. Vous avez sans doute oublié de cliquer sur le lien "vérifier mon adresse email" que Google ou Facebook vous a envoyé lors de votre inscription à leur service.';
 $string['auth_sign-in_with'] = '{$a->providername}';
 $string['moreproviderlink'] = 'S’authentifier avec un autre service.';
 $string['signinwithanaccount'] = 'S\'authentifier avec:';
-$string['noaccountyet'] = 'Vous n\'avez plus la permission d\'utiliser ce site. Contactez votre administrateur et demander lui d\'activer votre compte.';
+$string['noaccountyet'] = 'Vous n\'avez plus la permission d\'utiliser ce site. Contactez votre administrateur et demandez-lui d\'activer votre compte.';
 $string['unknownfirstname'] = 'Nom inconnu';
 $string['unknownlastname'] = 'Prénom inconnu';
