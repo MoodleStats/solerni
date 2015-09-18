@@ -23,7 +23,7 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-include_once($CFG->dirroot . "/mod/quiz/renderer.php");
+require_once($CFG->dirroot . "/mod/quiz/renderer.php");
 
 class theme_halloween_mod_quiz_renderer extends mod_quiz_renderer {
     /**
@@ -44,11 +44,12 @@ class theme_halloween_mod_quiz_renderer extends mod_quiz_renderer {
                 'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
                 'id' => 'responseform'));
 
-        // Start - Change for Solerni - US234
+        // Start - Change for Solerni - US234.
         $output .= html_writer::start_tag('h2');
-        $output .= sprintf(get_string('attemptnumber', 'quiz') . " n° %s / %s", $attemptobj->get_attempt_number(),$attemptobj->get_num_attempts_allowed());
+        $output .= sprintf(get_string('attemptnumber', 'quiz') . " n° %s / %s",
+                $attemptobj->get_attempt_number(), $attemptobj->get_num_attempts_allowed());
         $output .= html_writer::end_tag('h2');
-        // End - Change for Solerni
+        // End - Change for Solerni.
 
         $output .= html_writer::start_tag('div');
         // Print all the questions.
