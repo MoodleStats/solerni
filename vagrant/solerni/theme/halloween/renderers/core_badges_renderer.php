@@ -31,7 +31,13 @@ class theme_halloween_core_badges_renderer extends core_badges_renderer {
         global $USER, $CFG, $PAGE;
 
         // If we are on the dashboard (My) then we customized the output for Solerni.
-        $ismypage = $PAGE->url->compare(new moodle_url('/my/index.php'), URL_MATCH_BASE);
+        $ismypage = ($PAGE->url->compare(new moodle_url('/my/index.php'), URL_MATCH_BASE) ||
+                $PAGE->url->compare(new moodle_url('/my/indexsys.php'), URL_MATCH_BASE));
+
+        $title = "";
+        if ($ismypage) {
+            $title = html_writer::tag('p', get_string('lastbadge', 'theme_halloween'), array('class' => 'todo-tobedefined'));
+        }
 
         foreach ($badges as $badge) {
             // We need to have the course name here for Solerni and we don't have it in the input parameters
@@ -52,7 +58,7 @@ class theme_halloween_core_badges_renderer extends core_badges_renderer {
             }
 
             if ($ismypage) {
-                $name = html_writer::tag('span', $bname . " - " . $cname, array('class' => 'badge-name'));
+                $name = html_writer::tag('span', $bname . "<br/>" . $cname, array('class' => 'badge-name'));
             } else {
                 $name = html_writer::tag('span', $bname, array('class' => 'badge-name'));
             }
@@ -110,7 +116,7 @@ class theme_halloween_core_badges_renderer extends core_badges_renderer {
             $linkmybadges = html_writer::link($mybadgesurl, get_string('mybadges', 'badges'));
         }
 
-        return html_writer::alist($items, array('class' => 'badges')) . $linkmybadges;
+        return $title . html_writer::alist($items, array('class' => 'badges')) . $linkmybadges;
     }
 
 }
