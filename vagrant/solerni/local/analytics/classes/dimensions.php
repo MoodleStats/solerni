@@ -2,7 +2,8 @@
 /*
  * This file is part of local_analytics plugin for Moodle.
  *
- * It allows to define and return differents dimensions values.
+ * It allows to define and return differents dimensions values
+ * Piwik allows a maximum of 5 dimensions.
  *
  */
 defined('MOODLE_INTERNAL') || die();
