@@ -25,6 +25,7 @@ moosh config-set dbname ${CUSTOMER_LOG_DB_NAME} logstore_database
 moosh config-set dbtable mdl_logstore_standard_log logstore_database
 
 # add conf for Piwik (Analytics) (#us_292)
+echo ${CUSTOMER_PIWIK_URL}
 moosh config-set siteurl ${CUSTOMER_PIWIK_URL} local_analytics
 moosh config-set location footer local_analytics
 moosh config-set trackadmin 1 local_analytics 
