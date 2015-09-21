@@ -25,7 +25,7 @@
  * @author     David Bezemer
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
- 
+
 $string['pluginname'] = 'Analytics';
 $string['analytics'] = 'Analytics';
 $string['analyticsdesc'] = 'Choose the type of Analytics you want to insert';
@@ -51,3 +51,11 @@ $string['locationdesc'] = 'The place on the page where you want to place the cod
 $string['head'] = 'Header';
 $string['topofbody'] = 'Top of body';
 $string['footer'] = 'Footer';
+// Dimensions
+$string['url_not_set'] = 'Analytics URL not set';
+$string['not_set']  = 'Dimension not set in config.php';
+$string['not_in_a_mooc'] = 'Not in a Mooc';
+$string['not_applicable'] = "N/A";
+$string['subscribed'] = "Subscribed";
+$string['not_subscribed'] = "Not subscribed";
+$string['anonymous'] = 'Anonymous';

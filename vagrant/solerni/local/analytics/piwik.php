@@ -25,7 +25,7 @@
  * @author     David Bezemer <info@davidbezemer.nl>, Bas Brands <bmbrands@gmail.com>, Gavin Henrick <gavin@lts.ie>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
- 
+
 function analytics_trackurl() {
     global $DB, $PAGE, $COURSE, $SITE;
     $pageinfo = get_context_info_array($PAGE->context->id);
@@ -58,13 +58,25 @@ function analytics_trackurl() {
     if (isset($pageinfo[2]->name)) {
         $trackurl .= $pageinfo[2]->modname.'/'.$pageinfo[2]->name;
     }
-    
+
     $trackurl .= "'";
     return $trackurl;
 }
- 
+
 function insert_analytics_tracking() {
-    global $CFG;
+    global $COURSE, $USER, $CFG ;
+    if (class_exists('local_analytics_dimensions')) {
+        $dimensions = new local_analytics_dimensions($COURSE, $USER, $CFG);
+        $trackdimensions = "
+            _paq.push(['setCustomVariable', 1, 'moocName', '" . $dimensions->get_dimensions1() . "', 'page']);
+            _paq.push(['setCustomVariable', 2, 'userId', '" . $dimensions->get_dimensions2() . "', 'page']);
+            _paq.push(['setCustomVariable', 3, 'moocSubscription', '" . $dimensions->get_dimensions3() . "', 'page']);
+            _paq.push(['setCustomVariable', 4, 'customerName', '" . $dimensions->get_dimensions4() . "', 'page']);
+            _paq.push(['setCustomVariable', 5, 'thematicName', '" . $dimensions->get_dimensions5() . "', 'page']);
+        ";
+    } else {
+       $trackdimensions  = '';
+    }
     $enabled = get_config('local_analytics', 'enabled');
     $imagetrack = get_config('local_analytics', 'imagetrack');
     $siteurl = get_config('local_analytics', 'siteurl');
@@ -72,26 +84,27 @@ function insert_analytics_tracking() {
     $trackadmin = get_config('local_analytics', 'trackadmin');
     $cleanurl = get_config('local_analytics', 'cleanurl');
 	$location = "additionalhtml".get_config('local_analytics', 'location');
-    
+
+    $CFG->$location .= "<!-- Start Piwik Code -->";
+
 	if (!empty($siteurl)) {
 		if ($imagetrack) {
 			$addition = '<noscript><p><img src="//'.$siteurl.'/piwik.php?idsite='.$siteid.' style="border:0;" alt="" /></p></noscript>';
 		} else {
 			$addition = '';
 		}
-		
+
 		if ($cleanurl) {
 			$doctitle = "_paq.push(['setDocumentTitle', ".analytics_trackurl()."]);";
 		} else {
 			$doctitle = "";
 		}
-		
+
 		if ($enabled && (!is_siteadmin() || $trackadmin)) {
 			$CFG->$location .= "
-<!-- Start Piwik Code -->
 <script type='text/javascript'>
     var _paq = _paq || [];
-    ".$doctitle."
+    ".$doctitle.$trackdimensions."
     _paq.push(['trackPageView']);
     _paq.push(['enableLinkTracking']);
     (function() {
@@ -101,10 +114,13 @@ function insert_analytics_tracking() {
       var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
     g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
     })();
-</script>".$addition.
-"<!-- End Piwik Code -->";
+</script>".$addition;
 		}
-	}
+	} else {
+       $CFG->$location .= get_string('url_not_set', 'local_analytics');
+    }
+
+    $CFG->$location .= "<!-- End Piwik Code -->";
 }
 
 insert_analytics_tracking();
