@@ -179,6 +179,11 @@ a.focus {
         }
     }
 
+    .list-link .dropdown {
+        margin-left:    -@s-double-xs-margin;    // Apparently removing left padding
+        margin-top:     -@s-small-xs-margin;    // Apparently removing top padding
+    }
+
  /*
   * Social class
   * */
@@ -219,7 +224,7 @@ a.focus {
  div[role="main"] button + .dropdown-menu {
      padding:       0;
      left:          5px;
-     margin-top:    -3px;
+     margin-top:    -2px;   // Same amount as the border width
  }
 
 /*
