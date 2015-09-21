@@ -66,50 +66,18 @@ $table->head[] = get_string('headtablelastpost', 'listforumng');
 
 $table->data = array();
 
-$forumngs = $DB->get_records_sql("
-    SELECT F.id, F.name, CM.id as instance, CM.added
-    FROM mdl_forumng F LEFT OUTER JOIN
-    mdl_course_modules CM  ON (F.id=CM.instance) LEFT OUTER JOIN mdl_modules M ON (M.id = CM.module)
-    WHERE M.name='forumng' AND M.visible=1 AND CM.visible=1 AND CM.course= ? ", array($cm->course), MUST_EXIST);
 
-foreach ($forumngs as $forumng) {
+$listforumng = forumng_get_all($cm->course);
 
-    $forumnginstance = $forumng->instance;
-    $forumngcreated = '<span class="listforumng-date">le ' . userdate($forumng->added) . '</span>';
-    $forumname = "<a href=" . $CFG->wwwroot. "/mod/forumng/view.php?&id=" . $forumnginstance . ">" .  $forumng->name . "</a>";
-
-    // Recuperation de toutes les discussions d'un forum.
-    $forum = mod_forumng::get_from_id($forumng->id, mod_forumng::CLONE_DIRECT, true);
-
-    $listdiscus = $forum->get_discussion_list();
-
-    // Parcours des discussions pour trouver le nbre de post.
-    // puis la date et l'user qui a posté le dernier.
-    $nbposts = 0;
-    $datelastpost = "";
-    $username = "";
-
-    $lastpostdate = array();
-    foreach ($listdiscus->get_normal_discussions() as $discus) {
-        $nbposts += $discus->get_num_posts();
-        $lastpostid = $discus->get_last_post_id();
-        $lastpost = mod_forumng_post::get_from_id($lastpostid, mod_forumng::CLONE_DIRECT);
-        $lastpostdate[$lastpost->get_modified()] = $lastpost->get_user();
-    }
-
-    if (!empty($lastpostdate)) {
-        $datelastpost = userdate(max(array_keys($lastpostdate)));
-        $username = fullname($lastpostdate[max(array_keys($lastpostdate))]);
-    }
-
+foreach ($listforumng as $forumng) {
     $row = array();
 
-    $row[] = $forumname. "<br>". $forumngcreated;
-    $row[] = $nbposts;
-    $row[] = $username. "<br>". $datelastpost;
+    $row[] = "<a href=" . $CFG->wwwroot. "/mod/forumng/view.php?&id=" . $forumng['instance'] . ">" .  $forumng['name'] . "</a>"
+            . "<br>". '<span class="listforumng-date">le ' . userdate($forumng['createddate']) . '</span>';
+    $row[] = $forumng['nbposts'];
+    $row[] = $forumng['usernamelastpost']. "<br>". $forumng['datelastpost'];
 
     $table->data[] = $row;
-
 }
 
 print html_writer::table($table);

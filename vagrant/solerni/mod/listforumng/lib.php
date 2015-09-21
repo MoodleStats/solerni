@@ -59,17 +59,9 @@ function listforumng_update_instance($data, $mform) {
     global $CFG, $DB;
     require_once("$CFG->libdir/resourcelib.php");
 
-    $cmid = $data->coursemodule;
-    $draftitemid = $data->listforumng['itemid'];
-
     $data->id = $data->instance;
 
     $DB->update_record('listforumng', $data);
-
-    $context = context_module::instance($cmid);
-    if ($draftitemid) {
-        $DB->update_record('listforumng', $data);
-    }
 
     return true;
 }
@@ -90,4 +82,60 @@ function listforumng_delete_instance($id) {
     $DB->delete_records('listforumng', array('id' => $listforumng->id));
 
     return true;
+}
+
+/**
+ * Get all forumng in a course
+ *
+ * @param int $courseid
+ * @return array
+ */
+function forumng_get_all($courseid) {
+    global $CFG, $DB, $USER;
+
+    $forumngs = $DB->get_records_sql("
+        SELECT F.id, F.name, CM.id as instance, CM.added
+        FROM {forumng} F LEFT OUTER JOIN
+        {course_modules} CM  ON (F.id=CM.instance) LEFT OUTER JOIN {modules} M ON (M.id = CM.module)
+        WHERE M.name='forumng' AND M.visible=1 AND CM.visible=1 AND CM.course= ? ", array($courseid), MUST_EXIST);
+
+    $listforumng = array();
+
+    foreach ($forumngs as $forumng) {
+        $forumnginstance = $forumng->instance;
+        $forumname = "<a href=" . $CFG->wwwroot. "/mod/forumng/view.php?&id=" . $forumnginstance . ">" .  $forumng->name . "</a>";
+
+        // Recuperation de toutes les discussions d'un forum.
+        $forum = mod_forumng::get_from_id($forumng->id, mod_forumng::CLONE_DIRECT, true);
+
+        $listdiscus = $forum->get_discussion_list();
+
+        // Parcours des discussions pour trouver le nbre de post.
+        // puis la date et l'user qui a posté le dernier.
+        $nbposts = 0;
+        $datelastpost = "";
+        $username = "";
+
+        $lastpostdate = array();
+        foreach ($listdiscus->get_normal_discussions() as $discus) {
+            $nbposts += $discus->get_num_posts();
+            $lastpostid = $discus->get_last_post_id();
+            $lastpost = mod_forumng_post::get_from_id($lastpostid, mod_forumng::CLONE_DIRECT);
+            $lastpostdate[$lastpost->get_modified()] = $lastpost->get_user();
+        }
+
+        if (!empty($lastpostdate)) {
+            $datelastpost = userdate(max(array_keys($lastpostdate)));
+            $username = fullname($lastpostdate[max(array_keys($lastpostdate))]);
+        }
+
+        $listforumng[] = array('instance' => $forumng->instance,
+                'name' => $forumng->name,
+                'createddate' => $forumng->added,
+                'nbposts' => $nbposts,
+                'usernamelastpost' => $username,
+                'datelastpost' => $datelastpost);
+    }
+
+    return $listforumng;
 }
