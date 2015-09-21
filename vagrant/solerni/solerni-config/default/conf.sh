@@ -1,7 +1,7 @@
 #!/bin/bash
 # Fichier "default/conf.sh"
 
-# load of ansible variables us_290
+# load of ansible variables us_290 us_292
 . ./solerni-config/default/env_moosh.cfg
 # ${CUSTOMER_LOG_DB_HOST}
 # ${CUSTOMER_LOG_DB_NAME}
@@ -17,13 +17,17 @@
 # add conf for external logs (#us_289)
 # moosh config-set enabled_stores logstore_standard,logstore_database,logstore_legacy tool_log
 moosh config-set enabled_stores logstore_standard,logstore_database tool_log
-# moosh config-set enabled_stores logstore_standard,logstore_database tool_log
 moosh config-set dbdriver native/mysqli logstore_database
 moosh config-set dbhost ${CUSTOMER_LOG_DB_HOST} logstore_database
 moosh config-set dbuser ${CUSTOMER_LOG_DB_USERNAME} logstore_database
 moosh config-set dbpass ${CUSTOMER_LOG_DB_PASSWORD} logstore_database
 moosh config-set dbname ${CUSTOMER_LOG_DB_NAME} logstore_database
 moosh config-set dbtable mdl_logstore_standard_log logstore_database
+
+# add conf for Piwik (Analytics) (#us_292)
+moosh config-set siteurl ${CUSTOMER_PIWIK_URL} local_analytics
+moosh config-set location footer local_analytics
+moosh config-set trackadmin 1 local_analytics 
 
 # First install : import Solerni roles
 # Attention : order is important to keep roles assignments
