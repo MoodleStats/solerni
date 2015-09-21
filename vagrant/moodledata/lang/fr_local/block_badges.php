@@ -24,4 +24,4 @@
  */
 
 $string['pluginname'] = 'Mes badges';
-$string['nothingtodisplay'] = '<p>Aucun badge obtenu</p><span class="glyphicon glyphicon-certificate" style="font-size:100px"></span><p>Rejoignez un Mooc et tentez d\'obtenir des badges !</p>';
+$string['nothingtodisplay'] = '<p>Aucun badge obtenu</p><span class="glyphicon glyphicon-certificate"></span><p>Rejoignez un Mooc et tentez d\'obtenir des badges !</p>';

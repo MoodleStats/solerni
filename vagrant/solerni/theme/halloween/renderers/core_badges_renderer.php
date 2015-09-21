@@ -58,7 +58,7 @@ class theme_halloween_core_badges_renderer extends core_badges_renderer {
             }
 
             if ($ismypage) {
-                $name = html_writer::tag('span', $bname . "<br/>" . $cname, array('class' => 'badge-name'));
+                $name = html_writer::tag('span', $bname, array('class' => 'badge-name')) . html_writer::tag('span', $cname, array('class' => 'course-name'));
             } else {
                 $name = html_writer::tag('span', $bname, array('class' => 'badge-name'));
             }
