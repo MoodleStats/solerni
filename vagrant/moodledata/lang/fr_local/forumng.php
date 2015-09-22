@@ -82,7 +82,6 @@ $string['forumtype_link'] = 'mod/forumng/forumtypes';
 $string['forumintro'] = 'Introduction au forum';
 $string['ratingtime'] = 'Restreindre l\'évaluation aux éléments dont les dates sont dans cet intervalle :';
 $string['ratings'] = 'Évaluations';
-$string['grading'] = 'Type de combinaison [TODO: cette traduction était déjà présente, mais elle me surprend. Pourrais tu vérifier si elle est correcte stp ?]'; 
 $string['grading'] = 'Type de combinaison';
 
 $string['grading_help'] = 'Si vous sélectionnez cette option, une note pour ce forum sera ajoutée au carnet de notes du cours et sera calculée automatiquement. Laissez vide pour un forum non-évalué, ou si vous prévoyez de l\'évaluer manuellement.<br>Les différentes manières de calculer sont assez explicites : dans chaque cas, la note pour chaque utilisateur est calculée sur la base de toutes les notes pour tous les messages qu\'il a posté dans le forum. Le classement est limités à l\'échelle, par exemple si l\'échelle est de 0-3, la méthode de classement est sur «compter» et le classement des messages de l\'utilisateur ayant reçu 17 votes sera de 3.';
