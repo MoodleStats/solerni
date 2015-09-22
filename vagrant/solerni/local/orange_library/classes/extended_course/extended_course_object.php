@@ -162,11 +162,11 @@ class extended_course_object {
     /**
      *  Get the extended course values from the extended course flexpage values.
      *
-     * @param object $context
+     * @param optionnal object $context
      * @param object $course
      * @return object $this->extendedcourse
      */
-    public function get_extended_course($course, $context) {
+    public function get_extended_course($course, $context = null) {
         global $DB;
 
         $utilitiescourse = new utilities_course();
@@ -174,9 +174,7 @@ class extended_course_object {
         $customer = customer_get_customerbycategoryid($categoryid);
         $selfenrolment = new enrollment_object();
         $instance = $selfenrolment->get_self_enrolment($course);
-        if (!is_object($instance)) {
-            echo $course->id;
-        }
+
         $extendedcourseflexpagevalues = $DB->get_records('course_format_options',
                 array('courseid' => $course->id));
         foreach ($extendedcourseflexpagevalues as $extendedcourseflexpagevalue) {
@@ -184,14 +182,23 @@ class extended_course_object {
                 $this->set_extended_course($extendedcourseflexpagevalue);
             }
         }
+        if (!$context) {
+            $context = context_course::instance($course->id);
+        }
         $this->enrolledusers = count_enrolled_users($context);
         if ($customer) {
             $this->registrationcompany = $customer->name;
         }
         $this->enrolledusers = count_enrolled_users($context);
-        $this->enrolstartdate = $instance->enrolstartdate;
-        $this->enrolenddate = $instance->enrolenddate;
-        $this->maxregisteredusers = $instance->customint3;
+        if (isset($instance->enrolstartdate)) {
+            $this->enrolstartdate = $instance->enrolstartdate;
+        }
+        if (isset($instance->enrolenddate)) {
+            $this->enrolenddate = $instance->enrolenddate;
+        }
+        if (isset($instance->customint3)) {
+            $this->maxregisteredusers = $instance->customint3;
+        }
 
     }
 

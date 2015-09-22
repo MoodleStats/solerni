@@ -32,7 +32,8 @@ use moodle_url;
 use context_helper;
 use coursecat_sortable_records;
 use course_in_list;
-require_once($CFG->dirroot . '/cohort/lib.php'); 
+require_once($CFG->dirroot . '/cohort/lib.php');
+require_once($CFG->dirroot . '/lib/coursecatlib.php'); // TODO : use course_in_list not working.
 
 class utilities_course {
 
@@ -157,12 +158,18 @@ class utilities_course {
                     $list[$course->id]->hassummary = strlen($list[$course->id]->hassummary) > 0;
                 }
 
-                // Set a flag if course is closed. Used to sort MOOC.
+                // Set a flag if course is closed, inprogress. Used to sort MOOC.
                 if (isset($list[$course->id]->enddate) && $list[$course->id]->enddate > time()) {
                     $list[$course->id]->closed = false;
                     $list[$course->id]->timeleft = $list[$course->id]->enddate - time();
+                    if ($list[$course->id]->startdate > time()) {
+                        $list[$course->id]->inprogress = true;
+                    } else {
+                        $list[$course->id]->inprogress = false;
+                    }
                 } else {
                     $list[$course->id]->closed = true;
+                    $list[$course->id]->inprogress = false;
                     $list[$course->id]->timeleft = 0;
                 }
 
@@ -211,9 +218,6 @@ class utilities_course {
     /**
      * Retrieves the list of courses accessible by user
      *
-     * Not all information is cached, try to avoid calling this method
-     * twice in the same request.
-     *
      * The following fields are always retrieved:
      * - id, visible, fullname, shortname, idnumber, category, sortorder
      *
@@ -238,7 +242,6 @@ class utilities_course {
      *             array('idnumber' => 1, 'shortname' => 1, 'id' => -1)
      *             will sort by idnumber asc, shortname asc and id desc.
      *             Default: array('sortorder' => 1)
-     *             Only cached fields may be used for sorting!
      *    - offset
      *    - limit - maximum number of children to return, 0 or null for no limit
      *    - idonly - returns the array or course ids instead of array of objects
@@ -250,7 +253,8 @@ class utilities_course {
         $recursive = !empty($options['recursive']);
         $offset = !empty($options['offset']) ? $options['offset'] : 0;
         $limit = !empty($options['limit']) ? $options['limit'] : null;
-        $sortfields = !empty($options['sort']) ? $options['sort'] : array('closed' => 1, 'timeleft' => 1, 'enddate' => -1);
+        $sortfields = !empty($options['sort']) ? $options['sort'] :
+            array('closed' => 1, 'timeleft' => 1, 'enddate' => -1, 'startdate' => 1);
 
         $wherecategory = array();
         $params = array('siteid' => SITEID);
@@ -334,7 +338,7 @@ class utilities_course {
         $list = self::get_course_records(implode(' AND ', $where), $params,
                 array_diff_key($options, array('coursecontacts' => 0)), true);
 
-        // Sort and cache list.
+        // Sort list.
         self::sort_records($list, $sortfields);
 
         // Apply offset/limit, convert to course_in_list and return.
@@ -358,6 +362,83 @@ class utilities_course {
         }
         return $courses;
     }
+
+    /**
+     * Retrieves the list of recommended courses accessible by user
+     *
+     * The following fields are always retrieved:
+     * - id, visible, fullname, shortname, idnumber, category, sortorder
+     *
+     * If you plan to use properties/methods course_in_list::$summary and/or
+     * course_in_list::get_course_contacts()
+     * you can preload this information using appropriate 'options'. Otherwise
+     * they will be retrieved from DB on demand and it may end with bigger DB load.
+     *
+     * Note that method course_in_list::has_summary() will not perform additional
+     * DB queries even if $options['summary'] is not specified
+     *
+     * List of found course ids is cached for 10 minutes. Cache may be purged prior
+     * to this when somebody edits courses or categories, however it is very
+     * difficult to keep track of all possible changes that may affect list of courses.
+     *
+     * @param array $options options for retrieving children
+     *    - recursive - return courses from subcategories as well. Use with care,
+     *      this may be a huge list!
+     *    - summary - preloads fields 'summary' and 'summaryformat'
+     *    - coursecontacts - preloads course contacts
+     *    - sort - list of fields to sort. Example
+     *             array('idnumber' => 1, 'shortname' => 1, 'id' => -1)
+     *             will sort by idnumber asc, shortname asc and id desc.
+     *             Default: array('sortorder' => 1)
+     *    - offset
+     *    - limit - maximum number of children to return, 0 or null for no limit
+     *    - idonly - returns the array or course ids instead of array of objects
+     *               used only in get_courses_count()
+     * @return course_in_list[]
+     */
+    public static function get_courses_recommended($options = array()) {
+        global $DB;
+        $offset = !empty($options['offset']) ? $options['offset'] : 0;
+        $limit = !empty($options['limit']) ? $options['limit'] : null;
+        $sortfields = !empty($options['sort']) ? $options['sort'] :
+            array('closed' => 1, 'inprogress' => 1, 'timeleft' => 1, 'enddate' => -1, 'startdate' => 1);
+
+        $params = array('siteid' => SITEID);
+
+        // We should get in first in progress MOOC then followed by to be started mooc.
+        $wherestatus  = "(";
+        // En cours : date de début <= NOW et date de fin > NOW.
+        $wherestatus  .= "(c.startdate <= UNIX_TIMESTAMP(CURRENT_TIMESTAMP) AND " .
+                "co.value > UNIX_TIMESTAMP(CURRENT_TIMESTAMP))";
+        $wherestatus  .= " OR ";
+        // A venir : date de début > NOW.
+        $wherestatus .= "(c.startdate > UNIX_TIMESTAMP(CURRENT_TIMESTAMP))";
+        $wherestatus  .= ")";
+
+        $list = self::get_course_records($wherestatus, $params,
+                array_diff_key($options, array('coursecontacts' => 0)), true);
+
+        // Sort list.
+        self::sort_records($list, $sortfields);
+
+        // Apply offset/limit, convert to course_in_list and return.
+        $courses = array();
+        if (isset($list)) {
+            if ($limit) {
+                $list = array_slice($list, 0, $limit, true);
+            }
+            // If option 'idonly' is specified no further action is needed, just return list of ids.
+            if (!empty($options['idonly'])) {
+                return array_keys($list);
+            }
+            // Prepare the list of course_in_list objects.
+            foreach ($list as $record) {
+                $courses[$record->id] = new course_in_list($record);
+            }
+        }
+        return $courses;
+    }
+
     /**
      * Sorts list of records by several fields
      *

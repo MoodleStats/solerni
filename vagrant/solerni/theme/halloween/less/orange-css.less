@@ -1,0 +1,302 @@
+// html font-size forcée Ã  10px par BT
+html{
+    font-size: @html-font-size-base;
+    /*Orange brand All is bold only plain texts are not bold*/
+    font-weight:@brand-font-weight-normal;
+}
+.navbar *{
+    /*Orange brand All is bold*/
+    font-weight:@brand-font-weight-bold;
+}
+
+//
+// Caret
+// --------------------------------------------------
+// Fix the border-top style to display caret onto IE8
+.caret {
+    border-top-style: solid;
+}
+
+//
+// Alerts
+// --------------------------------------------------
+.alert {
+    border-width: 2px;
+}
+
+//
+// Labels
+// --------------------------------------------------
+
+.label {
+  border-radius: @border-radius-base;
+}
+.table label.o-checkbox,
+.table label.o-radio{
+    margin-bottom: 0;
+}
+
+
+// Navbar toggle
+//
+// Custom button for toggling the `.navbar-collapse`, powered by the collapse
+// JavaScript plugin.
+
+.navbar-toggle {
+  position: relative;
+  float: right;
+  margin-right: @navbar-padding-horizontal;
+  padding: @nav-link-padding;
+  .navbar-toggle-vertical-align(@navbar-toggle-vertical-margin);
+  background-color: transparent;
+  background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
+  border: 1px solid transparent;
+  border-radius: @border-radius-base;
+
+  // We remove the `outline` here, but later compensate by attaching `:hover`
+  // styles to `:focus`.
+  &:focus {
+    outline: 0;
+  }
+
+  // Bars
+  .icon-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    border-radius: 1px;
+  }
+  .icon-bar + .icon-bar {
+    margin-top: 4px;
+  }
+
+  @media (min-width: @grid-float-breakpoint) {
+    display: none;
+  }
+}
+.navbar-brand {
+    height: @navbar-height;
+    margin: 0;
+}
+.navbar-header {
+  padding-right: @navbar-padding-horizontal;
+  padding-left:  @navbar-padding-horizontal;
+}
+
+.navbar-toggle-complement{
+    position: relative;
+    float: right;
+}
+.navbar-toggle-complement .navbar-nav {
+    margin: @padding-base-vertical 0 0 0;
+}
+.navbar-toggle-complement li{
+    float: left;
+}
+
+@media (min-width: @screen-sm) {
+    .navbar-toggle-complement {
+        display: none;
+    }
+}
+
+// Navbar nav links
+//
+// Builds on top of the `.nav` components with its own modifier class to make
+// the nav the full height of the horizontal nav (above 768px).
+.navbar-nav {
+  // Uncollapse the nav
+  @media (min-width: @grid-float-breakpoint) {
+    > li {
+      > a {
+        .navbar-vertical-align(((@navbar-padding-vertical)+@line-height-computed));
+      }
+    }
+  }
+
+  > li {
+    > a {
+        font-size: @navbar-font-size;
+    }
+  }
+}
+
+.nav {
+  // Open dropdowns
+  .open > a {
+    &,
+    &:hover,
+    &:focus {
+      color: @brand-orange-white;
+    }
+  }
+}
+
+// back from accessibility plugin css
+div.active:focus {
+  outline: dotted 1px black;
+}
+a:focus {
+  outline: dotted 1px black;
+}
+.close:hover,
+.close:focus {
+  outline: dotted 1px black;
+}
+
+//
+// Carousel
+// --------------------------------------------------
+.carousel-inner > .item {
+  position: absolute;
+  top: -999999em;
+  display: block;
+  -webkit-transition: 0.6s ease-in-out left;
+          transition: 0.6s ease-in-out left;
+}
+.carousel-inner > .active {
+  top: 0;
+}
+.carousel-inner > .active,
+.carousel-inner > .next,
+.carousel-inner > .prev {
+  position: relative;
+}
+.carousel-inner > .next,
+.carousel-inner > .prev {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.carousel-control .glyphicon{
+    color: #000000;
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 2px 0 #fff;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#fff,direction=0,strength=0)
+        progid:DXImageTransform.Microsoft.Shadow(color=#fff,direction=90,strength=0)
+        progid:DXImageTransform.Microsoft.Shadow(color=#fff,direction=180,strength=0)
+        progid:DXImageTransform.Microsoft.Shadow(color=#fff,direction=270,strength=0);
+}
+
+//
+// Forms control into input groups
+//
+.input-group > .form-control{
+    border-color: @brand-orange-black;
+    &:focus{
+        border-color: @brand-orange;
+    }
+}
+.has-success {
+    & .input-group > .form-control{
+        // Feedback states
+        border-color: @state-success-text;
+    }
+}
+.has-error {
+    & .input-group > .form-control{
+        // Feedback states
+        border-color: @state-danger-text;
+    }
+}
+.has-warning {
+    & .input-group > .form-control{
+        // Feedback states
+        border-color: @state-warning-text;
+    }
+}
+
+// Force the color for Heading into thumbnails
+.thumbnail {
+  // Image captions
+  h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    color: @thumbnail-caption-color;
+  }
+}
+
+// Panel, put a display block on header links for accordions full width click area
+.panel-title {
+  > a,
+  > small > a,
+  > .small > a {
+      display: block;
+  }
+}
+
+.o-footer, .o-footer-inverse {
+    padding: @navbar-padding-vertical;
+}
+
+.hero-container .frame {
+    left: 0;
+    margin: (@grid-gutter-width+1rem);
+    max-width: 15%;
+    position: absolute;
+    top: 0;
+}
+
+.hero-container .caption {
+    margin: 5rem (@grid-gutter-width+1rem);
+}
+
+.hero-container .category {
+    color: @brand-orange;
+    font-size: 2rem
+}
+
+@font-face {
+    font-family: "OrangeSans";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Orange Sans 55 Roman"), local("Orange Sans"), url("@{icon-font-path}orangesans55-webfont.woff") format("woff"), url("@{icon-font-path}orangesans55-webfont.ttf") format("truetype"), url("@{icon-font-path}orangesans55-webfont.svg") format("svg"), url("@{icon-font-path}orange-sans/orangesans55-webfont.eot") format("eot");
+}
+
+@font-face {
+    font-family: "OrangeSans";
+    font-style: normal;
+    font-weight: 700;
+    src: local("Orange Sans 75 Bold"), local("Orange Sans"), url("@{icon-font-path}orangesans75-webfont.woff") format("woff"), url("@{icon-font-path}orangesans75-webfont.ttf") format("truetype"), url("@{icon-font-path}orangesans75-webfont.svg") format("svg"), url("@{icon-font-path}orangesans75-webfont.eot") format("eot");
+}
+
+// == TABLES
+.table {
+  // Cells
+  > thead,
+  > tbody,
+  > tfoot {
+    > tr {
+      > th,
+      > td {
+        // Remove border top and put border-botom
+        border-top: 0;
+        border-bottom: 1px solid @table-border-color;
+      }
+      > th {
+          font-size: @font-size-h5;
+      }
+    }
+  }
+
+  > thead th {
+      border-bottom: 2px;
+  }
+
+}
+.table-row-variant-border(success; @state-success-border);
+.table-row-variant-border(info; @state-info-border);
+.table-row-variant-border(warning; @state-warning-border);
+.table-row-variant-border(danger; @state-danger-border);
+
+
+// force caption for tables
+caption{
+	background-color: @brand-orange-white;
+	color: @brand-orange-black;
+	padding: @padding-large-vertical 0;
+        font-size: @font-size-h1;
+	font-weight: bold;
+}
+
+// Force bold onto panel heading and footer and wells
+.panel-heading, .panel-footer, .well{
+    font-weight: bold;
+}
