@@ -103,7 +103,6 @@ function forumng_get_all($courseid) {
 
     foreach ($forumngs as $forumng) {
         $forumnginstance = $forumng->instance;
-        $forumname = "<a href=" . $CFG->wwwroot. "/mod/forumng/view.php?&id=" . $forumnginstance . ">" .  $forumng->name . "</a>";
 
         // Recuperation de toutes les discussions d'un forum.
         $forum = mod_forumng::get_from_id($forumng->id, mod_forumng::CLONE_DIRECT, true);
