@@ -25,4 +25,4 @@
 
 $string['pluginname'] = 'My badges';
 $string['nothingtodisplay'] = 'You have no badges to display';
-$string['nothingtodisplay'] = '<p>No badge obtained</p><span class="glyphicon glyphicon-certificate></span><p>Join a MOOC and try to obtain badges!</p>';
+$string['nothingtodisplay'] = '<p>No badge obtained</p><span class="glyphicon glyphicon-certificate"></span><p>Join a MOOC and try to obtain badges!</p>';
