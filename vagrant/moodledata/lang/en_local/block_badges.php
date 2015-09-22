@@ -15,16 +15,14 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This is built using the bootstrapbase template to allow for new theme's using
- * Moodle's new Bootstrap theme engine
+ * Language file for block "badges"
  *
- * @package     theme_halloween
- * @copyright   2015 Orange
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    block_badges
+ * @copyright  2012 onwards Totara Learning Solutions Ltd {@link http://www.totaralms.com/}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author     Yuliya Bozhko <yuliya.bozhko@totaralms.com>
  */
-global $CFG;
 
-require_once('renderers/core_course_renderer.php');
-require_once('renderers/core_badges_renderer.php');
-require_once('renderers/core_renderer.php');
-require_once('renderers/mod_quiz_renderer.php');
+$string['pluginname'] = 'My badges';
+$string['nothingtodisplay'] = 'You have no badges to display';
+$string['nothingtodisplay'] = '<p>No badge obtained</p><span class="glyphicon glyphicon-certificate"></span><p>Join a MOOC and try to obtain badges!</p>';
