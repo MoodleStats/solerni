@@ -69,7 +69,6 @@ function insert_analytics_tracking() {
         $dimensions = new local_analytics_dimensions($COURSE, $USER, $CFG);
         $trackdimensions = "
             _paq.push(['setCustomVariable', 1, 'moocName', '" . $dimensions->get_dimensions1() . "', 'page']);
-            _paq.push(['setCustomVariable', 2, 'userId', '" . $dimensions->get_dimensions2() . "', 'page']);
             _paq.push(['setCustomVariable', 3, 'moocSubscription', '" . $dimensions->get_dimensions3() . "', 'page']);
             _paq.push(['setCustomVariable', 4, 'customerName', '" . $dimensions->get_dimensions4() . "', 'page']);
             _paq.push(['setCustomVariable', 5, 'thematicName', '" . $dimensions->get_dimensions5() . "', 'page']);
@@ -77,6 +76,7 @@ function insert_analytics_tracking() {
     } else {
        $trackdimensions  = '';
     }
+    $userid = (($USER->id ==0)? get_string('anonymous', 'local_analytics'): $USER->id);
     $enabled = get_config('local_analytics', 'enabled');
     $imagetrack = get_config('local_analytics', 'imagetrack');
     $siteurl = get_config('local_analytics', 'siteurl');
@@ -105,6 +105,7 @@ function insert_analytics_tracking() {
 <script type='text/javascript'>
     var _paq = _paq || [];
     ".$doctitle.$trackdimensions."
+    _paq.push(['setUserId', '$userid']);
     _paq.push(['trackPageView']);
     _paq.push(['enableLinkTracking']);
     (function() {
@@ -128,3 +129,4 @@ insert_analytics_tracking();
 if (debugging() && ($CFG->debugdisplay)) {
     $CFG->additionalhtmlfooter .= "<span class='badge badge-success'>Tracking: ".analytics_trackurl()."</span>";
 }
+
