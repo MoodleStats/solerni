@@ -81,8 +81,9 @@ $string['forumtype_help'] = 'Différents types de forums sont disponibles à des
 $string['forumtype_link'] = 'mod/forumng/forumtypes';
 $string['forumintro'] = 'Introduction au forum';
 $string['ratingtime'] = 'Restreindre l\'évaluation aux éléments dont les dates sont dans cet intervalle :';
-$string['ratings'] = 'évaluations';
-$string['grading'] = 'Type de combinaison [TODO: cette traduction était déjà présente, mais elle me surprend. Pourrais tu vérifier si elle est correcte stp ?]'; 
+$string['ratings'] = 'Évaluations';
+$string['grading'] = 'Type de combinaison';
+
 $string['grading_help'] = 'Si vous sélectionnez cette option, une note pour ce forum sera ajoutée au carnet de notes du cours et sera calculée automatiquement. Laissez vide pour un forum non-évalué, ou si vous prévoyez de l\'évaluer manuellement.<br>Les différentes manières de calculer sont assez explicites : dans chaque cas, la note pour chaque utilisateur est calculée sur la base de toutes les notes pour tous les messages qu\'il a posté dans le forum. Le classement est limités à l\'échelle, par exemple si l\'échelle est de 0-3, la méthode de classement est sur «compter» et le classement des messages de l\'utilisateur ayant reçu 17 votes sera de 3.';
 $string['nodiscussions'] = 'Il n\'y a pas encore de discussion dans ce forum.';
 $string['startedby'] = 'Lancé par';
@@ -676,8 +677,7 @@ $string['createdbymoderator'] = 'Ce message a été créé par le modérateur {$
 
 $string['lockedtitle'] = 'Cette discussion est maintenant fermée';
 $string['autolockedmessage'] = 'Cette discussion a été fermée automatiquement car le temps maximum d\'ouverture auorisé est écoulé.';
-$string['alert_intro'] = 'Vous pouvez utiliser le lien d\'alerte pour attirer l\'attention d\'un modérateur sur un message.';
-$string['alert_intro'] = 'Vous pouvez utiliser le lien d\'alerte pour attirer l\'attention d\'un modérateur sur un message dans ce forum.[TODO: il y a un bug dans le fichier original ; cette clé est en double]';
+$string['alert_intro'] = 'Vous pouvez utiliser le lien Signaler pour attirer l\'attention d\'un modérateur sur un message.';
 
 $string['managepostalerts'] = 'Gérer les signalements de message';
 

@@ -23,7 +23,7 @@
  */
 
 $string['pluginname'] = 'Effacer/restaurer des messages';
-$string['viewdeleted'] = 'Voir effacés';
+$string['viewdeleted'] = 'Voir les messages effacés';
 $string['deletedposts'] = 'Messages effacés';
 $string['deleteddiscussions'] = 'Fils de discussion effacés';
 $string['viewdeletedposts'] = 'Voir les messages effacés';
@@ -31,7 +31,7 @@ $string['deletedby'] = 'Voir les messages effacés par ';
 $string['createdby'] = 'Voir les messages effacés créés par ';
 $string['nodeletedpostsfound'] = 'Aucun message créé par {$a->cusername} et effacé par {$a->dusername} n\'a été trouvé';
 $string['nodeleteddiscussions'] = 'Il n\'y a aucun fil de discussion effacé pour ce forum';
-$string['anyone'] = 'Quiconque [TODO: à voir dans le contexte ; ça pourrait être Tous, N\'importe qui...]';
+$string['anyone'] = 'quiconque'; 
 $string['all'] = 'Tous';
 $string['event:vieweddiscuss'] = 'Voir les fils de discussion effacés';
 $string['event:viewed'] = 'Voir les messages effacés';
