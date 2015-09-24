@@ -59,3 +59,4 @@ $string['not_applicable'] = "N/A";
 $string['subscribed'] = "Subscribed";
 $string['not_subscribed'] = "Not subscribed";
 $string['anonymous'] = 'Anonymous';
+$string['user'] = 'User';
