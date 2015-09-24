@@ -69,14 +69,14 @@ function insert_analytics_tracking() {
         $dimensions = new local_analytics_dimensions($COURSE, $USER, $CFG);
         $trackdimensions = "
             _paq.push(['setCustomVariable', 1, 'moocName', '" . $dimensions->get_dimensions1() . "', 'page']);
-            _paq.push(['setCustomVariable', 3, 'moocSubscription', '" . $dimensions->get_dimensions3() . "', 'page']);
-            _paq.push(['setCustomVariable', 4, 'customerName', '" . $dimensions->get_dimensions4() . "', 'page']);
-            _paq.push(['setCustomVariable', 5, 'thematicName', '" . $dimensions->get_dimensions5() . "', 'page']);
+            _paq.push(['setCustomVariable', 2, 'moocSubscription', '" . $dimensions->get_dimensions2() . "', 'page']);
+            _paq.push(['setCustomVariable', 3, 'customerName', '" . $dimensions->get_dimensions3() . "', 'page']);
+            _paq.push(['setCustomVariable', 4, 'thematicName', '" . $dimensions->get_dimensions4() . "', 'page']);
         ";
     } else {
        $trackdimensions  = '';
     }
-    $userid = (($USER->id ==0)? get_string('anonymous', 'local_analytics'): $USER->id);
+    $userid = (($USER->id ==0)? get_string('anonymous', 'local_analytics').'_'.md5($_SERVER['REMOTE_ADDR']) : get_string('user', 'local_analytics').'_'.md5($USER->id));
     $enabled = get_config('local_analytics', 'enabled');
     $imagetrack = get_config('local_analytics', 'imagetrack');
     $siteurl = get_config('local_analytics', 'siteurl');
@@ -89,7 +89,7 @@ function insert_analytics_tracking() {
 
 	if (!empty($siteurl)) {
 		if ($imagetrack) {
-			$addition = '<noscript><p><img src="//'.$siteurl.'/piwik.php?idsite='.$siteid.' style="border:0;" alt="" /></p></noscript>';
+			$addition = '<noscript><p><img src="//'.$siteurl.'/piwik.php?idsite='.$siteid.'&rec=1&bots=1 style="border:0;" alt="" /></p></noscript>';
 		} else {
 			$addition = '';
 		}
