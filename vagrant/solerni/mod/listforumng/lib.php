@@ -22,6 +22,10 @@
 
 defined('MOODLE_INTERNAL') || die;
 
+/* Include required files */
+require_once($CFG->dirroot.'/mod/forumng/mod_forumng_post.php');
+require_once($CFG->dirroot.'/mod/forumng/mod_forumng_discussion.php');
+require_once($CFG->dirroot.'/mod/forumng/mod_forumng.php');
 
 /**
  * Add page instance.
@@ -97,7 +101,7 @@ function forumng_get_all($courseid) {
         SELECT F.id, F.name, CM.id as instance, CM.added
         FROM {forumng} F LEFT OUTER JOIN
         {course_modules} CM  ON (F.id=CM.instance) LEFT OUTER JOIN {modules} M ON (M.id = CM.module)
-        WHERE M.name='forumng' AND M.visible=1 AND CM.visible=1 AND CM.course= ? ", array($courseid), MUST_EXIST);
+        WHERE M.name='forumng' AND M.visible=1 AND CM.visible=1 AND CM.course= ? ", array($courseid));
 
     $listforumng = array();
 
