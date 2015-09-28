@@ -1,11 +1,28 @@
 /*
  * This file include Solerni CSS specific code :
- * First, import CSS files for complex objects, keep code
- * that is not lengthy enough to be into a specific file
+ * keeps code that is not lengthy enough to be into a specific file
  */
-@import "u-inverse.less";
-@import "iconHalloween.less";
+/*
+ * Element LESS template as model :
 
+.classname {
+    permanent_property: value;
+
+    @media (min-width: @screen-sm-min) {
+        sm-specific_property: value;
+        (remove @media block if unused)
+    }
+
+    @media (min-width: @screen-md-min) {
+        md-specific_property: value;
+}
+
+    @media (min-width: @screen-lg-min) {
+        lg-specific_property: value;
+    }
+}
+
+*/
 
 // Probably never use, but we never know.
 .font-primary {
@@ -76,79 +93,8 @@ a.focus {
 }
 
 /*
- * Halloween (non-boostrap) CSS.
- * Starts here.
-
-
- * Element LESS template as model :
-
-.classname {
-    permanent_property: value;
-
-    @media (min-width: @screen-sm-min) {
-        sm-specific_property: value;
-        (remove @media block if unused)
-    }
-
-    @media (min-width: @screen-md-min) {
-        md-specific_property: value;
-}
-
-    @media (min-width: @screen-lg-min) {
-        lg-specific_property: value;
-    }
-}
-
-*/
-
-
-/*
- * Header Logo
-  * */
-
-.header-logo {
-    display:            inline-block;
-    margin-top:         @s-small-xs-margin;
-    margin-bottom:      @s-small-xs-margin;
-    height:             @s-double-md-margin;
-    font-size:          0;
-    font-weight:        bold;
-
-    @media (min-width: @screen-sm-min) {
-        height:         floor(@s-double-md-margin * 1.666666667);  // 50px
-        margin-top:     @s-double-md-margin;
-        margin-bottom:  @s-double-md-margin;
-    }
-}
-
-.header-logo,
-.header-logo:hover {
-    text-decoration:    none;
-}
-
-    .logo-image {
-        vertical-align: baseline;
-        margin-right: @s-small-xs-margin;
-        height: 100%;
-        width:  auto;
-
-        @media (min-width: @screen-md-min) {
-            margin-right: @s-small-md-margin;
-        }
-    }
-
-    .logo-brandname {
-        font-size:          @s-double-xs-margin;
-
-        @media (min-width:  @screen-md-min) {
-            font-size:      @s-double-md-margin;
-            margin-right:   @s-small-md-margin;
-        }
-    }
-
-/*
- * Footer nav elements
-  * */
+ * List Links (as in footer)
+ * */
 .list-link {}
 
     .link-item {
@@ -181,31 +127,41 @@ a.focus {
         }
     }
 
+    .list-link .dropdown {
+        margin-left:    -@s-double-xs-margin;    // Apparently removing left padding
+        margin-top:     -@s-small-xs-margin;    // Apparently removing top padding
+    }
+
  /*
   * Social class
   * */
 
  .list-social {
-    padding-top: @font-size-base;
+    padding-top:    @font-size-base;
     padding-bottom: @font-size-base;
-    margin-bottom: 0;
+    margin-bottom:  0;
  }
- 
+
+  div[role="main"] .list-social {
+    padding-top:    @font-size-base; // Override because bootstrap specificity
+    padding-bottom: @font-size-base;
+ }
+
     .social-item {
-        display: inline-block;
+        display:        inline-block;
         vertical-align: middle;
-        margin-right: @s-small-xs-margin;
+        margin-right:   @s-small-xs-margin;
 
         @media (min-width:  @screen-md-min) {
             margin-right: @s-double-xs-margin;
         }
     }
-    
-    .social-item:first-child { 
+
+    .social-item:first-child {
         margin-right: @font-size-base;
     }
-    
-    .social-item:last-child { 
+
+    .social-item:last-child {
         margin-right: 0;
     }
 
@@ -215,31 +171,29 @@ a.focus {
 
  div[role="main"] button + .dropdown-menu {
      padding:       0;
-     left:          5px;
-     margin-top:    -3px;
+     margin-top:    -2px;   // Same amount as the border width
  }
 
+ .dropdown .btn {
+     margin-left: 0;
+ }
+
+ .dropdown-menu > li > a {
+     padding:       @s-double-xs-margin @s-small-xs-margin;
+     line-height:   1;
+
+    @media (min-width:  @screen-xs-min) {
+        padding: (@s-medium-md-margin / 2) @s-medium-md-margin;
+    }
+
+ }
+
+
 /*
- * Header
-  * */
-
-.skip-links a {
-    display:    inline-block;
-    overflow:   hidden;
-    height:     0;
-}
-
-.header .btn-sm {
-    float:      right;
-    margin-top: 10px;
-}
-
-/**
-* Line
-**/
-.full_width_line {
+ * Line
+ * */
+.fullwidth-line {
+    border-bottom-color: @brand-primary;
     border-bottom-style: solid;
     border-bottom-width: 1px;
 }
-
-

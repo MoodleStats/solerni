@@ -1,40 +1,69 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : Sep 10, 2015, 3:04:50 PM
-    Author     : ajby6350
-*/
-
 .icon-halloween {
     display:            block;
     height:             @s-standard-icon-size;
     width:              @s-standard-icon-size;
-    background-color:   @brand-primary;
-    background-size:    contain;
-    background-repeat: no-repeat;
+    background-repeat:  no-repeat;
+    background-image:   url('../pix/sprite-halloween.png');
 }
 
 .icon-halloween--facebook {
-    background-image: url(../pix/facebook.svg);
+    background-position: 0px -74px;
+
+    .u-inverse & {
+        background-position: 0 0;
+    }
+}
+
+.icon-halloween--facebook:hover {
+    background-position: 0px -37px;
 }
 
 .icon-halloween--twitter {
-    background-image: url(../pix/twitter.svg);
+    background-position: -37px -74px;
+
+    .u-inverse & {
+        background-position: -37px 0;
+    }
+}
+
+.icon-halloween--twitter:hover {
+    background-position: -37px -37px;
+}
+
+.icon-halloween--dailymotion {
+    background-position: -74px -74px;
+
+    .u-inverse & {
+        background-position: -74px 0;
+    }
+}
+
+.icon-halloween--dailymotion:hover {
+    background-position: -74px -37px;
+}
+
+.icon-halloween--blog {
+    background-position: -111px -74px;
+
+    .u-inverse & {
+        background-position: -111px 0;
+    }
+}
+
+.icon-halloween--blog:hover {
+    background-position: -111px -37px;
 }
 
 .icon-halloween--email {
-    background-image: url(../pix/email.svg);
+    background-position: -148px -74px;
+
+    .u-inverse & {
+        background-position: -148px 0;
+    }
+}
+
+.icon-halloween--email:hover {
+    background-position:-148px -37px;
 }
 
 
-.icon-halloween--dailymotion {
-    background-image: url(../pix/dailymotion.svg);
-}
-
-
-.icon-halloween--discussion {
-    background-image: url(../pix/discussion.svg);
-}
