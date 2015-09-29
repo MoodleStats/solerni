@@ -15,25 +15,18 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Event observer.
+ * Goodbye
  *
- * @package local_eledia_makeanonymous
- * @author Matthias Schwabe <support@eledia.de>
- * @copyright 2013 & 2014 eLeDia GmbH
- * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * This module has been created to provide users the option to delete their account
+ *
+ * @package    local
+ * @subpackage goodbye, delete your moodle account
+ * @copyright  2013 Bas Brands, www.basbrands.nl
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
-require_once($CFG->dirroot.'/local/eledia_makeanonymous/lib.php');
-
-/**
- * Event observer.
- */
-class local_eledia_makeanonymous_observer {
-
-    public static function anonymize(\core\event\user_deleted $event) {
-
-        start_anonymous($event->relateduserid);
-    }
-}
+$plugin->version  = 2013092204;
+$plugin->requires = 2011033010;
+$plugin->release = '1.0 (Build: 2013071500)';
+$plugin->maturity = MATURITY_STABLE;
+$plugin->component = 'local_goodbye';
