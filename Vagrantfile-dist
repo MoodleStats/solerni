@@ -56,6 +56,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.vm.synced_folder "vagrant/moodledata/muc", "/opt/solerni/customers/solerni/data/muc"
 	config.vm.synced_folder "vagrant/moodledata/trashdir", "/opt/solerni/customers/solerni/data/trashdir"
 	config.vm.synced_folder "vagrant/solerni", "/opt/solerni/customers/solerni/dev/solerni", type: "rsync"
+	config.vm.synced_folder "vagrant/solerni/solerni-static/default", "/opt/solerni/customers/solerni/data/solerni/html", type: "rsync"
 	config.vm.synced_folder "vagrant/system/root/backups", "/root/backups"
 	config.vm.synced_folder "vagrant/system/mnt/samba", "/mnt/samba"
 

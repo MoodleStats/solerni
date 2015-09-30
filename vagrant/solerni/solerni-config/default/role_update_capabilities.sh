@@ -383,3 +383,26 @@ moosh role-update-capability solerni_client quiz/statistics:view allow 1
 
 # Workshop (#us_90)
 moosh role-update-capability solerni_apprenant mod/workshop:viewauthornames prevent 1
+
+# Update course creator role (#us_285)
+moosh role-update-capability solerni_course_creator moodle/user:create allow 1
+moosh role-update-capability solerni_course_creator moodle/user:delete allow 1
+moosh role-update-capability solerni_course_creator moodle/user:update allow 1
+moosh role-update-capability solerni_course_creator moodle/user:editprofile allow 1
+moosh role-update-capability solerni_course_creator enrol/manual:unenrol allow 1
+moosh role-update-capability solerni_course_creator enrol/self:unenrol allow 1
+moosh role-update-capability solerni_course_creator moodle/user:viewdetails allow 1
+moosh role-update-capability solerni_course_creator moodle/user:viewhiddendetails allow 1
+moosh role-update-capability solerni_course_creator moodle/course:viewhiddenuserfields allow 1
+moosh role-update-capability solerni_course_creator moodle/role:review allow 1
+moosh role-update-capability solerni_course_creator local/orange_customers:edit allow 1
+moosh role-update-capability solerni_course_creator local/orange_rules:edit 1
+moosh role-update-capability solerni_course_creator local/orange_thematics:edit allow 1
+moosh role-update-capability solerni_course_creator moodle/user:loginas allow 1
+
+# Update teacher role
+moosh role-update-capability solerni_teacher moodle/user:loginas allow 1
+moosh role-update-capability solerni_teacher block/html:addinstance allow 1
+moosh role-update-capability solerni_teacher moodle/block:edit allow 1
+moosh role-update-capability solerni_teacher moodle/site:manageblocks allow 1
+

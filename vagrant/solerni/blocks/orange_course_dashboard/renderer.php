@@ -98,7 +98,7 @@ class block_orange_course_dashboard_renderer extends plugin_renderer_base {
                     <div class="slrn-coursebox__column slrn-coursebox__column--description">
                         <h3 class="slrn-coursebox__coursename"><?php echo $coursename; ?></h3>
                         <span class="slrn-coursebox__courseby font-variant--type1">
-                            <?php echo get_string('courseproposedby', 'theme_cerulean'); ?>
+                            <?php echo get_string('courseproposedby', 'theme_halloween'); ?>
                             <?php if ($customerurl) : ?>
                                 <a class="link-primary" href="<?php echo $customerurl; ?>" class="slrn-coursebox__course-customer">
                                     <?php if (isset($customer->name)) {
@@ -112,7 +112,7 @@ class block_orange_course_dashboard_renderer extends plugin_renderer_base {
                             //echo $utilities->trim_text( $chelper->get_course_formatted_summary($course,
                               //          array('overflowdiv' => false, 'noclean' => true, 'para' => false)), 155); ?>
                             <a class="link-secondary" href="<?php echo $utilitiescourse->get_description_page_url($course); ?>">
-                                <?php echo get_string('coursefindoutmore', 'theme_cerulean'); ?>
+                                <?php echo get_string('coursefindoutmore', 'theme_halloween'); ?>
                             </a>
                         </div>
                         <div class="slrn-coursebox__column--subscription_button">
@@ -121,18 +121,18 @@ class block_orange_course_dashboard_renderer extends plugin_renderer_base {
                     </div>
                     <div class="slrn-coursebox__column slrn-coursebox__column--metadata font-variant--type1">
                         <div class="slrn-coursebox__metadata slrn-coursebox__metadata--dates">
-                            <div class="slrn-coursebox__metadata__icone -sprite-cerulean"></div>
+                            <div class="slrn-coursebox__metadata__icone -sprite-halloween"></div>
                             <?php if ($course->startdate || $course->startdate ) : ?>
                                 <span class="slrn-coursebox__metadata__item">
                                     <?php if ( $course->startdate) : ?>
                                         <div class="">
-                                            <?php echo get_string('coursestartdate', 'theme_cerulean') .
+                                            <?php echo get_string('coursestartdate', 'theme_halloween') .
                                                     " " . date("d.m.Y", $course->startdate); ?>
                                         </div>
                                     <?php endif; ?>
                                     <?php if ( $courseinfos->enddate) : ?>
                                         <div class="">
-                                            <?php echo get_string('courseenddate', 'theme_cerulean') .
+                                            <?php echo get_string('courseenddate', 'theme_halloween') .
                                                 " " . date("d.m.Y", $courseinfos->enddate); ?>
                                         </div>
                                     <?php endif; ?>
@@ -140,19 +140,19 @@ class block_orange_course_dashboard_renderer extends plugin_renderer_base {
                             <?php endif; ?>
                         </div>
                         <div class="slrn-coursebox__metadata slrn-coursebox__metadata--badges">
-                            <div class="slrn-coursebox__metadata__icone -sprite-cerulean"></div>
+                            <div class="slrn-coursebox__metadata__icone -sprite-halloween"></div>
                             <?php if ( $badges->count_badges($course->id)) : ?>
                                 <span class="slrn-coursebox__metadata__item">
-                                    <?php echo get_string('coursebadge', 'theme_cerulean'); ?>
+                                    <?php echo get_string('coursebadge', 'theme_halloween'); ?>
                                 </span>
                             <?php else : ?>
                                 <span class="slrn-coursebox__metadata__item">
-                                    <?php echo get_string('coursenobadge', 'theme_cerulean'); ?>
+                                    <?php echo get_string('coursenobadge', 'theme_halloween'); ?>
                                 </span>
                             <?php endif; ?>
                         </div>
                         <div class="slrn-coursebox__metadata slrn-coursebox__metadata--price">
-                            <div class="slrn-coursebox__metadata__icone -sprite-cerulean"></div>
+                            <div class="slrn-coursebox__metadata__icone -sprite-halloween"></div>
                             <span class="slrn-coursebox__metadata__item">
                                 <?php echo $courseinfos->price; ?>
                             </span>

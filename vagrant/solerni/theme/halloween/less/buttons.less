@@ -1,0 +1,163 @@
+
+// Boost extra styling from Boost variables.less
+// Slightly modified for Solerni
+// Easy place for changing buttons CSS !
+// -------------------------
+// Easily pump out default styles, as well as :hover, :focus, :active,
+// and disabled options for all buttons.
+// Added color definition for reBoost guidelines.
+// Also added some rules of repetition and specificity,
+// because when the .btn is also a <a>,
+// We have a lot of :focus and :active conflicts.
+.btn {
+    border-width: 2px;
+}
+
+.button-variant(
+    @color; @background; @border;
+    @color-hover; @bg-hover; @border-hover;
+    @color-active; @bg-active; @border-active) {
+    color:            @color;
+    background-color: @background;
+    border-color:     @border;
+    text-decoration:  none;
+    padding:          @s-small-xs-margin @s-double-xs-margin;
+
+    &:visited {
+        color:            @color;
+    }
+
+    &:hover,
+    &.hover,
+    &:focus,
+    &.focus,
+    .open .dropdown-toggle& {
+      color:              @color-hover;
+      background-color:   @bg-hover;
+      border-color:       @border-hover;
+      text-decoration:    none;
+    }
+
+    &:active,
+    &.active,
+    .open .dropdown-toggle& {
+        color:              @color-active;
+        background-color:   @bg-active;
+        border-color:       @bg-active;
+        background-image:   none;
+    }
+
+    &:focus.btn,
+    &.focus.btn {
+        outline:            dotted 1px @gray-lighter;
+    }
+
+    &:focus.btn:active,
+    &.focus.btn:active {
+        background-color:   @bg-active;
+        outline:            0;
+    }
+
+    &.disabled,
+    &[disabled],
+    fieldset[disabled] & {
+        &,
+        &:hover,
+        &:focus,
+        &:active,
+        &.active {
+            font-style:       normal;
+            background-color: @background;
+            border-color:     @border;
+            color:            @color;
+            opacity:          .3;
+            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)"; // IE8 opcaity
+        }
+    }
+
+    .badge {
+        color:              @background;
+        background-color:   @color;
+    }
+
+    .dropdown &:hover.btn,
+    .dropdown &:focus.btn,
+    .dropdown &:active.btn {
+        color:              @color;
+        background-color:   @background;
+        border-color:       @background;
+    }
+
+    .u-inverse .dropdown &:hover.btn,
+    .u-inverse .dropdown &:focus.btn,
+    .u-inverse .dropdown &:active.btn {
+        border-color:   @color;
+    }
+}
+
+// Creation of a new btn-engage button
+// Alternate buttons
+// --------------------------------------------------
+
+.btn-default {
+    .button-variant(
+        @btn-default-color; @btn-default-bg; @btn-default-border;
+        @btn-default-color-hover; @btn-default-bg-hover; @btn-default-border-hover;
+        @btn-default-color-active; @btn-default-bg-active; @btn-default-border-active
+    );
+}
+.btn-primary {
+    .button-variant(
+        @btn-primary-color; @btn-primary-bg; @btn-primary-border;
+        @btn-primary-color-hover; @btn-primary-bg-hover; @btn-primary-border-hover;
+        @btn-primary-color-active; @btn-primary-bg-active; @btn-primary-border-active
+    );
+}
+// Success appears as green
+.btn-success {
+    .button-variant(
+        @btn-success-color; @btn-success-bg; @btn-success-border;
+        @btn-success-color-hover; @btn-success-bg-hover; @btn-success-border-hover;
+        @btn-success-color-active; @btn-success-bg-active; @btn-success-border-active
+    );
+}
+// Info appears as blue-green
+.btn-info {
+    .button-variant(
+        @btn-info-color; @btn-info-bg; @btn-info-border;
+        @btn-info-color-hover; @btn-info-bg-hover; @btn-info-border-hover;
+        @btn-info-color-active; @btn-info-bg-active; @btn-info-border-active
+    );
+}
+// Warning appears as orange
+.btn-warning {
+    .button-variant(
+        @btn-warning-color; @btn-warning-bg; @btn-warning-border;
+        @btn-warning-color-hover; @btn-warning-bg-hover; @btn-warning-border-hover;
+        @btn-warning-color-active; @btn-warning-bg-active; @btn-warning-border-active
+    );
+}
+// Danger and error appear as red
+.btn-danger {
+    .button-variant(
+        @btn-danger-color; @btn-danger-bg; @btn-danger-border;
+        @btn-danger-color-hover; @btn-danger-bg-hover; @btn-danger-border-hover;
+        @btn-danger-color-active; @btn-danger-bg-active; @btn-danger-border-active
+    );
+}
+// Engagement button
+.btn-engage {
+    .button-variant(
+        @btn-engage-color; @btn-engage-bg; @btn-engage-border;
+        @btn-engage-color-hover; @btn-engage-bg-hover; @btn-engage-border-hover;
+        @btn-engage-color-active; @btn-engage-bg-active; @btn-engage-border-active
+    );
+}
+
+// Small button
+.btn-sm {
+    font-size:  @font-size-base;
+    padding:    4px 20px 2px 20px;
+}
+
+

@@ -1,0 +1,199 @@
+/*
+ * This file include Solerni CSS specific code :
+ * keeps code that is not lengthy enough to be into a specific file
+ */
+/*
+ * Element LESS template as model :
+
+.classname {
+    permanent_property: value;
+
+    @media (min-width: @screen-sm-min) {
+        sm-specific_property: value;
+        (remove @media block if unused)
+    }
+
+    @media (min-width: @screen-md-min) {
+        md-specific_property: value;
+}
+
+    @media (min-width: @screen-lg-min) {
+        lg-specific_property: value;
+    }
+}
+
+*/
+
+// Probably never use, but we never know.
+.font-primary {
+    font-family: @font-family-base;
+}
+
+.font-secondary {
+    font-family: @font-family-serif;
+}
+
+.font-mono {
+    font-family: @font-family-monospace;
+}
+
+// Titles
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6, p {
+    line-height:    1.5; // 63px, 42px, 36px, 31px, 15px, 13px and 20px baseline
+}
+
+h1, .h1,
+h4, .h4 {
+    color: @brand-primary;
+}
+
+// Forms Moodle missing type="email"
+// Overrides same function from boostrap/less/moodle/forms.less # 160
+form select,
+form input[type="text"],
+form input[type="password"],
+form input[type="email"],
+form.atto_form input[type="url"],
+select.singleselect {
+    .form-control;
+    width: auto;
+    max-width: 300px;
+    display: inline;
+    margin: 0 0 5px 0;
+}
+
+// Moodle uses some margins, Bootstrap others : mixing both
+input[type="radio"],
+input[type="checkbox"] {
+    margin: 4px;
+}
+
+// Links rules and colors from guidelines
+a {
+    text-decoration: underline;
+}
+
+a:visited,
+a.visited {
+    color: @link-visited-color;
+}
+
+a:active,
+a.active,
+a:focus,
+a.focus {
+    color: @link-active-color;
+}
+
+a:focus,
+a.focus {
+    outline:        1px dotted currentColor;
+    outline-offset: 2px;
+}
+
+/*
+ * List Links (as in footer)
+ * */
+.list-link {}
+
+    .link-item {
+        margin-bottom:  @s-triple-xs-margin;
+        text-align:     center;
+
+        @media (min-width:  @screen-md-min) {
+            margin-bottom:  @s-triple-md-margin;
+            text-align:     left;
+        }
+    }
+
+    .link-item:first-child {
+        padding:            @s-small-xs-margin 0;
+        background-color:   @gray-before-light-plus;
+        color:              @brand-primary;
+
+        @media (min-width: @screen-md-min) {
+            background-color:   transparent;
+        }
+
+    }
+
+    .link-item:last-child,
+    .link-item:first-child {
+        margin-bottom: @s-double-xs-margin;
+
+        @media (min-width:  @screen-md-min) {
+            margin-bottom: @s-double-md-margin;
+        }
+    }
+
+    .list-link .dropdown {
+        margin-left:    -@s-double-xs-margin;    // Apparently removing left padding
+        margin-top:     -@s-small-xs-margin;    // Apparently removing top padding
+    }
+
+ /*
+  * Social class
+  * */
+
+ .list-social {
+    padding-top:    @font-size-base;
+    padding-bottom: @font-size-base;
+    margin-bottom:  0;
+ }
+
+  div[role="main"] .list-social {
+    padding-top:    @font-size-base; // Override because bootstrap specificity
+    padding-bottom: @font-size-base;
+ }
+
+    .social-item {
+        display:        inline-block;
+        vertical-align: middle;
+        margin-right:   @s-small-xs-margin;
+
+        @media (min-width:  @screen-md-min) {
+            margin-right: @s-double-xs-margin;
+        }
+    }
+
+    .social-item:first-child {
+        margin-right: @font-size-base;
+    }
+
+    .social-item:last-child {
+        margin-right: 0;
+    }
+
+ /*
+  * Dropdowns
+  * */
+
+ div[role="main"] button + .dropdown-menu {
+     padding:       0;
+     margin-top:    -2px;   // Same amount as the border width
+ }
+
+ .dropdown .btn {
+     margin-left: 0;
+ }
+
+ .dropdown-menu > li > a {
+     padding:       @s-double-xs-margin @s-small-xs-margin;
+     line-height:   1;
+
+    @media (min-width:  @screen-xs-min) {
+        padding: (@s-medium-md-margin / 2) @s-medium-md-margin;
+    }
+
+ }
+
+
+/*
+ * Line
+ * */
+.fullwidth-line {
+    border-bottom-color: @brand-primary;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}

@@ -5,6 +5,9 @@ BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 
 function upgrade_vagrant_box () {
+	vagrant ssh -c "sudo service mysql stop"
+	vagrant ssh -c "sudo umount -l /mnt/shareddisk-client/" 
+	vagrant ssh -c "sudo poweroff"
 	vagrant halt
 	vagrant destroy
 	vagrant box remove Solerni2DevBox

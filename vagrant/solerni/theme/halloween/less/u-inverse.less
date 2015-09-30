@@ -1,0 +1,88 @@
+/*
+ * inverse color.
+ * This class should tell to any child element that it should adopt
+ * an inversed layout between background and foreground.
+  * */
+
+.u-inverse {
+    background-color:   @brand-primary;
+    color:              @brand-tertiary;
+
+    // Links rules and colors
+    & a,
+    & li a {
+        color: @brand-tertiary;
+    }
+
+    & a:visited,
+    & a.visited,
+    & li a:visited,
+    & li a.visited {
+        color:              @orange-light-4;
+        text-decoration:    none;
+    }
+
+    & a:active,
+    & a.active,
+    & li a.active,
+    & li a:active,
+    & a:focus,
+    & a.focus,
+    & li a:focus,
+    & li a.focus {
+        color: @orange-light-4;
+    }
+
+    & a:focus,
+    & a.focus {
+        outline:        1px dotted currentColor;
+        outline-offset: 2px;
+    }
+
+    & .link-item:first-child {
+        @media (min-width: @screen-md-min) {
+            color: @brand-tertiary;
+        }
+    }
+
+    & h1, & h4, & h5, & h6,
+    & .h1, & .h4, & .h5, & .h6, & p {
+        color: @brand-tertiary;
+    }
+
+    // button tag
+    & button {
+        background-color:   @brand-primary;
+        color:              @brand-tertiary;
+    }
+
+    & .btn-primary {
+        border: 2px solid @brand-tertiary;
+    }
+
+    // dropdown
+    & .dropdown-menu {
+        background-color: @brand-primary;
+        border: 2px solid @brand-tertiary;
+    }
+
+    & .dropdown-menu a {
+        color: @brand-tertiary;
+
+        &:hover,
+        &:focus {
+            color:              @brand-primary;
+            background-color:   @gray-lighter;
+        }
+    }
+
+    // Dropdown button inside the u-inverse footer
+    & .list-link .dropdown .btn {
+        border: 0;
+    }
+
+    & .fullwidth-line {
+        border-bottom-color: @gray;
+    }
+
+}
