@@ -51,43 +51,43 @@ class block_orange_social_sharing_renderer extends plugin_renderer_base {
 
         if (!empty($blockinstance->config->facebook)) {
             $shareonarray->add(get_string('shareonfacebook', 'block_orange_social_sharing'));
-            $socialclassarray->add('button_social_facebook');
+            $socialclassarray->add('facebook');
             $socialurlarray->add(get_string('urlshareonfacebook', 'block_orange_social_sharing'));
         }
         if (!empty($blockinstance->config->twitter)) {
             $shareonarray->add(get_string('shareontwitter', 'block_orange_social_sharing'));
-            $socialclassarray->add('button_social_twitter');
+            $socialclassarray->add('twitter');
             $socialurlarray->add(get_string('urlshareontwitter', 'block_orange_social_sharing'));
         }
         if (!empty($blockinstance->config->linkedin)) {
             $shareonarray->add(get_string('shareonlinkedin', 'block_orange_social_sharing'));
-            $socialclassarray->add('button_social_linkedin');
+            $socialclassarray->add('linkedin');
             $socialurlarray->add(get_string('urlshareonlinkedin', 'block_orange_social_sharing'));
         }
         if (!empty($blockinstance->config->googleplus)) {
             $shareonarray->add(get_string('shareongoogleplus', 'block_orange_social_sharing'));
-            $socialclassarray->add('button_social_googleplus');
+            $socialclassarray->add('googleplus');
             $socialurlarray->add(get_string('urlshareongoogleplus', 'block_orange_social_sharing'));
         }
 
         $count = $shareonarray->count;
-        $text = html_writer::start_tag('div', array('class' => 'sider sider_social-sharing'));
-                $text .= html_writer::start_tag('ul', array('class' => 'list-unstyled'));
+        $text = html_writer::start_tag('div', array('class' => 'sider sider_social-sharing row'));
+                //$text .= html_writer::start_tag('ul', array('class' => 'list-unstyled'));
 
         for ($i = 1; $i <= $count; $i++) {
                     $shareonarray->setCurrent($i);
                     $socialclassarray->setCurrent($i);
                     $socialurlarray->setCurrent($i);
 
-                    $text .= html_writer::start_tag('li', array('class' => 'button_social_item'));
+                    $text .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-2'));
 
-                    $text .= html_writer::tag('a', $shareonarray->getCurrent(),
-                            array('class' => 'button_social_link__icon '.$socialclassarray->getCurrent().' -sprite-solerni',
+                    $text .= html_writer::tag('a', " ",
+                            array('class' => 'icon-halloween icon-halloween--'.$socialclassarray->getCurrent(),
                             'href' => $socialurlarray->getCurrent().$PAGE->url, 'target' => '_blank'));
-                    $text .= html_writer::end_tag('li');
+                    $text .= html_writer::end_tag('div');
 
         }
-                $text .= html_writer::end_tag('ul');
+                //$text .= html_writer::end_tag('ul');
         $text .= html_writer::end_tag('div');
         return $text;
 
