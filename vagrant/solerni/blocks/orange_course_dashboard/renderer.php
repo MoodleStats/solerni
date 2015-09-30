@@ -46,7 +46,7 @@ class block_orange_course_dashboard_renderer extends plugin_renderer_base {
         $html .= get_string('titlerecommendations', 'block_orange_course_dashboard');
         $html .= html_writer::end_tag('h2');
         if (!empty($config->catalogurl)) {
-            $html .= html_writer::start_tag('div', array('class' => 'block_orange_course_dashboard test'));
+            $html .= html_writer::start_tag('div', array('class' => 'block_orange_course_dashboard right'));
             $catalogurl = new moodle_url($config->catalogurl);
             $html .= html_writer::link($catalogurl, get_string('displaycatalog', 'block_orange_course_dashboard'));
             $html .= html_writer::end_tag('div');
@@ -194,7 +194,7 @@ class block_orange_course_dashboard_renderer extends plugin_renderer_base {
         $html .= get_string('titlerecommendations', 'block_orange_course_dashboard');
         $html .= html_writer::end_tag('h2');
         if (!empty($config->catalogurl)) {
-            $html .= html_writer::start_tag('div', array('class' => 'block_orange_course_dashboard test'));
+            $html .= html_writer::start_tag('div', array('class' => 'block_orange_course_dashboard right'));
             $catalogurl = new moodle_url($config->catalogurl);
             $html .= html_writer::link($catalogurl, get_string('displaycatalog', 'block_orange_course_dashboard'));
             $html .= html_writer::end_tag('div');
@@ -236,7 +236,7 @@ class block_orange_course_dashboard_renderer extends plugin_renderer_base {
         } else {
             $mymoocsurl = new moodle_url('/my');
         }
-        $html .= html_writer::link($mymoocsurl, "AA" . get _string('displaymymoocs', 'block_orange_course_dashboard'));
+        $html .= html_writer::link($mymoocsurl, get_string('displaymymoocs', 'block_orange_course_dashboard'));
         $html .= html_writer::end_tag('div');
 
         foreach ($courses as $key => $course) {
