@@ -22,25 +22,19 @@
  * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-namespace orange_thematics;
-
 require_once($CFG->dirroot . '/local/orange_thematics/forms/orange_thematics_form.php');
 require_once($CFG->dirroot . '/local/orange_thematics/forms/orange_thematics_list.php');
 require_once($CFG->dirroot . '/local/orange_thematics/lib.php');
 
-
-class orange_thematics  {
+class orange_thematics {
 
     protected $action;
     protected $renderable;
     protected $list;
 
     public function __construct($action) {
-
-        global $CFG;
-
         $this->action = $action;
-        $this->url = $CFG->wwwroot.'/local/orange_thematics/index.php';
+        $this->renderable = new orange_thematics_form();
     }
 
 
@@ -48,7 +42,7 @@ class orange_thematics  {
      * Outputs the packaging form
      */
     public function thematics_form() {
-        global $CFG, $PAGE, $DB;
+        global $DB;
 
         $get = new stdClass();
 
@@ -64,15 +58,14 @@ class orange_thematics  {
             $toform->name = $tobemodified->name;
         }
 
-        $this->renderable = new orange_thematics_form();
         $this->renderable->set_data($toform);
 
     }
-    
+
 
     /**
      * Delete thematic and redirects to the list page
-     */    
+     */
     public function thematics_delete() {
         global $CFG, $PAGE, $DB;
 
@@ -114,7 +107,7 @@ class orange_thematics  {
 
     /**
      * Add new thematic or update if it exists. Redirects to the list page.
-     */    
+     */
     public function thematics_add() {
         global $CFG, $PAGE, $DB;
 
@@ -135,7 +128,7 @@ class orange_thematics  {
             	$DB->update_record('orange_thematics', $thematic);
         	}
         }
-        
+
         $returnurl = new moodle_url('index.php', array('action' => 'thematics_list', 'sesskey' => sesskey()));
 
         redirect($returnurl);
@@ -146,7 +139,7 @@ class orange_thematics  {
      * Outputs list of thematics.
      */
     public function thematics_list() {
-        global $CFG, $PAGE, $DB, $OUTPUT;
+        global $DB, $OUTPUT;
 
         $sitecontext = context_system::instance();
 
@@ -217,7 +210,6 @@ class orange_thematics  {
 
         $this->list = $table;
 
-        $this->renderable = new orange_thematics_list(/* $this->url */);
     }
 
 
