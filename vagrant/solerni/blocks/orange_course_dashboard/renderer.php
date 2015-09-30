@@ -230,13 +230,13 @@ class block_orange_course_dashboard_renderer extends plugin_renderer_base {
         $html .= html_writer::start_tag('h2', array('class' => ''));
         $html .= get_string('titlefollowedcourses', 'block_orange_course_dashboard');
         $html .= html_writer::end_tag('h2');
-            $html .= html_writer::start_tag('div', array('class' => 'block_orange_course_dashboard test'));
+            $html .= html_writer::start_tag('div', array('class' => 'block_orange_course_dashboard'));
         if (!empty($config->mymoocurl)) {
             $mymoocsurl = new moodle_url($config->mymoocsurl);
         } else {
             $mymoocsurl = new moodle_url('/my');
         }
-        $html .= html_writer::link($mymoocsurl, get_string('displaymymoocs', 'block_orange_course_dashboard'));
+        $html .= html_writer::link($mymoocsurl, "AA" . get _string('displaymymoocs', 'block_orange_course_dashboard'));
         $html .= html_writer::end_tag('div');
 
         foreach ($courses as $key => $course) {
