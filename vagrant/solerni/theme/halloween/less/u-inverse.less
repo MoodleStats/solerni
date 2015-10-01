@@ -44,7 +44,7 @@
             color: @brand-tertiary;
         }
     }
-    
+
     & h1, & h4, & h5, & h6,
     & .h1, & .h4, & .h5, & .h6, & p {
         color: @brand-tertiary;
@@ -69,25 +69,19 @@
     & .dropdown-menu a {
         color: @brand-tertiary;
 
-        &:hover {
+        &:hover,
+        &:focus {
             color:              @brand-primary;
             background-color:   @gray-lighter;
         }
     }
 
     // Dropdown button inside the u-inverse footer
-    &.footer .dropdown .btn {
-        border:      0;
-        margin-left: -20px;             // Apparently removing left padding
+    & .list-link .dropdown .btn {
+        border: 0;
     }
 
-    &.footer .dropdown .dropdown-menu {
-        margin-left: -25px;
-    }
-
-    
-    & full_width_line, .full_width_line {
-
+    & .fullwidth-line {
         border-bottom-color: @gray;
     }
 

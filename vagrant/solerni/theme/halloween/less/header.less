@@ -1,0 +1,94 @@
+/*
+ * Rules and mixins related to header
+ */
+
+
+/*
+ * Header Logo
+  * */
+
+.header-logo {
+    display:            inline-block;
+    margin-top:         @s-small-xs-margin;
+    margin-bottom:      @s-small-xs-margin;
+    height:             (@s-triple-xs-margin + 6); // 36px (same height as the button)
+    font-size:          0;
+    font-weight:        bold;
+
+    @media (min-width: @screen-sm-min) {
+        height:         floor(@s-double-md-margin * 1.666666667);  // 50px
+        margin-top:     @s-double-md-margin;
+        margin-bottom:  @s-double-md-margin;
+    }
+}
+
+.header-logo,
+.header-logo:hover {
+    text-decoration:    none;
+}
+
+    .logo-image {
+        vertical-align: baseline;
+        margin-right: @s-small-xs-margin;
+        height: 100%;
+        width:  auto;
+
+        @media (min-width: @screen-md-min) {
+            margin-right: @s-small-md-margin;
+        }
+    }
+
+    .logo-brandname {
+        font-size:          @s-double-xs-margin;
+
+        @media (min-width:  @screen-md-min) {
+            font-size:      @s-double-md-margin;
+            margin-right:   @s-small-md-margin;
+        }
+    }
+
+
+/*
+ * Header
+ * */
+.skip-links {
+    height: 0;
+}
+
+.skip-links a {
+    display:    inline-block;
+    overflow:   hidden;
+    height:     0;
+}
+
+.skip-links a:focus {
+    height: auto;
+    color:  @brand-tertiary;
+}
+
+.header{}
+
+    .action-area {
+        position:   absolute;
+        right:      (@grid-gutter-width / 2);
+        bottom:     @s-small-xs-margin;         // Same value as logo margin
+        font-size:  0;
+
+        @media (min-width:  @screen-sm-min) {
+            bottom: @s-double-md-margin;
+        }
+
+        & > .icon-halloween,
+        & > .dropdown {
+            display:        inline-block;
+            vertical-align: middle;
+        }
+
+        & .icon-halloween {
+            margin-right: @s-medium-xs-margin;
+
+            @media (min-width:  @screen-sm-min) {
+                margin-right: @s-medium-md-margin;
+            }
+        }
+    }

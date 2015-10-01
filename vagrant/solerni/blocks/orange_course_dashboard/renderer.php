@@ -46,7 +46,7 @@ class block_orange_course_dashboard_renderer extends plugin_renderer_base {
         $html .= get_string('titlerecommendations', 'block_orange_course_dashboard');
         $html .= html_writer::end_tag('h2');
         if (!empty($config->catalogurl)) {
-            $html .= html_writer::start_tag('div', array('class' => 'block_orange_course_dashboard test'));
+            $html .= html_writer::start_tag('div', array('class' => 'block_orange_course_dashboard right'));
             $catalogurl = new moodle_url($config->catalogurl);
             $html .= html_writer::link($catalogurl, get_string('displaycatalog', 'block_orange_course_dashboard'));
             $html .= html_writer::end_tag('div');
@@ -194,7 +194,7 @@ class block_orange_course_dashboard_renderer extends plugin_renderer_base {
         $html .= get_string('titlerecommendations', 'block_orange_course_dashboard');
         $html .= html_writer::end_tag('h2');
         if (!empty($config->catalogurl)) {
-            $html .= html_writer::start_tag('div', array('class' => 'block_orange_course_dashboard test'));
+            $html .= html_writer::start_tag('div', array('class' => 'block_orange_course_dashboard right'));
             $catalogurl = new moodle_url($config->catalogurl);
             $html .= html_writer::link($catalogurl, get_string('displaycatalog', 'block_orange_course_dashboard'));
             $html .= html_writer::end_tag('div');
@@ -230,7 +230,7 @@ class block_orange_course_dashboard_renderer extends plugin_renderer_base {
         $html .= html_writer::start_tag('h2', array('class' => ''));
         $html .= get_string('titlefollowedcourses', 'block_orange_course_dashboard');
         $html .= html_writer::end_tag('h2');
-            $html .= html_writer::start_tag('div', array('class' => 'block_orange_course_dashboard test'));
+            $html .= html_writer::start_tag('div', array('class' => 'block_orange_course_dashboard'));
         if (!empty($config->mymoocurl)) {
             $mymoocsurl = new moodle_url($config->mymoocsurl);
         } else {
