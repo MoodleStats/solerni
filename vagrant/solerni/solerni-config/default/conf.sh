@@ -12,7 +12,7 @@
 # ${CUSTOMER_STATS_DB_USERNAME}
 # ${CUSTOMER_STATS_DB_PASSWORD}
 # ${CUSTOMER_PIWIK_URL}
-# ${CUSTOMER_NAME}
+# ${CUSTOMER_STATIC_DIRECTORY}
 
 # add conf for external logs (#us_289)
 # moosh config-set enabled_stores logstore_standard,logstore_database,logstore_legacy tool_log
@@ -105,7 +105,7 @@ moosh enrol-manage disable guest
 moosh role-configset profileroles solerni_apprenant,solerni_power_apprenant,solerni_animateur,solerni_teacher
 
 # Modify Document directory - Plugin Local/Static Pages (#us_71)
-moosh config-set documentdirectory /opt/solerni/customers/${CUSTOMER_NAME}/data/solerni/html local_staticpage            
+moosh config-set documentdirectory ${CUSTOMER_STATIC_DIRECTORY} local_staticpage            
 
 # Path of geoipfile for geolocation (#us_247)
 moosh config-set geoipfile /opt/solerni/misc/geoip/GeoIP.dat 
