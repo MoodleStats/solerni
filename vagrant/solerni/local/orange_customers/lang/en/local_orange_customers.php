@@ -25,6 +25,9 @@
 
 $string['pluginname'] = 'Orange customers';
 $string['customers'] = 'Manage customers';
+$string['customerslink'] = 'Customers';
+$string['customerslinkadd'] = 'Add a new customer';
+$string['customerslinklist'] = 'Browse list of customers';
 $string['definecustomersheader'] = 'Managing customers';
 $string['customerid'] = 'Id.';
 $string['customername'] = 'Customer name';
