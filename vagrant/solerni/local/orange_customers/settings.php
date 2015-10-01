@@ -26,11 +26,20 @@
 defined('MOODLE_INTERNAL') || die;
 
 $orangeplugin = 'local_orange_customers';
-$orangeaddcustomersurl = '/local/orange_customers/view.php?sesskey=' . sesskey();
 $orangelistcustomersurl = '/local/orange_customers/index.php?sesskey=' . sesskey().'&action=customers_list';
 
-if ($hassiteconfig) {
-    $ADMIN->add('localplugins', new admin_externalpage('orange_customers_level2',
-        get_string('customers', $orangeplugin),
-        new moodle_url($orangelistcustomersurl)));
+if ($hassiteconfig or has_capability('local/orange_customers:edit', context_system::instance())) {
+
+    $ADMIN->add('root', new admin_category('customer', get_string('customerslink', $orangeplugin)));
+
+    $ADMIN->add('customer', new admin_externalpage('orange_customers_level2', get_string('customerslinklist', $orangeplugin),
+        new moodle_url($orangelistcustomersurl),
+	array('local/orange_customers:edit')
+        ));
+
+    $ADMIN->add('customer',
+	new admin_externalpage('customercoursemgmt', get_string('customerslinkadd', $orangeplugin),
+	$CFG->wwwroot . '/course/management.php',
+	array('moodle/category:manage', 'moodle/course:create')
+	));            
 }
