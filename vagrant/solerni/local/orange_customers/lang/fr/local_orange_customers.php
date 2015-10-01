@@ -26,9 +26,9 @@
 $string['pluginname'] = 'Orange customers';
 $string['customers'] = 'Gestion des clients';
 $string['customerslink'] = 'Clients';
-$string['definecustomersheader'] = 'Gestion des clients';
 $string['customerslinkadd'] = 'Ajouter un client';
 $string['customerslinklist'] = 'Liste des clients';
+$string['definecustomersheader'] = 'Gestion des clients';
 $string['customerid'] = 'Id.';
 $string['customername'] = 'Nom du client';
 $string['categoryname'] = 'Categorie associée';
