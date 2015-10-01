@@ -1,7 +1,7 @@
 #!/bin/bash
 # Fichier "default/conf.sh"
 
-# load of ansible variables us_290 us_292
+# load of ansible variables us_290 us_292 us_71 us_247
 . ./solerni-config/default/env_moosh.cfg
 # ${CUSTOMER_LOG_DB_HOST}
 # ${CUSTOMER_LOG_DB_NAME}
@@ -12,7 +12,9 @@
 # ${CUSTOMER_STATS_DB_USERNAME}
 # ${CUSTOMER_STATS_DB_PASSWORD}
 # ${CUSTOMER_PIWIK_URL}
+
 # ${CUSTOMER_STATIC_DIRECTORY}
+# ${GEOIP_FILE_PATH}
 
 # add conf for external logs (#us_289)
 # moosh config-set enabled_stores logstore_standard,logstore_database,logstore_legacy tool_log
@@ -108,7 +110,7 @@ moosh role-configset profileroles solerni_apprenant,solerni_power_apprenant,sole
 moosh config-set documentdirectory ${CUSTOMER_STATIC_DIRECTORY} local_staticpage            
 
 # Path of geoipfile for geolocation (#us_247)
-moosh config-set geoipfile /opt/solerni/misc/geoip/GeoIP.dat 
+moosh config-set geoipfile ${GEOIP_FILE_PATH}
 
 # Block Orange course Dashboard (#us_102)
 moosh config-set catalogurl /catalog block_orange_course_dashboard
