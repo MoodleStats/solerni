@@ -34,12 +34,12 @@ if ($hassiteconfig or has_capability('local/orange_customers:edit', context_syst
 
     $ADMIN->add('customer', new admin_externalpage('orange_customers_level2', get_string('customerslinklist', $orangeplugin),
         new moodle_url($orangelistcustomersurl),
-	array('local/orange_customers:edit')
+        array('local/orange_customers:edit')
         ));
 
     $ADMIN->add('customer',
-	new admin_externalpage('customercoursemgmt', get_string('customerslinkadd', $orangeplugin),
-	$CFG->wwwroot . '/course/management.php',
-	array('moodle/category:manage', 'moodle/course:create')
-	));            
+        new admin_externalpage('customercoursemgmt', get_string('customerslinkadd', $orangeplugin),
+        $CFG->wwwroot . '/course/management.php',
+        array('moodle/category:manage', 'moodle/course:create')
+        ));
 }
