@@ -22,71 +22,45 @@
  */
 
 require_once(dirname(__FILE__) . '/../config.php');
-
 redirect_if_major_upgrade_required();
-
-$filter = new stdclass();
-$filter->thematicsid = optional_param_array('thematicid', array(), PARAM_RAW); // Thematic Id.
-$filter->statusid = optional_param_array('statusid', array(), PARAM_RAW); // Course status Id.
-$filter->durationsid = optional_param_array('durationid', array(), PARAM_RAW); // Course duration Id.
-$filter->categoriesid = optional_param_array('categoryid', array(), PARAM_INT); // Category id.
-
 if ($CFG->forcelogin) {
     require_login();
 }
 
-$strcatalog = get_string('configtitle', 'theme_solerni');
-
-if (isguestuser()) {
-    // Guests are not allowed, send them to front page.
-    if (empty($CFG->allowguestmymoodle)) {
-        redirect(new moodle_url('/', array('redirect' => 0)));
-    }
-
-    $userid = null;
-    $header = "$SITE->shortname: $strmymoodle (GUEST)";
-
-} else {
-    $userid = $USER->id;  // Owner of the page.
-    $header = "$SITE->shortname: $strcatalog";
+if (isguestuser() && empty($CFG->allowguestmymoodle)) {
+    redirect(new moodle_url('/', array('redirect' => 0)));
 }
 
-$context = context_system::instance();  // So we even see non-sticky blocks.
-
-// Start setting up the page.
-$params = array();
-$PAGE->set_context($context);
-$PAGE->set_url('/catalog/index.php', $params);
+$PAGE->set_context(context_system::instance());
+$PAGE->set_url('/catalog/index.php');
 $PAGE->set_pagelayout('base');
-$PAGE->blocks->add_region('side-post');
-$PAGE->set_title($header);
-$PAGE->requires->js('/lib/jquery/jquery-1.11.0.min.js');
-// TODO.
-$PAGE->requires->js('/catalog/catalog.js?a='.rand());
-
+$PAGE->blocks->add_region('side-pre');
+$PAGE->set_title($SITE->shortname . ' : ' . get_string('catalog_page_title', 'theme_halloween'));
+$PAGE->requires->js('/catalog/catalog.js');
 $USER->editing = false;
 
+$courserenderer = $PAGE->get_renderer('core', 'course');
+$filters = new stdclass();
+$filters->thematicsid = optional_param_array('thematicsid', array(), PARAM_RAW);
+$filters->statusid = optional_param_array('statusid', array(), PARAM_RAW);
+$filters->durationsid = optional_param_array('durationid', array(), PARAM_RAW);
+$filters->categoriesid = optional_param_array('categoryid', array(), PARAM_INT);
+
+$filtersblock = new block_contents();
+$filtersblock->content = '<form id="coursecatalog" method="POST" class="catalog-filters-form js-catalog-filters">';
+$filtersblock->content .= $courserenderer->render_course_catalog_filter_status($filters->statusid);
+$filtersblock->content .= $courserenderer->render_course_catalog_filter_thematics($filters->thematicsid);
+$filtersblock->content .= $courserenderer->render_course_catalog_filter_duration($filters->durationsid);
+$filtersblock->content .= $courserenderer->render_course_catalog_filter_categories($filters->categoriesid);
+$filtersblock->content .= '<button class="btn btn-primary btn-block" type="submit">submit</button>';
+$filtersblock->content .= '</form>';
+$filtersblock->footer = '';
+$filtersblock->skiptitle = true;
+$PAGE->blocks->add_fake_block($filtersblock, 'side-pre');
 
 echo $OUTPUT->header();
-
-$courserenderer = $PAGE->get_renderer('core', 'course');
-
-$filters = new block_contents();
-$filters->content = $courserenderer->course_catalog_filter_form($filter);
-$filters->footer = '';
-$filters->skiptitle = true;
-echo $OUTPUT->block($filters, 'side-post');
-
-$availablecourseshtml = $courserenderer->catalog_available_courses($filter);
-if (!empty($availablecourseshtml)) {
-
-    // TODO-SLP : supprimer l'id.
-    echo html_writer::start_tag('div', array('id' => 'frontpage-course-list'));
-
-    echo $OUTPUT->heading(get_string('availablecourses'));
-    echo $availablecourseshtml;
-
-    echo html_writer::end_tag('div');
-}
-
+echo html_writer::start_tag('section', array('class' => 'courses-list'));
+echo $OUTPUT->heading(get_string('availablecourses'));
+echo $courserenderer->catalog_available_courses($filters);
+echo html_writer::end_tag('section');
 echo $OUTPUT->footer();
