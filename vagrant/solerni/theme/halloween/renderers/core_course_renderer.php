@@ -219,165 +219,127 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
     }
 
     /**
-     * Renders html to display the catalog filters
+     * Verifies if the current input id is checked or not :
+     * by convention, the input tag id is the same as the filter array order.
+     * Special case for the "all" where checked could be an empty array (defaut position)
      *
-     * @param string $filter : current filter
+     * @param int $inputid
+     * @param array $filter
      * @return string
      */
-    public function course_catalog_filter_form($filter) {
-        global $CFG, $DB;
-        require_once($CFG->libdir. '/coursecatlib.php');
-        require_once($CFG->dirroot . '/local/orange_customers/lib.php');
-
-        $formid = 'coursecatalog';
-        $catalogurl = new moodle_url('/catalog/index.php');
-
-        $output = html_writer::start_tag('form', array('id' => $formid, 'action' => $catalogurl, 'method' => 'post'));
-        $output .= html_writer::start_tag('fieldset', array('class' => ''));
-
-        // Filter on status.
-        $status = array (0 => get_string('filterstatusall', 'theme_halloween'),
-                         1 => get_string('filterstatusinprogress', 'theme_halloween'),
-                         2 => get_string('filterstatuscomingsoon', 'theme_halloween'),
-                         3 => get_string('filterstatuscomplete', 'theme_halloween'));
-
-        if ((count($filter->statusid) == 0) || (in_array(0, $filter->statusid))) {
-            $allchecked = "checked";
+    protected function render_filter_input_checked($inputid, $filter) {
+        if ( $inputid == 0 ) {
+            $checked = (count($filter) == 0) || (in_array(0, $filter)) ? ' checked' : '';
         } else {
-            $allchecked = '';
+            $checked = (in_array($inputid, $filter)) ? ' checked' : '';
         }
 
-        $output .= "<div >";
+        return $checked;
+    }
 
-        $output .= "<div >";
-        $output .= "<h3 >" . get_string('filterstatustitle', 'theme_halloween') . "</h3>";
-        $output .= "<div >";
-        $output .= "<input type='checkbox' id='statusall' name='statusid[]'  ";
-        $output .= "value='0' $allchecked/>".$status[0];
-        $output .= "<ul  id='ulstatusall'>";
-        foreach ($status as $statusid => $statuslabel) {
-            if ($statusid != 0) {
-                if (in_array($statusid, $filter->statusid )) {
-                    $checked = "checked";
-                } else {
-                    $checked = '';
-                }
-                $output .= "<li>";
-                $output .= "<input type='checkbox' name='statusid[]' value='$statusid' $checked />";
-                $output .= $statuslabel . "</li>";
-            }
+    /**
+     *
+     * render HTML fragment for a $filter which is an associative issued from
+     * data HTTP POST method on the catalog page
+     *
+     * Function strongly correlated with $this->catalog_available_courses($filters)
+     * and the /catalog/index.php
+     *
+     * Requires : the filter, the filter name and the label for each input
+     *
+     * @param array $filter
+     * @param string $filtername
+     * @param array $labels
+     * @return string
+     */
+    protected function render_filter_fieldset($filter, $filtername, $labels) {
+        $output = '<fieldset class="filters-form-fieldset">';
+            $output .= '<legend class="form-fieldset-legend">' . get_string("filter{$filtername}title", 'theme_halloween') . '</legend>';
+
+        foreach ($labels as $inputid => $inputlabel) {
+            $checked = $this->render_filter_input_checked($inputid, $filter);
+            $output .= '<div class="checkbox">';
+                $output .= '<input id="' . $filtername . $inputid . '" class="form-fieldset-checkbox o-checkbox" type="checkbox" name="' . $filtername . 'id[]" value="' . $inputid . '"' . $checked .'>';
+                $output .= '<label for="' . $filtername . $inputid . '">' . $inputlabel . '</label>';
+            $output .= '</div>';
         }
-        $output .= "</ul>";
-        $output .= "</div>";
-        $output .= "</div>";
-
-        // Filter on thematic.
-        $thematics = $DB->get_recordset('orange_thematics');
-        $thematic = array (0 => get_string('filterthematicall', 'theme_halloween'));
-
-        if ((count($filter->thematicsid) == 0) || (in_array(0, $filter->thematicsid))) {
-            $allchecked = "checked";
-        } else {
-            $allchecked = '';
-        }
-
-        $output .= "<div >";
-        $output .= "<h3 >" . get_string('filterthematictitle', 'theme_halloween'). "</h3>";
-        $output .= "<div >";
-        $output .= "<input type='checkbox' id='thematicall' name='thematicid[]' ";
-        $output .= " value='0' $allchecked/>".$thematic[0];
-        $output .= "<ul  id='ulthematicall'>";
-        foreach ($thematics as $theme) {
-            if ($theme->id != 0) {
-                if (in_array($theme->id, $filter->thematicsid )) {
-                    $checked = "checked";
-                } else {
-                    $checked = '';
-                }
-                $output .= "<li>";
-                $output .= "<input type='checkbox' name='thematicid[]' value='$theme->id' $checked />";
-                $output .= $theme->name . "</li>";
-            }
-        }
-        $output .= "</ul>";
-        $output .= "</div>";
-        $output .= "</div>";
-
-        // Filter on duration.
-        $duration = array (0 => get_string('filterdurationall', 'theme_halloween'),
-                           1 => get_string('filterdurationless4', 'theme_halloween'),
-                           2 => get_string('filterdurationfrom4to6', 'theme_halloween'),
-                           3 => get_string('filterdurationmore6', 'theme_halloween'));
-
-        if ((count($filter->durationsid) == 0) || (in_array(0, $filter->durationsid))) {
-            $allchecked = "checked";
-        } else {
-            $allchecked = '';
-        }
-
-        $output .= "<div >";
-        $output .= "<h3 >" . get_string('filterdurationtitle', 'theme_halloween'). "</h3>";
-        $output .= "<div >";
-        $output .= "<input type='checkbox' id='durationall' name='durationid[]'  ";
-        $output .= "value='0' $allchecked/>".$duration[0];
-        $output .= "<ul  id='uldurationall'>";
-        foreach ($duration as $durationid => $durationlabel) {
-            if ($durationid != 0) {
-                if (in_array($durationid, $filter->durationsid )) {
-                    $checked = "checked";
-                } else {
-                    $checked = '';
-                }
-                $output .= "<li>";
-                $output .= "<input type='checkbox' name='durationid[]'  value='$durationid' $checked />";
-                $output .= $durationlabel. "</li>";
-            }
-        }
-        $output .= "</ul>";
-        $output .= "</div>";
-        $output .= "</div>";
-
-        // Filter on companies = moodle categories.
-        $categories = coursecat::make_categories_list();
-
-        if ((count($filter->categoriesid) == 0) || (in_array(0, $filter->categoriesid))) {
-            $allchecked = "checked";
-        } else {
-            $allchecked = '';
-        }
-        $output .= "<div >";
-        $output .= "<h3 >" . get_string('filtercategorytitle', 'theme_halloween'). "</h3>";
-        $output .= "<div >";
-        $output .= "<input type='checkbox' id='categoryall' name='categoryid[]'  ";
-        $output .= "value='0' $allchecked/>" . get_string('filtercategoryall', 'theme_halloween');
-        $output .= "<ul  id='ulcategoryall'>";
-        foreach ($categories as $catid => $category) {
-            if ($catid != 0) {
-                if (in_array($catid, $filter->categoriesid)) {
-                    $checked = "checked";
-                } else {
-                    $checked = '';
-                }
-                // Get customer information to make sure the category is associated to a customer.
-                $customer = customer_get_customerbycategoryid ($catid);
-                if (isset($customer->id)) {
-                    $output .= "<li>";
-                    $output .= "<input type='checkbox' name='categoryid[]'  value='$catid' $checked />";
-                    $output .= $customer->name ."</li>";
-                }
-            }
-        }
-        $output .= "</ul>";
-        $output .= "</div>";
-        $output .= "</div>";
-
-        $output .= "</div>";    // End .slrn-filter.
-
-        $output .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'pageid', 'id' => 'pageid', 'value' => 0));
-        $output .= html_writer::end_tag('fieldset');
-        $output .= html_writer::end_tag('form');
+        $output .= '</fieldset>';
 
         return $output;
+    }
+
+    /**
+     * Render the status filter which is an associative issued from 'statusid'
+     * data HTTP POST method on the catalog page
+     * Each value is associated with its order inside the catalog filter form.
+     * @param array $filter
+     */
+    public function render_course_catalog_filter_status($filter) {
+        $labels = array (
+            0 => get_string('filterstatusall', 'theme_halloween'),
+            1 => get_string('filterstatusinprogress', 'theme_halloween'),
+            2 => get_string('filterstatuscomingsoon', 'theme_halloween'),
+            3 => get_string('filterstatuscomplete', 'theme_halloween')
+        );
+
+        return $this->render_filter_fieldset($filter, 'status', $labels);
+    }
+
+   /**
+     * Render the status filter which is an associative issued from 'thematicsid'
+     * data HTTP POST method on the catalog page
+     * Each value is associated with its order inside the catalog filter form.
+     * @param array $filter
+     */
+    public function render_course_catalog_filter_thematics($filter) {
+        global $DB;
+        $labels = array (0 => get_string('filterthematicsall', 'theme_halloween'));
+        $thematics = $DB->get_recordset('orange_thematics');
+
+        if ($thematics) {
+            foreach ($thematics as $thematic) {
+                $labels[$thematic->id] = format_text($thematic->name);
+            }
+        }
+
+        return $this->render_filter_fieldset($filter, 'thematics', $labels);
+    }
+
+     /**
+     * Render the status filter which is an associative issued from 'durationid'
+     * data HTTP POST method on the catalog page
+     * Each value is associated with its order inside the catalog filter form.
+     * @param array $filter
+     */
+    public function render_course_catalog_filter_duration($filter) {
+        $labels = array (
+            0 => get_string('filterdurationall', 'theme_halloween'),
+            1 => get_string('filterdurationless4', 'theme_halloween'),
+            2 => get_string('filterdurationfrom4to6', 'theme_halloween'),
+            3 => get_string('filterdurationmore6', 'theme_halloween')
+        );
+
+        return $this->render_filter_fieldset($filter, 'duration', $labels);
+    }
+
+     /**
+     * Render the status filter which is an associative issued from 'categoriesid'
+     * data HTTP POST method on the catalog page (categories = customers)
+     * Each value is associated with its order inside the catalog filter form.
+     * @param array $filter
+     */
+    public function render_course_catalog_filter_categories($filter) {
+        global $CFG;
+        require_once($CFG->libdir . '/coursecatlib.php');
+        $categories = coursecat::make_categories_list();
+        $labels[] = get_string('filtercategoryall', 'theme_halloween');
+        if($categories) {
+            foreach($categories as $category) {
+                $labels[] = $category;
+            }
+        }
+
+        return $this->render_filter_fieldset($filter, 'category', $labels);
     }
 
     /**
