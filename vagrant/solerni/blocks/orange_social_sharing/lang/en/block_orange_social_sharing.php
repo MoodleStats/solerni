@@ -40,25 +40,25 @@ $string['descconfig']                           = 'Social sharing';
 // Social settings.
 // Facebook.
 $string['labelfacebook']                        = 'Facebook';
-$string['descfacebook']                         = 'descfacebook';
+$string['descfacebook']                         = 'Share on Facebook';
 $string['shareonfacebook']                      = 'facebook';
 $string['urlshareonfacebook']                   = 'http://www.facebook.com/sharer.php?u=';
 
 // Twitter.
 $string['labeltwitter']                         = 'Twitter';
-$string['desctwitter']                          = 'desctwitter';
+$string['desctwitter']                          = 'Share on Twitter';
 $string['shareontwitter']                       = 'twitter';
 $string['urlshareontwitter']                    = 'https://twitter.com/share?url=';
 
 // Linkedin.
 $string['labellinkedin']                        = 'Linkedin';
-$string['desclinkedin']                         = 'desclinkedin';
+$string['desclinkedin']                         = 'Share on Linkedin';
 $string['shareonlinkedin']                      = 'linkedin';
 $string['urlshareonlinkedin']                   = 'http://www.linkedin.com/shareArticle?mini=true&url=';
 
 // Google plus.
 $string['labelgoogleplus']                      = 'Google +';
-$string['descgoogleplus']                       = 'descgoogle_plus';
+$string['descgoogleplus']                       = 'Share on Google +';
 $string['shareongoogleplus']                    = 'google +';
 $string['urlshareongoogleplus']                 = 'https://plus.google.com/share?url=';
 
