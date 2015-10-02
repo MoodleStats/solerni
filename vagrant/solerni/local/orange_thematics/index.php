@@ -33,7 +33,7 @@ $action = optional_param('action', 'thematics_form', PARAM_ALPHAEXT);
 
 // Access control.
 require_login();
-require_capability('moodle/site:config', context_system::instance());
+require_capability('local/orange_thematics:edit', context_system::instance());
 if (!confirm_sesskey()) {
     print_error('confirmsesskeybad', 'error');
 }
@@ -44,10 +44,9 @@ $url = new moodle_url('/local/local_orange_thematics/index.php');
 $url->param('action', $action);
 $PAGE->set_url($url);
 $PAGE->set_context($context);
+$PAGE->set_pagelayout('admin');
 
 $instance = new orange_thematics($action);
-
-admin_externalpage_setup('orange_thematics_level2');
 
 // Process the action.
 if (!method_exists($instance, $action)) {
