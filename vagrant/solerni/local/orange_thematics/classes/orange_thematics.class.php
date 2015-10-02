@@ -62,7 +62,6 @@ class orange_thematics {
 
     }
 
-
     /**
      * Delete thematic and redirects to the list page
      */
@@ -104,7 +103,6 @@ class orange_thematics {
         }
     }
 
-
     /**
      * Add new thematic or update if it exists. Redirects to the list page.
      */
@@ -133,7 +131,6 @@ class orange_thematics {
 
         redirect($returnurl);
     }
-
 
     /**
      * Outputs list of thematics.
