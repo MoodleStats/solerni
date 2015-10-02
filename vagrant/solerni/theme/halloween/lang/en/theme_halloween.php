@@ -165,13 +165,14 @@ $string['dashboard']                = 'Dashboard';
 $string['administration']           = 'Administration';
 
 // Search filters
+$string['catalog_page_title']       = 'Catalog';
 $string['filterstatustitle']        = 'Status';
 $string['filterstatusall']          = 'All MOOCs';
 $string['filterstatusinprogress']   = 'In progress';
 $string['filterstatuscomingsoon']   = 'Coming soon';
 $string['filterstatuscomplete']     = 'Complete';
-$string['filterthematictitle']      = 'Theme';
-$string['filterthematicall']        = 'All themes';
+$string['filterthematicstitle']     = 'Theme';
+$string['filterthematicsall']       = 'All themes';
 $string['filtercategorytitle']      = 'Company';
 $string['filtercategoryall']        = 'All companies';
 $string['filterdurationtitle']      = 'Duration';

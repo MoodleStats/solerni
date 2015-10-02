@@ -135,3 +135,11 @@ $THEME->sheets = array('flexpage');
  */
 
 $THEME->rendererfactory = 'theme_overridden_renderer_factory';
+
+/**
+ * An array of javascript files located in /javascript/
+ * $THEME->javascripts includes files in the header
+ * $THEME->javascripts_footer includes files in the footer
+ */
+
+$THEME->javascripts = array('jquery-1.11.3');

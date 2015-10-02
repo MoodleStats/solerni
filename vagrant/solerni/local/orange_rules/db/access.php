@@ -33,8 +33,6 @@ $capabilities = array(
         'archetypes' => array(
             'manager' => CAP_ALLOW,
         )
-    ),
+    )
 
 );
-
-

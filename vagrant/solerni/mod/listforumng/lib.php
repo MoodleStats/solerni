@@ -97,11 +97,20 @@ function listforumng_delete_instance($id) {
 function forumng_get_all($courseid) {
     global $CFG, $DB, $USER;
 
-    $forumngs = $DB->get_records_sql("
-        SELECT F.id, F.name, CM.id as instance, CM.added
-        FROM {forumng} F LEFT OUTER JOIN
-        {course_modules} CM  ON (F.id=CM.instance) LEFT OUTER JOIN {modules} M ON (M.id = CM.module)
-        WHERE M.name='forumng' AND M.visible=1 AND CM.visible=1 AND CM.course= ? ", array($courseid));
+    if ($courseid != 1) {
+    	$forumngs = $DB->get_records_sql("
+        	SELECT F.id, F.name, CM.id as instance, CM.added, CM.course
+        	FROM {forumng} F LEFT OUTER JOIN
+        	{course_modules} CM  ON (F.id=CM.instance) LEFT OUTER JOIN {modules} M ON (M.id = CM.module)
+        	WHERE M.name='forumng' AND M.visible=1 AND CM.visible=1 AND CM.course= ? ", array($courseid));
+    }
+    else {
+    	$forumngs = $DB->get_records_sql("
+        	SELECT F.id, F.name, CM.id as instance, CM.added, CM.course
+        	FROM {forumng} F LEFT OUTER JOIN
+        	{course_modules} CM  ON (F.id=CM.instance) LEFT OUTER JOIN {modules} M ON (M.id = CM.module)
+        	WHERE M.name='forumng' AND M.visible=1 AND CM.visible=1", array());
+    }
 
     $listforumng = array();
 
