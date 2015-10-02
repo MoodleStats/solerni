@@ -64,7 +64,7 @@ class block_orange_social_sharing extends block_base{
         $this->content->text .= html_writer::end_tag('li');
         $this->content->text .= html_writer::end_tag('ul');
 
-        $text = $this->renderer->get_text(null, $course, null);
+        $text = $this->renderer->get_text();
         $this->content->text = $text;
         return $this->content;
 
@@ -81,6 +81,13 @@ class block_orange_social_sharing extends block_base{
         return false;
     }
 
+    /**
+     *  This "magic" method is guaranteed to be automatically called by Moodle
+     *  as soon as our instance configuration is loaded and available
+     * @global none
+     * @param none
+     * @return boolean
+     */
     public function specialization() {
         if (isset($this->config)) {
             if (empty($this->config->title)) {
@@ -111,7 +118,13 @@ class block_orange_social_sharing extends block_base{
         }
     }
 
-
+    /**
+     *  Is this block allowed into this page or not?
+     *
+     * @global none
+     * @param none
+     * @return boolean
+     */
     public function applicable_formats() {
         return array(
             'course-view-flexpage' => true,
