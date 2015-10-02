@@ -36,7 +36,9 @@ $(document).ready( function() {
             uncheck_all_but_first(checkboxes);
         } else if ((isall && !isallcheck) || (!isall && checkedboxes.length === 0)) {
             checkboxes.eq(0).prop('checked', true);
-            return;
+            if (isall) {
+                return;
+            }
         } else if (!isall && isallcheck) {
             checkboxes.eq(0).prop('checked', false);
         } else if (!isall && checkedboxes.length >= (checkboxes.length - 1) ) {
