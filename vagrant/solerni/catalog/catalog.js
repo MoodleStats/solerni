@@ -34,7 +34,7 @@ $(document).ready( function() {
         var isallcheck = checkboxes.eq(0).is(':checked');
         if (isall && isallcheck) {
             uncheck_all_but_first(checkboxes);
-        } else if (isall && !isallcheck) {
+        } else if ((isall && !isallcheck) || (!isall && checkedboxes.length === 0)) {
             checkboxes.eq(0).prop('checked', true);
             return;
         } else if (!isall && isallcheck) {
