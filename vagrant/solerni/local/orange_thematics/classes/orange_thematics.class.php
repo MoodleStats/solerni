@@ -61,10 +61,6 @@ class orange_thematics {
         $this->renderable->set_data($toform);
 
     }
-<<<<<<< HEAD
-=======
-
->>>>>>> 601aada08370be79a907eb91fe5963cdf1d42053
 
     /**
      * Delete thematic and redirects to the list page
