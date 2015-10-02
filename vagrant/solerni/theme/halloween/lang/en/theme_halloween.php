@@ -211,3 +211,6 @@ $string['registerurl']              = "Register";
 $string['registerlink']             = "signup.php";
 $string['login']                    = "login";
 $string['password']                 = "password";
+
+// Block "My Badge" on dashboard
+$string['lastbadge']                = 'Last badge obtained:';

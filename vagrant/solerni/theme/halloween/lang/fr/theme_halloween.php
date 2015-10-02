@@ -195,3 +195,6 @@ $string['coursenobadge']            = "Non badgeant";
 // Frontpage frontend
 $string['ifreelyregister']          = "Je m'inscris gratuitement";
 $string['seecatalog']               = "Voir le catalogue";
+
+// Block "My Badge" on dashboard
+$string['lastbadge']                = 'Dernier badge obtenu:';
