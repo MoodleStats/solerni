@@ -38,7 +38,7 @@ if ($hassiteconfig or has_capability('local/orange_rules:edit', context_system::
         array('local/orange_rules:edit')
     ));
 
-    $ADMIN->add('rule', new admin_externalpage('customercoursemgmt', get_string('ruleslinkadd', $orangeplugin),
+    $ADMIN->add('rule', new admin_externalpage('orangerulesadd', get_string('ruleslinkadd', $orangeplugin),
         new moodle_url($orangeaddrulesurl),
         array('local/orange_rules:edit')
     ));

@@ -28,8 +28,9 @@ defined('MOODLE_INTERNAL') || die;
 $orangeplugin = 'local_orange_thematics';
 $orangelistthematicsurl = '/local/orange_thematics/index.php?sesskey=' . sesskey().'&action=thematics_list';
 
-if ($hassiteconfig) {
-    $ADMIN->add('localplugins', new admin_externalpage('orange_thematics_level2',
+if ($hassiteconfig or has_capability('local/orange_thematics:edit', context_system::instance())) {
+    $ADMIN->add('courses', new admin_externalpage('orange_thematics_level2',
         get_string('thematics', $orangeplugin),
-        new moodle_url($orangelistthematicsurl)));
+        new moodle_url($orangelistthematicsurl), array('local/orange_thematics:edit')
+    ));
 }
