@@ -28,6 +28,7 @@ $string['pluginname'] = 'List ForumNG';
 $string['modulenameplural'] = 'Lists of ForumNG';
 $string['pluginadministration'] = 'Administration list of forums';
 $string['listforumng:view'] = 'View list of forums';
+$string['listforumng:addinstance'] = 'Add a new list of forums';
 
 $string['listforumngintro'] = 'Description';
 

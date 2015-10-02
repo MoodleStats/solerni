@@ -165,13 +165,14 @@ $string['dashboard']                    = 'Tableau de bord';
 $string['administration']               = 'Administration';
 
 // Search filters
+$string['catalog_page_title']       = 'Catalogue';
 $string['filterstatustitle']        = 'Statuts';
 $string['filterstatusall']          = 'Tous les MOOCs';
 $string['filterstatusinprogress']   = 'En cours';
 $string['filterstatuscomingsoon']   = 'A venir';
 $string['filterstatuscomplete']     = 'Terminé';
-$string['filterthematictitle']      = 'Thématique';
-$string['filterthematicall']        = 'Toutes les thématiques';
+$string['filterthematicstitle']     = 'Thématique';
+$string['filterthematicsall']       = 'Toutes les thématiques';
 $string['filtercategorytitle']      = 'Entreprise';
 $string['filtercategoryall']        = 'Toutes les entreprises';
 $string['filterdurationtitle']      = 'Durée';
