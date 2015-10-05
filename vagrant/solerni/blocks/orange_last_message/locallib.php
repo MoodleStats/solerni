@@ -1,4 +1,4 @@
-?php
+<?php
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,18 +15,25 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Goodbye
+ * Helper functions for Orange Last Message block (from plugin local mail)
  *
- * This module has been created to provide users the option to delete their account
- *
- * @package    local
- * @subpackage goodbye, delete your moodle account
- * @copyright  2013 Bas Brands, www.basbrands.nl
+ * @package    block_orange_last_message
+ * @copyright  Orange 2015
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$plugin->version  = 2015040700;
-$plugin->requires = 2011033010;
-$plugin->release = '1.0 (Build: 2013071500)';
-$plugin->maturity = MATURITY_STABLE;
-$plugin->component = 'local_goodbye';
+
+/**
+ * Return array with last message informations
+ *
+ * @param array $courses courses for which overview needs to be shown
+ * @return array
+ */
+function get_user_last_message($USER) {
+    $query['limit'] = 1;
+    $lastmsg = local_mail_message::search_index ($USER->id, 'inbox', 0, $query);
+
+    return $lastmsg;
+}
+
+
