@@ -396,7 +396,7 @@ moosh role-update-capability solerni_course_creator moodle/user:viewhiddendetail
 moosh role-update-capability solerni_course_creator moodle/course:viewhiddenuserfields allow 1
 moosh role-update-capability solerni_course_creator moodle/role:review allow 1
 moosh role-update-capability solerni_course_creator local/orange_customers:edit allow 1
-moosh role-update-capability solerni_course_creator local/orange_rules:edit 1
+moosh role-update-capability solerni_course_creator local/orange_rules:edit allow 1
 moosh role-update-capability solerni_course_creator local/orange_thematics:edit allow 1
 moosh role-update-capability solerni_course_creator moodle/user:loginas allow 1
 
@@ -406,3 +406,7 @@ moosh role-update-capability solerni_teacher block/html:addinstance allow 1
 moosh role-update-capability solerni_teacher moodle/block:edit allow 1
 moosh role-update-capability solerni_teacher moodle/site:manageblocks allow 1
 
+# mod/listforumng (#us_236)
+moosh role-update-capability solerni_apprenant mod/listforumng:view allow 1
+moosh role-update-capability solerni_teacher mod/listforumng:addinstance allow 1
+moosh role-update-capability solerni_course_creator mod/listforumng:addinstance allow 1
