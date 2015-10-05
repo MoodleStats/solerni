@@ -40,7 +40,7 @@ if (!confirm_sesskey()) {
 
 $context = context_system::instance();
 
-$url = new moodle_url('/local/local_orange_rules/index.php');
+$url = new moodle_url('/local/orange_rules/index.php', array('sesskey' => $USER->sesskey));
 $url->param('action', $action);
 $PAGE->set_url($url);
 $PAGE->set_context($context);
