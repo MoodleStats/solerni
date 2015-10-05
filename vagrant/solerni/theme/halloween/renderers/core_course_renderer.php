@@ -332,10 +332,11 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
         global $CFG;
         require_once($CFG->libdir . '/coursecatlib.php');
         $categories = coursecat::make_categories_list();
+
         $labels[] = get_string('filtercategoryall', 'theme_halloween');
         if($categories) {
-            foreach($categories as $category) {
-                $labels[] = $category;
+            foreach($categories as $id => $category) {
+                $labels[$id] = $category;
             }
         }
 
