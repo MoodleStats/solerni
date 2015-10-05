@@ -1,12 +1,19 @@
+<?php use theme_halloween\settings\options; ?>
+
 <footer class="footer row u-inverse " role="contentinfo">
     <div class="col-xs-12">
         <ul class="list-unstyled list-social" role="navigation">
-            <li class="social-item h6">Suivez nous</li>
-            <li class="social-item"><a href="#" class="icon-halloween icon-halloween--facebook"> </a></li>
-            <li class="social-item"><a href="#" class="icon-halloween icon-halloween--twitter"></a></li>
-            <li class="social-item"><a href="#" class="icon-halloween icon-halloween--dailymotion"></a></li>
-            <li class="social-item"><a href="#" class="icon-halloween icon-halloween--blog"></a>
-</li>
+            <li class="social-item h6"><?php echo get_string('followus', 'theme_halloween'); ?></li>
+            <?php foreach( options::halloween_get_followus_list() as $key => $value ) :
+                $url = ( $PAGE->theme->settings->$key ) ? $PAGE->theme->settings->$key : '';
+                if ( $url ) : ?>
+                    <li class="social-item">
+                        <a href="<?php echo $url; ?>" class="icon-halloween icon-halloween--<?php echo $key; ?>">
+                            <?php echo $key; ?>
+                        </a>
+                    </li>
+                <?php endif; ?>
+            <?php endforeach; ?>
         </ul>
     </div>
     <div class="col-xs-12 fullwidth-line">
@@ -22,7 +29,7 @@
     <div class="col-xs-12 col-md-4">
         <div class="col-xs-12 col-md-6"></div>
         <div class="col-xs-12 col-md-6">
-            <ul class="list-unstyled list-link">
+            <ul class="list-unstyled list-link" role="navigation">
                 <li class="link-item h6">Title</li>
                 <li class="link-item"><a href="#">Item 1</a></li>
                 <li class="link-item"><a href="#">Item 2</a></li>
@@ -33,7 +40,7 @@
     </div>
     <div class="col-xs-12 col-md-4">
         <div class="col-xs-12 col-md-6">
-            <ul class="list-unstyled list-link">
+            <ul class="list-unstyled list-link" role="navigation">
                 <li class="link-item h6">Title</li>
                 <li class="link-item"><a href="#">Item 1</a></li>
                 <li class="link-item"><a href="#">Item 2</a></li>
@@ -67,15 +74,15 @@
     </div>
 </footer>
 
-<?php // Moodle legacy footer ?>
-<?php if (\local_orange_library\utilities\utilities_user::is_user_site_admin($USER)) : ?>
+<?php // Moodle legacy footer
+if (\local_orange_library\utilities\utilities_user::is_user_site_admin($USER)) : ?>
     <div class="row text-center u-inverse">
-        <span><i>Ce footer n'est visible qu'aux administateurs</i></span>
+        <span><i>Ce footer spécifique Moodle n'est visible qu'aux administateurs</i></span>
         <div id="course-footer"><?php echo $OUTPUT->course_footer(); ?></div>
         <?php
-            echo $OUTPUT->login_info();
-            echo $OUTPUT->home_link();
-            echo $OUTPUT->standard_footer_html();
+        echo $OUTPUT->login_info();
+        echo $OUTPUT->home_link();
+        echo $OUTPUT->standard_footer_html();
         ?>
     </div>
 <?php endif;

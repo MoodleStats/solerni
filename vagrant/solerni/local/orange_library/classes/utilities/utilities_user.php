@@ -34,8 +34,8 @@ class utilities_user {
         }
     }
 
-    public function is_user_course_admin() {
-
+    public function is_user_course_admin($user, $course) {
+        // check user right inside the course
     }
 
 }

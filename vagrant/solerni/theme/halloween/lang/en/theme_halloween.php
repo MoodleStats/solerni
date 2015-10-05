@@ -94,7 +94,7 @@ $string['orange_dark_3']                = '@gray-darker';
 $string['orange_dark_3desc']            = '@orange-dark-3';
 
 // Footer settings.
-$string['footersettings']           = 'Footer';
+$string['footersettings']           = 'Footer Settings';
 $string['footertextheading']        = 'Footer Solerni Texts';
 $string['footertextheadingdesc']    = 'Define Solerni branding text in footer.';
 $string['footertextlangheading']    = 'Version: ';
@@ -124,9 +124,9 @@ $string['contactus']                = 'Contact Us';
 $string['contactusdesc']            = 'Enter Contact URL';
 
 // Social settings.
-$string['socialsettings']           = 'Social';
-$string['sociallinksheading']       = 'Social links';
-$string['sociallinksheadingdesc']   = 'Customise social network urls (footer).';
+$string['followussettings']         = 'Follow us';
+$string['followusheading']          = 'Pages and profiles links';
+$string['followusheadingdesc']      = 'Allow to declare URLs for authority pages and profiles for this platform/instance on various networks or services. This links will be used into the "Follow us" section above the footer. If a field is kept empty, the corresponding icon will not be displayed on frontend.';
 $string['blog']                     = 'Blog URL';
 $string['blogdisplayname']          = 'Blog';
 $string['blogdesc']                 = 'Enter the URL of your blog.';

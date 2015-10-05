@@ -101,7 +101,7 @@ function theme_halloween_pluginfile($course, $cm, $context, $filearea, $args, $f
  */
 function theme_halloween_less_variables($themeconfig) {
 
-    $colorsettings = \theme_halloween\settings\options::get_colors_array();
+    $colorsettings = \theme_halloween\settings\options::get_colors_list();
 
     foreach ($colorsettings as $key => $value) {
         if (!empty( $themeconfig->settings->$key ) ) {

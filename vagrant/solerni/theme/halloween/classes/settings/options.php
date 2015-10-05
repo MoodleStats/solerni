@@ -38,8 +38,7 @@ class options {
      *
      * @return array
      */
-    public static function get_colors_array() {
-
+    public static function get_colors_list() {
         return array(
             'body_bg'           => '#FFFFFF',
             'brand_primary'     => '#000000',
@@ -68,19 +67,16 @@ class options {
 
     /*
      * Return associative array ( setting_name => default_value )
-     * List and default values for social networks
+     * List and default values for social networks and profiles channels.
      */
-    public static function halloween_get_sociallinks_array() {
-
-        // Array of halloween social settings ( setting name => default value ).
+    public static function halloween_get_followus_list() {
         return array(
-            'blog'              => 'https://solerni.org/blog/',
             'facebook'          => 'https://fr-fr.facebook.com/pages/Solerni/648508191861244',
             'twitter'           => 'https://twitter.com/solerniofficiel',
-            'googleplus'        => '',
             'linkedin'          => '',
-            'youtube'           => '',
-            'dailymotion'       => 'http://www.dailymotion.com/Solerni'
+            'googleplus'        => '',
+            'dailymotion'       => 'http://www.dailymotion.com/Solerni',
+            'blog'              => 'https://solerni.org/blog/'
         );
     }
 

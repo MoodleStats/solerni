@@ -94,7 +94,7 @@ $string['orange_dark_3']                = '@gray-darker';
 $string['orange_dark_3desc']            = '@orange-dark-3';
 
 // Footer settings.
-$string['footersettings']               = 'Footer';
+$string['footersettings']               = 'Réglages du Footer';
 $string['footertextheading']            = 'Textes Footer Solerni';
 $string['footertextheadingdesc']        = 'Définit la marque Solerni dans le footer.';
 $string['footertextlangheading']        = 'Version: ';
@@ -124,28 +124,28 @@ $string['contactus']                    = 'Nous contacter';
 $string['contactusdesc']                = 'Entrez l\'URL de la page Contact';
 
 // Social settings.
-$string['socialsettings']               = 'Social';
-$string['sociallinksheading']           = 'Liens des réseaux sociaux';
-$string['sociallinksheadingdesc']       = 'Définit les liens pour les réseaux sociaux (footer).';
+$string['followussettings']             = 'Suivez-nous';
+$string['followusheading']              = 'Pages et profils de l\'instance';
+$string['followusheadingdesc']          = 'Permet de déclarer les urls des pages et profils de référence de cette plate-forme sur divers réseaux ou services. Ces liens seront utilisés dans les îcones du bloc "Suivez-nous" au dessus du footer. Si un champ est vide, le bouton correspondant ne sera pas affiché sur l\'interface.';
 $string['blog']                         = 'Blog';
 $string['blogdesc']                     = 'Entrez l\'URL de votre blog.';
 $string['blogdisplayname']              = 'Blog';
-$string['facebook']                     = 'Lien Facebook';
+$string['facebook']                     = 'Page Facebook';
 $string['facebookdesc']                 = 'Entrez l\'URL de votre page Facebook.';
 $string['facebookdisplayname']          = 'Facebook';
-$string['twitter']                      = 'Lien Twitter';
+$string['twitter']                      = 'Flux Twitter';
 $string['twitterdesc']                  = 'Entrez l\'URL de votre flux Twitter.';
 $string['twitterdisplayname']           = 'Twitter';
-$string['googleplus']                   = 'Lien Google+';
+$string['googleplus']                   = 'Profil Google+';
 $string['googleplusdesc']               = 'Entrez l\'URL de votre profil Google+.';
 $string['googleplusdisplayname']        = 'Google +';
-$string['linkedin']                     = 'Lien LinkedIn';
+$string['linkedin']                     = 'Profil LinkedIn';
 $string['linkedindesc']                 = 'Entrez l\'URL de votre profil LinkedIn.';
 $string['linkedindisplayname']          = 'LinkedIn';
-$string['youtube']                      = 'Lien YouTube';
+$string['youtube']                      = 'Chaîne YouTube';
 $string['youtubedesc']                  = 'Entrez l\'URL de votre chaîne YouTube.';
 $string['youtubedisplayname']           = 'YouTube';
-$string['dailymotion']                  = 'Lien Dailymotion';
+$string['dailymotion']                  = 'Chaîne Dailymotion';
 $string['dailymotiondesc']              = 'Entrez l\'URL de votre chaîne Dailymotion.';
 $string['dailymotiondisplayname']       = 'Dailymotion';
 
