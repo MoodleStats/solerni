@@ -26,6 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot.'/cohort/lib.php');
+require_once($CFG->dirroot.'/local/orange_rules/lib.php');
 
 /**
  * Event observer for mod_forum.
