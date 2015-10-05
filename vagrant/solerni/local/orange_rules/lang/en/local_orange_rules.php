@@ -25,6 +25,9 @@
 
 $string['pluginname'] = 'Orange Rules';
 $string['listrules'] = 'Manage rules';
+$string['ruleslink'] = 'Rules';
+$string['ruleslinkadd'] = 'Add new rules';
+$string['ruleslinklist'] = 'Browse list of rules';
 $string['definerulesheader'] = 'Managing rules';
 $string['actionrules_list'] = 'List of rules';
 $string['actionrules_form'] = 'Add new rule';

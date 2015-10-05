@@ -27,10 +27,10 @@ $string['title'] = 'Mailbox';
 $string['nothingtodisplay'] = 'You have no messages';
 $string['blockdesc'] = 'Display your last message here';
 $string['mailboxlink'] = 'Display my mailbox';
-$string['lastmessage'] = 'Last message:';
+$string['lastmessage'] = 'Last message :';
 $string['messagelink'] = 'Display the message';
 $string['beforehour'] = 'the';
 $string['beforedate'] = 'the';
-$string['lastmessage:addinstance'] = 'Add a new Orange My last Message block';
-$string['lastmessage:myaddinstance'] = 'Add a new Orange My last Message block to My home';
+$string['orange_last_message:addinstance'] = 'Add a new Orange My last Message block';
+$string['orange_last_message:myaddinstance'] = 'Add a new Orange My last Message block to My home';
 

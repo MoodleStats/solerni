@@ -1,4 +1,4 @@
-?php
+<?php
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,19 +14,34 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+
 /**
  * Goodbye
  *
  * This module has been created to provide users the option to delete their account
  *
  * @package    local
- * @subpackage goodbye, delete your moodle account
- * @copyright  2013 Bas Brands, www.basbrands.nl
+ * @subpackage local_goodbye
+ * @copyright  2015 Orange
+ *     Fork : 2013 Bas Brands, www.basbrands.nl
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$plugin->version  = 2015040700;
-$plugin->requires = 2011033010;
-$plugin->release = '1.0 (Build: 2013071500)';
-$plugin->maturity = MATURITY_STABLE;
-$plugin->component = 'local_goodbye';
+function local_goodbye_extends_navigation(global_navigation $navigation) {
+    global $USER;
+
+    if (!isloggedin() || isguestuser() || is_siteadmin($USER)) {
+        return '';
+    }
+    $enabled = get_config('local_goodbye', 'enabled');
+
+    if ($enabled ) {
+        // Not limited to auth method 'email' : 'googleoauth2', 'manual' should have too.
+
+        $container2 = $navigation->get('myprofile');
+        if (empty($container2)) {
+            $container2 = $navigation->add(get_string('myaccount', 'local_goodbye'));
+        }
+        $userview2 = $container2->add(get_string('manageaccount', 'local_goodbye'), new moodle_url('/local/goodbye/index.php'));
+    }
+}

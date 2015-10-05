@@ -73,7 +73,7 @@ class block_orange_last_message extends block_base {
     }
 
     public function get_content() {
-        global $USER, $PAGE, $CFG;
+        Global $USER;
 
         if ($this->content !== null) {
             return $this->content;

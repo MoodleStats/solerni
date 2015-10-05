@@ -25,23 +25,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 $capabilities = array(
-
-    'block/orange_last_message:view' => array(
-        'captype' => 'read',
-        'contextlevel' => CONTEXT_MODULE,
-        'archetypes' => array(
-            'guest' => CAP_ALLOW,
-            'user' => CAP_ALLOW,
-        )
-    ),
-    'block/orange_last_message:viewpersonal' => array(
-
-        'captype' => 'read',
-        'contextlevel' => CONTEXT_SYSTEM,
-        'legacy' => array(
-            'user' => CAP_ALLOW
-        )
-    ),
     'block/orange_last_message:myaddinstance' => array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
