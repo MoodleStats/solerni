@@ -56,7 +56,7 @@ if ($id) {
     $customer->picture = 0;
 }
 
-$url = new moodle_url('/local/orange_customers/view.php');
+$url = new moodle_url('/local/orange_customers/view.php', array('sesskey' => $USER->sesskey, 'id' => $id, 'categoryname' => $categoryname));
 $url->param('action', $action);
 $PAGE->set_url($url);
 $PAGE->set_context($context);
