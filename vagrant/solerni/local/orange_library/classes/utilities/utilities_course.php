@@ -598,10 +598,10 @@ class utilities_course {
     }
 
     public function get_description_page_url($course = null) {
-
+        global $CFG;
         $url = '#';
         if ($course) {
-            $url = new moodle_url('mod/descriptionpage/view.php', array('courseid' => $course->id));
+            $url = $CFG->wwwroot . '/mod/descriptionpage/view.php?courseid='.$course->id;
         }
 
         return $url;
