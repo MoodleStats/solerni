@@ -31,9 +31,8 @@ $settings = null;
 $ADMIN->add('themes', new admin_category('theme_halloween', 'Halloween'));
 
 /*
- * Colors Page Settings
+ * Colors: Settings
  */
-
 $temp = new admin_settingpage('theme_halloween_colors', get_string('colorsettings','theme_halloween'));
 $name = 'theme_halloween/colourheading';
 $heading = get_string('colourheading', 'theme_halloween');
@@ -43,7 +42,7 @@ $temp->add($setting);
 // Get colors keys and values from options class.
 foreach( options::get_colors_list() as $key => $value ) {
     $name = 'theme_halloween/' . $key;
-    $title = get_string( $key, 'theme_halloween' );
+    $title = get_string($key, 'theme_halloween');
     $description = get_string( $key . 'desc', 'theme_halloween');
     $default = $value;
     $previewconfig = NULL;
@@ -54,37 +53,6 @@ foreach( options::get_colors_list() as $key => $value ) {
 $ADMIN->add('theme_halloween', $temp);
 
 /*
- * Footer Page Settings
- */
-/*
-$temp = new admin_settingpage('theme_halloween_footer', get_string('footersettings','theme_halloween'));
-$name = 'theme_halloween/footertextheading';
-$heading = get_string('footertextheading', 'theme_halloween');
-$information = '';
-$setting = new admin_setting_heading($name, $heading, $information);
-$temp->add($setting);
-if ( $langs ) {
-    foreach ( $langs as $lang => $langname ) {
-        // Echo title for each language.
-        $temp->add(
-            new admin_setting_heading(
-                'theme_halloween/footertextlangheading' . $lang,
-                '',
-                get_string('footertextlangheading', 'theme_halloween') . $langname
-            )
-        );
-        // Footer tagline and text by lang.
-        foreach( options::halloween_get_footertext_array() as $key => $value ) {
-            $fieldtype = $value['fieldtype'];
-            $name = 'theme_halloween/' . $key . '_' . $lang;
-            $title = get_string_manager()->get_string( $key. 'title', 'theme_halloween', null, $lang);
-            $description = get_string_manager()->get_string($key . 'desc', 'theme_halloween', null, $lang);
-            $default = get_string_manager()->get_string( $key. 'default', 'theme_halloween', null, $lang);
-            $setting = new $fieldtype($name, $title, $description, $default);
-            $temp->add($setting);
-        }
-    }
-}
 // Footer links.
 $name = 'theme_halloween/footerlinksheading';
 $heading = get_string('footerlinksheading', 'theme_halloween');
@@ -104,9 +72,7 @@ foreach( options::halloween_get_footerlinks_array() as $key => $value ) {
 $ADMIN->add('theme_halloween', $temp);
 
 /*
- *
- * Follow Us Page Settings
- *
+ * Follow Us: Settings
  */
 $temp = new admin_settingpage('theme_halloween_social', get_string('followussettings','theme_halloween'));
 $name = 'theme_halloween/followusheading';
@@ -114,12 +80,31 @@ $heading = get_string('followusheading', 'theme_halloween');
 $information = get_string('followusheadingdesc', 'theme_halloween');
 $setting = new admin_setting_heading($name, $heading, $information);
 $temp->add($setting);
-foreach( options::halloween_get_followus_list() as $key => $value ) {
+foreach( options::halloween_get_followus_urllist() as $key => $value ) {
     $name = 'theme_halloween/' . $key;
-    $title = get_string( $key, 'theme_halloween' );
+    $title = get_string($key, 'theme_halloween');
     $description = get_string( $key . 'desc', 'theme_halloween');
     $default = $value;
     $setting = new admin_setting_configtext($name, $title, $description, $default);
+    $temp->add($setting);
+}
+$ADMIN->add('theme_halloween', $temp);
+
+/*
+ * Footer Branding Area:  Settings
+ */
+$temp = new admin_settingpage('theme_halloween_footerbrand', get_string('footerbrandsettings','theme_halloween'));
+$name = 'theme_halloween/footerbrandheading';
+$heading = get_string('footerbrandheading', 'theme_halloween');
+$information = htmlentities(get_string('footerbrandheadingdesc', 'theme_halloween'));
+$setting = new admin_setting_heading($name, $heading, $information);
+$temp->add($setting);
+foreach( options::halloween_get_footerbrand_content() as $key => $value ) {
+    $name = 'theme_halloween/' . $key;
+    $title = get_string($key, 'theme_halloween');
+    $description = '';
+    $default = $value;
+    $setting = new admin_setting_configtextarea($name, $title, $description, $default);
     $temp->add($setting);
 }
 $ADMIN->add('theme_halloween', $temp);

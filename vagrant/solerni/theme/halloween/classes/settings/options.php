@@ -69,7 +69,7 @@ class options {
      * Return associative array ( setting_name => default_value )
      * List and default values for social networks and profiles channels.
      */
-    public static function halloween_get_followus_list() {
+    public static function halloween_get_followus_urllist() {
         return array(
             'facebook'          => 'https://fr-fr.facebook.com/pages/Solerni/648508191861244',
             'twitter'           => 'https://twitter.com/solerniofficiel',
@@ -85,8 +85,6 @@ class options {
     * List and default values for theme IHM loose links
     */
     public static function halloween_get_staticlinks_array() {
-
-        // Array of halloween social settings ( setting name => default value ).
         return array(
             'about'     => '',
             'catalogue' => ''
@@ -94,19 +92,18 @@ class options {
     }
 
     /*
-    * Return associative array ( setting_name => default_value )
-    * List and default values for footer text
+    * Return associative array with fieldtype
+    * List and default values for footer text setting page
      */
-    public static function halloween_get_footertext_array() {
-
-        // Array of halloween social settings ( setting name => default value ).
-        return array(
-            'footertagline'           => array(
-                                            'fieldtype' => 'admin_setting_configtext',
-                                            'defaultvalue' => '' ),
-            'footerexplaination'      => array(
-                                            'fieldtype' => 'admin_setting_configtextarea',
-                                            'defaultvalue' => '' )
+    public static function halloween_get_footerbrand_content() {
+        global $CFG;
+        $stringmanager = get_string_manager();
+        return array (
+            'footerbrandtitle'      => '<span lang="fr" class="multilang">' . $stringmanager->get_string( 'footerbrandtitledefault', 'theme_halloween', null, 'fr') . '</span><span lang="en" class="multilang">' . $stringmanager->get_string( 'footerbrandtitledefault', 'theme_halloween', null, 'en') . '</span>',
+            'footerbrandchapo'      => '<span lang="fr" class="multilang">' . $stringmanager->get_string( 'footerbrandchapodefault', 'theme_halloween', null, 'fr') . '</span><span lang="en" class="multilang">' . $stringmanager->get_string( 'footerbrandchapodefault', 'theme_halloween', null, 'en') . '</span>',
+            'footerbrandarticle'    => '<span lang="fr" class="multilang">' . $stringmanager->get_string( 'footerbrandarticledefault', 'theme_halloween', null, 'fr') . '</span><span lang="en" class="multilang">' . $stringmanager->get_string( 'footerbrandarticledefault', 'theme_halloween', null, 'en') . '</span>',
+            'footerbrandanchor'     => '<span lang="fr" class="multilang">' . $stringmanager->get_string( 'footerbrandanchordefault', 'theme_halloween', null, 'fr') . '</span><span lang="en" class="multilang">' . $stringmanager->get_string( 'footerbrandanchordefault', 'theme_halloween', null, 'en') . '</span>',
+            'footerbrandurl'        => '<span lang="fr" class="multilang">' . $stringmanager->get_string( 'footerbrandurldefault', 'theme_halloween', null, 'fr') . '</span><span lang="en" class="multilang">' . $stringmanager->get_string( 'footerbrandurldefault', 'theme_halloween', null, 'en') . '</span>'
         );
     }
 

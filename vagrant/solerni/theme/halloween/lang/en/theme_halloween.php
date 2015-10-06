@@ -94,16 +94,20 @@ $string['orange_dark_3']                = '@gray-darker';
 $string['orange_dark_3desc']            = '@orange-dark-3';
 
 // Footer settings.
-$string['footersettings']           = 'Footer Settings';
-$string['footertextheading']        = 'Footer Solerni Texts';
-$string['footertextheadingdesc']    = 'Define Solerni branding text in footer.';
-$string['footertextlangheading']    = 'Version: ';
-$string['footertaglinetitle']       = 'Solerni tagline (english)';
-$string['footertaglinedefault']     = 'To learn is more fun together';
-$string['footertaglinedesc']        = 'Footer tagline for english version';
-$string['footerexplainationtitle']  = 'Solerni tagline short text (english)';
-$string['footerexplainationdefault']= 'Solerni is a full software suite dedicated to help you creating and hosting massively collaborative learning routes';
-$string['footerexplainationdesc']   = 'Text under the tagline in the english version footer';
+$string['footerbrandsettings']      = 'Footer Branding Area';
+$string['footerbrandheading']       = 'Presents the platform brand';
+$string['footerbrandheadingdesc']   = 'A footer area is dedicated to brand presentation. This page allows to change the content of this area. To take advantage of the Moodle multi-language filter, you need to frame each translation into a <span lang="XX" class="multilang"></span> tag. To remove an element from the display, you need to empty the field and save the form.';
+$string['footerbrandtitle']         = 'Title';
+$string['footerbrandtitledefault']  = 'Solerni';
+$string['footerbrandchapo']         = 'Chapô';
+$string['footerbrandchapodefault']  = 'To learn is more fun together';
+$string['footerbrandarticle']       = 'Article';
+$string['footerbrandarticledefault']= 'Solerni is a full software suite dedicated to help you creating and hosting massively collaborative learning routes';
+$string['footerbrandanchor']        = 'Anchor link';
+$string['footerbrandanchordefault'] = 'See our course catalog';
+$string['footerbrandurl']           = 'Link destination';
+$string['footerbrandurldefault']    = $CFG->wwwroot . '/catalog';
+
 $string['footerlinksheading']       = 'Liens du footer';
 $string['footerlinksheadingdesc']   = 'Définit les liens pour le footer (hors réseaux sociaux).';
 $string['aboutus']                  = 'About us';
@@ -123,7 +127,7 @@ $string['faqdesc']                  = 'Enter FAQ URL';
 $string['contactus']                = 'Contact Us';
 $string['contactusdesc']            = 'Enter Contact URL';
 
-// Social settings.
+// Follow us settings.
 $string['followussettings']         = 'Follow us';
 $string['followusheading']          = 'Pages and profiles links';
 $string['followusheadingdesc']      = 'Allow to declare URLs for authority pages and profiles for this platform/instance on various networks or services. This links will be used into the "Follow us" section above the footer. If a field is kept empty, the corresponding icon will not be displayed on frontend.';

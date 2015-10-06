@@ -1,10 +1,10 @@
 <?php use theme_halloween\settings\options; ?>
 
-<footer class="footer row u-inverse " role="contentinfo">
+<footer class="footer row u-inverse" role="contentinfo">
     <div class="col-xs-12">
         <ul class="list-unstyled list-social" role="navigation">
-            <li class="social-item h6"><?php echo get_string('followus', 'theme_halloween'); ?></li>
-            <?php foreach( options::halloween_get_followus_list() as $key => $value ) :
+            <li class="social-item h6 hidden-xs"><?php echo get_string('followus', 'theme_halloween'); ?></li>
+            <?php foreach( options::halloween_get_followus_urllist() as $key => $value ) :
                 $url = ( $PAGE->theme->settings->$key ) ? $PAGE->theme->settings->$key : '';
                 if ( $url ) : ?>
                     <li class="social-item">
@@ -16,15 +16,14 @@
             <?php endforeach; ?>
         </ul>
     </div>
-    <div class="col-xs-12 fullwidth-line">
-    </div>
+    <div class="col-xs-12 fullwidth-line"></div>
     <div class="col-xs-12 col-md-4">
-        <ul class="list-unstyled list-text">
-            <h2>Heading</h2>
-    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <li class="link-item"><a href="#">Item 4</a></li>
-        </ul>
+        <article class="default-article footer-article">
+            <?php if ($PAGE->theme->settings->footerbrandtitle) : ?><h2><?php echo filter_text($PAGE->theme->settings->footerbrandtitle); ?></h2><?php endif; ?>
+            <?php if ($PAGE->theme->settings->footerbrandchapo) : ?><p class="lead"><?php echo filter_text($PAGE->theme->settings->footerbrandchapo); ?></p><?php endif; ?>
+            <?php if ($PAGE->theme->settings->footerbrandarticle) : ?><p><?php echo filter_text($PAGE->theme->settings->footerbrandarticle); ?></p><?php endif; ?>
+            <?php if ($PAGE->theme->settings->footerbrandanchor && $PAGE->theme->settings->footerbrandurl) : ?><a href="<?php echo filter_text($PAGE->theme->settings->footerbrandurl); ?>"><?php echo filter_text($PAGE->theme->settings->footerbrandanchor); ?></a><?php endif; ?>
+        </article>
     </div>
     <div class="col-xs-12 col-md-4">
         <div class="col-xs-12 col-md-6"></div>

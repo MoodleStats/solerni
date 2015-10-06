@@ -93,17 +93,21 @@ $string['orange_dark_2desc']            = '';
 $string['orange_dark_3']                = '@gray-darker';
 $string['orange_dark_3desc']            = '@orange-dark-3';
 
-// Footer settings.
-$string['footersettings']               = 'Réglages du Footer';
-$string['footertextheading']            = 'Textes Footer Solerni';
-$string['footertextheadingdesc']        = 'Définit la marque Solerni dans le footer.';
-$string['footertextlangheading']        = 'Version: ';
-$string['footertaglinetitle']           = 'Slogan solerni (français)';
-$string['footertaglinedefault']         = 'Apprendre, c\'est toujours mieux ensemble';
-$string['footertaglinedesc']            = 'Slogan dans le footer (français)';
-$string['footerexplainationtitle']      = 'Texte court explicatif (français)';
-$string['footerexplainationdefault']    = 'Solerni est une solution logicielle complète dédiée à la création et à l\'hébergement de parcours d\'apprentissage massifs collaboratifs.';
-$string['footerexplainationdesc']       = 'Texte complétant le slogan de la version français du footer';
+// Footer Branding Area Settings.
+$string['footerbrandsettings']          = 'Footer Branding Area';
+$string['footerbrandheading']           = 'Présente la marque de la plateforme';
+$string['footerbrandheadingdesc']       = 'Une zone du footer est dévolue à la marque. Cette page permet de modifier son contenu. Pour utiliser le filtre multi-langage de Moodle, il faut encadrer chaque traduction dans un tag <span lang="XX" class="multilang"></span>. Pour ne pas afficher un élément, il faut supprimer la valeur du champ avant de sauvegarder.';
+$string['footerbrandtitle']             = 'Titre';
+$string['footerbrandtitledefault']      = 'Solerni';
+$string['footerbrandchapo']             = 'Chapô';
+$string['footerbrandchapodefault']      = 'Apprendre, c\'est toujours mieux ensemble';
+$string['footerbrandarticle']           = 'Article';
+$string['footerbrandarticledefault']    = 'Solerni est une solution logicielle complète dédiée à la création et à l\'hébergement de parcours d\'apprentissage massifs collaboratifs.';
+$string['footerbrandanchor']            = 'Ancre du lien';
+$string['footerbrandanchordefault']     = 'Accédez à notre catalogue de cours';
+$string['footerbrandurl']               = 'Destination du lien';
+$string['footerbrandurldefault']        = $CFG->wwwroot . '/catalog';
+
 $string['footerlinksheading']           = 'Liens du footer';
 $string['footerlinksheadingdesc']       = 'Définit les liens pour le footer (hors réseaux sociaux).';
 $string['aboutus']                      = 'A propos de nous';
@@ -123,7 +127,7 @@ $string['faqdesc']                      = 'Entrez l\'URL des "Questions Fréquen
 $string['contactus']                    = 'Nous contacter';
 $string['contactusdesc']                = 'Entrez l\'URL de la page Contact';
 
-// Social settings.
+// Follow us settings.
 $string['followussettings']             = 'Suivez-nous';
 $string['followusheading']              = 'Pages et profils de l\'instance';
 $string['followusheadingdesc']          = 'Permet de déclarer les urls des pages et profils de référence de cette plate-forme sur divers réseaux ou services. Ces liens seront utilisés dans les îcones du bloc "Suivez-nous" au dessus du footer. Si un champ est vide, le bouton correspondant ne sera pas affiché sur l\'interface.';
