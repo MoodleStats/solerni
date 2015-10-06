@@ -58,25 +58,29 @@ class local_orange_rules_observer {
 
         $user = (object)$event->get_record_snapshot('user', $event->objectid);
 
-        // Read Orange Rules activated.
-        $clause = array('suspended' => 0);
-        $rules = $DB->get_records('orange_rules', $clause);
+        // For OAuth2 the email field is not populated. Not important for Solerni has OAuth2
+        // is not used for private MOOC
+        if (isset($user->email) && ($user->email != "")) {
+            // Read Orange Rules activated.
+            $clause = array('suspended' => 0);
+            $rules = $DB->get_records('orange_rules', $clause);
 
-        // User domain name.
-        $emailparts = explode('@', $user->email);
-        $userdomain = $emailparts[1];
+            // User domain name.
+            $emailparts = explode('@', $user->email);
+            $userdomain = $emailparts[1];
 
-        foreach ($rules as $rule) {
-            // If email match whitelist then add to cohort.
-            $emails = array_map("rtrim", explode("\n", $rule->emails));
-            if (in_array($user->email, $emails)) {
-                    cohort_add_member($rule->cohortid, $user->id);
-            }
+            foreach ($rules as $rule) {
+                // If email match whitelist then add to cohort.
+                $emails = array_map("rtrim", explode("\n", $rule->emails));
+                if (in_array($user->email, $emails)) {
+                        cohort_add_member($rule->cohortid, $user->id);
+                }
 
-            // If the domains of the email match the whitelist.
-            $domains = array_map("rtrim", explode("\n", $rule->domains));
-            if (in_array($userdomain, $domains)) {
-                    cohort_add_member($rule->cohortid, $user->id);
+                // If the domains of the email match the whitelist.
+                $domains = array_map("rtrim", explode("\n", $rule->domains));
+                if (in_array($userdomain, $domains)) {
+                        cohort_add_member($rule->cohortid, $user->id);
+                }
             }
         }
     }
