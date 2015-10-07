@@ -39,6 +39,7 @@ $heading = get_string('colourheading', 'theme_halloween');
 $information = get_string('colourheadingdesc', 'theme_halloween');
 $setting = new admin_setting_heading($name, $heading, $information);
 $temp->add($setting);
+
 // Get colors keys and values from options class.
 foreach( options::get_colors_list() as $key => $value ) {
     $name = 'theme_halloween/' . $key;
@@ -53,25 +54,6 @@ foreach( options::get_colors_list() as $key => $value ) {
 $ADMIN->add('theme_halloween', $temp);
 
 /*
-// Footer links.
-$name = 'theme_halloween/footerlinksheading';
-$heading = get_string('footerlinksheading', 'theme_halloween');
-$information = get_string('footerlinksheadingdesc', 'theme_halloween');
-$setting = new admin_setting_heading($name, $heading, $information);
-$temp->add($setting);
-// Get social network names and url values.
-// Iterate to create each setting.
-foreach( options::halloween_get_footerlinks_array() as $key => $value ) {
-    $name = 'theme_halloween/' . $key;
-    $title = get_string( $key, 'theme_halloween' );
-    $description = get_string( $key . 'desc', 'theme_halloween');
-    $default = $value;
-    $setting = new admin_setting_configtext($name, $title, $description, $default);
-    $temp->add($setting);
-}
-$ADMIN->add('theme_halloween', $temp);
-
-/*
  * Follow Us: Settings
  */
 $temp = new admin_settingpage('theme_halloween_social', get_string('followussettings','theme_halloween'));
@@ -80,10 +62,11 @@ $heading = get_string('followusheading', 'theme_halloween');
 $information = get_string('followusheadingdesc', 'theme_halloween');
 $setting = new admin_setting_heading($name, $heading, $information);
 $temp->add($setting);
+
 foreach( options::halloween_get_followus_urllist() as $key => $value ) {
     $name = 'theme_halloween/' . $key;
     $title = get_string($key, 'theme_halloween');
-    $description = get_string( $key . 'desc', 'theme_halloween');
+    $description = '';
     $default = $value;
     $setting = new admin_setting_configtext($name, $title, $description, $default);
     $temp->add($setting);
@@ -99,12 +82,61 @@ $heading = get_string('footerbrandheading', 'theme_halloween');
 $information = htmlentities(get_string('footerbrandheadingdesc', 'theme_halloween'));
 $setting = new admin_setting_heading($name, $heading, $information);
 $temp->add($setting);
+
 foreach( options::halloween_get_footerbrand_content() as $key => $value ) {
     $name = 'theme_halloween/' . $key;
     $title = get_string($key, 'theme_halloween');
     $description = '';
     $default = $value;
     $setting = new admin_setting_configtextarea($name, $title, $description, $default);
+    $temp->add($setting);
+}
+$ADMIN->add('theme_halloween', $temp);
+
+// Footer lists/columns
+$temp = new admin_settingpage('theme_halloween_footerlists', get_string('footerlistssettings','theme_halloween'));
+$name = 'theme_halloween/footerlistsheading';
+$heading = get_string('footerlistsheading', 'theme_halloween');
+$information = get_string('footerlistsheadingdesc', 'theme_halloween');
+$setting = new admin_setting_heading($name, $heading, $information);
+$temp->add($setting);
+
+// First Column
+$name = 'theme_halloween/footerlistscolumn1heading';
+$heading = get_string('footerlistscolumn1heading', 'theme_halloween');
+$information = htmlentities(get_string('footerlistscolumn1headingdesc', 'theme_halloween'));
+$setting = new admin_setting_heading($name, $heading, $information);
+$temp->add($setting);
+
+foreach( options::halloween_get_footerlists_column1_items() as $key => $value ) {
+    $name = 'theme_halloween/' . $key;
+    $title = get_string( $key, 'theme_halloween' );
+    $description = '';
+    $default = $value;
+    if (false === strpos($key, 'link')) {
+        $setting = new admin_setting_configtextarea($name, $title, $description, $default);
+    } else {
+        $setting = new admin_setting_configtext($name, $title, $description, $default);
+    }
+    $temp->add($setting);
+}
+
+$name = 'theme_halloween/footerlistscolumn2heading';
+$heading = get_string('footerlistscolumn2heading', 'theme_halloween');
+$information = htmlentities(get_string('footerlistscolumn2headingdesc', 'theme_halloween'));
+$setting = new admin_setting_heading($name, $heading, $information);
+$temp->add($setting);
+
+foreach( options::halloween_get_footerlists_column2_items() as $key => $value ) {
+    $name = 'theme_halloween/' . $key;
+    $title = get_string( $key, 'theme_halloween' );
+    $description = '';
+    $default = $value;
+    if (false === strpos($key, 'link')) {
+        $setting = new admin_setting_configtextarea($name, $title, $description, $default);
+    } else {
+        $setting = new admin_setting_configtext($name, $title, $description, $default);
+    }
     $temp->add($setting);
 }
 $ADMIN->add('theme_halloween', $temp);

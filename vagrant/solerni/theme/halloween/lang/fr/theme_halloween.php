@@ -93,8 +93,8 @@ $string['orange_dark_2desc']            = '';
 $string['orange_dark_3']                = '@gray-darker';
 $string['orange_dark_3desc']            = '@orange-dark-3';
 
-// Footer Branding Area Settings.
-$string['footerbrandsettings']          = 'Footer Branding Area';
+// Footer Branding Settings.
+$string['footerbrandsettings']          = 'Footer Branding';
 $string['footerbrandheading']           = 'Présente la marque de la plateforme';
 $string['footerbrandheadingdesc']       = 'Une zone du footer est dévolue à la marque. Cette page permet de modifier son contenu. Pour utiliser le filtre multi-langage de Moodle, il faut encadrer chaque traduction dans un tag <span lang="XX" class="multilang"></span>. Pour ne pas afficher un élément, il faut supprimer la valeur du champ avant de sauvegarder.';
 $string['footerbrandtitle']             = 'Titre';
@@ -108,49 +108,62 @@ $string['footerbrandanchordefault']     = 'Accédez à notre catalogue de cours'
 $string['footerbrandurl']               = 'Destination du lien';
 $string['footerbrandurldefault']        = $CFG->wwwroot . '/catalog';
 
-$string['footerlinksheading']           = 'Liens du footer';
-$string['footerlinksheadingdesc']       = 'Définit les liens pour le footer (hors réseaux sociaux).';
-$string['aboutus']                      = 'A propos de nous';
-$string['support']                      = 'Support';
-$string['followus']                     = 'Suivez-nous';
-$string['international']                = 'International';
-$string['aboutsolerni']                 = 'A propos de Solerni';
-$string['aboutsolernidesc']             = 'Entrez l\'URL du lien A propos de Solerni';
-$string['partners']                     = 'Partenaires';
-$string['partnersdesc']                 = 'Entrez l\'URL du lien Partenaires';
-$string['legal']                        = 'Mentions légales';
-$string['legaldesc']                    = 'Entrez l\'URL du lien Mentions légales';
-$string['cgu']                          = 'CGU / Charte';
-$string['cgudesc']                      = 'Entrez l\'URL du lien vers les CGU';
-$string['faq']                          = 'FAQ';
-$string['faqdesc']                      = 'Entrez l\'URL des "Questions Fréquentes"';
-$string['contactus']                    = 'Nous contacter';
-$string['contactusdesc']                = 'Entrez l\'URL de la page Contact';
+// Footer Columns Settings
+$string['footerlistssettings']              = 'Listes du footer';
+$string['footerlistsheading']               = 'Liens sur 2 Colonnes';
+$string['footerlistsheadingdesc']           = 'Le footer dispose de deux colonnes permettant d\'afficher chacune 4 liens. Cette page permet de modifier les titres et les contenus de ces deux listes. Pour retirer un élement, il suffit de laisser vide le champ correspondant.';
+$string['footerlistscolumn1heading']        = 'Première colonne';
+$string['footerlistscolumn1headingdesc']    = 'Les champs de titres et d\'ancres utilisent le filtre multi-langues de Moodle. Il faut utiliser la syntaxe suivante : <span lang="XX" class="multilang"></span> pour en tirer parti.';
+$string['footerlistscolumn1title']          = 'Titre de la première colonne';
+$string['footerlistscolumn1anchor1']        = 'Première ancre';
+$string['footerlistscolumn1anchor2']        = 'Seconde ancre';
+$string['footerlistscolumn1anchor3']        = 'Troisième ancre';
+$string['footerlistscolumn1anchor4']        = 'Quatrième ancre';
+$string['footerlistscolumn1link1']          = 'URL de la première ancre';
+$string['footerlistscolumn1link2']          = 'URL de la seconde ancre';
+$string['footerlistscolumn1link3']          = 'URL de la troisième ancre';
+$string['footerlistscolumn1link4']          = 'URL de la quatrième ancre';
+$string['footerlistscolumn1titledefault']          = 'A propos de nous';
+$string['footerlistscolumn1anchor1default']        = 'A propos de Solerni';
+$string['footerlistscolumn1anchor2default']        = 'Partenaires';
+$string['footerlistscolumn1anchor3default']        = 'Mentions légales';
+$string['footerlistscolumn1anchor4default']        = 'CGU / Charte';
+$string['footerlistscolumn2heading']        = 'Seconde colonne';
+$string['footerlistscolumn2headingdesc']    = 'Les champs de titres et d\'ancres utilisent le filtre multi-langues de Moodle. Il faut utiliser la syntaxe suivante : <span lang="XX" class="multilang"></span> pour en tirer parti.';
+$string['footerlistscolumn2title']          = 'Titre de la seconde colonne';
+$string['footerlistscolumn2anchor1']        = 'Première ancre';
+$string['footerlistscolumn2anchor2']        = 'Seconde ancre';
+$string['footerlistscolumn2anchor3']        = 'Troisième ancre';
+$string['footerlistscolumn2anchor4']        = 'Quatrième ancre';
+$string['footerlistscolumn2link1']          = 'URL de la première ancre';
+$string['footerlistscolumn2link2']          = 'URL de la seconde ancre';
+$string['footerlistscolumn2link3']          = 'URL de la troisième ancre';
+$string['footerlistscolumn2link4']          = 'URL de la quatrième ancre';
+$string['footerlistscolumn2titledefault']          = 'Support';
+$string['footerlistscolumn2anchor1default']        = 'FAQ';
+$string['footerlistscolumn2anchor2default']        = 'Nous contacter';
+$string['footerlistscolumn2anchor3default']        = '';
+$string['footerlistscolumn2anchor4default']        = '';
+$string['international']                           = 'International';
 
 // Follow us settings.
+$string['followus']                     = 'Suivez-nous';
 $string['followussettings']             = 'Suivez-nous';
 $string['followusheading']              = 'Pages et profils de l\'instance';
 $string['followusheadingdesc']          = 'Permet de déclarer les urls des pages et profils de référence de cette plate-forme sur divers réseaux ou services. Ces liens seront utilisés dans les îcones du bloc "Suivez-nous" au dessus du footer. Si un champ est vide, le bouton correspondant ne sera pas affiché sur l\'interface.';
 $string['blog']                         = 'Blog';
-$string['blogdesc']                     = 'Entrez l\'URL de votre blog.';
 $string['blogdisplayname']              = 'Blog';
 $string['facebook']                     = 'Page Facebook';
-$string['facebookdesc']                 = 'Entrez l\'URL de votre page Facebook.';
 $string['facebookdisplayname']          = 'Facebook';
 $string['twitter']                      = 'Flux Twitter';
-$string['twitterdesc']                  = 'Entrez l\'URL de votre flux Twitter.';
 $string['twitterdisplayname']           = 'Twitter';
 $string['googleplus']                   = 'Profil Google+';
-$string['googleplusdesc']               = 'Entrez l\'URL de votre profil Google+.';
 $string['googleplusdisplayname']        = 'Google +';
 $string['linkedin']                     = 'Profil LinkedIn';
-$string['linkedindesc']                 = 'Entrez l\'URL de votre profil LinkedIn.';
 $string['linkedindisplayname']          = 'LinkedIn';
 $string['youtube']                      = 'Chaîne YouTube';
-$string['youtubedesc']                  = 'Entrez l\'URL de votre chaîne YouTube.';
 $string['youtubedisplayname']           = 'YouTube';
 $string['dailymotion']                  = 'Chaîne Dailymotion';
-$string['dailymotiondesc']              = 'Entrez l\'URL de votre chaîne Dailymotion.';
 $string['dailymotiondisplayname']       = 'Dailymotion';
 
 // Header settings.

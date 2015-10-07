@@ -1,4 +1,7 @@
-<?php use theme_halloween\settings\options; ?>
+<?php
+use theme_halloween\settings\options;
+$filter_multilang =  new filter_multilang($PAGE->context, array());
+?>
 
 <footer class="footer row u-inverse" role="contentinfo">
     <div class="col-xs-12">
@@ -18,33 +21,35 @@
     </div>
     <div class="col-xs-12 fullwidth-line"></div>
     <div class="col-xs-12 col-md-4">
+    <?php if ( $PAGE->theme->settings->footerbrandtitle || $PAGE->theme->settings->footerbrandchapo || $PAGE->theme->settings->footerbrandarticle || ($PAGE->theme->settings->footerbrandanchor && $PAGE->theme->settings->footerbrandurl)) : ?>
         <article class="default-article footer-article">
-            <?php if ($PAGE->theme->settings->footerbrandtitle) : ?><h2><?php echo filter_text($PAGE->theme->settings->footerbrandtitle); ?></h2><?php endif; ?>
-            <?php if ($PAGE->theme->settings->footerbrandchapo) : ?><p class="lead"><?php echo filter_text($PAGE->theme->settings->footerbrandchapo); ?></p><?php endif; ?>
-            <?php if ($PAGE->theme->settings->footerbrandarticle) : ?><p><?php echo filter_text($PAGE->theme->settings->footerbrandarticle); ?></p><?php endif; ?>
-            <?php if ($PAGE->theme->settings->footerbrandanchor && $PAGE->theme->settings->footerbrandurl) : ?><a href="<?php echo filter_text($PAGE->theme->settings->footerbrandurl); ?>"><?php echo filter_text($PAGE->theme->settings->footerbrandanchor); ?></a><?php endif; ?>
+            <?php if ($PAGE->theme->settings->footerbrandtitle) : ?><h2><?php echo $filter_multilang->filter($PAGE->theme->settings->footerbrandtitle); ?></h2><?php endif; ?>
+            <?php if ($PAGE->theme->settings->footerbrandchapo) : ?><p class="lead"><?php echo $filter_multilang->filter($PAGE->theme->settings->footerbrandchapo); ?></p><?php endif; ?>
+            <?php if ($PAGE->theme->settings->footerbrandarticle) : ?><p><?php echo $filter_multilang->filter($PAGE->theme->settings->footerbrandarticle); ?></p><?php endif; ?>
+            <?php if ($PAGE->theme->settings->footerbrandanchor && $PAGE->theme->settings->footerbrandurl) : ?><a href="<?php echo $filter_multilang->filter($PAGE->theme->settings->footerbrandurl); ?>"><?php echo $filter_multilang->filter($PAGE->theme->settings->footerbrandanchor); ?></a><?php endif; ?>
         </article>
+    <?php endif; ?>
     </div>
     <div class="col-xs-12 col-md-4">
         <div class="col-xs-12 col-md-6"></div>
         <div class="col-xs-12 col-md-6">
             <ul class="list-unstyled list-link" role="navigation">
-                <li class="link-item h6">Title</li>
-                <li class="link-item"><a href="#">Item 1</a></li>
-                <li class="link-item"><a href="#">Item 2</a></li>
-                <li class="link-item"><a href="#">Item 3</a></li>
-                <li class="link-item"><a href="#">Item 4</a></li>
+               <li class="link-item h6"><?php if ($PAGE->theme->settings->footerlistscolumn1title) { echo $filter_multilang->filter($PAGE->theme->settings->footerlistscolumn1title); } ?></li>
+                <?php if ($PAGE->theme->settings->footerlistscolumn1anchor1 && $PAGE->theme->settings->footerlistscolumn1link1) : ?><li class="link-item"><a href="<?php echo $PAGE->theme->settings->footerlistscolumn1link1; ?>"><?php echo $filter_multilang->filter($PAGE->theme->settings->footerlistscolumn1anchor1); ?></a></li><?php endif; ?>
+                <?php if ($PAGE->theme->settings->footerlistscolumn1anchor2 && $PAGE->theme->settings->footerlistscolumn1link2) : ?><li class="link-item"><a href="<?php echo $PAGE->theme->settings->footerlistscolumn1link2; ?>"><?php echo $filter_multilang->filter($PAGE->theme->settings->footerlistscolumn1anchor2); ?></a></li><?php endif; ?>
+                <?php if ($PAGE->theme->settings->footerlistscolumn1anchor3 && $PAGE->theme->settings->footerlistscolumn1link3) : ?><li class="link-item"><a href="<?php echo $PAGE->theme->settings->footerlistscolumn1link3; ?>"><?php echo $filter_multilang->filter($PAGE->theme->settings->footerlistscolumn1anchor3); ?></a></li><?php endif; ?>
+                <?php if ($PAGE->theme->settings->footerlistscolumn1anchor4 && $PAGE->theme->settings->footerlistscolumn1link4) : ?><li class="link-item"><a href="<?php echo $PAGE->theme->settings->footerlistscolumn1link4; ?>"><?php echo $filter_multilang->filter($PAGE->theme->settings->footerlistscolumn1anchor4); ?></a></li><?php endif; ?>
             </ul>
         </div>
     </div>
     <div class="col-xs-12 col-md-4">
         <div class="col-xs-12 col-md-6">
             <ul class="list-unstyled list-link" role="navigation">
-                <li class="link-item h6">Title</li>
-                <li class="link-item"><a href="#">Item 1</a></li>
-                <li class="link-item"><a href="#">Item 2</a></li>
-                <li class="link-item"><a href="#">Item 3</a></li>
-                <li class="link-item"><a href="#">Item 4</a></li>
+                <li class="link-item h6"><?php if ($PAGE->theme->settings->footerlistscolumn2title) { echo $filter_multilang->filter($PAGE->theme->settings->footerlistscolumn2title); } ?></li>
+                <?php if ($PAGE->theme->settings->footerlistscolumn2anchor1 && $PAGE->theme->settings->footerlistscolumn2link1) : ?><li class="link-item"><a href="<?php echo $PAGE->theme->settings->footerlistscolumn2link1; ?>"><?php echo $filter_multilang->filter($PAGE->theme->settings->footerlistscolumn2anchor1); ?></a></li><?php endif; ?>
+                <?php if ($PAGE->theme->settings->footerlistscolumn2anchor2 && $PAGE->theme->settings->footerlistscolumn2link2) : ?><li class="link-item"><a href="<?php echo $PAGE->theme->settings->footerlistscolumn2link2; ?>"><?php echo $filter_multilang->filter($PAGE->theme->settings->footerlistscolumn2anchor2); ?></a></li><?php endif; ?>
+                <?php if ($PAGE->theme->settings->footerlistscolumn2anchor3 && $PAGE->theme->settings->footerlistscolumn2link3) : ?><li class="link-item"><a href="<?php echo $PAGE->theme->settings->footerlistscolumn2link3; ?>"><?php echo $filter_multilang->filter($PAGE->theme->settings->footerlistscolumn2anchor3); ?></a></li><?php endif; ?>
+                <?php if ($PAGE->theme->settings->footerlistscolumn2anchor4 && $PAGE->theme->settings->footerlistscolumn2link4) : ?><li class="link-item"><a href="<?php echo $PAGE->theme->settings->footerlistscolumn2link4; ?>"><?php echo $filter_multilang->filter($PAGE->theme->settings->footerlistscolumn2anchor4); ?></a></li><?php endif; ?>
             </ul>
         </div>
         <div class="col-xs-12 col-md-6">
