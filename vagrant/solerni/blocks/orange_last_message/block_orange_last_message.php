@@ -36,26 +36,13 @@ class block_orange_last_message extends block_base {
         $this->renderer = $PAGE->get_renderer('block_orange_last_message');
     }
 
-    public function instance_allow_multiple() {
-        return true;
-    }
-
-    public function has_config() {
-        return false;
-    }
-
-    public function instance_allow_config() {
-        return false;
-    }
-
+    /**
+     * Locations where block can be displayed
+     *
+     * @return array
+     */
     public function applicable_formats() {
-        return array(
-            'admin' => false,
-            'site-index' => true,
-            'course-view' => true,
-            'mod' => false,
-            'my' => true
-            );
+        return array('my-index' => true);
     }
 
     public function html_attributes() {

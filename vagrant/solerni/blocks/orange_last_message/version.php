@@ -26,7 +26,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2015091822;        // The current plugin version (Date: YYYYMMDDXX).
+$plugin->version   = 2015100810;        // The current plugin version (Date: YYYYMMDDXX).
 $plugin->requires  = 2014050800;         // Requires this Moodle version.
 $plugin->component = 'block_orange_last_message';
 
