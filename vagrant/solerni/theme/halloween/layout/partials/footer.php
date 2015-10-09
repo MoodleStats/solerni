@@ -1,5 +1,6 @@
 <?php
 use theme_halloween\settings\options;
+use \local_orange_library\utilities\utilities_user;
 $filter_multilang =  new filter_multilang($PAGE->context, array());
 ?>
 
@@ -8,10 +9,9 @@ $filter_multilang =  new filter_multilang($PAGE->context, array());
         <ul class="list-unstyled list-social" role="navigation">
             <li class="social-item h6 hidden-xs"><?php echo get_string('followus', 'theme_halloween'); ?></li>
             <?php foreach( options::halloween_get_followus_urllist() as $key => $value ) :
-                $url = ( $PAGE->theme->settings->$key ) ? $PAGE->theme->settings->$key : '';
-                if ( $url ) : ?>
+                if ( $PAGE->theme->settings->$key ) : ?>
                     <li class="social-item">
-                        <a href="<?php echo $url; ?>" class="icon-halloween icon-halloween--<?php echo $key; ?>">
+                        <a href="<?php echo $PAGE->theme->settings->$key; ?>" class="icon-halloween icon-halloween--<?php echo $key; ?>">
                             <?php echo $key; ?>
                         </a>
                     </li>
@@ -53,35 +53,17 @@ $filter_multilang =  new filter_multilang($PAGE->context, array());
             </ul>
         </div>
         <div class="col-xs-12 col-md-6">
-            <ul class="list-unstyled list-link">
-                <li class="link-item h6">Title</li>
-    <div class="dropdown">
-        <button id="dLabel" class="btn btn-primary " type="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-                Button primary
-                <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu list-unstyled list-link" aria-labelledby="dLabel">
-            <li><a href="#">Item 1</a></li>
-            <li><a href="#">Item 2</a></li>
-            <li><a href="#">Item 3</a></li>
-        </ul>
-    </div>
-
-    <script>
-        $( document ).ready(function() {
-            $('.dropdown-toggle').dropdown();
-        });
-    </script>
-            </ul>
+            <div class="list-unstyled list-link">
+                <div class="link-item h6"><?php echo get_string('international', 'theme_halloween'); ?></div>
+                <?php echo $OUTPUT->halloween_lang_menu(); ?>
+            </div>
         </div>
     </div>
 </footer>
-
 <?php // Moodle legacy footer
-if (\local_orange_library\utilities\utilities_user::is_user_site_admin($USER)) : ?>
+if (utilities_user::is_user_site_admin($USER)) : ?>
     <div class="row text-center u-inverse">
-        <span><i>Ce footer spécifique Moodle n'est visible qu'aux administateurs</i></span>
+        <span><i>Moodle footer (admins only)</i></span>
         <div id="course-footer"><?php echo $OUTPUT->course_footer(); ?></div>
         <?php
         echo $OUTPUT->login_info();
