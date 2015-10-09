@@ -410,3 +410,7 @@ moosh role-update-capability solerni_teacher moodle/site:manageblocks allow 1
 moosh role-update-capability solerni_apprenant mod/listforumng:view allow 1
 moosh role-update-capability solerni_teacher mod/listforumng:addinstance allow 1
 moosh role-update-capability solerni_course_creator mod/listforumng:addinstance allow 1
+
+# Update course creator role : add Ensavoir+ page
+moosh role-update-capability solerni_course_creator format/flexpage:managepages allow 1
+moosh role-update-capability solerni_course_creator moodle/course:manageactivities allow 1
