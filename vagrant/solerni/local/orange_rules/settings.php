@@ -26,11 +26,20 @@
 defined('MOODLE_INTERNAL') || die;
 
 $orangeplugin = 'local_orange_rules';
-$orangeaddruleurl = '/local/orange_rules/view.php?sesskey=' . sesskey();
 $orangelistrulesurl = '/local/orange_rules/index.php?sesskey=' . sesskey().'&action=rules_list';
+$orangeaddrulesurl = '/local/orange_rules/view.php?sesskey=' . sesskey();
 
-if ($hassiteconfig) {
-    $ADMIN->add('localplugins', new admin_externalpage('orange_rules_level2',
-        get_string('listrules', $orangeplugin),
-        new moodle_url($orangelistrulesurl)));
+if ($hassiteconfig or has_capability('local/orange_rules:edit', context_system::instance())) {
+
+    $ADMIN->add('root', new admin_category('rule', get_string('ruleslink', $orangeplugin)));
+
+    $ADMIN->add('rule', new admin_externalpage('orangeruleslist', get_string('ruleslinklist', $orangeplugin),
+        new moodle_url($orangelistrulesurl),
+        array('local/orange_rules:edit')
+    ));
+
+    $ADMIN->add('rule', new admin_externalpage('orangerulesadd', get_string('ruleslinkadd', $orangeplugin),
+        new moodle_url($orangeaddrulesurl),
+        array('local/orange_rules:edit')
+    ));
 }

@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,18 +16,15 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version file.
+ * Strings for component 'badges', language 'fr', branch 'MOODLE_28_STABLE'
  *
- * @package local_eledia_makeanonymous
- * @author Matthias Schwabe <support@eledia.de>
- * @copyright 2013 & 2014 eLeDia GmbH
- * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   badges
+ * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2014121200;                     // The current plugin version (Date: YYYYMMDDXX)
-$plugin->requires  = 2014051200;                     // Requires this Moodle version (2.7).
-$plugin->release   = '0.5 (2014082803)';             // For Moodle 2.7 & 2.8
-$plugin->component = 'local_eledia_makeanonymous';   // Full name of the plugin (used for diagnostics).
-$plugin->maturity  = MATURITY_STABLE;
+$string['badgesearned'] = 'Nombre total de badges obtenus : {$a}';
+$string['nobadges'] = 'Vous n’avez pas encore obtenu de badge.<br/>
+<strong><a href="{$a}">Consultez les FAQ</a></strong> afin de découvrir le fonctionnement des badges. ';

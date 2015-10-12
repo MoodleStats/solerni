@@ -35,17 +35,17 @@ class block_orange_social_sharing_renderer extends plugin_renderer_base {
      * @param object $context
      * @return string $text
      */
-    public function get_text($course) {
-        Global $PAGE, $DB, $COURSE;
+    public function get_text() {
+        Global $PAGE, $DB;
 
         $shareonarray = new array_object();
         $socialclassarray = new array_object();
         $socialurlarray = new array_object();
-        $coursecontext = context_course::instance($COURSE->id);
 
         $blockrecord = $DB->get_record('block_instances', array('blockname' => 'orange_social_sharing',
-            'pagetypepattern' => 'mod-descriptionpage-view'), '*', IGNORE_MISSING);
-        if($blockrecord){
+            'parentcontextid' => $PAGE->context->id), '*', IGNORE_MISSING);
+
+        if ($blockrecord) {
             $blockinstance = block_instance('orange_social_sharing', $blockrecord);
         }
 
@@ -72,7 +72,6 @@ class block_orange_social_sharing_renderer extends plugin_renderer_base {
 
         $count = $shareonarray->count;
         $text = html_writer::start_tag('div', array('class' => 'sider sider_social-sharing row'));
-                //$text .= html_writer::start_tag('ul', array('class' => 'list-unstyled'));
 
         for ($i = 1; $i <= $count; $i++) {
                     $shareonarray->setCurrent($i);
@@ -87,7 +86,7 @@ class block_orange_social_sharing_renderer extends plugin_renderer_base {
                     $text .= html_writer::end_tag('div');
 
         }
-                //$text .= html_writer::end_tag('ul');
+
         $text .= html_writer::end_tag('div');
         return $text;
 

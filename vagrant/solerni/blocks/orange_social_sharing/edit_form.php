@@ -39,30 +39,45 @@ class block_orange_social_sharing_edit_form extends block_edit_form {
                         'block_orange_social_sharing'));
         $mform->setType('config_title', PARAM_TEXT);
         // A sample string variable with a default value.
+        // Display Facebook plus option.
         $mform->addElement('advcheckbox',
                 'config_facebook',
                 get_string('labelfacebook', 'block_orange_social_sharing'),
                 get_string('descfacebook', 'block_orange_social_sharing'),
                 array('group' => 1),
                 array(0, 1));
+        $mform->setType('enabled', PARAM_BOOL);
+        $mform->setDefault('config_facebook', 1);
+
+        // Display Twitter plus option.
         $mform->addElement('advcheckbox',
                 'config_twitter',
                 get_string('labeltwitter', 'block_orange_social_sharing'),
                 get_string('desctwitter', 'block_orange_social_sharing'),
                 array('group' => 1),
                 array(0, 1));
+        $mform->setType('enabled', PARAM_BOOL);
+        $mform->setDefault('config_twitter', 1);
+
+        // Display Linkedin plus option.
         $mform->addElement('advcheckbox',
                 'config_linkedin',
                 get_string('labellinkedin', 'block_orange_social_sharing'),
                 get_string('desclinkedin', 'block_orange_social_sharing'),
                 array('group' => 1),
                 array(0, 1));
+        $mform->setType('enabled', PARAM_BOOL);
+        $mform->setDefault('config_linkedin', 1);
+
+        // Display Google plus option.
         $mform->addElement('advcheckbox',
                 'config_googleplus',
                 get_string('labelgoogleplus', 'block_orange_social_sharing'),
                 get_string('descgoogleplus', 'block_orange_social_sharing'),
                 array('group' => 1),
                 array(0, 1));
+        $mform->setType('enabled', PARAM_BOOL);
+        $mform->setDefault('config_googleplus', 1);
     }
 
 }

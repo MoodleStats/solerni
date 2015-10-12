@@ -15,25 +15,22 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Lang strings.
- * @package mod
- * @subpackage listforumng
- * @copyright  2015 Orange
+ * Orange Last Message block
+ *
+ * @package    block_orange_last_message
+ * @copyright  Orange 2015
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+$string['pluginname'] = 'Orange - My last message';
+$string['title'] = 'Mailbox';
+$string['nothingtodisplay'] = 'You have no messages';
+$string['blockdesc'] = 'Display your last message here';
+$string['mailboxlink'] = 'Display my mailbox';
+$string['lastmessage'] = 'Last message :';
+$string['messagelink'] = 'Display the message';
+$string['beforehour'] = 'the';
+$string['beforedate'] = 'the';
+$string['orange_last_message:addinstance'] = 'Add a new Orange My last Message block';
+$string['orange_last_message:myaddinstance'] = 'Add a new Orange My last Message block to My home';
 
-$string['modulename'] = 'List ForumNG';
-$string['pluginname'] = 'List ForumNG';
-$string['modulenameplural'] = 'Lists of ForumNG';
-$string['pluginadministration'] = 'Administration list of forums';
-$string['listforumng:view'] = 'View list of forums';
-$string['listforumng:addinstance'] = 'Add a new list of forums';
-
-$string['listforumngintro'] = 'Description';
-
-$string['defaultname'] = 'List of all forums';
-
-$string['headtablename'] = 'Name of theme (=forum)';
-$string['headtablenbposts'] = 'Post';
-$string['headtablelastpost'] = 'Last post';

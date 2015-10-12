@@ -1,8 +1,8 @@
 #!/bin/bash
 # Fichier "default/conf.sh"
 
-# load of ansible variables us_290 us_292
-. ./solerni-config/default/env_moosh.cfg
+# load of ansible variables us_290 us_292 us_71 us_247
+. ./conf/env_moosh.cfg
 # ${CUSTOMER_LOG_DB_HOST}
 # ${CUSTOMER_LOG_DB_NAME}
 # ${CUSTOMER_LOG_DB_USERNAME}
@@ -12,7 +12,9 @@
 # ${CUSTOMER_STATS_DB_USERNAME}
 # ${CUSTOMER_STATS_DB_PASSWORD}
 # ${CUSTOMER_PIWIK_URL}
-# ${CUSTOMER_NAME}
+
+# ${CUSTOMER_STATIC_DIRECTORY}
+# ${GEOIP_FILE_PATH}
 
 # add conf for external logs (#us_289)
 # moosh config-set enabled_stores logstore_standard,logstore_database,logstore_legacy tool_log
@@ -105,10 +107,10 @@ moosh enrol-manage disable guest
 moosh role-configset profileroles solerni_apprenant,solerni_power_apprenant,solerni_animateur,solerni_teacher
 
 # Modify Document directory - Plugin Local/Static Pages (#us_71)
-moosh config-set documentdirectory /opt/solerni/customers/${CUSTOMER_NAME}/data/solerni/html local_staticpage            
+moosh config-set documentdirectory ${CUSTOMER_STATIC_DIRECTORY} local_staticpage            
 
 # Path of geoipfile for geolocation (#us_247)
-moosh config-set geoipfile /opt/solerni/misc/geoip/GeoIP.dat 
+moosh config-set geoipfile ${GEOIP_FILE_PATH}
 
 # Block Orange course Dashboard (#us_102)
 moosh config-set catalogurl /catalog block_orange_course_dashboard
@@ -122,6 +124,15 @@ moosh block-add system 0 private_files my-index content 0
 moosh block-add system 0 badges my-index content 0
 moosh block-add system 0 calendar_month my-index content 0
 moosh block-add system 0 news_items my-index content 0
+moosh block-add system 0 orange_last_message my-index content 0
 
 # Enable self enrolment method in new courses - Plugin Enrolments/Self enrolment
-moosh config-set status 1 enrol_self
+# /!\ this value is reversed 0 => true, 1 => false
+moosh config-set status 0 enrol_self
+
+# Maximum number of moocs when list of Moocs is displayed
+moosh config-set coursesperpage 5
+
+# MNet (US 326)
+moosh config-set mnet_dispatcher_mode strict
+

@@ -15,24 +15,21 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * eledia_makeanonymous cron task.
+ * Version details
  *
- * @package local_eledia_makeanonymous
- * @author Matthias Schwabe <support@eledia.de>
- * @copyright 2013 & 2014 eLeDia GmbH
- * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    block_orange_last_message
+ * @copyright  Orange 2015
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+
 
 defined('MOODLE_INTERNAL') || die();
 
-$tasks = array(
-    array(
-        'classname' => '\local_eledia_makeanonymous\task\eledia_makeanonymous_task',
-        'blocking' => 0,
-        'minute' => '30',
-        'hour' => '*',
-        'day' => '*',
-        'dayofweek' => '*',
-        'month' => '*'
-    ),
+$plugin->version   = 2015100810;        // The current plugin version (Date: YYYYMMDDXX).
+$plugin->requires  = 2014050800;         // Requires this Moodle version.
+$plugin->component = 'block_orange_last_message';
+
+$plugin->dependencies = array(
+    'local_mail'          => 2015062200
 );

@@ -15,25 +15,21 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Lang strings.
- * @package mod
- * @subpackage listforumng
- * @copyright  2015 Orange
+ * Orange Last Message block
+ *
+ * @package    block_orange_last_message
+ * @copyright  Orange 2015
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-
-$string['modulename'] = 'List ForumNG';
-$string['pluginname'] = 'List ForumNG';
-$string['modulenameplural'] = 'Lists of ForumNG';
-$string['pluginadministration'] = 'Administration list of forums';
-$string['listforumng:view'] = 'View list of forums';
-$string['listforumng:addinstance'] = 'Add a new list of forums';
-
-$string['listforumngintro'] = 'Description';
-
-$string['defaultname'] = 'List of all forums';
-
-$string['headtablename'] = 'Name of theme (=forum)';
-$string['headtablenbposts'] = 'Post';
-$string['headtablelastpost'] = 'Last post';
+$string['pluginname'] = 'Orange - Mon dernier message';
+$string['title'] = 'Messagerie';
+$string['nothingtodisplay'] = 'Aucun message';
+$string['blockdesc'] = 'Retrouvez votre dernier message dans cet espace';
+$string['mailboxlink'] = 'Afficher ma messagerie';
+$string['lastmessage'] = 'Dernier message :';
+$string['messagelink'] = 'Afficher le message';
+$string['beforehour'] = 'à';
+$string['beforedate'] = 'le';
+$string['orange_last_message:addinstance'] = 'Ajouter un nouveau bloc Orange - Mon dernier message';
+$string['orange_last_message:myaddinstance'] = 'Ajouter un nouveau bloc Orange - Mon dernier message sur ma page d\'accueil';

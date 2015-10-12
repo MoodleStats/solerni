@@ -172,3 +172,4 @@ A très bientôt sur {$a->sitename}
 Vous recevez cet e-mail car votre entreprise a souhaité vous inscrire automatiquement sur notre plateforme. Ce message vous est envoyé automatiquement, merci de ne pas y répondre directement.
 Si vous avez des questions écrivez-nous à contact@solerni.com.
 Afin de bien recevoir nos e-mails, ajoutez cette adresse noreply@solerni.com  dans votre carnet d\'adresses.';
+$string['commentscount'] = 'Commentaires ({$a})';

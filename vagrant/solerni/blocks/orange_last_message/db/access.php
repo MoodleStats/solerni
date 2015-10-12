@@ -15,24 +15,34 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Capabilities for Orange_rules plugin.
+ * Declares the block's capabilities
  *
- * @package    local
- * @subpackage orange_rules
- * @copyright  2015 Orange
+ * @package    block_orange_last_message
+ * @copyright  Orange 2015
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 $capabilities = array(
-    'local/orange_rules:edit' => array(
-        'riskbitmask'  => RISK_CONFIG,
+    'block/orange_last_message:myaddinstance' => array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
         'archetypes' => array(
-            'manager' => CAP_ALLOW,
-        )
-    )
+            'user' => CAP_ALLOW
+        ),
 
+        'clonepermissionsfrom' => 'moodle/my:manageblocks'
+    ),
+     'block/orange_last_message:addinstance' => array(
+        'riskbitmask' => RISK_SPAM | RISK_XSS,
+
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_BLOCK,
+        'archetypes' => array(
+            'editingteacher' => CAP_ALLOW,
+            'manager' => CAP_ALLOW
+        ),
+        'clonepermissionsfrom' => 'moodle/site:manageblocks'
+    ),
 );

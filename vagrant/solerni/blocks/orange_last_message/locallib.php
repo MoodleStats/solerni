@@ -15,21 +15,25 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Event.
+ * Helper functions for Orange Last Message block (from plugin local mail)
  *
- * @package local_eledia_makeanonymous
- * @author Matthias Schwabe <support@eledia.de>
- * @copyright 2013 & 2014 eLeDia GmbH
- * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    block_orange_last_message
+ * @copyright  Orange 2015
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
 
-$observers = array (
-    array (
-        'eventname' => '\core\event\user_deleted',
-        'callback'  => 'local_eledia_makeanonymous_observer::anonymize',
-        'internal'  => true,
-        'priority'  => 1000,
-    )
-);
+/**
+ * Return array with last message informations
+ *
+ * @param array $courses courses for which overview needs to be shown
+ * @return array
+ */
+function get_user_last_message($USER) {
+    $query['limit'] = 1;
+    $lastmsg = local_mail_message::search_index ($USER->id, 'inbox', 0, $query);
+
+    return $lastmsg;
+}
+
+

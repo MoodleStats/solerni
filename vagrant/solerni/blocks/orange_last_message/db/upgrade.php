@@ -15,25 +15,35 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Lang strings.
- * @package mod
- * @subpackage listforumng
- * @copyright  2015 Orange
+ * Orange Last Message block (from plugin local mail)
+ *
+ * @package    block_orange_last_message
+ * @copyright  Orange 2015
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+/**
+ *
+ * @param int $oldversion
+ * @param object $block
+ */
+function xmldb_block_orange_last_message_upgrade($oldversion) {
+    global $CFG, $DB;
 
-$string['modulename'] = 'List ForumNG';
-$string['pluginname'] = 'List ForumNG';
-$string['modulenameplural'] = 'Lists of ForumNG';
-$string['pluginadministration'] = 'Administration list of forums';
-$string['listforumng:view'] = 'View list of forums';
-$string['listforumng:addinstance'] = 'Add a new list of forums';
+    // Moodle v2.3.0 release upgrade line.
+    // Put any upgrade step following this.
 
-$string['listforumngintro'] = 'Description';
+    // Moodle v2.4.0 release upgrade line.
+    // Put any upgrade step following this.
 
-$string['defaultname'] = 'List of all forums';
+    // Moodle v2.5.0 release upgrade line.
+    // Put any upgrade step following this.
 
-$string['headtablename'] = 'Name of theme (=forum)';
-$string['headtablenbposts'] = 'Post';
-$string['headtablelastpost'] = 'Last post';
+    // Moodle v2.6.0 release upgrade line.
+    // Put any upgrade step following this.
+
+    // Moodle v2.7.0 release upgrade line.
+    // Put any upgrade step following this.
+
+    return true;
+}

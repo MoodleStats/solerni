@@ -62,7 +62,6 @@ class orange_thematics {
 
     }
 
-
     /**
      * Delete thematic and redirects to the list page
      */
@@ -104,7 +103,6 @@ class orange_thematics {
         }
     }
 
-
     /**
      * Add new thematic or update if it exists. Redirects to the list page.
      */
@@ -122,18 +120,17 @@ class orange_thematics {
         }
 
         if (isset($thematic->id)) {
-        	if ($thematic->id == 0) {
-            	$lastinsertid = $DB->insert_record('orange_thematics', $thematics, false);
-        	} else {
-            	$DB->update_record('orange_thematics', $thematic);
-        	}
+            if ($thematic->id == 0) {
+                $lastinsertid = $DB->insert_record('orange_thematics', $thematics, false);
+            } else {
+                $DB->update_record('orange_thematics', $thematic);
+            }
         }
 
         $returnurl = new moodle_url('index.php', array('action' => 'thematics_list', 'sesskey' => sesskey()));
 
         redirect($returnurl);
     }
-
 
     /**
      * Outputs list of thematics.

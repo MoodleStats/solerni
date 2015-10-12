@@ -542,15 +542,15 @@ class utilities_course {
     }
 
     /**
-     * Set the extended course values from config.
+     * Get the category id from course id.
      *
-     * @param object $context
-     * @return object $this->extendedcourse
+     * @param int $courseid
+     * @return int $categoryid
      */
-    public function get_categoryid_by_courseid($course) {
+    public function get_categoryid_by_courseid($courseid) {
         global $DB;
         $categoryid = null;
-        $course = $DB->get_record('course', array('id' => $course->id), 'id, category');
+        $course = $DB->get_record('course', array('id' => $courseid), 'id, category');
         if ($course) { // Should always exist, but just in case ...
             $categoryid = $course->category;
         }
@@ -598,10 +598,10 @@ class utilities_course {
     }
 
     public function get_description_page_url($course = null) {
-
+        global $CFG;
         $url = '#';
         if ($course) {
-            $url = new moodle_url('mod/descriptionpage/view.php', array('courseid' => $course->id));
+            $url = $CFG->wwwroot . '/mod/descriptionpage/view.php?courseid='.$course->id;
         }
 
         return $url;
