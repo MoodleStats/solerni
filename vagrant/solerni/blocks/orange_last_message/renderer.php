@@ -111,7 +111,7 @@ class block_orange_last_message_renderer extends plugin_renderer_base {
      */
     public function no_message_display() {
         $output = html_writer::start_tag('div', array('class' => 'block_orange_last_message'));
-        $output = html_writer::start_tag('div', array('class' => 'no_message'));
+        $output .= html_writer::start_tag('div', array('class' => 'no_message'));
         $output .= get_string('nothingtodisplay', 'block_orange_last_message');
         $output .= html_writer::empty_tag('br');
         $output .= html_writer::empty_tag('img',
