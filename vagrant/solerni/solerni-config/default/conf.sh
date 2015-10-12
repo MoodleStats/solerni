@@ -2,7 +2,7 @@
 # Fichier "default/conf.sh"
 
 # load of ansible variables us_290 us_292 us_71 us_247
-. ./conf/env_moosh.cfg
+. ../conf/env_moosh.cfg
 # ${CUSTOMER_LOG_DB_HOST}
 # ${CUSTOMER_LOG_DB_NAME}
 # ${CUSTOMER_LOG_DB_USERNAME}
