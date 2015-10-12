@@ -542,15 +542,15 @@ class utilities_course {
     }
 
     /**
-     * Set the extended course values from config.
+     * Get the category id from course id.
      *
-     * @param object $context
-     * @return object $this->extendedcourse
+     * @param int $courseid
+     * @return int $categoryid
      */
-    public function get_categoryid_by_courseid($course) {
+    public function get_categoryid_by_courseid($courseid) {
         global $DB;
         $categoryid = null;
-        $course = $DB->get_record('course', array('id' => $course->id), 'id, category');
+        $course = $DB->get_record('course', array('id' => $courseid), 'id, category');
         if ($course) { // Should always exist, but just in case ...
             $categoryid = $course->category;
         }

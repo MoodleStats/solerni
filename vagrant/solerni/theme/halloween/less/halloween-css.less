@@ -95,7 +95,10 @@ a.focus {
 /*
  * List Links (as in footer)
  * */
-.list-link {}
+.list-link {
+    margin: 0;
+    padding: 0;
+}
 
     .link-item {
         margin-bottom:  @s-triple-xs-margin;
@@ -136,16 +139,20 @@ a.focus {
   * Social class
   * */
 
- .list-social {
-    padding-top:    @font-size-base;
-    padding-bottom: @font-size-base;
-    margin-bottom:  0;
- }
+.list-social {
+   padding-top:     @font-size-base;
+   padding-bottom:  @font-size-base;
+   margin-bottom:   0;
+   margin-left:     0;
+   margin-right:    0;
+}
 
-  div[role="main"] .list-social {
-    padding-top:    @font-size-base; // Override because bootstrap specificity
-    padding-bottom: @font-size-base;
- }
+div[role="main"] .list-social {
+  padding-top:      @font-size-base; // Override because bootstrap specificity
+  padding-bottom:   @font-size-base;
+  padding-left:     0;
+  padding-right:    0;
+}
 
     .social-item {
         display:        inline-block;
@@ -197,6 +204,7 @@ a.focus {
     border-bottom-style: solid;
     border-bottom-width: 1px;
 }
+
 /*
  *  Catalog
  */
@@ -219,3 +227,33 @@ a.focus {
     .form-fieldset-legend {
         margin-bottom: 0;
     }
+
+
+/*
+ *  Badges
+ */
+
+.orange-course-name-logo{
+    position:relative;
+    right: 0px;
+    border-bottom : 1px solid #000; 
+    padding: 5px 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.orange-course-name {
+    font-weight: bold;
+}
+
+.orange-course-logo {
+    position:absolute;
+    top:0;
+    right:0;
+}
+
+.orange-badges-list{
+    padding: 5px 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}

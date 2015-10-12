@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,15 +16,15 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This is built using the bootstrapbase template to allow for new theme's using
- * Moodle's new Bootstrap theme engine
+ * Strings for component 'badges', language 'fr', branch 'MOODLE_28_STABLE'
  *
- * @package     theme_halloween
- * @copyright   2015 Orange
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   badges
+ * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once('renderers/core_course_renderer.php');
-require_once('renderers/core_badges_renderer.php');
-require_once('renderers/core_renderer.php');
-require_once('renderers/mod_quiz_renderer.php');
+defined('MOODLE_INTERNAL') || die();
+
+$string['badgesearned'] = 'Nombre total de badges obtenus : {$a}';
+$string['nobadges'] = 'Vous n’avez pas encore obtenu de badge.<br/>
+<strong><a href="{$a}">Consultez les FAQ</a></strong> afin de découvrir le fonctionnement des badges. ';

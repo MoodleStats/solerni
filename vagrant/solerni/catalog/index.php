@@ -52,6 +52,7 @@ $filtersblock->content .= $courserenderer->render_course_catalog_filter_status($
 $filtersblock->content .= $courserenderer->render_course_catalog_filter_thematics($filters->thematicsid);
 $filtersblock->content .= $courserenderer->render_course_catalog_filter_duration($filters->durationsid);
 $filtersblock->content .= $courserenderer->render_course_catalog_filter_categories($filters->categoriesid);
+$filtersblock->content .= '<input type="hidden" value="0" name="page">';
 $filtersblock->content .= '<button class="btn btn-primary btn-block" type="submit">submit</button>';
 $filtersblock->content .= '</form>';
 $filtersblock->footer = '';

@@ -15,15 +15,27 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This is built using the bootstrapbase template to allow for new theme's using
- * Moodle's new Bootstrap theme engine
- *
- * @package     theme_halloween
- * @copyright   2015 Orange
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    orange_library
+ * @subpackage utilities
+ * @copyright  2015 Orange
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+namespace local_orange_library\utilities;
 
-require_once('renderers/core_course_renderer.php');
-require_once('renderers/core_badges_renderer.php');
-require_once('renderers/core_renderer.php');
-require_once('renderers/mod_quiz_renderer.php');
+defined('MOODLE_INTERNAL') || die();
+
+class utilities_user {
+
+    static function is_user_site_admin($user) {
+        foreach (get_admins() as $adminuser) {
+            if ($user->id === $adminuser->id ) {
+                return true;
+            }
+        }
+    }
+
+    public function is_user_course_admin($user, $course) {
+        // check user right inside the course
+    }
+
+}
