@@ -129,3 +129,10 @@ moosh block-add system 0 orange_last_message my-index content 0
 # Enable self enrolment method in new courses - Plugin Enrolments/Self enrolment
 # /!\ this value is reversed 0 => true, 1 => false
 moosh config-set status 0 enrol_self
+
+# Maximum number of moocs when list of Moocs is displayed
+moosh config-set coursesperpage 5
+
+# MNet (US 326)
+moosh config-set mnet_dispatcher_mode strict
+
