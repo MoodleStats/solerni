@@ -48,15 +48,4 @@ $(document).ready( function() {
 
         $('.js-catalog-filters').submit();
     });
-
-    $('.paging a').click(function () {
-        var url = $(this).attr('href');
-        name = 'page';
-        var match = RegExp('[?&]' + name + '=([^&]*)').exec(url);
-        var page = match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-        $('#pageid').val(page);
-        $('#coursecatalog').submit();
-
-        return false;
-    });
 });

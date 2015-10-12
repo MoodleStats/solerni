@@ -188,10 +188,10 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
 
         // Pagination.
         $perpage = $CFG->coursesperpage;
-        $page = optional_param('pageid', 0, PARAM_INT);
+        $page = optional_param('page', 0, PARAM_INT);
 
         $chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_COLLAPSED)->set_courses_display_options(array(
-                        'recursive' => false,  // TODO, le recursif n'est pas traiter dans catalogue::get_courses.
+                        'recursive' => false,
                         'limit' => $perpage,
                         'offset' => $page * $perpage,
                         'paginationallowall' => false,
@@ -332,6 +332,7 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
         global $CFG;
         require_once($CFG->libdir . '/coursecatlib.php');
         $categories = coursecat::make_categories_list();
+
         $labels[] = get_string('filtercategoryall', 'theme_halloween');
         if($categories) {
             foreach($categories as $id => $category) {
