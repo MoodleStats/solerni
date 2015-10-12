@@ -187,7 +187,7 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
         $chelper = new coursecat_helper();
 
         // Pagination.
-        $perpage = $CFG->coursesperpage;
+        $perpage = (optional_param('perpage', 0, PARAM_INT)) ? optional_param('perpage', 0, PARAM_INT) : $CFG->coursesperpage;
         $page = optional_param('page', 0, PARAM_INT);
 
         $chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_COLLAPSED)->set_courses_display_options(array(
