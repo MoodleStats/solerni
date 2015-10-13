@@ -48,7 +48,7 @@ foreach( options::get_colors_list() as $key => $value ) {
     $default = $value;
     $previewconfig = NULL;
     $setting = new admin_setting_configcolourpicker($name, $title, $description, $default, $previewconfig);
-    $setting->set_updatedcallback('theme_reset_all_caches'); // regenerate CSS.
+    $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
 }
 $ADMIN->add('theme_halloween', $temp);
@@ -69,6 +69,7 @@ foreach( options::halloween_get_followus_urllist() as $key => $value ) {
     $description = '';
     $default = $value;
     $setting = new admin_setting_configtext($name, $title, $description, $default);
+    $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
 }
 $ADMIN->add('theme_halloween', $temp);
@@ -89,6 +90,7 @@ foreach( options::halloween_get_footerbrand_content() as $key => $value ) {
     $description = '';
     $default = $value;
     $setting = new admin_setting_configtextarea($name, $title, $description, $default);
+    $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
 }
 $ADMIN->add('theme_halloween', $temp);
@@ -118,6 +120,7 @@ foreach( options::halloween_get_footerlists_column1_items() as $key => $value ) 
     } else {
         $setting = new admin_setting_configtext($name, $title, $description, $default);
     }
+    $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
 }
 
@@ -137,6 +140,7 @@ foreach( options::halloween_get_footerlists_column2_items() as $key => $value ) 
     } else {
         $setting = new admin_setting_configtext($name, $title, $description, $default);
     }
+    $setting->set_updatedcallback('theme_reset_all_caches');
     $temp->add($setting);
 }
 $ADMIN->add('theme_halloween', $temp);
