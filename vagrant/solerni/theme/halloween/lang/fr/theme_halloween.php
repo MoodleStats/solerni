@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
+// This file is part of The Orange Halloween Moodle Theme
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -108,7 +108,7 @@ $string['footerbrandanchordefault']     = 'Accédez à notre catalogue de cours'
 $string['footerbrandurl']               = 'Destination du lien';
 $string['footerbrandurldefault']        = $CFG->wwwroot . '/catalog';
 
-// Footer Columns Settings
+// Footer Columns Settings.
 $string['footerlistssettings']              = 'Listes du footer';
 $string['footerlistsheading']               = 'Liens sur 2 Colonnes';
 $string['footerlistsheadingdesc']           = 'Le footer dispose de deux colonnes permettant d\'afficher chacune 4 liens. Cette page permet de modifier les titres et les contenus de ces deux listes. Pour retirer un élement, il suffit de laisser vide le champ correspondant.';
@@ -181,7 +181,7 @@ $string['hello']                        = 'Bonjour';
 $string['dashboard']                    = 'Tableau de bord';
 $string['administration']               = 'Administration';
 
-// Search filters
+// Search filters.
 $string['catalog_page_title']       = 'Catalogue';
 $string['filterstatustitle']        = 'Statuts';
 $string['filterstatusall']          = 'Tous les MOOCs';
@@ -201,7 +201,7 @@ $string['catalognresults']          = "Résultats trouvés";
 $string['catalog0result']           = "Pas de résultat";
 $string['catalog1result']           = "Résultat trouvé";
 
-// Mooc component
+// Mooc component.
 $string['courseproposedby']         = "Proposé par";
 $string['coursefindoutmore']        = "En savoir +";
 $string['coursestartdate']          = "Début le";
@@ -209,9 +209,9 @@ $string['courseenddate']            = "Fin le";
 $string['coursebadge']              = "Badgeant";
 $string['coursenobadge']            = "Non badgeant";
 
-// Frontpage frontend
+// Frontpage frontend.
 $string['ifreelyregister']          = "Je m'inscris gratuitement";
 $string['seecatalog']               = "Voir le catalogue";
 
-// Block "My Badge" on dashboard
+// Block "My Badge" on dashboard.
 $string['lastbadge']                = 'Dernier badge obtenu:';

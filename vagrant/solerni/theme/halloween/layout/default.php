@@ -1,5 +1,5 @@
 <?php
-// This file is part of The Bootstrap 3 Moodle theme
+// This file is part of The Orange Halloween Moodle Theme
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -95,9 +95,9 @@ echo $OUTPUT->doctype() ?>
         <div id="page-navbar" class="clearfix">
             <nav class="breadcrumb-nav" role="navigation" aria-label="breadcrumb"><?php echo $OUTPUT->navbar(); ?></nav>
             <div class="breadcrumb-button"><?php echo $OUTPUT->page_heading_button(); ?></div>
-            <?php if ($knownregionpre || $knownregionpost) { ?>
+            <?php if ($knownregionpre || $knownregionpost) : ?>
                 <div class="breadcrumb-button"> <?php echo $OUTPUT->content_zoom(); ?></div>
-            <?php } ?>
+            <?php endif; ?>
         </div>
 
         <div id="course-header">
@@ -114,18 +114,17 @@ echo $OUTPUT->doctype() ?>
             echo $OUTPUT->course_content_footer();
             ?>
         </div>
-
         <?php
         if ($knownregionpre) {
             echo $OUTPUT->blocks('side-pre', $regions['pre']);
-        }?>
-        <?php
+        }
         if ($knownregionpost) {
             echo $OUTPUT->blocks('side-post', $regions['post']);
-        }?>
+        }
+        ?>
     </div>
-    
-    <?php include($CFG->partialsdir . '/footer.php'); ?>
+
+    <?php require($CFG->partialsdir . '/footer.php'); ?>
 
     <?php echo $OUTPUT->standard_end_of_body_html() ?>
 

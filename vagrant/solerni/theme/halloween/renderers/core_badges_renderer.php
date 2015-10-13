@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
+// This file is part of The Orange Halloween Moodle Theme
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -124,13 +124,13 @@ class theme_halloween_core_badges_renderer extends core_badges_renderer {
     }
 
 
-   /**
-     * Displays the user badges
-     *
-     * This is an override from Moodle in order to display badges order by Mooc.
-     * Other modifications : delete download button + delete search box + change wording when there is no badge.
-     *
-     * @return string
+    /**
+    * Displays the user badges
+    *
+    * This is an override from Moodle in order to display badges order by Mooc.
+    * Other modifications : delete download button + delete search box + change wording when there is no badge.
+    *
+    * @return string
     */
     protected function render_badge_user_collection(badge_user_collection $badges) {
         global $CFG, $USER, $SITE, $PAGE;
@@ -146,7 +146,7 @@ class theme_halloween_core_badges_renderer extends core_badges_renderer {
             $backpackconnect = $this->output->box(get_string('localconnectto', 'badges', $mybackpack->out()), 'noticebox');
         }
         // Search box : not display in Solerni.
-        $searchform =  "";
+        $searchform = '';
 
         // Download all button.
         // Not displayed for Solerni.
