@@ -1,11 +1,19 @@
 <?php
+// This file is part of The Orange Halloween Moodle Theme
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/*
- * @author    Shaun Daubney
- * @author    Orange / halloween
- * @package   theme_halloween
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
 require_once($CFG->dirroot . '/auth/googleoauth2/lib.php');
 
 class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
@@ -40,7 +48,7 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
         }
 
         if ($addlangmenu) {
-            $strlang =  get_string('language');
+            $strlang = get_string('language');
             $currentlang = current_language();
             if (isset($langs[$currentlang])) {
                 $currentlang = $langs[$currentlang];
@@ -66,12 +74,12 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
      * This code renders the custom menu items for the
      * bootstrap dropdown menu.
      */
-    protected function halloween_render_lang_menu_item(custom_menu_item $menunode, $level = 0, $menu_title = '' ) {
+    protected function halloween_render_lang_menu_item(custom_menu_item $menunode, $level = 0, $menutitle = '' ) {
         static $submenucount = 0;
         $content = '';
-        $current_title = str_replace(array( ' (fr)', ' (en)' ), '',  $menunode->get_text());
+        $currenttitle = str_replace(array( ' (fr)', ' (en)' ), '',  $menunode->get_text());
         if ($menunode->has_children()) {
-            $menu_title = $current_title;
+            $menutitle = $currenttitle;
             $submenucount++;
             if ($menunode->get_url() !== null) {
                 $url = $menunode->get_url();
@@ -79,11 +87,11 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
                 $url = '#cm_submenu_'.$submenucount;
             }
             $content .= '<button id="dLabel" class="btn btn-primary " type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
-            $content .= $menu_title;
+            $content .= $menutitle;
             $content .= '<span class="caret"></span></button>';
             $content .= '<ul class="dropdown-menu list-unstyled list-link" aria-labelledby="dLabel">';
             foreach ($menunode->get_children() as $menunode) {
-                $content .= $this->halloween_render_lang_menu_item($menunode, 0, $menu_title);
+                $content .= $this->halloween_render_lang_menu_item($menunode, 0, $menutitle);
             }
             $content .= '</ul>';
         } else {
@@ -93,10 +101,10 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
                 $url = '#';
             }
             $classes = '';
-            if ( $menu_title == $current_title ) {
+            if ( $menutitle == $currenttitle ) {
                 $classes .= ' class="is-active"';
             }
-            $content .= '<li><a href="' . $url . '"' . $classes . '>' . $current_title . '</a></li>';
+            $content .= '<li><a href="' . $url . '"' . $classes . '>' . $currenttitle . '</a></li>';
         }
         return $content;
     }
@@ -122,9 +130,9 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
      */
     protected function is_menu_item_active( $fragment ) {
         global $PAGE;
-        $page_path = $PAGE->url->get_path();
+        $pagepath = $PAGE->url->get_path();
 
-        return preg_match ( "#$fragment#", $page_path );
+        return preg_match ( "#$fragment#", $pagepath );
 
     }
 
@@ -136,10 +144,10 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
      *
      * @return: Footer Column HTML Fragment
      */
-    public function halloween_login_render_form($show_instructions, $frm) {
+    public function halloween_login_render_form($showinstructions, $frm) {
         global $PAGE, $CFG;
 
-        if ($show_instructions) {
+        if ($showinstructions) {
             $columns = 'twocolumns';
         } else {
             $columns = 'onecolumn';
@@ -189,7 +197,7 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
                     <div ><!-- --></div>
                       <?php if (isset($CFG->rememberusername) and $CFG->rememberusername == 2) { ?>
                       <div >
-                          <input type="checkbox" name="rememberusername" id="rememberusername" value="1" <?php if ($frm->username) {echo 'checked="checked"';} ?> />
+                          <input type="checkbox" name="rememberusername" id="rememberusername" value="1" <?php if ($frm->username) { echo 'checked="checked"'; } ?> />
                           <label for="rememberusername"><?php print_string('rememberusername', 'admin') ?></label>
                       </div>
                       <?php } ?>
@@ -206,7 +214,7 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
               </div>
 
              </div>
-        <?php if ($show_instructions) { ?>
+        <?php if ($showinstructions) { ?>
             <div >
               <h2><?php print_string("register", 'theme_halloween' ) ?></h2>
               <div >
@@ -231,10 +239,10 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
      *
      * @return: Footer Column HTML Fragment
      */
-    public function halloween_register_render_form($show_instructions, $mform_signup) {
+    public function halloween_register_render_form($showinstructions, $mformsignup) {
         global $PAGE, $CFG;
 
-        if ($show_instructions) {
+        if ($showinstructions) {
             $columns = 'twocolumns';
         } else {
             $columns = 'onecolumn';
@@ -255,9 +263,9 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
         ?>
         <div >
           <div >
-        <?php $mform_signup->display(); ?>
+        <?php $mformsignup->display(); ?>
              </div>
-        <?php if ($show_instructions) { ?>
+        <?php if ($showinstructions) { ?>
             <div >
               <h2><?php echo get_string('registertitle', 'theme_halloween') ?></h2>
               <div >
@@ -271,11 +279,7 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
               </div>
             </div>
         <?php } ?>
-
         </div>
-
-            <?php
-            }
-
-
+    <?php
+    }
 }

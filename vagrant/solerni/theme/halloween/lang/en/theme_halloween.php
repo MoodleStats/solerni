@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
+// This file is part of The Orange Halloween Moodle Theme
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -102,13 +102,13 @@ $string['footerbrandtitledefault']  = 'Solerni';
 $string['footerbrandchapo']         = 'Chapô';
 $string['footerbrandchapodefault']  = 'To learn is more fun together';
 $string['footerbrandarticle']       = 'Article';
-$string['footerbrandarticledefault']= 'Solerni is a full software suite dedicated to help you creating and hosting massively collaborative learning routes';
+$string['footerbrandarticledefault'] = 'Solerni is a full software suite dedicated to help you creating and hosting massively collaborative learning routes';
 $string['footerbrandanchor']        = 'Anchor link';
 $string['footerbrandanchordefault'] = 'See our course catalog';
 $string['footerbrandurl']           = 'Link destination';
 $string['footerbrandurldefault']    = $CFG->wwwroot . '/catalog';
 
-// Footer Columns Settings
+// Footer Columns Settings.
 $string['footerlistssettings']              = 'Footer lists';
 $string['footerlistsheading']               = 'Links on 2 columns';
 $string['footerlistsheadingdesc']           = 'The footer allows two columns of 4 links maximum. The page allows to change the title and the content of those two lists. To remove a element from the list, you have to empty the corresponding field.';
@@ -182,7 +182,7 @@ $string['hello']                    = 'Hello';
 $string['dashboard']                = 'Dashboard';
 $string['administration']           = 'Administration';
 
-// Search filters
+// Search filters.
 $string['catalog_page_title']       = 'Catalog';
 $string['filterstatustitle']        = 'Status';
 $string['filterstatusall']          = 'All MOOCs';
@@ -202,7 +202,7 @@ $string['catalognresults']          = "Results found";
 $string['catalog0result']           = "No result";
 $string['catalog1result']           = "Result found";
 
-// Mooc component
+// Mooc component.
 $string['courseproposedby']         = "Proposed by";
 $string['coursefindoutmore']        = "Find out more";
 $string['coursestartdate']          = "Starts on";
@@ -210,11 +210,11 @@ $string['courseenddate']            = "Ending on";
 $string['coursebadge']              = "Badges available";
 $string['coursenobadge']            = "No badges";
 
-// Frontpage frontend
+// Frontpage frontend.
 $string['ifreelyregister']          = "I freely register";
 $string['seecatalog']               = "See the catalogue";
 
-// Login settings
+// Login settings.
 $string['logintitle']               = "I am logging in with my e-mail *";
 $string['registertitle']            = "I log in";
 $string['rememberme']               = "Remember me";
@@ -230,5 +230,5 @@ $string['registerlink']             = "signup.php";
 $string['login']                    = "login";
 $string['password']                 = "password";
 
-// Block "My Badge" on dashboard
+// Block "My Badge" on dashboard.
 $string['lastbadge']                = 'Last badge obtained:';
