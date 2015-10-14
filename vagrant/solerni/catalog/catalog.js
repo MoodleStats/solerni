@@ -4,6 +4,7 @@
 
 $(document).ready( function() {
     var fieldsets = $('.filters-form-fieldset');
+    var paging = $('.paging');
 
     /*
      * Uncheck all checkboes except the first one
@@ -14,6 +15,21 @@ $(document).ready( function() {
         checkboxes.not(':first').each(function() {
             $(this).prop('checked', false);
         });
+    }
+
+    /*
+     * Returns the page query parameter value or false
+     *
+     * @param string url
+     * @returns int || false
+     */
+    function getQueryPage(url) {
+       var vars = url.split("&");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == 'page'){return pair[1];}
+       }
+       return false;
     }
 
     /*
@@ -48,4 +64,18 @@ $(document).ready( function() {
 
         $('.js-catalog-filters').submit();
     });
+
+    /*
+     * If paging is present on the catalog page, takes the pagenumber value from the link,
+     * sent it into the filters form and send it to get the correct page.
+     */
+    if (paging.length > 0) {
+        paging.on('click', 'a', function(e) {
+            pagenumber = getQueryPage($(this).attr('href'));
+            $('.js-filters-inputpage').val(pagenumber);
+            $('.js-catalog-filters').submit();
+            e.preventDefault();
+        });
+    }
+
 });
