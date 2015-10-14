@@ -71,8 +71,7 @@ $(document).ready( function() {
      */
     if (paging.length > 0) {
         paging.on('click', 'a', function(e) {
-            pagenumber = getQueryPage($(this).attr('href'));
-            $('.js-filters-inputpage').val(pagenumber);
+            $('.js-filters-inputpage').val(getQueryPage($(this).attr('href')));
             $('.js-catalog-filters').submit();
             e.preventDefault();
         });
