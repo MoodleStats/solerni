@@ -107,11 +107,11 @@ class options {
             'footerlistscolumn1anchor1' => '<span lang="fr" class="multilang">' . $stringmanager->get_string( 'footerlistscolumn1anchor1default', 'theme_halloween', null, 'fr') . '</span><span lang="en" class="multilang">' . $stringmanager->get_string( 'footerlistscolumn1anchor1default', 'theme_halloween', null, 'en') . '</span>',
             'footerlistscolumn1link1'   => $CFG->wwwroot . '/static/a-propos.html',
             'footerlistscolumn1anchor2' => '<span lang="fr" class="multilang">' . $stringmanager->get_string( 'footerlistscolumn1anchor2default', 'theme_halloween', null, 'fr') . '</span><span lang="en" class="multilang">' . $stringmanager->get_string( 'footerlistscolumn1anchor2default', 'theme_halloween', null, 'en') . '</span>',
-            'footerlistscolumn1link2'   => $CFG->wwwroot . '/partenaires.html',
+            'footerlistscolumn1link2'   => $CFG->wwwroot . '/static/partenaires.html',
             'footerlistscolumn1anchor3' => '<span lang="fr" class="multilang">' . $stringmanager->get_string( 'footerlistscolumn1anchor3default', 'theme_halloween', null, 'fr') . '</span><span lang="en" class="multilang">' . $stringmanager->get_string( 'footerlistscolumn1anchor3default', 'theme_halloween', null, 'en') . '</span>',
-            'footerlistscolumn1link3'   => $CFG->wwwroot . '/mentions-legales.html',
+            'footerlistscolumn1link3'   => $CFG->wwwroot . '/static/mentions-legales.html',
             'footerlistscolumn1anchor4' => '<span lang="fr" class="multilang">' . $stringmanager->get_string( 'footerlistscolumn1anchor4default', 'theme_halloween', null, 'fr') . '</span><span lang="en" class="multilang">' . $stringmanager->get_string( 'footerlistscolumn1anchor4default', 'theme_halloween', null, 'en') . '</span>',
-            'footerlistscolumn1link4'   => $CFG->wwwroot . '/cgu.html'
+            'footerlistscolumn1link4'   => $CFG->wwwroot . '/static/cgu.html'
         );
     }
 
