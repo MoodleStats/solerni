@@ -105,7 +105,7 @@ class options {
         return array(
             'footerlistscolumn1title'   => '<span lang="fr" class="multilang">' . $stringmanager->get_string( 'footerlistscolumn1titledefault', 'theme_halloween', null, 'fr') . '</span><span lang="en" class="multilang">' . $stringmanager->get_string( 'footerlistscolumn1titledefault', 'theme_halloween', null, 'en') . '</span>',
             'footerlistscolumn1anchor1' => '<span lang="fr" class="multilang">' . $stringmanager->get_string( 'footerlistscolumn1anchor1default', 'theme_halloween', null, 'fr') . '</span><span lang="en" class="multilang">' . $stringmanager->get_string( 'footerlistscolumn1anchor1default', 'theme_halloween', null, 'en') . '</span>',
-            'footerlistscolumn1link1'   => $CFG->wwwroot . '/a-propos.html',
+            'footerlistscolumn1link1'   => $CFG->wwwroot . '/static/a-propos.html',
             'footerlistscolumn1anchor2' => '<span lang="fr" class="multilang">' . $stringmanager->get_string( 'footerlistscolumn1anchor2default', 'theme_halloween', null, 'fr') . '</span><span lang="en" class="multilang">' . $stringmanager->get_string( 'footerlistscolumn1anchor2default', 'theme_halloween', null, 'en') . '</span>',
             'footerlistscolumn1link2'   => $CFG->wwwroot . '/partenaires.html',
             'footerlistscolumn1anchor3' => '<span lang="fr" class="multilang">' . $stringmanager->get_string( 'footerlistscolumn1anchor3default', 'theme_halloween', null, 'fr') . '</span><span lang="en" class="multilang">' . $stringmanager->get_string( 'footerlistscolumn1anchor3default', 'theme_halloween', null, 'en') . '</span>',
@@ -125,9 +125,9 @@ class options {
         return array(
             'footerlistscolumn2title'   => '<span lang="fr" class="multilang">' . $stringmanager->get_string( 'footerlistscolumn2titledefault', 'theme_halloween', null, 'fr') . '</span><span lang="en" class="multilang">' . $stringmanager->get_string( 'footerlistscolumn2titledefault', 'theme_halloween', null, 'en') . '</span>',
             'footerlistscolumn2anchor1' => '<span lang="fr" class="multilang">' . $stringmanager->get_string( 'footerlistscolumn2anchor1default', 'theme_halloween', null, 'fr') . '</span><span lang="en" class="multilang">' . $stringmanager->get_string( 'footerlistscolumn2anchor1default', 'theme_halloween', null, 'en') . '</span>',
-            'footerlistscolumn2link1'   => $CFG->wwwroot . '/faq.html',
+            'footerlistscolumn2link1'   => $CFG->wwwroot . '/static/faq.html',
             'footerlistscolumn2anchor2' => '<span lang="fr" class="multilang">' . $stringmanager->get_string( 'footerlistscolumn2anchor2default', 'theme_halloween', null, 'fr') . '</span><span lang="en" class="multilang">' . $stringmanager->get_string( 'footerlistscolumn2anchor2default', 'theme_halloween', null, 'en') . '</span>',
-            'footerlistscolumn2link2'   => $CFG->wwwroot . '/contact.html',
+            'footerlistscolumn2link2'   => $CFG->wwwroot . '/static/contact.html',
             'footerlistscolumn2anchor3' => '',
             'footerlistscolumn2link3'   => '',
             'footerlistscolumn2anchor4' => '',
