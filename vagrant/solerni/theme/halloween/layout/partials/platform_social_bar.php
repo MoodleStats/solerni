@@ -10,7 +10,7 @@ use theme_halloween\tools\theme_utilities;
                 <?php foreach(options::halloween_get_followus_urllist() as $key => $value) :
                     if (theme_utilities::is_theme_settings_exists_and_nonempty($key)) : ?>
                         <li class="social-item">
-                            <a href="<?php echo $PAGE->theme->settings->$key; ?>" target="_blank" class="icon-halloween icon-halloween--<?php echo $key; ?>">
+                            <a title="<?php echo $key; ?>" href="<?php echo $PAGE->theme->settings->$key; ?>" target="_blank" class="icon-halloween icon-halloween--<?php echo $key; ?>">
                                 <?php echo $key; ?>
                             </a>
                         </li>
