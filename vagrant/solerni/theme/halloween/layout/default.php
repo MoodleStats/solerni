@@ -21,10 +21,8 @@ require_once($CFG->dirroot.'/course/format/flexpage/locallib.php');
 
 $hassidepre = $PAGE->blocks->region_has_content('side-pre', $OUTPUT);
 $hassidepost = $PAGE->blocks->region_has_content('side-post', $OUTPUT);
-
 $knownregionpre = $PAGE->blocks->is_known_region('side-pre');
 $knownregionpost = $PAGE->blocks->is_known_region('side-post');
-
 $regions = theme_halloween_bootstrap_grid($hassidepre, $hassidepost);
 
 // Always show block regions when editing so blocks can
@@ -59,9 +57,7 @@ echo $OUTPUT->doctype() ?>
 </head>
 
 <body <?php echo $OUTPUT->body_attributes($setzoom); ?>>
-
 <?php echo $OUTPUT->standard_top_of_body_html() ?>
-
 <nav role="navigation" class="navbar navbar-default">
     <div class="container">
     <div class="navbar-header">
@@ -123,11 +119,16 @@ echo $OUTPUT->doctype() ?>
         }
         ?>
     </div>
-
-    <?php require($CFG->partialsdir . '/footer.php'); ?>
-
-    <?php echo $OUTPUT->standard_end_of_body_html() ?>
-
 </div>
+<div class="u-inverse">
+    <?php require($CFG->partialsdir . '/platform_social_bar.php'); ?>
+</div>
+<div class="row u-inverse">
+    <div class="col-xs-12 fullwidth-line"></div>
+</div>
+<div class="u-inverse">
+    <?php require($CFG->partialsdir . '/footer_solerni.php'); ?>
+</div>
+<?php echo $OUTPUT->standard_end_of_body_html() ?>
 </body>
 </html>
