@@ -74,9 +74,15 @@ class block_orange_last_message extends block_base {
         $message = get_user_last_message($USER);
         $nummsgs = count($message);
         if ($nummsgs) {
-            $this->content->text .= $this->renderer->message_display($message[0]);
+            if ($message[0]->unread($USER->id)) {
+                $this->content->text .= $this->renderer->message_display($message[0]);
+            } else {
+                $this->content->text .= $this->renderer->no_message_display(
+                                                            get_string('nonewmessage', 'block_orange_last_message'), 1);
+            }
         } else {
-            $this->content->text .= $this->renderer->no_message_display();
+            $this->content->text .= $this->renderer->no_message_display(
+                                                            get_string('nothingtodisplay', 'block_orange_last_message'), 0);
         }
         return $this->content;
     }

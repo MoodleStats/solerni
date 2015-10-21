@@ -24,7 +24,7 @@
 
 $string['pluginname'] = 'Orange - Mon dernier message';
 $string['title'] = 'Messagerie';
-$string['nothingtodisplay'] = 'Aucun message';
+$string['nothingtodisplay'] = 'Aucun message reçu';
 $string['blockdesc'] = 'Retrouvez votre dernier message dans cet espace';
 $string['mailboxlink'] = 'Afficher ma messagerie';
 $string['lastmessage'] = 'Dernier message :';
@@ -33,3 +33,4 @@ $string['beforehour'] = 'à';
 $string['beforedate'] = 'le';
 $string['orange_last_message:addinstance'] = 'Ajouter un nouveau bloc Orange - Mon dernier message';
 $string['orange_last_message:myaddinstance'] = 'Ajouter un nouveau bloc Orange - Mon dernier message sur ma page d\'accueil';
+$string['nonewmessage'] = 'Pas de nouveau message';
