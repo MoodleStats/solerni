@@ -109,18 +109,20 @@ class block_orange_last_message_renderer extends plugin_renderer_base {
      *
      * @return string html
      */
-    public function no_message_display() {
+    public function no_message_display($msg, $withdesc) {
         $output = html_writer::start_tag('div', array('class' => 'block_orange_last_message'));
         $output .= html_writer::start_tag('div', array('class' => 'no_message'));
-        $output .= get_string('nothingtodisplay', 'block_orange_last_message');
+        $output .= $msg;
         $output .= html_writer::empty_tag('br');
         $output .= html_writer::empty_tag('img',
             array('src' => '/blocks/orange_last_message/pix/last_message_empty.png',
                   'alt' => get_string('messagelink', 'block_orange_last_message'),
                   'title' => get_string('messagelink', 'block_orange_last_message')));
         $output .= html_writer::empty_tag('br');
-        $output .= html_writer::start_tag('p', array('class' => 'blockdesc'));
-        $output .= get_string('blockdesc', 'block_orange_last_message');
+        if ($withdesc) {
+            $output .= html_writer::start_tag('p', array('class' => 'blockdesc'));
+            $output .= get_string('blockdesc', 'block_orange_last_message');
+        }
         $output .= html_writer::empty_tag('br');
         $output .= html_writer::end_tag('p');
         $output .= html_writer::end_tag('div');
