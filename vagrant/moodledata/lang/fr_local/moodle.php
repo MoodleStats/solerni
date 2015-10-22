@@ -172,7 +172,7 @@ A très bientôt sur {$a->sitename}
 Vous recevez cet e-mail car votre entreprise a souhaité vous inscrire automatiquement sur notre plateforme. Ce message vous est envoyé automatiquement, merci de ne pas y répondre directement.
 Si vous avez des questions écrivez-nous à contact@solerni.com.
 Afin de bien recevoir nos e-mails, ajoutez cette adresse noreply@solerni.com  dans votre carnet d\'adresses.';
-$string['newusernewpasswoardhtml'] = 'Bonjour {$a->firstname},
+$string['newusernewpasswordhtml'] = 'Bonjour {$a->firstname},
 
 Votre compte utilisateur a été créé sur « {$a->sitename} », votre nouvelle plateforme d\'apprentissage collaborative d\'entreprise, sur laquelle vous êtes  invité(e)  à suivre une ou plusieurs formations en ligne.
 
