@@ -105,7 +105,7 @@ a.focus {
         text-align:     center;
 
         @media (min-width:  @screen-md-min) {
-            margin-bottom:  @s-triple-md-margin;
+            margin-bottom:  @s-double-md-margin;
             text-align:     left;
         }
     }
@@ -135,7 +135,15 @@ a.focus {
         margin-top:     -@s-small-xs-margin;    // Apparently removing top padding
     }
 
- /*
+.footer {
+    margin-bottom: @s-triple-xs-margin;
+
+    @media (min-width:  @screen-md-min) {
+        margin-bottom: @s-triple-md-margin;
+    }
+}
+
+ /* 
   * Social class
   * */
 
@@ -228,17 +236,25 @@ div[role="main"] .list-social {
         margin-bottom: 0;
     }
 
+/*
+ * mediagallery icons (US #197)
+ */
+.path-mod-mediagallery .gallery_list_item .controls,
+.path-mod-mediagallery .item .controls {
+    clear:          both;
+    margin-bottom:  3px;
+}
 
 /*
- *  Badges
+ *  Badges: use variables instead
  */
 
-.orange-course-name-logo{
-    position:relative;
-    right: 0px;
-    border-bottom : 1px solid #000; 
-    padding: 5px 10px;
-    padding-top: 5px;
+.orange-course-name-logo {
+    position:       relative;
+    right:          0px;
+    border-bottom : 1px solid #000;
+    padding:        5px 10px;
+    padding-top:    5px;
     padding-bottom: 5px;
 }
 
@@ -247,13 +263,13 @@ div[role="main"] .list-social {
 }
 
 .orange-course-logo {
-    position:absolute;
-    top:0;
-    right:0;
+    position:   absolute;
+    top:        0;
+    right:      0;
 }
 
-.orange-badges-list{
-    padding: 5px 10px;
-    padding-top: 5px;
+.orange-badges-list {
+    padding:        5px 10px;
+    padding-top:    5px;
     padding-bottom: 5px;
 }
