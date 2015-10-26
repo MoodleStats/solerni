@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
+// This file is part of The Orange Halloween Moodle Theme
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -29,45 +29,44 @@ use local_orange_library\utilities\utilities_image;
 use local_orange_library\utilities\utilities_course;
 use local_orange_library\subscription_button\subscription_button_object;
 
-// Required to extend core_course_renderer that does not have a namespace.
 require_once($CFG->dirroot . '/course/renderer.php');
-//require_once($CFG->dirroot . '/cohort/lib.php');
 
 class theme_halloween_core_course_renderer extends core_course_renderer {
 
     /**
-	 * Returns HTML to print list of available courses for the frontpage
+     * Returns HTML to print list of available courses for the frontpage
      *
      * This is an override from Moodle in order to add a custom heading on frontpage.
      * That's all Folks.
-	 *
-	 * @return string
-	 */
-	public function frontpage_available_courses() {
-		global $CFG;
-		require_once($CFG->libdir. '/coursecatlib.php');
+     *
+     * @return string
+     */
+    public function frontpage_available_courses() {
+        global $CFG;
+        require_once($CFG->libdir. '/coursecatlib.php');
 
-		$chelper = new coursecat_helper();
-		$chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_EXPANDED)->
-		set_courses_display_options(array(
-				'recursive' => true,
-				'limit' => $CFG->frontpagecourselimit,
-				'viewmoreurl' => new moodle_url('/course/index.php'),
-				'viewmoretext' => new lang_string('fulllistofcourses')));
+        $chelper = new coursecat_helper();
+        $chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_EXPANDED)->set_courses_display_options(
+                array(
+                'recursive' => true,
+                'limit' => $CFG->frontpagecourselimit,
+                'viewmoreurl' => new moodle_url('/course/index.php'),
+                'viewmoretext' => new lang_string('fulllistofcourses')
+            ));
 
-		$chelper->set_attributes(array('class' => ''));
-		$courses = coursecat::get(0)->get_courses($chelper->get_courses_display_options());
-		$totalcount = coursecat::get(0)->get_courses_count($chelper->get_courses_display_options());
-		if (!$totalcount && !$this->page->user_is_editing() && has_capability('moodle/course:create', context_system::instance())) {
-			// Print link to create a new course, for the 1st available category.
-			return $this->add_new_course_button();
-		}
+        $chelper->set_attributes(array('class' => ''));
+        $courses = coursecat::get(0)->get_courses($chelper->get_courses_display_options());
+        $totalcount = coursecat::get(0)->get_courses_count($chelper->get_courses_display_options());
+        if (!$totalcount && !$this->page->user_is_editing() && has_capability('moodle/course:create', context_system::instance())) {
+            // Print link to create a new course, for the 1st available category.
+            return $this->add_new_course_button();
+        }
 
         // Add heading before frontpage mooc list.
         echo $this->halloween_frontpage_heading();
 
-		return $this->coursecat_courses($chelper, $courses, $totalcount);
-	}
+        return $this->coursecat_courses($chelper, $courses, $totalcount);
+    }
 
     /**
      * Override from Moodle
@@ -187,11 +186,11 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
         $chelper = new coursecat_helper();
 
         // Pagination.
-        $perpage = $CFG->coursesperpage;
-        $page = optional_param('pageid', 0, PARAM_INT);
+        $perpage = (optional_param('perpage', 0, PARAM_INT)) ? optional_param('perpage', 0, PARAM_INT) : $CFG->coursesperpage;
+        $page = optional_param('page', 0, PARAM_INT);
 
         $chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_COLLAPSED)->set_courses_display_options(array(
-                        'recursive' => false,  // TODO, le recursif n'est pas traiter dans catalogue::get_courses.
+                        'recursive' => false,
                         'limit' => $perpage,
                         'offset' => $page * $perpage,
                         'paginationallowall' => false,
@@ -285,7 +284,7 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
         return $this->render_filter_fieldset($filter, 'status', $labels);
     }
 
-   /**
+    /**
      * Render the status filter which is an associative issued from 'thematicsid'
      * data HTTP POST method on the catalog page
      * Each value is associated with its order inside the catalog filter form.
@@ -305,7 +304,7 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
         return $this->render_filter_fieldset($filter, 'thematics', $labels);
     }
 
-     /**
+    /**
      * Render the status filter which is an associative issued from 'durationid'
      * data HTTP POST method on the catalog page
      * Each value is associated with its order inside the catalog filter form.
@@ -322,7 +321,7 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
         return $this->render_filter_fieldset($filter, 'duration', $labels);
     }
 
-     /**
+    /**
      * Render the status filter which is an associative issued from 'categoriesid'
      * data HTTP POST method on the catalog page (categories = customers)
      * Each value is associated with its order inside the catalog filter form.
@@ -332,9 +331,10 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
         global $CFG;
         require_once($CFG->libdir . '/coursecatlib.php');
         $categories = coursecat::make_categories_list();
+
         $labels[] = get_string('filtercategoryall', 'theme_halloween');
-        if($categories) {
-            foreach($categories as $id => $category) {
+        if ($categories) {
+            foreach ($categories as $id => $category) {
                 $labels[$id] = $category;
             }
         }
@@ -352,7 +352,7 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
      * @param type $additionalclasses
      * @return string
      */
-    function render_halloween_mooc_component($chelper, $course, $additionalclasses = '') {
+    public function render_halloween_mooc_component($chelper, $course, $additionalclasses = '') {
             global $CFG;
 
             if (!$chelper) {
@@ -372,14 +372,14 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
                 $this->strings->summary = get_string('summary');
             }
 
-            // Instanciate halloween objects
+            // Instanciate halloween objects.
             $badges                 = new badges_object();
             $utilitiescourse        = new utilities_course();
             $imageutilities         = new utilities_image();
             $subscriptionbutton     = new subscription_button_object($course);
             $utilities              = new utilities_object();
 
-            // Get customer info related to Moodle catagory.
+            // Get customer info related to Moodle category.
             $customer = $utilitiescourse->solerni_course_get_customer_infos($course->category);
             // Get course informations.
             $courseinfos = $utilitiescourse->solerni_get_course_infos($course);
@@ -394,7 +394,7 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
                     $nametag = 'div';
             }
 
-            // Generate code with buffering to include partial
+            // Generate code with buffering to include partial.
             ob_start();
             include( $CFG->partialsdir . '/course_component.php');
             $content = ob_get_contents();
@@ -404,23 +404,23 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
     }
 
     /**
-	 * Renders course info box.
-	 *
-	 * @param stdClass|course_in_list $course
-	 * @return string
+     * Renders course info box.
+     *
+     * @param stdClass|course_in_list $course
+     * @return string
      *
      * Overriden to make sure we use the same function everywhere
      * and output the Mooc Component
      *
      * @return string
-	 */
-	public function course_info_box(stdClass $course) {
-		$content = '';
-		$content .= $this->output->box_start('generalbox info');
-		$content .= $this->render_halloween_mooc_component(null,$course,null);
-		$content .= $this->output->box_end();
-		return $content;
-	}
+     */
+    public function course_info_box(stdClass $course) {
+        $content = '';
+        $content .= $this->output->box_start('generalbox info');
+        $content .= $this->render_halloween_mooc_component(null, $course, null);
+        $content .= $this->output->box_end();
+        return $content;
+    }
 
     /*
      * Create chelper object in case we don't have one
@@ -433,7 +433,7 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
 
         require_once($CFG->libdir. '/coursecatlib.php');
         $chelper = new coursecat_helper();
-		$chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_EXPANDED);
+        $chelper->set_show_courses(self::COURSECAT_SHOW_COURSES_EXPANDED);
 
         return $chelper;
     }
@@ -446,18 +446,17 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
      */
      public function halloween_frontpage_heading() {
 
-         global $PAGE;
-         $heading =    (isset($PAGE->theme->settings->catalogtitle) ) ?
-                        $PAGE->theme->settings->catalogtitle :
-                        get_string('catalogtitledefault', 'theme_halloween');
-
-         ?>
-        <div >
-            <?php if (isset($PAGE->theme->settings->catalogue)) : ?>
-                <a href="<?php echo $PAGE->theme->settings->catalogue; ?>" >
-                     <?php echo get_string('seecatalog', 'theme_halloween'); ?>
-                </a>
-            <?php endif;?>
+        global $PAGE;
+        $heading = (isset($PAGE->theme->settings->catalogtitle) ) ?
+                   $PAGE->theme->settings->catalogtitle :
+                   get_string('catalogtitledefault', 'theme_halloween');
+        ?>
+        <div>
+        <?php if (isset($PAGE->theme->settings->catalogue)) : ?>
+            <a href="<?php echo $PAGE->theme->settings->catalogue; ?>" >
+                 <?php echo get_string('seecatalog', 'theme_halloween'); ?>
+            </a>
+        <?php endif;?>
             <h2>
                 <?php echo $heading; ?>
             </h2>

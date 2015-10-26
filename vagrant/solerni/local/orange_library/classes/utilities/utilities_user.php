@@ -15,20 +15,27 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Theme More version file.
- *
- * @package    theme_halloween
- * @copyright  2014 Bas Brands
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    orange_library
+ * @subpackage utilities
+ * @copyright  2015 Orange
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+namespace local_orange_library\utilities;
 
-defined('MOODLE_INTERNAL') || die;
+defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2015100102;
-$plugin->requires  = 2014051200;
-$plugin->release  = 2014051300;
-$plugin->maturity  = MATURITY_BETA;
-$plugin->component = 'theme_halloween';
-$plugin->dependencies = array(
-    'theme_bootstrap'  => 2014051300
-);
+class utilities_user {
+
+    static function is_user_site_admin($user) {
+        foreach (get_admins() as $adminuser) {
+            if ($user->id === $adminuser->id ) {
+                return true;
+            }
+        }
+    }
+
+    public function is_user_course_admin($user, $course) {
+        // check user right inside the course
+    }
+
+}

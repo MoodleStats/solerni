@@ -2,7 +2,7 @@
 # Fichier "default/conf.sh"
 
 # load of ansible variables us_290 us_292 us_71 us_247
-. ./solerni-config/default/env_moosh.cfg
+. ../../conf/env_moosh.cfg
 # ${CUSTOMER_LOG_DB_HOST}
 # ${CUSTOMER_LOG_DB_NAME}
 # ${CUSTOMER_LOG_DB_USERNAME}
@@ -129,3 +129,10 @@ moosh block-add system 0 orange_last_message my-index content 0
 # Enable self enrolment method in new courses - Plugin Enrolments/Self enrolment
 # /!\ this value is reversed 0 => true, 1 => false
 moosh config-set status 0 enrol_self
+
+# Maximum number of moocs when list of Moocs is displayed
+moosh config-set coursesperpage 5
+
+# MNet (US 326)
+moosh config-set mnet_dispatcher_mode strict
+moosh peer-manage mnet on

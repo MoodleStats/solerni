@@ -14,23 +14,16 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+
 /**
- * Orange Last Message block
+ * Orange Progress Bar block version details
  *
  * @package    block_orange_last_message
  * @copyright  Orange 2015
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Orange - Mon dernier message';
-$string['title'] = 'Messagerie';
-$string['nothingtodisplay'] = 'Aucun message reçu';
-$string['blockdesc'] = 'Retrouvez votre dernier message dans cet espace';
-$string['mailboxlink'] = 'Afficher ma messagerie';
-$string['lastmessage'] = 'Dernier message :';
-$string['messagelink'] = 'Afficher le message';
-$string['beforehour'] = 'à';
-$string['beforedate'] = 'le';
-$string['orange_last_message:addinstance'] = 'Ajouter un nouveau bloc Orange - Mon dernier message';
-$string['orange_last_message:myaddinstance'] = 'Ajouter un nouveau bloc Orange - Mon dernier message sur ma page d\'accueil';
-$string['nonewmessage'] = 'Pas de nouveau message';
+$plugin->version   = 2015101404;
+$plugin->requires  = 2014050800;
+$plugin->maturity  = MATURITY_STABLE;
+$plugin->component = 'block_orange_progressbar';

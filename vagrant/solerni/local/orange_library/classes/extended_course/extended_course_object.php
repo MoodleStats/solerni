@@ -170,7 +170,7 @@ class extended_course_object {
         global $DB;
 
         $utilitiescourse = new utilities_course();
-        $categoryid = $utilitiescourse->get_categoryid_by_courseid($course);
+        $categoryid = $utilitiescourse->get_categoryid_by_courseid($course->id);
         $customer = customer_get_customerbycategoryid($categoryid);
         $selfenrolment = new enrollment_object();
         $instance = $selfenrolment->get_self_enrolment($course);
