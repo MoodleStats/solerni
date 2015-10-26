@@ -33,21 +33,20 @@ $action = optional_param('action', 'rules_form', PARAM_ALPHAEXT);
 
 // Access control.
 require_login();
-require_capability('moodle/site:config', context_system::instance());
+require_capability('local/orange_rules:edit', context_system::instance());
 if (!confirm_sesskey()) {
     print_error('confirmsesskeybad', 'error');
 }
 
 $context = context_system::instance();
 
-$url = new moodle_url('/local/local_orange_rules/index.php');
+$url = new moodle_url('/local/orange_rules/index.php', array('sesskey' => $USER->sesskey));
 $url->param('action', $action);
 $PAGE->set_url($url);
 $PAGE->set_context($context);
+$PAGE->set_pagelayout('admin');
 
 $instance = new orange_rules($action);
-
-admin_externalpage_setup('orange_rules_level2');
 
 // Process the action.
 if (!method_exists($instance, $action)) {

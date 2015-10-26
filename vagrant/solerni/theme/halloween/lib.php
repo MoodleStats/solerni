@@ -22,16 +22,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-/*
- * Function executed at theme init
- * Insert jQuery library
-
-function theme_solerni_page_init(moodle_page $page) {
-    // Current JQuery version for 2.7 is jQuery 1.11 which is IE8 compatible.
-    $page->requires->jquery();
-}
-*/
-
 function theme_halloween_bootstrap_grid($hassidepre, $hassidepost) {
 
     if ($hassidepre && $hassidepost) {
@@ -39,29 +29,13 @@ function theme_halloween_bootstrap_grid($hassidepre, $hassidepost) {
         $regions['pre'] = 'col-sm-3 col-sm-pull-6 col-lg-2 col-lg-pull-8';
         $regions['post'] = 'col-sm-3 col-lg-2';
     } else if ($hassidepre && !$hassidepost) {
-        $regions = array('content' => 'col-sm-9 col-sm-push-3 col-lg-10 col-lg-push-2');
-        $regions['pre'] = 'col-sm-3 col-sm-pull-9 col-lg-2 col-lg-pull-10';
+        $regions = array('content' => 'col-sm-8 col-sm-push-4 col-lg-9 col-lg-push-3');
+        $regions['pre'] = 'col-sm-4 col-sm-pull-8 col-lg-3 col-lg-pull-9';
         $regions['post'] = 'emtpy';
     } else if (!$hassidepre && $hassidepost) {
-        $regions = array('content' => 'col-sm-9 col-lg-10');
+        $regions = array('content' => 'col-sm-8 col-lg-9');
         $regions['pre'] = 'empty';
-        $regions['post'] = 'col-sm-3 col-lg-2';
-    } else if (!$hassidepre && !$hassidepost) {
-        $regions = array('content' => 'col-md-12');
-        $regions['pre'] = 'empty';
-        $regions['post'] = 'empty';
-    } elseif ($hassidepre && $hassidepost) {
-        $regions = array('content' => 'col-sm-6 col-sm-push-3 col-lg-8 col-lg-push-2');
-        $regions['pre'] = 'col-sm-3 col-sm-pull-6 col-lg-2 col-lg-pull-8';
-        $regions['post'] = 'col-sm-3 col-lg-2';
-    } else if ($hassidepre && !$hassidepost) {
-        $regions = array('content' => 'col-sm-9 col-sm-push-3 col-lg-10 col-lg-push-2');
-        $regions['pre'] = 'col-sm-3 col-sm-pull-9 col-lg-2 col-lg-pull-10';
-        $regions['post'] = 'emtpy';
-    } else if (!$hassidepre && $hassidepost) {
-        $regions = array('content' => 'col-sm-9 col-lg-10');
-        $regions['pre'] = 'empty';
-        $regions['post'] = 'col-sm-3 col-lg-2';
+        $regions['post'] = 'col-sm-4 col-lg-3';
     } else if (!$hassidepre && !$hassidepost) {
         $regions = array('content' => 'col-md-12');
         $regions['pre'] = 'empty';
@@ -70,17 +44,6 @@ function theme_halloween_bootstrap_grid($hassidepre, $hassidepost) {
 
     if ('rtl' === get_string('thisdirection', 'langconfig')) {
         if ($hassidepre && $hassidepost) {
-            $regions['pre'] = 'col-sm-3  col-sm-push-3 col-lg-2 col-lg-push-2';
-            $regions['post'] = 'col-sm-3 col-sm-pull-9 col-lg-2 col-lg-pull-10';
-        } else if ($hassidepre && !$hassidepost) {
-            $regions = array('content' => 'col-sm-9 col-lg-10');
-            $regions['pre'] = 'col-sm-3 col-lg-2';
-            $regions['post'] = 'empty';
-        } else if (!$hassidepre && $hassidepost) {
-            $regions = array('content' => 'col-sm-9 col-sm-push-3 col-lg-10 col-lg-push-2');
-            $regions['pre'] = 'empty';
-            $regions['post'] = 'col-sm-3 col-sm-pull-9 col-lg-2 col-lg-pull-10';
-        } else if ($hassidepre && $hassidepost) {
             $regions['pre'] = 'col-sm-3  col-sm-push-3 col-lg-2 col-lg-push-2';
             $regions['post'] = 'col-sm-3 col-sm-pull-9 col-lg-2 col-lg-pull-10';
         } else if ($hassidepre && !$hassidepost) {
@@ -137,9 +100,7 @@ function theme_halloween_pluginfile($course, $cm, $context, $filearea, $args, $f
  * @return array
  */
 function theme_halloween_less_variables($themeconfig) {
-
-    $colorsettings = \theme_halloween\settings\options::get_colors_array();
-
+    $colorsettings = \theme_halloween\settings\options::get_colors_list();
     foreach ($colorsettings as $key => $value) {
         if (!empty( $themeconfig->settings->$key ) ) {
             $value = $themeconfig->settings->$key;

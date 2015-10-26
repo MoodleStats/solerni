@@ -180,30 +180,33 @@ class utilities_course {
                         unset($list[$course->id]);
                     }
                 }
-                $enrolself = $selfenrolment->get_self_enrolment($course);
-                if ($enrolself != null) {
-                    // We get the start and end for enrolment (is set).
-                    // If not set we set them to the start and end of course.
-                    if ($enrolself->enrolstartdate != 0) {
-                        $list[$course->id]->enrolstartdate = $enrolself->enrolstartdate;
-                    }
-                    $list[$course->id]->enrolstartdate = $course->startdate;
-                    if ($enrolself->enrolenddate != 0) {
-                        $list[$course->id]->enrolenddate = $enrolself->enrolenddate;
-                    }
-                    $list[$course->id]->enrolenddate = $course->enddate;
-
-                    // If selfenrol and cohort associated, the must must be part of the cohort to see the course.
-                    $cohortid = (int)$enrolself->customint5;
-                    if ($cohortid != 0) {
-                        if (!cohort_is_member($cohortid, $USER->id)) {
-                            unset($list[$course->id]);
+                
+                if (isset($list[$course->id])) {
+                    $enrolself = $selfenrolment->get_self_enrolment($course);
+                    if ($enrolself != null) {
+                        // We get the start and end for enrolment (is set).
+                        // If not set we set them to the start and end of course.
+                        if ($enrolself->enrolstartdate != 0) {
+                            $list[$course->id]->enrolstartdate = $enrolself->enrolstartdate;
                         }
+                        $list[$course->id]->enrolstartdate = $course->startdate;
+                        if ($enrolself->enrolenddate != 0) {
+                            $list[$course->id]->enrolenddate = $enrolself->enrolenddate;
+                        }
+                        $list[$course->id]->enrolenddate = $course->enddate;
+
+                        // If selfenrol and cohort associated, the must must be part of the cohort to see the course.
+                        $cohortid = (int)$enrolself->customint5;
+                        if ($cohortid != 0) {
+                            if (!cohort_is_member($cohortid, $USER->id)) {
+                                unset($list[$course->id]);
+                            }
+                        }
+                    } else {
+                        // No self enrolment method, then enrol start/end date = start/end of course.
+                        $list[$course->id]->enrolstartdate = $course->startdate;
+                        $list[$course->id]->enrolenddate = $course->enddate;
                     }
-                } else {
-                    // No self enrolment method, then enrol start/end date = start/end of course.
-                    $list[$course->id]->enrolstartdate = $course->startdate;
-                    $list[$course->id]->enrolenddate = $course->enddate;
                 }
             }
         }
@@ -542,15 +545,15 @@ class utilities_course {
     }
 
     /**
-     * Set the extended course values from config.
+     * Get the category id from course id.
      *
-     * @param object $context
-     * @return object $this->extendedcourse
+     * @param int $courseid
+     * @return int $categoryid
      */
-    public function get_categoryid_by_courseid($course) {
+    public function get_categoryid_by_courseid($courseid) {
         global $DB;
         $categoryid = null;
-        $course = $DB->get_record('course', array('id' => $course->id), 'id, category');
+        $course = $DB->get_record('course', array('id' => $courseid), 'id, category');
         if ($course) { // Should always exist, but just in case ...
             $categoryid = $course->category;
         }
@@ -598,10 +601,10 @@ class utilities_course {
     }
 
     public function get_description_page_url($course = null) {
-
+        global $CFG;
         $url = '#';
         if ($course) {
-            $url = new moodle_url('mod/descriptionpage/view.php', array('courseid' => $course->id));
+            $url = $CFG->wwwroot . '/mod/descriptionpage/view.php?courseid='.$course->id;
         }
 
         return $url;

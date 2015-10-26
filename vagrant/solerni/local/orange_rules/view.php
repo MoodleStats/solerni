@@ -30,23 +30,24 @@ require_once($CFG->dirroot . '/local/orange_rules/forms/orange_rules_form.php');
 require_once($CFG->dirroot . '/local/orange_rules/lib.php');
 require_once($CFG->dirroot . '/cohort/lib.php');
 
-
+$id = optional_param('id', 0, PARAM_INT);
 $action = optional_param('action', 'rules_form', PARAM_ALPHAEXT);
 
 // Access control.
 require_login();
-require_capability('moodle/site:config', context_system::instance());
+require_capability('local/orange_rules:edit', context_system::instance());
 if (!confirm_sesskey()) {
     print_error('confirmsesskeybad', 'error');
 }
 
 $context = context_system::instance();
 
-$url = new moodle_url('/local/orange_rules/view.php');
+$url = new moodle_url('/local/orange_rules/view.php', array('sesskey' => $USER->sesskey, 'id' => $id));
 $url->param('action', $action);
 $PAGE->set_url($url);
 $PAGE->set_context($context);
-admin_externalpage_setup('orange_rules_level2');
+$PAGE->set_pagelayout('admin');
+
 $mform = new orange_rules_form();
 
 

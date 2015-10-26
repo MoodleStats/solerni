@@ -15,18 +15,17 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version file.
+ * Orange Progress Bar block English language translation
  *
- * @package local_eledia_makeanonymous
- * @author Matthias Schwabe <support@eledia.de>
- * @copyright 2013 & 2014 eLeDia GmbH
- * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    block_orange_progressbar
+ * @copyright  Orange 2015
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
-$plugin->version   = 2014121200;                     // The current plugin version (Date: YYYYMMDDXX)
-$plugin->requires  = 2014051200;                     // Requires this Moodle version (2.7).
-$plugin->release   = '0.5 (2014082803)';             // For Moodle 2.7 & 2.8
-$plugin->component = 'local_eledia_makeanonymous';   // Full name of the plugin (used for diagnostics).
-$plugin->maturity  = MATURITY_STABLE;
+$string['no_activities_monitored'] = 'No activities are being monitored.';
+$string['completion_not_enabled'] = 'Completion tracking not enabled for this course';
+$string['pluginname'] = 'Simple Progress Bar';
+$string['config_default_title'] = 'Progress Bar';
+$string['overview'] = 'Overview of activities';
+$string['progres_detail'] = 'Progess details';
+$string['course_page_activity'] = 'Pages marked as "completed"';

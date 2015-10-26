@@ -8,8 +8,7 @@ vagrant/override/*
 vagrant/.*
 Vagrantfile
 vagrant/system
-vagrant/solerni/theme/solerni/npm-debug.log
-vagrant/solerni/theme/solerni/node_modules
+vagrant/solerni/theme/solerni
 codecheck
 vagrant/solerni/local/codechecker
 **/nbproject

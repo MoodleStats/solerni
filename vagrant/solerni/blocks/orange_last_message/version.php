@@ -15,21 +15,21 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Event.
+ * Version details
  *
- * @package local_eledia_makeanonymous
- * @author Matthias Schwabe <support@eledia.de>
- * @copyright 2013 & 2014 eLeDia GmbH
- * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    block_orange_last_message
+ * @copyright  Orange 2015
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+
 
 defined('MOODLE_INTERNAL') || die();
 
-$observers = array (
-    array (
-        'eventname' => '\core\event\user_deleted',
-        'callback'  => 'local_eledia_makeanonymous_observer::anonymize',
-        'internal'  => true,
-        'priority'  => 1000,
-    )
+$plugin->version   = 2015100810;        // The current plugin version (Date: YYYYMMDDXX).
+$plugin->requires  = 2014050800;         // Requires this Moodle version.
+$plugin->component = 'block_orange_last_message';
+
+$plugin->dependencies = array(
+    'local_mail'          => 2015062200
 );

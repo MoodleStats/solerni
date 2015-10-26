@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
+// This file is part of The Orange Halloween Moodle Theme
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
 $string['pluginname']                   = 'Halloween';
 $string['region-side-post']             = 'Right';
 $string['region-side-pre']              = 'Left';
-$string['choosereadme']                 = 'Halloween Moodle Theme. Built from Bootstrap3 : https://github.com/bmbrands/theme_bootstrap';
+$string['choosereadme']                 = '@OLPS @Orange Halloween Moodle Theme. Built from Bootstrap3 : https://github.com/bmbrands/theme_bootstrap';
 $string['configtitle']                  = 'Halloween';
 $string['region-side-top']              = 'Top';
 $string['region-main']                  = 'Main';
@@ -93,60 +93,78 @@ $string['orange_dark_2desc']            = '';
 $string['orange_dark_3']                = '@gray-darker';
 $string['orange_dark_3desc']            = '@orange-dark-3';
 
-// Footer settings.
-$string['footersettings']           = 'Footer';
-$string['footertextheading']        = 'Footer Solerni Texts';
-$string['footertextheadingdesc']    = 'Define Solerni branding text in footer.';
-$string['footertextlangheading']    = 'Version: ';
-$string['footertaglinetitle']       = 'Solerni tagline (english)';
-$string['footertaglinedefault']     = 'To learn is more fun together';
-$string['footertaglinedesc']        = 'Footer tagline for english version';
-$string['footerexplainationtitle']  = 'Solerni tagline short text (english)';
-$string['footerexplainationdefault']= 'Solerni is a full software suite dedicated to help you creating and hosting massively collaborative learning routes';
-$string['footerexplainationdesc']   = 'Text under the tagline in the english version footer';
-$string['footerlinksheading']       = 'Liens du footer';
-$string['footerlinksheadingdesc']   = 'Définit les liens pour le footer (hors réseaux sociaux).';
-$string['aboutus']                  = 'About us';
-$string['support']                  = 'Support';
-$string['followus']                 = 'Follow us';
-$string['international']            = 'International';
-$string['aboutsolerni']             = 'About Solerni';
-$string['aboutsolernidesc']         = 'Enter About Solerni URL';
-$string['partners']                 = 'Partners';
-$string['partnersdesc']             = 'Enter Partners URL';
-$string['legal']                    = 'Legal notices';
-$string['legaldesc']                = 'Enter Legal Notice URL';
-$string['cgu']                      = 'Terms and Conditions';
-$string['cgudesc']                  = 'Enter Terms and Conditions URL';
-$string['faq']                      = 'FAQ';
-$string['faqdesc']                  = 'Enter FAQ URL';
-$string['contactus']                = 'Contact Us';
-$string['contactusdesc']            = 'Enter Contact URL';
+// Footer branding area settings.
+$string['footerbrandsettings']      = 'Footer Branding';
+$string['footerbrandheading']       = 'Presents the platform brand';
+$string['footerbrandheadingdesc']   = 'A footer area is dedicated to brand presentation. This page allows to change the content of this area. To take advantage of the Moodle multi-language filter, you need to frame each translation into a <span lang="XX" class="multilang"></span> tag. To remove an element from the display, you need to empty the field and save the form.';
+$string['footerbrandtitle']         = 'Title';
+$string['footerbrandtitledefault']  = 'Solerni';
+$string['footerbrandchapo']         = 'Chapô';
+$string['footerbrandchapodefault']  = 'To learn is more fun together';
+$string['footerbrandarticle']       = 'Article';
+$string['footerbrandarticledefault'] = 'Solerni is a full software suite dedicated to help you creating and hosting massively collaborative learning routes';
+$string['footerbrandanchor']        = 'Anchor link';
+$string['footerbrandanchordefault'] = 'See our course catalog';
+$string['footerbrandurl']           = 'Link destination';
+$string['footerbrandurldefault']    = $CFG->wwwroot . '/catalog';
 
-// Social settings.
-$string['socialsettings']           = 'Social';
-$string['sociallinksheading']       = 'Social links';
-$string['sociallinksheadingdesc']   = 'Customise social network urls (footer).';
+// Footer Columns Settings.
+$string['footerlistssettings']              = 'Footer lists';
+$string['footerlistsheading']               = 'Links on 2 columns';
+$string['footerlistsheadingdesc']           = 'The footer allows two columns of 4 links maximum. The page allows to change the title and the content of those two lists. To remove a element from the list, you have to empty the corresponding field.';
+$string['footerlistscolumn1heading']        = 'First column';
+$string['footerlistscolumn1headingdesc']    = 'Anchors and titles fields are translated using the multi-language Moodle filter. You need to use the  <span lang="XX" class="multilang"></span> syntax to take advantage of it.';
+$string['footerlistscolumn1title']          = 'First column title';
+$string['footerlistscolumn1anchor1']        = 'First anchor';
+$string['footerlistscolumn1anchor2']        = 'Second anchor';
+$string['footerlistscolumn1anchor3']        = 'Third anchor';
+$string['footerlistscolumn1anchor4']        = 'Fourth anchor';
+$string['footerlistscolumn1link1']          = 'URL of the first anchor';
+$string['footerlistscolumn1link2']          = 'URL of the second anchor';
+$string['footerlistscolumn1link3']          = 'URL of the third anchor';
+$string['footerlistscolumn1link4']          = 'URL of the fourth anchor';
+$string['footerlistscolumn1titledefault']          = 'About us';
+$string['footerlistscolumn1anchor1default']        = 'About Solerni';
+$string['footerlistscolumn1anchor2default']        = 'Partners';
+$string['footerlistscolumn1anchor3default']        = 'Legal notices';
+$string['footerlistscolumn1anchor4default']        = 'Terms and Conditions';
+$string['footerlistscolumn2heading']        = 'First column';
+$string['footerlistscolumn2headingdesc']    = 'Anchors and titles fields are translated using the multi-language Moodle filter. You need to use the  <span lang="XX" class="multilang"></span> syntax to take advantage of it.';
+$string['footerlistscolumn2title']          = 'First column title';
+$string['footerlistscolumn2anchor1']        = 'First anchor';
+$string['footerlistscolumn2anchor2']        = 'Second anchor';
+$string['footerlistscolumn2anchor3']        = 'Third anchor';
+$string['footerlistscolumn2anchor4']        = 'Fourth anchor';
+$string['footerlistscolumn2link1']          = 'URL of the first anchor';
+$string['footerlistscolumn2link2']          = 'URL of the second anchor';
+$string['footerlistscolumn2link3']          = 'URL of the third anchor';
+$string['footerlistscolumn2link4']          = 'URL of the fourth anchor';
+$string['footerlistscolumn2titledefault']          = 'Support';
+$string['footerlistscolumn2anchor1default']        = 'FAQ';
+$string['footerlistscolumn2anchor2default']        = 'Contact us';
+$string['footerlistscolumn2anchor3default']        = '';
+$string['footerlistscolumn2anchor4default']        = '';
+$string['international']                           = 'International';
+
+// Follow us settings.
+$string['followus']                 = 'Follow us';
+$string['followussettings']         = 'Follow us';
+$string['followusheading']          = 'Pages and profiles links';
+$string['followusheadingdesc']      = 'Allow to declare URLs for authority pages and profiles for this platform/instance on various networks or services. This links will be used into the "Follow us" section above the footer. If a field is kept empty, the corresponding icon will not be displayed on frontend.';
 $string['blog']                     = 'Blog URL';
 $string['blogdisplayname']          = 'Blog';
 $string['blogdesc']                 = 'Enter the URL of your blog.';
 $string['facebook']                 = 'Facebook URL';
-$string['facebookdesc']             = 'Enter the URL of your Facebook page.';
 $string['facebookdisplayname']      = 'Facebook';
 $string['twitter']                  = 'Twitter URL';
-$string['twitterdesc']              = 'Enter the URL of your Twitter feed.';
 $string['twitterdisplayname']       = 'Twitter';
 $string['googleplus']               = 'Google+ URL';
-$string['googleplusdesc']           = 'Enter the URL of your Google+ profile.';
 $string['googleplusdisplayname']    = 'Google +';
 $string['linkedin']                 = 'LinkedIn URL';
-$string['linkedindesc']             = 'Enter the URL of your LinkedIn profile.';
 $string['linkedindisplayname']      = 'LinkedIn';
 $string['youtube']                  = 'YouTube URL';
-$string['youtubedesc']              = 'Enter the URL of your YouTube channel.';
 $string['youtubedisplayname']       = 'YouTube';
 $string['dailymotion']              = 'Dailymotion URL';
-$string['dailymotiondesc']          = 'Enter the URL of your Dailymotion channel.';
 $string['dailymotiondisplayname']   = 'Dailymotion';
 
 // Header settings.
@@ -164,14 +182,15 @@ $string['hello']                    = 'Hello';
 $string['dashboard']                = 'Dashboard';
 $string['administration']           = 'Administration';
 
-// Search filters
+// Search filters.
+$string['catalog_page_title']       = 'Catalog';
 $string['filterstatustitle']        = 'Status';
 $string['filterstatusall']          = 'All MOOCs';
 $string['filterstatusinprogress']   = 'In progress';
 $string['filterstatuscomingsoon']   = 'Coming soon';
 $string['filterstatuscomplete']     = 'Complete';
-$string['filterthematictitle']      = 'Theme';
-$string['filterthematicall']        = 'All themes';
+$string['filterthematicstitle']     = 'Theme';
+$string['filterthematicsall']       = 'All themes';
 $string['filtercategorytitle']      = 'Company';
 $string['filtercategoryall']        = 'All companies';
 $string['filterdurationtitle']      = 'Duration';
@@ -183,7 +202,7 @@ $string['catalognresults']          = "Results found";
 $string['catalog0result']           = "No result";
 $string['catalog1result']           = "Result found";
 
-// Mooc component
+// Mooc component.
 $string['courseproposedby']         = "Proposed by";
 $string['coursefindoutmore']        = "Find out more";
 $string['coursestartdate']          = "Starts on";
@@ -191,11 +210,11 @@ $string['courseenddate']            = "Ending on";
 $string['coursebadge']              = "Badges available";
 $string['coursenobadge']            = "No badges";
 
-// Frontpage frontend
+// Frontpage frontend.
 $string['ifreelyregister']          = "I freely register";
 $string['seecatalog']               = "See the catalogue";
 
-// Login settings
+// Login settings.
 $string['logintitle']               = "I am logging in with my e-mail *";
 $string['registertitle']            = "I log in";
 $string['rememberme']               = "Remember me";
@@ -211,5 +230,5 @@ $string['registerlink']             = "signup.php";
 $string['login']                    = "login";
 $string['password']                 = "password";
 
-// Block "My Badge" on dashboard
+// Block "My Badge" on dashboard.
 $string['lastbadge']                = 'Last badge obtained:';

@@ -76,7 +76,7 @@ function insert_analytics_tracking() {
     } else {
        $trackdimensions  = '';
     }
-    $userid = (($USER->id ==0)? get_string('anonymous', 'local_analytics').'_'.md5($_SERVER['REMOTE_ADDR']) : get_string('user', 'local_analytics').'_'.md5($USER->id));
+    $trackuser = ($USER->id != 0) ? "_paq.push(['setUserId', '" . get_string('user', 'local_analytics') . '_' . md5($USER->id) . "']);" : '';
     $enabled = get_config('local_analytics', 'enabled');
     $imagetrack = get_config('local_analytics', 'imagetrack');
     $siteurl = get_config('local_analytics', 'siteurl');
@@ -104,8 +104,8 @@ function insert_analytics_tracking() {
 			$CFG->$location .= "
 <script type='text/javascript'>
     var _paq = _paq || [];
-    ".$doctitle.$trackdimensions."
-    _paq.push(['setUserId', '$userid']);
+    ".$doctitle.$trackdimensions.
+      $trackuser."
     _paq.push(['trackPageView']);
     _paq.push(['enableLinkTracking']);
     (function() {

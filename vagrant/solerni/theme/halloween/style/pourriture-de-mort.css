@@ -1,0 +1,100 @@
+
+/*
+ * Solerni Coursebox
+ */
+
+.slrn-coursebox,
+.coursebox.slrn-coursebox:hover {
+    background-color:   grey;
+    margin-bottom:      3em;
+}
+
+.courses > div {
+    position: relative;
+}
+
+.slrn-coursebox {
+    position:       relative;
+    box-shadow:     none;
+    padding:        0;
+    border:         0;
+    border-radius:  0;
+    margin-bottom:  40px;
+    font-size:      0;
+}
+
+.slrn-coursebox--invalid {
+    font-size:  16px;
+    outline:    1px solid grey;
+    padding:    30px;
+}
+
+.slrn-coursebox__column {
+    display:        inline-block;
+    vertical-align: top;
+}
+
+.slrn-coursebox__column--image {
+    width:      35%;
+    position:   relative;
+}
+
+.slrn-coursebox__column--image img {
+    width:      100%;
+    max-width:  100%;
+    height:     auto;
+}
+
+.slrn-coursebox__course-image-customer {
+    position:   absolute;
+    bottom:     35px;
+    right:      30px;
+}
+
+.slrn-coursebox__column--description {
+    width:      40%;
+    padding:    0 30px 5.5em 30px;
+}
+
+.slrn-coursebox__coursename {
+    font-size:      24px;
+    font-weight:    bold;
+    line-height:    1;
+    text-transform: none;
+    margin-bottom:  5px;
+    margin-top:     0;
+}
+
+.slrn-coursebox__summary {
+    padding:        10px 0;
+    font-size:      12px;
+    font-weight:    bold;
+    color:          grey;
+}
+
+.slrn-coursebox__column--subscription_button {
+    position:   absolute;
+    bottom:     15px;
+}
+
+.slrn-coursebox__column--metadata {
+    padding:    20px 30px;
+    width:      22%;
+    color:      grey;
+}
+
+.slrn-coursebox__metadata {
+    margin-bottom: 25px;
+}
+
+.slrn-coursebox__metadata__icone {
+    float:          left;
+    margin-right:   10px;
+    height:         100%;
+}
+
+.slrn-coursebox__metadata__item {
+    display:        inline-block;
+    vertical-align: middle;
+    line-height:    1;
+}

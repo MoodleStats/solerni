@@ -191,7 +191,7 @@ class orange_rules  {
 
             $cohortexist = rule_existcohort($rule->cohortid);
 
-            if (has_capability('orange/rules:edit', $sitecontext)) {
+            if (has_capability('local/orange_rules:edit', $sitecontext)) {
                     $msgpopup = get_string('confirmdeleterule', 'local_orange_rules', $rule->name);
                     $buttons[] = html_writer::link( new moodle_url('index.php',
                                                     array('action' => 'rules_delete', 'id' => $rule->id, 'sesskey' => sesskey())),

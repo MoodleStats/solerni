@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
+// This file is part of The Orange Halloween Moodle Theme
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -44,7 +44,7 @@ $CFG->partialsdir = $CFG->themedir . '/layout/partials';
 $THEME->name = 'halloween';
 $THEME->parents = array('bootstrap');
 
-/**
+/*
  * The LESS file to compile. (Advanced)
  *
  * Since Moodle 2.7 it is possible to compile a LESS file on the fly.
@@ -68,7 +68,7 @@ $THEME->parents = array('bootstrap');
 
 $THEME->lessfile = 'base-mixin';
 
-/**
+/*
  * Injecting LESS variables. (Advanced)
  *
  * Used in combination with $THEME->lessfile, this declares a callback
@@ -87,7 +87,7 @@ $THEME->lessfile = 'base-mixin';
 $THEME->lessvariablescallback = 'theme_halloween_less_variables';
 
 
-/**
+/*
  * Injecting LESS content. (Advanced)
  *
  * Used in combination with $THEME->lessfile, this declares a callback
@@ -118,7 +118,7 @@ $THEME->layouts = array(
         'file' => 'default.php',
         'regions' => array('side-top', 'side-pre', 'main', 'side-post'),
         'defaultregion' => 'main',
-        'options' => array('langmenu'=>true),
+        'options' => array('langmenu' => true),
     )
 );
 
@@ -128,10 +128,18 @@ $THEME->layouts = array(
 
 $THEME->sheets = array('flexpage');
 
-/**
+/*
  * Using renderers.
  *
  * Mandatory declaration to use renderers.
  */
 
 $THEME->rendererfactory = 'theme_overridden_renderer_factory';
+
+/*
+ * An array of javascript files located in /javascript/
+ * $THEME->javascripts includes files in the header
+ * $THEME->javascripts_footer includes files in the footer
+ */
+
+$THEME->javascripts = array('jquery-1.11.3');
