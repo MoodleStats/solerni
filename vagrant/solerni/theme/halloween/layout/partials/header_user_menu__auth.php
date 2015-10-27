@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
+// This file is part of The Orange Halloween Moodle Theme
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -14,63 +14,51 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/*
- * @author    Orange / Solerni
- * @package   theme_solerni
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
-$isdashboard          = $this->is_menu_item_active( '/my' );
-$hasadmincapacity     = has_capability('moodle/site:config', context_system::instance());
-
+use local_orange_library\utilities\utilities_user;
+$youvegotmail = utilities_user::user_have_new_mail($USER);
 ?>
-
-<li class="">
-    <a href="<?php echo $CFG->wwwroot; ?>/my">
-        <?php echo get_string('dashboard', 'theme_halloween'); ?>
-    </a>
-    <?php if ( $isdashboard ) : ?>
-        <span class=""></span>
-    <?php endif; ?>
-</li>
-<li class="">
-    <a class="dropdown-toggle  -not-uppercase " data-toggle="dropdown" role="button">
-        <?php echo get_string('hello', 'theme_halloween') . ' ' . $USER->firstname . ' ' . $USER->lastname; ?>
-        <b class="glyphicon glyphicon-chevron-down pull-right"></b>
-    </a>
-    <ul class="dropdown-menu">
-        <span class=""></span>
-        <li class="dropdown-menu__item">
-            <a class="-not-uppercase" href="<?php echo $CFG->wwwroot ?>/user/profile.php">
-                <img class="profileicon" src="<?php echo $this->pix_url('profile/profile', 'theme') ?>" />
-                <?php echo get_string('viewprofile'); ?>
-            </a>
-        </li>
-        <li class="dropdown-menu__item">
-            <a class="-not-uppercase" href="<?php echo $CFG->wwwroot ?>/user/edit.php">
-                <img class="profileicon" src="<?php echo $this->pix_url('profile/edit', 'theme') ?>" />
-                <?php echo get_string('editmyprofile'); ?>
-            </a>
-        </li>
-        <?php if ( $hasadmincapacity ) : ?>
-        <li class="dropdown-menu__item">
-            <a class="-not-uppercase" href="<?php echo $CFG->wwwroot ?>/admin/index.php">
-                <img class="profileicon" src="<?php echo $this->pix_url('a/settings', 'core') ?>" />
-                <?php echo get_string('administration', 'theme_halloween'); ?>
-            </a>
-        </li>
+<div class="action-area">
+    <a title="email" href="<?php echo $CFG->wwwroot ?>/local/mail/view.php?t=inbox" class="header-email-icon icon-halloween icon-halloween--email">
+        email
+        <?php if ($youvegotmail) : ?>
+            <span class="email-notification"><?php echo $youvegotmail; ?></span>
         <?php endif; ?>
-        <li class="dropdown-menu__item">
-            <a class="-not-uppercase" href="<?php echo $CFG->wwwroot ?>/user/files.php">
-                <img class="profileicon" src="<?php echo $this->pix_url('profile/files', 'theme') ?>" />
-                <?php echo get_string('myfiles'); ?>
-            </a>
-        </li>
-        <li class="dropdown-menu__item">
-            <a class="-not-uppercase" href="<?php echo $CFG->wwwroot ?>/login/logout.php">
-                <img class="profileicon" src="<?php echo $this->pix_url('profile/logout', 'theme') ?>" />
-                <?php echo get_string('logout'); ?>
-            </a>
-        </li>
-     </ul>
-</li>
+    </a>
+    <div class="dropdown">
+        <button class="btn btn-primary btn-sm" type="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+                <?php echo $USER->firstname . ' ' . $USER->lastname; ?>
+                <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu list-unstyled list-link" aria-labelledby="dLabel">
+            <li>
+                <a href="<?php echo $CFG->wwwroot ?>/my">
+                    <?php echo get_string('user_menu_dashboard', 'theme_halloween'); ?>
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo $CFG->wwwroot ?>/user/profile.php">
+                    <?php echo get_string('user_menu_profile', 'theme_halloween'); ?>
+                </a>
+            </li>
+            <li>
+                <a href="<?php echo $CFG->wwwroot ?>/local/mail/view.php?t=inbox">
+                    <?php echo get_string('user_menu_email', 'theme_halloween'); ?>
+                </a>
+            </li>
+            <?php if (utilities_user::is_user_site_admin($USER)) : ?>
+            <li>
+                <a href="<?php echo $CFG->wwwroot ?>/admin/index.php">
+                    <?php echo get_string('administration', 'theme_halloween'); ?>
+                </a>
+            </li>
+            <?php endif; ?>
+            <li>
+                <a href="<?php echo $CFG->wwwroot ?>/login/logout.php">
+                    <?php echo get_string('user_menu_logout', 'theme_halloween'); ?>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+

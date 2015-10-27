@@ -178,8 +178,13 @@ $string['cataloguedesc']            = 'URL of the catalogue page (Header)';
 $string['search']                   = 'Search';
 $string['register']                 = 'Registration';
 $string['login']                    = 'Login';
+$string['logout']                   = 'Log out';
 $string['hello']                    = 'Hello';
 $string['dashboard']                = 'Dashboard';
+$string['user_menu_dashboard']      = 'My dashboard';
+$string['user_menu_profile']        = 'My profile';
+$string['user_menu_email']          = 'My emails';
+$string['user_menu_logout']         = 'Log out';
 $string['administration']           = 'Administration';
 
 // Search filters.

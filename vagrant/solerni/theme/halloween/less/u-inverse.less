@@ -56,22 +56,28 @@
         color:              @brand-tertiary;
     }
 
+    // primary
     & .btn-primary {
         border: 2px solid @brand-tertiary;
     }
 
     // dropdown
     & .dropdown-menu {
-        background-color: @brand-primary;
+        background-color:   @brand-primary;
     }
 
-    & .dropdown-menu a {
+    & .dropdown-menu a,
+    & .dropdown-menu li a {
         color: @brand-tertiary;
 
         &:hover,
         &:focus {
             color:              @brand-primary;
             background-color:   @gray-lighter;
+        }
+
+        &:active {
+            background-color:   @gray-light;
         }
     }
 
@@ -84,4 +90,8 @@
         border-bottom-color: @gray;
     }
 
+    // Header Home Link
+    & .logo-brandname {
+        color: @brand-tertiary;
+    }
 }

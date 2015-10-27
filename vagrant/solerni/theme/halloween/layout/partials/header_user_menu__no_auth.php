@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
+// This file is part of The Orange Halloween Moodle Theme
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,27 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
-/*
- * @author    Orange / Solerni
- * @package   theme_solerni
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
-$islogin       = $this->is_menu_item_active( '/login/index.php' );
-$isregister    = $this->is_menu_item_active( '/login/signup.php' )
-
 ?>
-
-<li class="">
-    <a href="<?php echo $CFG->wwwroot ?>/login/index.php"><?php echo get_string('login', 'theme_halloween'); ?></a>
-    <?php if ( $islogin ) : ?>
-        <span class=""></span>
-    <?php endif; ?>
-</li>
-<li class="">
-    <a href="<?php echo $CFG->wwwroot ?>/login/signup.php"><?php echo get_string('register', 'theme_halloween'); ?></a>
-    <?php if ( $isregister ) : ?>
-        <span class=""></span>
-    <?php endif; ?>
-</li>
+<div class="action-area">
+    <a href="<?php echo $CFG->wwwroot ?>/login/index.php" class="btn btn-primary btn-sm"><?php echo get_string('login', 'theme_halloween'); ?></a>
+</div>

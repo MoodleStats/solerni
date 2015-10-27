@@ -58,33 +58,30 @@ echo $OUTPUT->doctype() ?>
 
 <body <?php echo $OUTPUT->body_attributes($setzoom); ?>>
 <?php echo $OUTPUT->standard_top_of_body_html() ?>
-<nav role="navigation" class="navbar navbar-default">
-    <div class="container">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#moodle-navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="<?php echo $CFG->wwwroot;?>"><?php echo $SITE->shortname; ?></a>
+    <div class="u-inverse">
+        <nav class=" container skip-links">
+            <a class="" href="#maincontent">To main content</a>
+            <a class="" href="#pagenavigation">To page navigation (optional)</a>
+        </nav>
     </div>
-
-    <div id="moodle-navbar" class="navbar-collapse collapse">
-        <?php echo $OUTPUT->custom_menu(); ?>
-        <?php echo $OUTPUT->user_menu(); ?>
-        <ul class="nav pull-right">
-            <li><?php echo $OUTPUT->page_heading_menu(); ?></li>
-        </ul>
+    <div class="u-inverse">
+        <div class="container">
+            <header class="header row">
+                <div class="col-xs-12">
+                    <a href="<?php echo $CFG->wwwroot ?>" class="header-logo">
+                        <img class="logo-image" src="<?php echo $OUTPUT->pix_url('logo-orange', 'theme'); ?>" alt="" width="50" height="50">
+                        <span class="logo-brandname">Solerni</span>
+                    </a>
+                    <?php if (isloggedin()) {
+                        require($CFG->partialsdir . '/header_user_menu__auth.php');
+                    } else {
+                        require($CFG->partialsdir . '/header_user_menu__no_auth.php');
+                    }
+                    ?>
+                </div>
+            </header>
+        </div>
     </div>
-    </div>
-</nav>
-<header class="moodleheader">
-    <div class="container">
-    <a href="<?php echo $CFG->wwwroot ?>" class="logo"></a>
-    <?php echo $OUTPUT->page_heading(); ?>
-    </div>
-</header>
 
 <div id="page" class="container">
     <header id="page-header" class="clearfix">
