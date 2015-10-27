@@ -24,7 +24,7 @@ $youvegotmail = utilities_user::user_have_new_mail($USER);
             <span class="email-notification"><?php echo $youvegotmail; ?></span>
         <?php endif; ?>
     </a>
-    <div class="dropdown">
+    <div class="dropdown header-dropdown">
         <button class="btn btn-primary btn-sm" type="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
                 <?php echo $USER->firstname . ' ' . $USER->lastname; ?>

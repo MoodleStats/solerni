@@ -195,8 +195,9 @@ div[role="main"] .list-social {
  }
 
  .dropdown-menu > li > a {
-     padding:       @s-double-xs-margin @s-small-xs-margin;
-     line-height:   1;
+     padding:           @s-double-xs-margin @s-small-xs-margin;
+     line-height:       1;
+     text-decoration:   none;
 
     @media (min-width:  @screen-xs-min) {
         padding: (@s-medium-md-margin / 2) @s-medium-md-margin;
@@ -204,6 +205,9 @@ div[role="main"] .list-social {
 
  }
 
+ .header-dropdown .dropdown-menu a {
+     font-weight: bold;
+ }
 
 /*
  * Line

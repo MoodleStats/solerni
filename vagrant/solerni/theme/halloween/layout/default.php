@@ -57,9 +57,11 @@ echo $OUTPUT->doctype() ?>
 </head>
 
 <body <?php echo $OUTPUT->body_attributes($setzoom); ?>>
-<?php echo $OUTPUT->standard_top_of_body_html() ?>
+    <script>
+        document.body.className += ' jsenabled';
+    </script>
     <div class="u-inverse">
-        <nav class=" container skip-links">
+        <nav class="container skip-links">
             <a class="" href="#maincontent">To main content</a>
             <a class="" href="#pagenavigation">To page navigation (optional)</a>
         </nav>
@@ -127,5 +129,6 @@ echo $OUTPUT->doctype() ?>
     <?php require($CFG->partialsdir . '/footer_solerni.php'); ?>
 </div>
 <?php echo $OUTPUT->standard_end_of_body_html() ?>
+
 </body>
 </html>

@@ -35,8 +35,14 @@
 
     & a:focus,
     & a.focus {
-        outline:        1px dotted currentColor;
-        outline-offset: 2px;
+        outline:            1px dotted currentColor;
+        outline-offset:     2px;
+        text-decoration:    none;
+    }
+
+    & .skip-links a:focus,
+    & .skip-links a.focus {
+        text-decoration: underline;
     }
 
     & .link-item:first-child {
