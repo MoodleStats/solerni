@@ -39,7 +39,7 @@ class utilities_user {
     }
 
     /**
-     * Check for user new mail. Return the number of mail (int) or false.
+     * Check for user new mail. Return the number of unread mail (int) or false.
      * Use local_mail plugin.
      *
      * @param class $user
@@ -52,7 +52,7 @@ class utilities_user {
                 return $count->inbox;
             }
         }
-        
+
         return false;
     }
 

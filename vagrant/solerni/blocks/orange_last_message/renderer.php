@@ -25,7 +25,6 @@
 defined('MOODLE_INTERNAL') || die;
 
 use local_orange_library\utilities\utilities_object;
-use local_mail\local_mail_renderer;
 
 class block_orange_last_message_renderer extends plugin_renderer_base {
 
@@ -63,14 +62,12 @@ class block_orange_last_message_renderer extends plugin_renderer_base {
     }
 
     /**
-     * Construct message overview 
+     * Construct message overview
      *
      * @param array $message
      * @return string html of message overview
      */
     public function message_display(local_mail_message $message) {
-        $utilities = new utilities_object();
-
         $output = html_writer::start_tag('div', array('class' => 'block_orange_last_message'));
         $output .= html_writer::start_tag('p', array('class' => 'title'));
         $output .= get_string('lastmessage', 'block_orange_last_message');
@@ -84,7 +81,7 @@ class block_orange_last_message_renderer extends plugin_renderer_base {
                     'alt' => get_string('messagelink', 'block_orange_last_message'),
                     'title' => get_string('messagelink', 'block_orange_last_message')));
         $outputlink .= html_writer::empty_tag('br');
-        $outputlink .= $utilities->trim_text($message->subject(), 15) .$this->date($message);
+        $outputlink .= utilities_object::trim_text($message->subject(), 15) .$this->date($message);
 
         $output .= html_writer::start_tag('span', array('class' => 'mailsubject'));
         $output .= html_writer::link($messageurl, $outputlink);
@@ -92,7 +89,7 @@ class block_orange_last_message_renderer extends plugin_renderer_base {
         $output .= html_writer::end_tag('span');
 
         $output .= html_writer::start_tag('span', array('class' => 'content'));
-        $output .= $utilities->trim_text($message->content(), 30);
+        $output .= utilities_object::trim_text($message->content(), 30);
         $output .= html_writer::empty_tag('br');
         $output .= html_writer::end_tag('span');
 

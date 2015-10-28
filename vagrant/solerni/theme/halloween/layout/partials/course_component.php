@@ -21,6 +21,7 @@
  * @copyright   2015 Orange
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+use local_orange_library\utilities\utilities_object;
 
 if ( $courseinfos ) :
     $customerurl = new moodle_url('/course/index.php', array('categoryid' => $course->category));
@@ -55,7 +56,7 @@ if ( $courseinfos ) :
             </span>
             <div class="slrn-coursebox__summary">
                 <?php // @todo adapt length depending on viewport width ?
-                echo $utilities->trim_text( $chelper->get_course_formatted_summary($course,
+                echo utilities_object::trim_text( $chelper->get_course_formatted_summary($course,
                             array('overflowdiv' => false, 'noclean' => true, 'para' => false)), 155); ?>
                 <a class="link-secondary" href="<?php echo $utilitiescourse->get_description_page_url($course); ?>">
                     <?php echo get_string('coursefindoutmore', 'theme_halloween'); ?>
