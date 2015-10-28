@@ -24,6 +24,7 @@
 
 use local_orange_library\utilities\utilities_course;
 use local_orange_library\utilities\utilities_image;
+use theme_halloween\tools\theme_utilities;
 
 require_once($CFG->dirroot . '/badges/renderer.php');
 require_once($CFG->libdir . '/formslib.php');
@@ -163,8 +164,10 @@ class theme_halloween_core_badges_renderer extends core_badges_renderer {
             $htmllist = $this->print_badges_list_by_course($badges->badges, $USER->id);
             $localhtml .= $backpackconnect . $downloadbutton . $searchform . $htmlpagingbar . $htmllist . $htmlpagingbar;
         } else {
-            $faqurl = $PAGE->theme->settings->faq;
-            $localhtml .= $searchform . get_string('nobadges', 'badges', $faqurl);
+            $faqurl = theme_utilities::get_platform_faq_url();
+            if ($faqurl) {
+                $localhtml .= $searchform . get_string('nobadges', 'badges', $faqurl);
+            }
         }
         $localhtml .= html_writer::end_tag('fieldset');
 
