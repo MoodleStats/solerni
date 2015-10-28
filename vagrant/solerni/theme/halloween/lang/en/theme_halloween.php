@@ -186,6 +186,8 @@ $string['user_menu_profile']        = 'My profile';
 $string['user_menu_email']          = 'My emails';
 $string['user_menu_logout']         = 'Log out';
 $string['administration']           = 'Administration';
+$string['skip_to_main']             = 'To main content';
+$string['skip_to_nav']              = 'To page navigation';
 
 // Search filters.
 $string['catalog_page_title']       = 'Catalog';
@@ -224,10 +226,10 @@ $string['logintitle']               = "I am logging in with my e-mail *";
 $string['registertitle']            = "I log in";
 $string['rememberme']               = "Remember me";
 $string['loginbutton']              = "login";
-$string['registerbutton']              = "register";
+$string['registerbutton']           = "register";
 $string['passwordforgotten']        = "I have forgotten my password";
 $string['fieldsrequired']           = "* All fields required";
-$string['loginsteps']             = "Do you have a Solerni account?<p>
+$string['loginsteps']               = "Do you have a Solerni account?<p>
 Create an account from your e-mail or register with Facebook";
 $string['register']                 = "I register";
 $string['registerurl']              = "Register";

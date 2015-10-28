@@ -153,6 +153,7 @@ $string['followusheading']              = 'Pages et profils de l\'instance';
 $string['followusheadingdesc']          = 'Permet de déclarer les urls des pages et profils de référence de cette plate-forme sur divers réseaux ou services. Ces liens seront utilisés dans les îcones du bloc "Suivez-nous" au dessus du footer. Si un champ est vide, le bouton correspondant ne sera pas affiché sur l\'interface.';
 $string['blog']                         = 'Blog';
 $string['blogdisplayname']              = 'Blog';
+$string['blogdesc']                     = 'Entrez l\'adresse de votre blog';
 $string['facebook']                     = 'Page Facebook';
 $string['facebookdisplayname']          = 'Facebook';
 $string['twitter']                      = 'Flux Twitter';
@@ -185,6 +186,8 @@ $string['user_menu_profile']            = 'Mon profil';
 $string['user_menu_email']              = 'Ma messagerie';
 $string['user_menu_logout']             = 'Déconnexion';
 $string['administration']               = 'Administration';
+$string['skip_to_main']                 = 'Aller au contenu';
+$string['skip_to_nav']                  = 'Aller à la navigation';
 
 // Search filters.
 $string['catalog_page_title']       = 'Catalogue';
@@ -217,6 +220,22 @@ $string['coursenobadge']            = "Non badgeant";
 // Frontpage frontend.
 $string['ifreelyregister']          = "Je m'inscris gratuitement";
 $string['seecatalog']               = "Voir le catalogue";
+
+// Login settings.
+$string['logintitle']               = "I am logging in with my e-mail *";
+$string['registertitle']            = "I log in";
+$string['rememberme']               = "Remember me";
+$string['loginbutton']              = "login";
+$string['registerbutton']           = "register";
+$string['passwordforgotten']        = "I have forgotten my password";
+$string['fieldsrequired']           = "* All fields required";
+$string['loginsteps']               = "Do you have a Solerni account?<p>
+Create an account from your e-mail or register with Facebook";
+$string['register']                 = "I register";
+$string['registerurl']              = "Register";
+$string['registerlink']             = "signup.php";
+$string['login']                    = "login";
+$string['password']                 = "password";
 
 // Block "My Badge" on dashboard.
 $string['lastbadge']                = 'Dernier badge obtenu:';

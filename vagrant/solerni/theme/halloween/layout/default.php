@@ -62,8 +62,8 @@ echo $OUTPUT->doctype() ?>
     </script>
     <div class="u-inverse">
         <nav class="container skip-links">
-            <a class="" href="#maincontent">To main content</a>
-            <a class="" href="#pagenavigation">To page navigation (optional)</a>
+            <a class="" href="#maincontent"><?php echo get_string('skip_to_main', 'theme_halloween'); ?></a>
+            <a class="" href="#inst4"><?php echo get_string('skip_to_nav', 'theme_halloween'); ?></a>
         </nav>
     </div>
     <div class="u-inverse">
