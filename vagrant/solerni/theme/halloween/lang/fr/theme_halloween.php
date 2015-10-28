@@ -177,8 +177,13 @@ $string['cataloguedesc']                = 'URL de la page Catalogue (Header)';
 $string['search']                       = 'Rechercher';
 $string['register']                     = 'Inscription';
 $string['login']                        = 'Connexion';
+$string['logout']                       = 'Déconnexion';
 $string['hello']                        = 'Bonjour';
 $string['dashboard']                    = 'Tableau de bord';
+$string['user_menu_dashboard']          = 'Mon Tableau de bord';
+$string['user_menu_profile']            = 'Mon profil';
+$string['user_menu_email']              = 'Ma messagerie';
+$string['user_menu_logout']             = 'Déconnexion';
 $string['administration']               = 'Administration';
 
 // Search filters.

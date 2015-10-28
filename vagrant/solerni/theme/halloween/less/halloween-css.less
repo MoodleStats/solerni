@@ -143,7 +143,7 @@ a.focus {
     }
 }
 
- /* 
+ /*
   * Social class
   * */
 
@@ -184,9 +184,10 @@ div[role="main"] .list-social {
   * Dropdowns
   * */
 
- div[role="main"] button + .dropdown-menu {
+ div[role="main"] button + .dropdown-menu,
+ button + .dropdown-menu {
      padding:       0;
-     margin-top:    -2px;   // Same amount as the border width
+     margin-top:    -1px;
  }
 
  .dropdown .btn {
@@ -194,8 +195,9 @@ div[role="main"] .list-social {
  }
 
  .dropdown-menu > li > a {
-     padding:       @s-double-xs-margin @s-small-xs-margin;
-     line-height:   1;
+     padding:           @s-double-xs-margin @s-small-xs-margin;
+     line-height:       1;
+     text-decoration:   none;
 
     @media (min-width:  @screen-xs-min) {
         padding: (@s-medium-md-margin / 2) @s-medium-md-margin;
@@ -203,6 +205,9 @@ div[role="main"] .list-social {
 
  }
 
+ .header-dropdown .dropdown-menu a {
+     font-weight: bold;
+ }
 
 /*
  * Line
@@ -237,7 +242,7 @@ div[role="main"] .list-social {
     }
 
 /*
- * mediagallery icons (US #197)
+ * mediagallery icons (US #197 US #210)
  */
 .path-mod-mediagallery .gallery_list_item .controls,
 .path-mod-mediagallery .item .controls {
@@ -272,4 +277,27 @@ div[role="main"] .list-social {
     padding:        5px 10px;
     padding-top:    5px;
     padding-bottom: 5px;
+}
+
+/*
+ * Notification email in header
+ */
+.header-email-icon {
+    position: relative;
+}
+
+.email-notification {
+    position:           absolute;
+    top:                0;
+    right:              0;
+    background-color:   @brand-secondary;
+    color:              @brand-tertiary;
+    width:              20px;
+    height:             20px;
+    font-size:          14px;
+    line-height:        20px;
+    border-radius:      50%;
+    text-indent:        0;
+    text-align:         center;
+
 }

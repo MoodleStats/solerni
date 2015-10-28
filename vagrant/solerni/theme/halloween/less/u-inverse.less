@@ -35,8 +35,14 @@
 
     & a:focus,
     & a.focus {
-        outline:        1px dotted currentColor;
-        outline-offset: 2px;
+        outline:            1px dotted currentColor;
+        outline-offset:     2px;
+        text-decoration:    none;
+    }
+
+    & .skip-links a:focus,
+    & .skip-links a.focus {
+        text-decoration: underline;
     }
 
     & .link-item:first-child {
@@ -56,22 +62,28 @@
         color:              @brand-tertiary;
     }
 
+    // primary
     & .btn-primary {
         border: 2px solid @brand-tertiary;
     }
 
     // dropdown
     & .dropdown-menu {
-        background-color: @brand-primary;
+        background-color:   @brand-primary;
     }
 
-    & .dropdown-menu a {
+    & .dropdown-menu a,
+    & .dropdown-menu li a {
         color: @brand-tertiary;
 
         &:hover,
         &:focus {
             color:              @brand-primary;
             background-color:   @gray-lighter;
+        }
+
+        &:active {
+            background-color:   @gray-light;
         }
     }
 
@@ -84,4 +96,8 @@
         border-bottom-color: @gray;
     }
 
+    // Header Home Link
+    & .logo-brandname {
+        color: @brand-tertiary;
+    }
 }

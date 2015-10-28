@@ -40,7 +40,7 @@
 
     .logo-brandname {
         font-size:          @s-double-xs-margin;
-
+        
         @media (min-width:  @screen-md-min) {
             font-size:      @s-double-md-margin;
             margin-right:   @s-small-md-margin;
@@ -63,7 +63,11 @@
 
 .skip-links a:focus {
     height: auto;
-    color:  @brand-tertiary;
+    color:  @brand-primary;
+
+    .u-inverse & {
+        color:  @brand-tertiary;
+    }
 }
 
 .header{}

@@ -92,6 +92,22 @@
     .u-inverse .dropdown &:focus.btn,
     .u-inverse .dropdown &:active.btn {
         border-color:   @color;
+        color:          @color;
+    }
+
+    .u-inverse &:visited.btn,
+    .u-inverse &:active.btn,
+    .u-inverse &:active:focus.btn {
+        color: @color;
+    }
+
+    .u-inverse &:focus.btn,
+    .u-inverse &:visited:hover.btn {
+        color: @color-hover;
+    }
+
+    .u-inverse &:visited:hover:active.btn {
+        color: @color-active;
     }
 }
 
