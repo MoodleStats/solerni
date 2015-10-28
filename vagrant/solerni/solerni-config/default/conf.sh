@@ -135,4 +135,4 @@ moosh config-set coursesperpage 5
 
 # MNet (US 326)
 moosh config-set mnet_dispatcher_mode strict
-
+moosh peer-manage mnet on

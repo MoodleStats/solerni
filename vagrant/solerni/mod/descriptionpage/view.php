@@ -29,37 +29,36 @@ require_once($CFG->dirroot.'/mod/descriptionpage/locallib.php');
 require_once($CFG->libdir.'/completionlib.php');
 use local_orange_library\subscription_button\subscription_button_object;
 
-
 $id      = optional_param('id', 0, PARAM_INT); // Course Module ID.
 $courseid      = optional_param('courseid', 0, PARAM_INT); // Course Module ID.
 $p       = optional_param('p', 0, PARAM_INT);  // Page instance ID.
 $inpopup = optional_param('inpopup', 0, PARAM_BOOL);
 
 if ($p) {
-    if (!$page = $DB->get_record('descriptionpage', array('id' => $p))) {
+    if (!$descriptionpage = $DB->get_record('descriptionpage', array('id' => $p))) {
         print_error('invalidaccessparameter');
     }
-    $cm = get_coursemodule_from_instance('descriptionpage', $page->id, $page->course, false, MUST_EXIST);
+    $cm = get_coursemodule_from_instance('descriptionpage', $descriptionpage->id, $descriptionpage->course, false, MUST_EXIST);
     $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 
 } else if ($courseid) {
     $course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
     $timestamp = 0;
     $descriptionpageid = null;
-    $pages = $DB->get_records('descriptionpage', array('course' => $courseid));
-    foreach ($pages as $page) {
-        if ($timestamp < $page->timemodified) {
-            $timestamp = $page->timemodified;
-            $descriptionpageid = $page->id;
+    $descriptionpages = $DB->get_records('descriptionpage', array('course' => $courseid));
+    foreach ($descriptionpages as $descriptionpage) {
+        if ($timestamp < $descriptionpage->timemodified) {
+            $timestamp = $descriptionpage->timemodified;
+            $descriptionpageid = $descriptionpage->id;
         }
     }
-        $page = $DB->get_record('descriptionpage', array('id' => $descriptionpageid), '*', MUST_EXIST);
-        $cm = get_coursemodule_from_instance('descriptionpage', $page->id, $page->course, false, MUST_EXIST);
+        $descriptionpage = $DB->get_record('descriptionpage', array('id' => $descriptionpageid), '*', MUST_EXIST);
+        $cm = get_coursemodule_from_instance('descriptionpage', $descriptionpage->id, $descriptionpage->course, false, MUST_EXIST);
 } else {
     if (!$cm = get_coursemodule_from_id('descriptionpage', $id)) {
         print_error('invalidcoursemodule');
     }
-    $page = $DB->get_record('descriptionpage', array('id' => $cm->instance), '*', MUST_EXIST);
+    $descriptionpage = $DB->get_record('descriptionpage', array('id' => $cm->instance), '*', MUST_EXIST);
     $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 }
 
@@ -68,7 +67,7 @@ $subscriptionbutton = new subscription_button_object($course);
 
 // ...$page = $PAGE->get_renderer('mod_page');.
 $context = context_module::instance($cm->id);
-descriptionpage_check_view_permissions($page, $context, $cm);
+descriptionpage_check_view_permissions($descriptionpage, $context, $cm);
 
 // ...$context = context_module::instance($cm->id);.
 require_capability('mod/descriptionpage:view', $context);
@@ -79,43 +78,37 @@ $completion = new completion_info($course);
 $completion->set_module_viewed($cm);
 
 $PAGE->set_url('/mod/descriptionpage/view.php', array('id' => $cm->id));
-$options = empty($page->displayoptions) ? array() : unserialize($page->displayoptions);
+//$PAGE->set_pagelayout('base');
+$PAGE->blocks->add_region('main');
+$options = empty($page->displayoptions) ? array() : unserialize($descriptionpage->displayoptions);
 
-if ($inpopup and $page->display == RESOURCELIB_DISPLAY_POPUP) {
-    $PAGE->set_pagelayout('popup');
-    $PAGE->set_title($course->shortname.': '.$page->name);
-    $PAGE->set_heading($course->fullname);
-} else {
-    $PAGE->set_title($course->shortname.': '.$page->name);
-    $PAGE->set_heading($course->fullname);
-    $PAGE->set_activity_record($page);
-}
-echo $OUTPUT->header();
-if (!isset($options['printheading']) || !empty($options['printheading'])) {
-    echo $OUTPUT->heading(format_string($page->name), 2);
-}
+$PAGE->set_title($course->shortname.': '.$descriptionpage->name);
+$PAGE->set_heading($course->fullname);
+$PAGE->set_activity_record($descriptionpage);
 
-if (!empty($options['printintro'])) {
-    if (trim(strip_tags($page->intro))) {
-        echo $OUTPUT->box_start('mod_introbox', 'pageintro');
-        echo format_module_intro('descriptionpage', $page, $cm->id);
-        echo $OUTPUT->box_end();
-    }
-}
-$pct = $page->content;
+$pct = $descriptionpage->content;
 $phpfile = 'pluginfile.php';
 $ctxid = $context->id;
 $mddesc = 'mod_descriptionpage';
-$prev = $page->revision;
+$prev = $descriptionpage->revision;
 $contentrewrited = file_rewrite_pluginfile_urls($pct, $phpfile, $ctxid, $mddesc, 'content', $prev);
 $formatoptions = new stdClass;
 $formatoptions->noclean = true;
 $formatoptions->overflowdiv = true;
 $formatoptions->context = $context;
-$content = format_text($contentrewrited, $page->contentformat, $formatoptions);
-echo $OUTPUT->box($content, "generalbox center clearfix");
+$content = format_text($contentrewrited, $descriptionpage->contentformat, $formatoptions);
 
-$strlastmodified = get_string("lastmodified");
-echo '<div class="text-center">'.$subscriptionbutton->set_button($course).'</div>';
+$filtersblock = new block_contents();
+$filtersblock->content .= $content;
+
+$filtersblock->content .= '<div class="text-center">'.$subscriptionbutton->set_button($course).'</div>';
+$filtersblock->footer = '';
+$filtersblock->skiptitle = false;
+
+$PAGE->blocks->add_fake_block($filtersblock, 'main');
+echo $OUTPUT->header();
+if (!isset($options['printheading']) || !empty($options['printheading'])) {
+    echo $OUTPUT->heading(format_string($descriptionpage->name), 2);
+}
 
 echo $OUTPUT->footer();

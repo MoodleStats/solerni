@@ -15,22 +15,17 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Orange Last Message block
+ * Orange Progress Bar block English language translation
  *
- * @package    block_orange_last_message
+ * @package    block_orange_progressbar
  * @copyright  Orange 2015
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Orange - Mon dernier message';
-$string['title'] = 'Messagerie';
-$string['nothingtodisplay'] = 'Aucun message reçu';
-$string['blockdesc'] = 'Retrouvez votre dernier message dans cet espace';
-$string['mailboxlink'] = 'Afficher ma messagerie';
-$string['lastmessage'] = 'Dernier message :';
-$string['messagelink'] = 'Afficher le message';
-$string['beforehour'] = 'à';
-$string['beforedate'] = 'le';
-$string['orange_last_message:addinstance'] = 'Ajouter un nouveau bloc Orange - Mon dernier message';
-$string['orange_last_message:myaddinstance'] = 'Ajouter un nouveau bloc Orange - Mon dernier message sur ma page d\'accueil';
-$string['nonewmessage'] = 'Pas de nouveau message';
+$string['no_activities_monitored'] = 'No activities are being monitored.';
+$string['completion_not_enabled'] = 'Completion tracking not enabled for this course';
+$string['pluginname'] = 'Simple Progress Bar';
+$string['config_default_title'] = 'Progress Bar';
+$string['overview'] = 'Overview of activities';
+$string['progres_detail'] = 'Progess details';
+$string['course_page_activity'] = 'Pages marked as "completed"';

@@ -33,4 +33,4 @@ $string['beforehour'] = 'the';
 $string['beforedate'] = 'the';
 $string['orange_last_message:addinstance'] = 'Add a new Orange My last Message block';
 $string['orange_last_message:myaddinstance'] = 'Add a new Orange My last Message block to My home';
-
+$string['nonewmessage'] = 'No new message';

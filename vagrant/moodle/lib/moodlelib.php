@@ -6036,11 +6036,14 @@ function setnew_password_and_mail($user, $fasthash = false) {
     $a->signoff     = generate_email_signoff();
 
     $message = (string)new lang_string('newusernewpasswordtext', '', $a, $lang);
+    $messagehtml = (string)new lang_string('newusernewpasswordhtml', '', $a, $lang);
+
+    if ($messagehtml) $user->mailformat = 1;
 
     $subject = format_string($site->fullname) .': '. (string)new lang_string('newusernewpasswordsubj', '', $a, $lang);
 
     // Directly email rather than using the messaging system to ensure its not routed to a popup or jabber.
-    return email_to_user($user, $supportuser, $subject, $message);
+    return email_to_user($user, $supportuser, $subject, $message, $messagehtml);
 
 }
 
