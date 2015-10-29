@@ -27,26 +27,22 @@ defined('MOODLE_INTERNAL') or die("Direct access to this location is not allowed
 $capabilities = array (
     'block/orange_progressbar:addinstance' => array(
         'riskbitmask' => RISK_PERSONAL,
-
         'captype' => 'write',
         'contextlevel' => CONTEXT_BLOCK,
         'archetypes' => array(
             'editingteacher' => CAP_ALLOW,
             'manager'        => CAP_ALLOW
         ),
-
         'clonepermissionsfrom' => 'moodle/site:manageblocks'
     ),
 
     'block/orange_progressbar:myaddinstance' => array(
         'riskbitmask' => RISK_PERSONAL,
-
         'captype' => 'read',
         'contextlevel' => CONTEXT_BLOCK,
         'archetypes' => array(
             'user' => CAP_ALLOW
         ),
-
         'clonepermissionsfrom' => 'moodle/my:manageblocks'
     ),
     'block/orange_progressbar:overview' => array (

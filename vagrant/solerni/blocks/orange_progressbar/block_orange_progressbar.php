@@ -132,6 +132,11 @@ class block_orange_progressbar extends block_base {
         if ($completion->is_enabled()) {
 
             $activitymonitored = $completion->get_progress_all('u.id = '. $USER->id);
+
+            // At first access to the course, the list is not set.
+            if (!isset($activitymonitored[$USER->id])) {
+                $activitymonitored[$USER->id] = null;
+            }
             list($completed, $total, $all) = block_orange_progressbar_filterfollowedactivity($COURSE,
                     $activitymonitored[$USER->id]);
 
@@ -143,7 +148,7 @@ class block_orange_progressbar extends block_base {
                 if (has_capability('block/orange_progressbar:overview', $this->context)) {
                     $parameters = array('progressbarid' => $this->instance->id, 'courseid' => $COURSE->id);
                     $url = new moodle_url('/blocks/orange_progressbar/overview.php', $parameters);
-                    $label = get_string('overview', 'block_orange_progressbar');
+                    $label = get_string('overviewbutton', 'block_orange_progressbar');
                     $options = array('class' => 'overviewButton');
                     $this->content->text .= $OUTPUT->single_button($url, $label, 'post', $options);
                 }
