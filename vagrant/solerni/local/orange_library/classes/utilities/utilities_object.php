@@ -26,7 +26,7 @@ defined('MOODLE_INTERNAL') || die();
 
 class utilities_object {
 
-    public function duration_to_time($duration) {
+    public static function duration_to_time($duration) {
         $secondsinaminute = 60;
         $secondsinanhour = 60 * $secondsinaminute;
         $secondsinaday = 24 * $secondsinanhour;
@@ -77,7 +77,7 @@ class utilities_object {
      * @param bool $striphtml if html tags are to be stripped
      * @return string
      */
-    public function trim_text($input, $length, $ellipses = true, $striphtml = true) {
+    public static function trim_text($input, $length, $ellipses = true, $striphtml = true) {
         // Strip tags, if desired.
         if ($striphtml) {
             $input = strip_tags($input);
@@ -99,7 +99,6 @@ class utilities_object {
 
         return $trimmedtext;
     }
-
 }
 
 

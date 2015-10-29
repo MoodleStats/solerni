@@ -54,8 +54,6 @@ class block_orange_course_dashboard extends block_base {
         $this->content->text = '';
         $this->content->footer = '';
 
-        $content = array();
-
         list($sortedcourses, $sitecourses, $totalcourses) =
                 block_orange_course_dashboard_get_sorted_courses($config->defaultmaxcourses);
 

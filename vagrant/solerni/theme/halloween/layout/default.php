@@ -61,28 +61,10 @@ echo $OUTPUT->doctype() ?>
         document.body.className += ' jsenabled';
     </script>
     <div class="u-inverse">
-        <nav class="container skip-links">
-            <a class="" href="#maincontent">To main content</a>
-            <a class="" href="#pagenavigation">To page navigation (optional)</a>
-        </nav>
+        <?php require($CFG->partialsdir . '/skiplinks.php'); ?>
     </div>
     <div class="u-inverse">
-        <div class="container">
-            <header class="header row">
-                <div class="col-xs-12">
-                    <a href="<?php echo $CFG->wwwroot ?>" class="header-logo">
-                        <img class="logo-image" src="<?php echo $OUTPUT->pix_url('logo-orange', 'theme'); ?>" alt="" width="50" height="50">
-                        <span class="logo-brandname">Solerni</span>
-                    </a>
-                    <?php if (isloggedin()) {
-                        require($CFG->partialsdir . '/header_user_menu__auth.php');
-                    } else {
-                        require($CFG->partialsdir . '/header_user_menu__no_auth.php');
-                    }
-                    ?>
-                </div>
-            </header>
-        </div>
+        <?php require($CFG->partialsdir . '/header_solerni.php'); ?>
     </div>
 
 <div id="page" class="container">
@@ -119,15 +101,15 @@ echo $OUTPUT->doctype() ?>
         ?>
     </div>
 </div>
-<div class="u-inverse">
-    <?php require($CFG->partialsdir . '/platform_social_bar.php'); ?>
-</div>
-<div class="row u-inverse">
-    <div class="col-xs-12 fullwidth-line"></div>
-</div>
-<div class="u-inverse">
-    <?php require($CFG->partialsdir . '/footer_solerni.php'); ?>
-</div>
+    <div class="u-inverse">
+        <?php require($CFG->partialsdir . '/platform_social_bar.php'); ?>
+    </div>
+    <div class="row u-inverse">
+        <div class="col-xs-12 fullwidth-line"></div>
+    </div>
+    <div class="u-inverse">
+        <?php require($CFG->partialsdir . '/footer_solerni.php'); ?>
+    </div>
 <?php echo $OUTPUT->standard_end_of_body_html() ?>
 
 </body>

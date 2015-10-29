@@ -63,4 +63,21 @@ class theme_utilities {
         }
         return false;
     }
+
+    /**
+     * Return the url of the FAQ.
+     * Assume that the faq link is the first one of the second column of the footer.
+     *
+     * Return false if the settings is not existent.
+     *
+     * @return string || false
+     */
+    public static function get_platform_faq_url() {
+        global $PAGE;
+        if ($this->is_theme_settings_exists_and_nonempty(array('footerlistscolumn2anchor1', 'footerlistscolumn2link1'), 'all')) {
+            return $PAGE->theme->settings->footerlistscolumn2link1;
+        }
+
+        return false;
+    }
 }
