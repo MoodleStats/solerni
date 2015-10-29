@@ -44,52 +44,49 @@ class block_orange_progressbar_renderer extends plugin_renderer_base {
                                                       'aria-valuemin' => '0',
                                                       'aria-valuemax' => '100',
                                                       'style' => 'width:'.$progress.'%'));
-        if ($progress) {
+        if ($progress > 25) {
             $output .= $progress . ' %';
         }
         $output .= html_writer::end_tag('div');
+        if ($progress <= 25) {
+            $output .= $progress . ' %';
+        }
         $output .= html_writer::end_tag('div');
 
         if (count($details)) {
-            $output .= html_writer::tag('h4', get_string('progres_detail', 'block_orange_progressbar'));
-            $pages = 0;
-            $pagescompleted = 0;
-            foreach ($details as $detail) {
-                if ($detail->modname == 'page') {
-                    $pages++;
-                    if ($detail->completionstate) {
-                        $pagescompleted++;
+            $output .= html_writer::tag('h3', get_string('progres_detail', 'block_orange_progressbar'));
+
+            $currentmodule = '';
+            foreach ($details as $key => $detailsbytype) {
+                foreach ($detailsbytype as $detail) {
+                    if ($detail->modname != $currentmodule) {
+                        $output .= html_writer::tag('h4', $detail->modnametext);
+                        $currentmodule = $detail->modname;
                     }
-                }
-            }
-
-            $output .= html_writer::start_tag('span', array('class' => 'col-md-8'));
-                    $output .= get_string('course_page_activity', 'block_orange_progressbar');
-            $output .= html_writer::end_tag('span');
-            $output .= html_writer::start_tag('span', array('class' => 'col-md-4'));
-            $output .= "$pagescompleted/$pages";
-            if ($pagescompleted == $pages) {
-                $output .= '<span class="glyphicon glyphicon-ok" style="color:green"></span>';
-            } else {
-                $output .= '<span class="glyphicon glyphicon-remove" style="color:red"></span>';
-            }
-            $output .= html_writer::end_tag('span');
-
-            foreach ($details as $detail) {
-                if ($detail->modname != 'page') {
                     $output .= html_writer::start_tag('span', array('class' => 'col-md-8'));
-                            $output .= HTML_WRITER::link($detail->url, $detail->name);
-                    $output .= html_writer::end_tag('span');
-                    $output .= html_writer::start_tag('span', array('class' => 'col-md-4'));
-
-                    if ($detail->modname == 'quiz') {
-                        GLOBAL $USER, $DB;
-
-                        // Read the quiz informations.
-                        $quiz = $DB->get_record('quiz', array('id' => $detail->id));
-                        $output .= count(quiz_get_user_attempts($detail->id, $USER->id, 'finished')) . ' ' .
-                                get_string('attempts', 'quiz') . "/" . $quiz->attempts;
+                    if ($detail->modname == 'page') {
+                        $output .= $detail->name;
+                    } else {
+                        $output .= HTML_WRITER::link($detail->url, $detail->name);
                     }
+                    $output .= html_writer::end_tag('span');
+                    $output .= html_writer::start_tag('span', array('class' => 'col-md-2'));
+
+                    // For quizz we have to display the number of attemps.
+                    if ($detail->modname == 'quiz') {
+                        $output .= $detail->quizuserattempts . ' ' . get_string('attempts', 'quiz');
+                        if ($detail->quizmaxattempts != 0) {
+                            $output .= "/" . $detail->quizmaxattempts;
+                        }
+                    }
+
+                    // For page we display the total of pages.
+                    if ($detail->modname == 'page') {
+                        $output .= "$detail->pagescompleted/$detail->pages";
+                    }
+                    $output .= html_writer::end_tag('span');
+
+                    $output .= html_writer::start_tag('span', array('class' => 'col-md-2'));
                     if ($detail->completionstate) {
                         $output .= '<span class="glyphicon glyphicon-ok" style="color:green"></span>';
                     } else {
