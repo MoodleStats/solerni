@@ -40,7 +40,7 @@ $string['emailconfirmation'] = '<meta http-equiv="Content-Type" content="text/ht
                 <table border="0" width="620" cellpadding="0" cellspacing="0">
                     <tbody><tr>
                         <td align="left">
-                            <a href="https://solerni.org"><img border="0" src="http://laborange.fr/sites/default/files/logo-beta.png" alt="Solerni"></a>
+                            <a href="'.$CFG->wwwroot.'"><img border="0" src="http://laborange.fr/sites/default/files/logo-beta.png" alt="Solerni"></a>
                         </td>
                     </tr>
                 </tbody></table>
@@ -69,9 +69,9 @@ Si le bouton ne fonctionne pas, copiez-collez le lien suivant dans la barre d’
 <br>
 
 <br>
-<strong>L’équipe de <a href="{$a->sitename}">Solerni.org</a></strong><br>
+<strong>L’équipe de <a href="'.$CFG->wwwroot.'">{$a->sitename}</a></strong><br>
 Apprendre c’est toujours mieux ensemble
-<a href="{$a->sitename}">Solerni.org</a><br>
+<a href="'.$CFG->wwwroot.'">{$a->sitename}</a><br>
 
 
                                     </td>
@@ -98,7 +98,7 @@ Apprendre c’est toujours mieux ensemble
                                 <tr bgcolor="#f8f7f7">
                                     <td>
                                         <font size="2">
-                                        Vous recevez cet e-mail car votre adresse e-mail a été utilisée pour votre enregistrement sur notre site <a href="https://solerni.org">Solerni.org</a>.Si vous ne vous êtes pas inscrit à Solerni, veuillez simplement ignorer ce message et votre compte sera supprimé automatiquement.
+                                        Vous recevez cet e-mail car votre adresse e-mail a été utilisée pour votre enregistrement sur notre site <a href="'.$CFG->wwwroot.'">{$a->sitename}</a>.Si vous ne vous êtes pas inscrit à Solerni, veuillez simplement ignorer ce message et votre compte sera supprimé automatiquement.
 
                                         Ce message vous est envoyé automatiquement, merci de ne pas y répondre directement.<br>
                                         Si vous avez des questions écrivez-nous à <a href="mailto:contact@solerni.com">contact@solerni.com</a>.<br>

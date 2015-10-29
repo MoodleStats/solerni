@@ -34,7 +34,7 @@ $string['contentuseraccountemail'] = '<html><head>
                 <table border="0" width="620" cellpadding="0" cellspacing="0">
                     <tbody><tr>
                         <td align="left">
-                            <a href="https://{$a->sitename}"><img border="0" src="http://laborange.fr/sites/default/files/logo-beta.png" alt="Solerni"></a>
+                            <a href="{$a->siteurl}"><img border="0" src="http://laborange.fr/sites/default/files/logo-beta.png" alt="Solerni"></a>
                         </td>
                     </tr>
                 </tbody></table>
@@ -65,9 +65,9 @@ Vous pouvez dès à présent accéder à votre compte en cliquant <a href="{$a->
 A très vite sur {$a->sitename}, votre nouvelle plateforme de Moocs francophone collaborative.<br>
 <br>
 <br>
-<strong>L\'équipe de <a href="http://{$a->siteurl}">{$a->sitename}</a></strong><br>
+<strong>L\'équipe de <a href="{$a->siteurl}">{$a->sitename}</a></strong><br>
 Apprendre c\'est toujours mieux ensemble
-<a href="https://{$a->siteurl}">{$a->sitename}</a><br>
+<a href="{$a->siteurl}">{$a->sitename}</a><br>
 
 
                                     </td>
@@ -94,7 +94,7 @@ Apprendre c\'est toujours mieux ensemble
                                 <tr bgcolor="#f8f7f7">
                                     <td>
                                         <font size="2">
-                                        Vous recevez cet e-mail car votre adresse e-mail <a href="mailto:{$a->email}">{$a->email}</a> a été utilisée pour votre enregistrement sur notre site <a href="https://{$a->siteurl}">{$a->sitename}</a>.Si vous ne vous êtes pas inscrit à {$a->sitename}, veuillez simplement ignorer ce message et votre compte sera supprimé automatiquement.
+                                        Vous recevez cet e-mail car votre adresse e-mail <a href="mailto:{$a->email}">{$a->email}</a> a été utilisée pour votre enregistrement sur notre site <a href="{$a->siteurl}">{$a->sitename}</a>.Si vous ne vous êtes pas inscrit à {$a->sitename}, veuillez simplement ignorer ce message et votre compte sera supprimé automatiquement.
 
                                         Ce message vous est envoyé automatiquement, merci de ne pas y répondre directement.<br>
                                         Si vous avez des questions écrivez-nous à <a href="mailto:contact@solerni.com">contact@solerni.com</a>.<br>
@@ -122,7 +122,7 @@ $string['contentwelcomeemail'] = '<html><head>
                 <table border="0" width="620" cellpadding="0" cellspacing="0">
                     <tbody><tr>
                         <td align="left">
-                            <a href="https://{$a->siteurl}"><img border="0" src="http://laborange.fr/sites/default/files/logo-beta.png" alt="Solerni"></a>
+                            <a href="{$a->siteurl}"><img border="0" src="http://laborange.fr/sites/default/files/logo-beta.png" alt="Solerni"></a>
                         </td>
                     </tr>
                 </tbody></table>
@@ -165,7 +165,7 @@ En espérant vous retrouver très vite sur {$a->sitename} où nous vous souhaito
 <br>
 <strong>L’équipe {$a->sitename}</strong><br>
 Apprendre c’est toujours mieux ensemble<br>
-<a href="https://{$a->siteurl}">{$a->sitename}</a><br>
+<a href="{$a->siteurl}">{$a->sitename}</a><br>
 
 
                                     </td>
@@ -192,7 +192,7 @@ Apprendre c’est toujours mieux ensemble<br>
                                 <tr bgcolor="#f8f7f7">
                                     <td>
                                         <font size="2">
-                                        Vous recevez cet e-mail car votre adresse e-mail <a href="mailto:{$a->email}">{$a->email}</a> a été utilisée pour votre enregistrement sur notre site <a href="https://{$a->sitename}">{$a->sitename}</a>.Si vous ne vous êtes pas inscrit à {$a->sitename}, veuillez simplement ignorer ce message et votre compte sera supprimé automatiquement.
+                                        Vous recevez cet e-mail car votre adresse e-mail <a href="mailto:{$a->email}">{$a->email}</a> a été utilisée pour votre enregistrement sur notre site <a href="{$a->sitename}">{$a->sitename}</a>.Si vous ne vous êtes pas inscrit à {$a->sitename}, veuillez simplement ignorer ce message et votre compte sera supprimé automatiquement.
 
                                         Ce message vous est envoyé automatiquement, merci de ne pas y répondre directement.<br>
                                         Si vous avez des questions écrivez-nous à <a href="mailto:contact@solerni.com">contact@solerni.com</a>.<br>
