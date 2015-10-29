@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of Moodle - http://moodle.org/
+// This file is part of The Orange Halloween Moodle Theme
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,29 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Main login page.
- *
- * @package    core
- * @subpackage auth
- * @copyright  1999 onwards Martin Dougiamas  http://dougiamas.com
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
 require('../config.php');
 require_once('lib.php');
 
-// Try to prevent searching for sites that allow sign-up.
-if (!isset($CFG->additionalhtmlhead)) {
-    $CFG->additionalhtmlhead = '';
-}
-$CFG->additionalhtmlhead .= '<meta name="robots" content="noindex" />';
-
 redirect_if_major_upgrade_required();
-
 $testsession = optional_param('testsession', 0, PARAM_INT); // test session works properly
 $cancel      = optional_param('cancel', 0, PARAM_BOOL);      // redirect to frontpage, needed for loginhttps
-
 if ($cancel) {
     redirect(new moodle_url('/'));
 }
@@ -89,16 +71,13 @@ foreach($authsequence as $authname) {
     $authplugin->loginpage_hook();
 }
 
-
 /// Define variables used in page
 $site = get_site();
-
 $loginsite = get_string("loginsite");
 $PAGE->navbar->add($loginsite);
 
 if ($user !== false or $frm !== false or $errormsg !== '') {
     // some auth plugin already supplied full user, fake form data or prevented user login with error message
-
 } else if (!empty($SESSION->wantsurl) && file_exists($CFG->dirroot.'/login/weblinkauth.php')) {
     // Handles the case of another Moodle site linking into a page on this site
     //TODO: move weblink into own auth plugin
@@ -111,17 +90,14 @@ if ($user !== false or $frm !== false or $errormsg !== '') {
     } else {
         $frm = data_submitted();
     }
-
 } else {
     $frm = data_submitted();
 }
 
 /// Check if the user has actually submitted login data to us
-
-if ($frm and isset($frm->username)) {                             // Login WITH cookies
-
+// Login WITH cookies
+if ($frm and isset($frm->username)) {
     $frm->username = trim(core_text::strtolower($frm->username));
-
     if (is_enabled_auth('none') ) {
         if ($frm->username !== clean_param($frm->username, PARAM_USERNAME)) {
             $errormsg = get_string('username').': '.get_string("invalidusername");
@@ -129,9 +105,8 @@ if ($frm and isset($frm->username)) {                             // Login WITH 
             $user = null;
         }
     }
-
     if ($user) {
-        //user already supplied by aut plugin prelogin hook
+        //user already supplied by auth plugin prelogin hook
     } else if (($frm->username == 'guest') and empty($CFG->guestloginbutton)) {
         $user = false;    /// Can't log in as guest if guest button is disabled
         $frm = false;
@@ -156,17 +131,14 @@ if ($frm and isset($frm->username)) {                             // Login WITH 
     }
 
     if ($user) {
-
         // language setup
         if (isguestuser($user)) {
             // no predefined language for guests - use existing session or default site lang
             unset($user->lang);
-
         } else if (!empty($user->lang)) {
             // unset previous session language - use user preference instead
             unset($SESSION->lang);
         }
-
         if (empty($user->confirmed)) {       // This account was never confirmed
             $PAGE->set_title(get_string("mustconfirm"));
             $PAGE->set_heading($site->fullname);
@@ -293,7 +265,6 @@ if (empty($frm->username) && $authsequence[0] != 'shibboleth') {  // See bug 518
     } else {
         $frm->username = get_moodle_cookie();
     }
-
     $frm->password = "";
 }
 
@@ -335,10 +306,10 @@ if (!empty($SESSION->loginerrormsg)) {
 $PAGE->set_title("$site->fullname: $loginsite");
 $PAGE->set_heading("$site->fullname");
 
+// Templating
 echo $OUTPUT->header();
-
 if (isloggedin() and !isguestuser()) {
-    // prevent logging when already logged in, we do not want them to relogin by accident because sesskey would be changed
+    // User is already connected, let's warn him
     echo $OUTPUT->box_start();
     $logout = new single_button(new moodle_url($CFG->httpswwwroot.'/login/logout.php', array('sesskey'=>sesskey(),'loginpage'=>1)), get_string('logout'), 'post');
     $continue = new single_button(new moodle_url($CFG->httpswwwroot.'/login/index.php', array('cancel'=>1)), get_string('cancel'), 'get');
@@ -353,5 +324,4 @@ if (isloggedin() and !isguestuser()) {
         $PAGE->requires->js_init_call('M.util.focus_login_form', null, true);
     }
 }
-
 echo $OUTPUT->footer();

@@ -67,40 +67,41 @@ echo $OUTPUT->doctype() ?>
         <?php require($CFG->partialsdir . '/header_solerni.php'); ?>
     </div>
 
-<div id="page" class="container">
-    <header id="page-header" class="clearfix">
-        <div id="page-navbar" class="clearfix">
-            <nav class="breadcrumb-nav" role="navigation" aria-label="breadcrumb"><?php echo $OUTPUT->navbar(); ?></nav>
-            <div class="breadcrumb-button"><?php echo $OUTPUT->page_heading_button(); ?></div>
-            <?php if ($knownregionpre || $knownregionpost) : ?>
-                <div class="breadcrumb-button"> <?php echo $OUTPUT->content_zoom(); ?></div>
-            <?php endif; ?>
-        </div>
-
-        <div id="course-header">
-            <?php echo $OUTPUT->course_header(); ?>
-        </div>
-    </header>
-
-    <div id="page-content" class="row">
-        <div id="region-main" class="<?php echo $regions['content']; ?>">
+    <div id="page" class="container">
+        <header id="page-header" class="clearfix">
+            <div id="page-navbar" class="clearfix">
+                <nav class="breadcrumb-nav" role="navigation" aria-label="breadcrumb"><?php echo $OUTPUT->navbar(); ?></nav>
+                <div class="breadcrumb-button"><?php echo $OUTPUT->page_heading_button(); ?></div>
+                <?php if ($knownregionpre || $knownregionpost) : ?>
+                    <div class="breadcrumb-button"> <?php echo $OUTPUT->content_zoom(); ?></div>
+                <?php endif; ?>
+            </div>
+            <div id="course-header">
+                <?php echo $OUTPUT->course_header(); ?>
+            </div>
+        </header>
+        <div id="page-content" class="row">
+            <div id="region-main" class="<?php echo $regions['content']; ?>">
+                <?php
+                echo $OUTPUT->course_content_header();
+                echo $OUTPUT->main_content();
+                // Flexpage
+                if ($PAGE->blocks->region_has_content('main', $OUTPUT)) {
+                    echo $OUTPUT->blocks('main');
+                }
+                echo $OUTPUT->course_content_footer();
+                ?>
+            </div>
             <?php
-            echo $OUTPUT->course_content_header();
-            echo $OUTPUT->main_content();
-            echo $OUTPUT->blocks('main');
-            echo $OUTPUT->course_content_footer();
+            if ($knownregionpre) {
+                echo $OUTPUT->blocks('side-pre', $regions['pre']);
+            }
+            if ($knownregionpost) {
+                echo $OUTPUT->blocks('side-post', $regions['post']);
+            }
             ?>
         </div>
-        <?php
-        if ($knownregionpre) {
-            echo $OUTPUT->blocks('side-pre', $regions['pre']);
-        }
-        if ($knownregionpost) {
-            echo $OUTPUT->blocks('side-post', $regions['post']);
-        }
-        ?>
     </div>
-</div>
     <div class="u-inverse">
         <?php require($CFG->partialsdir . '/platform_social_bar.php'); ?>
     </div>
@@ -110,7 +111,6 @@ echo $OUTPUT->doctype() ?>
     <div class="u-inverse">
         <?php require($CFG->partialsdir . '/footer_solerni.php'); ?>
     </div>
-<?php echo $OUTPUT->standard_end_of_body_html() ?>
-
+    <?php echo $OUTPUT->standard_end_of_body_html() ?>
 </body>
 </html>
