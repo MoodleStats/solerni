@@ -192,7 +192,7 @@ Apprendre c’est toujours mieux ensemble<br>
                                 <tr bgcolor="#f8f7f7">
                                     <td>
                                         <font size="2">
-                                        Vous recevez cet e-mail car votre adresse e-mail <a href="mailto:{$a->email}">{$a->email}</a> a été utilisée pour votre enregistrement sur notre site <a href="{$a->sitename}">{$a->sitename}</a>.Si vous ne vous êtes pas inscrit à {$a->sitename}, veuillez simplement ignorer ce message et votre compte sera supprimé automatiquement.
+                                        Vous recevez cet e-mail car votre adresse e-mail <a href="mailto:{$a->email}">{$a->email}</a> a été utilisée pour votre enregistrement sur notre site <a href="{$a->siteurl}">{$a->sitename}</a>.Si vous ne vous êtes pas inscrit à {$a->sitename}, veuillez simplement ignorer ce message et votre compte sera supprimé automatiquement.
 
                                         Ce message vous est envoyé automatiquement, merci de ne pas y répondre directement.<br>
                                         Si vous avez des questions écrivez-nous à <a href="mailto:contact@solerni.com">contact@solerni.com</a>.<br>
