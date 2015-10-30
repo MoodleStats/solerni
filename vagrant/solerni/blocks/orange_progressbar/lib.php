@@ -114,18 +114,26 @@ function block_orange_progressbar_on_my_page() {
     return $SCRIPT === '/my/index.php';
 }
 
-function simple_orange_progressbar ($course) {
+/**
+ * Get information of the user course progress
+ *
+ * @return bool True when progress data available.
+ * @return number of activities completed.
+ * @return number of total activities on the course.
+ * @return progress in pourcent.
+ */
+function user_course_progress ($course) {
     global $USER, $CFG, $DB;
 
-    $output = "";
     // Guests do not have any progress. Don't show them the bar.
     if (!isloggedin() or isguestuser()) {
-        return $output;
+        return array(false, 0, 0, 0);
     }
 
-    $completion = new completion_info($course);
-    //if ($completion->is_enabled()) {
-
+    // Is user enrolled on this course.
+    $context = context_course::instance($course->id);
+    if (is_enrolled($context)) {
+        $completion = new completion_info($course);
         $activitymonitored = $completion->get_progress_all('u.id = '. $USER->id);
 
         // At first access to the course, the list is not set.
@@ -139,23 +147,13 @@ function simple_orange_progressbar ($course) {
             // Display progress bar.
             $progress = round($completed / $total * 100);
 
-            $output = html_writer::start_tag('div', array('class' => 'progress'));
-            $output .= html_writer::start_tag('div', array('class' => 'progress-bar',
-                                                          'role' => 'progressbar',
-                                                          'aria-valuenow' => $progress,
-                                                          'aria-valuemin' => '0',
-                                                          'aria-valuemax' => '100',
-                                                          'style' => 'width:'.$progress.'%'));
-            if ($progress > 25) {
-                $output .= $progress . ' %';
-            }
-            $output .= html_writer::end_tag('div');
-            if ($progress <= 25) {
-                $output .= $progress . ' %';
-            }
-            $output .= html_writer::end_tag('div');
-            return $output;
-        //} 
-    } 
-    return $output;
+            return array(true, $completed, $total, $progress);
+        } else {
+            // No activity monitored.
+            return array(false, 0, 0, 0);
+        }
+    } else {
+        // No activity monitored.
+        return array(false, 0, 0, 0);
+    }
 }
