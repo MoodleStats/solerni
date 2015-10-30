@@ -180,7 +180,7 @@ class utilities_course {
                         unset($list[$course->id]);
                     }
                 }
-                
+
                 if (isset($list[$course->id])) {
                     $enrolself = $selfenrolment->get_self_enrolment($course);
                     if ($enrolself != null) {
@@ -608,5 +608,15 @@ class utilities_course {
         }
 
         return $url;
+    }
+
+    /**
+     * Very simple function to check if we are inside the frontpage course (id=1)
+     *
+     * @param: $course
+     * @return boolean
+     */
+    public static function is_frontpage_course($course) {
+        return ($course->id == 1);
     }
 }

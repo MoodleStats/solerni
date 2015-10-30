@@ -18,6 +18,7 @@
  * Required : include flexpage library
  */
 require_once($CFG->dirroot.'/course/format/flexpage/locallib.php');
+use local_orange_library\utilities\utilities_course;
 
 $hassidepre = $PAGE->blocks->region_has_content('side-pre', $OUTPUT);
 $hassidepost = $PAGE->blocks->region_has_content('side-post', $OUTPUT);
@@ -68,18 +69,9 @@ echo $OUTPUT->doctype() ?>
     </div>
 
     <div id="page" class="container">
-        <header id="page-header" class="clearfix">
-            <div id="page-navbar" class="clearfix">
-                <nav class="breadcrumb-nav" role="navigation" aria-label="breadcrumb"><?php echo $OUTPUT->navbar(); ?></nav>
-                <div class="breadcrumb-button"><?php echo $OUTPUT->page_heading_button(); ?></div>
-                <?php if ($knownregionpre || $knownregionpost) : ?>
-                    <div class="breadcrumb-button"> <?php echo $OUTPUT->content_zoom(); ?></div>
-                <?php endif; ?>
-            </div>
-            <div id="course-header">
-                <?php echo $OUTPUT->course_header(); ?>
-            </div>
-        </header>
+        <?php if(!utilities_course::is_frontpage_course($COURSE)) {
+            require($CFG->partialsdir . '/breadcrumb.php');
+        } ?>
         <div id="page-content" class="row">
             <div id="region-main" class="<?php echo $regions['content']; ?>">
                 <?php
@@ -92,6 +84,7 @@ echo $OUTPUT->doctype() ?>
                 echo $OUTPUT->course_content_footer();
                 ?>
             </div>
+            <!-- sides -->
             <?php
             if ($knownregionpre) {
                 echo $OUTPUT->blocks('side-pre', $regions['pre']);
@@ -102,6 +95,7 @@ echo $OUTPUT->doctype() ?>
             ?>
         </div>
     </div>
+    <!-- footer -->
     <div class="u-inverse">
         <?php require($CFG->partialsdir . '/platform_social_bar.php'); ?>
     </div>
