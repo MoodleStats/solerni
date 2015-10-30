@@ -63,36 +63,39 @@ class block_orange_progressbar_renderer extends plugin_renderer_base {
                         $output .= html_writer::tag('h4', $detail->modnametext);
                         $currentmodule = $detail->modname;
                     }
-                    $output .= html_writer::start_tag('span', array('class' => 'col-md-8'));
-                    if ($detail->modname == 'page') {
-                        $output .= $detail->name;
-                    } else {
-                        $output .= HTML_WRITER::link($detail->url, $detail->name);
-                    }
-                    $output .= html_writer::end_tag('span');
-                    $output .= html_writer::start_tag('span', array('class' => 'col-md-2'));
-
-                    // For quizz we have to display the number of attemps.
-                    if ($detail->modname == 'quiz') {
-                        $output .= $detail->quizuserattempts . ' ' . get_string('attempts', 'quiz');
-                        if ($detail->quizmaxattempts != 0) {
-                            $output .= "/" . $detail->quizmaxattempts;
+                    
+                    $output .= html_writer::start_tag('div', array('class' => 'col-md-12'));
+                        $output .= html_writer::start_tag('span', array('class' => 'col-md-8'));
+                        if ($detail->modname == 'page') {
+                            $output .= $detail->name;
+                        } else {
+                            $output .= HTML_WRITER::link($detail->url, $detail->name);
                         }
-                    }
+                        $output .= html_writer::end_tag('span');
+                        $output .= html_writer::start_tag('span', array('class' => 'col-md-2'));
 
-                    // For page we display the total of pages.
-                    if ($detail->modname == 'page') {
-                        $output .= "$detail->pagescompleted/$detail->pages";
-                    }
-                    $output .= html_writer::end_tag('span');
+                        // For quizz we have to display the number of attemps.
+                        if ($detail->modname == 'quiz') {
+                            $output .= $detail->quizuserattempts . ' ' . get_string('attempts', 'quiz');
+                            if ($detail->quizmaxattempts != 0) {
+                                $output .= "/" . $detail->quizmaxattempts;
+                            }
+                        }
 
-                    $output .= html_writer::start_tag('span', array('class' => 'col-md-2'));
-                    if ($detail->completionstate) {
-                        $output .= '<span class="glyphicon glyphicon-ok" style="color:green"></span>';
-                    } else {
-                        $output .= '<span class="glyphicon glyphicon-remove" style="color:red"></span>';
-                    }
-                    $output .= html_writer::end_tag('span');
+                        // For page we display the total of pages.
+                        if ($detail->modname == 'page') {
+                            $output .= "$detail->pagescompleted/$detail->pages";
+                        }
+                        $output .= html_writer::end_tag('span');
+
+                        $output .= html_writer::start_tag('span', array('class' => 'col-md-2'));
+                        if ($detail->completionstate) {
+                            $output .= '<span class="glyphicon glyphicon-ok" style="color:green"></span>';
+                        } else {
+                            $output .= '<span class="glyphicon glyphicon-remove" style="color:red"></span>';
+                        }
+                        $output .= html_writer::end_tag('span');
+                    $output .= html_writer::end_tag('div');
                 }
             }
         }
