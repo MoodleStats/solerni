@@ -316,17 +316,19 @@ div[role="main"] .list-social {
 /*
  * Blocks Moodle
  */
-.block_navigation .block_tree .tree_item {
-    padding-top:    @padding-small-vertical;
-    padding-bottom: @padding-small-vertical;
+.block .block_tree .tree_item {
+    padding-top:    @s-small-xs-margin;
+    padding-bottom: @s-small-xs-margin;
     border-bottom: 1px solid @panel-default-border;
     width : 100%; 
 }
-.block_navigation .block_tree .tree_item.branch {
-    background-position: 100% 0;
+.block .block_tree .tree_item.branch {
+    background-position: 100% 50%;
+    padding-left: @s-small-xs-margin;
+    padding-right: @s-double-xs-margin;
 }
-.block_navigation .block_tree li.item_with_icon{
+.block .content .block_tree li.item_with_icon .tree_item {
     img {
-        display:none;
+        top: 12px;
     }
 }
