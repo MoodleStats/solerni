@@ -30,7 +30,7 @@ moosh config-set dbtable mdl_logstore_standard_log logstore_database
 echo ${CUSTOMER_PIWIK_URL}
 moosh config-set siteurl ${CUSTOMER_PIWIK_URL} local_analytics
 moosh config-set location footer local_analytics
-moosh config-set trackadmin 1 local_analytics 
+moosh config-set trackadmin 1 local_analytics
 
 # First install : import Solerni roles
 # Attention : order is important to keep roles assignments
@@ -107,7 +107,7 @@ moosh enrol-manage disable guest
 moosh role-configset profileroles solerni_apprenant,solerni_power_apprenant,solerni_animateur,solerni_teacher
 
 # Modify Document directory - Plugin Local/Static Pages (#us_71)
-moosh config-set documentdirectory ${CUSTOMER_STATIC_DIRECTORY} local_staticpage            
+moosh config-set documentdirectory ${CUSTOMER_STATIC_DIRECTORY} local_staticpage
 
 # Path of geoipfile for geolocation (#us_247)
 moosh config-set geoipfile ${GEOIP_FILE_PATH}
@@ -135,4 +135,7 @@ moosh config-set coursesperpage 5
 
 # MNet (US 326)
 moosh config-set mnet_dispatcher_mode strict
-moosh peer-manage mnet on
+moosh config-set peer-manage mnet on
+
+# oauth2: do not display buttons on login page
+moosh config-set oauth2displaybuttons 0 'auth/googleoauth2'

@@ -64,16 +64,18 @@ echo $OUTPUT->doctype() ?>
     <div class="u-inverse">
         <?php require($CFG->partialsdir . '/skiplinks.php'); ?>
     </div>
+    <!-- header -->
     <div class="u-inverse">
         <?php require($CFG->partialsdir . '/header_solerni.php'); ?>
     </div>
-
+    <!-- content from template -->
     <div id="page" class="container">
         <?php if(!utilities_course::is_frontpage_course($COURSE)) {
             require($CFG->partialsdir . '/breadcrumb.php');
         } ?>
         <div id="page-content" class="row">
             <div id="region-main" class="<?php echo $regions['content']; ?>">
+                <!-- content from plugin/mod/activity/local/page -->
                 <?php
                 echo $OUTPUT->course_content_header();
                 echo $OUTPUT->main_content();
@@ -84,7 +86,6 @@ echo $OUTPUT->doctype() ?>
                 echo $OUTPUT->course_content_footer();
                 ?>
             </div>
-            <!-- sides -->
             <?php
             if ($knownregionpre) {
                 echo $OUTPUT->blocks('side-pre', $regions['pre']);

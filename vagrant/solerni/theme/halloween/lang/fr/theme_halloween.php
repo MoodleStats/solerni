@@ -209,6 +209,12 @@ $string['catalognresults']          = "Résultats trouvés";
 $string['catalog0result']           = "Pas de résultat";
 $string['catalog1result']           = "Résultat trouvé";
 
+// Login page.
+$string['access_public_login']      = 'Je me connecte';
+$string['not_registered_yet']       = 'Pas encore de compte ?';
+$string['i_do_register']            = 'Je m\'inscris';
+$string['access_private_login']     = 'Accédez à votre espace privé d\'apprentissage';
+
 // Mooc component.
 $string['courseproposedby']         = "Proposé par";
 $string['coursefindoutmore']        = "En savoir +";
@@ -222,4 +228,4 @@ $string['ifreelyregister']          = "Je m'inscris gratuitement";
 $string['seecatalog']               = "Voir le catalogue";
 
 // Block "My Badge" on dashboard.
-$string['lastbadge']                = 'Dernier badge obtenu:';
+$string['lastbadge']                = 'Dernier badge obtenu&nbsp;:';

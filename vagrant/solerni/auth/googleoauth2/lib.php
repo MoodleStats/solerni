@@ -27,13 +27,14 @@ defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot . '/auth/googleoauth2/vendor/autoload.php');
 
 function googleoauth2_html_button($authurl, $providerdisplaystyle, $provider) {
-        return '<a class="singinprovider" href="' . $authurl . '" style="' . $providerdisplaystyle .'">
-                  <div class="button-fill ' . $provider->sskstyle . '">
+    return '<a class="singinprovider" href="' . $authurl . '" style="' . $providerdisplaystyle .'">
+                <div class="button-fill ' . $provider->sskstyle . '">
                     <div class="button-text">' . $provider->readablename . '</div>
                     <div class="button-inside">
-                      <div class="inside-text">' . get_string('login', 'auth_googleoauth2') . '</div>
+                        <div class="inside-text">' . get_string('login', 'auth_googleoauth2') . '</div>
                     </div>
-                  </div></a>';
+                </div>
+            </a>';
 }
 
 /**
@@ -118,7 +119,7 @@ function auth_googleoauth2_display_buttons($echo = true) {
 /**
  * The very ugly code to render the html buttons.
  * TODO remove ugly html like center-tag and inline styles, implement a moodle renderer
- * @return string: returns the html for buttons and some JavaScript 
+ * @return string: returns the html for buttons and some JavaScript
  */
 function auth_googleoauth2_render_buttons() {
     global $CFG;
@@ -163,7 +164,7 @@ function auth_googleoauth2_render_buttons() {
     }
 
     if (!$allauthproviders and !empty($authprovider) and $providerscount > 1) {
-        $html .= '<br /><br />
+        $html .= '
            <div class="moreproviderlink">
                 <a href="'. $CFG->wwwroot . (!empty($CFG->alternateloginurl) ? $CFG->alternateloginurl : '/login/index.php')
                      . '?allauthproviders=true' .'" onclick="changecss(\\\'singinprovider\\\',\\\'display\\\',\\\'inline-block\\\');">
@@ -171,6 +172,8 @@ function auth_googleoauth2_render_buttons() {
                 </a>
             </div>';
     }
+
+    $html .= '</div>';
 
     return $html;
 }

@@ -209,6 +209,12 @@ $string['catalognresults']          = "Results found";
 $string['catalog0result']           = "No result";
 $string['catalog1result']           = "Result found";
 
+// Login page.
+$string['access_public_login']      = 'Log in';
+$string['not_registered_yet']       = 'No Solerni account yet?';
+$string['i_do_register']            = 'I do register';
+$string['access_private_login']     = 'Enter your private learning area';
+
 // Mooc component.
 $string['courseproposedby']         = "Proposed by";
 $string['coursefindoutmore']        = "Find out more";

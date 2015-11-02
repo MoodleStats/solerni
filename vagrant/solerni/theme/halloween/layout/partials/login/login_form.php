@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
+// This file is part of The Orange Halloween Moodle Theme
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,24 +18,44 @@
 the ability to display instructions on the login page. We removed it but we could
 use it if necessary, hence this comment */
 
-if (!empty($CFG->loginpasswordautocomplete)) {
-    $autocomplete = 'autocomplete="off"';
-} else {
-    $autocomplete = '';
-}
-
-if (empty($CFG->authloginviaemail)) {
-    $strusername = get_string('username');
-} else {
-    $strusername = get_string('usernameemail');
-}
+$autocomplete =  (!empty($CFG->loginpasswordautocomplete)) ? 'autocomplete="off"' : '';
+$strusername = (empty($CFG->authloginviaemail)) ? get_string('username') : get_string('usernameemail') ;
+// The following code is required by auth_googleoauth2.
+$PAGE->requires->js_init_code('oauth2cssurl = "' . $CFG->httpswwwroot .
+    '/auth/googleoauth2/socialsharekit/dist/css/social-share-kit.css"');
+$PAGE->requires->js_init_code('oauth2cssurl2 = "' . $CFG->httpswwwroot .
+    '/auth/googleoauth2/style.css"');
+$PAGE->requires->js_init_code("buttonsCodeOauth2 = '';"); // this appends nothing, which is the purpose.
+$PAGE->requires->js(new moodle_url($CFG->wwwroot . "/auth/googleoauth2/script.js"));
 ?>
 
-<div class="loginbox clearfix <?php echo $columns ?>">
+<div class="row">
+    <div class="page-header text-center">
+    <?php // Include specific header depending on plateform status
+        require(($CFG->solerni_isprivate) ? 'login_header_private.php' : 'login_header_public.php');
+    ?>
+    </div>
+</div>
+
+<?php if (!$CFG->solerni_isprivate) : ?>
+<!-- authentication plugin row -->
+<div class="row oauth2">
+    <?php
+    require_once($CFG->dirroot . '/auth/googleoauth2/lib.php');
+    auth_googleoauth2_display_buttons();
+    ?>
+</div>
+<?php endif; ?>
+
+<div class="loginbox row">
   <div class="loginpanel">
 <?php
   if (($CFG->registerauth == 'email') || !empty($CFG->registerauth)) { ?>
-      <div class="skiplinks"><a class="skip" href="signup.php"><?php print_string("tocreatenewaccount"); ?></a></div>
+      <div class="skiplinks">
+          <a class="skip" href="signup.php">
+            <?php print_string("tocreatenewaccount"); ?>
+          </a>
+      </div>
 <?php
   } ?>
     <h2><?php print_string("login") ?></h2>
