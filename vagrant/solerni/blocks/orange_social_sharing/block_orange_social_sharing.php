@@ -127,8 +127,7 @@ class block_orange_social_sharing extends block_base{
      */
     public function applicable_formats() {
         return array(
-            'course-view-flexpage' => true,
-            'mod-descriptionpage' => true);
+            'mod-descriptionpage-view' => true);
     }
 }
 

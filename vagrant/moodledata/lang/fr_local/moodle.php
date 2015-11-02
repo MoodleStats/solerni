@@ -40,7 +40,7 @@ $string['emailconfirmation'] = '<meta http-equiv="Content-Type" content="text/ht
                 <table border="0" width="620" cellpadding="0" cellspacing="0">
                     <tbody><tr>
                         <td align="left">
-                            <a href="https://solerni.org"><img border="0" src="http://laborange.fr/sites/default/files/logo-beta.png" alt="Solerni"></a>
+                            <a href="'.$CFG->wwwroot.'"><img border="0" src="http://laborange.fr/sites/default/files/logo-beta.png" alt="Solerni"></a>
                         </td>
                     </tr>
                 </tbody></table>
@@ -69,9 +69,9 @@ Si le bouton ne fonctionne pas, copiez-collez le lien suivant dans la barre d’
 <br>
 
 <br>
-<strong>L’équipe de <a href="{$a->sitename}">Solerni.org</a></strong><br>
+<strong>L’équipe de <a href="'.$CFG->wwwroot.'">{$a->sitename}</a></strong><br>
 Apprendre c’est toujours mieux ensemble
-<a href="{$a->sitename}">Solerni.org</a><br>
+<a href="'.$CFG->wwwroot.'">{$a->sitename}</a><br>
 
 
                                     </td>
@@ -98,7 +98,7 @@ Apprendre c’est toujours mieux ensemble
                                 <tr bgcolor="#f8f7f7">
                                     <td>
                                         <font size="2">
-                                        Vous recevez cet e-mail car votre adresse e-mail a été utilisée pour votre enregistrement sur notre site <a href="https://solerni.org">Solerni.org</a>.Si vous ne vous êtes pas inscrit à Solerni, veuillez simplement ignorer ce message et votre compte sera supprimé automatiquement.
+                                        Vous recevez cet e-mail car votre adresse e-mail a été utilisée pour votre enregistrement sur notre site <a href="'.$CFG->wwwroot.'">{$a->sitename}</a>.Si vous ne vous êtes pas inscrit à Solerni, veuillez simplement ignorer ce message et votre compte sera supprimé automatiquement.
 
                                         Ce message vous est envoyé automatiquement, merci de ne pas y répondre directement.<br>
                                         Si vous avez des questions écrivez-nous à <a href="mailto:contact@solerni.com">contact@solerni.com</a>.<br>
@@ -152,6 +152,27 @@ $string['usernameemailmatch'] = 'Le nom d\'utilisateur et l\'adresse email donn�
 $string['usernameoremail'] = 'Veuillez indiquer soit le nom d\'utilisateur, soit l\'adresse email';
 $string['newusernewpasswoardsubj'] = 'Création de votre compte utilisateur';
 $string['newusernewpasswoardtext'] = 'Bonjour {$a->firstname},
+
+Votre compte utilisateur a été créé sur « {$a->sitename} », votre nouvelle plateforme d\'apprentissage collaborative d\'entreprise, sur laquelle vous êtes  invité(e)  à suivre une ou plusieurs formations en ligne.
+
+Vos identifiants de connexion sont :
+   nom d\'utilisateur : {$a->username}
+   mot de passe       : {$a->newpassword}
+
+Attention : ce mot de passe est provisoire, vous devrez  le changer à votre 1ere connexion.
+
+Connectez-vous dès maintenant  sur {$a->sitename}  en cliquant sur le lien suivant :
+   {$a->link}
+afin de personnaliser votre mot de passe.
+
+Si le lien ne fonctionne pas, copiez-collez le lien dans la barre d\'adresse de votre navigateur.
+
+A très bientôt sur {$a->sitename}
+
+Vous recevez cet e-mail car votre entreprise a souhaité vous inscrire automatiquement sur notre plateforme. Ce message vous est envoyé automatiquement, merci de ne pas y répondre directement.
+Si vous avez des questions écrivez-nous à contact@solerni.com.
+Afin de bien recevoir nos e-mails, ajoutez cette adresse noreply@solerni.com  dans votre carnet d\'adresses.';
+$string['newusernewpasswordhtml'] = 'Bonjour {$a->firstname},
 
 Votre compte utilisateur a été créé sur « {$a->sitename} », votre nouvelle plateforme d\'apprentissage collaborative d\'entreprise, sur laquelle vous êtes  invité(e)  à suivre une ou plusieurs formations en ligne.
 

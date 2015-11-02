@@ -18,13 +18,12 @@
  * Required : include flexpage library
  */
 require_once($CFG->dirroot.'/course/format/flexpage/locallib.php');
+use local_orange_library\utilities\utilities_course;
 
 $hassidepre = $PAGE->blocks->region_has_content('side-pre', $OUTPUT);
 $hassidepost = $PAGE->blocks->region_has_content('side-post', $OUTPUT);
-
 $knownregionpre = $PAGE->blocks->is_known_region('side-pre');
 $knownregionpost = $PAGE->blocks->is_known_region('side-post');
-
 $regions = theme_halloween_bootstrap_grid($hassidepre, $hassidepost);
 
 // Always show block regions when editing so blocks can
@@ -59,75 +58,53 @@ echo $OUTPUT->doctype() ?>
 </head>
 
 <body <?php echo $OUTPUT->body_attributes($setzoom); ?>>
-
-<?php echo $OUTPUT->standard_top_of_body_html() ?>
-
-<nav role="navigation" class="navbar navbar-default">
-    <div class="container">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#moodle-navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="<?php echo $CFG->wwwroot;?>"><?php echo $SITE->shortname; ?></a>
+    <script>
+        document.body.className += ' jsenabled';
+    </script>
+    <div class="u-inverse">
+        <?php require($CFG->partialsdir . '/skiplinks.php'); ?>
+    </div>
+    <div class="u-inverse">
+        <?php require($CFG->partialsdir . '/header_solerni.php'); ?>
     </div>
 
-    <div id="moodle-navbar" class="navbar-collapse collapse">
-        <?php echo $OUTPUT->custom_menu(); ?>
-        <?php echo $OUTPUT->user_menu(); ?>
-        <ul class="nav pull-right">
-            <li><?php echo $OUTPUT->page_heading_menu(); ?></li>
-        </ul>
-    </div>
-    </div>
-</nav>
-<header class="moodleheader">
-    <div class="container">
-    <a href="<?php echo $CFG->wwwroot ?>" class="logo"></a>
-    <?php echo $OUTPUT->page_heading(); ?>
-    </div>
-</header>
-
-<div id="page" class="container">
-    <header id="page-header" class="clearfix">
-        <div id="page-navbar" class="clearfix">
-            <nav class="breadcrumb-nav" role="navigation" aria-label="breadcrumb"><?php echo $OUTPUT->navbar(); ?></nav>
-            <div class="breadcrumb-button"><?php echo $OUTPUT->page_heading_button(); ?></div>
-            <?php if ($knownregionpre || $knownregionpost) : ?>
-                <div class="breadcrumb-button"> <?php echo $OUTPUT->content_zoom(); ?></div>
-            <?php endif; ?>
-        </div>
-
-        <div id="course-header">
-            <?php echo $OUTPUT->course_header(); ?>
-        </div>
-    </header>
-
-    <div id="page-content" class="row">
-        <div id="region-main" class="<?php echo $regions['content']; ?>">
+    <div id="page" class="container">
+        <?php if(!utilities_course::is_frontpage_course($COURSE)) {
+            require($CFG->partialsdir . '/breadcrumb.php');
+        } ?>
+        <div id="page-content" class="row">
+            <div id="region-main" class="<?php echo $regions['content']; ?>">
+                <?php
+                echo $OUTPUT->course_content_header();
+                echo $OUTPUT->main_content();
+                // Flexpage
+                if ($PAGE->blocks->region_has_content('main', $OUTPUT)) {
+                    echo $OUTPUT->blocks('main');
+                }
+                echo $OUTPUT->course_content_footer();
+                ?>
+            </div>
+            <!-- sides -->
             <?php
-            echo $OUTPUT->course_content_header();
-            echo $OUTPUT->main_content();
-            echo $OUTPUT->blocks('main');
-            echo $OUTPUT->course_content_footer();
+            if ($knownregionpre) {
+                echo $OUTPUT->blocks('side-pre', $regions['pre']);
+            }
+            if ($knownregionpost) {
+                echo $OUTPUT->blocks('side-post', $regions['post']);
+            }
             ?>
         </div>
-        <?php
-        if ($knownregionpre) {
-            echo $OUTPUT->blocks('side-pre', $regions['pre']);
-        }
-        if ($knownregionpost) {
-            echo $OUTPUT->blocks('side-post', $regions['post']);
-        }
-        ?>
     </div>
-
-    <?php require($CFG->partialsdir . '/footer.php'); ?>
-
+    <!-- footer -->
+    <div class="u-inverse">
+        <?php require($CFG->partialsdir . '/platform_social_bar.php'); ?>
+    </div>
+    <div class="row u-inverse">
+        <div class="col-xs-12 fullwidth-line"></div>
+    </div>
+    <div class="u-inverse">
+        <?php require($CFG->partialsdir . '/footer_solerni.php'); ?>
+    </div>
     <?php echo $OUTPUT->standard_end_of_body_html() ?>
-
-</div>
 </body>
 </html>

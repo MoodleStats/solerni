@@ -27,7 +27,9 @@ $(document).ready( function() {
        var vars = url.split("&");
        for (var i=0;i<vars.length;i++) {
                var pair = vars[i].split("=");
-               if(pair[0] == 'page'){return pair[1];}
+               if (pair[0] === 'page') {
+                   return pair[1];
+               }
        }
        return false;
     }
@@ -61,7 +63,6 @@ $(document).ready( function() {
             checkboxes.eq(0).prop('checked', true);
             uncheck_all_but_first(checkboxes);
         }
-
         $('.js-catalog-filters').submit();
     });
 

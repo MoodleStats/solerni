@@ -178,9 +178,16 @@ $string['cataloguedesc']            = 'URL of the catalogue page (Header)';
 $string['search']                   = 'Search';
 $string['register']                 = 'Registration';
 $string['login']                    = 'Login';
+$string['logout']                   = 'Log out';
 $string['hello']                    = 'Hello';
 $string['dashboard']                = 'Dashboard';
+$string['user_menu_dashboard']      = 'My dashboard';
+$string['user_menu_profile']        = 'My profile';
+$string['user_menu_email']          = 'My emails';
+$string['user_menu_logout']         = 'Log out';
 $string['administration']           = 'Administration';
+$string['skip_to_main']             = 'To main content';
+$string['skip_to_nav']              = 'To page navigation';
 
 // Search filters.
 $string['catalog_page_title']       = 'Catalog';
@@ -213,22 +220,6 @@ $string['coursenobadge']            = "No badges";
 // Frontpage frontend.
 $string['ifreelyregister']          = "I freely register";
 $string['seecatalog']               = "See the catalogue";
-
-// Login settings.
-$string['logintitle']               = "I am logging in with my e-mail *";
-$string['registertitle']            = "I log in";
-$string['rememberme']               = "Remember me";
-$string['loginbutton']              = "login";
-$string['registerbutton']              = "register";
-$string['passwordforgotten']        = "I have forgotten my password";
-$string['fieldsrequired']           = "* All fields required";
-$string['loginsteps']             = "Do you have a Solerni account?<p>
-Create an account from your e-mail or register with Facebook";
-$string['register']                 = "I register";
-$string['registerurl']              = "Register";
-$string['registerlink']             = "signup.php";
-$string['login']                    = "login";
-$string['password']                 = "password";
 
 // Block "My Badge" on dashboard.
 $string['lastbadge']                = 'Last badge obtained:';

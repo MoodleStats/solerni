@@ -21,6 +21,7 @@
  * @copyright   2015 Orange
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+use local_orange_library\utilities\utilities_object;
 
 if ( $courseinfos ) :
     $customerurl = new moodle_url('/course/index.php', array('categoryid' => $course->category));
@@ -40,6 +41,21 @@ if ( $courseinfos ) :
                                  array('w' => 35, 'h' => 35, 'scale' => true), $customer->fileimg); ?>">
                 </a>
             <?php endif; ?>
+            <?php if ($progressstatus) : ?>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="<?php echo $progress; ?>" 
+                     aria-valuemin="0" aria-valuemax="100" style="width:<?php echo $progress; ?>%">
+                    <?php if ($progress > 25) {
+                        echo $progress . ' %';
+                    }
+                    ?>
+                </div>
+                <?php if ($progress <= 25) {
+                    echo $progress . ' %';
+                }
+                ?>
+            </div>
+            <?php endif; ?>
         </div>
         <div class="slrn-coursebox__column slrn-coursebox__column--description">
             <h3 class="slrn-coursebox__coursename"><?php echo $coursename; ?></h3>
@@ -55,7 +71,7 @@ if ( $courseinfos ) :
             </span>
             <div class="slrn-coursebox__summary">
                 <?php // @todo adapt length depending on viewport width ?
-                echo $utilities->trim_text( $chelper->get_course_formatted_summary($course,
+                echo utilities_object::trim_text( $chelper->get_course_formatted_summary($course,
                             array('overflowdiv' => false, 'noclean' => true, 'para' => false)), 155); ?>
                 <a class="link-secondary" href="<?php echo $utilitiescourse->get_description_page_url($course); ?>">
                     <?php echo get_string('coursefindoutmore', 'theme_halloween'); ?>

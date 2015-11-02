@@ -60,7 +60,7 @@ select.singleselect {
     width: auto;
     max-width: 300px;
     display: inline;
-    margin: 0 0 5px 0;
+    margin: 0 0 @padding-small-vertical 0;
 }
 
 // Moodle uses some margins, Bootstrap others : mixing both
@@ -105,7 +105,7 @@ a.focus {
         text-align:     center;
 
         @media (min-width:  @screen-md-min) {
-            margin-bottom:  @s-triple-md-margin;
+            margin-bottom:  @s-double-md-margin;
             text-align:     left;
         }
     }
@@ -134,6 +134,14 @@ a.focus {
         margin-left:    -@s-double-xs-margin;    // Apparently removing left padding
         margin-top:     -@s-small-xs-margin;    // Apparently removing top padding
     }
+
+.footer {
+    margin-bottom: @s-triple-xs-margin;
+
+    @media (min-width:  @screen-md-min) {
+        margin-bottom: @s-triple-md-margin;
+    }
+}
 
  /*
   * Social class
@@ -176,9 +184,10 @@ div[role="main"] .list-social {
   * Dropdowns
   * */
 
- div[role="main"] button + .dropdown-menu {
+ div[role="main"] button + .dropdown-menu,
+ button + .dropdown-menu {
      padding:       0;
-     margin-top:    -2px;   // Same amount as the border width
+     margin-top:    -1px;
  }
 
  .dropdown .btn {
@@ -186,8 +195,9 @@ div[role="main"] .list-social {
  }
 
  .dropdown-menu > li > a {
-     padding:       @s-double-xs-margin @s-small-xs-margin;
-     line-height:   1;
+     padding:           @s-double-xs-margin @s-small-xs-margin;
+     line-height:       1;
+     text-decoration:   none;
 
     @media (min-width:  @screen-xs-min) {
         padding: (@s-medium-md-margin / 2) @s-medium-md-margin;
@@ -195,6 +205,9 @@ div[role="main"] .list-social {
 
  }
 
+ .header-dropdown .dropdown-menu a {
+     font-weight: bold;
+ }
 
 /*
  * Line
@@ -228,18 +241,26 @@ div[role="main"] .list-social {
         margin-bottom: 0;
     }
 
+/*
+ * mediagallery icons (US #197 US #210)
+ */
+.path-mod-mediagallery .gallery_list_item .controls,
+.path-mod-mediagallery .item .controls {
+    clear:          both;
+    margin-bottom:  3px;
+}
 
 /*
- *  Badges
+ *  Badges: use variables instead
  */
 
-.orange-course-name-logo{
-    position:relative;
-    right: 0px;
-    border-bottom : 1px solid #000; 
-    padding: 5px 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+.orange-course-name-logo {
+    position:       relative;
+    right:          0px;
+    border-bottom : 1px solid #000;
+    padding:        @padding-small-vertical 10px;
+    padding-top:    @padding-small-vertical;
+    padding-bottom: @padding-small-vertical;
 }
 
 .orange-course-name {
@@ -247,13 +268,65 @@ div[role="main"] .list-social {
 }
 
 .orange-course-logo {
-    position:absolute;
-    top:0;
-    right:0;
+    position:   absolute;
+    top:        0;
+    right:      0;
 }
 
-.orange-badges-list{
-    padding: 5px 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+.orange-badges-list {
+    padding:        @padding-small-vertical 10px;
+    padding-top:    @padding-small-vertical;
+    padding-bottom: @padding-small-vertical;
+}
+
+/*
+ * Notification email in header
+ */
+.header-email-icon {
+    position: relative;
+}
+
+.email-notification {
+    position:           absolute;
+    top:                0;
+    right:              0;
+    background-color:   @brand-secondary;
+    color:              @brand-tertiary;
+    width:              @padding-base-horizontal;
+    height:             @padding-base-horizontal;
+    font-size:          @font-size-base;
+    line-height:        @padding-base-horizontal;
+    border-radius:      50%;
+    text-indent:        0;
+    text-align:         center;
+
+}
+
+/*
+ * Page Moodle
+ */
+#page {
+    margin-top: @s-double-xs-margin;
+
+    @media (min-width: @screen-md-min) {
+        margin-bottom: @s-double-md-margin;
+    }
+}
+
+/*
+ * Blocks Moodle
+ */
+.block_navigation .block_tree .tree_item {
+    padding-top:    @padding-small-vertical;
+    padding-bottom: @padding-small-vertical;
+    border-bottom: 1px solid @panel-default-border;
+    width : 100%; 
+}
+.block_navigation .block_tree .tree_item.branch {
+    background-position: 100% 0;
+}
+.block_navigation .block_tree li.item_with_icon{
+    img {
+        display:none;
+    }
 }

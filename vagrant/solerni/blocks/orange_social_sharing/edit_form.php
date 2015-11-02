@@ -23,6 +23,7 @@
 
 class block_orange_social_sharing_edit_form extends block_edit_form {
 
+
     protected function specific_definition($mform) {
 
         // Section header title according to language file.
@@ -79,5 +80,4 @@ class block_orange_social_sharing_edit_form extends block_edit_form {
         $mform->setType('enabled', PARAM_BOOL);
         $mform->setDefault('config_googleplus', 1);
     }
-
 }

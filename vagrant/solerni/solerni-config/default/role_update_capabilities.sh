@@ -418,3 +418,10 @@ moosh role-update-capability solerni_course_creator moodle/course:manageactiviti
 
 # Update course creator role : add ressource on home page
 moosh role-update-capability solerni_course_creator moodle/course:activityvisibility allow 1
+
+# Add capabilities for progress bar (#us_99)
+moosh role-update-capability solerni_utilisateur block/orange_progressbar:overview allow 1
+
+# Add capabilities for calendar (#us_262, #us_266)
+moosh role-update-capability solerni_utilisateur moodle/calendar:manageownentries allow 1
+moosh role-update-capability solerni_course_creator moodle/calendar:manageentries allow 1

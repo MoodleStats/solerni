@@ -209,7 +209,6 @@ class extended_course_object {
      * @return object $this->extendedcourse
      */
     private function set_extended_course ($extendedcourseflexpagevalue) {
-        $utilities = new utilities_object();
 
         switch ($extendedcourseflexpagevalue->name) {
             case 'coursereplay':
@@ -235,7 +234,7 @@ class extended_course_object {
                 $this->enddate = $extendedcourseflexpagevalue->value;
                 break;
             case 'courseworkingtime':
-                    $this->workingtime = $utilities->duration_to_time($extendedcourseflexpagevalue->value);
+                    $this->workingtime = utilities_object::duration_to_time($extendedcourseflexpagevalue->value);
                 break;
 
             case 'courselanguage':
@@ -273,7 +272,7 @@ class extended_course_object {
                 $this->prerequesites = $extendedcourseflexpagevalue->value;
                 break;
             case 'courseduration':
-                $this->duration = $utilities->duration_to_time($extendedcourseflexpagevalue->value);
+                $this->duration =  utilities_object::duration_to_time($extendedcourseflexpagevalue->value);
                 break;
             case 'courseregistration':
                 $this->registration = $extendedcourseflexpagevalue->value;

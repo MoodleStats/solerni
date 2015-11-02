@@ -2,6 +2,10 @@
     text-align: center;
 }
 
+.block_orange_progressbar .progress {
+    text-align: center;
+}
+
 .block_orange_progressbar .overviewButton {
     margin: 10px;
 }

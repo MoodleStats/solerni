@@ -34,8 +34,26 @@ class utilities_user {
         }
     }
 
-    public function is_user_course_admin($user, $course) {
+    static function is_user_course_admin($user, $course) {
         // check user right inside the course
+    }
+
+    /**
+     * Check for user new mail. Return the number of unread mail (int) or false.
+     * Use local_mail plugin.
+     *
+     * @param class $user
+     * @return int || boolean
+     */
+    static function user_have_new_mail($user) {
+        if (class_exists('local_mail_message')) {
+            $count = \local_mail_message::count_menu($user->id);
+            if (property_exists($count, 'inbox')) {
+                return $count->inbox;
+            }
+        }
+
+        return false;
     }
 
 }

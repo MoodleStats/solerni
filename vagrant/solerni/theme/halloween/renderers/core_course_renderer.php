@@ -30,6 +30,7 @@ use local_orange_library\utilities\utilities_course;
 use local_orange_library\subscription_button\subscription_button_object;
 
 require_once($CFG->dirroot . '/course/renderer.php');
+require_once($CFG->dirroot . '/blocks/orange_progressbar/lib.php');
 
 class theme_halloween_core_course_renderer extends core_course_renderer {
 
@@ -394,6 +395,8 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
                     $nametag = 'div';
             }
 
+            // Get information on user progress in course
+            list ($progressstatus, $progresscompleteted, $progresstotal, $progress) = user_course_progress ($course);
             // Generate code with buffering to include partial.
             ob_start();
             include( $CFG->partialsdir . '/course_component.php');
