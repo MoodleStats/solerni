@@ -17,5 +17,4 @@
 ?>
 <nav class="container skip-links">
     <a class="" href="#maincontent"><?php echo get_string('skip_to_main', 'theme_halloween'); ?></a>
-    <a class="" href="#inst4"><?php echo get_string('skip_to_nav', 'theme_halloween'); ?></a>
 </nav>
