@@ -74,7 +74,7 @@ class theme_utilities {
      */
     public static function get_platform_faq_url() {
         global $PAGE;
-        if ($this->is_theme_settings_exists_and_nonempty(array('footerlistscolumn2anchor1', 'footerlistscolumn2link1'), 'all')) {
+        if (self::is_theme_settings_exists_and_nonempty(array('footerlistscolumn2anchor1', 'footerlistscolumn2link1'), 'all')) {
             return $PAGE->theme->settings->footerlistscolumn2link1;
         }
 
