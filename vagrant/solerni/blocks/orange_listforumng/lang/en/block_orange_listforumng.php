@@ -16,8 +16,7 @@
 
 /**
  * Lang strings.
- * @package mod
- * @subpackage listforumng
+ * @package block_orange_listforumng
  * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -25,20 +24,18 @@
 
 $string['modulename'] = 'List ForumNG';
 $string['pluginname'] = 'List ForumNG';
+$string['newlistforumnglock'] = '(New block List of Forums)';
+
 $string['modulenameplural'] = 'Lists of ForumNG';
 $string['pluginadministration'] = 'Administration list of forums';
 $string['listforumng:view'] = 'View list of forums';
-$string['listforumng:addinstance'] = 'Add a new list of forums';
-
-$string['listforumngintro'] = 'Description';
 
 $string['defaultname'] = 'List of all forums';
 
 $string['headtablename'] = 'Title';
 $string['headtablenbposts'] = 'Post';
 $string['headtablelastpost'] = 'Last post';
+$string['created'] = 'Created the ';
 
-$string['subpartno'] = "Name subpart {no}";
-$string['affectforumsprincipal'] = "Manage Forum assignment in the main list";
-$string['affectforums'] = 'Manage Forum assignment in the part {$a}';
 $string['assignforum'] = "Forums assignment";
+$string['no_forumng_affected'] = "No forum is assigned to this list.";

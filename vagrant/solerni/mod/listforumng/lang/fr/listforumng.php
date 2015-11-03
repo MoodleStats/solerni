@@ -34,6 +34,11 @@ $string['listforumngintro'] = 'Description';
 
 $string['defaultname'] = 'Liste de l\'ensemble des forums';
 
-$string['headtablename'] = 'Nom du thème (=forum)';
+$string['headtablename'] = 'Titre';
 $string['headtablenbposts'] = 'Message';
 $string['headtablelastpost'] = 'Dernier message';
+
+$string['subpartno'] = "Nom de la sous partie {no}";
+$string['affectforumsprincipal'] = "Gérer l'affectation des forums dans la liste principale";
+$string['affectforums'] = 'Gérer l\'affectation des forums dans la partie {$a}';
+$string['assignforum'] = "Affectation des forums";

@@ -16,29 +16,25 @@
 
 /**
  * Lang strings.
- * @package mod
- * @subpackage listforumng
+ * @package block_orange_listforumng
  * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-
 $string['modulename'] = 'List ForumNG';
 $string['pluginname'] = 'List ForumNG';
-$string['modulenameplural'] = 'Lists of ForumNG';
-$string['pluginadministration'] = 'Administration list of forums';
-$string['listforumng:view'] = 'View list of forums';
-$string['listforumng:addinstance'] = 'Add a new list of forums';
+$string['newlistforumnglock'] = '(Nouveau bloc Liste de Forums)';
 
-$string['listforumngintro'] = 'Description';
+$string['modulenameplural'] = 'Listes des ForumNG';
+$string['pluginadministration'] = 'Administration liste des forums';
+$string['listforumng:view'] = 'Voir la liste des forums';
 
-$string['defaultname'] = 'List of all forums';
+$string['defaultname'] = 'Liste de l\'ensemble des forums';
 
-$string['headtablename'] = 'Title';
-$string['headtablenbposts'] = 'Post';
-$string['headtablelastpost'] = 'Last post';
+$string['headtablename'] = 'Titre';
+$string['headtablenbposts'] = 'Message';
+$string['headtablelastpost'] = 'Dernier message';
+$string['created'] = 'Créé le ';
 
-$string['subpartno'] = "Name subpart {no}";
-$string['affectforumsprincipal'] = "Manage Forum assignment in the main list";
-$string['affectforums'] = 'Manage Forum assignment in the part {$a}';
-$string['assignforum'] = "Forums assignment";
+$string['assignforum'] = "Affectation des forums";
+$string['no_forumng_affected'] = "Aucun forum n'est affecté à cette liste.";

@@ -14,17 +14,16 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+
 /**
- * Version.
+ * Orange List forumng block version details
  *
- * @package mod_listforumng
- * @copyright  2015 Orange
+ * @package    block_orange_listforumng
+ * @copyright  Orange 2015
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
-
-$plugin->version = 2015090803;
-//$plugin->requires = 2014051200;
-$plugin->requires = 2014050800;
-$plugin->component = 'mod_listforumng';
+$plugin->version   = 2015102602;
+$plugin->requires  = 2014050800;
+$plugin->maturity  = MATURITY_STABLE;
+$plugin->component = 'block_orange_listforumng';
