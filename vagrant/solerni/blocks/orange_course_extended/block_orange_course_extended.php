@@ -49,7 +49,7 @@ class block_orange_course_extended extends block_base {
     }
 
     public function hide_header() {
-        return true;
+        return false;
     }
     public function applicable_formats() {
         return array(
@@ -75,14 +75,15 @@ class block_orange_course_extended extends block_base {
      * Amend the block instance after it is loaded
      */
     public function specialization() {
+        global $course;
 
         if (!empty($this->config->config_userfile)) {
             $this->title = $this->config->config_userfile;
         } else {
             $this->title = get_string('userfile_default', 'block_orange_course_extended');
         }
-        if (!empty($this->config->blocktitle)) {
-            $this->title = $this->config->blocktitle;
+        if (!empty($course->fullname)) {
+            $this->title = $course->fullname;
         } else {
             $this->title = get_string('blocktitle_default', 'block_orange_course_extended');
         }
@@ -205,11 +206,7 @@ class block_orange_course_extended extends block_base {
             $imgurl = moodle_url::make_pluginfile_url($ctxid, $cmpnt, $filearea, $itemid, $filepath, $filename);
         }
 
-        $this->content->text .= html_writer::start_tag('ul');
-        $this->content->text .= html_writer::start_tag('li');
-        $this->content->text .= html_writer::link('span', $course->fullname);
-        $this->content->text .= html_writer::end_tag('li');
-        $this->content->text .= html_writer::end_tag('ul');
+
 
         $text = $this->renderer->get_text($imgurl, $course, $context);
         $this->content->text = $text;
