@@ -32,6 +32,7 @@ use local_orange_library\subscription_button\subscription_button_object;
 require_once($CFG->dirroot . '/course/renderer.php');
 require_once($CFG->dirroot . '/blocks/orange_progressbar/lib.php');
 
+
 class theme_halloween_core_course_renderer extends core_course_renderer {
 
     /**
@@ -465,4 +466,73 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
             </h2>
         </div>
         <?php }
+
+
+    /**
+     * Construct contents of Mymoocs page
+     *
+     * @param integer $filter
+     *               0 : all moocs
+     *               1 : moocs closed
+     *               2 : moocs started
+     *               3 : moocs running
+     * @return string html to be displayed in page mymoocs
+     */
+    public function print_my_moocs($filter = 3) {
+        global $PAGE;
+
+        $labels = array (
+            3 => get_string('filterstatusinprogress', 'theme_halloween'),
+            1 => get_string('filterstatuscomplete', 'theme_halloween'),
+            2 => get_string('filterstatuscomingsoon', 'theme_halloween'),
+            0 => get_string('filterstatusall', 'theme_halloween'),
+        );
+
+        foreach ($labels as $key => $label) {
+            $nbcourses[$key] = 0;
+        }
+
+        list($sortedcourses, $sitecourses, $totalcourses) = block_course_overview_get_sorted_courses();
+
+        $moocslist = "";
+        $utilitiescourse = new utilities_course();
+        foreach ($sitecourses as $key => $course) {
+            $status = $utilitiescourse->get_course_status($course);
+
+            $nbcourses[0] = $nbcourses[0] + 1;
+            if ($filter == 0 || $filter == $status) {
+                $moocslist .= $this->output->box_start('coursebox', "course-{$course->id}");
+                $moocslist .= html_writer::start_tag('div', array('class' => 'course_title'));
+                $moocslist .= $this->render_halloween_mooc_component(null, $course);
+                $moocslist .= html_writer::end_tag('div');
+                $moocslist .= $this->output->box('', 'flush');
+                $moocslist .= $this->output->box_end();
+
+                $nbcourses[$status] = $nbcourses[$status] + 1;
+            } else {
+                $nbcourses[$status] = $nbcourses[$status] + 1;
+            }
+        }
+
+        if ($nbcourses[$filter] == 0) {
+            $moocslist .= get_string('nocourses', 'my');
+        }
+
+        $buttons = html_writer::start_tag('div', array('class' => ''));
+        foreach ($labels as $key => $label) {
+            if($filter == $key) {
+                $arrayclass = array('class' => 'btn btn-default btn-lg btn-primary');
+            } else {
+                $arrayclass = array('class' => 'btn btn-default btn-lg');
+            }
+            $buttons .= html_writer::link($url.'?filter=' . $key, $label . " (" . $nbcourses[$key] . ")", $arrayclass);
+        }
+        $buttons .= html_writer::end_tag('div');
+
+        $title = html_writer::start_tag('h2', array('class' => ''));
+        $title .= get_string('titlefollowedcourses', 'block_orange_course_dashboard');
+        $title .= html_writer::end_tag('h2');
+
+        return $title . $buttons . $moocslist;
+    }
 }
