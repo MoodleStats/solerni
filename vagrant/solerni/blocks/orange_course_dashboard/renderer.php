@@ -29,6 +29,8 @@ use local_orange_library\utilities\utilities_object;
 use local_orange_library\utilities\utilities_course;
 use local_orange_library\subscription_button\subscription_button_object;
 
+require_once($CFG->dirroot.'/theme/halloween/renderers/core_course_renderer.php');
+
 class block_orange_course_dashboard_renderer extends plugin_renderer_base {
 
     /**
@@ -37,7 +39,7 @@ class block_orange_course_dashboard_renderer extends plugin_renderer_base {
      * @return string html to be displayed in orange_course_dashboard block
      */
     public function course_recommendation($courses, $coursesdetails) {
-        global $CFG;
+        global $CFG, $PAGE;
 
         $html = '';
         $config = get_config('block_orange_course_dashboard');
@@ -56,127 +58,9 @@ class block_orange_course_dashboard_renderer extends plugin_renderer_base {
         $html .= html_writer::end_tag('p');
 
         // Display each recommended course.
+        $renderer = $PAGE->get_renderer('core', 'course');
         foreach ($courses as $key => $course) {
-            $html .= $this->output->box_start('coursebox', "course-{$course->id}");
-            $html .= html_writer::start_tag('div', array('class' => 'course_title'));
-
-            $coursename = format_string(get_course_display_name_for_list($course), true, $course->id);
-
-            $html .= $this->output->box('', 'flush');
-            $html .= html_writer::end_tag('div');
-
-            // BEGIN TODO : To be changed when will have the design of this block.
-            // Get course info to display individual course block.
-            $courseinfos = $coursesdetails[$course->id];
-            $imageutilities         = new utilities_image();
-            $utilitiescourse        = new utilities_course();
-            $subscriptionbutton     = new subscription_button_object($course);
-            $badges                 = new badges_object();
-            $customer = $utilitiescourse->solerni_course_get_customer_infos($course->category);
-            $customerurl = new moodle_url('/course/index.php', array('categoryid' => $course->category ));
-            $classes = "";
-
-            ob_start();
-
-            if ( $courseinfos ) :
-                    ?>
-                <div class="<?php echo $classes; ?>"
-                     data-course-id="<?php echo $course->id; ?>" >
-                    <div class="slrn-coursebox__column slrn-coursebox__column--image">
-                        <?php if (isset($courseinfos->imgurl)) : ?>
-                            <img class="slrn-coursebox__course-image"
-                                 src="<?php echo $imageutilities->get_resized_url($courseinfos->imgurl,
-                                         array('w' => 500, 'h' => 357, 'scale' => false), $courseinfos->file); ?>">
-                        <?php endif; ?>
-                        <?php if (isset($customer->urlimg)) : ?>
-                            <a class="slrn-coursebox__course-image-customer" href="<?php echo $customerurl; ?>">
-                                <img src="<?php echo $imageutilities->get_resized_url($customer->urlimg,
-                                             array('w' => 35, 'h' => 35, 'scale' => true), $customer->fileimg); ?>">
-                            </a>
-                        <?php endif; ?>
-                    </div>
-                    <div class="slrn-coursebox__column slrn-coursebox__column--description">
-                        <h3 class="slrn-coursebox__coursename"><?php echo $coursename; ?></h3>
-                        <span class="slrn-coursebox__courseby font-variant--type1">
-                            <?php echo get_string('courseproposedby', 'theme_halloween'); ?>
-                            <?php if ($customerurl) : ?>
-                                <a class="link-primary" href="<?php echo $customerurl; ?>" class="slrn-coursebox__course-customer">
-                                    <?php if (isset($customer->name)) {
-                                        echo $customer->name;
-                                    }?>
-                                </a>
-                            <?php endif; ?>
-                        </span>
-                        <div class="slrn-coursebox__summary">
-                            <?php // @todo adapt length depending on viewport width ?
-                            //echo $utilities->trim_text( $chelper->get_course_formatted_summary($course,
-                              //          array('overflowdiv' => false, 'noclean' => true, 'para' => false)), 155); ?>
-                            <a class="link-secondary" href="<?php echo $utilitiescourse->get_description_page_url($course); ?>">
-                                <?php echo get_string('coursefindoutmore', 'theme_halloween'); ?>
-                            </a>
-                        </div>
-                        <div class="slrn-coursebox__column--subscription_button">
-                            <?php echo $subscriptionbutton->set_button($course); ?>
-                        </div>
-                    </div>
-                    <div class="slrn-coursebox__column slrn-coursebox__column--metadata font-variant--type1">
-                        <div class="slrn-coursebox__metadata slrn-coursebox__metadata--dates">
-                            <div class="slrn-coursebox__metadata__icone -sprite-halloween"></div>
-                            <?php if ($course->startdate || $course->startdate ) : ?>
-                                <span class="slrn-coursebox__metadata__item">
-                                    <?php if ( $course->startdate) : ?>
-                                        <div class="">
-                                            <?php echo get_string('coursestartdate', 'theme_halloween') .
-                                                    " " . date("d.m.Y", $course->startdate); ?>
-                                        </div>
-                                    <?php endif; ?>
-                                    <?php if ( $courseinfos->enddate) : ?>
-                                        <div class="">
-                                            <?php echo get_string('courseenddate', 'theme_halloween') .
-                                                " " . date("d.m.Y", $courseinfos->enddate); ?>
-                                        </div>
-                                    <?php endif; ?>
-                                </span>
-                            <?php endif; ?>
-                        </div>
-                        <div class="slrn-coursebox__metadata slrn-coursebox__metadata--badges">
-                            <div class="slrn-coursebox__metadata__icone -sprite-halloween"></div>
-                            <?php if ( $badges->count_badges($course->id)) : ?>
-                                <span class="slrn-coursebox__metadata__item">
-                                    <?php echo get_string('coursebadge', 'theme_halloween'); ?>
-                                </span>
-                            <?php else : ?>
-                                <span class="slrn-coursebox__metadata__item">
-                                    <?php echo get_string('coursenobadge', 'theme_halloween'); ?>
-                                </span>
-                            <?php endif; ?>
-                        </div>
-                        <div class="slrn-coursebox__metadata slrn-coursebox__metadata--price">
-                            <div class="slrn-coursebox__metadata__icone -sprite-halloween"></div>
-                            <span class="slrn-coursebox__metadata__item">
-                                <?php echo $courseinfos->price; ?>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            <?php else : ?>
-                <div class="coursebox slrn-coursebox slrn-coursebox--invalid"
-                     data-course-id="<?php echo $course->id; ?>" data-type="<?php echo self::COURSECAT_TYPE_COURSE; ?>">
-                    <h3 class="slrn-coursebox__coursename">
-                        <a href="<?php echo new moodle_url('/course/view.php', array('id' => $course->id)); ?>">
-                            <?php echo $coursename; ?>
-                        </a>
-                    </h3>
-                    <p>(Ce cours n'est pas au format flexpage)</p>
-                </div>
-            <?php endif;
-
-            $html .= ob_get_contents();
-            ob_end_clean();
-            // END TODO : To be changed when will have the design of this block.
-
-            $html .= $this->output->box('', 'flush');
-            $html .= $this->output->box_end();
+            $html .= $renderer->render_halloween_mooc_component(null, $course);
         }
         return $html;
     }
@@ -218,6 +102,8 @@ class block_orange_course_dashboard_renderer extends plugin_renderer_base {
      * @return string html to be displayed in orange_course_dashboard block
      */
     public function course_overview($courses, $overviews) {
+        global $PAGE;
+
         $html = '';
         $config = get_config('block_orange_course_dashboard');
         $courseordernumber = 0;
@@ -245,13 +131,8 @@ class block_orange_course_dashboard_renderer extends plugin_renderer_base {
 
             $attributes = array('title' => $course->fullname);
             if ($course->id > 0) {
-                if (empty($course->visible)) {
-                        $attributes['class'] = 'dimmed';
-                }
-                $courseurl = new moodle_url('/course/view.php', array('id' => $course->id));
-                $coursefullname = format_string(get_course_display_name_for_list($course), true, $course->id);
-                $link = html_writer::link($courseurl, $coursefullname, $attributes);
-                $html .= $this->output->heading($link, 2, 'title');
+                $renderer = $PAGE->get_renderer('core', 'course');
+                $html .= $renderer->render_halloween_mooc_component(null, $course);
             } else {
                 $html .= $this->output->heading(html_writer::link(
                         new moodle_url('/auth/mnet/jump.php', array('hostid' => $course->hostid,
