@@ -34,3 +34,8 @@ $string['mod_page'] = 'Course';
 $string['mod_quiz'] = 'Quiz';
 $string['mod_forumng'] = 'Forums';
 $string['mod_oublog'] = 'Blogs';
+
+// For capabilities.
+$string['orange_progressbar:overview'] = 'Overview of progress in the course';
+$string['orange_progressbar:addinstance'] = 'Add a new Progress Bar block';
+$string['orange_progressbar:myaddinstance'] = 'Add a Progress Bar block to My home page';
