@@ -193,7 +193,7 @@ class subscription_button_object {
     private function display_mooc_open_date() {
 
         $text = "";
-        $text = get_string('mooc_open_date', 'local_orange_library') . date("d-m-Y", $course->startdate);
+        $text = get_string('mooc_open_date', 'local_orange_library') . date("d-m-Y", $this->course->startdate);
         return html_writer::tag('a', $text, array('class' => 'btn btn-unavailable btn-disabled'));
 
     }
