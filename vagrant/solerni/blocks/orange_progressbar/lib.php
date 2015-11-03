@@ -45,8 +45,9 @@ function block_orange_progressbar_filterfollowedactivity($course, $activities) {
     foreach ($modinfo->get_cms() as $cmid => $mod) {
         if ($mod->completion) {
             // Get activitie name to display.
-            $modulename = get_string('mod_'. $mod->modname, 'block_orange_progressbar');
-            if ($modulename == '[['.'mod_'. $mod->modname . ']]') {
+            if (get_string_manager()->string_exists('mod_'. $mod->modname, 'block_orange_progressbar')) {
+                $modulename = get_string('mod_'. $mod->modname, 'block_orange_progressbar');
+            } else {
                 $modulename = get_string('modulename', 'mod_'. $mod->modname);
             }
 
