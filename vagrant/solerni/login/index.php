@@ -307,8 +307,8 @@ $PAGE->set_title("$site->fullname: $loginsite");
 $PAGE->set_heading("$site->fullname");
 
 // Templating
-echo $OUTPUT->header();
 if (isloggedin() and !isguestuser()) {
+    echo $OUTPUT->header();
     // User is already connected, let's warn him
     echo $OUTPUT->box_start();
     $logout = new single_button(new moodle_url($CFG->httpswwwroot.'/login/logout.php', array('sesskey'=>sesskey(),'loginpage'=>1)), get_string('logout'), 'post');
@@ -316,6 +316,14 @@ if (isloggedin() and !isguestuser()) {
     echo $OUTPUT->confirm(get_string('alreadyloggedin', 'error', fullname($USER)), $logout, $continue);
     echo $OUTPUT->box_end();
 } else {
+    // The following code is required by auth_googleoauth2.
+    $PAGE->requires->js_init_code('oauth2cssurl = "' . $CFG->httpswwwroot .
+        '/auth/googleoauth2/socialsharekit/dist/css/social-share-kit.css"');
+    $PAGE->requires->js_init_code('oauth2cssurl2 = "' . $CFG->httpswwwroot .
+        '/auth/googleoauth2/style.css"');
+    $PAGE->requires->js_init_code("buttonsCodeOauth2 = '';"); // this appends nothing, which is the purpose.
+    $PAGE->requires->js(new moodle_url($CFG->wwwroot . "/auth/googleoauth2/script.js"));
+    echo $OUTPUT->header();
     require($CFG->partialsdir . '/login/login_form.php');
     if ($errormsg) {
         $PAGE->requires->js_init_call('M.util.focus_login_error', null, true);

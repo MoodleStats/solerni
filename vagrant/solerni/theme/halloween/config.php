@@ -152,8 +152,8 @@ $THEME->layouts = array(
     // The site home page.
     'frontpage' => array(
         'file' => 'default.php',
-        'regions' => array('side-pre', 'side-post'),
-        'defaultregion' => 'side-pre',
+        'regions' => array('side-pre', 'side-post', 'main'),
+        'defaultregion' => 'main',
         'options' => array('nonavbar' => true),
     ),
     // Server administration scripts.

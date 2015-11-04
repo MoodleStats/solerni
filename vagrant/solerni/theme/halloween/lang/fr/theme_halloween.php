@@ -189,6 +189,17 @@ $string['administration']               = 'Administration';
 $string['skip_to_main']                 = 'Aller au contenu';
 $string['skip_to_nav']                  = 'Aller à la navigation';
 
+// Login settings
+$string['loginsettings']                = 'Page de connexion';
+$string['loginheading']                 = 'Administration de la page de connexion';
+$string['loginheadingdesc']             = 'La partie supérieure de la page de connexion est modifiable afin d\'en ajuster l\'éditorial (logo, titre, zone de texte). Vous pouvez modifier les valeurs par défaut sur cette page. Pour supprimer un élément, il suffit de supprimer le contenu du champ avant de sauvegarder.';
+$string['loginlogo']                    = 'Logo';
+$string['loginlogodesc']                = '';
+$string['logintitle']                   = 'Accroche';
+$string['logintitledesc']               = '';
+$string['logintext']                   = 'Texte d\'accueil';
+$string['logintextdesc']               = '';
+
 // Search filters.
 $string['catalog_page_title']       = 'Catalogue';
 $string['filterstatustitle']        = 'Statuts';
@@ -210,10 +221,8 @@ $string['catalog0result']           = "Pas de résultat";
 $string['catalog1result']           = "Résultat trouvé";
 
 // Login page.
-$string['access_public_login']      = 'Je me connecte';
 $string['not_registered_yet']       = 'Pas encore de compte ?';
 $string['i_do_register']            = 'Je m\'inscris';
-$string['access_private_login']     = 'Accédez à votre espace privé d\'apprentissage';
 
 // Mooc component.
 $string['courseproposedby']         = "Proposé par";

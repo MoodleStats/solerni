@@ -72,9 +72,9 @@ class block_orange_course_dashboard_renderer extends plugin_renderer_base {
             $utilitiescourse        = new utilities_course();
             $subscriptionbutton     = new subscription_button_object($course);
             $badges                 = new badges_object();
-            $customer = $utilitiescourse->solerni_course_get_customer_infos($course->category);
-            $customerurl = new moodle_url('/course/index.php', array('categoryid' => $course->category ));
-            $classes = "";
+            $customer               = $utilitiescourse->solerni_course_get_customer_infos($course->category);
+            $customerurl            = new moodle_url('/course/index.php', array('categoryid' => $course->category ));
+            $classes                = "";
 
             ob_start();
 

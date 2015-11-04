@@ -189,6 +189,17 @@ $string['administration']           = 'Administration';
 $string['skip_to_main']             = 'To main content';
 $string['skip_to_nav']              = 'To page navigation';
 
+// Login settings
+$string['loginsettings']            = 'Login page';
+$string['loginheading']             = 'Login page settings';
+$string['loginheadingdesc']         = 'The upper part of the login page allows for editorial modifications (logo, title, text area). Your can change the default settings here. To remove an item, just remove the content from the field before saving.';
+$string['loginlogo']                = 'Logo';
+$string['loginlogodesc']            = '';
+$string['logintitle']               = 'Title';
+$string['logintitledesc']           = '';
+$string['logintext']                = 'Texte d\'accueil';
+$string['logintextdesc']            = '';
+
 // Search filters.
 $string['catalog_page_title']       = 'Catalog';
 $string['filterstatustitle']        = 'Status';
@@ -210,10 +221,8 @@ $string['catalog0result']           = "No result";
 $string['catalog1result']           = "Result found";
 
 // Login page.
-$string['access_public_login']      = 'Log in';
 $string['not_registered_yet']       = 'No Solerni account yet?';
 $string['i_do_register']            = 'I do register';
-$string['access_private_login']     = 'Enter your private learning area';
 
 // Mooc component.
 $string['courseproposedby']         = "Proposed by";

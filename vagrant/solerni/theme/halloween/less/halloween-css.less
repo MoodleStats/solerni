@@ -315,21 +315,49 @@ div[role="main"] .list-social {
 /*
  * Blocks Moodle
  */
+
+.block .content {
+    position:   relative;
+    top:        1px;
+    padding:    0 @s-double-xs-margin;
+}
+
+.block .block_tree li {
+    margin: 0;
+}
+
+.block .block_tree {
+    margin : 0;
+}
+
 .block .block_tree .tree_item {
     padding-top:    @s-small-xs-margin;
     padding-bottom: @s-small-xs-margin;
-    border-bottom: 1px solid @panel-default-border;
-    width : 100%;
+    border-bottom:  1px solid @panel-default-border;
+    width :         100%;
+    margin:         0;
 }
+
 .block .block_tree .tree_item.branch {
-    background-position: 100% 50%;
-    padding-left: @s-small-xs-margin;
-    padding-right: @s-double-xs-margin;
+    background-position:    100% 50%;
+    padding-left:           @s-double-xs-margin;
+    padding-right:          @s-double-xs-margin;
+    margin:                 0;
 }
+
 .block .content .block_tree li.item_with_icon .tree_item {
     img {
         top: 12px;
     }
+}
+
+.block .unlist {
+    margin-top: @s-small-xs-margin;
+}
+
+.block .unlist li {
+    padding-top:    (@s-small-xs-margin / 2);
+    padding-bottom: (@s-small-xs-margin / 2);
 }
 
 /*

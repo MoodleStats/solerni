@@ -135,7 +135,7 @@ moosh config-set coursesperpage 5
 
 # MNet (US 326)
 moosh config-set mnet_dispatcher_mode strict
-moosh config-set peer-manage mnet on
+moosh peer-manage mnet on
 
 # oauth2: do not display buttons on login page
 moosh config-set oauth2displaybuttons 0 'auth/googleoauth2'
