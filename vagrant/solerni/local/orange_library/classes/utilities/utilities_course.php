@@ -32,10 +32,15 @@ use moodle_url;
 use context_helper;
 use coursecat_sortable_records;
 use course_in_list;
+use DateTime;
 require_once($CFG->dirroot . '/cohort/lib.php');
 require_once($CFG->dirroot . '/lib/coursecatlib.php'); // TODO : use course_in_list not working.
 
 class utilities_course {
+
+    const MOOCCLOSED       = 1;
+    const MOOCNOTSTARTED   = 2;
+    const MOOCRUNNING      = 3;
 
     public static function solerni_course_get_customer_infos ($catid) {
         global $CFG;
@@ -618,5 +623,37 @@ class utilities_course {
      */
     public static function is_frontpage_course($course) {
         return ($course->id == 1);
+    }    
+
+    /**
+     * Return the status of the course
+     * Status could be : MOOCRUNNING
+     *                   MOOCCLOSED
+     *                   MOOCNOTSTARTED
+     *
+     * @param $course object      
+     * @return  (int)
+     */
+    public function get_course_status($course = null) {
+        global $COURSE;
+
+        if (!$course) {
+            $course = $COURSE;
+        }
+        $context = context_course::instance($course->id);
+        $date = new DateTime();
+        $extendedcourse = new extended_course_object();
+        $extendedcourse->get_extended_course($course, $context);
+        $coursestatus = self::MOOCRUNNING;
+
+        if ($extendedcourse->enddate < $date->getTimestamp()) {
+            $coursestatus = self::MOOCCLOSED;
+        }
+
+        if ($course->startdate > $date->getTimestamp()) {
+            $coursestatus = self::MOOCNOTSTARTED;
+        }
+
+        return $coursestatus;
     }
 }
