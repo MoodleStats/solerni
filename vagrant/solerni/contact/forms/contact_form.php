@@ -92,16 +92,14 @@ class contact_form extends moodleform implements renderable {
 
         $requestid       =& $mform->getElement('requestid');
         $requestid->addOption(get_string('contact_request_default', 'theme_halloween'), null);
-        $utilitiescourse = new utilities_course();
-        $utilitiesobject = new utilities_object();
         $filter = new stdClass();
         $filter->categoriesid = array();
         $filter->thematicsid = array();
         $filter->durationsid = null;
         $filter->statusid = array(1, 2);
-        $courses = $utilitiescourse->get_courses_catalogue($filter);
+        $courses = utilities_course::get_courses_catalogue($filter);
         foreach ($courses as $course) {
-            $moocname = $utilitiesobject->trim_text(get_string('contact_mooc_help', 'theme_halloween') .
+            $moocname = utilities_object::trim_text(get_string('contact_mooc_help', 'theme_halloween') .
                     $course->fullname, 60, true, false);
             if ($course->visible) {
                 $requestid->addOption($moocname, $course->id);
