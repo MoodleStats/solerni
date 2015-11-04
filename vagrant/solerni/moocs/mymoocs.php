@@ -23,10 +23,12 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use local_orange_library\utilities\utilities_course;
+
 require_once(dirname(dirname(__FILE__)) . '/config.php');
 require_once($CFG->dirroot.'/blocks/course_overview/locallib.php');
 
-$filter      = optional_param('filter', 3, PARAM_INT);
+$filter      = optional_param('filter', utilities_course::MOOCRUNNING, PARAM_INT);
 
 require_login();
 

@@ -31,6 +31,7 @@ use local_orange_library\subscription_button\subscription_button_object;
 
 require_once($CFG->dirroot . '/course/renderer.php');
 require_once($CFG->dirroot . '/blocks/orange_progressbar/lib.php');
+require_once($CFG->dirroot.'/blocks/orange_course_dashboard/locallib.php');
 
 
 class theme_halloween_core_course_renderer extends core_course_renderer {
@@ -478,7 +479,7 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
      *               3 : moocs running
      * @return string html to be displayed in page mymoocs
      */
-    public function print_my_moocs($filter = 3) {
+    public function print_my_moocs($filter = utilities_course::MOOCRUNNING) {
         global $PAGE;
 
         $labels = array (
@@ -491,8 +492,7 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
         foreach ($labels as $key => $label) {
             $nbcourses[$key] = 0;
         }
-
-        list($sortedcourses, $sitecourses, $totalcourses) = block_course_overview_get_sorted_courses();
+        list($sortedcourses, $sitecourses, $totalcourses) = block_orange_course_dashboard_get_sorted_courses();
 
         $moocslist = "";
         $utilitiescourse = new utilities_course();
