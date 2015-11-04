@@ -155,9 +155,9 @@ class contact_form extends moodleform implements renderable {
             if (!isset($data['email'])) {
                 $errors['email'] = get_string('err_required', 'form');
             }
-            if (!isset($data['question'])) {
-                $errors['question'] = get_string('err_required', 'form');
-            }
+        }
+        if (!isset($data['question'])) {
+            $errors['question'] = get_string('err_required', 'form');
         }
 
         return $errors;
