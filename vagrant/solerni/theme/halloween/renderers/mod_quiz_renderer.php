@@ -46,8 +46,13 @@ class theme_halloween_mod_quiz_renderer extends mod_quiz_renderer {
 
         // Start - Change for Solerni - US234.
         $output .= html_writer::start_tag('h2');
-        $output .= sprintf(get_string('attemptnumber', 'quiz') . " n° %s / %s",
+        if ($attemptobj->get_num_attempts_allowed() != 0) {
+            $output .= sprintf(get_string('attemptnumber', 'quiz') . " n° %s / %s",
                 $attemptobj->get_attempt_number(), $attemptobj->get_num_attempts_allowed());
+        } else {
+            $output .= sprintf(get_string('attemptnumber', 'quiz') . " n° %s",
+                $attemptobj->get_attempt_number());
+        }
         $output .= html_writer::end_tag('h2');
         // End - Change for Solerni.
 
