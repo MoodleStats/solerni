@@ -701,6 +701,24 @@ If this password reset was not requested by you, no action is needed.
 
 If you need help, please contact the site administrator,
 {$a->admin}';
+$string['emailresetconfirmationhtml'] = '<html><body>
+<p>Hi {$a->firstname},</p>
+
+<p>A password reset was requested for your account \'{$a->username}\' at {$a->sitename}.</p>
+
+<p>To confirm this request, and set a new password for your account, please
+go to the following web address:</p>
+<br />
+{$a->link}
+<br />
+(This link is valid for {$a->resetminutes} minutes from the time this reset was first requested)
+<br />
+<br />
+<p>If this password reset was not requested by you, no action is needed.</p>
+<br />
+<p>If you need help, please contact the site administrator,
+{$a->admin}</p>
+</body></html>';
 $string['emailresetconfirmationsubject'] = '{$a}: Password reset request';
 $string['emailresetconfirmsent'] = 'An email has been sent to your address at <b>{$a}</b>.
 <br />It contains easy instructions to confirm and complete this password change.
