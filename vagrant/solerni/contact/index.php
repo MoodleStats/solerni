@@ -59,8 +59,12 @@ function send_email($data, $contacts) {
         if ($foundcourse = $DB->get_record('course', array('id' => $data->requestid))) {
             if (!empty($foundcourse)) {
                 $courseinfos = utilities_course::solerni_get_course_infos($foundcourse);
-                // TODO : à compléter quand le course format acceptera un email de contact de cours.
-                $tomail = "mooc".$data->requestid."@dev.orangeadd.com";
+
+                if (isset($courseinfos->contactemail) && ($courseinfos->contactemail != "")) {
+                    $tomail = $courseinfos->contactemail;
+                } else {
+                    $tomail = $contacts[CONTACT_REQUEST_OTHER_ID]['mail'];
+                }
                 $requestname = $foundcourse->fullname;
             }
         }
