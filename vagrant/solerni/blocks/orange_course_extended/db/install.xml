@@ -24,7 +24,7 @@
         <FIELD NAME="registeredusers" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
         <FIELD NAME="prerequisites" TYPE="text" LENGTH="25" NOTNULL="true" SEQUENCE="false"/>
         <FIELD NAME="teachingteam" TYPE="text" LENGTH="25" NOTNULL="true" SEQUENCE="false"/>
-        
+        <FIELD NAME="contactemail" TYPE="text" LENGTH="50" NOTNULL="true" SEQUENCE="false"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>

@@ -310,6 +310,10 @@ class format_flexpage extends format_base {
                     'default' => get_config('teachingteam', 'format_flexpage'),
                     'type' => PARAM_RAW,
                 ),
+                'coursecontactemail' => array(
+                    'default' => get_config('contactemail', 'format_flexpage'),
+                    'type' => PARAM_TEXT
+                )
             );
         }
         if ($foreditform && !isset($courseformatoptions['coursedisplay']['label'])) {
@@ -321,7 +325,6 @@ class format_flexpage extends format_base {
             $thematics = thematic_get_thematic();
             foreach ($thematics as $thematic) {
                 $listthematics[$thematic->id] = $thematic->name;
-            
             }
 
             $courseformatoptionsedit = array(
@@ -341,7 +344,7 @@ class format_flexpage extends format_base {
                         $listthematics
                      )
                 ),
-            		'coursepicture' => array(
+                'coursepicture' => array(
                     'label' => get_string('picture', 'format_flexpage'),
                     'element_type' => 'filemanager',
                     'element_attributes' => array(
@@ -465,16 +468,21 @@ class format_flexpage extends format_base {
                     'element_attributes' => array(
                     'defaultunit' => 86400,
                     'optional' => false
-                        )
                     )
-
+                ),
+                'coursecontactemail' => array(
+                    'label' => get_string('contactemail', 'format_flexpage'),
+                    'help' => 'contactemail',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'text'
+                )
             );
             $courseformatoptions = array_merge_recursive($courseformatoptions, $courseformatoptionsedit);
         }
         return $courseformatoptions;
     }
 
-   /**
+    /**
      * Updates format options for a course
      *
      * If $data does not contain property with the option name, the option will not be updated

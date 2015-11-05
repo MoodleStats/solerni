@@ -206,8 +206,6 @@ class block_orange_course_extended extends block_base {
             $imgurl = moodle_url::make_pluginfile_url($ctxid, $cmpnt, $filearea, $itemid, $filepath, $filename);
         }
 
-
-
         $text = $this->renderer->get_text($imgurl, $course, $context);
         $this->content->text = $text;
         return $this->content;
