@@ -260,9 +260,8 @@ Votre pseudo est : \'{$a->username}\'.
 <p><a href="{$a->link}">Veuillez cliquer sur ce lien pour réinitialiser votre mot de passe</a>
 
 <br><br>
-<strong>L’équipe de <a href="'.$CFG->wwwroot.'">{$a->sitename}</a></strong><br>
-Apprendre c’est toujours mieux ensemble
-<a href="'.$CFG->wwwroot.'">{$a->sitename}</a><br>		
+<strong>L’équipe de Solerni.org</strong><br>
+Apprendre c’est toujours mieux ensemble <a href="'.$CFG->wwwroot.'">{$a->sitename}</a><br>		
 
                                     </td>
                                 </tr>
@@ -289,9 +288,8 @@ Apprendre c’est toujours mieux ensemble
                                     <td>
                                         <font size="2">
                                         Vous recevez cet e-mail car votre adresse e-mail a été utilisée pour votre enregistrement sur notre site <a href="'.$CFG->wwwroot.'">{$a->sitename}</a>.
-                                        Si vous ne vous êtes pas inscrit à Solerni, veuillez simplement ignorer ce message et votre compte sera supprimé automatiquement.<br>
-
-                                        Ce message vous est envoyé automatiquement, merci de ne pas y répondre directement.<br>
+                                        Si vous ne vous êtes pas inscrit à Solerni, veuillez simplement ignorer ce message et votre compte sera supprimé automatiquement.
+                                        Ce message vous est envoyé automatiquement, merci de ne pas y répondre directement.
                                         Si vous avez des questions écrivez-nous à <a href="mailto:contact@solerni.com">contact@solerni.com</a>.<br>
                                         Afin de bien recevoir nos e-mails, ajoutez cette adresse <a href="mailto:noreply@solerni.com">noreply@solerni.com</a> dans votre carnet d’adresses.<br>
                                         </font>

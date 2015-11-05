@@ -152,27 +152,23 @@ See you soon on {$a->sitename}.
 You have received this email because your company wanted to automatically register you on our platform. This is an automatic message, please do not reply to it directly.
 If you have any questions, write to us at contact@solerni.com.
 To make sure you receive our emails, please add the following address to your contacts: noreply@solerni.com.';
-$string['emailresetconfirmation'] = 'Hi {$a->firstname},
+$string['emailresetconfirmation'] = 'Hello {$a->firstname},
 
-Vous avez demandé la réinitialisation de votre mot de passe. Si vous n\'êtes pas à l\'origine de cette action, veuillez ignorer ce message.
+You have requested a password reset. If you did not request this reset, please ignore this message.
 
-Votre pseudo est : \'{$a->username}\'.
+Your username is : \'{$a->username}\'.
 
-Veuillez cliquer sur le lien suivant pour réinitialiser votre mot de passe :
+Click on the link to reset your password :
 {$a->link}
 
 If the link does not work, copy and paste the URL to your browser\'s address bar.
 
-L’équipe de {$a->sitename}
-Apprendre c’est toujours mieux ensemble
-' .
-$CFG->wwwroot
-. '
-Vous recevez cet e-mail car votre adresse e-mail a été utilisée pour votre enregistrement sur notre site {$a->sitename}. Si vous ne vous êtes pas inscrit à Solerni, veuillez simplement ignorer ce message et votre compte sera supprimé automatiquement.
+The Solerni team {$a->sitename}
+Learning is always better together ' . $CFG->wwwroot . '
 
-This is an automatic message, please do not reply to it directly.
-If you have any questions, write to us at contact@solerni.com.
-To make sure you receive our emails, please add the following address to your contacts: noreply@solerni.com.';
+		
+You have received this email because your email address was used to sign up to our site {$a->sitename}. This is an automatic message, please do not reply to it directly. If you have any questions, write to us at contact@solerni.com.
+To ensure that you never miss our email, add this address noreply@solerni.com to your address book.';		
 $string['emailresetconfirmationhtml'] = '<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><!doctype html>
 
 <html lang="fr">
@@ -205,18 +201,17 @@ $string['emailresetconfirmationhtml'] = '<meta http-equiv="Content-Type" content
                                 <tbody><tr>
                                     <td>
 
-<p>Hi {$a->firstname},</p>
+<p>Hello {$a->firstname},</p>
 
-<p> Vous avez demandé la réinitialisation de votre mot de passe. Si vous n\'êtes pas à l\'origine de cette action, veuillez ignorer ce message.</p>
+<p>You have requested a password reset. If you did not request this reset, please ignore this message.</p>
 
-Votre pseudo est : \'{$a->username}\'.
+Your username is : \'{$a->username}\'.
 <br />
-<p><a href="{$a->link}">Veuillez cliquer sur ce lien pour réinitialiser votre mot de passe</a>
+<p><a href="{$a->link}">Click on the link to reset your password</a>
 
 <br><br>
-<strong>L’équipe de <a href="'.$CFG->wwwroot.'">{$a->sitename}</a></strong><br>
-Apprendre c’est toujours mieux ensemble
-<a href="'.$CFG->wwwroot.'">{$a->sitename}</a><br>
+<strong>The Solerni team</strong><br>
+Learning is always better together <a href="'.$CFG->wwwroot.'">{$a->sitename}</a><br>
 
                                     </td>
                                 </tr>
@@ -242,13 +237,11 @@ Apprendre c’est toujours mieux ensemble
                                 <tr bgcolor="#f8f7f7">
                                     <td>
                                         <font size="2">
-                                        Vous recevez cet e-mail car votre adresse e-mail a été utilisée pour votre enregistrement sur notre site <a href="'.$CFG->wwwroot.'">{$a->sitename}</a>.
-                                        		Si vous ne vous êtes pas inscrit à Solerni, veuillez simplement ignorer ce message et votre compte sera supprimé automatiquement.<br>
-
-                                        This is an automatic message, please do not reply to it directly.<br>
-                                        If you have any questions, write to us at <a href="mailto:contact@solerni.com">contact@solerni.com</a>.<br>
-                                        To make sure you receive our emails, please add the following address <a href="mailto:noreply@solerni.com">noreply@solerni.com</a> to your contacts.<br>
-                                        </font>
+											You have received this email because your email address was used to sign up to our site <a href="'.$CFG->wwwroot.'">{$a->sitename}</a>. 
+											This is an automatic message, please do not reply to it directly. 
+											If you have any questions, write to us at <a href="mailto:contact@solerni.com">contact@solerni.com</a>.
+											To ensure that you never miss our email, add this address <a href="mailto:noreply@solerni.com">noreply@solerni.com</a> to your address book.		
+		                                        </font>
                                     </td>
                                 </tr>
                             </tbody></table>
