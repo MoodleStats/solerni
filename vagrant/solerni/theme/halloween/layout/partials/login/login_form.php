@@ -21,18 +21,20 @@ use it if necessary, hence this comment */
 $autocomplete =  (!empty($CFG->loginpasswordautocomplete)) ? 'autocomplete="off"' : '';
 $strusername = (empty($CFG->authloginviaemail)) ? get_string('username') : get_string('usernameemail') ;
 ?>
-<div class="row">
+<div class="row login-header">
     <div class="page-header text-center">
         <?php require('login_header.php'); ?>
     </div>
 </div>
 <?php if (!$CFG->solerni_isprivate) : ?>
 <!-- authentication plugin row -->
-<div class="row oauth2">
-    <?php
-    require_once($CFG->dirroot . '/auth/googleoauth2/lib.php');
-    auth_googleoauth2_display_buttons();
-    ?>
+<div class="row login-oauth2">
+    <div class="col-md-6 col-md-offset-3">
+        <?php
+        require_once($CFG->dirroot . '/auth/googleoauth2/lib.php');
+        auth_googleoauth2_display_buttons();
+        ?>
+    </div>
 </div>
 <?php endif; ?>
 

@@ -223,6 +223,7 @@ $string['catalog1result']           = "Résultat trouvé";
 // Login page.
 $string['not_registered_yet']       = 'Pas encore de compte ?';
 $string['i_do_register']            = 'Je m\'inscris';
+$string['loginoauth']               = 'Se connecter avec {$a}';
 
 // Mooc component.
 $string['courseproposedby']         = "Proposé par";

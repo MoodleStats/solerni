@@ -19,8 +19,7 @@ use local_orange_library\utilities\utilities_image;
 require_once($CFG->dirroot . '/filter/multilang/filter.php');
 $filtermultilang = new filter_multilang($PAGE->context, array());
 ?>
-<?php
-if (theme_utilities::is_theme_settings_exists_and_nonempty('loginlogo')) : ?>
+<?php if (theme_utilities::is_theme_settings_exists_and_nonempty('loginlogo')) : ?>
     <img class="img-responsive center-block img-thumbnail"
         src="<?php echo utilities_image::get_resized_url(
             null,
@@ -28,7 +27,7 @@ if (theme_utilities::is_theme_settings_exists_and_nonempty('loginlogo')) : ?>
             utilities_image::get_moodle_stored_file(
                     context_system::instance(), 'theme_halloween', 'loginlogo'));
         ?>"
-    alt="" width="" height="">
+    alt="" width="200" height="200">
 <?php endif; ?>
 <?php if (theme_utilities::is_theme_settings_exists_and_nonempty('logintitle')) : ?>
     <h1 class="col-md-8 col-md-offset-2">

@@ -223,6 +223,7 @@ $string['catalog1result']           = "Result found";
 // Login page.
 $string['not_registered_yet']       = 'No Solerni account yet?';
 $string['i_do_register']            = 'I do register';
+$string['loginoauth']               = 'Log in with {$a}';
 
 // Mooc component.
 $string['courseproposedby']         = "Proposed by";
