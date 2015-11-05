@@ -194,3 +194,115 @@ Vous recevez cet e-mail car votre entreprise a souhaité vous inscrire automatiq
 Si vous avez des questions écrivez-nous à contact@solerni.com.
 Afin de bien recevoir nos e-mails, ajoutez cette adresse noreply@solerni.com  dans votre carnet d\'adresses.';
 $string['commentscount'] = 'Commentaires ({$a})';
+$string['emailresetconfirmation'] = 'Bonjour {$a->firstname},
+
+Vous avez demandé la réinitialisation de votre mot de passe. Si vous n\'êtes pas à l\'origine de cette action, veuillez ignorer ce message.
+
+Votre pseudo est : \'{$a->username}\'.	
+
+Veuillez cliquer sur le lien suivant pour réinitialiser votre mot de passe :
+{$a->link}
+		
+Si le lien ne fonctionne pas, copiez-collez le lien dans la barre d\'adresse de votre navigateur.
+		
+L’équipe de {$a->sitename}
+Apprendre c’est toujours mieux ensemble
+' .
+$CFG->wwwroot
+. '
+Vous recevez cet e-mail car votre adresse e-mail a été utilisée pour votre enregistrement sur notre site {$a->sitename}. 
+Si vous ne vous êtes pas inscrit à Solerni, veuillez simplement ignorer ce message et votre compte sera supprimé automatiquement.
+
+Ce message vous est envoyé automatiquement, merci de ne pas y répondre directement.
+Si vous avez des questions écrivez-nous à contact@solerni.com.
+Afin de bien recevoir nos e-mails, ajoutez cette adresse noreply@solerni.com  dans votre carnet d\'adresses.';
+$string['emailresetconfirmationhtml'] = '<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><!doctype html>
+
+<html lang="fr">
+<head>
+    <title></title>
+</head>
+<body style="margin: 0px; font-family : Helvetica, Arial, Verdana;" bgcolor="#f8f7f7" link="#ff004f" alink="#ff004f" vlink="#ff004f" style="margin:0px;">
+
+
+    
+    <table border="0" width="100%" cellpadding="0" cellspacing="0">
+        <tbody><tr bgcolor="#4b667c">
+            <td width="620" align="center">
+                <table border="0" width="620" cellpadding="0" cellspacing="0">
+                    <tbody><tr>
+                        <td align="left">
+                            <a href="'.$CFG->wwwroot.'"><img border="0" src="http://laborange.fr/sites/default/files/logo-beta.png" alt="Solerni"></a>
+                        </td>
+                    </tr>
+                </tbody></table>
+            </td>
+        </tr>
+        <tr>
+            <td width="620" align="center">
+                <table border="0" width="620" cellpadding="0" cellspacing="0">
+
+                    <tbody><tr>
+                        <td align="left" bgcolor="#ffffff">
+                            <table border="0" width="100%" cellpadding="20" cellspacing="0">
+                                <tbody><tr>
+                                    <td>
+
+
+
+                            		
+<p>Bonjour {$a->firstname},</p>
+
+<p> Vous avez demandé la réinitialisation de votre mot de passe. Si vous n\'êtes pas à l\'origine de cette action, veuillez ignorer ce message.</p>
+
+Votre pseudo est : \'{$a->username}\'.	
+<br />
+<p><a href="{$a->link}">Veuillez cliquer sur ce lien pour réinitialiser votre mot de passe</a>
+
+<br><br>
+<strong>L’équipe de <a href="'.$CFG->wwwroot.'">{$a->sitename}</a></strong><br>
+Apprendre c’est toujours mieux ensemble
+<a href="'.$CFG->wwwroot.'">{$a->sitename}</a><br>		
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td bgcolor="#eeeeef">
+                                        <table border="0" width="100%">
+                                            <tbody><tr>
+                                                <td>
+                                                    <font color="#999999">Suivez-nous sur</font><br>
+                                                    <a href="https://www.facebook.com/pages/Solerni/648508191861244?fref=ts"><img border="0" src="http://laborange.fr/sites/default/files/picto_facebook.png" alt="Suivez-nous sur Facebook"></a>
+                                                    &nbsp;&nbsp;
+                                                    <a href="https://twitter.com/SolerniOfficiel"><img border="0" src="http://laborange.fr/sites/default/files/picto_twitter.png" alt="Suivez-nous sur Twitter"></a>
+                                                    &nbsp;&nbsp;
+                                                    <a href="http://blog.solerni.org"><img border="0" src="http://laborange.fr/sites/default/files/picto_blog.png" alt="Suivez-nous sur notre blog"></a>
+                                                </td>
+                                                <td align="right" valign="bottom">
+                                                    <a href="http://www.orange.com"><img border="0" src="http://laborange.fr/sites/default/files/byorange.png" alt="Powered by Orange"></a>
+                                                </td>
+                                            </tr>
+                                        </tbody></table>
+                                    </td>
+                                </tr>
+                                <tr bgcolor="#f8f7f7">
+                                    <td>
+                                        <font size="2">
+                                        Vous recevez cet e-mail car votre adresse e-mail a été utilisée pour votre enregistrement sur notre site <a href="'.$CFG->wwwroot.'">{$a->sitename}</a>.
+                                        Si vous ne vous êtes pas inscrit à Solerni, veuillez simplement ignorer ce message et votre compte sera supprimé automatiquement.<br>
+
+                                        Ce message vous est envoyé automatiquement, merci de ne pas y répondre directement.<br>
+                                        Si vous avez des questions écrivez-nous à <a href="mailto:contact@solerni.com">contact@solerni.com</a>.<br>
+                                        Afin de bien recevoir nos e-mails, ajoutez cette adresse <a href="mailto:noreply@solerni.com">noreply@solerni.com</a> dans votre carnet d’adresses.<br>
+                                        </font>
+                                    </td>
+                                </tr>
+                            </tbody></table>
+                        </td>
+                    </tr>
+                </tbody></table>
+            </td>
+        </tr>
+    </tbody></table>
+
+</div></blockquote></body></html>';
