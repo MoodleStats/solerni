@@ -140,3 +140,6 @@ moosh config-set mnet_register_allhosts 1
 
 # Default frontpage role
 moosh role-configset defaultfrontpageroleid solerni_utilisateur
+
+# default sitepolicy (cgus)
+moosh config-set sitepolicy ${CUSTOMER_DOMAIN}/static/faq.html
