@@ -104,4 +104,3 @@ $autocomplete =  (!$CFG->loginpasswordautocomplete) ? 'autocomplete="off"' : '';
         </form>
     </div>
 </div>
-

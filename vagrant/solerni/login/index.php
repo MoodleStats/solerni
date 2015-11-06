@@ -315,13 +315,6 @@ if (isloggedin() and !isguestuser()) {
     echo $OUTPUT->confirm(get_string('alreadyloggedin', 'error', fullname($USER)), $logout, $continue);
     echo $OUTPUT->box_end();
 } else {
-    // The following code is required by auth_googleoauth2.
-    $PAGE->requires->js_init_code('oauth2cssurl = "' . $CFG->httpswwwroot .
-        '/auth/googleoauth2/socialsharekit/dist/css/social-share-kit.css"');
-    $PAGE->requires->js_init_code('oauth2cssurl2 = "' . $CFG->httpswwwroot .
-        '/auth/googleoauth2/style.css"');
-    $PAGE->requires->js_init_code("buttonsCodeOauth2 = '';"); // this appends nothing, which is the purpose.
-    $PAGE->requires->js(new moodle_url($CFG->wwwroot . "/auth/googleoauth2/script.js"));
     // Echo stuff
     echo $OUTPUT->header();
     require($CFG->partialsdir . '/login/login_form.php');

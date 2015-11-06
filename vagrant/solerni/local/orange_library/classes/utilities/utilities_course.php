@@ -43,15 +43,6 @@ class utilities_course {
     const MOOCNOTSTARTED   = 2;
     const MOOCRUNNING      = 3;
 
-    public static function solerni_course_get_customer_infos ($catid) {
-        global $CFG;
-        require_once($CFG->dirroot . '/local/orange_customers/lib.php');
-        $customer = customer_get_customerbycategoryid($catid);
-
-        return $customer;
-    }
-
-
     /**
      * Get all Solerni informations for a course
      * using flexpage format (imply that we use the blocks/orange_course_extended)
@@ -611,7 +602,7 @@ class utilities_course {
      */
     public static function is_frontpage_course($course) {
         return ($course->id == 1);
-    }    
+    }
 
     /**
      * Return the status of the course
@@ -619,7 +610,7 @@ class utilities_course {
      *                   MOOCCLOSED
      *                   MOOCNOTSTARTED
      *
-     * @param $course object      
+     * @param $course object
      * @return  (int)
      */
     public function get_course_status($course = null) {
