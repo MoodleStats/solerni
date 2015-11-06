@@ -167,6 +167,12 @@ class extended_course_object {
     const USERENROLLED      = 5;
 
     /**
+     * The contact email of a course.
+     * @var int $contactemail
+     */
+    public $contactemail;
+
+    /**
      *  Get the extended course values from the extended course flexpage values.
      *
      * @param optionnal object $context
@@ -285,6 +291,9 @@ class extended_course_object {
                 break;
             case 'courseregistration':
                 $this->registration = $extendedcourseflexpagevalue->value;
+                break;
+            case 'coursecontactemail':
+                $this->contactemail = $extendedcourseflexpagevalue->value;
                 break;
         }
     }

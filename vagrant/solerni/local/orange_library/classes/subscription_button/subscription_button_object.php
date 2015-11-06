@@ -24,6 +24,7 @@ namespace local_orange_library\subscription_button;
 
 use local_orange_library\extended_course\extended_course_object;
 use local_orange_library\enrollment\enrollment_object;
+use local_orange_library\utilities\utilities_course;
 use html_writer;
 use DateTime;
 use moodle_url;

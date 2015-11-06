@@ -38,7 +38,7 @@ if ($ADMIN->fulltree) {
                         new lang_string('definecatalogurldesc', 'block_orange_course_dashboard'), '', PARAM_URL));
     $settings->add(new admin_setting_configtext('block_orange_course_dashboard/mymoocsurl',
                         new lang_string('definemymoocsurl', 'block_orange_course_dashboard'),
-                        new lang_string('definemymoocsurldesc', 'block_orange_course_dashboard'), '/my', PARAM_URL));
+                        new lang_string('definemymoocsurldesc', 'block_orange_course_dashboard'), '/moocs/mymoocs.php', PARAM_URL));
     $settings->add(new admin_setting_configcheckbox('block_orange_course_dashboard/hideblockheader',
                         new lang_string('hideblockheader', 'block_orange_course_dashboard'),
                         new lang_string('hideblockheaderdesc', 'block_orange_course_dashboard'), 1, PARAM_INT));

@@ -38,3 +38,7 @@ $string['created'] = 'Créé le ';
 
 $string['assignforum'] = "Affectation des forums";
 $string['no_forumng_affected'] = "Aucun forum n'est affecté à cette liste.";
+
+$string['orange_listforumng:overview'] = 'Voir la liste des forums';
+$string['orange_listforumng:myaddinstance'] = 'Ajouter un block List de Forums à ma Page';
+$string['orange_listforumng:addinstance'] = 'Ajouter un block Liste de Forums';

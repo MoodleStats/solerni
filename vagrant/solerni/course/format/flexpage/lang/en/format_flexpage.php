@@ -300,3 +300,7 @@ $string['prerequesites_default'] = 'No Prerequisites';
 $string['teachingteam'] = 'Teaching team';
 $string['teachingteam_help'] = 'It allows the user to enter rich text content in a variety of formats.';
 $string['teachingteam_default'] = 'Conception : Orange with Learning CRM';
+
+$string['contactemail'] = 'Contact Email';
+$string['contactemail_help'] = 'Mooc contact email used by the contact form';
+$string['contactemail_default'] = 'contact@solerni.com';

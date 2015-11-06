@@ -24,69 +24,56 @@ require_once(dirname(__FILE__) . '/../../config.php');
 require_once($CFG->dirroot . '/mod/listforumng/affect_form.php');
 require_once($CFG->dirroot . '/mod/listforumng/lib.php');
 
-
-
 $instance = optional_param('instance', 0, PARAM_INT);
 $subpartid = optional_param('subpartid', 0, PARAM_INT);
 $id = optional_param('id', 0, PARAM_INT);
 
-//$action = optional_param('action', 'thematics_form', PARAM_ALPHAEXT);
-
 // Access control.
 require_login();
-//require_capability('local/orange_thematics:edit', context_system::instance());
 
 $context = context_system::instance();
 
 $url = new moodle_url('/mod/listforumng/affect.php', array('instance' => $instance, 'subpartid' => $subpartid, 'id' => $id) );
-//$url->param('action', $action);
+
 $PAGE->set_url($url);
 $PAGE->set_context($context);
 $PAGE->set_pagelayout('admin');
 
-
-/*
-$current = core_plugin_manager::instance();
-
-$course     = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
-*/
-
-// id course and id of instance listforumng
+// Id course and id of instance listforumng.
 $cm = get_coursemodule_from_instance('listforumng', $instance);
 
 $formparams = array($cm->course, $instance, $subpartid, $id);
 
 $mform = new mod_listforumng_affect_form(null, $formparams);
 
-
-
 if ($mform->is_cancelled()) {
-	$returnurl = new moodle_url('view.php', array('instance' => $instance));
-	redirect($returnurl);
-	
-} else if ($fromform = $mform->get_data()) {
-	
-	$added = lisforumng_add_affect($fromform);  /// REQUETE POUR AJOUTER LES DONNEES EN BASE
-	if ($added) {
-		$returnurl = new moodle_url('view.php', array('id' => $id));
-		redirect($returnurl);
-		
-	} else {
-		// Add message in the page of form.
-		echo $OUTPUT->header();
-		$mform->display();
-		echo $OUTPUT->footer();
-	}
-} else {
-	echo $OUTPUT->header();	
-	if (isset($_GET['subpartid'])) {
-		if ($_GET['subpartid'] != 0)
-			$affectation = lisforumng_get_affectation($_GET['subpartid']);
-		else
-			$affectation = lisforumng_get_affectation($_GET['instance']);		
-		$mform->set_data($affectation);
-	}
-	$mform->display();
+    $returnurl = new moodle_url('view.php', array('instance' => $instance));
+    redirect($returnurl);
 
-	echo $OUTPUT->footer();
+} else if ($fromform = $mform->get_data()) {
+
+    $added = lisforumng_add_affect($fromform);
+    if ($added) {
+        $returnurl = new moodle_url('view.php', array('id' => $id));
+        redirect($returnurl);
+
+    } else {
+        // Add message in the page of form.
+        echo $OUTPUT->header();
+        $mform->display();
+        echo $OUTPUT->footer();
+    }
+} else {
+    echo $OUTPUT->header();
+    if (isset($_GET['subpartid'])) {
+        if ($_GET['subpartid'] != 0) {
+            $affectation = lisforumng_get_affectation($_GET['subpartid']);
+        } else {
+            $affectation = lisforumng_get_affectation($_GET['instance']);
+        }
+        $mform->set_data($affectation);
+    }
+    $mform->display();
+
+    echo $OUTPUT->footer();
 }

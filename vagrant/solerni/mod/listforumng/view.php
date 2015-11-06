@@ -57,103 +57,53 @@ echo $OUTPUT->header();
 
 echo $OUTPUT->heading(format_string($listforumng->name), 2);
 
-
 echo $OUTPUT->box_start('generalbox boxaligncenter boxwidthwide');
 $argstr = 'instance='.$listforumng->id . '&subpartid=0' . '&id='.$id;
 $titletext = get_string('affectforumsprincipal', 'listforumng');
 echo '<a href="'.$CFG->wwwroot.htmlspecialchars('/mod/listforumng/affect.php?'.
-		$argstr).'">'.$titletext.'</a><br><br>';
+        $argstr).'">'.$titletext.'</a><br><br>';
 echo $OUTPUT->box_end();
 
 
 
 $listsubparts = forumng_get_subpart($listforumng->id);
 
-foreach($listsubparts as $subpart) {
-	
-	if ($subpart->id != $listforumng->id) {
-		echo $OUTPUT->heading(format_string($subpart->name), 4);
-		//echo "ajouter des forums à cette partie";
-		
-		echo $OUTPUT->box_start('generalbox boxaligncenter boxwidthwide');
-	
-		$argstr = 'instance='.$listforumng->id.'&subpartid='.$subpart->id . '&id='.$id;
-	
-		$titletext = get_string('affectforums', 'listforumng', format_string($subpart->name));
-	
-		echo '<a href="'.$CFG->wwwroot.htmlspecialchars('/mod/listforumng/affect.php?'.	$argstr).'">'.$titletext.'</a><br><br>';
-		echo $OUTPUT->box_end();
-	}
-	
-	
-	
-	// Build table of forums.
-	$table = new html_table;
-	
-	
-	$table->head = array(get_string('headtablename', 'listforumng'));
-	$table->head[] = get_string('headtablenbposts', 'listforumng');
-	$table->head[] = get_string('headtablelastpost', 'listforumng');
-	
-	$table->data = array();
-	
-	$listsubpartforumng = forumng_get_bylistforumngid($subpart->listforumid);
+foreach ($listsubparts as $subpart) {
 
-	foreach ($listsubpartforumng as $forumng) {
-		$row = array();
-	
-		$row[] = "<a href=" . $CFG->wwwroot. "/mod/forumng/view.php?&id=" . $forumng['instance'] . "><b>" .  $forumng['name'] . "</b></a>"
-				. "<br>". $forumng['intro']
-				. '<span class="listforumng-date"><i>Créé le : ' . userdate($forumng['createddate']) . '</i></span>';
-		$row[] = $forumng['nbposts'];
-		$row[] = $forumng['usernamelastpost']. "<br>". $forumng['datelastpost'];
-	
-		$table->data[] = $row;
-	}
-	
-	print html_writer::table($table);
-	
-	
-	
-	
-	
+    if ($subpart->id != $listforumng->id) {
+        echo $OUTPUT->heading(format_string($subpart->name), 4);
+        echo $OUTPUT->box_start('generalbox boxaligncenter boxwidthwide');
+        $argstr = 'instance='.$listforumng->id.'&subpartid='.$subpart->id . '&id='.$id;
+        $titletext = get_string('affectforums', 'listforumng', format_string($subpart->name));
+        echo '<a href="'.$CFG->wwwroot.htmlspecialchars('/mod/listforumng/affect.php?'.    $argstr).'">'.$titletext.'</a><br><br>';
+        echo $OUTPUT->box_end();
+    }
+
+    // Build table of forums.
+    $table = new html_table;
+
+    $table->head = array(get_string('headtablename', 'listforumng'));
+    $table->head[] = get_string('headtablenbposts', 'listforumng');
+    $table->head[] = get_string('headtablelastpost', 'listforumng');
+
+    $table->data = array();
+
+    $listsubpartforumng = forumng_get_bylistforumngid($subpart->listforumid);
+
+    foreach ($listsubpartforumng as $forumng) {
+        $row = array();
+
+        $row[] = "<a href=" . $CFG->wwwroot. "/mod/forumng/view.php?&id=" . $forumng['instance'] . "><b>" .  $forumng['name'] . "</b></a>"
+                . "<br>". $forumng['intro']
+                . '<span class="listforumng-date"><i>Créé le : ' . userdate($forumng['createddate']) . '</i></span>';
+        $row[] = $forumng['nbposts'];
+        $row[] = $forumng['usernamelastpost']. "<br>". $forumng['datelastpost'];
+
+        $table->data[] = $row;
+    }
+
+    print html_writer::table($table);
+
 }
-
-//if ($questionnaire->capabilities->affectforums) {
-	
-
-
-//}
-
-
-/*
-
-echo "<HR><HR>";
-
-// Build table of forums.
-$table = new html_table;
-
-$table->head = array(get_string('headtablename', 'listforumng'));
-$table->head[] = get_string('headtablenbposts', 'listforumng');
-$table->head[] = get_string('headtablelastpost', 'listforumng');
-
-$table->data = array();
-
-$listforumng = forumng_get_all($cm->course);
-
-foreach ($listforumng as $forumng) {
-    $row = array();
-
-    $row[] = "<a href=" . $CFG->wwwroot. "/mod/forumng/view.php?&id=" . $forumng['instance'] . ">" .  $forumng['name'] . "</a>"
-            . "<br>". '<span class="listforumng-date">le ' . userdate($forumng['createddate']) . '</span>';
-    $row[] = $forumng['nbposts'];
-    $row[] = $forumng['usernamelastpost']. "<br>". $forumng['datelastpost'];
-
-    $table->data[] = $row;
-}
-
-print html_writer::table($table);
-*/
-
 
 echo $OUTPUT->footer();
