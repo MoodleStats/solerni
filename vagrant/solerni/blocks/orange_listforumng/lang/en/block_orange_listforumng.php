@@ -39,3 +39,7 @@ $string['created'] = 'Created the ';
 
 $string['assignforum'] = "Forums assignment";
 $string['no_forumng_affected'] = "No forum is assigned to this list.";
+
+$string['orange_listforumng:overview'] = 'Overview of list of forums';
+$string['orange_listforumng:myaddinstance'] = 'Add a list of forum to My home';
+$string['orange_listforumng:addinstance'] = 'Add a new block list of forums';
