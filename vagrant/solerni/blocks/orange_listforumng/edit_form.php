@@ -39,7 +39,6 @@ class block_orange_listforumng_edit_form extends block_edit_form {
         $mform->setType('config_title', PARAM_TEXT);
 
         // Get course section information.
-
         $allforums = block_orange_listforumng_get_all($COURSE->id);
 
         // Output the section header.
@@ -49,10 +48,9 @@ class block_orange_listforumng_edit_form extends block_edit_form {
 
         // Output the form elements for each forum.
         foreach ($allforums as $courseid => $forums) {
-
             // Start box.
             $attributes = array('class' => 'progressConfigBox');
-            $moduleboxstart = HTML_WRITER::start_tag('div', $attributes);
+            $moduleboxstart = html_writer::start_tag('div', $attributes);
             $mform->addElement('html', $moduleboxstart);
 
             // Icon, course icon and name.
@@ -64,7 +62,7 @@ class block_orange_listforumng_edit_form extends block_edit_form {
 
             $attributes = array('class' => 'progressConfigModuleTitle');
 
-            $moduletitle = HTML_WRITER::tag('div', $icon. " " . $text, $attributes);
+            $moduletitle = html_writer::tag('div', $icon. " " . $text, $attributes);
 
             $mform->addElement('html', $moduletitle);
 

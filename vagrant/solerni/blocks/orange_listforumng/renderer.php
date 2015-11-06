@@ -41,7 +41,7 @@ class block_orange_listforumng_renderer extends plugin_renderer_base {
         $table = new html_table;
 
         $table->head = array(get_string('headtablename', 'listforumng'));
-           $table->head[] = get_string('headtablenbposts', 'listforumng');
+        $table->head[] = get_string('headtablenbposts', 'listforumng');
         $table->head[] = get_string('headtablelastpost', 'listforumng');
 
         $table->data = array();
@@ -49,11 +49,11 @@ class block_orange_listforumng_renderer extends plugin_renderer_base {
         foreach ($listforumngdisplay as $forumng) {
             $row = array();
 
-            $row[] = "<a href=" . $CFG->wwwroot. "/mod/forumng/view.php?&id=" . $forumng['instance'] . "><b>"
-            .  $forumng['name'] . "</b></a>"
+            $row[] = "<a class='text-bold' href=" . $CFG->wwwroot. "/mod/forumng/view.php?&id=" . $forumng['instance'] . ">"
+            .  $forumng['name'] . "</a>"
             . "<br>". $forumng['intro']
-            . '<span class="listforumng-date"><i>'
-            . get_string('created', 'block_orange_listforumng') . userdate($forumng['createddate']) . '</i></span>';
+            . '<span class="listforumng-date text-italic">'
+            . get_string('created', 'block_orange_listforumng') . userdate($forumng['createddate']) . '</span>';
             $row[] = $forumng['nbposts'];
             $row[] = $forumng['usernamelastpost']. "<br>". $forumng['datelastpost'];
 
