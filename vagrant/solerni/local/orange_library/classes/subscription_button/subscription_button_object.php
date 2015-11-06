@@ -39,6 +39,7 @@ class subscription_button_object {
     const MOOCRUNNING      = 3;
     const USERLOGGED        = 4;
     const USERENROLLED      = 5;
+    const PRIVATEPF     = 6;
 
     protected $course;
     protected $context;
@@ -53,10 +54,12 @@ class subscription_button_object {
      * exented course with course id
      * redirection urls etc...
      *
-     * @param object $course
+     * @param type $course
+     * @throws moodle_exception
+     *
      */
     public function __construct($course) {
-
+        global $CFG;
         if ($course) {
             $context = context_course::instance($course->id);
             $this->course = $course;
@@ -66,7 +69,15 @@ class subscription_button_object {
             $this->extendedcourse->get_extended_course($course, $context);
             $selfenrolment = new enrollment_object();
             $this->enrolenddate = $selfenrolment->get_enrolment_enddate($course);
-            $this->coursestatus = $this->get_course_status();
+            $this->enrolmenturl = "";
+            if ($CFG->solerni_isprivate && !empty($selfenrolment->get_orangeinvitation_enrolment($course))) {
+
+                $this->urlregistration = $selfenrolment->get_orangeinvitation_enrolment($course)->customtext2;
+                $this->urlmoocsubscription = $selfenrolment->get_orangeinvitation_enrolment($course)->customtext2;
+            }
+
+            $this->coursestatus = $this->get_course_status($course);
+
             $this->urlregistration = new moodle_url('/login/signup.php', array('id' => $this->course->id));
             $this->urlmoocsubscription = new moodle_url('/enrol/index.php', array('id' => $this->course->id));
             $this->moocurl = new moodle_url('/course/view.php', array('id' => $this->course->id));
@@ -80,22 +91,25 @@ class subscription_button_object {
      * Status could be : MOOCRUNNING
      *                          MOOCCLOSED
      *                          MOOCNOTSTARTED
+     *                          MOOCCOMPLETE
+     *                          PRIVATECOURSE
      *
-     * @param type $context
-     * @param type $course
+     * @param $course
+     * @return $coursestatus
      */
-    private function get_course_status() {
+
+    private function get_course_status($course) {
 
         $coursestatus = self::MOOCRUNNING;
 
-        if ($this->extendedcourse->enddate < $this->date->getTimestamp()) {
+        if ($this->extendedcourse->enrolledusers == $this->get_max_enrolled_users($course)) {
+            $coursestatus = self::MOOCCOMPLETE;
+        } else if ($this->extendedcourse->enddate < $this->date->getTimestamp()) {
             $coursestatus = self::MOOCCLOSED;
-        }
-        if ($this->course->startdate > $this->date->getTimestamp()) {
+        } else if ($this->course->startdate > $this->date->getTimestamp()) {
             $coursestatus = self::MOOCNOTSTARTED;
         }
         return $coursestatus;
-
     }
 
     /**
@@ -104,9 +118,10 @@ class subscription_button_object {
      *                          USERLOGGED
      *                          USERENROLLED
      *
-     * @param type $context
-     * @param type $course
+     * @param none
+     * @return $userstatus
      */
+
     private function get_user_status() {
 
         $userstatus = self::USERENROLLED;
@@ -118,77 +133,117 @@ class subscription_button_object {
             $userstatus = self::USERENROLLED;
         }
         return $userstatus;
-
     }
 
     /**
-     * Display the subscription button
+     *  Set and display the button describing the status of a course.
      *
-     * @param type $url
-     * @return type
+     * @param object $course
+     * @return string html_writer::tag
      */
-    private function display_subscribe_to_mooc($url) {
+    public function set_button($course) {
 
-        return html_writer::tag('a', get_string('subscribe_to_mooc', 'local_orange_library'),
-                array('class' => 'btn btn-primary', 'href' => $url));
+        switch ($this->coursestatus) {
+
+            case self::MOOCCLOSED:
+                return $this->controller_mooc_closed();
+                break;
+            case self::MOOCCOMPLETE:
+                return $this->controller_mooc_complete();
+                break;
+            case self::MOOCNOTSTARTED:
+                return $this->controller_mooc_not_started();
+                break;
+            default:
+                return $this->controller_mooc_running();
+                break;
+        }
+    }
+
+    /**
+     * Return the max number of enrolled users
+     *
+     * @param $course
+     * @return $instance->customint3 (max enrolledusers)
+     */
+    private function get_max_enrolled_users($course) {
+
+        $enrols = enrol_get_plugins(true);
+
+        $enrolinstances = enrol_get_instances($course->id, true);
+        $instance = null;
+
+        foreach ($enrolinstances as $instance) {
+            if (!isset($enrols[$instance->enrol])) {
+                continue;
+            }
+        }
+        if ($instance != null) {
+            return $instance->customint3;
+        }
+    }
+
+    /**
+     * Display text
+     *
+     * @param $text
+     * @return string html_writer::tag
+     * */
+    private function display_text($text) {
+
+        return  html_writer::tag('span', get_string($text, 'local_orange_library'),
+            array('class' => 'center-block'));
 
     }
 
     /**
-     * Display the access button
+     * Display button
      *
-     *
+     * @param $text
+     * @param $url
+     * @return string html_writer::tag
      * */
-    private function display_access_to_mooc() {
+    private function display_button($text, $url) {
 
-        return html_writer::tag('a', get_string('access_to_mooc', 'local_orange_library'),
-                array('class' => 'btn btn-secondary', 'href' => $this->moocurl));
+            return html_writer::tag('a', get_string($text, 'local_orange_library'),
+                array('class' => 'btn btn-secondary', 'href' => $url));
     }
 
+
     /**
-     * Display closed status
+     * Display the access button for archive
      *
-     *
+     * @param none
+     * @return $text
      * */
-    private function display_status_closed() {
+    private function display_access_to_archive() {
 
-        return  html_writer::tag('span', get_string('status_closed', 'local_orange_library'),
-            array('class' => 'presentation__mooc__text__subtitle'));
-
+        $text = "";
+        $text .= $this->display_text('acces_to_archive');
+        $text .= $this->display_button('alert_mooc', $this->moocurl);
+        return $text;
     }
 
     /**
      * Display status closed with alert me button
      *
-     *
+     * @param none
+     * @return $text
      * */
     private function display_status_closed_alert() {
 
         $text = "";
-        $text .= html_writer::tag('span', get_string('status_closed', 'local_orange_library'));
-        $text .= html_writer::empty_tag('br');
-        $text .= html_writer::tag('a', get_string('alert_mooc', 'local_orange_library'),
-                array('class' => 'btn btn-primary', 'href' => $this->moocurl));
+        $text .= $this->display_text('status_closed');
+        $text .= $this->display_button('alert_mooc', $this->moocurl);
         return $text;
-
-    }
-
-    /**
-     * Display registration stopped
-     *
-     *
-     * */
-    private function display_registration_stopped() {
-
-        return  html_writer::tag('span', get_string('registration_stopped', 'local_orange_library'),
-                array('class' => 'presentation__mooc__text__subtitle'));
 
     }
 
     /**
      * Display the open date of the mooc
      *
-     *
+     * @param none
+     * @return string html_writer::tag
      * */
     private function display_mooc_open_date() {
 
@@ -201,7 +256,8 @@ class subscription_button_object {
     /**
      * Closed status display redirection
      *
-     *
+     * @param none
+     * @return call to another function
      * */
     private function controller_mooc_closed() {
 
@@ -213,30 +269,56 @@ class subscription_button_object {
         } else {
             //   Mooc could not be replayed".
             //   CASE D : MOOC STOPPED - USER LOGGED OR NOT.
-            return $this->display_status_closed();
+            return $this->display_text('status_closed');
 
         }
 
     }
 
     /**
+     * Closed status display redirection
+     *
+     * @param none
+     * @return call to display_text()
+     * */
+    private function controller_mooc_complete() {
+
+            return $this->display_text('registration_stopped');
+
+    }
+
+    /**
+     * Closed status display redirection
+     *
+     * @param none
+     * @return call to display_button()
+     * */
+    private function controller_mooc_private() {
+
+            return $this->display_button('subscribe_to_mooc', $this->enrolmenturl);
+
+    }
+
+    /**
      * Mooc not started display controller
      *
-     *
+     * @param none
+     * @return call to display_button() or display_mooc_open_date()
      * */
     private function controller_mooc_not_started() {
+
         if (!isloggedin()) {
             //   User not logged.
             //   user not registered.
             //   CASE A : NOT LOGGED TO THE MOOC - USER LOGGED OR NOT.
-            return $this->display_subscribe_to_mooc($this->urlregistration);
+            return $this->display_button('subscribe_to_mooc', $this->urlregistration);
 
         } else {
             // User logged to Solerni.
             if (!is_enrolled($this->context)) {
                 // User not subscribed to the mooc.
                 // CASE A : NOT LOGGED TO THE MOOC - USER LOGGED OR NOT.
-                return $this->display_subscribe_to_mooc($this->urlmoocsubscription);
+                return $this->display_button('subscribe_to_mooc', $this->urlmoocsubscription);
 
             } else {
                 // User not subscribed to the mooc.
@@ -248,29 +330,31 @@ class subscription_button_object {
 
 
     /**
-     *
+     * Display subscription button when  mooc is running
+     * Gestion de l'affichage du bouton quand un mooc est en cours
      *
      *
      * */
     private function controller_mooc_running() {
 
-        if ($this->enrolenddate < $this->date->getTimestamp()) {
+        if (($this->enrolenddate < $this->date->getTimestamp())||
+            ($this->extendedcourse->enrolledusers = $this->extendedcourse->maxregisteredusers)) {
             // Mooc's running and registration date passed.
             if (!isloggedin()) {
                 // User not logged to solerni.
                 // User not registered to the mooc.
                 // CASE F : Subscription closed -  USER LOGGED OR NOT.
-                return $this->display_registration_stopped();
+                return $this->display_text('registration_stopped');
             } else {
                 //   User logged to solerni.
                 if (!is_enrolled($this->context)) {
                     // User not registered to the mooc.
                     // CASE F : Subscription closed -  USER LOGGED OR NOT.
-                    return $this->display_registration_stopped();
+                    return $this->display_text('registration_stopped');
                 } else {
                     // User registered to the mooc.
                     // // CASE B :  LOGGED TO A RUNNIG MOOC - USER LOGGED.
-                    return $this->display_access_to_mooc();
+                    return $this->display_button('access_to_mooc', $this->moocurl);
                 }
             }
         } else {
@@ -278,43 +362,21 @@ class subscription_button_object {
                 // User not logged to solerni.
                 // User not registered to the mooc.
                 //   CASE A : NOT LOGGED TO THE MOOC - USER LOGGED OR NOT.
-                return $this->display_subscribe_to_mooc($this->urlregistration);
+                return $this->display_button('subscribe_to_mooc', $this->urlregistration);
             } else {
                 //   User logged to solerni.
                 if (!is_enrolled($this->context)) {
                     // User not registered to the mooc.
                     //   CASE A : NOT LOGGED TO THE MOOC - USER LOGGED OR NOT.
-                    return $this->display_subscribe_to_mooc($this->urlmoocsubscription);
+                    return $this->display_button('subscribe_to_mooc', $this->urlmoocsubscription);
                 } else {
                     // User registered to the mooc.
                     // // CASE B :  LOGGED TO A RUNNIG MOOC - USER LOGGED.
-                    return $this->display_access_to_mooc();
+                    return $this->display_button('access_to_mooc', $this->moocurl);
                 }
             }
         }
     }
 
-    /**
-     *  Set and display the button describing the status of a course.
-     *
-     * @param object $context
-     * @param object $course
-     * @return string html_writer::tag
-     */
-    public function set_button($course) {
-
-        switch ($this->coursestatus) {
-
-            case self::MOOCCLOSED:
-                return $this->controller_mooc_closed();
-                break;
-            case self::MOOCNOTSTARTED:
-                return $this->controller_mooc_not_started();
-                break;
-            default:
-                return $this->controller_mooc_running();
-                break;
-        }
-    }
 
 }

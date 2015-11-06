@@ -159,6 +159,13 @@ class extended_course_object {
      */
     public $enrolledusers;
 
+    const MOOCCOMPLETE     = 0;
+    const MOOCCLOSED       = 1;
+    const MOOCNOTSTARTED   = 2;
+    const MOOCRUNNING      = 3;
+    const USERLOGGED        = 4;
+    const USERENROLLED      = 5;
+
     /**
      *  Get the extended course values from the extended course flexpage values.
      *
@@ -185,7 +192,6 @@ class extended_course_object {
         if (!$context) {
             $context = context_course::instance($course->id);
         }
-        $this->enrolledusers = count_enrolled_users($context);
         if ($customer) {
             $this->registrationcompany = $customer->name;
         }
@@ -213,18 +219,21 @@ class extended_course_object {
         switch ($extendedcourseflexpagevalue->name) {
             case 'coursereplay':
                 if ($extendedcourseflexpagevalue->value == 0) {
-                    $this->replay = get_string('replay', 'format_flexpage');
+                    $this->replay = get_string('replay', 'local_orange_library');
                 } else {
-                    $this->replay = get_string('notreplay', 'format_flexpage');
+                    $this->replay = get_string('notreplay', 'local_orange_library');
                 }
                 break;
             case 'coursestatus':
-                if ($extendedcourseflexpagevalue->value == 0) {
-                    $this->status = get_string('current', 'format_flexpage');
-                } else if ($extendedcourseflexpagevalue->value == 1) {
-                    $this->status = get_string('startingsoon', 'format_flexpage');
+
+                if ($extendedcourseflexpagevalue->value == self::MOOCCOMPLETE) {
+                    $this->status = get_string('mooc_complete', 'local_orange_library');
+                } else if ($extendedcourseflexpagevalue->value == self::MOOCCLOSED) {
+                    $this->status = get_string('status_closed', 'local_orange_library');
+                } else if ($extendedcourseflexpagevalue->value == self::MOOCNOTSTARTED) {
+                    $this->status = get_string('status_default', 'local_orange_library');
                 } else {
-                    $this->status = get_string('closed', 'format_flexpage');
+                    $this->status = get_string('status_runnig', 'format_flexpage');
                 }
                 break;
             case 'coursepicture':
@@ -239,7 +248,7 @@ class extended_course_object {
 
             case 'courselanguage':
                 if ($extendedcourseflexpagevalue->value == 0) {
-                    $this->language = get_string('french', 'format_flexpage');
+                    $this->language = get_string('french', 'local_orange_library');
                 } else {
                     $this->language = get_string('english', 'local_orange_library');
                 }
@@ -249,11 +258,11 @@ class extended_course_object {
                 break;
             case 'courseprice':
                 if ($extendedcourseflexpagevalue->value == 0) {
-                    $this->price = get_string('price_case1', 'format_flexpage');
+                    $this->price = get_string('price_case1', 'local_orange_library');
                 } else if ($extendedcourseflexpagevalue->value == 1) {
-                    $this->price = get_string('price_case2', 'format_flexpage');
+                    $this->price = get_string('price_case2', 'local_orange_library');
                 } else {
-                    $this->price = get_string('price_case3', 'format_flexpage');
+                    $this->price = get_string('price_case3', 'local_orange_library');
                 }
                 break;
             case 'coursecertification':
@@ -272,7 +281,7 @@ class extended_course_object {
                 $this->prerequesites = $extendedcourseflexpagevalue->value;
                 break;
             case 'courseduration':
-                $this->duration =  utilities_object::duration_to_time($extendedcourseflexpagevalue->value);
+                $this->duration = utilities_object::duration_to_time($extendedcourseflexpagevalue->value);
                 break;
             case 'courseregistration':
                 $this->registration = $extendedcourseflexpagevalue->value;
@@ -295,5 +304,8 @@ class extended_course_object {
         }
         return $this->extendedcourse->language;
     }
+
+
+
 
 }

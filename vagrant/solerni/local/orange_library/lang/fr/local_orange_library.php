@@ -35,6 +35,8 @@ $string['alert_mooc'] = 'M’avertir de la prochaine session';
 $string['registration_stopped'] = 'Inscription terminée';
 $string['mooc_complete'] = 'Mooc complet';
 $string['mooc_open_date'] = 'Ouverte à tous du ';
+$string['acces_to_archive'] = 'Acces aux archives du cours';
+$string['status_runnig'] = 'MOOC en cours';
 
 // Extended course object.
 $string['english'] = 'Anglais';
@@ -45,5 +47,17 @@ $string['certification_default'] = 'Attestation de réussite';
 $string['badge_default'] = 'Badge ';
 $string['badge'] = 'Badge ';
 
-// Exception
+// Exception.
 $string['missing_course_in_construct'] = 'Vous avez essayé d\'instancier un objet subscription_button_object sans lui passer un objet $course';
+
+$string['price'] = 'Tarif : ';
+$string['price_help'] = 'tarif du cours';
+$string['price_default'] = '0';
+$string['price_case1'] = 'Mooc gratuit';
+$string['price_case2'] = 'Mooc gratuit<br>certification en option';
+$string['price_case3'] = 'enseignement professionnel';
+
+$string['coursereplay'] = 'cours rejouable';
+$string['coursereplay_help'] = 'le cours est-il rejouable ?';
+$string['replay'] = 'Rejouable';
+$string['notreplay'] = 'Non rejouable';

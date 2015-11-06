@@ -28,6 +28,9 @@ require_once($CFG->dirroot.'/course/format/lib.php');
 require_once($CFG->dirroot.'/blocks/orange_course_extended/locallib.php');
 require_once($CFG->dirroot.'/config.php');
 
+use local_orange_library\enrollment;
+
+
 /**
  * Course contents block generates a table of course contents based on the
  * section descriptions
@@ -205,8 +208,6 @@ class block_orange_course_extended extends block_base {
             $filename = $file->get_filename();
             $imgurl = moodle_url::make_pluginfile_url($ctxid, $cmpnt, $filearea, $itemid, $filepath, $filename);
         }
-
-
 
         $text = $this->renderer->get_text($imgurl, $course, $context);
         $this->content->text = $text;
