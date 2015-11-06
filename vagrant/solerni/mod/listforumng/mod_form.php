@@ -44,58 +44,42 @@ class mod_listforumng_mod_form extends moodleform_mod {
 
         $this->add_intro_editor(true, get_string('listforumngintro', 'listforumng'));
 
-
-        
-        
         $repeatarray = array();
         $repeatarray[] = $mform->createElement('text', 'subpart', get_string('subpartno', 'listforumng'));
         $repeatarray[] = $mform->createElement('hidden', 'subpartid', 0);
-        
-        if ($this->_instance){
-        	$repeatno = $DB->count_records('listforumng', array('parent'=>$this->_instance));
-        	$repeatno += 2;
-        } else {
-        	$repeatno = 5;
-        }
-        
-        $repeateloptions = array();
 
-        $mform->setType('subpart', PARAM_CLEANHTML);
-        
-        $mform->setType('subpartid', PARAM_INT);
-        
-        $this->repeat_elements($repeatarray, $repeatno,
-        		$repeateloptions, 'subpart_repeats', 'subpart_add_fields', 3, null, true);
-        
-        /*
-        // Make the first option required
-        if ($mform->elementExists('subpart[0]')) {
-        	$mform->addRule('subpart[0]', "COUCOUCOU", 'required', null, 'client');
+        if ($this->_instance) {
+            $repeatno = $DB->count_records('listforumng', array('parent' => $this->_instance));
+            $repeatno += 2;
+        } else {
+            $repeatno = 5;
         }
-        */      
-        
+
+        $repeateloptions = array();
+        $mform->setType('subpart', PARAM_CLEANHTML);
+
+        $mform->setType('subpartid', PARAM_INT);
+
+        $this->repeat_elements($repeatarray, $repeatno,
+                $repeateloptions, 'subpart_repeats', 'subpart_add_fields', 3, null, true);
+
         $this->standard_coursemodule_elements();
         $this->add_action_buttons();
     }
-    
-    
-    
-    
-   
-    function data_preprocessing(&$default_values){
-    	global $DB;
-    	if (!empty($this->_instance) 
-    			&& ($subparts = $DB->get_records_menu('listforumng',array('parent'=>$this->_instance), 'id', 'id,name'))) {
-    				
-    				$parentids=array_keys($subparts);
-    				$subparts=array_values($subparts);
-    
-    				foreach (array_keys($subparts) as $key){
-    					$default_values['subpart['.$key.']'] = $subparts[$key];
-    					$default_values['subpartid['.$key.']'] = $parentids[$key];
-    				}
-    
-    			}
+
+    public function data_preprocessing(&$defaultvalues) {
+        global $DB;
+        if (!empty($this->_instance)
+                && ($subparts = $DB->get_records_menu('listforumng', array('parent' => $this->_instance), 'id', 'id,name'))) {
+
+            $parentids = array_keys($subparts);
+            $subparts = array_values($subparts);
+
+            foreach (array_keys($subparts) as $key) {
+                $defaultvalues['subpart['.$key.']'] = $subparts[$key];
+                $defaultvalues['subpartid['.$key.']'] = $parentids[$key];
+            }
+        }
     }
-    
+
 }

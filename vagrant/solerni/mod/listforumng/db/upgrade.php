@@ -28,15 +28,15 @@ function xmldb_listforumng_upgrade($oldversion=0) {
     $dbman = $DB->get_manager();
 
     if ($oldversion < 2015090803) {
-	    // Define field parent to be added to listforumng.
-	    $table = new xmldb_table('listforumng');
-	    $field = new xmldb_field('parent', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0', 'introformat');
+        // Define field parent to be added to listforumng.
+        $table = new xmldb_table('listforumng');
+        $field = new xmldb_field('parent', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0', 'introformat');
 
-	    // Launch add field canpostanon.
-	    if (!$dbman->field_exists($table, $field)) {
-		    $dbman->add_field($table, $field);
-	    }
-		    
+        // Launch add field canpostanon.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
         // Define table listforumng_forumng to be created.
         $table = new xmldb_table('listforumng_forumng');
 
@@ -56,13 +56,12 @@ function xmldb_listforumng_upgrade($oldversion=0) {
         // Conditionally launch create table for forumng_read_posts.
         if (!$dbman->table_exists($table)) {
             $dbman->create_table($table);
-        }	    
+        }
 
         // Listforumng savepoint reached.
         upgrade_mod_savepoint(true, 2015090803, 'listforumng');
     }
-	
 
-	return true;
+    return true;
 }
-	
+    
