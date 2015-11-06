@@ -187,4 +187,44 @@ $setting = new admin_setting_configtextarea($name, $title, $description, $defaul
 $setting->set_updatedcallback('theme_reset_all_caches');
 $temp->add($setting);
 
+// Username field label.
+$name = 'theme_halloween/loginusername';
+$title = get_string('loginusername', 'theme_halloween');
+$description = get_string('loginusernamedesc', 'theme_halloween');
+$default = ($CFG->solerni_isprivate) ?
+        '<span lang="fr" class="multilang">Pseudo ou email</span><span lang="en" class="multilang">Nickname or email</span>' :
+        '<span lang="fr" class="multilang">Pseudo ou email</span><span lang="en" class="multilang">Nickname or email</span>';
+$setting = new admin_setting_configtextarea($name, $title, $description, $default);
+$setting->set_updatedcallback('theme_reset_all_caches');
+$temp->add($setting);
+
+// Username field complementary text.
+$name = 'theme_halloween/loginusernamesub';
+$title = get_string('loginusernamesub', 'theme_halloween');
+$description = get_string('loginusernamesubdesc', 'theme_halloween');
+$default = ($CFG->solerni_isprivate) ?
+        '<span lang="fr" class="multilang">Saisir le pseudo fourni ou votre email professionnel</span><span lang="en" class="multilang">Enter your provided username or your professionnal email</span>' :
+        '<span lang="fr" class="multilang"></span><span lang="en" class="multilang"></span>';
+$setting = new admin_setting_configtextarea($name, $title, $description, $default);
+$setting->set_updatedcallback('theme_reset_all_caches');
+$temp->add($setting);
+
+// Password field label.
+$name = 'theme_halloween/loginpassword';
+$title = get_string('loginpassword', 'theme_halloween');
+$description = get_string('loginpassworddesc', 'theme_halloween');
+$default = '<span lang="fr" class="multilang">Mot de passe</span><span lang="en" class="multilang">Password</span>';
+$setting = new admin_setting_configtextarea($name, $title, $description, $default);
+$setting->set_updatedcallback('theme_reset_all_caches');
+$temp->add($setting);
+
+// Password field complementary text.
+$name = 'theme_halloween/loginpasswordsub';
+$title = get_string('loginpasswordsub', 'theme_halloween');
+$description = get_string('loginpasswordsubdesc', 'theme_halloween');
+$default = '<span lang="fr" class="multilang"></span><span lang="en" class="multilang"></span>';
+$setting = new admin_setting_configtextarea($name, $title, $description, $default);
+$setting->set_updatedcallback('theme_reset_all_caches');
+$temp->add($setting);
+
 $ADMIN->add('theme_halloween', $temp);

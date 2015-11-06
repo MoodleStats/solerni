@@ -26,7 +26,6 @@ if ($cancel) {
 
 //HTTPS is required in this page when $CFG->loginhttps enabled
 $PAGE->https_required();
-
 $context = context_system::instance();
 $PAGE->set_url("$CFG->httpswwwroot/login/index.php");
 $PAGE->set_context($context);
@@ -323,6 +322,7 @@ if (isloggedin() and !isguestuser()) {
         '/auth/googleoauth2/style.css"');
     $PAGE->requires->js_init_code("buttonsCodeOauth2 = '';"); // this appends nothing, which is the purpose.
     $PAGE->requires->js(new moodle_url($CFG->wwwroot . "/auth/googleoauth2/script.js"));
+    // Echo stuff
     echo $OUTPUT->header();
     require($CFG->partialsdir . '/login/login_form.php');
     if ($errormsg) {

@@ -360,18 +360,65 @@ div[role="main"] .list-social {
     padding-bottom: (@s-small-xs-margin / 2);
 }
 
+.block .content hr {
+    display: none;
+}
+
 /*
  *Login
  */
 .login-oauth2 {
     margin: @s-double-xs-margin 0;
-
 }
 
 .login-oauth2 .btn {
-    margin-bottom: @s-small-xs-margin;
-
-    &:last-child {
-        margin-bottom: 0;
-    }
+    margin-bottom: @s-double-xs-margin;
 }
+
+.login-line {
+    border-top: 2px solid @gray-dark;
+    text-align: center;
+    margin:     @s-small-xs-margin 0;
+}
+
+.line-inner {
+    position:           relative;
+    display:            inline-block;
+    background-color:   @brand-tertiary;
+    top:                -.7em;
+    padding:            0 1em;
+    text-transform:     uppercase;
+    color:              @gray-dark;
+    font-weight:        bold;
+    font-size:          1.2em;
+}
+
+.login-box {
+    margin: @s-double-xs-margin 0;
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.login-forgot {
+    position:   absolute;
+    right:      0;
+    top:        0;
+    height:     @input-height-base;
+    border:     1px solid @gray-light;
+}
+
+.login-forgot:hover {
+    border:     1px solid @gray-light;
+}
+
+/* fix small css */
+img.icon {
+    float: left;
+}
+
+.formsettingheading {
+    margin-bottom: 2em;
+}
+

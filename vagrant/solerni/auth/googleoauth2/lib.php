@@ -32,7 +32,7 @@ require_once($CFG->dirroot . '/auth/googleoauth2/vendor/autoload.php');
 function googleoauth2_html_button($authurl, $providerdisplaystyle, $provider) {
     return '<a class="signinprovider ' .
                 $provider->name .
-                ' btn btn-engage center-block ' .
+                ' btn btn-engage btn-block ' .
                 $providerdisplaystyle . '" href="' . $authurl . '">' .
                 get_string('loginoauth', 'theme_halloween', $provider->readablename)  .
             '</a>';
@@ -173,5 +173,5 @@ function auth_googleoauth2_render_buttons() {
             </div>';
     }
 
-    return $html;
+    return array('html' => $html, 'providers' => $providerscount);
 }

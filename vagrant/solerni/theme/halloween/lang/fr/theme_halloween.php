@@ -192,13 +192,28 @@ $string['skip_to_nav']                  = 'Aller à la navigation';
 // Login settings
 $string['loginsettings']                = 'Page de connexion';
 $string['loginheading']                 = 'Administration de la page de connexion';
-$string['loginheadingdesc']             = 'La partie supérieure de la page de connexion est modifiable afin d\'en ajuster l\'éditorial (logo, titre, zone de texte). Vous pouvez modifier les valeurs par défaut sur cette page. Pour supprimer un élément, il suffit de supprimer le contenu du champ avant de sauvegarder.';
+$string['loginheadingdesc']             = 'La partie supérieure de la page de connexion est modifiable  afin d\'en ajuster'
+                                            . ' l\'éditorial (logo, titre, zone de texte).  Vous pouvez modifier les '
+                                            . 'valeurs par défaut sur cette page. Pour supprimer un élément, il suffit'
+                                            . ' de supprimer le contenu du champ avant de sauvegarder. Il est également'
+                                            . ' possible de modifier les labels des champs du formulaire et d\'y adjoindre'
+                                            . ' un texte d\'accompagnement.';
 $string['loginlogo']                    = 'Logo';
 $string['loginlogodesc']                = '';
 $string['logintitle']                   = 'Accroche';
 $string['logintitledesc']               = '';
-$string['logintext']                   = 'Texte d\'accueil';
-$string['logintextdesc']               = '';
+$string['logintext']                    = 'Instructions';
+$string['logintextdesc']                = '';
+$string['loginusername']                = 'Label du champ username';
+$string['loginusernamedesc']            = '';
+$string['loginusernamesub']             = 'Texte d\'accompagnement du champ username';
+$string['loginusernamesubdesc']         = '';
+$string['loginpassword']                = 'Label du champ mot de passe';
+$string['loginpassworddesc']            = '';
+$string['loginpasswordsub']             = 'Texte d\'accompagnement du champ mot de passe';
+$string['loginpasswordsubdesc']         = '';
+$string['rememberusername']             = 'Se rappeler de moi';
+$string['forgotten']                    = 'Oublié ?';
 
 // Search filters.
 $string['catalog_page_title']       = 'Catalogue';
@@ -224,6 +239,7 @@ $string['catalog1result']           = "Résultat trouvé";
 $string['not_registered_yet']       = 'Pas encore de compte ?';
 $string['i_do_register']            = 'Je m\'inscris';
 $string['loginoauth']               = 'Se connecter avec {$a}';
+$string['or']                       = 'ou';
 
 // Mooc component.
 $string['courseproposedby']         = "Proposé par";

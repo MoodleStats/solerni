@@ -45,4 +45,3 @@ $filtermultilang = new filter_multilang($PAGE->context, array());
         <?php echo get_string('i_do_register', 'theme_halloween'); ?>
     </a>
 </p>
-
