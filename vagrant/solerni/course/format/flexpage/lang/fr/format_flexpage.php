@@ -295,3 +295,7 @@ $string['prerequesites_default'] = 'aucun prérequis';
 $string['teachingteam'] = 'Équipe pédagogique';
 $string['teachingteam_help'] = 'description de l\'équipe pédagogique.';
 $string['teachingteam_default'] = 'Conception : Orange avec Learning CRM';
+
+$string['contactemail'] = 'Email de contact';
+$string['contactemail_help'] = 'Email de contact du Mooc utilisé pour le formulaire de contact';
+$string['contactemail_default'] = 'contact@solerni.com';

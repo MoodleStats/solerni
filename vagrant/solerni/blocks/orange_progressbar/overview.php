@@ -58,7 +58,7 @@ require_capability('block/orange_progressbar:overview', $progressblockcontext);
 // Start page output.
 echo $OUTPUT->header();
 echo $OUTPUT->heading($title, 2);
-echo $OUTPUT->container_start('block_progress');
+echo $OUTPUT->container_start('block_orange_progressbar');
 
 $renderer = $PAGE->get_renderer('block_orange_progressbar');
 

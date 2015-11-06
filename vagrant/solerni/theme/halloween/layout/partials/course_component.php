@@ -41,6 +41,21 @@ if ( $courseinfos ) :
                                  array('w' => 40, 'h' => 40, 'scale' => true)); ?>">
                 </a>
             <?php endif; ?>
+            <?php if ($progressstatus) : ?>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="<?php echo $progress; ?>" 
+                     aria-valuemin="0" aria-valuemax="100" style="width:<?php echo $progress; ?>%">
+                    <?php if ($progress > 25) {
+                        echo $progress . ' %';
+                    }
+                    ?>
+                </div>
+                <?php if ($progress <= 25) {
+                    echo $progress . ' %';
+                }
+                ?>
+            </div>
+            <?php endif; ?>
         </div>
         <div class="slrn-coursebox__column slrn-coursebox__column--description">
             <h3 class="slrn-coursebox__coursename"><?php echo $coursename; ?></h3>

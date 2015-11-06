@@ -254,4 +254,32 @@ $string['ifreelyregister']          = "Je m'inscris gratuitement";
 $string['seecatalog']               = "Voir le catalogue";
 
 // Block "My Badge" on dashboard.
-$string['lastbadge']                = 'Dernier badge obtenu&nbsp;:';
+$string['lastbadge']                = 'Dernier badge obtenu:';
+
+// Contact page
+$string['contact_us']               = 'Nous contacter';
+$string['contact_page_title']       = 'Nous contacter';
+$string['contact_request_type']     = 'Votre demande concerne';
+$string['contact_civility']         = 'Civilité';
+$string['contact_email']            = 'Email';
+$string['contact_firstname']        = 'Prénom';
+$string['contact_lastname']         = 'Nom';
+$string['contact_company']          = 'Société';
+$string['contact_phone']            = 'Téléphone';
+$string['contact_jobtitle']         = 'Fonction';
+$string['contact_question']         = 'Question';
+$string['contact_submit']           = 'Envoyer';
+$string['contact_civility_mr']      = 'Monsieur';
+$string['contact_civility_mrs']     = 'Madame';
+$string['contact_request_default']  = 'Sélectionner une valeur';
+$string['contact_request_pb']       = 'J\'ai un problème technique (accès, connexion, inscription ...)';
+$string['contact_request_partner']  = 'Je souhaite proposer un partenariat';
+$string['contact_request_commercial'] = 'Je souhaite rencontrer un commercial';
+$string['contact_request_other']    = 'Toutes autres demandes';
+$string['contact_mooc_help']        = 'J\'ai besoin d\'aide sur le Mooc : ';
+$string['contact_requestid_missing'] = 'Sélectionner une entrée';
+$string['contact_requestid_invalid'] = 'Votre choix n\'est pas valide';
+$string['contact_email_sent']       = 'Votre demande a été transmise';
+$string['contact_email_notsent']    = 'Une erreur est survenue, votre demande n\'a pas été transmise';
+$string['contact_email_subject']    = 'Solerni - Demande de support';
+$string['contact_email_body']       = 'La requête suivante a été réalisée via le formulaire de contact de la plateforme %s';

@@ -49,9 +49,9 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
         $language = get_string('french', 'format_flexpage');
         $registrationvalue = get_string('registration_case1', 'format_flexpage');
         if ($imgurl) {
-            $text .= html_writer::empty_tag('img', array('src' => $imgurl));
+            $text .= html_writer::empty_tag('img', array('src' => $imgurl,'class' => 'essentiels-image'));
         }
-        $text .= html_writer::tag('h2', $course->fullname.' ');
+        //$text .= html_writer::tag('h2', $course->fullname.' ');
             $text .= html_writer::start_tag('div', array('class' => 'sider__content'));
                 $text .= html_writer::start_tag('ul', array('class' => 'essentiels'));
                    $text .= html_writer::start_tag('li');
@@ -142,15 +142,22 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
                         $text .= html_writer::empty_tag('br');
                         $text .= html_writer::tag('span', $extendedcourse->enrolledusers.' ', array('class' => 'slrn-bold'));
                     $text .= html_writer::end_tag('li');
+                $text .= html_writer::end_tag('ul');
+            $text .= html_writer::end_tag('div');
+            $text .= html_writer::start_tag('div', array('class' => 'sider__button'));
+                $text .= html_writer::start_tag('ul', array('class' => 'essentiels-btn'));
+
                     $text .= html_writer::start_tag('li');
                     $text .= $subscriptionbutton->set_button($course);
                     $text .= html_writer::end_tag('li');
+                    if(!empty($extendedcourse->status)){
                     $text .= html_writer::start_tag('li');
                         $text .= html_writer::empty_tag('br');
                         $text .= html_writer::tag('span', get_string('status', 'format_flexpage'));
                         $text .= html_writer::empty_tag('br');
                         $text .= html_writer::tag('span', $extendedcourse->status.' ', array('class' => 'slrn-bold'));
                     $text .= html_writer::end_tag('li');
+                    }
                 $text .= html_writer::end_tag('ul');
             $text .= html_writer::end_tag('div');
         $text .= html_writer::tag('h2', get_string('prerequesites', 'format_flexpage'));

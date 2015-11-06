@@ -255,3 +255,31 @@ $string['seecatalog']               = "See the catalogue";
 
 // Block "My Badge" on dashboard.
 $string['lastbadge']                = 'Last badge obtained:';
+
+// Contact page
+$string['contact_us']               = 'Contact us';
+$string['contact_page_title']       = 'Contact us';
+$string['contact_request_type']     = 'Your enquiry is about';
+$string['contact_civility']         = 'Title';
+$string['contact_email']            = 'Email';
+$string['contact_firstname']        = 'Firstname';
+$string['contact_lastname']         = 'Surname';
+$string['contact_company']          = 'Company';
+$string['contact_phone']            = 'Phone';
+$string['contact_jobtitle']         = 'Job title';
+$string['contact_question']         = 'Question';
+$string['contact_submit']           = 'Send';
+$string['contact_civility_mr']      = 'Mr';
+$string['contact_civility_mrs']     = 'Mrs';
+$string['contact_request_default']  = 'Select an entry';
+$string['contact_request_pb']       = 'I have a technical problem (access, connexion, inscription ...)';
+$string['contact_request_partner']  = 'I want to propose a partnership';
+$string['contact_request_commercial'] = 'I want to contact the commercial service';
+$string['contact_request_other']    = 'Other request';
+$string['contact_mooc_help']        = 'I need help on Mooc : ';
+$string['contact_requestid_missing'] = 'Select an entry';
+$string['contact_requestid_invalid'] = 'Select a valid entry';
+$string['contact_email_sent']       = 'Your request has been sent';
+$string['contact_email_notsent']    = 'An error occurs, your request has not been sent';
+$string['contact_email_subject']    = 'Solerni - Support request';
+$string['contact_email_body']       = 'The following request has been issued using the contact form of the platform %s';

@@ -6145,10 +6145,11 @@ function send_password_change_confirmation_email($user, $resetrecord) {
     $data->resetminutes = $pwresetmins;
 
     $message = get_string('emailresetconfirmation', '', $data);
+    $messagehtml = get_string('emailresetconfirmationhtml', '', $data);
     $subject = get_string('emailresetconfirmationsubject', '', format_string($site->fullname));
 
     // Directly email rather than using the messaging system to ensure its not routed to a popup or jabber.
-    return email_to_user($user, $supportuser, $subject, $message);
+    return email_to_user($user, $supportuser, $subject, $message, $messagehtml);
 
 }
 

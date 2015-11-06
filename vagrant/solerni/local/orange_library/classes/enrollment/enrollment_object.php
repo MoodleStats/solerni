@@ -43,6 +43,23 @@ class enrollment_object {
     }
 
     /**
+     *  Get orangeinvitation enrollment instance.
+     *
+     * @param object $course
+     * @return object enrollinstance
+     */
+    public function get_orangeinvitation_enrolment($course) {
+
+        $instances = enrol_get_instances($course->id, false);
+        foreach ($instances as $instanceinfo) {
+            if ($instanceinfo->enrol == "orangeinvitation") {
+                $instanceinfo->customtext2 = $instanceinfo->customtext1 . "&id2=1";
+                return $instanceinfo;
+            }
+        }
+    }
+
+    /**
      *  Get self enrollment instance.
      *
      * @param moodle_url $imgurl

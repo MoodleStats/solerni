@@ -24,6 +24,7 @@ namespace local_orange_library\subscription_button;
 
 use local_orange_library\extended_course\extended_course_object;
 use local_orange_library\enrollment\enrollment_object;
+use local_orange_library\utilities\utilities_course;
 use html_writer;
 use DateTime;
 use moodle_url;
@@ -66,36 +67,14 @@ class subscription_button_object {
             $this->extendedcourse->get_extended_course($course, $context);
             $selfenrolment = new enrollment_object();
             $this->enrolenddate = $selfenrolment->get_enrolment_enddate($course);
-            $this->coursestatus = $this->get_course_status();
+            $utilitiescourse = new utilities_course();
+            $this->coursestatus = $utilitiescourse->get_course_status($this->course);
             $this->urlregistration = new moodle_url('/login/signup.php', array('id' => $this->course->id));
             $this->urlmoocsubscription = new moodle_url('/enrol/index.php', array('id' => $this->course->id));
             $this->moocurl = new moodle_url('/course/view.php', array('id' => $this->course->id));
         } else {
             throw new moodle_exception( 'missing_course_in_construct', 'local_orange_library');
         }
-    }
-
-    /**
-     * Return the status of the course
-     * Status could be : MOOCRUNNING
-     *                          MOOCCLOSED
-     *                          MOOCNOTSTARTED
-     *
-     * @param type $context
-     * @param type $course
-     */
-    private function get_course_status() {
-
-        $coursestatus = self::MOOCRUNNING;
-
-        if ($this->extendedcourse->enddate < $this->date->getTimestamp()) {
-            $coursestatus = self::MOOCCLOSED;
-        }
-        if ($this->course->startdate > $this->date->getTimestamp()) {
-            $coursestatus = self::MOOCNOTSTARTED;
-        }
-        return $coursestatus;
-
     }
 
     /**
@@ -193,7 +172,7 @@ class subscription_button_object {
     private function display_mooc_open_date() {
 
         $text = "";
-        $text = get_string('mooc_open_date', 'local_orange_library') . date("d-m-Y", $course->startdate);
+        $text = get_string('mooc_open_date', 'local_orange_library') . date("d-m-Y", $this->course->startdate);
         return html_writer::tag('a', $text, array('class' => 'btn btn-unavailable btn-disabled'));
 
     }

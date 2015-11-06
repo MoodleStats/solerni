@@ -40,7 +40,7 @@ $string['emailconfirmation'] = '<meta http-equiv="Content-Type" content="text/ht
                 <table border="0" width="620" cellpadding="0" cellspacing="0">
                     <tbody><tr>
                         <td align="left">
-                            <a href="https://solerni.org"><img border="0" src="http://laborange.fr/sites/default/files/logo-beta.png" alt="Solerni"></a>
+                            <a href="'.$CFG->wwwroot.'"><img border="0" src="http://laborange.fr/sites/default/files/logo-beta.png" alt="Solerni"></a>
                         </td>
                     </tr>
                 </tbody></table>
@@ -69,9 +69,9 @@ Si le bouton ne fonctionne pas, copiez-collez le lien suivant dans la barre d’
 <br>
 
 <br>
-<strong>L’équipe de <a href="{$a->sitename}">Solerni.org</a></strong><br>
+<strong>L’équipe de <a href="'.$CFG->wwwroot.'">{$a->sitename}</a></strong><br>
 Apprendre c’est toujours mieux ensemble
-<a href="{$a->sitename}">Solerni.org</a><br>
+<a href="'.$CFG->wwwroot.'">{$a->sitename}</a><br>
 
 
                                     </td>
@@ -98,7 +98,7 @@ Apprendre c’est toujours mieux ensemble
                                 <tr bgcolor="#f8f7f7">
                                     <td>
                                         <font size="2">
-                                        Vous recevez cet e-mail car votre adresse e-mail a été utilisée pour votre enregistrement sur notre site <a href="https://solerni.org">Solerni.org</a>.Si vous ne vous êtes pas inscrit à Solerni, veuillez simplement ignorer ce message et votre compte sera supprimé automatiquement.
+                                        Vous recevez cet e-mail car votre adresse e-mail a été utilisée pour votre enregistrement sur notre site <a href="'.$CFG->wwwroot.'">{$a->sitename}</a>.Si vous ne vous êtes pas inscrit à Solerni, veuillez simplement ignorer ce message et votre compte sera supprimé automatiquement.
 
                                         Ce message vous est envoyé automatiquement, merci de ne pas y répondre directement.<br>
                                         Si vous avez des questions écrivez-nous à <a href="mailto:contact@solerni.com">contact@solerni.com</a>.<br>
@@ -152,3 +152,104 @@ See you soon on {$a->sitename}.
 You have received this email because your company wanted to automatically register you on our platform. This is an automatic message, please do not reply to it directly.
 If you have any questions, write to us at contact@solerni.com.
 To make sure you receive our emails, please add the following address to your contacts: noreply@solerni.com.';
+$string['emailresetconfirmation'] = 'Hello {$a->firstname},
+
+You have requested a password reset. If you did not request this reset, please ignore this message.
+
+Your username is : \'{$a->username}\'.
+
+Click on the link to reset your password :
+{$a->link}
+
+If the link does not work, copy and paste the URL to your browser\'s address bar.
+
+The Solerni team {$a->sitename}
+Learning is always better together ' . $CFG->wwwroot . '
+
+		
+You have received this email because your email address was used to sign up to our site {$a->sitename}. This is an automatic message, please do not reply to it directly. If you have any questions, write to us at contact@solerni.com.
+To ensure that you never miss our email, add this address noreply@solerni.com to your address book.';		
+$string['emailresetconfirmationhtml'] = '<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><!doctype html>
+
+<html lang="fr">
+<head>
+    <title></title>
+</head>
+<body style="margin: 0px; font-family : Helvetica, Arial, Verdana;" bgcolor="#f8f7f7" link="#ff004f" alink="#ff004f" vlink="#ff004f" style="margin:0px;">
+
+
+
+    <table border="0" width="100%" cellpadding="0" cellspacing="0">
+        <tbody><tr bgcolor="#4b667c">
+            <td width="620" align="center">
+                <table border="0" width="620" cellpadding="0" cellspacing="0">
+                    <tbody><tr>
+                        <td align="left">
+                            <a href="'.$CFG->wwwroot.'"><img border="0" src="http://laborange.fr/sites/default/files/logo-beta.png" alt="Solerni"></a>
+                        </td>
+                    </tr>
+                </tbody></table>
+            </td>
+        </tr>
+        <tr>
+            <td width="620" align="center">
+                <table border="0" width="620" cellpadding="0" cellspacing="0">
+
+                    <tbody><tr>
+                        <td align="left" bgcolor="#ffffff">
+                            <table border="0" width="100%" cellpadding="20" cellspacing="0">
+                                <tbody><tr>
+                                    <td>
+
+<p>Hello {$a->firstname},</p>
+
+<p>You have requested a password reset. If you did not request this reset, please ignore this message.</p>
+
+Your username is : \'{$a->username}\'.
+<br />
+<p><a href="{$a->link}">Click on the link to reset your password</a>
+
+<br><br>
+<strong>The Solerni team</strong><br>
+Learning is always better together <a href="'.$CFG->wwwroot.'">{$a->sitename}</a><br>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td bgcolor="#eeeeef">
+                                        <table border="0" width="100%">
+                                            <tbody><tr>
+                                                <td>
+                                                    <font color="#999999">Suivez-nous sur</font><br>
+                                                    <a href="https://www.facebook.com/pages/Solerni/648508191861244?fref=ts"><img border="0" src="http://laborange.fr/sites/default/files/picto_facebook.png" alt="Suivez-nous sur Facebook"></a>
+                                                    &nbsp;&nbsp;
+                                                    <a href="https://twitter.com/SolerniOfficiel"><img border="0" src="http://laborange.fr/sites/default/files/picto_twitter.png" alt="Suivez-nous sur Twitter"></a>
+                                                    &nbsp;&nbsp;
+                                                    <a href="http://blog.solerni.org"><img border="0" src="http://laborange.fr/sites/default/files/picto_blog.png" alt="Suivez-nous sur notre blog"></a>
+                                                </td>
+                                                <td align="right" valign="bottom">
+                                                    <a href="http://www.orange.com"><img border="0" src="http://laborange.fr/sites/default/files/byorange.png" alt="Powered by Orange"></a>
+                                                </td>
+                                            </tr>
+                                        </tbody></table>
+                                    </td>
+                                </tr>
+                                <tr bgcolor="#f8f7f7">
+                                    <td>
+                                        <font size="2">
+											You have received this email because your email address was used to sign up to our site <a href="'.$CFG->wwwroot.'">{$a->sitename}</a>. 
+											This is an automatic message, please do not reply to it directly. 
+											If you have any questions, write to us at <a href="mailto:contact@solerni.com">contact@solerni.com</a>.
+											To ensure that you never miss our email, add this address <a href="mailto:noreply@solerni.com">noreply@solerni.com</a> to your address book.		
+		                                        </font>
+                                    </td>
+                                </tr>
+                            </tbody></table>
+                        </td>
+                    </tr>
+                </tbody></table>
+            </td>
+        </tr>
+    </tbody></table>
+
+</div></blockquote></body></html>';
