@@ -128,31 +128,31 @@ $THEME->layouts = array(
     // Standard layout with blocks, this is recommended for most pages with general information.
     'standard' => array(
         'file' => 'default.php',
-        'regions' => array('side-pre', 'side-post'),
+        'regions' => array('side-pre'),
         'defaultregion' => 'side-pre',
     ),
     // Main course page.
     'course' => array(
         'file' => 'default.php',
-        'regions' => array('side-pre', 'side-post'),
+        'regions' => array('side-pre'),
         'defaultregion' => 'side-pre',
         'options' => array('langmenu' => true),
     ),
     'coursecategory' => array(
         'file' => 'default.php',
-        'regions' => array('side-pre', 'side-post'),
+        'regions' => array('side-pre'),
         'defaultregion' => 'side-pre',
     ),
     // Part of course, typical for modules - default page layout if $cm specified in require_login().
     'incourse' => array(
         'file' => 'default.php',
-        'regions' => array('side-pre', 'side-post'),
+        'regions' => array('side-pre'),
         'defaultregion' => 'side-pre',
     ),
     // The site home page.
     'frontpage' => array(
         'file' => 'default.php',
-        'regions' => array('side-pre', 'side-post', 'main'),
+        'regions' => array('side-pre', 'main'),
         'defaultregion' => 'main',
         'options' => array('nonavbar' => true),
     ),
@@ -166,14 +166,14 @@ $THEME->layouts = array(
     // My dashboard page.
     'mydashboard' => array(
         'file' => 'default.php',
-        'regions' => array('side-pre', 'side-post'),
+        'regions' => array('side-pre'),
         'defaultregion' => 'side-pre',
         'options' => array('langmenu' => true),
     ),
     // My public page.
     'mypublic' => array(
         'file' => 'default.php',
-        'regions' => array('side-pre', 'side-post'),
+        'regions' => array('side-pre'),
         'defaultregion' => 'side-pre',
     ),
     'login' => array(
@@ -224,7 +224,7 @@ $THEME->layouts = array(
     // The pagelayout used for safebrowser and securewindow.
     'secure' => array(
         'file' => 'secure.php',
-        'regions' => array('side-pre', 'side-post'),
+        'regions' => array('side-pre'),
         'defaultregion' => 'side-pre'
     )
 );
