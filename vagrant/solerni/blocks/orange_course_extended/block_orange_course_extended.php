@@ -28,6 +28,9 @@ require_once($CFG->dirroot.'/course/format/lib.php');
 require_once($CFG->dirroot.'/blocks/orange_course_extended/locallib.php');
 require_once($CFG->dirroot.'/config.php');
 
+use local_orange_library\enrollment;
+
+
 /**
  * Course contents block generates a table of course contents based on the
  * section descriptions

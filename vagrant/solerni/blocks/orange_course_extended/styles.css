@@ -101,7 +101,9 @@
     line-height:    1.2;
     list-style: none;
 }
-
+.essentiels-btn .btn {
+    white-space: normal;
+}
 
 
 .block_orange_course_extended .essentiels-icon {

@@ -30,11 +30,14 @@ $string['local_orange_library'] = 'Orange Library';
 $string['subscribe_to_mooc'] = 'Mooc subscription';
 $string['access_to_mooc'] = 'Access to the mooc';
 $string['status_default'] = 'MOOC not started';
+$string['status_runnig'] = 'MOOC running';
 $string['status_closed'] = 'MOOC closed';
 $string['alert_mooc'] = 'Alert me for next MOOC session';
 $string['registration_stopped'] = 'Registration stopped';
 $string['mooc_complete'] = 'Mooc complete';
 $string['mooc_open_date'] = 'Available on ';
+$string['acces_to_archive'] = 'Access to course archive';
+
 
 // Extended course object.
 $string['english'] = 'English';
@@ -45,5 +48,17 @@ $string['certification_default'] = 'Certificate of achievement';
 $string['badge_default'] = 'Badge ';
 $string['badge'] = 'Badge ';
 
-// Exception
+// Exception.
 $string['missing_course_in_construct'] = 'You tried to instanciante a subscription_button_object without passing a $course object';
+
+$string['price'] = 'price: ';
+$string['price_help'] = 'price_help';
+$string['price_default'] = '0';
+$string['price_case1'] = 'free mooc';
+$string['price_case2'] = 'free mooc<br>certification in option';
+$string['price_case3'] = 'professional teaching';
+
+$string['coursereplay'] = 'After closed';
+$string['coursereplay_help'] = 'Choose the action';
+$string['replay'] = 'Replay';
+$string['notreplay'] = 'Don\'t replay';
