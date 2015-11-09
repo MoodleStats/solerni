@@ -26,14 +26,16 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/auth/googleoauth2/vendor/autoload.php');
 
+/*
+ * Returns HTML fragment to materialize provider login capability to user
+ */
 function googleoauth2_html_button($authurl, $providerdisplaystyle, $provider) {
-        return '<a class="singinprovider" href="' . $authurl . '" style="' . $providerdisplaystyle .'">
-                  <div class="button-fill ' . $provider->sskstyle . '">
-                    <div class="button-text">' . $provider->readablename . '</div>
-                    <div class="button-inside">
-                      <div class="inside-text">' . get_string('login', 'auth_googleoauth2') . '</div>
-                    </div>
-                  </div></a>';
+    return '<a class="signinprovider ' .
+                $provider->name .
+                ' btn btn-engage btn-block ' .
+                $providerdisplaystyle . '" href="' . $authurl . '">' .
+                get_string('loginoauth', 'theme_halloween', $provider->readablename)  .
+            '</a>';
 }
 
 /**
@@ -118,7 +120,7 @@ function auth_googleoauth2_display_buttons($echo = true) {
 /**
  * The very ugly code to render the html buttons.
  * TODO remove ugly html like center-tag and inline styles, implement a moodle renderer
- * @return string: returns the html for buttons and some JavaScript 
+ * @return string: returns the html for buttons and some JavaScript
  */
 function auth_googleoauth2_render_buttons() {
     global $CFG;
@@ -136,7 +138,6 @@ function auth_googleoauth2_render_buttons() {
         $authprovider = $_COOKIE[$cookiename];
     }
 
-    $html .= "<div>";
     $providerscount = 0;
 
     // TODO get the list from the provider folder instead to hard code it here.
@@ -154,16 +155,16 @@ function auth_googleoauth2_render_buttons() {
 
         // Check if we should display the button.
         $providerisenabled = $provider->isenabled();
-        $providerscount = $providerisenabled ? $providerscount + 1 : $providerscount;
+        $providerscount = ($providerisenabled) ? $providerscount + 1 : $providerscount;
         $displayprovider = ((empty($authprovider) || $authprovider == $providername || $allauthproviders) && $providerisenabled);
-        $providerdisplaystyle = $displayprovider ? 'display:inline-block;padding:10px;' : 'display:none;';
+        $providerdisplaystyle = (!$displayprovider) ? 'hidden' : '';
 
         // The button html code.
         $html .= $provider->html_button($authurl, $providerdisplaystyle);
     }
 
     if (!$allauthproviders and !empty($authprovider) and $providerscount > 1) {
-        $html .= '<br /><br />
+        $html .= '
            <div class="moreproviderlink">
                 <a href="'. $CFG->wwwroot . (!empty($CFG->alternateloginurl) ? $CFG->alternateloginurl : '/login/index.php')
                      . '?allauthproviders=true' .'" onclick="changecss(\\\'singinprovider\\\',\\\'display\\\',\\\'inline-block\\\');">
@@ -172,5 +173,5 @@ function auth_googleoauth2_render_buttons() {
             </div>';
     }
 
-    return $html;
+    return array('html' => $html, 'providers' => $providerscount);
 }

@@ -127,7 +127,7 @@ class options {
             'footerlistscolumn2anchor1' => '<span lang="fr" class="multilang">' . $stringmanager->get_string( 'footerlistscolumn2anchor1default', 'theme_halloween', null, 'fr') . '</span><span lang="en" class="multilang">' . $stringmanager->get_string( 'footerlistscolumn2anchor1default', 'theme_halloween', null, 'en') . '</span>',
             'footerlistscolumn2link1'   => $CFG->wwwroot . '/static/faq.html',
             'footerlistscolumn2anchor2' => '<span lang="fr" class="multilang">' . $stringmanager->get_string( 'footerlistscolumn2anchor2default', 'theme_halloween', null, 'fr') . '</span><span lang="en" class="multilang">' . $stringmanager->get_string( 'footerlistscolumn2anchor2default', 'theme_halloween', null, 'en') . '</span>',
-            'footerlistscolumn2link2'   => $CFG->wwwroot . '/static/contact.html',
+            'footerlistscolumn2link2'   => $CFG->wwwroot . '/contact/',
             'footerlistscolumn2anchor3' => '',
             'footerlistscolumn2link3'   => '',
             'footerlistscolumn2anchor4' => '',

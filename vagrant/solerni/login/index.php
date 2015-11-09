@@ -26,7 +26,6 @@ if ($cancel) {
 
 //HTTPS is required in this page when $CFG->loginhttps enabled
 $PAGE->https_required();
-
 $context = context_system::instance();
 $PAGE->set_url("$CFG->httpswwwroot/login/index.php");
 $PAGE->set_context($context);
@@ -307,8 +306,8 @@ $PAGE->set_title("$site->fullname: $loginsite");
 $PAGE->set_heading("$site->fullname");
 
 // Templating
-echo $OUTPUT->header();
 if (isloggedin() and !isguestuser()) {
+    echo $OUTPUT->header();
     // User is already connected, let's warn him
     echo $OUTPUT->box_start();
     $logout = new single_button(new moodle_url($CFG->httpswwwroot.'/login/logout.php', array('sesskey'=>sesskey(),'loginpage'=>1)), get_string('logout'), 'post');
@@ -316,6 +315,8 @@ if (isloggedin() and !isguestuser()) {
     echo $OUTPUT->confirm(get_string('alreadyloggedin', 'error', fullname($USER)), $logout, $continue);
     echo $OUTPUT->box_end();
 } else {
+    // Echo stuff
+    echo $OUTPUT->header();
     require($CFG->partialsdir . '/login/login_form.php');
     if ($errormsg) {
         $PAGE->requires->js_init_call('M.util.focus_login_error', null, true);

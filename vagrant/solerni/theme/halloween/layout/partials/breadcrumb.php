@@ -1,4 +1,4 @@
-
+<!-- breadcrumb -->
 <header id="page-header" class="clearfix">
     <div id="page-navbar" class="clearfix">
         <nav class="breadcrumb-nav" role="navigation" aria-label="breadcrumb"><?php echo $OUTPUT->navbar(); ?></nav>

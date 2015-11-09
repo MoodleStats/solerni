@@ -153,7 +153,7 @@ $THEME->layouts = array(
     'frontpage' => array(
         'file' => 'default.php',
         'regions' => array('side-pre', 'side-post', 'main'),
-        'defaultregion' => 'side-pre',
+        'defaultregion' => 'main',
         'options' => array('nonavbar' => true),
     ),
     // Server administration scripts.
