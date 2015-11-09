@@ -116,8 +116,8 @@ $THEME->parents_exclude_sheets = true;
 $THEME->layouts = array(
     'format_flexpage' => array(
         'file' => 'default.php',
-        'regions' => array('side-top', 'side-pre', 'main', 'side-post'),
-        'defaultregion' => 'main',
+        'regions' => array('side-top', 'side-pre', 'main'),
+        'defaultregion' => 'side-pre',
         'options' => array('langmenu' => true)
     ),
     // Most backwards compatible layout without the blocks - this is the layout used by default.

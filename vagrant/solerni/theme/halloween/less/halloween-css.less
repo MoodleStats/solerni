@@ -381,8 +381,11 @@ div[role="main"] .list-social {
 .block .header h2 {
     display:        inline-block;
     color:          @brand-primary;
-    font-weight:    bold;
     font-size:      @font-size-base;
+}
+
+.block .tree_item span {
+    font-weight:    bold;
 }
 
 .block .tree_item a:hover,
@@ -436,6 +439,19 @@ div[role="main"] .list-social {
     display: none;
 }
 
+/* hide search submit button in admin nav */
+
+.block .adminsearchform {
+    margin: @s-double-xs-margin 0;
+}
+
+.block .adminsearchform button[type="submit"] {
+    display: none;
+}
+
+.block .adminsearchform .input-group {
+    width: 100%;
+}
 
 /*
  *Login
