@@ -304,3 +304,4 @@ Apprendre c’est toujours mieux ensemble <a href="'.$CFG->wwwroot.'">{$a->siten
     </tbody></table>
 
 </div></blockquote></body></html>';
+$string['maxbytesforfile'] = 'Le fichier {$a} dépasse la taille maximale autorisée.';

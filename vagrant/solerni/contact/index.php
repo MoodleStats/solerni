@@ -78,10 +78,10 @@ function send_email($data, $contacts) {
     $mail = get_mailer();
     $messagetext = sprintf(get_string('contact_email_body', 'theme_halloween'), $SITE->fullname) . '\n';
     $messagetext .= get_string('contact_request_type', 'theme_halloween') . " : " . $requestname . '\n';
-    if ($data->civilityid) {
+    if ($data->civilityid == 1) {
         $messagetext .= get_string('contact_civility', 'theme_halloween') . " : " .
                 get_string('contact_civility_mr', 'theme_halloween') . '\n';
-    } else {
+    } else if ($data->civilityid == 2) {
         $messagetext .= get_string('contact_civility', 'theme_halloween') . " : " .
                 get_string('contact_civility_mrs', 'theme_halloween') . '\n';
     }
@@ -98,10 +98,10 @@ function send_email($data, $contacts) {
     $messagehtml  = "<html><body>";
     $messagehtml .= "<p>" . sprintf(get_string('contact_email_body', 'theme_halloween'), $SITE->fullname). "</p>";
     $messagehtml .= "<p>" .get_string('contact_request_type', 'theme_halloween') . " : " . $requestname. "</p>";
-    if ($data->civilityid) {
+    if ($data->civilityid == 1) {
         $messagehtml .= "<p>" .get_string('contact_civility', 'theme_halloween') . " : " .
                 get_string('contact_civility_mr', 'theme_halloween') . "</p>";
-    } else {
+    } else if ($data->civilityid == 2) {
         $messagehtml .= "<p>" .get_string('contact_civility', 'theme_halloween') . " : " .
                 get_string('contact_civility_mrs', 'theme_halloween') . "</p>";
     }

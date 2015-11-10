@@ -425,3 +425,12 @@ moosh role-update-capability solerni_utilisateur block/orange_progressbar:overvi
 # Add capabilities for calendar (#us_262, #us_266)
 moosh role-update-capability solerni_utilisateur moodle/calendar:manageownentries allow 1
 moosh role-update-capability solerni_course_creator moodle/calendar:manageentries allow 1
+
+# solerni_course_creator can add extended course
+moosh role-update-capability solerni_course_creator moodle/site:manageblocks allow 1
+
+# listforumng capabilities (#236)
+moosh role-update-capability solerni_utilisateur block/orange_listforumng:overview allow 1
+moosh role-update-capability guest block/orange_listforumng:overview allow 1
+moosh role-update-capability solerni_teacher block/orange_listforumng:addinstance allow 1
+moosh role-update-capability solerni_course_creator block/orange_listforumng:addinstance allow 1

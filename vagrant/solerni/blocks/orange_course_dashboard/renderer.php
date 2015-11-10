@@ -106,6 +106,7 @@ class block_orange_course_dashboard_renderer extends plugin_renderer_base {
 
         $html = '';
         $config = get_config('block_orange_course_dashboard');
+
         $courseordernumber = 0;
         $maxcourses = count($courses);
         $userediting = false;
@@ -117,10 +118,10 @@ class block_orange_course_dashboard_renderer extends plugin_renderer_base {
         $html .= get_string('titlefollowedcourses', 'block_orange_course_dashboard');
         $html .= html_writer::end_tag('h2');
             $html .= html_writer::start_tag('div', array('class' => 'block_orange_course_dashboard'));
-        if (!empty($config->mymoocurl)) {
+        if (!empty($config->mymoocsurl)) {
             $mymoocsurl = new moodle_url($config->mymoocsurl);
         } else {
-            $mymoocsurl = new moodle_url('/my');
+            $mymoocsurl = new moodle_url('/moocs/mymoocs.php');
         }
         $html .= html_writer::link($mymoocsurl, get_string('displaymymoocs', 'block_orange_course_dashboard'));
         $html .= html_writer::end_tag('div');
