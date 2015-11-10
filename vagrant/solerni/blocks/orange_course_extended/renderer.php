@@ -46,7 +46,6 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
 
         $subscriptionbutton = new subscription_button_object($course);
         $text = html_writer::start_tag('div', array('class' => 'row '));
-            $text .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-12'));
             if ($imgurl) {
                 $text .= html_writer::empty_tag('img', array('src' => $imgurl,'class' => 'essentiels-image'));
             }
@@ -62,19 +61,18 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
             }
                 $text .= $this->display_registration($extendedcourse);
                 $text .= $this->display_enrolledusers($extendedcourse);
-            $text .= html_writer::end_tag('div');
-
-            $text .= html_writer::start_tag('div', array('class' => 'col-xs-10 col-md-10'));
-                $text .= html_writer::start_tag('button', array('class' => 'btn '));
-
+        $text .= html_writer::end_tag('div');
+        $text .= html_writer::start_tag('div', array('class' => 'row '));
+            $text .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-12'));
                     $text .= $subscriptionbutton->set_button($course);
+            $text .= html_writer::end_tag('div');
+        $text .= html_writer::end_tag('div');
+        $text .= html_writer::end_tag('div');
 
-                $text .= html_writer::end_tag('button');
-            $text .= html_writer::end_tag('div');
             $text .= $this->display_prerequesites($extendedcourse);
-            $text .= $this->display_teachingteam($extendedcourse);
-            $text .= html_writer::end_tag('div');
-            $text .= html_writer::end_tag('div');        //$text .= html_writer::end_tag('div');
+                $text .= $this->display_teachingteam($extendedcourse);
+
+        $text .= html_writer::end_tag('div');
         return $text;
 
     }
@@ -85,18 +83,14 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
      * @return html_writer::tag
      */
     private function display_teachingteam($extendedcourse) {
-        $text = "";
-        $text .= html_writer::tag('h2', get_string('teachingteam', 'format_flexpage'));
-        $text .= html_writer::empty_tag('br');
+
+        $text = html_writer::tag('div', get_string('teachingteam', 'format_flexpage'), array('class' => 'header'));
+        $teachingteam = $extendedcourse->teachingteam;
         $text .= html_writer::start_tag('div', array('class' => 'content'));
-            $text .= html_writer::start_tag('ul', array('class' => 'essentiels'));
-                $text .= html_writer::start_tag('li');
-                $teachingteam = $extendedcourse->teachingteam;
-                $text .= html_writer::tag('span', $teachingteam.' ', array('class' => 'slrn-bold center-block'));
-                $text .= html_writer::end_tag('li');
-            $text .= html_writer::end_tag('ul');
+        $text .= html_writer::tag('span', $teachingteam.' ', array('class' => 'center-block'));
         $text .= html_writer::end_tag('div');
         return $text;
+
     }
 
     /**
@@ -106,13 +100,11 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
      */
     private function display_prerequesites($extendedcourse) {
 
-        $text = html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-12'));
-            $text .= html_writer::tag('span', get_string('prerequesites', 'format_flexpage'), array('class' => 'h2'));
-        $text .= html_writer::end_tag('div');
+        $text = html_writer::tag('div', get_string('prerequesites', 'format_flexpage'), array('class' => 'header'));
 
-        $text .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-12'));
-                    $prerequesites = $extendedcourse->prerequesites;
-                    $text .= html_writer::tag('span', $prerequesites.' ', array('class' => 'center-block'));
+        $text .= html_writer::start_tag('div', array('class' => 'content'));
+            $prerequesites = $extendedcourse->prerequesites;
+            $text .= html_writer::tag('span', $prerequesites.' ', array('class' => 'center-block'));
         $text .= html_writer::end_tag('div');
         return $text;
 
