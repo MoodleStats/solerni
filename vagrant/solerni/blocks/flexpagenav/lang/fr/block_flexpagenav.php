@@ -31,14 +31,14 @@
 $string['pluginname'] = 'Menu Flexpage';
 $string['flexpagenav:view'] = 'Voir les menus Flexpage';
 $string['flexpagenav:manage'] = 'Gérer les menus Flexpage';
-$string['flexpagenav:addinstance'] = 'Ajouter un block de menu Flexpage';
+$string['flexpagenav:addinstance'] = 'Ajouter un bloc de menu Flexpage';
 $string['addexistingmenuaction'] = 'Ajouter un menu existant';
 $string['managemenusaction'] = 'Gérer tous les menus';
 $string['managemenus'] = 'Gérer les menus';
 $string['name'] = 'Nom';
 $string['manage'] = 'Gérer';
 $string['usedastabs'] = 'Utiliser comme onglet';
-$string['addmenudotdotdot'] = 'Ajouter un menu ...';
+$string['addmenudotdotdot'] = 'Ajouter un menu...';
 $string['editmenu'] = 'Modifier le menu';
 $string['useastab'] = 'Utiliser comme onglet';
 $string['displayname'] = 'Afficher le nom';
@@ -104,10 +104,10 @@ $string['urlmuststartwith'] = 'L\'URL saisie doit commencer par http:// ou https
 $string['managinglinksforx'] = 'Gérer les liens  pour le menu <em>{$a}</em>';
 $string['formnamerequired'] = 'Le nom du menu est obligatoire.';
 $string['invalidurl'] = 'L\'URL fournie est invalide et ne peut pas être utilisée. Merci de vérifier l\'URL saisie.';
-$string['menudisplayerror'] = 'Impossible d\'afficher le menu flexpage associé.  Le menu Flexpage est corrompu ou n\'existe plus.  Vous devez supprimer ce block ou le modifier pour afficher un autre menu Flexpage.';
-$string['dockable'] = 'Permettre à ce block d\être arrimé';
+$string['menudisplayerror'] = 'Impossible d\'afficher le menu flexpage associé.  Le menu Flexpage est corrompu ou n\'existe plus.  Vous devez supprimer ce bloc ou le modifier pour afficher un autre menu Flexpage.';
+$string['dockable'] = 'Permettre à ce bloc d\être arrimé';
 
-$string['dockable_help'] = 'Détermine si ce block peut être arrimé ou pas par l\'utilisateur. A noter que l\'arrimage peut être désactivé dans les cas suivants :
+$string['dockable_help'] = 'Détermine si ce bloc peut être arrimé ou pas par l\'utilisateur. A noter que l\'arrimage peut être désactivé dans les cas suivants :
 <ul>
     <li>La configuration du thème peut empêcher l\'arrimage des blocs.</li>
     <li>Seuls les menus Flexpage affichés sous forme d\'arbre peuvent être arrimés.</li>
