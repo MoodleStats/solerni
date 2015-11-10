@@ -21,6 +21,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace local_orange_library\utilities;
+use stored_file;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -49,7 +50,9 @@ class utilities_image {
         }
 
         if (!$image && $file) {
-            $image = self::get_moodle_url_from_stored_file($file);
+            $image =    (self::get_moodle_url_from_stored_file($file)) ?
+                        self::get_moodle_url_from_stored_file($file) :
+                        false;
         }
 
         $imagepath = urldecode($image);
@@ -214,6 +217,11 @@ class utilities_image {
      * @return moodle_url
      */
     public static function get_moodle_url_from_stored_file($storedfile) {
+
+        if (!is_a($storedfile, 'stored_file')) {
+            return false;
+        }
+
         return \moodle_url::make_pluginfile_url(
             $storedfile->get_contextid(),
             $storedfile->get_component(),
