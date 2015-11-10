@@ -61,11 +61,12 @@ $autocomplete =  (!$CFG->loginpasswordautocomplete) ? 'autocomplete="off"' : '';
         <form action="<?php echo $CFG->httpswwwroot; ?>/login/index.php"
               method="POST" id="login" <?php echo $autocomplete; ?> >
             <div class="form-group">
-                <?php if (theme_utilities::is_theme_settings_exists_and_nonempty('loginusername')) : ?>
-                    <label for="username">
-                        <?php echo $filtermultilang->filter($PAGE->theme->settings->loginusername); ?>
-                    </label>
-                <?php endif; ?>
+                <?php $usernamelabel = (theme_utilities::is_theme_settings_exists_and_nonempty('loginusername')) ?
+                        $filtermultilang->filter($PAGE->theme->settings->loginusername) :
+                        get_string('username'); ?>
+                <label for="username">
+                    <?php echo $usernamelabel; ?>
+                </label>
                 <input class="form-control" type="text" name="username" id="username"
                        value="<?php p($frm->username) ?>" />
               <?php if (theme_utilities::is_theme_settings_exists_and_nonempty('loginusernamesub')) : ?>
@@ -73,11 +74,12 @@ $autocomplete =  (!$CFG->loginpasswordautocomplete) ? 'autocomplete="off"' : '';
                 <?php endif; ?>
             </div>
             <div class="form-group">
-                <?php if (theme_utilities::is_theme_settings_exists_and_nonempty('loginpassword')) : ?>
-                    <label for="password">
-                        <?php echo $filtermultilang->filter($PAGE->theme->settings->loginpassword); ?>
-                    </label>
-                <?php endif; ?>
+                <?php $passwordlabel = (theme_utilities::is_theme_settings_exists_and_nonempty('loginpassword')) ?
+                        $filtermultilang->filter($PAGE->theme->settings->loginpassword) :
+                        get_string('password'); ?>
+                <label for="password">
+                    <?php echo $passwordlabel; ?>
+                </label>
                 <div class="password-wrapper">
                     <input class="form-control" type="password" name="password" id="password" size="15"
                            value="" <?php echo $autocomplete; ?> />

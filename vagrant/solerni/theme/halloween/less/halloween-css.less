@@ -316,6 +316,10 @@ div[role="main"] .list-social {
  * Blocks Moodle
  */
 
+.block {
+    border-color: @gray-light;
+}
+
 .block .content {
     position:   relative;
     top:        1px;
@@ -333,14 +337,14 @@ div[role="main"] .list-social {
 .block .block_tree .tree_item {
     padding-top:    @s-small-xs-margin;
     padding-bottom: @s-small-xs-margin;
-    border-bottom:  1px solid @panel-default-border;
+    border-bottom:  1px solid @gray-light;
     width :         100%;
     margin:         0;
 }
 
 .block .block_tree .tree_item.branch {
     background-position:    100% 50%;
-    padding-left:           @s-double-xs-margin;
+    x-padding-left:           @s-small-xs-margin;
     padding-right:          @s-double-xs-margin;
     margin:                 0;
 }
@@ -408,6 +412,91 @@ div[role="main"] .list-social {
 
 .block .content hr {
     display: none;
+}
+
+.block .block_tree .tree_item {
+    padding-left: 0 !important;
+}
+
+.block .block_tree li ul {
+    padding-left: 0 !important;
+}
+
+.block .tree_item a,
+.block .tree_item span,
+.block .header h2 {
+    display:        inline-block;
+    color:          @brand-primary;
+    font-size:      @font-size-base;
+}
+
+.block .tree_item span {
+    font-weight:    bold;
+}
+
+.block .tree_item a:hover,
+.block .tree_item a:active,
+.block .tree_item a:focus,
+.block .active_tree_node > a {
+    color: @brand-secondary;
+}
+
+/* most ugly but should cover every type of block hierarchy
+ * I hate when design respect forces us to do such things
+ */
+.block .content ul > li > ul > li > p > a,
+.block .content ul > li > ul > li > p > span {
+    padding-left: @s-small-xs-margin;
+}
+
+.block .content ul > li > ul > li > ul > li > p > a,
+.block .content ul > li > ul > li > ul > li > p > span {
+    padding-left: (@s-small-xs-margin * 2);
+}
+
+.block .content ul > li > ul > li > ul > li > ul > li > p > a,
+.block .content ul > li > ul > li > ul > li > ul > li > p > span {
+    padding-left: (@s-small-xs-margin * 3);
+}
+
+.block .content ul > li > ul > li > ul > li > ul > li > ul > li > p > a,
+.block .content ul > li > ul > li > ul > li > ul > li > ul > li > p > span {
+    padding-left: (@s-small-xs-margin * 4);
+}
+
+.block .content ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > p > a,
+.block .content ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > p > span {
+    padding-left: (@s-small-xs-margin * 5);
+}
+
+.block .content ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > p > a,
+.block .content ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > p > span {
+    padding-left: (@s-small-xs-margin * 6);
+}
+
+.block .header {
+    background-color:   @gray-light;
+    border-color:       @gray-light;
+}
+
+/* hide moodle icons */
+
+.tree_item a .smallicon {
+    display: none;
+}
+
+/* hide search submit button in admin nav */
+
+.block .adminsearchform {
+    margin: @s-double-xs-margin 0;
+}
+
+.block .adminsearchform button[type="submit"] {
+    display: none;
+}
+
+.block .adminsearchform .input-group {
+    width: 100%;
 }
 
 /*

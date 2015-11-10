@@ -146,5 +146,9 @@ moosh config-set sitepolicy ${CUSTOMER_DOMAIN}/static/faq.html
 
 # oauth2: do not display buttons on login page
 moosh config-set oauth2displaybuttons 0 'auth/googleoauth2'
+
 # Enable Mnet authentication method (#us_326)
 moosh auth-manage enable mnet
+
+# SMTP hosts : SMTP servers that Moodle use to send mail
+moosh config-set smtphosts ${SMTP_SERVER}
