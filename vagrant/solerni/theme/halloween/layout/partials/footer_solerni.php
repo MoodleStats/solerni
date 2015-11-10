@@ -14,8 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-use \local_orange_library\utilities\utilities_user;
+use local_orange_library\utilities\utilities_user;
 use theme_halloween\tools\theme_utilities;
+require_once($CFG->dirroot . '/filter/multilang/filter.php');
 $filtermultilang = new filter_multilang($PAGE->context, array()); ?>
 <div class="container">
     <footer class="footer row" role="contentinfo">

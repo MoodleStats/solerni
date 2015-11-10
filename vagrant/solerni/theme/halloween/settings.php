@@ -146,3 +146,85 @@ foreach (options::halloween_get_footerlists_column2_items() as $key => $value) {
     $temp->add($setting);
 }
 $ADMIN->add('theme_halloween', $temp);
+
+/*
+ * Login : Settings
+ */
+$temp = new admin_settingpage('theme_halloween_login', get_string('loginsettings', 'theme_halloween'));
+$name = 'theme_halloween/loginheading';
+$heading = get_string('loginheading', 'theme_halloween');
+$information = get_string('loginheadingdesc', 'theme_halloween');
+$setting = new admin_setting_heading($name, $heading, $information);
+$temp->add($setting);
+
+// Login logo.
+$name = 'theme_halloween/loginlogo';
+$title = get_string('loginlogo', 'theme_halloween');
+$description = get_string('loginlogodesc', 'theme_halloween');
+$setting = new admin_setting_configstoredfile($name, $title, $description, 'loginlogo');
+$setting->set_updatedcallback('theme_reset_all_caches');
+$temp->add($setting);
+
+// Login Title.
+$name = 'theme_halloween/logintitle';
+$title = get_string('logintitle', 'theme_halloween');
+$description = get_string('logintitledesc', 'theme_halloween');
+$default = ($CFG->solerni_isprivate) ?
+            '<span lang="fr" class="multilang">Accédez à votre espace privé d\'apprentissage</span><span lang="en" class="multilang">Enter your private learning space</span>' :
+            '<span lang="fr" class="multilang">Je me connecte</span><span lang="en" class="multilang">I log in</span>';
+$setting = new admin_setting_configtextarea($name, $title, $description, $default);
+$setting->set_updatedcallback('theme_reset_all_caches');
+$temp->add($setting);
+
+// Login Text.
+$name = 'theme_halloween/logintext';
+$title = get_string('logintext', 'theme_halloween');
+$description = get_string('logintextdesc', 'theme_halloween');
+$default = ($CFG->solerni_isprivate) ?
+        '<span lang="fr" class="multilang"></span><span lang="en" class="multilang"></span>' :
+        '<span lang="fr" class="multilang"></span><span lang="en" class="multilang"></span>';
+$setting = new admin_setting_configtextarea($name, $title, $description, $default);
+$setting->set_updatedcallback('theme_reset_all_caches');
+$temp->add($setting);
+
+// Username field label.
+$name = 'theme_halloween/loginusername';
+$title = get_string('loginusername', 'theme_halloween');
+$description = get_string('loginusernamedesc', 'theme_halloween');
+$default = ($CFG->solerni_isprivate) ?
+        '<span lang="fr" class="multilang">Pseudo ou email</span><span lang="en" class="multilang">Nickname or email</span>' :
+        '<span lang="fr" class="multilang">Pseudo ou email</span><span lang="en" class="multilang">Nickname or email</span>';
+$setting = new admin_setting_configtextarea($name, $title, $description, $default);
+$setting->set_updatedcallback('theme_reset_all_caches');
+$temp->add($setting);
+
+// Username field complementary text.
+$name = 'theme_halloween/loginusernamesub';
+$title = get_string('loginusernamesub', 'theme_halloween');
+$description = get_string('loginusernamesubdesc', 'theme_halloween');
+$default = ($CFG->solerni_isprivate) ?
+        '<span lang="fr" class="multilang">Saisir le pseudo fourni ou votre email professionnel</span><span lang="en" class="multilang">Enter your provided username or your professionnal email</span>' :
+        '<span lang="fr" class="multilang"></span><span lang="en" class="multilang"></span>';
+$setting = new admin_setting_configtextarea($name, $title, $description, $default);
+$setting->set_updatedcallback('theme_reset_all_caches');
+$temp->add($setting);
+
+// Password field label.
+$name = 'theme_halloween/loginpassword';
+$title = get_string('loginpassword', 'theme_halloween');
+$description = get_string('loginpassworddesc', 'theme_halloween');
+$default = '<span lang="fr" class="multilang">Mot de passe</span><span lang="en" class="multilang">Password</span>';
+$setting = new admin_setting_configtextarea($name, $title, $description, $default);
+$setting->set_updatedcallback('theme_reset_all_caches');
+$temp->add($setting);
+
+// Password field complementary text.
+$name = 'theme_halloween/loginpasswordsub';
+$title = get_string('loginpasswordsub', 'theme_halloween');
+$description = get_string('loginpasswordsubdesc', 'theme_halloween');
+$default = '<span lang="fr" class="multilang"></span><span lang="en" class="multilang"></span>';
+$setting = new admin_setting_configtextarea($name, $title, $description, $default);
+$setting->set_updatedcallback('theme_reset_all_caches');
+$temp->add($setting);
+
+$ADMIN->add('theme_halloween', $temp);

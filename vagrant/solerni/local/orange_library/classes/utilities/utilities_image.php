@@ -41,8 +41,16 @@ class utilities_image {
      *        moodle file object $file (optional)
      * @return $newImageUrl
      */
-    public static function get_resized_url($image, $opts=null, $file=null) {
+    public static function get_resized_url($image = null, $opts = null, $file = null) {
         global $CFG;
+
+        if (!($image || $file)) {
+            return false;
+        }
+
+        if (!$image && $file) {
+            $image = self::get_moodle_url_from_stored_file($file);
+        }
 
         $imagepath = urldecode($image);
 
@@ -183,6 +191,37 @@ class utilities_image {
 
         // Return cache file path.
         return $CFG->wwwroot . $CFG->solerni_image_base_url . '/' . str_replace($cachefolder, '', $newpath);
+    }
+    /**
+     * Returns the Moodle File Object from Moodle File Storage
+     *
+     * @param type $context
+     * @param type $pluginname
+     * @param type $fileareaname
+     * @return stored_file object
+     */
+    public static function get_moodle_stored_file($context, $pluginname, $fileareaname) {
+        $fs = get_file_storage();
+        $files = $fs->get_area_files($context->id, $pluginname, $fileareaname);
+
+        return array_pop($files);
+    }
+
+    /**
+     * Returns a moodle url object from Moodle File Storage
+     *
+     * @param stored_file $storedfile
+     * @return moodle_url
+     */
+    public static function get_moodle_url_from_stored_file($storedfile) {
+        return \moodle_url::make_pluginfile_url(
+            $storedfile->get_contextid(),
+            $storedfile->get_component(),
+            $storedfile->get_filearea(),
+            $storedfile->get_itemid(),
+            $storedfile->get_filepath(),
+            $storedfile->get_filename()
+        );
     }
 
 }

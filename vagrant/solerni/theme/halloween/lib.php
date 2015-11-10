@@ -72,8 +72,11 @@ function theme_halloween_bootstrap_grid($hassidepre, $hassidepost) {
  * @return bool
  */
 function theme_halloween_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = array()) {
-    if ($context->contextlevel == CONTEXT_SYSTEM && ($filearea === 'logo')) {
+    static $theme;
+    if (!$theme) {
         $theme = theme_config::load('halloween');
+    }
+    if ($context->contextlevel == CONTEXT_SYSTEM && ($filearea === 'loginlogo')) {
         return $theme->setting_file_serve($filearea, $args, $forcedownload, $options);
     } else {
         send_file_not_found();

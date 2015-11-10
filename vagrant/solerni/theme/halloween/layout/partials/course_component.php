@@ -33,12 +33,12 @@ if ( $courseinfos ) :
             <?php if (isset($courseinfos->imgurl)) : ?>
                 <img class="slrn-coursebox__course-image"
                      src="<?php echo $imageutilities->get_resized_url($courseinfos->imgurl,
-                             array('w' => 500, 'h' => 357, 'scale' => false), $courseinfos->file); ?>">
+                             array('w' => 490, 'h' => 357, 'scale' => false)); ?>">
             <?php endif; ?>
             <?php if (isset($customer->urlimg)) : ?>
                 <a class="slrn-coursebox__course-image-customer" href="<?php echo $customerurl; ?>">
                     <img src="<?php echo $imageutilities->get_resized_url($customer->urlimg,
-                                 array('w' => 35, 'h' => 35, 'scale' => true), $customer->fileimg); ?>">
+                                 array('w' => 40, 'h' => 40, 'scale' => true)); ?>">
                 </a>
             <?php endif; ?>
             <?php if ($progressstatus) : ?>

@@ -26,6 +26,7 @@ namespace local_orange_library\utilities;
 
 use local_orange_library\extended_course\extended_course_object;
 use local_orange_library\enrollment\enrollment_object;
+use local_orange_library\utilities\utilities_image;
 use context_user;
 use context_course;
 use moodle_url;
@@ -42,6 +43,14 @@ class utilities_course {
     const MOOCNOTSTARTED   = 2;
     const MOOCRUNNING      = 3;
 
+    /**
+     * Get all Solerni informations for a course
+     * using flexpage format (imply that we use the blocks/orange_course_extended)
+     *
+     * @global type $DB
+     * @param type $course
+     * @return extended_course_object
+     */
     public static function solerni_course_get_customer_infos ($catid) {
         global $CFG;
         require_once($CFG->dirroot . '/local/orange_customers/lib.php');
@@ -50,7 +59,6 @@ class utilities_course {
         return $customer;
     }
 
-
     /**
      * Get all Solerni informations for a course
      * using flexpage format (imply that we use the blocks/orange_course_extended)
@@ -59,34 +67,7 @@ class utilities_course {
      * @param type $course
      * @return extended_course_object
      */
-    public static function solerni_get_mooc_image () {
-        global $COURSE;
-
-        $context = context_course::instance($COURSE->id);
-        $fs = get_file_storage();
-        $files = $fs->get_area_files($context->id, 'format_flexpage', 'coursepicture', 0);
-        $imgurl = '';
-        foreach ($files as $file) {
-            $ctxid = $file->get_contextid();
-            $cmpnt = $file->get_component();
-            $filearea = $file->get_filearea();
-            $itemid = $file->get_itemid();
-            $filepath = $file->get_filepath();
-            $filename = $file->get_filename();
-            $imgurl = moodle_url::make_pluginfile_url($ctxid, $cmpnt, $filearea, $itemid, $filepath, $filename);
-        }
-        return $imgurl;
-    }
-
-    /**
-     * Get all Solerni informations for a course
-     * using flexpage format (imply that we use the blocks/orange_course_extended)
-     *
-     * @global type $DB
-     * @param type $course
-     * @return extended_course_object
-     */
-    public static function solerni_get_course_infos ($course) {
+    public static function solerni_get_course_infos($course) {
         global $DB;
 
         $extendedcourse = null;
@@ -98,24 +79,8 @@ class utilities_course {
 
             $category = $DB->get_record('course_categories', array('id' => $course->category));
             $extendedcourse->categoryname = $category->name;
-
-            $fs = get_file_storage();
-            $files = $fs->get_area_files($context->id, 'format_flexpage', 'coursepicture', 0);
-            $extendedcourse->imgurl = null;
-            $extendedcourse->file = null;
-            foreach ($files as $file) {
-                $ctxid      = $file->get_contextid();
-                $cmpnt      = $file->get_component();
-                $filearea   = $file->get_filearea();
-                $itemid     = $file->get_itemid();
-                $filepath   = $file->get_filepath();
-                $filename   = $file->get_filename();
-                if ($filename != ".") {
-                    $extendedcourse->imgurl = moodle_url::make_pluginfile_url($ctxid,
-                            $cmpnt, $filearea, $itemid, $filepath, $filename);
-                    $extendedcourse->file = $file;
-                }
-            }
+            $extendedcourse->file = utilities_image::get_moodle_stored_file($context, 'format_flexpage', 'coursepicture');
+            $extendedcourse->imgurl = utilities_image::get_moodle_url_from_stored_file($extendedcourse->file);
         }
 
         return $extendedcourse;
@@ -605,9 +570,23 @@ class utilities_course {
         return cohort_is_member($cohortid, $user->id);
     }
 
+    /**
+     * Returns descirption page url of a course
+     *
+     * @global type $CFG
+     * @param type $course
+     * @return string
+     *
+     */
     public function get_description_page_url($course = null) {
         global $CFG;
         $url = '#';
+
+        if (!$course) {
+            global $COURSE;
+            $course = $COURSE;
+        }
+
         if ($course) {
             $url = $CFG->wwwroot . '/mod/descriptionpage/view.php?courseid='.$course->id;
         }
@@ -623,7 +602,7 @@ class utilities_course {
      */
     public static function is_frontpage_course($course) {
         return ($course->id == 1);
-    }    
+    }
 
     /**
      * Return the status of the course
@@ -631,7 +610,7 @@ class utilities_course {
      *                   MOOCCLOSED
      *                   MOOCNOTSTARTED
      *
-     * @param $course object      
+     * @param $course object
      * @return  (int)
      */
     public function get_course_status($course = null) {

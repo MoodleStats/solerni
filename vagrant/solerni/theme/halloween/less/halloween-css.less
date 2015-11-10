@@ -299,7 +299,6 @@ div[role="main"] .list-social {
     border-radius:      50%;
     text-indent:        0;
     text-align:         center;
-
 }
 
 /*
@@ -316,19 +315,203 @@ div[role="main"] .list-social {
 /*
  * Blocks Moodle
  */
+
+.block {
+    border-color: @gray-light;
+}
+
+.block .content {
+    position:   relative;
+    top:        1px;
+    padding:    0 @s-double-xs-margin;
+}
+
+.block .block_tree li {
+    margin: 0;
+}
+
+.block .block_tree {
+    margin : 0;
+}
+
 .block .block_tree .tree_item {
     padding-top:    @s-small-xs-margin;
     padding-bottom: @s-small-xs-margin;
-    border-bottom: 1px solid @panel-default-border;
-    width : 100%; 
+    border-bottom:  1px solid @gray-light;
+    width :         100%;
+    margin:         0;
 }
+
 .block .block_tree .tree_item.branch {
-    background-position: 100% 50%;
-    padding-left: @s-small-xs-margin;
-    padding-right: @s-double-xs-margin;
+    background-position:    100% 50%;
+    x-padding-left:           @s-small-xs-margin;
+    padding-right:          @s-double-xs-margin;
+    margin:                 0;
 }
+
 .block .content .block_tree li.item_with_icon .tree_item {
     img {
         top: 12px;
     }
 }
+
+.block .unlist {
+    margin-top: @s-small-xs-margin;
+}
+
+.block .unlist li {
+    padding-top:    (@s-small-xs-margin / 2);
+    padding-bottom: (@s-small-xs-margin / 2);
+}
+
+.block .content hr {
+    display: none;
+}
+
+.block .block_tree .tree_item {
+    padding-left: 0 !important;
+}
+
+.block .block_tree li ul {
+    padding-left: 0 !important;
+}
+
+.block .tree_item a,
+.block .tree_item span,
+.block .header h2 {
+    display:        inline-block;
+    color:          @brand-primary;
+    font-size:      @font-size-base;
+}
+
+.block .tree_item span {
+    font-weight:    bold;
+}
+
+.block .tree_item a:hover,
+.block .tree_item a:active,
+.block .tree_item a:focus,
+.block .active_tree_node > a {
+    color: @brand-secondary;
+}
+
+/* most ugly but should cover every type of block hierarchy
+ * I hate when design respect forces us to do such things
+ */
+.block .content ul > li > ul > li > p > a,
+.block .content ul > li > ul > li > p > span {
+    padding-left: @s-small-xs-margin;
+}
+
+.block .content ul > li > ul > li > ul > li > p > a,
+.block .content ul > li > ul > li > ul > li > p > span {
+    padding-left: (@s-small-xs-margin * 2);
+}
+
+.block .content ul > li > ul > li > ul > li > ul > li > p > a,
+.block .content ul > li > ul > li > ul > li > ul > li > p > span {
+    padding-left: (@s-small-xs-margin * 3);
+}
+
+.block .content ul > li > ul > li > ul > li > ul > li > ul > li > p > a,
+.block .content ul > li > ul > li > ul > li > ul > li > ul > li > p > span {
+    padding-left: (@s-small-xs-margin * 4);
+}
+
+.block .content ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > p > a,
+.block .content ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > p > span {
+    padding-left: (@s-small-xs-margin * 5);
+}
+
+.block .content ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > p > a,
+.block .content ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > p > span {
+    padding-left: (@s-small-xs-margin * 6);
+}
+
+.block .header {
+    background-color:   @gray-light;
+    border-color:       @gray-light;
+}
+
+/* hide moodle icons */
+
+.tree_item a .smallicon {
+    display: none;
+}
+
+/* hide search submit button in admin nav */
+
+.block .adminsearchform {
+    margin: @s-double-xs-margin 0;
+}
+
+.block .adminsearchform button[type="submit"] {
+    display: none;
+}
+
+.block .adminsearchform .input-group {
+    width: 100%;
+}
+
+/*
+ *Login
+ */
+.login-oauth2 {
+    margin: @s-double-xs-margin 0;
+}
+
+.login-oauth2 .btn {
+    margin-bottom: @s-double-xs-margin;
+}
+
+.login-line {
+    border-top: 2px solid @gray-dark;
+    text-align: center;
+    margin:     @s-small-xs-margin 0;
+}
+
+.line-inner {
+    position:           relative;
+    display:            inline-block;
+    background-color:   @brand-tertiary;
+    top:                -.7em;
+    padding:            0 1em;
+    text-transform:     uppercase;
+    color:              @gray-dark;
+    font-weight:        bold;
+    font-size:          1.2em;
+}
+
+.login-box {
+    margin: @s-double-xs-margin 0;
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.login-forgot {
+    position:   absolute;
+    right:      0;
+    top:        0;
+    height:     @input-height-base;
+    border:     1px solid @gray-light;
+}
+
+.login-forgot:hover {
+    border:     1px solid @gray-light;
+}
+
+.login-box .btn-block {
+    margin: 0;
+}
+
+/* fix small css */
+img.icon {
+    float: left;
+}
+
+.formsettingheading {
+    margin-bottom: 2em;
+}
+
