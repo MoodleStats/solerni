@@ -31,16 +31,16 @@
 $string['pluginname'] = 'Menu Flexpage';
 $string['flexpagenav:view'] = 'Voir les menus Flexpage';
 $string['flexpagenav:manage'] = 'Gérer les menus Flexpage';
-$string['flexpagenav:addinstance'] = 'Rajouter un nouveau block de menu Flexpage';
+$string['flexpagenav:addinstance'] = 'Ajouter un block de menu Flexpage';
 $string['addexistingmenuaction'] = 'Ajouter un menu existant';
 $string['managemenusaction'] = 'Gérer tous les menus';
 $string['managemenus'] = 'Gérer les menus';
 $string['name'] = 'Nom';
 $string['manage'] = 'Gérer';
 $string['usedastabs'] = 'Utiliser comme onglet';
-$string['addmenudotdotdot'] = 'Ajouter un nouveau menu ...';
+$string['addmenudotdotdot'] = 'Ajouter un menu ...';
 $string['editmenu'] = 'Modifier le menu';
-$string['useastab'] = 'utiliser comme onglet';
+$string['useastab'] = 'Utiliser comme onglet';
 $string['displayname'] = 'Afficher le nom';
 $string['render'] = 'Afficher le menu comme';
 $string['name'] = 'Nom';
@@ -59,11 +59,11 @@ $string['deletelink'] = 'Supprimer';
 $string['type'] = 'Type';
 $string['preview'] = 'Aperçu/Information';
 $string['urllink'] = 'URL';
-$string['addlinkdotdotdot'] = 'Rajouter un lien...';
+$string['addlinkdotdotdot'] = 'Ajouter un lien...';
 $string['editingx'] = 'Modifier {$a}';
 $string['label'] = 'Libellé';
 $string['url'] = 'URL';
-$string['labelurlrequired'] = 'Les champs libellé et l\'URL sont obligatoires.';
+$string['labelurlrequired'] = 'Les champs libellé et URL sont obligatoires.';
 $string['editlinkaction'] = 'Modifier';
 $string['movelinkaction'] = 'Déplacer';
 $string['deletelinkaction'] = 'Supprimer';
@@ -71,8 +71,8 @@ $string['movelinkx'] = 'Déplacer le lien {$a}';
 $string['movebefore'] = 'avant';
 $string['moveafter'] = 'après';
 $string['movelink'] = 'Déplacer un lien';
-$string['areyousuredeletelink'] = '<p>Êtes vous sûr de vouloir supprimer le lien ?</p><p>{$a}</p>';
-$string['areyousuredeletemenu'] = 'Êtes vous sûr de vouloir supprimer le menu <strong>{$a}</strong> ?';
+$string['areyousuredeletelink'] = '<p>Êtes-vous sûr de vouloir supprimer le lien ?</p><p>{$a}</p>';
+$string['areyousuredeletemenu'] = 'Êtes-vous sûr de vouloir supprimer le menu <strong>{$a}</strong> ?';
 $string['deletemenu'] = 'Supprimer le menu';
 $string['displaymenu'] = 'Afficher le menu';
 $string['flexpage'] = 'Flexpage';
@@ -101,18 +101,18 @@ $string['moderror'] = 'Erreur : cette activité n\'existe probablement plus';
 $string['noexistingmenustoadd'] = 'Aucun menu n\'a été créé pour ce cours.  Utiliser <strong>Gérér > Gérer tous les menu</strong> pour créer un nouveau menu.';
 $string['urlfailedcleaning'] = 'L\'URL saisie est invalide.  Merci de vérifier que l\'URL est bien valide.';
 $string['urlmuststartwith'] = 'L\'URL saisie doit commencer par http:// ou https://';
-$string['managinglinksforx'] = 'Managing links for menu <em>{$a}</em>';
+$string['managinglinksforx'] = 'Gérer les liens  pour le menu <em>{$a}</em>';
 $string['formnamerequired'] = 'Le nom du menu est obligatoire.';
 $string['invalidurl'] = 'L\'URL fournie est invalide et ne peut pas être utilisée. Merci de vérifier l\'URL saisie.';
-$string['menudisplayerror'] = 'Impossible d\'afficher le menu flexpage associé.  Le menu Flexpage est soit corrompu ou n\'existe plus.  Vous devez supprimer ce block ou le modifier pour afficher un autre menu Flexpage.';
+$string['menudisplayerror'] = 'Impossible d\'afficher le menu flexpage associé.  Le menu Flexpage est corrompu ou n\'existe plus.  Vous devez supprimer ce block ou le modifier pour afficher un autre menu Flexpage.';
 $string['dockable'] = 'Permettre à ce block d\être arrimé';
 
 $string['dockable_help'] = 'Détermine si ce block peut être arrimé ou pas par l\'utilisateur. A noter que l\'arrimage peut être désactivé dans les cas suivants :
 <ul>
     <li>La configuration du thème peut empêcher l\'arrimage des blocs.</li>
-    <li>Seuls les menus Flexpage Menus affichés sous forme d\'arbre peuvent être arrimés.</li>
+    <li>Seuls les menus Flexpage affichés sous forme d\'arbre peuvent être arrimés.</li>
     <li>Les blocs sans titre ne peuvent pas être arrimés.</li>
 </ul>';
 
-$string['managemenus_help'] = '<p>Les menus permettent aux utilisateurs de naviger dans les flexpages d\'un cours. Les menus peuvent être placés dans n\'importe quelle région comme bloc. Les menus contiennent des liens sur des flexpages du cours, des URLs externes, et des liens vers d\'autres menus.</p>
-<p>Un des menu du cours peut aussi être sous forme d\'onglet. Ce menu apparaitra tout en haut du cours. Si vous voulez avoir plusieurs options pour chaque onglet, créer un menu pour chaque onglet qui pointera sur différents menus Flexpage.</p>';
+$string['managemenus_help'] = '<p>Les menus permettent aux utilisateurs de naviguer dans les flexpages d\'un cours. Les menus peuvent être placés dans n\'importe quelle région comme bloc. Les menus contiennent des liens sur des flexpages du cours, des URLs externes, et des liens vers d\'autres menus.</p>
+<p>Un des menu du cours peut aussi être affiché sous forme d\'onglet. Ce menu apparaitra tout en haut du cours. Si vous voulez avoir plusieurs options pour chaque onglet, créez un menu pour chaque onglet qui pointera sur différents menus Flexpage.</p>';
