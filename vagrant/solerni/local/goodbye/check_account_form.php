@@ -43,7 +43,7 @@ class check_account_form extends moodleform {
         if (empty($farewell)) {
             $farewell = get_string('defaultfarewell', 'local_goodbye');
         }
-        $mform->addElement('static', 'farewell', '', get_config('local_goodbye', 'farewell'));
+        $mform->addElement('static', 'farewell', '', format_text($farewell));
 
         if (empty($CFG->authloginviaemail)) {
             $strusername = get_string('username');
