@@ -38,10 +38,10 @@ moosh role-import solerni_utilisateur solerni-config/default/users_roles/solerni
 moosh role-import solerni_apprenant solerni-config/default/users_roles/solerni_apprenant.xml
 moosh role-import solerni_power_apprenant solerni-config/default/users_roles/solerni_power_apprenant.xml
 moosh role-import solerni_animateur solerni-config/default/users_roles/solerni_animateur.xml
+moosh role-import solerni_client solerni-config/default/users_roles/solerni_client.xml
 moosh role-import solerni_teacher solerni-config/default/users_roles/solerni_teacher.xml
 moosh role-import solerni_marketing solerni-config/default/users_roles/solerni_marketing.xml
 moosh role-import solerni_course_creator solerni-config/default/users_roles/solerni_course_creator.xml
-moosh role-import solerni_client solerni-config/default/users_roles/solerni_client.xml
 
 # Default role for all users (#us_62-69)
 moosh role-configset defaultuserroleid solerni_utilisateur
