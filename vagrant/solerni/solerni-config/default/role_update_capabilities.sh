@@ -434,3 +434,6 @@ moosh role-update-capability solerni_utilisateur block/orange_listforumng:overvi
 moosh role-update-capability guest block/orange_listforumng:overview allow 1
 moosh role-update-capability solerni_teacher block/orange_listforumng:addinstance allow 1
 moosh role-update-capability solerni_course_creator block/orange_listforumng:addinstance allow 1
+
+# Mnet (#us_326)
+moosh role-update-capability solerni_utilisateur moodle/site:mnetlogintoremote allow 1
