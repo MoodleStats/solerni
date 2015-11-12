@@ -2,7 +2,12 @@
 # Fichier "default/conf.sh"
 
 # load of ansible variables us_290 us_292 us_71 us_247
+if [ -f ../../conf/env_moosh.cfg ]; then
 . ../../conf/env_moosh.cfg
+fi
+if [ -f ../conf/env_moosh.cfg ]; then
+. ../conf/env_moosh.cfg
+fi
 # ${CUSTOMER_LOG_DB_HOST}
 # ${CUSTOMER_LOG_DB_NAME}
 # ${CUSTOMER_LOG_DB_USERNAME}
@@ -149,3 +154,6 @@ moosh config-set oauth2displaybuttons 0 'auth/googleoauth2'
 
 # Enable Mnet authentication method (#us_326)
 moosh auth-manage enable mnet
+
+# Authorize login with email adress as well as username in login form
+moosh config-set authloginviaemail 1
