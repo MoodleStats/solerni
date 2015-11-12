@@ -62,11 +62,11 @@ echo $OUTPUT->doctype() ?>
         document.body.className += ' jsenabled';
     </script>
     <div class="u-inverse">
-        <?php require($CFG->partialsdir . '/skiplinks.php'); ?>
+        <?php require($CFG->partialsdir . '/header/skiplinks.php'); ?>
     </div>
     <!-- header -->
     <div class="u-inverse">
-        <?php require($CFG->partialsdir . '/header_solerni.php'); ?>
+        <?php require($CFG->partialsdir . '/header/header_solerni.php'); ?>
     </div>
     <!-- content from template -->
     <div id="page" class="container">
@@ -98,13 +98,13 @@ echo $OUTPUT->doctype() ?>
     </div>
     <!-- footer -->
     <div class="u-inverse">
-        <?php require($CFG->partialsdir . '/platform_social_bar.php'); ?>
+        <?php require($CFG->partialsdir . '/footer/platform_social_bar.php'); ?>
     </div>
     <div class="row u-inverse">
         <div class="col-xs-12 fullwidth-line"></div>
     </div>
     <div class="u-inverse">
-        <?php require($CFG->partialsdir . '/footer_solerni.php'); ?>
+        <?php require($CFG->partialsdir . '/footer/footer_solerni.php'); ?>
     </div>
     <?php echo $OUTPUT->standard_end_of_body_html() ?>
 </body>

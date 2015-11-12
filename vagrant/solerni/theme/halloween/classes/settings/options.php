@@ -134,5 +134,4 @@ class options {
             'footerlistscolumn2link4'   => ''
         );
     }
-
 }
