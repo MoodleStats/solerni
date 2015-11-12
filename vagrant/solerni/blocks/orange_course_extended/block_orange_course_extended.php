@@ -66,7 +66,7 @@ class block_orange_course_extended extends block_base {
 
     public function html_attributes() {
         $attributes = parent::html_attributes(); // Get default values.
-        $attributes['class'] .= '';//. $this->name(); // Append our class to class attribute.
+        $attributes['class'] .= '';// Append our class to class attribute.
         return $attributes;
     }
 
