@@ -100,7 +100,7 @@ echo $OUTPUT->doctype() ?>
     <div class="u-inverse">
         <?php require($CFG->partialsdir . '/footer/platform_social_bar.php'); ?>
     </div>
-    <div class="row u-inverse">
+    <div class="u-inverse">
         <div class="col-xs-12 fullwidth-line"></div>
     </div>
     <div class="u-inverse">
