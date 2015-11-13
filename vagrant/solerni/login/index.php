@@ -309,7 +309,7 @@ echo $OUTPUT->header();
 if (isloggedin() and !isguestuser()) {
     require($CFG->partialsdir . '/login/exception_already_logged.php');
 } else {
-    require($CFG->partialsdir . '/login/login_form.php');
+    require('login_form.php');
     if ($errormsg) {
         $PAGE->requires->js_init_call('M.util.focus_login_error', null, true);
     } else if (!empty($CFG->loginpageautofocus)) {

@@ -66,6 +66,7 @@ echo $OUTPUT->header();
 if (isloggedin() and !isguestuser()) {
     require($CFG->partialsdir . '/login/exception_already_logged.php');
 } else {
+    require($CFG->partialsdir . '/login/signup_header.php');
     $mform_signup->display();
 }
 echo $OUTPUT->footer();

@@ -31,14 +31,13 @@ require_once($CFG->dirroot.'/user/profile/lib.php');
 require_once($CFG->dirroot . '/user/editlib.php');
 
 class login_signup_form extends moodleform {
+    
     function definition() {
-        global $USER, $CFG;
+        global $CFG;
 
         $mform = $this->_form;
 
-        $mform->addElement('header', 'createuserandpass', get_string('createuserandpass'), '');
-
-
+        //$mform->addElement('header', 'createuserandpass', get_string('createuserandpass'), '');
         $mform->addElement('text', 'username', get_string('username'), 'maxlength="100" size="12"');
         $mform->setType('username', PARAM_NOTAGS);
         $mform->addRule('username', get_string('missingusername'), 'required', null, 'server');
@@ -46,20 +45,19 @@ class login_signup_form extends moodleform {
         if (!empty($CFG->passwordpolicy)){
             $mform->addElement('static', 'passwordpolicyinfo', '', print_password_policy());
         }
+
         $mform->addElement('passwordunmask', 'password', get_string('password'), 'maxlength="32" size="12"');
         $mform->setType('password', PARAM_RAW);
         $mform->addRule('password', get_string('missingpassword'), 'required', null, 'server');
 
-        $mform->addElement('header', 'supplyinfo', get_string('supplyinfo'),'');
-
         $mform->addElement('text', 'email', get_string('email'), 'maxlength="100" size="25"');
         $mform->setType('email', PARAM_RAW_TRIMMED);
         $mform->addRule('email', get_string('missingemail'), 'required', null, 'server');
-
+        /*
         $mform->addElement('text', 'email2', get_string('emailagain'), 'maxlength="100" size="25"');
         $mform->setType('email2', PARAM_RAW_TRIMMED);
         $mform->addRule('email2', get_string('missingemail'), 'required', null, 'server');
-
+        */
         $namefields = useredit_get_required_name_fields();
         foreach ($namefields as $field) {
             $mform->addElement('text', $field, get_string($field), 'maxlength="100" size="30"');
@@ -82,9 +80,9 @@ class login_signup_form extends moodleform {
         $country = array_merge($default_country, $country);
         $mform->addElement('select', 'country', get_string('country'), $country);
 
-        if( !empty($CFG->country) ){
+        if (!empty($CFG->country)) {
             $mform->setDefault('country', $CFG->country);
-        }else{
+        } else {
             $mform->setDefault('country', '');
         }
 
@@ -96,8 +94,8 @@ class login_signup_form extends moodleform {
         profile_signup_fields($mform);
 
         if (!empty($CFG->sitepolicy)) {
-            $mform->addElement('header', 'policyagreement', get_string('policyagreement'), '');
-            $mform->setExpanded('policyagreement');
+            //$mform->addElement('header', 'policyagreement', get_string('policyagreement'), '');
+            //$mform->setExpanded('policyagreement');
             $mform->addElement('static', 'policylink', '', '<a href="'.$CFG->sitepolicy.'" onclick="this.target=\'_blank\'">'.get_String('policyagreementclick').'</a>');
             $mform->addElement('checkbox', 'policyagreed', get_string('policyaccept'));
             $mform->addRule('policyagreed', get_string('policyagree'), 'required', null, 'server');

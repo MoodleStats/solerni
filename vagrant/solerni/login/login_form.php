@@ -26,7 +26,7 @@ $autocomplete =  (!$CFG->loginpasswordautocomplete) ? 'autocomplete="off"' : '';
 ?>
 <div class="row login-header">
     <div class="page-header text-center">
-        <?php require('login_header.php'); ?>
+        <?php require($CFG->partialsdir . '/login/login_header.php'); ?>
     </div>
 </div>
 <?php if (!$CFG->solerni_isprivate) :

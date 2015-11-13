@@ -96,17 +96,16 @@ $string['orange_dark_3desc']            = '@orange-dark-3';
 // Footer branding area settings.
 $string['footerbrandsettings']      = 'Footer Branding';
 $string['footerbrandheading']       = 'Presents the platform brand';
-$string['footerbrandheadingdesc']   = 'A footer area is dedicated to brand presentation. This page allows to change the content of this area. To take advantage of the Moodle multi-language filter, you need to frame each translation into a <span lang="XX" class="multilang"></span> tag. To remove an element from the display, you need to empty the field and save the form.';
+$string['footerbrandheadingdesc']   = 'A footer area is dedicated to brand presentation. This page allows to change '
+                                        . 'the content of this area. To take advantage of the Moodle multi-language '
+                                        . 'filter, you need to frame each translation into a <span lang="XX" '
+                                        . 'class="multilang"></span> tag. To remove an element from the display, '
+                                        . 'you need to empty the field and save the form.';
 $string['footerbrandtitle']         = 'Title';
-$string['footerbrandtitledefault']  = 'Solerni';
 $string['footerbrandchapo']         = 'Chapô';
-$string['footerbrandchapodefault']  = 'To learn is more fun together';
 $string['footerbrandarticle']       = 'Article';
-$string['footerbrandarticledefault'] = 'Solerni is a full software suite dedicated to help you creating and hosting massively collaborative learning routes';
 $string['footerbrandanchor']        = 'Anchor link';
-$string['footerbrandanchordefault'] = 'See our course catalog';
 $string['footerbrandurl']           = 'Link destination';
-$string['footerbrandurldefault']    = $CFG->wwwroot . '/catalog';
 
 // Footer Columns Settings.
 $string['footerlistssettings']              = 'Footer lists';
@@ -123,12 +122,7 @@ $string['footerlistscolumn1link1']          = 'URL of the first anchor';
 $string['footerlistscolumn1link2']          = 'URL of the second anchor';
 $string['footerlistscolumn1link3']          = 'URL of the third anchor';
 $string['footerlistscolumn1link4']          = 'URL of the fourth anchor';
-$string['footerlistscolumn1titledefault']          = 'About us';
-$string['footerlistscolumn1anchor1default']        = 'About Solerni';
-$string['footerlistscolumn1anchor2default']        = 'Partners';
-$string['footerlistscolumn1anchor3default']        = 'Legal notices';
-$string['footerlistscolumn1anchor4default']        = 'Terms and Conditions';
-$string['footerlistscolumn2heading']        = 'First column';
+$string['footerlistscolumn2heading']        = 'Second column';
 $string['footerlistscolumn2headingdesc']    = 'Anchors and titles fields are translated using the multi-language Moodle filter. You need to use the  <span lang="XX" class="multilang"></span> syntax to take advantage of it.';
 $string['footerlistscolumn2title']          = 'First column title';
 $string['footerlistscolumn2anchor1']        = 'First anchor';
@@ -139,12 +133,7 @@ $string['footerlistscolumn2link1']          = 'URL of the first anchor';
 $string['footerlistscolumn2link2']          = 'URL of the second anchor';
 $string['footerlistscolumn2link3']          = 'URL of the third anchor';
 $string['footerlistscolumn2link4']          = 'URL of the fourth anchor';
-$string['footerlistscolumn2titledefault']          = 'Support';
-$string['footerlistscolumn2anchor1default']        = 'FAQ';
-$string['footerlistscolumn2anchor2default']        = 'Contact us';
-$string['footerlistscolumn2anchor3default']        = '';
-$string['footerlistscolumn2anchor4default']        = '';
-$string['international']                           = 'International';
+$string['international']                    = 'International';
 
 // Follow us settings.
 $string['followus']                 = 'Follow us';
@@ -189,7 +178,7 @@ $string['administration']           = 'Administration';
 $string['skip_to_main']             = 'To main content';
 $string['skip_to_nav']              = 'To page navigation';
 
-// Login settings
+// Login settings.
 $string['loginsettings']            = 'Login page';
 $string['loginheading']             = 'Login page settings';
 $string['loginheadingdesc']         = 'The upper part of the login page allows for editorial modifications (logo, title,'
@@ -214,6 +203,11 @@ $string['loginpasswordsub']         = 'Helper text for password field';
 $string['loginpasswordsubdesc']     = '';
 $string['rememberusername']         = 'Remember me';
 $string['forgotten']                = 'Forgotten ?';
+
+// Signup settings page.
+$string['signupsettings']           = 'Signup page';
+$string['signupheading']            = 'Signup page settings';
+$string['signupheadingdesc']        = 'This page allows for editorial modification on the signup page.';
 
 // Search filters.
 $string['catalog_page_title']       = 'Catalog';
@@ -257,29 +251,29 @@ $string['seecatalog']               = "See the catalogue";
 $string['lastbadge']                = 'Last badge obtained:';
 
 // Contact page
-$string['contact_us']               = 'Contact us';
-$string['contact_page_title']       = 'Contact us';
-$string['contact_request_type']     = 'Your enquiry is about';
-$string['contact_civility']         = 'Title';
-$string['contact_email']            = 'Email';
-$string['contact_firstname']        = 'Firstname';
-$string['contact_lastname']         = 'Surname';
-$string['contact_company']          = 'Company';
-$string['contact_phone']            = 'Phone';
-$string['contact_jobtitle']         = 'Job title';
-$string['contact_question']         = 'Question';
-$string['contact_submit']           = 'Send';
-$string['contact_civility_mr']      = 'Mr';
-$string['contact_civility_mrs']     = 'Mrs';
-$string['contact_request_default']  = 'Select an entry';
-$string['contact_request_pb']       = 'I have a technical problem (access, connexion, inscription ...)';
-$string['contact_request_partner']  = 'I want to propose a partnership';
-$string['contact_request_commercial'] = 'I want to contact the commercial service';
-$string['contact_request_other']    = 'Other request';
-$string['contact_mooc_help']        = 'I need help on Mooc : ';
-$string['contact_requestid_missing'] = 'Select an entry';
-$string['contact_requestid_invalid'] = 'Select a valid entry';
-$string['contact_email_sent']       = 'Your request has been sent';
-$string['contact_email_notsent']    = 'An error occurs, your request has not been sent';
-$string['contact_email_subject']    = 'Solerni - Support request';
-$string['contact_email_body']       = 'The following request has been issued using the contact form of the platform %s';
+$string['contact_us']                   = 'Contact us';
+$string['contact_page_title']           = 'Contact us';
+$string['contact_request_type']         = 'Your enquiry is about';
+$string['contact_civility']             = 'Title';
+$string['contact_email']                = 'Email';
+$string['contact_firstname']            = 'Firstname';
+$string['contact_lastname']             = 'Surname';
+$string['contact_company']              = 'Company';
+$string['contact_phone']                = 'Phone';
+$string['contact_jobtitle']             = 'Job title';
+$string['contact_question']             = 'Question';
+$string['contact_submit']               = 'Send';
+$string['contact_civility_mr']          = 'Mr';
+$string['contact_civility_mrs']         = 'Mrs';
+$string['contact_request_default']      = 'Select an entry';
+$string['contact_request_pb']           = 'I have a technical problem (access, connexion, inscription ...)';
+$string['contact_request_partner']      = 'I want to propose a partnership';
+$string['contact_request_commercial']   = 'I want to contact the commercial service';
+$string['contact_request_other']        = 'Other request';
+$string['contact_mooc_help']            = 'I need help on Mooc : ';
+$string['contact_requestid_missing']    = 'Select an entry';
+$string['contact_requestid_invalid']    = 'Select a valid entry';
+$string['contact_email_sent']           = 'Your request has been sent';
+$string['contact_email_notsent']        = 'An error occurs, your request has not been sent';
+$string['contact_email_subject']        = 'Solerni - Support request';
+$string['contact_email_body']           = 'The following request has been issued using the contact form of the platform %s';

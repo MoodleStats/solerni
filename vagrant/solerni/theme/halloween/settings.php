@@ -228,3 +228,24 @@ $setting->set_updatedcallback('theme_reset_all_caches');
 $temp->add($setting);
 
 $ADMIN->add('theme_halloween', $temp);
+
+/*
+ * Signup : Settings
+ */
+$temp = new admin_settingpage('theme_halloween_signup', get_string('signupsettings', 'theme_halloween'));
+$name = 'theme_halloween/signupheading';
+$heading = get_string('signupheading', 'theme_halloween');
+$information = get_string('signupheadingdesc', 'theme_halloween');
+$setting = new admin_setting_heading($name, $heading, $information);
+$temp->add($setting);
+
+// Login Title.
+$name = 'theme_halloween/logintitle';
+$title = get_string('logintitle', 'theme_halloween');
+$description = get_string('logintitledesc', 'theme_halloween');
+$default = '<span lang="fr" class="multilang">Je m\'inscris</span><span lang="en" class="multilang">I sign up</span>';
+$setting = new admin_setting_configtextarea($name, $title, $description, $default);
+$setting->set_updatedcallback('theme_reset_all_caches');
+$temp->add($setting);
+
+$ADMIN->add('theme_halloween', $temp);
