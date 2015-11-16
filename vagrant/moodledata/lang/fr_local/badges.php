@@ -26,5 +26,3 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['badgesearned'] = 'Nombre total de badges obtenus : {$a}';
-$string['nobadges'] = 'Vous n’avez pas encore obtenu de badge.<br/>
-<strong><a href="{$a}">Consultez les FAQ</a></strong> afin de découvrir le fonctionnement des badges. ';

@@ -283,3 +283,7 @@ $string['contact_email_sent']       = 'Your request has been sent';
 $string['contact_email_notsent']    = 'An error occurs, your request has not been sent';
 $string['contact_email_subject']    = 'Solerni - Support request';
 $string['contact_email_body']       = 'The following request has been issued using the contact form of the platform %s';
+
+// Page badges/mybadges.php.
+$string['nobadgesfaq'] = 'There are no badges available.<br/>
+<strong><a href="{$a}">Consult FAQ</a></strong> to understand how badges work.';
