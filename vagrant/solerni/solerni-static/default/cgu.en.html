@@ -612,7 +612,22 @@
                     request via the Contact facility or to the following address: Next /
                     ORANGE 38 - 40 rue du General Leclerc 92130 Issy-Les-Moulineaux,
                     attaching an ID copy.</p>
-
+                    
+                    <p><strong>8. Piwik cookies</strong></p>
+                    <script type="text/javascript">
+                        jQuery(document).ready(function() {
+                            jQuery('<iframe />', {
+                                src: M.cfg.wwwroot + '/piwik/index.php?module=CoreAdminHome&action=optOut&lang=en',
+                                id: 'piwik-iframe',
+                                frameborder: 0,
+                                scrolling: 'no',
+                                width: '100%',
+                                height: '200px'
+                            }).appendTo('.piwik-iframe');
+                        });
+                       
+                    </script>
+                    <div class="piwik-iframe"></div>
                     <p>Latest
                     change: 13th March 2014</p>
                     </div>
