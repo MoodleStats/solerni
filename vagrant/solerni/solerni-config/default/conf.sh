@@ -137,7 +137,7 @@ moosh config-set coursesperpage 5
 moosh config-set mnet_dispatcher_mode strict
 moosh peer-manage mnet on
 moosh config-set mnet_register_allhosts 1
-moosh config-set sessioncookie ''
+moosh config-set sessioncookie ${CUSTOMER_COOKIE_PREFIX}
 
 # Default frontpage role
 moosh role-configset defaultfrontpageroleid solerni_utilisateur
@@ -153,3 +153,6 @@ moosh auth-manage enable mnet
 
 # SMTP hosts : SMTP servers that Moodle use to send mail
 moosh config-set smtphosts ${SMTP_SERVER}
+
+# Create a support user (normally id=3)
+moosh user-create --password pass --email 'nicolas.chauvin@orange.com' --firstname 'Contact' --lastname 'Solerni' 'supportuser'  
