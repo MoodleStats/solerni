@@ -166,7 +166,7 @@ class theme_halloween_core_badges_renderer extends core_badges_renderer {
         } else {
             $faqurl = theme_utilities::get_platform_faq_url();
             if ($faqurl) {
-                $localhtml .= $searchform . get_string('nobadges', 'badges', $faqurl);
+                $localhtml .= $searchform . get_string('nobadgesfaq', 'theme_halloween', $faqurl);
             }
         }
         $localhtml .= html_writer::end_tag('fieldset');
