@@ -28,8 +28,8 @@
  * @package block_flexpagemod
  */
 
-$string['cmdisplayerror'] = 'Impossible d\'afficher l\'activité associée, merci de vérifier la configuration du bloc. Message d\erreur : "{$a}"';
+$string['cmdisplayerror'] = 'Impossible d\'afficher l\'activité associée, merci de vérifier la configuration du bloc. Message d\'erreur : "{$a}"';
 $string['displayactivity'] = 'Activité à afficher';
-$string['displayactivity_help'] = 'L\activité choisie sera affichée dans le bloc.';
+$string['displayactivity_help'] = 'L\'activité choisie sera affichée dans le bloc.';
 $string['pluginname'] = 'Activité Flexpage';
-$string['flexpagemod:addinstance'] = 'Rajouté un nouveau bloc d\'activité Flexpage';
+$string['flexpagemod:addinstance'] = 'Rajouter un nouveau bloc d\'activité Flexpage';
