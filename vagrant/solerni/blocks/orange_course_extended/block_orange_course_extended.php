@@ -103,12 +103,12 @@ class block_orange_course_extended extends block_base {
         if (!empty($this->config->duration)) {
             $this->duration = date($this->config->duration);
         } else {
-            $this->duration = get_string('duration0', 'format_flexpage');
+            $this->duration = get_string('duration_default', 'block_orange_course_extended');
         }
         if (!empty($this->config->workingtime)) {
             $this->workingtime = date($this->config->workingtime);
         } else {
-            $this->workingtime = get_string('workingtime0', 'format_flexpage');
+            $this->workingtime = get_string('workingtime_default', 'block_orange_course_extended');
         }
         if (!empty($this->config->price)) {
             $this->price = $this->config->price;
@@ -118,22 +118,17 @@ class block_orange_course_extended extends block_base {
         if (!empty($this->config->badge)) {
             $this->badge = $this->config->badge;
         } else {
-            $this->badge = 0;
+            $this->badge = get_string('badge_default', 'block_orange_course_extended');
         }
         if (!empty($this->config->certification)) {
             $this->certification = $this->config->certification;
         } else {
-            $this->certification = 0;
+            $this->certification = get_string('certification_default', 'block_orange_course_extended');
         }
         if (!empty($this->config->language)) {
             $this->language = $this->config->language;
         } else {
             $this->language = $this->page->course->lang;
-        }
-        if (!empty($this->config->video)) {
-            $this->video = $this->config->video;
-        } else {
-            $this->video = false;
         }
         if (!empty($this->config->subtitle)) {
             $this->subtitle = $this->config->subtitle;

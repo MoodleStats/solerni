@@ -30,7 +30,7 @@ $string['local_orange_library'] = 'Orange Library';
 $string['subscribe_to_mooc'] = 'Mooc subscription';
 $string['access_to_mooc'] = 'Access to the mooc';
 $string['status_default'] = 'MOOC not started';
-$string['status_runnig'] = 'MOOC running';
+$string['status_running'] = 'MOOC running';
 $string['status_closed'] = 'MOOC closed';
 $string['alert_mooc'] = 'Alert me for next MOOC session';
 $string['registration_stopped'] = 'Registration stopped';
@@ -42,10 +42,18 @@ $string['acces_to_archive'] = 'Access to course archive';
 // Extended course object.
 $string['english'] = 'English';
 $string['french'] = 'French';
+$string['duration_default'] = 'Less than four weeks';
+$string['workingtime_default'] = 'Less than one hour';
+$string['prerequesites_default'] = 'No prerequisites';
+$string['subtitle'] = ' subtitles';
+$string['subtitle_default'] = 'subtitles';
+$string['teachingteam_default'] = 'Conception : Orange with Learning CRM';
 
 // Badges.
-$string['certification_default'] = 'Certificate of achievement';
-$string['badge_default'] = 'Badge ';
+$string['certification'] = 'Certificate of achievement';
+$string['certification_default'] = 'No certificate available';
+$string['badges'] = 'Badges';
+$string['badge_default'] = 'No badge available';
 $string['badge'] = 'Badge ';
 
 // Exception.
@@ -53,8 +61,8 @@ $string['missing_course_in_construct'] = 'You tried to instanciante a subscripti
 
 $string['price'] = 'price: ';
 $string['price_help'] = 'price_help';
-$string['price_default'] = '0';
-$string['price_case1'] = 'free mooc';
+$string['price_default'] = 'Free mooc';
+$string['price_case1'] = 'Free mooc';
 $string['price_case2'] = 'free mooc<br>certification in option';
 $string['price_case3'] = 'professional teaching';
 

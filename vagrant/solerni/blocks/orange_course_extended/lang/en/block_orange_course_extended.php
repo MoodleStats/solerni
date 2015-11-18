@@ -89,43 +89,44 @@ $string['displaypicture'] = 'displaypicture';
 $string['pictureselect'] = 'pictureselect';
 $string['picturedesc'] = 'picturedesc';
 $string['picture_help'] = 'picture_help';
-$string['picture'] = 'picture';
+$string['picture'] = 'Picture';
 
 // Duration.
-$string['duration'] = 'duration: ';
+$string['duration'] = 'Duration: ';
 $string['duration_help'] = 'duration_help ';
-$string['duration_default'] = 'in_four_weeks ';
-$string['in_four_weeks'] = 'in_four_weeks';
-$string['four_six_weeks'] = 'four_six_weeks';
-$string['sup_six_weeks'] = 'sup_six_weeks';
+$string['duration_default'] = 0;
+$string['in_four_weeks'] = 'Less than 4 weeks';
+$string['four_six_weeks'] = '4 to 6 waeeks';
+$string['sup_six_weeks'] = 'More than 6 weeks';
 
 // Working time.
-$string['workingtime'] = 'working time per day: ';
+$string['workingtime'] = 'Working time per day: ';
 $string['workingtime_help'] = 'working time per day_help ';
-$string['workingtime_default'] = 'inf_one';
-$string['inf_one'] = 'inf_one';
-$string['one_two'] = 'one_two';
-$string['two_three'] = 'two_three';
+$string['workingtime_default'] = 'Less than 1 hour';
+$string['inf_one'] = 'Less than 1 hour';
+$string['one_two'] = '1 to 2 hours';
+$string['two_three'] = '2 to 3 hours';
 
 // Certification.
 $string['badge'] = 'Badge';
-$string['badges'] = 'badges';
-$string['certification'] = 'Certification';
-$string['certification_default'] = '<br>Certificate of achievement';
-$string['certification_help'] = 'No Certification';
+$string['badges'] = 'Badges';
+$string['badge_default'] = 'No badge available';
+$string['certification'] = 'Certification:';
+$string['certification_default'] = 'No certification';
+$string['certification_help'] = 'Certificate of achievement';
 
 // Start end date.
-$string['startdate'] = 'start date: ';
-$string['enddate'] = 'end date: ';
+$string['startdate'] = 'Start date: ';
+$string['enddate'] = 'End date: ';
 $string['enddate_default'] = "0";
-$string['enddate_help'] = 'enddate_help ';
+$string['enddate_help'] = 'End date of the mooc';
 
 // Course replay.
 $string['course_replay_default'] = 'Replay';
 
 // Price.
-$string['price'] = 'price: ';
-$string['price_help'] = 'price_help';
+$string['price'] = 'Price: ';
+$string['price_help'] = 'MOOC price';
 $string['price_default'] = 'Free MOOC';
 $string['price_case1'] = 'free mooc';
 $string['price_case2'] = 'free mooc<br>certification in option';
@@ -138,48 +139,48 @@ $string['french'] = 'French';
 $string['english'] = 'English';
 
 // Video.
-$string['video'] = 'Vidéos ';
+$string['video'] = 'Video ';
 $string['video_help'] = 'Video_help';
-$string['video_default'] = '0';
-$string['subtitle'] = ' subtitle';
+$string['video_default'] = 'false';
+$string['subtitle'] = ' subtitles';
 
 // Registration.
-$string['registration'] = 'registration: ';
-$string['registration_default'] = 'registration';
-$string['registration_startdate'] = 'registration start date: ';
-$string['registration_enddate'] = 'registration end date: ';
-$string['registration_startdate_default'] = 'registration start date_default';
-$string['registration_enddate_default'] = 'registration end date_default';
-$string['registration_startdate_help'] = 'registration start date_help';
-$string['registration_enddate_help'] = 'registration end date_help ';
-$string['registeredusers_limitation'] = 'registeredusers: ';
-$string['registration_case1'] = 'open for everybody ';
+$string['registration'] = 'Registration: ';
+$string['registration_default'] = 'Mooc registration';
+$string['registration_startdate'] = 'Registration start date: ';
+$string['registration_enddate'] = 'Registration end date: ';
+$string['registration_startdate_default'] = 'No registration start date';
+$string['registration_enddate_default'] = 'No registration end date';
+$string['registration_startdate_help'] = 'Registration start date';
+$string['registration_enddate_help'] = 'Registration end date';
+$string['registeredusers_limitation'] = 'Registered users: ';
+$string['registration_case1'] = 'Open for everybody ';
 $string['registration_from'] = ' from ';
 $string['registration_to'] = ' to ';
-$string['registrationcompany'] = 'registration_company: ';
-$string['registrationcompany_default'] = 'registration_company';
-$string['registrationcompany_help'] = 'registration_company help';
+$string['registrationcompany'] = 'Registration company: ';
+$string['registrationcompany_default'] = 'No registration company';
+$string['registrationcompany_help'] = 'registration company name';
 $string['registration_case2'] = 'limited to ';
 $string['registration_case2_2'] = 'first registered users ';
 $string['registration_case3'] = 'You may register by ';
 
 // Registered users.
-$string['registeredusers'] = 'registeredusers: ';
-$string['registeredusers_help'] = 'registeredusers_help';
-$string['registeredusers_default'] = 'no registered users';
+$string['registeredusers'] = 'Registered users: ';
+$string['registeredusers_help'] = 'Number of registered users';
+$string['registeredusers_default'] = 'No registered users';
 $string['moocstatus_default'] = 'MOOC not started';
 
 // Prerequestites.
 $string['prerequesites'] = 'Prerequisites';
-$string['prerequesites_help'] = 'Prerequisites_help';
-$string['prerequesites_default'] = 'No Prerequisites';
+$string['prerequesites_help'] = 'Prerequisites for ';
+$string['prerequesites_default'] = 'No prerequisites';
 
 // Teaching team.
 $string['teachingteam'] = 'Teaching team';
-$string['teachingteam_help'] = 'Teaching team_help';
+$string['teachingteam_help'] = 'Teaching team';
 $string['teachingteam_default'] = 'Conception : Orange with Learning CRM';
 
 // Contact email.
-$string['contactemail'] = 'Contact Email';
+$string['contactemail'] = 'Contact Email:';
 $string['contactemail_help'] = 'Mooc contact email used by the contact form';
 $string['contactemail_default'] = 'contact@solerni.com';

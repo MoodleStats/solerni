@@ -34,17 +34,25 @@ $string['status_closed'] = 'Mooc terminé';
 $string['alert_mooc'] = 'M’avertir de la prochaine session';
 $string['registration_stopped'] = 'Inscription terminée';
 $string['mooc_complete'] = 'Mooc complet';
-$string['mooc_open_date'] = 'Ouverte à tous du ';
+$string['mooc_open_date'] = 'Début le';
 $string['acces_to_archive'] = 'Acces aux archives du cours';
-$string['status_runnig'] = 'MOOC en cours';
+$string['status_running'] = 'MOOC en cours';
 
 // Extended course object.
 $string['english'] = 'Anglais';
-$string['french'] = 'Francais';
+$string['french'] = 'Français';
+$string['duration_default'] = 'Moins de 4 semaines';
+$string['workingtime_default'] = 'Moins d\'une heure';
+$string['prerequesites_default'] = 'Pas de prérequis';
+$string['subtitle'] = 'Sous-titres';
+$string['subtitle_default'] = 'Sous-titres';
+$string['teachingteam_default'] = 'Conception : Orange avec Learning CRM';
 
 // Badges.
-$string['certification_default'] = 'Attestation de réussite';
-$string['badge_default'] = 'Badge ';
+$string['certification'] = 'Attestation de réussite';
+$string['certification_default'] = 'Pas d\'attestation de réussite';
+$string['badges'] = 'Badges';
+$string['badge_default'] = 'Non badgeant';
 $string['badge'] = 'Badge ';
 
 // Exception.
@@ -52,7 +60,7 @@ $string['missing_course_in_construct'] = 'Vous avez essayé d\'instancier un obj
 
 $string['price'] = 'Tarif : ';
 $string['price_help'] = 'tarif du cours';
-$string['price_default'] = '0';
+$string['price_default'] = 'Mooc gratuit';
 $string['price_case1'] = 'Mooc gratuit';
 $string['price_case2'] = 'Mooc gratuit<br>certification en option';
 $string['price_case3'] = 'enseignement professionnel';

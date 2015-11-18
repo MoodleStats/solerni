@@ -77,10 +77,10 @@ class subscription_button_object {
                 $this->urlmoocsubscription = $selfenrolment->get_orangeinvitation_enrolment($course)->customtext2;
             }
 
-            $this->coursestatus = $this->get_course_status($course);
+            $this->coursestatus = $this->get_course_status();
 
             $this->urlregistration = new moodle_url('/login/signup.php', array('id' => $this->course->id));
-            $this->urlmoocsubscription = new moodle_url('/enrol/index.php', array('id' => $this->course->id));
+            $this->urlmoocsubscription = $selfenrolment->get_orangeinvitation_enrolment($course)->customtext2;
             $this->moocurl = new moodle_url('/course/view.php', array('id' => $this->course->id));
         } else {
             throw new moodle_exception( 'missing_course_in_construct', 'local_orange_library');
@@ -99,11 +99,11 @@ class subscription_button_object {
      * @return $coursestatus
      */
 
-    private function get_course_status($course) {
+    private function get_course_status() {
 
         $coursestatus = self::MOOCRUNNING;
 
-        if ($this->extendedcourse->enrolledusers == $this->get_max_enrolled_users($course)) {
+        if ($this->extendedcourse->enrolledusers >= $this->extendedcourse->maxregisteredusers) {
             $coursestatus = self::MOOCCOMPLETE;
         } else if ($this->extendedcourse->enddate < $this->date->getTimestamp()) {
             $coursestatus = self::MOOCCLOSED;
@@ -162,29 +162,6 @@ class subscription_button_object {
     }
 
     /**
-     * Return the max number of enrolled users
-     *
-     * @param $course
-     * @return $instance->customint3 (max enrolledusers)
-     */
-    private function get_max_enrolled_users($course) {
-
-        $enrols = enrol_get_plugins(true);
-
-        $enrolinstances = enrol_get_instances($course->id, true);
-        $instance = null;
-
-        foreach ($enrolinstances as $instance) {
-            if (!isset($enrols[$instance->enrol])) {
-                continue;
-            }
-        }
-        if ($instance != null) {
-            return $instance->customint3;
-        }
-    }
-
-    /**
      * Display text
      *
      * @param $text
@@ -193,7 +170,7 @@ class subscription_button_object {
     private function display_text($text) {
 
         return  html_writer::tag('span', get_string($text, 'local_orange_library'),
-            array('class' => 'center-block'));
+            array('class' => 'col-xs-12 center-block'));
 
     }
 
@@ -250,7 +227,7 @@ class subscription_button_object {
 
         $text = "";
         $text = get_string('mooc_open_date', 'local_orange_library') . date("d-m-Y", $this->course->startdate);
-        return html_writer::tag('a', $text, array('class' => 'btn btn-unavailable btn-disabled'));
+        return  html_writer::tag('span', $text, array('class' => 'col-xs-12 center-block'));
 
     }
 
