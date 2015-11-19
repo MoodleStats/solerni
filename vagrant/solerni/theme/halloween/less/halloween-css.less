@@ -484,7 +484,8 @@ div[role="main"] .list-social {
     font-size:          1.2em;
 }
 
-.login-box {
+.login-box,
+.signup-box {
     margin: @s-double-xs-margin 0;
 }
 
@@ -500,12 +501,43 @@ div[role="main"] .list-social {
     border:     1px solid @gray-light;
 }
 
+.fitem_fpassword {
+    position: relative;
+}
+
+.signup-box .unmask {
+    .login-forgot();
+    .btn();
+    .btn-warning();
+    top:    auto;
+    bottom: 0;
+}
+
+.signup-box .unmask input {
+    float:      left;
+    margin-top: 3px;
+}
+
+.signup-box .unmask label {
+    padding-left:   5px;
+    padding-right:  10px;
+    font-weight:    bold;
+    line-height:    1;
+    min-height:     auto;
+}
+
 .login-forgot:hover {
     border:     1px solid @gray-light;
 }
 
 .login-box .btn-block {
     margin: 0;
+}
+
+/* signup */
+.fitem-legacy + .help-block {
+    margin-top:     -10px;
+    margin-bottom:  15px;
 }
 
 /* fix small css */

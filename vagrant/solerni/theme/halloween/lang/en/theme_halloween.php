@@ -208,6 +208,14 @@ $string['forgotten']                = 'Forgotten ?';
 $string['signupsettings']           = 'Signup page';
 $string['signupheading']            = 'Signup page settings';
 $string['signupheadingdesc']        = 'This page allows for editorial modification on the signup page.';
+$string['signuptitle']              = 'Title';
+$string['signuptitledesc']          = '';
+$string['signuptext']               = 'Instructions';
+$string['signuptextdesc']           = '';
+$string['signupusername']           = 'Username label';
+$string['signuptextdesc']           = '';
+$string['signupusernamesub']        = 'Helper text for username field';
+$string['signupusernamesubdesc']    = '';
 
 // Search filters.
 $string['catalog_page_title']       = 'Catalog';
@@ -234,6 +242,7 @@ $string['not_registered_yet']       = 'No Solerni account yet?';
 $string['i_do_register']            = 'I do register';
 $string['loginoauth']               = 'Log in with {$a}';
 $string['or']                       = 'or';
+$string['username']                 = 'Nickname';
 
 // Mooc component.
 $string['courseproposedby']         = "Proposed by";

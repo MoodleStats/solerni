@@ -189,7 +189,7 @@ $string['loginheadingdesc']             = 'La partie supérieure de la page de c
                                             . ' un texte d\'accompagnement.';
 $string['loginlogo']                    = 'Logo';
 $string['loginlogodesc']                = '';
-$string['logintitle']                   = 'Accroche';
+$string['logintitle']                   = 'Titre';
 $string['logintitledesc']               = '';
 $string['logintext']                    = 'Instructions';
 $string['logintextdesc']                = '';
@@ -208,6 +208,14 @@ $string['forgotten']                    = 'Oublié ?';
 $string['signupsettings']           = 'Page d\'inscription';
 $string['signupheading']            = 'Page d\'inscription';
 $string['signupheadingdesc']        = 'Il est possible de modifier l\'éditorial de la page d\'inscription.';
+$string['signuptitle']              = 'Titre';
+$string['signuptitledesc']          = '';
+$string['signuptext']               = 'Instructions';
+$string['signuptextdesc']           = '';
+$string['signupusername']           = 'Label du champ username';
+$string['signuptextdesc']           = '';
+$string['signupusernamesub']        = 'Texte d\'accompagnement du champ username';
+$string['signupusernamesubdesc']    = '';
 
 // Search filters.
 $string['catalog_page_title']       = 'Catalogue';
@@ -234,6 +242,7 @@ $string['not_registered_yet']       = 'Pas encore de compte ?';
 $string['i_do_register']            = 'Je m\'inscris';
 $string['loginoauth']               = 'Se connecter avec {$a}';
 $string['or']                       = 'ou';
+$string['username']                 = 'Pseudo';
 
 // Mooc component.
 $string['courseproposedby']         = "Proposé par";

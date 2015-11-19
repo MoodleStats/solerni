@@ -13,11 +13,25 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+use theme_halloween\tools\theme_utilities;
+require_once($CFG->dirroot . '/filter/multilang/filter.php');
+$filtermultilang = new filter_multilang($PAGE->context, array());
 ?>
-<div class="row signup-header">
-    <div class="page-header text-center">
-        <h1 class="col-md-8 col-md-offset-2">
-            <?php print_string('i_subscribe', 'theme_halloween'); ?>
-        </h1>
+<?php if (theme_utilities::is_theme_settings_exists_and_nonempty(
+        array('signuptitle', 'signuptext'), 'atleastone')) : ?>
+    <div class="row signup-header">
+        <div class="page-header text-center">
+            <?php if (theme_utilities::is_theme_settings_exists_and_nonempty('signuptitle')) : ?>
+                <h1 class="col-md-8 col-md-offset-2">
+                    <?php echo $filtermultilang->filter($PAGE->theme->settings->signuptitle); ?>
+                </h1>
+            <?php endif; ?>
+            <?php if (theme_utilities::is_theme_settings_exists_and_nonempty('signuptext')) : ?>
+                <p class="col-md-6 col-md-offset-3">
+                    <?php echo $filtermultilang->filter($PAGE->theme->settings->signuptext); ?>
+                </p>
+            <?php endif; ?>
+        </div>
     </div>
-</div>
+<?php endif;

@@ -13,11 +13,20 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 require('../config.php');
 require_once($CFG->dirroot . '/user/editlib.php');
+require_once($CFG->dirroot . '/theme/halloween/renderers/solerni_quickform_renderer.php');
 
 //HTTPS is required in this page when $CFG->loginhttps enabled
 $PAGE->https_required();
+$PAGE->set_url('/login/signup.php');
+$PAGE->set_context(context_system::instance());
+$PAGE->verify_https_required();
+$PAGE->navbar->add(get_string('login'));
+$PAGE->navbar->add(get_string('newaccount'));
+$PAGE->set_title(get_string('newaccount'));
+$PAGE->set_heading($SITE->fullname);
 
 // get auth plugin for the subscription. It will also contains the form.
 // Get user loose if self-registration not authorized.
@@ -51,22 +60,16 @@ if ($mform_signup->is_cancelled()) {
     exit; //never reached
 }
 
-// set page context and stuff.
-// make sure we really are on the https page when https login required.
-$PAGE->set_url('/login/signup.php');
-$PAGE->set_context(context_system::instance());
-$PAGE->verify_https_required();
-$PAGE->navbar->add(get_string('login'));
-$PAGE->navbar->add(get_string('newaccount'));
-$PAGE->set_title(get_string('newaccount'));
-$PAGE->set_heading($SITE->fullname);
-
 //Templating
 echo $OUTPUT->header();
 if (isloggedin() and !isguestuser()) {
     require($CFG->partialsdir . '/login/exception_already_logged.php');
 } else {
     require($CFG->partialsdir . '/login/signup_header.php');
-    $mform_signup->display();
+    echo '<div class="row signup-box">';
+        echo '<div class="signup-panel col-md-6 col-md-offset-3">';
+            $mform_signup->display();
+        echo '</div>';
+    echo '</div>';
 }
 echo $OUTPUT->footer();

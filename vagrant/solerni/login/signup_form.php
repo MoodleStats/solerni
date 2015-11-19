@@ -1,6 +1,6 @@
 <?php
 
-// This file is part of Moodle - http://moodle.org/
+// This file is part of The Orange Halloween Moodle Theme
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,14 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * User sign-up form.
- *
- * @package    core
- * @subpackage auth
- * @copyright  1999 onwards Martin Dougiamas  http://dougiamas.com
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+use theme_halloween\tools\theme_utilities;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -31,33 +24,15 @@ require_once($CFG->dirroot.'/user/profile/lib.php');
 require_once($CFG->dirroot . '/user/editlib.php');
 
 class login_signup_form extends moodleform {
-    
+
     function definition() {
-        global $CFG;
+        global $CFG, $PAGE;
+
+        require_once($CFG->dirroot . '/filter/multilang/filter.php');
+        $filtermultilang = new filter_multilang($PAGE->context, array());
 
         $mform = $this->_form;
-
-        //$mform->addElement('header', 'createuserandpass', get_string('createuserandpass'), '');
-        $mform->addElement('text', 'username', get_string('username'), 'maxlength="100" size="12"');
-        $mform->setType('username', PARAM_NOTAGS);
-        $mform->addRule('username', get_string('missingusername'), 'required', null, 'server');
-
-        if (!empty($CFG->passwordpolicy)){
-            $mform->addElement('static', 'passwordpolicyinfo', '', print_password_policy());
-        }
-
-        $mform->addElement('passwordunmask', 'password', get_string('password'), 'maxlength="32" size="12"');
-        $mform->setType('password', PARAM_RAW);
-        $mform->addRule('password', get_string('missingpassword'), 'required', null, 'server');
-
-        $mform->addElement('text', 'email', get_string('email'), 'maxlength="100" size="25"');
-        $mform->setType('email', PARAM_RAW_TRIMMED);
-        $mform->addRule('email', get_string('missingemail'), 'required', null, 'server');
-        /*
-        $mform->addElement('text', 'email2', get_string('emailagain'), 'maxlength="100" size="25"');
-        $mform->setType('email2', PARAM_RAW_TRIMMED);
-        $mform->addRule('email2', get_string('missingemail'), 'required', null, 'server');
-        */
+        // Name, surname.
         $namefields = useredit_get_required_name_fields();
         foreach ($namefields as $field) {
             $mform->addElement('text', $field, get_string($field), 'maxlength="100" size="30"');
@@ -68,7 +43,36 @@ class login_signup_form extends moodleform {
             }
             $mform->addRule($field, get_string($stringid), 'required', null, 'server');
         }
+        // Pseudo.
+        $usernamelabel = (theme_utilities::is_theme_settings_exists_and_nonempty('signupusername')) ?
+            $filtermultilang->filter($PAGE->theme->settings->signupusername) :
+            get_string('username', 'theme_halloween');
+        if (theme_utilities::is_theme_settings_exists_and_nonempty('signupusernamesub')) {
+            $usernamehelptext = $filtermultilang->filter($PAGE->theme->settings->signupusernamesub);
+        }
+        $mform->addElement('text', 'username', $usernamelabel, 'maxlength="100" size="12"');
+        $mform->setType('username', PARAM_NOTAGS);
+        $mform->addRule('username', get_string('missingusername'), 'required', null, 'server');
+        if ($usernamehelptext) {
+            $mform->addElement('helpblock', 'usernamehelper', 'label', $usernamehelptext);
+        }
+        //Email.
+        $mform->addElement('text', 'email', get_string('email'), 'maxlength="100" size="25"');
+        $mform->setType('email', PARAM_RAW_TRIMMED);
+        $mform->addRule('email', get_string('missingemail'), 'required', null, 'server');
+        // Password.
+        if (theme_utilities::is_theme_settings_exists_and_nonempty('signuppasswordsub')) {
+            $passwordhelptext = $filtermultilang->filter($PAGE->theme->settings->signuppasswordsub);
+        }
+        $mform->addElement('passwordunmask', 'password', get_string('password'), 'maxlength="32" size="12"');
+        $mform->setType('password', PARAM_RAW);
+        $mform->addRule('password', get_string('missingpassword'), 'required', null, 'server');
+        if ($passwordhelptext) {
+            $mform->addElement('helpblock', 'passwordhelper', 'label', $passwordhelptext);
+        }
 
+
+        /*
         $mform->addElement('text', 'city', get_string('city'), 'maxlength="120" size="20"');
         $mform->setType('city', PARAM_TEXT);
         if (!empty($CFG->defaultcity)) {
@@ -90,12 +94,10 @@ class login_signup_form extends moodleform {
             $mform->addElement('recaptcha', 'recaptcha_element', get_string('recaptcha', 'auth'), array('https' => $CFG->loginhttps));
             $mform->addHelpButton('recaptcha_element', 'recaptcha', 'auth');
         }
-
+        */
         profile_signup_fields($mform);
 
         if (!empty($CFG->sitepolicy)) {
-            //$mform->addElement('header', 'policyagreement', get_string('policyagreement'), '');
-            //$mform->setExpanded('policyagreement');
             $mform->addElement('static', 'policylink', '', '<a href="'.$CFG->sitepolicy.'" onclick="this.target=\'_blank\'">'.get_String('policyagreementclick').'</a>');
             $mform->addElement('checkbox', 'policyagreed', get_string('policyaccept'));
             $mform->addRule('policyagreed', get_string('policyagree'), 'required', null, 'server');
@@ -137,24 +139,10 @@ class login_signup_form extends moodleform {
             $errors['username'] = get_string('usernameexists');
         }
 
-
         if (! validate_email($data['email'])) {
             $errors['email'] = get_string('invalidemail');
-
         } else if ($DB->record_exists('user', array('email'=>$data['email']))) {
             $errors['email'] = get_string('emailexists').' <a href="forgot_password.php">'.get_string('newpassword').'?</a>';
-        }
-        if (empty($data['email2'])) {
-            $errors['email2'] = get_string('missingemail');
-
-        } else if ($data['email2'] != $data['email']) {
-            $errors['email2'] = get_string('invalidemail');
-        }
-        if (!isset($errors['email'])) {
-            if ($err = email_is_not_allowed($data['email'])) {
-                $errors['email'] = $err;
-            }
-
         }
 
         $errmsg = '';

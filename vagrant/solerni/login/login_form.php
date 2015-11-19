@@ -63,7 +63,7 @@ $autocomplete =  (!$CFG->loginpasswordautocomplete) ? 'autocomplete="off"' : '';
             <div class="form-group">
                 <?php $usernamelabel = (theme_utilities::is_theme_settings_exists_and_nonempty('loginusername')) ?
                         $filtermultilang->filter($PAGE->theme->settings->loginusername) :
-                        get_string('username'); ?>
+                        get_string('username', 'theme_halloween'); ?>
                 <label for="username">
                     <?php echo $usernamelabel; ?>
                 </label>

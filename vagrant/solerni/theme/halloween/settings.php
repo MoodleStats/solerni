@@ -198,7 +198,7 @@ $setting = new admin_setting_configtextarea($name, $title, $description, $defaul
 $setting->set_updatedcallback('theme_reset_all_caches');
 $temp->add($setting);
 
-// Username field complementary text.
+// Username field Helper Text.
 $name = 'theme_halloween/loginusernamesub';
 $title = get_string('loginusernamesub', 'theme_halloween');
 $description = get_string('loginusernamesubdesc', 'theme_halloween');
@@ -218,7 +218,7 @@ $setting = new admin_setting_configtextarea($name, $title, $description, $defaul
 $setting->set_updatedcallback('theme_reset_all_caches');
 $temp->add($setting);
 
-// Password field complementary text.
+// Password field Helper Text.
 $name = 'theme_halloween/loginpasswordsub';
 $title = get_string('loginpasswordsub', 'theme_halloween');
 $description = get_string('loginpasswordsubdesc', 'theme_halloween');
@@ -239,11 +239,53 @@ $information = get_string('signupheadingdesc', 'theme_halloween');
 $setting = new admin_setting_heading($name, $heading, $information);
 $temp->add($setting);
 
-// Login Title.
-$name = 'theme_halloween/logintitle';
-$title = get_string('logintitle', 'theme_halloween');
-$description = get_string('logintitledesc', 'theme_halloween');
+// Signup Title.
+$name = 'theme_halloween/signuptitle';
+$title = get_string('signuptitle', 'theme_halloween');
+$description = get_string('signuptitledesc', 'theme_halloween');
 $default = '<span lang="fr" class="multilang">Je m\'inscris</span><span lang="en" class="multilang">I sign up</span>';
+$setting = new admin_setting_configtextarea($name, $title, $description, $default);
+$setting->set_updatedcallback('theme_reset_all_caches');
+$temp->add($setting);
+
+// Signup Text.
+$name = 'theme_halloween/signuptext';
+$title = get_string('signuptext', 'theme_halloween');
+$description = get_string('signuptextdesc', 'theme_halloween');
+$default = ($CFG->solerni_isprivate) ?
+        '<span lang="fr" class="multilang">Munissez-vous du pseudo qui vous a été envoyé sur votre email professionnel</span><span lang="en" class="multilang">Please enter the username that had been sent on your professional email</span>' :
+        '<span lang="fr" class="multilang"></span><span lang="en" class="multilang"></span>';
+$setting = new admin_setting_configtextarea($name, $title, $description, $default);
+$setting->set_updatedcallback('theme_reset_all_caches');
+$temp->add($setting);
+
+// Signup Username.
+$name = 'theme_halloween/signupusername';
+$title = get_string('signupusername', 'theme_halloween');
+$description = get_string('signupusernamedesc', 'theme_halloween');
+$default = '<span lang="fr" class="multilang">Pseudo</span><span lang="en" class="multilang">Nickname</span>';
+$setting = new admin_setting_configtextarea($name, $title, $description, $default);
+$setting->set_updatedcallback('theme_reset_all_caches');
+$temp->add($setting);
+
+// Signup Username Helper Text.
+$name = 'theme_halloween/signupusernamesub';
+$title = get_string('signupusernamesub', 'theme_halloween');
+$description = get_string('signupusernamesubdesc', 'theme_halloween');
+$default = ($CFG->solerni_isprivate) ?
+        '<span lang="fr" class="multilang">Fourni dans l\'email reçu</span><span lang="en" class="multilang">Provided by email</span>' :
+        '<span lang="fr" class="multilang"></span><span lang="en" class="multilang"></span>';
+$setting = new admin_setting_configtextarea($name, $title, $description, $default);
+$setting->set_updatedcallback('theme_reset_all_caches');
+$temp->add($setting);
+
+// Signup Password Helper Text.
+$name = 'theme_halloween/signuppasswordsub';
+$title = get_string('signuppasswordsub', 'theme_halloween');
+$description = get_string('signuppasswordsubdesc', 'theme_halloween');
+$default = ($CFG->solerni_isprivate) ?
+        '<span lang="fr" class="multilang">Fourni dans l\'email reçu</span><span lang="en" class="multilang">Provided by email</span>' :
+        '<span lang="fr" class="multilang"></span><span lang="en" class="multilang"></span>';
 $setting = new admin_setting_configtextarea($name, $title, $description, $default);
 $setting->set_updatedcallback('theme_reset_all_caches');
 $temp->add($setting);
