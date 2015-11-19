@@ -155,4 +155,7 @@ moosh auth-manage enable mnet
 moosh config-set smtphosts ${SMTP_SERVER}
 
 # Create a support user (normally id=3)
-moosh user-create --password pass --email 'nicolas.chauvin@orange.com' --firstname 'Contact' --lastname 'Solerni' 'supportuser'  
+moosh user-create --password pass --email ${CUSTOMER_CONTACT_USER_EMAIL} --firstname 'Contact' --lastname 'Solerni' 'supportuser'  
+
+# disable default messaging system (#us_226)
+moosh config-set messaging 0
