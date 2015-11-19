@@ -32,7 +32,7 @@
  * orange 2015050500 : adding extended course data
  */
 
-$plugin->version      = 2015050500;
+$plugin->version      = 2015111800;
 $plugin->requires     = 2014051203;
 $plugin->component    = 'format_flexpage';
 $plugin->release      = '2.7.0 (Build: 20141229)';

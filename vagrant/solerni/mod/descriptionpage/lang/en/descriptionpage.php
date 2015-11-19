@@ -55,16 +55,9 @@ $string['visiblecourseusers'] = 'Visible to participants on this course';
 $string['visibleloggedinusers'] = 'Visible to everyone who is logged in to the system';
 $string['visiblepublic'] = 'Visible to anyone in the world';
 
-$string['modulename_help'] = 'The page module enables a teacher to create a web page resource using the text editor. A page can display text, images, sound, video, web links and embedded code, such as Google maps.
-
-Advantages of using the page module rather than the file module include the resource being more accessible (for example to users of mobile devices) and easier to update.
-
-For large amounts of content, it\'s recommended that a book is used rather than a page.
-
-A page may be used
-
-* To present the terms and conditions of a course or a summary of the course syllabus
-* To embed several videos or sound files together with some explanatory text';
+$string['modulename_help'] = 'The "En savoir Plus" module allow creation of "course description page" by the course creator.
+    This page could be displayed for every body, authenticated users, or enrolled users.
+    With this module, course creator could add some text or images throw the text editor.';
 $string['modulename_link'] = 'mod/descriptionpage/view';
 $string['modulenameplural'] = 'Pages';
 $string['optionsheader'] = 'Display options';
