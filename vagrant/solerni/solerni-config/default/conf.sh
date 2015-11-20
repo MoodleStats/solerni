@@ -88,7 +88,7 @@ moosh userprofilefields-import solerni-config/default/users_profil/profile_field
 # Enable cron via the web (Security)
 moosh config-set cronclionly 1
 
-# Completion tracking (#us_99)
+# Completion tracking 'moodlecourse/enablecompletion' (#us_99)
 moosh config-set enablecompletion 1 moodlecourse
 
 # Default role assignment - Plugin Enrolments/Manual enrolment
@@ -159,3 +159,6 @@ moosh user-create --password pass --email ${CUSTOMER_CONTACT_USER_EMAIL} --first
 
 # disable default messaging system (#us_226)
 moosh config-set messaging 0
+
+# Completion tracking for progressbar 'moodle/enablecompletion' (#us_99)
+moosh config-set enablecompletion 1
