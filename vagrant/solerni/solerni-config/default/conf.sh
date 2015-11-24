@@ -143,7 +143,7 @@ moosh config-set sessioncookie ${CUSTOMER_COOKIE_PREFIX}
 moosh role-configset defaultfrontpageroleid solerni_utilisateur
 
 # Default sitepolicy (cgus)
-moosh config-set sitepolicy ${CUSTOMER_DOMAIN}/static/faq.html
+moosh config-set sitepolicy ${CUSTOMER_DOMAIN}/static/cgu.html
 
 # oauth2: do not display buttons on login page
 moosh config-set oauth2displaybuttons 0 'auth/googleoauth2'
@@ -162,3 +162,6 @@ moosh config-set messaging 0
 
 # Completion tracking for progressbar 'moodle/enablecompletion' (#us_99)
 moosh config-set enablecompletion 1
+
+# enable login with username and email
+moosh config-set authloginviaemail 1
