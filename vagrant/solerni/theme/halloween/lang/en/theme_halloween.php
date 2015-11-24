@@ -216,6 +216,15 @@ $string['signupusername']           = 'Username label';
 $string['signuptextdesc']           = '';
 $string['signupusernamesub']        = 'Helper text for username field';
 $string['signupusernamesubdesc']    = '';
+$string['signuppasswordsub']        = 'Helper text for password field';
+$string['signuppasswordsubdesc']    = '';
+$string['signupformfooter']         = 'Text on signup form footer';
+$string['signupformfooterdesc']     = '';
+
+// Signup frontend page.
+$string['create_account']           = 'Create my account';
+$string['policyaccept']             = 'I have read and agree to the <a href="{$a}">terms and conditions</a>';
+$string['missingusername']          = 'Your {$a} cannot be empty';
 
 // Search filters.
 $string['catalog_page_title']       = 'Catalog';
@@ -237,7 +246,7 @@ $string['catalognresults']          = "Results found";
 $string['catalog0result']           = "No result";
 $string['catalog1result']           = "Result found";
 
-// Login page.
+// Login frontend page.
 $string['not_registered_yet']       = 'No Solerni account yet?';
 $string['i_do_register']            = 'I do register';
 $string['loginoauth']               = 'Log in with {$a}';

@@ -13,7 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
+use theme_halloween\tools\theme_utilities;
 require('../config.php');
 require_once($CFG->dirroot . '/user/editlib.php');
 require_once($CFG->dirroot . '/theme/halloween/renderers/solerni_quickform_renderer.php');
@@ -69,6 +69,13 @@ if (isloggedin() and !isguestuser()) {
     echo '<div class="row signup-box">';
         echo '<div class="signup-panel col-md-6 col-md-offset-3">';
             $mform_signup->display();
+            if (theme_utilities::is_theme_settings_exists_and_nonempty('signupformfooter')) {
+                require_once($CFG->dirroot . '/filter/multilang/filter.php');
+                $filtermultilang = new filter_multilang($PAGE->context, array());
+                echo '<div class="signup-footer text-center">';
+                    echo $filtermultilang->filter($PAGE->theme->settings->signupformfooter);
+                echo '</div>';
+            }
         echo '</div>';
     echo '</div>';
 }

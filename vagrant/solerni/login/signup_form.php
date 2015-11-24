@@ -35,13 +35,14 @@ class login_signup_form extends moodleform {
         // Name, surname.
         $namefields = useredit_get_required_name_fields();
         foreach ($namefields as $field) {
-            $mform->addElement('text', $field, get_string($field), 'maxlength="100" size="30"');
+            $mform->addElement('text', $field, get_string($field),
+                    array('maxlength' => 100, 'size' => 30, 'class' => 'form-control'));
             $mform->setType($field, PARAM_TEXT);
             $stringid = 'missing' . $field;
             if (!get_string_manager()->string_exists($stringid, 'moodle')) {
                 $stringid = 'required';
             }
-            $mform->addRule($field, get_string($stringid), 'required', null, 'server');
+            $mform->addRule($field, get_string($stringid), 'required', null, 'client');
         }
         // Pseudo.
         $usernamelabel = (theme_utilities::is_theme_settings_exists_and_nonempty('signupusername')) ?
@@ -50,69 +51,59 @@ class login_signup_form extends moodleform {
         if (theme_utilities::is_theme_settings_exists_and_nonempty('signupusernamesub')) {
             $usernamehelptext = $filtermultilang->filter($PAGE->theme->settings->signupusernamesub);
         }
-        $mform->addElement('text', 'username', $usernamelabel, 'maxlength="100" size="12"');
+        $mform->addElement('text', 'username', $usernamelabel, array('maxlength' => 100, 'size' => 12, 'class' => 'form-control'));
         $mform->setType('username', PARAM_NOTAGS);
-        $mform->addRule('username', get_string('missingusername'), 'required', null, 'server');
+        $mform->addRule('username', get_string('missingusername', 'theme_halloween',
+                strtolower($usernamelabel)), 'required', null, 'client');
         if ($usernamehelptext) {
             $mform->addElement('helpblock', 'usernamehelper', 'label', $usernamehelptext);
         }
         //Email.
-        $mform->addElement('text', 'email', get_string('email'), 'maxlength="100" size="25"');
+        $mform->addElement('text', 'email', get_string('email'),
+                array('maxlength' => 100, 'size' => 25, 'class' => 'form-control'));
         $mform->setType('email', PARAM_RAW_TRIMMED);
-        $mform->addRule('email', get_string('missingemail'), 'required', null, 'server');
+        $mform->addRule('email', get_string('missingemail'), 'required', null, 'client');
         // Password.
         if (theme_utilities::is_theme_settings_exists_and_nonempty('signuppasswordsub')) {
             $passwordhelptext = $filtermultilang->filter($PAGE->theme->settings->signuppasswordsub);
         }
-        $mform->addElement('passwordunmask', 'password', get_string('password'), 'maxlength="32" size="12"');
+        $mform->addElement('passwordunmask', 'password', get_string('password'),
+                array('maxlength' => 100, 'size' => 12, 'class' => 'form-control'));
         $mform->setType('password', PARAM_RAW);
-        $mform->addRule('password', get_string('missingpassword'), 'required', null, 'server');
+        $mform->addRule('password', get_string('missingpassword'), 'required', null, 'client');
         if ($passwordhelptext) {
             $mform->addElement('helpblock', 'passwordhelper', 'label', $passwordhelptext);
         }
-
-
-        /*
-        $mform->addElement('text', 'city', get_string('city'), 'maxlength="120" size="20"');
-        $mform->setType('city', PARAM_TEXT);
-        if (!empty($CFG->defaultcity)) {
-            $mform->setDefault('city', $CFG->defaultcity);
+        // CGU required
+        if ($cgulink = theme_utilities::get_platform_cgu_url()) {
+            $mform->addElement('inversecheckbox', 'policyagreed',
+                    get_string('policyaccept', 'theme_halloween', $cgulink));
+            $mform->addRule('policyagreed', get_string('policyagree'), 'required', null, 'client');
         }
-
-        $country = get_string_manager()->get_list_of_countries();
-        $default_country[''] = get_string('selectacountry');
-        $country = array_merge($default_country, $country);
-        $mform->addElement('select', 'country', get_string('country'), $country);
-
-        if (!empty($CFG->country)) {
-            $mform->setDefault('country', $CFG->country);
-        } else {
-            $mform->setDefault('country', '');
-        }
-
-        if ($this->signup_captcha_enabled()) {
-            $mform->addElement('recaptcha', 'recaptcha_element', get_string('recaptcha', 'auth'), array('https' => $CFG->loginhttps));
-            $mform->addHelpButton('recaptcha_element', 'recaptcha', 'auth');
-        }
-        */
-        profile_signup_fields($mform);
-
-        if (!empty($CFG->sitepolicy)) {
-            $mform->addElement('static', 'policylink', '', '<a href="'.$CFG->sitepolicy.'" onclick="this.target=\'_blank\'">'.get_String('policyagreementclick').'</a>');
-            $mform->addElement('checkbox', 'policyagreed', get_string('policyaccept'));
-            $mform->addRule('policyagreed', get_string('policyagree'), 'required', null, 'server');
-        }
-
-        // buttons
-        $this->add_action_buttons(true, get_string('createaccount'));
-
+        // Commercial
+        halloween_profile_signup_fields($mform);
+        // Submit
+        $mform->addElement('submit', 'submitbutton', get_string('create_account', 'theme_halloween'),
+                array('class' => 'btn btn-engage'));
     }
-
-    function definition_after_data(){
+    /**
+     * Does something (trimming, obviously) with username
+     */
+    function definition_after_data() {
         $mform = $this->_form;
         $mform->applyFilter('username', 'trim');
     }
 
+    /**
+     *
+     * Server-side check of the data.
+     *
+     * @global type $CFG
+     * @global type $DB
+     * @param type $data
+     * @param type $files
+     * @return array (fieldname => errors)
+     */
     function validation($data, $files) {
         global $CFG, $DB;
         $errors = parent::validation($data, $files);
@@ -129,7 +120,6 @@ class login_signup_form extends moodleform {
                 if ($data['username'] !== clean_param($data['username'], PARAM_USERNAME)) {
                     $errors['username'] = get_string('invalidusername');
                 }
-
             }
         }
 
@@ -145,9 +135,14 @@ class login_signup_form extends moodleform {
             $errors['email'] = get_string('emailexists').' <a href="forgot_password.php">'.get_string('newpassword').'?</a>';
         }
 
+        // Do not remove $errmsg variable : it is passed as reference by the password checker
         $errmsg = '';
         if (!check_password_policy($data['password'], $errmsg)) {
             $errors['password'] = $errmsg;
+        }
+
+        if (!$data['policyagreed']) {
+            $errors['policyagreed'] = get_string('policyagree');
         }
 
         if ($this->signup_captcha_enabled()) {

@@ -216,6 +216,15 @@ $string['signupusername']           = 'Label du champ username';
 $string['signuptextdesc']           = '';
 $string['signupusernamesub']        = 'Texte d\'accompagnement du champ username';
 $string['signupusernamesubdesc']    = '';
+$string['signuppasswordsub']        = 'Texte d\'accompagnement du champ mot de passe';
+$string['signuppasswordsubdesc']    = '';
+$string['signupformfooter']         = 'Message à afficher en pied de page du formulaire';
+$string['signupformfooterdesc']     = '';
+
+// Signup frontend page.
+$string['create_account']           = 'Créer mon compte';
+$string['policyaccept']             = 'J\'ai lu et j\'accepte les <a href="{$a}">conditions générales d\'utilisation</a>';
+$string['missingusername']          = 'Le {$a} ne peut pas etre vide';
 
 // Search filters.
 $string['catalog_page_title']       = 'Catalogue';

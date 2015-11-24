@@ -15,20 +15,15 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Theme More version file.
+ * Version information for the checkbox profile field type.
  *
- * @package    theme_halloween
- * @copyright  2014 Bas Brands
+ * @package    profilefield_checkbox
+ * @copyright  2008 onwards Shane Elliot {@link http://pukunui.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
+defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2015112400;
-$plugin->requires  = 2014051200;
-$plugin->release  = 2014051300;
-$plugin->maturity  = MATURITY_BETA;
-$plugin->component = 'theme_halloween';
-$plugin->dependencies = array(
-    'theme_bootstrap'  => 2014051300
-);
+$plugin->version   = 2015112400;        // The current plugin version (Date: YYYYMMDDXX)
+$plugin->requires  = 2014050800;        // Requires this Moodle version
+$plugin->component = 'profilefield_inverseadvcheckbox'; // Full name of the plugin (used for diagnostics)

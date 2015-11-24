@@ -170,7 +170,8 @@ $name = 'theme_halloween/logintitle';
 $title = get_string('logintitle', 'theme_halloween');
 $description = get_string('logintitledesc', 'theme_halloween');
 $default = ($CFG->solerni_isprivate) ?
-            '<span lang="fr" class="multilang">Accédez à votre espace privé d\'apprentissage</span><span lang="en" class="multilang">Enter your private learning space</span>' :
+            '<span lang="fr" class="multilang">Accédez à votre espace privé d\'apprentissage</span><span lang="en" '
+            . 'class="multilang">Enter your private learning space</span>' :
             '<span lang="fr" class="multilang">Je me connecte</span><span lang="en" class="multilang">I log in</span>';
 $setting = new admin_setting_configtextarea($name, $title, $description, $default);
 $setting->set_updatedcallback('theme_reset_all_caches');
@@ -203,7 +204,8 @@ $name = 'theme_halloween/loginusernamesub';
 $title = get_string('loginusernamesub', 'theme_halloween');
 $description = get_string('loginusernamesubdesc', 'theme_halloween');
 $default = ($CFG->solerni_isprivate) ?
-        '<span lang="fr" class="multilang">Saisir le pseudo fourni ou votre email professionnel</span><span lang="en" class="multilang">Enter your provided username or your professionnal email</span>' :
+        '<span lang="fr" class="multilang">Saisir le pseudo fourni ou votre email professionnel</span><span lang="en" '
+        . 'class="multilang">Enter your provided username or your professionnal email</span>' :
         '<span lang="fr" class="multilang"></span><span lang="en" class="multilang"></span>';
 $setting = new admin_setting_configtextarea($name, $title, $description, $default);
 $setting->set_updatedcallback('theme_reset_all_caches');
@@ -253,7 +255,8 @@ $name = 'theme_halloween/signuptext';
 $title = get_string('signuptext', 'theme_halloween');
 $description = get_string('signuptextdesc', 'theme_halloween');
 $default = ($CFG->solerni_isprivate) ?
-        '<span lang="fr" class="multilang">Munissez-vous du pseudo qui vous a été envoyé sur votre email professionnel</span><span lang="en" class="multilang">Please enter the username that had been sent on your professional email</span>' :
+        '<span lang="fr" class="multilang">Munissez-vous du pseudo qui vous a été envoyé sur votre email professionnel</span>'
+        . '<span lang="en" class="multilang">Please enter the username that had been sent on your professional email</span>' :
         '<span lang="fr" class="multilang"></span><span lang="en" class="multilang"></span>';
 $setting = new admin_setting_configtextarea($name, $title, $description, $default);
 $setting->set_updatedcallback('theme_reset_all_caches');
@@ -285,6 +288,22 @@ $title = get_string('signuppasswordsub', 'theme_halloween');
 $description = get_string('signuppasswordsubdesc', 'theme_halloween');
 $default = ($CFG->solerni_isprivate) ?
         '<span lang="fr" class="multilang">Fourni dans l\'email reçu</span><span lang="en" class="multilang">Provided by email</span>' :
+        '<span lang="fr" class="multilang">Votre mot de passe doit  comporter au moins : <ul><li>8 caractères,  <li>1 chiffre, '
+        . '<li>1 majuscule, <li>1 minuscule, <li>1 caractère non-alphanumérique</span><span lang="en" class="multilang">Your password '
+        . 'must have a minimum of : <ul><li>8 caracters,  <li>1 number, <li>1 uppercase, <li>1 lowcase, <li>1 non-alphanumeric caracter</span>';
+$setting = new admin_setting_configtextarea($name, $title, $description, $default);
+$setting->set_updatedcallback('theme_reset_all_caches');
+$temp->add($setting);
+
+// Signup Form Bottom Helper Text.
+$name = 'theme_halloween/signupformfooter';
+$title = get_string('signupformfooter', 'theme_halloween');
+$description = get_string('signupformfooterdesc', 'theme_halloween');
+$default = ($CFG->solerni_isprivate) ?
+        '<span lang="fr" class="multilang"><div><strong>Un problème ?</strong>'
+        . '<p>Contactez notre support (voir email d\'instructions reçu)</p></div></span>'
+        . '<span lang="en" class="multilang"><div><strong>Any problem ?</strong>'
+        . '<p>Contact our support (see your instruction email)</p></div></span>' :
         '<span lang="fr" class="multilang"></span><span lang="en" class="multilang"></span>';
 $setting = new admin_setting_configtextarea($name, $title, $description, $default);
 $setting->set_updatedcallback('theme_reset_all_caches');
