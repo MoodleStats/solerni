@@ -39,7 +39,7 @@ require_once('HTML/QuickForm/checkbox.php');
  * @copyright 2007 Jamie Pratt <me@jamiep.org>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class MoodleQuickForm_inversecheckbox extends HTML_QuickForm_checkbox{
+class MoodleQuickForm_inversecheckbox extends HTML_QuickForm_checkbox {
     /** @var string html for help button, if empty then no help */
     var $_helpbutton='';
     /** @var string Form element type */
@@ -55,6 +55,11 @@ class MoodleQuickForm_inversecheckbox extends HTML_QuickForm_checkbox{
      *              or an associative array
      */
     function MoodleQuickForm_inversecheckbox($elementName=null, $elementLabel=null, $text='', $attributes=null) {
+        // defaulting rendering to Orange brand
+        if(!$attributes) {
+            $attributes = array('class' => 'o-checkbox');
+        }
+
         parent::HTML_QuickForm_checkbox($elementName, $elementLabel, $text, $attributes);
     }
 
@@ -110,7 +115,7 @@ class MoodleQuickForm_inversecheckbox extends HTML_QuickForm_checkbox{
      */
     function toHtml()
     {
-        return '<span>' . parent::toHtml() . '</span>';
+        return parent::toHtml();
     }
 
     /**

@@ -58,13 +58,17 @@ class MoodleQuickForm_inverseadvcheckbox extends HTML_QuickForm_advcheckbox{
      *              or an associative array
      * @param mixed $values (optional) Values to pass if checked or not checked
      */
-    function MoodleQuickForm_inverseadvcheckbox($elementName=null, $elementLabel=null, $text=null, $attributes=null, $values=null)
+    function MoodleQuickForm_inverseadvcheckbox($elementName=null, $elementLabel=null, $text=null, $attributes=array('class'=>'o-checkbox'), $values=null)
     {
         if ($values === null){
             $values = array(0, 1);
         }
-        
-        if (!is_null($attributes['group'])) {
+        // defaulting rendering to Orange brand
+        if (!$attributes) {
+            $attributes = array('class' => 'o-checkbox');
+        }
+
+        if (is_array($attributes) && !is_null($attributes['group'])) {
 
             $this->_group = 'checkboxgroup' . $attributes['group'];
             unset($attributes['group']);
@@ -103,7 +107,7 @@ class MoodleQuickForm_inverseadvcheckbox extends HTML_QuickForm_advcheckbox{
      */
     function toHtml()
     {
-        return '<span class="checkbox">' . parent::toHtml() . '</span>';
+        return parent::toHtml();
     }
 
     /**

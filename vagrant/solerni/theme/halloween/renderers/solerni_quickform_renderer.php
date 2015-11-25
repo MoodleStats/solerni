@@ -23,9 +23,9 @@ class HalloweenMoodleQuickForm_Renderer extends MoodleQuickForm_Renderer {
 
         global $CFG;
 
-        HTML_QuickForm::registerElementType( 'helpblock', $CFG->libdir . '/form/helpblock.php', 'MoodleQuickForm_helpblock');
-        HTML_QuickForm::registerElementType( 'inverseadvcheckbox', $CFG->libdir . '/form/inverseadvcheckbox.php', 'MoodleQuickForm_inverseadvcheckbox');
-        HTML_QuickForm::registerElementType( 'inversecheckbox', $CFG->libdir . '/form/inversecheckbox.php', 'MoodleQuickForm_inversecheckbox');
+        HTML_QuickForm::registerElementType('helpblock', $CFG->libdir . '/form/helpblock.php', 'MoodleQuickForm_helpblock');
+        HTML_QuickForm::registerElementType('inverseadvcheckbox', $CFG->libdir . '/form/inverseadvcheckbox.php', 'MoodleQuickForm_inverseadvcheckbox');
+        HTML_QuickForm::registerElementType('inversecheckbox', $CFG->libdir . '/form/inversecheckbox.php', 'MoodleQuickForm_inversecheckbox');
 
         parent::MoodleQuickForm_Renderer();
 

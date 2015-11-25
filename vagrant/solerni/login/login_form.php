@@ -93,7 +93,7 @@ $autocomplete =  (!$CFG->loginpasswordautocomplete) ? 'autocomplete="off"' : '';
             </div>
             <?php if ($CFG->rememberusername and $CFG->rememberusername == 2) : ?>
                 <div class="form-group text-right">
-                    <input type="checkbox" name="rememberusername" id="rememberusername"
+                    <input class="o-checkbox" type="checkbox" name="rememberusername" id="rememberusername"
                            value="1" <?php if ($frm->username) { echo 'checked="checked"'; } ?> />
                     <label for="rememberusername">
                         <?php print_string('rememberusername', 'theme_halloween') ?>

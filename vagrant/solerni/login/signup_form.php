@@ -74,15 +74,14 @@ class login_signup_form extends moodleform {
         if ($passwordhelptext) {
             $mform->addElement('helpblock', 'passwordhelper', 'label', $passwordhelptext);
         }
-        // CGU required
+        // CGU required.
         if ($cgulink = theme_utilities::get_platform_cgu_url()) {
-            $mform->addElement('inversecheckbox', 'policyagreed',
-                    get_string('policyaccept', 'theme_halloween', $cgulink));
+            $mform->addElement('inversecheckbox', 'policyagreed', get_string('policyaccept', 'theme_halloween', $cgulink));
             $mform->addRule('policyagreed', get_string('policyagree'), 'required', null, 'client');
         }
-        // Commercial
+        // Commercial purposes (from personnal fields).
         halloween_profile_signup_fields($mform);
-        // Submit
+        // Submit.
         $mform->addElement('submit', 'submitbutton', get_string('create_account', 'theme_halloween'),
                 array('class' => 'btn btn-engage'));
     }
