@@ -620,7 +620,7 @@ class utilities_course {
      */
     public function get_course_status($course = null) {
         global $COURSE;
-        $date = new DateTime();
+        $date = new \DateTime();
         if (!$course) {
             $course = $COURSE;
         }
