@@ -404,6 +404,10 @@ div[role="main"] .list-social {
     }
 }
 
+#block-region-main, .paging {
+    clear: both;
+}
+
 /*
  * Blocks Orange course extended
  */
@@ -632,16 +636,17 @@ img.icon {
 
 .thumbnail-top-box {
     position:   absolute;
+    top: 0px;
     width:      100%;
     padding:    5px 0;
-    z-index:    3;
+    //z-index:    1;
 }
 
 .thumbnail-middle-box {
     position:   absolute;
-    margin-top: 50px;
+    top: 50px;
     padding:    5px 5px;
-    z-index:    1;
+   // z-index:    1;
     right: 0;
 
 }
@@ -663,7 +668,7 @@ img.icon {
 .thumbnail:hover .caption-hover {
     visibility: visible;
     opacity:    1;
-    z-index:    2;
+    //z-index:    2;
 }
 
 .thumbnail-text {

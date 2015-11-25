@@ -37,6 +37,7 @@ $string['mooc_complete'] = 'Mooc complet';
 $string['mooc_open_date'] = 'Début le';
 $string['acces_to_archive'] = 'Acces aux archives du cours';
 $string['status_running'] = 'MOOC en cours';
+$string['enrolled_users'] = 'utilisateurs enregistrés';
 
 // Extended course object.
 $string['english'] = 'Anglais';
