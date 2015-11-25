@@ -24,7 +24,7 @@ namespace local_orange_library\subscription_button;
 
 use local_orange_library\extended_course\extended_course_object;
 use local_orange_library\enrollment\enrollment_object;
-use local_orange_library\utilities\utilities_course;
+use local_orange_library\utilities\utilities_object;
 use html_writer;
 use DateTime;
 use moodle_url;
@@ -240,6 +240,7 @@ class subscription_button_object {
      * @return call to display_button() or display_mooc_open_date()
      * */
     private function controller_mooc_not_started() {
+        $utilities_object = new utilities_object();
 
         if (!isloggedin()) {
             //   User not logged.
@@ -257,8 +258,10 @@ class subscription_button_object {
             } else {
                 // User not subscribed to the mooc.
                 // CASE C : LOGGED TO A FUTUR MOOC - USER REGISTERED.
-                $text = get_string('mooc_open_date', 'local_orange_library') . date("d-m-Y", $this->course->startdate);
-                return $this->display_button($text, '#', "btn btn-default disabled");
+
+                $text = get_string('mooc_open_date', 'local_orange_library', $utilities_object->get_formatted_date($this->course->startdate));
+                return html_writer::tag('a', $text, array('class' => "btn btn-default disabled", 'href' => '#'));
+
             }
         }
     }

@@ -35,7 +35,7 @@ $string['status_closed'] = 'MOOC closed';
 $string['alert_mooc'] = 'Alert me for next MOOC session';
 $string['registration_stopped'] = 'Registration stopped';
 $string['mooc_complete'] = 'Mooc complete';
-$string['mooc_open_date'] = 'Available on ';
+$string['mooc_open_date'] = 'Available on {$a}';
 $string['acces_to_archive'] = 'Access to course archive';
 $string['enrolled_users'] = 'enrolled users';
 

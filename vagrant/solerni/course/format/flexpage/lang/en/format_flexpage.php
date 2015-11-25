@@ -303,3 +303,7 @@ $string['teachingteam_default'] = 'Conception : Orange with Learning CRM';
 $string['contactemail'] = 'Contact Email';
 $string['contactemail_help'] = 'Mooc contact email used by the contact form';
 $string['contactemail_default'] = 'contact@solerni.com';
+
+$string['thumbnailtext'] = 'Promotionnal message';
+$string['thumbnailtext_help'] = 'Promotionnal message in thumbnail';
+$string['thumbnailtext_default'] = '';
