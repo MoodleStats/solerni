@@ -45,143 +45,244 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
         $extendedcourse->get_extended_course($course, $context);
 
         $subscriptionbutton = new subscription_button_object($course);
-        $text = html_writer::start_tag('div', array('class' => 'sider'));
-        $language = get_string('french', 'format_flexpage');
-        $registrationvalue = get_string('registration_case1', 'format_flexpage');
-        if ($imgurl) {
-            $text .= html_writer::empty_tag('img', array('src' => $imgurl,'class' => 'essentiels-image'));
-        }
-        //$text .= html_writer::tag('h2', $course->fullname.' ');
-            $text .= html_writer::start_tag('div', array('class' => 'sider__content'));
-                $text .= html_writer::start_tag('ul', array('class' => 'essentiels'));
-                   $text .= html_writer::start_tag('li');
-                        $text .= html_writer::start_tag('i', array('class' => 'essentiels-icon essentiels__date'));
-                        $text .= html_writer::end_tag('i');
-                        $text .= html_writer::tag('span', get_string('startdate', 'format_flexpage'));
-                        $text .= html_writer::empty_tag('br');
-                        $text .= html_writer::tag('span', date("d-m-Y", $course->startdate), array('class' => 'slrn-bold'));
-                        $text .= html_writer::empty_tag('br');
-                        $text .= html_writer::tag('span', get_string('enddate', 'format_flexpage'));
-                        $text .= html_writer::empty_tag('br');
-                        $enddate = $extendedcourse->enddate;
-                        $text .= html_writer::tag('span', date("d-m-Y", $enddate), array('class' => 'slrn-bold'));
-                    $text .= html_writer::end_tag('li');
-                    $text .= html_writer::start_tag('li');
-                        $text .= html_writer::start_tag('i', array('class' => 'essentiels-icon essentiels__duration'));
-                        $text .= html_writer::end_tag('i');
-                        $text .= html_writer::tag('span', get_string('duration', 'format_flexpage'));
-                        $text .= html_writer::empty_tag('br');
-                        $text .= html_writer::tag('span', $extendedcourse->duration.' ', array('class' => 'slrn-bold'));
-                        $text .= html_writer::empty_tag('br');
-                        $text .= html_writer::tag('span', get_string('workingtime', 'format_flexpage'));
-                        $text .= html_writer::empty_tag('br');
-                        $text .= html_writer::tag('span', $extendedcourse->workingtime, array('class' => 'slrn-bold'));
-                    $text .= html_writer::end_tag('li');
-                    $text .= html_writer::start_tag('li');
-                        $text .= html_writer::start_tag('i', array('class' => 'essentiels-icon essentiels__price'));
-                        $text .= html_writer::end_tag('i');
-                        $text .= html_writer::tag('span', get_string('price', 'format_flexpage'));
-                        $text .= html_writer::empty_tag('br');
-                        $text .= html_writer::tag('span', $extendedcourse->price.' ', array('class' => 'slrn-bold'));
-                    $text .= html_writer::end_tag('li');
-        if (!empty($extendedcourse->badge)||!empty($extendedcourse->certification)) {
-                    $text .= html_writer::start_tag('li');
-                        $text .= html_writer::start_tag('i', array('class' => 'essentiels-icon essentiels__certification'));
-                        $text .= html_writer::end_tag('i');
-                        $text .= html_writer::tag('span', get_string('certification', 'format_flexpage'));
-                        $text .= html_writer::empty_tag('br');
-            if ($extendedcourse->badge != 0) {
-                        $text .= html_writer::tag('span',
-                                get_string('badges', 'block_orange_course_extended').' ',
-                                array('class' => 'slrn-bold'));
+        $text = html_writer::start_tag('div', array('class' => 'row '));
+            if ($imgurl) {
+                $text .= html_writer::empty_tag('img', array('src' => $imgurl,'class' => 'col-xs-12 essentiels-image'));
             }
-            if ($extendedcourse->certification != 0) {
-                        $text .= html_writer::tag('span',
-                                get_string('certification_default', 'block_orange_course_extended').' ',
-                                array('class' => 'slrn-bold'));
+                $text .= $this->display_extendedcourse_dates($extendedcourse, $course);
+                $text .= $this->display_duration_workingtime($extendedcourse);
+                $text .= $this->display_price($extendedcourse);
+            if (!empty($extendedcourse->badge)||!empty($extendedcourse->certification)) {
+                $text .= $this->display_badge_certif($extendedcourse);
             }
-                    $text .= html_writer::end_tag('li');
-        }
-                    $text .= html_writer::start_tag('li');
-                        $text .= html_writer::start_tag('i', array('class' => 'essentiels-icon essentiels__language'));
-                        $text .= html_writer::end_tag('i');
-                        $text .= html_writer::tag('span', get_string('language').':');
-                        $text .= html_writer::empty_tag('br');
-        if (!empty($extendedcourse->language)) {
-                            $language = $extendedcourse->language;
-        }
-                        $text .= html_writer::tag('span', $language.' ', array('class' => 'slrn-bold'));
-                    $text .= html_writer::end_tag('li');
-        if (!empty($extendedcourse->video)) {
-                    $text .= html_writer::start_tag('li');
-                        $text .= html_writer::start_tag('i', array('class' => 'essentiels-icon essentiels__video'));
-                        $text .= html_writer::end_tag('i');
-                        $text .= html_writer::tag('span', get_string('video', 'format_flexpage'));
-                        $text .= html_writer::empty_tag('br');
-            if ($extendedcourse->subtitle != 0) {
-                            $language = $extendedcourse->language;
-                            $text .= html_writer::tag('span',
-                                $language.' '.get_string('subtitle', 'block_orange_course_extended').' ',
-                                array('class' => 'slrn-bold'));
+                $text .= $this->display_language($extendedcourse);
+            if (!empty($extendedcourse->video)) {
+                $text .= $this->display_video($extendedcourse);
             }
-                    $text .= html_writer::end_tag('li');
-        }
-                        $text .= html_writer::start_tag('li');
-                        $text .= html_writer::start_tag('i', array('class' => 'essentiels-icon essentiels__subscription'));
-                        $text .= html_writer::end_tag('i');
-                        $text .= html_writer::tag('span', get_string('registration', 'format_flexpage'));
-                        $text .= html_writer::empty_tag('br');
-                        $registrationvalue = $this->get_registration($extendedcourse);
-
-                        $text .= html_writer::tag('span', $registrationvalue.' ', array('class' => 'slrn-bold'));
-                    $text .= html_writer::end_tag('li');
-                    $text .= html_writer::start_tag('li');
-                        $text .= html_writer::start_tag('i', array('class' => 'essentiels-icon essentiels__subscribers'));
-                        $text .= html_writer::end_tag('i');
-                        $text .= html_writer::tag('span', get_string('registeredusers', 'format_flexpage'));
-                        $text .= html_writer::empty_tag('br');
-                        $text .= html_writer::tag('span', $extendedcourse->enrolledusers.' ', array('class' => 'slrn-bold'));
-                    $text .= html_writer::end_tag('li');
-                $text .= html_writer::end_tag('ul');
-            $text .= html_writer::end_tag('div');
-            $text .= html_writer::start_tag('div', array('class' => 'sider__button'));
-                $text .= html_writer::start_tag('ul', array('class' => 'essentiels-btn'));
-
-                    $text .= html_writer::start_tag('li');
+                $text .= $this->display_registration($extendedcourse);
+                $text .= $this->display_enrolledusers($extendedcourse);
+        $text .= html_writer::end_tag('div');
+        $text .= html_writer::start_tag('div', array('class' => 'row '));
+            $text .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-12'));
                     $text .= $subscriptionbutton->set_button($course);
-                    $text .= html_writer::end_tag('li');
-                    if(!empty($extendedcourse->status)){
-                    $text .= html_writer::start_tag('li');
-                        $text .= html_writer::empty_tag('br');
-                        $text .= html_writer::tag('span', get_string('status', 'format_flexpage'));
-                        $text .= html_writer::empty_tag('br');
-                        $text .= html_writer::tag('span', $extendedcourse->status.' ', array('class' => 'slrn-bold'));
-                    $text .= html_writer::end_tag('li');
-                    }
-                $text .= html_writer::end_tag('ul');
-            $text .= html_writer::end_tag('div');
-        $text .= html_writer::tag('h2', get_string('prerequesites', 'format_flexpage'));
-            $text .= html_writer::empty_tag('br');
-            $text .= html_writer::start_tag('div', array('class' => 'sider__content'));
-                $text .= html_writer::start_tag('ul', array('class' => 'essentiels'));
-                    $text .= html_writer::start_tag('li');
-                    $prerequesites = $extendedcourse->prerequesites;
-                    $text .= html_writer::tag('span', $prerequesites.' ', array('class' => 'slrn-bold'));
-                    $text .= html_writer::end_tag('li');
-                $text .= html_writer::end_tag('ul');
-            $text .= html_writer::end_tag('div');
-        $text .= html_writer::tag('h2', get_string('teachingteam', 'format_flexpage'));
-            $text .= html_writer::empty_tag('br');
-            $text .= html_writer::start_tag('div', array('class' => 'sider__content'));
-                $text .= html_writer::start_tag('ul', array('class' => 'essentiels'));
-                    $text .= html_writer::start_tag('li');
-                    $teachingteam = $extendedcourse->teachingteam;
-                    $text .= html_writer::tag('span', $teachingteam.' ', array('class' => 'slrn-bold'));
-                    $text .= html_writer::end_tag('li');
-                $text .= html_writer::end_tag('ul');
             $text .= html_writer::end_tag('div');
         $text .= html_writer::end_tag('div');
+        $text .= html_writer::end_tag('div');
 
+            $text .= $this->display_prerequesites($extendedcourse);
+                $text .= $this->display_teachingteam($extendedcourse);
+
+        $text .= html_writer::end_tag('div');
+        return $text;
+
+    }
+
+    /**
+     * Display teaching zone
+     * @param type $extendedcourse
+     * @return html_writer::tag
+     */
+    private function display_teachingteam($extendedcourse) {
+
+        $text = html_writer::start_tag('div', array('class' => 'header '));
+        $text .= html_writer::tag('h2', get_string('teachingteam', 'format_flexpage'));
+        $text .= html_writer::end_tag('div');
+        $teachingteam = $extendedcourse->teachingteam;
+        $text .= html_writer::start_tag('div', array('class' => 'content'));
+        $text .= html_writer::tag('span', $teachingteam.' ', array('class' => 'center-block'));
+        $text .= html_writer::end_tag('div');
+        return $text;
+
+    }
+
+    /**
+     * Display prerequesites zone
+     * @param type $extendedcourse
+     * @return html_writer::tag
+     */
+    private function display_prerequesites($extendedcourse) {
+
+        $text = html_writer::start_tag('div', array('class' => 'header '));
+        $text .= html_writer::tag('h2', get_string('prerequesites', 'format_flexpage'));
+        $text .= html_writer::end_tag('div');
+        $text .= html_writer::start_tag('div', array('class' => 'content '));
+            $prerequesites = $extendedcourse->prerequesites;
+            $text .= html_writer::tag('span', $prerequesites.' ', array('class' => 'center-block'));
+        $text .= html_writer::end_tag('div');
+        return $text;
+
+    }
+
+    /**
+     * Display enrolledusers zone
+     * @param type $extendedcourse
+     * @return html_writer::tag
+     */
+    private function display_enrolledusers($extendedcourse) {
+
+        $text = html_writer::start_tag('div', array('class' => 'col-xs-2 col-md-2'));
+            $text .= html_writer::tag('span','' ,array('class' => 'col-xs-2 glyphicon glyphicon-user '));
+        $text .= html_writer::end_tag('div');
+
+        $text .= html_writer::start_tag('div', array('class' => 'col-xs-10 col-md-10'));
+            $text .= html_writer::tag('span', get_string('registeredusers', 'format_flexpage'), array('class' => 'h6'));
+        $text .= html_writer::tag('span', $extendedcourse->enrolledusers.' ', array('class' => 'center-block'));
+        $text .= html_writer::end_tag('div');
+        return $text;
+
+    }
+
+    /**
+     * Display registration zone
+     * @param type $extendedcourse
+     * @return html_writer::tag
+     */
+    private function display_registration($extendedcourse) {
+
+        $text = html_writer::start_tag('div', array('class' => 'col-xs-2 col-md-2'));
+            $text .= html_writer::tag('span','' ,array('class' => 'col-xs-2 glyphicon glyphicon-lock'));
+        $text .= html_writer::end_tag('div');
+
+        $text .= html_writer::start_tag('div', array('class' => 'col-xs-10 col-md-10'));
+            $text .= html_writer::tag('span', get_string('registration', 'format_flexpage'), array('class' => 'h6'));
+        $text .= html_writer::tag('span', $this->get_registration($extendedcourse).' ', array('class' => 'center-block'));
+        $text .= html_writer::end_tag('div');
+        return $text;
+    }
+
+    /**
+     * Display startdate and  enddate
+     * @param type $extendedcourse
+     * @param type $course
+     * @return html_writer::tag
+     */
+    private function display_extendedcourse_dates($extendedcourse, $course){
+
+        $text = html_writer::start_tag('div', array('class' => 'col-xs-2 col-md-2'));
+            $text .= html_writer::tag('span','' ,array('class' => 'col-xs-2 glyphicon glyphicon-calendar'));
+        $text .= html_writer::end_tag('div');
+
+        $text .= html_writer::start_tag('div', array('class' => 'col-xs-10 col-md-10'));
+            $text .= html_writer::tag('span', get_string('startdate', 'format_flexpage'), array('class' => 'h6'));
+            //$text .= html_writer::empty_tag('br');
+            $text .= html_writer::tag('span', date("d-m-Y", $course->startdate), array('class' => 'center-block'));
+            //$text .= html_writer::empty_tag('br');
+            $text .= html_writer::tag('span', get_string('enddate', 'format_flexpage'), array('class' => 'h6'));
+            //$text .= html_writer::empty_tag('br');
+            $enddate = $extendedcourse->enddate;
+            $text .= html_writer::tag('span', date("d-m-Y", $enddate), array('class' => 'center-block'));
+        $text .= html_writer::end_tag('div');
+        return $text;
+
+    }
+
+    /**
+     * Display duration and  workingtime
+     * @param type $extendedcourse
+     * @return html_writer::tag
+     */
+    private function display_duration_workingtime($extendedcourse) {
+
+        $text = html_writer::start_tag('div', array('class' => 'col-xs-2 col-md-2'));
+            $text .= html_writer::tag('span','' ,array('class' => 'col-xs-2 glyphicon glyphicon-time'));
+        $text .= html_writer::end_tag('div');
+
+        $text .= html_writer::start_tag('div', array('class' => 'col-xs-10 col-md-10'));
+            $text .= html_writer::tag('span', get_string('duration', 'format_flexpage'), array('class' => 'h6'));
+            $text .= html_writer::tag('span', $extendedcourse->duration.' ', array('class' => 'center-block'));
+            $text .= html_writer::tag('span', get_string('workingtime', 'format_flexpage'), array('class' => 'h6'));
+            $text .= html_writer::tag('span', $extendedcourse->workingtime, array('class' => 'center-block'));
+        $text .= html_writer::end_tag('div');
+        return $text;
+    }
+
+    /**
+     * Display price
+     * @param type $extendedcourse
+     * @return html_writer::tag
+     */
+    private function display_price($extendedcourse){
+
+        $text = html_writer::start_tag('div', array('class' => 'col-xs-2 col-md-2'));
+            $text .= html_writer::tag('span','' ,array('class' => 'col-xs-2 glyphicon glyphicon-euro'));
+        $text .= html_writer::end_tag('div');
+
+        $text .= html_writer::start_tag('div', array('class' => 'col-xs-10 col-md-10'));
+            $text .= html_writer::tag('span', get_string('price', 'format_flexpage'), array('class' => 'h6'));
+            $text .= html_writer::tag('span', $extendedcourse->price.' ', array('class' => 'center-block'));
+        $text .= html_writer::end_tag('div');
+        return $text;
+    }
+
+    /**
+     * Display certification and  badges
+     * @param type $extendedcourse
+     * @return html_writer::tag
+     */
+    private function display_badge_certif($extendedcourse){
+
+        $text = html_writer::start_tag('div', array('class' => 'col-xs-2 col-md-2'));
+            $text .= html_writer::tag('span','' ,array('class' => 'col-xs-2 glyphicon glyphicon-education'));
+        $text .= html_writer::end_tag('div');
+
+        $text .= html_writer::start_tag('div', array('class' => 'col-xs-10 col-md-10'));
+            $text .= html_writer::tag('span', get_string('certification', 'format_flexpage'), array('class' => 'h6'));
+        if ($extendedcourse->badge != 0) {
+            $text .= html_writer::tag('span', get_string('badges', 'block_orange_course_extended').' ',
+                array('class' => 'center-block'));
+        }
+        if ($extendedcourse->certification != 0) {
+            $text .= html_writer::tag('span', get_string('certification_default', 'block_orange_course_extended').' ',
+                array('class' => 'center-block'));
+        }
+        $text .= html_writer::end_tag('div');
+        return $text;
+    }
+
+    /**
+     * Display language
+     * @param type $extendedcourse
+     * @return html_writer::tag
+     */
+    private function display_language($extendedcourse) {
+
+        $language = get_string('french', 'format_flexpage');
+
+        $text = html_writer::start_tag('div', array('class' => 'col-xs-2 col-md-2'));
+            $text .= html_writer::tag('span','' ,array('class' => 'col-xs-2 glyphicon glyphicon-globe'));
+        $text .= html_writer::end_tag('div');
+
+        $text .= html_writer::start_tag('div', array('class' => 'col-xs-10 col-md-10'));
+            $text .= html_writer::tag('span', get_string('language', 'format_flexpage'), array('class' => 'h6'));
+        if (!empty($extendedcourse->language)) {
+            $language = $extendedcourse->language;
+        }
+        $text .= html_writer::tag('span', $language.' ', array('class' => 'center-block'));
+        $text .= html_writer::end_tag('div');
+        return $text;
+
+    }
+
+    /**
+     * Display video and subtitle
+     * @param type $extendedcourse
+     * @return html_writer::tag
+     */
+    private function display_video($extendedcourse) {
+
+        $text = html_writer::start_tag('div', array('class' => 'col-xs-2 col-md-2'));
+            $text .= html_writer::tag('span','' ,array('class' => 'col-xs-2 glyphicon glyphicon-film'));
+        $text .= html_writer::end_tag('div');
+
+        $text .= html_writer::start_tag('div', array('class' => 'col-xs-10 col-md-10'));
+            $text .= html_writer::tag('span', get_string('video', 'format_flexpage'), array('class' => 'h6'));
+        if ($extendedcourse->subtitle != 0) {
+            $language = $extendedcourse->language;
+            $text .= html_writer::tag('span',
+                $language.' '.get_string('subtitle', 'block_orange_course_extended').' ',
+                array('class' => 'center-block'));
+        }
+        $text .= html_writer::end_tag('div');
         return $text;
 
     }
@@ -193,39 +294,61 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
      * @return object $this->extendedcourse
      */
     private function get_registration ($extendedcourse) {
+        global $course;
 
-        if (!empty($extendedcourse->registration)) {
+
+            $enrols = enrol_get_plugins(true);
+            $enrolinstances = enrol_get_instances($course->id, true);
+            $instance = null;
+            $registrationstring = "";
+
+
+            foreach($enrolinstances as $instance) {
+                if (!isset($enrols[$instance->enrol])) {
+                    continue;
+                }
+            }
+
+            if($instance != null)
+            {
+
+                if ($instance->enrolstartdate == 0)
+                {
+                    $registrationstring = "";
+                    $extendedcourse->enrolstartdate = time();
+                    $extendedcourse->enrolenddate = time();
+                }
+                 else {
+
+                    $extendedcourse->enrolstartdate = $instance->enrolstartdate;
+                    $extendedcourse->enrolenddate = $instance->enrolenddate;
+                    $registrationstring = get_string('registration_from', 'block_orange_course_extended').
+                            date("d-m-Y",$extendedcourse->enrolstartdate).get_string('registration_to', 'block_orange_course_extended').
+                            date("d-m-Y",$extendedcourse->enrolenddate);
+
+                }
+            }
+            else
+            {
+                $registrationstring = "";
+            }
+
             switch ($extendedcourse->registration) {
+
                 case '0':
-                    $registrationvalue = get_string('registration_case1', 'block_orange_course_extended').
-                    get_string('registration_from', 'block_orange_course_extended').
-                    date("d-m-Y", $extendedcourse->enrolstartdate).
-                    get_string('registration_to', 'block_orange_course_extended').
-                    date("d-m-Y", $extendedcourse->enrolenddate);
+                    $registrationvalue = get_string('registration_case1', 'block_orange_course_extended').$registrationstring;
                 break;
                 case '1':
                     $registrationvalue = get_string('registration_case2', 'block_orange_course_extended').
                     $extendedcourse->maxregisteredusers.' '.
-                    get_string('registration_case2_2', 'block_orange_course_extended').
-                    get_string('registration_from', 'block_orange_course_extended').
-                    date("d-m-Y", $extendedcourse->enrolstartdate).
-                    get_string('registration_to', 'block_orange_course_extended').
-                    date("d-m-Y", $extendedcourse->enrolenddate);
+                    get_string('registration_case2_2', 'block_orange_course_extended').$registrationstring;
                 break;
                 case '2':
 
                     $registrationvalue = get_string('registration_case3', 'block_orange_course_extended').
-                    $extendedcourse->registrationcompany.
-                    get_string('registration_from', 'block_orange_course_extended').
-                    date("d-m-Y", $extendedcourse->enrolstartdate).
-                    get_string('registration_to', 'block_orange_course_extended').
-                    date("d-m-Y", $extendedcourse->enrolenddate);
+                    $extendedcourse->registrationcompany.$registrationstring;
                 break;
             }
             return $registrationvalue;
         }
-    }
-
-
-
 }

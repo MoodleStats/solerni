@@ -26,7 +26,7 @@ defined('MOODLE_INTERNAL') || die();
 
 class utilities_user {
 
-    static function is_user_site_admin($user) {
+    static public function is_user_site_admin($user) {
         foreach (get_admins() as $adminuser) {
             if ($user->id === $adminuser->id ) {
                 return true;
@@ -34,8 +34,8 @@ class utilities_user {
         }
     }
 
-    static function is_user_course_admin($user, $course) {
-        // check user right inside the course
+    static public function is_user_course_admin($user, $course) {
+        // Check user right inside the course.
     }
 
     /**
@@ -45,7 +45,7 @@ class utilities_user {
      * @param class $user
      * @return int || boolean
      */
-    static function user_have_new_mail($user) {
+    static public function user_have_new_mail($user) {
         if (class_exists('local_mail_message')) {
             $count = \local_mail_message::count_menu($user->id);
             if (property_exists($count, 'inbox')) {

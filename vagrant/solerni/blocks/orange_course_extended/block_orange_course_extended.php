@@ -28,6 +28,9 @@ require_once($CFG->dirroot.'/course/format/lib.php');
 require_once($CFG->dirroot.'/blocks/orange_course_extended/locallib.php');
 require_once($CFG->dirroot.'/config.php');
 
+use local_orange_library\enrollment;
+
+
 /**
  * Course contents block generates a table of course contents based on the
  * section descriptions
@@ -63,7 +66,7 @@ class block_orange_course_extended extends block_base {
 
     public function html_attributes() {
         $attributes = parent::html_attributes(); // Get default values.
-        $attributes['class'] .= ' block_'. $this->name(); // Append our class to class attribute.
+        $attributes['class'] .= '';// Append our class to class attribute.
         return $attributes;
     }
 

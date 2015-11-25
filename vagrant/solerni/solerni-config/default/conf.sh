@@ -43,10 +43,10 @@ moosh role-import solerni_utilisateur solerni-config/default/users_roles/solerni
 moosh role-import solerni_apprenant solerni-config/default/users_roles/solerni_apprenant.xml
 moosh role-import solerni_power_apprenant solerni-config/default/users_roles/solerni_power_apprenant.xml
 moosh role-import solerni_animateur solerni-config/default/users_roles/solerni_animateur.xml
+moosh role-import solerni_client solerni-config/default/users_roles/solerni_client.xml
 moosh role-import solerni_teacher solerni-config/default/users_roles/solerni_teacher.xml
 moosh role-import solerni_marketing solerni-config/default/users_roles/solerni_marketing.xml
 moosh role-import solerni_course_creator solerni-config/default/users_roles/solerni_course_creator.xml
-moosh role-import solerni_client solerni-config/default/users_roles/solerni_client.xml
 
 # Default role for all users (#us_62-69)
 moosh role-configset defaultuserroleid solerni_utilisateur
@@ -142,6 +142,7 @@ moosh config-set coursesperpage 5
 moosh config-set mnet_dispatcher_mode strict
 moosh peer-manage mnet on
 moosh config-set mnet_register_allhosts 1
+moosh config-set sessioncookie ${CUSTOMER_COOKIE_PREFIX}
 
 # Default frontpage role
 moosh role-configset defaultfrontpageroleid solerni_utilisateur
@@ -155,6 +156,14 @@ moosh config-set oauth2displaybuttons 0 'auth/googleoauth2'
 # Enable Mnet authentication method (#us_326)
 moosh auth-manage enable mnet
 
+# SMTP hosts : SMTP servers that Moodle use to send mail
+moosh config-set smtphosts ${SMTP_SERVER}
+
+# Create a support user (normally id=3)
+moosh user-create --password pass --email ${CUSTOMER_CONTACT_USER_EMAIL} --firstname 'Contact' --lastname 'Solerni' 'supportuser'  
+
+# disable default messaging system (#us_226)
+moosh config-set messaging 0
 # Authorize login with email adress as well as username in login form
 moosh config-set authloginviaemail 1
 
