@@ -51,6 +51,7 @@ moosh role-update-capability solerni_client block/progress:overview allow 1
 # mod/oublog : contributepersonal, addinstance
 moosh role-update-capability solerni_teacher mod/oublog:contributepersonal allow 1
 moosh role-update-capability solerni_teacher mod/oublog:addinstance allow 1
+moosh role-update-capability solerni_course_creator mod/oublog:addinstance allow 1
 # mod/oublog : viewpersonal, viewprivate
 moosh role-update-capability solerni_teacher mod/oublog:viewpersonal allow 1
 moosh role-update-capability solerni_marketing mod/oublog:viewpersonal allow 1
@@ -67,18 +68,21 @@ moosh role-update-capability solerni_apprenant mod/oublog:comment allow 1
 moosh role-update-capability solerni_power_apprenant mod/oublog:comment allow 1
 moosh role-update-capability solerni_client mod/oublog:comment allow 1
 moosh role-update-capability solerni_marketing mod/oublog:comment allow 1
+moosh role-update-capability solerni_course_creator mod/oublog:comment allow 1
 moosh role-update-capability solerni_teacher mod/oublog:exportownpost allow 1
 moosh role-update-capability solerni_animateur mod/oublog:exportownpost allow 1
 moosh role-update-capability solerni_apprenant mod/oublog:exportownpost allow 1
 moosh role-update-capability solerni_power_apprenant mod/oublog:exportownpost allow 1
 moosh role-update-capability solerni_client mod/oublog:exportownpost allow 1
 moosh role-update-capability solerni_marketing mod/oublog:exportownpost allow 1
+moosh role-update-capability solerni_course_creator mod/oublog:exportownpost allow 1
 moosh role-update-capability solerni_teacher mod/oublog:exportpost allow 1
 moosh role-update-capability solerni_animateur mod/oublog:exportpost allow 1
 moosh role-update-capability solerni_apprenant mod/oublog:exportpost allow 1
 moosh role-update-capability solerni_power_apprenant mod/oublog:exportpost allow 1
 moosh role-update-capability solerni_client mod/oublog:exportpost allow 1
 moosh role-update-capability solerni_marketing mod/oublog:exportpost allow 1
+moosh role-update-capability solerni_course_creator mod/oublog:exportpost allow 1
 # mod/oublog : grade
 moosh role-update-capability solerni_marketing mod/oublog:grade allow 1
 moosh role-update-capability solerni_teacher mod/oublog:grade allow 1
@@ -99,24 +103,28 @@ moosh role-update-capability solerni_apprenant mod/oublog:rate allow 1
 moosh role-update-capability solerni_power_apprenant mod/oublog:rate allow 1
 moosh role-update-capability solerni_client mod/oublog:rate allow 1
 moosh role-update-capability solerni_marketing mod/oublog:rate allow 1
+moosh role-update-capability solerni_course_creator mod/oublog:rate allow 1
 moosh role-update-capability solerni_teacher mod/oublog:view allow 1
 moosh role-update-capability solerni_animateur mod/oublog:view allow 1
 moosh role-update-capability solerni_apprenant mod/oublog:view allow 1
 moosh role-update-capability solerni_power_apprenant mod/oublog:view allow 1
 moosh role-update-capability solerni_client mod/oublog:view allow 1
 moosh role-update-capability solerni_marketing mod/oublog:view allow 1
+moosh role-update-capability solerni_course_creator mod/oublog:view allow 1
 moosh role-update-capability solerni_teacher mod/oublog:viewallratings allow 1
 moosh role-update-capability solerni_animateur mod/oublog:viewallratings allow 1
 moosh role-update-capability solerni_apprenant mod/oublog:viewallratings allow 1
 moosh role-update-capability solerni_power_apprenant mod/oublog:viewallratings allow 1
 moosh role-update-capability solerni_client mod/oublog:viewallratings allow 1
 moosh role-update-capability solerni_marketing mod/oublog:viewallratings allow 1
+moosh role-update-capability solerni_course_creator mod/oublog:viewallratings allow 1
 moosh role-update-capability solerni_teacher mod/oublog:viewanyrating allow 1
 moosh role-update-capability solerni_animateur mod/oublog:viewanyrating allow 1
 moosh role-update-capability solerni_apprenant mod/oublog:viewanyrating allow 1
 moosh role-update-capability solerni_power_apprenant mod/oublog:viewanyrating allow 1
 moosh role-update-capability solerni_client mod/oublog:viewanyrating allow 1
 moosh role-update-capability solerni_marketing mod/oublog:viewanyrating allow 1
+moosh role-update-capability solerni_course_creator mod/oublog:viewanyrating allow 1
 # mod/oublog : viewindividual
 moosh role-update-capability solerni_teacher mod/oublog:viewindividual allow 1
 moosh role-update-capability solerni_marketing mod/oublog:viewindividual allow 1
@@ -425,6 +433,7 @@ moosh role-update-capability solerni_utilisateur block/orange_progressbar:overvi
 # Add capabilities for calendar (#us_262, #us_266)
 moosh role-update-capability solerni_utilisateur moodle/calendar:manageownentries allow 1
 moosh role-update-capability solerni_course_creator moodle/calendar:manageentries allow 1
+moosh role-update-capability solerni_animateur moodle/calendar:manageentries allow 1
 
 # solerni_course_creator can add extended course
 moosh role-update-capability solerni_course_creator moodle/site:manageblocks allow 1

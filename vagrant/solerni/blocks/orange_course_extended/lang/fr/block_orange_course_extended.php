@@ -30,7 +30,7 @@ $string['course_extended'] = 'Cours étendu';
 // General configuration.
 $string['defaulttitle'] = 'Cours étendu';
 $string['headerconfig'] = 'Configuration du titre';
-$string['descconfig'] = 'configuration de la description';
+$string['descconfig'] = 'Configuration de la description';
 $string['blocktitle'] = 'Cours étendu';
 $string['blocktitle_default'] = 'Cours étendu';
 $string['title_help'] = 'Gardez ce champ vide pour utiliser le tritre par défaut.Si vous définissez un titre, celui-ci sera utilisé par défaut.';
@@ -71,14 +71,14 @@ $string['pagetitle_default'] = 'Cours étendu';
 $string['pagetitle_help'] = 'Titre de la page';
 
 // Status.
-$string['status'] = 'état';
-$string['status_help'] = 'état du cours : en cours, à venir, terminé';
+$string['status'] = 'Etat';
+$string['status_help'] = 'Etat du cours : en cours, à venir, terminé';
 $string['current'] = 'en cours';
 $string['startingsoon'] = 'à venir';
 $string['closed'] = 'terminé';
-$string['coursestatus'] = 'état du cours';
+$string['coursestatus'] = 'Etat du cours';
 $string['coursestatus_default'] = 'en cours';
-$string['coursestatus_help'] = 'état du cours : en cours, à venir, terminé';
+$string['coursestatus_help'] = 'Etat du cours : en cours, à venir, terminé';
 
 // Picture.
 $string['filetitle'] = 'Course image';
@@ -86,49 +86,50 @@ $string['userfile_default'] = 'undefined';
 $string['picturefields'] = 'Image d\'illustration';
 $string['displaypicture'] = 'Illustration du mooc ';
 $string['pictureselect'] = 'Selection de l\'image';
-$string['picturedesc'] = 'image description';
+$string['picturedesc'] = 'Image description';
 $string['picture_help'] = 'Image utilisée pour illustrer le mooc';
 $string['picture'] = 'image';
 
 // Duration.
-$string['duration'] = 'durée: ';
+$string['duration'] = 'Durée: ';
 $string['duration_help'] = '(en semaines) ';
-$string['duration_default'] = 'inférieur à 4 semaines ';
-$string['in_four_weeks'] = 'inférieur à 4 semaines ';
+$string['duration_default'] = 'Inférieur à 4 semaines ';
+$string['in_four_weeks'] = 'Inférieur à 4 semaines ';
 $string['four_six_weeks'] = '4 à 6 semaines';
-$string['sup_six_weeks'] = 'supérieur à 6 semaines';
+$string['sup_six_weeks'] = 'Supérieur à 6 semaines';
 
 // Working time.
 $string['workingtime'] = 'Durée hebdomadaire: ';
-$string['workingtime_help'] = 'temps de travail hebdomadaire ';
-$string['workingtime_default'] = 'inférieur à une heure';
-$string['inf_one'] = 'inférieur à une heure';
-$string['one_two'] = 'une à deux heures';
-$string['two_three'] = 'deux à trois heures';
+$string['workingtime_help'] = 'Temps de travail hebdomadaire ';
+$string['workingtime_default'] = 'Inférieur à une heure';
+$string['inf_one'] = 'Inférieur à une heure';
+$string['one_two'] = 'Une à deux heures';
+$string['two_three'] = 'Deux à trois heures';
 
 // Certification.
 $string['badge'] = 'Badge';
-$string['badges'] = 'badges';
-$string['certification'] = 'Certification';
-$string['certification_default'] = '<br>attestation de réussite';
-$string['certification_help'] = 'pas d\'attestation de réussite';
+$string['badges'] = 'Badges';
+$string['badge_default'] = 'Non badgeant';
+$string['certification'] = 'Certification:';
+$string['certification_default'] = 'Pas d\'attestation de réussite';
+$string['certification_help'] = 'Pas d\'attestation de réussite';
 
 // Start end date.
-$string['startdate'] = 'date de début: ';
-$string['enddate'] = 'date de fin: ';
-$string['enddate_default'] = "0";
-$string['enddate_help'] = 'date de fin du mooc ';
+$string['startdate'] = 'Date de début: ';
+$string['enddate'] = 'Date de fin: ';
+$string['enddate_default'] = "Pas de date de fin";
+$string['enddate_help'] = 'Date de fin du mooc';
 
 // Course replay.
-$string['course_replay_default'] = 'Replay';
+$string['course_replay_default'] = 'Rejouer';
 
 // Price.
 $string['price'] = 'Tarif: ';
-$string['price_help'] = 'prix du mooc';
-$string['price_default'] = ' mooc gratuit';
-$string['price_case1'] = ' mooc gratuit';
-$string['price_case2'] = ' mooc gratuit<br>certification en option';
-$string['price_case3'] = ' formation professionnelle';
+$string['price_help'] = 'Prix du mooc';
+$string['price_default'] = 'Mooc gratuit';
+$string['price_case1'] = ' Mooc gratuit';
+$string['price_case2'] = ' Mooc gratuit<p>certification en option';
+$string['price_case3'] = ' Formation professionnelle';
 
 // Language.
 $string['language'] = 'Langue: ';
@@ -137,20 +138,20 @@ $string['french'] = 'Français';
 $string['english'] = 'Anglais';
 
 // Video.
-$string['video'] = 'Vidéos ';
+$string['video'] = 'Vidéos: ';
 $string['video_help'] = 'Le mooc possède des vidéos';
 $string['video_default'] = '0';
-$string['subtitle'] = ' sous-titres';
+$string['subtitle'] = 'Sous-titres';
 
 // Registration.
-$string['registration'] = 'enregistrement: ';
-$string['registration_default'] = 'enregistrement';
-$string['registration_startdate'] = 'date de début d\'enregistrement: ';
-$string['registration_enddate'] = 'date de fin d\'enregistrement: ';
+$string['registration'] = 'Enregistrement: ';
+$string['registration_default'] = 'Enregistrement';
+$string['registration_startdate'] = 'Date de début d\'enregistrement: ';
+$string['registration_enddate'] = 'Date de fin d\'enregistrement: ';
 $string['registration_startdate_default'] = 'date de début d\'enregistrement par défaut';
 $string['registration_enddate_default'] = 'date de fin d\'enregistrement par défaut';
-$string['registration_startdate_help'] = 'sélectionnez la date de début d\'enregistrement';
-$string['registration_enddate_help'] = 'sélectionnez la date de fin d\'enregistrement';
+$string['registration_startdate_help'] = 'Sélectionnez la date de début d\'enregistrement';
+$string['registration_enddate_help'] = 'Sélectionnez la date de fin d\'enregistrement';
 $string['registeredusers_limitation'] = 'Nombre d\'inscrits: ';
 $string['registration_case1'] = 'ouvert à tous ';
 $string['registration_from'] = ' du ';
@@ -158,8 +159,8 @@ $string['registration_to'] = ' au ';
 $string['registrationcompany'] = 'Propriétaire: ';
 $string['registrationcompany_default'] = 'Propriétaire';
 $string['registrationcompany_help'] = 'Société à laquelle appartient le mooc.';
-$string['registration_case2'] = 'limité aux ';
-$string['registration_case2_2'] = 'premiers inscrits ';
+$string['registration_case2'] = 'limité a(ux) ';
+$string['registration_case2_2'] = 'premier(s) inscrit(s) ';
 $string['registration_case3'] = 'Vous êtes autorisé à vous inscrire par ';
 
 // Registered users.
@@ -171,14 +172,14 @@ $string['moocstatus_default'] = 'non démarré';
 // Prerequestites.
 $string['prerequesites'] = 'Prérequis';
 $string['prerequesites_help'] = 'Prérequis pour participer au mooc';
-$string['prerequesites_default'] = 'Aucun';
+$string['prerequesites_default'] = 'Aucun prérequis';
 
 // Teaching team.
-$string['teachingteam'] = 'équipe pédagogique';
+$string['teachingteam'] = 'Equipe pédagogique';
 $string['teachingteam_help'] = 'description de léquipe pédagogique';
 $string['teachingteam_default'] = 'Conception : Orange avec Learning CRM';
 
 // Contact email.
-$string['contactemail'] = 'Email de contact';
+$string['contactemail'] = 'Email de contact:';
 $string['contactemail_help'] = 'Email de contact du Mooc utilisé pour le formulaire de contact';
 $string['contactemail_default'] = 'contact@solerni.com';

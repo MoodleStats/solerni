@@ -93,7 +93,7 @@ moosh userprofilefields-import solerni-config/default/users_profil/profile_field
 # Enable cron via the web (Security)
 moosh config-set cronclionly 1
 
-# Completion tracking (#us_99)
+# Completion tracking 'moodlecourse/enablecompletion' (#us_99)
 moosh config-set enablecompletion 1 moodlecourse
 
 # Default role assignment - Plugin Enrolments/Manual enrolment
@@ -148,7 +148,7 @@ moosh config-set sessioncookie ${CUSTOMER_COOKIE_PREFIX}
 moosh role-configset defaultfrontpageroleid solerni_utilisateur
 
 # Default sitepolicy (cgus)
-moosh config-set sitepolicy ${CUSTOMER_DOMAIN}/static/faq.html
+moosh config-set sitepolicy ${CUSTOMER_DOMAIN}/static/cgu.html
 
 # oauth2: do not display buttons on login page
 moosh config-set oauth2displaybuttons 0 'auth/googleoauth2'
@@ -164,6 +164,12 @@ moosh user-create --password pass --email ${CUSTOMER_CONTACT_USER_EMAIL} --first
 
 # disable default messaging system (#us_226)
 moosh config-set messaging 0
+
+# Completion tracking for progressbar 'moodle/enablecompletion' (#us_99)
+moosh config-set enablecompletion 1
+
+# enable login with username and email
+moosh config-set authloginviaemail 1
 # Authorize login with email adress as well as username in login form
 moosh config-set authloginviaemail 1
 

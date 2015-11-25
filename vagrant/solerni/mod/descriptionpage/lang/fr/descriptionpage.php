@@ -55,9 +55,9 @@ $string['visiblepublic'] = 'Visible a tout le monde';
 
 
 
-$string['modulename_help'] = 'Le module En savoir Plus permet au créateur de cours de créer une page de description du cours.
-    Cette page pourra etre visible pour tout le monde, pour les personne indentifiées sur Solerni, ou les personnes abonnées au cours.
-    Ce module permet aisni au créateur du cours d\'ajouter de texte ou des images à travers l\'éditeur de texte.';
+$string['modulename_help'] = 'Le module En savoir plus permet d’associer une page de description du cours avec du texte ou des images à un Mooc.
+        Cette page est visible par les utilisateurs à partir du lien En savoir + au niveau de la page d’accueil
+        ou du catalogue des cours.';
 $string['modulename_link'] = 'mod/descriptionpage/view';
 $string['modulenameplural'] = 'Pages';
 $string['optionsheader'] = 'Affichage des options';

@@ -219,6 +219,55 @@ div[role="main"] .list-social {
 }
 
 /*
+ * Thumbnail
+ */
+.thumbnail {
+    background-color:   transparent;
+}
+
+.thumbnail h4{
+    color : black;
+}
+
+.thumbnail .caption {
+    color : black;
+}
+
+/*
+ * Rollover
+ */
+
+.imageWrapper {
+    position: relative;
+    width: 600px;
+    height: 450px;
+}
+.imageWrapper .img-thumbnail {
+    display: block;
+}
+.imageWrapper .cornerLink {
+    opacity: 10;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    padding: 2px 0px;
+    color: #ffffff;
+    background: #000000;
+    text-decoration: none;
+    text-align: center;
+    -webkit-transition: opacity 500ms;
+    -moz-transition: opacity 500ms;
+    -o-transition: opacity 500ms;
+    transition: opacity 500ms;
+    
+}
+.imageWrapper:hover .cornerLink {
+    opacity: 0.8;
+}
+
+
+/*
  *  Catalog
  */
 .jsenabled .catalog-filters-form .btn {
@@ -353,6 +402,10 @@ div[role="main"] .list-social {
     img {
         top: 12px;
     }
+}
+
+#block-region-main, .paging {
+    clear: both;
 }
 
 /*
@@ -632,6 +685,54 @@ img.icon {
     margin-bottom: 2em;
 }
 
+/*
+* thumbnail
+*/
+
+.thumbnail {
+    position: relative;
+}
+
+.thumbnail-top-box {
+    position:   absolute;
+    top:        0px;
+    width:      100%;
+    padding:    5px 0;
+}
+
+.thumbnail-middle-box {
+    position:   absolute;
+    top:        50px;
+    padding:    5px 5px;
+    right:      0;
+}
+
+.thumbnail-slide {
+    position: relative;
+}
+
+.thumbnail .caption-hover {
+    padding-top:        100px;
+    visibility:         hidden;
+    opacity:            0;
+    position:           absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color:   #FFF;
+    transition:         opacity 250ms ease-in 500ms;
+}
+
+.thumbnail:hover .caption-hover {
+    visibility: visible;
+    opacity:    1;
+}
+
+.thumbnail-text {
+    margin-top: 20px;
+}
+
+.thumbnail .button {
+    padding: 10px;
+}
 .version-control {
     font-size:  (@font-size-base * 0.8);
     color:      @orange-dark-3;

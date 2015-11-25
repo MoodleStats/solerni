@@ -153,7 +153,7 @@ $string['actionbar_help'] = '
 <p>Actions disponible dans le menu <strong>Gérer</strong> de la Barre d’Actions :
     <ul>
         <li>Pour configurer cette flexpage, cliquer le lien <strong>Configurer la flexpage</strong> dans le
-        menu déroulant. A partir de cet écran, vous pouvez modifier le nom de la flexpage ; modifier la largeur des zones de la flexpage ; indiquer si la flexpage devrait être masquée, visible, ou présente dans les menus; ainsi que définir 
+        menu déroulant. A partir de cet écran, vous pouvez modifier le nom de la flexpage ; modifier la largeur des zones de la flexpage ; indiquer si la flexpage devrait être masquée, visible, ou présente dans les menus; ainsi que définir
         si les flexpages doivent afficher des boutons de navigation "précédent" et "suivant".</li>
         <li>Pour déplacer une flexpage, cliquer sur le lien <strong>Déplacer la flexpage</strong> dans le menu déroulant. A partir de cet écran, vous pouvez choisir si la flexpage est un enfant dʼune autre flexpage, ou si elle apparait avant ou après une autre flexpage dans la liste.</li>
         <li>Pour effacer une flexpage, cliquer sur le lien <strong>Supprimer la flexpage</strong> dans le menu déroulant. A partir de cet écran, vous pouvez confirmer que vous voulez effacer la flexpage courante.</li>
@@ -194,9 +194,9 @@ $string['releasecode_help'] = 'Cette partie du cours ne sera pas accessible
 /*
  * Adding the extended page parameters
  */
-$string['picture'] = 'image';
+$string['picture'] = 'Image';
 $string['picture_help'] = 'image de description du cours';
-$string['coursereplay'] = 'cours rejouable';
+$string['coursereplay'] = 'Cours rejouable';
 $string['coursereplay_help'] = 'le cours est-il rejouable ?';
 $string['replay'] = 'Rejouable';
 $string['notreplay'] = 'Non rejouable';
@@ -204,64 +204,63 @@ $string['notreplay'] = 'Non rejouable';
 $string['current'] = 'en cours';
 $string['startingsoon'] = 'bientôt disponible';
 $string['closed'] = 'fermé';
-$string['picture'] = 'image';
 $string['badge'] = 'Badge';
 $string['badge_help'] = 'Le cours est-il bagdeant ?';
 $string['certification'] = 'Certification';
 $string['certification_help'] = 'le cours est-il certifiant ?';
 
-$string['coursethematics'] = 'thèmes du cours';
+$string['coursethematics'] = 'Thèmes du cours';
 $string['coursethematics_help'] = 'liste des différents thèmes du cours, choisissez un ou plusieurs thèmes.';
 
-$string['startdate'] = 'date de début : ';
-$string['enddate'] = 'date de fin : ';
+$string['startdate'] = 'Date de début';
+$string['enddate'] = 'Date de fin';
 $string['enddate_default'] = "0";
 $string['enddate_help'] = 'date de fin du cours';
 
-$string['duration'] = 'durée: ';
+$string['duration'] = 'Durée';
 $string['duration_help'] = 'durée du cours ';
-$string['duration_default'] = 'inférieur à quatre semaines';
-$string['duration0'] = 'inférieur à quatre semaines';
-$string['duration1'] = 'quatre à six semaines';
-$string['duration2'] = 'supérieur à six semaines';
+$string['duration_default'] = 'Inférieur à quatre semaines';
+$string['duration0'] = 'Inférieur à quatre semaines';
+$string['duration1'] = 'Quatre à six semaines';
+$string['duration2'] = 'Supérieur à six semaines';
 
-$string['workingtime'] = 'temps de travail hebdomadaire: ';
+$string['workingtime'] = 'Temps de travail hebdomadaire';
 $string['workingtime_help'] = 'sélectionner le temps de travail hebdomadaire ';
-$string['workingtime_default'] = 'inférieur à une heure';
-$string['workingtime0'] = 'inférieur à une heure';
-$string['workingtime1'] = 'une à deux heures';
-$string['workingtime2'] = 'deux à trois heures';
+$string['workingtime_default'] = 'Inférieur à une heure';
+$string['workingtime0'] = 'Inférieur à une heure';
+$string['workingtime1'] = 'Une à deux heures';
+$string['workingtime2'] = 'Deux à trois heures';
 
-$string['price'] = 'Tarif : ';
+$string['price'] = 'Tarif';
 $string['price_help'] = 'tarif du cours';
 $string['price_default'] = '0';
 $string['price_case1'] = 'Mooc gratuit';
 $string['price_case2'] = 'Mooc gratuit<br>certification en option';
-$string['price_case3'] = 'enseignement professionnel';
+$string['price_case3'] = 'Enseignement professionnel';
 
 $string['certification'] = 'Certification';
 $string['certification_default'] = 'Badges<br>Certificat d\'achèvement';
 $string['certification_help'] = 'autorise ou non la certification';
 
-$string['language'] = 'Langue : ';
+$string['language'] = 'Langue';
 $string['language_default'] = 'français';
 $string['language_help'] = 'Language du cours';
 $string['french'] = 'français';
 $string['english'] = 'anglais';
 
 
-$string['video'] = 'Vidéo : ';
+$string['video'] = 'Vidéo';
 $string['video_help'] = 'le cours dispose-t-il de vidéos ?';
 $string['video_default'] = 'false';
 $string['true'] = 'true';
 $string['false'] = 'false';
 
-$string['subtitle'] = 'sous-titrés: ';
+$string['subtitle'] = 'Sous-titres';
 $string['subtitle_help'] = 'les vidéos sont-elles sous titrées ?';
 $string['subtitle_default'] = 'false';
 
 
-$string['registration'] = 'inscription: ';
+$string['registration'] = 'Inscription';
 $string['registration_default'] = 'inscription';
 $string['registration_help'] = 'décrit les dates de début et de fin des inscriptions';
 $string['registration_startdate'] = 'date de début des inscriptions: ';
@@ -279,7 +278,7 @@ $string['registrationcompany_default'] = 'entreprise';
 $string['registrationcompany_help'] = 'nom de l\'entreprise';
 
 
-$string['registeredusers'] = 'nombre d\'inscrits: ';
+$string['registeredusers'] = 'Nombre d\'inscrits';
 $string['registeredusers_help'] = 'affiche le nombre d\inscrits';
 $string['registeredusers_default'] = 'nombre d\'inscrits:';
 $string['moocstatus_default'] = 'MOOC non démarré';

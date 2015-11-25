@@ -155,6 +155,17 @@ class extended_course_object {
 
     /**
      * The registration end date of a course.
+     * @var text $enrolurl
+     */
+    public $enrolurl;
+    /**
+     * The registration end date of a course.
+     * @var text $enrolurl
+     */
+    public $coursestatus;
+
+    /**
+     * The registration end date of a course.
      * @var int $enrolledusers
      */
     public $enrolledusers;
@@ -211,7 +222,47 @@ class extended_course_object {
         if (isset($instance->customint3)) {
             $this->maxregisteredusers = $instance->customint3;
         }
+        if(isset($instance->customint2)) {
+            $this->enrolurl = $instance->customint2;
+        }
+        $this->get_status($course);
+    }
 
+    /**
+     * Return the status of the course
+     * Status could be : MOOCRUNNING
+     *                   MOOCCLOSED
+     *                   MOOCNOTSTARTED
+     *
+     *     const MOOCCOMPLETE     = 0;
+    const MOOCCLOSED       = 1;
+    const MOOCNOTSTARTED   = 2;
+    const MOOCRUNNING      = 3;
+     * @param $course object
+     * @return  (int)
+     */
+    public function get_status($course = null) {
+        global $COURSE;
+
+        if (!$course) {
+            $course = $COURSE;
+        }
+
+        $date = new \DateTime;
+
+        $this->coursestatus = self::MOOCRUNNING;
+        $this->coursestatustext = get_string('status_running', 'local_orange_library');
+
+        if ($this->enrolledusers >= $this->maxregisteredusers) {
+            $this->coursestatus = self::MOOCCOMPLETE;
+            $this->coursestatustext = get_string('mooc_complete', 'local_orange_library');
+        } else if ($this->enddate < $date->getTimestamp()) {
+            $this->coursestatus = self::MOOCCLOSED;
+            $this->coursestatustext = get_string('status_closed', 'local_orange_library');
+        }else if ($course->startdate > $date->getTimestamp()) {
+            $this->coursestatus = self::MOOCNOTSTARTED;
+            $this->coursestatustext = get_string('status_default', 'local_orange_library');
+        }
     }
 
     /**
@@ -230,29 +281,26 @@ class extended_course_object {
                     $this->replay = get_string('notreplay', 'local_orange_library');
                 }
                 break;
-            case 'coursestatus':
-
-                if ($extendedcourseflexpagevalue->value == self::MOOCCOMPLETE) {
-                    $this->status = get_string('mooc_complete', 'local_orange_library');
-                } else if ($extendedcourseflexpagevalue->value == self::MOOCCLOSED) {
-                    $this->status = get_string('status_closed', 'local_orange_library');
-                } else if ($extendedcourseflexpagevalue->value == self::MOOCNOTSTARTED) {
-                    $this->status = get_string('status_default', 'local_orange_library');
-                } else {
-                    $this->status = get_string('status_runnig', 'format_flexpage');
-                }
-                break;
             case 'coursepicture':
                 $this->picture = $extendedcourseflexpagevalue->value;
                 break;
             case 'courseenddate':
                 $this->enddate = $extendedcourseflexpagevalue->value;
                 break;
-            case 'courseworkingtime':
-                    $this->workingtime = utilities_object::duration_to_time($extendedcourseflexpagevalue->value);
+            case 'courseduration':
+                $this->duration = get_string('duration_default', 'local_orange_library');
+                if ($extendedcourseflexpagevalue->value != 0) {
+                    $this->duration = utilities_object::duration_to_time($extendedcourseflexpagevalue->value);
+                }
                 break;
-
+            case 'courseworkingtime':
+                $this->workingtime = get_string('workingtime_default', 'local_orange_library');
+                if ($extendedcourseflexpagevalue->value != 0) {
+                    $this->workingtime = utilities_object::duration_to_time($extendedcourseflexpagevalue->value);
+                }
+                break;
             case 'courselanguage':
+                $this->language = get_string('french', 'local_orange_library');
                 if ($extendedcourseflexpagevalue->value == 0) {
                     $this->language = get_string('french', 'local_orange_library');
                 } else {
@@ -260,7 +308,11 @@ class extended_course_object {
                 }
                 break;
             case 'coursebadge':
-                    $this->badge = $extendedcourseflexpagevalue->value;
+                if ($extendedcourseflexpagevalue->value == 1) {
+                    $this->badge = get_string('badges', 'local_orange_library');
+                } else {
+                    $this->badge = get_string('badge_default', 'local_orange_library');
+                }
                 break;
             case 'courseprice':
                 if ($extendedcourseflexpagevalue->value == 0) {
@@ -272,23 +324,29 @@ class extended_course_object {
                 }
                 break;
             case 'coursecertification':
-                   $this->certification = $extendedcourseflexpagevalue->value;
-                break;
-            case 'coursevideo':
-                    $this->video = $extendedcourseflexpagevalue->value;
+                if ($extendedcourseflexpagevalue->value == 1) {
+                    $this->certification = get_string('certification', 'local_orange_library');
+                } else {
+                    $this->certification = get_string('certification_default', 'local_orange_library');
+                }
                 break;
             case 'coursesubtitle':
-                     $this->subtitle = $extendedcourseflexpagevalue->value;
+                    $this->subtitle = $extendedcourseflexpagevalue->value;
                 break;
             case 'courseteachingteam':
                 $this->teachingteam = $extendedcourseflexpagevalue->value;
+                if ($extendedcourseflexpagevalue->value == "") {
+                    $this->teachingteam = get_string('teachingteam_default', 'local_orange_library');
+                }
                 break;
             case 'courseprerequesites':
+
                 $this->prerequesites = $extendedcourseflexpagevalue->value;
+                if ($extendedcourseflexpagevalue->value == "") {
+                    $this->prerequesites = get_string('prerequesites_default', 'local_orange_library');
+                }
                 break;
-            case 'courseduration':
-                $this->duration = utilities_object::duration_to_time($extendedcourseflexpagevalue->value);
-                break;
+
             case 'courseregistration':
                 $this->registration = $extendedcourseflexpagevalue->value;
                 break;
@@ -297,24 +355,4 @@ class extended_course_object {
                 break;
         }
     }
-
-    /**
-     *  Get the extended course language from the extended course flexpage values.
-     *
-     * @param object $extendedcourseflexpagevalue
-     * @return string $this->extendedcourse->language
-     */
-    private function get_language ($extendedcourseflexpagevalue) {
-        $this->extendedcourse->language = get_string('french', 'local_orange_library');
-        if ($extendedcourseflexpagevalue->value == 0) {
-            $this->extendedcourse->language = get_string('french', 'local_orange_library');
-        } else {
-            $this->extendedcourse->language = get_string('english', 'local_orange_library');
-        }
-        return $this->extendedcourse->language;
-    }
-
-
-
-
 }

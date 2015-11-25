@@ -46,33 +46,37 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
 
         $subscriptionbutton = new subscription_button_object($course);
         $text = html_writer::start_tag('div', array('class' => 'row '));
-            if ($imgurl) {
-                $text .= html_writer::empty_tag('img', array('src' => $imgurl,'class' => 'col-xs-12 essentiels-image'));
-            }
-                $text .= $this->display_extendedcourse_dates($extendedcourse, $course);
-                $text .= $this->display_duration_workingtime($extendedcourse);
-                $text .= $this->display_price($extendedcourse);
-            if (!empty($extendedcourse->badge)||!empty($extendedcourse->certification)) {
-                $text .= $this->display_badge_certif($extendedcourse);
-            }
-                $text .= $this->display_language($extendedcourse);
-            if (!empty($extendedcourse->video)) {
-                $text .= $this->display_video($extendedcourse);
-            }
-                $text .= $this->display_registration($extendedcourse);
-                $text .= $this->display_enrolledusers($extendedcourse);
+        if ($imgurl) {
+            $text .= html_writer::empty_tag('img', array('src' => $imgurl, 'class' => 'col-xs-12 essentiels-image'));
+        }
+            $text .= $this->display_extendedcourse_dates($extendedcourse, $course);
+            $text .= $this->display_duration_workingtime($extendedcourse);
+            $text .= $this->display_price($extendedcourse);
+        if (!empty($extendedcourse->badge) || !empty($extendedcourse->certification)) {
+            $text .= $this->display_badge_certif($extendedcourse);
+        }
+            $text .= $this->display_language($extendedcourse);
+
+            $text .= $this->display_video($extendedcourse);
+
+            $text .= $this->display_registration($extendedcourse);
+            $text .= $this->display_enrolledusers($extendedcourse);
         $text .= html_writer::end_tag('div');
+
         $text .= html_writer::start_tag('div', array('class' => 'row '));
             $text .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-12'));
                     $text .= $subscriptionbutton->set_button($course);
             $text .= html_writer::end_tag('div');
         $text .= html_writer::end_tag('div');
-        $text .= html_writer::end_tag('div');
 
+        $text .= html_writer::start_tag('div', array('class' => 'row center-block'));
             $text .= $this->display_prerequesites($extendedcourse);
-                $text .= $this->display_teachingteam($extendedcourse);
-
         $text .= html_writer::end_tag('div');
+
+        $text .= html_writer::start_tag('div', array('class' => 'row center-block'));
+           $text .= $this->display_teachingteam($extendedcourse);
+        $text .= html_writer::end_tag('div');
+
         return $text;
 
     }
@@ -84,12 +88,16 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
      */
     private function display_teachingteam($extendedcourse) {
 
-        $text = html_writer::start_tag('div', array('class' => 'header '));
-        $text .= html_writer::tag('h2', get_string('teachingteam', 'format_flexpage'));
+        $text = html_writer::start_tag('div', array('class' => 'header'));
+            $text .= html_writer::tag('h2', get_string('teachingteam', 'format_flexpage'));
         $text .= html_writer::end_tag('div');
-        $teachingteam = $extendedcourse->teachingteam;
+
         $text .= html_writer::start_tag('div', array('class' => 'content'));
-        $text .= html_writer::tag('span', $teachingteam.' ', array('class' => 'center-block'));
+            $text .= html_writer::start_tag('div', array('class' => 'col-xs-1'));
+                $text .= html_writer::tag('span', '');
+            $text .= html_writer::end_tag('div');
+            $teachingteam = $extendedcourse->teachingteam;
+            $text .= html_writer::tag('span', $teachingteam, array('class' => 'center-block'));
         $text .= html_writer::end_tag('div');
         return $text;
 
@@ -102,15 +110,18 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
      */
     private function display_prerequesites($extendedcourse) {
 
-        $text = html_writer::start_tag('div', array('class' => 'header '));
-        $text .= html_writer::tag('h2', get_string('prerequesites', 'format_flexpage'));
+        $text = html_writer::start_tag('div', array('class' => 'header'));
+            $text .= html_writer::tag('h2', get_string('prerequesites', 'format_flexpage'));
         $text .= html_writer::end_tag('div');
-        $text .= html_writer::start_tag('div', array('class' => 'content '));
+
+        $text .= html_writer::start_tag('div', array('class' => 'content'));
+            $text .= html_writer::start_tag('div', array('class' => 'col-xs-1'));
+                $text .= html_writer::tag('span', '');
+            $text .= html_writer::end_tag('div');
             $prerequesites = $extendedcourse->prerequesites;
-            $text .= html_writer::tag('span', $prerequesites.' ', array('class' => 'center-block'));
+            $text .= html_writer::tag('span', $prerequesites, array('class' => 'center-block'));
         $text .= html_writer::end_tag('div');
         return $text;
-
     }
 
     /**
@@ -121,15 +132,14 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
     private function display_enrolledusers($extendedcourse) {
 
         $text = html_writer::start_tag('div', array('class' => 'col-xs-2 col-md-2'));
-            $text .= html_writer::tag('span','' ,array('class' => 'col-xs-2 glyphicon glyphicon-user '));
+            $text .= html_writer::tag('span', '', array('class' => 'col-xs-2 glyphicon glyphicon-user '));
         $text .= html_writer::end_tag('div');
 
         $text .= html_writer::start_tag('div', array('class' => 'col-xs-10 col-md-10'));
             $text .= html_writer::tag('span', get_string('registeredusers', 'format_flexpage'), array('class' => 'h6'));
-        $text .= html_writer::tag('span', $extendedcourse->enrolledusers.' ', array('class' => 'center-block'));
+            $text .= html_writer::tag('span', $extendedcourse->enrolledusers.' ', array('class' => 'center-block'));
         $text .= html_writer::end_tag('div');
         return $text;
-
     }
 
     /**
@@ -140,12 +150,11 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
     private function display_registration($extendedcourse) {
 
         $text = html_writer::start_tag('div', array('class' => 'col-xs-2 col-md-2'));
-            $text .= html_writer::tag('span','' ,array('class' => 'col-xs-2 glyphicon glyphicon-lock'));
+            $text .= html_writer::tag('span', '', array('class' => 'col-xs-2 glyphicon glyphicon-lock'));
         $text .= html_writer::end_tag('div');
-
         $text .= html_writer::start_tag('div', array('class' => 'col-xs-10 col-md-10'));
             $text .= html_writer::tag('span', get_string('registration', 'format_flexpage'), array('class' => 'h6'));
-        $text .= html_writer::tag('span', $this->get_registration($extendedcourse).' ', array('class' => 'center-block'));
+            $text .= html_writer::tag('span', $this->get_registration($extendedcourse).' ', array('class' => 'center-block'));
         $text .= html_writer::end_tag('div');
         return $text;
     }
@@ -156,24 +165,20 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
      * @param type $course
      * @return html_writer::tag
      */
-    private function display_extendedcourse_dates($extendedcourse, $course){
+    private function display_extendedcourse_dates($extendedcourse, $course) {
 
         $text = html_writer::start_tag('div', array('class' => 'col-xs-2 col-md-2'));
-            $text .= html_writer::tag('span','' ,array('class' => 'col-xs-2 glyphicon glyphicon-calendar'));
+            $text .= html_writer::tag('span', '', array('class' => 'col-xs-2 glyphicon glyphicon-calendar'));
         $text .= html_writer::end_tag('div');
 
         $text .= html_writer::start_tag('div', array('class' => 'col-xs-10 col-md-10'));
             $text .= html_writer::tag('span', get_string('startdate', 'format_flexpage'), array('class' => 'h6'));
-            //$text .= html_writer::empty_tag('br');
             $text .= html_writer::tag('span', date("d-m-Y", $course->startdate), array('class' => 'center-block'));
-            //$text .= html_writer::empty_tag('br');
             $text .= html_writer::tag('span', get_string('enddate', 'format_flexpage'), array('class' => 'h6'));
-            //$text .= html_writer::empty_tag('br');
             $enddate = $extendedcourse->enddate;
             $text .= html_writer::tag('span', date("d-m-Y", $enddate), array('class' => 'center-block'));
         $text .= html_writer::end_tag('div');
         return $text;
-
     }
 
     /**
@@ -184,7 +189,7 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
     private function display_duration_workingtime($extendedcourse) {
 
         $text = html_writer::start_tag('div', array('class' => 'col-xs-2 col-md-2'));
-            $text .= html_writer::tag('span','' ,array('class' => 'col-xs-2 glyphicon glyphicon-time'));
+            $text .= html_writer::tag('span', '', array('class' => 'col-xs-2 glyphicon glyphicon-time'));
         $text .= html_writer::end_tag('div');
 
         $text .= html_writer::start_tag('div', array('class' => 'col-xs-10 col-md-10'));
@@ -201,10 +206,10 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
      * @param type $extendedcourse
      * @return html_writer::tag
      */
-    private function display_price($extendedcourse){
+    private function display_price($extendedcourse) {
 
         $text = html_writer::start_tag('div', array('class' => 'col-xs-2 col-md-2'));
-            $text .= html_writer::tag('span','' ,array('class' => 'col-xs-2 glyphicon glyphicon-euro'));
+            $text .= html_writer::tag('span', '', array('class' => 'col-xs-2 glyphicon glyphicon-euro'));
         $text .= html_writer::end_tag('div');
 
         $text .= html_writer::start_tag('div', array('class' => 'col-xs-10 col-md-10'));
@@ -219,22 +224,18 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
      * @param type $extendedcourse
      * @return html_writer::tag
      */
-    private function display_badge_certif($extendedcourse){
+    private function display_badge_certif($extendedcourse) {
 
         $text = html_writer::start_tag('div', array('class' => 'col-xs-2 col-md-2'));
-            $text .= html_writer::tag('span','' ,array('class' => 'col-xs-2 glyphicon glyphicon-education'));
+            $text .= html_writer::tag('span', '', array('class' => 'col-xs-2 glyphicon glyphicon-education'));
         $text .= html_writer::end_tag('div');
 
         $text .= html_writer::start_tag('div', array('class' => 'col-xs-10 col-md-10'));
             $text .= html_writer::tag('span', get_string('certification', 'format_flexpage'), array('class' => 'h6'));
-        if ($extendedcourse->badge != 0) {
-            $text .= html_writer::tag('span', get_string('badges', 'block_orange_course_extended').' ',
+            $text .= html_writer::tag('span', $extendedcourse->badge.' ',
                 array('class' => 'center-block'));
-        }
-        if ($extendedcourse->certification != 0) {
-            $text .= html_writer::tag('span', get_string('certification_default', 'block_orange_course_extended').' ',
+            $text .= html_writer::tag('span', $extendedcourse->certification.' ',
                 array('class' => 'center-block'));
-        }
         $text .= html_writer::end_tag('div');
         return $text;
     }
@@ -246,21 +247,15 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
      */
     private function display_language($extendedcourse) {
 
-        $language = get_string('french', 'format_flexpage');
-
         $text = html_writer::start_tag('div', array('class' => 'col-xs-2 col-md-2'));
-            $text .= html_writer::tag('span','' ,array('class' => 'col-xs-2 glyphicon glyphicon-globe'));
+            $text .= html_writer::tag('span', '', array('class' => 'col-xs-2 glyphicon glyphicon-globe'));
         $text .= html_writer::end_tag('div');
 
         $text .= html_writer::start_tag('div', array('class' => 'col-xs-10 col-md-10'));
             $text .= html_writer::tag('span', get_string('language', 'format_flexpage'), array('class' => 'h6'));
-        if (!empty($extendedcourse->language)) {
-            $language = $extendedcourse->language;
-        }
-        $text .= html_writer::tag('span', $language.' ', array('class' => 'center-block'));
+            $text .= html_writer::tag('span', $extendedcourse->language.' ', array('class' => 'center-block'));
         $text .= html_writer::end_tag('div');
         return $text;
-
     }
 
     /**
@@ -269,22 +264,26 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
      * @return html_writer::tag
      */
     private function display_video($extendedcourse) {
+        global $USER;
 
         $text = html_writer::start_tag('div', array('class' => 'col-xs-2 col-md-2'));
-            $text .= html_writer::tag('span','' ,array('class' => 'col-xs-2 glyphicon glyphicon-film'));
+            $text .= html_writer::tag('span', '', array('class' => 'col-xs-2 glyphicon glyphicon-film'));
         $text .= html_writer::end_tag('div');
 
         $text .= html_writer::start_tag('div', array('class' => 'col-xs-10 col-md-10'));
             $text .= html_writer::tag('span', get_string('video', 'format_flexpage'), array('class' => 'h6'));
         if ($extendedcourse->subtitle != 0) {
             $language = $extendedcourse->language;
-            $text .= html_writer::tag('span',
-                $language.' '.get_string('subtitle', 'block_orange_course_extended').' ',
-                array('class' => 'center-block'));
+            if ($USER->lang == 'fr') {
+                $text .= html_writer::tag('span', get_string('subtitle', 'block_orange_course_extended').' '.$language,
+                    array('class' => 'center-block'));
+            } else {
+                $text .= html_writer::tag('span', $language . ' '. get_string('subtitle', 'block_orange_course_extended'),
+                    array('class' => 'center-block'));
+            }
         }
         $text .= html_writer::end_tag('div');
         return $text;
-
     }
 
     /**
@@ -296,59 +295,46 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
     private function get_registration ($extendedcourse) {
         global $course;
 
+        $enrols = enrol_get_plugins(true);
+        $enrolinstances = enrol_get_instances($course->id, true);
+        $instance = null;
+        $registrationstring = "";
 
-            $enrols = enrol_get_plugins(true);
-            $enrolinstances = enrol_get_instances($course->id, true);
-            $instance = null;
-            $registrationstring = "";
-
-
-            foreach($enrolinstances as $instance) {
-                if (!isset($enrols[$instance->enrol])) {
-                    continue;
-                }
+        foreach ($enrolinstances as $instance) {
+            if (!isset($enrols[$instance->enrol])) {
+                continue;
             }
-
-            if($instance != null)
-            {
-
-                if ($instance->enrolstartdate == 0)
-                {
-                    $registrationstring = "";
-                    $extendedcourse->enrolstartdate = time();
-                    $extendedcourse->enrolenddate = time();
-                }
-                 else {
-
-                    $extendedcourse->enrolstartdate = $instance->enrolstartdate;
-                    $extendedcourse->enrolenddate = $instance->enrolenddate;
-                    $registrationstring = get_string('registration_from', 'block_orange_course_extended').
-                            date("d-m-Y",$extendedcourse->enrolstartdate).get_string('registration_to', 'block_orange_course_extended').
-                            date("d-m-Y",$extendedcourse->enrolenddate);
-
-                }
-            }
-            else
-            {
-                $registrationstring = "";
-            }
-
-            switch ($extendedcourse->registration) {
-
-                case '0':
-                    $registrationvalue = get_string('registration_case1', 'block_orange_course_extended').$registrationstring;
-                break;
-                case '1':
-                    $registrationvalue = get_string('registration_case2', 'block_orange_course_extended').
-                    $extendedcourse->maxregisteredusers.' '.
-                    get_string('registration_case2_2', 'block_orange_course_extended').$registrationstring;
-                break;
-                case '2':
-
-                    $registrationvalue = get_string('registration_case3', 'block_orange_course_extended').
-                    $extendedcourse->registrationcompany.$registrationstring;
-                break;
-            }
-            return $registrationvalue;
         }
+        if ($instance != null) {
+            if ($instance->enrolstartdate == 0) {
+                $registrationstring = "";
+                $extendedcourse->enrolstartdate = time();
+                $extendedcourse->enrolenddate = time();
+            } else {
+                $extendedcourse->enrolstartdate = $instance->enrolstartdate;
+                $extendedcourse->enrolenddate = $instance->enrolenddate;
+                $registrationstring = get_string('registration_from', 'block_orange_course_extended').
+                        date("d-m-Y", $extendedcourse->enrolstartdate).get_string('registration_to',
+                                'block_orange_course_extended').
+                        date("d-m-Y", $extendedcourse->enrolenddate);
+            }
+        } else {
+            $registrationstring = "";
+        }
+        switch ($extendedcourse->registration) {
+            case '0':
+                $registrationvalue = get_string('registration_case1', 'block_orange_course_extended').$registrationstring;
+            break;
+            case '1':
+                $registrationvalue = get_string('registration_case2', 'block_orange_course_extended').
+                $extendedcourse->maxregisteredusers.' '.
+                get_string('registration_case2_2', 'block_orange_course_extended').$registrationstring;
+            break;
+            case '2':
+                $registrationvalue = get_string('registration_case3', 'block_orange_course_extended').
+                $extendedcourse->registrationcompany.$registrationstring;
+            break;
+        }
+        return $registrationvalue;
+    }
 }
