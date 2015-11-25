@@ -168,6 +168,12 @@ class extended_course_object {
      * The registration end date of a course.
      * @var int $enrolledusers
      */
+    public $thumbnailtext;
+
+    /**
+     * The registration end date of a course.
+     * @var int $enrolledusers
+     */
     public $enrolledusers;
 
     const MOOCCOMPLETE     = 0;
@@ -192,6 +198,7 @@ class extended_course_object {
      */
     public function get_extended_course($course, $context = null) {
         global $DB;
+
 
         $utilitiescourse = new utilities_course();
         $categoryid = $utilitiescourse->get_categoryid_by_courseid($course->id);
@@ -352,6 +359,9 @@ class extended_course_object {
                 break;
             case 'coursecontactemail':
                 $this->contactemail = $extendedcourseflexpagevalue->value;
+                break;
+            case 'coursethumbnailtext':
+                $this->thumbnailtext = $extendedcourseflexpagevalue->value;
                 break;
         }
     }

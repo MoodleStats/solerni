@@ -27,6 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 class utilities_object {
 
     public static function duration_to_time($duration) {
+
         $secondsinaminute = 60;
         $secondsinanhour = 60 * $secondsinaminute;
         $secondsinaday = 24 * $secondsinanhour;
@@ -98,6 +99,23 @@ class utilities_object {
         }
 
         return $trimmedtext;
+    }
+
+    /**
+     * trims text to a space then adds ellipses if desired
+     * @param string $input text to trim
+     * @param int $length in characters to trim to
+     * @param bool $ellipses if ellipses (...) are to be added
+     * @param bool $striphtml if html tags are to be stripped
+     * @return string
+     */
+    public static function get_formatted_date($date) {
+        $format = "d-m-Y";
+        if (current_language() == "en"){
+            $format = "Y-m-d";
+        }
+
+        return date($format, $date);
     }
 }
 
