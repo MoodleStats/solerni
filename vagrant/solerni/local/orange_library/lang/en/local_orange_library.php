@@ -37,6 +37,7 @@ $string['registration_stopped'] = 'Registration stopped';
 $string['mooc_complete'] = 'Mooc complete';
 $string['mooc_open_date'] = 'Available on ';
 $string['acces_to_archive'] = 'Access to course archive';
+$string['enrolled_users'] = 'enrolled users';
 
 
 // Extended course object.

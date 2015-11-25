@@ -158,6 +158,11 @@ class extended_course_object {
      * @var text $enrolurl
      */
     public $enrolurl;
+    /**
+     * The registration end date of a course.
+     * @var text $enrolurl
+     */
+    public $coursestatus;
 
     /**
      * The registration end date of a course.
@@ -220,7 +225,44 @@ class extended_course_object {
         if(isset($instance->customint2)) {
             $this->enrolurl = $instance->customint2;
         }
+        $this->get_status($course);
+    }
 
+    /**
+     * Return the status of the course
+     * Status could be : MOOCRUNNING
+     *                   MOOCCLOSED
+     *                   MOOCNOTSTARTED
+     *
+     *     const MOOCCOMPLETE     = 0;
+    const MOOCCLOSED       = 1;
+    const MOOCNOTSTARTED   = 2;
+    const MOOCRUNNING      = 3;
+     * @param $course object
+     * @return  (int)
+     */
+    public function get_status($course = null) {
+        global $COURSE;
+
+        if (!$course) {
+            $course = $COURSE;
+        }
+
+        $date = new \DateTime;
+
+        $this->coursestatus = self::MOOCRUNNING;
+        $this->coursestatustext = get_string('status_running', 'local_orange_library');
+
+        if ($this->enrolledusers >= $this->maxregisteredusers) {
+            $this->coursestatus = self::MOOCCOMPLETE;
+            $this->coursestatustext = get_string('mooc_complete', 'local_orange_library');
+        } else if ($this->enddate < $date->getTimestamp()) {
+            $this->coursestatus = self::MOOCCLOSED;
+            $this->coursestatustext = get_string('status_closed', 'local_orange_library');
+        }else if ($course->startdate > $date->getTimestamp()) {
+            $this->coursestatus = self::MOOCNOTSTARTED;
+            $this->coursestatustext = get_string('status_default', 'local_orange_library');
+        }
     }
 
     /**
@@ -237,18 +279,6 @@ class extended_course_object {
                     $this->replay = get_string('replay', 'local_orange_library');
                 } else {
                     $this->replay = get_string('notreplay', 'local_orange_library');
-                }
-                break;
-            case 'coursestatus':
-
-                if ($extendedcourseflexpagevalue->value == self::MOOCCOMPLETE) {
-                    $this->status = get_string('mooc_complete', 'local_orange_library');
-                } else if ($extendedcourseflexpagevalue->value == self::MOOCCLOSED) {
-                    $this->status = get_string('status_closed', 'local_orange_library');
-                } else if ($extendedcourseflexpagevalue->value == self::MOOCNOTSTARTED) {
-                    $this->status = get_string('status_default', 'local_orange_library');
-                } else {
-                    $this->status = get_string('status_running', 'local_orange_library');
                 }
                 break;
             case 'coursepicture':

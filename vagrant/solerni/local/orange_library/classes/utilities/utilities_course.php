@@ -39,6 +39,7 @@ require_once($CFG->dirroot . '/lib/coursecatlib.php'); // TODO : use course_in_l
 
 class utilities_course {
 
+    const MOOCCOMPLETE     = 0;
     const MOOCCLOSED       = 1;
     const MOOCNOTSTARTED   = 2;
     const MOOCRUNNING      = 3;
@@ -610,29 +611,35 @@ class utilities_course {
      *                   MOOCCLOSED
      *                   MOOCNOTSTARTED
      *
+     *     const MOOCCOMPLETE     = 0;
+    const MOOCCLOSED       = 1;
+    const MOOCNOTSTARTED   = 2;
+    const MOOCRUNNING      = 3;
      * @param $course object
      * @return  (int)
      */
     public function get_course_status($course = null) {
         global $COURSE;
-
+        $date = new \DateTime();
         if (!$course) {
             $course = $COURSE;
         }
         $context = context_course::instance($course->id);
-        $date = new DateTime();
+
         $extendedcourse = new extended_course_object();
         $extendedcourse->get_extended_course($course, $context);
+        print_object($extendedcourse);
         $coursestatus = self::MOOCRUNNING;
 
-        if ($extendedcourse->enddate < $date->getTimestamp()) {
+        if ($extendedcourse->enrolledusers >= $t->maxregisteredusers) {
+            $coursestatus = self::MOOCCOMPLETE;
+        } else if ($extendedcourse->enddate < $date->getTimestamp()) {
             $coursestatus = self::MOOCCLOSED;
-        }
-
-        if ($course->startdate > $date->getTimestamp()) {
+        }else if ($course->startdate > $date->getTimestamp()) {
             $coursestatus = self::MOOCNOTSTARTED;
         }
-
+        echo $coursestatus;
         return $coursestatus;
     }
+
 }
