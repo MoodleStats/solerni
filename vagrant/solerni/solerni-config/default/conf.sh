@@ -157,3 +157,6 @@ moosh auth-manage enable mnet
 
 # Authorize login with email adress as well as username in login form
 moosh config-set authloginviaemail 1
+
+# Disallow automatic updates
+moosh config-set updateautocheck 0
