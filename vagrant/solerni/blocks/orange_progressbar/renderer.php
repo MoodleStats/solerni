@@ -89,10 +89,18 @@ class block_orange_progressbar_renderer extends plugin_renderer_base {
                         $output .= html_writer::end_tag('span');
 
                         $output .= html_writer::start_tag('span', array('class' => 'col-md-2'));
-                        if ($detail->completionstate) {
-                            $output .= '<span class="glyphicon glyphicon-ok" style="color:green"></span>';
+                        if ($detail->modname == 'page') {
+                            if ($detail->pagescompleted == $detail->pages) {
+                                $output .= '<span class="glyphicon glyphicon-ok" style="color:green"></span>';
+                            } else {
+                                $output .= '<span class="glyphicon glyphicon-remove" style="color:red"></span>';
+                            }
                         } else {
-                            $output .= '<span class="glyphicon glyphicon-remove" style="color:red"></span>';
+                            if ($detail->completionstate) {
+                                $output .= '<span class="glyphicon glyphicon-ok" style="color:green"></span>';
+                            } else {
+                                $output .= '<span class="glyphicon glyphicon-remove" style="color:red"></span>';
+                            }
                         }
                         $output .= html_writer::end_tag('span');
                     $output .= html_writer::end_tag('div');
