@@ -27,13 +27,15 @@ $string['completion_not_enabled'] = 'Le suivi d\'achèvement n\'est pas activé 
 $string['pluginname'] = 'Barre de progression simple';
 $string['config_default_title'] = 'Barre de progression';
 $string['overview'] = 'Votre progression';
-$string['overviewbutton'] = 'Voir le détails';
+$string['overviewbutton'] = 'Voir le détail';
 $string['progres_detail'] = 'Détails des activités';
 $string['course_page_activity'] = 'Pages marquées comme "effectuées"';
 $string['mod_page'] = 'Cours';
 $string['mod_quiz'] = 'Quiz';
 $string['mod_forumng'] = 'Forums';
 $string['mod_oublog'] = 'Blogs';
+$string['attempt'] = 'Tentative';
+$string['attempts'] = 'Tentatives';
 
 // For capabilities.
 $string['orange_progressbar:overview'] = 'Détail de la progression dans le cours';

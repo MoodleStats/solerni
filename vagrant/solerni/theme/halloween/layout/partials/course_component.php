@@ -43,16 +43,22 @@ if (isset($customer->urlimg)) {
                 <img src="<?php echo $courseimageurl; ?>" class="img-thumbnail img-responsive">
                 <div class="caption">
                   <h4><?php echo $coursename; ?></h4>
-                  <p><?php echo get_string('courseproposedby', 'theme_halloween'); ?>
                 <?php if ($customerurl) : ?>
+                  <?php if (isset($customer->name)) : ?>
+                  <p><?php echo get_string('courseproposedby', 'theme_halloween'); ?>
                     <a class="link-primary" href="<?php echo $customerurl; ?>" class="slrn-coursebox__course-customer">
-                        <?php if (isset($customer->name)) {
-                            echo $customer->name;
-                        }?>
+
+                        <?php    echo $customer->name;?>
+
                     </a>
+                <?php endif; ?>
                 <?php endif; ?>
                   </p>
                 </div>
+            <?php
+            if ($courseinfos->thumbnailtext != '') :?>
+                <div class="thumbnail-promotionnal-box u-inverse"><?php echo $courseinfos->thumbnailtext;?></div>
+             <?php endif; ?>
                 <div class="caption caption-hover">
                     <?php if ( $course->startdate) : ?>
                     <div class="bold col-sm-10"><?php echo get_string('coursestartdate', 'theme_halloween') .
@@ -77,10 +83,8 @@ if (isset($customer->urlimg)) {
                     </p>
                 </div>
             </div>
-            <div class="thumbnail-top-box u-inverse text-center"><?php echo $courseinfos->coursestatustext;?></div>
-                        <?php if ($courseinfos->enrolledusers != 0) :?>
-                <div class="thumbnail-middle-box u-inverse"><?php echo $courseinfos->enrolledusers. ' ' . get_string('enrolled_users', 'local_orange_library');?></div>
-             <?php endif; ?>
+
+            <div class="thumbnail-status-box u-inverse text-center"><?php echo $courseinfos->coursestatustext;?></div>
             <div class="caption button">
                 <?php
                 echo $subscriptionbutton->set_button($course); ?>
