@@ -58,7 +58,8 @@ class MoodleQuickForm_inverseadvcheckbox extends HTML_QuickForm_advcheckbox{
      *              or an associative array
      * @param mixed $values (optional) Values to pass if checked or not checked
      */
-    function MoodleQuickForm_inverseadvcheckbox($elementName=null, $elementLabel=null, $text=null, $attributes=array('class'=>'o-checkbox'), $values=null)
+    function MoodleQuickForm_inverseadvcheckbox($elementName=null, $elementLabel=null, $text=null,
+            $attributes=null, $values=null)
     {
         if ($values === null){
             $values = array(0, 1);

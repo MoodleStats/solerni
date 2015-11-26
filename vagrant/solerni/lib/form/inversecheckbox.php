@@ -54,7 +54,8 @@ class MoodleQuickForm_inversecheckbox extends HTML_QuickForm_checkbox {
      * @param mixed $attributes (optional) Either a typical HTML attribute string
      *              or an associative array
      */
-    function MoodleQuickForm_inversecheckbox($elementName=null, $elementLabel=null, $text='', $attributes=null) {
+    function MoodleQuickForm_inversecheckbox($elementName=null, $elementLabel=null,
+            $text='', $attributes=null) {
         // defaulting rendering to Orange brand
         if(!$attributes) {
             $attributes = array('class' => 'o-checkbox');
