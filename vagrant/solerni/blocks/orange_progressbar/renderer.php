@@ -85,22 +85,19 @@ class block_orange_progressbar_renderer extends plugin_renderer_base {
                         // For page we display the total of pages.
                         if ($detail->modname == 'page') {
                             $output .= "$detail->pagescompleted/$detail->pages";
+                            if ($detail->pagescompleted == $detail->pages) {
+                                $detail->completionstate = true;
+                            } else {
+                                $detail->completionstate = false;
+                            }
                         }
                         $output .= html_writer::end_tag('span');
 
                         $output .= html_writer::start_tag('span', array('class' => 'col-md-2'));
-                        if ($detail->modname == 'page') {
-                            if ($detail->pagescompleted == $detail->pages) {
-                                $output .= '<span class="glyphicon glyphicon-ok" style="color:green"></span>';
-                            } else {
-                                $output .= '<span class="glyphicon glyphicon-remove" style="color:red"></span>';
-                            }
+                        if ($detail->completionstate) {
+                            $output .= '<span class="glyphicon glyphicon-ok" style="color:green"></span>';
                         } else {
-                            if ($detail->completionstate) {
-                                $output .= '<span class="glyphicon glyphicon-ok" style="color:green"></span>';
-                            } else {
-                                $output .= '<span class="glyphicon glyphicon-remove" style="color:red"></span>';
-                            }
+                            $output .= '<span class="glyphicon glyphicon-remove" style="color:red"></span>';
                         }
                         $output .= html_writer::end_tag('span');
                     $output .= html_writer::end_tag('div');
