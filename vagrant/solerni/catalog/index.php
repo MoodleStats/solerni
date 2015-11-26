@@ -23,7 +23,7 @@
 
 require_once(dirname(__FILE__) . '/../config.php');
 redirect_if_major_upgrade_required();
-if ($CFG->forcelogin) {
+if ($CFG->forcelogin || $CFG->solerni_isprivate) {
     require_login();
 }
 

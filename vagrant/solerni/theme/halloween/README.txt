@@ -14,3 +14,11 @@ https://github.com/bmbrands/theme_bootstrap/blob/master/README.md
 This Bootswatch has been created by:
 
 https://github.com/thomaspark/bootswatch
+
+Versions / Changes
+
+2.0.0
+Starting versionning. Login page done.
+
+2.0.1
+Subscription page designed.

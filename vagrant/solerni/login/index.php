@@ -63,7 +63,6 @@ if (!empty($SESSION->has_timed_out)) {
 /// auth plugins may override these - SSO anyone?
 $frm  = false;
 $user = false;
-
 $authsequence = get_enabled_auth_plugins(true); // auths, in sequence
 foreach($authsequence as $authname) {
     $authplugin = get_auth_plugin($authname);
@@ -306,18 +305,11 @@ $PAGE->set_title("$site->fullname: $loginsite");
 $PAGE->set_heading("$site->fullname");
 
 // Templating
+echo $OUTPUT->header();
 if (isloggedin() and !isguestuser()) {
-    echo $OUTPUT->header();
-    // User is already connected, let's warn him
-    echo $OUTPUT->box_start();
-    $logout = new single_button(new moodle_url($CFG->httpswwwroot.'/login/logout.php', array('sesskey'=>sesskey(),'loginpage'=>1)), get_string('logout'), 'post');
-    $continue = new single_button(new moodle_url($CFG->httpswwwroot.'/login/index.php', array('cancel'=>1)), get_string('cancel'), 'get');
-    echo $OUTPUT->confirm(get_string('alreadyloggedin', 'error', fullname($USER)), $logout, $continue);
-    echo $OUTPUT->box_end();
+    require($CFG->partialsdir . '/login/exception_already_logged.php');
 } else {
-    // Echo stuff
-    echo $OUTPUT->header();
-    require($CFG->partialsdir . '/login/login_form.php');
+    require('login_form.php');
     if ($errormsg) {
         $PAGE->requires->js_init_call('M.util.focus_login_error', null, true);
     } else if (!empty($CFG->loginpageautofocus)) {

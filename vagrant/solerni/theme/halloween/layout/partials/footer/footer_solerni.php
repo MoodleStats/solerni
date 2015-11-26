@@ -121,6 +121,9 @@ $filtermultilang = new filter_multilang($PAGE->context, array()); ?>
                 </div>
             </div>
         </div>
+        <div class="col-xs-12 version-control text-right">
+                <?php echo 'v' . file_get_contents( $CFG->dirroot . '/solerni-version.txt'); ?>
+        </div>
     </footer>
 </div>
 <?php // Moodle legacy footer.
@@ -128,12 +131,15 @@ if (utilities_user::is_user_site_admin($USER)) : ?>
 <div class="container">
     <div class="row text-center u-inverse">
         <span><i>Moodle footer (admins only)</i></span>
-        <div id="course-footer"><?php echo $OUTPUT->course_footer(); ?></div>
+        <div id="course-footer">
+            <?php echo $OUTPUT->course_footer(); ?>
+        </div>
         <?php
-        echo $OUTPUT->login_info();
-        echo $OUTPUT->home_link();
-        echo $OUTPUT->standard_footer_html();
+            echo $OUTPUT->login_info();
+            echo $OUTPUT->home_link();
+            echo $OUTPUT->standard_footer_html();
         ?>
     </div>
 </div>
 <?php endif;
+

@@ -1,5 +1,6 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
+
+// This file is part of The Orange Halloween Moodle Theme
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -14,17 +15,9 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * This is built using the bootstrapbase template to allow for new theme's using
- * Moodle's new Bootstrap theme engine
- *
- * @package     theme_halloween
- * @copyright   2015 Orange
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
 require_once('renderers/core_course_renderer.php');
 require_once('renderers/core_badges_renderer.php');
 require_once('renderers/core_renderer.php');
 require_once('renderers/mod_quiz_renderer.php');
 require_once('renderers/local_mail_renderer.php');
+require_once('renderers/solerni_quickform_renderer.php');

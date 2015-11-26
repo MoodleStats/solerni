@@ -96,17 +96,16 @@ $string['orange_dark_3desc']            = '@orange-dark-3';
 // Footer Branding Settings.
 $string['footerbrandsettings']          = 'Footer Branding';
 $string['footerbrandheading']           = 'Présente la marque de la plateforme';
-$string['footerbrandheadingdesc']       = 'Une zone du footer est dévolue à la marque. Cette page permet de modifier son contenu. Pour utiliser le filtre multi-langage de Moodle, il faut encadrer chaque traduction dans un tag <span lang="XX" class="multilang"></span>. Pour ne pas afficher un élément, il faut supprimer la valeur du champ avant de sauvegarder.';
+$string['footerbrandheadingdesc']       = 'Une zone du footer est dévolue à la marque. Cette page permet de modifier '
+                                            . 'son contenu. Pour utiliser le filtre multi-langage de Moodle, il faut '
+                                            . 'encadrer chaque traduction dans un tag <span lang="XX" class="multilang">'
+                                            . '</span>. Pour ne pas afficher un élément, il faut supprimer la valeur du '
+                                            . 'champ avant de sauvegarder.';
 $string['footerbrandtitle']             = 'Titre';
-$string['footerbrandtitledefault']      = 'Solerni';
 $string['footerbrandchapo']             = 'Chapô';
-$string['footerbrandchapodefault']      = 'Apprendre, c\'est toujours mieux ensemble';
 $string['footerbrandarticle']           = 'Article';
-$string['footerbrandarticledefault']    = 'Solerni est une solution logicielle complète dédiée à la création et à l\'hébergement de parcours d\'apprentissage massifs collaboratifs.';
 $string['footerbrandanchor']            = 'Ancre du lien';
-$string['footerbrandanchordefault']     = 'Accédez à notre catalogue de cours';
 $string['footerbrandurl']               = 'Destination du lien';
-$string['footerbrandurldefault']        = $CFG->wwwroot . '/catalog';
 
 // Footer Columns Settings.
 $string['footerlistssettings']              = 'Listes du footer';
@@ -123,11 +122,6 @@ $string['footerlistscolumn1link1']          = 'URL de la première ancre';
 $string['footerlistscolumn1link2']          = 'URL de la seconde ancre';
 $string['footerlistscolumn1link3']          = 'URL de la troisième ancre';
 $string['footerlistscolumn1link4']          = 'URL de la quatrième ancre';
-$string['footerlistscolumn1titledefault']          = 'A propos de nous';
-$string['footerlistscolumn1anchor1default']        = 'A propos de Solerni';
-$string['footerlistscolumn1anchor2default']        = 'Partenaires';
-$string['footerlistscolumn1anchor3default']        = 'Mentions légales';
-$string['footerlistscolumn1anchor4default']        = 'CGU / Charte';
 $string['footerlistscolumn2heading']        = 'Seconde colonne';
 $string['footerlistscolumn2headingdesc']    = 'Les champs de titres et d\'ancres utilisent le filtre multi-langues de Moodle. Il faut utiliser la syntaxe suivante : <span lang="XX" class="multilang"></span> pour en tirer parti.';
 $string['footerlistscolumn2title']          = 'Titre de la seconde colonne';
@@ -139,12 +133,7 @@ $string['footerlistscolumn2link1']          = 'URL de la première ancre';
 $string['footerlistscolumn2link2']          = 'URL de la seconde ancre';
 $string['footerlistscolumn2link3']          = 'URL de la troisième ancre';
 $string['footerlistscolumn2link4']          = 'URL de la quatrième ancre';
-$string['footerlistscolumn2titledefault']          = 'Support';
-$string['footerlistscolumn2anchor1default']        = 'FAQ';
-$string['footerlistscolumn2anchor2default']        = 'Nous contacter';
-$string['footerlistscolumn2anchor3default']        = '';
-$string['footerlistscolumn2anchor4default']        = '';
-$string['international']                           = 'International';
+$string['international']                    = 'International';
 
 // Follow us settings.
 $string['followus']                     = 'Suivez-nous';
@@ -189,7 +178,7 @@ $string['administration']               = 'Administration';
 $string['skip_to_main']                 = 'Aller au contenu';
 $string['skip_to_nav']                  = 'Aller à la navigation';
 
-// Login settings
+// Login settings.
 $string['loginsettings']                = 'Page de connexion';
 $string['loginheading']                 = 'Administration de la page de connexion';
 $string['loginheadingdesc']             = 'La partie supérieure de la page de connexion est modifiable  afin d\'en ajuster'
@@ -200,7 +189,7 @@ $string['loginheadingdesc']             = 'La partie supérieure de la page de c
                                             . ' un texte d\'accompagnement.';
 $string['loginlogo']                    = 'Logo';
 $string['loginlogodesc']                = '';
-$string['logintitle']                   = 'Accroche';
+$string['logintitle']                   = 'Titre';
 $string['logintitledesc']               = '';
 $string['logintext']                    = 'Instructions';
 $string['logintextdesc']                = '';
@@ -214,6 +203,28 @@ $string['loginpasswordsub']             = 'Texte d\'accompagnement du champ mot 
 $string['loginpasswordsubdesc']         = '';
 $string['rememberusername']             = 'Se rappeler de moi';
 $string['forgotten']                    = 'Oublié ?';
+
+// Signup settings page.
+$string['signupsettings']           = 'Page d\'inscription';
+$string['signupheading']            = 'Page d\'inscription';
+$string['signupheadingdesc']        = 'Il est possible de modifier l\'éditorial de la page d\'inscription.';
+$string['signuptitle']              = 'Titre';
+$string['signuptitledesc']          = '';
+$string['signuptext']               = 'Instructions';
+$string['signuptextdesc']           = '';
+$string['signupusername']           = 'Label du champ username';
+$string['signuptextdesc']           = '';
+$string['signupusernamesub']        = 'Texte d\'accompagnement du champ username';
+$string['signupusernamesubdesc']    = '';
+$string['signuppasswordsub']        = 'Texte d\'accompagnement du champ mot de passe';
+$string['signuppasswordsubdesc']    = '';
+$string['signupformfooter']         = 'Message à afficher en pied de page du formulaire';
+$string['signupformfooterdesc']     = '';
+
+// Signup frontend page.
+$string['create_account']           = 'Créer mon compte';
+$string['policyaccept']             = 'J\'ai lu et j\'accepte les <a href="{$a}">conditions générales d\'utilisation</a>';
+$string['missingusername']          = 'Le {$a} ne peut pas etre vide';
 
 // Search filters.
 $string['catalog_page_title']       = 'Catalogue';
@@ -240,6 +251,7 @@ $string['not_registered_yet']       = 'Pas encore de compte ?';
 $string['i_do_register']            = 'Je m\'inscris';
 $string['loginoauth']               = 'Se connecter avec {$a}';
 $string['or']                       = 'ou';
+$string['username']                 = 'Pseudo';
 
 // Mooc component.
 $string['courseproposedby']         = "Proposé par";

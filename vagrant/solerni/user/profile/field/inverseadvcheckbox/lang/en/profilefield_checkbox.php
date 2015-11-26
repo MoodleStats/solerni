@@ -15,20 +15,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Theme More version file.
+ * Strings for component 'profilefield_checkbox', language 'en', branch 'MOODLE_20_STABLE'
  *
- * @package    theme_halloween
- * @copyright  2014 Bas Brands
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   profilefield_checkbox
+ * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
-
-$plugin->version   = 2015112400;
-$plugin->requires  = 2014051200;
-$plugin->release  = 2014051300;
-$plugin->maturity  = MATURITY_BETA;
-$plugin->component = 'theme_halloween';
-$plugin->dependencies = array(
-    'theme_bootstrap'  => 2014051300
-);
+$string['pluginname'] = 'Inverse Advanced Checkbox';

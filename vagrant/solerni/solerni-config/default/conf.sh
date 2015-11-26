@@ -2,7 +2,12 @@
 # Fichier "default/conf.sh"
 
 # load of ansible variables us_290 us_292 us_71 us_247
+if [ -f ../../conf/env_moosh.cfg ]; then
 . ../../conf/env_moosh.cfg
+fi
+if [ -f ../conf/env_moosh.cfg ]; then
+. ../conf/env_moosh.cfg
+fi
 # ${CUSTOMER_LOG_DB_HOST}
 # ${CUSTOMER_LOG_DB_NAME}
 # ${CUSTOMER_LOG_DB_USERNAME}
@@ -168,3 +173,8 @@ moosh config-set authloginviaemail 1
 
 # Enable cookie secure
 moosh config-set cookiesecure 1
+# Authorize login with email adress as well as username in login form
+moosh config-set authloginviaemail 1
+
+# Disallow automatic updates
+moosh config-set updateautocheck 0

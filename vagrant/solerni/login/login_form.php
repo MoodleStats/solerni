@@ -26,7 +26,7 @@ $autocomplete =  (!$CFG->loginpasswordautocomplete) ? 'autocomplete="off"' : '';
 ?>
 <div class="row login-header">
     <div class="page-header text-center">
-        <?php require('login_header.php'); ?>
+        <?php require($CFG->partialsdir . '/login/login_header.php'); ?>
     </div>
 </div>
 <?php if (!$CFG->solerni_isprivate) :
@@ -63,7 +63,7 @@ $autocomplete =  (!$CFG->loginpasswordautocomplete) ? 'autocomplete="off"' : '';
             <div class="form-group">
                 <?php $usernamelabel = (theme_utilities::is_theme_settings_exists_and_nonempty('loginusername')) ?
                         $filtermultilang->filter($PAGE->theme->settings->loginusername) :
-                        get_string('username'); ?>
+                        get_string('username', 'theme_halloween'); ?>
                 <label for="username">
                     <?php echo $usernamelabel; ?>
                 </label>
@@ -93,7 +93,7 @@ $autocomplete =  (!$CFG->loginpasswordautocomplete) ? 'autocomplete="off"' : '';
             </div>
             <?php if ($CFG->rememberusername and $CFG->rememberusername == 2) : ?>
                 <div class="form-group text-right">
-                    <input type="checkbox" name="rememberusername" id="rememberusername"
+                    <input class="o-checkbox" type="checkbox" name="rememberusername" id="rememberusername"
                            value="1" <?php if ($frm->username) { echo 'checked="checked"'; } ?> />
                     <label for="rememberusername">
                         <?php print_string('rememberusername', 'theme_halloween') ?>
