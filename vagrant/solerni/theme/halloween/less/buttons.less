@@ -176,4 +176,9 @@
     padding:    4px 20px 2px 20px;
 }
 
+// Special case: override moodle default on form generated submit buttons
+input#id_submitbutton.btn.btn-engage,
+input[type="button"].btn.btn-engage {
+    .btn-engage();
+}
 

@@ -2,7 +2,12 @@
 # Fichier "default/conf.sh"
 
 # load of ansible variables us_290 us_292 us_71 us_247
+if [ -f ../../conf/env_moosh.cfg ]; then
 . ../../conf/env_moosh.cfg
+fi
+if [ -f ../conf/env_moosh.cfg ]; then
+. ../conf/env_moosh.cfg
+fi
 # ${CUSTOMER_LOG_DB_HOST}
 # ${CUSTOMER_LOG_DB_NAME}
 # ${CUSTOMER_LOG_DB_USERNAME}
@@ -135,9 +140,9 @@ moosh config-set coursesperpage 5
 
 # Mnet (#us_326)
 moosh config-set mnet_dispatcher_mode strict
-moosh peer-manage mnet on
-moosh config-set mnet_register_allhosts 1
+moosh config-set mnet_register_allhosts 0
 moosh config-set sessioncookie ${CUSTOMER_COOKIE_PREFIX}
+moosh peer-add ${MNET_PEER}
 
 # Default frontpage role
 moosh role-configset defaultfrontpageroleid solerni_utilisateur
@@ -163,5 +168,13 @@ moosh config-set messaging 0
 # Completion tracking for progressbar 'moodle/enablecompletion' (#us_99)
 moosh config-set enablecompletion 1
 
-# enable login with username and email
+# Enable login with username and email
 moosh config-set authloginviaemail 1
+
+# Enable cookie secure
+moosh config-set cookiesecure 1
+# Authorize login with email adress as well as username in login form
+moosh config-set authloginviaemail 1
+
+# Disallow automatic updates
+moosh config-set updateautocheck 0

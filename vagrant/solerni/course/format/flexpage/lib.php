@@ -319,6 +319,10 @@ class format_flexpage extends format_base {
                 'coursecontactemail' => array(
                     'default' => get_config('contactemail', 'format_flexpage'),
                     'type' => PARAM_TEXT
+                ),
+                'coursethumbnailtext' => array(
+                    'default' => get_config('thumbnailtext', 'format_flexpage'),
+                    'type' => PARAM_TEXT
                 )
             );
         }
@@ -488,6 +492,12 @@ class format_flexpage extends format_base {
                 'coursecontactemail' => array(
                     'label' => get_string('contactemail', 'format_flexpage'),
                     'help' => 'contactemail',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'text'
+                ),
+                'coursethumbnailtext' => array(
+                    'label' => get_string('thumbnailtext', 'format_flexpage'),
+                    'help' => 'thumbnailtext',
                     'help_component' => 'format_flexpage',
                     'element_type' => 'text'
                 )

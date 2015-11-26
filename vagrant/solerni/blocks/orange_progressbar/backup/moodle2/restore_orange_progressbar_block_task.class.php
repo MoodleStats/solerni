@@ -15,20 +15,34 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Theme More version file.
+ * Restore task for the Orange Progress Bar block
  *
- * @package    theme_halloween
- * @copyright  2014 Bas Brands
+ * @subpackage block_orange_progressbar
+ * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+class restore_orange_progressbar_block_task extends restore_block_task {
 
-defined('MOODLE_INTERNAL') || die;
+    protected function define_my_settings() {
+    }
 
-$plugin->version   = 2015112400;
-$plugin->requires  = 2014051200;
-$plugin->release  = 2014051300;
-$plugin->maturity  = MATURITY_BETA;
-$plugin->component = 'theme_halloween';
-$plugin->dependencies = array(
-    'theme_bootstrap'  => 2014051300
-);
+    protected function define_my_steps() {
+    }
+
+    public function get_fileareas() {
+            return array();
+    }
+
+    public function get_configdata_encoded_attributes() {
+            return array();
+    }
+
+    static public function define_decode_contents() {
+            return array();
+    }
+
+    static public function define_decode_rules() {
+            return array();
+    }
+
+}

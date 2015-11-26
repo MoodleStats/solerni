@@ -404,6 +404,10 @@ div[role="main"] .list-social {
     }
 }
 
+#block-region-main, .paging {
+    clear: both;
+}
+
 /*
  * Blocks Orange course extended
  */
@@ -540,14 +544,16 @@ div[role="main"] .list-social {
     border-color:       @gray-light;
 }
 
-/* hide moodle icons */
+.block .content .footer {
+    margin: @s-double-xs-margin 0;
+}
 
+/* hide moodle icons */
 .tree_item a .smallicon {
     display: none;
 }
 
 /* hide search submit button in admin nav */
-
 .block .adminsearchform {
     margin: @s-double-xs-margin 0;
 }
@@ -589,7 +595,8 @@ div[role="main"] .list-social {
     font-size:          1.2em;
 }
 
-.login-box {
+.login-box,
+.signup-box {
     margin: @s-double-xs-margin 0;
 }
 
@@ -605,12 +612,68 @@ div[role="main"] .list-social {
     border:     1px solid @gray-light;
 }
 
+.fitem_fpassword {
+    position: relative;
+}
+
+.signup-box .unmask {
+    .login-forgot();
+    .btn();
+    .btn-warning();
+    top:    auto;
+    bottom: 0;
+}
+
+.signup-box .unmask input {
+    float:      left;
+    margin-top: 3px;
+}
+
+.signup-box .unmask label {
+    padding-left:   5px;
+    padding-right:  10px;
+    font-weight:    bold;
+    line-height:    1;
+    min-height:     auto;
+}
+
 .login-forgot:hover {
     border:     1px solid @gray-light;
 }
 
 .login-box .btn-block {
     margin: 0;
+}
+
+/* signup */
+.fitem-legacy + .help-block {
+    margin-top:     -10px;
+    margin-bottom:  15px;
+}
+
+.signup-box .fdescription {
+    display: none;
+}
+
+.error-msg {
+    line-height:    1.5;
+    margin:         0 0 10px;
+}
+
+.signup-box .fitem_fsubmit {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.signup-box .fsubmit {
+    display:    inline-block;
+    margin:     0 auto !important;
+    width:      auto !important;
+    float:      none !important;
+}
+
+.signup-footer {
+    margin-top: @grid-gutter-width;
 }
 
 /* fix small css */
@@ -630,20 +693,18 @@ img.icon {
     position: relative;
 }
 
-.thumbnail-top-box {
+.thumbnail-status-box {
     position:   absolute;
+    top:        0px;
     width:      100%;
     padding:    5px 0;
-    z-index:    3;
 }
 
-.thumbnail-middle-box {
+.thumbnail-promotionnal-box {
     position:   absolute;
-    margin-top: 50px;
+    top:        50px;
     padding:    5px 5px;
-    z-index:    1;
-    right: 0;
-
+    right:      0;
 }
 
 .thumbnail-slide {
@@ -663,7 +724,6 @@ img.icon {
 .thumbnail:hover .caption-hover {
     visibility: visible;
     opacity:    1;
-    z-index:    2;
 }
 
 .thumbnail-text {
@@ -673,3 +733,8 @@ img.icon {
 .thumbnail .button {
     padding: 10px;
 }
+.version-control {
+    font-size:  (@font-size-base * 0.8);
+    color:      @orange-dark-3;
+}
+
