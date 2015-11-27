@@ -176,10 +176,7 @@ class extended_course_object {
      */
     public $enrolledusers;
 
-    const MOOCCOMPLETE     = 0;
-    const MOOCCLOSED       = 1;
-    const MOOCNOTSTARTED   = 2;
-    const MOOCRUNNING      = 3;
+
     const USERLOGGED        = 4;
     const USERENROLLED      = 5;
 
@@ -192,13 +189,13 @@ class extended_course_object {
     /**
      *  Get the extended course values from the extended course flexpage values.
      *
-     * @param optionnal object $context
      * @param object $course
+     * @param optionnal object $context
      * @return object $this->extendedcourse
      */
     public function get_extended_course($course, $context = null) {
-        global $DB;
 
+        global $DB;
 
         $utilitiescourse = new utilities_course();
         $categoryid = $utilitiescourse->get_categoryid_by_courseid($course->id);
@@ -232,19 +229,19 @@ class extended_course_object {
         if(isset($instance->customint2)) {
             $this->enrolurl = $instance->customint2;
         }
-        $this->get_status($course);
+        utilities_course::get_course_status($this, $course);
+
+
     }
 
     /**
      * Return the status of the course
-     * Status could be : MOOCRUNNING
-     *                   MOOCCLOSED
-     *                   MOOCNOTSTARTED
+     * Status could be :
      *
-     *     const MOOCCOMPLETE     = 0;
-    const MOOCCLOSED       = 1;
-    const MOOCNOTSTARTED   = 2;
-    const MOOCRUNNING      = 3;
+     *      const MOOCCOMPLETE     = 0;
+     *      const MOOCCLOSED       = 1;
+     *      const MOOCNOTSTARTED   = 2;
+     *      const MOOCRUNNING      = 3;
      * @param $course object
      * @return  (int)
      */
@@ -282,11 +279,7 @@ class extended_course_object {
 
         switch ($extendedcourseflexpagevalue->name) {
             case 'coursereplay':
-                if ($extendedcourseflexpagevalue->value == 0) {
-                    $this->replay = get_string('replay', 'local_orange_library');
-                } else {
-                    $this->replay = get_string('notreplay', 'local_orange_library');
-                }
+                $this->set_replay($extendedcourseflexpagevalue);
                 break;
             case 'coursepicture':
                 $this->picture = $extendedcourseflexpagevalue->value;
@@ -295,65 +288,32 @@ class extended_course_object {
                 $this->enddate = $extendedcourseflexpagevalue->value;
                 break;
             case 'courseduration':
-                $this->duration = get_string('duration_default', 'local_orange_library');
-                if ($extendedcourseflexpagevalue->value != 0) {
-                    $this->duration = utilities_object::duration_to_time($extendedcourseflexpagevalue->value);
-                }
+                $this->set_duration($extendedcourseflexpagevalue);
                 break;
             case 'courseworkingtime':
-                $this->workingtime = get_string('workingtime_default', 'local_orange_library');
-                if ($extendedcourseflexpagevalue->value != 0) {
-                    $this->workingtime = utilities_object::duration_to_time($extendedcourseflexpagevalue->value);
-                }
+                $this->set_workingtime($extendedcourseflexpagevalue);
                 break;
             case 'courselanguage':
-                $this->language = get_string('french', 'local_orange_library');
-                if ($extendedcourseflexpagevalue->value == 0) {
-                    $this->language = get_string('french', 'local_orange_library');
-                } else {
-                    $this->language = get_string('english', 'local_orange_library');
-                }
+                $this->set_language($extendedcourseflexpagevalue);
                 break;
             case 'coursebadge':
-                if ($extendedcourseflexpagevalue->value == 1) {
-                    $this->badge = get_string('badges', 'local_orange_library');
-                } else {
-                    $this->badge = get_string('badge_default', 'local_orange_library');
-                }
+                $this->set_badge($extendedcourseflexpagevalue);
                 break;
             case 'courseprice':
-                if ($extendedcourseflexpagevalue->value == 0) {
-                    $this->price = get_string('price_case1', 'local_orange_library');
-                } else if ($extendedcourseflexpagevalue->value == 1) {
-                    $this->price = get_string('price_case2', 'local_orange_library');
-                } else {
-                    $this->price = get_string('price_case3', 'local_orange_library');
-                }
+                $this->set_price($extendedcourseflexpagevalue);
                 break;
             case 'coursecertification':
-                if ($extendedcourseflexpagevalue->value == 1) {
-                    $this->certification = get_string('certification', 'local_orange_library');
-                } else {
-                    $this->certification = get_string('certification_default', 'local_orange_library');
-                }
+                $this->set_certification($extendedcourseflexpagevalue);
                 break;
             case 'coursesubtitle':
-                    $this->subtitle = $extendedcourseflexpagevalue->value;
+                $this->subtitle = $extendedcourseflexpagevalue->value;
                 break;
             case 'courseteachingteam':
-                $this->teachingteam = $extendedcourseflexpagevalue->value;
-                if ($extendedcourseflexpagevalue->value == "") {
-                    $this->teachingteam = get_string('teachingteam_default', 'local_orange_library');
-                }
+                $this->set_teachingteam($extendedcourseflexpagevalue);
                 break;
             case 'courseprerequesites':
-
-                $this->prerequesites = $extendedcourseflexpagevalue->value;
-                if ($extendedcourseflexpagevalue->value == "") {
-                    $this->prerequesites = get_string('prerequesites_default', 'local_orange_library');
-                }
+                $this->set_prerequisites($extendedcourseflexpagevalue);
                 break;
-
             case 'courseregistration':
                 $this->registration = $extendedcourseflexpagevalue->value;
                 break;
@@ -363,6 +323,122 @@ class extended_course_object {
             case 'coursethumbnailtext':
                 $this->thumbnailtext = $extendedcourseflexpagevalue->value;
                 break;
+        }
+    }
+
+    /**
+     * Set course replay parameter.
+     *
+     * @param object $extendedcourseflexpagevalue
+     */
+    private function set_replay($extendedcourseflexpagevalue) {
+        if ($extendedcourseflexpagevalue->value == 0) {
+            $this->replay = get_string('replay', 'local_orange_library');
+        } else {
+            $this->replay = get_string('notreplay', 'local_orange_library');
+        }
+    }
+
+    /**
+     * Set course duration parameter.
+     *
+     * @param object $extendedcourseflexpagevalue
+     */
+    private function set_duration($extendedcourseflexpagevalue) {
+        $this->duration = get_string('duration_default', 'local_orange_library');
+        if ($extendedcourseflexpagevalue->value != 0) {
+            $this->duration = utilities_object::duration_to_time($extendedcourseflexpagevalue->value);
+        }
+    }
+
+    /**
+     * Set course workingtime parameter.
+     *
+     * @param object $extendedcourseflexpagevalue
+     */
+    private function set_workingtime($extendedcourseflexpagevalue) {
+        $this->workingtime = get_string('workingtime_default', 'local_orange_library');
+        if ($extendedcourseflexpagevalue->value != 0) {
+            $this->workingtime = utilities_object::duration_to_time($extendedcourseflexpagevalue->value);
+        }
+    }
+
+    /**
+     * Set course language parameter.
+     *
+     * @param object $extendedcourseflexpagevalue
+     */
+    private function set_language($extendedcourseflexpagevalue) {
+        $this->language = get_string('french', 'local_orange_library');
+        if ($extendedcourseflexpagevalue->value == 0) {
+            $this->language = get_string('french', 'local_orange_library');
+        } else {
+            $this->language = get_string('english', 'local_orange_library');
+        }
+    }
+
+    /**
+     * Set course badge parameter.
+     *
+     * @param object $extendedcourseflexpagevalue
+     */
+    private function set_badge($extendedcourseflexpagevalue) {
+        if ($extendedcourseflexpagevalue->value == 1) {
+            $this->badge = get_string('badges', 'local_orange_library');
+        } else {
+            $this->badge = get_string('badge_default', 'local_orange_library');
+        }
+    }
+
+    /**
+     * Set course price parameter.
+     *
+     * @param object $extendedcourseflexpagevalue
+     */
+    private function set_price($extendedcourseflexpagevalue) {
+        if ($extendedcourseflexpagevalue->value == 0) {
+            $this->price = get_string('price_case1', 'local_orange_library');
+        } else if ($extendedcourseflexpagevalue->value == 1) {
+            $this->price = get_string('price_case2', 'local_orange_library');
+        } else {
+            $this->price = get_string('price_case3', 'local_orange_library');
+        }
+    }
+
+    /**
+     * Set course certification parameter.
+     *
+     * @param object $extendedcourseflexpagevalue
+     */
+    private function set_certification($extendedcourseflexpagevalue) {
+        if ($extendedcourseflexpagevalue->value == 1) {
+            $this->certification = get_string('certification', 'local_orange_library');
+        } else {
+            $this->certification = get_string('certification_default', 'local_orange_library');
+        }
+    }
+
+    /**
+     * Set course teachingteam parameter.
+     *
+     * @param object $extendedcourseflexpagevalue
+     */
+    private function set_teachingteam($extendedcourseflexpagevalue) {
+        $this->teachingteam = $extendedcourseflexpagevalue->value;
+        if ($extendedcourseflexpagevalue->value == "") {
+            $this->teachingteam = get_string('teachingteam_default', 'local_orange_library');
+        }
+    }
+
+    /**
+     * Set course prerequesites parameter.
+     *
+     * @param object $extendedcourseflexpagevalue
+     */
+    private function set_prerequisites($extendedcourseflexpagevalue) {
+        $this->prerequesites = $extendedcourseflexpagevalue->value;
+        if ($extendedcourseflexpagevalue->value == "") {
+            $this->prerequesites = get_string('prerequesites_default', 'local_orange_library');
         }
     }
 }

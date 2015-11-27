@@ -22,7 +22,7 @@
  */
 namespace local_orange_library\utilities;
 defined('MOODLE_INTERNAL') || die();
-class array_object{
+class utilities_array{
 
     public $all;
     public $count;

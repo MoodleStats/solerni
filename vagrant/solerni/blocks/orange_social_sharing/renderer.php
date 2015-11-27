@@ -20,7 +20,7 @@
  * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-use local_orange_library\utilities\array_object;
+use local_orange_library\utilities\utilities_array;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -38,9 +38,9 @@ class block_orange_social_sharing_renderer extends plugin_renderer_base {
     public function get_text() {
         Global $PAGE, $DB;
 
-        $shareonarray = new array_object();
-        $socialclassarray = new array_object();
-        $socialurlarray = new array_object();
+        $shareonarray = new utilities_array();
+        $socialclassarray = new utilities_array();
+        $socialurlarray = new utilities_array();
 
         $blockrecord = $DB->get_record('block_instances', array('blockname' => 'orange_social_sharing',
             'parentcontextid' => $PAGE->context->id), '*', IGNORE_MISSING);

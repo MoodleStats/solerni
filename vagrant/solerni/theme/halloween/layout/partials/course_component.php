@@ -86,7 +86,7 @@ if ( $courseinfos ) :
                 <?php echo $courseinfos->coursestatustext;?>
             </div>
             <div class="caption button">
-                <?php echo $subscriptionbutton->set_button($course); ?>
+                <?php echo $subscriptionbutton->set_button($courseinfos); ?>
             </div>
         </div>
     </div>
