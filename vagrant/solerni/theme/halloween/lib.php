@@ -113,3 +113,29 @@ function theme_halloween_less_variables($themeconfig) {
 
     return $colorvalues;
 }
+
+/**
+ * Adds code snippet to a moodle form object for custom profile fields that
+ * should appear on the signup page. Duplicate from Moodle to remove unecessary fieldset
+ * @param moodleform $mform moodle form object
+ */
+function halloween_profile_signup_fields($mform) {
+    global $CFG, $DB;
+
+    // Only retrieve required custom fields (with category information)
+    // results are sort by categories, then by fields.
+    $sql = "SELECT uf.id as fieldid, ic.id as categoryid, ic.name as categoryname, uf.datatype
+                FROM {user_info_field} uf
+                JOIN {user_info_category} ic
+                ON uf.categoryid = ic.id AND uf.signup = 1 AND uf.visible<>0
+                ORDER BY ic.sortorder ASC, uf.sortorder ASC";
+
+    if ( $fields = $DB->get_records_sql($sql)) {
+        foreach ($fields as $field) {
+            require_once($CFG->dirroot.'/user/profile/field/'.$field->datatype.'/field.class.php');
+            $newfield = 'profile_field_'.$field->datatype;
+            $formfield = new $newfield($field->fieldid);
+            $formfield->edit_field($mform);
+        }
+    }
+}

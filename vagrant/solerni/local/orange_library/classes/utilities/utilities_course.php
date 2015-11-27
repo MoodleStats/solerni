@@ -572,7 +572,7 @@ class utilities_course {
     }
 
     /**
-     * Returns descirption page url of a course
+     * Returns "description page" url of a course
      *
      * @global type $CFG
      * @param type $course

@@ -80,4 +80,21 @@ class theme_utilities {
 
         return false;
     }
+
+    /**
+     * Return the url of the CGU.
+     * Assume that the faq link is the fourth one of the first column of the footer.
+     *
+     * Return false if the settings is not existent.
+     *
+     * @return string || false
+     */
+    public static function get_platform_cgu_url() {
+        global $PAGE;
+        if (self::is_theme_settings_exists_and_nonempty(array('footerlistscolumn1anchor4', 'footerlistscolumn1link4'), 'all')) {
+            return $PAGE->theme->settings->footerlistscolumn1link4;
+        }
+
+        return false;
+    }
 }

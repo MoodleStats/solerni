@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of The Orange Halloween Moodle Theme
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,9 +14,16 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-require_once('renderers/core_course_renderer.php');
-require_once('renderers/core_badges_renderer.php');
-require_once('renderers/core_renderer.php');
-require_once('renderers/mod_quiz_renderer.php');
-require_once('renderers/local_mail_renderer.php');
-require_once('renderers/solerni_quickform_renderer.php');
+/**
+ * Version information for the checkbox profile field type.
+ *
+ * @package    profilefield_checkbox
+ * @copyright  2008 onwards Shane Elliot {@link http://pukunui.com}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+defined('MOODLE_INTERNAL') || die();
+
+$plugin->version   = 2015112400;        // The current plugin version (Date: YYYYMMDDXX)
+$plugin->requires  = 2014050800;        // Requires this Moodle version
+$plugin->component = 'profilefield_inverseadvcheckbox'; // Full name of the plugin (used for diagnostics)

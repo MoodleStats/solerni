@@ -34,6 +34,8 @@ $string['mod_page'] = 'Course';
 $string['mod_quiz'] = 'Quiz';
 $string['mod_forumng'] = 'Forums';
 $string['mod_oublog'] = 'Blogs';
+$string['attempt'] = 'Attempt';
+$string['attempts'] = 'Attempts';
 
 // For capabilities.
 $string['orange_progressbar:overview'] = 'Overview of progress in the course';

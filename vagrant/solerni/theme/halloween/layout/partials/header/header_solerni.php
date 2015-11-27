@@ -23,9 +23,9 @@
                 <span class="logo-brandname">Solerni</span>
             </a>
             <?php if (isloggedin()) {
-                require($CFG->partialsdir . '/header_user_menu__auth.php');
+                require($CFG->partialsdir . '/header/header_user_menu__auth.php');
             } else {
-                require($CFG->partialsdir . '/header_user_menu__no_auth.php');
+                require($CFG->partialsdir . '/header/header_user_menu__no_auth.php');
             }
             ?>
         </div>
