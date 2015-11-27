@@ -87,7 +87,8 @@ if (isset($customer->urlimg)) {
             <div class="thumbnail-status-box u-inverse text-center"><?php echo $courseinfos->coursestatustext;?></div>
             <div class="caption button">
                 <?php
-                echo $subscriptionbutton->set_button($course); ?>
+                 
+                echo $subscriptionbutton->set_button($courseinfos); ?>
             </div>
         </div>
     </div>

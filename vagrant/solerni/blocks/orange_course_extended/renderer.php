@@ -65,7 +65,7 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
 
         $text .= html_writer::start_tag('div', array('class' => 'row '));
             $text .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-12'));
-                    $text .= $subscriptionbutton->set_button($course);
+                    $text .= $subscriptionbutton->set_button($extendedcourse);
             $text .= html_writer::end_tag('div');
         $text .= html_writer::end_tag('div');
 

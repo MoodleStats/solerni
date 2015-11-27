@@ -28,6 +28,7 @@ require('../../config.php');
 require_once($CFG->dirroot.'/mod/descriptionpage/locallib.php');
 require_once($CFG->libdir.'/completionlib.php');
 use local_orange_library\subscription_button\subscription_button_object;
+use local_orange_library\extended_course\extended_course_object;
 
 $id      = optional_param('id', 0, PARAM_INT); // Course Module ID.
 $courseid      = optional_param('courseid', 0, PARAM_INT); // Course Module ID.
@@ -101,7 +102,10 @@ $content = format_text($contentrewrited, $descriptionpage->contentformat, $forma
 $filtersblock = new block_contents();
 $filtersblock->content .= $content;
 
-$filtersblock->content .= '<div class="text-center">'.$subscriptionbutton->set_button($course).'</div>';
+$extendedcourse = new extended_course_object();
+$extendedcourse->get_extended_course($course, $context);
+
+$filtersblock->content .= '<div class="text-center">'.$subscriptionbutton->set_button($extendedcourse).'</div>';
 $filtersblock->footer = '';
 $filtersblock->skiptitle = false;
 
