@@ -89,6 +89,11 @@ class block_orange_progressbar_renderer extends plugin_renderer_base {
                     // For page we display the total of pages.
                     if ($detail->modname == 'page') {
                         $output .= "$detail->pagescompleted/$detail->pages";
+                        if ($detail->pagescompleted == $detail->pages) {
+                            $detail->completionstate = true;
+                        } else {
+                            $detail->completionstate = false;
+                        }
                     }
                     $output .= html_writer::end_tag('span');
 
