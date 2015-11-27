@@ -57,6 +57,7 @@ class enrollment_object {
                 return $instanceinfo;
             }
         }
+        return false;
     }
 
     /**

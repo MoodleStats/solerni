@@ -22,47 +22,44 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 use local_orange_library\utilities\utilities_object;
+use local_orange_library\utilities\utilities_user;
 
 if ( $courseinfos ) :
     $customerurl = new moodle_url('/course/index.php', array('categoryid' => $course->category));
 
-if (isset($courseinfos->imgurl)) {
-    $courseimageurl = $imageutilities->get_resized_url($courseinfos->imgurl,
-                             array('w' => 490, 'h' => 357, 'scale' => false));
-}
-if (isset($customer->urlimg)) {
-    $courseurlimage = $imageutilities->get_resized_url($courseinfos->urlimg,
-                             array('w' => 40, 'h' => 40, 'scale' => false));
-}
-
-    ?>
-
+    if (isset($courseinfos->imgurl)) {
+        $courseimageurl = $imageutilities->get_resized_url($courseinfos->imgurl,
+                                 array('w' => 490, 'h' => 357, 'scale' => false));
+    }
+    if (isset($customer->urlimg)) {
+        $courseurlimage = $imageutilities->get_resized_url($courseinfos->urlimg,
+                                 array('w' => 40, 'h' => 40, 'scale' => false));
+    }
+?>
     <div class="col-sm-12 col-md-6">
         <div class="thumbnail">
             <div class="thumbnail-slide">
                 <img src="<?php echo $courseimageurl; ?>" class="img-thumbnail img-responsive">
                 <div class="caption">
-                  <h4><?php echo $coursename; ?></h4>
-                <?php if ($customerurl) : ?>
-                  <?php if (isset($customer->name)) : ?>
-                  <p><?php echo get_string('courseproposedby', 'theme_halloween'); ?>
-                    <a class="link-primary" href="<?php echo $customerurl; ?>" class="slrn-coursebox__course-customer">
-
-                        <?php    echo $customer->name;?>
-
-                    </a>
-                <?php endif; ?>
-                <?php endif; ?>
-                  </p>
+                    <h4><?php echo $coursename; ?></h4>
+                    <?php if ($customerurl && $customer->name) : ?>
+                    <p>
+                        <?php echo get_string('courseproposedby', 'theme_halloween'); ?>
+                        <a class="link-primary" href="<?php echo $customerurl; ?>" class="slrn-coursebox__course-customer">
+                            <?php echo $customer->name;?>
+                        </a>
+                    </p>
+                    <?php endif; ?>
                 </div>
-            <?php
-            if ($courseinfos->thumbnailtext != '') :?>
-                <div class="thumbnail-promotionnal-box u-inverse"><?php echo $courseinfos->thumbnailtext;?></div>
-             <?php endif; ?>
-                <div class="caption caption-hover">
+                <?php if ($courseinfos->thumbnailtext) : ?>
+                <div class="thumbnail-promotionnal-box u-inverse">
+                    <?php echo $courseinfos->thumbnailtext;?>
+                </div>
+                <?php endif; ?>
+                 <div class="caption caption-hover">
                     <?php if ( $course->startdate) : ?>
                     <div class="bold col-sm-10"><?php echo get_string('coursestartdate', 'theme_halloween') .
-                                        " " . date("d.m.Y", $course->startdate); ?></div>
+                                    " " . date("d.m.Y", $course->startdate); ?></div>
                     <?php endif; ?>
                     <?php if ( $courseinfos->price != get_string('price_case1', 'local_orange_library')) : ?>
                     <div class="glyphicon glyphicon-euro col-sm-1"></div>
@@ -70,11 +67,13 @@ if (isset($customer->urlimg)) {
                     <?php if ( $badges->count_badges($course->id)) : ?>
                     <div class="glyphicon glyphicon-star col-sm-1"></div>
                     <?php endif; ?>
-                    <p class="small bold col-sm-12 thumbnail-text"><?php echo $courseinfos->duration;?></p>
+                    <p class="small bold col-sm-12 thumbnail-text">
+                        <?php echo $courseinfos->duration;?>
+                    </p>
                     <p class="col-sm-12 thumbnail-text">
                     <?php // @todo adapt length depending on viewport width ?
                     echo utilities_object::trim_text( $chelper->get_course_formatted_summary($course,
-                            array('overflowdiv' => false, 'noclean' => true, 'para' => false)), 155); ?>
+                        array('overflowdiv' => false, 'noclean' => true, 'para' => false)), 155); ?>
                     </p>
                     <p class="col-sm-12 thumbnail-text">
                         <a class="link-secondary" href="<?php echo $utilitiescourse->get_description_page_url($course); ?>">
@@ -83,17 +82,18 @@ if (isset($customer->urlimg)) {
                     </p>
                 </div>
             </div>
-
-            <div class="thumbnail-status-box u-inverse text-center"><?php echo $courseinfos->coursestatustext;?></div>
+            <div class="thumbnail-status-box u-inverse text-center">
+                <?php echo $courseinfos->coursestatustext;?>
+            </div>
             <div class="caption button">
-                <?php
-                 
-                echo $subscriptionbutton->set_button($courseinfos); ?>
+                <?php echo $subscriptionbutton->set_button($courseinfos); ?>
             </div>
         </div>
     </div>
 <?php else : ?>
- <?php if(is_user_site_admin($user)) : ?>
-<div class="col-xs-12 col-md-6"><div class="alert alert-danger">not a flexpage mooc</div></div>
-<?php endif;
+    <?php if(utilities_user::is_user_site_admin($user)) : ?>
+    <div class="col-xs-12 col-md-6">
+        <div class="alert alert-danger">not a flexpage mooc</div>
+    </div>
+    <?php endif;
  endif;

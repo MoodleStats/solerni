@@ -73,9 +73,7 @@ class subscription_button_object {
             $this->enrolenddate = $selfenrolment->get_enrolment_enddate($course);
             $this->moocurl = new moodle_url('/course/view.php', array('id' => $this->course->id));
             $this->urlregistration = new moodle_url('/login/signup.php', array('id' => $this->course->id));
-
             $this->enrolmenturl = "";
-
             $this->urlmoocsubscription = $this->moocurl;
             if ($orangeinvitation = $selfenrolment->get_orangeinvitation_enrolment($course)) {
                 $this->urlregistration = $orangeinvitation->customtext2;
