@@ -356,7 +356,7 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
      * @return string
      */
     public function render_halloween_mooc_component($chelper, $course, $additionalclasses = '') {
-            global $CFG;
+            global $CFG, $COURSE;
 
             if (!$chelper) {
                 $chelper = $this->halloween_create_mooc_helper();
@@ -366,10 +366,12 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
                 return '';
             }
 
+
             if ($course instanceof stdClass) {
                 require_once($CFG->libdir. '/coursecatlib.php');
                 $course = new course_in_list($course);
             }
+
 
             if (!isset($this->strings->summary)) {
                 $this->strings->summary = get_string('summary');

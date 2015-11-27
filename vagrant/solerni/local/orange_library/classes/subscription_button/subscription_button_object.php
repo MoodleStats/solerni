@@ -60,6 +60,7 @@ class subscription_button_object {
      *
      */
     public function __construct($course) {
+
         global $CFG;
         if ($course) {
             $context = context_course::instance($course->id);
@@ -70,48 +71,22 @@ class subscription_button_object {
             $this->extendedcourse->get_extended_course($course, $context);
             $selfenrolment = new enrollment_object();
             $this->enrolenddate = $selfenrolment->get_enrolment_enddate($course);
-            $this->enrolmenturl = "";
-            if ($CFG->solerni_isprivate && !empty($selfenrolment->get_orangeinvitation_enrolment($course))) {
-
-                $this->urlregistration = $selfenrolment->get_orangeinvitation_enrolment($course)->customtext2;
-                $this->urlmoocsubscription = $selfenrolment->get_orangeinvitation_enrolment($course)->customtext2;
-            }
-
-            $this->coursestatus = $this->get_course_status();
-
-            $this->urlregistration = new moodle_url('/login/signup.php', array('id' => $this->course->id));
-            $this->urlmoocsubscription = $selfenrolment->get_orangeinvitation_enrolment($course)->customtext2;
             $this->moocurl = new moodle_url('/course/view.php', array('id' => $this->course->id));
+            $this->urlregistration = new moodle_url('/login/signup.php', array('id' => $this->course->id));
+
+            $this->enrolmenturl = "";
+
+            $this->urlmoocsubscription = $this->moocurl;
+            if ($orangeinvitation = $selfenrolment->get_orangeinvitation_enrolment($course)) {
+                $this->urlregistration = $orangeinvitation->customtext2;
+                $this->urlmoocsubscription = $orangeinvitation->customtext2;
+             }
+
         } else {
             throw new moodle_exception( 'missing_course_in_construct', 'local_orange_library');
         }
     }
 
-    /**
-     * Return the status of the course
-     * Status could be : MOOCRUNNING
-     *                          MOOCCLOSED
-     *                          MOOCNOTSTARTED
-     *                          MOOCCOMPLETE
-     *                          PRIVATECOURSE
-     *
-     * @param $course
-     * @return $coursestatus
-     */
-
-    private function get_course_status() {
-
-        $coursestatus = self::MOOCRUNNING;
-
-        if ($this->extendedcourse->enrolledusers >= $this->extendedcourse->maxregisteredusers) {
-            $coursestatus = self::MOOCCOMPLETE;
-        } else if ($this->extendedcourse->enddate < $this->date->getTimestamp()) {
-            $coursestatus = self::MOOCCLOSED;
-        } else if ($this->course->startdate > $this->date->getTimestamp()) {
-            $coursestatus = self::MOOCNOTSTARTED;
-        }
-        return $coursestatus;
-    }
 
     /**
      * Return the status of the user
@@ -139,13 +114,12 @@ class subscription_button_object {
     /**
      *  Set and display the button describing the status of a course.
      *
-     * @param object $course
+     * @param object $extendedcourse
      * @return string html_writer::tag
      */
-    public function set_button($course) {
+    public function set_button($extendedcourse) {
 
-        switch ($this->coursestatus) {
-
+        switch ($extendedcourse->coursestatus) {
             case self::MOOCCLOSED:
                 return $this->controller_mooc_closed();
                 break;
