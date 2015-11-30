@@ -614,6 +614,7 @@ class utilities_course {
      *                          PRIVATECOURSE
      *
      * @param $extendedcourse
+     * @return int
      */
     public static function get_course_status($extendedcourse, $course) {
 
@@ -631,6 +632,7 @@ class utilities_course {
             $extendedcourse->coursestatustext = get_string('status_default', 'local_orange_library');
             $extendedcourse->coursestatus = self::MOOCNOTSTARTED;
         }
+        return $extendedcourse->coursestatus;
     }
 
     /**
