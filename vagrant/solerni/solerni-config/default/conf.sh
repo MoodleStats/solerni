@@ -168,13 +168,15 @@ moosh config-set messaging 0
 # Completion tracking for progressbar 'moodle/enablecompletion' (#us_99)
 moosh config-set enablecompletion 1
 
-# Enable login with username and email
+# Authorize login with email adress as well as username in login form
 moosh config-set authloginviaemail 1
 
 # Enable cookie secure
 moosh config-set cookiesecure 1
-# Authorize login with email adress as well as username in login form
-moosh config-set authloginviaemail 1
 
 # Disallow automatic updates
 moosh config-set updateautocheck 0
+
+# Timezone
+moosh timezone-import Europe/paris
+moosh config-set timezone Europe/Paris

@@ -260,7 +260,7 @@ div[role="main"] .list-social {
     -moz-transition: opacity 500ms;
     -o-transition: opacity 500ms;
     transition: opacity 500ms;
-    
+
 }
 .imageWrapper:hover .cornerLink {
     opacity: 0.8;
@@ -459,7 +459,7 @@ div[role="main"] .list-social {
 }
 
 .block .border_bottom{
-    border-bottom:  1px solid @gray-light; 
+    border-bottom:  1px solid @gray-light;
 }
 
 .block .slrn-bold {
@@ -738,3 +738,23 @@ img.icon {
     color:      @orange-dark-3;
 }
 
+/* calendar quickfix */
+.calendar-controls {
+    font-size:  @font-size-large;
+    text-align: center;
+}
+
+.block.block_calendar_month .calendar-controls .current,
+.block.block_calendar_month .calendar-controls .arrow_link {
+    display:            inline-block;
+    width:              auto;
+    float:              none;
+}
+
+.block.block_calendar_month .calendar-controls .current {
+    margin: 0 .5em;
+}
+
+.block.block_calendar_month .calendar-controls a {
+    text-decoration:    none;
+}

@@ -29,6 +29,7 @@ vagrant/override5/*
 !vagrant/override/user/profile4/field/menu
 !vagrant/override/user/profile5/field/menu
 .vagrant
+.vagrant.old
 vagrant/.*
 Vagrantfile
 vagrant/system
@@ -39,3 +40,6 @@ Vagrantfile
 nbproject
 codechecker
 codecheck
+vagrant/solerni/theme/solerni/
+
+

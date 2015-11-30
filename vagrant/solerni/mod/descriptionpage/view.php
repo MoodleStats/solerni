@@ -75,7 +75,12 @@ require_once($CFG->libdir . '/completionlib.php');
 $completion = new completion_info($course);
 $completion->set_module_viewed($cm);
 
+<<<<<<< HEAD
 $PAGE->set_url('/mod/descriptionpage/view.php', array('id' => $cm->id));
+=======
+$PAGE->set_url('/mod/descriptionpage/view.php', array('id' => $cm->id, 'sesskey' => $USER->sesskey));
+//$PAGE->set_pagelayout('base');
+>>>>>>> origin/develop
 $PAGE->blocks->add_region('main');
 $PAGE->set_title($course->shortname.': '.$descriptionpage->name);
 $PAGE->set_heading($course->fullname);
