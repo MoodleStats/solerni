@@ -78,8 +78,9 @@ require_once($CFG->libdir . '/completionlib.php');
 $completion = new completion_info($course);
 $completion->set_module_viewed($cm);
 
+
 $PAGE->set_url('/mod/descriptionpage/view.php', array('id' => $cm->id, 'sesskey' => $USER->sesskey));
-//$PAGE->set_pagelayout('base');
+
 $PAGE->blocks->add_region('main');
 $options = empty($page->displayoptions) ? array() : unserialize($descriptionpage->displayoptions);
 
@@ -98,6 +99,7 @@ $formatoptions->noclean = true;
 $formatoptions->overflowdiv = true;
 $formatoptions->context = $context;
 $content = format_text($contentrewrited, $descriptionpage->contentformat, $formatoptions);
+$options = empty($page->displayoptions) ? array() : unserialize($descriptionpage->displayoptions);
 
 $filtersblock = new block_contents();
 $filtersblock->content .= $content;
