@@ -178,7 +178,7 @@ class subscription_button_object {
         } else {
             //   Mooc could not be replayed".
             //   CASE D : MOOC STOPPED - USER LOGGED OR NOT.
-            return $this->display_button('status_closed', '#', "btn btn-default disabled");
+            return $this->display_button('subscribe_to_mooc', '#', "btn btn-default disabled");
 
         }
     }
@@ -191,7 +191,7 @@ class subscription_button_object {
      * */
     private function controller_mooc_complete() {
 
-            return $this->display_button('registration_stopped', '#', "btn btn-default disabled");
+        return $this->display_button('subscribe_to_mooc', '#', "btn btn-default disabled");
 
     }
 
@@ -214,7 +214,6 @@ class subscription_button_object {
      * @return call to display_button() or display_mooc_open_date()
      * */
     private function controller_mooc_not_started() {
-        $utilities_object = new utilities_object();
 
         if (!isloggedin()) {
             //   User not logged.
@@ -232,10 +231,7 @@ class subscription_button_object {
             } else {
                 // User not subscribed to the mooc.
                 // CASE C : LOGGED TO A FUTUR MOOC - USER REGISTERED.
-
-                $text = get_string('mooc_open_date', 'local_orange_library', $utilities_object->get_formatted_date($this->course->startdate));
-                return html_writer::tag('a', $text, array('class' => "btn btn-default disabled", 'href' => '#'));
-
+                return $this->display_button('subscribe_to_mooc', '#', "btn btn-default disabled");
             }
         }
     }
@@ -255,7 +251,7 @@ class subscription_button_object {
                 // User not logged to solerni.
                 // User not registered to the mooc.
                 // CASE F : Subscription closed -  USER LOGGED OR NOT.
-                return $this->display_button('registration_stopped', '#', "btn btn-default disabled");
+                return $this->display_button('subscribe_to_mooc', '#', "btn btn-default disabled");
             } else {
                 //   User logged to solerni.
                 if (!is_enrolled($this->context)) {

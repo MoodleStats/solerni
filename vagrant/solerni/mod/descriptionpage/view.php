@@ -66,11 +66,8 @@ if ($p) {
 // Require_course_login($course, true, $cm);.
 $subscriptionbutton = new subscription_button_object($course);
 
-// ...$page = $PAGE->get_renderer('mod_page');.
 $context = context_module::instance($cm->id);
 descriptionpage_check_view_permissions($descriptionpage, $context, $cm);
-
-// ...$context = context_module::instance($cm->id);.
 require_capability('mod/descriptionpage:view', $context);
 
 // Update 'viewed' state if required by completion system.
@@ -79,10 +76,7 @@ $completion = new completion_info($course);
 $completion->set_module_viewed($cm);
 
 $PAGE->set_url('/mod/descriptionpage/view.php', array('id' => $cm->id));
-//$PAGE->set_pagelayout('base');
 $PAGE->blocks->add_region('main');
-$options = empty($page->displayoptions) ? array() : unserialize($descriptionpage->displayoptions);
-
 $PAGE->set_title($course->shortname.': '.$descriptionpage->name);
 $PAGE->set_heading($course->fullname);
 $PAGE->set_activity_record($descriptionpage);
@@ -98,6 +92,7 @@ $formatoptions->noclean = true;
 $formatoptions->overflowdiv = true;
 $formatoptions->context = $context;
 $content = format_text($contentrewrited, $descriptionpage->contentformat, $formatoptions);
+$options = empty($page->displayoptions) ? array() : unserialize($descriptionpage->displayoptions);
 
 $filtersblock = new block_contents();
 $filtersblock->content .= $content;
