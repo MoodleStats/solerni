@@ -80,30 +80,13 @@ class utilities_network {
     static public function get_hosts() {
         global $CFG, $USER, $DB;
 
-        // Shortcut -  only for logged in users!
-        if (!isloggedin() || isguestuser()) {
-            return false;
-        }
-
-        if (\core\session\manager::is_loggedinas()) {
-            // This kind of connection is not permiited to jump to other server.
-            // Error => 'notpermittedtojumpas', 'mnet'.
-            return false;
-        }
-
-        // According to start_jump_session,
-        // Remote users can't on-jump.
-        // So don't show URLs to them.
-        if (is_mnet_remote_user($USER)) {
+        // Guest user not supported.
+        if (isguestuser()) {
             return false;
         }
 
         if (!is_enabled_auth('mnet')) {
             // Auth MNet show be enabled.
-            return false;
-        }
-
-        if (!has_capability('moodle/site:mnetlogintoremote', \context_system::instance(), null, false)) {
             return false;
         }
 
@@ -140,14 +123,24 @@ class utilities_network {
         h.name";
 
         $hosts = $DB->get_records_sql($sql, array($CFG->mnet_localhost_id, $CFG->mnet_all_hosts_id));
-
         $thematics = array();
 
         if ($hosts) {
             foreach ($hosts as $host) {
                 $thematic = new \stdClass();
 
-                if ($host->id == $USER->mnethostid) {
+                // MNet Shortcut.
+                // Only for logged in users.
+                // User should not have a regular account on the host
+                // Login as is not permiited to jump to other server.
+                // According to start_jump_session, remote users can't on-jump.
+                // User should have the capability moodle/site:mnetlogintoremote.
+                if (($host->id == $USER->mnethostid) ||
+                    (!isloggedin()) ||
+                    (\core\session\manager::is_loggedinas()) ||
+                    (is_mnet_remote_user($USER)) ||
+                    (!has_capability('moodle/site:mnetlogintoremote', \context_system::instance(), null, false))
+                   ) {
                     $thematic->url = $host->wwwroot;
                     $thematic->name = $host->name;
                 } else {
