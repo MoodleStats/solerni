@@ -361,6 +361,11 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
                         $urltogo = $CFG->wwwroot.'/';
                         unset($SESSION->wantsurl);
                     }
+
+                    $loginrecord = array('userid' => $USER->id, 'time' => time(),
+                        'auth' => 'googleoauth2', 'subtype' => $authprovider);
+                    $DB->insert_record('auth_googleoauth2_logins', $loginrecord);
+
                     redirect($urltogo);
                 } else {
                     // Authenticate_user_login() failure, probably email registered by another auth plugin.
@@ -396,10 +401,7 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
                 global $PAGE, $CFG;
                 $PAGE->requires->jquery();
                 $content = str_replace(array("\n", "\r"), array("\\\n", "\\\r"), auth_googleoauth2_display_buttons(false));
-                $PAGE->requires->js_init_code('oauth2cssurl = "' . $CFG->httpswwwroot .
-                    '/auth/googleoauth2/socialsharekit/dist/css/social-share-kit.css"');
-                $PAGE->requires->js_init_code('oauth2cssurl2 = "' . $CFG->httpswwwroot .
-                    '/auth/googleoauth2/style.css"');
+                $PAGE->requires->css('/auth/googleoauth2/style.css');
                 $PAGE->requires->js_init_code("buttonsCodeOauth2 = '$content';");
                 $PAGE->requires->js(new moodle_url($CFG->wwwroot . "/auth/googleoauth2/script.js"));
             }
@@ -421,6 +423,10 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
     public function config_form($config, $err, $userfields) {
         global $OUTPUT, $CFG;
 
+        echo '<div class="alert alert-success"  role="alert">' . get_string('supportmaintenance', 'auth_googleoauth2') . '</div>';
+
+
+        // TODO: replace this table html ugliness by some nice bootstrap html code.
         echo '<table cellspacing="0" cellpadding="5" border="0">
             <tr>
                <td colspan="3">
@@ -448,7 +454,7 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
             echo '</h2>
                </td>
             </tr>
-            <tr>
+            <tr  style="vertical-align: top;">
                 <td align="right"><label for="'.$clientidname.'">';
 
             print_string('auth_'.$clientidname.'_key', 'auth_googleoauth2');
@@ -476,7 +482,7 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
 
             // Client secret.
 
-            echo '<tr>
+            echo '<tr  style="vertical-align: top;">
                 <td align="right"><label for="'.$clientsecretname.'">';
 
             print_string('auth_'.$clientsecretname.'_key', 'auth_googleoauth2');
@@ -495,7 +501,8 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
 
             print_string('auth_'.$clientsecretname, 'auth_googleoauth2');
 
-            echo '</td></tr>';
+            echo '</td></tr>
+            <tr style="min-height: 20px"><td>&nbsp;</td></tr>';
         }
 
         if (!isset($config->googleipinfodbkey)) {
@@ -581,6 +588,7 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
 
         echo '</td></tr>';
 
+
         // Block field options.
         // Hidden email options - email must be set to: locked.
         echo html_writer::empty_tag('input', array('type' => 'hidden', 'value' => 'locked',
@@ -595,7 +603,95 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
         print_auth_lock_options('googleoauth2', $userfields, get_string('auth_fieldlocks_help', 'auth'), false, false);
 
         echo '</table>';
+
+        // Calculate how many login per providers.
+        $providerstats = (object) $this->get_stats();
+        $strothermoodle = get_string('othermoodle', 'auth_googleoauth2');
+        $strstattitle = get_string('stattitle', 'auth_googleoauth2', $providerstats);
+        echo '
+            <center>
+            <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+                <script type="text/javascript">
+                  google.load("visualization", "1", {packages:["corechart"]});
+                  google.setOnLoadCallback(drawChart);
+                  function drawChart() {
+
+                    var data = google.visualization.arrayToDataTable([
+                      [\'Provider\', \'Login total\'],
+                      [\'Google\', ' . $providerstats->google . '],
+                      [\'Facebook\', ' . $providerstats->facebook . ' ],
+                      [\'Github\',  ' . $providerstats->github . ' ],
+                      [\'Linkedin\', ' . $providerstats->linkedin . ' ],
+                      [\'Microsoft\', ' . $providerstats->microsoft . ' ],
+                      [\'Dropbox\', ' . $providerstats->dropbox . ' ],
+                      [\'VK\', ' . $providerstats->vk . ' ],
+                      [\'Battle.net\', ' . $providerstats->battlenet . ' ],
+                      [\''.$strothermoodle.'\',    ' . $providerstats->moodle . ' ]
+                    ]);
+
+                    var options = {
+                      title: \''.$strstattitle.'\',
+                      is3D: true,
+                      slices: {
+                        0: { color: \'#D50F25\' },
+                        1: { color: \'#3b5998\' },
+                        2: { color: \'#eee\', fontcolor: \'black\'},
+                        3: { color: \'#007bb6\'},
+                        4: { color: \'#7cbb00\'},
+                        5: { color: \'#007ee5\'},
+                        6: { color: \'#45668e\'},
+                        7: { color: \'#00B4FF\'},
+                        8: { color: \'#ee7600\'}
+                      }
+                    };
+
+                    var chart = new google.visualization.PieChart(document.getElementById(\'piechart\'));
+
+                    chart.draw(data, options);
+                  }
+                </script>
+             <div id="piechart" style="width: 900px; height: 500px;"></div>
+            </center>
+        ';
     }
+
+    /**
+     * Retrieve the login provider stats.
+     */
+    public function get_stats($periodindays = 60) {
+        global $DB;
+
+        // Retrieve the logins.
+        $sql = 'time > :time';
+        $logins = $DB->get_records_select('auth_googleoauth2_logins', $sql,
+            array('time' => strtotime('-' . $periodindays . ' days', time())));
+
+        // Retrieve the moodle auth stats.
+        $loginstats = array( 'google' => 0,
+                             'facebook' => 0,
+                             'github' => 0,
+                             'linkedin' => 0,
+                             'microsoft' => 0,
+                             'dropbox' => 0,
+                             'vk' => 0,
+                             'battlenet' => 0,
+                             'moodle' => 0,
+                             'periodindays' => $periodindays);
+
+        // Retrieve the provider stats.
+        foreach ($logins as $login) {
+            if ($login->auth !== 'googleoauth2') {
+                $loginstats['moodle'] += 1;
+            } else {
+                $loginstats[$login->subtype] += 1;
+            }
+        }
+
+
+
+        return $loginstats;
+    }
+
 
     /**
      * Processes and stores configuration data for this authentication plugin.

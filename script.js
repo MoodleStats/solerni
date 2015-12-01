@@ -1,17 +1,7 @@
-$(document).ready(
+$(window).load(
     function () {
 
         // CODE HIGHLY INSPIRED FROM ELCENTRA OAUTH2 PLUGIN: https://moodle.org/plugins/view/auth_elcentra
-
-        var linkElement = document.createElement("link");
-        linkElement.rel = "stylesheet";
-        linkElement.href = oauth2cssurl;
-        document.head.appendChild(linkElement);
-
-        var linkElement2 = document.createElement("link");
-        linkElement2.rel = "stylesheet";
-        linkElement2.href = oauth2cssurl2;
-        document.head.appendChild(linkElement2);
 
         if ($("#auth_custom_location").length > 0) {
             $("#auth_custom_location").append(buttonsCodeOauth2);
@@ -29,7 +19,7 @@ $(document).ready(
         }
 
         // CODE FOR THE BUTTONS ANIMATION
-        $(".button-fill").hover(function () {
+        $(".social-button").hover(function () {
             $(this).children(".button-inside").addClass('full');
         }, function() {
             $(this).children(".button-inside").removeClass('full');
