@@ -158,20 +158,40 @@ class extended_course_object {
      * @var text $enrolurl
      */
     public $enrolurl;
+
     /**
-     * The registration end date of a course.
-     * @var text $enrolurl
+     * The $coursestatus of a course.
+     * @var text $coursestatus
      */
     public $coursestatus;
 
+
     /**
-     * The registration end date of a course.
-     * @var int $enrolledusers
+     * The $coursestatus of a course.
+     * @var text $coursestatus
+     */
+    public $coursestatustext;
+
+    /**
+     * The $registrationstatus of a course.
+     * @var text $registrationstatus
+     */
+    public $registrationstatus;
+
+    /**
+     * The $registrationstatus of a course.
+     * @var text $registrationstatus
+     */
+    public $registrationstatustext;
+
+    /**
+     * The $thumbnailtext of a course.
+     * @var int $thumbnailtext
      */
     public $thumbnailtext;
 
     /**
-     * The registration end date of a course.
+     * The $enrolledusers of a course.
      * @var int $enrolledusers
      */
     public $enrolledusers;
@@ -230,43 +250,8 @@ class extended_course_object {
             $this->enrolurl = $instance->customint2;
         }
         utilities_course::get_course_status($this, $course);
+        utilities_course::get_registration_status($this);
 
-
-    }
-
-    /**
-     * Return the status of the course
-     * Status could be :
-     *
-     *      const MOOCCOMPLETE     = 0;
-     *      const MOOCCLOSED       = 1;
-     *      const MOOCNOTSTARTED   = 2;
-     *      const MOOCRUNNING      = 3;
-     * @param $course object
-     * @return  (int)
-     */
-    public function get_status($course = null) {
-        global $COURSE;
-
-        if (!$course) {
-            $course = $COURSE;
-        }
-
-        $date = new \DateTime;
-
-        $this->coursestatus = self::MOOCRUNNING;
-        $this->coursestatustext = get_string('status_running', 'local_orange_library');
-
-        if ($this->enrolledusers >= $this->maxregisteredusers) {
-            $this->coursestatus = self::MOOCCOMPLETE;
-            $this->coursestatustext = get_string('mooc_complete', 'local_orange_library');
-        } else if ($this->enddate < $date->getTimestamp()) {
-            $this->coursestatus = self::MOOCCLOSED;
-            $this->coursestatustext = get_string('status_closed', 'local_orange_library');
-        }else if ($course->startdate > $date->getTimestamp()) {
-            $this->coursestatus = self::MOOCNOTSTARTED;
-            $this->coursestatustext = get_string('status_default', 'local_orange_library');
-        }
     }
 
     /**
