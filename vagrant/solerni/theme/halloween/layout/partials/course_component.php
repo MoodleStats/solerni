@@ -42,7 +42,7 @@ if ( $courseinfos ) :
                 <img src="<?php echo $courseimageurl; ?>" class="img-thumbnail img-responsive">
                 <div class="caption">
                     <h4><?php echo $coursename; ?></h4>
-                    <?php if ($customerurl && $customer && $customer->name) : ?>
+                    <?php if ($customerurl && $customer->name) : ?>
                     <p>
                         <?php echo get_string('courseproposedby', 'theme_halloween'); ?>
                         <a class="link-primary" href="<?php echo $customerurl; ?>" class="slrn-coursebox__course-customer">

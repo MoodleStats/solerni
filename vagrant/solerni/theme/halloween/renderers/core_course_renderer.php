@@ -28,7 +28,6 @@ use local_orange_library\utilities\utilities_object;
 use local_orange_library\utilities\utilities_image;
 use local_orange_library\utilities\utilities_course;
 use local_orange_library\subscription_button\subscription_button_object;
-use local_orange_library\extended_course\extended_course_object;
 
 require_once($CFG->dirroot . '/course/renderer.php');
 require_once($CFG->dirroot . '/blocks/orange_progressbar/lib.php');
@@ -500,10 +499,7 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
         $moocslist = "";
         $utilitiescourse = new utilities_course();
         foreach ($sitecourses as $key => $course) {
-            $context = context_course::instance($course->id);
-            $extendedcourse = new extended_course_object();
-            $extendedcourse->get_extended_course($course, $context);
-            $status = $utilitiescourse->get_course_status($extendedcourse, $course);
+            $status = $utilitiescourse->get_course_status($course);
 
             $nbcourses[0] = $nbcourses[0] + 1;
             if ($filter == 0 || $filter == $status) {

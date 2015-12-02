@@ -122,7 +122,7 @@ $filtermultilang = new filter_multilang($PAGE->context, array()); ?>
             </div>
         </div>
         <div class="col-xs-12 version-control text-right">
-                <?php echo $CFG->solerni_version; ?>
+                <?php echo 'v' . file_get_contents( $CFG->dirroot . '/solerni-version.txt'); ?>
         </div>
     </footer>
 </div>
