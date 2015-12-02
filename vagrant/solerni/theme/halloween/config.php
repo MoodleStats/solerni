@@ -117,7 +117,7 @@ $THEME->layouts = array(
     'format_flexpage' => array(
         'file' => 'default.php',
         'regions' => array('side-top', 'side-pre', 'main'),
-        'defaultregion' => 'side-pre',
+        'defaultregion' => 'main',
         'options' => array('langmenu' => true)
     ),
     // Most backwards compatible layout without the blocks - this is the layout used by default.
