@@ -30,11 +30,12 @@ require_once($CFG->dirroot . '/auth/googleoauth2/vendor/autoload.php');
  * Returns HTML fragment to materialize provider login capability to user
  */
 function googleoauth2_html_button($authurl, $providerdisplaystyle, $provider) {
-        return '<a class="singinprovider" href="' . $authurl . '" style="' . $providerdisplaystyle .'">
-                  <div class="social-button ' . $provider->sskstyle . '">' .
-                    get_string('signinwithanaccount', 'auth_googleoauth2', $provider->readablename) . 
-                 '</div>
-                </a>';
+    return '<a class="signinprovider ' .
+                $provider->name .
+                ' btn btn-engage btn-block ' .
+                $providerdisplaystyle . '" href="' . $authurl . '">' .
+                get_string('loginoauth', 'theme_halloween', $provider->readablename)  .
+            '</a>';
 }
 
 /**
@@ -174,5 +175,5 @@ function auth_googleoauth2_render_buttons() {
 
      $html .= "</div>";
 
-    return $html;
+    return array( 'html' =>  $html, 'providers' => $providerscount);
 }
