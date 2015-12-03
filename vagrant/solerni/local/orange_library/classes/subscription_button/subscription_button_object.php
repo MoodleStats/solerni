@@ -34,13 +34,18 @@ use moodle_exception;
 defined('MOODLE_INTERNAL') || die();
 
 class subscription_button_object {
-    const MOOCCOMPLETE     = 0;
-    const MOOCCLOSED       = 1;
-    const MOOCNOTSTARTED   = 2;
-    const MOOCRUNNING      = 3;
-    const USERLOGGED        = 4;
-    const USERENROLLED      = 5;
-    const PRIVATEPF     = 6;
+
+    const MOOCCOMPLETE              = 0;
+    const MOOCNOTCOMPLETE           = 4;
+    const MOOCREGISTRATIONSTOPPED   = 5;
+
+    const MOOCCLOSED                = 1;
+    const MOOCNOTSTARTED            = 2;
+    const MOOCRUNNING               = 3;
+
+    const USERLOGGED                = 6;
+    const USERENROLLED              = 7;
+    const PRIVATEPF                 = 8;
 
     protected $course;
     protected $context;

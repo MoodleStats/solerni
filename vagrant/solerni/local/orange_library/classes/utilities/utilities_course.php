@@ -42,10 +42,13 @@ require_once($CFG->dirroot . '/lib/coursecatlib.php'); // TODO : use course_in_l
 
 class utilities_course {
 
-    const MOOCCOMPLETE = 0;
-    const MOOCCLOSED = 1;
-    const MOOCNOTSTARTED = 2;
-    const MOOCRUNNING = 3;
+    const MOOCCOMPLETE              = 0;
+    const MOOCNOTCOMPLETE           = 4;
+    const MOOCREGISTRATIONSTOPPED   = 5;
+
+    const MOOCCLOSED                = 1;
+    const MOOCNOTSTARTED            = 2;
+    const MOOCRUNNING               = 3;
 
     /**
      * Get all Solerni informations for a course
@@ -470,31 +473,6 @@ class utilities_course {
     }
 
     /**
-     * Get the number of users enrolled in the course
-     *
-     * @param object $course
-     * @return int $nbenrolledusers
-     */
-    public function get_nb_users_enrolled_in_course($course) {
-        global $DB;
-        $courseid = $course->id;
-        $sqlrequest = "SELECT DISTINCT u.id AS userid, c.id AS courseid
-            FROM mdl_user u
-            JOIN mdl_user_enrolments ue ON ue.userid = u.id
-            JOIN mdl_enrol e ON e.id = ue.enrolid
-            JOIN mdl_role_assignments ra ON ra.userid = u.id
-            JOIN mdl_context ct ON ct.id = ra.contextid AND ct.contextlevel = 50
-            JOIN mdl_course c ON c.id = ct.instanceid AND e.courseid = " . $courseid . "
-            JOIN mdl_role r ON r.id = ra.roleid AND r.shortname = 'student'
-            WHERE e.status = 0 AND u.suspended = 0 AND u.deleted = 0
-            AND (ue.timeend = 0 OR ue.timeend > NOW()) AND ue.status = 0";
-        $enrolledusers = $DB->get_records_sql($sqlrequest);
-        $nbenrolledusers = count($enrolledusers);
-
-        return $nbenrolledusers;
-    }
-
-    /**
      *  Get the category ID of a course.
      *
      * @return int $categoryid
@@ -610,29 +588,113 @@ class utilities_course {
      * Status could be : MOOCRUNNING
      *                          MOOCCLOSED
      *                          MOOCNOTSTARTED
+     *
+     * @param $extendedcourse
+     * @return int $extendedcourse->coursestatus
+     */
+
+    public static function get_course_status($extendedcourse, $course) {
+
+        if (self::is_closed($extendedcourse)) {
+            return self::mooc_closed($extendedcourse);
+        } else if (self::is_after($course->startdate)) {
+            return self::mooc_not_started($extendedcourse);
+        } else {
+            return self::mooc_running($extendedcourse);
+        }
+    }
+
+        /**
+     * Get the registration not complete status from a course.
+     *
+     * @param object $extendedcourse
+     * @return MOOCNOTCOMPLETE
+     */
+    private static function mooc_running($extendedcourse) {
+        $extendedcourse->coursestatus = self::MOOCRUNNING;
+        $extendedcourse->coursestatustext = get_string('status_running', 'local_orange_library');
+        return self::MOOCRUNNING;
+    }
+
+        /**
+     * Get the registration not complete status from a course.
+     *
+     * @param object $extendedcourse
+     * @return MOOCNOTCOMPLETE
+     */
+    private static function mooc_closed($extendedcourse) {
+            $extendedcourse->coursestatustext = get_string('status_closed', 'local_orange_library');
+            $extendedcourse->coursestatus = self::MOOCCLOSED;
+            return self::MOOCCLOSED;
+    }
+
+        /**
+     * Get the registration not complete status from a course.
+     *
+     * @param object $extendedcourse
+     * @return MOOCNOTCOMPLETE
+     */
+    private static function mooc_not_started($extendedcourse) {
+            $extendedcourse->coursestatustext = get_string('status_default', 'local_orange_library');
+            $extendedcourse->coursestatus = self::MOOCNOTSTARTED;
+            return self::MOOCNOTSTARTED;
+    }
+    /**
+     * Return the registration status of the course
+     * Status could be : MOOCNOTCOMPLETE
      *                          MOOCCOMPLETE
-     *                          PRIVATECOURSE
+     *                          MOOCREGISTRATIONSTOPPED
      *
      * @param $extendedcourse
      * @return int
      */
-    public static function get_course_status($extendedcourse, $course) {
+    public static function get_registration_status($extendedcourse) {
 
-
-        $extendedcourse->coursestatus = self::MOOCRUNNING;
-        $extendedcourse->coursestatustext = get_string('status_running', 'local_orange_library');
-
-        if (self::is_complete($extendedcourse)) {
-            $extendedcourse->coursestatustext = get_string('mooc_complete', 'local_orange_library');
-            $extendedcourse->coursestatus = self::MOOCCOMPLETE;
-        } else if (self::is_closed($extendedcourse)) {
-            $extendedcourse->coursestatustext = get_string('status_closed', 'local_orange_library');
-            $extendedcourse->coursestatus = self::MOOCCLOSED;
-        } else if (self::is_after($course->startdate)) {
-            $extendedcourse->coursestatustext = get_string('status_default', 'local_orange_library');
-            $extendedcourse->coursestatus = self::MOOCNOTSTARTED;
+        if ($extendedcourse->registration == 0) {
+            return self::mooc_not_complete($extendedcourse);
+        } else if ($extendedcourse->enrolledusers >= $extendedcourse->maxregisteredusers) {
+            return self::mooc_complete($extendedcourse);
+        } else if (self::is_after($extendedcourse->enrolenddate)) {
+            return self::mooc_registration_stopped($extendedcourse);
+        } else {
+            return self::mooc_not_complete($extendedcourse);
         }
-        return $extendedcourse->coursestatus;
+    }
+
+    /**
+     * Get the registration not complete status from a course.
+     *
+     * @param object $extendedcourse
+     * @return MOOCNOTCOMPLETE
+     */
+    private static function mooc_not_complete($extendedcourse) {
+        $extendedcourse->registrationstatus = self::MOOCNOTCOMPLETE;
+        $extendedcourse->registrationstatustext = get_string('registration_open', 'local_orange_library');
+        return self::MOOCNOTCOMPLETE;
+    }
+
+    /**
+     * Get the registration complete status from a course.
+     *
+     * @param object $extendedcourse
+     * @return MOOCCOMPLETE
+     */
+    private static function mooc_complete($extendedcourse) {
+        $extendedcourse->registrationstatus = self::MOOCCOMPLETE;
+        $extendedcourse->registrationstatustext = get_string('mooc_complete', 'local_orange_library');
+        return self::MOOCCOMPLETE;
+    }
+
+    /**
+     * Get the registration stopped status from a course.
+     *
+     * @param object $extendedcourse
+     * @return MOOCREGISTRATIONSTOPPED
+     */
+    private static function mooc_registration_stopped($extendedcourse) {
+        $extendedcourse->registrationstatus = self::MOOCREGISTRATIONSTOPPED;
+        $extendedcourse->registrationstatustext = get_string('registration_closed', 'local_orange_library');
+        return self::MOOCREGISTRATIONSTOPPED;
     }
 
     /**
@@ -645,22 +707,6 @@ class utilities_course {
         if ($extendedcourse->enddate == 0) {
             return false;
         } elseif (self::is_before($extendedcourse->enddate)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Get the complete status from a course.
-     *
-     * @param object $extendedcourse
-     * @return boolean
-     */
-    private static function is_complete($extendedcourse) {
-        if ($extendedcourse->registration == 0) {
-            return false;
-        } else if ($extendedcourse->enrolledusers >= $extendedcourse->maxregisteredusers) {
             return true;
         } else {
             return false;
@@ -696,5 +742,4 @@ class utilities_course {
             return false;
         }
     }
-
 }
