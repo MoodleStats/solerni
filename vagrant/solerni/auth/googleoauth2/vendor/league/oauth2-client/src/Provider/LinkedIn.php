@@ -7,7 +7,8 @@ use League\OAuth2\Client\Token\AccessToken;
 
 class LinkedIn extends AbstractProvider
 {
-    public $scopes = ['r_basicprofile r_emailaddress r_contactinfo'];
+    public $scopes = [];
+    public $scopeSeparator = ' ';
     public $responseType = 'json';
     public $authorizationHeader = 'Bearer';
     public $fields = [
@@ -39,6 +40,7 @@ class LinkedIn extends AbstractProvider
         $location = (isset($response->location->name)) ? $response->location->name : null;
         $description = (isset($response->headline)) ? $response->headline : null;
         $pictureUrl = (isset($response->pictureUrl)) ? $response->pictureUrl : null;
+        $publicProfileUrl = (isset($response->publicProfileUrl)) ? $response->publicProfileUrl : null;
 
         $user->exchangeArray([
             'uid' => $response->id,
@@ -49,7 +51,7 @@ class LinkedIn extends AbstractProvider
             'location' => $location,
             'description' => $description,
             'imageurl' => $pictureUrl,
-            'urls' => isset($response->publicProfileUrl)?$response->publicProfileUrl:'',
+            'urls' => $publicProfileUrl,
         ]);
 
         return $user;
