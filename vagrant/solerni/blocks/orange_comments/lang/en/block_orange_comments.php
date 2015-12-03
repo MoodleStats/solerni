@@ -15,21 +15,13 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Theme More version file.
+ * Strings for component 'block_orange_comments', language 'en'
  *
- * @package    theme_halloween
- * @copyright  2014 Bas Brands
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    block_orange_comments
+ * @copyright 2009 Dongsheng Cai <dongsheng@moodle.com>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
-
-
-$plugin->version   = 2015120200;
-$plugin->requires  = 2014051200;
-$plugin->release  = 2014051300;
-$plugin->maturity  = MATURITY_BETA;
-$plugin->component = 'theme_halloween';
-$plugin->dependencies = array(
-    'theme_bootstrap'  => 2014051300
-);
+$string['orange_comments:myaddinstance'] = 'Add a new comments block to My home';
+$string['orange_comments:addinstance'] = 'Add a new comments block';
+$string['pluginname'] = 'Orange Comments';

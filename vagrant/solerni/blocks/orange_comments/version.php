@@ -15,21 +15,15 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Theme More version file.
+ * Version details
  *
- * @package    theme_halloween
- * @copyright  2014 Bas Brands
+ * @package    block_orange_comments
+ * @copyright  2015 Orange based on block_comments plugin from 1999 onwards Martin Dougiamas (http://dougiamas.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
+defined('MOODLE_INTERNAL') || die();
 
-
-$plugin->version   = 2015120200;
-$plugin->requires  = 2014051200;
-$plugin->release  = 2014051300;
-$plugin->maturity  = MATURITY_BETA;
-$plugin->component = 'theme_halloween';
-$plugin->dependencies = array(
-    'theme_bootstrap'  => 2014051300
-);
+$plugin->version   = 2015120100;        // The current plugin version (Date: YYYYMMDDXX).
+$plugin->requires  = 2014051207;        // Requires this Moodle version.
+$plugin->component = 'block_orange_comments'; // Full name of the plugin (used for diagnostics).

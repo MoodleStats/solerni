@@ -15,21 +15,19 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Theme More version file.
+ * block_orange_comments comment deleted event.
  *
- * @package    theme_halloween
- * @copyright  2014 Bas Brands
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    block_orange_comments
+ * @copyright 2009 Dongsheng Cai <dongsheng@moodle.com>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
+namespace block_orange_comments\event;
+defined('MOODLE_INTERNAL') || die();
 
-
-$plugin->version   = 2015120200;
-$plugin->requires  = 2014051200;
-$plugin->release  = 2014051300;
-$plugin->maturity  = MATURITY_BETA;
-$plugin->component = 'theme_halloween';
-$plugin->dependencies = array(
-    'theme_bootstrap'  => 2014051300
-);
+/**
+ * block_orange_comments comment deleted event.
+ */
+class orange_comment_deleted extends \core\event\comment_deleted {
+    // No need to override any method.
+}
