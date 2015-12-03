@@ -14,21 +14,19 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+
 /**
- * Invitation plugin version specification.
+ * Adds new instance of enrol_orangeinvitation to specified course
+ * or edits current instance.
  *
  * @package    enrol
- * @subpackage orangeinvitation
- * @copyright  Orange 2015 based on Jerome Mouneyrac invitation plugin{@link http://www.moodleitandme.com}
+ * @subpackage orangenextsession
+ * @copyright  Orange 2015 based on Waitlist Enrol plugin / emeneo.com
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version  = 2015042906;
-$plugin->requires = 2014051200;   // Requires Moodle 2.7 or later.
-$plugin->maturity = MATURITY_RC;  // This version's maturity level.
-$plugin->dependencies = array(
-    'enrol_orangenextsession' => 2015120201,
-    'enrol_self' => ANY_VERSION
-);
+$plugin->version  = 2015120201;
+$plugin->requires = 2014051200;
+$plugin->maturity = MATURITY_STABLE;
+$plugin->release = 'Orange NextSession Plugin Version 1.0(build 2015120201)';

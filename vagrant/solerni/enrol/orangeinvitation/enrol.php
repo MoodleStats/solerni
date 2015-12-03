@@ -25,6 +25,7 @@
 require('../../config.php');
 require($CFG->dirroot . '/enrol/orangeinvitation/locallib.php');
 require($CFG->dirroot . '/enrol/self/lib.php');
+require($CFG->dirroot . '/enrol/orangenextsession/lib.php');
 
 // Get parameter before login redirection and set cookie.
 // The cookie is needed to support the platform inscription process with email validation.

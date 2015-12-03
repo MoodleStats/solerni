@@ -19,6 +19,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+use local_orange_library\utilities\utilities_course;
+
 class invitation_manager {
 
     /*
@@ -141,13 +143,49 @@ function check_course_redirection ($cookie=null, $enrolinvitationtoken=null, $co
                         $message = $enrolstatus;
                     }
                 }
+            } else {
+                $message = get_string('selfenrolnotavailable', 'enrol_orangeinvitation');
+            }
+        }
+
+        if ($message == "") {
+            $courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
+        } else {
+            $courseurl = new moodle_url('/');
+        }
+
+    } else if ($doenrol == 2) {
+        // This is only possible if the wait list enrolment method exist and is activated.
+        $instances = enrol_get_instances ($courseid, true);
+        if (count($instances) == 0) {
+            // Error, the user can't enrol.
+            $message = get_string('nextsessionnotavailable', 'enrol_orangeinvitation');
+        } else {
+            $instancewaitlist = array_filter ($instances, function ($element) {
+                return $element->enrol == "orangenextsession";
+            });
+            if (count($instancewaitlist) == 1) {
+                $waitlistenrol = new enrol_orangenextsession_plugin();
+                $instancewaitlist = array_pop($instancewaitlist);
+                // Test that the user is not already enrolled; Already done in can_self_enrol but
+                // wrong error message.
+                    $enrolstatus = $waitlistenrol->enrol_orangenextsession($instancewaitlist);
+                    if (true === $enrolstatus) {
+                        
+                    } else {
+                        $message = $enrolstatus;
+                    }
+                        $courseutilities = new utilities_course();
+                        $course = new \stdClass();
+                        $course->id = $courseid;
+                        $courseurl = $courseutilities->get_description_page_url($course);
+            } else {
+                $message = get_string('nextsessionnotavailable', 'enrol_orangeinvitation');
             }
         }
     }
 
-    if ($message == "") {
-        $courseurl = new moodle_url('/course/view.php', array('id' => $courseid));
-    } else {
+    if (!isset($courseurl)) {
         $courseurl = new moodle_url('/');
     }
 
