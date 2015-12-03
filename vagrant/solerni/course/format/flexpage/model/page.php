@@ -99,7 +99,7 @@ class course_format_flexpage_model_page extends course_format_flexpage_model_abs
      *
      * @var int
      */
-    protected $display = 0;
+    protected $display = self::DISPLAY_VISIBLE_MENU;
 
     /**
      * The page's parent page ID
@@ -120,7 +120,7 @@ class course_format_flexpage_model_page extends course_format_flexpage_model_abs
      *
      * @var int
      */
-    protected $navigation = 0;
+    protected $navigation = self::NAV_BOTH ;
 
     /**
      * Conditional release: release code
