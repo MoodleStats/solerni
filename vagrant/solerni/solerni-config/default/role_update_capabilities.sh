@@ -446,3 +446,8 @@ moosh role-update-capability solerni_course_creator block/orange_listforumng:add
 
 # Mnet (#us_326)
 moosh role-update-capability solerni_utilisateur moodle/site:mnetlogintoremote allow 1
+
+# block orange_comments (#us_209)
+moosh role-update-capability solerni_teacher block/orange_comments:addinstance allow 1
+moosh role-update-capability solerni_teacher moodle/comment:delete allow 1
+moosh role-update-capability solerni_animateur moodle/comment:delete allow 1
