@@ -158,11 +158,6 @@ class enrol_orangeinvitation_plugin extends enrol_plugin {
                 'id' => $instance->id));
             $icons[] = $OUTPUT->action_icon($editlink, new pix_icon('t/edit',
                 get_string('edit'), 'core', array('class' => 'iconsmall')));
-
-            $exportlink = new moodle_url("/enrol/orangeinvitation/export.php", array('courseid' => $instance->courseid,
-                'id' => $instance->id));
-            $icons[] = $OUTPUT->action_icon($editlink, new pix_icon('t/edit',
-                get_string('edit'), 'core', array('class' => 'iconsmall')));
         }
 
         return $icons;

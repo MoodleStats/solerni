@@ -26,37 +26,21 @@
  */
 
 $string['customconfirmationemessage'] = 'Custom confirmation message (in HTML)';
-$string['enrolme'] = 'Enrol me';
- $string['pluginname'] = 'Enrol for next session';
- $string['pluginname_desc'] = 'The NextSession enrolment plugin allows users to indicates that they are interesting to follow next session of this course.';
-$string['role'] = 'Assign role';
-$string['waitlist:config'] = 'Configure waitlist enrol instances';
-$string['waitlist:manage'] = 'Manage enrolled users';
-$string['waitlist:unenrol'] = 'Unenrol users from course';
-$string['waitlist:unenrolwaitlist'] = 'Unenrol waitlist from the course';
- $string['sendconfirmationmessage'] = 'Send confirmation message';
- $string['sendconfirmationmessage_help'] = 'If enabled, users will receive a confirmation email of his inscription on the list for next session.';
-$string['showhint'] = 'Show hint';
-$string['showhint_desc'] = 'Show first letter of the guest access key.';
- $string['status'] = 'Allow OrangeNextSession enrolments';
- $string['status_desc'] = 'Allow to activate by default the OrangeNextSession enrolment.';
-$string['status_help'] = 'This setting determines whether a user can enrol (and also unenrol if they have the appropriate permission) themselves from the course.';
-$string['unenrolwaitlistconfirm'] = 'Do you really want to unenrol "{$a}"?';
-$string['welcometocourse'] = 'Welcome to {$a}';
-$string['welcometocoursetext'] = 'Welcome to {$a->coursename}!
+$string['pluginname'] = 'Enrol for next session';
+$string['pluginname_desc'] = 'The NextSession enrolment plugin allows users to indicates that they are interesting to follow next session of this course.';
+$string['orangenextsession:config'] = 'Configure OrangeNextSession enrol instances';
+$string['sendconfirmationmessage'] = 'Send confirmation message';
+$string['sendconfirmationmessage_help'] = 'If enabled, users will receive a confirmation email of his inscription on the list for next session.';
+$string['status'] = 'Allow OrangeNextSession enrolments';
+$string['status_desc'] = 'Allow to activate by default the OrangeNextSession enrolment.';
+$srting['custominformationmessage'] = 'Custom information mail';
+$string['informationmessage'] = 'INscription on the waiting list for {$a}';
+$string['informationmessagetext'] = 'Hello
 
-If you have not done so already, you should edit your profile page so that we can learn more about you:
-
-  {$a->profileurl}';
-$string['confirmation'] = 'If you proceed you will be enrolled to this course.<br><br>Are you absolutely sure you want to do this?';
-$string['confirmationfull'] = '<strong>This course is presently booked.</strong> If you proceed you will be placed on a waiting list and will be enrolled automatically and informed by email in case enough spaces becomes available.<br>';
-$string['confirmation_yes'] = 'Yes';
-$string['confirmation_no'] = 'No';
-$string['waitlistinfo'] = '<b>This course is presently booked</b>. <br/><br/>Thank you for your application request. You have been placed on a waiting list and will be informed via email in case a space becomes available.';
-$string['waitlist:unenrolself'] = 'Unenrol self from the course';
-$string['lineconfirm'] = '<br>Are you absolutely sure you want to do this?';
-$string['confirmation_cancel'] = 'Cancel';
-$string['enrolusers'] = 'Enrol users';
-
-$string['nextsessionnotavailable'] = 'An error occurs while recording your request. This feature is not enabled.';
+Thanks for your interest for the courss {$a->coursename}. You will be informed when the new session will start.
+';
+$string['orangenextsessioninfo'] = '<b>This course is presently booked</b>. <br/>Thank you for your application request. You will be informed via email when a new session will start.';
+$string['nextsessionnotavailable'] = 'An error occurs while recording your request.';
 $string['exportuserlist'] = 'Export users in CSV files';
+$string['alreadyenrolled'] = 'You are already enrolled for this course';
+$string['alreadyinlist'] = 'You are already on the list to be informed of next session.';

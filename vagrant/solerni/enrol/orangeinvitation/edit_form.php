@@ -52,8 +52,15 @@ class enrol_orangeinvitation_edit_form extends moodleform {
         $mform->addElement('static', 'customtext2static', get_string('enrollink', 'enrol_orangeinvitation'));
         $mform->addHelpButton('customtext2static', 'enrollink', 'enrol_orangeinvitation');
 
+        $mform->addElement('static', 'customtext3static', get_string('nextsessionlink', 'enrol_orangeinvitation'));
+        $mform->addHelpButton('customtext3static', 'nextsessionlink', 'enrol_orangeinvitation');
+
         $mform->addElement('hidden', 'customtext1');
         $mform->setType('customtext1', PARAM_URL);
+        $mform->addElement('hidden', 'customtext2');
+        $mform->setType('customtext2', PARAM_URL);
+        $mform->addElement('hidden', 'customtext3');
+        $mform->setType('customtext3', PARAM_URL);
         $mform->addElement('hidden', 'id');
         $mform->setType('id', PARAM_INT);
         $mform->addElement('hidden', 'courseid');

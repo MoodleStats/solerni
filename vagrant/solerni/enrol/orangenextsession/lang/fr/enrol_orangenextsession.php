@@ -25,38 +25,22 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
- $string['customconfirmationmessage'] = 'Message de confirmation (en HTML)';
-$string['enrolme'] = 'Enrol me';
- $string['pluginname'] = 'Inscription pour la prochaine session';
- $string['pluginname_desc'] = 'Le plugin Inscription pour la prochaine session permet aux utilisateurs d\'indiquer qu\'ils souhaitent participer à la prochaine session du cours.';
-$string['role'] = 'Assign role';
-$string['waitlist:config'] = 'Configure waitlist enrol instances';
-$string['waitlist:manage'] = 'Manage enrolled users';
-$string['waitlist:unenrol'] = 'Unenrol users from course';
-$string['waitlist:unenrolwaitlist'] = 'Unenrol waitlist from the course';
- $string['sendconfirmationmessage'] = 'Envoyer un message de confirmation d\'inscription';
- $string['sendconfirmationmessage_help'] = 'Si l\'option est activée, l\'utilisateur recevra un email de confirmation d\'inscription sur la liste de la prochaine session du cours.';
-$string['showhint'] = 'Show hint';
-$string['showhint_desc'] = 'Show first letter of the guest access key.';
- $string['status'] = 'Autoriser les inscription OrangeNextSession';
- $string['status_desc'] = 'Permet d\'activer par défaut la méthode d\'inscription OrangeNextSession.';
-$string['status_help'] = 'This setting determines whether a user can enrol (and also unenrol if they have the appropriate permission) themselves from the course.';
-$string['unenrolwaitlistconfirm'] = 'Do you really want to unenrol "{$a}"?';
-$string['welcometocourse'] = 'Welcome to {$a}';
-$string['welcometocoursetext'] = 'Welcome to {$a->coursename}!
+$string['customconfirmationmessage'] = 'Message de confirmation (en HTML)';
+$string['pluginname'] = 'Inscription pour la prochaine session';
+$string['pluginname_desc'] = 'Le plugin Inscription pour la prochaine session permet aux utilisateurs d\'indiquer qu\'ils souhaitent participer à la prochaine session du cours.';
+$string['orangenextsession:config'] = 'Configuration du plugin OrangeNextSession';
+$string['sendconfirmationmessage'] = 'Envoyer un message de confirmation d\'inscription';
+$string['sendconfirmationmessage_help'] = 'Si l\'option est activée, l\'utilisateur recevra un email de confirmation d\'inscription sur la liste de la prochaine session du cours.';
+$string['status'] = 'Autoriser les inscription OrangeNextSession';
+$string['status_desc'] = 'Permet d\'activer par défaut la méthode d\'inscription OrangeNextSession.';
+$srting['custominformationmessage'] = 'Personnalisation du mail d\'information';
+$string['informationmessage'] = 'Incription sur la liste d\'attente du cours {$a}';
+$string['informationmessagetext'] = 'Bonjour
 
-If you have not done so already, you should edit your profile page so that we can learn more about you:
-
-  {$a->profileurl}';
-$string['confirmation'] = 'If you proceed you will be enrolled to this course.<br><br>Are you absolutely sure you want to do this?';
-$string['confirmationfull'] = '<strong>This course is presently booked.</strong> If you proceed you will be placed on a waiting list and will be enrolled automatically and informed by email in case enough spaces becomes available.<br>';
-$string['confirmation_yes'] = 'Yes';
-$string['confirmation_no'] = 'No';
-$string['waitlistinfo'] = '<b>This course is presently booked</b>. <br/><br/>Thank you for your application request. You have been placed on a waiting list and will be informed via email in case a space becomes available.';
-$string['waitlist:unenrolself'] = 'Unenrol self from the course';
-$string['lineconfirm'] = '<br>Are you absolutely sure you want to do this?';
-$string['confirmation_cancel'] = 'Cancel';
-$string['enrolusers'] = 'Enrol users';
-
-$string['nextsessionnotavailable'] = 'An error occurs while recording your request. This feature is not enabled.';
+Merci de votre intérêt pour le cours {$a->coursename}. Vous serrez informé du lancement d\'une nouvelle session.
+';
+$string['orangenextsessioninfo'] = '<b>Les inscriptions pour ce cours sont terminées</b>. <br/>Vous serez prévenu du lancement d\'une prochaine session de ce cours.';
+$string['nextsessionnotavailable'] = 'Une erreur est survenue lors de l\'enregistrement de votre demande.';
 $string['exportuserlist'] = 'Exporter la liste des utilisateurs au format CSV';
+$string['alreadyenrolled'] = 'Vous êtes déjà inscrit au cours';
+$string['alreadyinlist'] = 'Vous êtes déjà inscrit sur la liste pour être averti de la prochaine session.';

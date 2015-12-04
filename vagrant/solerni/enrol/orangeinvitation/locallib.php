@@ -19,7 +19,12 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+define ('ACTION_FINDOUTMORE'              , 0);
+define ('ACTION_ENROLTOCOURSE'            , 1);
+define ('ACTION_ENROLNEXTSESSION'         , 2);
+
 use local_orange_library\utilities\utilities_course;
+use local_orange_library\extended_course\extended_course_object;
 
 class invitation_manager {
 
@@ -85,18 +90,19 @@ class invitation_manager {
  * @param cookie or token/courseid/enrol
  * @return array
  */
-function check_course_redirection ($cookie=null, $enrolinvitationtoken=null, $courseid=null, $doenrol=null) {
+function check_course_redirection ($cookie=null, $enrolinvitationtoken=null, $courseid=null, $action=null) {
     global $DB, $USER;
 
+   
     if ($cookie != null) {
         // Decrypt cookie content token-courseId.
         $cookiecontent = explode("-", rc4decrypt($cookie));
         $enrolinvitationtoken = $cookiecontent[0];
         $courseid = $cookiecontent[1];
         if (isset($cookiecontent[2])) {
-            $doenrol = $cookiecontent[2];
+            $action = $cookiecontent[2];
         } else {
-            $doenrol = null;
+            $action = 0;
         }
     }
 
@@ -109,6 +115,12 @@ function check_course_redirection ($cookie=null, $enrolinvitationtoken=null, $co
         $message = get_string('expiredtoken', 'enrol_orangeinvitation');
     }
 
+    $courseutilities = new utilities_course();
+    $course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
+    $findoutmoreurl = $courseutilities->get_description_page_url($course);
+
+    $context = context_course::instance($courseid, MUST_EXIST);
+    
     // Get.
     $invitationmanager = new invitation_manager($courseid);
     $instance = $invitationmanager->get_invitation_instance($courseid);
@@ -118,7 +130,9 @@ function check_course_redirection ($cookie=null, $enrolinvitationtoken=null, $co
     }
 
     // Do we have to enrol the user.
-    if ($doenrol == 1) {
+    if ($action == ACTION_FINDOUTMORE) {
+        $courseurl = $findoutmoreurl;
+    } else if ($action == ACTION_ENROLTOCOURSE) {
         // This is only possible if the self enrolment method exist and is activated.
         $instances = enrol_get_instances ($courseid, true);
         if (count($instances) == 0) {
@@ -154,7 +168,7 @@ function check_course_redirection ($cookie=null, $enrolinvitationtoken=null, $co
             $courseurl = new moodle_url('/');
         }
 
-    } else if ($doenrol == 2) {
+    } else if ($action == ACTION_ENROLNEXTSESSION) {
         // This is only possible if the wait list enrolment method exist and is activated.
         $instances = enrol_get_instances ($courseid, true);
         if (count($instances) == 0) {
@@ -165,20 +179,23 @@ function check_course_redirection ($cookie=null, $enrolinvitationtoken=null, $co
                 return $element->enrol == "orangenextsession";
             });
             if (count($instancewaitlist) == 1) {
-                $waitlistenrol = new enrol_orangenextsession_plugin();
-                $instancewaitlist = array_pop($instancewaitlist);
-                // Test that the user is not already enrolled; Already done in can_self_enrol but
-                // wrong error message.
+                // The registration status of the course should be MOOCCOMPLETED
+                $extendedcourse = new extended_course_object();
+                $extendedcourse->get_extended_course($course, $context);
+
+                if ($extendedcourse->registrationstatus == utilities_course::MOOCCOMPLETE) {
+                    $waitlistenrol = new enrol_orangenextsession_plugin();
+                    $instancewaitlist = array_pop($instancewaitlist);
                     $enrolstatus = $waitlistenrol->enrol_orangenextsession($instancewaitlist);
                     if (true === $enrolstatus) {
-                        
+
                     } else {
                         $message = $enrolstatus;
                     }
-                        $courseutilities = new utilities_course();
-                        $course = new \stdClass();
-                        $course->id = $courseid;
-                        $courseurl = $courseutilities->get_description_page_url($course);
+                    $courseurl = $findoutmoreurl;
+                } else {
+                    $message = get_string('nextsessionnotavailable', 'enrol_orangeinvitation');
+                }
             } else {
                 $message = get_string('nextsessionnotavailable', 'enrol_orangeinvitation');
             }

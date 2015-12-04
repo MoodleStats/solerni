@@ -46,11 +46,11 @@ class enrol_orangenextsession_edit_form extends moodleform {
         $mform->addHelpButton('status', 'status', 'enrol_orangenextsession');
         $mform->setDefault('status', $plugin->get_config('status'));
 
-        $mform->addElement('advcheckbox', 'customint4', get_string('sendconfirmationmessage', 'enrol_orangenextsession'));
-        $mform->setDefault('customint4', $plugin->get_config('sendconfirmationmessage'));
-        $mform->addHelpButton('customint4', 'sendconfirmationmessage', 'enrol_orangenextsession');
+        $mform->addElement('advcheckbox', 'customint1', get_string('sendconfirmationmessage', 'enrol_orangenextsession'));
+        $mform->setDefault('customint1', $plugin->get_config('sendconfirmationmessage'));
+        $mform->addHelpButton('customint1', 'sendconfirmationmessage', 'enrol_orangenextsession');
 
-        $mform->addElement('textarea', 'customtext1', get_string('customwelcomemessage', 'enrol_orangenextsession'),
+        $mform->addElement('textarea', 'customtext1', get_string('custominformationmessage', 'enrol_orangenextsession'),
                 array('cols' => '60', 'rows' => '8'));
 
         $mform->addElement('hidden', 'id');

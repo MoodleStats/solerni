@@ -33,12 +33,8 @@ $enrolinvitationtoken = required_param('enrolinvitationtoken', PARAM_ALPHANUM);
 // Course id.
 $id = required_param('id', PARAM_INT);
 // Enrol : true/false.
-$enrol = optional_param('id2', null, PARAM_INT);
-if ($enrol == null) {
-    setcookie ( 'MoodleEnrolToken', rc4encrypt($enrolinvitationtoken.'-'.$id), time() + 3600, '/');
-} else {
-    setcookie ( 'MoodleEnrolToken', rc4encrypt($enrolinvitationtoken.'-'.$id.'-'.$enrol), time() + 3600, '/');
-}
+$action = optional_param('id2', null, PARAM_INT);
+setcookie ( 'MoodleEnrolToken', rc4encrypt($enrolinvitationtoken.'-'.$id.'-'.(int)$action), time() + 3600, '/');
 
 require_login();
 
@@ -48,5 +44,5 @@ if (!empty($enrolinvitationtoken)) {
     $id = required_param('id', PARAM_INT);
 
     // Check if we have to redirect the user to the course presentation page or to enrol him to the course.
-    check_course_redirection  (null, $enrolinvitationtoken, $id, $enrol);
+    check_course_redirection  (null, $enrolinvitationtoken, $id, $action);
 }

@@ -146,6 +146,24 @@ class enrol_orangenextsession_plugin extends enrol_plugin {
         return new moodle_url('/enrol/orangenextsession/edit.php', array('courseid' => $courseid));
     }
 
+    /**
+     * Sets up navigation entries.
+     *
+     * @param object $instance
+     * @return void
+     */
+    public function add_course_navigation($instancesnode, stdClass $instance) {
+        if ($instance->enrol !== 'orangenextsession') {
+             throw new coding_exception('Invalid enrol instance type!');
+        }
+
+        $context = context_course::instance($instance->courseid);
+        if (has_capability('enrol/orangenextsession:config', $context)) {
+            $managelink = new moodle_url('/enrol/orangenextsession/edit.php', array('courseid' => $instance->courseid,
+                'id' => $instance->id));
+            $instancesnode->add($this->get_instance_name($instance), $managelink, navigation_node::TYPE_SETTING);
+        }
+    }
 
     public function enrol_orangenextsession(stdClass $instance) {
         global $CFG, $USER, $DB;
@@ -159,7 +177,7 @@ class enrol_orangenextsession_plugin extends enrol_plugin {
         }
 
         if ($DB->record_exists('user_enrol_nextsession', array('userid' => $USER->id, 'instanceid' => $instance->id))) {
-            return get_string('waitlistinfo', 'enrol_orangenextsession');
+            return get_string('alreadyinlist', 'enrol_orangenextsession');
         }
 
         require_once("$CFG->dirroot/enrol/orangenextsession/orangenextsession.php");
@@ -167,7 +185,11 @@ class enrol_orangenextsession_plugin extends enrol_plugin {
         $nextsession = new orangenextsession();
         $nextsession->add_nextsession_list($instance->id, $USER->id);
 
-        return true;
+        if ($instance->customint1) {
+            $this->email_information_message($instance, $USER);
+        }
+        
+        return get_string('orangenextsessioninfo', 'enrol_orangenextsession');
     }
 
 
@@ -177,7 +199,7 @@ class enrol_orangenextsession_plugin extends enrol_plugin {
      * @return int id of new instance
      */
     public function add_default_instance($course) {
-        $fields = array('customint4'  => $this->get_config('sendconfirmationmessage'),
+        $fields = array('customint1'  => $this->get_config('sendconfirmationmessage'),
                         'status'      => $this->get_config('status')
                         );
 
@@ -185,13 +207,13 @@ class enrol_orangenextsession_plugin extends enrol_plugin {
     }
 
     /**
-     * Send welcome email to specified user
+     * Send information email to specified user
      *
      * @param object $instance
      * @param object $user user record
      * @return void
      */
-    protected function email_welcome_message($instance, $user) {
+    protected function email_information_message($instance, $user) {
         global $CFG, $DB;
 
         $course = $DB->get_record('course', array('id' => $instance->courseid), '*', MUST_EXIST);
@@ -205,12 +227,12 @@ class enrol_orangenextsession_plugin extends enrol_plugin {
             $message = str_replace('{$a->coursename}', $a->coursename, $message);
             $message = str_replace('{$a->profileurl}', $a->profileurl, $message);
         } else {
-            $message = get_string('welcometocoursetext', 'enrol_orangenextsession', $a);
+            $message = get_string('informationmessagetext', 'enrol_orangenextsession', $a);
         }
 
-        $subject = get_string('welcometocourse', 'enrol_orangenextsession', format_string($course->fullname));
+        $subject = get_string('informationmessage', 'enrol_orangenextsession', format_string($course->fullname));
 
-        $context = context_course::instance($courseid, MUST_EXIST);
+        $context = context_course::instance($instance->courseid, MUST_EXIST);
 
         $rusers = array();
         if (!empty($CFG->coursecontact)) {
