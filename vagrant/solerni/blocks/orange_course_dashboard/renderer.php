@@ -151,9 +151,10 @@ class block_orange_course_dashboard_renderer extends plugin_renderer_base {
                 }
             }
 
-            if (isset($overviews[$course->id])) {
-                $html .= $this->activity_display($course->id, $overviews[$course->id]);
-            }
+            // Hidden for Solerni V2.0 .
+            //if (isset($overviews[$course->id])) {
+            //    $html .= $this->activity_display($course->id, $overviews[$course->id]);
+            //}
 
             $html .= $this->output->box('', 'flush');
             $html .= $this->output->box_end();
