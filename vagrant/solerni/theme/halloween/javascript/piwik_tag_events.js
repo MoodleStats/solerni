@@ -143,7 +143,6 @@ function attach_event( target, data ) {
 }
 
 jQuery(document).ready(function() {
-    console.log('start attaching events');
     jQuery.each( tracked_events, function(key, data) {
         if ( (target = jQuery(key)) && (target.length) ) {
             attach_event( target, data );
