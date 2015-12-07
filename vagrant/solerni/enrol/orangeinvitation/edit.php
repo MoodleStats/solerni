@@ -85,10 +85,19 @@ if (!isset($instance->customtext1) || ($instance->customtext1 == "")) {
     $inviturl = new moodle_url('/enrol/orangeinvitation/enrol.php',
         array('enrolinvitationtoken' => $token, 'id' => $course->id));
     $instance->customtext1 = $inviturl->out(false);
+    $instance->customtext2 = $instance->customtext1."&id2=1";
+    $instance->customtext3 = $instance->customtext1."&id2=2";
 }
 
 $instance->customtext1static = $instance->customtext1;
-$instance->customtext2static = $instance->customtext1."&id2=1";
+if ($instance->customtext2 == "") {
+    $instance->customtext2 = $instance->customtext1."&id2=1";
+}
+$instance->customtext2static = $instance->customtext2;
+if ($instance->customtext3 == "") {
+    $instance->customtext3 = $instance->customtext1."&id2=2";
+}
+$instance->customtext3static = $instance->customtext3;
 $mform = new enrol_orangeinvitation_edit_form(null, array($instance, $plugin, $context));
 
 if ($mform->is_cancelled()) {
@@ -100,13 +109,18 @@ if ($mform->is_cancelled()) {
         $instance->name           = $data->name;
         // URL for invitation only.
         $instance->customtext1    = $data->customtext1;
+        $instance->customtext2    = $data->customtext2;
+        $instance->customtext3    = $data->customtext3;
         $instance->timemodified   = time();
         $DB->update_record('enrol', $instance);
 
     } else {
         $fields = array('status' => $data->status,
                         'name' => $data->name,
-                        'customtext1' => $data->customtext1);
+                        'customtext1' => $data->customtext1,
+                        'customtext2' => $data->customtext2,
+                        'customtext3' => $data->customtext3
+            );
         $plugin->add_instance($course, $fields);
     }
 

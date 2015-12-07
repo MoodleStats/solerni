@@ -558,7 +558,7 @@ class utilities_course {
      *
      */
     public function get_description_page_url($course = null) {
-        global $CFG;
+        global $CFG, $DB;
         $url = '#';
 
         if (!$course) {
@@ -567,7 +567,13 @@ class utilities_course {
         }
 
         if ($course) {
-            $url = $CFG->wwwroot . '/mod/descriptionpage/view.php?courseid=' . $course->id;
+            $descriptionpages = $DB->get_records('descriptionpage', array('course' => $course->id));
+            // To avoid having an error page when the description page is not setup.
+            if ($descriptionpages != null) {
+                $url = $CFG->wwwroot . '/mod/descriptionpage/view.php?courseid=' . $course->id;
+            } else {
+                $url = $CFG->wwwroot;
+            }
         }
 
         return $url;

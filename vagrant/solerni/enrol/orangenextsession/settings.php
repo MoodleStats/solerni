@@ -14,34 +14,36 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+
 /**
- * Invitation plugin settings and presets.
+ * Adds new instance of enrol_orangeinvitation to specified course
+ * or edits current instance.
  *
  * @package    enrol
- * @subpackage orangeinvitation
- * @copyright  Orange 2015 based on Jerome Mouneyrac invitation plugin{@link http://www.moodleitandme.com}
+ * @subpackage orangenextsession
+ * @copyright  Orange 2015 based on Waitlist Enrol plugin / emeneo.com
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
 defined('MOODLE_INTERNAL') || die();
 
 if ($ADMIN->fulltree) {
 
-    // Settings.
-    $settings->add(new admin_setting_heading('enrol_orangeinvitation_settings', '',
-        get_string('pluginname_desc', 'enrol_orangeinvitation')));
+    $settings->add(new admin_setting_heading('enrol_orangenextsession_settings', '',
+            get_string('pluginname_desc', 'enrol_orangenextsession')));
 
-    // Enrol instance defaults.
-    $settings->add(new admin_setting_heading('enrol_orangeinvitation_defaults',
+    $settings->add(new admin_setting_heading('enrol_orangenextsession_defaults',
         get_string('enrolinstancedefaults', 'admin'), get_string('enrolinstancedefaults_desc', 'admin')));
 
-    $settings->add(new admin_setting_configcheckbox('enrol_orangeinvitation/defaultenrol',
+    $settings->add(new admin_setting_configcheckbox('enrol_orangenextsession/defaultenrol',
         get_string('defaultenrol', 'enrol'), get_string('defaultenrol_desc', 'enrol'), 1));
 
     $options = array(ENROL_INSTANCE_ENABLED  => get_string('yes'),
                      ENROL_INSTANCE_DISABLED => get_string('no'));
-    $settings->add(new admin_setting_configselect('enrol_orangeinvitation/status',
-        get_string('status', 'enrol_orangeinvitation'), get_string('status_desc', 'enrol_orangeinvitation'),
-        ENROL_INSTANCE_DISABLED, $options));
+    $settings->add(new admin_setting_configselect('enrol_orangenextsession/status',
+        get_string('status', 'enrol_orangenextsession'), get_string('status_desc', 'enrol_orangenextsession'),
+            ENROL_INSTANCE_DISABLED, $options));
 
+    $settings->add(new admin_setting_configcheckbox('enrol_orangenextsession/sendconfirmationmessage',
+        get_string('sendconfirmationmessage', 'enrol_orangenextsession'),
+            get_string('sendconfirmationmessage_help', 'enrol_orangenextsession'), 1));
 }

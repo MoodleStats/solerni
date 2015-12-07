@@ -185,3 +185,15 @@ moosh config-set timezone Europe/Paris
 moosh config-set supportname "Contact Solerni"
 moosh config-set supportemail ${CUSTOMER_CONTACT_USER_EMAIL}
 moosh config-set supportpage ${CUSTOMER_DOMAIN}/static/faq.html
+
+# support contacts (#us_288) 
+moosh username-configset supportuserid supportuser
+moosh username-configset noreplyuserid supportuser
+
+# orangenextsession (#us_26)
+moosh config-set defaultenrol 1 enrol_orangenextsession
+moosh config-set status 1 enrol_orangenextsession
+
+# orangeinvitation
+moosh config-set defaultenrol 1 enrol_orangeinvitation
+moosh config-set status 1 enrol_orangeinvitation
