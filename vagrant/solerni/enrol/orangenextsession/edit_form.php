@@ -14,53 +14,45 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+
 /**
  * Adds new instance of enrol_orangeinvitation to specified course
  * or edits current instance.
  *
  * @package    enrol
- * @subpackage orangeinvitation
- * @copyright  Orange 2015 based on Jerome Mouneyrac invitation plugin{@link http://www.moodleitandme.com}
+ * @subpackage orangenextsession
+ * @copyright  Orange 2015 based on Waitlist Enrol plugin / emeneo.com
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->libdir.'/formslib.php');
-require_once('locallib.php');
 
-class enrol_orangeinvitation_edit_form extends moodleform {
+class enrol_orangenextsession_edit_form extends moodleform {
 
     public function definition() {
         $mform = $this->_form;
 
         list($instance, $plugin, $context) = $this->_customdata;
 
-        $mform->addElement('header', 'header', get_string('pluginname', 'enrol_orangeinvitation'));
+        $mform->addElement('header', 'header', get_string('pluginname', 'enrol_orangenextsession'));
 
         $mform->addElement('text', 'name', get_string('custominstancename', 'enrol'));
-        $mform->setType('name', PARAM_NOTAGS);
 
         $options = array(ENROL_INSTANCE_ENABLED  => get_string('yes'),
                          ENROL_INSTANCE_DISABLED => get_string('no'));
-        $mform->addElement('select', 'status', get_string('status', 'enrol_orangeinvitation'), $options);
+        $mform->addElement('select', 'status', get_string('status', 'enrol_orangenextsession'), $options);
+        $mform->addHelpButton('status', 'status', 'enrol_orangenextsession');
         $mform->setDefault('status', $plugin->get_config('status'));
 
-        $mform->addElement('static', 'customtext1static', get_string('invitationlink', 'enrol_orangeinvitation'));
-        $mform->addHelpButton('customtext1static', 'invitationlink', 'enrol_orangeinvitation');
+        $mform->addElement('advcheckbox', 'customint1', get_string('sendconfirmationmessage', 'enrol_orangenextsession'));
+        $mform->setDefault('customint1', $plugin->get_config('sendconfirmationmessage'));
+        $mform->addHelpButton('customint1', 'sendconfirmationmessage', 'enrol_orangenextsession');
 
-        $mform->addElement('static', 'customtext2static', get_string('enrollink', 'enrol_orangeinvitation'));
-        $mform->addHelpButton('customtext2static', 'enrollink', 'enrol_orangeinvitation');
+        $mform->addElement('textarea', 'customtext1', get_string('custominformationmessage', 'enrol_orangenextsession'),
+                array('cols' => '60', 'rows' => '8'));
 
-        $mform->addElement('static', 'customtext3static', get_string('nextsessionlink', 'enrol_orangeinvitation'));
-        $mform->addHelpButton('customtext3static', 'nextsessionlink', 'enrol_orangeinvitation');
-
-        $mform->addElement('hidden', 'customtext1');
-        $mform->setType('customtext1', PARAM_URL);
-        $mform->addElement('hidden', 'customtext2');
-        $mform->setType('customtext2', PARAM_URL);
-        $mform->addElement('hidden', 'customtext3');
-        $mform->setType('customtext3', PARAM_URL);
         $mform->addElement('hidden', 'id');
         $mform->setType('id', PARAM_INT);
         $mform->addElement('hidden', 'courseid');
@@ -74,8 +66,6 @@ class enrol_orangeinvitation_edit_form extends moodleform {
     public function validation($data, $files) {
         global $DB, $CFG;
         $errors = parent::validation($data, $files);
-
-        list($instance, $plugin, $context) = $this->_customdata;
 
         return $errors;
     }
