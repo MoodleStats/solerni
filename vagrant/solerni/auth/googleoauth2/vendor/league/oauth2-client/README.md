@@ -1,5 +1,7 @@
 # OAuth 2.0 Client
 
+[![Join the chat at https://gitter.im/thephpleague/oauth2-client](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/thephpleague/oauth2-client?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Build Status](https://travis-ci.org/thephpleague/oauth2-client.svg?branch=master)](https://travis-ci.org/thephpleague/oauth2-client)
 [![Coverage Status](https://coveralls.io/repos/thephpleague/oauth2-client/badge.svg?branch=master)](https://coveralls.io/r/thephpleague/oauth2-client?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/league/oauth2-client/v/stable)](https://packagist.org/packages/league/oauth2-client)
@@ -36,6 +38,8 @@ The following versions of PHP are supported.
 ## Usage
 
 ### Authorization Code Flow
+
+*Note: This example code requires the Google+ API to be enabled in your developer console*
 
 ```php
 $provider = new League\OAuth2\Client\Provider\<ProviderName>([
@@ -87,12 +91,14 @@ if (!isset($_GET['code'])) {
     // Use this to get a new access token if the old one expires
     echo $token->refreshToken;
 
-    // Number of seconds until the access token will expire, and need refreshing
+    // Unix timestamp of when the token will expire, and need refreshing
     echo $token->expires;
 }
 ```
 
 ### Refreshing a Token
+
+Once and as long as your application is authorized, you then only need to refresh an expired access token. To do so, simply reuse this refresh token from your data store to request a refresh.
 
 ```php
 $provider = new League\OAuth2\Client\Provider\<ProviderName>([
@@ -121,6 +127,26 @@ This package currently has built-in support for:
 These are as many OAuth 2 services as we plan to support officially. Maintaining a wide selection of providers
 damages our ability to make this package the best it can be, especially as we progress towards v1.0.
 
+#### Managing LinkedIn Scopes
+
+The LinkedIn provider included in this package does not include scopes by default. When creating your LinkedIn provider, you can specify the scopes your application may authorize.
+
+```php
+$provider = new League\OAuth2\Client\Provider\LinkedIn([
+    'clientId'          => '{linkedin-client-id}',
+    'clientSecret'      => '{linkedin-client-secret}',
+    'redirectUri'       => 'https://example.com/callback-url',
+    'scopes'            => ['r_basicprofile','r_emailaddress'],
+]);
+```
+
+At the time of authoring this documentation, the following scopes are available.
+
+- r_basicprofile
+- r_emailaddress
+- rw_company_admin
+- w_share
+
 ### Third-Party Providers
 
 If you would like to support other providers, please make them available as a Composer package, then link to them
@@ -129,8 +155,11 @@ below.
 These providers allow integration with other providers not supported by `oauth2-client`. They may require an older version
 so please help them out with a pull request if you notice this.
 
+- [Amazon](https://github.com/lemonstand/oauth2-amazon/)
 - [Auth0](https://github.com/RiskioFr/oauth2-auth0)
 - [Battle.net](https://packagist.org/packages/depotwarehouse/oauth2-bnet)
+- [BookingSync](https://github.com/BookingSync/oauth2-bookingsync-php)
+- [Clover](https://github.com/wheniwork/oauth2-clover)
 - [Coinbase](https://github.com/openclerk/coinbase-oauth2)
 - [Dropbox](https://github.com/pixelfear/oauth2-dropbox)
 - [FreeAgent](https://github.com/CloudManaged/oauth2-freeagent)
@@ -139,12 +168,15 @@ so please help them out with a pull request if you notice this.
 - [Meetup](https://github.com/howlowck/meetup-oauth2-provider)
 - [Naver](https://packagist.org/packages/deminoth/oauth2-naver)
 - [Odnoklassniki](https://packagist.org/packages/aego/oauth2-odnoklassniki)
+- [Reddit](https://github.com/rtheunissen/oauth2-reddit)
 - [Square](https://packagist.org/packages/wheniwork/oauth2-square)
 - [Twitch.tv](https://github.com/tpavlek/oauth2-twitch)
 - [Uber](https://github.com/stevenmaguire/oauth2-uber)
+- [Vend](https://github.com/wheniwork/oauth2-vend)
 - [Vkontakte](https://packagist.org/packages/j4k/oauth2-vkontakte)
 - [Yandex](https://packagist.org/packages/aego/oauth2-yandex)
 - [ZenPayroll](https://packagist.org/packages/wheniwork/oauth2-zenpayroll)
+- [Envato](https://github.com/dilab/envato-oauth2-provider)
 
 ### Implementing your own provider
 

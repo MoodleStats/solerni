@@ -160,7 +160,7 @@ moosh auth-manage enable mnet
 moosh config-set smtphosts ${SMTP_SERVER}
 
 # Create a support user (normally id=3)
-moosh user-create --password pass --email ${CUSTOMER_CONTACT_USER_EMAIL} --firstname 'Contact' --lastname 'Solerni' 'supportuser'  
+moosh user-create --password pass --email ${CUSTOMER_CONTACT_USER_EMAIL} --firstname 'Contact' --lastname 'Solerni' --city 'Paris' --country 'FR' 'supportuser'  
 
 # disable default messaging system (#us_226)
 moosh config-set messaging 0
@@ -180,3 +180,8 @@ moosh config-set updateautocheck 0
 # Timezone
 moosh timezone-import Europe/paris
 moosh config-set timezone Europe/Paris
+
+# support contact : Admin > Server > Support contact
+moosh config-set supportname "Contact Solerni"
+moosh config-set supportemail ${CUSTOMER_CONTACT_USER_EMAIL}
+moosh config-set supportpage ${CUSTOMER_DOMAIN}/static/faq.html

@@ -26,10 +26,11 @@ var tracked_events = {
     '.icon-halloween--email': {
         'event': 'click',
         'piwik_data': {
-            'cat':      'categroy',
-            'action':   'actionroy',
-            'name':     undefined,
-            'value':    undefined
+            'cat':      'category-to-send',
+            'action':   'action-to-trigger',
+            'name':     null,
+            'value':    null
+
         }
     }
 };
@@ -42,16 +43,20 @@ var tracked_events = {
  * @param Object data
  * @returns void
  */
-function attach_event( target, event, data ) {
-    target.on( event, function(e) {
-        _paq.push(['trackEvent', data.cat, data.action, data.name, data.value]);
-    });
+
+function attach_event( target, data ) {
+    if ( typeof _paq !== 'undefined' ) {
+        target.on( data.event, function( evt ) {
+            _paq.push( ['trackEvent', data.piwik_data.cat,
+                data.piwik_data.action, data.name, data.value] );
+        });
+    }
 }
 
 jQuery(document).ready(function() {
     jQuery.each( tracked_events, function(key, data) {
         if ( (target = jQuery(key)) && (target.length > 0) ) {
-            attach_event( target, data.event, data.piwik_data );
+            attach_event( target, data );
         }
     });
 });

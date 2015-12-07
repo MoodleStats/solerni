@@ -104,5 +104,22 @@ function xmldb_format_flexpage_upgrade($oldversion = 0) {
         upgrade_plugin_savepoint(true, 2014093000, 'format', 'flexpage');
     }
 
+    if ($oldversion < 2015120300) {
+        $cacherepo->clear_all_cache();
+
+        $DB->execute('
+            ALTER TABLE {format_flexpage_page}
+            MODIFY COLUMN display bigint(10) not null  default 2
+        ');
+
+        $DB->execute('
+            ALTER TABLE {format_flexpage_page}
+            MODIFY COLUMN navigation smallint(4) not null  default 3
+        ');
+
+        // Flexpage savepoint reached.
+        upgrade_plugin_savepoint(true, 2015120300, 'format', 'flexpage');
+    }
+
     return true;
 }
