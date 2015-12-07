@@ -161,9 +161,8 @@ class subscription_button_object {
      * @return string html_writer::tag
      * */
     private function display_button($text, $url, $classbutton) {
-
-            return html_writer::tag('a', get_string($text, 'local_orange_library'),
-                array('class' => $classbutton, 'href' => $url));
+        return html_writer::tag('a', get_string($text, 'local_orange_library'),
+            array('class' => $classbutton, 'href' => $url, 'data-mooc-name' => $this->course->fullname));
     }
 
     /**
@@ -208,7 +207,8 @@ class subscription_button_object {
      * */
     private function controller_mooc_private() {
 
-            return $this->display_button('subscribe_to_mooc', $this->enrolmenturl, "btn btn-engage");
+            return $this->display_button('subscribe_to_mooc',
+                    $this->enrolmenturl, "btn btn-engage tag-course-subscription");
 
     }
 
@@ -224,14 +224,14 @@ class subscription_button_object {
             //   User not logged.
             //   user not registered.
             //   CASE A : NOT LOGGED TO THE MOOC - USER LOGGED OR NOT.
-            return $this->display_button('subscribe_to_mooc', $this->urlregistration, "btn btn-engage");
+            return $this->display_button('subscribe_to_mooc', $this->urlregistration, "btn btn-engage tag-course-subscription");
 
         } else {
             // User logged to Solerni.
             if (!is_enrolled($this->context)) {
                 // User not subscribed to the mooc.
                 // CASE A : NOT LOGGED TO THE MOOC - USER LOGGED OR NOT.
-                return $this->display_button('subscribe_to_mooc', $this->urlmoocsubscription, "btn btn-engage");
+                return $this->display_button('subscribe_to_mooc', $this->urlmoocsubscription, "btn btn-engage tag-course-subscription");
 
             } else {
                 // User not subscribed to the mooc.
@@ -274,13 +274,13 @@ class subscription_button_object {
                 // User not logged to solerni.
                 // User not registered to the mooc.
                 //   CASE A : NOT LOGGED TO THE MOOC - USER LOGGED OR NOT.
-                return $this->display_button('subscribe_to_mooc', $this->urlregistration, "btn btn-engage");
+                return $this->display_button('subscribe_to_mooc', $this->urlregistration, "btn btn-engage tag-course-subscription");
             } else {
                 //   User logged to solerni.
                 if (!is_enrolled($this->context)) {
                     // User not registered to the mooc.
                     //   CASE A : NOT LOGGED TO THE MOOC - USER LOGGED OR NOT.
-                    return $this->display_button('subscribe_to_mooc', $this->urlmoocsubscription, "btn btn-engage");
+                    return $this->display_button('subscribe_to_mooc', $this->urlmoocsubscription, "btn btn-engage tag-course-subscription");
                 } else {
                     // User registered to the mooc.
                     // // CASE B :  LOGGED TO A RUNNIG MOOC - USER LOGGED.
@@ -289,6 +289,4 @@ class subscription_button_object {
             }
         }
     }
-
-
 }
