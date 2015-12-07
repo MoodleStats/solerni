@@ -90,9 +90,13 @@ if (!isset($instance->customtext1) || ($instance->customtext1 == "")) {
 }
 
 $instance->customtext1static = $instance->customtext1;
-if ($instance->customtext2 == "") $instance->customtext2 = $instance->customtext1."&id2=1";
+if ($instance->customtext2 == "") {
+    $instance->customtext2 = $instance->customtext1."&id2=1";
+}
 $instance->customtext2static = $instance->customtext2;
-if ($instance->customtext3 == "") $instance->customtext3 = $instance->customtext1."&id2=2";
+if ($instance->customtext3 == "") {
+    $instance->customtext3 = $instance->customtext1."&id2=2";
+}
 $instance->customtext3static = $instance->customtext3;
 $mform = new enrol_orangeinvitation_edit_form(null, array($instance, $plugin, $context));
 

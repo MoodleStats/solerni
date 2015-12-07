@@ -40,7 +40,6 @@ $string['informationmessagetext'] = 'Hello
 Thanks for your interest for the courss {$a->coursename}. You will be informed when the new session will start.
 ';
 $string['orangenextsessioninfo'] = '<b>This course is presently booked</b>. <br/>Thank you for your application request. You will be informed via email when a new session will start.';
-$string['nextsessionnotavailable'] = 'An error occurs while recording your request.';
 $string['exportuserlist'] = 'Export users in CSV files';
 $string['alreadyenrolled'] = 'You are already enrolled for this course';
 $string['alreadyinlist'] = 'You are already on the list to be informed of next session.';

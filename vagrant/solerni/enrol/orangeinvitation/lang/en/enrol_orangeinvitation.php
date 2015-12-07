@@ -40,3 +40,4 @@ $string['status_desc'] = 'Allow use of this plugin to access or enrol courses.';
 $string['linknotactivated'] = 'This link is not activated.';
 $string['selfenrolnotavailable'] = "You can't enrol to this course.";
 $string['orangeinvitation:config'] = 'Configure MOOC URLs access';
+$string['nextsessionnotavailable'] = 'An error occurs while recording your request.';

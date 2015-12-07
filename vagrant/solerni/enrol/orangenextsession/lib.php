@@ -188,7 +188,7 @@ class enrol_orangenextsession_plugin extends enrol_plugin {
         if ($instance->customint1) {
             $this->email_information_message($instance, $USER);
         }
-        
+
         return get_string('orangenextsessioninfo', 'enrol_orangenextsession');
     }
 

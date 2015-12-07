@@ -93,7 +93,6 @@ class invitation_manager {
 function check_course_redirection ($cookie=null, $enrolinvitationtoken=null, $courseid=null, $action=null) {
     global $DB, $USER;
 
-   
     if ($cookie != null) {
         // Decrypt cookie content token-courseId.
         $cookiecontent = explode("-", rc4decrypt($cookie));
@@ -120,7 +119,7 @@ function check_course_redirection ($cookie=null, $enrolinvitationtoken=null, $co
     $findoutmoreurl = $courseutilities->get_description_page_url($course);
 
     $context = context_course::instance($courseid, MUST_EXIST);
-    
+
     // Get.
     $invitationmanager = new invitation_manager($courseid);
     $instance = $invitationmanager->get_invitation_instance($courseid);
@@ -179,7 +178,7 @@ function check_course_redirection ($cookie=null, $enrolinvitationtoken=null, $co
                 return $element->enrol == "orangenextsession";
             });
             if (count($instancewaitlist) == 1) {
-                // The registration status of the course should be MOOCCOMPLETED
+                // The registration status of the course should be MOOCCOMPLETED.
                 $extendedcourse = new extended_course_object();
                 $extendedcourse->get_extended_course($course, $context);
 
@@ -188,7 +187,7 @@ function check_course_redirection ($cookie=null, $enrolinvitationtoken=null, $co
                     $instancewaitlist = array_pop($instancewaitlist);
                     $enrolstatus = $waitlistenrol->enrol_orangenextsession($instancewaitlist);
                     if (true === $enrolstatus) {
-
+                        // If we need to display a specific message.
                     } else {
                         $message = $enrolstatus;
                     }
