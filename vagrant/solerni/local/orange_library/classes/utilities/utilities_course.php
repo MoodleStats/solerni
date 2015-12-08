@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -39,6 +38,7 @@ use DateTime;
 
 require_once($CFG->dirroot . '/cohort/lib.php');
 require_once($CFG->dirroot . '/lib/coursecatlib.php'); // TODO : use course_in_list not working.
+require_once($CFG->libdir.'/outputcomponents.php');
 
 class utilities_course {
 
@@ -108,7 +108,7 @@ class utilities_course {
      */
     public static function get_course_records($whereclause, $params, $options, $checkvisibility = false) {
         global $DB, $USER;
-        $list = $this->get_course_records_request($whereclause, $params, $options);
+        $list = self::get_course_records_request($whereclause, $params, $options);
 
         if ($checkvisibility) {
             // Loop through all records and make sure we only return the courses accessible by user.
@@ -187,7 +187,8 @@ class utilities_course {
      * @param int $whereclause
      * @return object $list
      */
-    private function get_course_records_request($whereclause, $params, $options) {
+    private static function get_course_records_request($whereclause, $params, $options) {
+        global $DB;
 
         $ctxselect = context_helper::get_preload_record_columns_sql('ctx');
 
@@ -332,7 +333,8 @@ class utilities_course {
             $where[] = '(' . implode(' OR ', $whereduration) . ')';
         }
 
-        $list = self::get_course_records(implode(' AND ', $where), $params, array_diff_key($options, array('coursecontacts' => 0)), true);
+        $list = self::get_course_records(implode(' AND ', $where), $params,
+                array_diff_key($options, array('coursecontacts' => 0)), true);
 
         // Sort list.
         self::sort_records($list, $sortfields);
@@ -628,7 +630,7 @@ class utilities_course {
 
     }
 
-        /**
+    /**
      * Get the registration not complete status from a course.
      *
      * @param object $extendedcourse
@@ -640,7 +642,7 @@ class utilities_course {
         return $extendedcourse;
     }
 
-        /**
+    /**
      * Get the registration not complete status from a course.
      *
      * @param object $extendedcourse
@@ -652,7 +654,7 @@ class utilities_course {
             return $extendedcourse;
     }
 
-        /**
+    /**
      * Get the registration not complete status from a course.
      *
      * @param object $extendedcourse
@@ -730,7 +732,7 @@ class utilities_course {
     private static function is_closed($extendedcourse) {
         if ($extendedcourse->enddate == 0) {
             return false;
-        } elseif (self::is_before($extendedcourse->enddate)) {
+        } else if (self::is_before($extendedcourse->enddate)) {
             return true;
         } else {
             return false;
@@ -765,5 +767,67 @@ class utilities_course {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Check the course configuration for the mandatory params.
+     *
+     * @return string (HTML content of error message
+     */
+    public static function is_mooc_configuration_ok($courseid) {
+        global $DB;
+
+        $error = array();
+        $context = context_course::instance($courseid);
+
+        if (has_capability('moodle/course:enrolconfig', $context)) {
+            // Check needed enrolment methods.
+            $neededenrolment = array ('manual', 'self', 'orangeinvitation', 'orangenextsession');
+            foreach ($neededenrolment as $enrol) {
+                $instances = enrol_get_instances ($courseid, true);
+                $instances = array_filter ($instances, function ($element) use($enrol) {
+                    return $element->enrol == $enrol;
+                });
+                if (count($instances) == 0) {
+                    $error[] = get_string('enrolmentmethodmissing', 'local_orange_library', $enrol);
+                } else {
+                    $instanceself = array_pop($instances);
+                    if ($instanceself->status != 0) {
+                        $error[] = get_string('enrolmentmethoddisabled', 'local_orange_library', $enrol);
+                    }
+                }
+            }
+        }
+
+        if (has_capability('mod/descriptionpage:addinstance', $context)) {
+            // Check descriptionpage module.
+            $descriptionpages = $DB->get_record('descriptionpage', array('course' => $courseid));
+            if (is_null($descriptionpages)) {
+                $error[] = get_string('moddescriptionpagemissing', 'local_orange_library');
+            }
+        }
+
+        // Check mandatory blocks.
+        $neededblocks = array ( 'orange_course_extended', 'orange_progressbar');
+        foreach ($neededblocks as $block) {
+            if (has_capability('block/'.$block.':addinstance', $context)) {
+                $extendedcourseblock = $DB->get_records('block_instances',
+                        array('blockname' => $block, 'parentcontextid' => $context->id));
+                if (count($extendedcourseblock) == 0) {
+                    $error[] = get_string('blockmissing', 'local_orange_library', $block);
+                }
+            }
+        }
+
+        $output = "";
+        if (count($error)) {
+            $output .= \html_writer::start_tag('div', array('class' => 'alert alert-danger'));
+            $output .= \html_writer::tag('strong', get_string('configuration_error', 'local_orange_library'));
+            $output .= "<br />";
+            $output .= implode($error, "<br />");
+            $output .= \html_writer::end_tag('div');
+        }
+        return $output;
+
     }
 }
