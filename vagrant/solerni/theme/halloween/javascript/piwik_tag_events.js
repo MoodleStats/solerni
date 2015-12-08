@@ -66,9 +66,9 @@ var tracked_events = {
         'event': 'click',
         'piwik_data': {
             'cat':      'course-subscription',
-            'action':   'course-subscription',
-            'name':     get_subscription_name(),
-            'value':    'data:mooc-name'
+            'action':   get_subscription_name(),
+            'name':     'data:mooc-name',
+            'value':    null
         }
     },
     '.tag-footer-facebook': {
@@ -98,12 +98,84 @@ var tracked_events = {
             'value':    null
         }
     },
-    '.tag-footer-solerni': {
+    '.tag-footer-blog': {
         'event': 'click',
         'piwik_data': {
             'cat':      'footer',
             'action':   'footer-social-network',
-            'name':     'footer-solerni',
+            'name':     'footer-blog',
+            'value':    null
+        }
+    },
+    '.tag-course-catalog-status-filter': {
+        'event': 'click',
+        'piwik_data': {
+            'cat':      'course-catalog',
+            'action':   'course-catalog-filter',
+            'name':     'course-catalog-filter-status',
+            'value':    null
+        }
+    },
+    '.tag-course-catalog-theme-filter': {
+        'event': 'click',
+        'piwik_data': {
+            'cat':      'course-catalog',
+            'action':   'course-catalog-filter',
+            'name':     'course-catalog-filter-theme',
+            'value':    null
+        }
+    },
+    '.tag-course-catalog-duration-filter': {
+        'event': 'click',
+        'piwik_data': {
+            'cat':      'course-catalog',
+            'action':   'course-catalog-filter',
+            'name':     'course-catalog-filter-duration',
+            'value':    null
+        }
+    },
+    '.tag-course-catalog-company-filter': {
+        'event': 'click',
+        'piwik_data': {
+            'cat':      'course-catalog',
+            'action':   'course-catalog-filter',
+            'name':     'course-catalog-filter-company',
+            'value':    null
+        }
+    },
+    '.tag-course-sequence': {
+        'event': 'click',
+        'piwik_data': {
+            'cat':      'course',
+            'action':   'course-sequence',
+            'name':     'course-sequence-block',
+            'value':    null
+        }
+    },
+    '.tag-course-sequence-next': {
+        'event': 'click',
+        'piwik_data': {
+            'cat':      'course',
+            'action':   'course-sequence',
+            'name':     'course-sequence-next',
+            'value':    null
+        }
+    },
+    '.tag-course-sequence-previous': {
+        'event': 'click',
+        'piwik_data': {
+            'cat':      'course',
+            'action':   'course-sequence',
+            'name':     'course-sequence-previous',
+            'value':    null
+        }
+    },
+    '.tag-platform-subscription': {
+        'event': 'click',
+        'piwik_data': {
+            'cat':      'platform',
+            'action':   'platform',
+            'name':     'platform-subscription',
             'value':    null
         }
     }
@@ -132,8 +204,8 @@ function extract_data_attribute( target, data_value ) {
 
 function attach_event( target, data ) {
     if ( typeof _paq !== 'undefined' ) {
-        if ( data.piwik_data.value && data.piwik_data.value.indexOf('data:') !== -1 ) {
-            data.piwik_data.value = extract_data_attribute( target, data.piwik_data.value );
+        if ( data.piwik_data.name && data.piwik_data.name.indexOf('data:') !== -1 ) {
+            data.piwik_data.name = extract_data_attribute( target, data.piwik_data.name );
         }
         target.on( data.event, function( evt ) {
             _paq.push( ['trackEvent', data.piwik_data.cat,
