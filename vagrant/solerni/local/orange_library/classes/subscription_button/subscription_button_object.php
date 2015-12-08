@@ -24,7 +24,8 @@ namespace local_orange_library\subscription_button;
 
 use local_orange_library\extended_course\extended_course_object;
 use local_orange_library\enrollment\enrollment_object;
-use local_orange_library\utilities\utilities_object;
+use local_orange_library\utilities\utilities_course;
+use local_orange_library\utilities\utilities_user;
 use html_writer;
 use DateTime;
 use moodle_url;
@@ -34,18 +35,6 @@ use moodle_exception;
 defined('MOODLE_INTERNAL') || die();
 
 class subscription_button_object {
-
-    const MOOCCOMPLETE              = 0;
-    const MOOCNOTCOMPLETE           = 4;
-    const MOOCREGISTRATIONSTOPPED   = 5;
-
-    const MOOCCLOSED                = 1;
-    const MOOCNOTSTARTED            = 2;
-    const MOOCRUNNING               = 3;
-
-    const USERLOGGED                = 6;
-    const USERENROLLED              = 7;
-    const PRIVATEPF                 = 8;
 
     protected $course;
     protected $context;
@@ -92,30 +81,6 @@ class subscription_button_object {
         }
     }
 
-
-    /**
-     * Return the status of the user
-     * Status could be : USERENROLLED
-     *                          USERLOGGED
-     *                          USERENROLLED
-     *
-     * @param none
-     * @return $userstatus
-     */
-
-    private function get_user_status() {
-
-        $userstatus = self::USERENROLLED;
-
-        if (isloggedin()) {
-            $userstatus = self::USERLOGGED;
-        }
-        if (is_enrolled($this->context)) {
-            $userstatus = self::USERENROLLED;
-        }
-        return $userstatus;
-    }
-
     /**
      *  Set and display the button describing the status of a course.
      *
@@ -124,22 +89,39 @@ class subscription_button_object {
      */
     public function set_button($extendedcourse) {
 
+        $userstatus = utilities_user::get_user_status($this->context);
+
+        if ($userstatus == utilities_user::USERENROLLED) {
+            return $this->set_button_status($extendedcourse);
+        }else {
+            return $this->display_button('subscribe_to_mooc', '#', "btn btn-default disabled");
+        }
+
+    }
+
+    /**
+     * Display text
+     *
+     * @param $text
+     * @return string html_writer::tag
+     * */
+    private function set_button_status($extendedcourse) {
         switch ($extendedcourse->coursestatus) {
-            case self::MOOCCLOSED:
+            case utilities_course::MOOCCLOSED:
                 return $this->controller_mooc_closed();
                 break;
-            case self::MOOCCOMPLETE:
+            case utilities_course::MOOCREGISTRATIONCOMPLETE:
                 return $this->controller_mooc_complete();
                 break;
-            case self::MOOCNOTSTARTED:
+            case utilities_course::MOOCNOTSTARTED:
                 return $this->controller_mooc_not_started();
                 break;
             default:
                 return $this->controller_mooc_running();
                 break;
         }
-    }
 
+    }
     /**
      * Display text
      *
@@ -172,15 +154,14 @@ class subscription_button_object {
      * @return call to another function
      * */
     private function controller_mooc_closed() {
+        $userstatus = utilities_user::get_user_status($this->context);
 
-        if ($this->extendedcourse->replay == get_string('replay', 'format_flexpage')) {
-            //  Mooc could be replayed";.
-            //  CASE E: MOOC STOPPED AND COULD BE REPLAYED - USER LOGGED OR NOT.
-            $text = $this->display_button('alert_mooc', $this->moocurl, "btn btn-info");
-            return $text;
+        if ($userstatus == utilities_user::USERENROLLED) {
+            //  CASE E: MOOC closed and USER unenrolled.
+            return $this->display_button('acces_to_archive', '#', "btn btn-engage");
 
         } else {
-            //   Mooc could not be replayed".
+
             //   CASE D : MOOC STOPPED - USER LOGGED OR NOT.
             return $this->display_button('subscribe_to_mooc', '#', "btn btn-default disabled");
 
