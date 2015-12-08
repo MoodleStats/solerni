@@ -25,6 +25,10 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version  = 2015042906;
+$plugin->version  = 2015120701;
 $plugin->requires = 2014051200;   // Requires Moodle 2.7 or later.
 $plugin->maturity = MATURITY_RC;  // This version's maturity level.
+$plugin->dependencies = array(
+    'enrol_orangenextsession' => 2015120700,
+    'enrol_self' => ANY_VERSION
+);
