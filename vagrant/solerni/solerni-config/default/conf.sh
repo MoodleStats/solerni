@@ -105,6 +105,7 @@ moosh config-set apacherewrite 1 local_staticpage
 # Manage enrolment method
 moosh enrol-manage enable orangeinvitation
 moosh enrol-manage enable self
+moosh enrol-manage enable orangenextsession
 moosh enrol-manage disable cohort
 moosh enrol-manage disable guest
 
@@ -192,8 +193,10 @@ moosh username-configset noreplyuserid supportuser
 
 # orangenextsession (#us_26)
 moosh config-set defaultenrol 1 enrol_orangenextsession
-moosh config-set status 1 enrol_orangenextsession
+# /!\ this value is reversed 0 => true, 1 => false
+moosh config-set status 0 enrol_orangenextsession
 
 # orangeinvitation
 moosh config-set defaultenrol 1 enrol_orangeinvitation
-moosh config-set status 1 enrol_orangeinvitation
+# /!\ this value is reversed 0 => true, 1 => false
+moosh config-set status 0 enrol_orangeinvitation
