@@ -253,16 +253,22 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
      * @param array $filter
      * @param string $filtername
      * @param array $labels
-     * @return string
+     * @param string $optionnalclass
+     * @return string html
      */
-    protected function render_filter_fieldset($filter, $filtername, $labels) {
+    protected function render_filter_fieldset($filter, $filtername, $labels, $optionnalclass = '') {
+
+        if ($optionnalclass) {
+            $optionnalclass = ' ' . $optionnalclass;
+        }
+
         $output = '<fieldset class="filters-form-fieldset">';
             $output .= '<legend class="form-fieldset-legend">' . get_string("filter{$filtername}title", 'theme_halloween') . '</legend>';
 
         foreach ($labels as $inputid => $inputlabel) {
             $checked = $this->render_filter_input_checked($inputid, $filter);
             $output .= '<div class="checkbox">';
-                $output .= '<input id="' . $filtername . $inputid . '" class="form-fieldset-checkbox o-checkbox" type="checkbox" name="' . $filtername . 'id[]" value="' . $inputid . '"' . $checked .'>';
+                $output .= '<input id="' . $filtername . $inputid . '" class="form-fieldset-checkbox o-checkbox' . $optionnalclass  . '" type="checkbox" name="' . $filtername . 'id[]" value="' . $inputid . '"' . $checked .'>';
                 $output .= '<label for="' . $filtername . $inputid . '">' . $inputlabel . '</label>';
             $output .= '</div>';
         }
@@ -285,7 +291,7 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
             3 => get_string('filterstatuscomplete', 'theme_halloween')
         );
 
-        return $this->render_filter_fieldset($filter, 'status', $labels);
+        return $this->render_filter_fieldset($filter, 'status', $labels, 'tag-course-catalog-status-filter');
     }
 
     /**
@@ -305,7 +311,7 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
             }
         }
 
-        return $this->render_filter_fieldset($filter, 'thematics', $labels);
+        return $this->render_filter_fieldset($filter, 'thematics', $labels, 'tag-course-catalog-theme-filter');
     }
 
     /**
@@ -322,7 +328,7 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
             3 => get_string('filterdurationmore6', 'theme_halloween')
         );
 
-        return $this->render_filter_fieldset($filter, 'duration', $labels);
+        return $this->render_filter_fieldset($filter, 'duration', $labels, 'tag-course-catalog-duration-filter');
     }
 
     /**
@@ -343,7 +349,7 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
             }
         }
 
-        return $this->render_filter_fieldset($filter, 'category', $labels);
+        return $this->render_filter_fieldset($filter, 'category', $labels, 'tag-course-catalog-company-filter');
     }
 
     /**

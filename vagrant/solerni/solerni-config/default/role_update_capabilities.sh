@@ -446,3 +446,47 @@ moosh role-update-capability solerni_course_creator block/orange_listforumng:add
 
 # Mnet (#us_326)
 moosh role-update-capability solerni_utilisateur moodle/site:mnetlogintoremote allow 1
+
+# block orange_comments (#us_209)
+moosh role-update-capability solerni_teacher block/orange_comments:addinstance allow 1
+moosh role-update-capability solerni_teacher moodle/comment:delete allow 1
+moosh role-update-capability solerni_animateur moodle/comment:delete allow 1
+moosh role-update-capability solerni_course_creator moodle/comment:post allow 1
+moosh role-update-capability solerni_marketing moodle/comment:post allow 1
+moosh role-update-capability solerni_course_creator moodle/comment:view allow 1
+
+# Course Backup (#us_229)
+moosh role-update-capability solerni_teacher moodle/backup:anonymise allow 1
+moosh role-update-capability solerni_course_creator moodle/backup:anonymise allow 1
+moosh role-update-capability solerni_teacher moodle/backup:backupcourse allow 1
+moosh role-update-capability solerni_course_creator moodle/backup:backupcourse allow 1
+moosh role-update-capability solerni_teacher moodle/backup:backuptargetimport allow 1
+moosh role-update-capability solerni_course_creator moodle/backup:backuptargetimport allow 1
+moosh role-update-capability solerni_teacher moodle/backup:configure allow 1
+moosh role-update-capability solerni_course_creator moodle/backup:configure allow 1
+moosh role-update-capability solerni_teacher moodle/backup:downloadfile allow 1
+moosh role-update-capability solerni_course_creator moodle/backup:downloadfile allow 1
+moosh role-update-capability solerni_teacher moodle/backup:userinfo allow 1
+moosh role-update-capability solerni_course_creator moodle/backup:userinfo allow 1
+moosh role-update-capability solerni_teacher moodle/backup:backupsection allow 1
+moosh role-update-capability solerni_course_creator moodle/backup:backupsection allow 1
+
+# Course Restore (#us_229)
+moosh role-update-capability solerni_teacher moodle/restore:configure allow 1
+moosh role-update-capability solerni_course_creator moodle/restore:configure allow 1
+moosh role-update-capability solerni_teacher moodle/restore:restoreactivity allow 1
+moosh role-update-capability solerni_course_creator moodle/restore:restoreactivity allow 1
+moosh role-update-capability solerni_teacher moodle/restore:restorecourse allow 1
+moosh role-update-capability solerni_course_creator moodle/restore:restorecourse allow 1
+moosh role-update-capability solerni_teacher moodle/restore:restoresection allow 1
+moosh role-update-capability solerni_course_creator moodle/restore:restoresection allow 1
+moosh role-update-capability solerni_teacher moodle/restore:restoretargetimport allow 1
+moosh role-update-capability solerni_course_creator moodle/restore:restoretargetimport allow 1
+moosh role-update-capability solerni_teacher moodle/restore:rolldates allow 1
+moosh role-update-capability solerni_course_creator moodle/restore:rolldates allow 1
+moosh role-update-capability solerni_teacher moodle/restore:uploadfile allow 1
+moosh role-update-capability solerni_course_creator moodle/restore:uploadfile allow 1
+moosh role-update-capability solerni_teacher moodle/restore:userinfo allow 1
+moosh role-update-capability solerni_course_creator moodle/restore:userinfo allow 1
+moosh role-update-capability solerni_teacher moodle/restore:viewautomatedfilearea allow 1
+moosh role-update-capability solerni_course_creator moodle/restore:viewautomatedfilearea allow 1

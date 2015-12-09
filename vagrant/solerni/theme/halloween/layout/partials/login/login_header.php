@@ -41,7 +41,7 @@ $filtermultilang = new filter_multilang($PAGE->context, array());
 <?php endif; ?>
 <p class="col-md-6 col-md-offset-3" >
     <?php echo get_string('not_registered_yet', 'theme_halloween'); ?>
-    <a class="js-register" href="<?php echo $CFG->wwwroot ?>/login/signup.php">
+    <a class="tag-platform-subscription" href="<?php echo $CFG->wwwroot ?>/login/signup.php">
         <?php echo get_string('i_do_register', 'theme_halloween'); ?>
     </a>
 </p>

@@ -40,7 +40,6 @@ $string['mooc_open_date']       = 'Available on {$a}';
 $string['acces_to_archive']     = 'Access to course archive';
 $string['enrolled_users']       = 'enrolled users';
 
-
 // Extended course object.
 $string['english']              = 'English';
 $string['french']               = 'French';
@@ -72,3 +71,10 @@ $string['coursereplay']         = 'After closed';
 $string['coursereplay_help']    = 'Choose the action';
 $string['replay']               = 'Replay';
 $string['notreplay']            = 'Don\'t replay';
+
+// Configuration check.
+$string['configuration_error']  = 'Configuration errors for this course:';
+$string['enrolmentmethodmissing'] = 'Enrolment method "{$a}" missing.';
+$string['enrolmentmethoddisabled'] = 'Enrolment method "{$a}" should be enabled.';
+$string['moddescriptionpagemissing'] = '"Find out more" page missing.';
+$string['blockmissing'] = 'Block "{$a}" missing.'; 

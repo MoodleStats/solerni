@@ -26,17 +26,17 @@ class BattleNet extends AbstractProvider
 
     public function urlAuthorize()
     {
-        return "https://eu.battle.net/oauth/authorize";
+        return "https://us.battle.net/oauth/authorize";
     }
 
     public function urlAccessToken()
     {
-        return "https://eu.battle.net/oauth/token";
+        return "https://us.battle.net/oauth/token";
     }
 
     public function urlUserDetails(AccessToken $token)
     {
-        return "https://eu.api.battle.net/sc2/profile/user?access_token=" . $token;
+        return "https://us.api.battle.net/sc2/profile/user?access_token=" . $token;
     }
 
     /**

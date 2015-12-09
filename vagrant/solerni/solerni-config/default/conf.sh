@@ -105,6 +105,7 @@ moosh config-set apacherewrite 1 local_staticpage
 # Manage enrolment method
 moosh enrol-manage enable orangeinvitation
 moosh enrol-manage enable self
+moosh enrol-manage enable orangenextsession
 moosh enrol-manage disable cohort
 moosh enrol-manage disable guest
 
@@ -160,7 +161,7 @@ moosh auth-manage enable mnet
 moosh config-set smtphosts ${SMTP_SERVER}
 
 # Create a support user (normally id=3)
-moosh user-create --password pass --email ${CUSTOMER_CONTACT_USER_EMAIL} --firstname 'Contact' --lastname 'Solerni' 'supportuser'  
+moosh user-create --password pass --email ${CUSTOMER_CONTACT_USER_EMAIL} --firstname 'Contact' --lastname 'Solerni' --city 'Paris' --country 'FR' 'supportuser'  
 
 # disable default messaging system (#us_226)
 moosh config-set messaging 0
@@ -180,3 +181,22 @@ moosh config-set updateautocheck 0
 # Timezone
 moosh timezone-import Europe/paris
 moosh config-set timezone Europe/Paris
+
+# support contact : Admin > Server > Support contact
+moosh config-set supportname "Contact Solerni"
+moosh config-set supportemail ${CUSTOMER_CONTACT_USER_EMAIL}
+moosh config-set supportpage ${CUSTOMER_DOMAIN}/static/faq.html
+
+# support contacts (#us_288) 
+moosh username-configset supportuserid supportuser
+moosh username-configset noreplyuserid supportuser
+
+# orangenextsession (#us_26)
+moosh config-set defaultenrol 1 enrol_orangenextsession
+# /!\ this value is reversed 0 => true, 1 => false
+moosh config-set status 0 enrol_orangenextsession
+
+# orangeinvitation
+moosh config-set defaultenrol 1 enrol_orangeinvitation
+# /!\ this value is reversed 0 => true, 1 => false
+moosh config-set status 0 enrol_orangeinvitation

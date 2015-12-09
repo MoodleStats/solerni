@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-require('../config.php');
+require_once(dirname(__FILE__) . '/../config.php');
 require_once('lib.php');
 
 redirect_if_major_upgrade_required();
@@ -26,9 +26,8 @@ if ($cancel) {
 
 //HTTPS is required in this page when $CFG->loginhttps enabled
 $PAGE->https_required();
-$context = context_system::instance();
 $PAGE->set_url("$CFG->httpswwwroot/login/index.php");
-$PAGE->set_context($context);
+$PAGE->set_context(context_system::instance());
 $PAGE->set_pagelayout('login');
 
 /// Initialize variables

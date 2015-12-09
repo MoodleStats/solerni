@@ -173,5 +173,7 @@ function auth_googleoauth2_render_buttons() {
             </div>';
     }
 
-    return array('html' => $html, 'providers' => $providerscount);
+     $html .= "</div>";
+
+    return array( 'html' =>  $html, 'providers' => $providerscount);
 }

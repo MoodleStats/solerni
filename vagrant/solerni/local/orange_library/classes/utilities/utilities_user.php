@@ -26,6 +26,11 @@ defined('MOODLE_INTERNAL') || die();
 
 class utilities_user {
 
+    const USERLOGGED                = 0;
+    const USERENROLLED              = 1;
+    const USERUNENROLLED            = 2;
+    const PRIVATEPF                 = 3;
+
     static public function is_user_site_admin($user) {
         foreach (get_admins() as $adminuser) {
             if ($user->id === $adminuser->id ) {
@@ -54,6 +59,30 @@ class utilities_user {
         }
 
         return false;
+    }
+
+
+    /**
+     * Return the status of the user
+     * Status could be : USERENROLLED
+     *                          USERLOGGED
+     *                          USERENROLLED
+     *
+     * @param none
+     * @return $userstatus
+     */
+
+    static public function get_user_status($context) {
+
+        $userstatus = self::USERUNENROLLED;
+
+        if (isloggedin()) {
+            $userstatus = self::USERLOGGED;
+        }
+        if (is_enrolled($context)) {
+            $userstatus = self::USERENROLLED;
+        }
+        return $userstatus;
     }
 
 }

@@ -22,6 +22,7 @@ require_once($CFG->dirroot . '/theme/halloween/renderers/solerni_quickform_rende
 $PAGE->https_required();
 $PAGE->set_url('/login/signup.php');
 $PAGE->set_context(context_system::instance());
+$PAGE->set_pagelayout('login');
 $PAGE->verify_https_required();
 $PAGE->navbar->add(get_string('login'));
 $PAGE->navbar->add(get_string('newaccount'));

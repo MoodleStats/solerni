@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -39,16 +38,18 @@ use DateTime;
 
 require_once($CFG->dirroot . '/cohort/lib.php');
 require_once($CFG->dirroot . '/lib/coursecatlib.php'); // TODO : use course_in_list not working.
+require_once($CFG->libdir.'/outputcomponents.php');
 
 class utilities_course {
 
-    const MOOCCOMPLETE              = 0;
-    const MOOCNOTCOMPLETE           = 4;
-    const MOOCREGISTRATIONSTOPPED   = 5;
+    const MOOCREGISTRATIONCOMPLETE  = 0;
+    const MOOCNOTCOMPLETE           = 1;
+    const MOOCREGISTRATIONSTOPPED   = 2;
+    const MOOCREGISTRATIONNOTOPEN   = 3;
 
-    const MOOCCLOSED                = 1;
-    const MOOCNOTSTARTED            = 2;
-    const MOOCRUNNING               = 3;
+    const MOOCCLOSED                = 4;
+    const MOOCNOTSTARTED            = 5;
+    const MOOCRUNNING               = 6;
 
     /**
      * Get all Solerni informations for a course
@@ -107,24 +108,7 @@ class utilities_course {
      */
     public static function get_course_records($whereclause, $params, $options, $checkvisibility = false) {
         global $DB, $USER;
-        $ctxselect = context_helper::get_preload_record_columns_sql('ctx');
-        $fields = array('c.id', 'c.category', 'c.sortorder',
-            'c.shortname', 'c.fullname', 'c.idnumber',
-            'c.startdate', 'c.visible', 'c.cacherev', 'co.value AS enddate', 'co2.value AS coursethematics');
-        if (!empty($options['summary'])) {
-            $fields[] = 'c.summary';
-            $fields[] = 'c.summaryformat';
-        } else {
-            $fields[] = $DB->sql_substr('c.summary', 1, 1) . ' as hassummary';
-        }
-
-        $sql = "SELECT " . join(',', $fields) . ", $ctxselect
-                FROM {course} c
-                JOIN {context} ctx ON c.id = ctx.instanceid AND ctx.contextlevel = :contextcourse
-                LEFT OUTER JOIN {course_format_options} co ON c.id = co.courseid AND co.name = 'courseenddate'
-                LEFT OUTER JOIN {course_format_options} co2 ON c.id = co2.courseid AND co2.name = 'coursethematics'
-                WHERE " . $whereclause . " AND c.id != 1 ORDER BY c.sortorder";
-        $list = $DB->get_records_sql($sql, array('contextcourse' => CONTEXT_COURSE) + $params);
+        $list = self::get_course_records_request($whereclause, $params, $options);
 
         if ($checkvisibility) {
             // Loop through all records and make sure we only return the courses accessible by user.
@@ -191,6 +175,41 @@ class utilities_course {
         if (!empty($options['coursecontacts'])) {
             self::preload_course_contacts($list);
         }
+        return $list;
+    }
+
+
+    /**
+     * Get course records.
+     *
+     * @param int $whereclause
+     * @param int $params
+     * @param int $whereclause
+     * @return object $list
+     */
+    private static function get_course_records_request($whereclause, $params, $options) {
+        global $DB;
+
+        $ctxselect = context_helper::get_preload_record_columns_sql('ctx');
+
+        $fields = array('c.id', 'c.category', 'c.sortorder',
+            'c.shortname', 'c.fullname', 'c.idnumber',
+            'c.startdate', 'c.visible', 'c.cacherev', 'co.value AS enddate', 'co2.value AS coursethematics');
+        if (!empty($options['summary'])) {
+            $fields[] = 'c.summary';
+            $fields[] = 'c.summaryformat';
+        } else {
+            $fields[] = $DB->sql_substr('c.summary', 1, 1) . ' as hassummary';
+        }
+
+        $sql = "SELECT " . join(',', $fields) . ", $ctxselect
+                FROM {course} c
+                JOIN {context} ctx ON c.id = ctx.instanceid AND ctx.contextlevel = :contextcourse
+                LEFT OUTER JOIN {course_format_options} co ON c.id = co.courseid AND co.name = 'courseenddate'
+                LEFT OUTER JOIN {course_format_options} co2 ON c.id = co2.courseid AND co2.name = 'coursethematics'
+                WHERE " . $whereclause . " AND c.id != 1 ORDER BY c.sortorder";
+        $list = $DB->get_records_sql($sql, array('contextcourse' => CONTEXT_COURSE) + $params);
+
         return $list;
     }
 
@@ -314,7 +333,8 @@ class utilities_course {
             $where[] = '(' . implode(' OR ', $whereduration) . ')';
         }
 
-        $list = self::get_course_records(implode(' AND ', $where), $params, array_diff_key($options, array('coursecontacts' => 0)), true);
+        $list = self::get_course_records(implode(' AND ', $where), $params,
+                array_diff_key($options, array('coursecontacts' => 0)), true);
 
         // Sort list.
         self::sort_records($list, $sortfields);
@@ -558,7 +578,7 @@ class utilities_course {
      *
      */
     public function get_description_page_url($course = null) {
-        global $CFG;
+        global $CFG, $DB;
         $url = '#';
 
         if (!$course) {
@@ -567,7 +587,13 @@ class utilities_course {
         }
 
         if ($course) {
-            $url = $CFG->wwwroot . '/mod/descriptionpage/view.php?courseid=' . $course->id;
+            $descriptionpages = $DB->get_records('descriptionpage', array('course' => $course->id));
+            // To avoid having an error page when the description page is not setup.
+            if ($descriptionpages != null) {
+                $url = $CFG->wwwroot . '/mod/descriptionpage/view.php?courseid=' . $course->id;
+            } else {
+                $url = $CFG->wwwroot;
+            }
         }
 
         return $url;
@@ -599,12 +625,12 @@ class utilities_course {
             return self::mooc_closed($extendedcourse);
         } else if (self::is_after($course->startdate)) {
             return self::mooc_not_started($extendedcourse);
-        } else {
-            return self::mooc_running($extendedcourse);
         }
+        return self::mooc_running($extendedcourse);
+
     }
 
-        /**
+    /**
      * Get the registration not complete status from a course.
      *
      * @param object $extendedcourse
@@ -613,10 +639,10 @@ class utilities_course {
     private static function mooc_running($extendedcourse) {
         $extendedcourse->coursestatus = self::MOOCRUNNING;
         $extendedcourse->coursestatustext = get_string('status_running', 'local_orange_library');
-        return self::MOOCRUNNING;
+        return $extendedcourse;
     }
 
-        /**
+    /**
      * Get the registration not complete status from a course.
      *
      * @param object $extendedcourse
@@ -625,10 +651,10 @@ class utilities_course {
     private static function mooc_closed($extendedcourse) {
             $extendedcourse->coursestatustext = get_string('status_closed', 'local_orange_library');
             $extendedcourse->coursestatus = self::MOOCCLOSED;
-            return self::MOOCCLOSED;
+            return $extendedcourse;
     }
 
-        /**
+    /**
      * Get the registration not complete status from a course.
      *
      * @param object $extendedcourse
@@ -637,7 +663,7 @@ class utilities_course {
     private static function mooc_not_started($extendedcourse) {
             $extendedcourse->coursestatustext = get_string('status_default', 'local_orange_library');
             $extendedcourse->coursestatus = self::MOOCNOTSTARTED;
-            return self::MOOCNOTSTARTED;
+            return $extendedcourse;
     }
     /**
      * Return the registration status of the course
@@ -670,7 +696,7 @@ class utilities_course {
     private static function mooc_not_complete($extendedcourse) {
         $extendedcourse->registrationstatus = self::MOOCNOTCOMPLETE;
         $extendedcourse->registrationstatustext = get_string('registration_open', 'local_orange_library');
-        return self::MOOCNOTCOMPLETE;
+        return $extendedcourse;
     }
 
     /**
@@ -680,9 +706,9 @@ class utilities_course {
      * @return MOOCCOMPLETE
      */
     private static function mooc_complete($extendedcourse) {
-        $extendedcourse->registrationstatus = self::MOOCCOMPLETE;
+        $extendedcourse->registrationstatus = self::MOOCREGISTRATIONCOMPLETE;
         $extendedcourse->registrationstatustext = get_string('mooc_complete', 'local_orange_library');
-        return self::MOOCCOMPLETE;
+        return $extendedcourse;
     }
 
     /**
@@ -694,7 +720,7 @@ class utilities_course {
     private static function mooc_registration_stopped($extendedcourse) {
         $extendedcourse->registrationstatus = self::MOOCREGISTRATIONSTOPPED;
         $extendedcourse->registrationstatustext = get_string('registration_closed', 'local_orange_library');
-        return self::MOOCREGISTRATIONSTOPPED;
+        return $extendedcourse;
     }
 
     /**
@@ -706,7 +732,7 @@ class utilities_course {
     private static function is_closed($extendedcourse) {
         if ($extendedcourse->enddate == 0) {
             return false;
-        } elseif (self::is_before($extendedcourse->enddate)) {
+        } else if (self::is_before($extendedcourse->enddate)) {
             return true;
         } else {
             return false;
@@ -741,5 +767,67 @@ class utilities_course {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Check the course configuration for the mandatory params.
+     *
+     * @return string (HTML content of error message
+     */
+    public static function check_mooc_configuration($courseid) {
+        global $DB;
+
+        $error = array();
+        $context = context_course::instance($courseid);
+
+        if (has_capability('moodle/course:enrolconfig', $context)) {
+            // Check needed enrolment methods.
+            $neededenrolment = array ('manual', 'self', 'orangeinvitation', 'orangenextsession');
+            foreach ($neededenrolment as $enrol) {
+                $instances = enrol_get_instances ($courseid, true);
+                $instances = array_filter ($instances, function ($element) use($enrol) {
+                    return $element->enrol == $enrol;
+                });
+                if (count($instances) == 0) {
+                    $error[] = get_string('enrolmentmethodmissing', 'local_orange_library', $enrol);
+                } else {
+                    $instance = array_pop($instances);
+                    if ($instance->status != 0) {
+                        $error[] = get_string('enrolmentmethoddisabled', 'local_orange_library', $enrol);
+                    }
+                }
+            }
+        }
+
+        if (has_capability('mod/descriptionpage:addinstance', $context)) {
+            // Check descriptionpage module.
+            $descriptionpages = $DB->get_record('descriptionpage', array('course' => $courseid));
+            if (is_null($descriptionpages)) {
+                $error[] = get_string('moddescriptionpagemissing', 'local_orange_library');
+            }
+        }
+
+        // Check mandatory blocks.
+        $neededblocks = array ( 'orange_course_extended', 'orange_progressbar');
+        foreach ($neededblocks as $block) {
+            if (has_capability('block/'.$block.':addinstance', $context)) {
+                $extendedcourseblock = $DB->get_records('block_instances',
+                        array('blockname' => $block, 'parentcontextid' => $context->id));
+                if (count($extendedcourseblock) == 0) {
+                    $error[] = get_string('blockmissing', 'local_orange_library', $block);
+                }
+            }
+        }
+
+        $output = "";
+        if (count($error)) {
+            $output .= \html_writer::start_tag('div', array('class' => 'alert alert-danger'));
+            $output .= \html_writer::tag('strong', get_string('configuration_error', 'local_orange_library'));
+            $output .= "<br />";
+            $output .= implode($error, "<br />");
+            $output .= \html_writer::end_tag('div');
+        }
+        return $output;
+
     }
 }

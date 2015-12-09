@@ -35,6 +35,9 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_heading('enrol_orangeinvitation_defaults',
         get_string('enrolinstancedefaults', 'admin'), get_string('enrolinstancedefaults_desc', 'admin')));
 
+    $settings->add(new admin_setting_configcheckbox('enrol_orangeinvitation/defaultenrol',
+        get_string('defaultenrol', 'enrol'), get_string('defaultenrol_desc', 'enrol'), 1));
+
     $options = array(ENROL_INSTANCE_ENABLED  => get_string('yes'),
                      ENROL_INSTANCE_DISABLED => get_string('no'));
     $settings->add(new admin_setting_configselect('enrol_orangeinvitation/status',
