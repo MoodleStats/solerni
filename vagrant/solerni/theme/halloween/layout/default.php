@@ -106,6 +106,7 @@ echo $OUTPUT->doctype() ?>
     <div class="u-inverse">
         <?php require($CFG->partialsdir . '/footer/footer_solerni.php'); ?>
     </div>
+    <?php echo $OUTPUT->standard_footer_html(); ?>
     <?php echo $OUTPUT->standard_end_of_body_html() ?>
 </body>
 </html>
