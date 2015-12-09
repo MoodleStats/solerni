@@ -223,7 +223,7 @@ $string['signupformfooterdesc']     = '';
 
 // Signup frontend page.
 $string['create_account']           = 'Créer mon compte';
-$string['policyaccept']             = 'J\'ai lu et j\'accepte les <a href="{$a}">conditions générales d\'utilisation</a>';
+$string['policyaccept']             = 'J\'ai lu et j\'accepte les <a class="js-target-blank" href="{$a}" target="_blank">conditions générales d\'utilisation</a>';
 $string['missingusername']          = 'Le {$a} ne peut pas etre vide';
 
 // Search filters.
