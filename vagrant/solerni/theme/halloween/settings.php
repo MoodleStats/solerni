@@ -24,6 +24,9 @@ use theme_halloween\settings\options;
 
 defined('MOODLE_INTERNAL') || die;
 
+if (!$CFG) {
+    global $CFG;
+}
 $settings = null;
 
 // Create new admin category Solerni.
