@@ -774,7 +774,7 @@ class utilities_course {
      *
      * @return string (HTML content of error message
      */
-    public static function is_mooc_configuration_ok($courseid) {
+    public static function check_mooc_configuration($courseid) {
         global $DB;
 
         $error = array();
@@ -791,8 +791,8 @@ class utilities_course {
                 if (count($instances) == 0) {
                     $error[] = get_string('enrolmentmethodmissing', 'local_orange_library', $enrol);
                 } else {
-                    $instanceself = array_pop($instances);
-                    if ($instanceself->status != 0) {
+                    $instance = array_pop($instances);
+                    if ($instance->status != 0) {
                         $error[] = get_string('enrolmentmethoddisabled', 'local_orange_library', $enrol);
                     }
                 }
