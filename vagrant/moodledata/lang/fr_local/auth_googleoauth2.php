@@ -105,3 +105,12 @@ $string['signinwithanaccount'] = 'S\'authentifier avec:';
 $string['noaccountyet'] = 'Vous n\'avez plus la permission d\'utiliser ce site. Contactez votre administrateur et demandez-lui d\'activer votre compte.';
 $string['unknownfirstname'] = 'Nom inconnu';
 $string['unknownlastname'] = 'Prénom inconnu';
+$string['linkedin_failure'] = 'Désolé, l\'authentification de votre compte ne peut aboutir.<br/>
+Si vous aviez créé un compte en vous inscrivant avec votre adresse email, veuillez continuer à vous identifier avec cette même adresse email.<br/>
+Si vous aviez créé un compte en vous inscrivant avec un compte Facebook, Linkedin ou Google +, veuillez continuer à vous identifier en utilisant le bouton de connexion correspondant.<br/>';
+$string['google_failure'] = 'Désolé, l\'authentification de votre compte ne peut aboutir.<br/>
+Si vous aviez créé un compte en vous inscrivant avec votre adresse email, veuillez continuer à vous identifier avec cette même adresse email.<br/>
+Si vous aviez créé un compte en vous inscrivant avec un compte Facebook, Linkedin ou Google +, veuillez continuer à vous identifier en utilisant le bouton de connexion correspondant.<br/>';
+$string['facebook_failure'] = 'Désolé, l\'authentification de votre compte ne peut aboutir.<br/>
+Si vous aviez créé un compte en vous inscrivant avec votre adresse email, veuillez continuer à vous identifier avec cette même adresse email.<br/>
+Si vous aviez créé un compte en vous inscrivant avec un compte Facebook, Linkedin ou Google +, veuillez continuer à vous identifier en utilisant le bouton de connexion correspondant.<br/>';
