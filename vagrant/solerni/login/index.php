@@ -202,7 +202,7 @@ if ($frm and isset($frm->username)) {
 
     } else {
         if (empty($errormsg)) {
-            $errormsg = get_string("invalidlogin");
+            $errormsg = get_string('invalidlogin', 'theme_halloween', strtolower(get_string('username', 'theme_halloween')));
             $errorcode = 3;
         }
     }

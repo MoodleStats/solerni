@@ -97,4 +97,12 @@ class theme_utilities {
 
         return false;
     }
+
+    /*
+     *  Function to concentrate the load of required plugins or libraries.
+     */
+    public static function load_required_plugins() {
+        global $CFG;
+        require_once($CFG->dirroot . '/local/analytics/lib.php');
+    }
 }
