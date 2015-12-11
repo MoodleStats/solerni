@@ -70,7 +70,7 @@ class login_signup_form extends moodleform {
         $mform->setType('email', PARAM_RAW_TRIMMED);
         $mform->addRule('email', get_string('missingemail'), 'required', null, 'client');
         if ($emailhelptext) {
-            $mform->addElement('helpblock', 'usernamehelper', 'label', $emailhelptext);
+            $mform->addElement('helpblock', 'emailhelper', 'label', $emailhelptext);
         }
         // Password.
         if (theme_utilities::is_theme_settings_exists_and_nonempty('signuppasswordsub')) {
