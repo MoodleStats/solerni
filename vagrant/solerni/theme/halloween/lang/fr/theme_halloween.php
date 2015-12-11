@@ -252,6 +252,7 @@ $string['i_do_register']            = 'Je m\'inscris';
 $string['loginoauth']               = 'Se connecter avec {$a}';
 $string['or']                       = 'ou';
 $string['username']                 = 'Pseudo';
+$string['invalidlogin']             = 'La connexion a échouée. Veuillez vérifier votre {$a} et votre mot de passe.';
 
 // Mooc component.
 $string['courseproposedby']         = "Proposé par";
