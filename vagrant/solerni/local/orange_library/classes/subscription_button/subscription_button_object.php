@@ -65,6 +65,7 @@ class subscription_button_object {
             $this->extendedcourse->get_extended_course($course, $context);
             $selfenrolment = new enrollment_object();
             $this->enrolenddate = $selfenrolment->get_enrolment_enddate($course);
+            $this->unenrolurl = $selfenrolment->get_unenrol_url($course);
             $this->moocurl = new moodle_url('/course/view.php', array('id' => $this->course->id));
             $this->urlregistration = new moodle_url('/login/signup.php', array('id' => $this->course->id));
 
