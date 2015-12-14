@@ -111,11 +111,7 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
      */
     protected function coursecat_category_content(coursecat_helper $chelper, $coursecat, $depth) {
 
-        Global $PAGE;
-
-        // Category header for customer info and logo.
-        $PAGE->requires->css('/theme/halloween/style/catalogue.css');
-        $PAGE->requires->css('/local/orange_library/style.css');
+        global $PAGE;
 
         $utilitiescourse = new utilities_course();
         $customer = $utilitiescourse->solerni_course_get_customer_infos($coursecat->id);
