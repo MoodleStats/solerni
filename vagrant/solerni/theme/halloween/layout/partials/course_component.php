@@ -36,10 +36,6 @@ if ( $courseinfos ) :
         $courseurlimage = $imageutilities->get_resized_url($customer->urlimg,
                                  array('w' => 40, 'h' => 40, 'scale' => false));
     }
-    if ($PAGE->pagelayout == 'mydashboard' ) {
-        $progressbarrenderer = $PAGE->get_renderer('block_orange_progressbar');
-        $hasprogressbar = true;
-    }
 ?>
     <div class="col-sm-12 col-md-6">
         <div class="thumbnail">
@@ -90,9 +86,6 @@ if ( $courseinfos ) :
             <div class="thumbnail-status-box u-inverse text-center">
                 <?php echo $courseinfos->coursestatustext;?>
             </div>
-            <?php if (!empty($hasprogressbar)) : ?>
-                <?php echo $progressbarrenderer->display_progress(); ?>
-            <?php endif; ?>
             <div class="caption button">
                 <?php echo $subscriptionbutton->set_button($courseinfos); ?>
             </div>

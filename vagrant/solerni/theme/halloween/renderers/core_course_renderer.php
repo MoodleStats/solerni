@@ -31,7 +31,6 @@ use local_orange_library\subscription_button\subscription_button_object;
 use local_orange_library\extended_course\extended_course_object;
 
 require_once($CFG->dirroot . '/course/renderer.php');
-require_once($CFG->dirroot . '/blocks/orange_progressbar/lib.php');
 require_once($CFG->dirroot.'/blocks/orange_course_dashboard/locallib.php');
 
 
@@ -397,18 +396,8 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
             // Get course informations.
             $courseinfos = $utilitiescourse->solerni_get_course_infos($course);
 
-            $classes = '';
             $coursename = $chelper->get_course_formatted_name($course);
 
-            if ($chelper->get_show_courses() >= self::COURSECAT_SHOW_COURSES_EXPANDED) {
-                    $nametag = 'h3';
-            } else {
-                    $classes .= ' ';
-                    $nametag = 'div';
-            }
-
-            // Get information on user progress in course
-            list ($progressstatus, $progresscompleteted, $progresstotal, $progress) = user_course_progress ($course);
             // Generate code with buffering to include partial.
             ob_start();
             include( $CFG->partialsdir . '/course_component.php');
