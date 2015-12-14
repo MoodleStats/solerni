@@ -114,4 +114,6 @@ $string['stattitle'] = 'Login statistics for the last {$a->periodindays} days (s
 $string['supportmaintenance'] = 'To support the maintenance of this plugin, login to the <a target="_blank" href="https://moodle.org/plugins/view/auth_googleoauth2">Moodle.org plugin page</a> and click \'Add to my favourites\'. Thanks!';
 $string['unknownfirstname'] = 'Unknown Firstname';
 $string['unknownlastname'] = 'Unknown Lastname';
-
+$string['linkedin_failure'] = 'The authentication failed - Please try to sign-in again.<br/>';
+$string['google_failure'] = 'The authentication failed - Please try to sign-in again.<br/>';
+$string['facebook_failure'] = 'The authentication failed - Please try to sign-in again.<br/>';
