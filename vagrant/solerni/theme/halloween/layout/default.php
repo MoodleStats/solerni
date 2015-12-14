@@ -49,7 +49,7 @@ if ($PAGE->user_is_editing()) {
  * So this test loads the missing required local plugins
  * when the page has no block content.
  */
-if ( !$showsidepre && !$showsidepost && !$hassidetop ) {
+if ( !empty($showsidepre) && !empty($showsidepost) && !empty($hassidetop)) {
     theme_utilities::load_required_plugins();
 }
 

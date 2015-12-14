@@ -23,17 +23,22 @@
  */
 use local_orange_library\utilities\utilities_object;
 use local_orange_library\utilities\utilities_user;
+global $PAGE;
 
 if ( $courseinfos ) :
     $customerurl = new moodle_url('/course/index.php', array('categoryid' => $course->category));
 
-    if (isset($courseinfos->imgurl)) {
+    if (!empty($courseinfos->imgurl)) {
         $courseimageurl = $imageutilities->get_resized_url($courseinfos->imgurl,
                                  array('w' => 490, 'h' => 357, 'scale' => false));
     }
-    if (isset($customer->urlimg)) {
+    if (!empty($customer->urlimg)) {
         $courseurlimage = $imageutilities->get_resized_url($customer->urlimg,
                                  array('w' => 40, 'h' => 40, 'scale' => false));
+    }
+    if ($PAGE->pagelayout == 'mydashboard' ) {
+        $progressbarrenderer = $PAGE->get_renderer('block_orange_progressbar');
+        $hasprogressbar = true;
     }
 ?>
     <div class="col-sm-12 col-md-6">
@@ -45,7 +50,7 @@ if ( $courseinfos ) :
                     <?php if ($customerurl && $customer && $customer->name) : ?>
                     <p>
                         <?php echo get_string('courseproposedby', 'theme_halloween'); ?>
-                        <a class="link-primary" href="<?php echo $customerurl; ?>" class="slrn-coursebox__course-customer">
+                        <a class="link-primary" href="<?php echo $customerurl; ?>">
                             <?php echo $customer->name;?>
                         </a>
                     </p>
@@ -85,6 +90,9 @@ if ( $courseinfos ) :
             <div class="thumbnail-status-box u-inverse text-center">
                 <?php echo $courseinfos->coursestatustext;?>
             </div>
+            <?php if (!empty($hasprogressbar)) : ?>
+                <?php echo $progressbarrenderer->display_progress(); ?>
+            <?php endif; ?>
             <div class="caption button">
                 <?php echo $subscriptionbutton->set_button($courseinfos); ?>
             </div>

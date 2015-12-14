@@ -353,7 +353,8 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
     }
 
     /**
-     * Render a halloween Mooc (CourseBox) HTML Fragment from partials/course_component template
+     * Render a halloween Mooc (CourseBox) HTML Fragment
+     * uses template from /partials/course_component.php
      *
      *
      * @global type $CFG
