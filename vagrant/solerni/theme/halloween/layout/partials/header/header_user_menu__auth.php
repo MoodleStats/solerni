@@ -32,7 +32,7 @@ $youvegotmail = utilities_user::user_have_new_mail($USER);
         </button>
         <ul class="dropdown-menu list-unstyled list-link" aria-labelledby="dLabel">
             <li>
-                <a href="<?php echo $CFG->wwwroot ?>/my">
+                <a href="<?php echo $CFG->wwwroot ?>/my/index.php">
                     <?php echo get_string('user_menu_dashboard', 'theme_halloween'); ?>
                 </a>
             </li>
