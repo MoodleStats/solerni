@@ -26,7 +26,13 @@ namespace local_orange_library\extended_course;
 use local_orange_library\utilities\utilities_object;
 use local_orange_library\utilities\utilities_course;
 use local_orange_library\enrollment\enrollment_object;
+use moodle_url;
 require_once($CFG->dirroot.'/local/orange_customers/lib.php');
+require_once('course_lib.php');
+require_once('registration_lib.php');
+require_once('button_renderer.php');
+require_once('status_controller.php');
+
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -154,10 +160,16 @@ class extended_course_object {
     public $teachingteam;
 
     /**
-     * The registration end date of a course.
+     * url enrolment.
      * @var text $enrolurl
      */
     public $enrolurl;
+
+    /**
+     * url unrollment.
+     * @var text $enrolurl
+     */
+    public $unenrolurl;
 
     /**
      * The $coursestatus of a course.
@@ -165,6 +177,22 @@ class extended_course_object {
      */
     public $coursestatus;
 
+    /**
+     * The $coursestatus of a course.
+     * @var text $coursestatus
+     */
+    public $statuslink;
+
+    /**
+     * The $coursestatus of a course.
+     * @var text $coursestatus
+     */
+    public $statuslinktext;
+    /**
+     * The $coursestatus of a course.
+     * @var text $coursestatus
+     */
+    public $statustext;
 
     /**
      * The $coursestatus of a course.
@@ -196,6 +224,23 @@ class extended_course_object {
      */
     public $enrolledusers;
 
+    /**
+     * The $enrolstartdate of a course.
+     * @var int $enrolstartdate
+     */
+    public $enrolstartdate;
+
+    /**
+     * The $enrolstartdate of a course.
+     * @var int $enrolstartdate
+     */
+    public $enrolenddate;
+
+    /**
+     * The $enrolstartdate of a course.
+     * @var int $enrolstartdate
+     */
+    public $displaybutton;
 
     const USERLOGGED        = 4;
     const USERENROLLED      = 5;
@@ -215,19 +260,18 @@ class extended_course_object {
      */
     public function get_extended_course($course, $context = null) {
 
-        global $DB;
+        global $DB, $CONTEXT;
 
         $utilitiescourse = new utilities_course();
         $categoryid = $utilitiescourse->get_categoryid_by_courseid($course->id);
         $customer = customer_get_customerbycategoryid($categoryid);
         $selfenrolment = new enrollment_object();
         $instance = $selfenrolment->get_self_enrolment($course);
-
         $extendedcourseflexpagevalues = $DB->get_records('course_format_options',
                 array('courseid' => $course->id));
         foreach ($extendedcourseflexpagevalues as $extendedcourseflexpagevalue) {
             if ($extendedcourseflexpagevalue->format == "flexpage") {
-                $this->set_extended_course($extendedcourseflexpagevalue);
+                $this->set_extended_course($extendedcourseflexpagevalue, $course, $context);
             }
         }
         if (!$context) {
@@ -249,8 +293,10 @@ class extended_course_object {
         if(isset($instance->customint2)) {
             $this->enrolurl = $instance->customint2;
         }
-        utilities_course::get_course_status($this, $course);
-        utilities_course::get_registration_status($this);
+        $this->moocurl = new moodle_url('/course/view.php', array('id' => $course->id));
+        $this->urlregistration = new moodle_url('/login/signup.php', array('id' => $course->id));
+        $this->unenrolurl = $instance->customint2;
+        set_course_status($course, $context, $this);
 
     }
 
@@ -260,9 +306,8 @@ class extended_course_object {
      * @param object $extendedcourseflexpagevalue
      * @return object $this->extendedcourse
      */
-    private function set_extended_course ($extendedcourseflexpagevalue) {
-
-        switch ($extendedcourseflexpagevalue->name) {
+    private function set_extended_course ($extendedcourseflexpagevalue, $course, $context) {
+         switch ($extendedcourseflexpagevalue->name) {
             case 'coursereplay':
                 $this->set_replay($extendedcourseflexpagevalue);
                 break;

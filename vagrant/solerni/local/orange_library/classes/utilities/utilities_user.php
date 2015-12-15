@@ -29,7 +29,8 @@ class utilities_user {
     const USERLOGGED                = 0;
     const USERENROLLED              = 1;
     const USERUNENROLLED            = 2;
-    const PRIVATEPF                 = 3;
+    const USERUNLOGGED            = 3;
+    const PRIVATEPF                 = 4;
 
     static public function is_user_site_admin($user) {
         foreach (get_admins() as $adminuser) {
@@ -76,11 +77,12 @@ class utilities_user {
 
         $userstatus = self::USERUNENROLLED;
 
-        if (isloggedin()) {
-            $userstatus = self::USERLOGGED;
-        }
         if (is_enrolled($context)) {
             $userstatus = self::USERENROLLED;
+        } else if (isloggedin()) {
+            $userstatus = self::USERLOGGED;
+        } else {
+            $userstatus = self::USERUNLOGGED;
         }
         return $userstatus;
     }

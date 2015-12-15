@@ -117,6 +117,40 @@ class utilities_object {
 
         return date($format, $date);
     }
+
+    /**
+     * Is the date is before current date.
+     *
+     * @param object $date
+     * @return boolean
+     */
+    public static function is_before($date) {
+
+        $return = false;
+        $datetime = new \DateTime;
+        $curentdate = $datetime->getTimestamp();
+        if ($date > $curentdate) {
+            $return = true;
+        }
+        return $return;
+
+    }
+
+    /**
+     * Is the date is after current date.
+     *
+     * @param object $date
+     * @return boolean
+     */
+    public static function is_after($date) {
+        $return = false;
+        $datetime = new \DateTime;
+        $curentdate = $datetime->getTimestamp();
+        if ($date < $curentdate) {
+            $return = true;
+        }
+        return $return;
+    }
 }
 
 

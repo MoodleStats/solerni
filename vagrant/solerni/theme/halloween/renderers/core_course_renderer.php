@@ -503,7 +503,7 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
             $context = context_course::instance($course->id);
             $extendedcourse = new extended_course_object();
             $extendedcourse->get_extended_course($course, $context);
-            $status = $utilitiescourse->get_course_status($extendedcourse, $course);
+            $status = $extendedcourse->coursestatus;
 
             $nbcourses[0] = $nbcourses[0] + 1;
             if ($filter == 0 || $filter == $status) {

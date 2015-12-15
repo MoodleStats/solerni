@@ -43,7 +43,7 @@ require_once($CFG->dirroot . '/lib/coursecatlib.php'); // TODO : use course_in_l
 class utilities_course {
 
     const MOOCREGISTRATIONCOMPLETE  = 0;
-    const MOOCNOTCOMPLETE           = 1;
+    const MOOCREGISTRATIONOPEN      = 1;
     const MOOCREGISTRATIONSTOPPED   = 2;
     const MOOCREGISTRATIONNOTOPEN   = 3;
 
@@ -107,8 +107,8 @@ class utilities_course {
      * @return array array of stdClass objects
      */
     public static function get_course_records($whereclause, $params, $options, $checkvisibility = false) {
-        global $DB, $USER;
-        $list = $this->get_course_records_request($whereclause, $params, $options);
+        global $USER;
+        $list = self::get_course_records_request($whereclause, $params, $options);
 
         if ($checkvisibility) {
             // Loop through all records and make sure we only return the courses accessible by user.
@@ -187,8 +187,8 @@ class utilities_course {
      * @param int $whereclause
      * @return object $list
      */
-    private function get_course_records_request($whereclause, $params, $options) {
-
+    private static function get_course_records_request($whereclause, $params, $options) {
+    global $DB;
         $ctxselect = context_helper::get_preload_record_columns_sql('ctx');
 
         $fields = array('c.id', 'c.category', 'c.sortorder',
@@ -607,163 +607,57 @@ class utilities_course {
         return ($course->id == 1);
     }
 
-    /**
-     * Return the status of the course
-     * Status could be : MOOCRUNNING
-     *                          MOOCCLOSED
-     *                          MOOCNOTSTARTED
-     *
-     * @param $extendedcourse
-     * @return int $extendedcourse->coursestatus
-     */
 
-    public static function get_course_status($extendedcourse, $course) {
-
-        if (self::is_closed($extendedcourse)) {
-            return self::mooc_closed($extendedcourse);
-        } else if (self::is_after($course->startdate)) {
-            return self::mooc_not_started($extendedcourse);
-        }
-        return self::mooc_running($extendedcourse);
-
-    }
-
-        /**
-     * Get the registration not complete status from a course.
-     *
-     * @param object $extendedcourse
-     * @return MOOCNOTCOMPLETE
-     */
-    private static function mooc_running($extendedcourse) {
-        $extendedcourse->coursestatus = self::MOOCRUNNING;
-        $extendedcourse->coursestatustext = get_string('status_running', 'local_orange_library');
-        return $extendedcourse;
-    }
-
-        /**
-     * Get the registration not complete status from a course.
-     *
-     * @param object $extendedcourse
-     * @return MOOCNOTCOMPLETE
-     */
-    private static function mooc_closed($extendedcourse) {
-            $extendedcourse->coursestatustext = get_string('status_closed', 'local_orange_library');
-            $extendedcourse->coursestatus = self::MOOCCLOSED;
+/**
+ *
+ * @param type $extendedcourse
+ * @return type
+ */
+    private function incoming_unsubscribe($extendedcourse){
+        echo 'incoming_unsubscribe ';
+            $extendedcourse->statuslink = $extendedcourse->unenrolurl;
+            $extendedcourse->statustext = get_string('status_default', 'local_orange_library');
             return $extendedcourse;
     }
 
-        /**
-     * Get the registration not complete status from a course.
-     *
-     * @param object $extendedcourse
-     * @return MOOCNOTCOMPLETE
+    /**
+     * course running + unsubscription link + button active
+     * @param type $extendedcourse
+     * @return type
      */
-    private static function mooc_not_started($extendedcourse) {
-            $extendedcourse->coursestatustext = get_string('status_default', 'local_orange_library');
-            $extendedcourse->coursestatus = self::MOOCNOTSTARTED;
+    private function running_unsubscribe($extendedcourse){
+         echo 'running_unsubscribe ';
+            $extendedcourse->statuslink = $extendedcourse->unenrolurl;
+            $extendedcourse->statustext = get_string('status_running', 'local_orange_library');
             return $extendedcourse;
     }
-    /**
-     * Return the registration status of the course
-     * Status could be : MOOCNOTCOMPLETE
-     *                          MOOCCOMPLETE
-     *                          MOOCREGISTRATIONSTOPPED
-     *
-     * @param $extendedcourse
-     * @return int
-     */
-    public static function get_registration_status($extendedcourse) {
 
-        if ($extendedcourse->registration == 0) {
-            return self::mooc_not_complete($extendedcourse);
-        } else if ($extendedcourse->enrolledusers >= $extendedcourse->maxregisteredusers) {
-            return self::mooc_complete($extendedcourse);
-        } else if (self::is_after($extendedcourse->enrolenddate)) {
-            return self::mooc_registration_stopped($extendedcourse);
-        } else {
-            return self::mooc_not_complete($extendedcourse);
-        }
+    /**
+     * new session state + registration closed + button disabled state
+     * @param type $extendedcourse
+     * @return type
+     */
+    private function new_session($extendedcourse)
+    {
+        echo 'new_session ';
+            $extendedcourse->statuslink = get_string('new_session', 'local_orange_library');
+            $extendedcourse->statustext = get_string('registration_closed', 'local_orange_library');
+            return $extendedcourse;
     }
 
     /**
-     * Get the registration not complete status from a course.
-     *
-     * @param object $extendedcourse
-     * @return MOOCNOTCOMPLETE
+     * subscription closed and button disabled state
+     * @param type $extendedcourse
+     * @return type
      */
-    private static function mooc_not_complete($extendedcourse) {
-        $extendedcourse->registrationstatus = self::MOOCNOTCOMPLETE;
-        $extendedcourse->registrationstatustext = get_string('registration_open', 'local_orange_library');
-        return $extendedcourse;
+    private function subscription_closed($extendedcourse)
+    {
+        echo 'subscription_closed ';
+            $extendedcourse->statuslink = "#";
+            $extendedcourse->statustext = get_string('registration_closed', 'local_orange_library');
+            return $extendedcourse;
     }
 
-    /**
-     * Get the registration complete status from a course.
-     *
-     * @param object $extendedcourse
-     * @return MOOCCOMPLETE
-     */
-    private static function mooc_complete($extendedcourse) {
-        $extendedcourse->registrationstatus = self::MOOCREGISTRATIONCOMPLETE;
-        $extendedcourse->registrationstatustext = get_string('mooc_complete', 'local_orange_library');
-        return $extendedcourse;
-    }
 
-    /**
-     * Get the registration stopped status from a course.
-     *
-     * @param object $extendedcourse
-     * @return MOOCREGISTRATIONSTOPPED
-     */
-    private static function mooc_registration_stopped($extendedcourse) {
-        $extendedcourse->registrationstatus = self::MOOCREGISTRATIONSTOPPED;
-        $extendedcourse->registrationstatustext = get_string('registration_closed', 'local_orange_library');
-        return $extendedcourse;
-    }
 
-    /**
-     * Get the closed status from a course.
-     *
-     * @param object $extendedcourse
-     * @return boolean
-     */
-    private static function is_closed($extendedcourse) {
-        if ($extendedcourse->enddate == 0) {
-            return false;
-        } elseif (self::is_before($extendedcourse->enddate)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Is the date is before current date.
-     *
-     * @param object $date
-     * @return boolean
-     */
-    private static function is_before($date) {
-        $datetime = new \DateTime;
-        if ($date < $datetime->getTimestamp()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Is the date is after current date.
-     *
-     * @param object $date
-     * @return boolean
-     */
-    private static function is_after($date) {
-        $datetime = new \DateTime;
-        if ($date > $datetime->getTimestamp()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 }
