@@ -73,7 +73,7 @@ $site = get_site();
 $loginsite = get_string("loginsite");
 $PAGE->navbar->add($loginsite);
 
-if ($user !== false or $frm !== false or $errormsg !== '') {
+if ($user !== false || $frm !== false || $errormsg !== '') {
     // some auth plugin already supplied full user, fake form data or prevented user login with error message
 } else if (!empty($SESSION->wantsurl) && file_exists($CFG->dirroot.'/login/weblinkauth.php')) {
     // Handles the case of another Moodle site linking into a page on this site
@@ -215,7 +215,6 @@ if ($session_has_timed_out and !data_submitted()) {
 }
 
 /// First, let's remember where the user was trying to get to before they got here
-
 if (empty($SESSION->wantsurl)) {
     $SESSION->wantsurl = (array_key_exists('HTTP_REFERER',$_SERVER) &&
                           $_SERVER["HTTP_REFERER"] != $CFG->wwwroot &&

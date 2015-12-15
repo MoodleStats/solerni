@@ -26,6 +26,8 @@ class theme_utilities {
      *
      * @param array or string $settings : setting name or array of settings names
      * @param string $option : 'atleastone' or 'all' values
+     *
+     * @return boolean
      */
     public static function is_theme_settings_exists_and_nonempty($settings, $option = null) {
         if (is_string($settings)) {

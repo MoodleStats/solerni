@@ -49,7 +49,7 @@ if ($PAGE->user_is_editing()) {
  * So this test loads the missing required local plugins
  * when the page has no block content.
  */
-if ( !empty($showsidepre) && !empty($showsidepost) && !empty($hassidetop)) {
+if ( !isset($showsidepre) && !isset($showsidepost) && !isset($hassidetop)) {
     theme_utilities::load_required_plugins();
 }
 
@@ -117,7 +117,6 @@ echo $OUTPUT->doctype() ?>
     <div class="u-inverse">
         <?php require($CFG->partialsdir . '/footer/footer_solerni.php'); ?>
     </div>
-    <?php echo $OUTPUT->standard_footer_html(); ?>
     <?php echo $OUTPUT->standard_end_of_body_html() ?>
 </body>
 </html>

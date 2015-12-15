@@ -30,16 +30,16 @@ class utilities_network {
     /**
      * Check is the Moodle instance is the home server of the Moodle Network.
      *
-     * @return int || boolean
+     * @return boolean
      */
     static public function is_home() {
-        return theme_utilities::is_theme_settings_exists_and_nonempty('mnethome');
+        return theme_utilities::is_theme_settings_exists_and_nonempty('mnet_home');
     }
 
     /**
      * Check is the Moodle instance is a thematic server of the Moodle Network.
      *
-     * @return int || boolean
+     * @return boolean
      */
     static public function is_thematic() {
         return !self::is_home();

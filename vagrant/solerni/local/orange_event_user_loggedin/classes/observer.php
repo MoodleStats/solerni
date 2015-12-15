@@ -35,7 +35,7 @@ class local_orange_event_user_loggedin_observer {
      * @param \core\event\user_loggedin $event
      */
 
-    public static function user_loggedin(\core\event\user_loggedin  $event) {
+    public static function user_loggedin(\core\event\user_loggedin $event) {
         global $CFG, $DB;
 
         $clause = array('id' => $event->objectid);
