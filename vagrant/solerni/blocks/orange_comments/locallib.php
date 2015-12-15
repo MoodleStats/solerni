@@ -30,9 +30,12 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright  2015 Orange based on block_comments plugin from 1999 onwards Martin Dougiamas (http://dougiamas.com)
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class orangecomment extends comment{
+class orangecomment extends comment {
 
     public function __construct(stdClass $options) {
+
+        global $PAGE;
+        $PAGE->requires->js('/blocks/orange_comments/module.js');
 
         // setup client_id
         if (!empty($options->client_id)) {
@@ -151,7 +154,7 @@ class orangecomment extends comment{
         $options->notoggle    = $this->notoggle;
         $options->autostart   = $this->autostart;
 
-        $page->requires->js_init_call('M.core_comment.init', array($options), true);
+        $page->requires->js_init_call('M.block_orange_comment.init', array($options), true);
         return true;
     }
 
@@ -418,8 +421,8 @@ class orangecomment extends comment{
             $html .= html_writer::tag('h3', get_string('comments'));
             $html .= html_writer::start_tag('ul', array('id' => 'comment-list-'.$this->cid, 'class' => 'comment-list'));
         }
-        // Reverse the comments array to display them in the correct direction
-        foreach (array_reverse($comments) as $cmt) {
+        // Display comment : last comment in first position
+        foreach ($comments as $cmt) {
             $html .= html_writer::tag('li', $this->print_comment($cmt, $nonjs), array('id' => 'comment-'.$cmt->id.'-'.$this->cid));
         }
         if ($nonjs) {
@@ -552,5 +555,4 @@ class orangecomment extends comment{
         }
         return $str;
     }
-
 }
