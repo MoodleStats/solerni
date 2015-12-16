@@ -216,6 +216,10 @@ $string['signupusername']           = 'Username label';
 $string['signupusernamedesc']       = '';
 $string['signupusernamesub']        = 'Helper text for username field';
 $string['signupusernamesubdesc']    = '';
+$string['signupemail']              = 'Email label';
+$string['signupemaildesc']          = '';
+$string['signupemailsub']           = 'Helper text for email field';
+$string['signupemailsubdesc']       = '';
 $string['signuppasswordsub']        = 'Helper text for password field';
 $string['signuppasswordsubdesc']    = '';
 $string['signupformfooter']         = 'Text on signup form footer';
@@ -252,6 +256,7 @@ $string['i_do_register']            = 'I do register';
 $string['loginoauth']               = 'Log in with {$a}';
 $string['or']                       = 'or';
 $string['username']                 = 'Nickname';
+$string['invalidlogin']             = 'Connection failed. Please check your {$a} and your password.';
 
 // Mooc component.
 $string['courseproposedby']         = "Proposed by";

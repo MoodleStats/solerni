@@ -200,3 +200,6 @@ moosh config-set status 0 enrol_orangenextsession
 moosh config-set defaultenrol 1 enrol_orangeinvitation
 # /!\ this value is reversed 0 => true, 1 => false
 moosh config-set status 0 enrol_orangeinvitation
+
+# Add cache store memcached
+moosh cache-admin memcached addstore ${MEMCACHED_CACHE_NAME} ${MEMCACHED_CACHE_SERVER} ${MEMCACHED_CACHE_PREFIX}

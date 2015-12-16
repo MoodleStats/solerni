@@ -303,7 +303,7 @@ class extended_course_object {
                 $this->registration = $extendedcourseflexpagevalue->value;
                 break;
             case 'coursecontactemail':
-                $this->contactemail = $extendedcourseflexpagevalue->value;
+                $this->contactemail = trim($extendedcourseflexpagevalue->value);
                 break;
             case 'coursethumbnailtext':
                 $this->thumbnailtext = $extendedcourseflexpagevalue->value;

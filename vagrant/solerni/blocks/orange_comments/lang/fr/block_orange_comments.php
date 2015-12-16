@@ -25,3 +25,6 @@
 $string['orange_comments:myaddinstance'] = 'Ajouter un bloc commentaires à Ma page';
 $string['orange_comments:addinstance'] = 'Ajouter un nouveau bloc de commentaires';
 $string['pluginname'] = 'Orange Commentaires';
+$string['yourreactions'] = 'Vos réactions';
+
+$string['showcomments'] = "Ecrire un commentaire";

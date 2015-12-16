@@ -490,3 +490,6 @@ moosh role-update-capability solerni_teacher moodle/restore:userinfo allow 1
 moosh role-update-capability solerni_course_creator moodle/restore:userinfo allow 1
 moosh role-update-capability solerni_teacher moodle/restore:viewautomatedfilearea allow 1
 moosh role-update-capability solerni_course_creator moodle/restore:viewautomatedfilearea allow 1
+
+# Course Creator : can add block in a course
+moosh role-update-capability solerni_course_creator moodle/block:edit allow 1
