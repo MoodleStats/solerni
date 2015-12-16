@@ -18,7 +18,7 @@
  * The comments block helper functions and callbacks
  *
  * @package    block_orange_comments
- * @copyright 2009 Dongsheng Cai <dongsheng@moodle.com>
+ * @copyright  2015 Orange based on block_comments plugin from 1999 onwards Martin Dougiamas (http://dougiamas.com)
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -48,7 +48,6 @@ function block_orange_comments_comment_validate($commentparam) {
     if ($commentparam->itemid == 0) {
         throw new comment_exception('invalidcommentitemid');
     }
-
     return true;
 }
 

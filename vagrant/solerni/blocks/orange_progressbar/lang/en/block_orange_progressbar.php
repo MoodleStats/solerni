@@ -24,8 +24,8 @@
 
 $string['no_activities_monitored'] = 'No activities are being monitored.';
 $string['completion_not_enabled'] = 'Completion tracking not enabled for this course';
-$string['pluginname'] = 'Simple Progress Bar';
-$string['config_default_title'] = 'Progress Bar';
+$string['pluginname'] = 'Orange Progress Bar';
+$string['config_default_title'] = 'Orange Progress Bar';
 $string['overview'] = 'Your progress';
 $string['overviewbutton'] = 'Your progress';
 $string['progres_detail'] = 'See progress details';

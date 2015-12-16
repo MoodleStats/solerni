@@ -14,7 +14,7 @@ class local_analytics_dimensions {
     private $dimensions2;
     private $dimensions3;
     private $dimensions4;
-    //private $dimensions5;
+    private $dimensions5;
     private $iscourse;
     private $isuserlogged;
 
@@ -26,7 +26,7 @@ class local_analytics_dimensions {
         $this->dimensions2 = $this->set_dimensions2($course, $user);
         $this->dimensions3 = $this->set_dimensions3($cfg);
         $this->dimensions4 = $this->set_dimensions4($cfg);
-        //$this->dimensions5 = $this->set_dimensions5($user);
+        $this->dimensions5 = $this->set_dimensions5();
 
     }
 
@@ -113,18 +113,13 @@ class local_analytics_dimensions {
     }
 
     /*
-     * Set dimensions5 to $USER->id if the user is logged to the platform
-     * or to translated string if not
+     * Not used
      */
-/*
-    private function set_dimensions5($user) {
-        return  ($this->isuserlogged) ?
-                $user->id :
-                get_string('anonymous', 'local_analytics');
+    private function set_dimensions5() {
+        return false;
     }
 
     public function get_dimensions5() {
          return $this->dimensions5;
     }
-*/
 }

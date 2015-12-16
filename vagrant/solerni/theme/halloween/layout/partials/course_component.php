@@ -32,7 +32,7 @@ if ( $courseinfos ) :
                                  array('w' => 490, 'h' => 357, 'scale' => false));
     }
     if (isset($customer->urlimg)) {
-        $courseurlimage = $imageutilities->get_resized_url($courseinfos->urlimg,
+        $courseurlimage = $imageutilities->get_resized_url($customer->urlimg,
                                  array('w' => 40, 'h' => 40, 'scale' => false));
     }
 ?>

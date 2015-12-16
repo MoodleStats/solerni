@@ -30,6 +30,7 @@ $string['local_orange_library'] = 'Orange Library';
 $string['subscribe_to_mooc']    = 'S’inscrire';
 $string['access_to_mooc']       = 'Accéder au cours';
 $string['status_default']       = 'A venir';
+$string['status_running']       = 'En cours';
 $string['status_closed']        = 'Terminé';
 $string['alert_mooc']           = 'M’avertir de la prochaine session';
 $string['registration_closed']  = 'Inscription terminée';
@@ -38,7 +39,6 @@ $string['registration_not_open']    = 'Inscription pas encore ouverte';
 $string['mooc_complete']        = 'Mooc complet';
 $string['mooc_open_date']       = 'Début le {$a}';
 $string['acces_to_archive']     = 'Acces aux archives du cours';
-$string['status_running']       = 'En cours';
 $string['enrolled_users']       = 'utilisateurs enregistrés';
 $string['unsubscribe']          = 'me désinscrire';
 $string['new_session']          = 'new_session';
@@ -76,3 +76,10 @@ $string['coursereplay']         = 'cours rejouable';
 $string['coursereplay_help']    = 'le cours est-il rejouable ?';
 $string['replay']               = 'Rejouable';
 $string['notreplay']            = 'Non rejouable';
+
+// Configuration check.
+$string['configuration_error']  = 'Erreurs de configuration pour ce cours :';
+$string['enrolmentmethodmissing'] = 'Métode d\'inscription "{$a}" manquante.';
+$string['enrolmentmethodenabled'] = 'La métode d\'inscription "{$a}" doit être activée.';
+$string['moddescriptionpagemissing'] = 'Page "En savoir+" manquante.';
+$string['blockmissing'] = 'Bloc "{$a}" manquant.';

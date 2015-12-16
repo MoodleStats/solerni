@@ -36,6 +36,7 @@ use course_in_list;
 
 require_once($CFG->dirroot . '/cohort/lib.php');
 require_once($CFG->dirroot . '/lib/coursecatlib.php'); // TODO : use course_in_list not working.
+require_once($CFG->libdir.'/outputcomponents.php');
 
 class utilities_course {
 
@@ -660,5 +661,67 @@ class utilities_course {
         $extendedcourse->statuslink = "#";
         $extendedcourse->statustext = get_string('registration_closed', 'local_orange_library');
         return $extendedcourse;
+    }
+
+    /**
+     * Check the course configuration for the mandatory params.
+     *
+     * @return string (HTML content of error message
+     */
+    public static function check_mooc_configuration($courseid) {
+        global $DB;
+
+        $error = array();
+        $context = context_course::instance($courseid);
+
+        if (has_capability('moodle/course:enrolconfig', $context)) {
+            // Check needed enrolment methods.
+            $neededenrolment = array ('manual', 'self', 'orangeinvitation', 'orangenextsession');
+            foreach ($neededenrolment as $enrol) {
+                $instances = enrol_get_instances ($courseid, true);
+                $instances = array_filter ($instances, function ($element) use($enrol) {
+                    return $element->enrol == $enrol;
+                });
+                if (count($instances) == 0) {
+                    $error[] = get_string('enrolmentmethodmissing', 'local_orange_library', $enrol);
+                } else {
+                    $instance = array_pop($instances);
+                    if ($instance->status != 0) {
+                        $error[] = get_string('enrolmentmethoddisabled', 'local_orange_library', $enrol);
+                    }
+                }
+            }
+        }
+
+        if (has_capability('mod/descriptionpage:addinstance', $context)) {
+            // Check descriptionpage module.
+            $descriptionpages = $DB->get_record('descriptionpage', array('course' => $courseid));
+            if (is_null($descriptionpages)) {
+                $error[] = get_string('moddescriptionpagemissing', 'local_orange_library');
+            }
+        }
+
+        // Check mandatory blocks.
+        $neededblocks = array ( 'orange_course_extended', 'orange_progressbar');
+        foreach ($neededblocks as $block) {
+            if (has_capability('block/'.$block.':addinstance', $context)) {
+                $extendedcourseblock = $DB->get_records('block_instances',
+                        array('blockname' => $block, 'parentcontextid' => $context->id));
+                if (count($extendedcourseblock) == 0) {
+                    $error[] = get_string('blockmissing', 'local_orange_library', $block);
+                }
+            }
+        }
+
+        $output = "";
+        if (count($error)) {
+            $output .= \html_writer::start_tag('div', array('class' => 'alert alert-danger'));
+            $output .= \html_writer::tag('strong', get_string('configuration_error', 'local_orange_library'));
+            $output .= "<br />";
+            $output .= implode($error, "<br />");
+            $output .= \html_writer::end_tag('div');
+        }
+        return $output;
+
     }
 }

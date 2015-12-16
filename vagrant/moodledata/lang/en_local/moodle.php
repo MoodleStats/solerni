@@ -253,3 +253,4 @@ Learning is always better together <a href="'.$CFG->wwwroot.'">{$a->sitename}</a
     </tbody></table>
 
 </div></blockquote></body></html>';
+$string['commentscount'] = 'Write a comment';

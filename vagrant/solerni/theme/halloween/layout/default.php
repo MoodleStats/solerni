@@ -19,6 +19,7 @@
  */
 require_once($CFG->dirroot.'/course/format/flexpage/locallib.php');
 use local_orange_library\utilities\utilities_course;
+use theme_halloween\tools\theme_utilities;
 
 $hassidepre = $PAGE->blocks->region_has_content('side-pre', $OUTPUT);
 $hassidepost = $PAGE->blocks->region_has_content('side-post', $OUTPUT);
@@ -40,6 +41,16 @@ if ($PAGE->user_is_editing()) {
     if ($PAGE->blocks->is_known_region('side-top')) {
         $hassidetop = true;
     }
+}
+
+/*
+ * Fixes a strange behavior when a page has no blocks content.
+ * The local plugins are not loaded - so the piwik tracker is not
+ * So this test loads the missing required local plugins
+ * when the page has no block content.
+ */
+if ( !$showsidepre && !$showsidepost && !$hassidetop ) {
+    theme_utilities::load_required_plugins();
 }
 
 $PAGE->set_popup_notification_allowed(false);
@@ -106,6 +117,7 @@ echo $OUTPUT->doctype() ?>
     <div class="u-inverse">
         <?php require($CFG->partialsdir . '/footer/footer_solerni.php'); ?>
     </div>
+    <?php echo $OUTPUT->standard_footer_html(); ?>
     <?php echo $OUTPUT->standard_end_of_body_html() ?>
 </body>
 </html>

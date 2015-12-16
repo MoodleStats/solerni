@@ -1,13 +1,9 @@
 vagrant/moodledata/*
 !vagrant/moodledata/lang
 vagrant/moodledata2/*
-!vagrant/moodledata2/lang
 vagrant/moodledata3/*
-!vagrant/moodledata3/lang
 vagrant/moodledata4/*
-!vagrant/moodledata4/lang
 vagrant/moodledata5/*
-!vagrant/moodledata5/lang
 vagrant/solerni/nbproject/
 vagrant/solerni2/nbproject/
 vagrant/solerni3/nbproject/

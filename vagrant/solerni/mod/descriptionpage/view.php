@@ -64,7 +64,7 @@ if ($p) {
 }
 
 // Require_course_login($course, true, $cm);.
-$subscriptionbutton = new subscription_button_object($course);
+
 
 // ...$page = $PAGE->get_renderer('mod_page');.
 $context = context_module::instance($cm->id);
