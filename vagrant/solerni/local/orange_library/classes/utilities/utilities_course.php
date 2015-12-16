@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -31,11 +30,9 @@ use local_orange_library\enrollment\enrollment_object;
 use local_orange_library\utilities\utilities_image;
 use context_user;
 use context_course;
-use moodle_url;
 use context_helper;
 use coursecat_sortable_records;
 use course_in_list;
-use DateTime;
 
 require_once($CFG->dirroot . '/cohort/lib.php');
 require_once($CFG->dirroot . '/lib/coursecatlib.php'); // TODO : use course_in_list not working.
@@ -60,6 +57,7 @@ class utilities_course {
      * @return extended_course_object
      */
     public static function solerni_course_get_customer_infos($catid) {
+
         global $CFG;
         require_once($CFG->dirroot . '/local/orange_customers/lib.php');
         $customer = customer_get_customerbycategoryid($catid);
@@ -76,6 +74,7 @@ class utilities_course {
      * @return extended_course_object
      */
     public static function solerni_get_course_infos($course) {
+
         global $DB;
 
         $extendedcourse = null;
@@ -107,6 +106,7 @@ class utilities_course {
      * @return array array of stdClass objects
      */
     public static function get_course_records($whereclause, $params, $options, $checkvisibility = false) {
+
         global $USER;
         $list = self::get_course_records_request($whereclause, $params, $options);
 
@@ -188,7 +188,8 @@ class utilities_course {
      * @return object $list
      */
     private static function get_course_records_request($whereclause, $params, $options) {
-    global $DB;
+
+        global $DB;
         $ctxselect = context_helper::get_preload_record_columns_sql('ctx');
 
         $fields = array('c.id', 'c.category', 'c.sortorder',
@@ -246,8 +247,7 @@ class utilities_course {
      * @return course_in_list[]
      */
     public static function get_courses_catalogue($filter, $options = array()) {
-        global $DB;
-        $recursive = !empty($options['recursive']);
+
         $offset = !empty($options['offset']) ? $options['offset'] : 0;
         $limit = !empty($options['limit']) ? $options['limit'] : null;
         $sortfields = !empty($options['sort']) ? $options['sort'] :
@@ -332,7 +332,8 @@ class utilities_course {
             $where[] = '(' . implode(' OR ', $whereduration) . ')';
         }
 
-        $list = self::get_course_records(implode(' AND ', $where), $params, array_diff_key($options, array('coursecontacts' => 0)), true);
+        $list = self::get_course_records(implode(' AND ', $where), $params,
+                array_diff_key($options, array('coursecontacts' => 0)), true);
 
         // Sort list.
         self::sort_records($list, $sortfields);
@@ -393,7 +394,7 @@ class utilities_course {
      * @return course_in_list[]
      */
     public static function get_courses_recommended($options = array()) {
-        global $DB;
+
         $offset = !empty($options['offset']) ? $options['offset'] : 0;
         $limit = !empty($options['limit']) ? $options['limit'] : null;
         $sortfields = !empty($options['sort']) ? $options['sort'] :
@@ -442,6 +443,7 @@ class utilities_course {
      * @return int
      */
     protected static function sort_records(&$records, $sortfields) {
+
         if (empty($records)) {
             return;
         }
@@ -480,6 +482,7 @@ class utilities_course {
      * @return int
      */
     public static function get_courses_catalogue_count($filter, $options = array()) {
+
         unset($options['offset']);
         unset($options['limit']);
         unset($options['summary']);
@@ -496,6 +499,7 @@ class utilities_course {
      * @return int $categoryid
      */
     public function get_categoryid() {
+
         global $PAGE, $DB;
         $context = $PAGE->context;
         $coursecontext = $context->get_course_context();
@@ -518,6 +522,7 @@ class utilities_course {
      * @return int $categoryid
      */
     public function get_categoryid_by_courseid($courseid) {
+
         global $DB;
         $categoryid = null;
         $course = $DB->get_record('course', array('id' => $courseid), 'id, category');
@@ -576,6 +581,7 @@ class utilities_course {
      *
      */
     public function get_description_page_url($course = null) {
+
         global $CFG, $DB;
         $url = '#';
 
@@ -604,20 +610,20 @@ class utilities_course {
      * @return boolean
      */
     public static function is_frontpage_course($course) {
+
         return ($course->id == 1);
     }
 
+    /**
+     *
+     * @param type $extendedcourse
+     * @return type
+     */
+    private function incoming_unsubscribe($extendedcourse) {
 
-/**
- *
- * @param type $extendedcourse
- * @return type
- */
-    private function incoming_unsubscribe($extendedcourse){
-        echo 'incoming_unsubscribe ';
-            $extendedcourse->statuslink = $extendedcourse->unenrolurl;
-            $extendedcourse->statustext = get_string('status_default', 'local_orange_library');
-            return $extendedcourse;
+        $extendedcourse->statuslink = $extendedcourse->unenrolurl;
+        $extendedcourse->statustext = get_string('status_default', 'local_orange_library');
+        return $extendedcourse;
     }
 
     /**
@@ -625,11 +631,11 @@ class utilities_course {
      * @param type $extendedcourse
      * @return type
      */
-    private function running_unsubscribe($extendedcourse){
-         echo 'running_unsubscribe ';
-            $extendedcourse->statuslink = $extendedcourse->unenrolurl;
-            $extendedcourse->statustext = get_string('status_running', 'local_orange_library');
-            return $extendedcourse;
+    private function running_unsubscribe($extendedcourse) {
+
+        $extendedcourse->statuslink = $extendedcourse->unenrolurl;
+        $extendedcourse->statustext = get_string('status_running', 'local_orange_library');
+        return $extendedcourse;
     }
 
     /**
@@ -637,12 +643,11 @@ class utilities_course {
      * @param type $extendedcourse
      * @return type
      */
-    private function new_session($extendedcourse)
-    {
-        echo 'new_session ';
-            $extendedcourse->statuslink = get_string('new_session', 'local_orange_library');
-            $extendedcourse->statustext = get_string('registration_closed', 'local_orange_library');
-            return $extendedcourse;
+    private function new_session($extendedcourse) {
+
+        $extendedcourse->statuslink = get_string('new_session', 'local_orange_library');
+        $extendedcourse->statustext = get_string('registration_closed', 'local_orange_library');
+        return $extendedcourse;
     }
 
     /**
@@ -650,14 +655,10 @@ class utilities_course {
      * @param type $extendedcourse
      * @return type
      */
-    private function subscription_closed($extendedcourse)
-    {
-        echo 'subscription_closed ';
-            $extendedcourse->statuslink = "#";
-            $extendedcourse->statustext = get_string('registration_closed', 'local_orange_library');
-            return $extendedcourse;
+    private function subscription_closed($extendedcourse) {
+
+        $extendedcourse->statuslink = "#";
+        $extendedcourse->statustext = get_string('registration_closed', 'local_orange_library');
+        return $extendedcourse;
     }
-
-
-
 }

@@ -22,39 +22,39 @@
  */
 
 
-    /**
-     * Display text
-     *
-     * @param $text
-     * @return string html_writer::tag
-     * */
-    function display_text($text, $classtext) {
+/**
+ * Display text
+ *
+ * @param $text
+ * @return string html_writer::tag
+ * */
+function display_text($text, $classtext) {
 
-        return  html_writer::tag('span', get_string($text, 'local_orange_library'),
-            array('class' => $classtext));
+    return  html_writer::tag('span', get_string($text, 'local_orange_library'),
+                array('class' => $classtext));
 
-    }
+}
 
-    /**
-     * Display text
-     *
-     * @param $text
-     * @return string html_writer::tag
-     * */
-    function display_link($text, $url, $classtext) {
+/**
+ * Display text
+ *
+ * @param $text
+ * @return string html_writer::tag
+ * */
+function display_link($text, $classtext) {
 
-        return  html_writer::tag('link', get_string($text, 'local_orange_library'),
-            array('class' => $classtext));
+    return  html_writer::tag('link', get_string($text, 'local_orange_library'),
+        array('class' => $classtext));
 
-    }
-    /**
-     * Display button
-     *
-     * @param $text
-     * @param $url
-     * @return string html_writer::tag
-     * */
-    function display_button($text, $url, $classbutton, $statuslink, $course) {
-         return html_writer::tag('a', get_string($text, 'local_orange_library'),
-            array('class' => $classbutton, 'href' => $url, 'data-mooc-name' => $course->fullname));
-    }
+}
+/**
+ * Display button
+ *
+ * @param $text
+ * @param $url
+ * @return string html_writer::tag
+ * */
+function display_button($text, $url, $classbutton, $course) {
+     return html_writer::tag('a', get_string($text, 'local_orange_library'),
+        array('class' => $classbutton, 'href' => $url, 'data-mooc-name' => $course->fullname));
+}

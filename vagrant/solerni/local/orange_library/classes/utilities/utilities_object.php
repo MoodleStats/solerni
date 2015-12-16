@@ -26,6 +26,11 @@ defined('MOODLE_INTERNAL') || die();
 
 class utilities_object {
 
+    /**
+     * trasform duration format to time format
+     * @param type $extendedcourse
+     * @return type
+     */
     public static function duration_to_time($duration) {
 
         $secondsinaminute = 60;
@@ -111,7 +116,7 @@ class utilities_object {
      */
     public static function get_formatted_date($date) {
         $format = "d-m-Y";
-        if (current_language() == "en"){
+        if (current_language() == "en") {
             $format = "Y-m-d";
         }
 

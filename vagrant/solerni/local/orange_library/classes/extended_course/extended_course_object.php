@@ -76,7 +76,7 @@ class extended_course_object {
     public $duration;
 
     /**
-     * The duration value of a course.
+     * The workingtime value of a course.
      * @var int $workingtime
      */
     public $workingtime;
@@ -167,7 +167,7 @@ class extended_course_object {
 
     /**
      * url unrollment.
-     * @var text $enrolurl
+     * @var text $unenrolurl
      */
     public $unenrolurl;
 
@@ -178,25 +178,25 @@ class extended_course_object {
     public $coursestatus;
 
     /**
-     * The $coursestatus of a course.
-     * @var text $coursestatus
+     * The $statuslink of a course.
+     * @var text $statuslink
      */
     public $statuslink;
 
     /**
-     * The $coursestatus of a course.
-     * @var text $coursestatus
+     * The $statuslinktext of a course.
+     * @var text $statuslinktext
      */
     public $statuslinktext;
     /**
-     * The $coursestatus of a course.
-     * @var text $coursestatus
+     * The $statustext of a course.
+     * @var text $statustext
      */
     public $statustext;
 
     /**
-     * The $coursestatus of a course.
-     * @var text $coursestatus
+     * The $coursestatustext of a course.
+     * @var text $coursestatustext
      */
     public $coursestatustext;
 
@@ -207,8 +207,8 @@ class extended_course_object {
     public $registrationstatus;
 
     /**
-     * The $registrationstatus of a course.
-     * @var text $registrationstatus
+     * The $registrationstatustext of a course.
+     * @var text $registrationstatustext
      */
     public $registrationstatustext;
 
@@ -232,13 +232,13 @@ class extended_course_object {
 
     /**
      * The $enrolstartdate of a course.
-     * @var int $enrolstartdate
+     * @var int $enrolenddate
      */
     public $enrolenddate;
 
     /**
-     * The $enrolstartdate of a course.
-     * @var int $enrolstartdate
+     * The $displaybutton of a course.
+     * @var int $displaybutton
      */
     public $displaybutton;
 
@@ -260,7 +260,7 @@ class extended_course_object {
      */
     public function get_extended_course($course, $context = null) {
 
-        global $DB, $CONTEXT;
+        global $DB;
 
         $utilitiescourse = new utilities_course();
         $categoryid = $utilitiescourse->get_categoryid_by_courseid($course->id);
@@ -290,7 +290,7 @@ class extended_course_object {
         if (isset($instance->customint3)) {
             $this->maxregisteredusers = $instance->customint3;
         }
-        if(isset($instance->customint2)) {
+        if (isset($instance->customint2)) {
             $this->enrolurl = $instance->customint2;
         }
         $this->moocurl = new moodle_url('/course/view.php', array('id' => $course->id));
@@ -307,7 +307,7 @@ class extended_course_object {
      * @return object $this->extendedcourse
      */
     private function set_extended_course ($extendedcourseflexpagevalue, $course, $context) {
-         switch ($extendedcourseflexpagevalue->name) {
+        switch ($extendedcourseflexpagevalue->name) {
             case 'coursereplay':
                 $this->set_replay($extendedcourseflexpagevalue);
                 break;

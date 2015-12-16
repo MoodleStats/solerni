@@ -22,14 +22,7 @@
  */
 namespace local_orange_library\subscription_button;
 
-use local_orange_library\extended_course\extended_course_object;
-use local_orange_library\enrollment\enrollment_object;
-use local_orange_library\utilities\utilities_course;
-use local_orange_library\utilities\utilities_user;
 use html_writer;
-use DateTime;
-use moodle_url;
-use context_course;
 use moodle_exception;
 
 defined('MOODLE_INTERNAL') || die();
@@ -55,35 +48,7 @@ class subscription_button_object {
      */
     public function __construct($course) {
 
-/*        global $CFG;
-        if ($course) {
-            $context = context_course::instance($course->id);
-            $this->course = $course;
-            $this->context = $context;
-            $this->date = new DateTime();
-            $this->extendedcourse = new extended_course_object();
-            $this->extendedcourse->get_extended_course($course, $context);
-            $selfenrolment = new enrollment_object();
-            $this->enrolenddate = $selfenrolment->get_enrolment_enddate($course);
-            $this->unenrolurl = "#";
-            $this->moocurl = new moodle_url('/course/view.php', array('id' => $this->course->id));
-            $this->urlregistration = new moodle_url('/login/signup.php', array('id' => $this->course->id));
-
-            $this->enrolmenturl = "";
-
-            $this->urlmoocsubscription = $this->moocurl;
-            if ($orangeinvitation = $selfenrolment->get_orangeinvitation_enrolment($course)) {
-                $this->urlregistration = $orangeinvitation->customtext2;
-                $this->urlmoocsubscription = $orangeinvitation->customtext2;
-            }
-
-        } else {
-            throw new moodle_exception( 'missing_course_in_construct', 'local_orange_library');
-        }
- * */
- 
     }
-
 
     /**
      * Display text
@@ -99,7 +64,7 @@ class subscription_button_object {
     }
 
     /**
-     * Display text
+     * Display link
      *
      * @param $text
      * @return string html_writer::tag
@@ -110,6 +75,7 @@ class subscription_button_object {
             array('class' => $classtext));
 
     }
+
     /**
      * Display button
      *
@@ -117,7 +83,7 @@ class subscription_button_object {
      * @param $url
      * @return string html_writer::tag
      * */
-    private function display_button($text, $url, $classbutton, $statuslink, $course) {
+    private function display_button($text, $url, $classbutton, $course) {
          return html_writer::tag('a', get_string($text, 'local_orange_library'),
             array('class' => $classbutton, 'href' => $url, 'data-mooc-name' => $course->fullname));
     }

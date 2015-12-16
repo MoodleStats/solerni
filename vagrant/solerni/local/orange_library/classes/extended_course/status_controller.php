@@ -21,309 +21,379 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-
 use local_orange_library\utilities\utilities_course;
 use local_orange_library\utilities\utilities_user;
 
+/**
+ *  Set and display the button describing the status of a course.
+ *
+ * @param object $extendedcourse
+ * @return NONE
+ */
+function set_course_status($course, $context, &$extendedcourse) {
 
-        /**
-     *  Set and display the button describing the status of a course.
-     *
-     * @param object $extendedcourse
-     * @return string html_writer::tag
-     */
-    function set_course_status($course, $context, &$extendedcourse) {
+    $registrationstatus = set_registration_status($extendedcourse);
+    $coursestatus = get_course_status($extendedcourse, $course);
 
-        $registrationstatus = set_registration_status($extendedcourse);
-        $coursestatus = get_course_status($extendedcourse, $course);
+    if ($coursestatus == utilities_course::MOOCCLOSED) {
 
-        if ($coursestatus == utilities_course::MOOCCLOSED) {
+        controller_mooc_ended_registration_closed($context, $course, $extendedcourse);
 
-            controller_mooc_ended_registration_closed($context, $course, $extendedcourse);
+    } else {
+        $extendedcourse = controller($coursestatus, $registrationstatus, $context, $course, $extendedcourse);
 
-        } else {
-            switch ($registrationstatus) {
+    }
+}
 
-                case utilities_course::MOOCREGISTRATIONOPEN:
-                    if ($coursestatus == utilities_course::MOOCRUNNING) {
-                         $extendedcourse = controller_mooc_running_registration_available($context, $course, $extendedcourse);
-                    } else {
-                        $extendedcourse = controller_mooc_incoming_registration_available($context, $course, $extendedcourse);
-                    }
-                     break;
+/**
+ * controller for setting extended course button and status
+ *
+ * @param none
+ * @return call to another function
+ * */
+function controller($coursestatus, $registrationstatus, $context, $course, $extendedcourse) {
+    switch ($registrationstatus) {
 
-                case utilities_course::MOOCREGISTRATIONNOTOPEN:
-                    if ($coursestatus == utilities_course::MOOCRUNNING) {
-                        $extendedcourse = controller_mooc_running_registration_not_started($context, $course, $extendedcourse);
-                    } else {
-                        $extendedcourse = controller_mooc_incoming_registration_not_started($context, $course, $extendedcourse);
-                    }
-                    break;
-
-                case (utilities_course::MOOCREGISTRATIONSTOPPED):
-                    if ($coursestatus == utilities_course::MOOCRUNNING) {
-                         $extendedcourse = controller_mooc_running_registration_not_available($context, $course, $extendedcourse);
-                    } else {
-                        $extendedcourse = controller_mooc_incoming_registration_not_available($context, $course, $extendedcourse);
-                    }
-                    break;
-
-                case (utilities_course::MOOCREGISTRATIONCOMPLETE):
-                    if ($coursestatus == utilities_course::MOOCRUNNING) {
-                         $extendedcourse = controller_mooc_running_registration_not_available($context, $course, $extendedcourse);
-                    } else {
-                        $extendedcourse = controller_mooc_incoming_registration_not_available($context, $course, $extendedcourse);
-                    }
-                    break;
+        case utilities_course::MOOCREGISTRATIONOPEN:
+            if ($coursestatus == utilities_course::MOOCRUNNING) {
+                $extendedcourse = controller_mooc_running_registration_available($context, $course, $extendedcourse);
+            } else {
+                $extendedcourse = controller_mooc_incoming_registration_available($context, $course, $extendedcourse);
             }
+             break;
 
-        }
-    }
-
-    /**
-     * Closed status display redirection
-     *
-     * @param none
-     * @return call to another function
-     * */
-    function controller_mooc_incoming_registration_not_started($context, $course, &$extendedcourse) {
-        $userstatus = utilities_user::get_user_status($context);
-
-        if ($userstatus == utilities_user::USERENROLLED){
-
-            incoming_unsubscribe($course, $extendedcourse);
-
-        } else {
-
-            $extendedcourse->statuslink = "#";
-            $extendedcourse->statustext = get_string('status_default', 'local_orange_library');
-            $extendedcourse->displaybutton = display_button('subscribe_to_mooc', '#', "btn btn-default disabled", $extendedcourse->statuslink, $course);
-        }
-
-        return $extendedcourse;
-    }
-
-    /**
-     * Closed status display redirection
-     *
-     * @param none
-     * @return call to another function
-     * */
-    function controller_mooc_running_registration_not_started($context, $course, &$extendedcourse) {
-        $userstatus = utilities_user::get_user_status($context);
-
-        if ($userstatus == utilities_user::USERENROLLED){
-
-            running_unsubscribe($course, $extendedcourse);
-
-        } else {
-
-            $extendedcourse->statuslink = "#";
-            $extendedcourse->statustext = get_string('status_running', 'local_orange_library');
-            $extendedcourse->displaybutton = display_button('subscribe_to_mooc', '#', "btn btn-default disabled", $extendedcourse->statuslink, $course);
-        }
-
-        return $extendedcourse;
-    }
-
-    /**
-     * Closed status display redirection
-     *
-     * @param none
-     * @return call to another function
-     * */
-    function controller_mooc_incoming_registration_available($context, $course, &$extendedcourse) {
-        $userstatus = utilities_user::get_user_status($context);
-
-        if ($userstatus == utilities_user::USERENROLLED){
-
-            incoming_unsubscribe($course, $extendedcourse);
-
-        } else {
-
-            $extendedcourse->statuslink = "#";
-            $extendedcourse->statustext = get_string('status_default', 'local_orange_library');
-            $extendedcourse->displaybutton = display_button('subscribe_to_mooc', $extendedcourse->enrolurl, "btn btn-engage tag-course-subscription", $extendedcourse->statuslink, $course);
-
-        }
-
-        return $extendedcourse;
-    }
-
-    /**
-     * Closed status display redirection
-     *
-     * @param none
-     * @return call to another function
-     * */
-     function controller_mooc_incoming_registration_not_available($context, $course, &$extendedcourse) {
-        $userstatus = utilities_user::get_user_status($context);
-
-        if ($userstatus == utilities_user::USERENROLLED){
-
-                incoming_unsubscribe($course, $extendedcourse);
-
-        } else {
-
-            if($userstatus == utilities_user::USERLOGGED){
-
-                new_session($course, $extendedcourse);
-                $extendedcourse->statustext = get_string('registration_closed', 'local_orange_library');
-
+        case utilities_course::MOOCREGISTRATIONNOTOPEN:
+            if ($coursestatus == utilities_course::MOOCRUNNING) {
+                $extendedcourse = controller_mooc_running_registration_not_started($context, $course, $extendedcourse);
             } else {
-
-                $extendedcourse->statuslink = "#";
-                $extendedcourse->statustext = get_string('registration_closed', 'local_orange_library');
-                $extendedcourse->displaybutton = display_button('subscribe_to_mooc', '#', "btn btn-default disabled", $extendedcourse->statuslink, $course);
-           }
-        }
-
-        return $extendedcourse;
-    }
-
-    /**
-     * Closed status display redirection
-     *
-     * @param none
-     * @return call to another function
-     * */
-    function controller_mooc_running_registration_available($context, $course, &$extendedcourse) {
-        $userstatus = utilities_user::get_user_status($context);
-
-        if ($userstatus == utilities_user::USERENROLLED){
-
-            course_running_button_enabled($course, $extendedcourse);
-            $extendedcourse->statuslink = $extendedcourse->unenrolurl;
-
-            } else {
-
-            $extendedcourse->statuslink = "#";
-            $extendedcourse->statustext = get_string('status_running', 'local_orange_library');
-            $extendedcourse->displaybutton = display_button('subscribe_to_mooc', $extendedcourse->enrolurl, "btn btn-engage tag-course-subscription", $extendedcourse->statuslink, $course);
-
-        }
-
-        return $extendedcourse;
-    }
-
-    /**
-     * Closed status display redirection
-     *
-     * @param none
-     * @return call to another function
-     * */
-    function controller_mooc_running_registration_not_available($context, $course, &$extendedcourse) {
-        $userstatus = utilities_user::get_user_status($context);
-
-        if ($userstatus == utilities_user::USERENROLLED){
-
-            incoming_unsubscribe($course, $extendedcourse);
-            $extendedcourse->displaybutton = display_button('access_to_mooc', $extendedcourse->moocurl, "btn btn-success", $extendedcourse->statuslink, $course);
-
-        } else {
-
-            if($userstatus == utilities_user::USERLOGGED){
-
-                new_session($course, $extendedcourse);
-
-            } else {
-
-                $extendedcourse->statuslink = "#";
-                $extendedcourse->displaybutton = display_button('subscribe_to_mooc', '#', "btn btn-default disabled", $extendedcourse->statuslink, $course);
-
+                $extendedcourse = controller_mooc_incoming_registration_not_started($context, $course, $extendedcourse);
             }
+            break;
 
+        case (utilities_course::MOOCREGISTRATIONSTOPPED):
+            if ($coursestatus == utilities_course::MOOCRUNNING) {
+                 $extendedcourse = controller_mooc_running_registration_not_available($context, $course, $extendedcourse);
+            } else {
+                $extendedcourse = controller_mooc_incoming_registration_not_available($context, $course, $extendedcourse);
+            }
+            break;
+
+        case (utilities_course::MOOCREGISTRATIONCOMPLETE):
+            if ($coursestatus == utilities_course::MOOCRUNNING) {
+                 $extendedcourse = controller_mooc_running_registration_not_available($context, $course, $extendedcourse);
+            } else {
+                $extendedcourse = controller_mooc_incoming_registration_not_available($context, $course, $extendedcourse);
+            }
+            break;
+    }
+    return $extendedcourse;
+}
+
+/**
+ * settings for mooc in coming and registration not started
+ *
+ * @param $context
+ * @param $course
+ * @param &$extendedcourse
+ * @return $extendedcourse
+ * */
+function controller_mooc_incoming_registration_not_started($context, $course, &$extendedcourse) {
+    $userstatus = utilities_user::get_user_status($context);
+
+    if ($userstatus == utilities_user::USERENROLLED) {
+
+        incoming_unsubscribe($course, $extendedcourse);
+
+    } else {
+
+        $extendedcourse->statuslink = "#";
+        $extendedcourse->statustext = get_string('status_default', 'local_orange_library');
+        $extendedcourse->displaybutton = display_button('subscribe_to_mooc', '#', "btn btn-default disabled", $course);
+    }
+
+    return $extendedcourse;
+}
+
+/**
+ * settings for mooc running and registration not started
+ *
+ * @param $context
+ * @param $course
+ * @param &$extendedcourse
+ * @return $extendedcourse
+ * */
+function controller_mooc_running_registration_not_started($context, $course, &$extendedcourse) {
+    $userstatus = utilities_user::get_user_status($context);
+
+    if ($userstatus == utilities_user::USERENROLLED) {
+
+        running_unsubscribe($course, $extendedcourse);
+
+    } else {
+
+        $extendedcourse->statuslink = "#";
+        $extendedcourse->statustext = get_string('status_running', 'local_orange_library');
+        $extendedcourse->displaybutton = display_button('subscribe_to_mooc', '#', "btn btn-default disabled", $course);
+    }
+
+    return $extendedcourse;
+}
+
+/**
+ * settings for mooc in coming and registration available
+ *
+ * @param $context
+ * @param $course
+ * @param &$extendedcourse
+ * @return $extendedcourse
+ * */
+function controller_mooc_incoming_registration_available($context, $course, &$extendedcourse) {
+    $userstatus = utilities_user::get_user_status($context);
+
+    if ($userstatus == utilities_user::USERENROLLED) {
+
+        incoming_unsubscribe($course, $extendedcourse);
+
+    } else {
+
+        $extendedcourse->statuslink = "#";
+        $extendedcourse->statustext = get_string('status_default', 'local_orange_library');
+        $extendedcourse->displaybutton = display_button('subscribe_to_mooc', $extendedcourse->enrolurl,
+                "btn btn-engage tag-course-subscription", $course);
+
+    }
+
+    return $extendedcourse;
+}
+
+/**
+ * settings for mooc in coming and registration not available
+ *
+ * @param $context
+ * @param $course
+ * @param &$extendedcourse
+ * @return $extendedcourse
+ * */
+function controller_mooc_incoming_registration_not_available($context, $course, &$extendedcourse) {
+    $userstatus = utilities_user::get_user_status($context);
+
+    if ($userstatus == utilities_user::USERENROLLED) {
+
+            incoming_unsubscribe($course, $extendedcourse);
+
+    } else {
+
+        if ($userstatus == utilities_user::USERLOGGED) {
+
+            new_session($course, $extendedcourse);
             $extendedcourse->statustext = get_string('registration_closed', 'local_orange_library');
-        }
 
-        return $extendedcourse;
+        } else {
+
+            $extendedcourse->statuslink = "#";
+            $extendedcourse->statustext = get_string('registration_closed', 'local_orange_library');
+            $extendedcourse->displaybutton = display_button('subscribe_to_mooc', '#', "btn btn-default disabled", $course);
+        }
     }
 
-    /**
-     * Closed status display redirection
-     *
-     * @param none
-     * @return call to another function
-     * */
-    function controller_mooc_ended_registration_closed($context, $course, &$extendedcourse) {
-        $userstatus = \local_orange_library\utilities\utilities_user::get_user_status($context);
+    return $extendedcourse;
+}
 
-        if ($userstatus == \local_orange_library\utilities\utilities_user::USERENROLLED){
+/**
+ * settings for mooc running and registration available
+ *
+ * @param $context
+ * @param $course
+ * @param &$extendedcourse
+ * @return $extendedcourse
+ * */
+function controller_mooc_running_registration_available($context, $course, &$extendedcourse) {
+    $userstatus = utilities_user::get_user_status($context);
+
+    if ($userstatus == utilities_user::USERENROLLED) {
+
+        running_unsubscribe($course, $extendedcourse);
+        $extendedcourse->statuslink = $extendedcourse->unenrolurl;
+
+    } else {
+
+        $extendedcourse->statuslink = "#";
+        $extendedcourse->statustext = get_string('status_running', 'local_orange_library');
+        $extendedcourse->displaybutton = display_button('subscribe_to_mooc', $extendedcourse->enrolurl,
+                "btn btn-engage tag-course-subscription", $course);
+
+    }
+
+    return $extendedcourse;
+}
+
+/**
+ * settings for mooc running and registration not availabled
+ *
+ * @param $context
+ * @param $course
+ * @param &$extendedcourse
+ * @return $extendedcourse
+ * */
+function controller_mooc_running_registration_not_available($context, $course, &$extendedcourse) {
+    $userstatus = utilities_user::get_user_status($context);
+
+    if ($userstatus == utilities_user::USERENROLLED) {
+
+        course_running_button_enabled($course, $extendedcourse);
+        $extendedcourse->displaybutton = display_button('access_to_mooc', $extendedcourse->moocurl, "btn btn-success", $course);
+
+    } else {
+
+        if ($userstatus == utilities_user::USERLOGGED) {
+
+            new_session($course, $extendedcourse);
+
+        } else {
+
+            $extendedcourse->statuslink = "#";
+            $extendedcourse->displaybutton = display_button('subscribe_to_mooc', '#', "btn btn-default disabled", $course);
+
+        }
+
+        $extendedcourse->statustext = get_string('registration_closed', 'local_orange_library');
+    }
+
+    return $extendedcourse;
+}
+
+/**
+ * settings for mooc end and registration closed
+ *
+ * @param $context
+ * @param $course
+ * @param &$extendedcourse
+ * @return $extendedcourse
+ * */
+function controller_mooc_ended_registration_closed($context, $course, &$extendedcourse) {
+    $userstatus = \local_orange_library\utilities\utilities_user::get_user_status($context);
+
+    if ($userstatus == \local_orange_library\utilities\utilities_user::USERENROLLED) {
+
+        $extendedcourse->statuslink = "#";
+        $extendedcourse->statustext = get_string('status_closed', 'local_orange_library');
+        $extendedcourse->displaybutton = display_button('acces_to_archive', $extendedcourse->moocurl, "btn btn-success", $course);
+
+    } else {
+
+        if ($userstatus == \local_orange_library\utilities\utilities_user::USERLOGGED) {
+
+            new_session($course, $extendedcourse);
+            $extendedcourse->statustext = get_string('status_closed', 'local_orange_library');
+
+        } else {
 
             $extendedcourse->statuslink = "#";
             $extendedcourse->statustext = get_string('status_closed', 'local_orange_library');
-            $extendedcourse->displaybutton = display_button('acces_to_archive', $extendedcourse->moocurl, "btn btn-success", $extendedcourse->statuslink, $course);
-
-        } else {
-
-            if($userstatus == \local_orange_library\utilities\utilities_user::USERLOGGED){
-
-                new_session($course, $extendedcourse);
-                $extendedcourse->statustext = get_string('status_closed', 'local_orange_library');
-
-            } else {
-
-                $extendedcourse->statuslink = "#";
-                $extendedcourse->statustext = get_string('status_closed', 'local_orange_library');
-                $extendedcourse->displaybutton = display_button('subscribe_to_mooc', '#', "btn btn-default disabled", $extendedcourse->statuslink, $course);
-            }
+            $extendedcourse->displaybutton = display_button('subscribe_to_mooc', '#', "btn btn-default disabled", $course);
         }
-
-        return $extendedcourse;
     }
 
-    /**
-     *
-     * @param type $extendedcourse
-     * @return type
-     */
-     function incoming_unsubscribe($course, &$extendedcourse){
+    return $extendedcourse;
+}
+
+/**
+ * settings for mooc in coming and user unsubscription allowed
+ *
+ * @param $context
+ * @param $course
+ * @param &$extendedcourse
+ * @return $extendedcourse
+ * */
+function incoming_unsubscribe($course, &$extendedcourse) {
+    global $PAGE;
+    $pagetype = $PAGE->pagetype;
+    if ($pagetype != 'my-index') {
         $extendedcourse->statuslink = $extendedcourse->unenrolurl;
         $extendedcourse->statuslinktext = get_string('unsubscribe', 'local_orange_library');
-        $extendedcourse->displaybutton = display_button('subscribe_to_mooc', '#', "btn btn-default disabled", $extendedcourse->statuslink, $course);
-    }
 
-    /**
-     * course running + unsubscription link + button active
-     * @param type $extendedcourse
-     * @return type
-     */
-     function running_unsubscribe($course, &$extendedcourse){
+    } else {
+        $extendedcourse->statuslink = $extendedcourse->unenrolurl;
+
+    }
+    $extendedcourse->displaybutton = display_button('subscribe_to_mooc', '#', "btn btn-default disabled", $course);
+}
+
+/**
+ * settings for mooc running and user unsubscription allowed
+ *
+ * @param $context
+ * @param $course
+ * @param &$extendedcourse
+ * @return $extendedcourse
+ * */
+function running_unsubscribe($course, &$extendedcourse) {
+    global $PAGE;
+    $pagetype = $PAGE->pagetype;
+    if ($pagetype != 'my-index') {
         $extendedcourse->statuslink = $extendedcourse->unenrolurl;
         $extendedcourse->statuslinktext = get_string('unsubscribe', 'local_orange_library');
-        $extendedcourse->displaybutton = display_button('access_to_mooc', $extendedcourse->moocurl, "btn btn-success", $extendedcourse->statuslink, $course);
-    }
 
-    /**
-     * new session state + registration closed + button disabled state
-     * @param type $extendedcourse
-     * @return type
-     */
-    function new_session($course, &$extendedcourse) {
+    } else {
+        $extendedcourse->statuslink = "#";
+
+    }
+    $extendedcourse->displaybutton = display_button('access_to_mooc', $extendedcourse->moocurl, "btn btn-success", $course);
+}
+
+/**
+ * settings for mooc new session
+ *
+ * @param $context
+ * @param $course
+ * @param &$extendedcourse
+ * @return $extendedcourse
+ * */
+function new_session($course, &$extendedcourse) {
+    global $PAGE;
+    $pagetype = $PAGE->pagetype;
+    if ($pagetype != 'more-info') {
         $extendedcourse->statuslink = $extendedcourse->urlregistration;
         $extendedcourse->statuslinktext = get_string('new_session', 'local_orange_library');
-        $extendedcourse->displaybutton = display_button('subscribe_to_mooc', '#', "btn btn-default disabled", $extendedcourse->statuslink, $course);
-    }
 
-    /**
-     * subscription closed and button disabled state
-     * @param type $extendedcourse
-     * @return type
-     */
-    function subscription_closed($course, &$extendedcourse) {
+    } else {
         $extendedcourse->statuslink = "#";
-        $extendedcourse->displaybutton = display_button('subscribe_to_mooc', '#', "btn btn-default disabled", $extendedcourse->statuslink, $course);
+
     }
+    $extendedcourse->displaybutton = display_button('subscribe_to_mooc', '#', "btn btn-default disabled", $course);
+}
 
+/**
+ * settings subscription closed
+ *
+ * @param $context
+ * @param $course
+ * @param &$extendedcourse
+ * @return $extendedcourse
+ * */
+function subscription_closed($course, &$extendedcourse) {
+    $extendedcourse->statuslink = "#";
+    $extendedcourse->displaybutton = display_button('subscribe_to_mooc', '#', "btn btn-default disabled", $course);
+}
 
-    /**
-     * set statuslink, status text and display button
-     * @param type $extendedcourse
-     * @return type $extendedcourse
-     */
-    function course_running_button_enabled($course, &$extendedcourse) {
+/**
+ * settings for mooc running and button enabled
+ *
+ * @param $context
+ * @param $course
+ * @param &$extendedcourse
+ * @return $extendedcourse
+ * */
+function course_running_button_enabled($course, &$extendedcourse) {
+    global $PAGE;
+    $pagetype = $PAGE->pagetype;
+    if ($pagetype != 'my-index') {
         $extendedcourse->statuslink = $extendedcourse->unenrolurl;
         $extendedcourse->statuslinktext = get_string('unsubscribe', 'local_orange_library');
-        $extendedcourse->statustext = get_string('status_running', 'local_orange_library');
-        $extendedcourse->displaybutton = display_button('access_to_mooc', $extendedcourse->moocurl, "btn btn-success", $extendedcourse->statuslink, $course);
+
+    } else {
+        $extendedcourse->statuslink = "#";
     }
+    $extendedcourse->statustext = get_string('status_running', 'local_orange_library');
+    $extendedcourse->displaybutton = display_button('access_to_mooc', $extendedcourse->moocurl, "btn btn-success", $course);
+}

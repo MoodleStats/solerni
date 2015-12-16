@@ -20,84 +20,76 @@
  * @copyright  2015 Orange
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 use local_orange_library\utilities\utilities_object;
-        /**
-     * Return the registration status of the course
-     * Status could be : MOOCNOTCOMPLETE
-     *                          MOOCCOMPLETE
-     *                          MOOCREGISTRATIONSTOPPED
-     *
-     * @param $extendedcourse
-     * @return int
-     */
-    function set_registration_status($extendedcourse) {
 
-        if (utilities_object::is_before($extendedcourse->enrolstartdate)) {
-            //echo 'mooc_registration_not_open';
-            mooc_registration_not_open($extendedcourse);
-        } else if ($extendedcourse->enrolledusers >= $extendedcourse->maxregisteredusers) {
-//            echo 'mooc_registration_open_complete';
-            mooc_registration_open_complete($extendedcourse);
-        } else if (utilities_object::is_after($extendedcourse->enrolenddate)) {
-            //echo 'mooc_registration_stopped';
-            mooc_registration_stopped($extendedcourse);
-        } else {
-            //echo 'mooc_registration_open';
-            mooc_registration_open($extendedcourse);
-        }
-        return $extendedcourse->registrationstatus;
+/**
+ * Return the registration status of the course
+ * Status could be : MOOCNOTCOMPLETE
+ *                          MOOCCOMPLETE
+ *                          MOOCREGISTRATIONSTOPPED
+ *
+ * @param $extendedcourse
+ * @return $extendedcourse->registrationstatus
+ */
+function set_registration_status($extendedcourse) {
+
+    if (utilities_object::is_before($extendedcourse->enrolstartdate)) {
+        mooc_registration_not_open($extendedcourse);
+    } else if ($extendedcourse->enrolledusers >= $extendedcourse->maxregisteredusers) {
+        mooc_registration_open_complete($extendedcourse);
+    } else if (utilities_object::is_after($extendedcourse->enrolenddate)) {
+        mooc_registration_stopped($extendedcourse);
+    } else {
+        mooc_registration_open($extendedcourse);
     }
+    return $extendedcourse->registrationstatus;
+}
 
-        /**
-     * Get the registration not complete status from a course.
-     *
-     * @param object $extendedcourse
-     * @return MOOCNOTCOMPLETE
-     */
-    function mooc_registration_open(&$extendedcourse) {
-        //echo 'mooc_registration_open ';
-        $extendedcourse->registrationstatus = \local_orange_library\utilities\utilities_course::MOOCREGISTRATIONOPEN;
-        $extendedcourse->registrationstatustext = get_string('registration_open', 'local_orange_library');
-        $extendedcourse->statustext = $extendedcourse->registrationstatustext;
-    }
+/**
+ * Set the registration status, registration status text and status text when registration is open..
+ *
+ * @param object $extendedcourse
+ * @return NONE
+ */
+function mooc_registration_open(&$extendedcourse) {
+    $extendedcourse->registrationstatus = \local_orange_library\utilities\utilities_course::MOOCREGISTRATIONOPEN;
+    $extendedcourse->registrationstatustext = get_string('registration_open', 'local_orange_library');
+    $extendedcourse->statustext = $extendedcourse->registrationstatustext;
+}
 
-    /**
-     * Get the registration not complete status from a course.
-     *
-     * @param object $extendedcourse
-     * @return MOOCNOTCOMPLETE
-     */
-    function mooc_registration_not_open(&$extendedcourse) {
-        //echo 'mooc_registration_not_open ';
-        $extendedcourse->registrationstatus = \local_orange_library\utilities\utilities_course::MOOCREGISTRATIONNOTOPEN;
-        $extendedcourse->registrationstatustext = get_string('registration_not_open', 'local_orange_library');
-        $extendedcourse->statustext = $extendedcourse->registrationstatustext;
-    }
+/**
+ * Set the registration status, registration status text and status text when registration is not open.
+ *
+ * @param object $extendedcourse
+ * @return NONE
+ */
+function mooc_registration_not_open(&$extendedcourse) {
+    $extendedcourse->registrationstatus = \local_orange_library\utilities\utilities_course::MOOCREGISTRATIONNOTOPEN;
+    $extendedcourse->registrationstatustext = get_string('registration_not_open', 'local_orange_library');
+    $extendedcourse->statustext = $extendedcourse->registrationstatustext;
+}
 
-    /**
-     * Get the registration complete status from a course.
-     *
-     * @param object $extendedcourse
-     * @return MOOCCOMPLETE
-     */
-    function mooc_registration_open_complete(&$extendedcourse) {
-//        echo 'mooc_registration_open_complete ';
-        $extendedcourse->registrationstatus = \local_orange_library\utilities\utilities_course::MOOCREGISTRATIONCOMPLETE;
-        $extendedcourse->registrationstatustext = get_string('mooc_complete', 'local_orange_library');
-        $extendedcourse->statustext = $extendedcourse->registrationstatustext;
-    }
+/**
+ * Set the registration status, registration status text and status text when registration is complete.
+ *
+ * @param object $extendedcourse
+ * @return NONE
+ */
+function mooc_registration_open_complete(&$extendedcourse) {
+    $extendedcourse->registrationstatus = \local_orange_library\utilities\utilities_course::MOOCREGISTRATIONCOMPLETE;
+    $extendedcourse->registrationstatustext = get_string('mooc_complete', 'local_orange_library');
+    $extendedcourse->statustext = $extendedcourse->registrationstatustext;
+}
 
-    /**
-     * Get the registration stopped status from a course.
-     *
-     * @param object $extendedcourse
-     * @return MOOCREGISTRATIONSTOPPED
-     */
-    function mooc_registration_stopped(&$extendedcourse) {
-        //echo 'mooc_registration_stopped ';
-        $extendedcourse->registrationstatus = \local_orange_library\utilities\utilities_course::MOOCREGISTRATIONSTOPPED;
-        $extendedcourse->registrationstatustext = get_string('registration_closed', 'local_orange_library');
-        $extendedcourse->statustext = $extendedcourse->registrationstatustext;
-    }
-
-
+/**
+ * Set the registration status, registration status text and status text when registration is stopped.
+ *
+ * @param object $extendedcourse
+ * @return NONE
+ */
+function mooc_registration_stopped(&$extendedcourse) {
+    $extendedcourse->registrationstatus = \local_orange_library\utilities\utilities_course::MOOCREGISTRATIONSTOPPED;
+    $extendedcourse->registrationstatustext = get_string('registration_closed', 'local_orange_library');
+    $extendedcourse->statustext = $extendedcourse->registrationstatustext;
+}
