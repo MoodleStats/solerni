@@ -223,13 +223,14 @@ class enrol_orangenextsession_plugin extends enrol_plugin {
         $a->profileurl = "$CFG->wwwroot/user/view.php?id=$user->id&course=$course->id";
 
         if (trim($instance->customtext1) !== '') {
-            $message = $instance->customtext1;
-            $message = str_replace('{$a->coursename}', $a->coursename, $message);
-            $message = str_replace('{$a->profileurl}', $a->profileurl, $message);
+            $messagehtml = $instance->customtext1;
+            $messagehtml = str_replace('{$a->coursename}', $a->coursename, $message);
+            $messagehtml = str_replace('{$a->profileurl}', $a->profileurl, $message);
         } else {
-            $message = get_string('informationmessagetext', 'enrol_orangenextsession', $a);
+            $messagehtml = get_string('informationmessagetext', 'enrol_orangenextsession', $a);
         }
 
+        $message = html_to_text($messagehtml);
         $subject = get_string('informationmessage', 'enrol_orangenextsession', format_string($course->fullname));
 
         $context = context_course::instance($instance->courseid, MUST_EXIST);
@@ -242,11 +243,11 @@ class enrol_orangenextsession_plugin extends enrol_plugin {
         if ($rusers) {
             $contact = reset($rusers);
         } else {
-            $contact = get_admin();
+            $contact = core_user::get_support_user();
         }
 
         // Directly emailing welcome message rather than using messaging.
-        email_to_user($user, $contact, $subject, $message);
+        email_to_user($user, $contact, $subject, $message, $messagehtml);
     }
 
 }

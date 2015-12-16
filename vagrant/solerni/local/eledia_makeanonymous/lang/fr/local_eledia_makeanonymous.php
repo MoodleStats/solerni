@@ -23,6 +23,8 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+require_once("$CFG->dirroot/local/orange_mail/mail_init.php");
+
 $string['pluginname'] = 'makeanonymous';
 
 $string['anonymousauth'] = 'Méthode d\'authentification des utilisateurs anonymisés';
@@ -53,6 +55,6 @@ $string['emailsubject_desc'] = 'Sujet affiché dans le mail';
 $string['defaultemailsubject'] = 'Votre compte a été supprimé dans Solerni';
 $string['emailmsg'] = 'Message du mail';
 $string['emailmsg_desc'] = 'Message affiché dans le mail';
-$string['defaultemailmsg'] = 'Bonjour {$a->fullname},<br> Votre compte a été supprimé dans Solerni. <br>Merci d\'avoir utilisé Solerni!';
+$string['defaultemailmsg'] = mail_init::init('defaultemailmsg','html');
 $string['enabledemail'] = 'Activé l\'envoi de mail';
 $string['enabledemail_desc'] = 'Active l\envoi de mail à l\'utilisateur';

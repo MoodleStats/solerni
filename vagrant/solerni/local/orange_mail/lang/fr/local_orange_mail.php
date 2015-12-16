@@ -1,0 +1,266 @@
+<?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+
+/**
+ * @package    local
+ * @subpackage orange_mail
+ * @copyright  Orange 2015
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+// Plugin strings
+$string['pluginname'] = 'Solerni Mail';
+$string['mailsetting'] = 'Configuration';
+$string['mailgenerate'] = 'Génération des modèles';
+$string['mailgeneratestatus'] = 'Génération des modèles de mails terminée.';
+$string['mailtest'] = 'Envoi d\'emails de test';
+$string['mailteststatus'] = 'Envoi des emails de test terminé.';
+$string['pluginname_desc'] = 'Ce plugin permet de configurer les email envoyé par Solerni.';
+$string['orange_mail'] = 'Orange mail';
+$string['css'] = 'CSS inclu dans l\'email';
+$string['css_desc'] = 'CSS inclus dans tous les emails. Il doit commencer par <STYLE> et terminer par </STYLE>';
+$string['header'] = 'Entête du mail';
+$string['header_desc'] = 'Entête du mail (partie contenant le logo Orange).';
+$string['headertext'] = 'Mail Header';
+$string['headertext_desc'] = 'Mail Header';
+$string['footer'] = 'Mail Footer';
+$string['footer_desc'] = 'Mail Footer';
+$string['footertext'] = 'Mail Footer';
+$string['footertext_desc'] = 'Mail Footer';
+$string['footerinscription'] = 'Mail Footer Inscription';
+$string['footerinscription_desc'] = 'Mail Footer Inscription';
+$string['footerinscriptiontext'] = 'Mail Footer Inscription';
+$string['footerinscriptiontext_desc'] = 'Mail Footer Inscription';
+$string['signature'] = 'Mail Signature';
+$string['signature_desc'] = 'Mail Signature';
+$string['signaturetext'] = 'Mail Signature';
+$string['signaturetext_desc'] = 'Mail Signature';
+$string['followus'] = 'Add "Follow us" section to mail';
+$string['followus_desc'] = 'Add "Follow us" section based on the template settings';
+$string['followustext'] = 'Add "Follow us" section to mail';
+$string['followustext_desc'] = 'Add "Follow us" section based on the template settings';
+$string['contactemail'] = 'Email de contact Solerni';
+$string['contactemail_desc'] = 'Email de contact Solerni. Cet e-mail est utilisé pour les mails envoyés par la plateforme mais aussi pour le formulaire de contact.';
+$string['noreplyemail'] = 'Email No Reply Solerni';
+$string['noreplyemail_desc'] = 'Email No Reply Solerni. Cet e-mail est utilisé pour les mails envoyés par la plateforme mais aussi pour le formulaire de contact.';
+$string['heading_general'] = 'Général';
+$string['heading_htmltemplate'] = 'Modèle HTML du mail';
+$string['heading_texttemplate'] = 'Modèle texte du mail';
+$string['helptext'] = 'Vous pouvez utiliser les variables suivantes dans les templates. Ces variables seront remplacées par du contenu lors de la génération des modèles.'
+        . '<ul>'
+        . '<li>{$b->sitename} : nom du site</li>'
+        . '<li>{$b->siteurl} : url du site</li>'
+        . '<li>{$b->catalogurl} : url du catalog</li>'
+        . '<li>{$b->profilurl} : url de la page profil</li>'
+        . '</ul>'
+        . '<br>Les variables en {$a->xxx} seront traitées par Moodle lors de l\'envoi du mail. Leur nombre varie en fonction de chaque mail.';
+$string['helphtml'] = 'Vous pouvez utiliser les variables suivantes dans les templates. Ces variables seront remplacées par du contenu lors de la génération des modèles.'
+        . '<ul>'
+        . '<li>{$b->imageurl} : répertoire des images pour les emails</li>'
+        . '<li>{$b->sitename} : nom du site</li>'
+        . '<li>{$b->siteurl} : url du site</li>'
+        . '<li>{$b->catalogurl} : url du catalog</li>'
+        . '<li>{$b->profilurl} : url de la page profil</li>'
+        . '</ul>'
+        . '<br>Les variables en {$a->xxx} seront traitées par Moodle lors de l\'envoi du mail. Leur nombre varie en fonction de chaque mail.';
+
+// Mail template strings
+$string['solernimailsignature'] = 'L’équipe de <a href="{$b->siteurl}" class="lientxt18orange">{$b->sitename}</a><br />'
+        . 'Apprendre c’est toujours mieux ensemble <a href="{$b->siteurl}" class="lientxt18orange">www.solerni.com</a>';
+$string['solernimailsignaturetext'] = 'L’équipe de {$b->sitename}
+Apprendre c’est toujours mieux ensemble www.solerni.com';
+$string['solernimailfootertext'] = 'Ce message vous est envoyé automatiquement, merci de ne pas y répondre directement.
+              Si vous avez des questions écrivez-nous à {$b->contactemail}.
+              Afin de bien recevoir nos e-mails, ajoutez cette adresse {$b->noreplyemail} dans votre carnet d\'adresses.';
+$string['solernimailfooterhtml'] = '<p>Ce message vous est envoyé automatiquement, merci de ne pas y répondre directement.<br />
+              Si vous avez des questions écrivez-nous à <a href="mailto:{$b->contactemail}" class="lientxt14orange">{$b->contactemail}</a>.<br />
+              Afin de bien recevoir nos e-mails, ajoutez cette adresse <a href="{$b->npreplyemail}" class="lientxt14orange">{$b->noreplyemail}</a> dans votre carnet d\'adresses.</p>';
+$string['solernimailfooterinscriptiontext'] = 'Vous recevez cet e-mail car votre adresse e-mail a été utilisée sur notre site {$b->sitename}. Si vous ne vous êtes pas inscrit à {$b->sitename}, veuillez simplement ignorer ce message et votre compte sera supprimé automatiquement.
+            Ce message vous est envoyé automatiquement, merci de ne pas y répondre directement.
+              Si vous avez des questions écrivez-nous à {$b->contactemail}.
+              Afin de bien recevoir nos e-mails, ajoutez cette adresse {$b->noreplyemail} dans votre carnet d\'adresses.';
+$string['solernimailfooterinscriptionhtml'] = '<p>Vous recevez cet e-mail car votre adresse e-mail a été utilisée sur notre site <a href="{$b->siteurl}" class="lientxt14orange">{$b->sitename}</a>. Si vous ne vous êtes pas inscrit à {$b->sitename}, veuillez simplement ignorer ce message et votre compte sera supprimé automatiquement.</p>
+            <p>Ce message vous est envoyé automatiquement, merci de ne pas y répondre directement.<br />
+              Si vous avez des questions écrivez-nous à <a href="mailto:{$b->contactemail}" class="lientxt14orange">{$b->contactemail}</a>.<br />
+              Afin de bien recevoir nos e-mails, ajoutez cette adresse <a href="{$b->npreplyemail}" class="lientxt14orange">{$b->noreplyemail}</a> dans votre carnet d\'adresses.</p>';
+
+                  
+// Original Moodle email strings        
+$string['newpasswordtext'] = '<tr>
+    <td valign="top"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td class="txt18Noir"><p>Bonjour <span class="txt18BNoir">{$a->firstname} {$a->lastname}</span>,</p>
+         
+<p>Le mot de passe de votre compte sur « {$a->sitename} » a été remplacé par un nouveau mot de passe temporaire.</p>
+
+Les informations pour vous connecter sont désormais :<br />
+
+    nom d\'utilisateur : {$a->username}<br/>
+    mot de passe : {$a->newpassword}<br/>
+
+<p>Merci de visiter cette page afin de changer de mot de passe :
+    <a href="{$a->link}">{$a->link}</a></p>
+
+<p>Dans la plupart des logiciels de messagerie, cette adresse devrait apparaître comme un lien de couleur bleue qu\'il vous suffit de cliquer. Si cela ne fonctionne pas, copiez ce lien et collez-le dans la barre d\'adresse de votre navigateur web.</p>
+</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td height="30">&nbsp;</td>
+  </tr>';
+$string['contentuseraccountemail'] = '<tr>
+    <td valign="top"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td class="txt18Noir"><p>Bonjour <span class="txt18BNoir">{$a->fullname}</span>,<br/><br/>
+Nous vous remercions pour votre inscription sur le site <strong>{$a->sitename}</strong>.</p>
+<p>Voici un rappel de vos identifiants de connexion pour accéder à votre compte :</p>
+</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td height="30">&nbsp;</td>
+  </tr>
+  <tr>
+      <td valign="top"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td style="backgroung-image: url({$b->imageurl}bg_pass.png); backgound-repeat: no-repeat; height: 60px;">
+<ul>
+	<li>Identifiant : <a href="mailto:{$a->email}">{$a->email}</a></li>
+	<li>Mot de passe : vous seul le connaissez</li>
+</ul>
+<p>Vous pouvez dès à présent accéder à votre compte en cliquant <a href="{$a->profileurl}">ici</a>.</p>
+<p>A très vite sur {$a->sitename}, votre nouvelle plateforme de Moocs francophone collaborative.</p>
+</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td height="30">&nbsp;</td>
+  </tr>';
+
+$string['contentwelcomeemail'] = '<tr>
+    <td valign="top"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td class="txt18Noir"><p>Bienvenue <span class="txt18BNoir">{$a->fullname}</span>,</p>
+<p>Nous sommes ravis de vous accueillir sur {$a->sitename}, votre nouvelle plateforme de Moocs francophone collaborative.</p>
+<p>Plus que l’acquisition de connaissances, nous souhaitons que cette plateforme vous aide à développer vos compétences. Nous pensons en effet qu’aujourd’hui, l’apprentissage ne peut plus se faire seul face à un professeur ou un formateur mais aussi ensemble, en réseau. C\'est à travers un parcours favorisant les échanges et les activités que vous développerez vos compétences. Vous serez à tout moment accompagné(e) par vos pairs mais aussi par des pédagogues dont l’objectif est de faciliter vos apprentissages en stimulant le partage d’information et l\'enrichissement mutuel.</p>
+<p><strong>C’est parti, inscrivez-vous à un Mooc</strong><br></p>
+<p>Notre plateforme vient tout juste d’être lancée et s’enrichira au fil des semaines de nouveaux Moocs aux contenus variés. </p>
+<p>Vous pouvez d’ores et déjà consulter <a href="{$b->catalogurl}">notre catalogue</a> et vous inscrire à l’un des Moocs disponibles aujourd’hui. Notre plateforme est ouverte et gratuite, les inscriptions sont donc illimitées&nbsp;! </p>
+<p><strong>Restez en contact, restez connecté</strong></p>
+<p>Pour être au courant des nouveautés et des évènements sur {$a->sitename}, rejoignez nous sur <a href=\'https://www.facebook.com/pages/Solerni/648508191861244?fref=ts\' target=\'_new\'>Facebook</a> et <a href=\'https://twitter.com/SolerniOfficiel\' target=\'_new\'>Twitter</a>, sans oublier d\'aller faire un tour sur notre <a href=\'http://blog.solerni.org\' target=\'_new\'>Blog</a> qui vous informera des actualités liées  à l’univers de ces nouvelles méthodes d’apprentissage sociales et collaboratives.</p>
+<p><strong>Pour bien communiquer, remplissez votre profil</strong></p>
+<p>Et pour être sûr(e) de pouvoir échanger avec les autres apprenants et les pédagogues, n’oubliez pas de remplir et de paramétrer votre <a href="{$b->profileurl}">profil</a>.</p>
+<p>Voilà, vous êtes prêt(e) à présent pour vous lancer avec nous dans l’aventure des Moocs collaboratifs.
+En espérant vous retrouver très vite sur {$a->sitename} où nous vous souhaitons de vivre de nouvelles expériences enrichissantes&nbsp;!</p>
+</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td height="30">&nbsp;</td>
+  </tr>';
+$string['emailresetconfirmationhtml'] = '<tr>
+    <td valign="top"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td class="txt18Noir"><p>Bienvenue <span class="txt18BNoir">{$a->firstname} {$a->lastname}</span>,</p>
+
+<p> Vous avez demandé la réinitialisation de votre mot de passe. Si vous n\'êtes pas à l\'origine de cette action, veuillez ignorer ce message.</p>
+
+Votre pseudo est : \'{$a->username}\'.	
+<br />
+<p><a href="{$a->link}">Veuillez cliquer sur ce lien pour réinitialiser votre mot de passe</a>
+</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td height="30">&nbsp;</td>
+  </tr>';
+$string['emailresetconfirmation'] = 'Bonjour {$a->firstname},
+
+Vous avez demandé la réinitialisation de votre mot de passe. Si vous n\'êtes pas à l\'origine de cette action, veuillez ignorer ce message.
+
+Votre pseudo est : \'{$a->username}\'.	
+
+Veuillez cliquer sur le lien suivant pour réinitialiser votre mot de passe :
+{$a->link}
+		
+Si le lien ne fonctionne pas, copiez-collez le lien dans la barre d\'adresse de votre navigateur.
+';
+$string['emailconfirmation'] = '<tr>
+    <td valign="top"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td class="txt18Noir"><p>Bonjour <span class="txt18BNoir">{$a->firstname}</span>,</p>
+
+<p>Nous avons reçu une demande d’inscription de votre part avec votre adresse e-mail.</p>
+<p>Afin de valider cette demande nous vous invitons à cliquer sur le lien suivant :<br>
+<br>
+<a href="{$a->link}">valider mon inscription</a></p>
+<p>Si le bouton ne fonctionne pas, copiez-collez le lien suivant dans la barre d’adresse de votre navigateur :  <a href="{$a->link}">{$a->link}</a></p>
+</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td height="30">&nbsp;</td>
+  </tr>';
+
+$string['welcometocoursetext'] = '<tr>
+    <td valign="top"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td class="txt18Noir"><p>Bonjour,</p>
+<p>Nous vous confirmons votre inscription au Mooc « {$a->coursename} ».</p>
+
+<p>Nous vous remercions pour votre inscription et vous souhaitons beaucoup de plaisir à suivre ce nouveau parcours d\'apprentissage 
+sur {$b->sitename}, votre plateforme de Moocs francophone collaborative.</p>
+</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td height="30">&nbsp;</td>
+  </tr>';
+
+$string['informationmessagetext'] = '<tr>
+    <td valign="top"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td class="txt18Noir"><p>Bonjour,</p>
+
+<p>Merci de votre intérêt pour le cours {$a->coursename}. Vous serrez informé du lancement d\'une nouvelle session.</p>
+</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td height="30">&nbsp;</td>
+  </tr>';
+
+$string['defaultemailmsg'] = '<tr>
+    <td valign="top"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td class="txt18Noir"><p>Bonjour {$a->fullname},</p>
+        <p>Votre compte a été supprimé de Solerni.<br />Merci d\'avoir utilisé Solerni !</p>
+</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td height="30">&nbsp;</td>
+  </tr>';

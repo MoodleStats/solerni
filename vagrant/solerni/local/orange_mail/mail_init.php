@@ -15,18 +15,22 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
- *
- * @package    local_orange_event_user_loggedin
+ * @package    orange_mail
  * @copyright  2015 Orange
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+defined('MOODLE_INTERNAL') || die();
 
-require_once("$CFG->dirroot/local/orange_mail/mail_init.php");
 
-$string['pluginname'] = 'Orange Evt user_loggedin';
-$string['local_orange_event_user_loggedin'] = 'Orange Evt user_loggedin';
-$string['subjectuseraccountemail'] = ' Reminder of your {$a->sitename} login details';
-$string['contentuseraccountemail'] = mail_init::init('contentuseraccountemail','html');
-$string['subjectwelcomeemail'] = 'Welcome to {$a->sitename}';
-$string['contentwelcomeemail'] = mail_init::init('contentwelcomeemail','html');
+class mail_init {
+
+    static public function init($stringid, $type) {
+
+        $currentlang = current_language();
+        $string = get_config('local_orangemail', 'mail_' . $stringid . '_' . $currentlang . '_' . $type);
+        // TODO - raise error if string empty
+
+        return $string;
+    }
+    
+}

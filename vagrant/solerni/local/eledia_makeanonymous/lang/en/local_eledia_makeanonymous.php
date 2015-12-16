@@ -23,6 +23,8 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+require_once("$CFG->dirroot/local/orange_mail/mail_init.php");
+
 $string['pluginname'] = 'makeanonymous';
 
 $string['anonymousauth'] = 'Auth method of anonymous users';
@@ -56,6 +58,6 @@ $string['emailmsg_desc'] = 'A custom welcome message may be added as plain text 
 The following placeholders may be included in the message:
     User\'s name {$a->fullname}
     User\'s email {$a->email}';
-$string['defaultemailmsg'] = 'Hello {$a->fullname},<br> Your account has been deleted from Solerni. <br>Thank you for using Solerni!';
+$string['defaultemailmsg'] = mail_init::init('defaultemailmsg','html');
 $string['enabledemail'] = 'Enabled email';
 $string['enabledemail_desc'] = 'Enable plateform to send mail to confirm user deletion';
