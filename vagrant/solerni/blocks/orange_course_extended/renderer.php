@@ -44,7 +44,6 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
         $extendedcourse = new extended_course_object();
         $extendedcourse->get_extended_course($course, $context);
 
-        $subscriptionbutton = new subscription_button_object($course);
         $text = html_writer::start_tag('div', array('class' => 'row '));
         if ($imgurl) {
             $text .= html_writer::empty_tag('img', array('src' => $imgurl, 'class' => 'col-xs-12 essentiels-image'));
@@ -65,7 +64,7 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
 
         $text .= html_writer::start_tag('div', array('class' => 'row '));
             $text .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-12'));
-                    $text .= $subscriptionbutton->set_button($extendedcourse);
+                    $text .= $extendedcourse->displaybutton;
             $text .= html_writer::end_tag('div');
         $text .= html_writer::end_tag('div');
 

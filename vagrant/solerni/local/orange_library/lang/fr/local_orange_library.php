@@ -33,12 +33,17 @@ $string['status_default']       = 'A venir';
 $string['status_running']       = 'En cours';
 $string['status_closed']        = 'Terminé';
 $string['alert_mooc']           = 'M’avertir de la prochaine session';
-$string['registration_closed'] = 'Inscription terminée';
+$string['registration_closed']  = 'Inscription terminée';
 $string['registration_open']    = 'Inscription ouverte';
+$string['registration_not_open']    = 'Inscription pas encore ouverte';
 $string['mooc_complete']        = 'Mooc complet';
 $string['mooc_open_date']       = 'Début le {$a}';
 $string['acces_to_archive']     = 'Acces aux archives du cours';
 $string['enrolled_users']       = 'utilisateurs enregistrés';
+$string['unsubscribe']          = 'me désinscrire';
+$string['new_session']          = 'new_session';
+
+
 
 // Extended course object.
 $string['english']              = 'Anglais';

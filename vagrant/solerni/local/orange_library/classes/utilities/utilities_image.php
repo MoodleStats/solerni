@@ -43,6 +43,7 @@ class utilities_image {
      * @return $newImageUrl
      */
     public static function get_resized_url($image = null, $opts = null, $file = null) {
+
         global $CFG;
 
         if (!($image || $file)) {
@@ -50,7 +51,7 @@ class utilities_image {
         }
 
         if (!$image && $file) {
-            $image =    (self::get_moodle_url_from_stored_file($file)) ?
+            $image = (self::get_moodle_url_from_stored_file($file)) ?
                         self::get_moodle_url_from_stored_file($file) :
                         false;
         }
@@ -195,6 +196,7 @@ class utilities_image {
         // Return cache file path.
         return $CFG->wwwroot . $CFG->solerni_image_base_url . '/' . str_replace($cachefolder, '', $newpath);
     }
+
     /**
      * Returns the Moodle File Object from Moodle File Storage
      *
@@ -204,6 +206,7 @@ class utilities_image {
      * @return stored_file object
      */
     public static function get_moodle_stored_file($context, $pluginname, $fileareaname) {
+
         $fs = get_file_storage();
         $files = $fs->get_area_files($context->id, $pluginname, $fileareaname);
 
