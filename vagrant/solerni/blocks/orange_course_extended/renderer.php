@@ -46,7 +46,7 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
 
         $subscriptionbutton = new subscription_button_object($course);
         $text = html_writer::start_tag('div', array('class' => 'row '));
-        echo $imgurl;
+        
         if ($imgurl) {
             $text .= html_writer::empty_tag('img', array('src' => $imgurl, 'class' => 'col-xs-12 essentiels-image'));
         }
