@@ -202,4 +202,5 @@ moosh config-set defaultenrol 1 enrol_orangeinvitation
 moosh config-set status 0 enrol_orangeinvitation
 
 # Add cache store memcached
-moosh cache-admin memcached addstore ${MEMCACHED_CACHE_NAME} ${MEMCACHED_CACHE_SERVER} ${MEMCACHED_CACHE_PREFIX}
+moosh cache-admin --servers ${MEMCACHED_CACHE_SERVER} --prefix ${MEMCACHED_CACHE_PREFIX} memcached addstore ${MEMCACHED_CACHE_NAME}
+moosh cache-admin memcached editmodemappings ${MEMCACHED_CACHE_NAME}

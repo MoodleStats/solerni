@@ -493,3 +493,7 @@ moosh role-update-capability solerni_course_creator moodle/restore:viewautomated
 
 # Course Creator : can add block in a course
 moosh role-update-capability solerni_course_creator moodle/block:edit allow 1
+
+# Orangenextsession (#us_26)
+moosh role-update-capability solerni_course_creator enrol/orangenextsession:config allow 1
+moosh role-update-capability solerni_teacher enrol/orangenextsession:config allow 1
