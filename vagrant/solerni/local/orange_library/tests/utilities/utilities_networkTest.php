@@ -24,13 +24,12 @@ use local_orange_library\utilities\utilities_network;
 
 class utilities_networkTest extends advanced_testcase {
 
-    /**
+   /**
      * Test: getting the Mnet Hosts URL of the Moodle Network
      * should return false or array with Hosts server URL/name
      */
     public function test_get_hosts() {
         global $CFG;
-        $this->setAdminUser();
         $hosts = utilities_network::get_hosts();
 
         if ($CFG->solerni_isprivate) {
@@ -38,12 +37,13 @@ class utilities_networkTest extends advanced_testcase {
         } else {
             $this->assertInternalType('array', $hosts);
             $this->assertGreaterThanOrEqual(1, count($hosts));
-            $this->assertArrayHasKey('url', $hosts[0]);
-            $this->assertArrayHasKey('name', $hosts[0]);
-            $this->assertInternalType('string', $hosts[0]['url']);
-            $this->assertInternalType('string', $hosts[0]['name']);
-            $this->assertTrue(filter_var($hosts[0]['url'],FILTER_VALIDATE_URL));
+            foreach ($hosts as $host) {
+                $this->assertArrayHasKey('url', $host);
+                $this->assertArrayHasKey('name', $host);
+                $this->assertInternalType('string', $host['url']);
+                $this->assertInternalType('string', $host['name']);
+                $this->assertTrue(filter_var($host['url'],FILTER_VALIDATE_URL));
+            }
         }
     }
-
 }

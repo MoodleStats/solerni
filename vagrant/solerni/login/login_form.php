@@ -19,17 +19,11 @@ the ability to display instructions on the login page. We removed it but we coul
 use it if necessary, hence this comment */
 
 use theme_halloween\tools\theme_utilities;
-use local_orange_library\utilities\utilities_network;
+
 require_once($CFG->dirroot . '/filter/multilang/filter.php');
 $filtermultilang = new filter_multilang($PAGE->context, array());
 $autocomplete =  (!$CFG->loginpasswordautocomplete) ? 'autocomplete="off"' : '';
 
-if (utilities_network::is_home()) {
-    $form_action_host = $CFG->wwwroot;
-} else {
-    $home = array_pop(utilities_network::get_home());
-    $form_action_host = $home->url;
-}
 
 ?>
 <div class="row login-header">
@@ -66,8 +60,11 @@ if (utilities_network::is_home()) {
                 </p>
             </div>
         <?php endif; ?>
-        <form action="<?php echo $form_action_host; ?>/login/index.php"
+        <form action="<?php echo $formactionhost; ?>/login/index.php"
               method="POST" id="login" <?php echo $autocomplete; ?> >
+            <?php if (!isset($ismnethome)) :?>
+                <input type="hidden" name="mnetorigin" value="<?php echo $CFG->wwwroot; ?>">
+            <?php endif; ?>
             <div class="form-group">
                 <?php $usernamelabel = (theme_utilities::is_theme_settings_exists_and_nonempty('loginusername')) ?
                         $filtermultilang->filter($PAGE->theme->settings->loginusername) :

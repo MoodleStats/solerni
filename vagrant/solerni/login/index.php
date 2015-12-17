@@ -30,34 +30,34 @@ $PAGE->set_url("$CFG->httpswwwroot/login/index.php");
 $PAGE->set_context(context_system::instance());
 $PAGE->set_pagelayout('login');
 
-/// Initialize variables
-$errormsg = '';
-$errorcode = 0;
-
-// login page requested session test
+// login page requested session test. Redirect user if inside this loop.
+// Having testsession means the user is authenticated and reload this page (??).
+// Then we redirect the authenticated user.
 if ($testsession) {
     if ($testsession == $USER->id) {
-        if (isset($SESSION->wantsurl)) {
+        if (isset($SESSION->mnetredirect)) {
+            $urltogo = $SESSION->mnetredirect;
+        } elseif (isset($SESSION->wantsurl)) {
             $urltogo = $SESSION->wantsurl;
         } else {
             $urltogo = $CFG->wwwroot.'/';
         }
         unset($SESSION->wantsurl);
-        redirect($urltogo);
+        unset($SESSION->mnetredirect);
+        redirect($urltogo); // good bye login page.
     } else {
-        // TODO: try to find out what is the exact reason why sessions do not work
+        // TODO: try to find out what is the exact reason why sessions do not work.
+        // Default message is cookies not enabled.
         $errormsg = get_string("cookiesnotenabled");
         $errorcode = 1;
     }
 }
 
-/// Check for timed out sessions
-if (!empty($SESSION->has_timed_out)) {
-    $session_has_timed_out = true;
-    unset($SESSION->has_timed_out);
-} else {
-    $session_has_timed_out = false;
-}
+//  From this point this is the first loop. The form is either empty, or invalid.
+
+/// Initialize variables
+$errormsg = '';
+$errorcode = 0;
 
 /// auth plugins may override these - SSO anyone?
 $frm  = false;
@@ -68,7 +68,7 @@ foreach($authsequence as $authname) {
     $authplugin->loginpage_hook();
 }
 
-/// Define variables used in page
+/// Define variables used in page. Get $form content.
 $site = get_site();
 $loginsite = get_string("loginsite");
 $PAGE->navbar->add($loginsite);
@@ -89,6 +89,34 @@ if ($user !== false || $frm !== false || $errormsg !== '') {
     }
 } else {
     $frm = data_submitted();
+}
+
+// Define form action url.
+use local_orange_library\utilities\utilities_network;
+if ($CFG->solerni_isprivate || !is_enabled_auth('mnet')) {
+    $formactionhost = $CFG->wwwroot;
+} elseif (utilities_network::is_home()) {
+    $formactionhost = $CFG->wwwroot;
+    $ismnethome = true;
+    if (isset($frm->mnetorigin)) {
+        $hosts = utilities_network::get_hosts();
+        foreach($hosts as $host) {
+            if ($host->url == $frm->mnetorigin) {
+                $SESSION->mnetredirect = new moodle_url($CFG->wwwroot . '/auth/mnet/jump.php', array('hostid' => $host->id));
+            }
+        }
+    }
+} else {
+    $home = array_pop(utilities_network::get_home());
+    $formactionhost = $home->url;
+}
+
+/// Check for timed out sessions
+if (!empty($SESSION->has_timed_out)) {
+    $session_has_timed_out = true;
+    unset($SESSION->has_timed_out);
+} else {
+    $session_has_timed_out = false;
 }
 
 /// Check if the user has actually submitted login data to us

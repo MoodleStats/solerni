@@ -143,9 +143,11 @@ class utilities_network {
                    ) {
                     $thematic->url = $host->wwwroot;
                     $thematic->name = $host->name;
+                    $thematic->id = $host->id;
                 } else {
                     $thematic->url = "{$CFG->wwwroot}/auth/mnet/jump.php?hostid={$host->id}";
                     $thematic->name = $host->name;
+                    $thematic->id = $host->id;
                 }
                 $thematics[] = $thematic;
             }
