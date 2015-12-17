@@ -45,6 +45,7 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
         $extendedcourse->get_extended_course($course, $context);
 
         $text = html_writer::start_tag('div', array('class' => 'row '));
+        
         if ($imgurl) {
             $text .= html_writer::empty_tag('img', array('src' => $imgurl, 'class' => 'col-xs-12 essentiels-image'));
         }
