@@ -22,10 +22,8 @@ use theme_halloween\tools\theme_utilities;
 
 require_once($CFG->dirroot . '/filter/multilang/filter.php');
 $filtermultilang = new filter_multilang($PAGE->context, array());
-$autocomplete =  (!$CFG->loginpasswordautocomplete) ? 'autocomplete="off"' : '';
+$autocomplete =  (!$CFG->loginpasswordautocomplete) ? 'autocomplete="off"' : ''; ?>
 
-
-?>
 <div class="row login-header">
     <div class="page-header text-center">
         <?php require($CFG->partialsdir . '/login/login_header.php'); ?>

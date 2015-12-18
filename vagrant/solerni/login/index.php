@@ -93,14 +93,14 @@ if ($user !== false || $frm !== false || $errormsg !== '') {
 
 // Define form action url.
 use local_orange_library\utilities\utilities_network;
-if ($CFG->solerni_isprivate || !is_enabled_auth('mnet')) {
+$mnethosts = utilities_network::get_hosts();
+if ($CFG->solerni_isprivate || !is_enabled_auth('mnet') || empty($mnethosts)) {
     $formactionhost = $CFG->wwwroot;
 } elseif (utilities_network::is_home()) {
     $formactionhost = $CFG->wwwroot;
     $ismnethome = true;
     if (isset($frm->mnetorigin)) {
-        $hosts = utilities_network::get_hosts();
-        foreach($hosts as $host) {
+        foreach($mnethosts as $host) {
             if ($host->url == $frm->mnetorigin) {
                 $SESSION->mnetredirect = new moodle_url($CFG->wwwroot . '/auth/mnet/jump.php', array('hostid' => $host->id));
             }

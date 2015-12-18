@@ -155,5 +155,4 @@ class utilities_network {
 
         return $thematics;
     }
-
 }
