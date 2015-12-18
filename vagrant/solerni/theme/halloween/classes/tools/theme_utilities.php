@@ -107,4 +107,5 @@ class theme_utilities {
         global $CFG;
         require_once($CFG->dirroot . '/local/analytics/lib.php');
     }
+
 }

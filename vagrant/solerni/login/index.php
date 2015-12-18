@@ -17,6 +17,8 @@
 require_once(dirname(__FILE__) . '/../config.php');
 require_once('lib.php');
 
+use theme_halloween\tools\log_and_session_utilities;
+
 redirect_if_major_upgrade_required();
 $testsession = optional_param('testsession', 0, PARAM_INT); // test session works properly
 $cancel      = optional_param('cancel', 0, PARAM_BOOL);      // redirect to frontpage, needed for loginhttps
@@ -30,36 +32,14 @@ $PAGE->set_url("$CFG->httpswwwroot/login/index.php");
 $PAGE->set_context(context_system::instance());
 $PAGE->set_pagelayout('login');
 
-// login page requested session test. Redirect user if inside this loop.
-// Having testsession means the user is authenticated and reload this page (??).
-// Then we redirect the authenticated user.
-if ($testsession) {
-    if ($testsession == $USER->id) {
-        if (isset($SESSION->mnetredirect)) {
-            $urltogo = $SESSION->mnetredirect;
-        } elseif (isset($SESSION->wantsurl)) {
-            $urltogo = $SESSION->wantsurl;
-        } else {
-            $urltogo = $CFG->wwwroot.'/';
-        }
-        unset($SESSION->wantsurl);
-        unset($SESSION->mnetredirect);
-        redirect($urltogo); // good bye login page.
-    } else {
-        // TODO: try to find out what is the exact reason why sessions do not work.
-        // Default message is cookies not enabled.
-        $errormsg = get_string("cookiesnotenabled");
-        $errorcode = 1;
-    }
-}
+// Initialize variables and possible redirection depending on testsession
+$loginstateinit = log_and_session_utilities::test_session_and_initialize($USER, $testsession);
+log_and_session_utilities::redirect_user($SESSION, $loginstateinit, $testsession);
+$errormsg   = $loginstateinit['errormsg'];
+$errorcode  = $loginstateinit['errorcode'];
 
 //  From this point this is the first loop. The form is either empty, or invalid.
-
-/// Initialize variables
-$errormsg = '';
-$errorcode = 0;
-
-/// auth plugins may override these - SSO anyone?
+// auth plugins may override these - SSO anyone?
 $frm  = false;
 $user = false;
 $authsequence = get_enabled_auth_plugins(true); // auths, in sequence
@@ -94,7 +74,7 @@ if ($user !== false || $frm !== false || $errormsg !== '') {
 // Define form action url.
 use local_orange_library\utilities\utilities_network;
 $mnethosts = utilities_network::get_hosts();
-if ($CFG->solerni_isprivate || !is_enabled_auth('mnet') || empty($mnethosts)) {
+if (log_and_session_utilities::is_platform_login_uses_mnet($mnethosts)) {
     $formactionhost = $CFG->wwwroot;
 } elseif (utilities_network::is_home()) {
     $formactionhost = $CFG->wwwroot;
