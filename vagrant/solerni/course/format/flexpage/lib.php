@@ -284,13 +284,7 @@ class format_flexpage extends format_base {
                     'default' => get_config('language', 'format_flexpage'),
                     'type' => PARAM_INT,
                 ),
-/*
- *                 'coursevideo' => array(
-                    'default' => get_config('video', 'format_flexpage'),
-                    'type' => PARAM_INT,
-                ),
- *
- */
+
                 'coursesubtitle' => array(
                     'default' => get_config('coursesubtitle', 'format_flexpage'),
                     'type' => PARAM_INT,
@@ -299,15 +293,7 @@ class format_flexpage extends format_base {
                     'default' => get_config('registration', 'format_flexpage'),
                     'type' => PARAM_INT,
                 ),
-/*
- * coursemaxregistredusers is replaced by the maxregistred users
- * from enrolment methods
- */
-/*                'coursemaxregisteredusers' => array(
-                    'default' => get_config('registeredusers', 'format_flexpage'),
-                    'type' => PARAM_INT,
-                ),
-*/
+
                 'courseprerequesites' => array(
                     'default' => get_config('prerequesites', 'format_flexpage'),
                     'type' => PARAM_RAW,
@@ -417,33 +403,14 @@ class format_flexpage extends format_base {
                     'help_component' => 'format_flexpage',
                     'element_type' => 'advcheckbox'
                 ),
-/*
- *                 'coursevideo' => array(
-                    'label' => get_string('video', 'format_flexpage'),
-                    'help' => 'video',
-                    'help_component' => 'format_flexpage',
-                    'element_type' => 'checkbox'
-                ),
- *
- */
+
                 'coursesubtitle' => array(
                     'label' => get_string('subtitle', 'format_flexpage'),
                     'help' => 'subtitle',
                     'help_component' => 'format_flexpage',
                     'element_type' => 'advcheckbox'
                 ),
-/*
- * coursemaxregistredusers is replaced by the maxregistred users
- * from enrolment methods
- */
-/*                'coursemaxregisteredusers' => array(
-                    'label' => get_string('registeredusers', 'format_flexpage'),
-                    'help' => 'registeredusers',
-                    'help_component' => 'format_flexpage',
-                    'element_type' => 'text'
-                ),
- *
- */
+
                 'courseregistration' => array(
                     'label' => get_string('registration', 'format_flexpage'),
                     'help' => 'registration',

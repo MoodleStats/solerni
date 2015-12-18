@@ -84,11 +84,18 @@ if ( $courseinfos ) :
                 </div>
             </div>
             <div class="thumbnail-status-box u-inverse text-center">
-                <?php echo $courseinfos->coursestatustext;?>
+                <?php echo $courseinfos->statustext;?>
             </div>
             <div class="caption button">
-                <?php echo $subscriptionbutton->set_button($courseinfos); ?>
+                <?php echo $courseinfos->displaybutton; ?>
             </div>
+                    <?php if ( $courseinfos->statuslink != "#") :?>
+                    <p class="col-sm-12 thumbnail-text">
+                        <a class="link-secondary" href="<?php echo $courseinfos->statuslink; ?>">
+                            <?php echo $courseinfos->statuslinktext; ?>
+                        </a>
+                    </p>
+                    <?php endif; ?>
         </div>
     </div>
 <?php else : ?>
