@@ -66,7 +66,8 @@ class utilities_network {
     static public function get_home() {
 
         if (self::is_thematic()) {
-            return self::get_hosts();
+            $hosts = self::get_hosts();
+            return array_pop($hosts); // MNETHOME is the first host
         }
 
         return false;

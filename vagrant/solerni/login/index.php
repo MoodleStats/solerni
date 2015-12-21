@@ -20,21 +20,23 @@ require_once('lib.php');
 use theme_halloween\tools\log_and_session_utilities;
 
 redirect_if_major_upgrade_required();
-$testsession = optional_param('testsession', 0, PARAM_INT); // test session works properly
-$cancel      = optional_param('cancel', 0, PARAM_BOOL);      // redirect to frontpage, needed for loginhttps
+$testsession = optional_param('testsession', 0, PARAM_INT);     // test session works properly
+$locallog    = optional_param('locallog', 0, PARAM_BOOL);       // if true, use local database for login
+$cancel      = optional_param('cancel', 0, PARAM_BOOL);
+// redirect to frontpage, needed for loginhttps
 if ($cancel) {
     redirect(new moodle_url('/'));
 }
 
-//HTTPS is required in this page when $CFG->loginhttps enabled
+//HTTPS is required in this page when $CFG->loginhttps enabled.
 $PAGE->https_required();
 $PAGE->set_url("$CFG->httpswwwroot/login/index.php");
 $PAGE->set_context(context_system::instance());
 $PAGE->set_pagelayout('login');
 
-// Initialize variables and redirection when testsession exists
-$loginstateinit = log_and_session_utilities::testsession_initialize($USER, $testsession);
-log_and_session_utilities::redirect_user($SESSION, $loginstateinit, $testsession);
+// Initialize variables and redirect user when testsession exists and no errors.
+$loginstateinit = log_and_session_utilities::testsession_initialize($testsession);
+log_and_session_utilities::redirect_user($loginstateinit, $testsession);
 $errormsg   = $loginstateinit['errormsg'];
 $errorcode  = $loginstateinit['errorcode'];
 $site       = get_site();
@@ -69,26 +71,6 @@ if ($user !== false || $frm !== false || $errormsg !== '') {
     $frm = data_submitted();
 }
 
-// Define form action url.
-use local_orange_library\utilities\utilities_network;
-$mnethosts = utilities_network::get_hosts();
-if (log_and_session_utilities::is_platform_login_uses_mnet($mnethosts)) {
-    $formactionhost = $CFG->wwwroot;
-} elseif (utilities_network::is_home()) {
-    $formactionhost = $CFG->wwwroot;
-    $ismnethome = true;
-    if (isset($frm->mnetorigin)) {
-        foreach($mnethosts as $host) {
-            if ($host->url == $frm->mnetorigin) {
-                $SESSION->mnetredirect = new moodle_url($CFG->wwwroot . '/auth/mnet/jump.php', array('hostid' => $host->id));
-            }
-        }
-    }
-} else {
-    $home = array_pop(utilities_network::get_home());
-    $formactionhost = $home->url;
-}
-
 /// Check for timed out sessions
 if (!empty($SESSION->has_timed_out)) {
     $session_has_timed_out = true;
@@ -100,6 +82,8 @@ if (!empty($SESSION->has_timed_out)) {
 /// Check if the user has actually submitted login data to us
 // Login WITH cookies
 if ($frm and isset($frm->username)) {
+    // If user come from thematic, use jump url in $SESSION
+    log_and_session_utilities::memorize_frm_mnet_origin($frm);
     $frm->username = trim(core_text::strtolower($frm->username));
     if (is_enabled_auth('none') ) {
         if ($frm->username !== clean_param($frm->username, PARAM_USERNAME)) {
@@ -202,7 +186,7 @@ if ($frm and isset($frm->username)) {
         // Discard any errors before the last redirect.
         unset($SESSION->loginerrormsg);
 
-        // test the session actually works by redirecting to self
+        // test the session actually works by redirecting to self.
         $SESSION->wantsurl = $urltogo;
         redirect(new moodle_url(get_login_url(), array('testsession'=>$USER->id)));
 

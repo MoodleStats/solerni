@@ -38,19 +38,26 @@ class log_and_session_utilities_testcase extends advanced_testcase {
     }
 
     public function test_testsession_initialize() {
-        $testvalues = array( false, '1', 0, true, '0', 7, 1, $this->user->id);
+        $testvalues = array(0, 1, '0', '1', 455, -45, 0123, 0x1A, 0b11111111, $this->user->id);
 
         foreach ($testvalues as $value) {
-            $init = log_and_session_utilities::testsession_initialize($this->user, $value);
-            $this->assertInternalType('array', $init, '$init is not a array.');
-            $this->assertCount(2, $init, 'Wrong number of rows in $init.');
-            $this->assertArrayHasKey('errormsg', $init, 'No errormsg key in $init');
-            $this->assertArrayHasKey('errorcode', $init, 'No errorcode key in $init');
+            $init = log_and_session_utilities::testsession_initialize($value);
+            $this->assertInternalType('array', $init,
+                    '$init is not a array.');
+            $this->assertCount(2, $init,
+                    'Wrong number of rows in $init: ' . count($init) . ' rows.');
+            $this->assertArrayHasKey('errormsg', $init,
+                    'No errormsg key in $init');
+            $this->assertArrayHasKey('errorcode', $init,
+                    'No errorcode key in $init');
 
             if($value && is_int($value) && $value !== $this->user->id) {
                 $this->assertEquals(1, $init['errorcode'],
-                        'User Id different from $testsession, shoud receive a error code. '
-                        . '$testsession: ' . $value . ', UserId: ' . $this->user->id);
+                        'User Id different from $testsession, should have received a errorcode. '
+                        . '$testsession: '  . $value
+                        . ', UserId: '      . $this->user->id
+                        . ', errorcode: '   . $init['errorcode']
+                    );
                 $this->assertNotEmpty($init['errormsg'],
                         'No error message but errorcode is not empty');
             } else {
@@ -58,5 +65,11 @@ class log_and_session_utilities_testcase extends advanced_testcase {
                 $this->assertEmpty($init['errormsg']);
             }
         }
+    }
+
+    public function test_define_login_form_action() {
+        $testvalues = array(0, 1);
+
+
     }
 }

@@ -16,27 +16,38 @@
 
 namespace theme_halloween\tools;
 
+use local_orange_library\utilities\utilities_network;
+
 class log_and_session_utilities {
 
 
     /**
-     * Function to determine if we have to log locally or not on this instance
+     * Function to determine if we have to log locally or not on this instance.
+     * Return bool
      */
     public static function is_platform_login_uses_mnet($mnethosts) {
         global $CFG;
 
-        return ($CFG->solerni_isprivate || !is_enabled_auth('mnet') || empty($mnethosts));
+        switch(true) {
+            case $CFG->solerni_isprivate:
+            case !is_enabled_auth('mnet'):
+            case empty($mnethosts):
+                return false;
+        }
+
+        return true;
     }
 
     /**
      * Function checking testsession value and initialize some variables
-     * used later in login/index.php.
+     * used in login/index.php for error management.
      *
      * @global global $USER
      * @param type int $testsession
      * @return array()
      */
-    public static function testsession_initialize($USER, $testsession) {
+    public static function testsession_initialize($testsession) {
+        global $USER;
         $errormsg = '';
         $errorcode = 0;
 
@@ -47,6 +58,7 @@ class log_and_session_utilities {
             case !$testsession:
             case !is_int($testsession):
                 break;
+
             // TODO: try to find out what is the exact reason why sessions do not work.
             // Default message is cookies not enabled. (Comment from Moodle original file).
             case $testsession !== (int)$USER->id:
@@ -60,24 +72,89 @@ class log_and_session_utilities {
         );
     }
 
-    public static function redirect_user($SESSION, $loginstateinit, $testsession) {
-
+    /**
+     *
+     *  Redirect user depending on parameters.
+     *
+     * @global global $SESSION (object)
+     * @param array() $loginstateinit (from testsession_initialize())
+     * @param int $testsession (query string)
+     * @return void
+     */
+    public static function redirect_user($loginstateinit, $testsession) {
+        global $SESSION;
         switch (true) {
             // Error. Cannot redirect
             case $loginstateinit['errorcode'] !== 0:
             case !$testsession:
                 return;
-            // We are in a mnet situation. mnetredirect variable come from the login page first iteration.
+
+            // We are in a mnet situation.
+            // mnetredirect variable come from the login page first iteration (define_form_action).
             case isset($SESSION->mnetredirect):
                 $urltogo = $SESSION->mnetredirect;
                 unset($SESSION->mnetredirect);
                 break;
+
             // User needs to be redirect to a previous page.
             case isset($SESSION->wantsurl):
                 $urltogo = $SESSION->wantsurl;
                 unset($SESSION->wantsurl);
+                break;
         }
 
-        redirect($urltogo);
+        if(isset($urltogo)) {
+            redirect($urltogo);
+        }
     }
+
+    /**
+     * We have hidden field in MNET log form coming from thematics.
+     * We have to save this value in $SESSION to use it when redirecting user.
+     *
+     * @global global $CFG
+     * @global global $SESSION
+     * @param Object moodle_form $frm
+     *
+     * @return void
+     */
+    public static function memorize_frm_mnet_origin($frm) {
+        // Compute possible redirect jump to thematic.
+        if(isset($frm->mnetorigin)) {
+            global $CFG, $SESSION;
+            foreach(utilities_network::get_hosts() as $host) {
+                if ($host->url == $frm->mnetorigin) {
+                    $SESSION->mnetredirect = new \moodle_url($CFG->wwwroot . '/auth/mnet/jump.php', array('hostid' => $host->id));
+                }
+            }
+        }
+    }
+
+    /**
+     *
+     * Check conditions to define if we use local database or send the form to MNET HOME.
+     *
+     * Return array with form action url $formactionhost and boolean $isthematic
+     *
+     * @global global $CFG
+     * @param bool $locallog
+     * @return array()
+     */
+    public static function define_login_form_action($locallog) {
+        global $CFG;
+        $formactionhost = $CFG->wwwroot;
+        $isthematic = false;
+
+        if (utilities_network::is_thematic() && !$locallog) {
+            $formactionhost = utilities_network::get_home()->url;
+            $isthematic = true;
+        }
+
+        return array(
+            'host'          => $formactionhost,
+            'isthematic'    => $isthematic
+        );
+    }
+
+
 }
