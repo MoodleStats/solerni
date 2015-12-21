@@ -29,13 +29,14 @@ class log_and_session_utilities {
     }
 
     /**
+     * Function checking testsession value and initialize some variables
+     * used later in login/index.php.
      *
-     * @global type $USER
-     * @global type $SESSION
+     * @global global $USER
      * @param type int $testsession
-     * @return type
+     * @return array()
      */
-    public static function test_session_and_initialize($USER, $testsession) {
+    public static function testsession_initialize($USER, $testsession) {
         $errormsg = '';
         $errorcode = 0;
 

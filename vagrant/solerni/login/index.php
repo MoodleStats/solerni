@@ -32,11 +32,14 @@ $PAGE->set_url("$CFG->httpswwwroot/login/index.php");
 $PAGE->set_context(context_system::instance());
 $PAGE->set_pagelayout('login');
 
-// Initialize variables and possible redirection depending on testsession
-$loginstateinit = log_and_session_utilities::test_session_and_initialize($USER, $testsession);
+// Initialize variables and redirection when testsession exists
+$loginstateinit = log_and_session_utilities::testsession_initialize($USER, $testsession);
 log_and_session_utilities::redirect_user($SESSION, $loginstateinit, $testsession);
 $errormsg   = $loginstateinit['errormsg'];
 $errorcode  = $loginstateinit['errorcode'];
+$site       = get_site();
+$loginsite  = get_string("loginsite");
+$PAGE->navbar->add($loginsite);
 
 //  From this point this is the first loop. The form is either empty, or invalid.
 // auth plugins may override these - SSO anyone?
@@ -47,11 +50,6 @@ foreach($authsequence as $authname) {
     $authplugin = get_auth_plugin($authname);
     $authplugin->loginpage_hook();
 }
-
-/// Define variables used in page. Get $form content.
-$site = get_site();
-$loginsite = get_string("loginsite");
-$PAGE->navbar->add($loginsite);
 
 if ($user !== false || $frm !== false || $errormsg !== '') {
     // some auth plugin already supplied full user, fake form data or prevented user login with error message
