@@ -26,83 +26,168 @@
 defined('MOODLE_INTERNAL') || die;
 
 if ($hassiteconfig) {
-    // New settings page
+    // New settings page.
     $page = new admin_settingpage('orange_mail_settings', new lang_string('mailsetting', 'local_orange_mail'));
 
     $page->add(new admin_setting_heading('general', new lang_string('heading_general', 'local_orange_mail'), ''));
-    
-    $page->add(new admin_setting_configtext('local_orangemail/contactemail', 
-            new lang_string('contactemail', 'local_orange_mail'), 
-            new lang_string('contactemail_desc','local_orange_mail'), 'contact@solerni.com', PARAM_NOTAGS));
 
-    $page->add(new admin_setting_configtext('local_orangemail/noreplyemail', 
-            new lang_string('noreplyemail', 'local_orange_mail'), 
-            new lang_string('noreplyemail_desc','local_orange_mail'), 'noreply@solerni.com', PARAM_NOTAGS));
+    $page->add(new admin_setting_configtext('local_orangemail/contactemail',
+            new lang_string('contactemail', 'local_orange_mail'),
+            new lang_string('contactemail_desc', 'local_orange_mail'), 'contact@solerni.com', PARAM_NOTAGS));
+
+    $page->add(new admin_setting_configtext('local_orangemail/noreplyemail',
+            new lang_string('noreplyemail', 'local_orange_mail'),
+            new lang_string('noreplyemail_desc', 'local_orange_mail'), 'noreply@solerni.com', PARAM_NOTAGS));
 
 
-    $page->add(new admin_setting_heading('htmltemplate', 
-            new lang_string('heading_htmltemplate', 'local_orange_mail'), 
+    $page->add(new admin_setting_heading('htmltemplate',
+            new lang_string('heading_htmltemplate', 'local_orange_mail'),
             new lang_string('helphtml', 'local_orange_mail')));
 
-    $page->add(new admin_setting_configtextarea('local_orangemail/css', 
-            new lang_string('css', 'local_orange_mail'), 
-            new lang_string('css_desc', 'local_orange_mail'), '', PARAM_RAW, '50', '10'));
+    $page->add(new admin_setting_configtextarea('local_orangemail/css',
+            new lang_string('css', 'local_orange_mail'),
+            new lang_string('css_desc', 'local_orange_mail'), '<style type="text/css">
+body, td, th, ul {
+	font-family: Arial, Helvetica, sans-serif;
+	color: #000;
+}
+.txt14blanc {
+	color: #FFF;
+	font-size: 14px;
+}
+.lientxt14orange {
+	color: #F16E00;
+	font-size: 14px;
+	text-decoration: underline;
+}
+.lientxt18orange {
+	color: #F16E00;
+	font-size: 18px;
+	text-decoration: underline;
+}
+.lientxt18noir {
+	color: #000;
+	font-size: 18px;
+	text-decoration: underline;
+}
+.txt18Noir {
+	color: #000;
+	font-size: 18px;
+}
+.txt18BNoir {
+	color: #000;
+	font-size: 18px;
+	font-weight: bold;
+}
+.txt18BBlanc {
+	font-family: \'Helvetica Neue LT Std!important\';
+	color: #FFF;
+	font-size: 18px;
+	font-weight: bold;
+	vertical-align: bottom;
+}
+</style>', PARAM_RAW, '50', '10'));
 
-    $page->add(new admin_setting_configtextarea('local_orangemail/header', 
-            new lang_string('header', 'local_orange_mail'), 
-            new lang_string('header_desc', 'local_orange_mail'), '', PARAM_RAW, '50', '10'));
+    $page->add(new admin_setting_configtextarea('local_orangemail/header',
+            new lang_string('header', 'local_orange_mail'),
+            new lang_string('header_desc', 'local_orange_mail'), '  <tr>
+    <td height="100" align="center" bgcolor="#000000"><table width="600" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="70" ><a href="{$b->siteurl}"><img src="{$b->imageurl}logo.png" width="62" height="54" alt="{$b->sitename}" title="{$b->sitename}" /></a></td><td class="txt18BBlanc" align="left">Solerni<br />{$b->sitename}</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td height="20">&nbsp;</td>
+  </tr>', PARAM_RAW, '50', '10'));
 
-    $page->add(new admin_setting_configtextarea('local_orangemail/signature', 
-            new lang_string('signature', 'local_orange_mail'), 
-            new lang_string('signature_desc', 'local_orange_mail'), '', PARAM_RAW, '50', '10'));
+    $page->add(new admin_setting_configtextarea('local_orangemail/signature',
+            new lang_string('signature', 'local_orange_mail'),
+            new lang_string('signature_desc', 'local_orange_mail'), '  <tr>
+    <td><table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td class="txt18Noir"><p>{$b->solernimailsignature}</p></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td height="20">&nbsp;</td>
+  </tr>', PARAM_RAW, '50', '10'));
 
-    $page->add(new admin_setting_configtextarea('local_orangemail/followus', 
-            new lang_string('followus', 'local_orange_mail'), 
-            new lang_string('followus_desc', 'local_orange_mail'), '', PARAM_RAW, '50', '10'));
+    $page->add(new admin_setting_configtextarea('local_orangemail/followus',
+            new lang_string('followus', 'local_orange_mail'),
+            new lang_string('followus_desc', 'local_orange_mail'), '<tr>
+    <td height="70" bgcolor="#000000"><table border="0" align="left" cellpadding="0" cellspacing="0">
+<tr>
+    <td width="25">&nbsp;</td>
+    <td width="110" class="txt14blanc">{$b->solernimailfollowus}</td>
+    <td width="57"><a href="{$b->facebook}"><img src="{$b->imageurl}picto_facebook.png" width="36" height="36" alt="Faceboook" /></a></td>
+    <td width="57"><a href="{$b->twitter}"><img src="{$b->imageurl}picto_twitter.png" width="36" height="36" alt="twitter" /></a></td>
+    <td width="57"><a href="{$b->blog}"><img src="{$b->imageurl}picto_blog.png" width="36" height="36" alt="" /></a></td>
+    </tr>
+    </table></td>
+</tr>
+<tr>
+<td><img src="{$b->imageurl}sep.png" width="650" height="1" /></td>
+</tr>', PARAM_RAW, '50', '10'));
 
-    $page->add(new admin_setting_configtextarea('local_orangemail/footer', 
-            new lang_string('footer', 'local_orange_mail'), 
-            new lang_string('footer_desc', 'local_orange_mail'), '', PARAM_RAW, '50', '10'));
+    $page->add(new admin_setting_configtextarea('local_orangemail/footer',
+            new lang_string('footer', 'local_orange_mail'),
+            new lang_string('footer_desc', 'local_orange_mail'), '  <tr>
+    <td height="170" bgcolor="#000000"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td class="txt14blanc">{$b->solernimailfooterhtml}</td>
+        </tr>
+      </table></td>
+  </tr>', PARAM_RAW, '50', '10'));
 
-    $page->add(new admin_setting_configtextarea('local_orangemail/footerinscription', 
-            new lang_string('footerinscription', 'local_orange_mail'), 
-            new lang_string('footerinscription_desc', 'local_orange_mail'), '', PARAM_RAW, '50', '10'));
+    $page->add(new admin_setting_configtextarea('local_orangemail/footerinscription',
+            new lang_string('footerinscription', 'local_orange_mail'),
+            new lang_string('footerinscription_desc', 'local_orange_mail'), '  <tr>
+    <td height="230" bgcolor="#000000"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td class="txt14blanc">{$b->solernimailfooterinscriptionhtml}</td>
+        </tr>
+      </table></td>
+  </tr>', PARAM_RAW, '50', '10'));
 
 
-    $page->add(new admin_setting_heading('texttemplate', 
-            new lang_string('heading_texttemplate', 'local_orange_mail'), 
+    $page->add(new admin_setting_heading('texttemplate',
+            new lang_string('heading_texttemplate', 'local_orange_mail'),
             new lang_string('helptext', 'local_orange_mail')));
 
-    $page->add(new admin_setting_configtextarea('local_orangemail/headertext', 
-            new lang_string('headertext', 'local_orange_mail'), 
+    $page->add(new admin_setting_configtextarea('local_orangemail/headertext',
+            new lang_string('headertext', 'local_orange_mail'),
             new lang_string('headertext_desc', 'local_orange_mail'), '', PARAM_RAW, '50', '3'));
 
-    $page->add(new admin_setting_configtextarea('local_orangemail/signaturetext', 
-            new lang_string('signaturetext', 'local_orange_mail'), 
-            new lang_string('signaturetext_desc', 'local_orange_mail'), '', PARAM_RAW, '50', '3'));
+    $page->add(new admin_setting_configtextarea('local_orangemail/signaturetext',
+            new lang_string('signaturetext', 'local_orange_mail'),
+            new lang_string('signaturetext_desc', 'local_orange_mail'), '{$b->solernimailsignaturetext}', PARAM_RAW, '50', '3'));
 
-    $page->add(new admin_setting_configtextarea('local_orangemail/followustext', 
-            new lang_string('followustext', 'local_orange_mail'), 
+    $page->add(new admin_setting_configtextarea('local_orangemail/followustext',
+            new lang_string('followustext', 'local_orange_mail'),
             new lang_string('followustext_desc', 'local_orange_mail'), '', PARAM_RAW, '50', '3'));
 
-    $page->add(new admin_setting_configtextarea('local_orangemail/footertext', 
-            new lang_string('footertext', 'local_orange_mail'), 
-            new lang_string('footertext_desc', 'local_orange_mail'), '', PARAM_RAW, '50', '3'));
+    $page->add(new admin_setting_configtextarea('local_orangemail/footertext',
+            new lang_string('footertext', 'local_orange_mail'),
+            new lang_string('footertext_desc', 'local_orange_mail'), '{$b->solernimailfootertext}', PARAM_RAW, '50', '3'));
 
-    $page->add(new admin_setting_configtextarea('local_orangemail/footerinscriptiontext', 
-            new lang_string('footerinscriptiontext', 'local_orange_mail'), 
-            new lang_string('footerinscriptiontext_desc', 'local_orange_mail'), '', PARAM_RAW, '50', '3'));
+    $page->add(new admin_setting_configtextarea('local_orangemail/footerinscriptiontext',
+            new lang_string('footerinscriptiontext', 'local_orange_mail'),
+            new lang_string('footerinscriptiontext_desc', 'local_orange_mail'), '{$b->solernimailfooterinscriptiontext}', PARAM_RAW, '50', '3'));
 
-    
+
     $ADMIN->add('localplugins', new admin_category('orange_mail', new lang_string('pluginname', 'local_orange_mail')));
-    
-    // Add settings page to navigation tree
+
+    // Add settings page to navigation tree.
     $ADMIN->add('orange_mail', $page);
 
-    $temp= new admin_externalpage('orange_mail_generate', new lang_string('mailgenerate', 'local_orange_mail'), $CFG->wwwroot . '/local/orange_mail/generate.php',
-			'local/orange_mail:config');
+    $temp = new admin_externalpage('orange_mail_generate',
+            new lang_string('mailgenerate', 'local_orange_mail'), $CFG->wwwroot . '/local/orange_mail/generate.php',
+            'local/orange_mail:config');
     $ADMIN->add('orange_mail', $temp);
-    $temp= new admin_externalpage('orange_mailtest', new lang_string('mailtest', 'local_orange_mail'), $CFG->wwwroot . '/local/orange_mail/test.php',
-			'local/orange_mail:config');
+    $temp = new admin_externalpage('orange_mailtest',
+            new lang_string('mailtest', 'local_orange_mail'), $CFG->wwwroot . '/local/orange_mail/test.php',
+            'local/orange_mail:config');
     $ADMIN->add('orange_mail', $temp);
 }

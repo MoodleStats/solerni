@@ -25,9 +25,13 @@ use theme_halloween\settings\options;
 use theme_halloween\tools\theme_utilities;
 
 
+/**
+ * All functions in this class are copy of Moodle code or Plugins code.
+ * This code is for email test purpose only
+ */
 class mail_test {
-   
-    static function reset_password_and_mail($user, $modetext=false) {
+
+    static public function reset_password_and_mail($user, $modetext=false) {
         global $CFG;
 
         $site  = get_site();
@@ -44,23 +48,26 @@ class mail_test {
         $a->link        = $CFG->httpswwwroot .'/login/change_password.php';
         $a->signoff     = generate_email_signoff();
 
-        // TODO : moodle ne permet pas l'envoi de ce mail en HTML
+        // TODO - Bad format in Moodle.
         $messagehtml = get_string('newpasswordtext', '', $a);
         $message = html_to_text($messagehtml);
 
-        $subject  = format_string($site->fullname) .': '. get_string('changedpassword');
+        $subject  = '(M1)' . format_string($site->fullname) .': '. get_string('changedpassword');
 
-        if ($modetext) $user->mailformat = 0;  
-        else $user->mailformat = 1;  
+        if ($modetext) {
+            $user->mailformat = 0;
+        } else {
+            $user->mailformat = 1;
+        }
 
         // Directly email rather than using the messaging system to ensure its not routed to a popup or jabber.
         return email_to_user($user, $supportuser, $subject, $message, $messagehtml);
     }
-    
-    
-    static function user_account_mail($user, $modetext=false) {
+
+
+    static public function user_account_mail($user, $modetext=false) {
         global $CFG;
-        
+
         $profileurl = "$CFG->wwwroot/user/view.php?id=" . $user->id;
         $contact = core_user::get_support_user();
         $siteurl = $CFG->wwwroot;
@@ -78,24 +85,27 @@ class mail_test {
             $messagehtml = text_to_html($messagetext, null, false, true);
         } else {
             // This is most probably the tag/newline soup known as FORMAT_MOODLE.
-            //$messagehtml = format_text($message, FORMAT_MOODLE, array('para' => false, 'newlines' => true, 'filter' => true));
+            // $messagehtml = format_text($message, FORMAT_MOODLE, array('para' => false, 'newlines' => true, 'filter' => true));
             $messagehtml = $message;
             $messagetext = html_to_text($messagehtml);
         }
 
         $subject = get_string('subjectuseraccountemail', 'local_orange_event_user_loggedin');
-        $subject = str_replace('{$a->sitename}', format_string($site->fullname), $subject);
+        $subject = '(M2)' . str_replace('{$a->sitename}', format_string($site->fullname), $subject);
 
-        if ($modetext) $user->mailformat = 0;  
-        else $user->mailformat = 1;  
+        if ($modetext) {
+            $user->mailformat = 0;
+        } else {
+            $user->mailformat = 1;
+        }
 
         email_to_user($user, $contact, $subject, $messagetext, $messagehtml);
     }
 
-    
-    static function user_welcome_mail($user, $modetext=false) {
+
+    static public function user_welcome_mail($user, $modetext=false) {
         global $CFG;
-        
+
         $profileurl = "$CFG->wwwroot/user/view.php?id=" . $user->id;
         $contact = core_user::get_support_user();
         $siteurl = $CFG->wwwroot;
@@ -113,22 +123,25 @@ class mail_test {
             $messagehtml = text_to_html($messagetext, null, false, true);
         } else {
             // This is most probably the tag/newline soup known as FORMAT_MOODLE.
-            //$messagehtml = format_text($message, FORMAT_MOODLE, array('para' => false, 'newlines' => true, 'filter' => true));
+            // $messagehtml = format_text($message, FORMAT_MOODLE, array('para' => false, 'newlines' => true, 'filter' => true));
             $messagehtml = $message;
             $messagetext = html_to_text($messagehtml);
         }
 
         $subject = get_string('subjectwelcomeemail', 'local_orange_event_user_loggedin');
-        $subject = str_replace('{$a->sitename}', format_string($site->fullname), $subject);
+        $subject = '(M3)' . str_replace('{$a->sitename}', format_string($site->fullname), $subject);
 
-        if ($modetext) $user->mailformat = 0;  
-        else $user->mailformat = 1;  
+        if ($modetext) {
+            $user->mailformat = 0;
+        } else {
+            $user->mailformat = 1;
+        }
 
         email_to_user($user, $contact, $subject, $messagetext, $messagehtml);
-    
+
     }
-    
-    static function send_password_change_confirmation_email($user, $modetext=false) {
+
+    static public function send_password_change_confirmation_email($user, $modetext=false) {
         global $CFG;
 
         $site = get_site();
@@ -146,17 +159,20 @@ class mail_test {
 
         $message = get_string('emailresetconfirmation', '', $data);
         $messagehtml = get_string('emailresetconfirmationhtml', '', $data);
-        $subject = get_string('emailresetconfirmationsubject', '', format_string($site->fullname));
+        $subject = '(M4)' . get_string('emailresetconfirmationsubject', '', format_string($site->fullname));
 
-        if ($modetext) $user->mailformat = 0;  
-        else $user->mailformat = 1;  
+        if ($modetext) {
+            $user->mailformat = 0;
+        } else {
+            $user->mailformat = 1;
+        }
 
         // Directly email rather than using the messaging system to ensure its not routed to a popup or jabber.
         return email_to_user($user, $supportuser, $subject, $message, $messagehtml);
 
     }
-    
-    static function send_confirmation_email($user, $modetext=false) {
+
+    static public function send_confirmation_email($user, $modetext=false) {
         global $CFG;
 
         $site = get_site();
@@ -167,32 +183,35 @@ class mail_test {
         $data->sitename  = format_string($site->fullname);
         $data->admin     = generate_email_signoff();
 
-        $subject = get_string('emailconfirmationsubject', '', format_string($site->fullname));
+        $subject = '(M5)' . get_string('emailconfirmationsubject', '', format_string($site->fullname));
 
         $username = urlencode($user->username);
         $username = str_replace('.', '%2E', $username); // Prevent problems with trailing dots.
         $data->link  = $CFG->wwwroot .'/login/confirm.php?data='. $user->secret .'/'. $username;
-        // TODO - by default the mail is not in html
-        //$message     = get_string('emailconfirmation', '', $data);
-        //$messagehtml = text_to_html(get_string('emailconfirmation', '', $data), false, false, true);
+        // TODO - Bad format in Moodle.
+        // $message     = get_string('emailconfirmation', '', $data);
+        // $messagehtml = text_to_html(get_string('emailconfirmation', '', $data), false, false, true);
         $messagehtml     = get_string('emailconfirmation', '', $data);
         $message = html_to_text(get_string('emailconfirmation', '', $data));
 
-        if ($modetext) $user->mailformat = 0;  
-        else $user->mailformat = 1;  
+        if ($modetext) {
+            $user->mailformat = 0;
+        } else {
+            $user->mailformat = 1;
+        }
 
         // Directly email rather than using the messaging system to ensure its not routed to a popup or jabber.
         return email_to_user($user, $supportuser, $subject, $message, $messagehtml);
     }
 
-    static function email_welcome_message($instance, $user, $modetext=false) {
+    static public function email_welcome_message($instance, $user, $modetext=false) {
         global $CFG, $DB;
 
-        $course = $DB->get_record('course', array('id'=>$instance->courseid), '*', MUST_EXIST);
+        $course = $DB->get_record('course', array('id' => $instance->courseid), '*', MUST_EXIST);
         $context = context_course::instance($course->id);
 
         $a = new stdClass();
-        $a->coursename = format_string($course->fullname, true, array('context'=>$context));
+        $a->coursename = format_string($course->fullname, true, array('context' => $context));
         $a->profileurl = "$CFG->wwwroot/user/view.php?id=$user->id&course=$course->id";
 
         if (trim($instance->customtext1) !== '') {
@@ -206,18 +225,19 @@ class mail_test {
                 $messagehtml = text_to_html($messagetext, null, false, true);
             } else {
                 // This is most probably the tag/newline soup known as FORMAT_MOODLE.
-                $messagehtml = format_text($message, FORMAT_MOODLE, array('context'=>$context, 'para'=>false, 'newlines'=>true, 'filter'=>true));
+                $messagehtml = format_text($message, FORMAT_MOODLE, array('context' => $context, 'para' => false, 'newlines' => true, 'filter' => true));
                 $messagetext = html_to_text($messagehtml);
             }
         } else {
-            // TODO - Mauvais format
-            //$messagetext = get_string('welcometocoursetext', 'enrol_self', $a);
-            //$messagehtml = text_to_html($messagetext, null, false, true);
+            // TODO - Bad format in Moodle.
+            // $messagetext = get_string('welcometocoursetext', 'enrol_self', $a);
+            // $messagehtml = text_to_html($messagetext, null, false, true);
             $messagehtml = get_string('welcometocoursetext', 'enrol_self', $a);
             $messagetext = html_to_text($messagehtml);
         }
 
-        $subject = get_string('welcometocourse', 'enrol_self', format_string($course->fullname, true, array('context'=>$context)));
+        $subject = '(M6)' . get_string('welcometocourse', 'enrol_self', 
+                format_string($course->fullname, true, array('context' => $context)));
 
         $rusers = array();
         if (!empty($CFG->coursecontact)) {
@@ -231,14 +251,17 @@ class mail_test {
             $contact = core_user::get_support_user();
         }
 
-        if ($modetext) $user->mailformat = 0;  
-        else $user->mailformat = 1;  
+        if ($modetext) {
+            $user->mailformat = 0;
+        } else {
+            $user->mailformat = 1;
+        }
 
         // Directly emailing welcome message rather than using messaging.
         email_to_user($user, $contact, $subject, $messagetext, $messagehtml);
     }
 
-    static function email_information_message($instance, $user, $modetext=false) {
+    static public function email_information_message($instance, $user, $modetext=false) {
         global $CFG, $DB;
 
         $course = $DB->get_record('course', array('id' => $instance->courseid), '*', MUST_EXIST);
@@ -246,6 +269,7 @@ class mail_test {
         $a = new stdClass();
         $a->coursename = format_string($course->fullname);
         $a->profileurl = "$CFG->wwwroot/user/view.php?id=$user->id&course=$course->id";
+        $a->fullname = fullname($user);
 
         if (trim($instance->customtext1) !== '') {
             $messagehtml = $instance->customtext1;
@@ -256,7 +280,7 @@ class mail_test {
         }
 
         $message = html_to_text($messagehtml);
-        $subject = get_string('informationmessage', 'enrol_orangenextsession', format_string($course->fullname));
+        $subject = '(M7)' . get_string('informationmessage', 'enrol_orangenextsession', format_string($course->fullname));
 
         $context = context_course::instance($instance->courseid, MUST_EXIST);
 
@@ -271,21 +295,20 @@ class mail_test {
             $contact = core_user::get_support_user();
         }
 
-        if ($modetext) $user->mailformat = 0;  
-        else $user->mailformat = 1;  
+        if ($modetext) {
+            $user->mailformat = 0;
+        } else {
+            $user->mailformat = 1;
+        }
 
         // Directly emailing welcome message rather than using messaging.
         email_to_user($user, $contact, $subject, $message, $messagehtml);
     }
 
-    static function send_email_deletion($user, $modetext=false) {
-        
+    static public function send_email_deletion($user, $modetext=false) {
+
         $supportuser = core_user::get_support_user();
         $message = get_config('local_eledia_makeanonymous', 'emailmsg');
-
-        // Otherwise email_to_user() method block email.
-        //$user->deleted      = 0;
-        //$user->email     = $useroldemail;
 
         $a = new stdClass();
         $a->fullname = fullname($user);
@@ -310,12 +333,18 @@ class mail_test {
             $messagetext = html_to_text($messagehtml);
         }
 
-        $subject = get_config('local_eledia_makeanonymous', 'emailsubject');
+        $subject = '(M8)' . get_config('local_eledia_makeanonymous', 'emailsubject');
+        if (trim($subject) !== '') {
+            $subject = '(M8)' . get_string('defaultemailsubject', 'local_eledia_makeanonymous');
+        }
 
-        if ($modetext) $user->mailformat = 0;  
-        else $user->mailformat = 1;  
+        if ($modetext) {
+            $user->mailformat = 0;
+        } else {
+            $user->mailformat = 1;
+        }
 
-        if (! email_to_user($user, $supportuser, $subject, $messagetext, $messagehtml)) {
+        if (!email_to_user($user, $supportuser, $subject, $messagetext, $messagehtml)) {
             mtrace('mail error : mail was not sent to '. $user->email);
         }
     }

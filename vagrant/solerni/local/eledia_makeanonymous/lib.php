@@ -191,6 +191,9 @@ function send_email_deletion($user, $useroldemail) {
     }
 
     $subject = get_config('local_eledia_makeanonymous', 'emailsubject');
+    if (trim($subject) !== '') {
+        $subject = get_string('defaultemailsubject', 'local_eledia_makeanonymous');
+    }
 
     if (! email_to_user($user, $supportuser, $subject, $messagetext, $messagehtml)) {
         mtrace('mail error : mail was not sent to '. $user->email);

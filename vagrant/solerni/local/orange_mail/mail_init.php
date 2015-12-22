@@ -24,13 +24,19 @@ defined('MOODLE_INTERNAL') || die();
 
 class mail_init {
 
+    /**
+     * Get the language string form the moodle config.
+     *
+     * @param stringid : language id
+     * @param type : 'html' or 'text'
+     * @return text string
+     */
     static public function init($stringid, $type) {
 
         $currentlang = current_language();
         $string = get_config('local_orangemail', 'mail_' . $stringid . '_' . $currentlang . '_' . $type);
-        // TODO - raise error if string empty
 
         return $string;
     }
-    
+
 }

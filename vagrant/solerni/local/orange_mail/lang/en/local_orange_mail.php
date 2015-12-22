@@ -22,8 +22,9 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-// Plugin strings
+// Plugin strings.
 $string['pluginname'] = 'Solerni Mail';
+$string['orange_mail:config'] = 'Configure Orange mail plugin';
 $string['mailsetting'] = 'Settings';
 $string['mailgenerate'] = 'Generate templates email';
 $string['mailgeneratestatus'] = 'Email\'s templates generation completed.';
@@ -31,8 +32,6 @@ $string['mailtest'] = 'Send test emails';
 $string['mailteststatus'] = 'Tests emails send.';
 $string['pluginname_desc'] = 'This plugin allow to configure mails sent by Solerni.';
 $string['orange_mail'] = 'Orange mail';
-$string['onlineversion'] = 'Add "Online version" URL to email';
-$string['onlineversion_desc'] = 'Specify if the emails sould contains an "Online version" URL';
 $string['css'] = 'Mail CSS';
 $string['css_desc'] = 'CSS content included in all mails. It should start by <STYLE> and end by </STYLE>';
 $string['header'] = 'Mail Header';
@@ -62,41 +61,69 @@ $string['noreplyemail_desc'] = 'Email No Reply Solerni. This e-mail is used for 
 $string['heading_general'] = 'General';
 $string['heading_htmltemplate'] = 'Mail HTML template';
 $string['heading_texttemplate'] = 'Mail text template';
-$string['helptext'] = '';
-$string['helphtml'] = '';
+$string['helptext'] = 'You can use these variables on the templates. These variables will be replaced by the content during the template generation.'
+        . '<ul>'
+        . '<li>{$b->sitename} : site name</li>'
+        . '<li>{$b->siteurl} : site url</li>'
+        . '<li>{$b->catalogurl} : catalog url</li>'
+        . '<li>{$b->profilurl} : profil page url</li>'
+        . '<li>{$b->facebook} : Solerni Facebook url</li>'
+        . '<li>{$b->twitter} : Solerni Twitter url</li>'
+        . '<li>{$b->blog} : Solerni blog url</li>'
+        . '<li>{$b->linkedin} : Solerni Linkedin url</li>'
+        . '<li>{$b->googleplus} : Solerni Googleplus url</li>'
+        . '<li>{$b->dailymotion} : Solerny Dailymotion page</li>'
+        . '</ul>'
+        . '<br>The variables {$a->xxx} are treated by Moodle during the mail sent process. These variables depends on each mail.';
+$string['helphtml'] = 'You can use these variables on the templates. These variables will be replaced by the content during the template generation..'
+        . '<ul>'
+        . '<li>{$b->imageurl} : directory for images used in emails</li>'
+        . '<li>{$b->sitename} : site name</li>'
+        . '<li>{$b->siteurl} : site url</li>'
+        . '<li>{$b->catalogurl} : catalog url</li>'
+        . '<li>{$b->profilurl} : profil page url</li>'
+        . '<li>{$b->facebook} : Solerni Facebook url</li>'
+        . '<li>{$b->twitter} : Solerni Twitter url</li>'
+        . '<li>{$b->blog} : Solerni blog url</li>'
+        . '<li>{$b->linkedin} : Solerni Linkedin url</li>'
+        . '<li>{$b->googleplus} : Solerni Googleplus url</li>'
+        . '<li>{$b->dailymotion} : Solerny Dailymotion page</li>'
+        . '</ul>'
+        . '<br>The variables {$a->xxx} are treated by Moodle during the mail sent process. These variables depends on each mail.';
 
-// Mail template strings
+// Mail template strings.
 $string['solernimailsignature'] = 'The <a href="{$b->siteurl}" class="lientxt18orange">{$b->sitename}</a> Team<br />'
-        . 'Learning is always better together <a href="#" class="lientxt18orange">www.solerni.com</a>';
+        . 'Learning is always better together <a href="{$b->siteurl}" class="lientxt18orange">solerni.com</a>';
 $string['solernimailsignaturetext'] = 'The {$b->sitename} Team
-Learning is always better together www.solerni.com';
+Learning is always better together solerni.com';
 $string['solernimailfootertext'] = 'This is an automatic message, please do not reply to it directly. If you have any questions, write to us at {$b->contactemail}.
 To ensure that you never miss our email, add this address {$b->noreplyemail} to your address book.';
 $string['solernimailfooterhtml'] = '<p>This is an automatic message, please do not reply to it directly.<br />
     If you have any questions, write to us at <a href="mailto:{$b->contactemail}" class="lientxt14orange">{$b->contactemail}</a>.<br />
-To ensure that you never miss our email, add this address <a href="{$b->npreplyemail}" class="lientxt14orange">{$b->noreplyemail}</a> to your address book.</p>';
+To ensure that you never miss our email, add this address <a href="mailto:{$b->npreplyemail}" class="lientxt14orange">{$b->noreplyemail}</a> to your address book.</p>';
 $string['solernimailfooterinscriptiontext'] = 'You have received this email because your email address was used to sign up to our site {$a->sitename}. This is an automatic message, please do not reply to it directly. If you have any questions, write to us at {$b->contactemail}.
 To ensure that you never miss our email, add this address {$b->noreplyemail} to your address book.';
 $string['solernimailfooterinscriptionhtml'] = '<p>You have received this email because your email address was used to sign up to our site <a href="{$b->siteurl}" class="lientxt14orange">{$b->sitename}</a>.</p>
     <p>This is an automatic message, please do not reply to it directly.<br />
     If you have any questions, write to us at <a href="mailto:{$b->contactemail}" class="lientxt14orange">{$b->contactemail}</a>.<br />
-To ensure that you never miss our email, add this address <a href="{$b->npreplyemail}" class="lientxt14orange">{$b->noreplyemail}</a> to your address book.</p>';
+To ensure that you never miss our email, add this address <a href="mailto:{$b->npreplyemail}" class="lientxt14orange">{$b->noreplyemail}</a> to your address book.</p>';
+$string['solernimailfollowus'] = 'Follow us';
 
-// Original Moodle email strings        
+// Original Moodle email strings.
 $string['newpasswordtext'] = '<tr>
     <td valign="top"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
         <tr>
-          <td class="txt18Noir"><p>Hi <span class="txt18BNoir">{$a->firstname} {$a->lastname}</span>,</p>
+          <td class="txt18Noir"><p>Hello <span class="txt18BNoir">{$a->firstname} {$a->lastname}</span>,</p>
 
 <p>Your account password at \'{$a->sitename}\' has been reset
 and you have been issued with a new temporary password.</p>
 
 Your current login information is now:<br />
-   username: {$a->username}<br />
+   username: <span class="txt18BNoir">{$a->username}</span><br />
    password: {$a->newpassword}<br />
 
 <p>Please go to this page to change your password:
-   <a href="{$a->link}">{$a->link}</a></p>
+   <a href="{$a->link}" class="lientxt18orange">{$a->link}</a></p>
 
 <p>In most mail programs, this should appear as a blue link
 which you can just click on.  If that doesn\'t work,
@@ -115,28 +142,12 @@ $string['contentuseraccountemail'] = '<tr>
           <td class="txt18Noir"><p>Hello <span class="txt18BNoir">{$a->fullname}</span>,<br/><br/>
 Thank you for registering to <strong>{$a->sitename}</strong>.<p>
 <p>Here is a reminder of your account login details :</p>
-</td>
-        </tr>
-      </table></td>
-  </tr>
-  <tr>
-    <td height="30">&nbsp;</td>
-  </tr>
-  <tr>
-      <td valign="top"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
-        <tr>
-          <td style="backgroung-image: url({$b->imageurl}bg_pass.png); backgound-repeat: no-repeat; height: 60px;"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
-          <tr>
-          <td>
-  <ul>
-	<li>E-mail : <a href="mailto:{$a->email}">{$a->email}</a></li>
-	<li>Password : you are the only one to know</li>
+<ul>
+    <li>E-mail : <a href="{$a->email}" class="lientxt18orange">{$a->email}</a></li>
+    <li>Password : you are the only one to know</li>
 </ul>
-<p>You can now access your account by <a href="{$a->profileurl}">here</a>.</p>
+<p>You can now access your account by <a href="{$a->profileurl}" class="lientxt18orange">here</a>.</p>
 <p>See you very soon on {$a->sitename}, your new collaborative French MOOC platform.</p>
-</td>
-         </tr>
-            </table>
 </td>
         </tr>
       </table></td>
@@ -152,11 +163,11 @@ $string['contentwelcomeemail'] = '<tr>
 <p>More than just gaining knowledge, we hope this platform will help you to hone your skills. Indeed, we see learning as more than just something to be done alone with a teacher or a trainer, but also together, as a network. You hone your skills by following a pathway that promotes interaction and activities. You will be supported by your peers at all times, but also by teachers whose aim is to help you learn by encouraging information sharing and mutual enrichment. </p>
 <p><strong>Let\'s get started, sign up for a MOOC</strong></p>
 <p>Our platform has just launched and new, varied MOOCs will be added over the weeks. </p>
-<p>You can view <a href="{$b->catalogurl}">our catalogue</a> and sign up for one of the MOOCs that is already available. Our platform is open and free, so there is no limit on what you can sign up for!</p>
+<p>You can view <a href="{$b->catalogurl}" class="lientxt18orange">our catalogue</a> and sign up for one of the MOOCs that is already available. Our platform is open and free, so there is no limit on what you can sign up for!</p>
 <p><strong>Stay in contact, stay connected</strong> </p>
-<p>To keep up with new developments and events on Solerni, join us on Facebook and Twitter, and don\'t forget to visit our Blog, which will keep you informed of the latest news about these new social and collaborative learning methods.</p>
+<p>To keep up with new developments and events on Solerni, join us on <a href="{$b->facebook}" target="_new" class="lientxt18orange">Facebook</a> and <a href="{$b->twitter}" target="_new" class="lientxt18orange">Twitter</a>, and don\'t forget to visit our <a href="{$b->blog}" target="_new" class="lientxt18orange">Blog</a>, which will keep you informed of the latest news about these new social and collaborative learning methods.</p>
 <p><strong>For effective communication, complete your profile</strong></p>
-<p>And to ensure you are able to interact with other learners and teachers, don\'t forget to complete and configure your <a href="{$b->profileurl}">profile</a>.</p>
+<p>And to ensure you are able to interact with other learners and teachers, don\'t forget to complete and configure your <a href="{$b->profileurl}" class="lientxt18orange">profile</a>.</p>
 <p>That\'s it! You\'re now ready to start your collaborative MOOC adventure with us. We hope to see you very soon on {$a->sitename} and hope you enjoy new and rewarding experiences with us!</p>
 </td>
         </tr>
@@ -172,9 +183,9 @@ $string['emailresetconfirmationhtml'] = '<tr>
 
 <p>You have requested a password reset. If you did not request this reset, please ignore this message.</p>
 
-Your username is : \'{$a->username}\'.
+Your username is : <span class="txt18BNoir">{$a->username}</span>
 <br />
-<p><a href="{$a->link}">Click on the link to reset your password</a>
+<p><a href="{$a->link}" class="lientxt18orange">Click on the link to reset your password</a>
 </td>
         </tr>
       </table></td>
@@ -182,11 +193,11 @@ Your username is : \'{$a->username}\'.
   <tr>
     <td height="30">&nbsp;</td>
   </tr>';
-$string['emailresetconfirmation'] = 'Hello {$a->firstname},
+$string['emailresetconfirmation'] = 'Hello <span class="txt18BNoir">{$a->firstname}</span>,
 
 You have requested a password reset. If you did not request this reset, please ignore this message.
 
-Your username is : \'{$a->username}\'.
+Your username is : <span class="txt18BNoir">{$a->username}</span>.
 
 Click on the link to reset your password :
 {$a->link}
@@ -200,9 +211,8 @@ $string['emailconfirmation'] = '<tr>
 
 <p>We have received a registration request from you using your email address.</p>
 <p>To confirm this request, please click the following link:<br>
-<br>
-<a href="{$a->link}">confirm my registration</a></p>
-<p>If the button does not work, copy and paste the following link to your browser\'s address bar :  <a href="{$a->link}">{$a->link}</a></p>
+<a href="{$a->link}" class="lientxt18orange">confirm my registration</a></p>
+<p>If the button does not work, copy and paste the following link to your browser\'s address bar :  <a href="{$a->link}" class="lientxt18orange">{$a->link}</a></p>
 </td>
         </tr>
       </table></td>
@@ -215,10 +225,10 @@ $string['welcometocoursetext'] = '<tr>
     <td valign="top"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
         <tr>
           <td class="txt18Noir"><p>Hello,</p>
-<p>We would like to confirm your registration for Mooc « {$a->coursename} ».</p>
+<p>We would like to confirm your registration for Mooc <span class="txt18BNoir">{$a->coursename}</span>.</p>
 
-<p>We hope you really enjoy this new training course 
-on {$b->sitename}, your collaborative French MOOC platform.</p>
+<p>We hope you really enjoy this new training course
+ on {$b->sitename}, your collaborative French MOOC platform.</p>
 </td>
         </tr>
       </table></td>
@@ -230,9 +240,9 @@ on {$b->sitename}, your collaborative French MOOC platform.</p>
 $string['informationmessagetext'] = '<tr>
     <td valign="top"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
         <tr>
-          <td class="txt18Noir"><p>Hello,</p>
+          <td class="txt18Noir"><p>Hello <span class="txt18BNoir">{$a->fullname}</span>,</p>
 
-<p>Thanks for your interest for the course {$a->coursename}. You will be informed when the new session will start.</p>
+<p>Thanks for your interest for the course <span class="txt18BNoir">{$a->coursename}</span>. You will be informed when a new session will start.</p>
 </td>
         </tr>
       </table></td>
@@ -244,7 +254,7 @@ $string['informationmessagetext'] = '<tr>
 $string['defaultemailmsg'] = '<tr>
     <td valign="top"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
         <tr>
-          <td class="txt18Noir"><p>Hello {$a->fullname},
+          <td class="txt18Noir"><p>Hello <span class="txt18BNoir">{$a->fullname}</span>,
           <p>Your account has been deleted from Solerni.<br />Thank you for using Solerni!</p>
 </td>
         </tr>

@@ -22,7 +22,7 @@
  */
 
 require_once(dirname(__FILE__) . '/../../config.php');
-require_once(dirname(__FILE__) . '/mail_test.php');
+require_once(dirname(__FILE__) . '/classes/mail_test.php');
 require_once($CFG->libdir . '/adminlib.php');
 require_once($CFG->libdir . '/sessionlib.php');
 
@@ -31,9 +31,6 @@ $action = optional_param('action', 'rules_form', PARAM_ALPHAEXT);
 // Access control.
 require_login();
 require_capability('local/orange_mail:config', context_system::instance());
-//if (!confirm_sesskey()) {
-//    print_error('confirmsesskeybad', 'error');
-//}
 
 $context = context_system::instance();
 $url = new moodle_url('/admin/settings.php', array('section' => 'orange_mail_settings'));
@@ -43,44 +40,41 @@ $PAGE->set_pagelayout('admin');
 
 $currentlang = current_language();
 
-$sendTextEmail = false;
-$sendHtmlEmail = true;
+$sendtextemail = false;     // Send test emails in Text format.
+$sendhtmlemail = true;      // Send test emails in Text format.
 
-//$USER->email = 'sleperf@gmail.com';
+// Get last course.
+$course = $DB->get_record_sql('SELECT * FROM {course} ORDER BY id DESC LIMIT 1');
+$instances = enrol_get_instances ($course->id, true);
+$instances = array_filter ($instances, function ($element) {
+    return $element->enrol == "self";
+});
+$instanceself = array_pop($instances);
 
 $langs = get_string_manager()->get_list_of_translations();
 foreach ($langs as $lang => $value) {
     force_current_language($lang);
-    if ($sendHtmlEmail) mail_test::reset_password_and_mail($USER);
-    if ($sendTextEmail) mail_test::reset_password_and_mail($USER, true);
-    
-    if ($sendHtmlEmail) mail_test::user_account_mail($USER);
-    if ($sendTextEmail) mail_test::user_account_mail($USER, true);
-    
-    if ($sendHtmlEmail) mail_test::user_welcome_mail($USER);
-    if ($sendTextEmail) mail_test::user_welcome_mail($USER, true);
-    
-    if ($sendHtmlEmail) mail_test::send_password_change_confirmation_email($USER);
-    if ($sendTextEmail) mail_test::send_password_change_confirmation_email($USER, true);
-    
-    if ($sendHtmlEmail) mail_test::send_confirmation_email($USER);
-    if ($sendTextEmail) mail_test::send_confirmation_email($USER, true);
-    
-    if ($sendHtmlEmail) mail_test::send_email_deletion($USER);
-    if ($sendTextEmail) mail_test::send_email_deletion($USER, true);
-    
-    $courseid = 6;
-    $instances = enrol_get_instances ($courseid, true);
-    $instances = array_filter ($instances, function ($element) {
-        return $element->enrol == "self";
-    });
-    $instanceself = array_pop($instances);
+    if ($sendhtmlemail) {
+        mail_test::reset_password_and_mail($USER);
+        mail_test::user_account_mail($USER);
+        mail_test::user_welcome_mail($USER);
+        mail_test::send_password_change_confirmation_email($USER);
+        mail_test::send_confirmation_email($USER);
+        mail_test::send_email_deletion($USER);
+        mail_test::email_welcome_message($instanceself, $USER);
+        mail_test::email_information_message($instanceself, $USER);
+    }
 
-    if ($sendHtmlEmail) mail_test::email_welcome_message($instanceself, $USER);
-    if ($sendTextEmail) mail_test::email_welcome_message($instanceself, $USER, true);
-    
-    if ($sendHtmlEmail) mail_test::email_information_message($instanceself, $USER);
-    if ($sendTextEmail) mail_test::email_information_message($instanceself, $USER, true);
+    if ($sendtextemail) {
+        mail_test::reset_password_and_mail($USER, true);
+        mail_test::user_account_mail($USER, true);
+        mail_test::user_welcome_mail($USER, true);
+        mail_test::send_password_change_confirmation_email($USER, true);
+        mail_test::send_confirmation_email($USER, true);
+        mail_test::send_email_deletion($USER, true);
+        mail_test::email_welcome_message($instanceself, $USER, true);
+        mail_test::email_information_message($instanceself, $USER, true);
+    }
 }
 force_current_language($currentlang);
 

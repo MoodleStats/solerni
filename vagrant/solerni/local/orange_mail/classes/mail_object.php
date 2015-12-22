@@ -28,8 +28,12 @@ use theme_halloween\tools\theme_utilities;
 class mail_object {
 
     /**
-     * Get the badges for a course
-     * @return array $usedbadges
+     * Prepare a mail template
+     *
+     * @param content : text string to be treated
+     * @param mailtype : 'html' or 'text'
+     * @param footertype : '' or 'inscription'
+     * @return string (content of mail template)
      */
     public static function get_mail($content, $mailtype, $footertype) {
         global $CFG, $USER;
@@ -52,27 +56,28 @@ class mail_object {
         $b->solernimailfooterhtml = get_string('solernimailfooterhtml', 'local_orange_mail');
         $b->solernimailfooterinscriptiontext = get_string('solernimailfooterinscriptiontext', 'local_orange_mail');
         $b->solernimailfooterinscriptionhtml = get_string('solernimailfooterinscriptionhtml', 'local_orange_mail');
-        
+        $b->solernimailfollowus = get_string('solernimailfollowus', 'local_orange_mail');
+
         $config->contactemail ? $b->contactemail = $config->contactemail : $b->contactemail = "contact@solerni.com";
         $config->noreplyemail ? $b->noreplyemail = $config->noreplyemail : $b->noreplyemail = "noreply@solerni.com";
-        
-        // get follow us links
-        foreach(options::halloween_get_followus_urllist() as $key => $value) {
+
+        // Get follow us links.
+        foreach (options::halloween_get_followus_urllist() as $key => $value) {
             if (theme_utilities::is_theme_settings_exists_and_nonempty($key)) {
                 $b->$key = $value;
             }
         }
 
-        if ($mailtype == "html")
-        {
-            $output = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'. PHP_EOL .
+        if ($mailtype == "html") {
+            $output = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" '.
+                    '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'. PHP_EOL .
                     '<html xmlns="http://www.w3.org/1999/xhtml">' . PHP_EOL .
                     '<head>' . PHP_EOL .
                     '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />' . PHP_EOL .
                     '<title>' . $site->fullname . '</title>' . PHP_EOL;
-            if (isset($config->css)) $output .= $config->css . PHP_EOL;
-            $output .= '</head>' . PHP_EOL . 
-                        '<body>' . PHP_EOL . 
+            $output .= $config->css . PHP_EOL;
+            $output .= '</head>' . PHP_EOL .
+                        '<body>' . PHP_EOL .
                         '<table width="650" border="0" align="center" cellpadding="0" cellspacing="0">' . PHP_EOL;
             $output .= self::get_string($config->header, $b) . PHP_EOL;
             $output .= self::get_string($content, $b) . PHP_EOL;
@@ -91,8 +96,15 @@ class mail_object {
         return $output;
     }
 
-    
-  
+
+
+    /**
+     * replace multiple value in a string
+     *
+     * @param content : text string to be treated
+     * @param b : replacement object
+     * @return string 
+     */
     public static function get_string($string, $b = null) {
         if ($b !== null) {
             // Process array's and objects (except lang_strings).
@@ -114,7 +126,7 @@ class mail_object {
                 }
                 if ($search) {
                     $string = str_replace($search, $replace, $string);
-                    // Call it twice in case a replace string contains a {$b}
+                    // Call it twice in case a replace string contains a {$b}.
                     $string = str_replace($search, $replace, $string);
                 }
             } else {
@@ -123,19 +135,32 @@ class mail_object {
         }
         return $string;
     }
-    
+
+    /**
+     * Generate a mail template based on a language stringid and store it in config
+     *
+     * @param stringid : language id
+     * @param mailtype : 'html' or 'text'
+     * @param footertype : '' or 'inscription'
+     * @return nothing
+     */
     static public function generate ($stringid, $mailtype, $footertype='') {
-        
+
         $currentlang = current_language();
-        
+
         $langs = get_string_manager()->get_list_of_translations();
         foreach ($langs as $lang => $value) {
             force_current_language($lang);
+
+            // Get original mail language string.
             $string = get_string($stringid, 'local_orange_mail');
+
             $string = self::get_mail($string, $mailtype, $footertype);
+
+            // STore the template in config. Used afterwards by mail_init class.
             set_config('mail_'.$stringid.'_'.$lang.'_'. $mailtype, $string, 'local_orangemail');
         }
         force_current_language($currentlang);
     }
-    
+
 }

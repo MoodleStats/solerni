@@ -221,6 +221,7 @@ class enrol_orangenextsession_plugin extends enrol_plugin {
         $a = new stdClass();
         $a->coursename = format_string($course->fullname);
         $a->profileurl = "$CFG->wwwroot/user/view.php?id=$user->id&course=$course->id";
+        $a->fullname = fullname($user);
 
         if (trim($instance->customtext1) !== '') {
             $messagehtml = $instance->customtext1;
