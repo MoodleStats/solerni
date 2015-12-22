@@ -46,7 +46,12 @@ $PAGE->navbar->add($loginsite);
 //  From this point this is the first loop. The form is either empty, or invalid.
 // auth plugins may override these - SSO anyone?
 $frm  = false;
-$user = false;
+if ((isloggedin() and !isguestuser()) ) {
+    $user = $USER;
+} else {
+    $user = false;
+}
+
 $authsequence = get_enabled_auth_plugins(true); // auths, in sequence
 foreach($authsequence as $authname) {
     $authplugin = get_auth_plugin($authname);
@@ -136,7 +141,7 @@ if ($frm and isset($frm->username)) {
             die;
         }
 
-    /// Let's get them all set up.
+        /// Let's get them all set up.
         complete_user_login($user);
 
         // sets the username cookie
@@ -155,8 +160,8 @@ if ($frm and isset($frm->username)) {
 
         $urltogo = core_login_get_return_url();
 
-    /// check if user password has expired
-    /// Currently supported only for ldap-authentication module
+        /// check if user password has expired
+        /// Currently supported only for ldap-authentication module
         $userauth = get_auth_plugin($USER->auth);
         if (!empty($userauth->config->expiration) and $userauth->config->expiration == 1) {
             if ($userauth->can_change_password()) {
@@ -195,6 +200,14 @@ if ($frm and isset($frm->username)) {
             $errormsg = get_string('invalidlogin', 'theme_halloween', strtolower(get_string('username', 'theme_halloween')));
             $errorcode = 3;
         }
+    }
+}
+
+// User is already log.
+if ((isloggedin() and !isguestuser()) ) {
+    if ($frm = data_submitted()) {
+        log_and_session_utilities::memorize_frm_mnet_origin($frm);
+        redirect(new moodle_url(get_login_url(), array('testsession'=>$USER->id)));
     }
 }
 
@@ -240,7 +253,6 @@ if (!empty($CFG->alternateloginurl)) {
 $PAGE->verify_https_required();
 
 /// Generate the login page with forms
-
 if (!isset($frm) or !is_object($frm)) {
     $frm = new stdClass();
 }
