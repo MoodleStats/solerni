@@ -47,7 +47,7 @@ class mail_object {
         $b->imageurl = $imageurl->out();
         $b->sitename = format_string($site->fullname);
         $b->siteurl = $CFG->wwwroot;
-        $b->catalogurl = $CFG->wwwroot;
+        $b->catalogurl = $CFG->wwwroot . '/catalog/';
         $b->profilurl = $CFG->wwwroot."user/profile.php";
 
         $b->solernimailsignature = get_string('solernimailsignature', 'local_orange_mail');
