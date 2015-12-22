@@ -25,20 +25,19 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+require_once("$CFG->dirroot/local/orange_mail/mail_init.php");
+
 $string['customconfirmationemessage'] = 'Custom confirmation message (in HTML)';
 $string['pluginname'] = 'Enrol for next session';
 $string['pluginname_desc'] = 'The NextSession enrolment plugin allows users to indicates that they are interesting to follow next session of this course.';
 $string['orangenextsession:config'] = 'Configure OrangeNextSession enrol instances';
 $string['sendconfirmationmessage'] = 'Send confirmation message';
 $string['sendconfirmationmessage_help'] = 'If enabled, users will receive a confirmation email of his inscription on the list for next session.';
-$string['status'] = 'Allow OrangeNextSession enrolments';
+$string['status'] = 'Allow OrangeNextSession method enrolments';
 $string['status_desc'] = 'Allow to activate by default the OrangeNextSession enrolment.';
 $srting['custominformationmessage'] = 'Custom information mail';
-$string['informationmessage'] = 'INscription on the waiting list for {$a}';
-$string['informationmessagetext'] = 'Hello
-
-Thanks for your interest for the courss {$a->coursename}. You will be informed when the new session will start.
-';
+$string['informationmessage'] = 'Inscription on the waiting list for {$a}';
+$string['informationmessagetext'] = mail_init::init('informationmessagetext','html');
 $string['orangenextsessioninfo'] = '<b>This course is presently booked</b>. <br/>Thank you for your application request. You will be informed via email when a new session will start.';
 $string['exportuserlist'] = 'Export users in CSV files';
 $string['alreadyenrolled'] = 'You are already enrolled for this course';

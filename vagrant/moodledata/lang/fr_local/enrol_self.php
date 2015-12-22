@@ -15,18 +15,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Strings for component 'enrol_self', language 'en'.
  *
- * @package    local_orange_event_user_loggedin
- * @copyright  2015 Orange
+ * @package    enrol_self
+ * @copyright  2010 Petr Skoda  {@link http://skodak.org}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once("$CFG->dirroot/local/orange_mail/mail_init.php");
-
-$string['pluginname'] = 'Orange Evt user_loggedin';
-$string['local_orange_event_user_loggedin'] = 'Orange Evt user_loggedin';
-$string['subjectuseraccountemail'] = 'Reminder of your {$a->sitename} login details';
-$string['contentuseraccountemail'] = mail_init::init('contentuseraccountemail','html');
-$string['subjectwelcomeemail'] = 'Welcome to {$a->sitename}';
-$string['contentwelcomeemail'] = mail_init::init('contentwelcomeemail','html');
+$string['welcometocoursetext'] = mail_init::init('welcometocoursetext','html');

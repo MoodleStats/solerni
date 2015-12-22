@@ -111,25 +111,23 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
      */
     protected function coursecat_category_content(coursecat_helper $chelper, $coursecat, $depth) {
 
-        global $PAGE;
-
         $utilitiescourse = new utilities_course();
         $customer = $utilitiescourse->solerni_course_get_customer_infos($coursecat->id);
 
         $content = '';
         if (isset($customer->id)) {
-            $content .= "<div >";
+            $content .= "<div>";
             if ($customer->urlpicture != "") {
                 $content .= "<div><img  src='";
                 $content .= utilities_image::get_resized_url($customer->urlpicture, array ('scale' => 'true', 'h' => 216, 'w' => 966));
                 $content .= "' alt='{$customer->name}' /></div>";
             }
             if ($customer->urlimg != "") {
-                $content .= "<div ><img  src='";
+                $content .= "<div><img  src='";
                 $content .= utilities_image::get_resized_url($customer->urlimg, array ('scale' => 'true', 'h' => 100));
                 $content .= "' /></div>";
             }
-            $content .= "<div ><h1>{$customer->name}</h1><div>{$customer->summary}</div></div>";
+            $content .= "<div><h1>{$customer->name}</h1><div>{$customer->summary}</div></div>";
             $content .= "</div>";
         }
         // Subcategories.
