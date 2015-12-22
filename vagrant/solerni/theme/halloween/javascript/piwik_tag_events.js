@@ -48,7 +48,7 @@ function get_subscription_name() {
     if ( pageURL === '/') {
         currentLocation = 'homepage';
     }
-    if ( pageURL === '/my') {
+    if ( pageURL.indexOf('/my') !== -1 ) {
         currentLocation = 'dashboard';
     }
     if ( pageURL.indexOf('/catalog') !== -1 ) {
