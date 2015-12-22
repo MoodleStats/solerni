@@ -123,6 +123,10 @@ $filtermultilang = new filter_multilang($PAGE->context, array()); ?>
         </div>
         <div class="col-xs-12 version-control text-right">
                 <?php echo $CFG->solerni_version; ?>
+                <?php if (!isloggedin()) : ?>
+                     |
+                    <a href="<?php echo $CFG->wwwroot; ?>/login/index.php?locallog=1">Connexion locale sans MNET</a>
+                <?php endif; ?>
         </div>
     </footer>
 </div>
