@@ -63,7 +63,7 @@ class local_orange_event_user_loggedin_observer {
                 $messagehtml = text_to_html($messagetext, null, false, true);
             } else {
                 // This is most probably the tag/newline soup known as FORMAT_MOODLE.
-                $messagehtml = format_text($message, FORMAT_MOODLE, array('para' => false, 'newlines' => true, 'filter' => true));
+                $messagehtml = $message;
                 $messagetext = html_to_text($messagehtml);
             }
 
@@ -84,7 +84,7 @@ class local_orange_event_user_loggedin_observer {
                 $messagehtml = text_to_html($messagetext, null, false, true);
             } else {
                 // This is most probably the tag/newline soup known as FORMAT_MOODLE.
-                $messagehtml = format_text($message, FORMAT_MOODLE, array('para' => false, 'newlines' => true, 'filter' => true));
+                $messagehtml = $message;
                 $messagetext = html_to_text($messagehtml);
             }
 
