@@ -83,19 +83,18 @@ class log_and_session_utilities {
      */
     public static function redirect_user($loginstateinit, $testsession) {
         global $SESSION;
+
         switch (true) {
             // Error. Cannot redirect
             case $loginstateinit['errorcode'] !== 0:
             case !$testsession:
                 return;
-
             // We are in a mnet situation.
             // mnetredirect variable come from the login page first iteration (define_form_action).
             case isset($SESSION->mnetredirect):
                 $urltogo = $SESSION->mnetredirect;
                 unset($SESSION->mnetredirect);
                 break;
-
             // User needs to be redirect to a previous page.
             case isset($SESSION->wantsurl):
                 $urltogo = $SESSION->wantsurl;

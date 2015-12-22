@@ -131,27 +131,9 @@ class utilities_network {
         if (!empty($hosts)) {
             foreach ($hosts as $host) {
                 $thematic = new \stdClass();
-
-                // MNet Shortcut.
-                // Only for logged in users.
-                // User should not have a regular account on the host
-                // Login as is not permiited to jump to other server.
-                // According to start_jump_session, remote users can't on-jump.
-                // User should have the capability moodle/site:mnetlogintoremote.
-                if (($host->id == $USER->mnethostid) ||
-                    (!isloggedin()) ||
-                    (\core\session\manager::is_loggedinas()) ||
-                    (is_mnet_remote_user($USER)) ||
-                    (!has_capability('moodle/site:mnetlogintoremote', \context_system::instance(), null, false))
-                   ) {
-                    $thematic->url = $host->wwwroot;
-                    $thematic->name = $host->name;
-                    $thematic->id = $host->id;
-                } else {
-                    $thematic->url = "{$CFG->wwwroot}/auth/mnet/jump.php?hostid={$host->id}";
-                    $thematic->name = $host->name;
-                    $thematic->id = $host->id;
-                }
+                $thematic->url = $host->wwwroot;
+                $thematic->name = $host->name;
+                $thematic->id = $host->id;
                 $thematics[] = $thematic;
             }
         }
