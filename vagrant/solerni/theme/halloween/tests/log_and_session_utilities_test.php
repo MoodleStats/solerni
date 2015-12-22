@@ -19,9 +19,6 @@ use local_orange_library\utilities\utilities_network;
 
 class log_and_session_utilities_testcase extends advanced_testcase {
 
-    /**
-	 * The test user.
-	 */
 	private $user;
 
     protected function setUp() {
@@ -69,7 +66,27 @@ class log_and_session_utilities_testcase extends advanced_testcase {
 
     public function test_define_login_form_action() {
         $testvalues = array(0, 1);
-
-
+        foreach ($testvalues as $value) {
+            $formaction = log_and_session_utilities::define_login_form_action($value);
+            $isthematic = utilities_network::is_thematic();
+                $this->assertInternalType('array', $formaction,
+                    '$init is not a array.');
+            $this->assertCount(2, $formaction,
+                    'Wrong number of rows in $init: ' . count($formaction) . ' rows.');
+            $this->assertArrayHasKey('host', $formaction,
+                    'No host key in $init');
+            $this->assertArrayHasKey('isthematic', $formaction,
+                    'No isthematic key in $init');
+            if (filter_var($formaction['host'], FILTER_VALIDATE_URL) === false) {
+                $this->fail($formaction['host'] . ' is not a valid URL');
+            }
+            if ($isthematic && !$value) {
+                $this->assertTrue($formaction['isthematic'],
+                    'This is thematic, so the isthematic key should be true');
+            } else {
+                $this->assertFalse($formaction['isthematic'],
+                    'This is HOME MNET, so the isthematic key should be false');
+            }
+        }
     }
 }

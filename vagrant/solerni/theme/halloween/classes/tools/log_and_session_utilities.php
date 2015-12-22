@@ -146,7 +146,10 @@ class log_and_session_utilities {
         $isthematic = false;
 
         if (utilities_network::is_thematic() && !$locallog) {
-            $formactionhost = utilities_network::get_home()->url;
+            $homemnet = utilities_network::get_home();
+            if ($homemnet) {
+                $formactionhost = $homemnet->url;
+            }
             $isthematic = true;
         }
 

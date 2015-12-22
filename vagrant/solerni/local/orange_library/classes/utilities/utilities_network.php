@@ -67,7 +67,9 @@ class utilities_network {
 
         if (self::is_thematic()) {
             $hosts = self::get_hosts();
-            return array_pop($hosts); // MNETHOME is the first host
+            if (is_array($hosts)) {
+                return array_pop($hosts); // MNETHOME is the first host
+            }
         }
 
         return false;
@@ -126,7 +128,7 @@ class utilities_network {
         $hosts = $DB->get_records_sql($sql, array($CFG->mnet_localhost_id, $CFG->mnet_all_hosts_id));
         $thematics = array();
 
-        if ($hosts) {
+        if (!empty($hosts)) {
             foreach ($hosts as $host) {
                 $thematic = new \stdClass();
 
