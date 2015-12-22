@@ -30,16 +30,16 @@ class utilities_network {
     /**
      * Check is the Moodle instance is the home server of the Moodle Network.
      *
-     * @return int || boolean
+     * @return boolean
      */
     static public function is_home() {
-        return theme_utilities::is_theme_settings_exists_and_nonempty('mnethome');
+        return theme_utilities::is_theme_settings_exists_and_nonempty('mnet_home');
     }
 
     /**
      * Check is the Moodle instance is a thematic server of the Moodle Network.
      *
-     * @return int || boolean
+     * @return boolean
      */
     static public function is_thematic() {
         return !self::is_home();
@@ -66,7 +66,10 @@ class utilities_network {
     static public function get_home() {
 
         if (self::is_thematic()) {
-            return self::get_hosts();
+            $hosts = self::get_hosts();
+            if (is_array($hosts)) {
+                return array_pop($hosts); // MNETHOME is the first host
+            }
         }
 
         return false;
@@ -125,7 +128,7 @@ class utilities_network {
         $hosts = $DB->get_records_sql($sql, array($CFG->mnet_localhost_id, $CFG->mnet_all_hosts_id));
         $thematics = array();
 
-        if ($hosts) {
+        if (!empty($hosts)) {
             foreach ($hosts as $host) {
                 $thematic = new \stdClass();
 
@@ -143,9 +146,11 @@ class utilities_network {
                    ) {
                     $thematic->url = $host->wwwroot;
                     $thematic->name = $host->name;
+                    $thematic->id = $host->id;
                 } else {
                     $thematic->url = "{$CFG->wwwroot}/auth/mnet/jump.php?hostid={$host->id}";
                     $thematic->name = $host->name;
+                    $thematic->id = $host->id;
                 }
                 $thematics[] = $thematic;
             }
@@ -153,5 +158,4 @@ class utilities_network {
 
         return $thematics;
     }
-
 }

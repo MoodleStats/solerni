@@ -136,7 +136,6 @@ if (utilities_user::is_user_site_admin($USER)) : ?>
         </div>
         <?php
             echo $OUTPUT->login_info();
-            echo $OUTPUT->home_link();
             echo $OUTPUT->standard_footer_html();
         ?>
     </div>

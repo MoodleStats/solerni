@@ -17,49 +17,34 @@
 require_once(dirname(__FILE__) . '/../config.php');
 require_once('lib.php');
 
+use theme_halloween\tools\log_and_session_utilities;
+
 redirect_if_major_upgrade_required();
-$testsession = optional_param('testsession', 0, PARAM_INT); // test session works properly
-$cancel      = optional_param('cancel', 0, PARAM_BOOL);      // redirect to frontpage, needed for loginhttps
+$testsession = optional_param('testsession', 0, PARAM_INT);     // test session works properly
+$locallog    = optional_param('locallog', 0, PARAM_BOOL);       // if true, use local database for login
+$cancel      = optional_param('cancel', 0, PARAM_BOOL);
+// redirect to frontpage, needed for loginhttps
 if ($cancel) {
     redirect(new moodle_url('/'));
 }
 
-//HTTPS is required in this page when $CFG->loginhttps enabled
+//HTTPS is required in this page when $CFG->loginhttps enabled.
 $PAGE->https_required();
 $PAGE->set_url("$CFG->httpswwwroot/login/index.php");
 $PAGE->set_context(context_system::instance());
 $PAGE->set_pagelayout('login');
 
-/// Initialize variables
-$errormsg = '';
-$errorcode = 0;
+// Initialize variables and redirect user when testsession exists and no errors.
+$loginstateinit = log_and_session_utilities::testsession_initialize($testsession);
+log_and_session_utilities::redirect_user($loginstateinit, $testsession);
+$errormsg   = $loginstateinit['errormsg'];
+$errorcode  = $loginstateinit['errorcode'];
+$site       = get_site();
+$loginsite  = get_string("loginsite");
+$PAGE->navbar->add($loginsite);
 
-// login page requested session test
-if ($testsession) {
-    if ($testsession == $USER->id) {
-        if (isset($SESSION->wantsurl)) {
-            $urltogo = $SESSION->wantsurl;
-        } else {
-            $urltogo = $CFG->wwwroot.'/';
-        }
-        unset($SESSION->wantsurl);
-        redirect($urltogo);
-    } else {
-        // TODO: try to find out what is the exact reason why sessions do not work
-        $errormsg = get_string("cookiesnotenabled");
-        $errorcode = 1;
-    }
-}
-
-/// Check for timed out sessions
-if (!empty($SESSION->has_timed_out)) {
-    $session_has_timed_out = true;
-    unset($SESSION->has_timed_out);
-} else {
-    $session_has_timed_out = false;
-}
-
-/// auth plugins may override these - SSO anyone?
+//  From this point this is the first loop. The form is either empty, or invalid.
+// auth plugins may override these - SSO anyone?
 $frm  = false;
 $user = false;
 $authsequence = get_enabled_auth_plugins(true); // auths, in sequence
@@ -68,12 +53,7 @@ foreach($authsequence as $authname) {
     $authplugin->loginpage_hook();
 }
 
-/// Define variables used in page
-$site = get_site();
-$loginsite = get_string("loginsite");
-$PAGE->navbar->add($loginsite);
-
-if ($user !== false or $frm !== false or $errormsg !== '') {
+if ($user !== false || $frm !== false || $errormsg !== '') {
     // some auth plugin already supplied full user, fake form data or prevented user login with error message
 } else if (!empty($SESSION->wantsurl) && file_exists($CFG->dirroot.'/login/weblinkauth.php')) {
     // Handles the case of another Moodle site linking into a page on this site
@@ -91,9 +71,19 @@ if ($user !== false or $frm !== false or $errormsg !== '') {
     $frm = data_submitted();
 }
 
+/// Check for timed out sessions
+if (!empty($SESSION->has_timed_out)) {
+    $session_has_timed_out = true;
+    unset($SESSION->has_timed_out);
+} else {
+    $session_has_timed_out = false;
+}
+
 /// Check if the user has actually submitted login data to us
 // Login WITH cookies
 if ($frm and isset($frm->username)) {
+    // If user come from thematic, use jump url in $SESSION
+    log_and_session_utilities::memorize_frm_mnet_origin($frm);
     $frm->username = trim(core_text::strtolower($frm->username));
     if (is_enabled_auth('none') ) {
         if ($frm->username !== clean_param($frm->username, PARAM_USERNAME)) {
@@ -196,7 +186,7 @@ if ($frm and isset($frm->username)) {
         // Discard any errors before the last redirect.
         unset($SESSION->loginerrormsg);
 
-        // test the session actually works by redirecting to self
+        // test the session actually works by redirecting to self.
         $SESSION->wantsurl = $urltogo;
         redirect(new moodle_url(get_login_url(), array('testsession'=>$USER->id)));
 
@@ -215,7 +205,6 @@ if ($session_has_timed_out and !data_submitted()) {
 }
 
 /// First, let's remember where the user was trying to get to before they got here
-
 if (empty($SESSION->wantsurl)) {
     $SESSION->wantsurl = (array_key_exists('HTTP_REFERER',$_SERVER) &&
                           $_SERVER["HTTP_REFERER"] != $CFG->wwwroot &&

@@ -26,15 +26,17 @@ class theme_utilities {
      *
      * @param array or string $settings : setting name or array of settings names
      * @param string $option : 'atleastone' or 'all' values
+     *
+     * @return boolean
      */
     public static function is_theme_settings_exists_and_nonempty($settings, $option = null) {
         if (is_string($settings)) {
-            return self::try_catch_theme_setting($settings);
+            return self::is_theme_setting_exists($settings);
         }
 
         if (is_array($settings) && $option === 'all') {
             foreach ($settings as $setting) {
-                if (!self::try_catch_theme_setting($setting)) {
+                if (!self::is_theme_setting_exists($setting)) {
                     return false;
                 }
             }
@@ -43,7 +45,7 @@ class theme_utilities {
 
         if (is_array($settings) && $option === 'atleastone') {
             foreach ($settings as $setting) {
-                if (self::try_catch_theme_setting($setting)) {
+                if (self::is_theme_setting_exists($setting)) {
                     return true;
                 }
             }
@@ -53,13 +55,10 @@ class theme_utilities {
         return false;
     }
 
-    private static function try_catch_theme_setting($setting) {
+    private static function is_theme_setting_exists($setting) {
         global $PAGE;
-        try {
-            $PAGE->theme->settings->$setting;
-            return ($PAGE->theme->settings->$setting) ? true : false;
-        } catch (\moodle_exception $ex) {
-            debugging("Theme setting does not exists " . $ex->getMessage() . $ex->debuginfo, DEBUG_DEVELOPER);
+        if (property_exists($PAGE->theme->settings, $setting)) {
+            return !empty($PAGE->theme->settings->$setting);
         }
         return false;
     }
@@ -105,4 +104,5 @@ class theme_utilities {
         global $CFG;
         require_once($CFG->dirroot . '/local/analytics/lib.php');
     }
+
 }

@@ -1,3 +1,0 @@
-[07-Apr-2015 12:04:45 Europe/Moscow] PHP Notice:  Trying to get property of non-object in C:\Winginx\home\moodle\public_html\local\orange_event_course_viewed\welcome.php on line 52
-[07-Apr-2015 12:04:45 Europe/Moscow] PHP Stack trace:
-[07-Apr-2015 12:04:45 Europe/Moscow] PHP   1. {main}() C:\Winginx\home\moodle\public_html\local\orange_event_course_viewed\welcome.php:0

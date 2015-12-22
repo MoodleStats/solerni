@@ -210,27 +210,12 @@ div[role="main"] .list-social {
  }
 
 /*
- * Line
+ * Line (as in footer)
  * */
 .fullwidth-line {
     border-bottom-color: @brand-primary;
     border-bottom-style: solid;
     border-bottom-width: 1px;
-}
-
-/*
- * Thumbnail
- */
-.thumbnail {
-    background-color:   transparent;
-}
-
-.thumbnail h4{
-    color : black;
-}
-
-.thumbnail .caption {
-    color : black;
 }
 
 /*
@@ -307,7 +292,7 @@ div[role="main"] .list-social {
     position:       relative;
     right:          0px;
     border-bottom : 1px solid #000;
-    padding:        @padding-small-vertical 10px;
+    padding:        @padding-small-vertical @padding-base-vertical;
     padding-top:    @padding-small-vertical;
     padding-bottom: @padding-small-vertical;
 }
@@ -323,7 +308,7 @@ div[role="main"] .list-social {
 }
 
 .orange-badges-list {
-    padding:        @padding-small-vertical 10px;
+    padding:        @padding-small-vertical @padding-base-vertical;
     padding-top:    @padding-small-vertical;
     padding-bottom: @padding-small-vertical;
 }
@@ -415,7 +400,7 @@ div[role="main"] .list-social {
     width:          100%;
     max-width:      100%;
     height:         auto;
-    margin-bottom:  10px;
+    margin-bottom:  @padding-base-vertical;
 }
 
 .block .essentiels-icon {
@@ -689,59 +674,67 @@ img.icon {
 * thumbnail
 */
 
+/*
+ * Thumbnail
+ */
 .thumbnail {
+    background-color:   transparent;
     position: relative;
 }
 
-.thumbnail-status-box {
-    position:   absolute;
-    top:        0px;
-    width:      100%;
-    padding:    5px 0;
-}
+    .thumbnail h4 {
+        color : black;
+    }
 
-.thumbnail-promotionnal-box {
-    position:   absolute;
-    top:        50px;
-    padding:    5px 5px;
-    right:      0;
-}
+    .thumbnail .caption {
+        color : black;
+    }
 
-.thumbnail-slide {
-    position: relative;
-}
+    .thumbnail-status-box {
+        position:   absolute;
+        top:        0px;
+        width:      100%;
+        padding:    5px 0;
+    }
 
-.thumbnail .caption-hover {
-    padding-top:        100px;
-    visibility:         hidden;
-    opacity:            0;
-    position:           absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-color:   #FFF;
-    transition:         opacity 250ms ease-in 500ms;
-}
+    .thumbnail-promotionnal-box {
+        position:   absolute;
+        top:        50px;
+        padding:    5px 5px;
+        right:      0;
+    }
 
-.thumbnail:hover .caption-hover {
-    visibility: visible;
-    opacity:    1;
-}
+    .thumbnail-slide {
+        position: relative;
+    }
 
-.thumbnail-text {
-    margin-top: 20px;
-}
+    .thumbnail .caption-hover {
+        padding-top:        100px;
+        visibility:         hidden;
+        opacity:            0;
+        position:           absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color:   #FFF;
+        transition:         opacity 250ms ease-in 500ms;
+    }
 
-.thumbnail-centertext {
-    margin-top: 20px;
-    text-align: center;
-}
+    .thumbnail:hover .caption-hover {
+        visibility: visible;
+        opacity:    1;
+    }
 
-.thumbnail .button {
-    padding: 10px;
-}
-.version-control {
-    font-size:  (@font-size-base * 0.8);
-    color:      @orange-dark-3;
-}
+    .thumbnail-text {
+        margin-top: 20px;
+    }
+
+    .thumbnail-centertext {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .thumbnail .button {
+        padding: @padding-base-vertical;
+    }
 
 /* calendar quickfix */
 .calendar-controls {
@@ -776,7 +769,7 @@ img.icon {
 }
 
 .margin-bottom-md {
-     margin-bottom: 20px;    
+     margin-bottom: 20px;
 }
 
 .height104 {
@@ -790,4 +783,10 @@ img.icon {
 }
 .center {
         text-align: center;
+}
+
+// Footer version control display
+.version-control {
+    font-size:  (@font-size-base * 0.8);
+    color:      @orange-dark-3;
 }
