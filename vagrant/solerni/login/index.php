@@ -52,6 +52,7 @@ if ((isloggedin() and !isguestuser()) ) {
     $user = false;
 }
 
+// Iterate auth plugins to catch possible auth processing.
 $authsequence = get_enabled_auth_plugins(true); // auths, in sequence
 foreach($authsequence as $authname) {
     $authplugin = get_auth_plugin($authname);

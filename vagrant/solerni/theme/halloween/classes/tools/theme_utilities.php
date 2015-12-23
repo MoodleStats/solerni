@@ -60,6 +60,7 @@ class theme_utilities {
         if (property_exists($PAGE->theme->settings, $setting)) {
             return !empty($PAGE->theme->settings->$setting);
         }
+        
         return false;
     }
 
@@ -98,11 +99,14 @@ class theme_utilities {
     }
 
     /*
-     *  Function to concentrate the load of required plugins or libraries.
+     * Function to concentrate the load of required plugins or libraries.
+     * Currently loads the plugin local_analytics.
      */
     public static function load_required_plugins() {
         global $CFG;
-        require_once($CFG->dirroot . '/local/analytics/lib.php');
+        if (file_exists($CFG->dirroot . '/local/analytics/lib.php')) {
+            require_once($CFG->dirroot . '/local/analytics/lib.php');
+        }
     }
 
 }
