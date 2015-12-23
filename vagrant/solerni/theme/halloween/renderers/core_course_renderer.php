@@ -57,7 +57,7 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
                 'viewmoretext' => new lang_string('fulllistofcourses')
             ));
 
-        $chelper->set_attributes(array('class' => ''));
+        $chelper->set_attributes(array('class' => 'row'));
         $courses = coursecat::get(0)->get_courses($chelper->get_courses_display_options());
         $totalcount = coursecat::get(0)->get_courses_count($chelper->get_courses_display_options());
         if (!$totalcount && !$this->page->user_is_editing() && has_capability('moodle/course:create', context_system::instance())) {
