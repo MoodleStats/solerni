@@ -26,6 +26,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2015121701;       // The current module version (Date: YYYYMMDDXX).
+$plugin->version   = 2015122200;       // The current module version (Date: YYYYMMDDXX).
 $plugin->requires  = 2014051207;    // Requires this Moodle version Moodle 2.7.7.
 $plugin->component = 'local_orange_library';       // Full name of the plugin (used for diagnostics).

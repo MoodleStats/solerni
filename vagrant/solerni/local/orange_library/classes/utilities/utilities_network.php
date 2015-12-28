@@ -30,16 +30,16 @@ class utilities_network {
     /**
      * Check is the Moodle instance is the home server of the Moodle Network.
      *
-     * @return int || boolean
+     * @return boolean
      */
     static public function is_home() {
-        return theme_utilities::is_theme_settings_exists_and_nonempty('mnethome');
+        return theme_utilities::is_theme_settings_exists_and_nonempty('mnet_home');
     }
 
     /**
      * Check is the Moodle instance is a thematic server of the Moodle Network.
      *
-     * @return int || boolean
+     * @return boolean
      */
     static public function is_thematic() {
         return !self::is_home();
@@ -61,12 +61,15 @@ class utilities_network {
     /**
      * get the home server URL of the Moodle Network.
      *
-     * @return false or array with Home server URL/name
+     * @return false or one hosts array(URL/name/IDs)
      */
     static public function get_home() {
 
         if (self::is_thematic()) {
-            return self::get_hosts();
+            $hosts = self::get_hosts();
+            if (is_array($hosts)) {
+                return array_pop($hosts); // MNETHOME is the first host
+            }
         }
 
         return false;
@@ -75,7 +78,7 @@ class utilities_network {
     /**
      * get the Mnet Hosts URL of the Moodle Network.
      *
-     * @return false or array with Hosts server URL/name
+     * @return array of Hosts arrays(URL/name/IDs)
      */
     static public function get_hosts() {
         global $CFG, $USER, $DB;
@@ -125,33 +128,16 @@ class utilities_network {
         $hosts = $DB->get_records_sql($sql, array($CFG->mnet_localhost_id, $CFG->mnet_all_hosts_id));
         $thematics = array();
 
-        if ($hosts) {
+        if (!empty($hosts)) {
             foreach ($hosts as $host) {
                 $thematic = new \stdClass();
-
-                // MNet Shortcut.
-                // Only for logged in users.
-                // User should not have a regular account on the host
-                // Login as is not permiited to jump to other server.
-                // According to start_jump_session, remote users can't on-jump.
-                // User should have the capability moodle/site:mnetlogintoremote.
-                if (($host->id == $USER->mnethostid) ||
-                    (!isloggedin()) ||
-                    (\core\session\manager::is_loggedinas()) ||
-                    (is_mnet_remote_user($USER)) ||
-                    (!has_capability('moodle/site:mnetlogintoremote', \context_system::instance(), null, false))
-                   ) {
-                    $thematic->url = $host->wwwroot;
-                    $thematic->name = $host->name;
-                } else {
-                    $thematic->url = "{$CFG->wwwroot}/auth/mnet/jump.php?hostid={$host->id}";
-                    $thematic->name = $host->name;
-                }
+                $thematic->url = $host->wwwroot;
+                $thematic->name = $host->name;
+                $thematic->id = $host->id;
                 $thematics[] = $thematic;
             }
         }
 
         return $thematics;
     }
-
 }

@@ -31,7 +31,6 @@ use local_orange_library\subscription_button\subscription_button_object;
 use local_orange_library\extended_course\extended_course_object;
 
 require_once($CFG->dirroot . '/course/renderer.php');
-require_once($CFG->dirroot . '/blocks/orange_progressbar/lib.php');
 require_once($CFG->dirroot.'/blocks/orange_course_dashboard/locallib.php');
 
 
@@ -58,7 +57,7 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
                 'viewmoretext' => new lang_string('fulllistofcourses')
             ));
 
-        $chelper->set_attributes(array('class' => ''));
+        $chelper->set_attributes(array('class' => 'row'));
         $courses = coursecat::get(0)->get_courses($chelper->get_courses_display_options());
         $totalcount = coursecat::get(0)->get_courses_count($chelper->get_courses_display_options());
         if (!$totalcount && !$this->page->user_is_editing() && has_capability('moodle/course:create', context_system::instance())) {
@@ -112,29 +111,23 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
      */
     protected function coursecat_category_content(coursecat_helper $chelper, $coursecat, $depth) {
 
-        Global $PAGE;
-
-        // Category header for customer info and logo.
-        $PAGE->requires->css('/theme/halloween/style/catalogue.css');
-        $PAGE->requires->css('/local/orange_library/style.css');
-
         $utilitiescourse = new utilities_course();
         $customer = $utilitiescourse->solerni_course_get_customer_infos($coursecat->id);
 
         $content = '';
         if (isset($customer->id)) {
-            $content .= "<div >";
+            $content .= "<div>";
             if ($customer->urlpicture != "") {
                 $content .= "<div><img  src='";
                 $content .= utilities_image::get_resized_url($customer->urlpicture, array ('scale' => 'true', 'h' => 216, 'w' => 966));
                 $content .= "' alt='{$customer->name}' /></div>";
             }
             if ($customer->urlimg != "") {
-                $content .= "<div ><img  src='";
+                $content .= "<div><img  src='";
                 $content .= utilities_image::get_resized_url($customer->urlimg, array ('scale' => 'true', 'h' => 100));
                 $content .= "' /></div>";
             }
-            $content .= "<div ><h1>{$customer->name}</h1><div>{$customer->summary}</div></div>";
+            $content .= "<div><h1>{$customer->name}</h1><div>{$customer->summary}</div></div>";
             $content .= "</div>";
         }
         // Subcategories.
@@ -353,7 +346,8 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
     }
 
     /**
-     * Render a halloween Mooc (CourseBox) HTML Fragment from partials/course_component template
+     * Render a halloween Mooc (CourseBox) HTML Fragment
+     * uses template from /partials/course_component.php
      *
      *
      * @global type $CFG
@@ -395,18 +389,8 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
             // Get course informations.
             $courseinfos = $utilitiescourse->solerni_get_course_infos($course);
 
-            $classes = '';
             $coursename = $chelper->get_course_formatted_name($course);
 
-            if ($chelper->get_show_courses() >= self::COURSECAT_SHOW_COURSES_EXPANDED) {
-                    $nametag = 'h3';
-            } else {
-                    $classes .= ' ';
-                    $nametag = 'div';
-            }
-
-            // Get information on user progress in course
-            list ($progressstatus, $progresscompleteted, $progresstotal, $progress) = user_course_progress ($course);
             // Generate code with buffering to include partial.
             ob_start();
             include( $CFG->partialsdir . '/course_component.php');
