@@ -29,13 +29,6 @@ defined('MOODLE_INTERNAL') || die();
 
 class subscription_button_object {
 
-    protected $course;
-    protected $context;
-    protected $extendedcourse;
-    protected $date;
-    protected $enrolenddate;
-    protected $coursestatus;
-
     /**
      *  Subscription button object constructor
      * Initialization of :

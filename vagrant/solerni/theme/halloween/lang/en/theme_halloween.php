@@ -234,9 +234,15 @@ $string['missingusername']          = 'Your {$a} cannot be empty';
 $string['catalog_page_title']       = 'Catalog';
 $string['filterstatustitle']        = 'Status';
 $string['filterstatusall']          = 'All MOOCs';
-$string['filterstatusinprogress']   = 'In progress';
-$string['filterstatuscomingsoon']   = 'Coming soon';
-$string['filterstatuscomplete']     = 'Complete';
+
+$string['filterstatusregistrationcomplete']   = 'Mooc complete';
+$string['filterstatusregistrationopen']       = 'Registration open';
+$string['filterstatusregistrationstopped']    = 'Registration stopped';
+$string['filterstatusregistrationnotopen']    = 'Registration not open';
+$string['filterstatusclosed']       = 'Closed';
+$string['filterstatusnotstarted']   = 'Coming soon';
+$string['filterstatusrunning']      = 'In progress';
+
 $string['filterthematicstitle']     = 'Theme';
 $string['filterthematicsall']       = 'All themes';
 $string['filtercategorytitle']      = 'Company';
