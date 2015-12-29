@@ -234,9 +234,16 @@ $string['missingusername']          = 'Le {$a} ne peut pas etre vide';
 $string['catalog_page_title']       = 'Catalogue';
 $string['filterstatustitle']        = 'Statuts';
 $string['filterstatusall']          = 'Tous les MOOCs';
-$string['filterstatusinprogress']   = 'En cours';
-$string['filterstatuscomingsoon']   = 'A venir';
-$string['filterstatuscomplete']     = 'Terminé';
+
+$string['filterstatusregistrationcomplete']   = 'MOOC complet';
+$string['filterstatusregistrationopen']       = 'Enregistrement ouvert';
+$string['filterstatusregistrationstopped']    = 'Enregistrement terminé';
+$string['filterstatusregistrationnotopen']    = 'Enregistrement à venir';
+
+$string['filterstatusclosed']       = 'Terminé';
+$string['filterstatusnotstarted']   = 'A venir';
+$string['filterstatusrunning']      = 'En cours';
+
 $string['filterthematicstitle']     = 'Thématique';
 $string['filterthematicsall']       = 'Toutes les thématiques';
 $string['filtercategorytitle']      = 'Entreprise';

@@ -296,7 +296,7 @@ class extended_course_object {
         $this->moocurl = new moodle_url('/course/view.php', array('id' => $course->id));
         $this->urlregistration = new moodle_url('/login/signup.php', array('id' => $course->id));
         $this->unenrolurl = $instance->customint2;
-        set_course_status($course, $context, $this);
+        $this->coursestatus = set_course_status($course, $context, $this);
 
     }
 

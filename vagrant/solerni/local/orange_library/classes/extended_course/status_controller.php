@@ -37,12 +37,13 @@ function set_course_status($course, $context, &$extendedcourse) {
 
     if ($coursestatus == utilities_course::MOOCCLOSED) {
 
-        controller_mooc_ended_registration_closed($context, $course, $extendedcourse);
+        $extendedcourse = controller_mooc_ended_registration_closed($context, $course, $extendedcourse);
 
     } else {
         $extendedcourse = controller($coursestatus, $registrationstatus, $context, $course, $extendedcourse);
 
     }
+    return $coursestatus;
 }
 
 /**

@@ -46,14 +46,12 @@ class utilities_image {
 
         global $CFG;
 
-        if (!($image || $file)) {
+        if (!$image && !$file) {
             return false;
         }
 
-        if (!$image && $file) {
-            $image = (self::get_moodle_url_from_stored_file($file)) ?
-                        self::get_moodle_url_from_stored_file($file) :
-                        false;
+        if ((!$image && $file) && !$image = self::get_moodle_url_from_stored_file($file)) {
+            return false;
         }
 
         $imagepath = urldecode($image);
@@ -228,7 +226,7 @@ class utilities_image {
         if ($storedfile->get_filename() == ".") {
             return false;
         }
-        
+
         $url = \moodle_url::make_pluginfile_url(
             $storedfile->get_contextid(),
             $storedfile->get_component(),
