@@ -696,7 +696,7 @@ class utilities_course {
         if (has_capability('mod/descriptionpage:addinstance', $context)) {
             // Check descriptionpage module.
             $descriptionpages = $DB->get_record('descriptionpage', array('course' => $courseid));
-            if (is_null($descriptionpages)) {
+            if (empty($descriptionpages)) {
                 $error[] = get_string('moddescriptionpagemissing', 'local_orange_library');
             }
         }
