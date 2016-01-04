@@ -25,7 +25,7 @@ M.block_orange_comment = {
         var CommentHelper = function(args) {
             CommentHelper.superclass.constructor.apply(this, arguments);
         };
-        CommentHelper.NAME = "COMMENT";
+        CommentHelper.NAME = "ORANGE_COMMENT";
         CommentHelper.ATTRS = {
             options: {},
             lang: {}

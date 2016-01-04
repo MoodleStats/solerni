@@ -33,10 +33,6 @@ defined('MOODLE_INTERNAL') || die();
 class orangecomment extends comment {
 
     public function __construct(stdClass $options) {
-
-        global $PAGE;
-        $PAGE->requires->js('/blocks/orange_comments/module.js');
-
         // setup client_id
         if (!empty($options->client_id)) {
             $this->cid = $options->client_id;
@@ -149,12 +145,17 @@ class orangecomment extends comment {
         $options->page        = 0;
         $options->courseid    = $this->courseid;
         $options->contextid   = $this->contextid;
-        //$options->component   = $this->component;
+        $options->component   = $this->component;
         $options->component   = 'block_orange_comments';
         $options->notoggle    = $this->notoggle;
         $options->autostart   = $this->autostart;
 
-        $page->requires->js_init_call('M.block_orange_comment.init', array($options), true);
+        $jsmodule = array('name' => 'block_orange_comment',
+                        'fullpath' => '/blocks/orange_comments/module.js',
+                        'requires' => array('base', 'io-base', 'node', 'json', 'yui2-animation', 'overlay'),
+                        'strings' => array(array('confirmdeletecomments', 'admin'), array('yes', 'moodle'), array('no', 'moodle')));
+
+        $page->requires->js_init_call('M.block_orange_comment.init', array($options), true, $jsmodule);
         return true;
     }
 
