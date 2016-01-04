@@ -61,7 +61,7 @@ class utilities_network {
     /**
      * get the home server URL of the Moodle Network.
      *
-     * @return false or array with Home server URL/name
+     * @return false or one hosts array(URL/name/IDs)
      */
     static public function get_home() {
 
@@ -78,7 +78,7 @@ class utilities_network {
     /**
      * get the Mnet Hosts URL of the Moodle Network.
      *
-     * @return false or array with Hosts server URL/name
+     * @return array of Hosts arrays(URL/name/IDs)
      */
     static public function get_hosts() {
         global $CFG, $USER, $DB;

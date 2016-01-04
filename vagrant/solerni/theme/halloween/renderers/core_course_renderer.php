@@ -57,7 +57,7 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
                 'viewmoretext' => new lang_string('fulllistofcourses')
             ));
 
-        $chelper->set_attributes(array('class' => ''));
+        $chelper->set_attributes(array('class' => 'row'));
         $courses = coursecat::get(0)->get_courses($chelper->get_courses_display_options());
         $totalcount = coursecat::get(0)->get_courses_count($chelper->get_courses_display_options());
         if (!$totalcount && !$this->page->user_is_editing() && has_capability('moodle/course:create', context_system::instance())) {
@@ -473,12 +473,15 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
      */
     public function print_my_moocs($filter = utilities_course::MOOCRUNNING) {
         global $PAGE;
-
+        $url ="";
         $labels = array (
-            3 => get_string('filterstatusinprogress', 'theme_halloween'),
-            1 => get_string('filterstatuscomplete', 'theme_halloween'),
-            2 => get_string('filterstatuscomingsoon', 'theme_halloween'),
-            0 => get_string('filterstatusall', 'theme_halloween'),
+            6 => get_string('filterstatusrunning', 'theme_halloween'),
+            5 => get_string('filterstatusnotstarted', 'theme_halloween'),
+            4 => get_string('filterstatusclosed', 'theme_halloween'),
+            3 => get_string('filterstatusregistrationnotopen', 'theme_halloween'),
+            2 => get_string('filterstatusregistrationstopped', 'theme_halloween'),
+            1 => get_string('filterstatusregistrationopen', 'theme_halloween'),
+            0 => get_string('filterstatusregistrationcomplete', 'theme_halloween'),
         );
 
         foreach ($labels as $key => $label) {

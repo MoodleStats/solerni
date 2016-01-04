@@ -29,7 +29,6 @@
 ## 	- theme-source 		: Solerni Theme (Orange Forge)
 ## 	- flavours-source 	: official Moodle Mirror (Github)
 ## 	- navbuttons-source 	: official Moodle Mirror (Github)
-## 	- progressbar-source 	: official Moodle Mirror (Github)
 ## 	- customlabel-source 	: official Moodle Mirror (Github)
 ## 	- flexibleformat-source : official Moodle Mirror (Github)
 ## 	- flexpageformat-source : official Moodle Mirror (Github)
@@ -263,9 +262,6 @@ function create_subtrees () {
 
 	# oAuth Google (master = 1.5)
 	init_subtree vagrant/solerni/auth/googleoauth2 goauth-source https://github.com/mouneyrac/moodle-auth_googleoauth2.git master
-
-	# Progress bar (master = 2015021100)
-	init_subtree vagrant/solerni/blocks/progress progressbar-source https://github.com/deraadt/Moodle-block_progress.git master
 
 	# Flexpage Format (master = 2.7.0)
 	init_subtree vagrant/solerni/course/format/flexpage flexpage-source https://github.com/moodlerooms/moodle-format_flexpage.git MOODLE_27_STABLE
