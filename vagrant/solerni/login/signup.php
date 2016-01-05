@@ -13,7 +13,10 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 use theme_halloween\tools\theme_utilities;
+use theme_halloween\tools\log_and_session_utilities;
+
 require('../config.php');
 require_once($CFG->dirroot . '/user/editlib.php');
 require_once($CFG->dirroot . '/theme/halloween/renderers/solerni_quickform_renderer.php');
@@ -38,6 +41,10 @@ if (!$authplugin->can_signup() || empty($CFG->registerauth)) {
 
 // Override wanted URL, we do not want to end up here again if user clicks "Login".
 $SESSION->wantsurl = $CFG->wwwroot . '/';
+// Check if we have a query determining mnetorigin and set it into $SESSION
+if ($mnetorigin = optional_param('mnetorigin', false, PARAM_URL)) {
+    log_and_session_utilities::set_session_mnet_redirect($mnetorigin);
+}
 
 // Signup form
 $mform_signup = $authplugin->signup_form();
