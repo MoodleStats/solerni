@@ -81,7 +81,7 @@ class utilities_network {
      * @return array of Hosts arrays(URL/name/IDs)
      */
     static public function get_hosts() {
-        global $CFG, $USER, $DB;
+        global $CFG, $DB;
 
         // Guest user not supported.
         if (isguestuser()) {
