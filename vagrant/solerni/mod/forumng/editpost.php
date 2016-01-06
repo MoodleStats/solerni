@@ -33,6 +33,7 @@ if (isset($_REQUEST['ajax'])) {
 require_once('../../config.php');
 require_once('mod_forumng.php');
 require_once($CFG->dirroot . '/tag/lib.php');
+require_once($CFG->dirroot . '/local/orange_mail/classes/mail_object.php');
 
 $pageparams = array();
 
@@ -84,7 +85,9 @@ function send_edit_email($formdata, $post) {
     $messagetext = $formdata->emailmessage['text'];
 
     // Send an email to the author of the post, using prefered format.
-    if (!email_to_user($user, $from, $subject, html_to_text($messagetext), $messagetext)) {
+    if (!email_to_user($user, $from, $subject, 
+            mail_object::get_mail(html_to_text($messagetext), 'text', ''),
+            mail_object::get_mail($messagetext, 'html', ''))) {
         print_error(get_string('emailerror', 'forumng'));
     }
 
@@ -93,7 +96,9 @@ function send_edit_email($formdata, $post) {
     $subject = strtoupper(get_string('copy')) . ' - '. $subject;
     if (!empty($formdata->emailself)) {
         // Send an email copy to the current user, using prefered format.
-        if (!email_to_user($USER, $from, $subject, html_to_text($messagetext), $messagetext)) {
+        if (!email_to_user($USER, $from, $subject, 
+                mail_object::get_mail(html_to_text($messagetext), 'text', ''),
+                mail_object::get_mail($messagetext, 'html', ''))) {
             print_error(get_string('emailerror', 'forumng'));
         }
     }
@@ -111,7 +116,7 @@ function send_edit_email($formdata, $post) {
                     'mailformat' => 1,
                     'id' => -1
             );
-            if (!email_to_user($fakeuser, $from, $subject, '', $messagetext)) {
+            if (!email_to_user($fakeuser, $from, $subject, '', mail_object::get_mail($messagetext, 'html', ''))) {
                 print_error(get_string('emailerror', 'forumng'));
             }
         }

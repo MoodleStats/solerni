@@ -24,6 +24,7 @@
 
 require_once('../../../../config.php');
 require_once($CFG->dirroot . '/mod/forumng/mod_forumng.php');
+require_once($CFG->dirroot . '/local/orange_mail/classes/mail_object.php');
 
 $d = required_param('d', PARAM_INT);
 $pageparams = array('d' => $d);
@@ -100,7 +101,8 @@ if ($email) {
         $notifymessagehtml = $out->deletion_email(text_to_html($notifymessagetext));
 
         // Send an email to the author of the discussion post, using prefered format.
-        if (!email_to_user($user, $from, $subject, html_to_text($messagetext), $messagehtml)) {
+        if (!email_to_user($user, $from, $subject, mail_object::get_mail(html_to_text($messagetext), 'text', ''), 
+                mail_object::get_mail($messagehtml, 'html', ''))) {
             print_error(get_string('emailerror', 'forumng'));
         }
 
@@ -110,7 +112,8 @@ if ($email) {
         $subject = strtoupper(get_string('copy')) . ' - ' . $subject;
         if ($copyself) {
             // Send an email copy to the current user, with prefered format.
-            if (!email_to_user($USER, $from, $subject, html_to_text($messagetext), $messagehtml)) {
+            if (!email_to_user($USER, $from, $subject, mail_object::get_mail(html_to_text($messagetext), 'text', ''),
+                    mail_object::get_mail($messagehtml, 'html', ''))) {
                 print_error(get_string('emailerror', 'forumng'));
             }
             $selfmail[] = $USER->email;
@@ -134,7 +137,7 @@ if ($email) {
                         'mailformat' => 1,
                         'id' => -1
                 );
-                if (!email_to_user($fakeuser, $from, $subject, '', $messagehtml)) {
+                if (!email_to_user($fakeuser, $from, $subject, '', mail_object::get_mail($messagehtml, 'html', ''))) {
                     print_error(get_string('emailerror', 'forumng'));
                 }
             }
@@ -149,7 +152,8 @@ if ($email) {
                         'mailformat' => $contrib['mailformat'],
                         'id' => -1
                     );
-                    if (!email_to_user($fakeuser, $from, $subject, html_to_text($notifymessagetext), $notifymessagehtml)) {
+                    if (!email_to_user($fakeuser, $from, $subject, mail_object::get_mail(html_to_text($notifymessagetext), 'text', ''),
+                            mail_object::get_mail($notifymessagehtml, 'html', ''))) {
                         print_error(get_string('emailerror', 'forumng'));
                     }
                 }

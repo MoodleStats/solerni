@@ -17,6 +17,7 @@
 require_once(dirname(__FILE__).'/mod_forumng.php');
 require_once(dirname(__FILE__).'/mod_forumng_mail_list.php');
 require_once(dirname(__FILE__).'/mod_forumng_digest_list.php');
+require_once($CFG->dirroot . '/local/orange_mail/classes/mail_object.php');
 
 /**
  * Utility class handling all cron tasks.
@@ -536,7 +537,8 @@ $mainquery", $mainparams);
                 'forumng', $headerdata) . "\n\n";
 
             // Get header HTML
-            $html = "<body id='forumng-email'>\n";
+            //$html = "<body id='forumng-email'>\n";
+            $html = "";
             $headerdata->userprefs = '<a target="_blank" href="' .
                 $headerdata->userprefs . '">' .
                 get_string('digestmailprefs', 'forumng') . '</a>';
@@ -706,7 +708,8 @@ $mainquery", $mainparams);
             print "</pre></div>";
             return;
         }
-        email_to_user($to, $from, $subject, $text, $html, '', '',
+        email_to_user($to, $from, $subject, mail_object::get_mail($text, 'text', ''), 
+                mail_object::get_mail($html, 'html', ''), '', '',
             $CFG->forumng_replytouser);
     }
 
@@ -793,11 +796,11 @@ $mainquery", $mainparams);
             if ($ishtml) {
                 $mail->IsHTML(true);
                 $mail->Encoding = 'quoted-printable';
-                $mail->Body    =  $html;
-                $mail->AltBody =  "\n$text\n";
+                $mail->Body    =  mail_object::get_mail($html, 'html', '');
+                $mail->AltBody =  "\n" . mail_object::get_mail($text, 'text', '') . "\n";
             } else {
                 $mail->IsHTML(false);
-                $mail->Body =  "\n$text\n";
+                $mail->Body =  "\n" . mail_object::get_mail($text, 'text', '') . "\n";
             }
 
             foreach ($batch as $user) {

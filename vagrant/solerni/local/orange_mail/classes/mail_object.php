@@ -60,6 +60,9 @@ class mail_object {
 
         $config->contactemail ? $b->contactemail = $config->contactemail : $b->contactemail = "contact@solerni.com";
         $config->noreplyemail ? $b->noreplyemail = $config->noreplyemail : $b->noreplyemail = "noreply@solerni.com";
+        $config->supportemail ? $b->supportemail  = $config->supportemail  : $b->supportemail  = "support@solerni.com";
+        $config->marketemail ? $b->marketemail   = $config->marketemail   : $b->marketemail   = "marketing@solerni.com";
+        $config->partneremail ? $b->partneremail   = $config->partneremail   : $b->partneremail   = "partners@solerni.com";
 
         // Get follow us links.
         foreach (options::halloween_get_followus_urllist() as $key => $value) {
@@ -80,7 +83,9 @@ class mail_object {
                         '<body>' . PHP_EOL .
                         '<table width="650" border="0" align="center" cellpadding="0" cellspacing="0">' . PHP_EOL;
             $output .= self::get_string($config->header, $b) . PHP_EOL;
+            $output .= self::get_string($config->contentstart, $b) . PHP_EOL;
             $output .= self::get_string($content, $b) . PHP_EOL;
+            $output .= self::get_string($config->contentend, $b) . PHP_EOL;
             $output .= self::get_string($config->signature, $b) . PHP_EOL;
             $output .= self::get_string($config->followus, $b) . PHP_EOL;
             $output .= self::get_string($config->{'footer' . $footertype}, $b) . PHP_EOL;

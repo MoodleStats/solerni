@@ -84,8 +84,6 @@ class mail_test {
             $messagetext = $message;
             $messagehtml = text_to_html($messagetext, null, false, true);
         } else {
-            // This is most probably the tag/newline soup known as FORMAT_MOODLE.
-            // $messagehtml = format_text($message, FORMAT_MOODLE, array('para' => false, 'newlines' => true, 'filter' => true));
             $messagehtml = $message;
             $messagetext = html_to_text($messagehtml);
         }
@@ -122,8 +120,6 @@ class mail_test {
             $messagetext = $message;
             $messagehtml = text_to_html($messagetext, null, false, true);
         } else {
-            // This is most probably the tag/newline soup known as FORMAT_MOODLE.
-            // $messagehtml = format_text($message, FORMAT_MOODLE, array('para' => false, 'newlines' => true, 'filter' => true));
             $messagehtml = $message;
             $messagetext = html_to_text($messagehtml);
         }
@@ -188,9 +184,6 @@ class mail_test {
         $username = urlencode($user->username);
         $username = str_replace('.', '%2E', $username); // Prevent problems with trailing dots.
         $data->link  = $CFG->wwwroot .'/login/confirm.php?data='. $user->secret .'/'. $username;
-        // TODO - Bad format in Moodle.
-        // $message     = get_string('emailconfirmation', '', $data);
-        // $messagehtml = text_to_html(get_string('emailconfirmation', '', $data), false, false, true);
         $messagehtml     = get_string('emailconfirmation', '', $data);
         $message = html_to_text(get_string('emailconfirmation', '', $data));
 
@@ -225,18 +218,16 @@ class mail_test {
                 $messagehtml = text_to_html($messagetext, null, false, true);
             } else {
                 // This is most probably the tag/newline soup known as FORMAT_MOODLE.
-                $messagehtml = format_text($message, FORMAT_MOODLE, array('context' => $context, 'para' => false, 'newlines' => true, 'filter' => true));
+                $messagehtml = format_text($message, FORMAT_MOODLE,
+                        array('context' => $context, 'para' => false, 'newlines' => true, 'filter' => true));
                 $messagetext = html_to_text($messagehtml);
             }
         } else {
-            // TODO - Bad format in Moodle.
-            // $messagetext = get_string('welcometocoursetext', 'enrol_self', $a);
-            // $messagehtml = text_to_html($messagetext, null, false, true);
             $messagehtml = get_string('welcometocoursetext', 'enrol_self', $a);
             $messagetext = html_to_text($messagehtml);
         }
 
-        $subject = '(M6)' . get_string('welcometocourse', 'enrol_self', 
+        $subject = '(M6)' . get_string('welcometocourse', 'enrol_self',
                 format_string($course->fullname, true, array('context' => $context)));
 
         $rusers = array();
@@ -324,7 +315,6 @@ class mail_test {
                 $messagetext = $message;
                 $messagehtml = text_to_html($messagetext, null, false, true);
             } else {
-                // This is most probably the tag/newline soup known as FORMAT_MOODLE.
                 $messagehtml = format_text($message, FORMAT_MOODLE, array('para' => false, 'newlines' => true, 'filter' => true));
                 $messagetext = html_to_text($messagehtml);
             }

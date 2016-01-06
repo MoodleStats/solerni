@@ -22,6 +22,7 @@
 
 require_once(dirname(__FILE__) . '/../config.php');
 require_once($CFG->dirroot . '/contact/forms/contact_form.php');
+require_once($CFG->dirroot . '/local/orange_mail/classes/mail_object.php');
 use local_orange_library\utilities\utilities_course;
 
 redirect_if_major_upgrade_required();
@@ -31,16 +32,17 @@ const CONTACT_REQUEST_PARTNER_ID    = -2;
 const CONTACT_REQUEST_COMMERCIAL_ID = -3;
 const CONTACT_REQUEST_OTHER_ID      = -4;
 
-// Attention : email hardcoded.
+$config = get_config('local_orangemail');
+
 $contacts = array();
 $contacts[CONTACT_REQUEST_PB_ID] = array ('libel' => get_string('contact_request_pb', 'theme_halloween'),
-    'mail' => 'support-solerni@dev.orangeadd.com');
+    'mail' => $config->supportemail);
 $contacts[CONTACT_REQUEST_PARTNER_ID] = array ('libel' => get_string('contact_request_partner', 'theme_halloween'),
-    'mail' => 'partners-solerni@dev.orangeadd.com');
+    'mail' => $config->partneremail);
 $contacts[CONTACT_REQUEST_COMMERCIAL_ID] = array ('libel' => get_string('contact_request_commercial', 'theme_halloween'),
-    'mail' => 'marketing-solerni@dev.orangeadd.com');
+    'mail' => $config->marketemail);
 $contacts[CONTACT_REQUEST_OTHER_ID] = array ('libel' => get_string('contact_request_other', 'theme_halloween'),
-    'mail' => 'contact-solerni@dev.orangeadd.com');
+    'mail' => $config->contactemail);
 
 
 $PAGE->set_context(context_system::instance());
@@ -95,8 +97,7 @@ function send_email($data, $contacts) {
     }
     $messagetext .= get_string('contact_question', 'theme_halloween') . " : " . $data->question. '\n';
 
-    $messagehtml  = "<html><body>";
-    $messagehtml .= "<p>" . sprintf(get_string('contact_email_body', 'theme_halloween'), $SITE->fullname). "</p>";
+    $messagehtml = "<p>" . sprintf(get_string('contact_email_body', 'theme_halloween'), $SITE->fullname). "</p>";
     $messagehtml .= "<p>" .get_string('contact_request_type', 'theme_halloween') . " : " . $requestname. "</p>";
     if ($data->civilityid == 1) {
         $messagehtml .= "<p>" .get_string('contact_civility', 'theme_halloween') . " : " .
@@ -114,7 +115,6 @@ function send_email($data, $contacts) {
         $messagehtml .= "<p>" .get_string('contact_jobtitle', 'theme_halloween') . " : " . $data->jobtitle. "</p>";
     }
     $messagehtml .= "<p>" .get_string('contact_question', 'theme_halloween') . " : " . $data->question . "</p>";
-    $messagehtml .= "</body></html>";
 
     if (!empty($mail->SMTPDebug)) {
         echo '<pre>' . "\n";
@@ -126,8 +126,8 @@ function send_email($data, $contacts) {
     $mail->addAddress($tomail);
     $mail->isHTML(true);
     $mail->Encoding = 'quoted-printable';
-    $mail->Body = $messagehtml;
-    $mail->AltBody = "\n$messagetext\n";
+    $mail->Body = mail_object::get_mail($messagehtml, 'html', '') ;
+    $mail->AltBody = "\n" . mail_object::get_mail($messagetext, 'text', '') . "\n";
     if ($mail->send()) {
         if (!empty($mail->SMTPDebug)) {
             echo '</pre>';
