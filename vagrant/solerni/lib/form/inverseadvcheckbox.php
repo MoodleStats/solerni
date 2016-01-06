@@ -69,7 +69,7 @@ class MoodleQuickForm_inverseadvcheckbox extends HTML_QuickForm_advcheckbox{
             $attributes = array('class' => 'o-checkbox');
         }
 
-        if (is_array($attributes) && !is_null($attributes['group'])) {
+        if (is_array($attributes) && isset($attributes['group']) && $attributes['group']) {
 
             $this->_group = 'checkboxgroup' . $attributes['group'];
             unset($attributes['group']);
