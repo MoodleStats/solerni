@@ -265,8 +265,8 @@ class extended_course_object {
         $utilitiescourse = new utilities_course();
         $categoryid = $utilitiescourse->get_categoryid_by_courseid($course->id);
         $customer = customer_get_customerbycategoryid($categoryid);
-        $selfenrolment = new enrollment_object();
-        $instance = $selfenrolment->get_self_enrolment($course);
+        $enrolment = new enrollment_object();
+        $instanceorangeinvitation = $enrolment->get_orangeinvitation_enrolment($course);
         $extendedcourseflexpagevalues = $DB->get_records('course_format_options',
                 array('courseid' => $course->id));
         foreach ($extendedcourseflexpagevalues as $extendedcourseflexpagevalue) {
@@ -281,19 +281,19 @@ class extended_course_object {
             $this->registrationcompany = $customer->name;
         }
         $this->enrolledusers = count_enrolled_users($context);
-        if (isset($instance->enrolstartdate)) {
-            $this->enrolstartdate = $instance->enrolstartdate;
+        if (isset($instanceorangeinvitation->enrolstartdate)) {
+            $this->enrolstartdate = $instanceorangeinvitation->enrolstartdate;
         }
-        if (isset($instance->enrolenddate)) {
-            $this->enrolenddate = $instance->enrolenddate;
+        if (isset($instanceorangeinvitation->enrolenddate)) {
+            $this->enrolenddate = $instanceorangeinvitation->enrolenddate;
         }
-        if (isset($instance->customint3)) {
-            $this->maxregisteredusers = $instance->customint3;
+        if (isset($instanceorangeinvitation->customint3)) {
+            $this->maxregisteredusers = $instanceorangeinvitation->customint3;
         }
         $this->moocurl = new moodle_url('/course/view.php', array('id' => $course->id));
         $this->urlregistration = new moodle_url('/login/signup.php', array('id' => $course->id));
-        $this->unenrolurl = $selfenrolment->get_unenrol_url($course);
-        //$this->enrolurl = $selfenrolment->customint2;
+        $this->unenrolurl = $enrolment->get_unenrol_url($course);
+        $this->enrolurl = $instanceorangeinvitation->customint2;
 
         $this->coursestatus = set_course_status($course, $context, $this);
 
