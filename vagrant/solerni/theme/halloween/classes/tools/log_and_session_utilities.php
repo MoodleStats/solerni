@@ -74,14 +74,14 @@ class log_and_session_utilities {
 
     /**
      *
-     *  Redirect user depending on parameters.
+     *  Redirect user depending on parameters from login page.
      *
      * @global global $SESSION (object)
      * @param array() $loginstateinit (from testsession_initialize())
      * @param int $testsession (query string)
      * @return void
      */
-    public static function redirect_user($loginstateinit, $testsession) {
+    public static function login_redirect_user($loginstateinit, $testsession) {
         global $SESSION;
 
         switch (true) {
@@ -117,14 +117,18 @@ class log_and_session_utilities {
      *
      * @return void
      */
-    public static function memorize_frm_mnet_origin($frm) {
-        // Compute possible redirect jump to thematic.
-        if(isset($frm->mnetorigin)) {
-            global $CFG, $SESSION;
-            foreach(utilities_network::get_hosts() as $host) {
-                if ($host->url == $frm->mnetorigin) {
-                    $SESSION->mnetredirect = new \moodle_url($CFG->wwwroot . '/auth/mnet/jump.php', array('hostid' => $host->id));
-                }
+    public static function check_for_mnet_origin($frm ) {
+        // Compute possible redirect jump to thematic form login form $frm
+        if($frm && isset($frm->mnetorigin)) {
+            self::set_session_mnet_redirect($frm->mnetorigin);
+        }
+    }
+
+    public static function set_session_mnet_redirect($thematicurl) {
+    global $SESSION, $CFG;
+    foreach(utilities_network::get_hosts() as $host) {
+            if ($host->url == $thematicurl) {
+                $SESSION->mnetredirect = new \moodle_url($CFG->wwwroot . '/auth/mnet/jump.php', array('hostid' => $host->id));
             }
         }
     }
@@ -158,5 +162,22 @@ class log_and_session_utilities {
         );
     }
 
+    /**
+     * Construction of the URL for registration. If we are on a thematic, we will
+     * be directed toward the MNET HOME with the current host and a URL query for
+     * post-registration forwarding.
+     *
+     * @return URL
+     */
+    public static function get_register_form_url() {
+        global $CFG;
+        $formaction = self::define_login_form_action(false);
+        $query = '';
 
+        if ($formaction['isthematic']) {
+            $query = '?mnetorigin=' . urlencode($CFG->wwwroot);
+        }
+
+        return $formaction['host'] . '/login/signup.php' . $query;
+    }
 }

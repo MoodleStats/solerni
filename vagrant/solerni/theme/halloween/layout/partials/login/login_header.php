@@ -16,10 +16,11 @@
 
 use theme_halloween\tools\theme_utilities;
 use local_orange_library\utilities\utilities_image;
+use theme_halloween\tools\log_and_session_utilities;
 require_once($CFG->dirroot . '/filter/multilang/filter.php');
 $filtermultilang = new filter_multilang($PAGE->context, array());
-?>
-<?php if (theme_utilities::is_theme_settings_exists_and_nonempty('loginlogo')) : ?>
+
+if (theme_utilities::is_theme_settings_exists_and_nonempty('loginlogo')) : ?>
     <img class="img-responsive center-block img-thumbnail"
         src="<?php echo utilities_image::get_resized_url(
             null,
@@ -41,7 +42,8 @@ $filtermultilang = new filter_multilang($PAGE->context, array());
 <?php endif; ?>
 <p class="col-md-6 col-md-offset-3" >
     <?php echo get_string('not_registered_yet', 'theme_halloween'); ?>
-    <a class="tag-platform-subscription" href="<?php echo $CFG->wwwroot ?>/login/signup.php">
+    <a class="tag-platform-subscription"
+       href="<?php echo log_and_session_utilities::get_register_form_url() ?>">
         <?php echo get_string('i_do_register', 'theme_halloween'); ?>
     </a>
 </p>
