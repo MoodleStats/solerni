@@ -36,7 +36,7 @@ $PAGE->set_pagelayout('login');
 
 // Initialize variables and redirect user when testsession exists and no errors.
 $loginstateinit = log_and_session_utilities::testsession_initialize($testsession);
-log_and_session_utilities::redirect_user($loginstateinit, $testsession);
+log_and_session_utilities::login_redirect_user($loginstateinit, $testsession);
 $errormsg   = $loginstateinit['errormsg'];
 $errorcode  = $loginstateinit['errorcode'];
 $site       = get_site();
@@ -89,7 +89,7 @@ if (!empty($SESSION->has_timed_out)) {
 // Login WITH cookies
 if ($frm and isset($frm->username)) {
     // If user come from thematic, use jump url in $SESSION
-    log_and_session_utilities::memorize_frm_mnet_origin($frm);
+    log_and_session_utilities::check_for_mnet_origin($frm);
     $frm->username = trim(core_text::strtolower($frm->username));
     if (is_enabled_auth('none') ) {
         if ($frm->username !== clean_param($frm->username, PARAM_USERNAME)) {
@@ -207,7 +207,7 @@ if ($frm and isset($frm->username)) {
 // User is already log.
 if ((isloggedin() and !isguestuser()) ) {
     if ($frm = data_submitted()) {
-        log_and_session_utilities::memorize_frm_mnet_origin($frm);
+        log_and_session_utilities::check_for_mnet_origin($frm);
         redirect(new moodle_url(get_login_url(), array('testsession'=>$USER->id)));
     }
 }

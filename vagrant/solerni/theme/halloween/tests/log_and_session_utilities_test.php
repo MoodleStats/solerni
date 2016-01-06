@@ -70,13 +70,13 @@ class log_and_session_utilities_testcase extends advanced_testcase {
             $formaction = log_and_session_utilities::define_login_form_action($value);
             $isthematic = utilities_network::is_thematic();
                 $this->assertInternalType('array', $formaction,
-                    '$init is not a array.');
+                    '$formaction is not a array.');
             $this->assertCount(2, $formaction,
-                    'Wrong number of rows in $init: ' . count($formaction) . ' rows.');
+                    'Wrong number of rows in $formaction: ' . count($formaction) . ' rows.');
             $this->assertArrayHasKey('host', $formaction,
-                    'No host key in $init');
+                    'No host key in $formaction');
             $this->assertArrayHasKey('isthematic', $formaction,
-                    'No isthematic key in $init');
+                    'No isthematic key in $formaction');
             if (filter_var($formaction['host'], FILTER_VALIDATE_URL) === false) {
                 $this->fail($formaction['host'] . ' is not a valid URL');
             }
@@ -88,5 +88,30 @@ class log_and_session_utilities_testcase extends advanced_testcase {
                     'This is HOME MNET, so the isthematic key should be false');
             }
         }
+    }
+
+    public function test_get_register_form_url() {
+
+        $url = log_and_session_utilities::get_register_form_url();
+        $this->assertInternalType('string', $url, $url . ' is not a string.');
+        if (filter_var($url, FILTER_VALIDATE_URL) === false) {
+            $this->fail($url . ' is not a valid URL');
+        }
+
+        global $SESSION;
+        $SESSION->wantsurl = 'wrongurl';
+        $url = log_and_session_utilities::get_register_form_url();
+        $this->assertInternalType('string', $url, $url . ' is not a string.');
+        if (filter_var($url, FILTER_VALIDATE_URL) === false) {
+            $this->fail($url . ' is not a valid URL');
+        }
+
+        $SESSION->wantsurl = 'http://www.orange.fr';
+        $url = log_and_session_utilities::get_register_form_url();
+        $this->assertInternalType('string', $url, $url . ' is not a string.');
+        if (filter_var($url, FILTER_VALIDATE_URL) === false) {
+            $this->fail($url . ' is not a valid URL');
+        }
+
     }
 }
