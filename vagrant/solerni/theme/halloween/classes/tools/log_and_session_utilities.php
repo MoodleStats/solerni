@@ -82,13 +82,30 @@ class log_and_session_utilities {
      * @return void
      */
     public static function login_redirect_user($loginstateinit, $testsession) {
-        global $SESSION;
+
+        // If errors or not into $testession, do not redirect.
+        if ($loginstateinit['errorcode'] !== 0 || !$testsession) {
+            return;
+        }
+
+        redirect(self::get_session_user_redirect_url());
+    }
+
+    /**
+     * This function gets keys from $SESSION to check if user comes from an MNET thematic
+     * or have a previously wanted to see a page.
+     *
+     * Return the URL of one of those keys, or use homepage as default.
+     *
+     * @global $SESSION
+     *
+     * @return string (URL)
+     *
+     */
+    public static function get_session_user_redirect_url() {
+        global $SESSION, $CFG;
 
         switch (true) {
-            // Error. Cannot redirect
-            case $loginstateinit['errorcode'] !== 0:
-            case !$testsession:
-                return;
             // We are in a mnet situation.
             // mnetredirect variable come from the login page first iteration (define_form_action).
             case isset($SESSION->mnetredirect):
@@ -100,11 +117,12 @@ class log_and_session_utilities {
                 $urltogo = $SESSION->wantsurl;
                 unset($SESSION->wantsurl);
                 break;
+            default:
+                $urltogo = $CFG->wwwroot . '/';
         }
 
-        if(isset($urltogo)) {
-            redirect($urltogo);
-        }
+        return $urltogo;
+
     }
 
     /**
