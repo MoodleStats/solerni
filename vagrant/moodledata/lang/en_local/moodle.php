@@ -42,28 +42,8 @@ $string['createaccount'] = 'Register';
 $string['policyagree'] = 'You must accept the general terms of use.';
 $string['policyaccept'] = 'J’ai lu et j’accepte les conditions générales d’utilisation';
 $string['policyagreementclick'] = 'Lire les conditions générales d’utilisation';
-$string['newusernewpasswoardsubj'] = 'Creation of your user account';
-$string['newusernewpasswoardtext'] = 'Dear {$a->firstname}
-
-Your user account has been created on {$a->sitename}, your new collaborative company learning platform, on which you have been invited to follow one or more online courses.
-
-Your login details:
-    user name: {$a->username}
-    password: {$a->newpassword}
-
-Please note: this is a temporary password, you must change it when you connect for the first time.
-
-Click on the following link, to connect to {$a->sitename} now:
-   {$a->link}
-and personalise your password.
-
-If the link does not work, copy and paste the URL to your browser\'s address bar.
-
-See you soon on {$a->sitename}.
-
-You have received this email because your company wanted to automatically register you on our platform. This is an automatic message, please do not reply to it directly.
-If you have any questions, write to us at contact@solerni.com.
-To make sure you receive our emails, please add the following address to your contacts: noreply@solerni.com.';
+$string['newusernewpasswordsubj'] = 'Creation of your user account';
+$string['newusernewpasswordtext'] = mail_init::init('newusernewpasswordtext','html');
 $string['emailresetconfirmation'] = mail_init::init('emailresetconfirmation','text');		
 $string['emailresetconfirmationhtml'] = mail_init::init('emailresetconfirmationhtml','html');
 $string['newpasswordtext'] = mail_init::init('newpasswordtext','html');

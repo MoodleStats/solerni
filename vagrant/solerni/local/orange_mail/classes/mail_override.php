@@ -138,4 +138,48 @@ class mail_override {
         return email_to_user($user, $supportuser, $subject, $message, $messagehtml);
     }
 
+    /**
+     * COPY FROM MOODLELIB.PHP
+     * Sets specified user's password and send the new password to the user via email.
+     *
+     * @param stdClass $user A {@link $USER} object
+     * @param bool $fasthash If true, use a low cost factor when generating the hash for speed.
+     * @return bool|string Returns "true" if mail was sent OK and "false" if there was an error
+     */
+    public static function setnew_password_and_mail($user, $fasthash = false) {
+        global $CFG, $DB;
+
+        // We try to send the mail in language the user understands,
+        // unfortunately the filter_string() does not support alternative langs yet
+        // so multilang will not work properly for site->fullname.
+        $lang = empty($user->lang) ? $CFG->lang : $user->lang;
+
+        $site  = get_site();
+
+        $supportuser = core_user::get_support_user();
+
+        $newpassword = generate_password();
+
+        update_internal_user_password($user, $newpassword, $fasthash);
+
+        $a = new stdClass();
+        $a->firstname   = fullname($user, true);
+        $a->sitename    = format_string($site->fullname);
+        $a->username    = $user->username;
+        $a->newpassword = $newpassword;
+        $a->link        = $CFG->wwwroot .'/login/';
+        $a->signoff     = generate_email_signoff();
+
+        $messagehtml = (string)new lang_string('newusernewpasswordtext', '', $a, $lang);
+        $message = html_to_text($messagehtml);
+
+        if ($messagehtml) $user->mailformat = 1;
+
+        $subject = format_string($site->fullname) .': '. (string)new lang_string('newusernewpasswordsubj', '', $a, $lang);
+
+        // Directly email rather than using the messaging system to ensure its not routed to a popup or jabber.
+        return email_to_user($user, $supportuser, $subject, $message, $messagehtml);
+
+    }
+    
 }

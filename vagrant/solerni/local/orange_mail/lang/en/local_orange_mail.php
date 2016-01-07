@@ -193,3 +193,18 @@ $string['informationmessagetext'] = '<p>Hello <span class="txt18BNoir">{$a->full
 
 $string['defaultemailmsg'] = '<p>Hello <span class="txt18BNoir">{$a->fullname}</span>,
           <p>Your account has been deleted from Solerni.<br />Thank you for using Solerni!</p>';
+
+$string['newusernewpasswordtext'] = '<p>Dear <span class="txt18BNoir">{$a->firstname}</span>,</p>
+<p>Your user account has been created on {$a->sitename}, your new collaborative company learning platform, on which you have been invited to follow one or more online courses.</p>
+<p>Your login details :</p>
+<ul>
+   <li>user name : {$a->username}</li>
+   <li>password : {$a->newpassword}</li>
+</ul>
+<p><strong>Please note :</strong> this is a temporary password, tou must change it when you connect for the first time.</p>
+<p>Click on the following link, to connect to {$a->sitename} now :<br />
+   <a href="{$a->link}" class="lientxt18orange">{$a->link}</a><br />
+and personalise your password.</p>
+<p>if the link does not work, copy and paste the URL to your browser\'s address bar.</p>
+<p>You have received this email because your company wanted to automatically register you on our platform.</p>
+<p>See you soon on {$a->sitename}</p>';

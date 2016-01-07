@@ -339,4 +339,47 @@ class mail_test {
         }
     }
 
+    // Mail M9 to M13 in Forum NG plugin.
+    
+    static public function setnew_password_and_mail($user, $modetext=false) {
+        global $CFG, $DB;
+
+        // We try to send the mail in language the user understands,
+        // unfortunately the filter_string() does not support alternative langs yet
+        // so multilang will not work properly for site->fullname.
+        // $lang = empty($user->lang) ? $CFG->lang : $user->lang;
+        $lang = current_language();
+        
+        $site  = get_site();
+
+        $supportuser = core_user::get_support_user();
+
+        $newpassword = "tobechanged";
+
+        $a = new stdClass();
+        $a->firstname   = fullname($user, true);
+        $a->sitename    = format_string($site->fullname);
+        $a->username    = $user->username;
+        $a->newpassword = $newpassword;
+        $a->link        = $CFG->wwwroot .'/login/';
+        $a->signoff     = generate_email_signoff();
+
+        $messagehtml = (string)new lang_string('newusernewpasswordtext', '', $a, $lang);
+        $message = html_to_text($messagehtml);
+        
+        if ($modetext) {
+            $user->mailformat = 0;
+        } else {
+            $user->mailformat = 1;
+        }
+
+        $subject = '(M14)' . format_string($site->fullname) .': '. (string)new lang_string('newusernewpasswordsubj', '', $a, $lang);
+
+        // Directly email rather than using the messaging system to ensure its not routed to a popup or jabber.
+        return email_to_user($user, $supportuser, $subject, $message, $messagehtml);
+
+    }
+
+    // Mail M15 solerni contact form.
+
 }

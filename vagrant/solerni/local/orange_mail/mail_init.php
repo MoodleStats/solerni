@@ -34,6 +34,7 @@ class mail_init {
     static public function init($stringid, $type) {
 
         $currentlang = current_language();
+        if ($currentlang != 'fr' && $currentlang != 'en') $currentlang = 'fr';
         $string = get_config('local_orangemail', 'mail_' . $stringid . '_' . $currentlang . '_' . $type);
 
         return $string;
