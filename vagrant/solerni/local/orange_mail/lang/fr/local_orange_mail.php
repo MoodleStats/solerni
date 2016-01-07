@@ -126,7 +126,7 @@ $string['solernimailfollowus'] = 'Suivez-nous';
 // Original Moodle email strings.
 $string['newpasswordtext'] = '<p>Bonjour <span class="txt18BNoir">{$a->firstname} {$a->lastname}</span>,</p>
 
-<p>Le mot de passe de votre compte sur « {$a->sitename} » a été remplacé par un nouveau mot de passe temporaire.</p>
+<p>Le mot de passe de votre compte sur {$a->sitename} a été remplacé par un nouveau mot de passe temporaire.</p>
 
 Les informations pour vous connecter sont désormais :<br />
 
@@ -196,3 +196,18 @@ $string['informationmessagetext'] = '<p>Bonjour <span class="txt18BNoir">{$a->fu
 
 $string['defaultemailmsg'] = '<p>Bonjour <span class="txt18BNoir">{$a->fullname}</span>,</p>
         <p>Votre compte a été supprimé de Solerni.<br />Merci d\'avoir utilisé Solerni !</p>';
+
+$string['newusernewpasswordtext'] = '<p>Bonjour <span class="txt18BNoir">{$a->firstname}</span>,</p>
+<p>Votre compte utilisateur a été créé sur {$a->sitename}, votre nouvelle plateforme d\'apprentissage collaborative d\'entreprise, sur laquelle vous êtes  invité(e)  à suivre une ou plusieurs formations en ligne.</p>
+<p>Vos identifiants de connexion sont :</p>
+<ul>
+   <li>nom d\'utilisateur : {$a->username}</li>
+   <li>mot de passe       : {$a->newpassword}</li>
+</ul>
+<p><strong>Attention : </strong>ce mot de passe est provisoire, vous devrez  le changer à votre 1ere connexion.</p>
+<p>Connectez-vous dès maintenant  sur {$a->sitename}  en cliquant sur le lien suivant :<br />
+   <a href="{$a->link}" class="lientxt18orange">{$a->link}</a><br />
+afin de personnaliser votre mot de passe.</p>
+<p>Si le lien ne fonctionne pas, copiez-collez le lien dans la barre d\'adresse de votre navigateur.</p>
+<p>Vous recevez cet e-mail car votre entreprise a souhaité vous inscrire automatiquement sur notre plateforme.</p>
+<p>A très bientôt sur {$a->sitename}</p>';
