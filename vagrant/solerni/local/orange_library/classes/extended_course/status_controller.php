@@ -317,7 +317,6 @@ function incoming_unsubscribe($course, &$extendedcourse) {
         $extendedcourse->statuslink = '#';
         $extendedcourse->statuslinktext = '';
 
-
     }
     $extendedcourse->displaybutton = display_button('subscribe_to_mooc', '#', "btn btn-default disabled", $course);
 }
@@ -357,7 +356,7 @@ function new_session($course, &$extendedcourse) {
     global $PAGE;
     $pagetype = $PAGE->pagetype;
     if ($pagetype == 'more-info') {
-        $extendedcourse->statuslink = $extendedcourse->urlregistration;
+        $extendedcourse->statuslink = $extendedcourse->newsessionurl;
         $extendedcourse->statuslinktext = get_string('new_session', 'local_orange_library');
 
     } else {
