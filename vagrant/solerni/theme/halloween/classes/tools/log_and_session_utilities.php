@@ -143,10 +143,12 @@ class log_and_session_utilities {
     }
 
     public static function set_session_mnet_redirect($thematicurl) {
-    global $SESSION, $CFG;
-    foreach(utilities_network::get_hosts() as $host) {
-            if ($host->url == $thematicurl) {
-                $SESSION->mnetredirect = new \moodle_url($CFG->wwwroot . '/auth/mnet/jump.php', array('hostid' => $host->id));
+        global $SESSION, $CFG;
+        if ($hosts = utilities_network::get_hosts()) {
+            foreach($hosts as $host) {
+                if ($host->url == $thematicurl) {
+                    $SESSION->mnetredirect = new \moodle_url($CFG->wwwroot . '/auth/mnet/jump.php', array('hostid' => $host->id));
+                }
             }
         }
     }
