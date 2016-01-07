@@ -145,9 +145,6 @@ moosh config-set mnet_register_allhosts 0
 moosh config-set sessioncookie ${CUSTOMER_COOKIE_PREFIX}
 moosh peer-add ${MNET_PEER}
 
-# Default frontpage role
-moosh role-configset defaultfrontpageroleid solerni_utilisateur
-
 # Default sitepolicy (cgus)
 moosh config-set sitepolicy ${CUSTOMER_DOMAIN}/static/cgu.html
 
@@ -207,3 +204,9 @@ moosh cache-admin memcached editmodemappings ${MEMCACHED_CACHE_NAME}
 
 # Make Anonymous : add empty mail subject
 moosh config-set emailsubject '' local_eledia_makeanonymous
+
+# Generate mail string html/txt
+moosh mail-generate
+
+# Default frontpage role : changed to allow access to the general ForumNg 
+moosh role-configset defaultfrontpageroleid solerni_apprenant
