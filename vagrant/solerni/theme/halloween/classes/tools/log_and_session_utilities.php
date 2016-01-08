@@ -25,9 +25,9 @@ class log_and_session_utilities {
      * Function to determine if we have to log locally or not on this instance.
      * Return bool
      */
-    public static function is_platform_login_uses_mnet($mnethosts) {
+    public static function is_platform_login_uses_mnet() {
         global $CFG;
-
+        $mnethosts = utilities_network::get_hosts();
         switch(true) {
             case $CFG->solerni_isprivate:
             case !is_enabled_auth('mnet'):
@@ -135,7 +135,7 @@ class log_and_session_utilities {
      *
      * @return void
      */
-    public static function check_for_mnet_origin($frm ) {
+    public static function check_for_mnet_origin($frm) {
         // Compute possible redirect jump to thematic form login form $frm
         if($frm && isset($frm->mnetorigin)) {
             self::set_session_mnet_redirect($frm->mnetorigin);
@@ -192,7 +192,7 @@ class log_and_session_utilities {
         $formaction = self::define_login_form_action(false);
         $query = '';
 
-        if ($formaction['isthematic']) {
+        if (self::is_platform_login_uses_mnet() && $formaction['isthematic']) {
             $query = '?mnetorigin=' . urlencode($CFG->wwwroot);
         }
 

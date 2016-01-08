@@ -28,9 +28,7 @@ class log_and_session_utilities_testcase extends advanced_testcase {
     }
 
     public function test_is_platform_login_uses_mnet() {
-        $mnethosts = utilities_network::get_hosts();
-        $mnetlog = log_and_session_utilities::is_platform_login_uses_mnet($mnethosts);
-
+        $mnetlog = log_and_session_utilities::is_platform_login_uses_mnet();
         $this->assertInternalType('bool', $mnetlog);
     }
 
@@ -113,5 +111,12 @@ class log_and_session_utilities_testcase extends advanced_testcase {
             $this->fail($url . ' is not a valid URL');
         }
 
+    }
+
+    public function test_check_for_mnet_origin() {
+        $frm = new StdClass();
+        log_and_session_utilities::check_for_mnet_origin($frm);
+        $frm->mnetorigin = "wrongurl";
+        log_and_session_utilities::check_for_mnet_origin($frm);
     }
 }
