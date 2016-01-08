@@ -146,7 +146,7 @@ moosh config-set sessioncookie ${CUSTOMER_COOKIE_PREFIX}
 moosh peer-add ${MNET_PEER}
 
 # Default sitepolicy (cgus)
-moosh config-set sitepolicy ${CUSTOMER_DOMAIN}/static/cgu.html
+moosh config-set sitepolicy https://${CUSTOMER_DOMAIN}/static/cgu.html
 
 # oauth2: do not display buttons on login page
 moosh config-set oauth2displaybuttons 0 'auth/googleoauth2'
