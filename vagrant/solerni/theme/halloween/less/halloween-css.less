@@ -69,94 +69,6 @@ input[type="checkbox"] {
     margin: 4px;
 }
 
-/*
- * List Links (as in footer)
- * */
-.list-link {
-    margin: 0;
-    padding: 0;
-}
-
-    .link-item {
-        margin-bottom:  @s-triple-xs-margin;
-        text-align:     center;
-
-        @media (min-width:  @screen-md-min) {
-            margin-bottom:  @s-double-md-margin;
-            text-align:     left;
-        }
-    }
-
-    .link-item:first-child {
-        padding:            @s-small-xs-margin 0;
-        background-color:   @gray-before-light-plus;
-        color:              @brand-primary;
-
-        @media (min-width: @screen-md-min) {
-            background-color:   transparent;
-        }
-
-    }
-
-    .link-item:last-child,
-    .link-item:first-child {
-        margin-bottom: @s-double-xs-margin;
-
-        @media (min-width:  @screen-md-min) {
-            margin-bottom: @s-double-md-margin;
-        }
-    }
-
-    .list-link .dropdown {
-        margin-left:    -@s-double-xs-margin;    // Apparently removing left padding
-        margin-top:     -@s-small-xs-margin;    // Apparently removing top padding
-    }
-
-.footer {
-    margin-bottom: @s-triple-xs-margin;
-
-    @media (min-width:  @screen-md-min) {
-        margin-bottom: @s-triple-md-margin;
-    }
-}
-
- /*
-  * Social class
-  * */
-
-.list-social {
-   padding-top:     @font-size-base;
-   padding-bottom:  @font-size-base;
-   margin-bottom:   0;
-   margin-left:     0;
-   margin-right:    0;
-}
-
-div[role="main"] .list-social {
-  padding-top:      @font-size-base; // Override because bootstrap specificity
-  padding-bottom:   @font-size-base;
-  padding-left:     0;
-  padding-right:    0;
-}
-
-    .social-item {
-        display:        inline-block;
-        vertical-align: middle;
-        margin-right:   @s-small-xs-margin;
-
-        @media (min-width:  @screen-md-min) {
-            margin-right: @s-double-xs-margin;
-        }
-    }
-
-    .social-item:first-child {
-        margin-right: @font-size-base;
-    }
-
-    .social-item:last-child {
-        margin-right: 0;
-    }
-
  /*
   * Dropdowns
   * */
@@ -228,7 +140,6 @@ div[role="main"] .list-social {
     opacity: 0.8;
 }
 
-
 /*
  *  Catalog
  */
@@ -291,28 +202,6 @@ div[role="main"] .list-social {
 }
 
 /*
- * Notification email in header
- */
-.header-email-icon {
-    position: relative;
-}
-
-.email-notification {
-    position:           absolute;
-    top:                0;
-    right:              0;
-    background-color:   @brand-secondary;
-    color:              @brand-tertiary;
-    width:              @padding-base-horizontal;
-    height:             @padding-base-horizontal;
-    font-size:          @font-size-base;
-    line-height:        @padding-base-horizontal;
-    border-radius:      50%;
-    text-indent:        0;
-    text-align:         center;
-}
-
-/*
  * Page Moodle
  */
 #page {
@@ -328,116 +217,6 @@ div[role="main"] .list-social {
     display: none;
 }
 
-/*
- *Login
- */
-.login-oauth2 {
-    margin: @s-double-xs-margin 0;
-}
-
-.login-oauth2 .btn {
-    margin-bottom: @s-double-xs-margin;
-}
-
-.login-line {
-    border-top: 2px solid @gray-dark;
-    text-align: center;
-    margin:     @s-small-xs-margin 0;
-}
-
-.line-inner {
-    position:           relative;
-    display:            inline-block;
-    background-color:   @brand-tertiary;
-    top:                -.7em;
-    padding:            0 1em;
-    text-transform:     uppercase;
-    color:              @gray-dark;
-    font-weight:        bold;
-    font-size:          1.2em;
-}
-
-.login-box,
-.signup-box {
-    margin: @s-double-xs-margin 0;
-}
-
-.password-wrapper {
-    position: relative;
-}
-
-.login-forgot {
-    position:   absolute;
-    right:      0;
-    top:        0;
-    height:     @input-height-base;
-    border:     1px solid @gray-light;
-}
-
-.fitem_fpassword {
-    position: relative;
-}
-
-.signup-box .unmask {
-    .login-forgot();
-    .btn();
-    .btn-warning();
-    top:    auto;
-    bottom: 0;
-}
-
-.signup-box .unmask input {
-    float:      left;
-    margin-top: 3px;
-}
-
-.signup-box .unmask label {
-    padding-left:   5px;
-    padding-right:  10px;
-    font-weight:    bold;
-    line-height:    1;
-    min-height:     auto;
-}
-
-.login-forgot:hover {
-    border:     1px solid @gray-light;
-}
-
-.login-box .btn-block {
-    margin: 0;
-}
-
-/* signup */
-.fitem-legacy + .help-block {
-    margin-top:     -10px;
-    margin-bottom:  15px;
-}
-
-.signup-box .fdescription {
-    display: none;
-}
-
-.error-msg {
-    line-height:    1.5;
-    margin:         0 0 10px;
-}
-
-.signup-box .fitem_fsubmit {
-    margin-top: 30px;
-    text-align: center;
-}
-
-.signup-box .fsubmit {
-    display:    inline-block;
-    margin:     0 auto !important;
-    width:      auto !important;
-    float:      none !important;
-}
-
-.signup-footer {
-    margin-top: @grid-gutter-width;
-}
-
 /* fix small css */
 img.icon {
     float: left;
@@ -446,68 +225,6 @@ img.icon {
 .formsettingheading {
     margin-bottom: 2em;
 }
-
-/*
- * Thumbnail
- */
-.thumbnail {
-    background-color:   transparent;
-    position: relative;
-}
-
-    .thumbnail h4 {
-        color : black;
-    }
-
-    .thumbnail .caption {
-        color : black;
-    }
-
-    .thumbnail-status-box {
-        position:   absolute;
-        top:        0px;
-        width:      100%;
-        padding:    5px 0;
-    }
-
-    .thumbnail-promotionnal-box {
-        position:   absolute;
-        top:        50px;
-        padding:    5px 5px;
-        right:      0;
-    }
-
-    .thumbnail-slide {
-        position: relative;
-    }
-
-    .thumbnail .caption-hover {
-        padding-top:        100px;
-        visibility:         hidden;
-        opacity:            0;
-        position:           absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background-color:   #FFF;
-        transition:         opacity 250ms ease-in 500ms;
-    }
-
-    .thumbnail:hover .caption-hover {
-        visibility: visible;
-        opacity:    1;
-    }
-
-    .thumbnail-text {
-        margin-top: 20px;
-    }
-
-    .thumbnail-centertext {
-        margin-top: 20px;
-        text-align: center;
-    }
-
-    .thumbnail .button {
-        padding: @padding-base-vertical;
-    }
 
 /* calendar quickfix */
 .calendar-controls {

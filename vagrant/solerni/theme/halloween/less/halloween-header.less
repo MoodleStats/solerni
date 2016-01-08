@@ -40,7 +40,7 @@
 
     .logo-brandname {
         font-size:          @s-double-xs-margin;
-        
+
         @media (min-width:  @screen-md-min) {
             font-size:      @s-double-md-margin;
             margin-right:   @s-small-md-margin;
@@ -96,3 +96,25 @@
             }
         }
     }
+
+/*
+ * Notification email in header
+ */
+.header-email-icon {
+    position: relative;
+}
+
+.email-notification {
+    position:           absolute;
+    top:                0;
+    right:              0;
+    background-color:   @brand-secondary;
+    color:              @brand-tertiary;
+    width:              @padding-base-horizontal;
+    height:             @padding-base-horizontal;
+    font-size:          @font-size-base;
+    line-height:        @padding-base-horizontal;
+    border-radius:      50%;
+    text-indent:        0;
+    text-align:         center;
+}
