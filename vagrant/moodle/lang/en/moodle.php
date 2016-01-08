@@ -1296,23 +1296,6 @@ line at the top of your web browser window.
 
 Cheers from the \'{$a->sitename}\' administrator,
 {$a->signoff}';
-$string['newusernewpasswordhtml'] = '<html><body><p>Hi {$a->firstname},</p>
-<p>A new account has been created for you at \'{$a->sitename}\'
-and you have been issued with a new temporary password.</p>
-<p>Your current login information is now:</p>
-<ul>
-<p><b>username:</b> {$a->username}</p>
-<p><b>password:</b> {$a->newpassword}</p>
-<p>(you will have to change your password when you login for the first time)</p>
-</ul>
-<p>To start using \'{$a->sitename}\', login at<br/>
-<a href="{$a->link}">{$a->link}</a></p>
-<p>In most mail programs, this should appear as a blue link
-which you can just click on.  If that doesn\'t work,
-then cut and paste the address into the address
-line at the top of your web browser window.</p>
-<p>Cheers from the \'{$a->sitename}\' administrator,</p>
-<p>{$a->signoff}</p></body></html>';
 $string['newusers'] = 'New users';
 $string['newwindow'] = 'New window';
 $string['next'] = 'Next';

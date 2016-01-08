@@ -1335,23 +1335,6 @@ Dans la plupart des logiciels de messagerie, cette adresse devrait apparaître c
 
 Si vous avez besoin d\'aide, veuillez contacter l\'administrateur du site {$a->sitename},
 {$a->signoff}';
-$string['newusernewpasswordhtml'] = 'Bonjour,
-
-Un nouveau compte a été créé pour vous sur le site « {$a->sitename} » et un mot de passe temporaire vous a été délivré.
-
-Les informations nécessaires à votre connexion sont maintenant :
-   nom d\'utilisateur : {$a->username}
-   mot de passe       : {$a->newpassword}
-
-Vous devrez changer votre mot de passe lors de votre première connexion.
-
-Pour commencer à travailler sur « {$a->sitename} », veuillez vous connecter en cliquant sur le lien ci-dessous.
-   {$a->link}
-
-Dans la plupart des logiciels de messagerie, cette adresse devrait apparaître comme un lien de couleur bleue qu\'il vous suffit de cliquer. Si cela ne fonctionne pas, copiez ce lien et collez-le dans la barre d\'adresse de votre navigateur web.
-
-Si vous avez besoin d\'aide, veuillez contacter l\'administrateur du site {$a->sitename},
-{$a->signoff}';
 $string['newusers'] = 'Nouveaux utilisateurs';
 $string['newwindow'] = 'Nouvelle fenêtre';
 $string['next'] = 'Suivant';
