@@ -23,11 +23,17 @@ class log_and_session_utilities_testcase extends advanced_testcase {
     private $mnethost;
 
     protected function setUp() {
+        global $CFG;
         $this->resetAfterTest();
         $this->user = self::getDataGenerator()->create_user();
 		self::setUser($this->user);
 
         $this->mnethost = $this->add_mnet_host();
+
+        // Simulate MNET is activated
+        if (!$CFG->solerni_isprivate) {
+            $CFG->auth = 'mnet';
+        }
     }
 
     /*
@@ -95,7 +101,7 @@ class log_and_session_utilities_testcase extends advanced_testcase {
                     'No isthematic key in $formaction');
             $this->assert_valid_url($formaction['host']);
 
-            if ($isthematic && !$value) {
+            if (log_and_session_utilities::is_platform_login_uses_mnet() && $isthematic && !$value) {
                 $this->assertTrue($formaction['isthematic'],
                     'This is thematic, so the isthematic key should be true');
             } else {
@@ -134,10 +140,9 @@ class log_and_session_utilities_testcase extends advanced_testcase {
     public function test_check_for_mnet_origin() {
         global $SESSION, $CFG;
         $frm = new StdClass();
-        $CFG->auth = 'mnet'; // simulate mnet is activated
         log_and_session_utilities::check_for_mnet_origin($frm);
         $this->assertFalse(isset($SESSION->mnetredirect));
-        // Nedd to add a test with mnet hosts in DB
+        // Need to add a test with mnet hosts in DB
     }
 
     protected function assert_valid_url($url) {

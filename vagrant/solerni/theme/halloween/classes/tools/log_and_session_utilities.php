@@ -23,7 +23,7 @@ class log_and_session_utilities {
 
     /**
      * Function to determine if we have to log locally or not on this instance.
-     * Return bool
+     * @return bool
      */
     public static function is_platform_login_uses_mnet() {
         global $CFG;
@@ -168,7 +168,7 @@ class log_and_session_utilities {
         $formactionhost = $CFG->wwwroot;
         $isthematic = false;
 
-        if (utilities_network::is_thematic() && !$locallog) {
+        if (self::is_platform_login_uses_mnet() && utilities_network::is_thematic() && !$locallog) {
             $homemnet = utilities_network::get_home();
             if ($homemnet) {
                 $formactionhost = $homemnet->url;
