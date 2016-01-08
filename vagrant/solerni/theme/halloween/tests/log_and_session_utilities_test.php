@@ -20,11 +20,29 @@ use local_orange_library\utilities\utilities_network;
 class log_and_session_utilities_testcase extends advanced_testcase {
 
 	private $user;
+    private $mnethost;
 
     protected function setUp() {
         $this->resetAfterTest();
         $this->user = self::getDataGenerator()->create_user();
 		self::setUser($this->user);
+
+        $this->mnethost = $this->add_mnet_host();
+    }
+
+    /*
+     * Creates a host in the database and return the host object
+     */
+    public function add_mnet_host() {
+        // Add a mnet host.
+        global $DB;
+        $mnethost = new stdClass();
+        $mnethost->name = 'A mnet host';
+        $mnethost->public_key = 'A random public key!';
+        $mnethost->wwwroot = 'http://www.goodurl.fr';
+        $mnethost->id = $DB->insert_record('mnet_host', $mnethost);
+
+        return $mnethost;
     }
 
     public function test_is_platform_login_uses_mnet() {
@@ -75,9 +93,8 @@ class log_and_session_utilities_testcase extends advanced_testcase {
                     'No host key in $formaction');
             $this->assertArrayHasKey('isthematic', $formaction,
                     'No isthematic key in $formaction');
-            if (filter_var($formaction['host'], FILTER_VALIDATE_URL) === false) {
-                $this->fail($formaction['host'] . ' is not a valid URL');
-            }
+            $this->assert_valid_url($formaction['host']);
+
             if ($isthematic && !$value) {
                 $this->assertTrue($formaction['isthematic'],
                     'This is thematic, so the isthematic key should be true');
@@ -88,35 +105,44 @@ class log_and_session_utilities_testcase extends advanced_testcase {
         }
     }
 
+    public function test_get_session_user_redirect_url() {
+
+        $urltogo = log_and_session_utilities::get_session_user_redirect_url();
+        $this->assert_valid_url($urltogo);
+    }
+
     public function test_get_register_form_url() {
 
         $url = log_and_session_utilities::get_register_form_url();
         $this->assertInternalType('string', $url, $url . ' is not a string.');
-        if (filter_var($url, FILTER_VALIDATE_URL) === false) {
-            $this->fail($url . ' is not a valid URL');
-        }
+        $this->assert_valid_url($url);
 
         global $SESSION;
         $SESSION->wantsurl = 'wrongurl';
         $url = log_and_session_utilities::get_register_form_url();
-        $this->assertInternalType('string', $url, $url . ' is not a string.');
-        if (filter_var($url, FILTER_VALIDATE_URL) === false) {
-            $this->fail($url . ' is not a valid URL');
-        }
+        $this->assertInternalType('string', $url,
+                $url . ' is not a string.');
+        $this->assert_valid_url($url);
 
         $SESSION->wantsurl = 'http://www.orange.fr';
         $url = log_and_session_utilities::get_register_form_url();
-        $this->assertInternalType('string', $url, $url . ' is not a string.');
-        if (filter_var($url, FILTER_VALIDATE_URL) === false) {
-            $this->fail($url . ' is not a valid URL');
-        }
-
+        $this->assertInternalType('string', $url,
+                $url . ' is not a string.');
+        $this->assert_valid_url($url);
     }
 
     public function test_check_for_mnet_origin() {
+        global $SESSION, $CFG;
         $frm = new StdClass();
+        $CFG->auth = 'mnet'; // simulate mnet is activated
         log_and_session_utilities::check_for_mnet_origin($frm);
-        $frm->mnetorigin = "wrongurl";
-        log_and_session_utilities::check_for_mnet_origin($frm);
+        $this->assertFalse(isset($SESSION->mnetredirect));
+        // Nedd to add a test with mnet hosts in DB
+    }
+
+    protected function assert_valid_url($url) {
+        if (filter_var($url, FILTER_VALIDATE_URL) === false) {
+            $this->fail($url . ' is not a valid URL');
+        }
     }
 }
