@@ -309,6 +309,7 @@ function controller_mooc_ended_registration_closed($context, $course, &$extended
 function incoming_unsubscribe($course, &$extendedcourse) {
     global $PAGE;
     $pagetype = $PAGE->pagetype;
+
     if ($pagetype != 'my-index') {
         $extendedcourse->statuslink = $extendedcourse->unenrolurl;
         $extendedcourse->statuslinktext = get_string('unsubscribe', 'local_orange_library');
@@ -331,6 +332,7 @@ function incoming_unsubscribe($course, &$extendedcourse) {
 function running_unsubscribe($course, &$extendedcourse) {
     global $PAGE;
     $pagetype = $PAGE->pagetype;
+
     if ($pagetype != 'my-index') {
         $extendedcourse->statuslink = $extendedcourse->unenrolurl;
         $extendedcourse->statuslinktext = get_string('unsubscribe', 'local_orange_library');
@@ -353,7 +355,8 @@ function running_unsubscribe($course, &$extendedcourse) {
 function new_session($course, &$extendedcourse) {
     global $PAGE;
     $pagetype = $PAGE->pagetype;
-    if ($pagetype != 'more-info') {
+
+    if ($pagetype == 'mod-descriptionpage-view') {
         $extendedcourse->statuslink = $extendedcourse->urlregistration;
         $extendedcourse->statuslinktext = get_string('new_session', 'local_orange_library');
 
@@ -388,6 +391,7 @@ function subscription_closed($course, &$extendedcourse) {
 function course_running_button_enabled($course, &$extendedcourse) {
     global $PAGE;
     $pagetype = $PAGE->pagetype;
+    echo $pagetype;
     if ($pagetype != 'my-index') {
         $extendedcourse->statuslink = $extendedcourse->unenrolurl;
         $extendedcourse->statuslinktext = get_string('unsubscribe', 'local_orange_library');
