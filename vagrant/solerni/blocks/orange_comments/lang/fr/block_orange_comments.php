@@ -28,3 +28,4 @@ $string['pluginname'] = 'Orange Commentaires';
 $string['yourreactions'] = 'Vos réactions';
 
 $string['showcomments'] = "Ecrire un commentaire";
+$string['addcomment'] = "xxxxxxxxxxxxxxxxxxxxxxx";

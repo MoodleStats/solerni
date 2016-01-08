@@ -28,3 +28,4 @@ $string['pluginname'] = 'Orange Comments';
 $string['yourreactions'] = 'Your reactions';
 
 $string['showcomments'] = "Write a comment";
+$string['addcomment'] = "yyyyyyyyyyy";

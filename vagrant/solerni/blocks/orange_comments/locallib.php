@@ -30,7 +30,7 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright  2015 Orange based on block_comments plugin from 1999 onwards Martin Dougiamas (http://dougiamas.com)
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class orangecomment extends comment {
+class orange_comment extends comment {
 
     public function __construct(stdClass $options) {
         // setup client_id
@@ -68,6 +68,7 @@ class orangecomment extends comment {
         } else {
             $this->courseid = SITEID;
         }
+
         // setup coursemodule
         if (!empty($options->cm)) {
             $this->cm = $options->cm;
@@ -126,9 +127,49 @@ class orangecomment extends comment {
         if (!empty($this->plugintype)) {
             $this->template = plugin_callback($this->plugintype, $this->pluginname, 'comment', 'template', array($this->comment_param), $this->template);
         }
-
     }
 
+    /**
+     * Sets the component.
+     *
+     * This method shouldn't be public, changing the component once it has been set potentially
+     * invalidates permission checks.
+     * A coding_error is now thrown if code attempts to change the component.
+     *
+     * @param string $component
+     */
+
+    public function set_component($component) {
+        if (!empty($this->component) && $this->component !== $component) {
+            throw new coding_exception('You cannot change the component of a comment once it has been set');
+        }
+        $this->component = $component;
+        list($this->plugintype, $this->pluginname) = core_component::normalize_component($component);
+    }
+
+    /**
+     * Revoke validate callbacks
+     *
+     * @param stdClass $params addtionall parameters need to add to callbacks
+     */
+    protected function validate($params=array()) {
+        foreach ($params as $key=>$value) {
+            $this->comment_param->$key = $value;
+        }
+        $validation = plugin_callback($this->plugintype, $this->pluginname, 'comment', 'validate', array($this->comment_param), false);
+        if (!$validation) {
+            throw new comment_exception('invalidcommentparam');
+        }
+    }
+
+    /**
+     * Returns true if the user is able to view comments
+     * @return bool
+     */
+    public function can_view() {
+        $this->validate();
+        return !empty($this->viewcap);
+    }
 
     /**
      * Initialises the JavaScript that enchances the comment API.
@@ -207,7 +248,7 @@ class orangecomment extends comment {
                     }
                     $html .= html_writer::start_tag('a', array('class' => 'comment-link', 'id' => 'comment-link-'.$this->cid, 'href' => '#'));
                     $html .= html_writer::empty_tag('img', array('id' => 'comment-img-'.$this->cid, 'src' => $OUTPUT->pix_url($collapsedimage), 'alt' => $this->linktext, 'title' => $this->linktext));
-                    $html .= html_writer::tag('span', $this->linktext.' '.$countstring, array('id' => 'comment-link-text-'.$this->cid));
+                    $html .= html_writer::tag('span', $this->linktext.' '.$countstring);
                     $html .= html_writer::end_tag('a');
                 }
 
@@ -333,6 +374,7 @@ class orangecomment extends comment {
             }
             $comments[] = $c;
         }
+
         $rs->close();
 
         if (!empty($this->plugintype)) {

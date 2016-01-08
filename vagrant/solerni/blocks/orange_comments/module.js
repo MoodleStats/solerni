@@ -31,7 +31,8 @@ M.block_orange_comment = {
             lang: {}
         };
         Y.extend(CommentHelper, Y.Base, {
-            api: M.cfg.wwwroot+'/comment/comment_ajax.php',
+            //api: M.cfg.wwwroot+'/comment/comment_ajax.php',
+            api: M.cfg.wwwroot+'/blocks/orange_comments/comment_ajax.php',
             initializer: function(args) {
                 var scope = this;
                 this.client_id = args.client_id;
@@ -64,7 +65,7 @@ M.block_orange_comment = {
                 var ta = Y.one('#dlg-content-'+this.client_id);
                 var scope = this;
                 var value = ta.get('value');
-                if (value && value != M.util.get_string('addcomment', 'moodle')) {
+                if (value && value != M.util.get_string('addcomment', 'block_orange_comments')) {
                     var params = {'content': value};
                     this.request({
                         action: 'add',
@@ -387,7 +388,7 @@ M.block_orange_comment = {
                     }
                 }else{
                     if (t.get('value') == '') {
-                        t.set('value', M.util.get_string('addcomment', 'moodle'));
+                        //t.set('value', M.util.get_string('addcomment', 'moodle'));
                         t.setStyle('color','grey');
                         t.set('rows', 2);
                     }

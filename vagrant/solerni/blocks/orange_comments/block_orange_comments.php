@@ -31,12 +31,13 @@ require_once($CFG->dirroot . '/blocks/orange_comments/locallib.php');
 class block_orange_comments extends block_base {
 
     public function init() {
-        $this->title = get_string('yourreactions', 'block_orange_comments');
+        $this->title = get_string('pluginname', 'block_orange_comments');
     }
 
     public function specialization() {
         // Require js for commenting.
-        comment::init();
+        // comment::init();
+        $this->title = get_string('yourreactions', 'block_orange_comments');
     }
     public function applicable_formats() {
         return array('all' => true);
@@ -95,7 +96,7 @@ class block_orange_comments extends block_base {
         $args->autostart = true;
         $args->displaycancel = false;
 
-        $orangecomment = new orangecomment($args);
+        $orangecomment = new orange_comment($args);
         $orangecomment->set_view_permission(true);
         $orangecomment->set_fullwidth();
 
