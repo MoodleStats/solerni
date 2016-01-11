@@ -500,3 +500,6 @@ moosh role-update-capability solerni_teacher enrol/orangenextsession:config allo
 
 # Add capabilities for progress bar (#us_99, #us_274)
 moosh role-update-capability solerni_course_creator block/orange_progressbar:addinstance allow 1
+
+# Forumng : Add capability for solerni_course_creator (#us_388)
+moosh role-update-capability solerni_course_creator mod/forumng:startdiscussion allow 1

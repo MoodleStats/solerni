@@ -38,10 +38,10 @@ $string['registration_open']    = 'Inscription ouverte';
 $string['registration_not_open']    = 'Inscription pas encore ouverte';
 $string['mooc_complete']        = 'Mooc complet';
 $string['mooc_open_date']       = 'Début le {$a}';
-$string['acces_to_archive']     = 'Acces aux archives du cours';
+$string['acces_to_archive']     = 'Acces aux archives';
 $string['enrolled_users']       = 'utilisateurs enregistrés';
 $string['unsubscribe']          = 'me désinscrire';
-$string['new_session']          = 'new_session';
+$string['new_session']          = 'nouvelle session';
 
 
 

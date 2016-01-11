@@ -63,6 +63,7 @@ foreach ($langs as $lang => $value) {
         mail_test::send_email_deletion($USER);
         mail_test::email_welcome_message($instanceself, $USER);
         mail_test::email_information_message($instanceself, $USER);
+        mail_test::setnew_password_and_mail($USER);
     }
 
     if ($sendtextemail) {
@@ -74,6 +75,7 @@ foreach ($langs as $lang => $value) {
         mail_test::send_email_deletion($USER, true);
         mail_test::email_welcome_message($instanceself, $USER, true);
         mail_test::email_information_message($instanceself, $USER, true);
+        mail_test::setnew_password_and_mail($USER, true);
     }
 }
 force_current_language($currentlang);

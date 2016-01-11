@@ -279,9 +279,9 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
     public function render_course_catalog_filter_status($filter) {
         $labels = array (
             0 => get_string('filterstatusall', 'theme_halloween'),
-            1 => get_string('filterstatusinprogress', 'theme_halloween'),
-            2 => get_string('filterstatuscomingsoon', 'theme_halloween'),
-            3 => get_string('filterstatuscomplete', 'theme_halloween')
+            1 => get_string('filterstatusrunning', 'theme_halloween'),
+            2 => get_string('filterstatusnotstarted', 'theme_halloween'),
+            3 => get_string('filterstatusclosed', 'theme_halloween')
         );
 
         return $this->render_filter_fieldset($filter, 'status', $labels, 'tag-course-catalog-status-filter');
@@ -478,9 +478,7 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
             6 => get_string('filterstatusrunning', 'theme_halloween'),
             5 => get_string('filterstatusnotstarted', 'theme_halloween'),
             4 => get_string('filterstatusclosed', 'theme_halloween'),
-            3 => get_string('filterstatusregistrationnotopen', 'theme_halloween'),
-            2 => get_string('filterstatusregistrationstopped', 'theme_halloween'),
-            1 => get_string('filterstatusregistrationopen', 'theme_halloween'),
+
             0 => get_string('filterstatusregistrationcomplete', 'theme_halloween'),
         );
 

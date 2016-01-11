@@ -46,6 +46,8 @@ moosh role-import solerni_animateur solerni-config/default/users_roles/solerni_a
 moosh role-import solerni_client solerni-config/default/users_roles/solerni_client.xml
 moosh role-import solerni_teacher solerni-config/default/users_roles/solerni_teacher.xml
 moosh role-import solerni_marketing solerni-config/default/users_roles/solerni_marketing.xml
+moosh role-import solerni_animateur_plateforme solerni-config/default/users_roles/solerni_animateur_plateforme.xml
+moosh role-import solerni_power_utilisateur solerni-config/default/users_roles/solerni_power_utilisateur.xml
 moosh role-import solerni_course_creator solerni-config/default/users_roles/solerni_course_creator.xml
 
 # Default role for all users (#us_62-69)
@@ -146,7 +148,7 @@ moosh config-set sessioncookie ${CUSTOMER_COOKIE_PREFIX}
 moosh peer-add ${MNET_PEER}
 
 # Default sitepolicy (cgus)
-moosh config-set sitepolicy ${CUSTOMER_DOMAIN}/static/cgu.html
+moosh config-set sitepolicy https://${CUSTOMER_DOMAIN}/static/cgu.html
 
 # oauth2: do not display buttons on login page
 moosh config-set oauth2displaybuttons 0 'auth/googleoauth2'
