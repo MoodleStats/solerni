@@ -36,6 +36,10 @@ $string['css'] = 'CSS inclu dans l\'email';
 $string['css_desc'] = 'CSS inclus dans tous les emails. Il doit commencer par <STYLE> et terminer par </STYLE>';
 $string['header'] = 'Entête du mail';
 $string['header_desc'] = 'Entête du mail (partie contenant le logo Orange).';
+$string['contentstart'] = 'Avant le contenu du mail';
+$string['contentstart_desc'] = 'Code HTML placé avant le contenu du mail';
+$string['contentend'] = 'Après le contenu du mail';
+$string['contentend_desc'] = 'Code HTML placé après le contenu du mail';
 $string['headertext'] = 'Mail Header';
 $string['headertext_desc'] = 'Mail Header';
 $string['footer'] = 'Mail Footer';
@@ -56,6 +60,12 @@ $string['followustext'] = 'Add "Follow us" section to mail';
 $string['followustext_desc'] = 'Add "Follow us" section based on the template settings';
 $string['contactemail'] = 'Email de contact Solerni';
 $string['contactemail_desc'] = 'Email de contact Solerni. Cet e-mail est utilisé pour les mails envoyés par la plateforme mais aussi pour le formulaire de contact.';
+$string['supportemail'] = 'Email de support Solerni';
+$string['supportemail_desc'] = 'Email de support Solerni. Cet e-mail est utilisé pour les mails envoyés par la plateforme mais aussi pour le formulaire de contact.';
+$string['marketemail'] = 'Email marketing Solerni';
+$string['marketemail_desc'] = 'Email marketing Solerni. Cet e-mail est utilisé pour les mails envoyés par la plateforme mais aussi pour le formulaire de contact.';
+$string['partneremail'] = 'Email de partenariat Solerni';
+$string['partneremail_desc'] = 'Email de partenariat Solerni. Cet e-mail est utilisé pour les mails envoyés par la plateforme mais aussi pour le formulaire de contact.';
 $string['noreplyemail'] = 'Email No Reply Solerni';
 $string['noreplyemail_desc'] = 'Email No Reply Solerni. Cet e-mail est utilisé pour les mails envoyés par la plateforme mais aussi pour le formulaire de contact.';
 $string['heading_general'] = 'Général';
@@ -74,7 +84,7 @@ $string['helptext'] = 'Vous pouvez utiliser les variables suivantes dans les tem
         . '<li>{$b->googleplus} : url de la page Googleplus de Solerni</li>'
         . '<li>{$b->dailymotion} : url de la chaîne Dailymotion de Solerni</li>'
         . '</ul>'
-        . '<br>Les variables en {$a->xxx} seront traitées par Moodle lors de l\'envoi du mail. Leur nombre varie en fonction de chaque mail.';
+        . '<br />Les variables en {$a->xxx} seront traitées par Moodle lors de l\'envoi du mail. Leur nombre varie en fonction de chaque mail.';
 $string['helphtml'] = 'Vous pouvez utiliser les variables suivantes dans les templates. Ces variables seront remplacées par du contenu lors de la génération des modèles.'
         . '<ul>'
         . '<li>{$b->imageurl} : répertoire des images pour les emails</li>'
@@ -89,7 +99,7 @@ $string['helphtml'] = 'Vous pouvez utiliser les variables suivantes dans les tem
         . '<li>{$b->googleplus} : url de la page Googleplus de Solerni</li>'
         . '<li>{$b->dailymotion} : url de la chaîne Dailymotion de Solerni</li>'
         . '</ul>'
-        . '<br>Les variables en {$a->xxx} seront traitées par Moodle lors de l\'envoi du mail. Leur nombre varie en fonction de chaque mail.';
+        . '<br />Les variables en {$a->xxx} seront traitées par Moodle lors de l\'envoi du mail. Leur nombre varie en fonction de chaque mail.';
 
 // Mail template strings.
 $string['solernimailsignature'] = 'L’équipe de <a href="{$b->siteurl}" class="lientxt18orange">{$b->sitename}</a><br />'
@@ -114,12 +124,9 @@ $string['solernimailfollowus'] = 'Suivez-nous';
 
 
 // Original Moodle email strings.
-$string['newpasswordtext'] = '<tr>
-    <td valign="top"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
-        <tr>
-          <td class="txt18Noir"><p>Bonjour <span class="txt18BNoir">{$a->firstname} {$a->lastname}</span>,</p>
+$string['newpasswordtext'] = '<p>Bonjour <span class="txt18BNoir">{$a->firstname} {$a->lastname}</span>,</p>
 
-<p>Le mot de passe de votre compte sur « {$a->sitename} » a été remplacé par un nouveau mot de passe temporaire.</p>
+<p>Le mot de passe de votre compte sur {$a->sitename} a été remplacé par un nouveau mot de passe temporaire.</p>
 
 Les informations pour vous connecter sont désormais :<br />
 
@@ -129,18 +136,8 @@ Les informations pour vous connecter sont désormais :<br />
 <p>Merci de visiter cette page afin de changer de mot de passe :
     <a href="{$a->link}" class="lientxt18orange">{$a->link}</a></p>
 
-<p>Dans la plupart des logiciels de messagerie, cette adresse devrait apparaître comme un lien de couleur bleue qu\'il vous suffit de cliquer. Si cela ne fonctionne pas, copiez ce lien et collez-le dans la barre d\'adresse de votre navigateur web.</p>
-</td>
-        </tr>
-      </table></td>
-  </tr>
-  <tr>
-    <td height="30">&nbsp;</td>
-  </tr>';
-$string['contentuseraccountemail'] = '<tr>
-    <td valign="top"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
-        <tr>
-          <td class="txt18Noir"><p>Bonjour <span class="txt18BNoir">{$a->fullname}</span>,<br/><br/>
+<p>Dans la plupart des logiciels de messagerie, cette adresse devrait apparaître comme un lien de couleur bleue qu\'il vous suffit de cliquer. Si cela ne fonctionne pas, copiez ce lien et collez-le dans la barre d\'adresse de votre navigateur web.</p>';
+$string['contentuseraccountemail'] = '<p>Bonjour <span class="txt18BNoir">{$a->fullname}</span>,<br /><br />
 Nous vous remercions pour votre inscription sur le site <strong>{$a->sitename}</strong>.</p>
 <p>Voici un rappel de vos identifiants de connexion pour accéder à votre compte :</p>
 <ul>
@@ -148,22 +145,12 @@ Nous vous remercions pour votre inscription sur le site <strong>{$a->sitename}</
     <li>Mot de passe : vous seul le connaissez</li>
 </ul>
 <p>Vous pouvez dès à présent accéder à votre compte en cliquant <a href="{$a->profileurl}" class="lientxt18orange">ici</a>.</p>
-<p>A très vite sur {$a->sitename}, votre nouvelle plateforme de Moocs francophone collaborative.</p>
-</td>
-        </tr>
-      </table></td>
-  </tr>
-  <tr>
-    <td height="30">&nbsp;</td>
-  </tr>';
+<p>A très vite sur {$a->sitename}, votre nouvelle plateforme de Moocs francophone collaborative.</p>';
 
-$string['contentwelcomeemail'] = '<tr>
-    <td valign="top"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
-        <tr>
-          <td class="txt18Noir"><p>Bienvenue <span class="txt18BNoir">{$a->fullname}</span>,</p>
+$string['contentwelcomeemail'] = '<p>Bienvenue <span class="txt18BNoir">{$a->fullname}</span>,</p>
 <p>Nous sommes ravis de vous accueillir sur {$a->sitename}, votre nouvelle plateforme de Moocs francophone collaborative.</p>
 <p>Plus que l’acquisition de connaissances, nous souhaitons que cette plateforme vous aide à développer vos compétences. Nous pensons en effet qu’aujourd’hui, l’apprentissage ne peut plus se faire seul face à un professeur ou un formateur mais aussi ensemble, en réseau. C\'est à travers un parcours favorisant les échanges et les activités que vous développerez vos compétences. Vous serez à tout moment accompagné(e) par vos pairs mais aussi par des pédagogues dont l’objectif est de faciliter vos apprentissages en stimulant le partage d’information et l\'enrichissement mutuel.</p>
-<p><strong>C’est parti, inscrivez-vous à un Mooc</strong><br></p>
+<p><strong>C’est parti, inscrivez-vous à un Mooc</strong><br /></p>
 <p>Notre plateforme vient tout juste d’être lancée et s’enrichira au fil des semaines de nouveaux Moocs aux contenus variés. </p>
 <p>Vous pouvez d’ores et déjà consulter <a href="{$b->catalogurl}" class="lientxt18orange">notre catalogue</a> et vous inscrire à l’un des Moocs disponibles aujourd’hui. Notre plateforme est ouverte et gratuite, les inscriptions sont donc illimitées&nbsp;! </p>
 <p><strong>Restez en contact, restez connecté</strong></p>
@@ -171,31 +158,14 @@ $string['contentwelcomeemail'] = '<tr>
 <p><strong>Pour bien communiquer, remplissez votre profil</strong></p>
 <p>Et pour être sûr(e) de pouvoir échanger avec les autres apprenants et les pédagogues, n’oubliez pas de remplir et de paramétrer votre <a href="{$b->profileurl}" class="lientxt18orange">profil</a>.</p>
 <p>Voilà, vous êtes prêt(e) à présent pour vous lancer avec nous dans l’aventure des Moocs collaboratifs.
-En espérant vous retrouver très vite sur {$a->sitename} où nous vous souhaitons de vivre de nouvelles expériences enrichissantes&nbsp;!</p>
-</td>
-        </tr>
-      </table></td>
-  </tr>
-  <tr>
-    <td height="30">&nbsp;</td>
-  </tr>';
-$string['emailresetconfirmationhtml'] = '<tr>
-    <td valign="top"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
-        <tr>
-          <td class="txt18Noir"><p>Bienvenue <span class="txt18BNoir">{$a->firstname} {$a->lastname}</span>,</p>
+En espérant vous retrouver très vite sur {$a->sitename} où nous vous souhaitons de vivre de nouvelles expériences enrichissantes&nbsp;!</p>';
+$string['emailresetconfirmationhtml'] = '<p>Bienvenue <span class="txt18BNoir">{$a->firstname} {$a->lastname}</span>,</p>
 
 <p> Vous avez demandé la réinitialisation de votre mot de passe. Si vous n\'êtes pas à l\'origine de cette action, veuillez ignorer ce message.</p>
 
 Votre pseudo est : <span class="txt18BNoir">{$a->username}</span>
 <br />
-<p><a href="{$a->link}" class="lientxt18orange">Veuillez cliquer sur ce lien pour réinitialiser votre mot de passe</a>
-</td>
-        </tr>
-      </table></td>
-  </tr>
-  <tr>
-    <td height="30">&nbsp;</td>
-  </tr>';
+<p><a href="{$a->link}" class="lientxt18orange">Veuillez cliquer sur ce lien pour réinitialiser votre mot de passe</a>';
 $string['emailresetconfirmation'] = 'Bonjour <span class="txt18BNoir">{$a->firstname}</span>,
 
 Vous avez demandé la réinitialisation de votre mot de passe. Si vous n\'êtes pas à l\'origine de cette action, veuillez ignorer ce message.
@@ -207,62 +177,37 @@ Veuillez cliquer sur le lien suivant pour réinitialiser votre mot de passe :
 
 Si le lien ne fonctionne pas, copiez-collez le lien dans la barre d\'adresse de votre navigateur.
 ';
-$string['emailconfirmation'] = '<tr>
-    <td valign="top"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
-        <tr>
-          <td class="txt18Noir"><p>Bonjour <span class="txt18BNoir">{$a->firstname}</span>,</p>
+$string['emailconfirmation'] = '<p>Bonjour <span class="txt18BNoir">{$a->firstname}</span>,</p>
 
 <p>Nous avons reçu une demande d’inscription de votre part avec votre adresse e-mail.</p>
-<p>Afin de valider cette demande nous vous invitons à cliquer sur le lien suivant :<br>
+<p>Afin de valider cette demande nous vous invitons à cliquer sur le lien suivant :<br />
 <a href="{$a->link}" class="lientxt18orange">valider mon inscription</a></p>
-<p>Si le bouton ne fonctionne pas, copiez-collez le lien suivant dans la barre d’adresse de votre navigateur :  <a href="{$a->link}" class="lientxt18orange">{$a->link}</a></p>
-</td>
-        </tr>
-      </table></td>
-  </tr>
-  <tr>
-    <td height="30">&nbsp;</td>
-  </tr>';
+<p>Si le bouton ne fonctionne pas, copiez-collez le lien suivant dans la barre d’adresse de votre navigateur :  <a href="{$a->link}" class="lientxt18orange">{$a->link}</a></p>';
 
-$string['welcometocoursetext'] = '<tr>
-    <td valign="top"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
-        <tr>
-          <td class="txt18Noir"><p>Bonjour,</p>
+$string['welcometocoursetext'] = '<p>Bonjour,</p>
 <p>Nous vous confirmons votre inscription au Mooc <span class="txt18BNoir">{$a->coursename}</span>.</p>
 
 <p>Nous vous remercions pour votre inscription et vous souhaitons beaucoup de plaisir à suivre ce nouveau parcours d\'apprentissage
- sur {$b->sitename}, votre plateforme de Moocs francophone collaborative.</p>
-</td>
-        </tr>
-      </table></td>
-  </tr>
-  <tr>
-    <td height="30">&nbsp;</td>
-  </tr>';
+ sur {$b->sitename}, votre plateforme de Moocs francophone collaborative.</p>';
 
-$string['informationmessagetext'] = '<tr>
-    <td valign="top"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
-        <tr>
-          <td class="txt18Noir"><p>Bonjour <span class="txt18BNoir">{$a->fullname}</span>,</p>
+$string['informationmessagetext'] = '<p>Bonjour <span class="txt18BNoir">{$a->fullname}</span>,</p>
 
-<p>Merci de votre intérêt pour le cours <span class="txt18BNoir">{$a->coursename}</span>. Vous serrez informé du lancement d\'une nouvelle session.</p>
-</td>
-        </tr>
-      </table></td>
-  </tr>
-  <tr>
-    <td height="30">&nbsp;</td>
-  </tr>';
+<p>Merci de votre intérêt pour le cours <span class="txt18BNoir">{$a->coursename}</span>. Vous serrez informé du lancement d\'une nouvelle session.</p>';
 
-$string['defaultemailmsg'] = '<tr>
-    <td valign="top"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
-        <tr>
-          <td class="txt18Noir"><p>Bonjour <span class="txt18BNoir">{$a->fullname}</span>,</p>
-        <p>Votre compte a été supprimé de Solerni.<br />Merci d\'avoir utilisé Solerni !</p>
-</td>
-        </tr>
-      </table></td>
-  </tr>
-  <tr>
-    <td height="30">&nbsp;</td>
-  </tr>';
+$string['defaultemailmsg'] = '<p>Bonjour <span class="txt18BNoir">{$a->fullname}</span>,</p>
+        <p>Votre compte a été supprimé de Solerni.<br />Merci d\'avoir utilisé Solerni !</p>';
+
+$string['newusernewpasswordtext'] = '<p>Bonjour <span class="txt18BNoir">{$a->firstname}</span>,</p>
+<p>Votre compte utilisateur a été créé sur {$a->sitename}, votre nouvelle plateforme d\'apprentissage collaborative d\'entreprise, sur laquelle vous êtes  invité(e)  à suivre une ou plusieurs formations en ligne.</p>
+<p>Vos identifiants de connexion sont :</p>
+<ul>
+   <li>nom d\'utilisateur : {$a->username}</li>
+   <li>mot de passe       : {$a->newpassword}</li>
+</ul>
+<p><strong>Attention : </strong>ce mot de passe est provisoire, vous devrez  le changer à votre 1ere connexion.</p>
+<p>Connectez-vous dès maintenant  sur {$a->sitename}  en cliquant sur le lien suivant :<br />
+   <a href="{$a->link}" class="lientxt18orange">{$a->link}</a><br />
+afin de personnaliser votre mot de passe.</p>
+<p>Si le lien ne fonctionne pas, copiez-collez le lien dans la barre d\'adresse de votre navigateur.</p>
+<p>Vous recevez cet e-mail car votre entreprise a souhaité vous inscrire automatiquement sur notre plateforme.</p>
+<p>A très bientôt sur {$a->sitename}</p>';

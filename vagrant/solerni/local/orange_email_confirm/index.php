@@ -17,13 +17,14 @@
 /**
  * Version details
  *
- * @package    local_orange_event_user_loggedin
+ * @package    local_orange_email_confirm
  * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 require_once('../../config.php');
 require_once($CFG->libdir.'/moodlelib.php');
+require_once($CFG->dirroot . '/local/orange_mail/classes/mail_override.php');
 
 global $DB, $PAGE;
 $PAGE->set_context(context_system::instance());
@@ -35,7 +36,7 @@ $clause = array('email' => $useremail);
 $user = $DB->get_record('user', $clause);
 
 if (empty($user->confirmed)) {       // This account was never confirmed.
-    send_confirmation_email($user);
+    mail_override::send_confirmation_email($user);
 }
 redirect(new moodle_url('/login/index.php'));
 

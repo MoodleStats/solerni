@@ -166,7 +166,8 @@ if ($frm and isset($frm->username)) {                             // Login WITH 
             unset($SESSION->lang);
         }
 
-        if (empty($user->confirmed)) {       // This account was never confirmed
+        // This account need to have its email confirmed
+        if (empty($user->confirmed)) {
             $PAGE->set_title(get_string("mustconfirm"));
             $PAGE->set_heading($site->fullname);
             echo $OUTPUT->header();

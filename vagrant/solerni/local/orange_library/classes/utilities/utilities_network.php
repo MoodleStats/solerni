@@ -68,7 +68,7 @@ class utilities_network {
         if (self::is_thematic()) {
             $hosts = self::get_hosts();
             if (is_array($hosts)) {
-                return array_pop($hosts); // MNETHOME is the first host
+                return array_pop($hosts); // MNETHOME is the first host.
             }
         }
 
@@ -81,7 +81,7 @@ class utilities_network {
      * @return array of Hosts arrays(URL/name/IDs)
      */
     static public function get_hosts() {
-        global $CFG, $USER, $DB;
+        global $CFG, $DB;
 
         // Guest user not supported.
         if (isguestuser()) {

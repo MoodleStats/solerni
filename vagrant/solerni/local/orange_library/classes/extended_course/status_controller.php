@@ -309,12 +309,13 @@ function controller_mooc_ended_registration_closed($context, $course, &$extended
 function incoming_unsubscribe($course, &$extendedcourse) {
     global $PAGE;
     $pagetype = $PAGE->pagetype;
-    if ($pagetype != 'my-index') {
+    if ($pagetype == 'moocs-mymoocs') {
         $extendedcourse->statuslink = $extendedcourse->unenrolurl;
         $extendedcourse->statuslinktext = get_string('unsubscribe', 'local_orange_library');
 
     } else {
-        $extendedcourse->statuslink = $extendedcourse->unenrolurl;
+        $extendedcourse->statuslink = '#';
+        $extendedcourse->statuslinktext = '';
 
     }
     $extendedcourse->displaybutton = display_button('subscribe_to_mooc', '#', "btn btn-default disabled", $course);
@@ -331,12 +332,15 @@ function incoming_unsubscribe($course, &$extendedcourse) {
 function running_unsubscribe($course, &$extendedcourse) {
     global $PAGE;
     $pagetype = $PAGE->pagetype;
-    if ($pagetype != 'my-index') {
+
+    if ($pagetype == 'moocs-mymoocs') {
+
         $extendedcourse->statuslink = $extendedcourse->unenrolurl;
         $extendedcourse->statuslinktext = get_string('unsubscribe', 'local_orange_library');
 
     } else {
         $extendedcourse->statuslink = "#";
+        $extendedcourse->statuslinktext = '';
 
     }
     $extendedcourse->displaybutton = display_button('access_to_mooc', $extendedcourse->moocurl, "btn btn-success", $course);
@@ -353,12 +357,14 @@ function running_unsubscribe($course, &$extendedcourse) {
 function new_session($course, &$extendedcourse) {
     global $PAGE;
     $pagetype = $PAGE->pagetype;
-    if ($pagetype != 'more-info') {
-        $extendedcourse->statuslink = $extendedcourse->urlregistration;
+
+    if ($pagetype == 'mod-descriptionpage-view') {
+        $extendedcourse->statuslink = $extendedcourse->newsessionurl;
         $extendedcourse->statuslinktext = get_string('new_session', 'local_orange_library');
 
     } else {
         $extendedcourse->statuslink = "#";
+        $extendedcourse->statuslinktext = '';
 
     }
     $extendedcourse->displaybutton = display_button('subscribe_to_mooc', '#', "btn btn-default disabled", $course);
@@ -394,6 +400,7 @@ function course_running_button_enabled($course, &$extendedcourse) {
 
     } else {
         $extendedcourse->statuslink = "#";
+        $extendedcourse->statuslinktext = '';
     }
     $extendedcourse->statustext = get_string('status_running', 'local_orange_library');
     $extendedcourse->displaybutton = display_button('access_to_mooc', $extendedcourse->moocurl, "btn btn-success", $course);

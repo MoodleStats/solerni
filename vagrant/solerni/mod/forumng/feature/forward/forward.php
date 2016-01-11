@@ -24,6 +24,7 @@
  */
 require_once('../forumngfeature_post_selector.php');
 require_once('forward_form.php');
+require_once($CFG->dirroot . '/local/orange_mail/classes/mail_object.php');
 
 class forward_post_selector extends forumngfeature_post_selector {
     public function get_button_name() {
@@ -50,7 +51,7 @@ class forward_post_selector extends forumngfeature_post_selector {
         // Begin with standard text
         $a = (object)array('name' => fullname($USER, true));
 
-        $allhtml = "<body id='forumng-email'>\n";
+        $allhtml = "\n";
 
         $preface = get_string('forward_preface', 'forumngfeature_forward', $a);
         $allhtml .= $preface;
@@ -75,7 +76,7 @@ class forward_post_selector extends forumngfeature_post_selector {
         $discussion->build_selected_posts_email(
             $selected, $poststext, $postshtml);
         $alltext .= $poststext;
-        $allhtml .= $postshtml . '</body>';
+        $allhtml .= $postshtml;
 
         $emails = preg_split('~[; ]+~', $formdata->email);
         $subject = $formdata->subject;
@@ -89,7 +90,9 @@ class forward_post_selector extends forumngfeature_post_selector {
             $from = $USER;
             $from->maildisplay = 999; // Nasty hack required for OU moodle
 
-            if (!email_to_user($fakeuser, $from, $subject, $alltext, $allhtml)) {
+            if (!email_to_user($fakeuser, $from, $subject, 
+                    mail_object::get_mail($alltext, 'text', ''), 
+                    mail_object::get_mail($allhtml, 'html', '') )) {
                 print_error('error_forwardemail', 'forumng',
                         $discussion->get_moodle_url(), $formdata->email);
             }
@@ -108,7 +111,9 @@ class forward_post_selector extends forumngfeature_post_selector {
         $event->trigger();
 
         if (!empty($formdata->ccme)) {
-            if (!email_to_user($USER, $from, $subject, $alltext, $allhtml)) {
+            if (!email_to_user($USER, $from, $subject, 
+                    mail_object::get_mail($alltext, 'text', ''), 
+                    mail_object::get_mail($allhtml, 'html', ''))) {
                 print_error('error_forwardemail', 'forumng',
                         $discussion->get_moodle_url(), $USER->email);
             }
