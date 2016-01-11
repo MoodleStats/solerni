@@ -107,11 +107,11 @@ $filtersblock->content .= $content;
 $extendedcourse = new extended_course_object();
 $extendedcourse->get_extended_course($course, $context);
 
-$filtersblock->content .= '<div class="caption button text-center">'.$extendedcourse->displaybutton.$extendedcourse->statuslink.'</div>';
+$filtersblock->content .= '<div class="caption button text-center">'.$extendedcourse->displaybutton.'</div>';
 if($extendedcourse->statuslink != "#")
 {
     $filtersblock->content .= '<p class="col-sm-12 thumbnail-text">'
-            . '<a class="link-secondary" href="'.$courseinfos->statuslink.'">'.$courseinfos->statuslinktext.'</a></p>';
+            . '<a class="link-secondary" href="'.$extendedcourse->statuslink.'">'.$extendedcourse->statuslinktext.'</a></p>';
 }
 
 $filtersblock->footer = '';

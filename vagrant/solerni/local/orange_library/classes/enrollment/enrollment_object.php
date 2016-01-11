@@ -91,8 +91,8 @@ class enrollment_object {
         $instances = enrol_get_instances($course->id, false);
         $timestamp = strtotime(date('c'));
         foreach ($instances as $instance) {
-            if ($instance->enrolstartdate) {
-                $timestamp = strtotime($instance->enrolstartdate);
+            if (($instance->enrol == "self" || $instance->enrol == "manual") && $instance->enrolstartdate) {
+                $timestamp = $instance->enrolstartdate;
             }
         }
 
@@ -112,7 +112,7 @@ class enrollment_object {
         $instances = enrol_get_instances($course->id, false);
         $timestamp = strtotime(date('c'));
         foreach ($instances as $instance) {
-            if (($instance->enrol == "self" || $instance->enrol == "manual")&&$instance->enrolenddate) {
+            if (($instance->enrol == "self" || $instance->enrol == "manual") && $instance->enrolenddate) {
                     $timestamp = $instance->enrolenddate;
             }
         }

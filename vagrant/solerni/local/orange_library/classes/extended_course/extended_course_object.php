@@ -252,6 +252,12 @@ class extended_course_object {
     public $contactemail;
 
     /**
+     * The $new session url of a course.
+     * @var string $newsessionurl
+     */
+    public $newsessionurl;
+
+    /**
      *  Get the extended course values from the extended course flexpage values.
      *
      * @param object $course
@@ -265,8 +271,9 @@ class extended_course_object {
         $utilitiescourse = new utilities_course();
         $categoryid = $utilitiescourse->get_categoryid_by_courseid($course->id);
         $customer = customer_get_customerbycategoryid($categoryid);
-        $selfenrolment = new enrollment_object();
-        $instance = $selfenrolment->get_self_enrolment($course);
+        $enrolment = new enrollment_object();
+        $instanceorangeinvitation = $enrolment->get_orangeinvitation_enrolment($course);
+        $instanceself = $enrolment->get_self_enrolment($course);
         $extendedcourseflexpagevalues = $DB->get_records('course_format_options',
                 array('courseid' => $course->id));
         foreach ($extendedcourseflexpagevalues as $extendedcourseflexpagevalue) {
@@ -281,21 +288,19 @@ class extended_course_object {
             $this->registrationcompany = $customer->name;
         }
         $this->enrolledusers = count_enrolled_users($context);
-        if (isset($instance->enrolstartdate)) {
-            $this->enrolstartdate = $instance->enrolstartdate;
-        }
-        if (isset($instance->enrolenddate)) {
-            $this->enrolenddate = $instance->enrolenddate;
-        }
-        if (isset($instance->customint3)) {
-            $this->maxregisteredusers = $instance->customint3;
-        }
-        if (isset($instance->customint2)) {
-            $this->enrolurl = $instance->customint2;
-        }
+
+        $this->enrolstartdate = $enrolment->get_enrolment_startdate($course);
+
+        $this->enrolenddate = $enrolment->get_enrolment_enddate($course);
+
+        $this->maxregisteredusers = $instanceself->customint3;
+
         $this->moocurl = new moodle_url('/course/view.php', array('id' => $course->id));
-        $this->urlregistration = new moodle_url('/login/signup.php', array('id' => $course->id));
-        $this->unenrolurl = $instance->customint2;
+        $this->unenrolurl = $enrolment->get_unenrol_url($course);
+
+        $this->enrolurl = $instanceorangeinvitation->customtext2;
+
+        $this->newsessionurl = $instanceorangeinvitation->customtext3;
         $this->coursestatus = set_course_status($course, $context, $this);
 
     }
