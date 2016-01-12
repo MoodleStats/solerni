@@ -46,8 +46,6 @@ moosh role-import solerni_animateur solerni-config/default/users_roles/solerni_a
 moosh role-import solerni_client solerni-config/default/users_roles/solerni_client.xml
 moosh role-import solerni_teacher solerni-config/default/users_roles/solerni_teacher.xml
 moosh role-import solerni_marketing solerni-config/default/users_roles/solerni_marketing.xml
-moosh role-import solerni_animateur_plateforme solerni-config/default/users_roles/solerni_animateur_plateforme.xml
-moosh role-import solerni_power_utilisateur solerni-config/default/users_roles/solerni_power_utilisateur.xml
 moosh role-import solerni_course_creator solerni-config/default/users_roles/solerni_course_creator.xml
 
 # Default role for all users (#us_62-69)
@@ -213,6 +211,6 @@ moosh mail-generate
 # Default frontpage role : changed to allow access to the general ForumNg 
 moosh role-configset defaultfrontpageroleid solerni_apprenant
 
-# /!\ just do it once : to allow course creator assignment of new roles 
-moosh role-delete solerni_course_creator
-moosh role-import solerni_course_creator solerni-config/default/users_roles/solerni_course_creator.xml
+# Delete roles : solerni_animateur_plateforme, solerni_power_utilisateur
+moosh role-delete solerni_animateur_plateforme
+moosh role-delete solerni_power_utilisateur
