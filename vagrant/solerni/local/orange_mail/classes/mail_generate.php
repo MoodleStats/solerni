@@ -65,10 +65,10 @@ class mail_generate {
         mail_object::generate('defaultemailmsg', 'text');
         mail_object::generate('defaultemailmsg', 'html');
 
-        // New User by CSV import
+        // New User by CSV import.
         mail_object::generate('newusernewpasswordtext', 'text');
         mail_object::generate('newusernewpasswordtext', 'html');
-        
+
         return true;
     }
 
