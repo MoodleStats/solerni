@@ -212,3 +212,7 @@ moosh mail-generate
 
 # Default frontpage role : changed to allow access to the general ForumNg 
 moosh role-configset defaultfrontpageroleid solerni_apprenant
+
+# /!\ just do it once : to allow course creator assignment of new roles 
+moosh role-delete solerni_course_creator
+moosh role-import solerni_course_creator solerni-config/default/users_roles/solerni_course_creator.xml
