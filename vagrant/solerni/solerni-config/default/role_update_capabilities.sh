@@ -503,3 +503,6 @@ moosh role-update-capability solerni_course_creator block/orange_progressbar:add
 
 # Forumng : Add capability for solerni_course_creator (#us_388)
 moosh role-update-capability solerni_course_creator mod/forumng:startdiscussion allow 1
+
+# solerni_utilisateur role can see other user's profil
+moosh role-update-capability solerni_utilisateur moodle/user:viewdetails allow 1
