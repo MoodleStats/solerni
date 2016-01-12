@@ -21,6 +21,7 @@
  */
 defined('MOODLE_INTERNAL') || die();
 
+require_once(dirname(__FILE__) . '/Emogrifier.php');
 
 /**
  * All functions in this class are copy of Moodle code or Plugins code.
@@ -173,7 +174,9 @@ class mail_override {
         $messagehtml = (string)new lang_string('newusernewpasswordtext', '', $a, $lang);
         $message = html_to_text($messagehtml);
 
-        if ($messagehtml) $user->mailformat = 1;
+        if ($messagehtml) {
+            $user->mailformat = 1;
+        }
 
         $subject = format_string($site->fullname) .': '. (string)new lang_string('newusernewpasswordsubj', '', $a, $lang);
 
@@ -181,5 +184,5 @@ class mail_override {
         return email_to_user($user, $supportuser, $subject, $message, $messagehtml);
 
     }
-    
+
 }
