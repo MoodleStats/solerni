@@ -1,0 +1,26 @@
+/*
+Links rules !
+*/
+
+// Links rules and colors from guidelines
+a {
+    text-decoration: underline;
+}
+
+a:visited,
+a.visited {
+    color: @link-visited-color;
+}
+
+a:active,
+a.active,
+a:focus,
+a.focus {
+    color: @link-active-color;
+}
+
+a:focus,
+a.focus {
+    outline:        1px dotted currentColor;
+    outline-offset: 2px;
+}
