@@ -145,11 +145,8 @@ moosh config-set mnet_register_allhosts 0
 moosh config-set sessioncookie ${CUSTOMER_COOKIE_PREFIX}
 moosh peer-add ${MNET_PEER}
 
-# Default frontpage role
-moosh role-configset defaultfrontpageroleid solerni_utilisateur
-
 # Default sitepolicy (cgus)
-moosh config-set sitepolicy ${CUSTOMER_DOMAIN}/static/cgu.html
+moosh config-set sitepolicy https://${CUSTOMER_DOMAIN}/static/cgu.html
 
 # oauth2: do not display buttons on login page
 moosh config-set oauth2displaybuttons 0 'auth/googleoauth2'
@@ -200,3 +197,20 @@ moosh config-set status 0 enrol_orangenextsession
 moosh config-set defaultenrol 1 enrol_orangeinvitation
 # /!\ this value is reversed 0 => true, 1 => false
 moosh config-set status 0 enrol_orangeinvitation
+
+# Add cache store memcached
+moosh cache-admin --servers ${MEMCACHED_CACHE_SERVER} --prefix ${MEMCACHED_CACHE_PREFIX} memcached addstore ${MEMCACHED_CACHE_NAME}
+moosh cache-admin memcached editmodemappings ${MEMCACHED_CACHE_NAME}
+
+# Make Anonymous : add empty mail subject
+moosh config-set emailsubject '' local_eledia_makeanonymous
+
+# Generate mail string html/txt
+moosh mail-generate
+
+# Default frontpage role : changed to allow access to the general ForumNg 
+moosh role-configset defaultfrontpageroleid solerni_apprenant
+
+# Delete roles : solerni_animateur_plateforme, solerni_power_utilisateur
+moosh role-delete solerni_animateur_plateforme
+moosh role-delete solerni_power_utilisateur

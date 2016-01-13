@@ -86,7 +86,6 @@ class options {
      */
     public static function halloween_get_footerbrand_content() {
         global $CFG;
-        $stringmanager = get_string_manager();
         return array (
             'footerbrandtitle'      => '<span lang="fr" class="multilang">Solerni</span><span lang="en" class="multilang">Solerni</span>',
             'footerbrandchapo'      => '<span lang="fr" class="multilang">Apprendre, c\'est toujours mieux ensemble</span><span lang="en" class="multilang">To learn is more fun together</span>',
@@ -102,7 +101,6 @@ class options {
      */
     public static function halloween_get_footerlists_column1_items() {
         global $CFG;
-        $stringmanager = get_string_manager();
         return array(
             'footerlistscolumn1title'   => '<span lang="fr" class="multilang">A propos de nous</span><span lang="en" class="multilang">About us</span>',
             'footerlistscolumn1anchor1' => '<span lang="fr" class="multilang">A propos de Solerni</span><span lang="en" class="multilang">About Solerni</span>',
@@ -122,7 +120,6 @@ class options {
      */
     public static function halloween_get_footerlists_column2_items() {
         global $CFG;
-        $stringmanager = get_string_manager();
         return array(
             'footerlistscolumn2title'   => '<span lang="fr" class="multilang">Support</span><span lang="en" class="multilang">Support</span>',
             'footerlistscolumn2anchor1' => '<span lang="fr" class="multilang">FAQ</span><span lang="en" class="multilang">FAQ</span>',

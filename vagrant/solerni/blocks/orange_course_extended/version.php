@@ -25,7 +25,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $plugin->component  = 'block_orange_course_extended';
 $plugin->release    = '1.0';
-$plugin->version    = 2015112700;
+$plugin->version    = 2015121701;
 $plugin->requires   = 2014051200; // Moodle 2.7.
 $plugin->maturity   = MATURITY_STABLE;
 $plugin->dependencies = array('format_flexpage' => 2015050500, 'local_orange_library' => 2015052700);

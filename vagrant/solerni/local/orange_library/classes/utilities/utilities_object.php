@@ -26,6 +26,11 @@ defined('MOODLE_INTERNAL') || die();
 
 class utilities_object {
 
+    /**
+     * trasform duration format to time format
+     * @param type $extendedcourse
+     * @return type
+     */
     public static function duration_to_time($duration) {
 
         $secondsinaminute = 60;
@@ -111,11 +116,45 @@ class utilities_object {
      */
     public static function get_formatted_date($date) {
         $format = "d-m-Y";
-        if (current_language() == "en"){
+        if (current_language() == "en") {
             $format = "Y-m-d";
         }
 
         return date($format, $date);
+    }
+
+    /**
+     * Is the date is before current date.
+     *
+     * @param object $date
+     * @return boolean
+     */
+    public static function is_before($date) {
+
+        $return = false;
+        $datetime = new \DateTime;
+        $curentdate = $datetime->getTimestamp();
+        if ($date > $curentdate) {
+            $return = true;
+        }
+        return $return;
+
+    }
+
+    /**
+     * Is the date is after current date.
+     *
+     * @param object $date
+     * @return boolean
+     */
+    public static function is_after($date) {
+        $return = false;
+        $datetime = new \DateTime;
+        $curentdate = $datetime->getTimestamp();
+        if ($date < $curentdate) {
+            $return = true;
+        }
+        return $return;
     }
 }
 

@@ -213,9 +213,13 @@ $string['signuptitledesc']          = '';
 $string['signuptext']               = 'Instructions';
 $string['signuptextdesc']           = '';
 $string['signupusername']           = 'Label du champ username';
-$string['signupusernamedesc']           = '';
+$string['signupusernamedesc']       = '';
 $string['signupusernamesub']        = 'Texte d\'accompagnement du champ username';
 $string['signupusernamesubdesc']    = '';
+$string['signupemail']              = 'Label du champ email';
+$string['signupemaildesc']          = '';
+$string['signupemailsub']           = 'Texte d\'accompagnement du champ email';
+$string['signupemailsubdesc']       = '';
 $string['signuppasswordsub']        = 'Texte d\'accompagnement du champ mot de passe';
 $string['signuppasswordsubdesc']    = '';
 $string['signupformfooter']         = 'Message à afficher en pied de page du formulaire';
@@ -230,9 +234,16 @@ $string['missingusername']          = 'Le {$a} ne peut pas etre vide';
 $string['catalog_page_title']       = 'Catalogue';
 $string['filterstatustitle']        = 'Statuts';
 $string['filterstatusall']          = 'Tous les MOOCs';
-$string['filterstatusinprogress']   = 'En cours';
-$string['filterstatuscomingsoon']   = 'A venir';
-$string['filterstatuscomplete']     = 'Terminé';
+
+$string['filterstatusregistrationcomplete']   = 'MOOC complet';
+$string['filterstatusregistrationopen']       = 'Enregistrement ouvert';
+$string['filterstatusregistrationstopped']    = 'Enregistrement terminé';
+$string['filterstatusregistrationnotopen']    = 'Enregistrement à venir';
+
+$string['filterstatusclosed']       = 'Terminé';
+$string['filterstatusnotstarted']   = 'A venir';
+$string['filterstatusrunning']      = 'En cours';
+
 $string['filterthematicstitle']     = 'Thématique';
 $string['filterthematicsall']       = 'Toutes les thématiques';
 $string['filtercategorytitle']      = 'Entreprise';
@@ -252,6 +263,7 @@ $string['i_do_register']            = 'Je m\'inscris';
 $string['loginoauth']               = 'Se connecter avec {$a}';
 $string['or']                       = 'ou';
 $string['username']                 = 'Pseudo';
+$string['invalidlogin']             = 'La connexion a échouée. Veuillez vérifier votre {$a} et votre mot de passe.';
 
 // Mooc component.
 $string['courseproposedby']         = "Proposé par";

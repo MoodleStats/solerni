@@ -19,11 +19,17 @@ the ability to display instructions on the login page. We removed it but we coul
 use it if necessary, hence this comment */
 
 use theme_halloween\tools\theme_utilities;
+use theme_halloween\tools\log_and_session_utilities;
+
 require_once($CFG->dirroot . '/filter/multilang/filter.php');
 $filtermultilang = new filter_multilang($PAGE->context, array());
-
 $autocomplete =  (!$CFG->loginpasswordautocomplete) ? 'autocomplete="off"' : '';
-?>
+
+// Define form action url.
+// Use local database if the platform is not using MNET or if we override it with locallog query.
+// otherwise, log with MNET upon the "home" platform.
+$formaction = log_and_session_utilities::define_login_form_action($locallog); ?>
+
 <div class="row login-header">
     <div class="page-header text-center">
         <?php require($CFG->partialsdir . '/login/login_header.php'); ?>
@@ -58,8 +64,14 @@ $autocomplete =  (!$CFG->loginpasswordautocomplete) ? 'autocomplete="off"' : '';
                 </p>
             </div>
         <?php endif; ?>
-        <form action="<?php echo $CFG->httpswwwroot; ?>/login/index.php"
+        <form action="<?php echo $formaction['host']; ?>/login/index.php"
               method="POST" id="login" <?php echo $autocomplete; ?> >
+            <?php if ( $formaction['isthematic']) :?>
+                <input type="hidden" name="mnetorigin" value="<?php echo $CFG->wwwroot; ?>">
+            <?php endif; ?>
+            <!--<?php if (isset($SESSION->wantsurl) && !empty($SESSION->wantsurl)): ?>
+                <input type="hidden" name="mnetredirect" value="<?php echo $SESSION->wantsurl; ?>">
+            <?php endif; ?>-->
             <div class="form-group">
                 <?php $usernamelabel = (theme_utilities::is_theme_settings_exists_and_nonempty('loginusername')) ?
                         $filtermultilang->filter($PAGE->theme->settings->loginusername) :

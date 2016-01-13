@@ -25,20 +25,21 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die();
+
+require_once("$CFG->dirroot/local/orange_mail/mail_init.php");
+
 $string['customconfirmationmessage'] = 'Message de confirmation (en HTML)';
 $string['pluginname'] = 'Inscription pour la prochaine session';
 $string['pluginname_desc'] = 'Le plugin Inscription pour la prochaine session permet aux utilisateurs d\'indiquer qu\'ils souhaitent participer à la prochaine session du cours.';
 $string['orangenextsession:config'] = 'Configuration du plugin OrangeNextSession';
 $string['sendconfirmationmessage'] = 'Envoyer un message de confirmation d\'inscription';
 $string['sendconfirmationmessage_help'] = 'Si l\'option est activée, l\'utilisateur recevra un email de confirmation d\'inscription sur la liste de la prochaine session du cours.';
-$string['status'] = 'Autoriser les inscription OrangeNextSession';
+$string['status'] = 'Autoriser la méthode d\'inscriptoin OrangeNextSession';
 $string['status_desc'] = 'Permet d\'activer par défaut la méthode d\'inscription OrangeNextSession.';
 $srting['custominformationmessage'] = 'Personnalisation du mail d\'information';
 $string['informationmessage'] = 'Incription sur la liste d\'attente du cours {$a}';
-$string['informationmessagetext'] = 'Bonjour
-
-Merci de votre intérêt pour le cours {$a->coursename}. Vous serrez informé du lancement d\'une nouvelle session.
-';
+$string['informationmessagetext'] = mail_init::init('informationmessagetext','html');
 $string['orangenextsessioninfo'] = '<b>Les inscriptions pour ce cours sont terminées</b>. <br/>Vous serez prévenu du lancement d\'une prochaine session de ce cours.';
 $string['exportuserlist'] = 'Exporter la liste des utilisateurs au format CSV';
 $string['alreadyenrolled'] = 'Vous êtes déjà inscrit au cours';

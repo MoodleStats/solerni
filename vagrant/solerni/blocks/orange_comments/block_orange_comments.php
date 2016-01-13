@@ -18,19 +18,20 @@
  * The comments block
  *
  * @package    block_orange_comments
- * @copyright 2009 Dongsheng Cai <dongsheng@moodle.com>
+ * @copyright  2015 Orange based on block_comments plugin from 1999 onwards Martin Dougiamas (http://dougiamas.com)
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-// Obviously required.
 require_once($CFG->dirroot . '/comment/lib.php');
+require_once($CFG->dirroot . '/blocks/orange_comments/lib.php');
+require_once($CFG->dirroot . '/blocks/orange_comments/locallib.php');
 
 class block_orange_comments extends block_base {
 
     public function init() {
-        $this->title = get_string('pluginname', 'block_orange_comments');
+        $this->title = get_string('yourreactions', 'block_orange_comments');
     }
 
     public function specialization() {
@@ -89,16 +90,18 @@ class block_orange_comments extends block_base {
         $args->area      = 'page_comments';
         $args->itemid    = $pageid;
         $args->component = 'block_orange_comments';
-        $args->linktext  = get_string('showcomments');
-        $args->notoggle  = true;
+        $args->linktext  = get_string('showcomments', 'block_orange_comments');
+        $args->notoggle  = false;
         $args->autostart = true;
         $args->displaycancel = false;
-        $comment = new comment($args);
-        $comment->set_view_permission(true);
-        $comment->set_fullwidth();
+
+        $orangecomment = new orangecomment($args);
+        $orangecomment->set_view_permission(true);
+        $orangecomment->set_fullwidth();
 
         $this->content = new stdClass();
-        $this->content->text = $comment->output(true);
+        $this->content->text = $orangecomment->output(true);
+
         $this->content->footer = '';
         return $this->content;
     }

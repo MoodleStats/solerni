@@ -490,3 +490,43 @@ moosh role-update-capability solerni_teacher moodle/restore:userinfo allow 1
 moosh role-update-capability solerni_course_creator moodle/restore:userinfo allow 1
 moosh role-update-capability solerni_teacher moodle/restore:viewautomatedfilearea allow 1
 moosh role-update-capability solerni_course_creator moodle/restore:viewautomatedfilearea allow 1
+
+# Course Creator : can add block in a course
+moosh role-update-capability solerni_course_creator moodle/block:edit allow 1
+
+# Orangenextsession (#us_26)
+moosh role-update-capability solerni_course_creator enrol/orangenextsession:config allow 1
+moosh role-update-capability solerni_teacher enrol/orangenextsession:config allow 1
+
+# Add capabilities for progress bar (#us_99, #us_274)
+moosh role-update-capability solerni_course_creator block/orange_progressbar:addinstance allow 1
+
+# Forumng : Add capability for solerni_course_creator (#us_388)
+moosh role-update-capability solerni_course_creator mod/forumng:startdiscussion allow 1
+
+# solerni_utilisateur role can see other user's profil
+moosh role-update-capability solerni_utilisateur moodle/user:viewdetails allow 1
+
+# Forumng : delete capability for solerni_power_apprenant
+moosh role-update-capability solerni_power_apprenant mod/forumng:editanypost prevent 1
+
+# Forumng : forumngfeature/userposts:view for all roles
+moosh role-update-capability solerni_teacher forumngfeature/userposts:view allow 1
+moosh role-update-capability solerni_animateur forumngfeature/userposts:view allow 1
+moosh role-update-capability solerni_marketing forumngfeature/userposts:view allow 1
+moosh role-update-capability solerni_client forumngfeature/userposts:view allow 1
+moosh role-update-capability solerni_power_apprenant forumngfeature/userposts:view allow 1
+
+# Forumng : add capabilities for solerni_utilisateur
+moosh role-update-capability solerni_utilisateur forumngfeature/userposts:view allow 1
+moosh role-update-capability solerni_utilisateur mod/forumng:addtag allow 1
+moosh role-update-capability solerni_utilisateur mod/forumng:createattachment allow 1
+moosh role-update-capability solerni_utilisateur mod/forumng:forwardposts allow 1
+moosh role-update-capability solerni_utilisateur mod/forumng:grade allow 1
+moosh role-update-capability solerni_utilisateur mod/forumng:rate allow 1
+moosh role-update-capability solerni_utilisateur mod/forumng:replypost allow 1
+moosh role-update-capability solerni_utilisateur mod/forumng:startdiscussion allow 1
+moosh role-update-capability solerni_utilisateur mod/forumng:view allow 1
+moosh role-update-capability solerni_utilisateur mod/forumng:viewdiscussion allow 1
+moosh role-update-capability solerni_utilisateur mod/forumng:viewrating allow 1
+moosh role-update-capability solerni_utilisateur mod/forumng:viewreadinfo allow 1

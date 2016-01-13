@@ -186,11 +186,14 @@ function send_email_deletion($user, $useroldemail) {
             $messagetext = html_to_text($messagehtml);
         }
     } else {
-        $messagetext = get_string('defaultemailmsg', 'local_eledia_makeanonymous', $a);
-        $messagehtml = text_to_html($messagetext, null, false, true);
+        $messagehtml = get_string('defaultemailmsg', 'local_eledia_makeanonymous', $a);
+        $messagetext = text_to_html($messagehtml);
     }
 
     $subject = get_config('local_eledia_makeanonymous', 'emailsubject');
+    if (trim($subject) == '') {
+        $subject = get_string('defaultemailsubject', 'local_eledia_makeanonymous');
+    }
 
     if (! email_to_user($user, $supportuser, $subject, $messagetext, $messagehtml)) {
         mtrace('mail error : mail was not sent to '. $user->email);

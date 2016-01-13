@@ -26,7 +26,7 @@
  */
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version  = 2015120700;
+$plugin->version  = 2015122200;
 $plugin->requires = 2014051200;
 $plugin->maturity = MATURITY_STABLE;
 $plugin->release = 'Orange NextSession Plugin Version 1.0(build 2015120201)';

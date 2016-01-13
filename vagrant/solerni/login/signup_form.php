@@ -59,10 +59,19 @@ class login_signup_form extends moodleform {
             $mform->addElement('helpblock', 'usernamehelper', 'label', $usernamehelptext);
         }
         //Email.
-        $mform->addElement('text', 'email', get_string('email'),
+        $emaillabel = (theme_utilities::is_theme_settings_exists_and_nonempty('signupemail')) ?
+            $filtermultilang->filter($PAGE->theme->settings->signupemail) :
+            get_string('email');
+        if (theme_utilities::is_theme_settings_exists_and_nonempty('signupemailsub')) {
+            $emailhelptext = $filtermultilang->filter($PAGE->theme->settings->signupemailsub);
+        }
+        $mform->addElement('text', 'email', $emaillabel,
                 array('maxlength' => 100, 'size' => 25, 'class' => 'form-control'));
         $mform->setType('email', PARAM_RAW_TRIMMED);
         $mform->addRule('email', get_string('missingemail'), 'required', null, 'client');
+        if ($emailhelptext) {
+            $mform->addElement('helpblock', 'emailhelper', 'label', $emailhelptext);
+        }
         // Password.
         if (theme_utilities::is_theme_settings_exists_and_nonempty('signuppasswordsub')) {
             $passwordhelptext = $filtermultilang->filter($PAGE->theme->settings->signuppasswordsub);

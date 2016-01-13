@@ -25,3 +25,6 @@
 $string['orange_comments:myaddinstance'] = 'Add a new comments block to My home';
 $string['orange_comments:addinstance'] = 'Add a new comments block';
 $string['pluginname'] = 'Orange Comments';
+$string['yourreactions'] = 'Your reactions';
+
+$string['showcomments'] = "Write a comment";

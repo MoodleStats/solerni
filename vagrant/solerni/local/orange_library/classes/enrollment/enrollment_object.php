@@ -43,6 +43,24 @@ class enrollment_object {
     }
 
     /**
+     *  Get self unenrol url.
+     *
+     * @param object $course
+     * @return object unenrol url
+     */
+    public function get_unenrol_url($course) {
+
+        $instances = enrol_get_instances($course->id, false);
+        foreach ($instances as $instanceinfo) {
+            if ($instanceinfo->enrol == "self") {
+                $unenrolurl = new \moodle_url('/enrol/self/unenrolself.php', array('enrolid' => $instanceinfo->id));
+
+                return $unenrolurl;
+            }
+        }
+    }
+
+    /**
      *  Get orangeinvitation enrollment instance.
      *
      * @param object $course
@@ -73,8 +91,8 @@ class enrollment_object {
         $instances = enrol_get_instances($course->id, false);
         $timestamp = strtotime(date('c'));
         foreach ($instances as $instance) {
-            if ($instance->enrolstartdate) {
-                $timestamp = strtotime($instance->enrolstartdate);
+            if (($instance->enrol == "self" || $instance->enrol == "manual") && $instance->enrolstartdate) {
+                $timestamp = $instance->enrolstartdate;
             }
         }
 
@@ -94,7 +112,7 @@ class enrollment_object {
         $instances = enrol_get_instances($course->id, false);
         $timestamp = strtotime(date('c'));
         foreach ($instances as $instance) {
-            if (($instance->enrol == "self" || $instance->enrol == "manual")&&$instance->enrolenddate) {
+            if (($instance->enrol == "self" || $instance->enrol == "manual") && $instance->enrolenddate) {
                     $timestamp = $instance->enrolenddate;
             }
         }

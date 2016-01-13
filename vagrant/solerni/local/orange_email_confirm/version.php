@@ -24,6 +24,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2015042001;        // The current plugin version (Date: YYYYMMDDXX)
+$plugin->version   = 2016010500;        // The current plugin version (Date: YYYYMMDDXX)
 $plugin->requires  = 2014050800;        // Requires this Moodle version
 $plugin->component = 'local_orange_email_confirm';   // Full name of the plugin (used for diagnostics).

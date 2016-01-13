@@ -285,6 +285,28 @@ $setting = new admin_setting_configtextarea($name, $title, $description, $defaul
 $setting->set_updatedcallback('theme_reset_all_caches');
 $temp->add($setting);
 
+// Signup Email.
+$name = 'theme_halloween/signupemail';
+$title = get_string('signupemail', 'theme_halloween');
+$description = get_string('signupemail', 'theme_halloween');
+$default = ($CFG->solerni_isprivate) ?
+        '<span lang="fr" class="multilang">Email</span><span lang="en" class="multilang">Email</span>' :
+        '<span lang="fr" class="multilang">Email</span><span lang="en" class="multilang">Email</span>';
+$setting = new admin_setting_configtextarea($name, $title, $description, $default);
+$setting->set_updatedcallback('theme_reset_all_caches');
+$temp->add($setting);
+
+// Signup Email Helper Text.
+$name = 'theme_halloween/signupemailsub';
+$title = get_string('signupemailsub', 'theme_halloween');
+$description = get_string('signupemailsubdesc', 'theme_halloween');
+$default = ($CFG->solerni_isprivate) ?
+        '<span lang="fr" class="multilang">Merci de renseigner votre email professionnel</span><span lang="en" class="multilang">Please enter your professional email address</span>' :
+        '<span lang="fr" class="multilang"></span><span lang="en" class="multilang"></span>';
+$setting = new admin_setting_configtextarea($name, $title, $description, $default);
+$setting->set_updatedcallback('theme_reset_all_caches');
+$temp->add($setting);
+
 // Signup Password Helper Text.
 $name = 'theme_halloween/signuppasswordsub';
 $title = get_string('signuppasswordsub', 'theme_halloween');

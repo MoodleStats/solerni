@@ -69,117 +69,6 @@ input[type="checkbox"] {
     margin: 4px;
 }
 
-// Links rules and colors from guidelines
-a {
-    text-decoration: underline;
-}
-
-a:visited,
-a.visited {
-    color: @link-visited-color;
-}
-
-a:active,
-a.active,
-a:focus,
-a.focus {
-    color: @link-active-color;
-}
-
-a:focus,
-a.focus {
-    outline:        1px dotted currentColor;
-    outline-offset: 2px;
-}
-
-/*
- * List Links (as in footer)
- * */
-.list-link {
-    margin: 0;
-    padding: 0;
-}
-
-    .link-item {
-        margin-bottom:  @s-triple-xs-margin;
-        text-align:     center;
-
-        @media (min-width:  @screen-md-min) {
-            margin-bottom:  @s-double-md-margin;
-            text-align:     left;
-        }
-    }
-
-    .link-item:first-child {
-        padding:            @s-small-xs-margin 0;
-        background-color:   @gray-before-light-plus;
-        color:              @brand-primary;
-
-        @media (min-width: @screen-md-min) {
-            background-color:   transparent;
-        }
-
-    }
-
-    .link-item:last-child,
-    .link-item:first-child {
-        margin-bottom: @s-double-xs-margin;
-
-        @media (min-width:  @screen-md-min) {
-            margin-bottom: @s-double-md-margin;
-        }
-    }
-
-    .list-link .dropdown {
-        margin-left:    -@s-double-xs-margin;    // Apparently removing left padding
-        margin-top:     -@s-small-xs-margin;    // Apparently removing top padding
-    }
-
-.footer {
-    margin-bottom: @s-triple-xs-margin;
-
-    @media (min-width:  @screen-md-min) {
-        margin-bottom: @s-triple-md-margin;
-    }
-}
-
- /*
-  * Social class
-  * */
-
-.list-social {
-   padding-top:     @font-size-base;
-   padding-bottom:  @font-size-base;
-   margin-bottom:   0;
-   margin-left:     0;
-   margin-right:    0;
-}
-
-div[role="main"] .list-social {
-  padding-top:      @font-size-base; // Override because bootstrap specificity
-  padding-bottom:   @font-size-base;
-  padding-left:     0;
-  padding-right:    0;
-}
-
-    .social-item {
-        display:        inline-block;
-        vertical-align: middle;
-        margin-right:   @s-small-xs-margin;
-
-        @media (min-width:  @screen-md-min) {
-            margin-right: @s-double-xs-margin;
-        }
-    }
-
-    .social-item:first-child {
-        margin-right: @font-size-base;
-    }
-
-    .social-item:last-child {
-        margin-right: 0;
-    }
-
  /*
   * Dropdowns
   * */
@@ -210,27 +99,12 @@ div[role="main"] .list-social {
  }
 
 /*
- * Line
+ * Line (as in footer)
  * */
 .fullwidth-line {
     border-bottom-color: @brand-primary;
     border-bottom-style: solid;
     border-bottom-width: 1px;
-}
-
-/*
- * Thumbnail
- */
-.thumbnail {
-    background-color:   transparent;
-}
-
-.thumbnail h4{
-    color : black;
-}
-
-.thumbnail .caption {
-    color : black;
 }
 
 /*
@@ -265,7 +139,6 @@ div[role="main"] .list-social {
 .imageWrapper:hover .cornerLink {
     opacity: 0.8;
 }
-
 
 /*
  *  Catalog
@@ -307,7 +180,7 @@ div[role="main"] .list-social {
     position:       relative;
     right:          0px;
     border-bottom : 1px solid #000;
-    padding:        @padding-small-vertical 10px;
+    padding:        @padding-small-vertical @padding-base-vertical;
     padding-top:    @padding-small-vertical;
     padding-bottom: @padding-small-vertical;
 }
@@ -323,31 +196,9 @@ div[role="main"] .list-social {
 }
 
 .orange-badges-list {
-    padding:        @padding-small-vertical 10px;
+    padding:        @padding-small-vertical @padding-base-vertical;
     padding-top:    @padding-small-vertical;
     padding-bottom: @padding-small-vertical;
-}
-
-/*
- * Notification email in header
- */
-.header-email-icon {
-    position: relative;
-}
-
-.email-notification {
-    position:           absolute;
-    top:                0;
-    right:              0;
-    background-color:   @brand-secondary;
-    color:              @brand-tertiary;
-    width:              @padding-base-horizontal;
-    height:             @padding-base-horizontal;
-    font-size:          @font-size-base;
-    line-height:        @padding-base-horizontal;
-    border-radius:      50%;
-    text-indent:        0;
-    text-align:         center;
 }
 
 /*
@@ -361,319 +212,9 @@ div[role="main"] .list-social {
     }
 }
 
-/*
- * Blocks Moodle
- */
-
-.block {
-    border-color: @gray-light;
-}
-
-.block .content {
-    position:   relative;
-    top:        1px;
-    padding:    0 @s-double-xs-margin;
-}
-
-.block .block_tree li {
-    margin: 0;
-}
-
-.block .block_tree {
-    margin : 0;
-}
-
-.block .block_tree .tree_item {
-    padding-top:    @s-small-xs-margin;
-    padding-bottom: @s-small-xs-margin;
-    border-bottom:  1px solid @gray-light;
-    width :         100%;
-    margin:         0;
-}
-
-.block .block_tree .tree_item.branch {
-    background-position:    100% 50%;
-    x-padding-left:           @s-small-xs-margin;
-    padding-right:          @s-double-xs-margin;
-    margin:                 0;
-}
-
-.block .content .block_tree li.item_with_icon .tree_item {
-    img {
-        top: 12px;
-    }
-}
-
-#block-region-main, .paging {
-    clear: both;
-}
-
-/*
- * Blocks Orange course extended
- */
-.block .essentiels-image {
-    width:          100%;
-    max-width:      100%;
-    height:         auto;
-    margin-bottom:  10px;
-}
-
-.block .essentiels-icon {
-    content:        "";
-    position:       absolute;
-    width:          24px;
-    height:         24px;
-    top:            -3px;
-    left:           -15%;
-    pointer-events: none;
-    background:     transparent url([[pix:block_orange_course_extended|sprites_solerni]]) no-repeat 0 0 scroll;
-}
-
-.block .essentiels__date {
-    background-position: -210px -88px;
-}
-.block .essentiels__duration {
-    background-position: -210px -113px;
-}
-.block .essentiels__price {
-    background-position: -210px -139px;
-}
-.block .essentiels__certification {
-    background-position: -210px -164px;
-}
-.block .essentiels__language {
-    background-position: -210px -189px;
-}
-.block .essentiels__video {
-    background-position: -210px -214px;
-}
-.block .essentiels__subscription {
-    background-position: -210px -239px;
-}
-.block .essentiels__subscribers {
-    background-position: -207px -299px;
-}
-
-.block_orange_course_extended .content {
-    padding: 0;
-}
-
-.block .border_bottom{
-    border-bottom:  1px solid @gray-light;
-}
-
-.block .slrn-bold {
-    font-weight: bold;
-}
-.block .unlist {
-    margin-top: @s-small-xs-margin;
-}
-
-.block .unlist li {
-    padding-top:    (@s-small-xs-margin / 2);
-    padding-bottom: (@s-small-xs-margin / 2);
-}
-
-.block .content hr {
-    display: none;
-}
-
-.block .block_tree .tree_item {
-    padding-left: 0 !important;
-}
-
-.block .block_tree li ul {
-    padding-left: 0 !important;
-}
-
-.block .tree_item a,
-.block .tree_item span,
-.block .header h2,
-.block .header .h2{
-    display:        inline-block;
-    color:          @brand-primary;
-    font-size:      @font-size-base;
-}
-
-.block .tree_item span {
-    font-weight:    bold;
-}
-
-.block .tree_item a:hover,
-.block .tree_item a:active,
-.block .tree_item a:focus,
-.block .active_tree_node > a {
-    color: @brand-secondary;
-}
-
-/* most ugly but should cover every type of block hierarchy
- * I hate when design respect forces us to do such things
- */
-.block .content ul > li > ul > li > p > a,
-.block .content ul > li > ul > li > p > span {
-    padding-left: @s-small-xs-margin;
-}
-
-.block .content ul > li > ul > li > ul > li > p > a,
-.block .content ul > li > ul > li > ul > li > p > span {
-    padding-left: (@s-small-xs-margin * 2);
-}
-
-.block .content ul > li > ul > li > ul > li > ul > li > p > a,
-.block .content ul > li > ul > li > ul > li > ul > li > p > span {
-    padding-left: (@s-small-xs-margin * 3);
-}
-
-.block .content ul > li > ul > li > ul > li > ul > li > ul > li > p > a,
-.block .content ul > li > ul > li > ul > li > ul > li > ul > li > p > span {
-    padding-left: (@s-small-xs-margin * 4);
-}
-
-.block .content ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > p > a,
-.block .content ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > p > span {
-    padding-left: (@s-small-xs-margin * 5);
-}
-
-.block .content ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > p > a,
-.block .content ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > ul > li > p > span {
-    padding-left: (@s-small-xs-margin * 6);
-}
-
-.block .header {
-    background-color:   @gray-light;
-    border-color:       @gray-light;
-}
-
-.block .content .footer {
-    margin: @s-double-xs-margin 0;
-}
-
 /* hide moodle icons */
 .tree_item a .smallicon {
     display: none;
-}
-
-/* hide search submit button in admin nav */
-.block .adminsearchform {
-    margin: @s-double-xs-margin 0;
-}
-
-.block .adminsearchform button[type="submit"] {
-    display: none;
-}
-
-.block .adminsearchform .input-group {
-    width: 100%;
-}
-
-/*
- *Login
- */
-.login-oauth2 {
-    margin: @s-double-xs-margin 0;
-}
-
-.login-oauth2 .btn {
-    margin-bottom: @s-double-xs-margin;
-}
-
-.login-line {
-    border-top: 2px solid @gray-dark;
-    text-align: center;
-    margin:     @s-small-xs-margin 0;
-}
-
-.line-inner {
-    position:           relative;
-    display:            inline-block;
-    background-color:   @brand-tertiary;
-    top:                -.7em;
-    padding:            0 1em;
-    text-transform:     uppercase;
-    color:              @gray-dark;
-    font-weight:        bold;
-    font-size:          1.2em;
-}
-
-.login-box,
-.signup-box {
-    margin: @s-double-xs-margin 0;
-}
-
-.password-wrapper {
-    position: relative;
-}
-
-.login-forgot {
-    position:   absolute;
-    right:      0;
-    top:        0;
-    height:     @input-height-base;
-    border:     1px solid @gray-light;
-}
-
-.fitem_fpassword {
-    position: relative;
-}
-
-.signup-box .unmask {
-    .login-forgot();
-    .btn();
-    .btn-warning();
-    top:    auto;
-    bottom: 0;
-}
-
-.signup-box .unmask input {
-    float:      left;
-    margin-top: 3px;
-}
-
-.signup-box .unmask label {
-    padding-left:   5px;
-    padding-right:  10px;
-    font-weight:    bold;
-    line-height:    1;
-    min-height:     auto;
-}
-
-.login-forgot:hover {
-    border:     1px solid @gray-light;
-}
-
-.login-box .btn-block {
-    margin: 0;
-}
-
-/* signup */
-.fitem-legacy + .help-block {
-    margin-top:     -10px;
-    margin-bottom:  15px;
-}
-
-.signup-box .fdescription {
-    display: none;
-}
-
-.error-msg {
-    line-height:    1.5;
-    margin:         0 0 10px;
-}
-
-.signup-box .fitem_fsubmit {
-    margin-top: 30px;
-    text-align: center;
-}
-
-.signup-box .fsubmit {
-    display:    inline-block;
-    margin:     0 auto !important;
-    width:      auto !important;
-    float:      none !important;
-}
-
-.signup-footer {
-    margin-top: @grid-gutter-width;
 }
 
 /* fix small css */
@@ -683,64 +224,6 @@ img.icon {
 
 .formsettingheading {
     margin-bottom: 2em;
-}
-
-/*
-* thumbnail
-*/
-
-.thumbnail {
-    position: relative;
-}
-
-.thumbnail-status-box {
-    position:   absolute;
-    top:        0px;
-    width:      100%;
-    padding:    5px 0;
-}
-
-.thumbnail-promotionnal-box {
-    position:   absolute;
-    top:        50px;
-    padding:    5px 5px;
-    right:      0;
-}
-
-.thumbnail-slide {
-    position: relative;
-}
-
-.thumbnail .caption-hover {
-    padding-top:        100px;
-    visibility:         hidden;
-    opacity:            0;
-    position:           absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-color:   #FFF;
-    transition:         opacity 250ms ease-in 500ms;
-}
-
-.thumbnail:hover .caption-hover {
-    visibility: visible;
-    opacity:    1;
-}
-
-.thumbnail-text {
-    margin-top: 20px;
-}
-
-.thumbnail-centertext {
-    margin-top: 20px;
-    text-align: center;
-}
-
-.thumbnail .button {
-    padding: 10px;
-}
-.version-control {
-    font-size:  (@font-size-base * 0.8);
-    color:      @orange-dark-3;
 }
 
 /* calendar quickfix */
@@ -776,7 +259,7 @@ img.icon {
 }
 
 .margin-bottom-md {
-     margin-bottom: 20px;    
+     margin-bottom: 20px;
 }
 
 .height104 {
@@ -790,4 +273,10 @@ img.icon {
 }
 .center {
         text-align: center;
+}
+
+// Footer version control display
+.version-control {
+    font-size:  (@font-size-base * 0.8);
+    color:      @orange-dark-3;
 }

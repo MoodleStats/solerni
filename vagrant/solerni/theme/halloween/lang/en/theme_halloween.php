@@ -216,6 +216,10 @@ $string['signupusername']           = 'Username label';
 $string['signupusernamedesc']       = '';
 $string['signupusernamesub']        = 'Helper text for username field';
 $string['signupusernamesubdesc']    = '';
+$string['signupemail']              = 'Email label';
+$string['signupemaildesc']          = '';
+$string['signupemailsub']           = 'Helper text for email field';
+$string['signupemailsubdesc']       = '';
 $string['signuppasswordsub']        = 'Helper text for password field';
 $string['signuppasswordsubdesc']    = '';
 $string['signupformfooter']         = 'Text on signup form footer';
@@ -230,9 +234,15 @@ $string['missingusername']          = 'Your {$a} cannot be empty';
 $string['catalog_page_title']       = 'Catalog';
 $string['filterstatustitle']        = 'Status';
 $string['filterstatusall']          = 'All MOOCs';
-$string['filterstatusinprogress']   = 'In progress';
-$string['filterstatuscomingsoon']   = 'Coming soon';
-$string['filterstatuscomplete']     = 'Complete';
+
+$string['filterstatusregistrationcomplete']   = 'Mooc complete';
+$string['filterstatusregistrationopen']       = 'Registration open';
+$string['filterstatusregistrationstopped']    = 'Registration stopped';
+$string['filterstatusregistrationnotopen']    = 'Registration not open';
+$string['filterstatusclosed']       = 'Closed';
+$string['filterstatusnotstarted']   = 'Coming soon';
+$string['filterstatusrunning']      = 'In progress';
+
 $string['filterthematicstitle']     = 'Theme';
 $string['filterthematicsall']       = 'All themes';
 $string['filtercategorytitle']      = 'Company';
@@ -252,6 +262,7 @@ $string['i_do_register']            = 'I do register';
 $string['loginoauth']               = 'Log in with {$a}';
 $string['or']                       = 'or';
 $string['username']                 = 'Nickname';
+$string['invalidlogin']             = 'Connection failed. Please check your {$a} and your password.';
 
 // Mooc component.
 $string['courseproposedby']         = "Proposed by";

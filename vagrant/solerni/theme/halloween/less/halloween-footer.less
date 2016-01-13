@@ -1,0 +1,93 @@
+/*
+    Footer rules
+    Social icons bar
+*/
+
+/*
+ * List Links (as in footer)
+ * */
+.list-link {
+    margin: 0;
+    padding: 0;
+}
+
+    .link-item {
+        margin-bottom:  @s-triple-xs-margin;
+        text-align:     center;
+
+        @media (min-width:  @screen-md-min) {
+            margin-bottom:  @s-double-md-margin;
+            text-align:     left;
+        }
+    }
+
+    .link-item:first-child {
+        padding:            @s-small-xs-margin 0;
+        background-color:   @gray-before-light-plus;
+        color:              @brand-primary;
+
+        @media (min-width: @screen-md-min) {
+            background-color:   transparent;
+        }
+
+    }
+
+    .link-item:last-child,
+    .link-item:first-child {
+        margin-bottom: @s-double-xs-margin;
+
+        @media (min-width:  @screen-md-min) {
+            margin-bottom: @s-double-md-margin;
+        }
+    }
+
+    .list-link .dropdown {
+        margin-left:    -@s-double-xs-margin;    // Apparently removing left padding
+        margin-top:     -@s-small-xs-margin;    // Apparently removing top padding
+    }
+
+.footer {
+    margin-bottom: @s-triple-xs-margin;
+
+    @media (min-width:  @screen-md-min) {
+        margin-bottom: @s-triple-md-margin;
+    }
+}
+
+ /*
+  * Social class
+  * */
+
+.list-social {
+   padding-top:     @font-size-base;
+   padding-bottom:  @font-size-base;
+   margin-bottom:   0;
+   margin-left:     0;
+   margin-right:    0;
+}
+
+div[role="main"] .list-social {
+  padding-top:      @font-size-base; // Override because bootstrap specificity
+  padding-bottom:   @font-size-base;
+  padding-left:     0;
+  padding-right:    0;
+}
+
+    .social-item {
+        display:        inline-block;
+        vertical-align: middle;
+        margin-right:   @s-small-xs-margin;
+
+        @media (min-width:  @screen-md-min) {
+            margin-right: @s-double-xs-margin;
+        }
+    }
+
+    .social-item:first-child {
+        margin-right: @font-size-base;
+    }
+
+    .social-item:last-child {
+        margin-right: 0;
+    }
+

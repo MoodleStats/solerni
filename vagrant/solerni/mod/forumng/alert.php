@@ -23,6 +23,7 @@
  */
 require_once('../../config.php');
 require_once('mod_forumng.php');
+require_once($CFG->dirroot . '/local/orange_mail/classes/mail_object.php');
 
 $postid = required_param('p', PARAM_INT);
 $cloneid = optional_param('clone', 0, PARAM_INT);
@@ -117,7 +118,9 @@ if ($fromform = $mform->get_data()) {
         $subject = get_string('alert_emailsubject', 'forumng', $customdata);
         $alltext .= get_string('alert_emailappendix', 'forumng' );
 
-        if (!email_to_user($fakeuser, $from, $subject, $alltext)) {
+        if (!email_to_user($fakeuser, $from, $subject, 
+                mail_object::get_mail($alltext, 'text', ''), 
+                mail_object::get_mail(text_to_html($alltext), 'html', ''))) {
             print_error('error_sendalert', 'forumng', $url, $fakeuser->email);
         }
     }

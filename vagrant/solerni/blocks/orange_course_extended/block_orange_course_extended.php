@@ -29,6 +29,7 @@ require_once($CFG->dirroot.'/blocks/orange_course_extended/locallib.php');
 require_once($CFG->dirroot.'/config.php');
 
 use local_orange_library\enrollment;
+use local_orange_library\utilities\utilities_image;
 
 
 /**
@@ -191,18 +192,8 @@ class block_orange_course_extended extends block_base {
 
         $course = $this->page->course; // Needed to have numsections property available.
         $context = context_course::instance($course->id);
-        $fs = get_file_storage();
-        $files = $fs->get_area_files($context->id, 'format_flexpage', 'coursepicture', 0);
-        $imgurl = '';
-        foreach ($files as $file) {
-            $ctxid = $file->get_contextid();
-            $cmpnt = $file->get_component();
-            $filearea = $file->get_filearea();
-            $itemid = $file->get_itemid();
-            $filepath = $file->get_filepath();
-            $filename = $file->get_filename();
-            $imgurl = moodle_url::make_pluginfile_url($ctxid, $cmpnt, $filearea, $itemid, $filepath, $filename);
-        }
+        $file = utilities_image::get_moodle_stored_file($context, 'format_flexpage', 'coursepicture');
+        $imgurl = utilities_image::get_moodle_url_from_stored_file($file);
 
         $text = $this->renderer->get_text($imgurl, $course, $context);
         $this->content->text = $text;

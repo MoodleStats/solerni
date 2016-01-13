@@ -64,7 +64,7 @@ if ($p) {
 }
 
 // Require_course_login($course, true, $cm);.
-$subscriptionbutton = new subscription_button_object($course);
+
 
 // ...$page = $PAGE->get_renderer('mod_page');.
 $context = context_module::instance($cm->id);
@@ -107,7 +107,13 @@ $filtersblock->content .= $content;
 $extendedcourse = new extended_course_object();
 $extendedcourse->get_extended_course($course, $context);
 
-$filtersblock->content .= '<div class="text-center">'.$subscriptionbutton->set_button($extendedcourse).'</div>';
+$filtersblock->content .= '<div class="caption button text-center">'.$extendedcourse->displaybutton.'</div>';
+if($extendedcourse->statuslink != "#")
+{
+    $filtersblock->content .= '<p class="col-sm-12 thumbnail-text">'
+            . '<a class="link-secondary" href="'.$extendedcourse->statuslink.'">'.$extendedcourse->statuslinktext.'</a></p>';
+}
+
 $filtersblock->footer = '';
 $filtersblock->skiptitle = false;
 
