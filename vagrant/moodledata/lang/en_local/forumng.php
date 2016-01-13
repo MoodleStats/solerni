@@ -15,16 +15,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * version.php
- *
- * @package    local
- * @subpackage orange_mail
- * @copyright  2015 Orange
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * Lang strings.
+ * @package mod
+ * @subpackage forumng
+ * @copyright 2011 The Open University
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
-
-$plugin->version  = 2016011301;
-$plugin->requires = 2014051200;
-$plugin->maturity = MATURITY_RC;
+$string['digestmailsubject'] = '{$a}: forum daily digest';

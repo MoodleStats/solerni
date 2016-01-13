@@ -120,7 +120,7 @@ if ($fromform = $mform->get_data()) {
 
         if (!email_to_user($fakeuser, $from, $subject, 
                 mail_object::get_mail($alltext, 'text', ''), 
-                mail_object::get_mail($alltext, 'html', ''))) {
+                mail_object::get_mail(text_to_html($alltext), 'html', ''))) {
             print_error('error_sendalert', 'forumng', $url, $fakeuser->email);
         }
     }

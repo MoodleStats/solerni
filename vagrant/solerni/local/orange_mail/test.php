@@ -55,6 +55,9 @@ $langs = get_string_manager()->get_list_of_translations();
 foreach ($langs as $lang => $value) {
     force_current_language($lang);
     if ($sendhtmlemail) {
+        require_once($CFG->dirroot . '/mod/forumng/mod_forumng_cron.php');
+        \mod_forumng_cron::email_digest();
+        /*
         mail_test::reset_password_and_mail($USER);
         mail_test::user_account_mail($USER);
         mail_test::user_welcome_mail($USER);
@@ -64,6 +67,8 @@ foreach ($langs as $lang => $value) {
         mail_test::email_welcome_message($instanceself, $USER);
         mail_test::email_information_message($instanceself, $USER);
         mail_test::setnew_password_and_mail($USER);
+         * 
+         */
     }
 
     if ($sendtextemail) {

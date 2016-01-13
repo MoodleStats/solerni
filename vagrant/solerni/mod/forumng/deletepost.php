@@ -23,6 +23,7 @@
  */
 require_once('../../config.php');
 require_once('mod_forumng.php');
+require_once($CFG->dirroot . '/local/orange_mail/classes/mail_object.php');
 
 // Get AJAX parameter which might affect error handling
 $ajax = optional_param('ajax', 0, PARAM_INT);
@@ -147,7 +148,8 @@ if ($email) {
         }
 
         // Send an email to the author of the post.
-        if (!email_to_user($user, $from, $subject, $message, $messagehtml)) {
+        if (!email_to_user($user, $from, $subject, mail_object::get_mail($message, 'text', ''),
+                mail_object::get_mail($messagehtml, 'html', ''))) {
             print_error(get_string('emailerror', 'forumng'));
         }
 
@@ -156,7 +158,8 @@ if ($email) {
         $subject = strtoupper(get_string('copy')) . ' - ' . $subject;
         if ($copyself) {
             // Send an email copy to the current user, with prefered format.
-            if (!email_to_user($USER, $from, $subject, $message, $messagehtml)) {
+            if (!email_to_user($USER, $from, $subject, mail_object::get_mail($message, 'text', ''),
+                    mail_object::get_mail($messagehtml, 'html', ''))) {
                 print_error(get_string('emailerror', 'forumng'));
             }
         }
