@@ -464,7 +464,6 @@ $mainquery", $mainparams);
               ' queries';
         }
         $totalpostcount = $list->get_post_count_so_far();
-die;
         mtrace("Digest processing ($totalpostcount new digest posts) complete, total: "
             . round(microtime(true)-$before, 1) . 's' . $queryinfo);
     }
