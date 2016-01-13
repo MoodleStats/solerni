@@ -549,7 +549,7 @@ $mainquery", $mainparams);
 
             // Get email subject
             $userdigests[$user->id]->subject = get_string('digestmailsubject',
-                'forumng', format_string($course->shortname, true));
+                'forumng', format_string($course->shortname, true) . ' - ' . format_string($forum->get_name(), true));
         }
 
         // New forum?

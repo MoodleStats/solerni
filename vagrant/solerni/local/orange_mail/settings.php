@@ -111,11 +111,18 @@ div.forumng-message p {
 	color: #000;
 	font-size: 16px;
 }
+div.forumng-emailheader a,
+.text_to_html a {
+	color: #F16E00;
+	font-size: 18px;
+	text-decoration: underline;
+}
 div.forumng-email-navbar a,
 div.forumng-email-unsubscribe a,
 h3.forumng-subject a,
 div.forumng-info h2 a,
 div.forumng-message a,
+div.forumng-breadcrumbs a,
 ul.forumng-attachments a,
 ul.forumng-commands a {
 	color: #F16E00;
