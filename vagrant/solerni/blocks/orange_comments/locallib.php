@@ -30,9 +30,25 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright  2015 Orange based on block_comments plugin from 1999 onwards Martin Dougiamas (http://dougiamas.com)
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class orange_comment extends comment {
+class orange_comments extends comment {
 
     public function __construct(stdClass $options) {
+
+        // setup pluginnname
+        if (isset($options->pluginname) && $options->pluginname) {
+            $this->pluginname = $options->pluginname;
+        }
+
+        // setup plugintype
+        if (isset($options->plugintype) && $options->plugintype) {
+            $this->plugintype = $options->plugintype;
+        }
+
+        // setup component
+        if (isset($options->component) && $options->component) {
+            $this->component = $options->component;
+        }
+
         // setup client_id
         if (!empty($options->client_id)) {
             $this->cid = $options->client_id;
@@ -49,14 +65,6 @@ class orange_comment extends comment {
             $this->context = context::instance_by_id($this->contextid);
         } else {
             print_error('invalidcontext');
-        }
-
-        if (!empty($options->component)) {
-            // set and validate component
-            $this->set_component($options->component);
-        } else {
-            // component cannot be empty
-            throw new comment_exception('invalidcomponent');
         }
 
         // setup course
@@ -113,39 +121,157 @@ class orange_comment extends comment {
 
         // load template
         $this->template = html_writer::start_tag('div', array('class' => 'comment-message'));
-        $this->template .= html_writer::start_tag('div', array('class' => 'comment-message-meta'));
+            $this->template .= html_writer::start_tag('div', array('class' => 'comment-message-meta'));
 
-        $this->template .= html_writer::tag('span', '___picture___', array('class' => 'picture'));
-        $this->template .= html_writer::tag('span', '___name___', array('class' => 'user')) . ' - ';
-        $this->template .= html_writer::tag('span', '___time___', array('class' => 'time'));
+                $this->template .= html_writer::tag('span', '___picture___', array('class' => 'picture'));
+                $this->template .= html_writer::tag('span', '___name___', array('class' => 'user')) . ' - ';
+                $this->template .= html_writer::tag('span', '___time___', array('class' => 'time'));
 
-        $this->template .= html_writer::end_tag('div'); // .comment-message-meta
-        $this->template .= html_writer::tag('div', '___content___', array('class' => 'text'));
-
-        $this->template .= html_writer::end_tag('div'); // .comment-message
-
-        if (!empty($this->plugintype)) {
-            $this->template = plugin_callback($this->plugintype, $this->pluginname, 'comment', 'template', array($this->comment_param), $this->template);
-        }
+            $this->template .= html_writer::end_tag('div');
+            $this->template .= html_writer::tag('div', '___content___', array('class' => 'text'));
+        $this->template .= html_writer::end_tag('div');
     }
 
     /**
-     * Sets the component.
-     *
-     * This method shouldn't be public, changing the component once it has been set potentially
-     * invalidates permission checks.
-     * A coding_error is now thrown if code attempts to change the component.
-     *
-     * @param string $component
-     */
+	 * Add a new comment
+	 *
+	 * @global moodle_database $DB
+     * @global moodle_user $USER
+     * @global core_renderer $OUTPUT
+	 * @param string $content
+	 * @param int $format
+	 * @return stdClass
+	 */
+	public function add($content, $format = FORMAT_MOODLE) {
+		global $DB, $USER, $OUTPUT;
 
-    public function set_component($component) {
-        if (!empty($this->component) && $this->component !== $component) {
-            throw new coding_exception('You cannot change the component of a comment once it has been set');
-        }
-        $this->component = $component;
-        list($this->plugintype, $this->pluginname) = core_component::normalize_component($component);
-    }
+		if (!$this->can_post()) {
+			throw new comment_exception('nopermissiontocomment');
+		}
+
+		$now = time();
+		$newcmt = new stdClass;
+		$newcmt->contextid    = $this->contextid;
+		$newcmt->commentarea  = $this->commentarea;
+		$newcmt->itemid       = $this->itemid;
+		$newcmt->content      = $content;
+		$newcmt->format       = $format;
+		$newcmt->userid       = $USER->id;
+		$newcmt->timecreated  = $now;
+
+		$cmt_id = $DB->insert_record('comments', $newcmt);
+		if (!empty($cmt_id)) {
+			$newcmt->id = $cmt_id;
+			$newcmt->strftimeformat = get_string('strftimerecent', 'langconfig');
+			$newcmt->fullname = fullname($USER);
+			$url = new moodle_url('/user/view.php', array('id' => $USER->id, 'course' => $this->courseid));
+			$newcmt->profileurl = $url->out();
+			$newcmt->content = format_text($newcmt->content, $format, array('overflowdiv'=>true));
+			$newcmt->avatar = $OUTPUT->user_picture($USER, array('size'=>16));
+			$newcmt->time = userdate($newcmt->timecreated, $newcmt->strftimeformat);
+
+			// Trigger comment created event.
+			if (core_component::is_core_subsystem($this->component)) {
+				$eventclassname = '\\core\\event\\' . $this->component . '_comment_created';
+			} else {
+				$eventclassname = '\\' . $this->component . '\\event\comment_created';
+			}
+			if (class_exists($eventclassname)) {
+				$event = $eventclassname::create(
+						array(
+								'context' => $this->context,
+								'objectid' => $newcmt->id,
+								'other' => array(
+										'itemid' => $this->itemid
+								)
+						));
+				$event->trigger();
+			}
+
+			return $newcmt;
+		} else {
+			throw new comment_exception('dbupdatefailed');
+		}
+	}
+
+    /**
+	 * delete by context, commentarea and itemid
+     * @global moodle_database $DB
+	 * @param stdClass|array $param {
+	 *            contextid => int the context in which the comments exist [required]
+	 *            commentarea => string the comment area [optional]
+	 *            itemid => int comment itemid [optional]
+	 * }
+	 * @return boolean
+	 */
+	public static function delete_comments($param) {
+		global $DB;
+		$param = (array)$param;
+		if (empty($param['contextid'])) {
+			return false;
+		}
+		$DB->delete_records('comments', $param);
+		return true;
+	}
+
+	/**
+	 * Delete page_comments in whole course, used by course reset
+	 *
+     * @global moodle_database $DB
+	 * @param stdClass $context course context
+	 */
+	public static function reset_course_page_comments($context) {
+		global $DB;
+		$contexts = array();
+		$contexts[] = $context->id;
+		$children = $context->get_child_contexts();
+		foreach ($children as $c) {
+			$contexts[] = $c->id;
+		}
+		list($ids, $params) = $DB->get_in_or_equal($contexts);
+		$DB->delete_records_select('comments', "commentarea='page_comments' AND contextid $ids", $params);
+	}
+
+	/**
+	 * Delete a comment
+     *
+	 * @global moodle_database $DB
+     * @global moodle_user $USER
+	 * @param  int $commentid
+	 * @return bool
+	 */
+	public function delete($commentid) {
+		global $DB, $USER;
+		$candelete = has_capability('moodle/comment:delete', $this->context);
+
+		if (!$comment = $DB->get_record('comments', array('id'=>$commentid))) {
+			throw new comment_exception('dbupdatefailed');
+		}
+		if (!($USER->id == $comment->userid || !empty($candelete))) {
+			throw new comment_exception('nopermissiontocomment');
+		}
+
+		$DB->delete_records('comments', array('id'=>$commentid));
+		// Trigger comment delete event.
+		if (core_component::is_core_subsystem($this->component)) {
+			$eventclassname = '\\core\\event\\' . $this->component . '_comment_deleted';
+		} else {
+			$eventclassname = '\\' . $this->component . '\\event\comment_deleted';
+		}
+		if (class_exists($eventclassname)) {
+			$event = $eventclassname::create(
+					array(
+							'context' => $this->context,
+							'objectid' => $commentid,
+							'other' => array(
+									'itemid' => $this->itemid
+							)
+					));
+			$event->add_record_snapshot('comments', $comment);
+			$event->trigger();
+		}
+		return true;
+	}
 
     /**
      * Revoke validate callbacks
@@ -156,10 +282,12 @@ class orange_comment extends comment {
         foreach ($params as $key=>$value) {
             $this->comment_param->$key = $value;
         }
+
         $validation = plugin_callback($this->plugintype, $this->pluginname, 'comment', 'validate', array($this->comment_param), false);
         if (!$validation) {
             throw new comment_exception('invalidcommentparam');
         }
+
     }
 
     /**
@@ -186,23 +314,31 @@ class orange_comment extends comment {
         $options->page        = 0;
         $options->courseid    = $this->courseid;
         $options->contextid   = $this->contextid;
+        $options->pluginname  = $this->pluginname;
+        $options->plugintype  = $this->plugintype;
         $options->component   = $this->component;
-        $options->component   = 'block_orange_comments';
         $options->notoggle    = $this->notoggle;
         $options->autostart   = $this->autostart;
 
-        $jsmodule = array('name' => 'block_orange_comment',
-                        'fullpath' => '/blocks/orange_comments/module.js',
-                        'requires' => array('base', 'io-base', 'node', 'json', 'yui2-animation', 'overlay'),
-                        'strings' => array(array('confirmdeletecomments', 'admin'), array('yes', 'moodle'), array('no', 'moodle')));
 
-        $page->requires->js_init_call('M.block_orange_comment.init', array($options), true, $jsmodule);
+        $jsmodule = array(
+            'name' => 'block_orange_comments',
+            'fullpath' => '/blocks/orange_comments/module.js',
+            'requires' => array('base', 'io-base', 'node', 'json', 'yui2-animation', 'overlay'),
+            'strings' => array(array('confirmdeletecomments', 'admin'), array('yes', 'moodle'), array('no', 'moodle')));
+
+        $page->requires->string_for_js('saysomething', 'block_orange_comments');
+        $page->requires->js_init_call('M.block_orange_comments.init', array($options), true, $jsmodule);
+
         return true;
     }
 
-
     /**
      * Prepare comment code in html
+     *
+     * @global moodle_page $PAGE
+     * @global core_renderer $OUTPUT
+     *
      * @param  boolean $return
      * @return string|void
      */
@@ -222,91 +358,91 @@ class orange_comment extends comment {
         // print html template
         // Javascript will use the template to render new comments
         if (empty($template_printed) && $this->can_view()) {
-            $html .= html_writer::tag('div', $this->template, array('style' => 'display:none', 'id' => 'cmt-tmpl'));
+            $html .= html_writer::tag('div', $this->template, array('style' => 'display:none',
+                'id' => 'cmt-tmpl'));
             $template_printed = true;
         }
 
         if ($this->can_view()) {
             // print commenting icon and tooltip
             $html .= html_writer::start_tag('div', array('class' => 'mdl-left'));
-            $html .= html_writer::link($this->get_nojslink($PAGE), get_string('showcommentsnonjs'), array('class' => 'showcommentsnonjs'));
+                $html .= html_writer::link($this->get_nojslink($PAGE), get_string('showcommentsnonjs'),
+                    array('class' => 'showcommentsnonjs'));
 
-            if ($this->can_post()) {
+                if ($this->can_post()) {
 
-                if (!$this->notoggle) {
-                    // If toggling is enabled (notoggle=false) then print the controls to toggle
-                    // comments open and closed
-                    $countstring = '';
-                    if ($this->displaytotalcount) {
-                        $countstring = '('.$this->count().')';
-                    }
-                    $collapsedimage = 't/collapsed';
-                    if (right_to_left()) {
-                        $collapsedimage = 't/collapsed_rtl';
-                    } else {
+                    if (!$this->notoggle) {
+                        // If toggling is enabled (notoggle=false) then print the controls to toggle
+                        // comments open and closed
+                        $countstring = '';
+                        if ($this->displaytotalcount) {
+                            $countstring = '('.$this->count().')';
+                        }
                         $collapsedimage = 't/collapsed';
+                        if (right_to_left()) {
+                            $collapsedimage = 't/collapsed_rtl';
+                        } else {
+                            $collapsedimage = 't/collapsed';
+                        }
+                        // This is the link that opens the textarea.
+                        $html .= html_writer::start_tag('a', array('class' => 'comment-link', 'id' => 'comment-link-'.$this->cid, 'href' => '#'));
+                            $html .= html_writer::empty_tag('img', array('id' => 'comment-img-'.$this->cid, 'src' => $OUTPUT->pix_url($collapsedimage), 'alt' => $this->linktext, 'title' => $this->linktext));
+                            $html .= html_writer::tag('span', $this->linktext.' '.$countstring);
+                        $html .= html_writer::end_tag('a');
                     }
-                    $html .= html_writer::start_tag('a', array('class' => 'comment-link', 'id' => 'comment-link-'.$this->cid, 'href' => '#'));
-                    $html .= html_writer::empty_tag('img', array('id' => 'comment-img-'.$this->cid, 'src' => $OUTPUT->pix_url($collapsedimage), 'alt' => $this->linktext, 'title' => $this->linktext));
-                    $html .= html_writer::tag('span', $this->linktext.' '.$countstring);
-                    $html .= html_writer::end_tag('a');
-                }
 
-                $html .= html_writer::start_tag('div', array('id' => 'comment-ctrl-'.$this->cid, 'class' => 'comment-ctrl', 'style' => 'display:block'));
+                    $html .= html_writer::start_tag('div', array('id' => 'comment-ctrl-'.$this->cid, 'class' => 'comment-ctrl', 'style' => 'display:block'));
 
-                // print posting textarea
-                $textareaattrs = array(
-                        'name' => 'content',
-                        'rows' => 2,
-                        'id' => 'dlg-content-'.$this->cid
-                );
-                if (!$this->fullwidth) {
-                    $textareaattrs['cols'] = '20';
-                } else {
-                    $textareaattrs['class'] = 'fullwidth';
-                }
+                        // print posting textarea
+                        $textareaattrs = array(
+                                'name' => 'content',
+                                'rows' => 2,
+                                'id' => 'dlg-content-'.$this->cid
+                        );
+                        if (!$this->fullwidth) {
+                            $textareaattrs['cols'] = '20';
+                        } else {
+                            $textareaattrs['class'] = 'fullwidth';
+                        }
 
-                $html .= html_writer::start_tag('div', array('class' => 'comment-area'));
+                        $html .= html_writer::start_tag('div', array('class' => 'comment-area'));
 
-                $html .= html_writer::start_tag('div', array('class' => 'db'));
-                $html .= html_writer::tag('textarea', '', $textareaattrs);
-                $html .= html_writer::end_tag('div'); // .db
+                            $html .= html_writer::start_tag('div', array('class' => 'db'));
+                                $html .= html_writer::tag('textarea', '', $textareaattrs);
+                            $html .= html_writer::end_tag('div'); // .db
 
-                $html .= html_writer::start_tag('div', array('class' => 'fd', 'id' => 'comment-action-'.$this->cid));
-                $html .= html_writer::link('#', get_string('savecomment'), array('id' => 'comment-action-post-'.$this->cid));
+                            $html .= html_writer::start_tag('div', array('class' => 'fd', 'id' => 'comment-action-'.$this->cid));
+                            $html .= html_writer::link('#', get_string('savecomment'), array('id' => 'comment-action-post-'.$this->cid));
 
-                if ($this->displaycancel) {
-                    $html .= html_writer::tag('span', ' | ');
-                    $html .= html_writer::link('#', get_string('cancel'), array('id' => 'comment-action-cancel-'.$this->cid));
-                }
+                            if ($this->displaycancel) {
+                                $html .= html_writer::tag('span', ' | ');
+                                $html .= html_writer::link('#', get_string('cancel'), array('id' => 'comment-action-cancel-'.$this->cid));
+                            }
 
-                $html .= html_writer::end_tag('div'); // .fd
+                        $html .= html_writer::end_tag('div'); // .fd
 
-                $html .= html_writer::end_tag('div'); // .comment-area
-                $html .= html_writer::tag('div', '', array('class' => 'clearer'));
+                    $html .= html_writer::end_tag('div'); // .comment-area
+                    $html .= html_writer::tag('div', '', array('class' => 'clearer'));
 
                 $html .= html_writer::end_tag('div'); // .comment-ctrl
 
-            }
+                }
 
-            if ($this->autostart) {
-                $html .= "<br>";
-                // If autostart has been enabled print the comments list immediatly
-                $html .= html_writer::start_tag('ul', array('id' => 'comment-list-'.$this->cid, 'class' => 'comment-list comments-loaded'));
-                $html .= html_writer::tag('li', '', array('class' => 'first'));
-                $html .= $this->print_comments(0, true, false);
-                $html .= html_writer::end_tag('ul'); // .comment-list
-                $html .= $this->get_pagination(0);
-            } else {
-                $html .= html_writer::start_tag('ul', array('id' => 'comment-list-'.$this->cid, 'class' => 'comment-list'));
-                $html .= html_writer::tag('li', '', array('class' => 'first'));
-                $html .= html_writer::end_tag('ul'); // .comment-list
-                $html .= html_writer::tag('div', '', array('id' => 'comment-pagination-'.$this->cid, 'class' => 'comment-pagination'));
-            }
+                if ($this->autostart) {
+                    // If autostart has been enabled print the comments list immediatly
+                    $html .= html_writer::start_tag('ul', array('id' => 'comment-list-'.$this->cid, 'class' => 'comment-list comments-loaded'));
+                        $html .= html_writer::tag('li', '', array('class' => 'first'));
+                        $html .= $this->print_comments(0, true, false);
+                    $html .= html_writer::end_tag('ul'); // .comment-list
+                    $html .= $this->get_pagination(0);
+                } else {
+                    $html .= html_writer::start_tag('ul', array('id' => 'comment-list-'.$this->cid, 'class' => 'comment-list'));
+                        $html .= html_writer::tag('li', '', array('class' => 'first'));
+                    $html .= html_writer::end_tag('ul'); // .comment-list
+                    $html .= html_writer::tag('div', '', array('id' => 'comment-pagination-'.$this->cid, 'class' => 'comment-pagination'));
+                }
 
             $html .= html_writer::end_tag('div'); // .mdl-left
-        } else {
-            $html = '';
         }
 
         if ($return) {
@@ -324,6 +460,7 @@ class orange_comment extends comment {
      */
     public function get_comments($page = '') {
         global $DB, $CFG, $USER, $OUTPUT;
+
         if (!$this->can_view()) {
             return false;
         }
@@ -334,12 +471,6 @@ class orange_comment extends comment {
         $params = array();
         $perpage = (!empty($CFG->commentsperpage)) ? $CFG->commentsperpage : 15;
         $start = $page * $perpage;
-
-        if ($page == 2) {
-            $perpage = 0;
-            $start = 0;
-        }
-
         $ufields = user_picture::fields('u');
         $sql = "SELECT $ufields, c.id AS cid, c.content AS ccontent, c.format AS cformat, c.timecreated AS ctimecreated
         FROM {comments} c
@@ -391,19 +522,15 @@ class orange_comment extends comment {
      * If you need to check permission by modules, a
      * function named $pluginname_check_comment_post must be implemented
      */
-
-    private function check_permissions() {
+    protected function check_permissions() {
         $this->postcap = has_capability('moodle/comment:post', $this->context);
         $this->viewcap = has_capability('moodle/comment:view', $this->context);
-
         if (!empty($this->plugintype)) {
             $permissions = plugin_callback($this->plugintype, $this->pluginname, 'comment', 'permissions', array($this->comment_param), array('post' => false, 'view' => false));
             $this->postcap = $this->postcap && $permissions['post'];
             $this->viewcap = $this->viewcap && $permissions['view'];
         }
-
     }
-
 
     /**
      * Gets a link for this page that will work with JS disabled.
@@ -425,6 +552,7 @@ class orange_comment extends comment {
                 'comment_area'    => $this->commentarea,
         ));
         $link->remove_params(array('comment_page'));
+
         return $link;
 
     }
@@ -435,6 +563,7 @@ class orange_comment extends comment {
      */
     public function can_post() {
         $this->validate();
+
         return isloggedin() && !empty($this->postcap);
     }
 
@@ -447,55 +576,59 @@ class orange_comment extends comment {
      * @return string|void
      */
     public function print_comments($page = 0, $return = true, $nonjs = true) {
-        global $DB, $CFG, $PAGE;
+        global $PAGE;
 
         if (!$this->can_view()) {
             return '';
         }
-
-        $html = '';
         if (!($this->itemid == null && $this->context->id == null && $this->commentarea == null)) {
             $page = 0;
         }
-        $comments = $this->get_comments($page);
 
         $html = '';
+        $comments = $this->get_comments($page);
+
         if ($nonjs) {
             $html .= html_writer::tag('h3', get_string('comments'));
             $html .= html_writer::start_tag('ul', array('id' => 'comment-list-'.$this->cid, 'class' => 'comment-list'));
         }
+
         // Display comment : last comment in first position
         foreach ($comments as $cmt) {
             $html .= html_writer::tag('li', $this->print_comment($cmt, $nonjs), array('id' => 'comment-'.$cmt->id.'-'.$this->cid));
         }
+
         if ($nonjs) {
             $html .= html_writer::end_tag('ul');
             $html .= $this->get_pagination($page);
         }
+
         if ($nonjs && $this->can_post()) {
             // Form to add comments
             $html .= html_writer::start_tag('form', array('method' => 'post', 'action' => new moodle_url('/comment/comment_post.php')));
-            // Comment parameters
-            $html .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'contextid', 'value' => $this->contextid));
-            $html .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'action',    'value' => 'add'));
-            $html .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'area',      'value' => $this->commentarea));
-            $html .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'component', 'value' => $this->component));
-            $html .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'itemid',    'value' => $this->itemid));
-            $html .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'courseid',  'value' => $this->courseid));
-            $html .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'sesskey',   'value' => sesskey()));
-            $html .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'returnurl', 'value' => $PAGE->url));
-            // Textarea for the actual comment
-            $html .= html_writer::tag('textarea', '', array('name' => 'content', 'rows' => 2));
-            // Submit button to add the comment
-            $html .= html_writer::empty_tag('input', array('type' => 'submit', 'value' => get_string('submit')));
+                // Comment parameters
+                $html .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'contextid', 'value' => $this->contextid));
+                $html .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'action',    'value' => 'add'));
+                $html .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'area',      'value' => $this->commentarea));
+                $html .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'component', 'value' => $this->component));
+                $html .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'itemid',    'value' => $this->itemid));
+                $html .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'courseid',  'value' => $this->courseid));
+                $html .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'sesskey',   'value' => sesskey()));
+                $html .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'returnurl', 'value' => $PAGE->url));
+                // Textarea for the actual comment
+                $html .= html_writer::tag('textarea', '', array('name' => 'content', 'rows' => 2));
+                // Submit button to add the comment
+                $html .= html_writer::empty_tag('input', array('type' => 'submit', 'value' => get_string('submit')));
             $html .= html_writer::end_tag('form');
         }
+
         if ($return) {
             return $html;
         } else {
             echo $html;
         }
     }
+
     /**
      * Returns true if the user can delete this comment
      * @param int $commentid
@@ -503,8 +636,10 @@ class orange_comment extends comment {
      */
     public function can_delete($commentid) {
         $this->validate(array('commentid' => $commentid));
+
         return has_capability('moodle/comment:delete', $this->context);
     }
+
     /**
      * Returns the number of comments associated with the details of this object
      *
@@ -516,9 +651,9 @@ class orange_comment extends comment {
         if ($this->totalcommentcount === null) {
             $this->totalcommentcount = $DB->count_records('comments', array('itemid' => $this->itemid, 'commentarea' => $this->commentarea, 'contextid' => $this->context->id));
         }
+
         return $this->totalcommentcount;
     }
-
 
     /**
      * Returns an array containing comments in HTML format.
@@ -544,12 +679,14 @@ class orange_comment extends comment {
 
         if (!empty($cmt->delete) && empty($nonjs)) {
             $deletelink  = html_writer::start_tag('div', array('class' => 'comment-delete'));
-            $deletelink .= html_writer::start_tag('a', array('href' => '#', 'id' => 'comment-delete-'.$this->cid.'-'.$cmt->id));
-            $deletelink .= $OUTPUT->pix_icon('t/delete', get_string('delete'));
-            $deletelink .= html_writer::end_tag('a');
+                $deletelink .= html_writer::start_tag('a', array('href' => '#', 'id' => 'comment-delete-'.$this->cid.'-'.$cmt->id));
+                    $deletelink .= $OUTPUT->pix_icon('t/delete', get_string('delete'));
+                $deletelink .= html_writer::end_tag('a');
             $deletelink .= html_writer::end_tag('div');
             $cmt->content = $deletelink . $cmt->content;
         }
+
+        // Populating template.
         $patterns[] = '___picture___';
         $patterns[] = '___name___';
         $patterns[] = '___content___';
@@ -573,12 +710,16 @@ class orange_comment extends comment {
      */
     public function get_pagination($page = 0) {
         global $CFG, $OUTPUT;
+
         $count = $this->count();
         $perpage = (!empty($CFG->commentsperpage)) ? $CFG->commentsperpage : 15;
         $pages = (int)ceil($count / $perpage);
+
         if ($pages == 1 || $pages == 0) {
-            return html_writer::tag('div', '', array('id' => 'comment-pagination-'.$this->cid, 'class' => 'comment-pagination'));
+            return html_writer::tag('div', '', array('id' => 'comment-pagination-'.$this->cid,
+                'class' => 'comment-pagination'));
         }
+
         if (!empty(self::$nonjs)) {
             // used in non-js interface
             return $OUTPUT->paging_bar($count, $page, $perpage, $this->get_nojslink(), 'comment_page');
@@ -596,6 +737,7 @@ class orange_comment extends comment {
             }
             $str .= '</div>';
         }
+
         return $str;
     }
 }

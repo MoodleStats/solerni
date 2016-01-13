@@ -27,5 +27,5 @@ $string['orange_comments:addinstance'] = 'Add a new comments block';
 $string['pluginname'] = 'Orange Comments';
 $string['yourreactions'] = 'Your reactions';
 
-$string['showcomments'] = "Write a comment";
-$string['addcomment'] = "yyyyyyyyyyy";
+$string['writecomment'] = "Click here to comment";
+$string['saysomething'] = "Say something...";

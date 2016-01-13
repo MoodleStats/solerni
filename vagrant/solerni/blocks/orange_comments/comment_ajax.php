@@ -57,6 +57,13 @@ if (!confirm_sesskey()) {
 	die(json_encode($error));
 }
 
+if (!isloggedin()) {
+	// tell user to log in to view comments
+	echo json_encode(array('error'=>'require_login'));
+    die(json_encode($error));
+}
+
+
 $client_id = required_param('client_id', PARAM_ALPHANUM);
 $area      = optional_param('area',      '', PARAM_AREA);
 $commentid = optional_param('commentid', -1, PARAM_INT);
@@ -64,6 +71,8 @@ $content   = optional_param('content',   '', PARAM_RAW);
 $itemid    = optional_param('itemid',    '', PARAM_INT);
 $page      = optional_param('page',      0,  PARAM_INT);
 $component = optional_param('component', '',  PARAM_COMPONENT);
+$plugintype = optional_param('plugintype', '',  PARAM_COMPONENT);
+$pluginname = optional_param('pluginname', '',  PARAM_COMPONENT);
 
 // initilising comment object
 $args = new stdClass;
@@ -74,7 +83,9 @@ $args->area      = $area;
 $args->itemid    = $itemid;
 $args->client_id = $client_id;
 $args->component = $component;
-$manager = new orange_comment($args);
+$args->pluginname = $pluginname;
+$args->plugintype = $plugintype;
+$manager = new orange_comments($args);
 
 echo $OUTPUT->header(); // send headers
 
@@ -106,26 +117,16 @@ switch ($action) {
 		break;
 	case 'get':
 	default:
-		error_log("passage 11111111111111");
 		if ($manager->can_view()) {
-			error_log("passage 2222222222222");
 			$comments = $manager->get_comments($page);
 			$result = array(
-					'list'       => $comments,
+					'list'       => array_reverse($comments), // reverse array to have the first on top
 					'count'      => $manager->count(),
 					'pagination' => $manager->get_pagination($page),
 					'client_id'  => $client_id
 			);
-			echo json_encode($result);			
+
+			echo json_encode($result);
 			die();
 		}
-		
-		break;
 }
-
-if (!isloggedin()) {
-	// tell user to log in to view comments
-	echo json_encode(array('error'=>'require_login'));
-}
-// ignore request
-die;
