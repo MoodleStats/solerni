@@ -58,14 +58,15 @@ $formaction = log_and_session_utilities::define_login_form_action($locallog); ?>
     <div class="loginpanel col-md-6 col-md-offset-3">
         <?php if ($errormsg) : ?>
             <!-- alert box -->
-            <div class="alert alert-warning loginerrors" role="alert">
-                <p id="loginerrormessage" class="alert-link">
+            <div class="loginerrors alert" role="alert">
+                <p id="loginerrormessage" class="text-danger text-center">
                     <?php echo $OUTPUT->error_text($errormsg); ?>
                 </p>
             </div>
         <?php endif; ?>
         <form action="<?php echo $formaction['host']; ?>/login/index.php"
-              method="POST" id="login" <?php echo $autocomplete; ?> >
+              method="POST" id="login" <?php echo $autocomplete;
+              if ($errormsg) : ?> class="has-error"<?php endif; ?> >
             <?php if ( $formaction['isthematic']) :?>
                 <input type="hidden" name="mnetorigin" value="<?php echo $CFG->wwwroot; ?>">
             <?php endif; ?>
@@ -113,7 +114,7 @@ $formaction = log_and_session_utilities::define_login_form_action($locallog); ?>
                 </div>
             <?php endif; ?>
             <div class="form-group">
-                <input type="submit" class="btn btn-primary btn-block" id="loginbtn" value="<?php print_string("login") ?>" />
+                <input type="submit" class="btn btn-engage btn-block" id="id_submitbutton" value="<?php print_string("login") ?>" />
             </div>
         </form>
     </div>
