@@ -24,7 +24,6 @@ defined('MOODLE_INTERNAL') || die();
 use theme_halloween\settings\options;
 use theme_halloween\tools\theme_utilities;
 
-
 /**
  * All functions in this class are copy of Moodle code or Plugins code.
  * This code is for email test purpose only
@@ -340,16 +339,18 @@ class mail_test {
     }
 
     // Mail M9 to M13 in Forum NG plugin.
-    
+
     static public function setnew_password_and_mail($user, $modetext=false) {
         global $CFG, $DB;
 
         // We try to send the mail in language the user understands,
         // unfortunately the filter_string() does not support alternative langs yet
         // so multilang will not work properly for site->fullname.
-        // $lang = empty($user->lang) ? $CFG->lang : $user->lang;
         $lang = current_language();
-        
+        if ($lang != 'fr' && $lang != 'en') {
+            $lang = 'fr';
+        }
+
         $site  = get_site();
 
         $supportuser = core_user::get_support_user();
@@ -366,7 +367,7 @@ class mail_test {
 
         $messagehtml = (string)new lang_string('newusernewpasswordtext', '', $a, $lang);
         $message = html_to_text($messagehtml);
-        
+
         if ($modetext) {
             $user->mailformat = 0;
         } else {
