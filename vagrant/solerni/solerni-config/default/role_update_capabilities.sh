@@ -530,3 +530,7 @@ moosh role-update-capability solerni_utilisateur mod/forumng:view allow 1
 moosh role-update-capability solerni_utilisateur mod/forumng:viewdiscussion allow 1
 moosh role-update-capability solerni_utilisateur mod/forumng:viewrating allow 1
 moosh role-update-capability solerni_utilisateur mod/forumng:viewreadinfo allow 1
+
+# Forumng : solerni_animateur can create forumNG
+moosh role-update-capability solerni_animateur mod/forumng:addinstance allow 1
+moosh role-update-capability solerni_animateur moodle/course:manageactivities allow 1

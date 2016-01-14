@@ -145,9 +145,6 @@ moosh config-set mnet_register_allhosts 0
 moosh config-set sessioncookie ${CUSTOMER_COOKIE_PREFIX}
 moosh peer-add ${MNET_PEER}
 
-# Default sitepolicy (cgus)
-moosh config-set sitepolicy https://${CUSTOMER_DOMAIN}/static/cgu.html
-
 # oauth2: do not display buttons on login page
 moosh config-set oauth2displaybuttons 0 'auth/googleoauth2'
 
@@ -182,7 +179,6 @@ moosh config-set timezone Europe/Paris
 # support contact : Admin > Server > Support contact
 moosh config-set supportname "Contact Solerni"
 moosh config-set supportemail ${CUSTOMER_CONTACT_USER_EMAIL}
-moosh config-set supportpage ${CUSTOMER_DOMAIN}/static/faq.html
 
 # support contacts (#us_288) 
 moosh username-configset supportuserid supportuser
