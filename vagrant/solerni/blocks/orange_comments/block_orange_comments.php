@@ -31,13 +31,15 @@ require_once($CFG->dirroot . '/blocks/orange_comments/locallib.php');
 class block_orange_comments extends block_base {
 
     public function init() {
-        $this->title = get_string('yourreactions', 'block_orange_comments');
+        // Admin Plugin Name.
+        $this->title = get_string('pluginname', 'block_orange_comments');
     }
 
     public function specialization() {
-        // Require js for commenting.
-        comment::init();
+        // Frontend Block Name.
+        $this->title = get_string('yourreactions', 'block_orange_comments');
     }
+
     public function applicable_formats() {
         return array('all' => true);
     }
@@ -48,9 +50,11 @@ class block_orange_comments extends block_base {
 
     public function get_content() {
         global $CFG, $PAGE, $OUTPUT;
+
         if ($this->content !== null) {
             return $this->content;
         }
+
         if (!$CFG->usecomments) {
             $this->content = new stdClass();
             $this->content->text = '';
@@ -59,18 +63,21 @@ class block_orange_comments extends block_base {
             }
             return $this->content;
         }
+
         $this->content = new stdClass();
         $this->content->footer = '';
-        $this->content->text = '';
+
         if (empty($this->instance)) {
+            $this->content->text = '';
+
             return $this->content;
         }
+
         list($context, $course, $cm) = get_context_info_array($PAGE->context->id);
 
         $pageid  = optional_param('pageid', 0, PARAM_INT);
-
         if ($pageid == 0 ) {
-            // Find all element in navbar and keep the last : this is curent page.
+            // Find all element in navbar and keep the last : this is current page.
             $tab = explode('<a href="', $OUTPUT->navbar());
             $urlcurrent = substr( end($tab), 0, strpos(end($tab), '"'));
             if (strpos($urlcurrent, "pageid") !== false) {
@@ -84,25 +91,25 @@ class block_orange_comments extends block_base {
             }
         }
 
-        $args = new stdClass;
-        $args->context   = $PAGE->context;
-        $args->course    = $course;
-        $args->area      = 'page_comments';
-        $args->itemid    = $pageid;
-        $args->component = 'block_orange_comments';
-        $args->linktext  = get_string('showcomments', 'block_orange_comments');
-        $args->notoggle  = false;
-        $args->autostart = true;
-        $args->displaycancel = false;
+        $args                   = new stdClass;
+        $args->context          = $PAGE->context;
+        $args->course           = $course;
+        $args->area             = 'page_comments';
+        $args->itemid           = $pageid;
+        $args->pluginname       = 'orange_comments';
+        $args->plugintype       = 'block';
+        $args->component        = 'block_orange_comments';
+        $args->linktext         = get_string('writecomment', 'block_orange_comments');
+        $args->notoggle         = false;
+        $args->autostart        = true;
+        $args->displaycancel    = false;
 
-        $orangecomment = new orangecomment($args);
+        $orangecomment = new orange_comments($args);
         $orangecomment->set_view_permission(true);
         $orangecomment->set_fullwidth();
 
-        $this->content = new stdClass();
         $this->content->text = $orangecomment->output(true);
 
-        $this->content->footer = '';
         return $this->content;
     }
 }
