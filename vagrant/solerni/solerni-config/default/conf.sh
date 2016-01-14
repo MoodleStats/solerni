@@ -158,7 +158,7 @@ moosh auth-manage enable mnet
 moosh config-set smtphosts ${SMTP_SERVER}
 
 # Create a support user (normally id=3)
-moosh user-create --password pass --email ${CUSTOMER_CONTACT_USER_EMAIL} --firstname 'Contact' --lastname 'Solerni' --city 'Paris' --country 'FR' 'supportuser'  
+moosh user-create --password pass --email ${CUSTOMER_CONTACT_USER_EMAIL} --firstname 'Contact' --lastname 'Solerni' --city 'Paris' --country 'FR' 'supportuser'
 
 # disable default messaging system (#us_226)
 moosh config-set messaging 0
@@ -184,7 +184,7 @@ moosh config-set supportname "Contact Solerni"
 moosh config-set supportemail ${CUSTOMER_CONTACT_USER_EMAIL}
 moosh config-set supportpage ${CUSTOMER_DOMAIN}/static/faq.html
 
-# support contacts (#us_288) 
+# support contacts (#us_288)
 moosh username-configset supportuserid supportuser
 moosh username-configset noreplyuserid supportuser
 
@@ -208,9 +208,12 @@ moosh config-set emailsubject '' local_eledia_makeanonymous
 # Generate mail string html/txt
 moosh mail-generate
 
-# Default frontpage role : changed to allow access to the general ForumNg 
+# Default frontpage role : changed to allow access to the general ForumNg
 moosh role-configset defaultfrontpageroleid solerni_apprenant
 
 # Delete roles : solerni_animateur_plateforme, solerni_power_utilisateur
 moosh role-delete solerni_animateur_plateforme
 moosh role-delete solerni_power_utilisateur
+
+# Inverse Last Name and First Name in Signup Form
+moosh config-set fullnamedisplay "lastname, firstname"

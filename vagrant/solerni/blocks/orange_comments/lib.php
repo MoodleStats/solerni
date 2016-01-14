@@ -86,3 +86,4 @@ function block_orange_comments_comment_display($comments, $args) {
 
     return $comments;
 }
+

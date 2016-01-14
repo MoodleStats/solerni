@@ -282,4 +282,19 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
         </div>
     <?php
     }
+
+    /**
+     * Output an error message. By default wraps the error message in <span class="error">.
+     * If the error message is blank, nothing is output.
+     *
+     * @param string $message the error message.
+     * @return string the HTML to output.
+     */
+    public function error_text($message) {
+        if (empty($message)) {
+            return '';
+        }
+        
+        return html_writer::tag('span', $message, array('class' => 'error'));
+    }
 }
