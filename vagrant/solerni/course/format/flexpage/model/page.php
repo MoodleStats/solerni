@@ -21,7 +21,10 @@
  * @author Mark Nielsen
  */
 
-require_once($CFG->libdir.'/conditionlib.php');
+//origin : Orange
+//plugin version : 2016011800
+//modification : upgrading to moodle 2.9
+//require_once($CFG->libdir.'/conditionlib.php');
 require_once(__DIR__.'/abstract.php');
 require_once(__DIR__.'/condition/grade.php');
 require_once(__DIR__.'/condition/field.php');

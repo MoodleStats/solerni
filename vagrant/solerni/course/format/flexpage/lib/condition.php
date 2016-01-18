@@ -23,7 +23,7 @@
 
 use core_availability\info;
 
-require_once($CFG->libdir.'/conditionlib.php');
+//require_once($CFG->libdir.'/conditionlib.php');
 
 /**
  * @author Mark Nielsen
@@ -137,5 +137,8 @@ class course_format_flexpage_lib_condition extends info {
      *
      * @return string Name of capability used to view hidden items of this type
      */
-    protected function get_view_hidden_capability(){return '';}
+    //origin : Orange
+    //plugin version : 2016011800
+    //modification : upgrading to moodle 2.9
+    //protected function get_view_hidden_capability(){return '';}
 }

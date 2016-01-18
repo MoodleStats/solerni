@@ -33,7 +33,7 @@
  * orange 2015120300 : modifing default to flexpage creation : visible in menu and flexpage next and previous
  */
 
-$plugin->version      = 2015121700;
+$plugin->version      = 2016011800;
 $plugin->requires     = 2014051203;
 $plugin->component    = 'format_flexpage';
 $plugin->release      = '2.8.0 (Build: 20150708)';
