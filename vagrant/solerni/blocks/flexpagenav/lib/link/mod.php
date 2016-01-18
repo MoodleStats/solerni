@@ -40,7 +40,7 @@ class block_flexpagenav_lib_link_mod extends block_flexpagenav_lib_link_abstract
         try {
             $modinfo = get_fast_modinfo($COURSE);
             $cm     = $modinfo->get_cm($this->get_link()->get_config('cmid', 0));
-            return html_writer::link($cm->get_url(), $cm->name);
+            return html_writer::link($cm->url, $cm->get_formatted_name());
         } catch (Exception $e) {
             return get_string('moderror', 'block_flexpagenav');
         }
@@ -58,7 +58,8 @@ class block_flexpagenav_lib_link_mod extends block_flexpagenav_lib_link_abstract
         foreach ($modinfo->get_instances() as $module => $instances) {
             $options = array();
             foreach ($instances as $instance) {
-                $options[$instance->id] = $instance->name;
+                /** @var cm_info $instance */
+                $options[$instance->id] = $instance->get_formatted_name();
             }
             natcasesort($options);
 
@@ -80,14 +81,14 @@ class block_flexpagenav_lib_link_mod extends block_flexpagenav_lib_link_abstract
         try {
             $modinfo = get_fast_modinfo($COURSE);
             $cm      = $modinfo->get_cm($this->get_link()->get_config('cmid', 0));
-            $url     = $cm->get_url();
+            $url     = $cm->url;
             if ($cm->uservisible and $url) {
                 if ($cm->icon) {
                     $icon = new pix_icon($cm->icon, get_string('modulename', $cm->modname), $cm->iconcomponent);
                 } else {
                     $icon = new pix_icon('icon', get_string('modulename', $cm->modname), $cm->modname);
                 }
-                $activitynode = $root->add(format_string($cm->name), $url, navigation_node::TYPE_CUSTOM, null, 'mod_'.$cm->id.'_'.$this->get_link()->get_id(), $icon);
+                $activitynode = $root->add($cm->get_formatted_name(), $url, navigation_node::TYPE_CUSTOM, null, 'mod_'.$cm->id.'_'.$this->get_link()->get_id(), $icon);
                 $activitynode->title(get_string('modulename', $cm->modname));
                 $activitynode->hidden = (!$cm->visible);  // @todo Should we not add if it's not visible?
             }
