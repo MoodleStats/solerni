@@ -167,18 +167,17 @@ class block_flexpagenav_repository_menu {
         global $DB;
 
         $DB->execute('
-            DELETE c
-              FROM {block_flexpagenav_menu} m
-        INNER JOIN {block_flexpagenav_link} l ON m.id = l.menuid
-        INNER JOIN {block_flexpagenav_config} c ON l.id = c.linkid
-             WHERE m.courseid = ?
+            DELETE FROM {block_flexpagenav_config}
+                  WHERE linkid IN (
+                 SELECT l.id
+                   FROM {block_flexpagenav_menu} m
+                   JOIN {block_flexpagenav_link} l ON m.id = l.menuid
+                  WHERE m.courseid = ?)
         ', array($courseid));
 
         $DB->execute('
-            DELETE l
-              FROM {block_flexpagenav_menu} m
-        INNER JOIN {block_flexpagenav_link} l ON m.id = l.menuid
-             WHERE m.courseid = ?
+            DELETE FROM {block_flexpagenav_link}
+                  WHERE menuid IN (SELECT id FROM {block_flexpagenav_menu} WHERE courseid = ?)
         ', array($courseid));
 
         $DB->delete_records('block_flexpagenav_menu', array('courseid' => $courseid));
