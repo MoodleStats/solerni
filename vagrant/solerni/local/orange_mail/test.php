@@ -41,7 +41,7 @@ $PAGE->set_pagelayout('admin');
 $currentlang = current_language();
 
 $sendtextemail = false;     // Send test emails in Text format.
-$sendhtmlemail = true;      // Send test emails in Text format.
+$sendhtmlemail = true;      // Send test emails in HTML format.
 
 // Get last course.
 $course = $DB->get_record_sql('SELECT * FROM {course} ORDER BY id DESC LIMIT 1');

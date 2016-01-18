@@ -264,6 +264,10 @@ $string['or']                       = 'or';
 $string['username']                 = 'Nickname';
 $string['invalidlogin']             = 'Connection failed. Please check your {$a} and your password.';
 
+// Register page.
+$string['already_registered']       = 'Already registered?';
+$string['i_do_login']               = 'I log in';
+
 // Mooc component.
 $string['courseproposedby']         = "Proposed by";
 $string['coursefindoutmore']        = "Find out more";

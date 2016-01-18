@@ -111,7 +111,7 @@ $string['solernimailfootertext'] = 'Ce message vous est envoyé automatiquement,
               Afin de bien recevoir nos e-mails, ajoutez cette adresse {$b->noreplyemail} dans votre carnet d\'adresses.';
 $string['solernimailfooterhtml'] = '<p>Ce message vous est envoyé automatiquement, merci de ne pas y répondre directement.<br />
               Si vous avez des questions écrivez-nous à <a href="mailto:{$b->contactemail}" class="lientxt14orange">{$b->contactemail}</a>.<br />
-              Afin de bien recevoir nos e-mails, ajoutez cette adresse <a href="mailto:{$b->npreplyemail}" class="lientxt14orange">{$b->noreplyemail}</a> dans votre carnet d\'adresses.</p>';
+              Afin de bien recevoir nos e-mails, ajoutez cette adresse <a href="mailto:{$b->noreplyemail}" class="lientxt14orange">{$b->noreplyemail}</a> dans votre carnet d\'adresses.</p>';
 $string['solernimailfooterinscriptiontext'] = 'Vous recevez cet e-mail car votre adresse e-mail a été utilisée sur notre site {$b->sitename}. Si vous ne vous êtes pas inscrit à {$b->sitename}, veuillez simplement ignorer ce message et votre compte sera supprimé automatiquement.
             Ce message vous est envoyé automatiquement, merci de ne pas y répondre directement.
               Si vous avez des questions écrivez-nous à {$b->contactemail}.
@@ -119,7 +119,7 @@ $string['solernimailfooterinscriptiontext'] = 'Vous recevez cet e-mail car votre
 $string['solernimailfooterinscriptionhtml'] = '<p>Vous recevez cet e-mail car votre adresse e-mail a été utilisée sur notre site <a href="{$b->siteurl}" class="lientxt14orange">{$b->sitename}</a>. Si vous ne vous êtes pas inscrit à {$b->sitename}, veuillez simplement ignorer ce message et votre compte sera supprimé automatiquement.</p>
             <p>Ce message vous est envoyé automatiquement, merci de ne pas y répondre directement.<br />
               Si vous avez des questions écrivez-nous à <a href="mailto:{$b->contactemail}" class="lientxt14orange">{$b->contactemail}</a>.<br />
-              Afin de bien recevoir nos e-mails, ajoutez cette adresse <a href="mailto:{$b->npreplyemail}" class="lientxt14orange">{$b->noreplyemail}</a> dans votre carnet d\'adresses.</p>';
+              Afin de bien recevoir nos e-mails, ajoutez cette adresse <a href="mailto:{$b->noreplyemail}" class="lientxt14orange">{$b->noreplyemail}</a> dans votre carnet d\'adresses.</p>';
 $string['solernimailfollowus'] = 'Suivez-nous';
 
 
@@ -141,10 +141,10 @@ $string['contentuseraccountemail'] = '<p>Bonjour <span class="txt18BNoir">{$a->f
 Nous vous remercions pour votre inscription sur le site <strong>{$a->sitename}</strong>.</p>
 <p>Voici un rappel de vos identifiants de connexion pour accéder à votre compte :</p>
 <ul>
-    <li>Email : <a href="{$a->email}" class="lientxt18orange">{$a->email}</a></li>
+    <li>Email : <a href=\'{$a->email}\' class="lientxt18orange">{$a->email}</a></li>
     <li>Mot de passe : vous seul le connaissez</li>
 </ul>
-<p>Vous pouvez dès à présent accéder à votre compte en cliquant <a href="{$a->profileurl}" class="lientxt18orange">ici</a>.</p>
+<p>Vous pouvez dès à présent accéder à votre compte en cliquant <a href="{$a->profilurl}" class="lientxt18orange">ici</a>.</p>
 <p>A très vite sur {$a->sitename}, votre nouvelle plateforme de Moocs francophone collaborative.</p>';
 
 $string['contentwelcomeemail'] = '<p>Bienvenue <span class="txt18BNoir">{$a->fullname}</span>,</p>
@@ -156,7 +156,7 @@ $string['contentwelcomeemail'] = '<p>Bienvenue <span class="txt18BNoir">{$a->ful
 <p><strong>Restez en contact, restez connecté</strong></p>
 <p>Pour être au courant des nouveautés et des évènements sur {$a->sitename}, rejoignez nous sur <a href="{$b->facebook}" target="_new" class="lientxt18orange">Facebook</a> et <a href="{$b->twitter}" target="_new" class="lientxt18orange">Twitter</a>, sans oublier d\'aller faire un tour sur notre <a href="{$b->blog}" target="_new" class="lientxt18orange">Blog</a> qui vous informera des actualités liées  à l’univers de ces nouvelles méthodes d’apprentissage sociales et collaboratives.</p>
 <p><strong>Pour bien communiquer, remplissez votre profil</strong></p>
-<p>Et pour être sûr(e) de pouvoir échanger avec les autres apprenants et les pédagogues, n’oubliez pas de remplir et de paramétrer votre <a href="{$b->profileurl}" class="lientxt18orange">profil</a>.</p>
+<p>Et pour être sûr(e) de pouvoir échanger avec les autres apprenants et les pédagogues, n’oubliez pas de remplir et de paramétrer votre <a href="{$b->profilurl}" class="lientxt18orange">profil</a>.</p>
 <p>Voilà, vous êtes prêt(e) à présent pour vous lancer avec nous dans l’aventure des Moocs collaboratifs.
 En espérant vous retrouver très vite sur {$a->sitename} où nous vous souhaitons de vivre de nouvelles expériences enrichissantes&nbsp;!</p>';
 $string['emailresetconfirmationhtml'] = '<p>Bienvenue <span class="txt18BNoir">{$a->firstname} {$a->lastname}</span>,</p>

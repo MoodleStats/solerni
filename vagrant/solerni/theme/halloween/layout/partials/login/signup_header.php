@@ -15,6 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 use theme_halloween\tools\theme_utilities;
+
 require_once($CFG->dirroot . '/filter/multilang/filter.php');
 $filtermultilang = new filter_multilang($PAGE->context, array());
 ?>
@@ -32,6 +33,13 @@ $filtermultilang = new filter_multilang($PAGE->context, array());
                     <?php echo $filtermultilang->filter($PAGE->theme->settings->signuptext); ?>
                 </p>
             <?php endif; ?>
+            <p class="col-md-6 col-md-offset-3" >
+                <?php echo get_string('already_registered', 'theme_halloween'); ?>
+                <a class="tag-platform-subscription"
+                   href="<?php echo $CFG->wwwroot . '/login/index.php' ?>">
+                    <?php echo get_string('i_do_login', 'theme_halloween'); ?>
+                </a>
+            </p>
         </div>
     </div>
 <?php endif;

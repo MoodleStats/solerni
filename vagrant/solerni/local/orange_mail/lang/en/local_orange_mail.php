@@ -110,13 +110,13 @@ $string['solernimailfootertext'] = 'This is an automatic message, please do not 
 To ensure that you never miss our email, add this address {$b->noreplyemail} to your address book.';
 $string['solernimailfooterhtml'] = '<p>This is an automatic message, please do not reply to it directly.<br />
     If you have any questions, write to us at <a href="mailto:{$b->contactemail}" class="lientxt14orange">{$b->contactemail}</a>.<br />
-To ensure that you never miss our email, add this address <a href="mailto:{$b->npreplyemail}" class="lientxt14orange">{$b->noreplyemail}</a> to your address book.</p>';
+To ensure that you never miss our email, add this address <a href="mailto:{$b->noreplyemail}" class="lientxt14orange">{$b->noreplyemail}</a> to your address book.</p>';
 $string['solernimailfooterinscriptiontext'] = 'You have received this email because your email address was used to sign up to our site {$a->sitename}. This is an automatic message, please do not reply to it directly. If you have any questions, write to us at {$b->contactemail}.
 To ensure that you never miss our email, add this address {$b->noreplyemail} to your address book.';
 $string['solernimailfooterinscriptionhtml'] = '<p>You have received this email because your email address was used to sign up to our site <a href="{$b->siteurl}" class="lientxt14orange">{$b->sitename}</a>.</p>
     <p>This is an automatic message, please do not reply to it directly.<br />
     If you have any questions, write to us at <a href="mailto:{$b->contactemail}" class="lientxt14orange">{$b->contactemail}</a>.<br />
-To ensure that you never miss our email, add this address <a href="mailto:{$b->npreplyemail}" class="lientxt14orange">{$b->noreplyemail}</a> to your address book.</p>';
+To ensure that you never miss our email, add this address <a href="mailto:{$b->noreplyemail}" class="lientxt14orange">{$b->noreplyemail}</a> to your address book.</p>';
 $string['solernimailfollowus'] = 'Follow us';
 
 // Original Moodle email strings.
@@ -140,10 +140,10 @@ $string['contentuseraccountemail'] = '<p>Hello <span class="txt18BNoir">{$a->ful
 Thank you for registering to <strong>{$a->sitename}</strong>.<p>
 <p>Here is a reminder of your account login details :</p>
 <ul>
-    <li>E-mail : <a href="{$a->email}" class="lientxt18orange">{$a->email}</a></li>
+    <li>E-mail : <a href=\'{$a->email}\' class="lientxt18orange">{$a->email}</a></li>
     <li>Password : you are the only one to know</li>
 </ul>
-<p>You can now access your account by <a href="{$a->profileurl}" class="lientxt18orange">here</a>.</p>
+<p>You can now access your account by <a href="{$a->profilurl}" class="lientxt18orange">here</a>.</p>
 <p>See you very soon on {$a->sitename}, your new collaborative French MOOC platform.</p>';
 $string['contentwelcomeemail'] = '<p>Welcome <span class="txt18BNoir">{$a->fullname}</span>,</p>
 <p>We are delighted to welcome you to {$a->sitename}, your new collaborative French MOOC platform.</p>
@@ -154,7 +154,7 @@ $string['contentwelcomeemail'] = '<p>Welcome <span class="txt18BNoir">{$a->fulln
 <p><strong>Stay in contact, stay connected</strong> </p>
 <p>To keep up with new developments and events on Solerni, join us on <a href="{$b->facebook}" target="_new" class="lientxt18orange">Facebook</a> and <a href="{$b->twitter}" target="_new" class="lientxt18orange">Twitter</a>, and don\'t forget to visit our <a href="{$b->blog}" target="_new" class="lientxt18orange">Blog</a>, which will keep you informed of the latest news about these new social and collaborative learning methods.</p>
 <p><strong>For effective communication, complete your profile</strong></p>
-<p>And to ensure you are able to interact with other learners and teachers, don\'t forget to complete and configure your <a href="{$b->profileurl}" class="lientxt18orange">profile</a>.</p>
+<p>And to ensure you are able to interact with other learners and teachers, don\'t forget to complete and configure your <a href="{$b->profilurl}" class="lientxt18orange">profile</a>.</p>
 <p>That\'s it! You\'re now ready to start your collaborative MOOC adventure with us. We hope to see you very soon on {$a->sitename} and hope you enjoy new and rewarding experiences with us!</p>';
 $string['emailresetconfirmationhtml'] = '<p>Hello <span class="txt18BNoir">{$a->firstname} {$a->lastname}</span>,</p>
 
