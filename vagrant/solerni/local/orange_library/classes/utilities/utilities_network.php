@@ -28,6 +28,24 @@ defined('MOODLE_INTERNAL') || die();
 class utilities_network {
 
     /**
+     * Function to determine if the platform should use (ie not private) and is
+     * correctly configured to use mnet.
+     * @return bool
+     */
+    public static function is_platform_uses_mnet() {
+        global $CFG;
+        $mnethosts = utilities_network::get_hosts();
+        switch(true) {
+            case (isset($CFG->solerni_isprivate) && $CFG->solerni_isprivate):
+            case !is_enabled_auth('mnet'):
+            case empty($mnethosts):
+                return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Check is the Moodle instance is the home server of the Moodle Network.
      *
      * @return boolean

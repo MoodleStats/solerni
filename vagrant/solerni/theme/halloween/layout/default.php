@@ -20,6 +20,7 @@
 require_once($CFG->dirroot.'/course/format/flexpage/locallib.php');
 use local_orange_library\utilities\utilities_course;
 use theme_halloween\tools\theme_utilities;
+use local_orange_library\utilities\utilities_network;
 
 $hassidepre = $PAGE->blocks->region_has_content('side-pre', $OUTPUT);
 $hassidepost = $PAGE->blocks->region_has_content('side-post', $OUTPUT);
@@ -73,16 +74,21 @@ echo $OUTPUT->doctype() ?>
         document.body.className += ' jsenabled';
     </script>
     <div class="u-inverse">
-        <?php require($CFG->partialsdir . '/header/skiplinks.php'); ?>
+        <?php require_once($CFG->partialsdir . '/header/skiplinks.php'); ?>
     </div>
+    <?php if (utilities_network::is_platform_uses_mnet()) : ?>
+    <div class="container">
+        <?php require_once($CFG->partialsdir . '/header/nav-resac.php'); ?>
+    </div>
+    <?php endif; ?>
     <!-- header -->
     <div class="u-inverse">
-        <?php require($CFG->partialsdir . '/header/header_solerni.php'); ?>
+        <?php require_once($CFG->partialsdir . '/header/header_solerni.php'); ?>
     </div>
     <!-- content from template -->
     <div id="page" class="container">
         <?php if(!utilities_course::is_frontpage_course($COURSE)) {
-            require($CFG->partialsdir . '/breadcrumb.php');
+            require_once($CFG->partialsdir . '/breadcrumb.php');
         } ?>
         <div id="page-content" class="row">
             <div id="region-main" class="<?php echo $regions['content']; ?>">
@@ -109,13 +115,13 @@ echo $OUTPUT->doctype() ?>
     </div>
     <!-- footer -->
     <div class="u-inverse">
-        <?php require($CFG->partialsdir . '/footer/platform_social_bar.php'); ?>
+        <?php require_once($CFG->partialsdir . '/footer/platform_social_bar.php'); ?>
     </div>
     <div class="u-inverse">
         <div class="col-xs-12 fullwidth-line"></div>
     </div>
     <div class="u-inverse">
-        <?php require($CFG->partialsdir . '/footer/footer_solerni.php'); ?>
+        <?php require_once($CFG->partialsdir . '/footer/footer_solerni.php'); ?>
     </div>
     <?php echo $OUTPUT->standard_end_of_body_html() ?>
 </body>
