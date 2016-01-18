@@ -198,14 +198,15 @@ moosh config-set status 0 enrol_orangeinvitation
 moosh cache-admin --servers ${MEMCACHED_CACHE_SERVER} --prefix ${MEMCACHED_CACHE_PREFIX} memcached addstore ${MEMCACHED_CACHE_NAME}
 moosh cache-admin memcached editmodemappings ${MEMCACHED_CACHE_NAME}
 
-# Make Anonymous : add empty mail subject
+# Make Anonymous : add empty mail subject & msg
 moosh config-set emailsubject '' local_eledia_makeanonymous
+moosh config-set emailmsg '' local_eledia_makeanonymous
 
 # Generate mail string html/txt
 moosh mail-generate
 
 # Default frontpage role : changed to allow access to the general ForumNg
-moosh role-configset defaultfrontpageroleid solerni_apprenant
+moosh role-configset defaultfrontpageroleid solerni_utilisateur
 
 # Delete roles : solerni_animateur_plateforme, solerni_power_utilisateur
 moosh role-delete solerni_animateur_plateforme
@@ -213,3 +214,11 @@ moosh role-delete solerni_power_utilisateur
 
 # Inverse Last Name and First Name in Signup Form
 moosh config-set fullnamedisplay "lastname, firstname"
+
+# local_orangemail : add email support, contact...
+moosh config-set contactemail ${CUSTOMER_CONTACT_USER_EMAIL} local_orangemail
+moosh config-set supportemail ${CUSTOMER_SUPPORT_USER_EMAIL} local_orangemail
+moosh config-set marketemail ${CUSTOMER_MARKET_USER_EMAIL} local_orangemail
+moosh config-set partneremail ${CUSTOMER_PARTNER_USER_EMAIL} local_orangemail
+moosh config-set noreplyemail ${CUSTOMER_NOREPLY_USER_EMAIL} local_orangemail
+moosh config-set integratoremail ${CUSTOMER_DATA_INTEGRATOR_USER_EMAIL} local_orangemail

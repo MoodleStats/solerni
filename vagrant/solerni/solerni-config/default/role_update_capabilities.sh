@@ -525,12 +525,48 @@ moosh role-update-capability solerni_utilisateur mod/forumng:forwardposts allow 
 moosh role-update-capability solerni_utilisateur mod/forumng:grade allow 1
 moosh role-update-capability solerni_utilisateur mod/forumng:rate allow 1
 moosh role-update-capability solerni_utilisateur mod/forumng:replypost allow 1
-moosh role-update-capability solerni_utilisateur mod/forumng:startdiscussion allow 1
 moosh role-update-capability solerni_utilisateur mod/forumng:view allow 1
 moosh role-update-capability solerni_utilisateur mod/forumng:viewdiscussion allow 1
 moosh role-update-capability solerni_utilisateur mod/forumng:viewrating allow 1
 moosh role-update-capability solerni_utilisateur mod/forumng:viewreadinfo allow 1
 
 # Forumng : solerni_animateur can create forumNG
-moosh role-update-capability solerni_animateur mod/forumng:addinstance allow 1
-moosh role-update-capability solerni_animateur moodle/course:manageactivities allow 1
+moosh role-update-capability solerni_animateur mod/forumng:addinstance inherit 1
+moosh role-update-capability solerni_animateur moodle/course:manageactivities inherit 1
+
+# Forumng : update capabilities
+moosh role-update-capability solerni_marketing forumngfeature/edittags:editsettags inherit 1
+moosh role-update-capability solerni_course_creator forumngfeature/edittags:editsettags inherit 1
+moosh role-update-capability solerni_marketing forumngfeature/edittags:managesettags inherit 1
+moosh role-update-capability solerni_apprenant forumngfeature/usage:view inherit 1
+moosh role-update-capability solerni_apprenant forumngfeature/userposts:view allow 1
+moosh role-update-capability solerni_course_creator forumngfeature/userposts:view allow 1
+moosh role-update-capability solerni_course_creator mod/forumng:addtag allow 1
+moosh role-update-capability solerni_marketing mod/forumng:copydiscussion inherit 1
+moosh role-update-capability solerni_course_creator mod/forumng:createattachment allow 1
+moosh role-update-capability solerni_marketing mod/forumng:deleteanypost inherit 1
+moosh role-update-capability solerni_marketing mod/forumng:editanypost inherit 1
+moosh role-update-capability solerni_course_creator mod/forumng:forwardposts allow 1
+moosh role-update-capability solerni_course_creator mod/forumng:grade allow 1
+moosh role-update-capability solerni_marketing mod/forumng:ignorepostlimits inherit 1
+moosh role-update-capability solerni_marketing mod/forumng:mailnow inherit 1
+moosh role-update-capability solerni_marketing mod/forumng:managediscussions inherit 1
+moosh role-update-capability solerni_marketing mod/forumng:managesubscriptions inherit 1
+moosh role-update-capability solerni_marketing mod/forumng:movediscussions inherit 1
+moosh role-update-capability solerni_marketing mod/forumng:postanon inherit 1
+moosh role-update-capability solerni_animateur mod/forumng:postanon inherit 1
+moosh role-update-capability solerni_marketing mod/forumng:postasmoderator inherit 1
+moosh role-update-capability solerni_animateur mod/forumng:postasmoderator inherit 1
+moosh role-update-capability solerni_course_creator mod/forumng:rate allow 1
+moosh role-update-capability solerni_course_creator mod/forumng:replypost allow 1
+moosh role-update-capability solerni_marketing mod/forumng:setimportant inherit 1
+moosh role-update-capability solerni_marketing mod/forumng:splitdiscussions inherit 1
+moosh role-update-capability solerni_utilisateur mod/forumng:startdiscussion inherit 1
+moosh role-update-capability solerni_course_creator mod/forumng:view allow 1
+moosh role-update-capability solerni_power_apprenant mod/forumng:viewallposts allow 1
+moosh role-update-capability solerni_course_creator mod/forumng:viewdiscussion allow 1
+moosh role-update-capability solerni_course_creator mod/forumng:viewrating allow 1
+moosh role-update-capability solerni_course_creator mod/forumng:viewreadinfo allow 1
+
+# solerni_course_creator : can add or delete roles in frontpage and courses
+moosh role-update-capability solerni_course_creator moodle/role:override allow 1
