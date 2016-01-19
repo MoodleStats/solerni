@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,17 +16,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_orange_comments', language 'en'
+ * Strings for component 'form', language 'en', branch 'MOODLE_20_STABLE'
  *
- * @package    block_orange_comments
- * @copyright 2009 Dongsheng Cai <dongsheng@moodle.com>
+ * @package   form
+ * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['orange_comments:myaddinstance'] = 'Add a new comments block to My home';
-$string['orange_comments:addinstance'] = 'Add a new comments block';
-$string['pluginname'] = 'Orange Comments';
-$string['yourreactions'] = 'Your reactions';
-
-$string['writecomment'] = "Click here to comment";
-$string['saysomething'] = "Say something...";
+$string['unmaskpassword'] = 'Afficher';

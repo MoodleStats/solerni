@@ -24,6 +24,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2015120100;        // The current plugin version (Date: YYYYMMDDXX).
+$plugin->version   = 2016011300;        // The current plugin version (Date: YYYYMMDDXX).
 $plugin->requires  = 2014051207;        // Requires this Moodle version.
 $plugin->component = 'block_orange_comments'; // Full name of the plugin (used for diagnostics).
