@@ -195,8 +195,8 @@ moosh config-set defaultenrol 1 enrol_orangeinvitation
 moosh config-set status 0 enrol_orangeinvitation
 
 # Add cache store memcached
-moosh cache-admin --servers ${MEMCACHED_CACHE_SERVER} --prefix ${MEMCACHED_CACHE_PREFIX} memcached addstore ${MEMCACHED_CACHE_NAME}
-moosh cache-admin memcached editmodemappings ${MEMCACHED_CACHE_NAME}
+# moosh cache-admin --servers ${MEMCACHED_CACHE_SERVER} --prefix ${MEMCACHED_CACHE_PREFIX} memcached addstore ${MEMCACHED_CACHE_NAME}
+# moosh cache-admin memcached editmodemappings ${MEMCACHED_CACHE_NAME}
 
 # Make Anonymous : add empty mail subject & msg
 moosh config-set emailsubject '' local_eledia_makeanonymous
