@@ -37,7 +37,6 @@ class local_orange_event_course_created_observer {
 
     public static function course_created(\core\event\course_created  $event) {
         global $CFG, $DB;
-        require_once($CFG->dirroot.'/config.php');
         $site = get_site();
         $contact = core_user::get_support_user();
         $user = $DB->get_record('user', array('id' => $event->userid));
@@ -79,7 +78,6 @@ class local_orange_event_course_created_observer {
 
             // We call the API PIWIK in order to give an access Piwik to a new account piwik.
             $ch = curl_init();
-            $timeout = 5;
             curl_setopt($ch, CURLOPT_URL, $urluseraccess);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
@@ -88,7 +86,6 @@ class local_orange_event_course_created_observer {
 
             // We call the API PIWIK in order to create a segment in piwik.
             $ch = curl_init();
-            $timeout = 5;
             curl_setopt($ch, CURLOPT_URL, $urlsegment);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);

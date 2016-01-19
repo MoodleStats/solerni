@@ -17,7 +17,7 @@
 /**
  * Version details
  *
- * @package    local_orange_event_course_viewed
+ * @package    local_orange_event_course_created
  * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
