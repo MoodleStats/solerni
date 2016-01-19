@@ -23,14 +23,12 @@
  */
 
 defined('MOODLE_INTERNAL') || die();
-
-  
+require_once($CFG->dirroot . '/local/orange_mail/classes/mail_object.php');
 /**
  * Event observer for block orange_ruels.
  */
 class local_orange_event_course_created_observer {
 
-  
     /**
      * Triggered via course_viewed event.
      *
@@ -38,61 +36,87 @@ class local_orange_event_course_created_observer {
      */
 
     public static function course_created(\core\event\course_created  $event) {
-        global $CFG;
-        
+        global $CFG, $DB;
+        require_once($CFG->dirroot.'/config.php');
+        $site = get_site();
+        $contact = core_user::get_support_user();
+        $user = $DB->get_record('user', array('id' => $event->userid));
+
         if ($event->courseid != 1) {
-            
-            // $course = get_record('course','id', $event->courseid);
-            // error_log($course->fullname);
-            require_once($CFG->dirroot.'/config.php');
+            // Values usefull for call UsersManager.addUser method.
+            $course = $DB->get_record('course', array('id' => $event->courseid));
+            $category = $DB->get_record('course_categories', array('id' => $course->category));
             $url = $CFG->piwik_internal_url;
-            // error_log($url);
-            //$url = 'http::81/piwik/?';
             $module = 'module=API';
             $method = '&method=UsersManager.addUser';
-            $user = '&userLogin=Nouto72159';
-            $password = '&password=totototo';
-            $email = '&email=azertyfdvbtyby@gmail.com';
-            $token_auth = '&token_auth=54a685f1bb79eb195d431d6f55118dd7'; 
-            $url =$url.'?'.$module.$method.$user.$password.$email.$token_auth;
-         
+            $userpiwik = $course->shortname;
+            $password = md5($userpiwik);
+            $email = '&email='.$course->shortname.'@yopmail.com'.
+            $tokenauth = '&token_auth='.$CFG->piwik_token_admin;
+            $urlaccount = $url.'?'.$module.$method.'&userLogin='.$userpiwik.'&password='.$password.$email.$tokenauth;
+            // Values usefull for call UsersManager.setUserAccess method.
+            $methodaccessuser = '&method=UsersManager.setUserAccess';
+            $idsite = '&idSites=1';
+            $access = '&access=view';
+            $urluseraccess = $url.'?'.$module.$methodaccessuser.'&userLogin='.$userpiwik.$access.$idsite.$tokenauth;
+            // Values usefull for call SegmentEditor.add method.
+            $methodsegment = '&method=SegmentEditor.add';
+            $name = '&name='.$course->shortname;
+            $definition = '&definition=customVariablePageValue1=='.$course->fullname;
+            $idsite = '&idSite=1';
+            $autoarchive = '&autoArchive=0';
+            $enabledallusers = '&enabledAllUsers=0';
+            $urlsegment = $url.'?'.$module.$methodsegment.$name.$definition.$idsite.$autoarchive.$enabledallusers.$tokenauth;
             
-           
-            
-                    
-            // we call the REST API in order to create a account piwik
-            // $fetched = file_get_contents($url);
-            // $ch = curl_init($url);
-            
-
+            // We call the API PIWIK in order to create a account piwik.
             $ch = curl_init();
             $timeout = 5;
-            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_URL, $urlaccount);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-            $data = curl_exec($ch);
-            // print_r($data);
-          
+            $response = curl_exec($ch);
             curl_close($ch);
-            print_object($data);
-            die('mofo');
-}
-           
-           
-            //$result_Piwik = new SimpleXMLElement($ret);
-            //error_log ("result_Piwik=".var_dump($result_Piwik));
-            //error_log ("result_Piwik->error=".var_dump($result_Piwik->error));
-            //error_log ($result_Piwik->['error message']);
-           
-            //curl_close($ch);
-            // case error
-            
-            
-        // }
-        
 
+            // We call the API PIWIK in order to give an access Piwik to a new account piwik.
+            $ch = curl_init();
+            $timeout = 5;
+            curl_setopt($ch, CURLOPT_URL, $urluseraccess);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+            $responseuseraccess = curl_exec($ch);
+            curl_close($ch);
+
+            // We call the API PIWIK in order to create a segment in piwik.
+            $ch = curl_init();
+            $timeout = 5;
+            curl_setopt($ch, CURLOPT_URL, $urlsegment);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+            $responsesegment = curl_exec($ch);
+            curl_close($ch);
+
+           // We test XML Piwik responses to kwow if segment and user are correctly created and send mail.
+            $xmlsegment = new SimpleXMLElement($responsesegment);
+            $XML = new SimpleXMLElement($response);
+            $XMLuseraccess = new SimpleXMLElement($responseuseraccess);
+            $XMLsegment = intval($XMLsegment);
+            $srtsuccess = 'ok';
+
+            if (($XML->success['message'] == $srtsuccess) && ($XMLuseraccess->success['message'] == $srtsuccess) && is_int($XMLsegment) == true ) {
+                $message = get_string('content_piwik_success', 'local_orange_event_course_created');
+                $key = array('{$a->username}', '{$a->coursename}', '{$a->sitename}', '{$a->userpiwik}', '{$a->passwordpiwik}');
+                $value = array($user->fullname, $course->fullname, $site->fullname, $userpiwik, $password);
+                $message = str_replace($key, $value, $message);
+                $subject = get_string('subject_piwik_success', 'local_orange_event_course_created');
+                $subject = str_replace('{$a->sitename}', format_string($site->fullname), $subject);
+                email_to_user($user, $contact, $subject, mail_object::get_mail($message, 'text', ''), mail_object::get_mail($message, 'html', ''));
+            } else {
+                $message = get_string('content_piwik_fail', 'local_orange_event_course_created');
+                $subject = get_string('subject_piwik_fail', 'local_orange_event_course_created');
+                email_to_user($user, $contact, $subject, mail_object::get_mail($message, 'text', ''), mail_object::get_mail($message, 'html', ''));
+            }
+
+        }
         return true;
     }
 }
-
-
