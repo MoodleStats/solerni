@@ -23,11 +23,11 @@ class log_and_session_utilities {
 
     /**
      * Function to determine if we have to log locally or not on this instance.
-     * Return bool
+     * @return bool
      */
-    public static function is_platform_login_uses_mnet($mnethosts) {
+    public static function is_platform_login_uses_mnet() {
         global $CFG;
-
+        $mnethosts = utilities_network::get_hosts();
         switch(true) {
             case $CFG->solerni_isprivate:
             case !is_enabled_auth('mnet'):
@@ -82,13 +82,30 @@ class log_and_session_utilities {
      * @return void
      */
     public static function login_redirect_user($loginstateinit, $testsession) {
-        global $SESSION;
+
+        // If errors or not into $testession, do not redirect.
+        if ($loginstateinit['errorcode'] !== 0 || !$testsession) {
+            return;
+        }
+
+        redirect(self::get_session_user_redirect_url());
+    }
+
+    /**
+     * This function gets keys from $SESSION to check if user comes from an MNET thematic
+     * or have a previously wanted to see a page.
+     *
+     * Return the URL of one of those keys, or use homepage as default.
+     *
+     * @global $SESSION
+     *
+     * @return string (URL)
+     *
+     */
+    public static function get_session_user_redirect_url() {
+        global $SESSION, $CFG;
 
         switch (true) {
-            // Error. Cannot redirect
-            case $loginstateinit['errorcode'] !== 0:
-            case !$testsession:
-                return;
             // We are in a mnet situation.
             // mnetredirect variable come from the login page first iteration (define_form_action).
             case isset($SESSION->mnetredirect):
@@ -100,11 +117,12 @@ class log_and_session_utilities {
                 $urltogo = $SESSION->wantsurl;
                 unset($SESSION->wantsurl);
                 break;
+            default:
+                $urltogo = $CFG->wwwroot . '/';
         }
 
-        if(isset($urltogo)) {
-            redirect($urltogo);
-        }
+        return $urltogo;
+
     }
 
     /**
@@ -117,7 +135,7 @@ class log_and_session_utilities {
      *
      * @return void
      */
-    public static function check_for_mnet_origin($frm ) {
+    public static function check_for_mnet_origin($frm) {
         // Compute possible redirect jump to thematic form login form $frm
         if($frm && isset($frm->mnetorigin)) {
             self::set_session_mnet_redirect($frm->mnetorigin);
@@ -125,10 +143,12 @@ class log_and_session_utilities {
     }
 
     public static function set_session_mnet_redirect($thematicurl) {
-    global $SESSION, $CFG;
-    foreach(utilities_network::get_hosts() as $host) {
-            if ($host->url == $thematicurl) {
-                $SESSION->mnetredirect = new \moodle_url($CFG->wwwroot . '/auth/mnet/jump.php', array('hostid' => $host->id));
+        global $SESSION, $CFG;
+        if ($hosts = utilities_network::get_hosts()) {
+            foreach($hosts as $host) {
+                if ($host->url == $thematicurl) {
+                    $SESSION->mnetredirect = new \moodle_url($CFG->wwwroot . '/auth/mnet/jump.php', array('hostid' => $host->id));
+                }
             }
         }
     }
@@ -148,7 +168,7 @@ class log_and_session_utilities {
         $formactionhost = $CFG->wwwroot;
         $isthematic = false;
 
-        if (utilities_network::is_thematic() && !$locallog) {
+        if (self::is_platform_login_uses_mnet() && utilities_network::is_thematic() && !$locallog) {
             $homemnet = utilities_network::get_home();
             if ($homemnet) {
                 $formactionhost = $homemnet->url;
@@ -174,7 +194,7 @@ class log_and_session_utilities {
         $formaction = self::define_login_form_action(false);
         $query = '';
 
-        if ($formaction['isthematic']) {
+        if (self::is_platform_login_uses_mnet() && $formaction['isthematic']) {
             $query = '?mnetorigin=' . urlencode($CFG->wwwroot);
         }
 

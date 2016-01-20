@@ -24,6 +24,7 @@ vagrant/override5/*
 !vagrant/override/user/profile3/field/menu
 !vagrant/override/user/profile4/field/menu
 !vagrant/override/user/profile5/field/menu
+!vagrant/override/lib
 .vagrant
 .vagrant.old
 vagrant/.*

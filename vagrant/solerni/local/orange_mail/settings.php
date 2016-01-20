@@ -35,6 +35,18 @@ if ($hassiteconfig) {
             new lang_string('contactemail', 'local_orange_mail'),
             new lang_string('contactemail_desc', 'local_orange_mail'), 'contact@solerni.com', PARAM_NOTAGS));
 
+    $page->add(new admin_setting_configtext('local_orangemail/supportemail',
+            new lang_string('supportemail', 'local_orange_mail'),
+            new lang_string('supportemail_desc', 'local_orange_mail'), 'support@solerni.com', PARAM_NOTAGS));
+
+    $page->add(new admin_setting_configtext('local_orangemail/marketemail',
+            new lang_string('marketemail', 'local_orange_mail'),
+            new lang_string('marketemail_desc', 'local_orange_mail'), 'marketing@solerni.com', PARAM_NOTAGS));
+
+    $page->add(new admin_setting_configtext('local_orangemail/partneremail',
+            new lang_string('partneremail', 'local_orange_mail'),
+            new lang_string('partneremail_desc', 'local_orange_mail'), 'partners@solerni.com', PARAM_NOTAGS));
+
     $page->add(new admin_setting_configtext('local_orangemail/noreplyemail',
             new lang_string('noreplyemail', 'local_orange_mail'),
             new lang_string('noreplyemail_desc', 'local_orange_mail'), 'noreply@solerni.com', PARAM_NOTAGS));
@@ -50,8 +62,9 @@ if ($hassiteconfig) {
 body, td, th, ul {
 	font-family: Arial, Helvetica, sans-serif;
 	color: #000;
+	font-size: 18px;
 }
-.txt14blanc {
+.txt14blanc, .txt14blanc > p {
 	color: #FFF;
 	font-size: 14px;
 }
@@ -70,21 +83,51 @@ body, td, th, ul {
 	font-size: 18px;
 	text-decoration: underline;
 }
-.txt18Noir {
+.txt18Noir, .txt18Noir > p {
 	color: #000;
 	font-size: 18px;
 }
-.txt18BNoir {
+.txt18BNoir, .txt18BNoir > p {
 	color: #000;
 	font-size: 18px;
 	font-weight: bold;
 }
-.txt18BBlanc {
+.txt18BBlanc, .txt18BBlanc > p {
 	font-family: \'Helvetica Neue LT Std!important\';
 	color: #FFF;
 	font-size: 18px;
 	font-weight: bold;
 	vertical-align: bottom;
+}
+div.forumng-info h2 small {
+	color: #000;
+	font-size: 16px;
+}
+div.forumng-moderator-flag, span.forumng-date {
+	color: #000;
+	font-size: 10px;
+}
+div.forumng-message p {
+	color: #000;
+	font-size: 16px;
+}
+div.forumng-emailheader a,
+.text_to_html a {
+	color: #F16E00;
+	font-size: 18px;
+	text-decoration: underline;
+}
+div.forumng-email-navbar a,
+div.forumng-email-unsubscribe a,
+h3.forumng-subject a,
+div.forumng-info h2 a,
+div.forumng-message a,
+div.forumng-breadcrumbs a,
+ul.forumng-attachments a,
+ul.forumng-commands a {
+	color: #F16E00;
+	font-size: 16px;
+	text-decoration: underline;
 }
 </style>', PARAM_RAW, '50', '10'));
 
@@ -93,7 +136,27 @@ body, td, th, ul {
             new lang_string('header_desc', 'local_orange_mail'), '  <tr>
     <td height="100" align="center" bgcolor="#000000"><table width="600" border="0" cellspacing="0" cellpadding="0">
         <tr>
-          <td width="70" ><a href="{$b->siteurl}"><img src="{$b->imageurl}logo.png" width="62" height="54" alt="{$b->sitename}" title="{$b->sitename}" /></a></td><td class="txt18BBlanc" align="left">Solerni<br />{$b->sitename}</td>
+            <td width="70" >
+                <a href="{$b->siteurl}"><img src="{$b->imageurl}logo.png" width="62" height="54" alt="{$b->sitename}"
+                title="{$b->sitename}" /></a>
+            </td><td class="txt18BBlanc" align="left">Solerni<br />{$b->sitename}</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td height="20">&nbsp;</td>
+  </tr>', PARAM_RAW, '50', '10'));
+
+    $page->add(new admin_setting_configtextarea('local_orangemail/contentstart',
+            new lang_string('contentstart', 'local_orange_mail'),
+            new lang_string('contentstart_desc', 'local_orange_mail'), '  <tr>
+    <td><table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+        <tr>
+          <td class="txt18Noir">', PARAM_RAW, '50', '10'));
+
+    $page->add(new admin_setting_configtextarea('local_orangemail/contentend',
+            new lang_string('contentend', 'local_orange_mail'),
+            new lang_string('contentend_desc', 'local_orange_mail'), '</td>
         </tr>
       </table></td>
   </tr>
@@ -121,8 +184,10 @@ body, td, th, ul {
 <tr>
     <td width="25">&nbsp;</td>
     <td width="110" class="txt14blanc">{$b->solernimailfollowus}</td>
-    <td width="57"><a href="{$b->facebook}"><img src="{$b->imageurl}picto_facebook.png" width="36" height="36" alt="Faceboook" /></a></td>
-    <td width="57"><a href="{$b->twitter}"><img src="{$b->imageurl}picto_twitter.png" width="36" height="36" alt="twitter" /></a></td>
+    <td width="57"><a href="{$b->facebook}"><img src="{$b->imageurl}picto_facebook.png" width="36" height="36"
+    alt="Faceboook" /></a></td>
+    <td width="57"><a href="{$b->twitter}"><img src="{$b->imageurl}picto_twitter.png" width="36" height="36"
+    alt="twitter" /></a></td>
     <td width="57"><a href="{$b->blog}"><img src="{$b->imageurl}picto_blog.png" width="36" height="36" alt="" /></a></td>
     </tr>
     </table></td>
@@ -174,7 +239,8 @@ body, td, th, ul {
 
     $page->add(new admin_setting_configtextarea('local_orangemail/footerinscriptiontext',
             new lang_string('footerinscriptiontext', 'local_orange_mail'),
-            new lang_string('footerinscriptiontext_desc', 'local_orange_mail'), '{$b->solernimailfooterinscriptiontext}', PARAM_RAW, '50', '3'));
+            new lang_string('footerinscriptiontext_desc', 'local_orange_mail'), '{$b->solernimailfooterinscriptiontext}',
+            PARAM_RAW, '50', '3'));
 
 
     $ADMIN->add('localplugins', new admin_category('orange_mail', new lang_string('pluginname', 'local_orange_mail')));

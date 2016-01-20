@@ -41,7 +41,7 @@ $PAGE->set_pagelayout('admin');
 $currentlang = current_language();
 
 $sendtextemail = false;     // Send test emails in Text format.
-$sendhtmlemail = true;      // Send test emails in Text format.
+$sendhtmlemail = true;      // Send test emails in HTML format.
 
 // Get last course.
 $course = $DB->get_record_sql('SELECT * FROM {course} ORDER BY id DESC LIMIT 1');
@@ -63,6 +63,7 @@ foreach ($langs as $lang => $value) {
         mail_test::send_email_deletion($USER);
         mail_test::email_welcome_message($instanceself, $USER);
         mail_test::email_information_message($instanceself, $USER);
+        mail_test::setnew_password_and_mail($USER);
     }
 
     if ($sendtextemail) {
@@ -74,6 +75,7 @@ foreach ($langs as $lang => $value) {
         mail_test::send_email_deletion($USER, true);
         mail_test::email_welcome_message($instanceself, $USER, true);
         mail_test::email_information_message($instanceself, $USER, true);
+        mail_test::setnew_password_and_mail($USER, true);
     }
 }
 force_current_language($currentlang);

@@ -191,7 +191,7 @@ function send_email_deletion($user, $useroldemail) {
     }
 
     $subject = get_config('local_eledia_makeanonymous', 'emailsubject');
-    if (trim($subject) !== '') {
+    if (trim($subject) == '') {
         $subject = get_string('defaultemailsubject', 'local_eledia_makeanonymous');
     }
 

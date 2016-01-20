@@ -145,12 +145,6 @@ moosh config-set mnet_register_allhosts 0
 moosh config-set sessioncookie ${CUSTOMER_COOKIE_PREFIX}
 moosh peer-add ${MNET_PEER}
 
-# Default frontpage role
-moosh role-configset defaultfrontpageroleid solerni_utilisateur
-
-# Default sitepolicy (cgus)
-moosh config-set sitepolicy ${CUSTOMER_DOMAIN}/static/cgu.html
-
 # oauth2: do not display buttons on login page
 moosh config-set oauth2displaybuttons 0 'auth/googleoauth2'
 
@@ -161,7 +155,7 @@ moosh auth-manage enable mnet
 moosh config-set smtphosts ${SMTP_SERVER}
 
 # Create a support user (normally id=3)
-moosh user-create --password pass --email ${CUSTOMER_CONTACT_USER_EMAIL} --firstname 'Contact' --lastname 'Solerni' --city 'Paris' --country 'FR' 'supportuser'  
+moosh user-create --password pass --email ${CUSTOMER_CONTACT_USER_EMAIL} --firstname 'Contact' --lastname 'Solerni' --city 'Paris' --country 'FR' 'supportuser'
 
 # disable default messaging system (#us_226)
 moosh config-set messaging 0
@@ -185,9 +179,8 @@ moosh config-set timezone Europe/Paris
 # support contact : Admin > Server > Support contact
 moosh config-set supportname "Contact Solerni"
 moosh config-set supportemail ${CUSTOMER_CONTACT_USER_EMAIL}
-moosh config-set supportpage ${CUSTOMER_DOMAIN}/static/faq.html
 
-# support contacts (#us_288) 
+# support contacts (#us_288)
 moosh username-configset supportuserid supportuser
 moosh username-configset noreplyuserid supportuser
 
@@ -202,8 +195,52 @@ moosh config-set defaultenrol 1 enrol_orangeinvitation
 moosh config-set status 0 enrol_orangeinvitation
 
 # Add cache store memcached
-moosh cache-admin --servers ${MEMCACHED_CACHE_SERVER} --prefix ${MEMCACHED_CACHE_PREFIX} memcached addstore ${MEMCACHED_CACHE_NAME}
-moosh cache-admin memcached editmodemappings ${MEMCACHED_CACHE_NAME}
+# moosh cache-admin --servers ${MEMCACHED_CACHE_SERVER} --prefix ${MEMCACHED_CACHE_PREFIX} memcached addstore ${MEMCACHED_CACHE_NAME}
+# moosh cache-admin memcached editmodemappings ${MEMCACHED_CACHE_NAME}
 
-# Make Anonymous : add empty mail subject
+# Make Anonymous : add empty mail subject & msg
 moosh config-set emailsubject '' local_eledia_makeanonymous
+moosh config-set emailmsg '' local_eledia_makeanonymous
+
+# Generate mail string html/txt
+moosh mail-generate
+
+# Default frontpage role : changed to allow access to the general ForumNg
+moosh role-configset defaultfrontpageroleid solerni_utilisateur
+
+# Delete roles : solerni_animateur_plateforme, solerni_power_utilisateur
+moosh role-delete solerni_animateur_plateforme
+moosh role-delete solerni_power_utilisateur
+
+# Inverse Last Name and First Name in Signup Form
+moosh config-set fullnamedisplay "lastname, firstname"
+
+# local_orangemail : add email support, contact...
+moosh config-set contactemail ${CUSTOMER_CONTACT_USER_EMAIL} local_orangemail
+moosh config-set supportemail ${CUSTOMER_SUPPORT_USER_EMAIL} local_orangemail
+moosh config-set marketemail ${CUSTOMER_MARKET_USER_EMAIL} local_orangemail
+moosh config-set partneremail ${CUSTOMER_PARTNER_USER_EMAIL} local_orangemail
+moosh config-set noreplyemail ${CUSTOMER_NOREPLY_USER_EMAIL} local_orangemail
+moosh config-set integratoremail ${CUSTOMER_DATA_INTEGRATOR_USER_EMAIL} local_orangemail
+
+# Hide some activities
+moosh module-manage hide assign
+moosh module-manage hide assignment
+moosh module-manage hide book
+moosh module-manage hide chat
+moosh module-manage hide choice
+moosh module-manage hide data
+moosh module-manage hide feedback
+moosh module-manage hide forum
+moosh module-manage hide imscp
+moosh module-manage hide lesson
+moosh module-manage hide lti
+moosh module-manage hide scorm
+moosh module-manage hide survey
+moosh module-manage hide url
+moosh module-manage hide wiki
+moosh module-manage hide customlabel
+moosh module-manage hide listforumng
+
+# Set default Store (unable memcached)
+moosh cache-admin memcached editmodemappings "default_application"

@@ -24,7 +24,6 @@ defined('MOODLE_INTERNAL') || die();
 use theme_halloween\settings\options;
 use theme_halloween\tools\theme_utilities;
 
-
 /**
  * All functions in this class are copy of Moodle code or Plugins code.
  * This code is for email test purpose only
@@ -84,8 +83,6 @@ class mail_test {
             $messagetext = $message;
             $messagehtml = text_to_html($messagetext, null, false, true);
         } else {
-            // This is most probably the tag/newline soup known as FORMAT_MOODLE.
-            // $messagehtml = format_text($message, FORMAT_MOODLE, array('para' => false, 'newlines' => true, 'filter' => true));
             $messagehtml = $message;
             $messagetext = html_to_text($messagehtml);
         }
@@ -122,8 +119,6 @@ class mail_test {
             $messagetext = $message;
             $messagehtml = text_to_html($messagetext, null, false, true);
         } else {
-            // This is most probably the tag/newline soup known as FORMAT_MOODLE.
-            // $messagehtml = format_text($message, FORMAT_MOODLE, array('para' => false, 'newlines' => true, 'filter' => true));
             $messagehtml = $message;
             $messagetext = html_to_text($messagehtml);
         }
@@ -188,9 +183,6 @@ class mail_test {
         $username = urlencode($user->username);
         $username = str_replace('.', '%2E', $username); // Prevent problems with trailing dots.
         $data->link  = $CFG->wwwroot .'/login/confirm.php?data='. $user->secret .'/'. $username;
-        // TODO - Bad format in Moodle.
-        // $message     = get_string('emailconfirmation', '', $data);
-        // $messagehtml = text_to_html(get_string('emailconfirmation', '', $data), false, false, true);
         $messagehtml     = get_string('emailconfirmation', '', $data);
         $message = html_to_text(get_string('emailconfirmation', '', $data));
 
@@ -225,18 +217,16 @@ class mail_test {
                 $messagehtml = text_to_html($messagetext, null, false, true);
             } else {
                 // This is most probably the tag/newline soup known as FORMAT_MOODLE.
-                $messagehtml = format_text($message, FORMAT_MOODLE, array('context' => $context, 'para' => false, 'newlines' => true, 'filter' => true));
+                $messagehtml = format_text($message, FORMAT_MOODLE,
+                        array('context' => $context, 'para' => false, 'newlines' => true, 'filter' => true));
                 $messagetext = html_to_text($messagehtml);
             }
         } else {
-            // TODO - Bad format in Moodle.
-            // $messagetext = get_string('welcometocoursetext', 'enrol_self', $a);
-            // $messagehtml = text_to_html($messagetext, null, false, true);
             $messagehtml = get_string('welcometocoursetext', 'enrol_self', $a);
             $messagetext = html_to_text($messagehtml);
         }
 
-        $subject = '(M6)' . get_string('welcometocourse', 'enrol_self', 
+        $subject = '(M6)' . get_string('welcometocourse', 'enrol_self',
                 format_string($course->fullname, true, array('context' => $context)));
 
         $rusers = array();
@@ -324,7 +314,6 @@ class mail_test {
                 $messagetext = $message;
                 $messagehtml = text_to_html($messagetext, null, false, true);
             } else {
-                // This is most probably the tag/newline soup known as FORMAT_MOODLE.
                 $messagehtml = format_text($message, FORMAT_MOODLE, array('para' => false, 'newlines' => true, 'filter' => true));
                 $messagetext = html_to_text($messagehtml);
             }
@@ -348,5 +337,50 @@ class mail_test {
             mtrace('mail error : mail was not sent to '. $user->email);
         }
     }
+
+    // Mail M9 to M13 in Forum NG plugin.
+
+    static public function setnew_password_and_mail($user, $modetext=false) {
+        global $CFG, $DB;
+
+        // We try to send the mail in language the user understands,
+        // unfortunately the filter_string() does not support alternative langs yet
+        // so multilang will not work properly for site->fullname.
+        $lang = current_language();
+        if ($lang != 'fr' && $lang != 'en') {
+            $lang = 'fr';
+        }
+
+        $site  = get_site();
+
+        $supportuser = core_user::get_support_user();
+
+        $newpassword = "tobechanged";
+
+        $a = new stdClass();
+        $a->firstname   = fullname($user, true);
+        $a->sitename    = format_string($site->fullname);
+        $a->username    = $user->username;
+        $a->newpassword = $newpassword;
+        $a->link        = $CFG->wwwroot .'/login/';
+        $a->signoff     = generate_email_signoff();
+
+        $messagehtml = (string)new lang_string('newusernewpasswordtext', '', $a, $lang);
+        $message = html_to_text($messagehtml);
+
+        if ($modetext) {
+            $user->mailformat = 0;
+        } else {
+            $user->mailformat = 1;
+        }
+
+        $subject = '(M14)' . format_string($site->fullname) .': '. (string)new lang_string('newusernewpasswordsubj', '', $a, $lang);
+
+        // Directly email rather than using the messaging system to ensure its not routed to a popup or jabber.
+        return email_to_user($user, $supportuser, $subject, $message, $messagehtml);
+
+    }
+
+    // Mail M15 solerni contact form.
 
 }

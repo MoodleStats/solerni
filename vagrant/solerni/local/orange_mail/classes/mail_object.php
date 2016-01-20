@@ -23,6 +23,7 @@ defined('MOODLE_INTERNAL') || die();
 
 use theme_halloween\settings\options;
 use theme_halloween\tools\theme_utilities;
+require_once(dirname(__FILE__) . '/Emogrifier.php');
 
 
 class mail_object {
@@ -48,7 +49,7 @@ class mail_object {
         $b->sitename = format_string($site->fullname);
         $b->siteurl = $CFG->wwwroot;
         $b->catalogurl = $CFG->wwwroot . '/catalog/';
-        $b->profilurl = $CFG->wwwroot."user/profile.php";
+        $b->profilurl = $CFG->wwwroot . '/user/profile.php';
 
         $b->solernimailsignature = get_string('solernimailsignature', 'local_orange_mail');
         $b->solernimailsignaturetext = get_string('solernimailsignaturetext', 'local_orange_mail');
@@ -60,6 +61,9 @@ class mail_object {
 
         $config->contactemail ? $b->contactemail = $config->contactemail : $b->contactemail = "contact@solerni.com";
         $config->noreplyemail ? $b->noreplyemail = $config->noreplyemail : $b->noreplyemail = "noreply@solerni.com";
+        $config->supportemail ? $b->supportemail = $config->supportemail : $b->supportemail = "support@solerni.com";
+        $config->marketemail ? $b->marketemail = $config->marketemail : $b->marketemail = "marketing@solerni.com";
+        $config->partneremail ? $b->partneremail = $config->partneremail : $b->partneremail = "partners@solerni.com";
 
         // Get follow us links.
         foreach (options::halloween_get_followus_urllist() as $key => $value) {
@@ -80,11 +84,15 @@ class mail_object {
                         '<body>' . PHP_EOL .
                         '<table width="650" border="0" align="center" cellpadding="0" cellspacing="0">' . PHP_EOL;
             $output .= self::get_string($config->header, $b) . PHP_EOL;
+            $output .= self::get_string($config->contentstart, $b) . PHP_EOL;
             $output .= self::get_string($content, $b) . PHP_EOL;
+            $output .= self::get_string($config->contentend, $b) . PHP_EOL;
             $output .= self::get_string($config->signature, $b) . PHP_EOL;
             $output .= self::get_string($config->followus, $b) . PHP_EOL;
             $output .= self::get_string($config->{'footer' . $footertype}, $b) . PHP_EOL;
             $output .= '</table>' . PHP_EOL . '</body>' . PHP_EOL . '</html>';
+
+            $output = self::set_inlinecss($output);
         } else {
             $output = "";
             $output .= self::get_string($config->headertext, $b) . PHP_EOL;
@@ -96,7 +104,28 @@ class mail_object {
         return $output;
     }
 
+    /**
+     * set inline CSS
+     *
+     * @param content : HTML to be treated
+     * @return string 
+     */
+    public static function set_inlinecss($content) {
+        $css = get_config('local_orangemail', 'css');
 
+        $csstoinline = new Emogrifier();
+        $csstoinline->setHTML($content);
+        $csstoinline->setCSS($css);
+        $csstoinline->disableStyleBlocksParsing();
+
+        $content = html_entity_decode($csstoinline->emogrify());
+        // These changes are needed because emogrify change the encoding for a part of the content.
+        $content = str_replace("%7B%24", '{$', $content);
+        $content = str_replace("%7D", "}", $content);
+        unset($csstoinline);
+
+        return $content;
+    }
 
     /**
      * replace multiple value in a string
@@ -157,7 +186,7 @@ class mail_object {
 
             $string = self::get_mail($string, $mailtype, $footertype);
 
-            // STore the template in config. Used afterwards by mail_init class.
+            // Store the template in config. Used afterwards by mail_init class.
             set_config('mail_'.$stringid.'_'.$lang.'_'. $mailtype, $string, 'local_orangemail');
         }
         force_current_language($currentlang);
