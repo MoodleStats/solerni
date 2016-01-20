@@ -37,5 +37,5 @@ nbproject
 codechecker
 codecheck
 vagrant/solerni/theme/solerni/
-
-
+Vagrantfile-mono_instance
+Vagrantfile-multi_instance
