@@ -62,11 +62,14 @@ class local_orange_event_course_created_observer {
             $methodsegment = '&method=SegmentEditor.add';
             $name = '&name='.$course->shortname;
             $definition = '&definition=customVariablePageValue1=='.$course->fullname;
+            $login = '&login='.$course->shortname;
             $idsite = '&idSite=1';
             $autoarchive = '&autoArchive=0';
             $enabledallusers = '&enabledAllUsers=0';
             $urlsegment = $url.'?'.$module.$methodsegment.$name.$definition.$idsite.$autoarchive.$enabledallusers.$tokenauth;
-            
+            $methodsegmentlogin = '&method=SegmentEditor.addwithlogin';
+            $urlsegmentlogin = $url.'?'.$module.$methodsegmentlogin.$name.$definition.$login.$idsite.$autoarchive.$enabledallusers.$tokenauth;
+
             // We call the API PIWIK in order to create a account piwik.
             $ch = curl_init();
             $timeout = 5;
@@ -92,14 +95,23 @@ class local_orange_event_course_created_observer {
             $responsesegment = curl_exec($ch);
             curl_close($ch);
 
-           // We test XML Piwik responses to kwow if segment and user are correctly created and send mail.
-            $xmlsegment = new SimpleXMLElement($responsesegment);
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $urlsegmentlogin);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+            $responsesegmentlogin = curl_exec($ch);
+            curl_close($ch);
+
+           // We test XML Piwik responses to kwow if segment and user are correctly created and send mail
             $XML = new SimpleXMLElement($response);
             $XMLuseraccess = new SimpleXMLElement($responseuseraccess);
+            $xmlsegment = new SimpleXMLElement($responsesegment);
+            $xmlsegmentlogin = new SimpleXMLElement($responsesegmentlogin);
             $XMLsegment = intval($XMLsegment);
+            $XMLsegmentlogin = intval($xmlsegmentlogin);
             $srtsuccess = 'ok';
 
-            if (($XML->success['message'] == $srtsuccess) && ($XMLuseraccess->success['message'] == $srtsuccess) && is_int($XMLsegment) == true ) {
+            if (($XML->success['message'] == $srtsuccess) && ($XMLuseraccess->success['message'] == $srtsuccess) && is_int($XMLsegment) == true && is_int($XMLsegmentlogin) == true ) {
                 $message = get_string('content_piwik_success', 'local_orange_event_course_created');
                 $key = array('{$a->username}', '{$a->coursename}', '{$a->sitename}', '{$a->userpiwik}', '{$a->passwordpiwik}');
                 $value = array($user->fullname, $course->fullname, $site->fullname, $userpiwik, $password);
