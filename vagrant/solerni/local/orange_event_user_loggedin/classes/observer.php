@@ -24,6 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 use theme_halloween\tools\log_and_session_utilities;
+use local_orange_library\utilities\utilities_network;
 
 /**
  * Event observer for block orange_ruels.
