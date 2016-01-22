@@ -222,6 +222,7 @@ moosh config-set marketemail ${CUSTOMER_MARKET_USER_EMAIL} local_orangemail
 moosh config-set partneremail ${CUSTOMER_PARTNER_USER_EMAIL} local_orangemail
 moosh config-set noreplyemail ${CUSTOMER_NOREPLY_USER_EMAIL} local_orangemail
 moosh config-set integratoremail ${CUSTOMER_DATA_INTEGRATOR_USER_EMAIL} local_orangemail
+moosh config-set noreplyaddress ${CUSTOMER_NOREPLY_USER_EMAIL}
 
 # Hide some activities
 moosh module-manage hide assign
