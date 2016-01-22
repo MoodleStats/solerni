@@ -24,7 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2016011800;        // The current plugin version (Date: YYYYMMDDXX)
+$plugin->version   = 2016012200;        // The current plugin version (Date: YYYYMMDDXX)
 $plugin->requires  = 2014050800;        // Requires this Moodle version
 $plugin->component = 'local_orange_event_course_created';   // Full name of the plugin (used for diagnostics).
 
