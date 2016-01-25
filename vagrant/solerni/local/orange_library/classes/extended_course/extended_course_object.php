@@ -244,6 +244,7 @@ class extended_course_object {
 
     const USERLOGGED        = 4;
     const USERENROLLED      = 5;
+    const MAXREGISTRATEDUSERS = 100000;
 
     /**
      * The contact email of a course.
@@ -294,6 +295,10 @@ class extended_course_object {
         $this->enrolenddate = $enrolment->get_enrolment_enddate($course);
 
         $this->maxregisteredusers = $instanceself->customint3;
+
+        if ($this->maxregisteredusers == 0) {
+            $this->maxregisteredusers = $this::MAXREGISTRATEDUSERS;
+        }
 
         $this->moocurl = new moodle_url('/course/view.php', array('id' => $course->id));
         $this->unenrolurl = $enrolment->get_unenrol_url($course);
