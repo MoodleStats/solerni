@@ -222,6 +222,7 @@ moosh config-set marketemail ${CUSTOMER_MARKET_USER_EMAIL} local_orangemail
 moosh config-set partneremail ${CUSTOMER_PARTNER_USER_EMAIL} local_orangemail
 moosh config-set noreplyemail ${CUSTOMER_NOREPLY_USER_EMAIL} local_orangemail
 moosh config-set integratoremail ${CUSTOMER_DATA_INTEGRATOR_USER_EMAIL} local_orangemail
+moosh config-set noreplyaddress ${CUSTOMER_NOREPLY_USER_EMAIL}
 
 # Hide some activities
 moosh module-manage hide assign
@@ -229,7 +230,7 @@ moosh module-manage hide assignment
 moosh module-manage hide book
 moosh module-manage hide chat
 moosh module-manage hide choice
-moosh module-manage hide data
+moosh module-manage show data
 moosh module-manage hide feedback
 moosh module-manage hide forum
 moosh module-manage hide imscp
@@ -244,3 +245,6 @@ moosh module-manage hide listforumng
 
 # Set default Store (unable memcached)
 moosh cache-admin memcached editmodemappings "default_application"
+
+# Page contact
+moosh config-set footerlistscolumn2link2 ${CUSTOMER_HTTP_BASE_URL}/contact/ theme_halloween
