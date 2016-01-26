@@ -230,7 +230,7 @@ moosh module-manage hide assignment
 moosh module-manage hide book
 moosh module-manage hide chat
 moosh module-manage hide choice
-moosh module-manage hide data
+moosh module-manage show data
 moosh module-manage hide feedback
 moosh module-manage hide forum
 moosh module-manage hide imscp
@@ -245,3 +245,6 @@ moosh module-manage hide listforumng
 
 # Set default Store (unable memcached)
 moosh cache-admin memcached editmodemappings "default_application"
+
+# Page contact
+moosh config-set footerlistscolumn2link2 ${CUSTOMER_HTTP_BASE_URL}/contact/ theme_halloween
