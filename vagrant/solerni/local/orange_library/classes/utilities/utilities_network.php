@@ -22,13 +22,14 @@
  */
 namespace local_orange_library\utilities;
 use theme_halloween\tools\theme_utilities;
+use local_orange_library\client\curl;
 
 defined('MOODLE_INTERNAL') || die();
 
 class utilities_network {
 
     /**
-     * Function to determine if the platform should use (ie not private) and is
+     * Function to determine if the platform should use (ie not private, not guest) and is
      * correctly configured to use mnet.
      * @return bool
      */
@@ -37,6 +38,7 @@ class utilities_network {
         $mnethosts = utilities_network::get_hosts();
         switch(true) {
             case (isset($CFG->solerni_isprivate) && $CFG->solerni_isprivate):
+            case isguestuser():
             case !is_enabled_auth('mnet'):
             case empty($mnethosts):
                 return false;
@@ -79,18 +81,25 @@ class utilities_network {
     /**
      * get the home server URL of the Moodle Network.
      *
-     * @return false or one hosts array(URL/name/IDs)
+     * @return false or host object (URL/name/IDs)
      */
     static public function get_home() {
 
         if (self::is_thematic()) {
             $hosts = self::get_hosts();
             if (is_array($hosts)) {
-                return array_pop($hosts); // MNETHOME is the first host.
+                $return = array_pop($hosts); // MNETHOME is the first host.
             }
+        } else {
+            global $CFG, $SITE;
+            $return = new \stdClass();
+            $return->url = $CFG->wwwroot;
+            $return->name = $SITE->fullname;
+            $return->id = 1;
+            $return->jump = $CFG->wwwroot;
         }
 
-        return false;
+        return $return;
     }
 
     /**
@@ -100,16 +109,6 @@ class utilities_network {
      */
     static public function get_hosts() {
         global $CFG, $DB;
-
-        // Guest user not supported.
-        if (isguestuser()) {
-            return false;
-        }
-
-        if (!is_enabled_auth('mnet')) {
-            // Auth MNet show be enabled.
-            return false;
-        }
 
         // Get the hosts and whether we are doing SSO with them.
         $sql = "
@@ -148,14 +147,31 @@ class utilities_network {
 
         if (!empty($hosts)) {
             foreach ($hosts as $host) {
+                $jumpurl = new \moodle_url($CFG->wwwroot . '/auth/mnet/jump.php', array('hostid' => $host->id));
                 $thematic = new \stdClass();
                 $thematic->url = $host->wwwroot;
                 $thematic->name = $host->name;
                 $thematic->id = $host->id;
+                $thematic->jump = $jumpurl->__toString();
                 $thematics[] = $thematic;
             }
         }
 
         return $thematics;
+    }
+
+    static public function get_hosts_from_mnethome() {
+
+        if (self::is_home()) {
+            return self::get_hosts();
+        }
+
+        $token = 'bb5a2e42b9b7f0b73dd10c1130acb227';
+        $homemnet = self::get_home();
+        $serverurl =$homemnet->url . '/webservice/rest/server.php?wstoken=' . $token . '&wsfunction=local_orange_library_get_resac_hosts';
+        $restformat = '&moodlewsrestformat=json';
+        $curl = new curl;
+        $resp = $curl->post($serverurl . $restformat, array());
+        return json_decode($resp);
     }
 }

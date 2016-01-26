@@ -294,7 +294,40 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
         if (empty($message)) {
             return '';
         }
-        
+
         return html_writer::tag('span', $message, array('class' => 'error'));
+    }
+
+    /**
+     * Function to render the resav nav items
+     *
+     * @param array of hosts || host stdClass
+     */
+    public function resac_nav_items($hosts) {
+        $html = '';
+
+        if(is_object($hosts)) {
+            $html .= self::render_nav_item($hosts);
+        }
+
+        if(is_array($hosts)) {
+            foreach ($hosts as $host) {
+                $html .= self::render_nav_item($host);
+            }
+        }
+
+        return $html;
+    }
+
+    public function render_nav_item(stdClass $host) {
+        global $CFG;
+
+        $aclasses = 'navigation-item';
+        $aclasses .= (strpos($CFG->wwwroot . '/', $host->url) !== false) ? ' active' : '';
+        $html = '<li class="list-group-item">';
+        $html .= '<a class="' . $aclasses . '" href="' . $host->jump . '">' . $host->name . '</a>';
+        $html .= '</li>';
+
+        return $html;
     }
 }

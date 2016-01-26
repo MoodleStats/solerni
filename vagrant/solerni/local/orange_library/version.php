@@ -15,17 +15,17 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Page module version information
+ * Orange library utilities
  *
- * @package local
- * @subpackage descriptionpage
- * @copyright  2015 Orange based on mod_page plugin from 2009 Petr Skoda (http://skodak.org)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     local
+ * @subpackage  orange_library
+ * @copyright   2015 Orange
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2016010700;       // The current module version (Date: YYYYMMDDXX).
-$plugin->requires  = 2014051207;    // Requires this Moodle version Moodle 2.7.7.
-$plugin->component = 'local_orange_library';       // Full name of the plugin (used for diagnostics).
+$plugin->version   = 2016012000;                // The current module version (Date: YYYYMMDDXX).
+$plugin->requires  = 2014051207;                // Requires this Moodle version Moodle 2.7.7.
+$plugin->component = 'local_orange_library';    // Full name of the plugin (used for diagnostics).

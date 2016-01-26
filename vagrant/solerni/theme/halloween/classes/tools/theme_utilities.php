@@ -60,7 +60,7 @@ class theme_utilities {
         if (property_exists($PAGE->theme->settings, $setting)) {
             return !empty($PAGE->theme->settings->$setting);
         }
-        
+
         return false;
     }
 
@@ -108,5 +108,4 @@ class theme_utilities {
             require_once($CFG->dirroot . '/local/analytics/lib.php');
         }
     }
-
 }

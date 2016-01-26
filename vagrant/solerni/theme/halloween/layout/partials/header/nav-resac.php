@@ -13,22 +13,21 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-?>
 
-<div class="container">
-    <header class="header row">
-        <div class="col-xs-12">
-            <a href="<?php echo $CFG->wwwroot; ?>" class="header-logo">
-                <img class="logo-image" src="<?php echo $OUTPUT->pix_url('logo-orange', 'theme'); ?>"
-                     alt="" width="50" height="50">
-                <span class="logo-brandname"><?php echo $SITE->fullname; ?></span>
-            </a>
-            <?php if (isloggedin()) {
-                require($CFG->partialsdir . '/header/header_user_menu__auth.php');
-            } else {
-                require($CFG->partialsdir . '/header/header_user_menu__no_auth.php');
-            }
-            ?>
-        </div>
-    </header>
+use local_orange_library\utilities\utilities_network;
+
+$homeresac = utilities_network::get_home();
+$resacs = utilities_network::get_hosts_from_mnethome();
+?>
+<div class="row">
+    <div class="col-xs-12">
+        <nav class="resac-navigation clearfix">
+            <ul class="list-group pull-left">
+                <?php echo $OUTPUT->resac_nav_items($homeresac); ?>
+            </ul>
+            <ul class="list-group pull-right">
+                <?php echo $OUTPUT->resac_nav_items($resacs); ?>
+            </ul>
+        </nav>
+    </div>
 </div>
