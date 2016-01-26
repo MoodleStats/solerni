@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qtype_poodllrecording', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'qtype_poodllrecording', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   qtype_poodllrecording
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -34,14 +34,14 @@ $string['formateditor'] = 'Éditeur HTML';
 $string['formatmp3'] = 'Réponse MP3';
 $string['formatpicture'] = 'Réponse en image';
 $string['formatvideo'] = 'Réponse en vidéo';
-$string['graderinfo'] = 'Information pour les élèves';
+$string['graderinfo'] = 'Information pour les évaluateurs';
 $string['nlines'] = '{$a} lignes';
-$string['norecording'] = 'Pas d\'enregistrement';
+$string['norecording'] = 'Pas d\'enregistrement trouvé';
 $string['pluginname'] = 'Enregistrement PoodLL';
 $string['pluginnameadding'] = 'Ajout d\'une question d\'enregistrement PoodLL';
 $string['pluginnameediting'] = 'Modification d\'une question d\'enregistrement PoodLL';
 $string['pluginname_help'] = 'En réponse à une question (qui peut inclure une image) l\'élève enregistre une réponse. Il ne sera attribué une note que lorsque cette réponse aura été examinée et notée manuellement par un enseignant.';
-$string['pluginnamesummary'] = 'Permet une réponse audio ou vidéo enregistrée. Cela doit alors être noté manuellement.';
+$string['pluginnamesummary'] = 'Permet une réponse audio ou vidéo enregistrée, photo ou tableau blanc. Cela doit alors être noté manuellement.';
 $string['poodllrecording'] = 'Enregistrement PoodLL';
 $string['responsefieldlines'] = 'Donner la taille de la boîte';
 $string['responseformat'] = 'Format de la réponse';

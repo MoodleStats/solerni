@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol_self', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'enrol_self', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   enrol_self
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -30,12 +30,14 @@ $string['cohortnonmemberinfo'] = 'Seuls les membres de la cohorte {$a} peuvent s
 $string['cohortonly'] = 'Seulement les membres de la cohorte';
 $string['cohortonly_help'] = 'L\'auto-inscription peut être restreinte aux seuls membres d\'une cohorte spécifique. La modification de ce réglage n\'a pas d\'effet sur les inscriptions existantes.';
 $string['customwelcomemessage'] = 'Message de bienvenue personnalisé';
-$string['customwelcomemessage_help'] = 'Un message d\'accueil personnalisé peut être ajouté en texte pur ou avec des balises HTML et en syntaxe multilingue.
+$string['customwelcomemessage_help'] = 'Un message d\'accueil personnalisé peut être ajouté en texte pur ou en format Moodle, avec des balises HTML et la syntaxe multilingue.
 
 Les paramètres suivants peuvent être inclus dans le message :
 
 * nom du cours {$a->coursename}
-* lien vers le profil de l\'utilisateur {$a->profileurl}';
+* lien vers le profil de l\'utilisateur {$a->profileurl}
+* adresse de courriel de l\'utilisateur {$a->email}
+* nom complet de l\'utilisateur {$a->fullname}';
 $string['defaultrole'] = 'Rôle attribué par défaut';
 $string['defaultrole_desc'] = 'Sélectionner le rôle à attribuer aux utilisateurs lors de l\'auto-inscription';
 $string['enrolenddate'] = 'Date de fin';
@@ -66,6 +68,7 @@ $string['groupkey_desc'] = 'Utiliser par défaut les clefs d\'inscription aux gr
 $string['groupkey_help'] = 'En plus de restreindre l\'accès au cours aux seuls utilisateurs qui connaissent la clef, l\'utilisation d\'une clef d\'inscription de groupe permet d\'ajouter automatiquement les utilisateurs à un groupe lors de leur inscription au cours.
 
 Pour utiliser une clef d\'inscription de groupe, une clef d\'inscription doit être indiquée dans les réglages du cours, ainsi qu\'une clef d\'inscription de groupe dans les réglages du groupe.';
+$string['keyholder'] = 'Vous devriez avoir reçu cette clef d\'inscription de :';
 $string['longtimenosee'] = 'Inscription inactive après';
 $string['longtimenosee_help'] = 'Si un participant ne visite pas un cours durant ce laps de temps, il est automatiquement désinscrit de ce cours.';
 $string['maxenrolled'] = 'Nombre maximum d\'utilisateurs inscrits';
@@ -79,7 +82,7 @@ $string['nopassword'] = 'Aucune clef d\'inscription requise.';
 $string['password'] = 'Clef d\'inscription';
 $string['password_help'] = 'Une clef d\'inscription permet de restreindre l\'accès au cours aux seuls utilisateurs qui connaissent la clef.
 
-Si le champ n\'est pas renseigné, n\'importe qui peut s\'inscrire au cours.
+Si le champ n\'est pas renseigné, n\'importe quel utilisateur peut s\'inscrire au cours.
 
 Si une clef d\'inscription est spécifiée, les utilisateurs tentant de s\'inscrire au cours devront saisir cette clef, uniquement lors de leur premier accès au cours.';
 $string['passwordinvalid'] = 'Clef d\'inscription incorrecte. Veuillez réessayer';
@@ -90,6 +93,7 @@ $string['requirepassword'] = 'Exiger la clef d\'inscription';
 $string['requirepassword_desc'] = 'Exiger la clef d\'inscription dans les nouveaux cours et empêcher la suppression de la clef d\'inscription des cours existants.';
 $string['role'] = 'Rôle attribué par défaut';
 $string['self:config'] = 'Configurer les instances d\'auto-inscription';
+$string['self:holdkey'] = 'Apparaître comme détenteur de la clef d\'inscription';
 $string['self:manage'] = 'Gérer les utilisateurs inscrits';
 $string['self:unenrol'] = 'Désinscrire du cours les utilisateurs';
 $string['self:unenrolself'] = 'Se désinscrire du cours';
@@ -97,12 +101,12 @@ $string['sendcoursewelcomemessage'] = 'Envoyer un message de bienvenue';
 $string['sendcoursewelcomemessage_help'] = 'Si ce réglage est activé, les utilisateurs recevront un message de bienvenue par courriel après qu\'ils se sont inscrits dans un cours.';
 $string['showhint'] = 'Afficher l\'indice';
 $string['showhint_desc'] = 'Afficher la première lettre de la clef d\'inscription.';
-$string['status'] = 'Activer les inscriptions existantes';
+$string['status'] = 'Autoriser les méthodes d\'auto-inscription existantes';
 $string['status_desc'] = 'Activer la méthode d\'auto-inscription dans les nouveaux cours.';
-$string['status_help'] = 'Si ce réglage est désactivé, toutes les auto-inscriptions sont suspendues et de nouveaux utilisateurs ne peuvent pas s\'inscrire.';
+$string['status_help'] = 'Si ce réglage est activé et que le réglage « Permettre de nouvelles inscriptions » est désactivé, seuls les utilisateurs s\'étant auto-inscrits auparavant auront accès au cours. Dans le cas contraire, cette méthode d\'auto-inscription sera désactivée : toutes les auto-inscriptions seront suspendues et de nouveaux utilisateurs ne pourront pas s\'inscrire.';
 $string['unenrol'] = 'Désinscrire l\'utilisateur';
-$string['unenrolselfconfirm'] = 'Voulez-vous vraiment vous désinscrire du cours « {$a} »?';
-$string['unenroluser'] = 'Voulez.vous vraiment désinscrire « {$a->user} » du cours « {$a->course} »?';
+$string['unenrolselfconfirm'] = 'Voulez-vous vraiment vous désinscrire du cours « {$a} » ?';
+$string['unenroluser'] = 'Voulez vous vraiment désinscrire « {$a->user} » du cours « {$a->course} » ?';
 $string['usepasswordpolicy'] = 'Utiliser les règles de mots de passe';
 $string['usepasswordpolicy_desc'] = 'Utiliser pour les mots de passe d\'accès anonyme les règles de mots de passe standard.';
 $string['welcometocourse'] = 'Bienvenue sur {$a}';

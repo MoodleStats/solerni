@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'theme_elegance', language 'fr', branch 'MOODLE_27_STABLE'
+ * Strings for component 'theme_elegance', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   theme_elegance
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -31,7 +31,6 @@ $string['bannercolor'] = 'Couleur de la diapo';
 $string['bannercolordesc'] = 'Vous ne voulez pas utiliser une image ? Veuillez spécifier une couleur de fond à la place';
 $string['bannerimage'] = 'Image du diaporama';
 $string['bannerimagedesc'] = 'Grande image pour aller derrière le texte d\'une diapositive';
-$string['bannerindicator'] = 'Nombre de diapositives';
 $string['bannerindicatordesc'] = 'Mettre en place cette diapositive';
 $string['bannerlinktext'] = 'Nom de l\'URL';
 $string['bannerlinktextdesc'] = 'Texte à afficher lors de l\'affichage du lien';
@@ -56,13 +55,6 @@ $string['categoryiconheading'] = 'Icône de catégorie';
 $string['categoryiconheadingdesc'] = 'Si c\'activé, cela vous permettra de définir des icônes pour chaque catégorie de cours.';
 $string['categoryiconheadingsub'] = 'Utilisez des icônes pour représenter vos catégories.';
 $string['categoryiconinfo'] = 'Réglage des Icônes de catégorie';
-$string['categoryiconinfodesc'] = 'Chaque icône est définie par un "ID de catégorie". Vous gagnez en regardant l\'URL ou chaque catégorie. La liste est <a href="http://fontawesome.github.io/Font-Awesome/cheatsheet/">ICI</a>. Saisir seulement ce qui est après "fa-".';
-$string['choosereadme'] = '<div class="clearfix">
-<div class="well">
-<h2>Elegance Theme</h2>
-<p><img class=img-polaroid src="elegance/pix/screenshot.jpg" /></p>
-<p>Élégance est un thème à 2 colonne, épuré et hautement personnalisable construit avec  Bootstrap 3.</p>
-</div></div>';
 $string['colorsettings'] = 'Logos et couleurs';
 $string['colorsettingsdesc'] = 'Déposer vos logos et changez les couleurs du thème avec ces paramètres.';
 $string['colorsettingssub'] = 'Changez le look';
@@ -72,7 +64,6 @@ $string['copyrightdesc'] = 'Le nom de votre organisation.';
 $string['customcss'] = 'CSS personnalisée';
 $string['customcssdesc'] = 'Les règles CSS que vous indiquez ici seront utilisées dans chaque page, ce qui permet la personnalisation simplifiée de ce thème.';
 $string['customlinkicon'] = 'Icône du lien';
-$string['customlinkicondesc'] = 'Nom de l\'icône que vous souhaitez utiliser à côté de votre lien.<br /> La liste est <a href="http://fortawesome.github.io/Font-Awesome/cheatsheet/" target="_new">ici</a>. Il suffit de saisir ce qui est après le « fa- ».';
 $string['customlinkindicator'] = 'Choisir le numéro de lien';
 $string['customlinkindicatordesc'] = 'Paramétrer ce lien personnalisé';
 $string['customlinkname'] = 'Nom du lien';
@@ -106,8 +97,6 @@ $string['facebook'] = 'URL Facebook';
 $string['facebookdesc'] = 'Saisir l\'URL de votre page Facebook.';
 $string['flickr'] = 'URL Flickr';
 $string['flickrdesc'] = 'Saisir l\'URL de votre page Flickr';
-$string['fluidwidth'] = 'Largeur du thème';
-$string['fluidwidthdesc'] = 'Activer cette option pour permettre l\'affichage plein écran.';
 $string['fontcolor'] = 'Couleur de police';
 $string['fontcolordesc'] = 'Définit la couleur principale de la police utilisée dans l\'ensemble du site.';
 $string['fonticons'] = 'Utiliser la police Icon';
@@ -131,9 +120,6 @@ $string['invert'] = 'Inverser la barre de navigation';
 $string['invertdesc'] = 'Intervertir les couleurs du texte et du fond pour la barre de navigation en haut de la page entre le noir et blanc.';
 $string['linkedin'] = 'URL LinkedIn';
 $string['linkedindesc'] = 'Saisir l\'URL de votre profil LinkedIn';
-$string['loginbgumber'] = 'Nombre d\'arrière-plan';
-$string['loginbgumberdesc'] = 'Combien d\'images en d\'arrière-plan devrait tourner lorsque la page de connexion est affichée ?';
-$string['loginimage'] = 'Image de fond';
 $string['loginimagedesc'] = 'La taille idéale pour les images d\'arrière-plan est 1200x800 pixels';
 $string['loginsettings'] = 'Écran de connexion';
 $string['loginsettingsdesc'] = 'La version personnalisée dispose d\'un diaporama de fond dont vous pouvez personnaliser les images pour obtenir un aspect plus épuré.';
@@ -141,30 +127,22 @@ $string['loginsettingssub'] = 'Paramètres de l\'écran personnalisé de login';
 $string['logo'] = 'Logo';
 $string['logodesc'] = 'Veuillez télécharger votre logo personnalisé ici si vous voulez ajouter à l\'en-tête.<br />
 Comme l\'espace dans la barre de navigation est limité, votre logo ne devrait pas être plus haut que 30px';
-$string['marketing1'] = 'Spot marketing un';
-$string['marketing2'] = 'Spot marketing deux';
-$string['marketing3'] = 'Spot marketing trois';
-$string['marketing4'] = 'Spot marketing quatre';
 $string['marketingbuttontext'] = 'Lien texte';
 $string['marketingbuttontextdesc'] = 'Texte à afficher sur le bouton.';
 $string['marketingbuttonurl'] = 'Lien URL';
 $string['marketingbuttonurldesc'] = 'URL vers laquelle pointe le bouton.';
 $string['marketingcontent'] = 'Contenu';
 $string['marketingcontentdesc'] = 'Contenu à afficher dans la boîte de marketing. Soyez bref et concis.';
-$string['marketingdesc'] = 'Ce thème offre la possibilité d\'afficher trois « annonces » ou « spots publicitaires » au-dessous du diaporama. Ces spots permettent à vos utilisateurs d\'identifier facilement les informations essentielles et de fournir des liens directs.';
-$string['marketingheading'] = 'Spots marketing';
 $string['marketingheadingsub'] = 'Trois emplacements sur la première page pour ajouter des informations et des liens';
 $string['marketingheight'] = 'Taille des images marketing';
 $string['marketingheightdesc'] = 'Si vous souhaitez afficher des images dans les boîtes de marketing, vous pouvez spécifier leur hauteur ici.';
 $string['marketingicon'] = 'Icône';
-$string['marketingicondesc'] = 'Nom de l\'icône que vous souhaitez utiliser. La liste des icônes disponibles est <a href="http://fortawesome.github.io/Font-Awesome/cheatsheet/" target="_new">ici</a>. Il suffit de saisir ce qui est après le « fa- ».';
 $string['marketingimage'] = 'Image';
 $string['marketingimagedesc'] = 'Ce réglage offre la possibilité d\'afficher une image au-dessus du texte dans le spot marketing';
 $string['marketinginfodesc'] = 'Saisir les paramètres de votre spot marketing';
 $string['marketingtitle'] = 'Titre';
 $string['marketingtitledesc'] = 'Titre à afficher dans ce spot marketing';
 $string['marketingtitleicon'] = 'Icône de titre';
-$string['marketingtitleicondesc'] = 'Nom de l\'icône que vous souhaitez utiliser dans le titre du spot marketing. La liste se trouve <a href="http://fortawesome.github.io/Font-Awesome/cheatsheet/" target="_new">ici</a>. Il suffit de saisir ce qui est après le « fa- ».';
 $string['moodlemobilecss'] = 'CSS Moodle Mobile';
 $string['moodlemobilecssdesc'] = 'L\'application mobile Moodle vous permet de définir une feuille de style externe pour le style de l\'application. Quel que soit les règles CSS que vous ajoutez à cette zone de texte sera affiché dans l\'application officielle Moodle Mobile. Il suffit de copier l\'URL ci-dessous et de le stocker dans le "mobilecssurl" mise sous "Web Services -> Mobile"';
 $string['mydashboard'] = 'Mon tableau de bord';
@@ -182,14 +160,11 @@ $string['quicklinkbuttonurldesc'] = 'URL vers laquelle pointera le bouton';
 $string['quicklinkicon'] = 'Icône';
 $string['quicklinkiconcolor'] = 'Couleur du lien rapide';
 $string['quicklinkiconcolordesc'] = 'Couleur de fond de l\'icône du lien rapide';
-$string['quicklinkicondesc'] = 'Nom de l\'icône que vous souhaitez utiliser. La liste est <a href="http://fortawesome.github.io/Font-Awesome/cheatsheet/" target="_new">ici</a>. Il suffit de saisir ce qui est après le « fa- ».';
-$string['quicklinks'] = 'Numéro du lien rapide';
 $string['quicklinksdesc'] = 'Ce thème offre la possibilité d\'activer des zones « Liens Rapides » vous permettant de créer des zones qui pointent vers une URL de votre choix.';
 $string['quicklinksheading'] = 'Liens rapides';
 $string['quicklinksheadingdesc'] = 'Saisir les paramètres des Liens rapides de votre page d\'accueil';
 $string['quicklinksheadingsub'] = 'Emplacements sur la page d\'accueil pour ajouter des informations et des liens';
 $string['quicklinksicon'] = 'Icône du titre';
-$string['quicklinksicondesc'] = 'Nom de l\'icône que vous souhaitez utiliser dans le titre des zones Liens rapides. La liste est <a href="http://fortawesome.github.io/Font-Awesome/cheatsheet/" target="_new">ici</a>. Il suffit de saisir ce qui est après le « fa- ».';
 $string['quicklinksnumber'] = 'Nombre de liens';
 $string['quicklinksnumberdesc'] = 'Le nombre de Liens rapides à afficher sur la page d\'accueil.';
 $string['quicklinkstitle'] = 'Zone d\'entête';
@@ -211,24 +186,9 @@ $string['socialdesc'] = 'Fournit des liens directs vers les principaux réseaux 
 $string['socialheading'] = 'Réseaux sociaux';
 $string['socialheadingsub'] = 'Connectez-vous à vos utilisateurs avec les réseaux sociaux';
 $string['socialnetworks'] = 'Réseaux sociaux';
-$string['socialnetworksicondescriptionblog'] = 'Lisez notre blog';
-$string['socialnetworksicondescriptionfacebook'] = 'Aimez nous sur Facebook';
-$string['socialnetworksicondescriptionflickr'] = 'Regardez nous sur Flickr';
-$string['socialnetworksicondescriptiongoogleplus'] = 'Suivez nous sur Google Plus+';
-$string['socialnetworksicondescriptioninstagram'] = 'Trouvez nous sur Instagram';
-$string['socialnetworksicondescriptionlinkedin'] = 'Connectez vous à nous sur LinkedIn';
-$string['socialnetworksicondescriptionpinterest'] = 'Épinglez nous sur Pinterest';
-$string['socialnetworksicondescriptionskype'] = 'Appelez nous avec Skype';
-$string['socialnetworksicondescriptiontumblr'] = 'Trouvez nous sur Tumblr';
-$string['socialnetworksicondescriptiontwitter'] = 'Suivez nous sur Twitter';
-$string['socialnetworksicondescriptionvimeo'] = 'Regardez nous sur Vimeo';
-$string['socialnetworksicondescriptionvk'] = 'Aimez nous sur VK';
-$string['socialnetworksicondescriptionwebsite'] = 'Visitez notre site';
-$string['socialnetworksicondescriptionyoutube'] = 'Regardez nous sur Youtube';
 $string['themecolor'] = 'Couleur du thème';
 $string['themecolordesc'] = 'Définit la couleur de « surbrillance » de votre thème. Cette couleur est également utilisé pour les liens hypertextes';
 $string['togglemarketing'] = 'Affichage du spot marketing';
-$string['togglemarketingdesc'] = 'Choisissez si vous souhaitez afficher ou masquer les trois spots marketing.';
 $string['togglequicklinks'] = 'Affichage des Liens rapides';
 $string['togglequicklinksdesc'] = 'Choisissez si vous souhaitez afficher ou masquer la zone Liens rapides';
 $string['transparency'] = 'Transparence du contenu';

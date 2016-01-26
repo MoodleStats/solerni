@@ -16,13 +16,25 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'datafield_radiobutton', language 'fr', branch 'MOODLE_29_STABLE'
+ * Strings for component 'block_coursefiles', language 'fr', branch 'MOODLE_29_STABLE'
  *
- * @package   datafield_radiobutton
+ * @package   block_coursefiles
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'Bouton radio';
+$string['author'] = 'Auteur';
+$string['component'] = 'Contenu';
+$string['coursefiles:addinstance'] = 'Ajouter un nouveau bloc Fichiers du cours';
+$string['coursefilesusagereport'] = 'Rapport d\'utilisation du fichier du cours';
+$string['coursefiles:viewlist'] = 'Afficher la liste d\'utilisation de fichiers d\'un cours particulier';
+$string['filesize'] = 'Taille du fichier';
+$string['nofilesoncourse'] = 'Pas de fichier dans le cours';
+$string['pluginname'] = 'Fichiers du cours';
+$string['timecreated'] = 'Date de création';
+$string['topfive'] = 'Top 5 des fichiers';
+$string['totalfilesize'] = 'Taille totale des fichiers';
+$string['totalsize'] = 'Taille totale';
+$string['viewcoursefiles'] = 'Afficher les fichiers du cours';

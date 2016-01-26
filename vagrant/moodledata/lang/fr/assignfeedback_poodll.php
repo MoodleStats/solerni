@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'assignfeedback_poodll', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'assignfeedback_poodll', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   assignfeedback_poodll
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -36,7 +36,7 @@ $string['enabled'] = 'Feedback PoodLL';
 $string['enabled_help'] = 'Si l\'option est activée, le correcteur peut laisser des commentaires audio / vidéo pour chaque remise de fichier.';
 $string['no'] = 'non';
 $string['pluginname'] = 'Feedback PoodLL';
-$string['reallydeletefeedback'] = 'Voulez-vous vraiment supprimer ce feedback?';
+$string['reallydeletefeedback'] = 'Voulez-vous vraiment supprimer ce feedback ?';
 $string['recordertype'] = 'Type d\'enregistrement PoodLL';
 $string['replymp3voice'] = 'Enregistrement vocal (MP3)';
 $string['replysnapshot'] = 'Prendre une photo';

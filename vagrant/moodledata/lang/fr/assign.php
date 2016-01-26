@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'assign', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'assign', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   assign
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -28,9 +28,9 @@ defined('MOODLE_INTERNAL') || die();
 $string['activityoverview'] = 'Vous avez des devoirs qui requièrent votre attention';
 $string['addattempt'] = 'Autoriser une autre tentative';
 $string['addnewattempt'] = 'Ajouter une tentative';
-$string['addnewattemptfromprevious'] = 'Ajouter une tentative basée sur le travail remis précédent';
-$string['addnewattemptfromprevious_help'] = 'Ceci copiera le contenu de le travail remis précédent pour vous permettre d\'y travailler.';
-$string['addnewattempt_help'] = 'Ceci créera un travail remis vide pour vous permettre d\'y travailler.';
+$string['addnewattemptfromprevious'] = 'Ajouter une tentative basée sur le travail remis précédemment';
+$string['addnewattemptfromprevious_help'] = 'Ceci copiera le contenu du travail remis précédemment pour vous permettre d\'y travailler.';
+$string['addnewattempt_help'] = 'Ceci créera un travail vide pour vous permettre d\'y travailler.';
 $string['addsubmission'] = 'Ajouter un travail';
 $string['allocatedmarker'] = 'Évaluateur attribué';
 $string['allocatedmarker_help'] = 'L\'évaluateur attribué pour ce travail';
@@ -232,7 +232,7 @@ $string['invalidgradeforscale'] = 'La note fournie n\'est pas valide dans le bar
 $string['lastmodifiedgrade'] = 'Dernière modification (note)';
 $string['lastmodifiedsubmission'] = 'Dernière modification (travail remis)';
 $string['latesubmissions'] = 'Devoirs en retard';
-$string['latesubmissionsaccepted'] = 'Permis jusqu\'à la date de prolongation';
+$string['latesubmissionsaccepted'] = 'Permis jusqu\'au {$a}';
 $string['locksubmissionforstudent'] = 'Empêcher la remise d\'autres travaux par l\'étudiant&nbsp;: (id={$a->id}, fullname={$a->fullname}).';
 $string['locksubmissions'] = 'Verrouiller la remise des travaux';
 $string['manageassignfeedbackplugins'] = 'Gérer les plugins de feedback des devoirs';
@@ -282,6 +282,7 @@ $string['noonlinesubmissions'] = 'Ce devoir ne requiert pas de fichier à remett
 $string['nosavebutnext'] = 'Suivant';
 $string['nosubmission'] = 'Rien n\'a été déposé pour ce devoir';
 $string['nosubmissionsacceptedafter'] = 'Aucun devoir accepté après';
+$string['noteam'] = 'Vous n\'êtes membre d\'aucun groupe. Veuillez contacter votre enseignant.';
 $string['notgraded'] = 'Pas évalué';
 $string['notgradedyet'] = 'Pas encore évalué';
 $string['notifications'] = 'Notifications';
@@ -302,6 +303,8 @@ $string['page-mod-assign-x'] = 'Toute page du module devoir';
 $string['participant'] = 'Participant';
 $string['pluginadministration'] = 'Administration du devoir';
 $string['pluginname'] = 'Devoir';
+$string['preventsubmissionnotingroup'] = 'Requiert un groupe pour remettre un devoir';
+$string['preventsubmissionnotingroup_help'] = 'Si ce réglage est activé, les utilisateurs qui ne sont pas membres d\'un groupe ne pourront pas remettre de devoir.';
 $string['preventsubmissions'] = 'Empêcher l\'utilisateur de déposer ou de modifier des travaux pour ce devoir.';
 $string['preventsubmissionsshort'] = 'Empêcher l\'ajout et la modification de travaux';
 $string['previous'] = 'Précédent';
@@ -311,7 +314,7 @@ $string['quickgrading_help'] = 'L\'évaluation rapide vous permet d\'attribuer d
 $string['quickgradingresult'] = 'Évaluation rapide';
 $string['recordid'] = 'Identifiant';
 $string['reopenuntilpassincompatiblewithblindmarking'] = 'L\'option de réouverture « Automatiquement jusqu\'à réussite » n\'est pas compatible avec l\'évaluation à l\'aveugle, car les notes ne sont transmises au carnet de notes qu\'après que le nom de l\'étudiant est révélé.';
-$string['requireallteammemberssubmit'] = 'Exiger la remise par tous les membres du groupe';
+$string['requireallteammemberssubmit'] = 'Exiger la validation du dépôt par tous les membres du groupe';
 $string['requireallteammemberssubmit_help'] = 'Si ce réglage est activé, tous les membres du groupe doivent cliquer sur le bouton de remise du devoir pour que le travail du groupe soit considéré comme remis. Dans le cas contraire, le travail du groupe sera considéré comme remis dès que l\'un de ses membres clique sur le bouton de remise.';
 $string['requiresubmissionstatement'] = 'Demander aux étudiants d\'accepter l\'énoncé de remise pour tous les devoirs';
 $string['requiresubmissionstatement_help'] = 'Lorsque ce réglage est activé, les étudiants doivent accepter l\'énoncé de remise pour tous les devoirs de ce Moodle.';
@@ -420,6 +423,7 @@ $string['teamsubmission_help'] = 'Si ce réglage est activé, les étudiants ser
 $string['textinstructions'] = 'Instructions pour le devoir';
 $string['timemodified'] = 'Dernière modification';
 $string['timeremaining'] = 'Temps restant';
+$string['ungroupedusers'] = 'Le réglage « Requiert un groupe pour remettre un devoir » est activé et certains utilisateurs ne sont membres d\'aucun groupe. Cette situation les empêchera de remettre leur devoir.';
 $string['unlimitedattempts'] = 'Illimité';
 $string['unlimitedattemptsallowed'] = 'Nombre illimité de tentatives autorisées.';
 $string['unlocksubmissionforstudent'] = 'Permettre la remise de travaux pour l\'étudiant&nbsp;: (id={$a->id}, fullname={$a->fullname}).';
@@ -429,7 +433,8 @@ $string['updatetable'] = 'Enregistrer et modifier le tableau';
 $string['upgradenotimplemented'] = 'La mise à jour n\'est pas implémentée dans le plugin ({$a->type} {$a->subtype})';
 $string['userextensiondate'] = 'Prolongation accordée jusqu\'au&nbsp;: {$a}';
 $string['usergrade'] = 'Note utilisateur';
-$string['userswhoneedtosubmit'] = 'Utilisateurs devant remettre le travail&nbsp;: {$a}';
+$string['useridlistnotcached'] = 'Les modifications aux notes n\'ont pas été enregistrées : il n\'a pas été possible de déterminer à quel travail elles avaient été attribuées.';
+$string['userswhoneedtosubmit'] = 'Utilisateurs devant valider l\'envoi du devoir : {$a}';
 $string['validmarkingworkflowstates'] = 'Statuts d\'évaluation valides';
 $string['viewbatchmarkingallocation'] = 'Afficher la page d\'attribution des évaluateurs.';
 $string['viewbatchsetmarkingworkflowstate'] = 'Afficher la page de définition des statuts d\'évaluation.';

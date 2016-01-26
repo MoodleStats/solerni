@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'role', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'role', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   role
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -106,7 +106,7 @@ $string['category:viewhiddencategories'] = 'Voir les catégories cachées';
 $string['category:visibility'] = 'Voir les catégories de cours cachées';
 $string['checkglobalpermissions'] = 'Vérifier les permissions système';
 $string['checkpermissions'] = 'Voir les permissions';
-$string['checkpermissionsin'] = 'Voir les permissions dans {$a}';
+$string['checkpermissionsin'] = 'Voir les permissions de {$a}';
 $string['checksystempermissionsfor'] = 'Vérifier les permissions système de {$a->fullname}';
 $string['checkuserspermissionshere'] = 'Voir les permissions de {$a->fullname} dans ce {$a->contextlevel}';
 $string['chooseroletoassign'] = 'Veuillez choisir un rôle à attribuer';
@@ -115,7 +115,7 @@ $string['cohort:manage'] = 'Créer, déplacer et supprimer des cohortes';
 $string['cohort:view'] = 'Voir les cohortes du site';
 $string['comment:delete'] = 'Supprimer des commentaires';
 $string['comment:post'] = 'Écrire des commentaires';
-$string['comment:view'] = 'Lire les commentaires';
+$string['comment:view'] = 'Consulter les commentaires';
 $string['community:add'] = 'Utiliser le bloc Communauté pour rechercher des cours dans des serveurs d\'échanges';
 $string['community:download'] = 'Télécharger des cours depuis le bloc Communauté';
 $string['confirmaddadmin'] = 'Voulez-vous vraiment ajouter l\'utilisateur <strong>{$a}</strong> comme nouvel administrateur du site ?';
@@ -251,8 +251,8 @@ $string['manageroles'] = 'Gérer les rôles';
 $string['maybeassignedin'] = 'Types de contextes où ce rôle peut être attribué';
 $string['morethan'] = 'Plus de {$a}';
 $string['multipleroles'] = 'Plusieurs rôles';
-$string['my:configsyspages'] = 'Configurer les modèles système pour les pages Ma page';
-$string['my:manageblocks'] = 'Gérer les blocs de la page Ma page';
+$string['my:configsyspages'] = 'Configurer les modèles système pour les pages « Tableau de bord »';
+$string['my:manageblocks'] = 'Gérer les blocs des pages « Tableau de bord »';
 $string['neededroles'] = 'Rôles avec permission';
 $string['nocapabilitiesincontext'] = 'Aucune capacité dans ce contexte';
 $string['noneinthisx'] = 'Aucun dans ce {$a}';
