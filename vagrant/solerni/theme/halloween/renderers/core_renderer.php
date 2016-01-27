@@ -323,7 +323,8 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
         global $CFG;
 
         $aclasses = 'navigation-item';
-        $aclasses .= (strpos($CFG->wwwroot . '/', $host->url) !== false) ? ' active' : '';
+        $aclasses .= (strcmp($CFG->wwwroot, $host->url) === 0) ? ' active' : '';
+
         $html = '<li class="list-group-item">';
         $html .= '<a class="' . $aclasses . '" href="' . $host->jump . '">' . $host->name . '</a>';
         $html .= '</li>';
