@@ -296,10 +296,6 @@ class extended_course_object {
 
         $this->maxregisteredusers = $instanceself->customint3;
 
-        if ($this->maxregisteredusers == 0) {
-            $this->maxregisteredusers = $this::MAXREGISTRATEDUSERS;
-        }
-
         $this->moocurl = new moodle_url('/course/view.php', array('id' => $course->id));
         $this->unenrolurl = $enrolment->get_unenrol_url($course);
 
