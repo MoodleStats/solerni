@@ -84,14 +84,14 @@ class utilities_network {
      * @return false or host object (URL/name/IDs)
      */
     static public function get_home() {
-
+        global $CFG, $SITE;
         if (self::is_thematic()) {
             $hosts = self::get_hosts();
             if (is_array($hosts)) {
-                $return = array_pop($hosts); // MNETHOME is the first host.
+                $return = array_pop($hosts);    // MNETHOME is the first host.
+                $return->jump = $return->url;   // Do not jump onto MNET HOME
             }
         } else {
-            global $CFG, $SITE;
             $return = new \stdClass();
             $return->url = $CFG->wwwroot;
             $return->name = $SITE->fullname;
