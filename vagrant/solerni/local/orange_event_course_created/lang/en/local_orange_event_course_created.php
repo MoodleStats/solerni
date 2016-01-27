@@ -22,7 +22,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-
+$string['pluginname'] = 'Orange Evt course_created';
 $string['welcome_enrolment_message_inscription'] = 'You enrol on the MOOC {$a}.';
 $string['welcome_enrolment_message_notstarted'] = 'This MOOC is not started : it will start on {$a}.. We will send you a reminder few days before the MOOC start. See you soon.';
 $string['welcome_enrolment_message_started'] = 'The MOOC is open : you can start now. Good MOOC !';
