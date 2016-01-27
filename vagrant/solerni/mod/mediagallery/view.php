@@ -98,6 +98,8 @@ require_login($course, true, $cm);
 if ($gallery) {
     $pageurl = new moodle_url('/mod/mediagallery/view.php', array('g' => $g, 'page' => $page));
 
+    // 20160127 - Orange : correction, set_url missing.
+    $PAGE->set_url($pageurl);
     $navnode = $PAGE->navigation->find($cm->id, navigation_node::TYPE_ACTIVITY);
     if (empty($navnode)) {
         $navnode = $PAGE->navbar;
