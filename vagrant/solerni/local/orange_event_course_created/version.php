@@ -17,16 +17,14 @@
 /**
  * Version details
  *
- * @package    local_orange_event_user_loggedin
+ * @package    local_orange_event_course_created
  * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once("$CFG->dirroot/local/orange_mail/mail_init.php");
+defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'Orange Evt user_loggedin';
-$string['local_orange_event_user_loggedin'] = 'Orange Evt user_loggedin';
-$string['subjectuseraccountemail'] = 'Rappel de vos identifiants sur {$a->sitename}';
-$string['contentuseraccountemail'] = mail_init::init('contentuseraccountemail', 'html');
-$string['subjectwelcomeemail'] = 'Bienvenue sur {$a->sitename}';
-$string['contentwelcomeemail'] = mail_init::init('contentwelcomeemail', 'html');
+$plugin->version   = 2016012200;        // The current plugin version (Date: YYYYMMDDXX)
+$plugin->requires  = 2014050800;        // Requires this Moodle version
+$plugin->component = 'local_orange_event_course_created';   // Full name of the plugin (used for diagnostics).
+

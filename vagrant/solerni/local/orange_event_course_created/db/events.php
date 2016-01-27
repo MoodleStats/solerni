@@ -17,16 +17,17 @@
 /**
  * Version details
  *
- * @package    local_orange_event_user_loggedin
+ * @package    local_orange_event_course_created
  * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once("$CFG->dirroot/local/orange_mail/mail_init.php");
+// List of observers.
+$observers = array(
 
-$string['pluginname'] = 'Orange Evt user_loggedin';
-$string['local_orange_event_user_loggedin'] = 'Orange Evt user_loggedin';
-$string['subjectuseraccountemail'] = 'Rappel de vos identifiants sur {$a->sitename}';
-$string['contentuseraccountemail'] = mail_init::init('contentuseraccountemail', 'html');
-$string['subjectwelcomeemail'] = 'Bienvenue sur {$a->sitename}';
-$string['contentwelcomeemail'] = mail_init::init('contentwelcomeemail', 'html');
+    array(
+        'eventname'   => '\core\event\course_created',
+        'callback'    => 'local_orange_event_course_created_observer::course_created',
+    )
+
+);
