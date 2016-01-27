@@ -70,8 +70,8 @@ class mail_compose_form extends moodleform {
         $label = get_string('subject', 'local_mail');
         $mform->addElement('text', 'subject', $label, 'size="48"');
         $mform->setType('subject', PARAM_TEXT);
-        $text = get_string('maximumchars', '', 255);
-        $mform->addRule('subject', $text, 'maxlength', 255, 'client');
+        $text = get_string('maximumchars', '', 100);
+        $mform->addRule('subject', $text, 'maxlength', 100, 'client');
 
         // Content
 
@@ -80,10 +80,10 @@ class mail_compose_form extends moodleform {
         $mform->setType('content', PARAM_RAW);
 
         // Attachments
-
-        $label = get_string('attachments', 'local_mail');
-        $mform->addElement('filemanager', 'attachments', $label, null, self::file_options());
-
+        if (get_config('local_mail', 'maxfiles') > 0) {
+            $label = get_string('attachments', 'local_mail');
+            $mform->addElement('filemanager', 'attachments', $label, null, self::file_options());
+        }
         // Buttons
 
         $buttonarray = array();
@@ -96,6 +96,8 @@ class mail_compose_form extends moodleform {
 
         $label = get_string('discard', 'local_mail');
         $buttonarray[] = $mform->createElement('submit', 'discard', $label);
+
+        $buttonarray[] = $mform->createElement('submit', 'recipientshidden', '', array('class' => 'mail_hidden'));
 
         $mform->addGroup($buttonarray, 'buttonar', '', array(' '), false);
         $mform->closeHeaderBefore('buttonar');
@@ -127,11 +129,12 @@ class mail_compose_form extends moodleform {
         }
 
         // Maximum number of attachmnents
-
-        $options = self::file_options();
-        $info = file_get_draft_area_info($data['attachments']);
-        if ($info['filecount'] > $options['maxfiles']) {
-            $errors['attachments'] = get_string('maxfilesreached', 'moodle', $options['maxfiles']);
+        if (get_config('local_mail', 'maxfiles') > 0) {
+            $options = self::file_options();
+            $info = file_get_draft_area_info($data['attachments']);
+            if ($info['filecount'] > $options['maxfiles']) {
+                $errors['attachments'] = get_string('maxfilesreached', 'moodle', $options['maxfiles']);
+            }
         }
 
         return $errors;
@@ -140,7 +143,7 @@ class mail_compose_form extends moodleform {
     public static function file_options() {
         global $COURSE, $PAGE, $CFG;
 
-        $configmaxbytes = get_config('local_mail', 'maxbytes') ?: LOCAL_MAIL_MAXBYTES;
+        $configmaxbytes = get_config('local_mail', 'maxbytes') ?: $CFG->maxbytes;
         $configmaxfiles = get_config('local_mail', 'maxfiles');
         $maxbytes = get_user_max_upload_file_size($PAGE->context, $CFG->maxbytes,
                                                   $COURSE->maxbytes, $configmaxbytes);
