@@ -244,6 +244,7 @@ class extended_course_object {
 
     const USERLOGGED        = 4;
     const USERENROLLED      = 5;
+    const MAXREGISTRATEDUSERS = 100000;
 
     /**
      * The contact email of a course.
