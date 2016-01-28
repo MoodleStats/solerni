@@ -185,7 +185,7 @@ class utilities_network {
                 htmlspecialchars_decode($serverurl->__toString()), array()));
 
         if ($resacs->errorcode) {
-            error_log('Resac Nav Curl Request Eror. Message: ' . $resacs->message);
+            error_log('Resac Nav Curl Request Returned An Error. Message: ' . $resacs->message);
             return false;
         }
 
