@@ -246,17 +246,24 @@ a.forumng-sortlink:hover {
     margin: 2em 0 1em;
 }
 
-div.forumng-flag {
+div.forumng-flag,
+div.forumng-flagpost {
     display: inline;
     padding-right: 0.5em;
 }
 
-form.forumng-flag {
+form.forumng-flag,
+form.forumng-flagpost {
     display: inline;
     padding-left: 0.5em;
 }
-form.forumng-flag div {
+form.forumng-flag div,
+form.forumng-flagpost div {
     display:inline;
+}
+div.forumng-flagpost a img {
+    padding-right: 0.5em;
+    vertical-align: -3px;
 }
 
 .forumng-shareinfo {
@@ -372,7 +379,7 @@ h2.forumng-author {
     position: relative;
     padding-right: 16px;
 }
-.forumng-info .forumng-flag {
+.forumng-info .forumng-flag .forumng-flagpost {
     position: absolute;
     right: -0.5em;
 }
@@ -443,6 +450,8 @@ ul.forumng-commands {
     margin: 0;
     padding: 0;
     white-space: nowrap;
+    float: left;
+    margin-bottom: .7em;
 }
 .ie7 ul.forumng-commands {
     display: inline;
@@ -547,7 +556,7 @@ ul.forumng-commands li.forumng-replylink {
 }
 .forumng-selectmode .forumng-feedlinks,
 .forumng-selectmode #forumng-arrowback,
-.forumng-selectmode .forumng-info .forumng-flag,
+.forumng-selectmode .forumng-info .forumng-flag .forumng-flagpost,
 .forumng-selectmode .forumng-edit {
     display:none;
 }
@@ -575,6 +584,9 @@ ul.forumng-commands li.forumng-replylink {
 	pointer-events: none;
 }
 
+.forumng-message {
+    overflow: auto;
+}
 /*
 // Edit/reply form within discussion
 ////////////////////////////////////
@@ -594,9 +606,6 @@ ul.forumng-commands li.forumng-replylink {
 }
 .forumng-iframe#page-mod-forumng-editpost {
     min-width: inherit;
-}
-.forumng-iframe#page-mod-forumng-editpost .mform {
-    min-width: 580px;
 }
 .gecko.forumng-iframe#page-mod-forumng-editpost .mform {
     min-width: 605px;
@@ -636,6 +645,11 @@ ul.forumng-commands li.forumng-replylink {
     clear: left;
     margin-left: 0;
 }
+.forumng-iframe#page-mod-forumng-editpost #fitem_id_subject input {
+	max-width: 90%;
+	min-width: 80%;
+}
+
 .forumng-iframe#page-mod-forumng-editpost #fgroup_id_buttonar .felement {
     clear: left;
     margin-left: 0;
@@ -730,6 +744,11 @@ ul.forumng-commands li.forumng-replylink {
 form.markread input {
     font-size: 0.85em;
 }
+
+.forumng-ratings-standard {
+	float: left;
+}
+
 /*
 // Confirm dialog within discussion
 ///////////////////////////////////
@@ -1070,4 +1089,8 @@ padding-top: 1em;
     font-size: 0.85em;
     margin-bottom:0.7em;
     font-weight: normal;
+}
+
+.forumng_subinfo_mail {
+	font-size: .9em;
 }

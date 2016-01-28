@@ -142,6 +142,7 @@ class mod_forumng_rating_testcase extends forumng_test_lib {
         $did1 = $generator->create_discussion(array('course' => $course, 'forum' => $forum->get_id(), 'userid' => $suser->id));
         $did2 = $generator->create_discussion(array('course' => $course, 'forum' => $forum->get_id(), 'userid' => $suser->id));
         $did3 = $generator->create_discussion(array('course' => $course, 'forum' => $forum->get_id(), 'userid' => $suser->id));
+        $did4 = $generator->create_discussion(array('course' => $course, 'forum' => $forum->get_id(), 'userid' => $suser->id));
         // Add rating to all 3 discussions.
         $rm = new rating_manager();
         $params = new stdClass();
@@ -174,8 +175,10 @@ class mod_forumng_rating_testcase extends forumng_test_lib {
         $this->assertNotNull($ratings);
         $this->assertEquals($did1[1], $ratings->itemid);
 
+        $ratedposts = $forum->get_all_posts_by_user($suser->id, null, 'fp.id', null, null, true);
+        $this->assertCount(3, $ratedposts);
         $allposts = $forum->get_all_posts_by_user($suser->id, null);
-        $this->assertCount(3, $allposts);
+        $this->assertCount(4, $allposts);
         $this->assertNotNull($allposts[$did1[1]]->get_ratings());
 
         // Update grades (does nothing).
@@ -192,6 +195,22 @@ class mod_forumng_rating_testcase extends forumng_test_lib {
             'grading' => mod_forumng::GRADING_COUNT));
         $grades = grade_get_grades($course->id, 'mod', 'forumng', $forum->get_id(), $suser->id);
         $this->assertEquals(3, abs($grades->items[0]->grades[$suser->id]->grade));
+
+        // Check get_rated_posts_by_user.
+        $extrapost = $generator->create_post(array('discussionid' => $did1[0],
+                 'parentpostid' => $did1[1], 'userid' => $suser->id, 'created' => 1388589745));
+        $extraposts = $forum->get_rated_posts_by_user($forum, $suser->id, -1, 'fp.id', null, null);
+        $this->assertCount(0, $extraposts);
+        $extraposts = $forum->get_rated_posts_by_user($forum, $USER->id, -1, 'fp.id', null, null);
+        $this->assertCount(3, $extraposts);
+        $params->itemid = $extrapost->id;
+        $rating = new rating($params);
+        $rating->update_rating(10);
+        $extraposts = $forum->get_rated_posts_by_user($forum, $USER->id, -1, 'fp.id', null, null);
+        $this->assertCount(4, $extraposts);
+        // Now filter out the 'old' extrapost.
+        $extraposts = $forum->get_rated_posts_by_user($forum, $USER->id, -1, 'fp.id', null, null, 1388600000);
+        $this->assertCount(3, $extraposts);
 
         // Check discussion delete.
         $discuss = mod_forumng_discussion::get_from_id($did1[0], mod_forumng::CLONE_DIRECT);
