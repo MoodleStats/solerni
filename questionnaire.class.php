@@ -749,7 +749,7 @@ class questionnaire {
                 if ($this->respondenttype == 'fullname') {
                     $userid = $resp->username;
                     // Display name of group(s) that student belongs to... if questionnaire is set to Groups separate or visible.
-                    if ($this->cm->groupmode > 0) {
+                    if (groups_get_activity_groupmode($this->cm, $this->course)) {
                         if ($groups = groups_get_all_groups($courseid, $resp->username)) {
                             if (count($groups) == 1) {
                                 $group = current($groups);
@@ -811,11 +811,11 @@ class questionnaire {
             echo ($groupname);
             echo ($timesubmitted);
         }
-        echo '<h3 class="surveyTitle">'.s($this->survey->title).'</h3>';
+        echo '<h3 class="surveyTitle">'.format_text($this->survey->title, FORMAT_HTML).'</h3>';
 
         // We don't want to display the print icon in the print popup window itself!
         if ($this->capabilities->printblank && $blankquestionnaire && $section == 1) {
-            // Open print friendly as popup window
+            // Open print friendly as popup window.
             $linkname = '&nbsp;'.get_string('printblank', 'questionnaire');
             $title = get_string('printblanktooltip', 'questionnaire');
             $url = '/mod/questionnaire/print.php?qid='.$this->id.'&amp;rid=0&amp;'.'courseid='.$this->course->id.'&amp;sec=1';
@@ -825,7 +825,8 @@ class questionnaire {
             $link = new moodle_url($url);
             $action = new popup_action('click', $link, $name, $options);
             $class = "floatprinticon";
-            echo $OUTPUT->action_link($link, $linkname, $action, array('class' => $class, 'title' => $title), new pix_icon('t/print', $title));
+            echo $OUTPUT->action_link($link, $linkname, $action, array('class' => $class, 'title' => $title),
+                    new pix_icon('t/print', $title));
         }
         if ($section == 1) {
             if ($this->survey->subtitle) {
@@ -1817,7 +1818,7 @@ class questionnaire {
                     }
                 }
                 list($qsql, $params) = $DB->get_in_or_equal($qids2);
-                $sql = 'SELECT * FROM {questionnaire_quest_choice} WHERE question_id ' . $qsql . 'ORDER BY id';
+                $sql = 'SELECT * FROM {questionnaire_quest_choice} WHERE question_id ' . $qsql . ' ORDER BY id';
                 if ($records2 = $DB->get_records_sql($sql, $params)) {
                     foreach ($records2 as $qid => $row2) {
                         $selected = '0';
@@ -2265,7 +2266,8 @@ class questionnaire {
             $name = 'popup';
             $link = new moodle_url($url);
             $action = new popup_action('click', $link, $name, $options);
-            $actionlink = $OUTPUT->action_link($link, $linkname, $action, array('title' => $title), new pix_icon('t/print', $title));
+            $actionlink = $OUTPUT->action_link($link, $linkname, $action, array('title' => $title),
+                    new pix_icon('t/print', $title));
             echo '&nbsp;|&nbsp;'.$actionlink;
 
             echo $OUTPUT->box_end();
@@ -2794,7 +2796,7 @@ class questionnaire {
             // Moodle:
             //  Determine if the user is a member of a group in this course or not.
             $groupname = '';
-            if ($this->cm->groupmode > 0) {
+            if (groups_get_activity_groupmode($this->cm, $this->course)) {
                 if ($currentgroupid > 0) {
                     $groupname = groups_get_group_name($currentgroupid);
                 } else {
@@ -2815,16 +2817,34 @@ class questionnaire {
                 $username = '';
                 $uid = '';
             }
-            $arr = array(); // fill $arr only with fields selected in the mod settings
-            if (in_array('response', $options)) array_push($arr, $qid);
-            if (in_array('submitted', $options)) array_push($arr, $submitted);
-            if (in_array('institution', $options)) array_push($arr, $institution);
-            if (in_array('department', $options)) array_push($arr, $department);
-            if (in_array('course', $options)) array_push($arr, $coursename);
-            if (in_array('group', $options)) array_push($arr, $groupname);
-            if (in_array('id', $options)) array_push($arr, $uid);
-            if (in_array('fullname', $options)) array_push($arr, $fullname);
-            if (in_array('username', $options)) array_push($arr, $username);
+            $arr = array(); // Fill $arr only with fields selected in the mod settings.
+            if (in_array('response', $options)) {
+                array_push($arr, $qid);
+            }
+            if (in_array('submitted', $options)) {
+                array_push($arr, $submitted);
+            }
+            if (in_array('institution', $options)) {
+                array_push($arr, $institution);
+            }
+            if (in_array('department', $options)) {
+                array_push($arr, $department);
+            }
+            if (in_array('course', $options)) {
+                array_push($arr, $coursename);
+            }
+            if (in_array('group', $options)) {
+                array_push($arr, $groupname);
+            }
+            if (in_array('id', $options)) {
+                array_push($arr, $uid);
+            }
+            if (in_array('fullname', $options)) {
+                array_push($arr, $fullname);
+            }
+            if (in_array('username', $options)) {
+                array_push($arr, $username);
+            }
 
             // Merge it.
             for ($i = $nbinfocols; $i < $numcols; $i++) {
@@ -3202,7 +3222,8 @@ class questionnaire {
             if ($compare  || $allresponses) {
                 $allscore = array($allscorepercent, 100 - $allscorepercent);
             }
-            if ($CFG->questionnaire_usergraph && $this->survey->chart_type) {
+            $usergraph = get_config('questionnaire', 'usergraph');
+            if ($usergraph && $this->survey->chart_type) {
                 draw_chart ($feedbacktype = 'global', $this->survey->chart_type, $labels,
                                     $score, $allscore, $sectionlabel, $groupname, $allresponses);
             }
@@ -3332,7 +3353,8 @@ class questionnaire {
                 $table->data[] = array($sectionlabel, $allscorepercent[$key].'%'.$oppositeallscore);
             }
         }
-        if (isset($CFG->questionnaire_usergraph) && $CFG->questionnaire_usergraph && $this->survey->chart_type) {
+        $usergraph = get_config('questionnaire', 'usergraph');
+        if ($usergraph && $this->survey->chart_type) {
             draw_chart($feedbacktype = 'sections', $this->survey->chart_type, array_values($chartlabels),
                 array_values($scorepercent), array_values($allscorepercent), $sectionlabel, $groupname, $allresponses);
         }
