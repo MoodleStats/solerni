@@ -315,7 +315,6 @@ function forumng_supports($feature) {
         case FEATURE_GROUPS:                  return true;
         case FEATURE_IDNUMBER:                return true;
         case FEATURE_GROUPINGS:               return true;
-        case FEATURE_GROUPMEMBERSONLY:        return true;
         case FEATURE_MOD_INTRO:               return true;
         case FEATURE_COMPLETION_TRACKS_VIEWS: return true;
         case FEATURE_COMPLETION_HAS_RULES:    return true;
@@ -458,6 +457,28 @@ function mod_forumng_cm_info_dynamic(cm_info $cm) {
         $cm->set_user_visible(false);
         $cm->set_available(false);
     }
+}
+
+/**
+ * Return forums on course that have unread posts for current user
+ *
+ * @param stdClass $course
+ * @return array
+ */
+function forumng_get_ourecent_activity($course) {
+    global $CFG;
+    require_once($CFG->dirroot . '/mod/forumng/mod_forumng.php');
+    $forums = mod_forumng::get_course_forums($course, 0, mod_forumng::UNREAD_BINARY);
+    $return = array();
+    foreach ($forums as $forum) {
+        if ($forum->has_unread_discussions()) {
+            $data = new stdClass();
+            $data->cm = $forum->get_course_module();
+            $data->icon = '%%unread%%';
+            $return[$data->cm->id] = $data;
+        }
+    }
+    return $return;
 }
 
 /**
