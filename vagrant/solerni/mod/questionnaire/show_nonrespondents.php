@@ -185,11 +185,7 @@ if ($fullname) {
     // Print the main part of the page.
     // Print the users with no responses
     // Get the effective groupmode of this course and module.
-    if (isset($cm->groupmode) && empty($course->groupmodeforce)) {
-        $groupmode = $cm->groupmode;
-    } else {
-        $groupmode = $course->groupmode;
-    }
+    $groupmode = groups_get_activity_groupmode($cm, $course);
 
     $groupselect = groups_print_activity_menu($cm, $url->out(), true);
     $mygroupid = groups_get_activity_group($cm);
@@ -440,7 +436,7 @@ if (!$nonrespondents) {
             $editor = editors_get_preferred_editor();
             $editor->use_editor($id, questionnaire_get_editor_options($context));
             $texteditor = html_writer::tag('div', html_writer::tag('textarea', $message,
-                            array('id' => $id, 'name' => "message", 'rows'=>'10', 'cols'=>'60')));
+                    array('id' => $id, 'name' => "message", 'rows' => '10', 'cols' => '60')));
             echo '<input type="hidden" name="format" value="'.FORMAT_HTML.'" />';
 
 
