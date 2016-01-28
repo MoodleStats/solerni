@@ -26,9 +26,9 @@
 defined('MOODLE_INTERNAL') || die();
 
 if (class_exists('question_type')) {
-    $register_question_type = false;
+    $register_ordering_questiontype = false;
 } else {
-    $register_question_type = true; // Moodle 2.0
+    $register_ordering_questiontype = true; // Moodle 2.0
     require_once($CFG->dirroot.'/question/type/ordering/legacy/questiontypebase.php');
 }
 
@@ -39,6 +39,9 @@ if (class_exists('question_type')) {
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class qtype_ordering extends question_type {
+
+    /** combined feedback fields */
+    public $feedback_fields = array('correctfeedback', 'partiallycorrectfeedback', 'incorrectfeedback');
 
     /**
      * Utility method used by {@link qtype_renderer::head_code()}
@@ -112,6 +115,7 @@ class qtype_ordering extends question_type {
 
         $result = new stdClass();
         $context = $question->context;
+        //$context = $this->get_context_by_category_id($question->category);
 
         // remove empty answers
         $question->answer = array_filter($question->answer, array($this, 'is_not_blank'));
@@ -119,6 +123,14 @@ class qtype_ordering extends question_type {
 
         // count how many answers we have
         $countanswers = count($question->answer);
+
+        // search/replace strings to reduce simple <p>...</p> to plain text
+        $p_search = '/^\s*<p>\s*(.*?)(\s*<br\s*\/?>)*\s*<\/p>\s*$/';
+        $p_replace = '$1';
+
+        // search/replace strings to standardize vertical align of <img> tags
+        $img_search = '/(<img[^>]*)\bvertical-align:\s*[a-zA-Z0-9_-]+([^>]*>)/';
+        $img_replace = '$1'.'vertical-align:text-top'.'$2';
 
         // check at least two answers exist
         if ($countanswers < 2) {
@@ -135,17 +147,46 @@ class qtype_ordering extends question_type {
         }
 
         // Insert all the new answers
+        foreach ($question->answer as $i => $answer) {
 
-        foreach ($question->answer as $i => $text) {
+            // extract $answer fields
+            if (is_array($answer)) {
+                // editor
+                $answertext   = $answer['text'];
+                $answerformat = $answer['format'];
+                $answeritemid = $answer['itemid'];
+            } else {
+                // textarea
+                $answertext   = $answer;
+                $answerformat = FORMAT_MOODLE;
+                $answeritemid = 0; // i.e. no editor
+            }
+
+            // reduce simple <p>...</p> to plain text
+            if (substr_count($answertext, '<p>')==1) {
+                $answertext = preg_replace($p_search, $p_replace, $answertext);
+            }
+            $answertext = trim($answertext);
+
+            // skip empty answers
+            if ($answertext=='') {
+                continue;
+            }
+
+            // standardize vertical align of img tags
+            $answertext = preg_replace($img_search, $img_replace, $answertext);
+
+            // prepare the $answer object
             $answer = (object)array(
-                'question' => $question->id,
-                'fraction' => ($i + 1), // start at 1
-                'answer'   => $text,
-                'answerformat' => FORMAT_MOODLE, // =0
-                'feedback' => '',
-                'feedbackformat' => FORMAT_MOODLE, // =0
+                'question'       => $question->id,
+                'fraction'       => ($i + 1), // start at 1
+                'answer'         => $answertext,
+                'answerformat'   => $answerformat,
+                'feedback'       => '',
+                'feedbackformat' => FORMAT_MOODLE,
             );
 
+            // add/insert $answer into the database
             if ($answer->id = array_shift($answerids)) {
                 if (! $DB->update_record('question_answers', $answer)) {
                     $result->error = get_string('cannotupdaterecord', 'error', 'question_answers (id='.$answer->id.')');
@@ -158,13 +199,23 @@ class qtype_ordering extends question_type {
                     return $result;
                 }
             }
+
+            // copy files across from draft files area
+            // Note: we must do this AFTER inserting the answer record
+            //       because the answer id is used as the file's "itemid"
+            if ($answeritemid) {
+                $answertext = file_save_draft_area_files($answeritemid, $context->id, 'question', 'answer', $answer->id, $this->fileoptions, $answertext);
+                $DB->set_field('question_answers', 'answer', $answertext, array('id' => $answer->id));
+            }
         }
 
         // create $options for this ordering question
         $options = (object)array(
             'questionid' => $question->id,
+            'layouttype' => $question->layouttype,
             'selecttype' => $question->selecttype,
-            'selectcount' => $question->selectcount
+            'selectcount' => $question->selectcount,
+            'gradingtype' => $question->gradingtype
         );
         $options = $this->save_ordering_feedback_helper($options, $question, $context, true);
 
@@ -184,7 +235,11 @@ class qtype_ordering extends question_type {
 
         // delete old answer records, if any
         if (count($answerids)) {
-            $DB->delete_records_list('question_answers', 'id', $answerids);
+            $fs = get_file_storage();
+            foreach ($answerids as $answerid) {
+                $fs->delete_area_files($context->id, 'question', 'answer', $answerid);
+                $DB->delete_records('question_answers', array('id' => $answerid));
+            }
         }
 
         return true;
@@ -196,10 +251,9 @@ class qtype_ordering extends question_type {
             $options = $this->initialise_combined_feedback($question, $questiondata, $shownumcorrect);
         } else {
             // Moodle 2.0
-            $names = array('correctfeedback', 'partiallycorrectfeedback', 'incorrectfeedback');
-            foreach ($names as $name) {
-                $format = $name.'format';
-                $question->$name = $questiondata->options->$name;
+            foreach ($this->feedback_fields as $field) {
+                $format = $field.'format';
+                $question->$field = $questiondata->options->$field;
                 $question->$format = $questiondata->options->$format;
             }
             if ($shownumcorrect) {
@@ -228,11 +282,10 @@ class qtype_ordering extends question_type {
             $options = $this->save_combined_feedback_helper($options, $question, $context, $shownumcorrect);
         } else {
             // Moodle 2.0
-            $names = array('correctfeedback', 'partiallycorrectfeedback', 'incorrectfeedback');
-            foreach ($names as $name) {
-                $text = $question->$name;
-                $format = $name.'format';
-                $options->$name = $this->import_or_save_files($text, $context, 'qtype_ordering', $name, $question->id);
+            foreach ($this->feedback_fields as $field) {
+                $text = $question->$field;
+                $format = $field.'format';
+                $options->$field = $this->import_or_save_files($text, $context, 'qtype_ordering', $field, $question->id);
                 $options->$format = $text['format'];
             }
             if ($shownumcorrect) {
@@ -243,6 +296,9 @@ class qtype_ordering extends question_type {
     }
 
     public function is_not_blank($value) {
+        if (is_array($value)) {
+            $value = $value['text'];
+        }
         $value = trim($value);
         return ($value || $value==='0');
     }
@@ -281,17 +337,18 @@ class qtype_ordering extends question_type {
      * @param string        $extra (optional, default=null)
      * @todo Finish documenting this function
      */
-    function import_from_gift($lines, $question, $format, $extra=null) {
-
+    public function import_from_gift($lines, $question, $format, $extra=null) {
         // convert $lines to a single a string - for preg_match()
         $lines = implode(PHP_EOL, $lines);
 
         // extract question info from GIFT file $lines
-        $search = '/^([^{]*)\s*\{>\s*(\d+)\s*((?:ALL|EXACT|RANDOM|REL|CONTIGUOUS|CONTIG)?)\s*(.*?)\s*\}\s*$/s';
+        $search = '/^([^{]*)\s*\{>\s*(\d+)\s*((?:ALL|EXACT|RANDOM|REL|CONTIGUOUS|CONTIG)?)\s*((?:HORIZONTAL|HORI|H|1|VERTICAL|VERT|V|0)?)\s*((?:ABSOLUTE|ABS||RELATIVE|REL)?)\s*(.*?)\s*\}\s*$/s';
         // $1 the question name
         // $2 the number of items to be shown
-        // $3 the extraction type
-        // $4 the lines of items to be ordered
+        // $3 the extraction/grading type
+        // $4 the layout type
+        // $5 the grading type
+        // $6 the lines of items to be ordered
         if (empty($extra) || ! preg_match($search, $lines, $matches)) {
             return false; // format not recognized
         }
@@ -299,7 +356,9 @@ class qtype_ordering extends question_type {
         $questionname = trim($matches[1]);
         $selectcount = trim($matches[2]);
         $selecttype = trim($matches[3]);
-        $lines = explode(PHP_EOL, $matches[4]);
+        $layouttype = trim($matches[4]);
+        $gradingtype = trim($matches[5]);
+        $lines = explode(PHP_EOL, $matches[6]);
         unset($matches);
 
         $question->qtype = 'ordering';
@@ -314,7 +373,7 @@ class qtype_ordering extends question_type {
         } else {
             $selectcount = min(6, count($lines));
         }
-        $this->set_count_and_type($question, $selectcount, $selecttype);
+        $this->set_layout_count_select_grading($question, $layouttype, $selectcount, $selecttype, $gradingtype);
 
         // remove blank items
         $lines = array_map('trim', $lines);
@@ -339,27 +398,57 @@ class qtype_ordering extends question_type {
             $question->feedbackformat[$i] = FORMAT_MOODLE; // =0
         }
 
+        // check that the required feedback fields exist
+        $this->check_ordering_combined_feedback($question);
+
         return $question;
     }
 
     /**
-     * extract_count_and_type
+     * check_ordering_combined_feedback
      *
-     * @param stdClass      $question
+     * @param stdClass $question (passed by reference)
      * @todo Finish documenting this function
      */
-    function extract_count_and_type($question) {
+    protected function check_ordering_combined_feedback(&$question) {
+        foreach ($this->feedback_fields as $field) {
+            if (empty($question->$field)) {
+                $question->$field = array('text' => '', 'format' => 0, 'itemid' => 0, 'files' => null);
+            }
+        }
+    }
+
+    /**
+     * extract_layout_count_select_grading
+     *
+     * @param stdClass $question
+     * @todo Finish documenting this function
+     */
+    public function extract_layout_count_select_grading($question) {
+
+        switch ($question->options->layouttype) {
+            case 0:  $layout = 'VERTICAL'; break;
+            case 1:  $layout = 'HORIZONTAL'; break;
+            default: $layout = ''; // shouldn't happen !!
+        }
+
         switch ($question->options->selecttype) {
-            case 0:  $type = 'ALL';        break; // all items
-            case 1:  $type = 'RANDOM';     break; // random subset
-            case 2:  $type = 'CONTIGUOUS'; break; // contiguous subset
-            default: $type = '';                  // shouldn't happen !!
+            case 0:  $select = 'ALL';        break; // all items
+            case 1:  $select = 'RANDOM';     break; // random subset
+            case 2:  $select = 'CONTIGUOUS'; break; // contiguous subset
+            default: $select = '';                  // shouldn't happen !!
+        }
+
+        switch ($question->options->gradingtype) {
+            case 0:  $grading = 'ABSOLUTE'; break; // absolute position
+            case 1:  $grading = 'RELATIVE'; break; // relative position
+            default: $grading = '';                // shouldn't happen !!
         }
 
         // Note: this used to be (selectcount + 2)
         $count = $question->options->selectcount;
 
-        return array($count, $type);
+        return array($layout, $count, $select, $grading);
     }
 
     /**
@@ -370,16 +459,17 @@ class qtype_ordering extends question_type {
      * @param string        $extra (optional, default=null)
      * @todo Finish documenting this function
      */
-    function export_to_gift($question, $format, $extra=null) {
-        list($count, $type) = $this->extract_count_and_type($question);
-
-        $expout = $question->questiontext.'{>'.$count.' '.$type.' '."\n";
+    public function export_to_gift($question, $format, $extra=null) {
+        list($layouttype, $selectcount, $selecttype, $gradingtype) = $this->extract_layout_count_select_grading($question);
+        $output = $question->questiontext.'{>'.$selectcount.' '.
+                                               $selecttype.' '.
+                                               $layouttype.' '.
+                                               $gradingtype."\n";
         foreach ($question->options->answers as $answer) {
-            $expout .= $answer->answer."\n";
+            $output .= $answer->answer."\n";
         }
-        $expout .= '}';
-
-        return $expout;
+        $output .= '}';
+        return $output;
     }
 
     /**
@@ -390,13 +480,15 @@ class qtype_ordering extends question_type {
      * @param string      $extra (optional, default=null)
      * @todo Finish documenting this function
      */
-    function export_to_xml($question, qformat_xml $format, $extra=null) {
+    public function export_to_xml($question, qformat_xml $format, $extra=null) {
 
-        list($count, $type) = $this->extract_count_and_type($question);
+        list($layouttype, $selectcount, $selecttype, $gradingtype) = $this->extract_layout_count_select_grading($question);
 
         $output = '';
-        $output .= "    <selecttype>$type</selecttype>\n";
-        $output .= "    <selectcount>$count</selectcount>\n";
+        $output .= "    <layouttype>$layouttype</layouttype>\n";
+        $output .= "    <selecttype>$selecttype</selecttype>\n";
+        $output .= "    <selectcount>$selectcount</selectcount>\n";
+        $output .= "    <gradingtype>$gradingtype</gradingtype>\n";
 
         foreach($question->options->answers as $answer) {
             $output .= '    <answer fraction="'.$answer->fraction.'" '.$format->format($answer->answerformat).">\n";
@@ -446,9 +538,11 @@ class qtype_ordering extends question_type {
             $selecttype = 'logical';
             $selectcount = 'studentsee';
         }
+        $layouttype = $format->getpath($data, array('#', 'layouttype', 0, '#'), 'VERTICAL');
         $selecttype = $format->getpath($data, array('#', $selecttype, 0, '#'), 'RANDOM');
         $selectcount = $format->getpath($data, array('#', $selectcount, 0, '#'), 6);
-        $this->set_count_and_type($newquestion, $selectcount, $selecttype);
+        $gradingtype = $format->getpath($data, array('#', 'gradingtype', 0, '#'), 'RELATIVE');
+        $this->set_layout_count_select_grading($newquestion, $layouttype, $selectcount, $selecttype, $gradingtype);
 
         $newquestion->answer = array();
         $newquestion->answerformat = array();
@@ -469,6 +563,9 @@ class qtype_ordering extends question_type {
             }
             $i++;
         }
+
+        // check that the required feedback fields exist
+        $this->check_ordering_combined_feedback($newquestion);
 
         return $newquestion;
     }
@@ -499,45 +596,84 @@ class qtype_ordering extends question_type {
     }
 
     /*
-     * set_count_and_type
+     * set_layout_count_select_grading
      *
      * @param object $question (passed by reference)
+     * @param integer $layout the layout type
      * @param integer $count the number of items to display
      * @param integer $type the extraction type
-     * @param integer $default_type (optional, default=1)
+     * @param integer $default_select (optional, default=1)
      */
-    function set_count_and_type(&$question, $count, $type, $default_type=1) {
+    public function set_layout_count_select_grading(&$question, $layout, $count, $select, $grading) {
+
+        $default_layout  = 0; // horizontal
+        $default_select  = 1; // random
+        $default_count   = 3;
+        $default_grading = 1; // relative
+
+        switch (strtoupper($layout)) {
+            case 'HORIZONTAL':
+            case 'HORI':
+            case 'H':
+            case '1':
+                $question->layouttype = 1;
+                break;
+            case 'VERTICAL':
+            case 'VERT':
+            case 'V':
+            case '0':
+                $question->layouttype = 0;
+                break;
+            default:
+                $question->layouttype = $default_layout;
+        }
+
 
         // set "selectcount" from $count
         // this used to be ($count - 2)
-        $question->selectcount = $count;
+        if (is_numeric($count)) {
+            $question->selectcount = intval($count);
+        } else {
+            $question->selectcount = $default_count;
+        }
 
-        // set "selecttype" from $type
-        switch ($type) {
+        // set "selecttype" from $select
+        switch (strtoupper($select)) {
             case 'ALL':
             case 'EXACT':
                 $question->selecttype = 0;
                 break;
-
             case 'RANDOM':
             case 'REL':
                 $question->selecttype = 1;
                 break;
-
             case 'CONTIGUOUS':
             case 'CONTIG':
                 $question->selecttype = 2;
                 break;
-
-            // otherwise
             default:
-                $question->selecttype = $default_type;
+                $question->selecttype = $default_select;
+        }
+
+        // set "gradingtype" from $grading
+        switch (strtoupper($grading)) {
+            case 'ABS':
+            case 'ABSOLUTE':
+                $question->gradingtype = 0;
+                break;
+            case 'REL':
+            case 'RELATIVE':
+                $question->gradingtype = 1;
+                break;
+            default:
+                $question->gradingtype = $default_grading;
         }
     }
 }
 
-if ($register_question_type) {
+if ($register_ordering_questiontype) {
     class question_ordering_qtype extends qtype_ordering {
     }
     question_register_questiontype(new question_ordering_qtype());
 }
+unset($register_ordering_questiontype);
