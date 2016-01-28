@@ -17,7 +17,8 @@
 /**
  * Web services declaration
  *
- * @package    orange_library
+ * @package     local
+ * @subpackage  orange_library
  * @copyright  2016 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

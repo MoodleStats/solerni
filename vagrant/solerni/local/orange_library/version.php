@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Orange library utilities
+ * Orange library & utilities
  *
  * @package     local
  * @subpackage  orange_library
@@ -26,6 +26,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2016012500;       // The current module version (Date: YYYYMMDDXX).
-$plugin->requires  = 2014051207;    // Requires this Moodle version Moodle 2.7.7.
-$plugin->component = 'local_orange_library';       // Full name of the plugin (used for diagnostics).
+$plugin->version   = 2016012800;                // The current module version (Date: YYYYMMDDXX).
+$plugin->requires  = 2014051207;                // Requires this Moodle version Moodle 2.7.7.
+$plugin->component = 'local_orange_library';    // Full name of the plugin (used for diagnostics).
