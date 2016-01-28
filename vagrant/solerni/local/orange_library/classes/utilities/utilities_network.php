@@ -22,7 +22,6 @@
  */
 namespace local_orange_library\utilities;
 use theme_halloween\tools\theme_utilities;
-use local_orange_library\client\curl;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -160,18 +159,36 @@ class utilities_network {
         return $thematics;
     }
 
+    /**
+     * This function is called from REST webservices. Returns local mnet hosts
+     * or false if the curl call gets an error.
+     *
+     * @global type $CFG
+     * @return mixed false or array of host objects
+     */
     static public function get_hosts_from_mnethome() {
 
         if (self::is_home()) {
             return self::get_hosts();
         }
 
-        $token = 'bb5a2e42b9b7f0b73dd10c1130acb227';
+        global $CFG;
+        require_once($CFG->libdir . '/filelib.php'); // include moodle curl class
+        $token = 'bb5a2e42b9b7f0b73dd10c1130acb227'; // @todo link a setting value
         $homemnet = self::get_home();
-        $serverurl =$homemnet->url . '/webservice/rest/server.php?wstoken=' . $token . '&wsfunction=local_orange_library_get_resac_hosts';
-        $restformat = '&moodlewsrestformat=json';
-        $curl = new curl;
-        $resp = $curl->post($serverurl . $restformat, array());
-        return json_decode($resp);
+        $serverurl = new \moodle_url($homemnet->url . '/webservice/rest/server.php',
+                array('wstoken' => $token,
+                    'wsfunction' => 'local_orange_library_get_resac_hosts',
+                    'moodlewsrestformat' => 'json'));
+        $curl = new \curl;
+        $resacs = json_decode($curl->post(
+                htmlspecialchars_decode($serverurl->__toString()), array()));
+
+        if ($resacs->errorcode) {
+            error_log('Resac Nav Curl Request Eror. Message: ' . $resacs->message);
+            return false;
+        }
+
+        return $resacs;
     }
 }
