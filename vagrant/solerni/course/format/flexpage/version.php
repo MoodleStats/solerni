@@ -31,6 +31,7 @@
  *
  * orange 2015050500 : adding extended course data
  * orange 2015120300 : modifing default to flexpage creation : visible in menu and flexpage next and previous
+ * orange 2016011800 : migration Moodle 2.9
  */
 
 $plugin->version      = 2016011800;
