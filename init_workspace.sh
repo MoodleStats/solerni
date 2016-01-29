@@ -329,6 +329,8 @@ function create_subtrees () {
         # local_staticpage (master = master)
         init_subtree vagrant/solerni/local/staticpage staticpage-source https://github.com/moodleuulm/moodle-local_staticpage.git master
 
+        # theme_bootstrap (master = 2015062200)
+        init_subtree vagrant/solerni/theme/bootstrap bootstrap-source https://github.com/bmbrands/theme_bootstrap.git MOODLE_29_STABLE
 }
 
 
