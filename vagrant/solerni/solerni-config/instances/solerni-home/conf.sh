@@ -13,7 +13,7 @@ fi
 moosh config-set enablewebservices 1
 
 # Activate REST
-moosh config-set webservicesprotocol rest
+moosh config-set webserviceprotocols rest
 
 #Import Role
 moosh role-import apiuser solerni-config/instances/solerni-home/users_roles/solerniapiuser.xml
