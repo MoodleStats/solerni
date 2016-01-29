@@ -23,7 +23,7 @@
  */
 
 defined('MOODLE_INTERNAL') || die();
-use theme_halloween\tools\log_and_session_utilities;
+
 use local_orange_library\utilities\utilities_network;
 
 /**
@@ -53,7 +53,7 @@ class local_orange_event_user_loggedin_observer {
             $contact = core_user::get_support_user();
             $siteurl = $CFG->wwwroot;
 
-            if ((log_and_session_utilities::is_platform_login_uses_mnet() && utilities_network::is_home()) ||
+            if ((utilities_network::is_platform_uses_mnet() && utilities_network::is_home()) ||
                 ($CFG->solerni_isprivate)) {
                 // Send account email reminder.
                 $message = get_string('contentuseraccountemail', 'local_orange_event_user_loggedin');
@@ -77,7 +77,7 @@ class local_orange_event_user_loggedin_observer {
                 email_to_user($user[$event->objectid], $contact, $subject, $messagetext, $messagehtml);
             }
 
-            if ((log_and_session_utilities::is_platform_login_uses_mnet() && utilities_network::is_thematic()) ||
+            if ((utilities_network::is_platform_uses_mnet() && utilities_network::is_thematic()) ||
                 ($CFG->solerni_isprivate)) {
                 // Send welcome message.
                 $message = get_string('contentwelcomeemail', 'local_orange_event_user_loggedin');

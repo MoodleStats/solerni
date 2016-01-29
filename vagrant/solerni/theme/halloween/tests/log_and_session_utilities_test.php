@@ -51,11 +51,6 @@ class log_and_session_utilities_testcase extends advanced_testcase {
         return $mnethost;
     }
 
-    public function test_is_platform_login_uses_mnet() {
-        $mnetlog = log_and_session_utilities::is_platform_login_uses_mnet();
-        $this->assertInternalType('bool', $mnetlog);
-    }
-
     public function test_testsession_initialize() {
         $testvalues = array(0, 1, '0', '1', 455, -45, 0123, 0x1A, 0b11111111, $this->user->id);
 
@@ -101,7 +96,7 @@ class log_and_session_utilities_testcase extends advanced_testcase {
                     'No isthematic key in $formaction');
             $this->assert_valid_url($formaction['host']);
 
-            if (log_and_session_utilities::is_platform_login_uses_mnet() && $isthematic && !$value) {
+            if (utilities_network::is_platform_uses_mnet() && $isthematic && !$value) {
                 $this->assertTrue($formaction['isthematic'],
                     'This is thematic, so the isthematic key should be true');
             } else {
