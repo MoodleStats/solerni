@@ -172,21 +172,25 @@ class utilities_network {
             return self::get_hosts();
         }
 
-        global $CFG;
-        require_once($CFG->libdir . '/filelib.php'); // include moodle curl class
-        $token = 'bb5a2e42b9b7f0b73dd10c1130acb227'; // @todo link a setting value
-        $homemnet = self::get_home();
-        $serverurl = new \moodle_url($homemnet->url . '/webservice/rest/server.php',
-                array('wstoken' => $token,
-                    'wsfunction' => 'local_orange_library_get_resac_hosts',
-                    'moodlewsrestformat' => 'json'));
-        $curl = new \curl;
-        $resacs = json_decode($curl->post(
-                htmlspecialchars_decode($serverurl->__toString()), array()));
+        if (theme_utilities::is_theme_settings_exists_and_nonempty('webservicestoken') ) {
+            global $CFG, $PAGE;
+            require_once($CFG->libdir . '/filelib.php'); // include moodle curl class
+            $token = $PAGE->theme->settings->webservicestoken;
+            $homemnet = self::get_home();
+            $serverurl = new \moodle_url($homemnet->url . '/webservice/rest/server.php',
+                    array('wstoken' => $token,
+                        'wsfunction' => 'local_orange_library_get_resac_hosts',
+                        'moodlewsrestformat' => 'json'));
+            $curl = new \curl;
+            $resacs = json_decode($curl->post(
+                    htmlspecialchars_decode($serverurl->__toString()), array()));
 
-        if ($resacs->errorcode) {
-            error_log('Resac Nav Curl Request Returned An Error. Message: ' . $resacs->message);
-            return false;
+            if ($resacs && is_object($resacs) && $resacs->errorcode) {
+                error_log('Resac Nav Curl Request Returned An Error. Message: ' . $resacs->message);
+                $resacs = false;
+            }
+        } else {
+            $resacs = false;
         }
 
         return $resacs;

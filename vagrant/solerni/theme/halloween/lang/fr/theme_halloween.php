@@ -230,6 +230,13 @@ $string['create_account']           = 'Créer mon compte';
 $string['policyaccept']             = 'J\'ai lu et j\'accepte les <a class="js-target-blank" href="{$a}" target="_blank">conditions générales d\'utilisation</a>';
 $string['missingusername']          = 'Le {$a} ne peut pas etre vide';
 
+// Webservices settings page
+$string['webservicessettings']      = 'MNET/RESAC';
+$string['webservicesheading']       = 'Paramétrer la communication entre les instances du RESAC';
+$string['webservicesheadingdesc']   = '';
+$string['webservicestoken']         = 'Jeton de sécurité';
+$string['webservicestokendesc']     = 'Insérez ici le jeton de sécurité délivré sur la HOME MNET pour le RESAC Web Service';
+
 // Search filters.
 $string['catalog_page_title']       = 'Catalogue';
 $string['filterstatustitle']        = 'Statuts';
