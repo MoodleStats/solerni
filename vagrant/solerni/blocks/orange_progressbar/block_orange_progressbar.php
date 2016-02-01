@@ -18,7 +18,7 @@
 /**
  * Orange Progress Bar block definition
  *
- * @package    block_orange_last_message
+ * @package    block_orange_progressbar
  * @copyright  Orange 2015
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

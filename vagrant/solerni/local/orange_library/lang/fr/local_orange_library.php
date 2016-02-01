@@ -81,5 +81,6 @@ $string['notreplay']            = 'Non rejouable';
 $string['configuration_error']  = 'Erreurs de configuration pour ce cours :';
 $string['enrolmentmethodmissing'] = 'Méthode d\'inscription "{$a}" manquante.';
 $string['enrolmentmethodenabled'] = 'La méthode d\'inscription "{$a}" doit être activée.';
-$string['moddescriptionpagemissing'] = 'Page "En savoir+" manquante.';
+$string['moddescriptionpagemissing'] = 'Page "{$a}" manquante.';
+$string['moddescriptionpagemultiple'] = 'Ce cours dispose de plus d\'une page "{$a}".';
 $string['blockmissing'] = 'Bloc "{$a}" manquant.';
