@@ -230,6 +230,13 @@ $string['create_account']           = 'Create my account';
 $string['policyaccept']             = 'I have read and agree to the <a class="js-target-blank" href="{$a}" target="_blank">terms and conditions</a>';
 $string['missingusername']          = 'Your {$a} cannot be empty';
 
+// Webservices settings page
+$string['webservicessettings']      = 'MNET/RESAC';
+$string['webservicesheading']       = 'Configure communication between RESAC instances';
+$string['webservicesheadingdesc']   = '';
+$string['webservicestoken']         = 'Security token';
+$string['webservicestokendesc']     = 'Insert the HOME MNET token generated for RESAC Web Service';
+
 // Search filters.
 $string['catalog_page_title']       = 'Catalog';
 $string['filterstatustitle']        = 'Status';
@@ -239,6 +246,7 @@ $string['filterstatusregistrationcomplete']   = 'Mooc complete';
 $string['filterstatusregistrationopen']       = 'Registration open';
 $string['filterstatusregistrationstopped']    = 'Registration stopped';
 $string['filterstatusregistrationnotopen']    = 'Registration not open';
+
 $string['filterstatusclosed']       = 'Closed';
 $string['filterstatusnotstarted']   = 'Coming soon';
 $string['filterstatusrunning']      = 'In progress';
