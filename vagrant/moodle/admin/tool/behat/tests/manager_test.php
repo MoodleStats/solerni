@@ -38,125 +38,125 @@ require_once($CFG->libdir . '/behat/classes/behat_config_manager.php');
  */
 class tool_behat_manager_testcase extends advanced_testcase {
 
-	/**
-	 * behat_config_manager tests.
-	 */
-	public function test_merge_configs() {
+    /**
+     * behat_config_manager tests.
+     */
+    public function test_merge_configs() {
 
-		// Simple default config.
-		$array1 = array(
-				'the' => 'same',
-				'simple' => 'value',
-				'array' => array(
-						'one' => 'arrayvalue1',
-						'two' => 'arrayvalue2'
-				)
-		);
+        // Simple default config.
+        $array1 = array(
+            'the' => 'same',
+            'simple' => 'value',
+            'array' => array(
+                'one' => 'arrayvalue1',
+                'two' => 'arrayvalue2'
+            )
+        );
 
-		// Simple override.
-		$array2 = array(
-				'simple' => 'OVERRIDDEN1',
-				'array' => array(
-						'one' => 'OVERRIDDEN2'
-				),
-				'newprofile' => array(
-						'anotherlevel' => array(
-								'andanotherone' => array(
-										'list1',
-										'list2'
-								)
-						)
-				)
-		);
+        // Simple override.
+        $array2 = array(
+            'simple' => 'OVERRIDDEN1',
+            'array' => array(
+                'one' => 'OVERRIDDEN2'
+            ),
+            'newprofile' => array(
+                'anotherlevel' => array(
+                    'andanotherone' => array(
+                        'list1',
+                        'list2'
+                    )
+                )
+            )
+        );
 
-		$array = testable_behat_config_manager::merge_config($array1, $array2);
+        $array = testable_behat_config_manager::merge_config($array1, $array2);
 
-		// Overrides are applied.
-		$this->assertEquals('OVERRIDDEN1', $array['simple']);
-		$this->assertEquals('OVERRIDDEN2', $array['array']['one']);
+        // Overrides are applied.
+        $this->assertEquals('OVERRIDDEN1', $array['simple']);
+        $this->assertEquals('OVERRIDDEN2', $array['array']['one']);
 
-		// Other values are respected.
-		$this->assertNotEmpty($array['array']['two']);
+        // Other values are respected.
+        $this->assertNotEmpty($array['array']['two']);
 
-		// Completely new nodes are added.
-		$this->assertNotEmpty($array['newprofile']);
-		$this->assertNotEmpty($array['newprofile']['anotherlevel']['andanotherone']);
-		$this->assertEquals('list1', $array['newprofile']['anotherlevel']['andanotherone'][0]);
-		$this->assertEquals('list2', $array['newprofile']['anotherlevel']['andanotherone'][1]);
+        // Completely new nodes are added.
+        $this->assertNotEmpty($array['newprofile']);
+        $this->assertNotEmpty($array['newprofile']['anotherlevel']['andanotherone']);
+        $this->assertEquals('list1', $array['newprofile']['anotherlevel']['andanotherone'][0]);
+        $this->assertEquals('list2', $array['newprofile']['anotherlevel']['andanotherone'][1]);
 
-		// Complex override changing vectors to scalars and scalars to vectors.
-		$array2 = array(
-				'simple' => array(
-						'simple' => 'should',
-						'be' => 'overridden',
-						'by' => 'this-array'
-				),
-				'array' => 'one'
-		);
+        // Complex override changing vectors to scalars and scalars to vectors.
+        $array2 = array(
+            'simple' => array(
+                'simple' => 'should',
+                'be' => 'overridden',
+                'by' => 'this-array'
+            ),
+            'array' => 'one'
+        );
 
-		$array = testable_behat_config_manager::merge_config($array1, $array2);
+        $array = testable_behat_config_manager::merge_config($array1, $array2);
 
-		// Overrides applied.
-		$this->assertNotEmpty($array['simple']);
-		$this->assertNotEmpty($array['array']);
-		$this->assertTrue(is_array($array['simple']));
-		$this->assertFalse(is_array($array['array']));
+        // Overrides applied.
+        $this->assertNotEmpty($array['simple']);
+        $this->assertNotEmpty($array['array']);
+        $this->assertTrue(is_array($array['simple']));
+        $this->assertFalse(is_array($array['array']));
 
-		// Other values are maintained.
-		$this->assertEquals('same', $array['the']);
-	}
+        // Other values are maintained.
+        $this->assertEquals('same', $array['the']);
+    }
 
-	/**
-	 * behat_config_manager tests.
-	 */
-	public function test_config_file_contents() {
-		global $CFG;
+    /**
+     * behat_config_manager tests.
+     */
+    public function test_config_file_contents() {
+        global $CFG;
 
-		// Skip tests if behat is not installed.
-		$vendorpath = $CFG->dirroot . '/vendor';
-		if (!file_exists($vendorpath . '/autoload.php') || !is_dir($vendorpath . '/behat')) {
-			$this->markTestSkipped('Behat not installed.');
-		}
+        // Skip tests if behat is not installed.
+        $vendorpath = $CFG->dirroot . '/vendor';
+        if (!file_exists($vendorpath . '/autoload.php') || !is_dir($vendorpath . '/behat')) {
+            $this->markTestSkipped('Behat not installed.');
+        }
 
-		// Add some fake test url.
-		$CFG->behat_wwwroot = 'http://example.com/behat';
+        // Add some fake test url.
+        $CFG->behat_wwwroot = 'http://example.com/behat';
 
-		// To avoid user value at config.php level.
-		unset($CFG->behat_config);
+        // To avoid user value at config.php level.
+        unset($CFG->behat_config);
 
-		// List.
-		$features = array(
-				'feature1',
-				'feature2',
-				'feature3'
-		);
+        // List.
+        $features = array(
+            'feature1',
+            'feature2',
+            'feature3'
+        );
 
-		// Associative array.
-		$stepsdefinitions = array(
-				'micarro' => '/me/lo/robaron',
-				'anoche' => '/cuando/yo/dormia'
-		);
+        // Associative array.
+        $stepsdefinitions = array(
+            'micarro' => '/me/lo/robaron',
+            'anoche' => '/cuando/yo/dormia'
+        );
 
-		$contents = testable_behat_config_manager::get_config_file_contents($features, $stepsdefinitions);
+        $contents = testable_behat_config_manager::get_config_file_contents($features, $stepsdefinitions);
 
-		// YAML decides when is is necessary to wrap strings between single quotes, so not controlled
-		// values like paths should not be asserted including the key name as they would depend on the
-		// directories values.
-		$this->assertContains($CFG->dirroot . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'behat' . DIRECTORY_SEPARATOR . 'features', $contents);
+        // YAML decides when is is necessary to wrap strings between single quotes, so not controlled
+        // values like paths should not be asserted including the key name as they would depend on the
+        // directories values.
+        $this->assertContains($CFG->dirroot . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'behat' . DIRECTORY_SEPARATOR . 'features', $contents);
 
-		// Not quoted strings.
-		$this->assertContains('micarro: /me/lo/robaron', $contents);
-		$this->assertContains('class: behat_init_context', $contents);
+        // Not quoted strings.
+        $this->assertContains('micarro: /me/lo/robaron', $contents);
+        $this->assertContains('class: behat_init_context', $contents);
 
-		// YAML uses single quotes to wrap URL strings.
-		$this->assertContains("base_url: '" . $CFG->behat_wwwroot . "'", $contents);
+        // YAML uses single quotes to wrap URL strings.
+        $this->assertContains("base_url: '" . $CFG->behat_wwwroot . "'", $contents);
 
-		// Lists.
-		$this->assertContains('- feature1', $contents);
-		$this->assertContains('- feature3', $contents);
+        // Lists.
+        $this->assertContains('- feature1', $contents);
+        $this->assertContains('- feature3', $contents);
 
-		unset($CFG->behat_wwwroot);
-	}
+        unset($CFG->behat_wwwroot);
+    }
 
 }
 
@@ -169,25 +169,25 @@ class tool_behat_manager_testcase extends advanced_testcase {
  */
 class testable_behat_config_manager extends behat_config_manager {
 
-	/**
-	 * Allow access to protected method
-	 * @see parent::merge_config()
-	 * @param mixed $config
-	 * @param mixed $localconfig
-	 * @return mixed
-	 */
-	public static function merge_config($config, $localconfig) {
-		return parent::merge_config($config, $localconfig);
-	}
+    /**
+     * Allow access to protected method
+     * @see parent::merge_config()
+     * @param mixed $config
+     * @param mixed $localconfig
+     * @return mixed
+     */
+    public static function merge_config($config, $localconfig) {
+        return parent::merge_config($config, $localconfig);
+    }
 
-	/**
-	 * Allow access to protected method
-	 * @see parent::get_config_file_contents()
-	 * @param array $features
-	 * @param array $stepsdefinitions
-	 * @return string
-	 */
-	public static function get_config_file_contents($features, $stepsdefinitions) {
-		return parent::get_config_file_contents($features, $stepsdefinitions);
-	}
+    /**
+     * Allow access to protected method
+     * @see parent::get_config_file_contents()
+     * @param array $features
+     * @param array $stepsdefinitions
+     * @return string
+     */
+    public static function get_config_file_contents($features, $stepsdefinitions) {
+        return parent::get_config_file_contents($features, $stepsdefinitions);
+    }
 }

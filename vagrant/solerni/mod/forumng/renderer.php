@@ -827,6 +827,9 @@ class mod_forumng_renderer extends plugin_renderer_base {
                 '<input type="hidden" name="back" value="view" />' .
                 $outsubmit . '</div></form>';
         }
+        if ($subscribed != mod_forumng::NOT_SUBSCRIBED) {
+            $out .= $this->render_subscribe_info($forum->get_context());
+        }
         if ($viewlink) {
             $out .= ' <div class="forumng-subscribe-admin">' .
                 '<a href="subscribers.php?' .
@@ -838,13 +841,14 @@ class mod_forumng_renderer extends plugin_renderer_base {
     }
     /**
      * Display subscribe option for discussions.
-     * @param discussion $discussion Forum
+     * @param mod_forumng_discussion $discussion Forum
      * @param string $text Textual note
      * @param bool $subscribe True if user can subscribe, False if user can unsubscribe
      * @return string HTML code for this area
      */
     public function render_discussion_subscribe_option($discussion, $subscribe) {
         global $USER;
+        $info = '';
         if ($subscribe) {
             $status = get_string('subscribestate_discussionunsubscribed', 'forumng');
             $submit = 'submitsubscribe';
@@ -854,6 +858,7 @@ class mod_forumng_renderer extends plugin_renderer_base {
                     '<strong>' . $USER->email . '</strong>' );
             $submit = 'submitunsubscribe';
             $button = get_string('unsubscribediscussion', 'forumng');
+            $info = $this->render_subscribe_info($discussion->get_forum()->get_context());
         }
         return '<div class="clearfix"></div><div class="forumng-subscribe-options" id="forumng-subscribe-options">' .
             '<h3>' . get_string('subscription', 'forumng') . '</h3>' .
@@ -862,7 +867,71 @@ class mod_forumng_renderer extends plugin_renderer_base {
             $discussion->get_link_params(mod_forumng::PARAM_FORM) .
             '<input type="hidden" name="back" value="discuss" />' .
             '<input type="submit" name="' . $submit . '" value="' .
-            $button . '" /></div></form></div>';
+            $button . '" /></div></form></div>' . $info;
+    }
+
+    /**
+     * Show current user forum subscription info
+     * Show link to change profile email preferences (if allowed to change profile)
+     * @param $context context_module
+     * @return string output html
+     */
+    public function render_subscribe_info($context) {
+        global $USER;
+        $output = '';
+        $link = '';
+        $course = $context->get_course_context(true)->instanceid;
+        $userauthplugin = false;
+        if (!empty($USER->auth)) {
+            $userauthplugin = get_auth_plugin($USER->auth);
+        }
+
+        // Add the profile edit link (partial copy from navigationlib).
+        if (isloggedin() && !isguestuser($USER) && !is_mnet_remote_user($USER)) {
+            if (has_capability('moodle/user:editownprofile', $context)) {
+                if ($userauthplugin && $userauthplugin->can_edit_profile()) {
+                    $url = $this->subscribe_preferences_url($context->instanceid);
+                    $link = ' (' . html_writer::link($url, get_string('subscribestate_info_link', 'forumng')) . ')';
+                }
+            }
+        }
+        $output = get_string('subscribestate_info', 'forumng', $link);
+
+        $info = ' ';
+        switch ($USER->maildigest) {
+            case 0:
+                $info .= get_string('emaildigestoff');
+                break;
+            case 1:
+                $info .= get_string('emaildigestcomplete');
+                break;
+            case 2:
+                $info .= get_string('emaildigestsubjects');
+                break;
+        }
+        $info .= ', ';
+        switch ($USER->mailformat) {
+            case 0:
+                $info .= get_string('textformat');
+                break;
+            case 1:
+                $info .= get_string('htmlformat');
+                break;
+        }
+        $infodiv = html_writer::span($info, 'forumng_subinfo_mail');
+
+        return html_writer::div($output . $infodiv, 'forumng_subinfo');
+    }
+
+    /**
+     * Returns url to forum mail subscription preferences page.
+     * @param int $forumngid cmid
+     * @return moodle_url
+     */
+    public function subscribe_preferences_url($forumngid) {
+        global $USER, $COURSE;
+        return new moodle_url('/mod/forumng/preferences.php',
+                array('id' => $USER->id, 'course' => $COURSE->id, 'fid' => $forumngid));
     }
 
     /**
@@ -1135,18 +1204,6 @@ class mod_forumng_renderer extends plugin_renderer_base {
                         $post->get_id() . '">' .
                         get_string('selectlabel', 'forumng', $postnumber) . '</label>';
             }
-            if ($options[mod_forumng_post::OPTION_FLAG_CONTROL]) {
-                $flagurl = new moodle_url('flagpost.php?',
-                        array('p' => $post->get_id(),
-                        'timeread' => $options[mod_forumng_post::OPTION_READ_TIME],
-                        'flag' => ($post->is_flagged() ? 0 : 1)));
-                $icon = "flag." . ($post->is_flagged() ? 'on' : 'off');
-                $iconalt = get_string($post->is_flagged() ? 'clearflag' : 'setflag', 'forumng');
-                $iconhtml = $OUTPUT->pix_icon($icon, $iconalt, 'forumng');
-                $link = html_writer::link($flagurl, $iconhtml,
-                        array('title' => $iconalt));
-                $out .= html_writer::div($link, 'forumng-flag');
-            }
             // End: forumng-info.
             $out .= html_writer::end_tag('div');
             // End: forumng-pic-info.
@@ -1342,10 +1399,9 @@ class mod_forumng_renderer extends plugin_renderer_base {
                 $ratings .= '</div>';
             }
 
-            if ($post->get_forum()->get_enableratings() ==
-                    mod_forumng::FORUMNG_STANDARD_RATING && $post->get_ratings()) {
-                $out .= html_writer::div($OUTPUT->render($post->get_ratings()), 'forumng-ratings-standard');
-            } else if ($ratings) {
+            if ($ratings && $post->get_forum()->get_enableratings() ==
+                    mod_forumng::FORUMNG_RATING_OBSOLETE) {
+                // Old Forum ratings.
                 $out .= '<div class="forumng-ratings' . $ratingclasses .
                         '">' . $ratings . '</div>';
             }
@@ -1380,6 +1436,22 @@ class mod_forumng_renderer extends plugin_renderer_base {
                     $commandsarray['forumng-markread'] = html_writer::link(
                             new moodle_url('/mod/forumng/markread.php', array('p' => $post->get_id())),
                             get_string('markpostread', 'forumng'));
+                }
+
+                // Flag link.
+                if ($options[mod_forumng_post::OPTION_FLAG_CONTROL]) {
+                    $flagurl = new moodle_url('flagpost.php?',
+                            array('p' => $post->get_id(),
+                                    'timeread' => $options[mod_forumng_post::OPTION_READ_TIME],
+                                    'flag' => ($post->is_flagged() ? 0 : 1)));
+                    $icon = "flag." . ($post->is_flagged() ? 'on' : 'off');
+                    $iconalt = get_string($post->is_flagged() ? 'clearflag' : 'setflag', 'forumng');
+                    $bnstr = get_string($post->is_flagged() ? 'clearflag' : 'flagpost', 'forumng');
+                    $iconhtml = $OUTPUT->pix_icon($icon, '', 'forumng');
+                    $iconhtml .= html_writer::span($bnstr, 'flagtext');
+                    $link = html_writer::link($flagurl, $iconhtml,
+                        array('title' => $iconalt));
+                    $commandsarray['forumng-flagpost'] = html_writer::div($link, 'forumng-flagpost');
                 }
 
                 // Direct link.
@@ -1484,6 +1556,11 @@ class mod_forumng_renderer extends plugin_renderer_base {
                 }
 
                 // Only the reply command is available in text mode
+            }
+
+            if ($post->get_forum()->get_enableratings() ==
+                    mod_forumng::FORUMNG_STANDARD_RATING && $post->get_ratings()) {
+                        $out .= html_writer::div($OUTPUT->render($post->get_ratings()), 'forumng-ratings-standard');
             }
 
             // End: forumng-postfooter and forumng-postmain.

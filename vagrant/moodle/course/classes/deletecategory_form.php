@@ -36,108 +36,108 @@ require_once($CFG->libdir . '/coursecatlib.php');
  */
 class core_course_deletecategory_form extends moodleform {
 
-	/**
-	 * The coursecat object for that category being deleted.
-	 * @var coursecat
-	 */
-	protected $coursecat;
+    /**
+     * The coursecat object for that category being deleted.
+     * @var coursecat
+     */
+    protected $coursecat;
 
-	/**
-	 * Defines the form.
-	 */
-	public function definition() {
-		$mform = $this->_form;
-		$this->coursecat = $this->_customdata;
+    /**
+     * Defines the form.
+     */
+    public function definition() {
+        $mform = $this->_form;
+        $this->coursecat = $this->_customdata;
 
-		$categorycontext = context_coursecat::instance($this->coursecat->id);
-		$categoryname = $this->coursecat->get_formatted_name();
+        $categorycontext = context_coursecat::instance($this->coursecat->id);
+        $categoryname = $this->coursecat->get_formatted_name();
 
-		// Check permissions, to see if it OK to give the option to delete
-		// the contents, rather than move elsewhere.
-		$candeletecontent = $this->coursecat->can_delete_full();
+        // Check permissions, to see if it OK to give the option to delete
+        // the contents, rather than move elsewhere.
+        $candeletecontent = $this->coursecat->can_delete_full();
 
-		// Get the list of categories we might be able to move to.
-		$displaylist = $this->coursecat->move_content_targets_list();
+        // Get the list of categories we might be able to move to.
+        $displaylist = $this->coursecat->move_content_targets_list();
 
-		// Now build the options.
-		$options = array();
-		if ($displaylist) {
-			$options[0] = get_string('movecontentstoanothercategory');
-		}
-		if ($candeletecontent) {
-			$options[1] = get_string('deleteallcannotundo');
-		}
-		if (empty($options)) {
-			print_error('youcannotdeletecategory', 'error', 'index.php', $categoryname);
-		}
+        // Now build the options.
+        $options = array();
+        if ($displaylist) {
+            $options[0] = get_string('movecontentstoanothercategory');
+        }
+        if ($candeletecontent) {
+            $options[1] = get_string('deleteallcannotundo');
+        }
+        if (empty($options)) {
+            print_error('youcannotdeletecategory', 'error', 'index.php', $categoryname);
+        }
 
-		// Now build the form.
-		$mform->addElement('header', 'general', get_string('categorycurrentcontents', '', $categoryname));
+        // Now build the form.
+        $mform->addElement('header', 'general', get_string('categorycurrentcontents', '', $categoryname));
 
-		// Describe the contents of this category.
-		$contents = '';
-		if ($this->coursecat->has_children()) {
-			$contents .= '<li>' . get_string('subcategories') . '</li>';
-		}
-		if ($this->coursecat->has_courses()) {
-			$contents .= '<li>' . get_string('courses') . '</li>';
-		}
-		if (question_context_has_any_questions($categorycontext)) {
-			$contents .= '<li>' . get_string('questionsinthequestionbank') . '</li>';
-		}
-		if (!empty($contents)) {
-			$mform->addElement('static', 'emptymessage', get_string('thiscategorycontains'), html_writer::tag('ul', $contents));
-		} else {
-			$mform->addElement('static', 'emptymessage', '', get_string('deletecategoryempty'));
-		}
+        // Describe the contents of this category.
+        $contents = '';
+        if ($this->coursecat->has_children()) {
+            $contents .= '<li>' . get_string('subcategories') . '</li>';
+        }
+        if ($this->coursecat->has_courses()) {
+            $contents .= '<li>' . get_string('courses') . '</li>';
+        }
+        if (question_context_has_any_questions($categorycontext)) {
+            $contents .= '<li>' . get_string('questionsinthequestionbank') . '</li>';
+        }
+        if (!empty($contents)) {
+            $mform->addElement('static', 'emptymessage', get_string('thiscategorycontains'), html_writer::tag('ul', $contents));
+        } else {
+            $mform->addElement('static', 'emptymessage', '', get_string('deletecategoryempty'));
+        }
 
-		// Give the options for what to do.
-		$mform->addElement('select', 'fulldelete', get_string('whattodo'), $options);
-		if (count($options) == 1) {
-			$optionkeys = array_keys($options);
-			$option = reset($optionkeys);
-			$mform->hardFreeze('fulldelete');
-			$mform->setConstant('fulldelete', $option);
-		}
+        // Give the options for what to do.
+        $mform->addElement('select', 'fulldelete', get_string('whattodo'), $options);
+        if (count($options) == 1) {
+            $optionkeys = array_keys($options);
+            $option = reset($optionkeys);
+            $mform->hardFreeze('fulldelete');
+            $mform->setConstant('fulldelete', $option);
+        }
 
-		if ($displaylist) {
-			$mform->addElement('select', 'newparent', get_string('movecategorycontentto'), $displaylist);
-			if (in_array($this->coursecat->parent, $displaylist)) {
-				$mform->setDefault('newparent', $this->coursecat->parent);
-			}
-			$mform->disabledIf('newparent', 'fulldelete', 'eq', '1');
-		}
+        if ($displaylist) {
+            $mform->addElement('select', 'newparent', get_string('movecategorycontentto'), $displaylist);
+            if (in_array($this->coursecat->parent, $displaylist)) {
+                $mform->setDefault('newparent', $this->coursecat->parent);
+            }
+            $mform->disabledIf('newparent', 'fulldelete', 'eq', '1');
+        }
 
-		$mform->addElement('hidden', 'categoryid', $this->coursecat->id);
-		$mform->setType('categoryid', PARAM_ALPHANUM);
-		$mform->addElement('hidden', 'action', 'deletecategory');
-		$mform->setType('action', PARAM_ALPHANUM);
-		$mform->addElement('hidden', 'sure');
-		// This gets set by default to ensure that if the user changes it manually we can detect it.
-		$mform->setDefault('sure', md5(serialize($this->coursecat)));
-		$mform->setType('sure', PARAM_ALPHANUM);
+        $mform->addElement('hidden', 'categoryid', $this->coursecat->id);
+        $mform->setType('categoryid', PARAM_ALPHANUM);
+        $mform->addElement('hidden', 'action', 'deletecategory');
+        $mform->setType('action', PARAM_ALPHANUM);
+        $mform->addElement('hidden', 'sure');
+        // This gets set by default to ensure that if the user changes it manually we can detect it.
+        $mform->setDefault('sure', md5(serialize($this->coursecat)));
+        $mform->setType('sure', PARAM_ALPHANUM);
 
-		$this->add_action_buttons(true, get_string('delete'));
-	}
+        $this->add_action_buttons(true, get_string('delete'));
+    }
 
-	/**
-	 * Perform some extra moodle validation.
-	 *
-	 * @param array $data
-	 * @param array $files
-	 * @return array An array of errors.
-	 */
-	public function validation($data, $files) {
-		$errors = parent::validation($data, $files);
-		if (empty($data['fulldelete']) && empty($data['newparent'])) {
-			// When they have chosen the move option, they must specify a destination.
-			$errors['newparent'] = get_string('required');
-		}
+    /**
+     * Perform some extra moodle validation.
+     *
+     * @param array $data
+     * @param array $files
+     * @return array An array of errors.
+     */
+    public function validation($data, $files) {
+        $errors = parent::validation($data, $files);
+        if (empty($data['fulldelete']) && empty($data['newparent'])) {
+            // When they have chosen the move option, they must specify a destination.
+            $errors['newparent'] = get_string('required');
+        }
 
-		if ($data['sure'] !== md5(serialize($this->coursecat))) {
-			$errors['categorylabel'] = get_string('categorymodifiedcancel');
-		}
+        if ($data['sure'] !== md5(serialize($this->coursecat))) {
+            $errors['categorylabel'] = get_string('categorymodifiedcancel');
+        }
 
-		return $errors;
-	}
+        return $errors;
+    }
 }

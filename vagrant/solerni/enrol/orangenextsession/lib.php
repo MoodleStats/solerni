@@ -251,4 +251,16 @@ class enrol_orangenextsession_plugin extends enrol_plugin {
         email_to_user($user, $contact, $subject, $message, $messagehtml);
     }
 
+    /**
+     * Is it possible to hide/show enrol instance via standard UI?
+     *
+     * @param stdClass $instance
+     * @return bool
+     */
+    public function can_hide_show_instance($instance) {
+        $context = context_course::instance($instance->courseid);
+        return has_capability('enrol/orangenextsession:config', $context);
+    }
+
+
 }

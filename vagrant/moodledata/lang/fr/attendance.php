@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'attendance', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'attendance', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   attendance
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -116,6 +116,7 @@ $string['eventstatusadded'] = 'Statut ajouté';
 $string['eventstatusupdated'] = 'Statut mise à jour';
 $string['eventtaken'] = 'Statut de présence renseigné';
 $string['eventtakenbystudent'] = 'Statut de présence renseigné par l\'étudiant';
+$string['export'] = 'Exportation';
 $string['gradebookexplanation'] = 'Noter dans le carnet de notes';
 $string['gradebookexplanation_help'] = 'Le module de présence affiche votre note de fréquentation basée sur le nombre de points que vous avez accumulés à ce jour et le nombre de points qui auraient pu être gagnés à ce jour, il ne comprend pas les périodes des cours qui n\'ont pas encore eu lieu. Dans le carnet de notes, votre note de présence est calculée en pourcentage de présence en cours avec le nombre de points qui peuvent être gagnés pendant toute la durée du cours, y compris pour les périodes cours à venir. Ainsi, la note de présence affichée dans le module de présence et la note affichée dans le carnet de notes peut avoir un nombre de points différent, mais elles auront le même pourcentage.
 

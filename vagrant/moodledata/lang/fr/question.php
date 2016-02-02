@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'question', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'question', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   question
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -199,7 +199,7 @@ $string['hinttext'] = 'Texte de l\'indice';
 $string['howquestionsbehave'] = 'Comment se comportent les questions';
 $string['howquestionsbehave_help'] = 'Les participants peuvent agir avec les questions du test de différentes façons. Par exemple, vous pourriez souhaiter que les participants répondent à chaque question et envoient ensuite la totalité du test, avant que quoi que ce soit ne soit noté ou qu\'un feedback ne leur soit donné. Ce sera le mode « Feedback a posteriori ».
 
-Sinon, vous pourriez souhaiter que les participants envoient chaque question au fur et à mesure du test et reçoivent immédiatement le feedback correspondant, qu\'il puissent tenter de répondre à nouveau s\'ils ont échoué, mais avec une note moindre. Ce sera le mode « Interactif avec tentatives multiples ».
+Sinon, vous pourriez souhaiter que les participants envoient chaque question au fur et à mesure du test et reçoivent immédiatement le feedback correspondant, qu\'il puissent tenter de répondre à nouveau s\'ils ont échoué, mais avec une note moindre. Ce sera le mode « Interactif avec essais multiples ».
 
 Ces deux exemples illustrent les deux comportements les plus utilisés.';
 $string['ignorebroken'] = 'Ignorer les liens cassés';
@@ -238,6 +238,7 @@ $string['linkedfiledoesntexist'] = 'Le fichier lié {$a} n\'existe pas';
 $string['makechildof'] = 'Déplacer comme descendant de {$a}';
 $string['makecopy'] = 'Copier';
 $string['maketoplevelitem'] = 'Déplacer au plus haut niveau';
+$string['manualgradeinvalidformat'] = 'Ce nombre n\'est pas valide.';
 $string['manualgradeoutofrange'] = 'Cette note est en dehors de la plage de validité.';
 $string['manuallygraded'] = 'Notée manuellement {$a->mark} avec le commentaire : {$a->comment}';
 $string['mark'] = 'Note';
@@ -314,7 +315,7 @@ $string['penaltyfactor_help'] = 'Ce réglage détermine la fraction de la note o
 
 Le facteur de pénalité doit être un nombre compris entre 0 et 1. Un facteur de pénalité de 1 signifie que l\'étudiant doit fournir la bonne réponse au premier essai, sous peine de n\'obtenir aucun point. Un facteur de pénalité de 0 indique que l\'étudiant peut réessayer autant qu\'il le veut et pourra obtenir tous les points.';
 $string['penaltyforeachincorrecttry'] = 'Pénalité pour tout essai incorrect';
-$string['penaltyforeachincorrecttry_help'] = 'Lorsque des questions sont en mode « Interactif avec tentatives multiples » ou « Adaptatif », les participants ont plusieurs essais pour trouver la bonne réponse. Cette option contrôle comment ils sont pénalisés pour chaque essai incorrect.
+$string['penaltyforeachincorrecttry_help'] = 'Lorsque des questions sont en mode « Interactif avec essais multiples » ou « Adaptatif », les participants ont plusieurs essais pour trouver la bonne réponse. Cette option contrôle comment ils sont pénalisés pour chaque essai incorrect.
 
 La pénalité est un pourcentage de la note totale de la question, donc si la question est notée sur 3 points et que la pénalité est de 0,3333333, alors le participant aura 3 points s\'il répond correctement à la question au premier essai, 2 points s\'il répond correctement au deuxième essai, et 1 point s\'il répond correctement au troisième essai.';
 $string['permissionedit'] = 'Modifier cette question';

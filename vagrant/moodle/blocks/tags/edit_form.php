@@ -27,25 +27,28 @@
  *
  * @copyright 2009 Tim Hunt
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
-*/
+ */
 class block_tags_edit_form extends block_edit_form {
-	protected function specific_definition($mform) {
-		// Fields for editing HTML block title and contents.
-		$mform->addElement('header', 'configheader', get_string('blocksettings', 'block'));
+    protected function specific_definition($mform) {
+        global $CFG;
+        // Fields for editing HTML block title and contents.
+        $mform->addElement('header', 'configheader', get_string('blocksettings', 'block'));
 
-		$mform->addElement('text', 'config_title', get_string('configtitle', 'block_tags'));
-		$mform->setType('config_title', PARAM_TEXT);
-		$mform->setDefault('config_title', get_string('pluginname', 'block_tags'));
+        $mform->addElement('text', 'config_title', get_string('configtitle', 'block_tags'));
+        $mform->setType('config_title', PARAM_TEXT);
+        $mform->setDefault('config_title', get_string('pluginname', 'block_tags'));
 
-		$numberoftags = array();
-		for ($i = 1; $i <= 200; $i++) {
-			$numberoftags[$i] = $i;
-		}
-		$mform->addElement('select', 'config_numberoftags', get_string('numberoftags', 'blog'), $numberoftags);
-		$mform->setDefault('config_numberoftags', 80);
+        $numberoftags = array();
+        for ($i = 1; $i <= 200; $i++) {
+            $numberoftags[$i] = $i;
+        }
+        $mform->addElement('select', 'config_numberoftags', get_string('numberoftags', 'blog'), $numberoftags);
+        $mform->setDefault('config_numberoftags', 80);
 
-		$defaults = array('default'=>'default', 'official'=>'official', ''=>'both');
-		$mform->addElement('select', 'config_tagtype', get_string('defaultdisplay', 'block_tags'), $defaults);
-		$mform->setDefault('config_tagtype', '');
-	}
+        if (!empty($CFG->block_tags_showcoursetags)) {
+            $defaults = array('default'=>'default', 'official'=>'official', ''=>'both');
+            $mform->addElement('select', 'config_tagtype', get_string('defaultdisplay', 'block_tags'), $defaults);
+            $mform->setDefault('config_tagtype', '');
+        }
+    }
 }

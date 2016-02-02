@@ -36,14 +36,14 @@ defined('MOODLE_INTERNAL') || die();
  */
 abstract class restore_gradingform_plugin extends restore_plugin {
 
-	/**
-	 * Helper method returning the mapping identifierto use for
-	 * grading form instance's itemid field
-	 *
-	 * @param array $areaname the name of the area the form is defined for
-	 * @return string the mapping identifier
-	 */
-	public static function itemid_mapping($areaname) {
-		return 'grading_item_'.$areaname;
-	}
+    /**
+     * Helper method returning the mapping identifierto use for
+     * grading form instance's itemid field
+     *
+     * @param array $areaname the name of the area the form is defined for
+     * @return string the mapping identifier
+     */
+    public static function itemid_mapping($areaname) {
+        return 'grading_item_'.$areaname;
+    }
 }

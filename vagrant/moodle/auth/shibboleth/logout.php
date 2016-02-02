@@ -13,39 +13,39 @@ $redirect = optional_param('return', '', PARAM_URL);
 
 // Find out whether host supports https
 $protocol = 'http://';
-if ( isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on'){
-	$protocol = 'https://';
+if (is_https()) {
+    $protocol = 'https://';
 }
 
 // If the shibboleth plugin is not enable, throw an exception.
 if (!is_enabled_auth('shibboleth')) {
-	throw new moodle_exception(get_string('pluginnotenabled', 'auth', 'shibboleth'));
+    throw new moodle_exception(get_string('pluginnotenabled', 'auth', 'shibboleth'));
 }
 
 // Front channel logout.
 if ($action == 'logout' && !empty($redirect)) {
 
-	if ($USER->auth == 'shibboleth') {
-		// Logout out user from application.
-		require_logout();
-		// Finally, send user to the return URL.
-		redirect($redirect);
-	}
+    if ($USER->auth == 'shibboleth') {
+        // Logout out user from application.
+        require_logout();
+         // Finally, send user to the return URL.
+        redirect($redirect);
+    }
 
 } else if (!empty($HTTP_RAW_POST_DATA)) {
 
-	// Back channel logout.
-	// Set SOAP header.
-	$server = new SoapServer($protocol.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'/LogoutNotification.wsdl');
-	$server->addFunction("LogoutNotification");
-	$server->handle();
+    // Back channel logout.
+    // Set SOAP header.
+    $server = new SoapServer($protocol.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'/LogoutNotification.wsdl');
+    $server->addFunction("LogoutNotification");
+    $server->handle();
 
 } else {
 
-	// Return WSDL.
-	header('Content-Type: text/xml');
+    // Return WSDL.
+    header('Content-Type: text/xml');
 
-	echo <<<WSDL
+    echo <<<WSDL
 <?xml version ="1.0" encoding ="UTF-8" ?>
 <definitions name="LogoutNotification"
   targetNamespace="urn:mace:shibboleth:2.0:sp:notify"
@@ -114,77 +114,77 @@ For more information see:
     </service>
 </definitions>
 WSDL;
-	exit;
+    exit;
 }
 /******************************************************************************/
 
 function LogoutNotification($SessionID){
 
-	global $CFG, $SESSION, $DB;
+    global $CFG, $SESSION, $DB;
 
-	// Delete session of user using $SessionID
-	if(empty($CFG->dbsessions)) {
+    // Delete session of user using $SessionID
+    if(empty($CFG->dbsessions)) {
 
-		// File session
-		$dir = $CFG->dataroot .'/sessions';
-		if (is_dir($dir)) {
-			if ($dh = opendir($dir)) {
-				// Read all session files
-				while (($file = readdir($dh)) !== false) {
-					// Check if it is a file
-					if (is_file($dir.'/'.$file)){
-						$session_key = preg_replace('/sess_/', '', $file);
+        // File session
+        $dir = $CFG->dataroot .'/sessions';
+        if (is_dir($dir)) {
+            if ($dh = opendir($dir)) {
+                // Read all session files
+                while (($file = readdir($dh)) !== false) {
+                    // Check if it is a file
+                    if (is_file($dir.'/'.$file)){
+                        $session_key = preg_replace('/sess_/', '', $file);
 
-						// Read session file data
-						$data = file($dir.'/'.$file);
-						if (isset($data[0])){
-							$user_session = unserializesession($data[0]);
+                        // Read session file data
+                        $data = file($dir.'/'.$file);
+                        if (isset($data[0])){
+                            $user_session = unserializesession($data[0]);
 
-							// Check if we have found session that shall be deleted
-							if (isset($user_session['SESSION']) && isset($user_session['SESSION']->shibboleth_session_id)){
+                            // Check if we have found session that shall be deleted
+                            if (isset($user_session['SESSION']) && isset($user_session['SESSION']->shibboleth_session_id)){
 
-								// If there is a match, delete file
-								if ($user_session['SESSION']->shibboleth_session_id == $SessionID){
-									// Delete session file
-									if (!unlink($dir.'/'.$file)){
-										return new SoapFault('LogoutError', 'Could not delete Moodle session file.');
-									}
-								}
-							}
-						}
-					}
-				}
-				closedir($dh);
-			}
-		}
-	} else {
-		// DB Session
-		//TODO: this needs to be rewritten to use new session stuff
-		if (!empty($CFG->sessiontimeout)) {
-			$ADODB_SESS_LIFE   = $CFG->sessiontimeout;
-		}
+                                // If there is a match, delete file
+                                if ($user_session['SESSION']->shibboleth_session_id == $SessionID){
+                                    // Delete session file
+                                    if (!unlink($dir.'/'.$file)){
+                                        return new SoapFault('LogoutError', 'Could not delete Moodle session file.');
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                closedir($dh);
+            }
+        }
+    } else {
+        // DB Session
+        //TODO: this needs to be rewritten to use new session stuff
+        if (!empty($CFG->sessiontimeout)) {
+            $ADODB_SESS_LIFE   = $CFG->sessiontimeout;
+        }
 
-		if ($user_session_data = $DB->get_records_sql('SELECT sesskey, sessdata FROM {sessions2} WHERE expiry > NOW()')) {
-			foreach ($user_session_data as $session_data) {
+            if ($user_session_data = $DB->get_records_sql('SELECT sesskey, sessdata FROM {sessions2} WHERE expiry > NOW()')) {
+            foreach ($user_session_data as $session_data) {
 
-				// Get user session
-				$user_session = adodb_unserialize( urldecode($session_data->sessdata) );
+                // Get user session
+                $user_session = adodb_unserialize( urldecode($session_data->sessdata) );
 
-				if (isset($user_session['SESSION']) && isset($user_session['SESSION']->shibboleth_session_id)){
+                if (isset($user_session['SESSION']) && isset($user_session['SESSION']->shibboleth_session_id)){
 
-					// If there is a match, delete file
-					if ($user_session['SESSION']->shibboleth_session_id == $SessionID){
-						// Delete this session entry
-						if (ADODB_Session::destroy($session_data->sesskey) !== true){
-							return new SoapFault('LogoutError', 'Could not delete Moodle session entry in database.');
-						}
-					}
-				}
-			}
-		}
-	}
+                    // If there is a match, delete file
+                    if ($user_session['SESSION']->shibboleth_session_id == $SessionID){
+                        // Delete this session entry
+                        if (ADODB_Session::destroy($session_data->sesskey) !== true){
+                            return new SoapFault('LogoutError', 'Could not delete Moodle session entry in database.');
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-	// If now SoapFault was thrown the function will return OK as the SP assumes
+    // If now SoapFault was thrown the function will return OK as the SP assumes
 
 }
 
@@ -192,11 +192,11 @@ function LogoutNotification($SessionID){
 
 // Same function as in adodb, but cannot be used for file session for some reason...
 function unserializesession($serialized_string) {
-	$variables = array();
-	$a = preg_split("/(\w+)\|/", $serialized_string, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
-	$counta = count($a);
-	for ($i = 0; $i < $counta; $i = $i+2) {
-		$variables[$a[$i]] = unserialize($a[$i+1]);
-	}
-	return $variables;
+    $variables = array();
+    $a = preg_split("/(\w+)\|/", $serialized_string, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+    $counta = count($a);
+    for ($i = 0; $i < $counta; $i = $i+2) {
+            $variables[$a[$i]] = unserialize($a[$i+1]);
+    }
+    return $variables;
 }

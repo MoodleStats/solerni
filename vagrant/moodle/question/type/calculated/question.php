@@ -26,8 +26,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+require_once($CFG->dirroot . '/question/type/questionbase.php');
 require_once($CFG->dirroot . '/question/type/numerical/question.php');
-
 
 /**
  * Represents a calculated question.
@@ -385,8 +385,8 @@ class qtype_calculated_variable_substituter {
                     }
                 } else {
                     // Stick to plain numeric format.
-                    $answer *= "1e$p10";
-                    if (0.1 <= $answer / "1e$length") {
+                    $answer *= "1e{$p10}";
+                    if (0.1 <= $answer / "1e{$length}") {
                         $x = $sign.$answer;
                     } else {
                         // Could be an idea to add some zeros here.

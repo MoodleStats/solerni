@@ -22,7 +22,7 @@
  * @copyright  2012 onwards Totara Learning Solutions Ltd {@link http://www.totaralms.com/}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @author     Yuliya Bozhko <yuliya.bozhko@totaralms.com>
-*/
+ */
 
 require_once(dirname(dirname(__FILE__)) . '/config.php');
 require_once($CFG->libdir . '/badgeslib.php');
@@ -37,11 +37,11 @@ $output = $PAGE->get_renderer('core', 'badges');
 $badge = new issued_badge($id);
 
 if ($bake && ($badge->recipient->id == $USER->id)) {
-	$name = str_replace(' ', '_', $badge->badgeclass['name']) . '.png';
-	$filehash = badges_bake($id, $badge->badgeid, $USER->id, true);
-	$fs = get_file_storage();
-	$file = $fs->get_file_by_hash($filehash);
-	send_stored_file($file, 0, 0, true, array('filename' => $name));
+    $name = str_replace(' ', '_', $badge->badgeclass['name']) . '.png';
+    $filehash = badges_bake($id, $badge->badgeid, $USER->id, true);
+    $fs = get_file_storage();
+    $file = $fs->get_file_by_hash($filehash);
+    send_stored_file($file, 0, 0, true, array('filename' => $name));
 }
 
 $PAGE->set_url('/badges/badge.php', array('hash' => $id));
@@ -49,19 +49,19 @@ $PAGE->set_pagelayout('base');
 $PAGE->set_title(get_string('issuedbadge', 'badges'));
 
 if (isloggedin()) {
-	$PAGE->set_heading($badge->badgeclass['name']);
-	$PAGE->navbar->add($badge->badgeclass['name']);
-	if ($badge->recipient->id == $USER->id) {
-		$url = new moodle_url('/badges/mybadges.php');
-	} else {
-		$url = new moodle_url($CFG->wwwroot);
-	}
-	navigation_node::override_active_url($url);
+    $PAGE->set_heading($badge->badgeclass['name']);
+    $PAGE->navbar->add($badge->badgeclass['name']);
+    if ($badge->recipient->id == $USER->id) {
+        $url = new moodle_url('/badges/mybadges.php');
+    } else {
+        $url = new moodle_url($CFG->wwwroot);
+    }
+    navigation_node::override_active_url($url);
 } else {
-	$PAGE->set_heading($badge->badgeclass['name']);
-	$PAGE->navbar->add($badge->badgeclass['name']);
-	$url = new moodle_url($CFG->wwwroot);
-	navigation_node::override_active_url($url);
+    $PAGE->set_heading($badge->badgeclass['name']);
+    $PAGE->navbar->add($badge->badgeclass['name']);
+    $url = new moodle_url($CFG->wwwroot);
+    navigation_node::override_active_url($url);
 }
 
 // Include JS files for backpack support.

@@ -35,15 +35,15 @@ defined('MOODLE_INTERNAL') || die();
  */
 abstract class backup_plagiarism_plugin extends backup_plugin {
 
-	public function define_plugin_structure($connectionpoint) {
-		global $CFG;
-		require_once($CFG->libdir . '/plagiarismlib.php');
-		//check if enabled at site level and plugin is enabled.
-		$enabledplugins = plagiarism_load_available_plugins();
-		if (!array_key_exists($this->pluginname, $enabledplugins)) {
-			return;
-		}
+    public function define_plugin_structure($connectionpoint) {
+        global $CFG;
+        require_once($CFG->libdir . '/plagiarismlib.php');
+        //check if enabled at site level and plugin is enabled.
+        $enabledplugins = plagiarism_load_available_plugins();
+        if (!array_key_exists($this->pluginname, $enabledplugins)) {
+            return;
+        }
 
-		parent::define_plugin_structure($connectionpoint);
-	}
+        parent::define_plugin_structure($connectionpoint);
+    }
 }

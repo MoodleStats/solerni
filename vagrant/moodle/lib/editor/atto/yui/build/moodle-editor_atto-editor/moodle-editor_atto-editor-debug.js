@@ -37,7 +37,8 @@ var CSS = {
         TOOLBAR: 'editor_atto_toolbar',
         WRAPPER: 'editor_atto',
         HIGHLIGHT: 'highlight'
-    };
+    },
+    rangy = window.rangy;
 
 /**
  * The Atto editor for Moodle.
@@ -217,7 +218,8 @@ Y.extend(Editor, Y.Base, {
         }
 
         // Add the toolbar and editable zone to the page.
-        this.textarea.get('parentNode').insert(this._wrapper, this.textarea);
+        this.textarea.get('parentNode').insert(this._wrapper, this.textarea).
+                setAttribute('class', 'editor_atto_wrap');
 
         // Hide the old textarea.
         this.textarea.hide();
@@ -236,6 +238,11 @@ Y.extend(Editor, Y.Base, {
 
         // Setup plugins.
         this.setupPlugins();
+
+        // Initialize the auto-save timer.
+        this.setupAutosave();
+        // Preload the icons for the notifications.
+        this.setupNotifications();
     },
 
     /**
@@ -406,6 +413,18 @@ Y.extend(Editor, Y.Base, {
         },
 
         /**
+         * The contextid of the form.
+         *
+         * @attribute contextid
+         * @type Integer
+         * @writeOnce
+         */
+        contextid: {
+            value: null,
+            writeOnce: true
+        },
+
+        /**
          * Plugins with their configuration.
          *
          * The plugins structure is:
@@ -452,6 +471,144 @@ Y.namespace('M.editor_atto').Editor = Editor;
 Y.namespace('M.editor_atto.Editor').init = function(config) {
     return new Y.M.editor_atto.Editor(config);
 };
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * A notify function for the Atto editor.
+ *
+ * @module     moodle-editor_atto-notify
+ * @submodule  notify
+ * @package    editor_atto
+ * @copyright  2014 Damyon Wiese
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+var LOGNAME_NOTIFY = 'moodle-editor_atto-editor-notify',
+    NOTIFY_INFO = 'info',
+    NOTIFY_WARNING = 'warning';
+
+function EditorNotify() {}
+
+EditorNotify.ATTRS= {
+};
+
+EditorNotify.prototype = {
+
+    /**
+     * A single Y.Node for this editor. There is only ever one - it is replaced if a new message comes in.
+     *
+     * @property messageOverlay
+     * @type {Node}
+     */
+    messageOverlay: null,
+
+    /**
+     * A single timer object that can be used to cancel the hiding behaviour.
+     *
+     * @property hideTimer
+     * @type {timer}
+     */
+    hideTimer: null,
+
+    /**
+     * Initialize the notifications.
+     *
+     * @method setupNotifications
+     * @chainable
+     */
+    setupNotifications: function() {
+        var preload1 = new Image(),
+            preload2 = new Image();
+
+        preload1.src = M.util.image_url('i/warning', 'moodle');
+        preload2.src = M.util.image_url('i/info', 'moodle');
+
+        return this;
+    },
+
+    /**
+     * Show a notification in a floaty overlay somewhere in the atto editor text area.
+     *
+     * @method showMessage
+     * @param {String} message The translated message (use get_string)
+     * @param {String} type Must be either "info" or "warning"
+     * @param {Number} timeout Time in milliseconds to show this message for.
+     * @chainable
+     */
+    showMessage: function(message, type, timeout) {
+        var messageTypeIcon = '',
+            intTimeout,
+            bodyContent;
+
+        if (this.messageOverlay === null) {
+            this.messageOverlay = Y.Node.create('<div class="editor_atto_notification"></div>');
+
+            this.messageOverlay.hide(true);
+            this.textarea.get('parentNode').append(this.messageOverlay);
+
+            this.messageOverlay.on('click', function() {
+                this.messageOverlay.hide(true);
+            }, this);
+        }
+
+        if (this.hideTimer !== null) {
+            this.hideTimer.cancel();
+        }
+
+        if (type === NOTIFY_WARNING) {
+            messageTypeIcon = '<img src="' +
+                              M.util.image_url('i/warning', 'moodle') +
+                              '" alt="' + M.util.get_string('warning', 'moodle') + '"/>';
+        } else if (type === NOTIFY_INFO) {
+            messageTypeIcon = '<img src="' +
+                              M.util.image_url('i/info', 'moodle') +
+                              '" alt="' + M.util.get_string('info', 'moodle') + '"/>';
+        } else {
+            Y.log('Invalid message type specified: ' + type + '. Must be either "info" or "warning".', 'debug', LOGNAME_NOTIFY);
+        }
+
+        // Parse the timeout value.
+        intTimeout = parseInt(timeout, 10);
+        if (intTimeout <= 0) {
+            intTimeout = 60000;
+        }
+
+        // Convert class to atto_info (for example).
+        type = 'atto_' + type;
+
+        bodyContent = Y.Node.create('<div class="' + type + '" role="alert" aria-live="assertive">' +
+                                        messageTypeIcon + ' ' +
+                                        Y.Escape.html(message) +
+                                        '</div>');
+        this.messageOverlay.empty();
+        this.messageOverlay.append(bodyContent);
+        this.messageOverlay.show(true);
+
+        this.hideTimer = Y.later(intTimeout, this, function() {
+            Y.log('Hide Atto notification.', 'debug', LOGNAME_NOTIFY);
+            this.hideTimer = null;
+            this.messageOverlay.hide(true);
+        });
+
+        return this;
+    }
+
+};
+
+Y.Base.mix(Y.M.editor_atto.Editor, [EditorNotify]);
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -518,16 +675,15 @@ EditorTextArea.prototype = {
         // Clear it first.
         this.editor.setHTML('');
 
-        // Copy text to editable div.
-        this.editor.append(this.textarea.get('value'));
-
-        // Clean it.
-        this.cleanEditorHTML();
+        // Copy cleaned HTML to editable div.
+        this.editor.append(this._cleanHTML(this.textarea.get('value')));
 
         // Insert a paragraph in the empty contenteditable div.
         if (this.editor.getHTML() === '') {
             this.editor.setHTML(this._getEmptyContent());
         }
+
+        return this;
     },
 
     /**
@@ -563,6 +719,309 @@ EditorTextArea.prototype = {
 };
 
 Y.Base.mix(Y.M.editor_atto.Editor, [EditorTextArea]);
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * A autosave function for the Atto editor.
+ *
+ * @module     moodle-editor_atto-autosave
+ * @submodule  autosave-base
+ * @package    editor_atto
+ * @copyright  2014 Damyon Wiese
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+var SUCCESS_MESSAGE_TIMEOUT = 5000,
+    RECOVER_MESSAGE_TIMEOUT = 60000,
+    LOGNAME_AUTOSAVE = 'moodle-editor_atto-editor-autosave';
+
+function EditorAutosave() {}
+
+EditorAutosave.ATTRS= {
+    /**
+     * Enable/Disable auto save for this instance.
+     *
+     * @attribute autosaveEnabled
+     * @type Boolean
+     * @writeOnce
+     */
+    autosaveEnabled: {
+        value: true,
+        writeOnce: true
+    },
+
+    /**
+     * The time between autosaves (in seconds).
+     *
+     * @attribute autosaveFrequency
+     * @type Number
+     * @default 60
+     * @writeOnce
+     */
+    autosaveFrequency: {
+        value: 60,
+        writeOnce: true
+    },
+
+    /**
+     * Unique hash for this page instance. Calculated from $PAGE->url in php.
+     *
+     * @attribute pageHash
+     * @type String
+     * @writeOnce
+     */
+    pageHash: {
+        value: '',
+        writeOnce: true
+    },
+
+    /**
+     * The relative path to the ajax script.
+     *
+     * @attribute autosaveAjaxScript
+     * @type String
+     * @default '/lib/editor/atto/autosave-ajax.php'
+     * @readOnly
+     */
+    autosaveAjaxScript: {
+        value: '/lib/editor/atto/autosave-ajax.php',
+        readOnly: true
+    }
+};
+
+EditorAutosave.prototype = {
+
+    /**
+     * The text that was auto saved in the last request.
+     *
+     * @property lastText
+     * @type string
+     */
+    lastText: "",
+
+    /**
+     * Autosave instance.
+     *
+     * @property autosaveInstance
+     * @type string
+     */
+    autosaveInstance: null,
+
+    /**
+     * Initialize the autosave process
+     *
+     * @method setupAutosave
+     * @chainable
+     */
+    setupAutosave: function() {
+        var draftid = -1,
+            form,
+            optiontype = null,
+            options = this.get('filepickeroptions'),
+            params,
+            url;
+
+        if (!this.get('autosaveEnabled')) {
+            // Autosave disabled for this instance.
+            return;
+        }
+
+        this.autosaveInstance = Y.stamp(this);
+        for (optiontype in options) {
+            if (typeof options[optiontype].itemid !== "undefined") {
+                draftid = options[optiontype].itemid;
+            }
+        }
+
+        // First see if there are any saved drafts.
+        // Make an ajax request.
+        url = M.cfg.wwwroot + this.get('autosaveAjaxScript');
+        params = {
+            sesskey: M.cfg.sesskey,
+            contextid: this.get('contextid'),
+            action: 'resume',
+            drafttext: '',
+            draftid: draftid,
+            elementid: this.get('elementid'),
+            pageinstance: this.autosaveInstance,
+            pagehash: this.get('pageHash')
+        };
+
+        Y.io(url, {
+            method: 'POST',
+            data: params,
+            context: this,
+            on: {
+                success: function(id,o) {
+                    var response_json;
+                    if (typeof o.responseText !== "undefined" && o.responseText !== "") {
+                        response_json = JSON.parse(o.responseText);
+
+                        // Revert untouched editor contents to an empty string.
+                        // Check for FF and Chrome.
+                        if (response_json.result === '<p></p>' || response_json.result === '<p><br></p>' ||
+                            response_json.result === '<br>') {
+                            response_json.result = '';
+                        }
+
+                        // Check for IE 9 and 10.
+                        if (response_json.result === '<p>&nbsp;</p>' || response_json.result === '<p><br>&nbsp;</p>') {
+                            response_json.result = '';
+                        }
+
+                        if (response_json.error || typeof response_json.result === 'undefined') {
+                            Y.log('Error occurred recovering draft text: ' + response_json.error, 'debug', LOGNAME_AUTOSAVE);
+                            this.showMessage(M.util.get_string('errortextrecovery', 'editor_atto'),
+                                    NOTIFY_WARNING, RECOVER_MESSAGE_TIMEOUT);
+                        } else if (response_json.result !== this.textarea.get('value') &&
+                                response_json.result !== '') {
+                            Y.log('Autosave text found - recover it.', 'debug', LOGNAME_AUTOSAVE);
+                            this.recoverText(response_json.result);
+                        }
+                        this._fireSelectionChanged();
+                    }
+                },
+                failure: function() {
+                    this.showMessage(M.util.get_string('errortextrecovery', 'editor_atto'),
+                            NOTIFY_WARNING, RECOVER_MESSAGE_TIMEOUT);
+                }
+            }
+        });
+
+        // Now setup the timer for periodic saves.
+
+        var delay = parseInt(this.get('autosaveFrequency'), 10) * 1000;
+        Y.later(delay, this, this.saveDraft, false, true);
+
+        // Now setup the listener for form submission.
+        form = this.textarea.ancestor('form');
+        if (form) {
+            form.on('submit', this.resetAutosave, this);
+        }
+        return this;
+    },
+
+    /**
+     * Clear the autosave text because the form was submitted normally.
+     *
+     * @method resetAutosave
+     * @chainable
+     */
+    resetAutosave: function() {
+        // Make an ajax request to reset the autosaved text.
+        var url = M.cfg.wwwroot + this.get('autosaveAjaxScript');
+        var params = {
+            sesskey: M.cfg.sesskey,
+            contextid: this.get('contextid'),
+            action: 'reset',
+            elementid: this.get('elementid'),
+            pageinstance: this.autosaveInstance,
+            pagehash: this.get('pageHash')
+        };
+
+        Y.io(url, {
+            method: 'POST',
+            data: params,
+            sync: true
+        });
+        return this;
+    },
+
+
+    /**
+     * Recover a previous version of this text and show a message.
+     *
+     * @method recoverText
+     * @param {String} text
+     * @chainable
+     */
+    recoverText: function(text) {
+        this.editor.setHTML(text);
+        this.saveSelection();
+        this.updateOriginal();
+        this.lastText = text;
+
+        this.showMessage(M.util.get_string('textrecovered', 'editor_atto'),
+                NOTIFY_INFO, RECOVER_MESSAGE_TIMEOUT);
+
+        return this;
+    },
+
+    /**
+     * Save a single draft via ajax.
+     *
+     * @method saveDraft
+     * @chainable
+     */
+    saveDraft: function() {
+        var url, params;
+        // Only copy the text from the div to the textarea if the textarea is not currently visible.
+        if (!this.editor.get('hidden')) {
+            this.updateOriginal();
+        }
+        var newText = this.textarea.get('value');
+
+        if (newText !== this.lastText) {
+            Y.log('Autosave text', 'debug', LOGNAME_AUTOSAVE);
+
+            // Make an ajax request.
+            url = M.cfg.wwwroot + this.get('autosaveAjaxScript');
+            params = {
+                sesskey: M.cfg.sesskey,
+                contextid: this.get('contextid'),
+                action: 'save',
+                drafttext: newText,
+                elementid: this.get('elementid'),
+                pagehash: this.get('pageHash'),
+                pageinstance: this.autosaveInstance
+            };
+
+            // Reusable error handler - must be passed the correct context.
+            var ajaxErrorFunction = function(code, response) {
+                var errorDuration = parseInt(this.get('autosaveFrequency'), 10) * 1000;
+                Y.log('Error while autosaving text:' + code, 'warn', LOGNAME_AUTOSAVE);
+                Y.log(response, 'warn', LOGNAME_AUTOSAVE);
+                this.showMessage(M.util.get_string('autosavefailed', 'editor_atto'), NOTIFY_WARNING, errorDuration);
+            };
+
+            Y.io(url, {
+                method: 'POST',
+                data: params,
+                context: this,
+                on: {
+                    error: ajaxErrorFunction,
+                    failure: ajaxErrorFunction,
+                    success: function(code, response) {
+                        if (response.responseText !== "") {
+                            Y.soon(Y.bind(ajaxErrorFunction, this, [code, response]));
+                        } else {
+                            // All working.
+                            this.lastText = newText;
+                            this.showMessage(M.util.get_string('autosavesucceeded', 'editor_atto'),
+                                    NOTIFY_INFO, SUCCESS_MESSAGE_TIMEOUT);
+                        }
+                    }
+                }
+            });
+        }
+        return this;
+    }
+};
+
+Y.Base.mix(Y.M.editor_atto.Editor, [EditorAutosave]);
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -700,28 +1159,15 @@ EditorClean.prototype = {
             var event = sourceEvent._event;
             // Check if we have a valid clipboardData object in the event.
             // IE has a clipboard object at window.clipboardData, but as of IE 11, it does not provide HTML content access.
-            if (event && event.clipboardData && event.clipboardData.getData) {
-                // Check if there is HTML type to be pasted, this is all we care about.
+            if (event && event.clipboardData && event.clipboardData.getData && event.clipboardData.types) {
+                // Check if there is HTML type to be pasted, if we can get it, we want to scrub before insert.
                 var types = event.clipboardData.types;
                 var isHTML = false;
-                // Different browsers use different things to hold the types, so test various functions.
-                if (!types) {
-                    isHTML = false;
-                } else if (typeof types.contains === 'function') {
+                // Different browsers use different containers to hold the types, so test various functions.
+                if (typeof types.contains === 'function') {
                     isHTML = types.contains('text/html');
                 } else if (typeof types.indexOf === 'function') {
                     isHTML = (types.indexOf('text/html') > -1);
-                    if (!isHTML) {
-                        if ((types.indexOf('com.apple.webarchive') > -1) || (types.indexOf('com.apple.iWork.TSPNativeData') > -1)) {
-                            // This is going to be a specialized Apple paste paste. We cannot capture this, so clean everything.
-                            this.fallbackPasteCleanupDelayed();
-                            return true;
-                        }
-                    }
-                } else {
-                    // We don't know how to handle the clipboard info, so wait for the clipboard event to finish then fallback.
-                    this.fallbackPasteCleanupDelayed();
-                    return true;
                 }
 
                 if (isHTML) {
@@ -756,13 +1202,14 @@ EditorClean.prototype = {
                     this.updateOriginal();
                     return false;
                 } else {
-                    // This is a non-html paste event, we can just let this continue on and call updateOriginalDelayed.
-                    this.updateOriginalDelayed();
+                    // Due to poor cross browser clipboard compatibility, the failure to find html doesn't mean it isn't there.
+                    // Wait for the clipboard event to finish then fallback clean the entire editor.
+                    this.fallbackPasteCleanupDelayed();
                     return true;
                 }
             } else {
                 // If we reached a here, this probably means the browser has limited (or no) clipboard support.
-                // Wait for the clipboard event to finish then fallback.
+                // Wait for the clipboard event to finish then fallback clean the entire editor.
                 this.fallbackPasteCleanupDelayed();
                 return true;
             }
@@ -863,16 +1310,22 @@ EditorClean.prototype = {
 
         // Run some more rules that care about quotes and whitespace.
         rules = [
-            // Remove MSO-blah, MSO:blah in style attributes. Only removes one or more that appear in succession.
-            {regex: /(<[^>]*?style\s*?=\s*?"[^>"]*?)(?:[\s]*MSO[-:][^>;"]*;?)+/gi, replace: "$1"},
-            // Remove MSO classes in class attributes. Only removes one or more that appear in succession.
-            {regex: /(<[^>]*?class\s*?=\s*?"[^>"]*?)(?:[\s]*MSO[_a-zA-Z0-9\-]*)+/gi, replace: "$1"},
-            // Remove Apple- classes in class attributes. Only removes one or more that appear in succession.
-            {regex: /(<[^>]*?class\s*?=\s*?"[^>"]*?)(?:[\s]*Apple-[_a-zA-Z0-9\-]*)+/gi, replace: "$1"},
+            // Get all style attributes so we can work on them.
+            {regex: /(<[^>]*?style\s*?=\s*?")([^>"]*)(")/gi, replace: function(match, group1, group2, group3) {
+                    // Remove MSO-blah, MSO:blah style attributes.
+                    group2 = group2.replace(/(?:^|;)[\s]*MSO[-:](?:&[\w]*;|[^;"])*/gi,"");
+                    return group1 + group2 + group3;
+                }},
+            // Get all class attributes so we can work on them.
+            {regex: /(<[^>]*?class\s*?=\s*?")([^>"]*)(")/gi, replace: function(match, group1, group2, group3) {
+                    // Remove MSO classes.
+                    group2 = group2.replace(/(?:^|[\s])[\s]*MSO[_a-zA-Z0-9\-]*/gi,"");
+                    // Remove Apple- classes.
+                    group2 = group2.replace(/(?:^|[\s])[\s]*Apple-[_a-zA-Z0-9\-]*/gi,"");
+                    return group1 + group2 + group3;
+                }},
             // Remove OLE_LINK# anchors that may litter the code.
-            {regex: /<a [^>]*?name\s*?=\s*?"OLE_LINK\d*?"[^>]*?>\s*?<\/a>/gi, replace: ""},
-            // Remove empty spans, but not ones from Rangy.
-            {regex: /<span(?![^>]*?rangySelectionBoundary[^>]*?)[^>]*>(&nbsp;|\s)*<\/span>/gi, replace: ""}
+            {regex: /<a [^>]*?name\s*?=\s*?"OLE_LINK\d*?"[^>]*?>\s*?<\/a>/gi, replace: ""}
         ];
 
         // Apply the rules.
@@ -881,11 +1334,243 @@ EditorClean.prototype = {
         // Reapply the standard cleaner to the content.
         content = this._cleanHTML(content);
 
+        // Clean unused spans out of the content.
+        content = this._cleanSpans(content);
+
         return content;
+    },
+
+    /**
+     * Clean empty or un-unused spans from passed HTML.
+     *
+     * This code intentionally doesn't use YUI Nodes. YUI was quite a bit slower at this, so using raw DOM objects instead.
+     *
+     * @method _cleanSpans
+     * @private
+     * @param {String} content The content to clean
+     * @return {String} The cleaned HTML
+     */
+    _cleanSpans: function(content) {
+        // Return an empty string if passed an invalid or empty object.
+        if (!content || content.length === 0) {
+            return "";
+        }
+        // Check if the string is empty or only contains whitespace.
+        if (content.length === 0 || !content.match(/\S/)) {
+            return content;
+        }
+
+        var rules = [
+            // Remove unused class, style, or id attributes. This will make empty tag detection easier later.
+            {regex: /(<[^>]*?)(?:[\s]*(?:class|style|id)\s*?=\s*?"\s*?")+/gi, replace: "$1"}
+        ];
+        // Apply the rules.
+        content = this._filterContentWithRules(content, rules);
+
+        // Reference: "http://stackoverflow.com/questions/8131396/remove-nested-span-without-id"
+
+        // This is better to run detached from the DOM, so the browser doesn't try to update on each change.
+        var holder = document.createElement('div');
+        holder.innerHTML = content;
+        var spans = holder.getElementsByTagName('span');
+
+        // Since we will be removing elements from the list, we should copy it to an array, making it static.
+        var spansarr = Array.prototype.slice.call(spans, 0);
+
+        spansarr.forEach(function(span) {
+            if (!span.hasAttributes()) {
+                // If no attributes (id, class, style, etc), this span is has no effect.
+                // Move each child (if they exist) to the parent in place of this span.
+                while (span.firstChild) {
+                    span.parentNode.insertBefore(span.firstChild, span);
+                }
+
+                // Remove the now empty span.
+                span.parentNode.removeChild(span);
+            }
+        });
+
+        return holder.innerHTML;
     }
 };
 
 Y.Base.mix(Y.M.editor_atto.Editor, [EditorClean]);
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * @module moodle-editor_atto-editor
+ * @submodule commands
+ */
+
+/**
+ * Selection functions for the Atto editor.
+ *
+ * See {{#crossLink "M.editor_atto.Editor"}}{{/crossLink}} for details.
+ *
+ * @namespace M.editor_atto
+ * @class EditorCommand
+ */
+
+function EditorCommand() {}
+
+EditorCommand.ATTRS= {
+};
+
+EditorCommand.prototype = {
+    /**
+     * Applies a callback method to editor if selection is uncollapsed or waits for input to select first.
+     * @method applyFormat
+     * @param e EventTarget Event to be passed to callback if selection is uncollapsed
+     * @param method callback A callback method which changes editor when text is selected.
+     * @param object context Context to be used for callback method
+     * @param array args Array of arguments to pass to callback
+     */
+    applyFormat: function(e, callback, context, args) {
+        function handleInsert(e, callback, context, args, anchorNode, anchorOffset) {
+            // After something is inputed, select it and apply the formating function.
+            Y.soon(Y.bind(function(e, callback, context, args, anchorNode, anchorOffset) {
+                var selection = window.rangy.getSelection();
+
+                // Set the start of the selection to where it was when the method was first called.
+                var range = selection.getRangeAt(0);
+                range.setStart(anchorNode, anchorOffset);
+                selection.setSingleRange(range);
+
+                // Now apply callback to the new text that is selected.
+                callback.apply(context, [e, args]);
+
+                // Collapse selection so cursor is at end of inserted material.
+                selection.collapseToEnd();
+
+                // Save save selection and editor contents.
+                this.saveSelection();
+                this.updateOriginal();
+            }, this, e, callback, context, args, anchorNode, anchorOffset));
+        }
+
+        // Set default context for the method.
+        context = context || this;
+
+        // Check whether range is collapsed.
+        var selection = window.rangy.getSelection();
+
+        if (selection.isCollapsed) {
+            // Selection is collapsed so listen for input into editor.
+            var handle = this.editor.once('input', handleInsert, this, callback, context, args,
+                    selection.anchorNode, selection.anchorOffset);
+
+            // Cancel if selection changes before input.
+            this.editor.onceAfter(['click', 'selectstart'], handle.detach, handle);
+
+            return;
+        }
+
+        // The range is not collapsed; so apply callback method immediately.
+        callback.apply(context, [e, args]);
+
+        // Save save selection and editor contents.
+        this.saveSelection();
+        this.updateOriginal();
+    },
+
+    /**
+     * Replaces all the tags in a node list with new type.
+     * @method replaceTags
+     * @param NodeList nodelist
+     * @param String tag
+     */
+    replaceTags: function(nodelist, tag) {
+        // We mark elements in the node list for iterations.
+        nodelist.setAttribute('data-iterate', true);
+        var node = this.editor.one('[data-iterate="true"]');
+        while (node) {
+            var clone = Y.Node.create('<' + tag + ' />')
+                .setAttrs(node.getAttrs())
+                .removeAttribute('data-iterate');
+            // Copy class and style if not blank.
+            if (node.getAttribute('style')) {
+                clone.setAttribute('style', node.getAttribute('style'));
+            }
+            if (node.getAttribute('class')) {
+                clone.setAttribute('class', node.getAttribute('class'));
+            }
+            // We use childNodes here because we are interested in both type 1 and 3 child nodes.
+            var children = node.getDOMNode().childNodes, child;
+            child = children[0];
+            while (typeof child !== "undefined") {
+                clone.append(child);
+                child = children[0];
+            }
+            node.replace(clone);
+            node = this.editor.one('[data-iterate="true"]');
+        }
+    },
+
+    /**
+     * Change all tags with given type to a span with CSS class attribute.
+     * @method changeToCSS
+     * @param String tag Tag type to be changed to span
+     * @param String markerClass CSS class that corresponds to desired tag
+     */
+    changeToCSS: function(tag, markerClass) {
+        // Save the selection.
+        var selection = window.rangy.saveSelection();
+
+        // Remove display:none from rangy markers so browser doesn't delete them.
+        this.editor.all('.rangySelectionBoundary').setStyle('display', null);
+
+        // Replace tags with CSS classes.
+        this.editor.all(tag).addClass(markerClass);
+        this.replaceTags(this.editor.all('.' + markerClass), 'span');
+
+        // Restore selection and toggle class.
+        window.rangy.restoreSelection(selection);
+    },
+
+    /**
+     * Change spans with CSS classes in editor into elements with given tag.
+     * @method changeToCSS
+     * @param String markerClass CSS class that corresponds to desired tag
+     * @param String tag New tag type to be created
+     */
+    changeToTags: function(markerClass, tag) {
+        // Save the selection.
+        var selection = window.rangy.saveSelection();
+
+        // Remove display:none from rangy markers so browser doesn't delete them.
+        this.editor.all('.rangySelectionBoundary').setStyle('display', null);
+
+        // Replace spans with given tag.
+        this.replaceTags(this.editor.all('span[class="' + markerClass + '"]'), tag);
+        this.editor.all(tag + '[class="' + markerClass + '"]').removeAttribute('class');
+        this.editor.all('.' + markerClass).each(function(n) {
+            n.wrap('<' + tag + '/>');
+            n.removeClass(markerClass);
+        });
+
+        // Remove CSS classes.
+        this.editor.all('[class="' + markerClass + '"]').removeAttribute('class');
+        this.editor.all(tag).removeClass(markerClass);
+
+        // Restore selection.
+        window.rangy.restoreSelection(selection);
+    }
+};
+
+Y.Base.mix(Y.M.editor_atto.Editor, [EditorCommand]);
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -1129,7 +1814,7 @@ EditorToolbarNav.prototype = {
             if (this._tabFocus.hasAttribute('disabled') || this._tabFocus.hasAttribute('hidden')
                     || this._tabFocus.ancestor('.atto_group').hasAttribute('hidden')) {
                 // Find first available button.
-                button = this._findFirstFocusable(this.toolbar.all('button'), this._tabFocus, -1);
+                var button = this._findFirstFocusable(this.toolbar.all('button'), this._tabFocus, -1);
                 if (button) {
                     if (this._tabFocus.compareTo(document.activeElement)) {
                         // We should also move the focus, because the inaccessible button also has the focus.
@@ -1656,12 +2341,9 @@ EditorStyling.prototype = {
      */
     toggleInlineSelectionClass: function(toggleclasses) {
         var classname = toggleclasses.join(" ");
-        var originalSelection = this.getSelection();
         var cssApplier = rangy.createCssClassApplier(classname, {normalize: true});
 
         cssApplier.toggleSelection();
-
-        this.setSelection(originalSelection);
     },
 
     /**
@@ -1669,12 +2351,11 @@ EditorStyling.prototype = {
      *
      * This will set inline styles on the current selection.
      *
-     * @method toggleInlineSelectionClass
+     * @method formatSelectionInlineStyle
      * @param {Array} styles - Style attributes to set on the nodes.
      */
     formatSelectionInlineStyle: function(styles) {
         var classname = this.PLACEHOLDER_CLASS;
-        var originalSelection = this.getSelection();
         var cssApplier = rangy.createCssClassApplier(classname, {normalize: true});
 
         cssApplier.applyToSelection();
@@ -1683,7 +2364,6 @@ EditorStyling.prototype = {
             node.removeClass(classname).setStyles(styles);
         }, this);
 
-        this.setSelection(originalSelection);
     },
 
     /**
@@ -1876,14 +2556,17 @@ Y.Base.mix(Y.M.editor_atto.Editor, [EditorFilepicker]);
 }, '@VERSION@', {
     "requires": [
         "node",
+        "transition",
         "io",
         "overlay",
         "escape",
         "event",
         "event-simulate",
         "event-custom",
+        "node-event-html5",
         "yui-throttle",
         "moodle-core-notification-dialogue",
+        "moodle-core-notification-confirm",
         "moodle-editor_atto-rangy",
         "handlebars",
         "timers"

@@ -35,23 +35,23 @@ $license = optional_param('license', '', PARAM_SAFEDIR);
 // process actions
 
 if (!confirm_sesskey()) {
-	redirect($returnurl);
+    redirect($returnurl);
 }
 
 $return = true;
 switch ($action) {
-	case 'disable':
-		license_manager::disable($license);
-		break;
+    case 'disable':
+        license_manager::disable($license);
+        break;
 
-	case 'enable':
-		license_manager::enable($license);
-		break;
+    case 'enable':
+        license_manager::enable($license);
+        break;
 
-	default:
-		break;
+    default:
+        break;
 }
 
 if ($return) {
-	redirect ($returnurl);
+    redirect ($returnurl);
 }

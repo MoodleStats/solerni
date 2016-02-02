@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_formal_langs', language 'fr', branch 'MOODLE_27_STABLE'
+ * Strings for component 'block_formal_langs', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   block_formal_langs
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -40,7 +40,7 @@ $string['editingnewlanguage'] = 'Editer une nouvelle langue';
 $string['editlanguage'] = 'Editer la langue "{$a}"';
 $string['editpermissionslink'] = 'Editer les permissions dans le contexte courant';
 $string['editpermissionspagename'] = 'Editer les autorisations';
-$string['extraseparatormsg'] = 'il se peut qu\'il y ait un séparateur en trop dans {$a->correct[0]}';
+$string['extraseparatormsg'] = 'un séparateur est peut-être en trop dans {$a->correct0}';
 $string['formal_langs:addinstance'] = 'Ajouter de nouveaux blocs de langages officiels au module actuel';
 $string['formal_langs:addlanguage'] = 'Permettre l\'ajout d\'une nouvelle langue officielle';
 $string['formal_langs:changelanguagevisibility'] = 'Permettre le changement de la langue visible dans les formulaires';
@@ -55,8 +55,8 @@ $string['lang_c_language'] = 'Langage de programmation C';
 $string['lang_c_language_help'] = 'Langage de programmation C. Numérisation uniquement.';
 $string['lang_cpp_language'] = 'Langage de programmation C++';
 $string['lang_cpp_language_help'] = 'Langage de programmation C++. Numérisation uniquement.';
-$string['lang_cpp_parseable_language'] = 'Langage de programmation C++ avec capacité d\'analyse';
-$string['lang_cpp_parseable_language_help'] = 'Langage de programmation C++ avec capacité d\'analyse';
+$string['lang_cpp_parseable_language'] = 'Langage de programmation C++';
+$string['lang_cpp_parseable_language_help'] = 'Langage de programmation C++ avec préprocesseur basique';
 $string['lang_not_found'] = 'Langue manquante';
 $string['lang_printf_language'] = 'Langue pour formatage de chaîne (langage C , comme dans printf).';
 $string['lang_printf_language_help'] = 'Langue pour formatage de chaîne (langage C , comme dans printf) . Numérisation uniquement';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'portfolio_picasa', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'portfolio_picasa', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   portfolio_picasa
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['clientid'] = 'ID client';
-$string['noauthtoken'] = 'Aucun jeton d\'authentification n\'a été reçu de Google. Veuillez vous assurer que vous autorisez vraiment Moodle à accéder à votre compte Google';
+$string['noauthtoken'] = 'Aucun jeton d\'authentification n\'a été reçu de Google. Veuillez vous assurer que vous autorisez vraiment Moodle à accéder à votre compte Google.';
 $string['nooauthcredentials'] = 'Données d\'authentification OAuth requises.';
 $string['nooauthcredentials_help'] = 'Pour utiliser le plugin de portfolio Picasa, vous devez configurer d\'abord les données d\'authentification OAuth dans les réglages de portfolio.';
 $string['oauth2upgrade_message_content'] = 'Le plugin de portfolio Picasa a été désactivé durant la mise à jour à Moodle 2.3. Pour le réactiver, votre site doit être enregistré auprès de Google, comme décrit dans la documentation {$a->docsurl}, afin d\'obtenir un ID client et un secret. L\'ID client et le secret pourront alors être utilisé pour configurer tous les plugins Google Drive et Picasa.';

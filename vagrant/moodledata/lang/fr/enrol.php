@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'enrol', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   enrol
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -27,6 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['actenrolshhdr'] = 'Plugins d\'inscription aux cours disponibles';
 $string['addinstance'] = 'Ajouter méthode';
+$string['addinstanceanother'] = 'Ajouter une méthode et en créer une autre';
 $string['ajaxnext25'] = '25 suivants...';
 $string['ajaxoneuserfound'] = '1 utilisateur trouvé';
 $string['ajaxxusersfound'] = '{$a} utilisateurs trouvés';
@@ -91,6 +92,7 @@ $string['extremovedsuspendnoroles'] = 'Désactiver l\'inscription au cours et re
 $string['extremovedunenrol'] = 'Désinscrire du cours l\'utilisateur';
 $string['finishenrollingusers'] = 'Terminer l\'inscription des utilisateurs';
 $string['foundxcohorts'] = '{$a} cohortes trouvées';
+$string['instanceadded'] = 'Méthode ajoutée';
 $string['instanceeditselfwarning'] = 'Attention :';
 $string['instanceeditselfwarningtext'] = 'Vous êtes inscrit à ce cours au moyen de cette méthode d\'inscription. Des modifications pourraient empêcher votre accès à ce cours.';
 $string['invalidenrolinstance'] = 'Instance d\'inscription non valide';
@@ -112,6 +114,7 @@ $string['periodend'] = 'jusqu\'au {$a}';
 $string['periodnone'] = 'inscrit le {$a}';
 $string['periodstart'] = 'dès le {$a}';
 $string['periodstartend'] = 'du {$a->start} au {$a->end}';
+$string['proceedtocourse'] = 'Continuer vers le contenu du cours';
 $string['recovergrades'] = 'Récupérer si possible les anciennes notes de l\'utilisateur';
 $string['rolefromcategory'] = '{$a->role} (hérité d\'une catégorie de cours)';
 $string['rolefrommetacourse'] = '{$a->role} (hérité du cours parent)';

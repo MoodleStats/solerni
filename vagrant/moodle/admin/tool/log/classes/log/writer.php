@@ -27,11 +27,11 @@ namespace tool_log\log;
 defined('MOODLE_INTERNAL') || die();
 
 interface writer extends store {
-	/**
-	 * Write one event to the store.
-	 *
-	 * @param \core\event\base $event
-	 * @return void
-	 */
-	public function write(\core\event\base $event);
+    /**
+     * Write one event to the store.
+     *
+     * @param \core\event\base $event
+     * @return void
+     */
+    public function write(\core\event\base $event);
 }

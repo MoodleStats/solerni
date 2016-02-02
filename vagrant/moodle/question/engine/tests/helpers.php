@@ -84,6 +84,14 @@ class testable_question_engine_unit_of_work extends question_engine_unit_of_work
     public function get_steps_deleted() {
         return $this->stepsdeleted;
     }
+
+    public function get_metadata_added() {
+        return $this->metadataadded;
+    }
+
+    public function get_metadata_modified() {
+        return $this->metadatamodified;
+    }
 }
 
 
@@ -546,10 +554,10 @@ abstract class question_testcase extends advanced_testcase {
             $compare = (array)$compare;
             foreach ($expect as $k=>$v) {
                 if (!array_key_exists($k, $compare)) {
-                    $this->fail("Property $k does not exist");
+                    $this->fail("Property {$k} does not exist");
                 }
                 if ($v != $compare[$k]) {
-                    $this->fail("Property $k is different");
+                    $this->fail("Property {$k} is different");
                 }
             }
             $this->assertTrue(true);

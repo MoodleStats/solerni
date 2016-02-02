@@ -291,7 +291,7 @@ class core_plugin_manager {
                 $plugin = new stdClass();
                 $plugin->version = null;
                 $module = $plugin;
-                @include($fullplug.'/version.php');
+                include($fullplug.'/version.php');
                 $this->presentplugins[$type][$plug] = $plugin;
             }
         }
@@ -910,9 +910,10 @@ class core_plugin_manager {
         // branch, listed should be no plugins that were removed at 1.9.x - 2.1.x versions as
         // Moodle 2.3 supports upgrades from 2.2.x only.
         $plugins = array(
-            'qformat' => array('blackboard'),
+            'qformat' => array('blackboard', 'learnwise'),
             'enrol' => array('authorize'),
-            'tool' => array('bloglevelupgrade', 'qeupgradehelper'),
+            'tinymce' => array('dragmath'),
+            'tool' => array('bloglevelupgrade', 'qeupgradehelper', 'timezoneimport'),
             'theme' => array('mymobile', 'afterburner', 'anomaly', 'arialist', 'binarius', 'boxxie', 'brick', 'formal_white',
                 'formfactor', 'fusion', 'leatherbound', 'magazine', 'nimble', 'nonzero', 'overlay', 'serenity', 'sky_high',
                 'splash', 'standard', 'standardold'),
@@ -966,8 +967,8 @@ class core_plugin_manager {
             ),
 
             'block' => array(
-                'activity_modules', 'admin_bookmarks', 'badges', 'blog_menu',
-                'blog_recent', 'blog_tags', 'calendar_month',
+                'activity_modules', 'activity_results', 'admin_bookmarks', 'badges',
+                'blog_menu', 'blog_recent', 'blog_tags', 'calendar_month',
                 'calendar_upcoming', 'comments', 'community',
                 'completionstatus', 'course_list', 'course_overview',
                 'course_summary', 'feedback', 'glossary_random', 'html',
@@ -1033,11 +1034,11 @@ class core_plugin_manager {
             ),
 
             'gradeimport' => array(
-                'csv', 'xml'
+                'csv', 'direct', 'xml'
             ),
 
             'gradereport' => array(
-                'grader', 'outcomes', 'overview', 'user'
+                'grader', 'history', 'outcomes', 'overview', 'user', 'singleview'
             ),
 
             'gradingform' => array(
@@ -1049,6 +1050,10 @@ class core_plugin_manager {
 
             'logstore' => array(
                 'database', 'legacy', 'standard',
+            ),
+
+            'ltiservice' => array(
+                'profile', 'toolproxy', 'toolsettings'
             ),
 
             'message' => array(
@@ -1085,7 +1090,7 @@ class core_plugin_manager {
 
             'qformat' => array(
                 'aiken', 'blackboard_six', 'examview', 'gift',
-                'learnwise', 'missingword', 'multianswer', 'webct',
+                'missingword', 'multianswer', 'webct',
                 'xhtml', 'xml'
             ),
 
@@ -1107,7 +1112,8 @@ class core_plugin_manager {
 
             'report' => array(
                 'backups', 'completion', 'configlog', 'courseoverview', 'eventlist',
-                'log', 'loglive', 'outline', 'participation', 'progress', 'questioninstances', 'security', 'stats', 'performance'
+                'log', 'loglive', 'outline', 'participation', 'progress', 'questioninstances', 'security', 'stats', 'performance',
+                'usersessions',
             ),
 
             'repository' => array(
@@ -1125,7 +1131,7 @@ class core_plugin_manager {
             ),
 
             'tinymce' => array(
-                'ctrlhelp', 'dragmath', 'managefiles', 'moodleemoticon', 'moodleimage',
+                'ctrlhelp', 'managefiles', 'moodleemoticon', 'moodleimage',
                 'moodlemedia', 'moodlenolink', 'pdw', 'spellchecker', 'wrap'
             ),
 
@@ -1135,9 +1141,9 @@ class core_plugin_manager {
 
             'tool' => array(
                 'assignmentupgrade', 'availabilityconditions', 'behat', 'capability', 'customlang',
-                'dbtransfer', 'generator', 'health', 'innodb', 'installaddon',
-                'langimport', 'log', 'multilangupgrade', 'phpunit', 'profiling',
-                'replace', 'spamcleaner', 'task', 'timezoneimport',
+                'dbtransfer', 'filetypes', 'generator', 'health', 'innodb', 'installaddon',
+                'langimport', 'log', 'messageinbound', 'multilangupgrade', 'monitor', 'phpunit', 'profiling',
+                'replace', 'spamcleaner', 'task', 'templatelibrary',
                 'unittest', 'uploadcourse', 'uploaduser', 'unsuproles', 'xmldb'
             ),
 

@@ -22,7 +22,7 @@
  * @copyright  2012 onwards Totara Learning Solutions Ltd {@link http://www.totaralms.com/}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @author     Yuliya Bozhko <yuliya.bozhko@totaralms.com>
-*/
+ */
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -34,61 +34,70 @@ require_once($CFG->libdir . '/badgeslib.php');
  *
  */
 class edit_criteria_form extends moodleform {
-	public function definition() {
-		global $DB;
-		$mform = $this->_form;
-		$criteria = $this->_customdata['criteria'];
-		$addcourse = $this->_customdata['addcourse'];
-		$course = $this->_customdata['course'];
+    public function definition() {
+        global $DB;
+        $mform = $this->_form;
+        $criteria = $this->_customdata['criteria'];
+        $addcourse = $this->_customdata['addcourse'];
+        $course = $this->_customdata['course'];
 
-		// Get course selector first if it's a new courseset criteria.
-		if (($criteria->id == 0 || $addcourse) && $criteria->criteriatype == BADGE_CRITERIA_TYPE_COURSESET) {
-			$criteria->get_courses($mform);
-		} else {
-			if ($criteria->id == 0 && $criteria->criteriatype == BADGE_CRITERIA_TYPE_COURSE) {
-				$mform->addElement('hidden', 'course', $course);
-				$mform->setType('course', PARAM_INT);
-			}
-			list($none, $message) = $criteria->get_options($mform);
+        // Get course selector first if it's a new courseset criteria.
+        if (($criteria->id == 0 || $addcourse) && $criteria->criteriatype == BADGE_CRITERIA_TYPE_COURSESET) {
+            $criteria->get_courses($mform);
+        } else {
+            if ($criteria->id == 0 && $criteria->criteriatype == BADGE_CRITERIA_TYPE_COURSE) {
+                $mform->addElement('hidden', 'course', $course);
+                $mform->setType('course', PARAM_INT);
+            }
+            list($none, $message) = $criteria->get_options($mform);
 
-			if ($none) {
-				$mform->addElement('html', html_writer::tag('div', $message));
-				$mform->addElement('submit', 'cancel', get_string('continue'));
-			} else {
-				$mform->closeHeaderBefore('buttonar');
-				$this->add_action_buttons(true, get_string('save', 'badges'));
-			}
-		}
-	}
+            if ($none) {
+                $mform->addElement('html', html_writer::tag('div', $message));
+                $mform->addElement('submit', 'cancel', get_string('continue'));
+            } else {
+                $mform->addElement('header', 'description_header', get_string('description'));
+                $mform->addElement('editor', 'description', '', null, null);
+                $mform->setType('description', PARAM_RAW);
+                $mform->setDefault('description', array(
+                        'text' => $criteria->description,
+                        'format' => $criteria->descriptionformat
+                    )
+                );
 
-	/**
-	 * Validates form data
-	 */
-	public function validation($data, $files) {
-		global $OUTPUT;
-		$errors = parent::validation($data, $files);
-		$addcourse = $this->_customdata['addcourse'];
+                $mform->closeHeaderBefore('buttonar');
+                $this->add_action_buttons(true, get_string('save', 'badges'));
+            }
+        }
+    }
 
-		if (!$addcourse) {
-			$required = $this->_customdata['criteria']->required_param;
-			$pattern1 = '/^' . $required . '_(\d+)$/';
-			$pattern2 = '/^' . $required . '_(\w+)$/';
+    /**
+     * Validates form data
+     */
+    public function validation($data, $files) {
+        global $OUTPUT;
+        $errors = parent::validation($data, $files);
+        $addcourse = $this->_customdata['addcourse'];
 
-			$ok = false;
-			foreach ($data as $key => $value) {
-				if ((preg_match($pattern1, $key) || preg_match($pattern2, $key)) && !($value === 0 || $value == '0')) {
-					$ok = true;
-				}
-			}
+        if (!$addcourse && isset($this->_customdata['criteria']->required_param)) {
+            $required = $this->_customdata['criteria']->required_param;
+            $pattern1 = '/^' . $required . '_(\d+)$/';
+            $pattern2 = '/^' . $required . '_(\w+)$/';
 
-			$warning = $this->_form->createElement('html',
-					$OUTPUT->notification(get_string('error:parameter', 'badges'), 'notifyproblem'), 'submissionerror');
+            $ok = false;
+            foreach ($data as $key => $value) {
+                if ((preg_match($pattern1, $key) || preg_match($pattern2, $key)) && !($value === 0 || $value == '0')) {
+                    $ok = true;
+                }
+            }
 
-			if (!$ok) {
-				$errors['formerrors'] = 'Error';
-				$this->_form->insertElementBefore($warning, 'first_header');
-			}
-		}
-		return $errors;
-	}
+            $warning = $this->_form->createElement('html',
+                    $OUTPUT->notification(get_string('error:parameter', 'badges'), 'notifyproblem'), 'submissionerror');
+
+            if (!$ok) {
+                $errors['formerrors'] = 'Error';
+                $this->_form->insertElementBefore($warning, 'first_header');
+            }
+        }
+        return $errors;
+    }
 }

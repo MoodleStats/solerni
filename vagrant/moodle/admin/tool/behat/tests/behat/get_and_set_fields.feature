@@ -10,9 +10,9 @@ Feature: Verify that all form fields values can be get and set
       | Course 1 | C1 | 0 |
     And the following "users" exist:
       | username | email | firstname | lastname |
-      | student1 | s1@asd.com | Student | 1 |
-      | student2 | s2@asd.com | Student | 2 |
-      | student3 | s3@asd.com | Student | 3 |
+      | student1 | s1@example.com | Student | 1 |
+      | student2 | s2@example.com | Student | 2 |
+      | student3 | s3@example.com | Student | 3 |
     And the following "course enrolments" exist:
       | user | course | role |
       | student1 | C1 | student |
@@ -39,7 +39,7 @@ Feature: Verify that all form fields values can be get and set
     # Select (multi-select) - We will check "I set the field...".
     And I set the field "otagsadd" to "OT1, OT2, OT3, OT4, OT5"
     And I press "Add official tags"
-    And I am on homepage
+    And I am on site homepage
     And I follow "Course 1"
     And I turn editing mode on
     And I follow "Test this one"
@@ -137,6 +137,17 @@ Feature: Verify that all form fields values can be get and set
     And I press "Save my choice"
     And the field "one" matches value "1"
     And the field "two" matches value ""
+    # Check if field xpath set/match works.
+    And I am on site homepage
+    And I follow "Course 1"
+    And I navigate to "Edit settings" node in "Course administration"
+    And I set the field with xpath "//input[@id='id_idnumber']" to "Course id number"
+    And the field with xpath "//input[@name='idnumber']" matches value "Course id number"
+    And the field with xpath "//input[@name='idnumber']" does not match value ""
+    And I press "Save and display"
+    And I navigate to "Edit settings" node in "Course administration"
+    And the field "Course ID number" matches value "Course id number"
+
 
   Scenario: with JS disabled all form fields getters and setters works as expected
 
@@ -159,6 +170,7 @@ Feature: Verify that all form fields values can be get and set
     And I add a "Lesson" to section "1"
     And I set the following fields to these values:
       | Name | Test lesson |
+      | Description | Test lesson description |
       | available[enabled] | 1 |
     And I set the field "deadline[enabled]" to "1"
     # Checkbox (AJAX) - Checking "the field matches value" before saving.

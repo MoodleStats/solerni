@@ -152,8 +152,8 @@ class mail_test {
         $data->admin     = generate_email_signoff();
         $data->resetminutes = $pwresetmins;
 
-        $message = get_string('emailresetconfirmation', '', $data);
-        $messagehtml = get_string('emailresetconfirmationhtml', '', $data);
+        $messagehtml = get_string('emailresetconfirmation', '', $data);
+        $message = html_to_text($messagehtml);
         $subject = '(M4)' . get_string('emailresetconfirmationsubject', '', format_string($site->fullname));
 
         if ($modetext) {
@@ -201,6 +201,7 @@ class mail_test {
 
         $course = $DB->get_record('course', array('id' => $instance->courseid), '*', MUST_EXIST);
         $context = context_course::instance($course->id);
+        $supportuser = core_user::get_support_user();
 
         $a = new stdClass();
         $a->coursename = format_string($course->fullname, true, array('context' => $context));
@@ -229,18 +230,6 @@ class mail_test {
         $subject = '(M6)' . get_string('welcometocourse', 'enrol_self',
                 format_string($course->fullname, true, array('context' => $context)));
 
-        $rusers = array();
-        if (!empty($CFG->coursecontact)) {
-            $croles = explode(',', $CFG->coursecontact);
-            list($sort, $sortparams) = users_order_by_sql('u');
-            $rusers = get_role_users($croles, $context, true, '', 'r.sortorder ASC, ' . $sort, null, '', '', '', '', $sortparams);
-        }
-        if ($rusers) {
-            $contact = reset($rusers);
-        } else {
-            $contact = core_user::get_support_user();
-        }
-
         if ($modetext) {
             $user->mailformat = 0;
         } else {
@@ -248,12 +237,13 @@ class mail_test {
         }
 
         // Directly emailing welcome message rather than using messaging.
-        email_to_user($user, $contact, $subject, $messagetext, $messagehtml);
+        email_to_user($user, $supportuser, $subject, $messagetext, $messagehtml);
     }
 
     static public function email_information_message($instance, $user, $modetext=false) {
         global $CFG, $DB;
 
+        $supportuser = core_user::get_support_user();
         $course = $DB->get_record('course', array('id' => $instance->courseid), '*', MUST_EXIST);
 
         $a = new stdClass();
@@ -274,17 +264,6 @@ class mail_test {
 
         $context = context_course::instance($instance->courseid, MUST_EXIST);
 
-        $rusers = array();
-        if (!empty($CFG->coursecontact)) {
-            $croles = explode(',', $CFG->coursecontact);
-            $rusers = get_role_users($croles, $context, true, '', 'r.sortorder ASC, u.lastname ASC');
-        }
-        if ($rusers) {
-            $contact = reset($rusers);
-        } else {
-            $contact = core_user::get_support_user();
-        }
-
         if ($modetext) {
             $user->mailformat = 0;
         } else {
@@ -292,7 +271,7 @@ class mail_test {
         }
 
         // Directly emailing welcome message rather than using messaging.
-        email_to_user($user, $contact, $subject, $message, $messagehtml);
+        email_to_user($user, $supportuser, $subject, $message, $messagehtml);
     }
 
     static public function send_email_deletion($user, $modetext=false) {

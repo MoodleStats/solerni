@@ -102,7 +102,6 @@ class core_files_renderer extends plugin_renderer_base {
      * @return string HTML fragment
      */
     public function render_form_filemanager($fm) {
-        static $filemanagertemplateloaded;
         $html = $this->fm_print_generallayout($fm);
         $module = array(
             'name'=>'form_filemanager',
@@ -117,8 +116,7 @@ class core_files_renderer extends plugin_renderer_base {
                 array('confirmrenamefile', 'repository'), array('newfolder', 'repository'), array('edit', 'moodle')
             )
         );
-        if (empty($filemanagertemplateloaded)) {
-            $filemanagertemplateloaded = true;
+        if ($this->page->requires->should_create_one_time_item_now('core_file_managertemplate')) {
             $this->page->requires->js_init_call('M.form_filemanager.set_templates',
                     array($this->filemanager_js_templates()), true, $module);
         }
@@ -1017,7 +1015,10 @@ class core_files_renderer extends plugin_renderer_base {
                     <label class="control-label"></label>
 
                     <div class="controls"><select></select></div>
-                </div>
+                </div>';
+        // HACK to prevent browsers from automatically inserting the user's password into the wrong fields.
+        $rv .= prevent_form_autofill_password();
+        $rv .= '
                 <div class="fp-login-input control-group clearfix">
                     <label class="control-label"></label>
                     <div class="controls"><input/></div>

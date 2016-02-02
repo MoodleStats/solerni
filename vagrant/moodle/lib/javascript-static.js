@@ -343,8 +343,7 @@ M.util.init_maximised_embed = function(Y, id) {
     };
 
     var resize_object = function() {
-        obj.setStyle('width', '0px');
-        obj.setStyle('height', '0px');
+        obj.setStyle('display', 'none');
         var newwidth = get_htmlelement_size('maincontent', 'width') - 35;
 
         if (newwidth > 500) {
@@ -360,13 +359,16 @@ M.util.init_maximised_embed = function(Y, id) {
             newheight = 400;
         }
         obj.setStyle('height', newheight+'px');
+        obj.setStyle('display', '');
     };
 
     resize_object();
     // fix layout if window resized too
-    window.onresize = function() {
-        resize_object();
-    };
+    Y.use('event-resize', function (Y) {
+        Y.on("windowresize", function() {
+            resize_object();
+        });
+    });
 };
 
 /**
@@ -996,49 +998,6 @@ function findParentNode(el, elName, elClass, elId) {
     }
     return el;
 }
-/*
-    findChildNode (start, elementName, elementClass, elementID)
-
-    Travels down the DOM hierarchy to find all child elements with the
-    specified tag name, class, and id. All conditions must be met,
-    but any can be ommitted.
-    Doesn't examine children of matches.
-
-    @deprecated since Moodle 2.7 - please do not use this function any more.
-    @todo MDL-43242 This will be deleted in Moodle 2.9.
-    @see Y.all
-*/
-function findChildNodes(start, tagName, elementClass, elementID, elementName) {
-    Y.log("findChildNodes() is deprecated. Please use Y.all instead.",
-            "warn", "javascript-static.js");
-    var children = new Array();
-    for (var i = 0; i < start.childNodes.length; i++) {
-        var classfound = false;
-        var child = start.childNodes[i];
-        if((child.nodeType == 1) &&//element node type
-                  (elementClass && (typeof(child.className)=='string'))) {
-            var childClasses = child.className.split(/\s+/);
-            for (var childClassIndex in childClasses) {
-                if (childClasses[childClassIndex]==elementClass) {
-                    classfound = true;
-                    break;
-                }
-            }
-        }
-        if(child.nodeType == 1) { //element node type
-            if  ( (!tagName || child.nodeName == tagName) &&
-                (!elementClass || classfound)&&
-                (!elementID || child.id == elementID) &&
-                (!elementName || child.name == elementName))
-            {
-                children = children.concat(child);
-            } else {
-                children = children.concat(findChildNodes(child, tagName, elementClass, elementID, elementName));
-            }
-        }
-    }
-    return children;
-}
 
 function unmaskPassword(id) {
     var pw = document.getElementById(id);
@@ -1153,83 +1112,6 @@ function insertAtCursor(myField, myValue) {
     } else {
         myField.value += myValue;
     }
-}
-
-
-/*
-        Call instead of setting window.onload directly or setting body onload=.
-        Adds your function to a chain of functions rather than overwriting anything
-        that exists.
-        @deprecated Since Moodle 2.7. This will be removed in Moodle 2.9.
-*/
-function addonload(fn) {
-    Y.log('addonload has been deprecated since Moodle 2.7 and will be removed in Moodle 2.9',
-            'warn', 'javascript-static.js');
-    var oldhandler=window.onload;
-    window.onload=function() {
-        if(oldhandler) oldhandler();
-            fn();
-    }
-}
-/**
- * Replacement for getElementsByClassName in browsers that aren't cool enough
- *
- * Relying on the built-in getElementsByClassName is far, far faster than
- * using YUI.
- *
- * Note: the third argument used to be an object with odd behaviour. It now
- * acts like the 'name' in the HTML5 spec, though the old behaviour is still
- * mimicked if you pass an object.
- *
- * @param {Node} oElm The top-level node for searching. To search a whole
- *                    document, use `document`.
- * @param {String} strTagName filter by tag names
- * @param {String} name same as HTML5 spec
- * @deprecated Since Moodle 2.7. This will be removed in Moodle 2.9.
- */
-function getElementsByClassName(oElm, strTagName, name) {
-    Y.log('getElementsByClassName has been deprecated since Moodle 2.7 and will be removed in Moodle 2.9',
-            'warn', 'javascript-static.js');
-    // for backwards compatibility
-    if(typeof name == "object") {
-        var names = new Array();
-        for(var i=0; i<name.length; i++) names.push(names[i]);
-        name = names.join('');
-    }
-    // use native implementation if possible
-    if (oElm.getElementsByClassName && Array.filter) {
-        if (strTagName == '*') {
-            return oElm.getElementsByClassName(name);
-        } else {
-            return Array.filter(oElm.getElementsByClassName(name), function(el) {
-                return el.nodeName.toLowerCase() == strTagName.toLowerCase();
-            });
-        }
-    }
-    // native implementation unavailable, fall back to slow method
-    var arrElements = (strTagName == "*" && oElm.all)? oElm.all : oElm.getElementsByTagName(strTagName);
-    var arrReturnElements = new Array();
-    var arrRegExpClassNames = new Array();
-    var names = name.split(' ');
-    for(var i=0; i<names.length; i++) {
-        arrRegExpClassNames.push(new RegExp("(^|\\s)" + names[i].replace(/\-/g, "\\-") + "(\\s|$)"));
-    }
-    var oElement;
-    var bMatchesAll;
-    for(var j=0; j<arrElements.length; j++) {
-        oElement = arrElements[j];
-        bMatchesAll = true;
-        for(var k=0; k<arrRegExpClassNames.length; k++) {
-            if(!arrRegExpClassNames[k].test(oElement.className)) {
-                bMatchesAll = false;
-                break;
-            }
-        }
-        if(bMatchesAll) {
-            arrReturnElements.push(oElement);
-        }
-    }
-    return (arrReturnElements)
 }
 
 /**
@@ -1360,28 +1242,6 @@ function close_window(e) {
 }
 
 /**
- * Used in a couple of modules to hide navigation areas when using AJAX
- * @deprecated since Moodle 2.7. This function will be removed in Moodle 2.9.
- */
-function show_item(itemid) {
-    Y.log('show_item has been deprecated since Moodle 2.7 and will be removed in Moodle 2.9',
-            'warn', 'javascript-static.js');
-    var item = Y.one('#' + itemid);
-    if (item) {
-        item.show();
-    }
-}
-
-// Deprecated since Moodle 2.7. This function will be removed in Moodle 2.9.
-function destroy_item(itemid) {
-    Y.log('destroy_item has been deprecated since Moodle 2.7 and will be removed in Moodle 2.9',
-            'warn', 'javascript-static.js');
-    var item = Y.one('#' + itemid);
-    if (item) {
-        item.remove(true);
-    }
-}
-/**
  * Tranfer keyboard focus to the HTML element with the given id, if it exists.
  * @param controlid the control id.
  */
@@ -1435,51 +1295,89 @@ function stripHTML(str) {
     return ret;
 }
 
-Number.prototype.fixed=function(n){
-    with(Math)
-        return round(Number(this)*pow(10,n))/pow(10,n);
-};
-function update_progress_bar (id, width, pt, msg, es){
-    var percent = pt;
-    var status = document.getElementById("status_"+id);
-    var percent_indicator = document.getElementById("pt_"+id);
-    var progress_bar = document.getElementById("progress_"+id);
-    var time_es = document.getElementById("time_"+id);
-    status.innerHTML = msg;
-    percent_indicator.innerHTML = percent.fixed(2) + '%';
-    if(percent == 100) {
-        progress_bar.style.background = "green";
-        time_es.style.display = "none";
-    } else {
-        progress_bar.style.background = "#FFCC66";
-        if (es == '?'){
-            time_es.innerHTML = "";
-        }else {
-            time_es.innerHTML = es.fixed(2)+" sec";
-            time_es.style.display
-                = "block";
-        }
+function updateProgressBar(id, percent, msg, estimate) {
+    var progressIndicator = Y.one('#' + id);
+    if (!progressIndicator) {
+        return;
     }
-    progress_bar.style.width = width + "px";
 
+    var progressBar = progressIndicator.one('.bar'),
+        statusIndicator = progressIndicator.one('h2'),
+        estimateIndicator = progressIndicator.one('p');
+
+    statusIndicator.set('innerHTML', Y.Escape.html(msg));
+    progressBar.set('innerHTML', Y.Escape.html('' + percent + '%'));
+    if (percent === 100) {
+        progressIndicator.addClass('progress-success');
+        estimateIndicator.set('innerHTML', null);
+    } else {
+        if (estimate) {
+            estimateIndicator.set('innerHTML', Y.Escape.html(estimate));
+        } else {
+            estimateIndicator.set('innerHTML', null);
+        }
+        progressIndicator.removeClass('progress-success');
+    }
+    progressBar.setAttribute('aria-valuenow', percent);
+    progressBar.setStyle('width', percent + '%');
 }
-
 
 // ===== Deprecated core Javascript functions for Moodle ====
 //       DO NOT USE!!!!!!!
 // Do not put this stuff in separate file because it only adds extra load on servers!
 
 /**
- * Used in a couple of modules to hide navigation areas when using AJAX
- * @deprecated since Moodle 2.7. This function will be removed in Moodle 2.9.
+ * @method show_item
+ * @deprecated since Moodle 2.7.
+ * @see Y.Node.show
  */
-function hide_item(itemid) {
-    Y.log('hide_item has been deprecated since Moodle 2.7 and will be removed in Moodle 2.9',
-            'warn', 'javascript-static.js');
-    var item = Y.one('#' + itemid);
-    if (item) {
-        item.hide();
-    }
+function show_item() {
+    throw new Error('show_item can not be used any more. Please use Y.Node.show.');
+}
+
+/**
+ * @method destroy_item
+ * @deprecated since Moodle 2.7.
+ * @see Y.Node.destroy
+ */
+function destroy_item() {
+    throw new Error('destroy_item can not be used any more. Please use Y.Node.destroy.');
+}
+
+/**
+ * @method hide_item
+ * @deprecated since Moodle 2.7.
+ * @see Y.Node.hide
+ */
+function hide_item() {
+    throw new Error('hide_item can not be used any more. Please use Y.Node.hide.');
+}
+
+/**
+ * @method addonload
+ * @deprecated since Moodle 2.7 - please do not use this function any more.
+ */
+function addonload() {
+    throw new Error('addonload can not be used any more.');
+}
+
+/**
+ * @method getElementsByClassName
+ * @deprecated Since Moodle 2.7 - please do not use this function any more.
+ * @see Y.one
+ * @see Y.all
+ */
+function getElementsByClassName() {
+    throw new Error('getElementsByClassName can not be used any more. Please use Y.one or Y.all.');
+}
+
+/**
+ * @method findChildNodes
+ * @deprecated since Moodle 2.7 - please do not use this function any more.
+ * @see Y.all
+ */
+function findChildNodes() {
+    throw new Error('findChildNodes can not be used any more. Please use Y.all.');
 }
 
 M.util.help_popups = {
@@ -1799,6 +1697,7 @@ M.util.load_flowplayer = function() {
             loaded = true;
 
             var controls = {
+                    url: M.cfg.wwwroot + '/lib/flowplayer/flowplayer.controls-3.2.16.swf.php',
                     autoHide: true
             }
             /* TODO: add CSS color overrides for the flv flow player */
@@ -1806,9 +1705,9 @@ M.util.load_flowplayer = function() {
             for(var i=0; i<M.util.video_players.length; i++) {
                 var video = M.util.video_players[i];
                 if (video.width > 0 && video.height > 0) {
-                    var src = {src: M.cfg.wwwroot + '/lib/flowplayer/flowplayer-3.2.18.swf', width: video.width, height: video.height};
+                    var src = {src: M.cfg.wwwroot + '/lib/flowplayer/flowplayer-3.2.18.swf.php', width: video.width, height: video.height};
                 } else {
-                    var src = M.cfg.wwwroot + '/lib/flowplayer/flowplayer-3.2.18.swf';
+                    var src = M.cfg.wwwroot + '/lib/flowplayer/flowplayer-3.2.18.swf.php';
                 }
                 flowplayer(video.id, src, {
                     plugins: {controls: controls},
@@ -1844,6 +1743,7 @@ M.util.load_flowplayer = function() {
                 return;
             }
             var controls = {
+                    url: M.cfg.wwwroot + '/lib/flowplayer/flowplayer.controls-3.2.16.swf.php',
                     autoHide: false,
                     fullscreen: false,
                     next: false,
@@ -1908,8 +1808,8 @@ M.util.load_flowplayer = function() {
                     controls.height = 25;
                     controls.time = true;
                 }
-                flowplayer(audio.id, M.cfg.wwwroot + '/lib/flowplayer/flowplayer-3.2.18.swf', {
-                    plugins: {controls: controls, audio: {url: M.cfg.wwwroot + '/lib/flowplayer/flowplayer.audio-3.2.11.swf'}},
+                flowplayer(audio.id, M.cfg.wwwroot + '/lib/flowplayer/flowplayer-3.2.18.swf.php', {
+                    plugins: {controls: controls, audio: {url: M.cfg.wwwroot + '/lib/flowplayer/flowplayer.audio-3.2.11.swf.php'}},
                     clip: {url: audio.fileurl, provider: "audio", autoPlay: false}
                 });
             }

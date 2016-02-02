@@ -30,24 +30,24 @@ require_once($CFG->dirroot.'/backup/util/xml/parser/processors/progressive_parse
  */
 class selective_like_parser_processor extends progressive_parser_processor {
 
-	protected $paths; // array of paths we are interested on
+   protected $paths; // array of paths we are interested on
 
-	public function __construct(array $paths) {
-		parent::__construct();
-		$this->paths = '=>' . implode('=>', $paths);
-	}
+   public function __construct(array $paths) {
+       parent::__construct();
+       $this->paths = '=>' . implode('=>', $paths);
+   }
 
-	public function process_chunk($data) {
-		if ($this->path_is_selected($data['path'])) {
-			print_r($data); // Simply output chunk, for testing purposes
-		} else {
-			$this->chunks--; // Chunk skipped
-		}
-	}
+   public function process_chunk($data) {
+       if ($this->path_is_selected($data['path'])) {
+           print_r($data); // Simply output chunk, for testing purposes
+       } else {
+           $this->chunks--; // Chunk skipped
+       }
+   }
 
-	// Protected API starts here
+// Protected API starts here
 
-	protected function path_is_selected($path) {
-		return strpos('@=>' . $path, $this->paths);
-	}
+   protected function path_is_selected($path) {
+       return strpos('@=>' . $path, $this->paths);
+   }
 }

@@ -197,9 +197,6 @@ Y.namespace('M.atto_link').Button = Y.Base.create('button', Y.M.editor_atto.Edit
      */
     _setLink: function(e) {
         var input,
-            target,
-            selectednode,
-            anchornodes,
             value;
 
         e.preventDefault();
@@ -212,23 +209,15 @@ Y.namespace('M.atto_link').Button = Y.Base.create('button', Y.M.editor_atto.Edit
         value = input.get('value');
         if (value !== '') {
 
-            // Add the link.
-            selectednode = this._setLinkOnSelection(value);
-
-            // Note this is a document fragment and YUI doesn't like them.
-            if (!selectednode) {
-                return;
+            // We add a prefix if it is not already prefixed.
+            value = value.trim();
+            var expr = new RegExp(/^[a-zA-Z]*\.*\/|^#|^[a-zA-Z]*:/);
+            if (!expr.test(value)) {
+                value = 'http://' + value;
             }
 
-            anchornodes = this._findSelectedAnchors(Y.one(selectednode));
-            Y.Array.each(anchornodes, function(anchornode) {
-                target = this._content.one('.newwindow');
-                if (target.get('checked')) {
-                    anchornode.setAttribute('target', '_blank');
-                } else {
-                    anchornode.removeAttribute('target');
-                }
-            }, this);
+            // Add the link.
+            this._setLinkOnSelection(value);
 
             this.markUpdated();
         }
@@ -245,7 +234,9 @@ Y.namespace('M.atto_link').Button = Y.Base.create('button', Y.M.editor_atto.Edit
     _setLinkOnSelection: function(url) {
         var host = this.get('host'),
             link,
-            selectednode;
+            selectednode,
+            target,
+            anchornodes;
 
         this.editor.focus();
         host.setSelection(this._currentSelection);
@@ -265,6 +256,22 @@ Y.namespace('M.atto_link').Button = Y.Base.create('button', Y.M.editor_atto.Edit
             // Now set the target.
             selectednode = host.getSelectionParentNode();
         }
+
+        // Note this is a document fragment and YUI doesn't like them.
+        if (!selectednode) {
+            return;
+        }
+
+        anchornodes = this._findSelectedAnchors(Y.one(selectednode));
+        // Add new window attributes if requested.
+        Y.Array.each(anchornodes, function(anchornode) {
+            target = this._content.one('.newwindow');
+            if (target.get('checked')) {
+                anchornode.setAttribute('target', '_blank');
+            } else {
+                anchornode.removeAttribute('target');
+            }
+        }, this);
 
         return selectednode;
     },

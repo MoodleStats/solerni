@@ -139,9 +139,9 @@ class mod_forumng_utils {
         $info .= '|' . $e->getMessage();
 
         // Cut off (using textlib in case message contains UTF-8)
-        if (textlib::strlen($info) > 255) {
+        if (core_text::strlen($info) > 255) {
             // Use first part + ellipsis
-            $info = textlib::substr($info, 0, 254) . html_entity_decode('&#x2026;', ENT_QUOTES, 'UTF-8');
+            $info = core_text::substr($info, 0, 254) . html_entity_decode('&#x2026;', ENT_QUOTES, 'UTF-8');
         }
 
         // Add entry to Moodle log (using root file in action)
@@ -324,7 +324,7 @@ class mod_forumng_utils {
     public static function select_course_module_fields($alias) {
         $fields = array('id', 'course', 'module', 'instance', 'section',
             'added', 'score', 'indent', 'visible', 'visibleold', 'groupmode',
-            'groupingid', 'idnumber', 'groupmembersonly', 'completion',
+            'groupingid', 'idnumber', 'completion',
               'completiongradeitemnumber', 'completionview',
               'completionexpected');
 

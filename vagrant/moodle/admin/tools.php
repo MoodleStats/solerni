@@ -24,8 +24,8 @@
  *
  * @package   admin
  * @copyright 2011 Petr Skoda {@link http://skodak.org}
-* @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
-*/
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
 require_once(dirname(__FILE__) . '/../config.php');
 require_once($CFG->libdir.'/adminlib.php');
@@ -50,12 +50,12 @@ $table->setup();
 
 $plugins = array();
 foreach (core_component::get_plugin_list('tool') as $plugin => $plugindir) {
-	if (get_string_manager()->string_exists('pluginname', 'tool_' . $plugin)) {
-		$strpluginname = get_string('pluginname', 'tool_' . $plugin);
-	} else {
-		$strpluginname = $plugin;
-	}
-	$plugins[$plugin] = $strpluginname;
+    if (get_string_manager()->string_exists('pluginname', 'tool_' . $plugin)) {
+        $strpluginname = get_string('pluginname', 'tool_' . $plugin);
+    } else {
+        $strpluginname = $plugin;
+    }
+    $plugins[$plugin] = $strpluginname;
 }
 core_collator::asort($plugins);
 
@@ -64,39 +64,39 @@ $params = array('tool|_%');
 $installed = $DB->get_records_select('config_plugins', "$like AND name = 'version'", $params);
 $versions = array();
 foreach ($installed as $config) {
-	$name = preg_replace('/^tool_/', '', $config->plugin);
-	$versions[$name] = $config->value;
-	if (!isset($plugins[$name])) {
-		$plugins[$name] = $name;
-	}
+    $name = preg_replace('/^tool_/', '', $config->plugin);
+    $versions[$name] = $config->value;
+    if (!isset($plugins[$name])) {
+        $plugins[$name] = $name;
+    }
 }
 
 foreach ($plugins as $plugin => $name) {
-	$uninstall = '';
-	if ($uninstallurl = core_plugin_manager::instance()->get_uninstall_url('tool_'.$plugin, 'manage')) {
-		$uninstall = html_writer::link($uninstallurl, $struninstall);
-	}
+    $uninstall = '';
+    if ($uninstallurl = core_plugin_manager::instance()->get_uninstall_url('tool_'.$plugin, 'manage')) {
+        $uninstall = html_writer::link($uninstallurl, $struninstall);
+    }
 
-	if (!isset($versions[$plugin])) {
-		if (file_exists("$CFG->dirroot/$CFG->admin/tool/$plugin/version.php")) {
-			// not installed yet
-			$version = '?';
-		} else {
-			// no version info available
-			$version = '-';
-		}
-	} else {
-		$version = $versions[$plugin];
-		if (file_exists("$CFG->dirroot/$CFG->admin/tool/$plugin")) {
-			$version = $versions[$plugin];
-		} else {
-			// somebody removed plugin without uninstall
-			$name = '<span class="notifyproblem">'.$name.' ('.get_string('missingfromdisk').')</span>';
-			$version = $versions[$plugin];
-		}
-	}
+    if (!isset($versions[$plugin])) {
+        if (file_exists("$CFG->dirroot/$CFG->admin/tool/$plugin/version.php")) {
+            // not installed yet
+            $version = '?';
+        } else {
+            // no version info available
+            $version = '-';
+        }
+    } else {
+        $version = $versions[$plugin];
+        if (file_exists("$CFG->dirroot/$CFG->admin/tool/$plugin")) {
+            $version = $versions[$plugin];
+        } else {
+            // somebody removed plugin without uninstall
+            $name = '<span class="notifyproblem">'.$name.' ('.get_string('missingfromdisk').')</span>';
+            $version = $versions[$plugin];
+        }
+    }
 
-	$table->add_data(array($name, $version, $uninstall));
+    $table->add_data(array($name, $version, $uninstall));
 }
 
 $table->print_html();

@@ -23,8 +23,8 @@
  * @package    tool
  * @subpackage multilangupgrade
  * @copyright  2006 Petr Skoda (http://skodak.org)
-* @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
-*/
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
 define('NO_OUTPUT_BUFFERING', true);
 
@@ -44,15 +44,15 @@ echo $OUTPUT->heading(get_string('pluginname', 'tool_multilangupgrade'));
 $strmultilangupgrade = get_String('multilangupgradeinfo', 'tool_multilangupgrade');
 
 if (!$go or !data_submitted() or !confirm_sesskey()) {   /// Print a form
-	$optionsyes = array('go'=>1, 'sesskey'=>sesskey());
-	echo $OUTPUT->confirm($strmultilangupgrade, new moodle_url('/admin/tool/multilangupgrade/index.php', $optionsyes), new moodle_url('/admin/'));
-	echo $OUTPUT->footer();
-	die;
+    $optionsyes = array('go'=>1, 'sesskey'=>sesskey());
+    echo $OUTPUT->confirm($strmultilangupgrade, new moodle_url('/admin/tool/multilangupgrade/index.php', $optionsyes), new moodle_url('/admin/'));
+    echo $OUTPUT->footer();
+    die;
 }
 
 
 if (!$tables = $DB->get_tables() ) {    // No tables yet at all.
-	print_error('notables', 'debug');
+    print_error('notables', 'debug');
 }
 
 echo $OUTPUT->box_start();
@@ -66,52 +66,52 @@ $i = 0;
 $skiptables = array('config', 'block_instances', 'sessions'); // we can not process tables with serialised data here
 
 foreach ($tables as $table) {
-	if (strpos($table,'pma') === 0) { // Not our tables
-		continue;
-	}
-	if (in_array($table, $skiptables)) { // Don't process these
-		continue;
-	}
-	$fulltable = $DB->get_prefix().$table;
-	if ($columns = $DB->get_columns($table)) {
-		if (!array_key_exists('id', $columns)) {
-			continue; // moodle tables have id
-		}
-		foreach ($columns as $column => $data) {
-			if (in_array($data->type, array('text','mediumtext','longtext','varchar'))) {  // Text stuff only
-				// first find candidate records
-				$sql = "SELECT id, $column FROM $fulltable WHERE $column LIKE '%</lang>%' OR $column LIKE '%<span lang=%'";
-				$rs = $DB->get_recordset_sql($sql);
-				foreach ($rs as $data) {
-					$text = $data->$column;
-					$id   = $data->id;
-					if ($i % 600 == 0) {
-						echo '<br />';
-					}
-					if ($i % 10 == 0) {
-						echo '.';
-					}
-					$i++;
+    if (strpos($table,'pma') === 0) { // Not our tables
+        continue;
+    }
+    if (in_array($table, $skiptables)) { // Don't process these
+        continue;
+    }
+    $fulltable = $DB->get_prefix().$table;
+    if ($columns = $DB->get_columns($table)) {
+        if (!array_key_exists('id', $columns)) {
+            continue; // moodle tables have id
+        }
+        foreach ($columns as $column => $data) {
+            if (in_array($data->type, array('text','mediumtext','longtext','varchar'))) {  // Text stuff only
+                // first find candidate records
+                $sql = "SELECT id, $column FROM $fulltable WHERE $column LIKE '%</lang>%' OR $column LIKE '%<span lang=%'";
+                $rs = $DB->get_recordset_sql($sql);
+                foreach ($rs as $data) {
+                    $text = $data->$column;
+                    $id   = $data->id;
+                    if ($i % 600 == 0) {
+                        echo '<br />';
+                    }
+                    if ($i % 10 == 0) {
+                        echo '.';
+                    }
+                    $i++;
 
-					if (empty($text) or is_numeric($text)) {
-						continue; // nothing to do
-					}
+                    if (empty($text) or is_numeric($text)) {
+                        continue; // nothing to do
+                    }
 
-					$search = '/(<(?:lang|span) lang="[a-zA-Z0-9_-]*".*?>.+?<\/(?:lang|span)>)(\s*<(?:lang|span) lang="[a-zA-Z0-9_-]*".*?>.+?<\/(?:lang|span)>)+/is';
-					$newtext = preg_replace_callback($search, 'multilangupgrade_impl', $text);
+                    $search = '/(<(?:lang|span) lang="[a-zA-Z0-9_-]*".*?>.+?<\/(?:lang|span)>)(\s*<(?:lang|span) lang="[a-zA-Z0-9_-]*".*?>.+?<\/(?:lang|span)>)+/is';
+                    $newtext = preg_replace_callback($search, 'multilangupgrade_impl', $text);
 
-					if (is_null($newtext)) {
-						continue; // regex error
-					}
+                    if (is_null($newtext)) {
+                        continue; // regex error
+                    }
 
-					if ($newtext != $text) {
-						$DB->execute("UPDATE $fulltable SET $column=? WHERE id=?", array($newtext, $id));
-					}
-				}
-				$rs->close();
-			}
-		}
-	}
+                    if ($newtext != $text) {
+                        $DB->execute("UPDATE $fulltable SET $column=? WHERE id=?", array($newtext, $id));
+                    }
+                }
+                $rs->close();
+            }
+        }
+    }
 }
 
 // set conversion flag - switches to new plugin automatically
@@ -131,12 +131,12 @@ die;
 
 
 function multilangupgrade_impl($langblock) {
-	$searchtosplit = '/<(?:lang|span) lang="([a-zA-Z0-9_-]*)".*?>(.+?)<\/(?:lang|span)>/is';
-	preg_match_all($searchtosplit, $langblock[0], $rawlanglist);
-	$return = '';
-	foreach ($rawlanglist[1] as $index=>$lang) {
-		$return .= '<span lang="'.$lang.'" class="multilang">'.$rawlanglist[2][$index].'</span>';
-	}
-	return $return;
+    $searchtosplit = '/<(?:lang|span) lang="([a-zA-Z0-9_-]*)".*?>(.+?)<\/(?:lang|span)>/is';
+    preg_match_all($searchtosplit, $langblock[0], $rawlanglist);
+    $return = '';
+    foreach ($rawlanglist[1] as $index=>$lang) {
+        $return .= '<span lang="'.$lang.'" class="multilang">'.$rawlanglist[2][$index].'</span>';
+    }
+    return $return;
 }
 

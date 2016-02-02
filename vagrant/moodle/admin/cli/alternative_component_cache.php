@@ -23,8 +23,8 @@
  *
  * @package   core
  * @copyright 2013 Petr Skoda (skodak)  {@link http://skodak.org}
-* @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
-*/
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
 
 define('CLI_SCRIPT', true);
@@ -37,38 +37,38 @@ require_once($CFG->libdir.'/clilib.php');
 
 // Now get cli options.
 list($options, $unrecognized) = cli_get_params(
-		array(
-				'file'    => false,
-				'rebuild' => false,
-				'print'   => false,
-				'help'    => false
-		),
-		array(
-				'h' => 'help'
-		)
+    array(
+        'file'    => false,
+        'rebuild' => false,
+        'print'   => false,
+        'help'    => false
+    ),
+    array(
+        'h' => 'help'
+    )
 );
 
 if ($unrecognized) {
-	$unrecognized = implode("\n  ", $unrecognized);
-	cli_error(get_string('cliunknowoption', 'admin', $unrecognized), 2);
+    $unrecognized = implode("\n  ", $unrecognized);
+    cli_error(get_string('cliunknowoption', 'admin', $unrecognized), 2);
 }
 
 if (!$options['rebuild'] and !$options['file'] and !$options['print']) {
-	$help =
-	"Create alternative component cache file
+    $help =
+"Create alternative component cache file
 
-	Options:
-	-h, --help            Print out this help
-	--rebuild             Rebuild \$CFG->alternative_component_cache file
-	--file=filepath       Save component cache to file
-	--print               Print component cache file content
+Options:
+-h, --help            Print out this help
+--rebuild             Rebuild \$CFG->alternative_component_cache file
+--file=filepath       Save component cache to file
+--print               Print component cache file content
 
-	Example:
-	\$ php admin/cli/rebuild_alternative_component_cache.php --rebuild
-	";
+Example:
+\$ php admin/cli/rebuild_alternative_component_cache.php --rebuild
+";
 
-	echo $help;
-	exit(0);
+    echo $help;
+    exit(0);
 }
 
 error_reporting(E_ALL | E_STRICT);
@@ -77,33 +77,33 @@ ini_set('display_errors', 1);
 $content = core_component::get_cache_content();
 
 if ($options['print']) {
-	echo $content;
-	exit(0);
+    echo $content;
+    exit(0);
 }
 
 if ($options['rebuild']) {
-	if (empty($CFG->alternative_component_cache)) {
-		fwrite(STDERR, 'config.php does not contain $CFG->alternative_component_cache setting');
-		fwrite(STDERR, "\n");
-		exit(2);
-	}
-	$target = $CFG->alternative_component_cache;
+    if (empty($CFG->alternative_component_cache)) {
+        fwrite(STDERR, 'config.php does not contain $CFG->alternative_component_cache setting');
+        fwrite(STDERR, "\n");
+        exit(2);
+    }
+    $target = $CFG->alternative_component_cache;
 } else {
-	$target = $options['file'];
+    $target = $options['file'];
 }
 
 if (!$target) {
-	fwrite(STDERR, "Invalid target file $target");
-	fwrite(STDERR, "\n");
-	exit(1);
+    fwrite(STDERR, "Invalid target file $target");
+    fwrite(STDERR, "\n");
+    exit(1);
 }
 
 $bytes = file_put_contents($target, $content);
 
 if (!$bytes) {
-	fwrite(STDERR, "Error writing to $target");
-	fwrite(STDERR, "\n");
-	exit(1);
+    fwrite(STDERR, "Error writing to $target");
+    fwrite(STDERR, "\n");
+    exit(1);
 }
 
 // Success.

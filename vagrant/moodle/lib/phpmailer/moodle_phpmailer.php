@@ -133,7 +133,7 @@ class moodle_phpmailer extends PHPMailer {
         stream_filter_remove($s);
         $out = preg_replace('/^\./m', '=2E', $out); //Encode . if it is first char on a line, workaround for bug in Exchange
         fclose($fp);
-        return $out;
+        return $this->fixEOL($out);
     }
 
     /**
@@ -161,23 +161,5 @@ class moodle_phpmailer extends PHPMailer {
         } else {
             return parent::postSend();
         }
-    }
-
-    /**
-     * Get the server hostname.
-     * Returns the host part of the wwwroot.
-     *
-     * @access protected
-     * @return string
-     */
-    protected function serverHostname() {
-        global $CFG;
-
-        $hostname = parent::serverHostname();
-        if ($hostname === 'localhost.localdomain') {
-            $urlinfo = parse_url($CFG->wwwroot);
-            $hostname = $urlinfo['host'];
-        }
-        return $hostname;
     }
 }

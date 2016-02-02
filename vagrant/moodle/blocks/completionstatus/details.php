@@ -35,16 +35,16 @@ $course = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
 
 // Load user.
 if ($userid) {
-	$user = $DB->get_record('user', array('id' => $userid), '*', MUST_EXIST);
+    $user = $DB->get_record('user', array('id' => $userid), '*', MUST_EXIST);
 } else {
-	$user = $USER;
+    $user = $USER;
 }
 
 // Check permissions.
 require_login();
 
 if (!completion_can_view_data($user->id, $course)) {
-	print_error('cannotviewreport');
+    print_error('cannotviewreport');
 }
 
 // Load completion data.
@@ -54,16 +54,16 @@ $returnurl = new moodle_url('/course/view.php', array('id' => $id));
 
 // Don't display if completion isn't enabled.
 if (!$info->is_enabled()) {
-	print_error('completionnotenabled', 'completion', $returnurl);
+    print_error('completionnotenabled', 'completion', $returnurl);
 }
 
 // Check this user is enroled.
 if (!$info->is_tracked_user($user->id)) {
-	if ($USER->id == $user->id) {
-		print_error('notenroled', 'completion', $returnurl);
-	} else {
-		print_error('usernotenroled', 'completion', $returnurl);
-	}
+    if ($USER->id == $user->id) {
+        print_error('notenroled', 'completion', $returnurl);
+    } else {
+        print_error('usernotenroled', 'completion', $returnurl);
+    }
 }
 
 // Display page.
@@ -88,13 +88,13 @@ echo html_writer::start_tag('tbody');
 
 // If not display logged in user, show user name.
 if ($USER->id != $user->id) {
-	echo html_writer::start_tag('tr');
-	echo html_writer::start_tag('td', array('colspan' => '2'));
-	echo html_writer::tag('b', get_string('showinguser', 'completion'));
-	$url = new moodle_url('/user/view.php', array('id' => $user->id, 'course' => $course->id));
-	echo html_writer::link($url, fullname($user));
-	echo html_writer::end_tag('td');
-	echo html_writer::end_tag('tr');
+    echo html_writer::start_tag('tr');
+    echo html_writer::start_tag('td', array('colspan' => '2'));
+    echo html_writer::tag('b', get_string('showinguser', 'completion'));
+    $url = new moodle_url('/user/view.php', array('id' => $user->id, 'course' => $course->id));
+    echo html_writer::link($url, fullname($user));
+    echo html_writer::end_tag('td');
+    echo html_writer::end_tag('tr');
 }
 
 echo html_writer::start_tag('tr');
@@ -109,17 +109,17 @@ $criteriacomplete = $info->count_course_user_data($user->id);
 
 // Load course completion.
 $params = array(
-		'userid' => $user->id,
-		'course' => $course->id,
+    'userid' => $user->id,
+    'course' => $course->id,
 );
 $ccompletion = new completion_completion($params);
 
 if ($coursecomplete) {
-	echo get_string('complete');
+    echo get_string('complete');
 } else if (!$criteriacomplete && !$ccompletion->timestarted) {
-	echo html_writer::tag('i', get_string('notyetstarted', 'completion'));
+    echo html_writer::tag('i', get_string('notyetstarted', 'completion'));
 } else {
-	echo html_writer::tag('i', get_string('inprogress', 'completion'));
+    echo html_writer::tag('i', get_string('inprogress', 'completion'));
 }
 
 echo html_writer::end_tag('td');
@@ -130,131 +130,131 @@ $completions = $info->get_completions($user->id);
 
 // Check if this course has any criteria.
 if (empty($completions)) {
-	echo html_writer::start_tag('tr');
-	echo html_writer::start_tag('td', array('colspan' => '2'));
-	echo html_writer::start_tag('br');
-	echo $OUTPUT->box(get_string('err_nocriteria', 'completion'), 'noticebox');
-	echo html_writer::end_tag('td');
-	echo html_writer::end_tag('tr');
-	echo html_writer::end_tag('tbody');
-	echo html_writer::end_tag('table');
+    echo html_writer::start_tag('tr');
+    echo html_writer::start_tag('td', array('colspan' => '2'));
+    echo html_writer::start_tag('br');
+    echo $OUTPUT->box(get_string('nocriteriaset', 'completion'), 'noticebox');
+    echo html_writer::end_tag('td');
+    echo html_writer::end_tag('tr');
+    echo html_writer::end_tag('tbody');
+    echo html_writer::end_tag('table');
 } else {
-	echo html_writer::start_tag('tr');
-	echo html_writer::start_tag('td', array('colspan' => '2'));
-	echo html_writer::tag('b', get_string('required'));
+    echo html_writer::start_tag('tr');
+    echo html_writer::start_tag('td', array('colspan' => '2'));
+    echo html_writer::tag('b', get_string('required'));
 
-	// Get overall aggregation method.
-	$overall = $info->get_aggregation_method();
+    // Get overall aggregation method.
+    $overall = $info->get_aggregation_method();
 
-	if ($overall == COMPLETION_AGGREGATION_ALL) {
-		echo get_string('criteriarequiredall', 'completion');
-	} else {
-		echo get_string('criteriarequiredany', 'completion');
-	}
+    if ($overall == COMPLETION_AGGREGATION_ALL) {
+        echo get_string('criteriarequiredall', 'completion');
+    } else {
+        echo get_string('criteriarequiredany', 'completion');
+    }
 
-	echo html_writer::end_tag('td');
-	echo html_writer::end_tag('tr');
-	echo html_writer::end_tag('tbody');
-	echo html_writer::end_tag('table');
+    echo html_writer::end_tag('td');
+    echo html_writer::end_tag('tr');
+    echo html_writer::end_tag('tbody');
+    echo html_writer::end_tag('table');
 
-	// Generate markup for criteria statuses.
-	echo html_writer::start_tag('table',
-			array('class' => 'generalbox logtable boxaligncenter', 'id' => 'criteriastatus', 'width' => '100%'));
-	echo html_writer::start_tag('tbody');
-	echo html_writer::start_tag('tr', array('class' => 'ccheader'));
-	echo html_writer::tag('th', get_string('criteriagroup', 'block_completionstatus'), array('class' => 'c0 header', 'scope' => 'col'));
-	echo html_writer::tag('th', get_string('criteria', 'completion'), array('class' => 'c1 header', 'scope' => 'col'));
-	echo html_writer::tag('th', get_string('requirement', 'block_completionstatus'), array('class' => 'c2 header', 'scope' => 'col'));
-	echo html_writer::tag('th', get_string('status'), array('class' => 'c3 header', 'scope' => 'col'));
-	echo html_writer::tag('th', get_string('complete'), array('class' => 'c4 header', 'scope' => 'col'));
-	echo html_writer::tag('th', get_string('completiondate', 'report_completion'), array('class' => 'c5 header', 'scope' => 'col'));
-	echo html_writer::end_tag('tr');
+    // Generate markup for criteria statuses.
+    echo html_writer::start_tag('table',
+            array('class' => 'generalbox logtable boxaligncenter', 'id' => 'criteriastatus', 'width' => '100%'));
+    echo html_writer::start_tag('tbody');
+    echo html_writer::start_tag('tr', array('class' => 'ccheader'));
+    echo html_writer::tag('th', get_string('criteriagroup', 'block_completionstatus'), array('class' => 'c0 header', 'scope' => 'col'));
+    echo html_writer::tag('th', get_string('criteria', 'completion'), array('class' => 'c1 header', 'scope' => 'col'));
+    echo html_writer::tag('th', get_string('requirement', 'block_completionstatus'), array('class' => 'c2 header', 'scope' => 'col'));
+    echo html_writer::tag('th', get_string('status'), array('class' => 'c3 header', 'scope' => 'col'));
+    echo html_writer::tag('th', get_string('complete'), array('class' => 'c4 header', 'scope' => 'col'));
+    echo html_writer::tag('th', get_string('completiondate', 'report_completion'), array('class' => 'c5 header', 'scope' => 'col'));
+    echo html_writer::end_tag('tr');
 
-	// Save row data.
-	$rows = array();
+    // Save row data.
+    $rows = array();
 
-	// Loop through course criteria.
-	foreach ($completions as $completion) {
-		$criteria = $completion->get_criteria();
+    // Loop through course criteria.
+    foreach ($completions as $completion) {
+        $criteria = $completion->get_criteria();
 
-		$row = array();
-		$row['type'] = $criteria->criteriatype;
-		$row['title'] = $criteria->get_title();
-		$row['status'] = $completion->get_status();
-		$row['complete'] = $completion->is_complete();
-		$row['timecompleted'] = $completion->timecompleted;
-		$row['details'] = $criteria->get_details($completion);
-		$rows[] = $row;
-	}
+        $row = array();
+        $row['type'] = $criteria->criteriatype;
+        $row['title'] = $criteria->get_title();
+        $row['status'] = $completion->get_status();
+        $row['complete'] = $completion->is_complete();
+        $row['timecompleted'] = $completion->timecompleted;
+        $row['details'] = $criteria->get_details($completion);
+        $rows[] = $row;
+    }
 
-	// Print table.
-	$last_type = '';
-	$agg_type = false;
-	$oddeven = 0;
+    // Print table.
+    $last_type = '';
+    $agg_type = false;
+    $oddeven = 0;
 
-	foreach ($rows as $row) {
+    foreach ($rows as $row) {
 
-		echo html_writer::start_tag('tr', array('class' => 'r' . $oddeven));
-		// Criteria group.
-		echo html_writer::start_tag('td', array('class' => 'cell c0'));
-		if ($last_type !== $row['details']['type']) {
-			$last_type = $row['details']['type'];
-			echo $last_type;
+        echo html_writer::start_tag('tr', array('class' => 'r' . $oddeven));
+        // Criteria group.
+        echo html_writer::start_tag('td', array('class' => 'cell c0'));
+        if ($last_type !== $row['details']['type']) {
+            $last_type = $row['details']['type'];
+            echo $last_type;
 
-			// Reset agg type.
-			$agg_type = true;
-		} else {
-			// Display aggregation type.
-			if ($agg_type) {
-				$agg = $info->get_aggregation_method($row['type']);
-				echo '('. html_writer::start_tag('i');
-				if ($agg == COMPLETION_AGGREGATION_ALL) {
-					echo core_text::strtolower(get_string('all', 'completion'));
-				} else {
-					echo core_text::strtolower(get_string('any', 'completion'));
-				}
+            // Reset agg type.
+            $agg_type = true;
+        } else {
+            // Display aggregation type.
+            if ($agg_type) {
+                $agg = $info->get_aggregation_method($row['type']);
+                echo '('. html_writer::start_tag('i');
+                if ($agg == COMPLETION_AGGREGATION_ALL) {
+                    echo core_text::strtolower(get_string('all', 'completion'));
+                } else {
+                    echo core_text::strtolower(get_string('any', 'completion'));
+                }
 
-				echo html_writer::end_tag('i') .core_text::strtolower(get_string('required')).')';
-				$agg_type = false;
-			}
-		}
-		echo html_writer::end_tag('td');
+                echo html_writer::end_tag('i') .core_text::strtolower(get_string('required')).')';
+                $agg_type = false;
+            }
+        }
+        echo html_writer::end_tag('td');
 
-		// Criteria title.
-		echo html_writer::start_tag('td', array('class' => 'cell c1'));
-		echo $row['details']['criteria'];
-		echo html_writer::end_tag('td');
+        // Criteria title.
+        echo html_writer::start_tag('td', array('class' => 'cell c1'));
+        echo $row['details']['criteria'];
+        echo html_writer::end_tag('td');
 
-		// Requirement.
-		echo html_writer::start_tag('td', array('class' => 'cell c2'));
-		echo $row['details']['requirement'];
-		echo html_writer::end_tag('td');
+        // Requirement.
+        echo html_writer::start_tag('td', array('class' => 'cell c2'));
+        echo $row['details']['requirement'];
+        echo html_writer::end_tag('td');
 
-		// Status.
-		echo html_writer::start_tag('td', array('class' => 'cell c3'));
-		echo $row['details']['status'];
-		echo html_writer::end_tag('td');
+        // Status.
+        echo html_writer::start_tag('td', array('class' => 'cell c3'));
+        echo $row['details']['status'];
+        echo html_writer::end_tag('td');
 
-		// Is complete.
-		echo html_writer::start_tag('td', array('class' => 'cell c4'));
-		echo $row['complete'] ? get_string('yes') : get_string('no');
-		echo html_writer::end_tag('td');
+        // Is complete.
+        echo html_writer::start_tag('td', array('class' => 'cell c4'));
+        echo $row['complete'] ? get_string('yes') : get_string('no');
+        echo html_writer::end_tag('td');
 
-		// Completion data.
-		echo html_writer::start_tag('td', array('class' => 'cell c5'));
-		if ($row['timecompleted']) {
-			echo userdate($row['timecompleted'], get_string('strftimedate', 'langconfig'));
-		} else {
-			echo '-';
-		}
-		echo html_writer::end_tag('td');
-		echo html_writer::end_tag('tr');
-		// For row striping.
-		$oddeven = $oddeven ? 0 : 1;
-	}
+        // Completion data.
+        echo html_writer::start_tag('td', array('class' => 'cell c5'));
+        if ($row['timecompleted']) {
+            echo userdate($row['timecompleted'], get_string('strftimedate', 'langconfig'));
+        } else {
+            echo '-';
+        }
+        echo html_writer::end_tag('td');
+        echo html_writer::end_tag('tr');
+        // For row striping.
+        $oddeven = $oddeven ? 0 : 1;
+    }
 
-	echo html_writer::end_tag('tbody');
-	echo html_writer::end_tag('table');
+    echo html_writer::end_tag('tbody');
+    echo html_writer::end_tag('table');
 }
 $courseurl = new moodle_url("/course/view.php", array('id' => $course->id));
 echo html_writer::start_tag('div', array('class' => 'buttons'));

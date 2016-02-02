@@ -594,7 +594,6 @@ function oublog_supports($feature) {
         case FEATURE_MOD_INTRO: return true;
         case FEATURE_GROUPINGS: return true;
         case FEATURE_GROUPS: return true;
-        case FEATURE_GROUPMEMBERSONLY: return true;
         case FEATURE_GRADE_HAS_GRADE: return true;
         case FEATURE_RATE: return true;
         default: return null;
@@ -906,6 +905,55 @@ function oublog_cm_info_dynamic(cm_info $cm) {
         $cm->set_user_visible(false);
         $cm->set_available(false);
     }
+}
+
+/**
+ * Show last updated date + time (post created).
+ *
+ * @param cm_info $cm
+ */
+function oublog_cm_info_view(cm_info $cm) {
+    global $CFG;
+    if (!$cm->uservisible) {
+        return;
+    }
+    require_once($CFG->dirroot . '/mod/oublog/locallib.php');
+
+    $lastpostdate = oublog_get_last_modified($cm, $cm->get_course());
+    if (!empty($lastpostdate)) {
+        $cm->set_after_link(html_writer::span(get_string('lastmodified', 'oublog',
+                        userdate($lastpostdate, get_string('strftimerecent', 'oublog'))), 'lastmodtext oubloglmt'));
+    }
+}
+
+/**
+ * Return blogs on course that have last modified date for current user
+ *
+ * @param stdClass $course
+ * @return array
+ */
+function oublog_get_ourecent_activity($course) {
+    global $CFG;
+    require_once($CFG->dirroot . '/mod/oublog/locallib.php');
+
+    $modinfo = get_fast_modinfo($course);
+
+    $return = array();
+
+    foreach ($modinfo->get_instances_of('oublog') as $blog) {
+        if ($blog->uservisible) {
+            $lastpostdate = oublog_get_last_modified($blog, $blog->get_course());
+            if (!empty($lastpostdate)) {
+                $data = new stdClass();
+                $data->cm = $blog;
+                $data->text = get_string('lastmodified', 'oublog',
+                        userdate($lastpostdate, get_string('strftimerecent', 'oublog')));
+                $data->date = $lastpostdate;
+                $return[$data->cm->id] = $data;
+            }
+        }
+    }
+    return $return;
 }
 
 /**

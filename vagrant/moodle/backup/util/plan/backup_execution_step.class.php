@@ -29,15 +29,15 @@
  */
 abstract class backup_execution_step extends backup_step {
 
-	public function execute() {
-		// Simple, for now
-		return $this->define_execution();
-	}
+    public function execute() {
+        // Simple, for now
+        return $this->define_execution();
+    }
 
-	// Protected API starts here
+// Protected API starts here
 
-	/**
-	 * Function that will contain all the code to be executed
-	 */
-	abstract protected function define_execution();
+    /**
+     * Function that will contain all the code to be executed
+     */
+    abstract protected function define_execution();
 }

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'richmedia', language 'fr', branch 'MOODLE_26_STABLE'
+ * Strings for component 'richmedia', language 'fr', branch 'MOODLE_28_STABLE'
  *
  * @package   richmedia
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -28,6 +28,7 @@ defined('MOODLE_INTERNAL') || die();
 $string['actions'] = 'Actions';
 $string['addline'] = 'Ajouter une ligne';
 $string['addtheme'] = 'Ajouter un thème';
+$string['addtocatalog'] = 'Ajouter au catalogue';
 $string['appearance'] = 'Apparence';
 $string['archive'] = 'Archive du répertoire slides';
 $string['archive_help'] = 'Ce fichier zip contient le répertoire slides dans lequel se trouve les diapositives de la présentation\';
@@ -35,6 +36,7 @@ $string[\'filexml\'] = \'Fichier de synchonisation (xml)';
 $string['attempt'] = 'Tentative';
 $string['attempts'] = 'Tentatives';
 $string['autoplay'] = 'Lecture automatique';
+$string['beginning'] = 'Début';
 $string['cancel'] = 'Annuler';
 $string['close'] = 'Fermer';
 $string['composition'] = 'Composition';
@@ -65,6 +67,8 @@ $string['errorxml'] = 'Le fichier de synchronisation doit etre au format xml';
 $string['export'] = 'Export';
 $string['filename'] = 'Nom du fichier';
 $string['filenotavailable'] = 'Fichier non disponible';
+$string['filesubtitles'] = 'Fichier de sous-titres';
+$string['filesubtitles_help'] = 'Les sous-titres doivent être au format standard .srt';
 $string['filexml'] = 'Fichier de synchonisation (xml)';
 $string['filexml_help'] = 'Importer le fichier settings.xml au bon format ou bien cliquer sur Créer/Editer le XML pour le créer depuis la plateforme';
 $string['fond'] = 'Fond';
@@ -90,6 +94,8 @@ $string['importexportscorm'] = 'Import/Export au format SCORM';
 $string['information'] = 'Information';
 $string['keywords'] = 'Mots-clés';
 $string['last'] = 'Dernier accès le';
+$string['laststep'] = 'Dernière étape';
+$string['lasttime'] = 'Dernier temps';
 $string['logo'] = 'Logo';
 $string['managethemes'] = 'Gérer les thèmes';
 $string['media'] = 'Médias';
@@ -112,13 +118,17 @@ $string['presenterbio'] = 'Biographie du présentateur';
 $string['presentername'] = 'Nom du présentateur';
 $string['presentertitle'] = 'Titre du présentateur';
 $string['prev'] = 'Précédent';
+$string['recovery'] = 'Reprise';
 $string['removetheme'] = 'Voulez-vous supprimer le thème';
 $string['report'] = 'Rapport';
 $string['return'] = 'Retour';
 $string['richmedia'] = 'Rich Media';
 $string['richmedia:addinstance'] = 'Ajouter une instance';
+$string['richmedia:addtocatalog'] = 'Ajouter le richmedia au catalogue';
 $string['richmediaarchive'] = 'Archive du Rich media';
+$string['richmedia:view'] = 'Voir le richmedia';
 $string['richmedia:viewreport'] = 'Voir les rapports';
+$string['samesteps'] = 'Deux lignes ont un temps identique';
 $string['save'] = 'Enregistrer';
 $string['saveandreturn'] = 'Enregistrer et revenir aux paramètres';
 $string['savedone'] = 'Enregistrement terminé';
@@ -130,6 +140,7 @@ $string['slide'] = 'Diapositive';
 $string['slidecomment'] = 'Commentaire(facultatif)';
 $string['slides'] = 'Diapositives';
 $string['slidetitle'] = 'Titre';
+$string['srt'] = 'Sous-titres';
 $string['started'] = 'Démarré le';
 $string['success'] = 'Succès';
 $string['summary'] = 'Sommaire';
@@ -145,6 +156,7 @@ $string['up'] = 'Monter';
 $string['user'] = 'Utilisateur';
 $string['users'] = 'Utilisateurs';
 $string['video'] = 'Vidéo';
+$string['videourl'] = 'URL de la vidéo';
 $string['view'] = 'Vue';
 $string['wait'] = 'Veuillez patienter';
 $string['warning'] = 'Attention';
