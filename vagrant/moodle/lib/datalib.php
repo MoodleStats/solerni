@@ -1212,30 +1212,6 @@ function get_scales_menu($courseid=0) {
     return $DB->get_records_sql_menu($sql, $params);
 }
 
-
-
-/**
- * Given a set of timezone records, put them in the database,  replacing what is there
- *
- * @global object
- * @param array $timezones An array of timezone records
- * @return void
- */
-function update_timezone_records($timezones) {
-    global $DB;
-
-/// Clear out all the old stuff
-    $DB->delete_records('timezone');
-
-/// Insert all the new stuff
-    foreach ($timezones as $timezone) {
-        if (is_array($timezone)) {
-            $timezone = (object)$timezone;
-        }
-        $DB->insert_record('timezone', $timezone);
-    }
-}
-
 /**
  * Increment standard revision field.
  *
@@ -1442,7 +1418,7 @@ function get_coursemodules_in_course($modulename, $courseid, $extrafields='') {
  * in the course. Returns an empty array on any errors.
  *
  * The returned objects includle the columns cw.section, cm.visible,
- * cm.groupmode and cm.groupingid, cm.groupmembersonly, and are indexed by cm.id.
+ * cm.groupmode, and cm.groupingid, and are indexed by cm.id.
  *
  * @global object
  * @global object
@@ -1470,7 +1446,7 @@ function get_all_instances_in_courses($modulename, $courses, $userid=NULL, $incl
     $params['modulename'] = $modulename;
 
     if (!$rawmods = $DB->get_records_sql("SELECT cm.id AS coursemodule, m.*, cw.section, cm.visible AS visible,
-                                                 cm.groupmode, cm.groupingid, cm.groupmembersonly
+                                                 cm.groupmode, cm.groupingid
                                             FROM {course_modules} cm, {course_sections} cw, {modules} md,
                                                  {".$modulename."} m
                                            WHERE cm.course $coursessql AND
@@ -1515,7 +1491,7 @@ function get_all_instances_in_courses($modulename, $courses, $userid=NULL, $incl
  * in the course. Returns an empty array on any errors.
  *
  * The returned objects includle the columns cw.section, cm.visible,
- * cm.groupmode and cm.groupingid, cm.groupmembersonly, and are indexed by cm.id.
+ * cm.groupmode, and cm.groupingid, and are indexed by cm.id.
  *
  * Simply calls {@link all_instances_in_courses()} with a single provided course
  *
@@ -1536,7 +1512,7 @@ function get_all_instances_in_course($modulename, $course, $userid=NULL, $includ
  *
  * Given a valid module object with info about the id and course,
  * and the module's type (eg "forum") returns whether the object
- * is visible or not, groupmembersonly visibility not tested
+ * is visible or not according to the 'eye' icon only.
  *
  * NOTE: This does NOT take into account visibility to a particular user.
  * To get visibility access for a specific user, use get_fast_modinfo, get a
@@ -1554,7 +1530,7 @@ function instance_is_visible($moduletype, $module) {
 
     if (!empty($module->id)) {
         $params = array('courseid'=>$module->course, 'moduletype'=>$moduletype, 'moduleid'=>$module->id);
-        if ($records = $DB->get_records_sql("SELECT cm.instance, cm.visible, cm.groupingid, cm.id, cm.groupmembersonly, cm.course
+        if ($records = $DB->get_records_sql("SELECT cm.instance, cm.visible, cm.groupingid, cm.id, cm.course
                                                FROM {course_modules} cm, {modules} m
                                               WHERE cm.course = :courseid AND
                                                     cm.module = m.id AND
@@ -1793,7 +1769,10 @@ function get_logs_usercourse($userid, $courseid, $coursestart) {
         $params['courseid'] = $courseid;
     }
     $params['userid'] = $userid;
-    $$coursestart = (int)$coursestart; // note: unfortunately pg complains if you use name parameter or column alias in GROUP BY
+    // We have to sanitize this param ourselves here instead of relying on DB.
+    // Postgres complains if you use name parameter or column alias in GROUP BY.
+    // See MDL-27696 and 51c3e85 for details.
+    $coursestart = (int)$coursestart;
 
     return $DB->get_records_sql("SELECT FLOOR((time - $coursestart)/". DAYSECS .") AS day, COUNT(*) AS num
                                    FROM {log}

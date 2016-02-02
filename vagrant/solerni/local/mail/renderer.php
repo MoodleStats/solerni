@@ -24,7 +24,9 @@
 class local_mail_renderer extends plugin_renderer_base {
 
     public function date($message, $viewmail = false) {
-        $offset = get_user_timezone_offset();
+        $tz = core_date::get_user_timezone();
+        $date = new DateTime('now', new DateTimeZone($tz));
+        $offset = ($date->getOffset() - dst_offset_on(time(), $tz)) / (3600.0);
         $time = ($offset < 13) ? $message->time() + $offset : $message->time();
         $now = ($offset < 13) ? time() + $offset : time();
         $daysago = floor($now / 86400) - floor($time / 86400);
@@ -653,10 +655,13 @@ class local_mail_renderer extends plugin_renderer_base {
         // Roles
         $context = context_course::instance($courseid);
         $roles = role_get_names($context);
+        $userroles = local_mail_get_user_roleids($userid, $context);
+        $mailsamerole = has_capability('local/mail:mailsamerole', $context);
         foreach ($roles as $key => $role) {
             $count = $DB->count_records_select('role_assignments', "contextid = :contextid AND roleid = :roleid AND userid <> :userid",
                 array('contextid' => $context->id, 'roleid' => $role->id, 'userid' => $userid));
-            if ($count) {
+            if (($count && $mailsamerole)
+                || ($count && !$mailsamerole && !in_array($role->id, $userroles))) {
                 $options[$key] = $role->localname;
             }
         }

@@ -43,7 +43,7 @@ require_capability('tool/uploaduser:uploaduserpictures', context_system::instanc
 $site = get_site();
 
 if (!$adminuser = get_admin()) {
-	print_error('noadmins', 'error');
+    print_error('noadmins', 'error');
 }
 
 $strfile = get_string('file');
@@ -52,9 +52,9 @@ $strusersupdated = get_string('usersupdated', 'tool_uploaduser');
 $struploadpictures = get_string('uploadpictures','tool_uploaduser');
 
 $userfields = array (
-		0 => 'username',
-		1 => 'idnumber',
-		2 => 'id' );
+    0 => 'username',
+    1 => 'idnumber',
+    2 => 'id' );
 
 $userfield = optional_param('userfield', 0, PARAM_INT);
 $overwritepicture = optional_param('overwritepicture', 0, PARAM_BOOL);
@@ -66,47 +66,47 @@ echo $OUTPUT->heading_with_help($struploadpictures, 'uploadpictures', 'tool_uplo
 
 $mform = new admin_uploadpicture_form(null, $userfields);
 if ($formdata = $mform->get_data()) {
-	if (!array_key_exists($userfield, $userfields)) {
-		echo $OUTPUT->notification(get_string('uploadpicture_baduserfield', 'tool_uploaduser'));
-	} else {
-		// Large files are likely to take their time and memory. Let PHP know
-		// that we'll take longer, and that the process should be recycled soon
-		// to free up memory.
-		core_php_time_limit::raise();
-		raise_memory_limit(MEMORY_EXTRA);
+    if (!array_key_exists($userfield, $userfields)) {
+        echo $OUTPUT->notification(get_string('uploadpicture_baduserfield', 'tool_uploaduser'));
+    } else {
+        // Large files are likely to take their time and memory. Let PHP know
+        // that we'll take longer, and that the process should be recycled soon
+        // to free up memory.
+        core_php_time_limit::raise();
+        raise_memory_limit(MEMORY_EXTRA);
 
-		// Create a unique temporary directory, to process the zip file
-		// contents.
-		$zipdir = my_mktempdir($CFG->tempdir.'/', 'usrpic');
-		$dstfile = $zipdir.'/images.zip';
+        // Create a unique temporary directory, to process the zip file
+        // contents.
+        $zipdir = my_mktempdir($CFG->tempdir.'/', 'usrpic');
+        $dstfile = $zipdir.'/images.zip';
 
-		if (!$mform->save_file('userpicturesfile', $dstfile, true)) {
-			echo $OUTPUT->notification(get_string('uploadpicture_cannotmovezip', 'tool_uploaduser'));
-			@remove_dir($zipdir);
-		} else {
-			$fp = get_file_packer('application/zip');
-			$unzipresult = $fp->extract_to_pathname($dstfile, $zipdir);
-			if (!$unzipresult) {
-				echo $OUTPUT->notification(get_string('uploadpicture_cannotunzip', 'tool_uploaduser'));
-				@remove_dir($zipdir);
-			} else {
-				// We don't need the zip file any longer, so delete it to make
-				// it easier to process the rest of the files inside the directory.
-				@unlink($dstfile);
+        if (!$mform->save_file('userpicturesfile', $dstfile, true)) {
+            echo $OUTPUT->notification(get_string('uploadpicture_cannotmovezip', 'tool_uploaduser'));
+            @remove_dir($zipdir);
+        } else {
+            $fp = get_file_packer('application/zip');
+            $unzipresult = $fp->extract_to_pathname($dstfile, $zipdir);
+            if (!$unzipresult) {
+                echo $OUTPUT->notification(get_string('uploadpicture_cannotunzip', 'tool_uploaduser'));
+                @remove_dir($zipdir);
+            } else {
+                // We don't need the zip file any longer, so delete it to make
+                // it easier to process the rest of the files inside the directory.
+                @unlink($dstfile);
 
-				$results = array ('errors' => 0,'updated' => 0);
+                $results = array ('errors' => 0,'updated' => 0);
 
-				process_directory($zipdir, $userfields[$userfield], $overwritepicture, $results);
+                process_directory($zipdir, $userfields[$userfield], $overwritepicture, $results);
 
 
-				// Finally remove the temporary directory with all the user images and print some stats.
-				remove_dir($zipdir);
-				echo $OUTPUT->notification(get_string('usersupdated', 'tool_uploaduser') . ": " . $results['updated'], 'notifysuccess');
-				echo $OUTPUT->notification(get_string('errors', 'tool_uploaduser') . ": " . $results['errors'], ($results['errors'] ? 'notifyproblem' : 'notifysuccess'));
-				echo '<hr />';
-			}
-		}
-	}
+                // Finally remove the temporary directory with all the user images and print some stats.
+                remove_dir($zipdir);
+                echo $OUTPUT->notification(get_string('usersupdated', 'tool_uploaduser') . ": " . $results['updated'], 'notifysuccess');
+                echo $OUTPUT->notification(get_string('errors', 'tool_uploaduser') . ": " . $results['errors'], ($results['errors'] ? 'notifyproblem' : 'notifysuccess'));
+                echo '<hr />';
+            }
+        }
+    }
 }
 $mform->display();
 echo $OUTPUT->footer();
@@ -125,19 +125,19 @@ exit;
  * @return string The full path to the temp directory.
  */
 function my_mktempdir($dir, $prefix='') {
-	global $CFG;
+    global $CFG;
 
-	if (substr($dir, -1) != '/') {
-		$dir .= '/';
-	}
+    if (substr($dir, -1) != '/') {
+        $dir .= '/';
+    }
 
-	do {
-		$path = $dir.$prefix.mt_rand(0, 9999999);
-	} while (file_exists($path));
+    do {
+        $path = $dir.$prefix.mt_rand(0, 9999999);
+    } while (file_exists($path));
 
-	check_dir_exists($path);
+    check_dir_exists($path);
 
-	return $path;
+    return $path;
 }
 
 /**
@@ -154,32 +154,32 @@ function my_mktempdir($dir, $prefix='') {
  * @return nothing
  */
 function process_directory ($dir, $userfield, $overwrite, &$results) {
-	global $OUTPUT;
-	if(!($handle = opendir($dir))) {
-		echo $OUTPUT->notification(get_string('uploadpicture_cannotprocessdir', 'tool_uploaduser'));
-		return;
-	}
+    global $OUTPUT;
+    if(!($handle = opendir($dir))) {
+        echo $OUTPUT->notification(get_string('uploadpicture_cannotprocessdir', 'tool_uploaduser'));
+        return;
+    }
 
-	while (false !== ($item = readdir($handle))) {
-		if ($item != '.' && $item != '..') {
-			if (is_dir($dir.'/'.$item)) {
-				process_directory($dir.'/'.$item, $userfield, $overwrite, $results);
-			} else if (is_file($dir.'/'.$item))  {
-				$result = process_file($dir.'/'.$item, $userfield, $overwrite);
-				switch ($result) {
-					case PIX_FILE_ERROR:
-						$results['errors']++;
-						break;
-					case PIX_FILE_UPDATED:
-						$results['updated']++;
-						break;
-				}
-			}
-			// Ignore anything else that is not a directory or a file (e.g.,
-			// symbolic links, sockets, pipes, etc.)
-		}
-	}
-	closedir($handle);
+    while (false !== ($item = readdir($handle))) {
+        if ($item != '.' && $item != '..') {
+            if (is_dir($dir.'/'.$item)) {
+                process_directory($dir.'/'.$item, $userfield, $overwrite, $results);
+            } else if (is_file($dir.'/'.$item))  {
+                $result = process_file($dir.'/'.$item, $userfield, $overwrite);
+                switch ($result) {
+                    case PIX_FILE_ERROR:
+                        $results['errors']++;
+                        break;
+                    case PIX_FILE_UPDATED:
+                        $results['updated']++;
+                        break;
+                }
+            }
+            // Ignore anything else that is not a directory or a file (e.g.,
+            // symbolic links, sockets, pipes, etc.)
+        }
+    }
+    closedir($handle);
 }
 
 /**
@@ -197,43 +197,43 @@ function process_directory ($dir, $userfield, $overwrite, &$results) {
  *                  PIX_FILE_SKIPPED
  */
 function process_file ($file, $userfield, $overwrite) {
-	global $DB, $OUTPUT;
+    global $DB, $OUTPUT;
 
-	// Add additional checks on the filenames, as they are user
-	// controlled and we don't want to open any security holes.
-	$path_parts = pathinfo(cleardoubleslashes($file));
-	$basename  = $path_parts['basename'];
-	$extension = $path_parts['extension'];
+    // Add additional checks on the filenames, as they are user
+    // controlled and we don't want to open any security holes.
+    $path_parts = pathinfo(cleardoubleslashes($file));
+    $basename  = $path_parts['basename'];
+    $extension = $path_parts['extension'];
 
-	// The picture file name (without extension) must match the
-	// userfield attribute.
-	$uservalue = substr($basename, 0,
-			strlen($basename) -
-			strlen($extension) - 1);
+    // The picture file name (without extension) must match the
+    // userfield attribute.
+    $uservalue = substr($basename, 0,
+                        strlen($basename) -
+                        strlen($extension) - 1);
 
-	// userfield names are safe, so don't quote them.
-	if (!($user = $DB->get_record('user', array ($userfield => $uservalue, 'deleted' => 0)))) {
-		$a = new stdClass();
-		$a->userfield = clean_param($userfield, PARAM_CLEANHTML);
-		$a->uservalue = clean_param($uservalue, PARAM_CLEANHTML);
-		echo $OUTPUT->notification(get_string('uploadpicture_usernotfound', 'tool_uploaduser', $a));
-		return PIX_FILE_ERROR;
-	}
+    // userfield names are safe, so don't quote them.
+    if (!($user = $DB->get_record('user', array ($userfield => $uservalue, 'deleted' => 0)))) {
+        $a = new stdClass();
+        $a->userfield = clean_param($userfield, PARAM_CLEANHTML);
+        $a->uservalue = clean_param($uservalue, PARAM_CLEANHTML);
+        echo $OUTPUT->notification(get_string('uploadpicture_usernotfound', 'tool_uploaduser', $a));
+        return PIX_FILE_ERROR;
+    }
 
-	$haspicture = $DB->get_field('user', 'picture', array('id'=>$user->id));
-	if ($haspicture && !$overwrite) {
-		echo $OUTPUT->notification(get_string('uploadpicture_userskipped', 'tool_uploaduser', $user->username));
-		return PIX_FILE_SKIPPED;
-	}
+    $haspicture = $DB->get_field('user', 'picture', array('id'=>$user->id));
+    if ($haspicture && !$overwrite) {
+        echo $OUTPUT->notification(get_string('uploadpicture_userskipped', 'tool_uploaduser', $user->username));
+        return PIX_FILE_SKIPPED;
+    }
 
-	if ($newrev = my_save_profile_image($user->id, $file)) {
-		$DB->set_field('user', 'picture', $newrev, array('id'=>$user->id));
-		echo $OUTPUT->notification(get_string('uploadpicture_userupdated', 'tool_uploaduser', $user->username), 'notifysuccess');
-		return PIX_FILE_UPDATED;
-	} else {
-		echo $OUTPUT->notification(get_string('uploadpicture_cannotsave', 'tool_uploaduser', $user->username));
-		return PIX_FILE_ERROR;
-	}
+    if ($newrev = my_save_profile_image($user->id, $file)) {
+        $DB->set_field('user', 'picture', $newrev, array('id'=>$user->id));
+        echo $OUTPUT->notification(get_string('uploadpicture_userupdated', 'tool_uploaduser', $user->username), 'notifysuccess');
+        return PIX_FILE_UPDATED;
+    } else {
+        echo $OUTPUT->notification(get_string('uploadpicture_cannotsave', 'tool_uploaduser', $user->username));
+        return PIX_FILE_ERROR;
+    }
 }
 
 /**
@@ -247,8 +247,8 @@ function process_file ($file, $userfield, $overwrite) {
  * @return mixed new unique revision number or false if not saved
  */
 function my_save_profile_image($id, $originalfile) {
-	$context = context_user::instance($id);
-	return process_new_icon($context, 'user', 'icon', 0, $originalfile);
+    $context = context_user::instance($id);
+    return process_new_icon($context, 'user', 'icon', 0, $originalfile);
 }
 
 

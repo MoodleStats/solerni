@@ -105,7 +105,7 @@ function local_mail_update_process($settings) {
     return true;
 }
 
-function local_mail_extends_navigation($root) {
+function local_mail_extend_navigation($root) {
     global $CFG, $COURSE, $PAGE, $SESSION, $SITE, $USER;
 
     if (!get_config('local_mail', 'version')) {
@@ -245,6 +245,22 @@ function local_mail_extends_navigation($root) {
 
     if (empty($CFG->messaging) and
         $PAGE->url->compare(new moodle_url('/user/index.php'), URL_MATCH_BASE)) {
+        $userid = optional_param('id', false, PARAM_INT);
+        $vars = array('course' => $COURSE->id);
+        $PAGE->requires->string_for_js('choosedots', 'moodle');
+        $PAGE->requires->strings_for_js(array(
+                'bulkmessage',
+                'to',
+                'cc',
+                'bcc',
+                ), 'local_mail');
+        $PAGE->requires->js_init_code('M.local_mail = ' . json_encode($vars));
+        $PAGE->requires->js('/local/mail/users.js');
+    }
+
+    // Block progress
+
+    if ($PAGE->url->compare(new moodle_url('/blocks/progress/overview.php'), URL_MATCH_BASE)) {
         $userid = optional_param('id', false, PARAM_INT);
         $vars = array('course' => $COURSE->id);
         $PAGE->requires->string_for_js('choosedots', 'moodle');

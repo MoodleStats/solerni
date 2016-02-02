@@ -88,12 +88,13 @@ class login_signup_form extends moodleform {
             $mform->setDefault('country', '');
         }
 
-        if ($this->signup_captcha_enabled()) {
-            $mform->addElement('recaptcha', 'recaptcha_element', get_string('recaptcha', 'auth'), array('https' => $CFG->loginhttps));
-            $mform->addHelpButton('recaptcha_element', 'recaptcha', 'auth');
-        }
-
         profile_signup_fields($mform);
+
+        if ($this->signup_captcha_enabled()) {
+            $mform->addElement('recaptcha', 'recaptcha_element', get_string('security_question', 'auth'), array('https' => $CFG->loginhttps));
+            $mform->addHelpButton('recaptcha_element', 'recaptcha', 'auth');
+            $mform->closeHeaderBefore('recaptcha_element');
+        }
 
         if (!empty($CFG->sitepolicy)) {
             $mform->addElement('header', 'policyagreement', get_string('policyagreement'), '');

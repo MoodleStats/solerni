@@ -89,9 +89,14 @@ foreach($authsequence as $authname) {
     $authplugin->loginpage_hook();
 }
 
+
 /// Define variables used in page
 $site = get_site();
 
+// Ignore any active pages in the navigation/settings.
+// We do this because there won't be an active page there, and by ignoring the active pages the
+// navigation and settings won't be initialised unless something else needs them.
+$PAGE->navbar->ignore_active();
 $loginsite = get_string("loginsite");
 $PAGE->navbar->add($loginsite);
 
@@ -136,7 +141,7 @@ if ($frm and isset($frm->username)) {                             // Login WITH 
         $frm = false;
     } else {
         if (empty($errormsg)) {
-            $user = authenticate_user_login($frm->username, $frm->password);
+            $user = authenticate_user_login($frm->username, $frm->password, false, $errorcode);
         }
     }
 
@@ -166,8 +171,7 @@ if ($frm and isset($frm->username)) {                             // Login WITH 
             unset($SESSION->lang);
         }
 
-        // This account need to have its email confirmed
-        if (empty($user->confirmed)) {
+        if (empty($user->confirmed)) {       // This account was never confirmed
             $PAGE->set_title(get_string("mustconfirm"));
             $PAGE->set_heading($site->fullname);
             echo $OUTPUT->header();
@@ -179,6 +183,8 @@ if ($frm and isset($frm->username)) {                             // Login WITH 
 
     /// Let's get them all set up.
         complete_user_login($user);
+
+        \core\session\manager::apply_concurrent_login_limit($user->id, session_id());
 
         // sets the username cookie
         if (!empty($CFG->nolastloggedin)) {
@@ -199,7 +205,7 @@ if ($frm and isset($frm->username)) {                             // Login WITH 
     /// check if user password has expired
     /// Currently supported only for ldap-authentication module
         $userauth = get_auth_plugin($USER->auth);
-        if (!empty($userauth->config->expiration) and $userauth->config->expiration == 1) {
+        if (!isguestuser() and !empty($userauth->config->expiration) and $userauth->config->expiration == 1) {
             if ($userauth->can_change_password()) {
                 $passwordchangeurl = $userauth->change_password_url();
                 if (!$passwordchangeurl) {
@@ -233,8 +239,12 @@ if ($frm and isset($frm->username)) {                             // Login WITH 
 
     } else {
         if (empty($errormsg)) {
-            $errormsg = get_string("invalidlogin");
-            $errorcode = 3;
+            if ($errorcode == AUTH_LOGIN_UNAUTHORISED) {
+                $errormsg = get_string("unauthorisedlogin", "", $frm->username);
+            } else {
+                $errormsg = get_string("invalidlogin");
+                $errorcode = 3;
+            }
         }
     }
 }
@@ -248,13 +258,16 @@ if ($session_has_timed_out and !data_submitted()) {
 /// First, let's remember where the user was trying to get to before they got here
 
 if (empty($SESSION->wantsurl)) {
-    $SESSION->wantsurl = (array_key_exists('HTTP_REFERER',$_SERVER) &&
-                          $_SERVER["HTTP_REFERER"] != $CFG->wwwroot &&
-                          $_SERVER["HTTP_REFERER"] != $CFG->wwwroot.'/' &&
-                          $_SERVER["HTTP_REFERER"] != $CFG->httpswwwroot.'/login/' &&
-                          strpos($_SERVER["HTTP_REFERER"], $CFG->httpswwwroot.'/login/?') !== 0 &&
-                          strpos($_SERVER["HTTP_REFERER"], $CFG->httpswwwroot.'/login/index.php') !== 0) // There might be some extra params such as ?lang=.
-        ? $_SERVER["HTTP_REFERER"] : NULL;
+    $SESSION->wantsurl = null;
+    $referer = get_local_referer(false);
+    if ($referer &&
+            $referer != $CFG->wwwroot &&
+            $referer != $CFG->wwwroot . '/' &&
+            $referer != $CFG->httpswwwroot . '/login/' &&
+            strpos($referer, $CFG->httpswwwroot . '/login/?') !== 0 &&
+            strpos($referer, $CFG->httpswwwroot . '/login/index.php') !== 0) { // There might be some extra params such as ?lang=.
+        $SESSION->wantsurl = $referer;
+    }
 }
 
 /// Redirect to alternative login URL if needed

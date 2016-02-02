@@ -24,22 +24,22 @@
  *
  * This file is best run from cron on the host system (ie outside PHP).
  * It is strongly recommended to add password protection via admin settings.
-*
-* eg   wget -q -O /dev/null 'http: *moodle.somewhere.edu/admin/cron.php?password=SeCreT666'
-*
-* It is also possible to use CLI script admin/cli/cron.php instead,
-* you can not call this script from command line any more.
-*
-* @package    core
-* @subpackage admin
-* @copyright  1999 onwards Martin Dougiamas  http://dougiamas.com
-* @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
-*/
+ *
+ * eg   wget -q -O /dev/null 'http: *moodle.somewhere.edu/admin/cron.php?password=SeCreT666'
+ *
+ * It is also possible to use CLI script admin/cli/cron.php instead,
+ * you can not call this script from command line any more.
+ *
+ * @package    core
+ * @subpackage admin
+ * @copyright  1999 onwards Martin Dougiamas  http://dougiamas.com
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
 
 if (defined('STDIN')) {
-	fwrite(STDERR, "ERROR: This script no longer supports CLI, please use admin/cli/cron.php instead\n");
-	exit(1);
+    fwrite(STDERR, "ERROR: This script no longer supports CLI, please use admin/cli/cron.php instead\n");
+    exit(1);
 }
 
 // This is a fake CLI script, it is a really ugly hack which emulates
@@ -57,18 +57,18 @@ require_once($CFG->libdir.'/cronlib.php');
 
 // check if execution allowed
 if (!empty($CFG->cronclionly)) {
-	// This script can only be run via the cli.
-	print_error('cronerrorclionly', 'admin');
-	exit;
+    // This script can only be run via the cli.
+    print_error('cronerrorclionly', 'admin');
+    exit;
 }
 // This script is being called via the web, so check the password if there is one.
 if (!empty($CFG->cronremotepassword)) {
-	$pass = optional_param('password', '', PARAM_RAW);
-	if ($pass != $CFG->cronremotepassword) {
-		// wrong password.
-		print_error('cronerrorpassword', 'admin');
-		exit;
-	}
+    $pass = optional_param('password', '', PARAM_RAW);
+    if ($pass != $CFG->cronremotepassword) {
+        // wrong password.
+        print_error('cronerrorpassword', 'admin');
+        exit;
+    }
 }
 
 // send mime type and encoding

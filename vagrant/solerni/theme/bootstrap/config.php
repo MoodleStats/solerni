@@ -156,7 +156,7 @@ $THEME->layouts = array(
     ),
     // The pagelayout used for safebrowser and securewindow.
     'secure' => array(
-        'file' => 'secure.php',
+        'file' => 'default.php',
         'regions' => array('side-pre', 'side-post'),
         'defaultregion' => 'side-pre'
     ),
@@ -164,12 +164,9 @@ $THEME->layouts = array(
 
 $THEME->javascripts = array(
 );
+
 $THEME->javascripts_footer = array(
     'moodlebootstrap', 'dock'
 );
-
-if (core_useragent::is_ie() && !core_useragent::check_ie_version('9.0')) {
-    $THEME->javascripts[] = 'html5shiv';
-}
 
 $THEME->hidefromselector = false;

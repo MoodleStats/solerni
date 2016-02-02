@@ -458,62 +458,73 @@ M.mod_forumng = {
                         iframecon.setStyle('top', '0px');
                         iframecon.setStyle('left', '0px');
                         iframecon.setStyle('z-index', '9999');
+                        iframecon.setStyle('overflow', 'scroll');
+                        iframecon.setStyle('-webkit-overflow-scrolling', 'touch');
+                        iframe.setStyle('position', 'relative');
+                        iframe.setStyle('top', 'initial');
+                        iframe.setStyle('left', 'initial');
                     } else {
                         iframe.setStyle('position', 'fixed');
                         iframe.setStyle('top', '0px');
                         iframe.setStyle('left', '0px');
                         iframe.setStyle('z-index', '9999');
-                        Y.one('window').on('scroll', function(){
-                            // Prevent scrolling past iframe as not 'fixed' on some mobiles.
-                            if (window.scrollY > iframe.get('contentWindow.document').one('#page').get('clientHeight')) {
-                                parent.window.scrollTo(0, 0);
-                            }
-                        });
                     }
                     iframe.setStyle('height', '100%');
                     iframe.setStyle('width', '100%');
                     iframe.setStyle('overflowX', 'hidden');
+                    iframe.setStyle('overflowY', 'auto');
                     if (iframe.get('clientHeight') >= iframe.get('contentWindow.document').one('#page').get('clientHeight')) {
                         // If iframe size larger than content then hide scroll.
                         iframe.set('scrolling', 'no');
+                    } else {
+                        iframe.set('scrolling', 'auto');
                     }
                     doc.body.focus();
                     window.scrollTo(0, 0);
                 } else {
-					if (iframe.get('parentNode') && iframe.get('parentNode').get('parentNode')) {
-						iframe.set('width', iframe.get('parentNode').get('parentNode').getComputedStyle('width'));
-					}
-					if (M.mod_forumng.Y.UA.ios || M.mod_forumng.Y.UA.android) {
-					    var margin = parseInt(iframe.get('parentNode').get('parentNode').getComputedStyle('width')) - doc.body.scrollWidth;
-					    if (margin < 0) {
-					        iframecon.setStyle('margin-left', margin);
-					        iframe.setStyle('width', doc.body.scrollWidth);
-					        iframecon.setStyle('width', doc.body.scrollWidth);
-					    }
-					}
-					counter++;
-					if (counter < 20) {
-					    // Keep resizing iframe as filemanager takes a while to initialise.
-					    setTimeout(fix_height, 500);
-					}
-				}
+                    if (M.cfg.theme.indexOf('ou') != -1 || M.theme_ou) {
+                        if (iframe.get('parentNode') && iframe.get('parentNode').get('parentNode')) {
+                            iframe.set('width', iframe.get('parentNode').get('parentNode').getComputedStyle('width'));
+                        }
+                        if (M.mod_forumng.Y.UA.ios || M.mod_forumng.Y.UA.android) {
+                            var margin = parseInt(iframe.get('parentNode').get('parentNode').getComputedStyle('width')) - doc.body.scrollWidth;
+                            if (margin < 0) {
+                                iframecon.setStyle('margin-left', margin);
+                                iframe.setStyle('width', doc.body.scrollWidth);
+                                iframecon.setStyle('width', doc.body.scrollWidth);
+                                }
+                            }
+                        }
+                    }
+                counter++;
+                if (counter < 20) {
+                    // Keep resizing iframe as filemanager takes a while to initialise.
+                    setTimeout(fix_height, 500);
+                }
             };
             fix_height();
 
-            // Add cancel handler that just removes the iframe.
+            // Add cancel handler that just removes the iframe - Except Atto as autosave cancel needed.
             doc.getElementById('id_cancel').onclick = function(e) {
-                if (!e) {
-                    e = window.event;
+                var blank = false;// Check if empty text, if so close iframe (Hack to stop 'required' issue).
+                if (innerwin.Y.one('#id_message') && (innerwin.Y.one('#id_message').get('innerText') === ''
+                        || innerwin.Y.one('#id_message').get('textContent') === '')) {
+                    blank = true;
                 }
-                if (e) {
-                    if (e.stopPropagation) {
-                        e.stopPropagation();
-                    } else {
-                        e.cancelBubble = true;
+                if (!innerwin.Y.one('.editor_atto') || blank) {
+                    if (!e) {
+                        e = window.event;
                     }
+                    if (e) {
+                        if (e.stopPropagation) {
+                            e.stopPropagation();
+                        } else {
+                            e.cancelBubble = true;
+                        }
+                    }
+                    t.remove_iframe(iframe);
+                    return false;
                 }
-                t.remove_iframe(iframe);
-                return false;
             };
 
             // Focus the editor.
@@ -574,39 +585,46 @@ M.mod_forumng = {
                 // Add item just in front of existing post, then delete existing.
                 var scriptcommands = [];
                 var newpost = t.prepare_new_post(innerwin, scriptcommands);
-                post.get('parentNode').insertBefore(newpost, post);
-                post.get('parentNode').removeChild(post);
+                if (newpost.get('innerHTML') !== '') {
+                    post.get('parentNode').insertBefore(newpost, post);
+                    post.get('parentNode').removeChild(post);
+                    t.Y.later(100, this, function(post) {
+                        // Reload all the images - fixes chrome issue.
+                        post.all('img').each(function(img){
+                            img.set('src', img.get('src'));
+                        })
+                    }, newpost);
 
-                // Run script commands.
-                for (var i=0; i<scriptcommands.length; i++) {
-                    eval(scriptcommands[i]);
-                }
-
-                // For discussion, do special handling.
-                if (rootpost) {
-                    // Get subject and remove its node.
-                    var subjectinput = newpost.one('input[name=discussion_subject]');
-                    var subject = subjectinput.get('value');
-                    subjectinput.remove();
-
-                    // Find breadcrumb that displays subject (last <li>).
-                    var navbaritems = t.Y.one('#page-header .navbar ul').all('li');
-                    var breadcrumb = navbaritems.item(navbaritems.size() - 1);
-
-                    // Find the span in this (last span).
-                    var list = breadcrumb.all('span');
-                    var lastspan = list.item(list.size() - 1);
-
-                    // Text is inside here, replace it.
-                    if (lastspan) {
-                        lastspan.get('childNodes').each(function(node, index, list) { node.remove(); });
-                        lastspan.appendChild(document.createTextNode(' ' + subject));
+                    // Run script commands.
+                    for (var i=0; i<scriptcommands.length; i++) {
+                        eval(scriptcommands[i]);
                     }
+
+                    // For discussion, do special handling.
+                    if (rootpost) {
+                        // Get subject and remove its node.
+                        var subjectinput = newpost.one('input[name=discussion_subject]');
+                        var subject = subjectinput.get('value');
+                        subjectinput.remove();
+
+                        // Find breadcrumb that displays subject (last <li>).
+                        var navbaritems = t.Y.one('#page-header .navbar ul').all('li');
+                        var breadcrumb = navbaritems.item(navbaritems.size() - 1);
+
+                        // Find the span in this (last span).
+                        var list = breadcrumb.all('span');
+                        var lastspan = list.item(list.size() - 1);
+
+                        // Text is inside here, replace it.
+                        if (lastspan) {
+                            lastspan.get('childNodes').each(function(node, index, list) { node.remove(); });
+                            lastspan.appendChild(document.createTextNode(' ' + subject));
+                        }
+                    }
+
+                    // Sort out links.
+                    t.init_content(newpost);
                 }
-
-                // Sort out links.
-                t.init_content(newpost);
-
                 // Remove the iframe.
                 // This needs to be palced here for mobile devices to work.
                 t.remove_iframe(iframe);
@@ -745,7 +763,7 @@ M.mod_forumng = {
      * @param node Root element
      */
     init_flags: function(node) {
-        node.all('div.forumng-flag').each(function(div) {
+        node.all('div.forumng-flagpost').each(function(div) {
             this.init_flag_div(div);
         }, this);
     },
@@ -756,15 +774,13 @@ M.mod_forumng = {
      */
     init_flag_div: function(div) {
         div.anchor = div.one(' a');
+        div.span = div.one(' span');
         // Get on state from image icon.
         div.icon = div.one(' img.smallicon');
-        if (!div.icon) {
-            return; // Flag not found.
-        }
         div.on = div.icon.get('src').match(/flag\.on/);
         // Remove all other event listeners just in case this func called multiple times.
         this.Y.Event.purgeElement(div.icon, false, 'click');
-        div.icon.on('click', function(e) {
+        div.anchor.on('click', function(e) {
             var cfg = {
                 method: 'POST',
                 timeout: 10000,
@@ -774,11 +790,13 @@ M.mod_forumng = {
                         div.on = !div.on;
                         div.icon.set('src', div.icon.get('src').replace(/flag\.o(n|ff)/,
                                 'flag.' + (div.on ? 'on' : 'off')));
-                        div.icon.set('title',
-                                div.on ? M.str.forumng.clearflag : M.str.forumng.setflag);
-                        div.icon.set('alt',
-                                div.on ? M.str.forumng.flagon : M.str.forumng.flagoff);
                         div.anchor.set('href', div.anchor.get('href').replace(/\&flag=(0|1)/, '&flag=' + (div.on ? 0 : 1)));
+                        div.anchor.set('title',
+                                div.on ? M.str.forumng.clearflag : M.str.forumng.setflag);
+                        var text = div.span.get('innerHTML');
+                        if (text) {
+                            div.span.set('innerHTML', div.on ? M.str.forumng.clearflag : M.str.forumng.flagpost);
+                        }
                     },
                     failure: function(o) {
                         alert(M.str.forumng.jserr_alter);
@@ -1133,6 +1151,11 @@ M.mod_forumng = {
         if (text) {
             text.set('innerHTML', M.str.forumng.expand.replace('#', postnum));
         }
+        // Add to post number to alt when using an image in expand link (expand_text lang string).
+        var linkimg = link.one('img.fng-eai');
+        if (linkimg) {
+            linkimg.set('alt', linkimg.get('alt') + ' ' + postnum);
+        }
 
         link.on('click', function(e) {
             e.preventDefault();
@@ -1240,6 +1263,7 @@ M.mod_forumng = {
             } else if (M.theme_ou && M.theme_ou.rating.init) {
                 // OU only code for custom ratings.
                 M.theme_ou.rating.init(link.postid);
+                M.theme_ou.rating.init_count_popup(link.postid);
             }
         }
 

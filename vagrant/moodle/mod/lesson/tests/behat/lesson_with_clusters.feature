@@ -7,8 +7,8 @@ Feature: In a lesson activity, students can see questions in random order
   Background:
     Given the following "users" exist:
       | username | firstname | lastname | email |
-      | teacher1 | Teacher | 1 | teacher1@asd.com |
-      | student1 | Student | 1 | student1@asd.com |
+      | teacher1 | Teacher | 1 | teacher1@example.com |
+      | student1 | Student | 1 | student1@example.com |
     And the following "courses" exist:
       | fullname | shortname | category |
       | Course 1 | C1 | 0 |
@@ -24,6 +24,7 @@ Feature: In a lesson activity, students can see questions in random order
   Scenario: Lesson with two clusters
     Given I add a "Lesson" to section "1" and I fill the form with:
       | Name | Lesson with clusters |
+      | Description | Test lesson description |
     And I follow "Lesson with clusters"
     And I follow "Add a content page"
     And I set the following fields to these values:

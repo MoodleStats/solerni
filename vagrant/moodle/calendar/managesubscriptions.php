@@ -37,7 +37,7 @@ $action = optional_param('action', '', PARAM_INT);
 
 $url = new moodle_url('/calendar/managesubscriptions.php');
 if ($courseid != SITEID) {
-	$url->param('course', $courseid);
+    $url->param('course', $courseid);
 }
 navigation_node::override_active_url(new moodle_url('/calendar/view.php', array('view' => 'month')));
 $PAGE->set_url($url);
@@ -45,65 +45,65 @@ $PAGE->set_pagelayout('admin');
 $PAGE->navbar->add(get_string('managesubscriptions', 'calendar'));
 
 if ($courseid != SITEID && !empty($courseid)) {
-	$course = $DB->get_record('course', array('id' => $courseid));
-	$courses = array($course->id => $course);
+    $course = $DB->get_record('course', array('id' => $courseid));
+    $courses = array($course->id => $course);
 } else {
-	$course = get_site();
-	$courses = calendar_get_default_courses();
+    $course = get_site();
+    $courses = calendar_get_default_courses();
 }
 require_course_login($course);
 if (!calendar_user_can_add_event($course)) {
-	print_error('errorcannotimport', 'calendar');
+    print_error('errorcannotimport', 'calendar');
 }
 
 $form = new calendar_addsubscription_form(null);
 $form->set_data(array(
-		'course' => $course->id
+    'course' => $course->id
 ));
 
 $importresults = '';
 
 $formdata = $form->get_data();
 if (!empty($formdata)) {
-	require_sesskey(); // Must have sesskey for all actions.
-	$subscriptionid = calendar_add_subscription($formdata);
-	if ($formdata->importfrom == CALENDAR_IMPORT_FROM_FILE) {
-		// Blank the URL if it's a file import.
-		$formdata->url = '';
-		$calendar = $form->get_file_content('importfile');
-		$ical = new iCalendar();
-		$ical->unserialize($calendar);
-		$importresults = calendar_import_icalendar_events($ical, $courseid, $subscriptionid);
-	} else {
-		try {
-			$importresults = calendar_update_subscription_events($subscriptionid);
-		} catch (moodle_exception $e) {
-			// Delete newly added subscription and show invalid url error.
-			calendar_delete_subscription($subscriptionid);
-			print_error($e->errorcode, $e->module, $PAGE->url);
-		}
-	}
-	// Redirect to prevent refresh issues.
-	redirect($PAGE->url, $importresults);
+    require_sesskey(); // Must have sesskey for all actions.
+    $subscriptionid = calendar_add_subscription($formdata);
+    if ($formdata->importfrom == CALENDAR_IMPORT_FROM_FILE) {
+        // Blank the URL if it's a file import.
+        $formdata->url = '';
+        $calendar = $form->get_file_content('importfile');
+        $ical = new iCalendar();
+        $ical->unserialize($calendar);
+        $importresults = calendar_import_icalendar_events($ical, $courseid, $subscriptionid);
+    } else {
+        try {
+            $importresults = calendar_update_subscription_events($subscriptionid);
+        } catch (moodle_exception $e) {
+            // Delete newly added subscription and show invalid url error.
+            calendar_delete_subscription($subscriptionid);
+            print_error($e->errorcode, $e->module, $PAGE->url);
+        }
+    }
+    // Redirect to prevent refresh issues.
+    redirect($PAGE->url, $importresults);
 } else if (!empty($subscriptionid)) {
-	// The user is wanting to perform an action upon an existing subscription.
-	require_sesskey(); // Must have sesskey for all actions.
-	if (calendar_can_edit_subscription($subscriptionid)) {
-		try {
-			$importresults = calendar_process_subscription_row($subscriptionid, $pollinterval, $action);
-		} catch (moodle_exception $e) {
-			// If exception caught, then user should be redirected to page where he/she came from.
-			print_error($e->errorcode, $e->module, $PAGE->url);
-		}
-	} else {
-		print_error('nopermissions', 'error', $PAGE->url, get_string('managesubscriptions', 'calendar'));
-	}
+    // The user is wanting to perform an action upon an existing subscription.
+    require_sesskey(); // Must have sesskey for all actions.
+    if (calendar_can_edit_subscription($subscriptionid)) {
+        try {
+            $importresults = calendar_process_subscription_row($subscriptionid, $pollinterval, $action);
+        } catch (moodle_exception $e) {
+            // If exception caught, then user should be redirected to page where he/she came from.
+            print_error($e->errorcode, $e->module, $PAGE->url);
+        }
+    } else {
+        print_error('nopermissions', 'error', $PAGE->url, get_string('managesubscriptions', 'calendar'));
+    }
 }
 
 $sql = 'SELECT *
-FROM {event_subscriptions}
-WHERE courseid = :courseid
-OR (courseid = 0 AND userid = :userid)';
+          FROM {event_subscriptions}
+         WHERE courseid = :courseid
+            OR (courseid = 0 AND userid = :userid)';
 $params = array('courseid' => $courseid, 'userid' => $USER->id);
 $subscriptions = $DB->get_records_sql($sql, $params);
 
@@ -118,9 +118,9 @@ echo $OUTPUT->header();
 
 // Filter subscriptions which user can't edit.
 foreach($subscriptions as $subscription) {
-	if (!calendar_can_edit_subscription($subscription)) {
-		unset($subscriptions[$subscription->id]);
-	}
+    if (!calendar_can_edit_subscription($subscription)) {
+        unset($subscriptions[$subscription->id]);
+    }
 }
 
 // Display a table of subscriptions.

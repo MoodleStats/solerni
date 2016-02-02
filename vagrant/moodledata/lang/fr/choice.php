@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'choice', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'choice', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   choice
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -30,10 +30,13 @@ $string['allowmultiple'] = 'Permettre le choix de plusieurs réponses';
 $string['allowupdate'] = 'Permettre la modification du choix';
 $string['answered'] = 'Répondu';
 $string['atleastoneoption'] = 'Vous devez fournir au moins une proposition de réponse.';
+$string['cannotsubmit'] = 'Un problème est survenu lors de l\'envoi de votre choix.';
 $string['choice'] = 'Proposition';
+$string['choiceactivityname'] = 'Sondage : {$a}';
 $string['choice:addinstance'] = 'Ajouter un sondage';
 $string['choice:choose'] = 'Répondre aux sondages';
 $string['choiceclose'] = 'Jusqu\'au';
+$string['choicecloseson'] = 'Le sondage se termine le {$a}';
 $string['choice:deleteresponses'] = 'Supprimer les réponses';
 $string['choice:downloadresponses'] = 'Télécharger les réponses';
 $string['choicefull'] = 'Ce sondage est complet et n\'a plus de place disponible.';
@@ -43,7 +46,7 @@ $string['choiceoptions'] = 'Options du sondage';
 $string['choiceoptions_help'] = 'Vous indiquez ici les réponses possibles parmi lesquelles les participants auront à choisir.
 
 Les champs non remplis ne seront pas affichés. Si vous désirez plus d\'options, cliquez sur le bouton « Ajouter 3 champs au formulaire ».';
-$string['choice:readresponses'] = 'Lire les réponses';
+$string['choice:readresponses'] = 'Consulter les réponses';
 $string['choicesaved'] = 'Votre choix a été enregistré';
 $string['choicetext'] = 'Texte de la question';
 $string['chooseaction'] = 'Choisir une action...';
@@ -58,6 +61,7 @@ $string['eventreportviewed'] = 'Rapport de sondage consulté';
 $string['expired'] = 'Désolé, cette activité s\'est terminée le {$a} et n\'est plus disponible';
 $string['full'] = '(complet)';
 $string['havetologin'] = 'Vous devez vous connecter pour pouvoir répondre à ce sondage';
+$string['includeinactive'] = 'Inclure les réponses des utilisateurs inactifs/désactivés';
 $string['limit'] = 'Limite';
 $string['limitanswers'] = 'Limiter le nombre de réponses permises';
 $string['limitanswers_help'] = 'Ce réglage vous permet de limiter le nombre de personnes pouvant sélectionner une option d\'un sondage. Lorsque cette limite est atteinte, personne d\'autre ne pourra plus choisir cette option.
@@ -91,6 +95,7 @@ $string['options'] = 'Options';
 $string['page-mod-choice-x'] = 'Toute page du module sondage';
 $string['pluginadministration'] = 'Administration du sondage';
 $string['pluginname'] = 'Sondage';
+$string['previewonly'] = 'Cette affichage est une prévisualisation des options disponibles pour cette activité. Vous ne pourrez pas enregistrer votre choix avant le {$a}.';
 $string['privacy'] = 'Confidentialité des résultats';
 $string['publish'] = 'Publication des résultats';
 $string['publishafteranswer'] = 'Afficher les résultats aux étudiants après leur réponse';
@@ -106,6 +111,8 @@ $string['responsesresultgraphheader'] = 'Affichage graphique';
 $string['responsesto'] = 'Réponses à {$a}';
 $string['results'] = 'Résultats';
 $string['savemychoice'] = 'Enregistrer mon choix';
+$string['showpreview'] = 'Afficher la prévisualisation';
+$string['showpreview_help'] = 'Permettre aux étudiants de prévisualiser les options disponibles avant l\'ouverture de l\'enregistrement des choix du sondage.';
 $string['showunanswered'] = 'Afficher la colonne des « sans réponse »';
 $string['skipresultgraph'] = 'Ne pas montrer le graphique des résultats';
 $string['spaceleft'] = 'place disponible';

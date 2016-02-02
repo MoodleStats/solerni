@@ -50,8 +50,8 @@ class grade_item extends grade_object {
     public $required_fields = array('id', 'courseid', 'categoryid', 'itemname', 'itemtype', 'itemmodule', 'iteminstance',
                                  'itemnumber', 'iteminfo', 'idnumber', 'calculation', 'gradetype', 'grademax', 'grademin',
                                  'scaleid', 'outcomeid', 'gradepass', 'multfactor', 'plusfactor', 'aggregationcoef',
-                                 'sortorder', 'display', 'decimals', 'hidden', 'locked', 'locktime', 'needsupdate', 'timecreated',
-                                 'timemodified');
+                                 'aggregationcoef2', 'sortorder', 'display', 'decimals', 'hidden', 'locked', 'locktime',
+                                 'needsupdate', 'weightoverride', 'timecreated', 'timemodified');
 
     /**
      * The course this grade_item belongs to.
@@ -199,10 +199,16 @@ class grade_item extends grade_object {
     public $plusfactor = 0;
 
     /**
-     * Aggregation coeficient used for weighted averages
+     * Aggregation coeficient used for weighted averages or extra credit
      * @var float $aggregationcoef
      */
     public $aggregationcoef = 0;
+
+    /**
+     * Aggregation coeficient used for weighted averages only
+     * @var float $aggregationcoef2
+     */
+    public $aggregationcoef2 = 0;
 
     /**
      * Sorting order of the columns.
@@ -241,6 +247,11 @@ class grade_item extends grade_object {
     public $needsupdate = 1;
 
     /**
+     * If set, the grade item's weight has been overridden by a user and should not be automatically adjusted.
+     */
+    public $weightoverride = 0;
+
+    /**
      * Cached dependson array
      * @var array An array of cached grade item dependencies.
      */
@@ -277,6 +288,7 @@ class grade_item extends grade_object {
         $this->multfactor      = grade_floatval($this->multfactor);
         $this->plusfactor      = grade_floatval($this->plusfactor);
         $this->aggregationcoef = grade_floatval($this->aggregationcoef);
+        $this->aggregationcoef2 = grade_floatval($this->aggregationcoef2);
 
         return parent::update($source);
     }
@@ -306,13 +318,15 @@ class grade_item extends grade_object {
         $multfactordiff  = grade_floats_different($db_item->multfactor,      $this->multfactor);
         $plusfactordiff  = grade_floats_different($db_item->plusfactor,      $this->plusfactor);
         $acoefdiff       = grade_floats_different($db_item->aggregationcoef, $this->aggregationcoef);
+        $acoefdiff2      = grade_floats_different($db_item->aggregationcoef2, $this->aggregationcoef2);
+        $weightoverride  = grade_floats_different($db_item->weightoverride, $this->weightoverride);
 
         $needsupdatediff = !$db_item->needsupdate &&  $this->needsupdate;    // force regrading only if setting the flag first time
         $lockeddiff      = !empty($db_item->locked) && empty($this->locked); // force regrading only when unlocking
 
         return ($calculationdiff || $categorydiff || $gradetypediff || $grademaxdiff || $grademindiff || $scaleiddiff
              || $outcomeiddiff || $multfactordiff || $plusfactordiff || $needsupdatediff
-             || $lockeddiff || $acoefdiff || $locktimediff);
+             || $lockeddiff || $acoefdiff || $acoefdiff2 || $weightoverride || $locktimediff);
     }
 
     /**
@@ -666,7 +680,7 @@ class grade_item extends grade_object {
         // aggregate the category grade
         } else if ($this->is_category_item() or $this->is_course_item()) {
             // aggregate category grade item
-            $category = $this->get_item_category();
+            $category = $this->load_item_category();
             $category->grade_item =& $this;
             if ($category->generate_grades($userid)) {
                 return true;
@@ -705,7 +719,13 @@ class grade_item extends grade_object {
                 $grade->finalgrade = $this->adjust_raw_grade($grade->rawgrade, $grade->rawgrademin, $grade->rawgrademax);
 
                 if (grade_floats_different($grade_record->finalgrade, $grade->finalgrade)) {
-                    if (!$grade->update('system')) {
+                    $success = $grade->update('system');
+
+                    // If successful trigger a user_graded event.
+                    if ($success) {
+                        $grade->load_grade_item();
+                        \core\event\user_graded::create_from_grade($grade)->trigger();
+                    } else {
                         $result = "Internal error updating final grade";
                     }
                 }
@@ -949,7 +969,13 @@ class grade_item extends grade_object {
      * @return bool
      */
     public function is_overridable_item() {
-        return !$this->is_outcome_item() and ($this->is_external_item() or $this->is_calculated() or $this->is_course_item() or $this->is_category_item());
+        if ($this->is_course_item() or $this->is_category_item()) {
+            $overridable = (bool) get_config('moodle', 'grade_overridecat');
+        } else {
+            $overridable = false;
+        }
+
+        return !$this->is_outcome_item() and ($this->is_external_item() or $this->is_calculated() or $overridable);
     }
 
     /**
@@ -968,6 +994,16 @@ class grade_item extends grade_object {
      */
     public function is_raw_used() {
         return ($this->is_external_item() and !$this->is_calculated() and !$this->is_outcome_item());
+    }
+
+    /**
+     * Returns true if the grade item is an aggreggated type grade.
+     *
+     * @since  Moodle 2.8.7, 2.9.1
+     * @return bool
+     */
+    public function is_aggregate_item() {
+        return ($this->is_category_item() || $this->is_course_item());
     }
 
     /**
@@ -1254,7 +1290,7 @@ class grade_item extends grade_object {
      * @return string name
      */
     public function get_name($fulltotal=false) {
-        if (!empty($this->itemname)) {
+        if (strval($this->itemname) !== '') {
             // MDL-10557
             return format_string($this->itemname);
 
@@ -1277,12 +1313,28 @@ class grade_item extends grade_object {
     }
 
     /**
+     * A grade item can return a more detailed description which will be added to the header of the column/row in some reports.
+     *
+     * @return string description
+     */
+    public function get_description() {
+        if ($this->is_course_item() || $this->is_category_item()) {
+            $categoryitem = $this->load_item_category();
+            return $categoryitem->get_description();
+        }
+        return '';
+    }
+
+    /**
      * Sets this item's categoryid. A generic method shared by objects that have a parent id of some kind.
      *
      * @param int $parentid The ID of the new parent
+     * @param bool $updateaggregationfields Whether or not to convert the aggregation fields when switching between category.
+     *                          Set this to false when the aggregation fields have been updated in prevision of the new
+     *                          category, typically when the item is freshly created.
      * @return bool True if success
      */
-    public function set_parent($parentid) {
+    public function set_parent($parentid, $updateaggregationfields = true) {
         if ($this->is_course_item() or $this->is_category_item()) {
             print_error('cannotsetparentforcatoritem');
         }
@@ -1296,11 +1348,10 @@ class grade_item extends grade_object {
             return false;
         }
 
-        // MDL-19407 If moving from a non-SWM category to a SWM category, convert aggregationcoef to 0
         $currentparent = $this->load_parent_category();
 
-        if ($currentparent->aggregation != GRADE_AGGREGATE_WEIGHTED_MEAN2 && $parent_category->aggregation == GRADE_AGGREGATE_WEIGHTED_MEAN2) {
-            $this->aggregationcoef = 0;
+        if ($updateaggregationfields) {
+            $this->set_aggregation_fields_for_aggregation($currentparent->aggregation, $parent_category->aggregation);
         }
 
         $this->force_regrading();
@@ -1310,6 +1361,61 @@ class grade_item extends grade_object {
         $this->parent_category =& $parent_category;
 
         return $this->update();
+    }
+
+    /**
+     * Update the aggregation fields when the aggregation changed.
+     *
+     * This method should always be called when the aggregation has changed, but also when
+     * the item was moved to another category, even it if uses the same aggregation method.
+     *
+     * Some values such as the weight only make sense within a category, once moved the
+     * values should be reset to let the user adapt them accordingly.
+     *
+     * Note that this method does not save the grade item.
+     * {@link grade_item::update()} has to be called manually after using this method.
+     *
+     * @param  int $from Aggregation method constant value.
+     * @param  int $to   Aggregation method constant value.
+     * @return boolean   True when at least one field was changed, false otherwise
+     */
+    public function set_aggregation_fields_for_aggregation($from, $to) {
+        $defaults = grade_category::get_default_aggregation_coefficient_values($to);
+
+        $origaggregationcoef = $this->aggregationcoef;
+        $origaggregationcoef2 = $this->aggregationcoef2;
+        $origweighoverride = $this->weightoverride;
+
+        if ($from == GRADE_AGGREGATE_SUM && $to == GRADE_AGGREGATE_SUM && $this->weightoverride) {
+            // Do nothing. We are switching from SUM to SUM and the weight is overriden,
+            // a teacher would not expect any change in this situation.
+
+        } else if ($from == GRADE_AGGREGATE_WEIGHTED_MEAN && $to == GRADE_AGGREGATE_WEIGHTED_MEAN) {
+            // Do nothing. The weights can be kept in this case.
+
+        } else if (in_array($from, array(GRADE_AGGREGATE_SUM,  GRADE_AGGREGATE_EXTRACREDIT_MEAN, GRADE_AGGREGATE_WEIGHTED_MEAN2))
+                && in_array($to, array(GRADE_AGGREGATE_SUM,  GRADE_AGGREGATE_EXTRACREDIT_MEAN, GRADE_AGGREGATE_WEIGHTED_MEAN2))) {
+
+            // Reset all but the the extra credit field.
+            $this->aggregationcoef2 = $defaults['aggregationcoef2'];
+            $this->weightoverride = $defaults['weightoverride'];
+
+            if ($to != GRADE_AGGREGATE_EXTRACREDIT_MEAN) {
+                // Normalise extra credit, except for 'Mean with extra credit' which supports higher values than 1.
+                $this->aggregationcoef = min(1, $this->aggregationcoef);
+            }
+        } else {
+            // Reset all.
+            $this->aggregationcoef = $defaults['aggregationcoef'];
+            $this->aggregationcoef2 = $defaults['aggregationcoef2'];
+            $this->weightoverride = $defaults['weightoverride'];
+        }
+
+        $acoefdiff       = grade_floats_different($origaggregationcoef, $this->aggregationcoef);
+        $acoefdiff2      = grade_floats_different($origaggregationcoef2, $this->aggregationcoef2);
+        $weightoverride  = grade_floats_different($origweighoverride, $this->weightoverride);
+
+        return $acoefdiff || $acoefdiff2 || $weightoverride;
     }
 
     /**
@@ -1406,44 +1512,31 @@ class grade_item extends grade_object {
                 $params[] = GRADE_TYPE_SCALE;
             }
 
-            if ($grade_category->aggregatesubcats) {
-                // return all children excluding category items
-                $params[] = $this->courseid;
-                $params[] = '%/' . $grade_category->id . '/%';
-                $sql = "SELECT gi.id
-                          FROM {grade_items} gi
-                          JOIN {grade_categories} gc ON gi.categoryid = gc.id
-                         WHERE $gtypes
-                               $outcomes_sql
-                               AND gi.courseid = ?
-                               AND gc.path LIKE ?";
+            $params[] = $grade_category->id;
+            $params[] = $this->courseid;
+            $params[] = $grade_category->id;
+            $params[] = $this->courseid;
+            if (empty($CFG->grade_includescalesinaggregation)) {
+                $params[] = GRADE_TYPE_VALUE;
             } else {
-                $params[] = $grade_category->id;
-                $params[] = $this->courseid;
-                $params[] = $grade_category->id;
-                $params[] = $this->courseid;
-                if (empty($CFG->grade_includescalesinaggregation)) {
-                    $params[] = GRADE_TYPE_VALUE;
-                } else {
-                    $params[] = GRADE_TYPE_VALUE;
-                    $params[] = GRADE_TYPE_SCALE;
-                }
-                $sql = "SELECT gi.id
-                          FROM {grade_items} gi
-                         WHERE $gtypes
-                               AND gi.categoryid = ?
-                               AND gi.courseid = ?
-                               $outcomes_sql
-                        UNION
-
-                        SELECT gi.id
-                          FROM {grade_items} gi, {grade_categories} gc
-                         WHERE (gi.itemtype = 'category' OR gi.itemtype = 'course') AND gi.iteminstance=gc.id
-                               AND gc.parent = ?
-                               AND gi.courseid = ?
-                               AND $gtypes
-                               $outcomes_sql";
+                $params[] = GRADE_TYPE_VALUE;
+                $params[] = GRADE_TYPE_SCALE;
             }
+            $sql = "SELECT gi.id
+                      FROM {grade_items} gi
+                     WHERE $gtypes
+                           AND gi.categoryid = ?
+                           AND gi.courseid = ?
+                           $outcomes_sql
+                    UNION
+
+                    SELECT gi.id
+                      FROM {grade_items} gi, {grade_categories} gc
+                     WHERE (gi.itemtype = 'category' OR gi.itemtype = 'course') AND gi.iteminstance=gc.id
+                           AND gc.parent = ?
+                           AND gi.courseid = ?
+                           AND $gtypes
+                           $outcomes_sql";
 
             if ($children = $DB->get_records_sql($sql, $params)) {
                 $this->dependson_cache = array_keys($children);
@@ -1573,12 +1666,21 @@ class grade_item extends grade_object {
             $grade->timemodified = time(); // hack alert - date graded
             $result = (bool)$grade->insert($source);
 
+            // If the grade insert was successful and the final grade was not null then trigger a user_graded event.
+            if ($result && !is_null($grade->finalgrade)) {
+                \core\event\user_graded::create_from_grade($grade)->trigger();
+            }
         } else if (grade_floats_different($grade->finalgrade, $oldgrade->finalgrade)
                 or $grade->feedback       !== $oldgrade->feedback
                 or $grade->feedbackformat != $oldgrade->feedbackformat
                 or ($oldgrade->overridden == 0 and $grade->overridden > 0)) {
             $grade->timemodified = time(); // hack alert - date graded
             $result = $grade->update($source);
+
+            // If the grade update was successful and the actual grade has changed then trigger a user_graded event.
+            if ($result && grade_floats_different($grade->finalgrade, $oldgrade->finalgrade)) {
+                \core\event\user_graded::create_from_grade($grade)->trigger();
+            }
         } else {
             // no grade change
             return $result;
@@ -1724,6 +1826,10 @@ class grade_item extends grade_object {
         if (empty($grade->id)) {
             $result = (bool)$grade->insert($source);
 
+            // If the grade insert was successful and the final grade was not null then trigger a user_graded event.
+            if ($result && !is_null($grade->finalgrade)) {
+                \core\event\user_graded::create_from_grade($grade)->trigger();
+            }
         } else if (grade_floats_different($grade->finalgrade,  $oldgrade->finalgrade)
                 or grade_floats_different($grade->rawgrade,    $oldgrade->rawgrade)
                 or grade_floats_different($grade->rawgrademin, $oldgrade->rawgrademin)
@@ -1735,6 +1841,11 @@ class grade_item extends grade_object {
                 or $grade->timemodified   != $oldgrade->timemodified // part of hack above
                 ) {
             $result = $grade->update($source);
+
+            // If the grade update was successful and the actual grade has changed then trigger a user_graded event.
+            if ($result && grade_floats_different($grade->finalgrade, $oldgrade->finalgrade)) {
+                \core\event\user_graded::create_from_grade($grade)->trigger();
+            }
         } else {
             return $result;
         }
@@ -1897,8 +2008,25 @@ class grade_item extends grade_object {
         // can not use own final grade during calculation
         unset($params['gi'.$this->id]);
 
+        // Check to see if the gradebook is frozen. This allows grades to not be altered at all until a user verifies that they
+        // wish to update the grades.
+        $gradebookcalculationsfreeze = get_config('core', 'gradebook_calculations_freeze_' . $this->courseid);
+
+        $rawminandmaxchanged = false;
         // insert final grade - will be needed later anyway
         if ($oldgrade) {
+            // Only run through this code if the gradebook isn't frozen.
+            if ($gradebookcalculationsfreeze && (int)$gradebookcalculationsfreeze <= 20150627) {
+                // Do nothing.
+            } else {
+                // The grade_grade for a calculated item should have the raw grade maximum and minimum set to the
+                // grade_item grade maximum and minimum respectively.
+                if ($oldgrade->rawgrademax != $this->grademax || $oldgrade->rawgrademin != $this->grademin) {
+                    $rawminandmaxchanged = true;
+                    $oldgrade->rawgrademax = $this->grademax;
+                    $oldgrade->rawgrademin = $this->grademin;
+                }
+            }
             $oldfinalgrade = $oldgrade->finalgrade;
             $grade = new grade_grade($oldgrade, false); // fetching from db is not needed
             $grade->grade_item =& $this;
@@ -1906,6 +2034,16 @@ class grade_item extends grade_object {
         } else {
             $grade = new grade_grade(array('itemid'=>$this->id, 'userid'=>$userid), false);
             $grade->grade_item =& $this;
+            $rawminandmaxchanged = false;
+            if ($gradebookcalculationsfreeze && (int)$gradebookcalculationsfreeze <= 20150627) {
+                // Do nothing.
+            } else {
+                // The grade_grade for a calculated item should have the raw grade maximum and minimum set to the
+                // grade_item grade maximum and minimum respectively.
+                $rawminandmaxchanged = true;
+                $grade->rawgrademax = $this->grademax;
+                $grade->rawgrademin = $this->grademin;
+            }
             $grade->insert('system');
             $oldfinalgrade = null;
         }
@@ -1932,13 +2070,31 @@ class grade_item extends grade_object {
                 // normalize
                 $grade->finalgrade = $this->bounded_grade($result);
             }
-
         }
 
-        // update in db if changed
-        if (grade_floats_different($grade->finalgrade, $oldfinalgrade)) {
-            $grade->timemodified = time();
-            $grade->update('compute');
+        // Only run through this code if the gradebook isn't frozen.
+        if ($gradebookcalculationsfreeze && (int)$gradebookcalculationsfreeze <= 20150627) {
+            // Update in db if changed.
+            if (grade_floats_different($grade->finalgrade, $oldfinalgrade)) {
+                $grade->timemodified = time();
+                $success = $grade->update('compute');
+
+                // If successful trigger a user_graded event.
+                if ($success) {
+                    \core\event\user_graded::create_from_grade($grade)->trigger();
+                }
+            }
+        } else {
+            // Update in db if changed.
+            if (grade_floats_different($grade->finalgrade, $oldfinalgrade) || $rawminandmaxchanged) {
+                $grade->timemodified = time();
+                $success = $grade->update('compute');
+
+                // If successful trigger a user_graded event.
+                if ($success) {
+                    \core\event\user_graded::create_from_grade($grade)->trigger();
+                }
+            }
         }
 
         if ($result !== false) {

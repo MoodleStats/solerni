@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'repository', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   repository
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -163,6 +163,7 @@ $string['makefileinternal'] = 'Faire une copie du fichier';
 $string['makefilelink'] = 'Lier directement le fichier';
 $string['makefilereference'] = 'Créer un alias du fichier';
 $string['manage'] = 'Gérer les dépôts';
+$string['manageinstances'] = 'Gérer les instances';
 $string['manageurl'] = 'Gestion';
 $string['manageuserrepository'] = 'Gérer le dépôt personnel';
 $string['moving'] = 'Déplacement';

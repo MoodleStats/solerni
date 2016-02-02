@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'scorm', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'scorm', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   scorm
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -35,6 +35,8 @@ $string['aicchacpkeepsessiondata'] = 'Données de session AICC HACP';
 $string['aicchacpkeepsessiondata_desc'] = 'Durée en jours pendant laquelle conserver les données de session AICC HACP (une durée élevée remplira la table d\'anciennes données qui pourraient être utiles pour le débogage)';
 $string['aicchacptimeout'] = 'Délai AICC HACP';
 $string['aicchacptimeout_desc'] = 'Durée en minutes pendant laquelle une session AICC HACP externe peut rester ouverte';
+$string['aiccuserid'] = 'Transmettre à AICC les identifiants numériques des utilisateurs';
+$string['aiccuserid_desc'] = 'En comparaison avec Moodle, le standard AICC est très restrictif pour les noms d\'utilisateur et n\'autorise que les caractères alphanumériques, les tirets (-) et caractères souligné (_). Les points, espaces et l\'arobase (@) ne sont pas acceptés. Si ce réglage est activé, l\'identifiant numérique (user->id) est passé au paquetage AICC au lieu du nom d\'utilisateur.';
 $string['aliasonly'] = 'Lors de la sélection d\'un fichier imsmanifest.xml dans un dépôt, vous devez utiliser un alias de ce fichier.';
 $string['allowapidebug'] = 'Activer l\'API de débogage et de tracement (veuillez spécifier le masque de capture)';
 $string['allowtypeaicchacp'] = 'Autoriser AICC HACP externe';
@@ -52,9 +54,9 @@ $string['attempt'] = 'Tentative';
 $string['attempt1'] = '1 tentative';
 $string['attempts'] = 'tentatives';
 $string['attemptsmanagement'] = 'Gestion des tentatives';
-$string['attemptstatusall'] = 'Ma page et page initiale';
+$string['attemptstatusall'] = 'Tableau de bord et page initiale';
 $string['attemptstatusentry'] = 'Page initiale seulement';
-$string['attemptstatusmy'] = 'Ma page seulement';
+$string['attemptstatusmy'] = 'Tableau de bord seulement';
 $string['attemptsx'] = '{$a} tentatives';
 $string['attr_error'] = 'Valeur incorrecte de l\'attribut ({$a->attr}) dans la balise {$a->tag}.';
 $string['autocommit'] = 'Enregistrer automatiquement';
@@ -104,8 +106,8 @@ $string['display'] = 'Afficher le paquetage';
 $string['displayactivityname'] = 'Afficher le nom de l\'activité';
 $string['displayactivityname_help'] = 'Détermine si le nom de l\'activité doit être affiché au-dessus du lecteur SCORM.';
 $string['displayattemptstatus'] = 'Afficher l\'état de la tentative';
-$string['displayattemptstatusdesc'] = 'Ce réglage détermine si l\'état de la tentative doit être affiché ou non dans le bloc Ma page et/ou sur la page d\'accueil du SCORM.';
-$string['displayattemptstatus_help'] = 'Si ce réglage est activé, un résumé des tentatives de l\'utilisateur sera affichés dans le bloc vue d\'ensemble du cours sur Ma page et/ou sur la page d\'accueil du SCORM.';
+$string['displayattemptstatusdesc'] = 'Ce réglage détermine si l\'état de la tentative doit être affiché ou non dans le bloc du tableau de bord et/ou sur la page d\'accueil du SCORM.';
+$string['displayattemptstatus_help'] = 'Si ce réglage est activé, un résumé des tentatives de l\'utilisateur sera affichés dans le bloc vue d\'ensemble du cours du tableau de bord et/ou sur la page d\'accueil du SCORM.';
 $string['displaycoursestructure'] = 'Afficher la structure du cours sur la page d\'entrée';
 $string['displaycoursestructuredesc'] = 'Si ce réglage est activé, la table des matières sera affichée sur la page d\'entrée du SCORM.';
 $string['displaycoursestructure_help'] = 'Si ce réglage est activé, la table des matières sera affichée dans le résumé du SCORM.';
@@ -144,8 +146,10 @@ $string['forcejavascript'] = 'Forcer les utilisateurs à activer Javascript';
 $string['forcejavascript_desc'] = 'Si ce réglage est activé (recommandé), il empêche l\'accès aux objets SCORM lorsque Javascript est désactivé ou n\'est pas supporté dans le navigateur de l\'utilisateur. Si le réglage est désactivé, l\'utilisateur pourra voir le SCORM, mais les communications API échoueront et aucune information d\'évaluation ne sera enregistrée.';
 $string['forcejavascriptmessage'] = 'Javascript est requis pour voir cet élément. Veuillez activer Javascript dans votre navigateur et essayer à nouveau.';
 $string['forcenewattempt'] = 'Imposer une nouvelle tentative';
-$string['forcenewattemptdesc'] = 'Si ce réglage est activé, une nouvelle tentative sera comptée pour chaque accès au paquetage SCORM.';
-$string['forcenewattempt_help'] = 'Si ce réglage est activé, une nouvelle tentative est comptée chaque fois que le paquetage SCORM est consulté.';
+$string['forcenewattemptdesc'] = 'Si ce réglage est activé, la case à cocher « Commencer une nouvelle tentative » est cachée et empêche le mode relecture. SCORM permet à un étudiant de revenir à une tentative à n\'importe quel stade, et une nouvelle tentative n\'est possible que si la tentative précédente est marquée comme « terminée », « réussie » ou « échouée ». Si le paquetage SCORM ne fait pas ceci, l\'étudiant recommencera toujours la même tentative.';
+$string['forcenewattempt_help'] = 'Si ce réglage est activé, la case à cocher « Commencer une nouvelle tentative » est cachée et empêche le mode relecture.
+
+SCORM permet à un étudiant de revenir à une tentative à n\'importe quel stade, et une nouvelle tentative n\'est possible que si la tentative précédente est marquée comme « terminée », « réussie » ou « échouée ». Si le paquetage SCORM ne fait pas ceci, l\'étudiant recommencera toujours la même tentative.';
 $string['found'] = 'Fichier « manifest » trouvé';
 $string['frameheight'] = 'La hauteur du cadre ou de la fenêtre';
 $string['framewidth'] = 'La largeur du cadre ou de la fenêtre';
@@ -287,7 +291,7 @@ $string['report'] = 'Rapport';
 $string['reportcountallattempts'] = '{$a->nbattempts} tentatives pour {$a->nbusers} utilisateurs, sur {$a->nbresults} résultats';
 $string['reportcountattempts'] = '{$a->nbresults} résultats ({$a->nbusers} utilisateurs)';
 $string['reports'] = 'Rapports';
-$string['repositorynotsupported'] = 'Seuls les dépôts système de fichiers sont supportés pour lier directement vers un fichier imsmanifest.xml.';
+$string['repositorynotsupported'] = 'Ce dépôt ne permet pas les liens directs vers un fichier imsmanifest.xml.';
 $string['response'] = 'Réponse donnée';
 $string['result'] = 'Résultat';
 $string['results'] = 'Résultats';

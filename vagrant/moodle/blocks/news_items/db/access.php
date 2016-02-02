@@ -26,26 +26,26 @@ defined('MOODLE_INTERNAL') || die();
 
 $capabilities = array(
 
-		'block/news_items:myaddinstance' => array(
-				'captype' => 'write',
-				'contextlevel' => CONTEXT_SYSTEM,
-				'archetypes' => array(
-						'user' => CAP_ALLOW
-				),
+    'block/news_items:myaddinstance' => array(
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes' => array(
+            'user' => CAP_ALLOW
+        ),
 
-				'clonepermissionsfrom' => 'moodle/my:manageblocks'
-		),
+        'clonepermissionsfrom' => 'moodle/my:manageblocks'
+    ),
 
-		'block/news_items:addinstance' => array(
-				'riskbitmask' => RISK_SPAM | RISK_XSS,
+    'block/news_items:addinstance' => array(
+        'riskbitmask' => RISK_SPAM | RISK_XSS,
 
-				'captype' => 'write',
-				'contextlevel' => CONTEXT_BLOCK,
-				'archetypes' => array(
-						'editingteacher' => CAP_ALLOW,
-						'manager' => CAP_ALLOW
-				),
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_BLOCK,
+        'archetypes' => array(
+            'editingteacher' => CAP_ALLOW,
+            'manager' => CAP_ALLOW
+        ),
 
-				'clonepermissionsfrom' => 'moodle/site:manageblocks'
-		),
+        'clonepermissionsfrom' => 'moodle/site:manageblocks'
+    ),
 );

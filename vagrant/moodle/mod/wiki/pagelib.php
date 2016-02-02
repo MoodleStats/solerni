@@ -381,7 +381,12 @@ class page_wiki_edit extends page_wiki {
     function __construct($wiki, $subwiki, $cm) {
         global $CFG, $PAGE;
         parent::__construct($wiki, $subwiki, $cm);
-        self::$attachmentoptions = array('subdirs' => false, 'maxfiles' => - 1, 'maxbytes' => $CFG->maxbytes, 'accepted_types' => '*');
+        $showfilemanager = false;
+        if (has_capability('mod/wiki:managefiles', context_module::instance($cm->id))) {
+            $showfilemanager = true;
+        }
+        self::$attachmentoptions = array('subdirs' => false, 'maxfiles' => - 1, 'maxbytes' => $CFG->maxbytes,
+                'accepted_types' => '*', 'enable_filemanagement' => $showfilemanager);
         $PAGE->requires->js_init_call('M.mod_wiki.renew_lock', null, true);
     }
 
@@ -633,6 +638,7 @@ class page_wiki_comments extends page_wiki {
             $by->date = userdate($comment->timecreated);
 
             $t = new html_table();
+            $t->id = 'wiki-comments';
             $cell1 = new html_table_cell($OUTPUT->user_picture($user, array('popup' => true)));
             $cell2 = new html_table_cell(get_string('bynameondate', 'forum', $by));
             $cell3 = new html_table_cell();

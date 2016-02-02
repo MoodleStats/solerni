@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_cmanager', language 'fr', branch 'MOODLE_27_STABLE'
+ * Strings for component 'block_cmanager', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   block_cmanager
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -55,6 +55,7 @@ $string['clickhere'] = 'Cliquez ici';
 $string['clickHereToReturn'] = 'Cliquez ici pour revenir';
 $string['cmanager'] = 'GestionnaireDC';
 $string['cmanagerActions'] = 'Actions';
+$string['cmanager:addcomment'] = 'Ajouter un commentaire';
 $string['cmanager:addinstance'] = 'Ajouter une instance';
 $string['cmanagerConfirmCancel'] = 'Êtes-vous sûr de vouloir annuler cette demande ?';
 $string['cmanagerDisplay'] = 'Gestionnaire de demande de cours';
@@ -62,6 +63,7 @@ $string['cmanagerDisplaySearchForm'] = 'Configurer le formulaire - Page 1';
 $string['cmanagerEnrolmentInstruction'] = 'Gestionnaire de demande de cours peut générer une clef d\'inscription automatique ou vous pouvez choisir de demander à l\'utilisateur une clef de leur choix.';
 $string['cmanagerEnrolmentOption1'] = 'Clef d\'inscription automatique';
 $string['cmanagerEnrolmentOption2'] = 'Demander à l\'utilisateur une clef d\'inscription';
+$string['cmanagerEnrolmentOption3'] = 'Ne pas demander une clef d\'inscription';
 $string['cmanagerExstingTab'] = 'Les demandes existantes';
 $string['cmanagerHistoryTab'] = 'Historique des demandes';
 $string['cmanager:myaddinstance'] = 'Ajouter une instance';
@@ -284,6 +286,7 @@ $string['selectedcategory'] = 'Catégorie';
 $string['selfCatOff'] = 'Choix de catégorie désactivé';
 $string['selfCatOn'] = 'Choix de catégorie activé';
 $string['sendrequestemail'] = 'Envoyer la demande par courriel';
+$string['sendrequestforcontrol'] = 'Envoyer la demande pour contrôle';
 $string['snamingConvetion'] = 'Format de nom abrégé';
 $string['snamingConvetionInstruction'] = 'Veuillez choisir le format de nom abrégé pour les nouveaux cours';
 $string['snamingConvetion_option1'] = 'Nom abrégé';
@@ -295,6 +298,7 @@ $string['sureDeleteAll'] = 'Voulez-vous vraiment supprimer l\'historique au comp
 $string['totalRequests'] = 'Nombre total de demandes';
 $string['update'] = 'Mettre à jour';
 $string['view'] = 'Voir';
+$string['viewmore'] = 'Voir plus';
 $string['viewsummary'] = 'Voir le résumé';
 $string['withselectedrequests'] = 'avec les demandes selectionnées';
 $string['yesDeleteRecords'] = 'Oui, effacer';

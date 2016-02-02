@@ -23,8 +23,8 @@
  * @see       http://docs.moodle.org/dev/Plagiarism_API
  * @package   admin
  * @copyright 2012 Dan Marsden <dan@danmarsden.com>
-* @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
-*/
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
 require_once(dirname(dirname(__FILE__)) . '/config.php');
 require_once($CFG->libdir.'/adminlib.php');
@@ -42,9 +42,9 @@ $txt->uninstall = get_string('uninstallplugin', 'core_admin');
 
 $plagiarismplugins = core_component::get_plugin_list('plagiarism');
 if (empty($plagiarismplugins)) {
-	echo $OUTPUT->notification(get_string('nopluginsinstalled', 'plagiarism'));
-	echo $OUTPUT->footer();
-	exit;
+    echo $OUTPUT->notification(get_string('nopluginsinstalled', 'plagiarism'));
+    echo $OUTPUT->footer();
+    exit;
 }
 
 echo $OUTPUT->heading(get_string('availableplugins', 'plagiarism'), 3, 'main');
@@ -59,25 +59,25 @@ $table->attributes['class'] = 'manageplagiarismtable generaltable';
 // Iterate through auth plugins and add to the display table.
 $authcount = count($plagiarismplugins);
 foreach ($plagiarismplugins as $plugin => $dir) {
-	if (file_exists($dir.'/settings.php')) {
-		$displayname = "<span>".get_string($plugin, 'plagiarism_'.$plugin)."</span>";
-		// Settings link.
-		$url = new moodle_url("/plagiarism/$plugin/settings.php");
-		$settings = html_writer::link($url, $txt->settings);
-		// Get version.
-		$version = get_config('plagiarism_' . $plugin);
-		if (!empty($version->version)) {
-			$version = $version->version;
-		} else {
-			$version = '?';
-		}
-		// uninstall link.
-		$uninstall = '';
-		if ($uninstallurl = core_plugin_manager::instance()->get_uninstall_url('plagiarism_'.$plugin, 'manage')) {
-			$uninstall = html_writer::link($uninstallurl, $txt->uninstall);
-		}
-		$table->data[] = array($displayname, $version, $uninstall, $settings);
-	}
+    if (file_exists($dir.'/settings.php')) {
+        $displayname = "<span>".get_string($plugin, 'plagiarism_'.$plugin)."</span>";
+        // Settings link.
+        $url = new moodle_url("/plagiarism/$plugin/settings.php");
+        $settings = html_writer::link($url, $txt->settings);
+        // Get version.
+        $version = get_config('plagiarism_' . $plugin);
+        if (!empty($version->version)) {
+            $version = $version->version;
+        } else {
+            $version = '?';
+        }
+        // uninstall link.
+        $uninstall = '';
+        if ($uninstallurl = core_plugin_manager::instance()->get_uninstall_url('plagiarism_'.$plugin, 'manage')) {
+            $uninstall = html_writer::link($uninstallurl, $txt->uninstall);
+        }
+        $table->data[] = array($displayname, $version, $uninstall, $settings);
+    }
 }
 echo html_writer::table($table);
 echo get_string('configplagiarismplugins', 'plagiarism');

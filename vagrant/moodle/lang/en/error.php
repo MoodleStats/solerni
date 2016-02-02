@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -18,7 +17,7 @@
 /**
  * Strings for component 'error', language 'en', branch 'MOODLE_20_STABLE'
  *
- * @package   error
+ * @package   core
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -76,6 +75,7 @@ $string['cannoteditcomment'] = 'This comment is not yours to edit!';
 $string['cannoteditcommentexpired'] = 'You can\'t edit this. The time has expired!';
 $string['cannoteditpostorblog'] = 'You cannot post or edit blogs';
 $string['cannoteditsiteform'] = 'You cannot edit the site course using this form';
+$string['cannotedituserpreferences'] = 'Cannot edit this user\'s preferences';
 $string['cannotedityourprofile'] = 'Sorry, you cannot edit own profile';
 $string['cannotexecduringupgrade'] = 'Cannot be executed during upgrade';
 $string['cannotfindcategory'] = 'Cannot find category record from database by ID - {$a}';
@@ -231,6 +231,7 @@ $string['errorcreatingfile'] = 'Error creating file "{$a}"';
 $string['errorcreatingrole'] = 'Error creating role';
 $string['errorfetchingrssfeed'] = 'Error fetching RSS feed.';
 $string['erroronline'] = 'Error on line {$a}';
+$string['erroroutput'] = 'Error output, so disabling automatic redirect.';
 $string['errorparsingxml'] = 'Error parsing XML: {$a->errorstring} at line {$a->errorline}, char {$a->errorchar}';
 $string['errorreadingfile'] = 'Error reading file "{$a}"';
 $string['errorsavingrequest'] = 'An error occurred when trying to save your request.';
@@ -303,7 +304,7 @@ $string['invalidcourselevel'] = 'Incorrect context level';
 $string['invalidcoursemodule'] = 'Invalid course module ID';
 $string['invalidcoursenameshort'] = 'Invalid short course name';
 $string['invaliddata'] = 'Data submitted is invalid';
-$string['invaliddatarootpermissions'] = 'Invalid permissions detected in $CFG->dataroot directory, administrator has to fix permissions.';
+$string['invaliddatarootpermissions'] = 'Invalid permissions detected when trying to create a directory. Turn debugging on for further details.';
 $string['invaliddevicetype'] = 'Invalid device type';
 $string['invalidelementid'] = 'Incorrect element id!';
 $string['invalidentry'] = 'This is not valid entry!';
@@ -387,6 +388,7 @@ $string['movecatcontentstoroot'] = 'Moving the category content to root is not a
 $string['movecategorynotpossible'] = 'You cannot move category \'{$a}\' into the selected category.';
 $string['movecategoryownparent'] = 'You cannot make category \'{$a}\' a parent of itself.';
 $string['movecategoryparentconflict'] = 'You cannot make category \'{$a}\' a subcategory of one of its own subcategories.';
+$string['mssqlrcsmodemissing'] = 'The database is not using the expected READ_COMMITTED_SNAPSHOT mode which can lead to wrong results, especially under high concurrency scenarios. Please enable it for correct behaviour. For further information, see the documentation <a href="https://docs.moodle.org/en/Installing_MSSQL_for_PHP">Installing MSSQL for PHP</a>.';
 $string['multiplerecordsfound'] = 'Multiple records found, only one record expected.';
 $string['multiplerestorenotallow'] = 'Multiple restore execution not allowed!';
 $string['mustbeloggedin'] = 'You must be logged in to do this';

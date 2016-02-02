@@ -25,6 +25,7 @@ Feature: Add forumng activity and test basic tagging functionality
 
   Scenario: Add tagging to discussions
     And I log in as "admin"
+    And I am on site homepage
     And I follow "Course 1"
     And I turn editing mode on
     And I add a "ForumNG" to section "1" and I fill the form with:
@@ -72,37 +73,36 @@ Feature: Add forumng activity and test basic tagging functionality
     Then the "tag" select box should contain "threeb (1)"
 
     # Check correct tags are displayed for each discusssion
-    Given "tr#discrow_3" "css_element" should exist
-    Then "three" "link" should exist in the "tr#discrow_3" "css_element"
-    Then "threea" "link" should exist in the "tr#discrow_3" "css_element"
-    Then "threeb" "link" should exist in the "tr#discrow_3" "css_element"
+    Given "tr.forumng-discussion-short:nth-child(3)" "css_element" should exist
+    Then "three" "link" should exist in the "tr.forumng-discussion-short:nth-child(3)" "css_element"
+    Then "threea" "link" should exist in the "tr.forumng-discussion-short:nth-child(3)" "css_element"
+    Then "threeb" "link" should exist in the "tr.forumng-discussion-short:nth-child(3)" "css_element"
 
-    Given "tr#discrow_2" "css_element" should exist
-    Then "two" "link" should exist in the "tr#discrow_2" "css_element"
-    Then "twoa" "link" should exist in the "tr#discrow_2" "css_element"
-    Then "twob" "link" should exist in the "tr#discrow_2" "css_element"
+    Given "tr.forumng-discussion-short:nth-child(4)" "css_element" should exist
+    Then "two" "link" should exist in the "tr.forumng-discussion-short:nth-child(4)" "css_element"
+    Then "twoa" "link" should exist in the "tr.forumng-discussion-short:nth-child(4)" "css_element"
+    Then "twob" "link" should exist in the "tr.forumng-discussion-short:nth-child(4)" "css_element"
 
-    Given "tr#discrow_1" "css_element" should exist
-    Then "one" "link" should exist in the "tr#discrow_1" "css_element"
-    Then "onea" "link" should exist in the "tr#discrow_1" "css_element"
-    Then "oneb" "link" should exist in the "tr#discrow_1" "css_element"
+    Given "tr.forumng-discussion-short:nth-child(5)" "css_element" should exist
+    Then "one" "link" should exist in the "tr.forumng-discussion-short:nth-child(5)" "css_element"
+    Then "onea" "link" should exist in the "tr.forumng-discussion-short:nth-child(5)" "css_element"
+    Then "oneb" "link" should exist in the "tr.forumng-discussion-short:nth-child(5)" "css_element"
 
     # Check that the correct discussion is displayed if we click on a tag link
     When I click on "oneb" "link"
-    Then "tr#discrow_1" "css_element" should exist
-    Then "one" "link" should exist in the "tr#discrow_1" "css_element"
-    Then "onea" "link" should exist in the "tr#discrow_1" "css_element"
-    Then "oneb" "link" should exist in the "tr#discrow_1" "css_element"
-    And "tr#discrow_3" "css_element" should not exist
-    And "tr#discrow_2" "css_element" should not exist
+    Then "tr.forumng-discussion-short:nth-child(2)" "css_element" should exist
+    Then "one" "link" should exist in the "tr.forumng-discussion-short:nth-child(2)" "css_element"
+    Then "onea" "link" should exist in the "tr.forumng-discussion-short:nth-child(2)" "css_element"
+    Then "oneb" "link" should exist in the "tr.forumng-discussion-short:nth-child(2)" "css_element"
+    And "tr.forumng-discussion-short:nth-child(3)" "css_element" should not exist
     And "Show all" "link" should exist in the "div.forumng_discuss_tagfilter" "css_element"
 
     # Check that we return to view page when the 'Show all' link is clicked on
     When I click on "Show all" "link"
-    Then "tr#discrow_3" "css_element" should exist
-    And "Discussion 3" "link" should exist in the "tr#discrow_3" "css_element"
-    Then "tr#discrow_2" "css_element" should exist
-    Then "tr#discrow_1" "css_element" should exist
+    Then "tr.forumng-discussion-short:nth-child(3)" "css_element" should exist
+    And "Discussion 3" "link" should exist in the "tr.forumng-discussion-short:nth-child(3)" "css_element"
+    Then "tr.forumng-discussion-short:nth-child(4)" "css_element" should exist
+    Then "tr.forumng-discussion-short:nth-child(5)" "css_element" should exist
 
     # Check that we can display a discussion
     When I click on "Discussion 3" "link"
@@ -125,14 +125,14 @@ Feature: Add forumng activity and test basic tagging functionality
     # Check that selecting tag option "two (2)2 brings up 2 discussions
     Given I set the field "tag" to "two (2)"
     When I press "Go"
-    Then "tr#discrow_3" "css_element" should exist
-    Then "tr#discrow_2" "css_element" should exist
-    Then "tr#discrow_1" "css_element" should not exist
+    Then "tr.forumng-discussion-short:nth-child(2)" "css_element" should exist
+    Then "tr.forumng-discussion-short:nth-child(3)" "css_element" should exist
+    Then "tr.forumng-discussion-short:nth-child(4)" "css_element" should not exist
 
     # Check that there are links in each discussion are correct
-    Then "two" "link" should exist in the "tr#discrow_2" "css_element"
-    Then "two" "link" should exist in the "tr#discrow_3" "css_element"
-    Then "threea" "link" should not exist in the "tr#discrow_3" "css_element"
+    Then "two" "link" should exist in the "tr.forumng-discussion-short:nth-child(2)" "css_element"
+    Then "two" "link" should exist in the "tr.forumng-discussion-short:nth-child(3)" "css_element"
+    Then "threea" "link" should not exist in the "tr.forumng-discussion-short:nth-child(3)" "css_element"
     And "Show all" "link" should exist in the "div.forumng_discuss_tagfilter" "css_element"
 
     # Check that we return to view page when the 'Show all' link is clicked on
@@ -213,6 +213,7 @@ Feature: Add forumng activity and test basic tagging functionality
 
     # Log in as a student 1 to test adding discussion tags
     Given I log in as "student1"
+    And I am on site homepage
     And I follow "Course 1"
     And I follow "Test forum name"
     Then I should see "Test forum description"
@@ -234,6 +235,7 @@ Feature: Add forumng activity and test basic tagging functionality
 
     # Log in as a student 2 to test adding discussion tags
     Given I log in as "student2"
+    And I am on site homepage
     # Check that we set/edit tags to new values
     And I follow "Course 1"
     And I follow "Test forum name"
@@ -247,6 +249,7 @@ Feature: Add forumng activity and test basic tagging functionality
  @javascript
   Scenario: Test system changes
     Given I log in as "admin"
+    And I am on site homepage
     And I follow "Course 1"
     And I turn editing mode on
     And I add a "ForumNG" to section "1" and I fill the form with:
@@ -284,6 +287,7 @@ Feature: Add forumng activity and test basic tagging functionality
 
     # Test teacher can only see groups from manage 'set' tags screen
     Given I log in as "teacher1"
+    And I am on site homepage
     And I follow "Course 1"
     And I follow "Test forum name"
     Then I should see "Test forum description"
@@ -294,6 +298,7 @@ Feature: Add forumng activity and test basic tagging functionality
     And I log out
 
     Given I log in as "admin"
+    And I am on site homepage
     And I follow "Course 1"
     Given I expand "Users" node
     And I click on "Permissions" "link"
@@ -311,6 +316,7 @@ Feature: Add forumng activity and test basic tagging functionality
     And I log out
 
     Given I log in as "admin"
+    And I am on site homepage
     And I follow "Course 1"
     And I follow "Test forum name"
     And I click on "Permissions" "link"
@@ -321,6 +327,7 @@ Feature: Add forumng activity and test basic tagging functionality
 
     # Test teacher can only see groups from manage 'set' tags screen
     Given I log in as "teacher1"
+    And I am on site homepage
     And I follow "Course 1"
     And I follow "Test forum name"
     Then I should see "Test forum description"
@@ -331,6 +338,7 @@ Feature: Add forumng activity and test basic tagging functionality
     And I log out
 
     Given I log in as "admin"
+    And I am on site homepage
     And I follow "Course 1"
     And I follow "Test forum name"
     And I click on "Permissions" "link"
@@ -341,6 +349,7 @@ Feature: Add forumng activity and test basic tagging functionality
 
     # Test teacher can only see groups from manage 'set' tags screen
     Given I log in as "teacher1"
+    And I am on site homepage
     And I follow "Course 1"
     And I follow "Test forum name"
     Then I should see "Test forum description"
@@ -355,6 +364,7 @@ Feature: Add forumng activity and test basic tagging functionality
  @javascript
   Scenario: Add group tagging to forums
     And I log in as "admin"
+    And I am on site homepage
     # Create 2 Discussions
     And I follow "Course 1"
     And I turn editing mode on

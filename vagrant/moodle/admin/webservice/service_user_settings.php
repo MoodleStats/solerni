@@ -34,13 +34,13 @@ admin_externalpage_setup('externalserviceusersettings');
 
 //define nav bar
 $PAGE->set_url('/' . $CFG->admin . '/webservice/service_user_settings.php',
-		array('id' => $serviceid, 'userid'  => $userid));
+        array('id' => $serviceid, 'userid'  => $userid));
 $node = $PAGE->settingsnav->find('externalservices', navigation_node::TYPE_SETTING);
 if ($node) {
-	$node->make_active();
+    $node->make_active();
 }
 $PAGE->navbar->add(get_string('serviceusers', 'webservice'),
-		new moodle_url('/' . $CFG->admin . '/webservice/service_users.php', array('id' => $serviceid)));
+        new moodle_url('/' . $CFG->admin . '/webservice/service_users.php', array('id' => $serviceid)));
 $PAGE->navbar->add(get_string('serviceusersettings', 'webservice'));
 
 $formaction = new moodle_url('', array('id' => $serviceid, 'userid' => $userid));
@@ -52,29 +52,29 @@ $usersettingsform = new external_service_authorised_user_settings_form($formacti
 $settingsformdata = $usersettingsform->get_data();
 
 if ($usersettingsform->is_cancelled()) {
-	redirect($returnurl);
+    redirect($returnurl);
 
 } else if (!empty($settingsformdata) and confirm_sesskey()) {
-	/// save user settings (administrator clicked on update button)
-	$settingsformdata = (object)$settingsformdata;
+    /// save user settings (administrator clicked on update button)
+    $settingsformdata = (object)$settingsformdata;
 
-	$serviceuserinfo = new stdClass();
-	$serviceuserinfo->id = $serviceuser->serviceuserid;
-	$serviceuserinfo->iprestriction = $settingsformdata->iprestriction;
-	$serviceuserinfo->validuntil = $settingsformdata->validuntil;
+    $serviceuserinfo = new stdClass();
+    $serviceuserinfo->id = $serviceuser->serviceuserid;
+    $serviceuserinfo->iprestriction = $settingsformdata->iprestriction;
+    $serviceuserinfo->validuntil = $settingsformdata->validuntil;
 
-	$webservicemanager->update_ws_authorised_user($serviceuserinfo);
+    $webservicemanager->update_ws_authorised_user($serviceuserinfo);
 
-	//TODO: assign capability
+    //TODO: assign capability
 
-	//display successful notification
-	$notification = $OUTPUT->notification(get_string('usersettingssaved', 'webservice'), 'notifysuccess');
+    //display successful notification
+    $notification = $OUTPUT->notification(get_string('usersettingssaved', 'webservice'), 'notifysuccess');
 }
 
 echo $OUTPUT->header();
 echo $OUTPUT->heading(get_string('serviceusersettings', 'webservice'), 3, 'main');
 if (!empty($notification)) {
-	echo $notification;
+    echo $notification;
 }
 $usersettingsform->display();
 

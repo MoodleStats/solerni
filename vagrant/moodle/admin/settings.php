@@ -20,13 +20,13 @@ $adminroot = admin_get_root(); // need all settings
 $settingspage = $adminroot->locate($section, true);
 
 if (empty($settingspage) or !($settingspage instanceof admin_settingpage)) {
-	print_error('sectionerror', 'admin', "$CFG->wwwroot/$CFG->admin/");
-	die;
+    print_error('sectionerror', 'admin', "$CFG->wwwroot/$CFG->admin/");
+    die;
 }
 
 if (!($settingspage->check_access())) {
-	print_error('accessdenied', 'admin');
-	die;
+    print_error('accessdenied', 'admin');
+    die;
 }
 
 /// WRITING SUBMITTED DATA (IF ANY) -------------------------------------------------------------------------------
@@ -35,107 +35,111 @@ $statusmsg = '';
 $errormsg  = '';
 
 if ($data = data_submitted() and confirm_sesskey()) {
-	if (admin_write_settings($data)) {
-		$statusmsg = get_string('changessaved');
-	}
+    if (admin_write_settings($data)) {
+        $statusmsg = get_string('changessaved');
+    }
 
-	if (empty($adminroot->errors)) {
-		switch ($return) {
-			case 'site': redirect("$CFG->wwwroot/");
-			case 'admin': redirect("$CFG->wwwroot/$CFG->admin/");
-		}
-	} else {
-		$errormsg = get_string('errorwithsettings', 'admin');
-		$firsterror = reset($adminroot->errors);
-	}
-	$settingspage = $adminroot->locate($section, true);
+    if (empty($adminroot->errors)) {
+        switch ($return) {
+            case 'site': redirect("$CFG->wwwroot/");
+            case 'admin': redirect("$CFG->wwwroot/$CFG->admin/");
+        }
+    } else {
+        $errormsg = get_string('errorwithsettings', 'admin');
+        $firsterror = reset($adminroot->errors);
+    }
+    $settingspage = $adminroot->locate($section, true);
 }
 
 if ($PAGE->user_allowed_editing() && $adminediting != -1) {
-	$USER->editing = $adminediting;
+    $USER->editing = $adminediting;
 }
 
 /// print header stuff ------------------------------------------------------------
 if (empty($SITE->fullname)) {
-	$PAGE->set_title($settingspage->visiblename);
-	$PAGE->set_heading($settingspage->visiblename);
+    $PAGE->set_title($settingspage->visiblename);
+    $PAGE->set_heading($settingspage->visiblename);
 
-	echo $OUTPUT->header();
-	echo $OUTPUT->box(get_string('configintrosite', 'admin'));
+    echo $OUTPUT->header();
+    echo $OUTPUT->box(get_string('configintrosite', 'admin'));
 
-	if ($errormsg !== '') {
-		echo $OUTPUT->notification($errormsg);
+    if ($errormsg !== '') {
+        echo $OUTPUT->notification($errormsg);
 
-	} else if ($statusmsg !== '') {
-		echo $OUTPUT->notification($statusmsg, 'notifysuccess');
-	}
+    } else if ($statusmsg !== '') {
+        echo $OUTPUT->notification($statusmsg, 'notifysuccess');
+    }
 
-	// ---------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------------------------
 
-	echo '<form action="settings.php" method="post" id="adminsettings">';
-	echo '<div class="settingsform clearfix">';
-	echo html_writer::input_hidden_params($PAGE->url);
-	echo '<input type="hidden" name="sesskey" value="'.sesskey().'" />';
-	echo '<input type="hidden" name="return" value="'.$return.'" />';
+    echo '<form action="settings.php" method="post" id="adminsettings">';
+    echo '<div class="settingsform clearfix">';
+    echo html_writer::input_hidden_params($PAGE->url);
+    echo '<input type="hidden" name="sesskey" value="'.sesskey().'" />';
+    echo '<input type="hidden" name="return" value="'.$return.'" />';
+    // HACK to prevent browsers from automatically inserting the user's password into the wrong fields.
+    echo prevent_form_autofill_password();
 
-	echo $settingspage->output_html();
+    echo $settingspage->output_html();
 
-	echo '<div class="form-buttons"><input class="form-submit" type="submit" value="'.get_string('savechanges','admin').'" /></div>';
+    echo '<div class="form-buttons"><input class="form-submit" type="submit" value="'.get_string('savechanges','admin').'" /></div>';
 
-	echo '</div>';
-	echo '</form>';
+    echo '</div>';
+    echo '</form>';
 
 } else {
-	if ($PAGE->user_allowed_editing()) {
-		$url = clone($PAGE->url);
-		if ($PAGE->user_is_editing()) {
-			$caption = get_string('blockseditoff');
-			$url->param('adminedit', 'off');
-		} else {
-			$caption = get_string('blocksediton');
-			$url->param('adminedit', 'on');
-		}
-		$buttons = $OUTPUT->single_button($url, $caption, 'get');
-		$PAGE->set_button($buttons);
-	}
+    if ($PAGE->user_allowed_editing()) {
+        $url = clone($PAGE->url);
+        if ($PAGE->user_is_editing()) {
+            $caption = get_string('blockseditoff');
+            $url->param('adminedit', 'off');
+        } else {
+            $caption = get_string('blocksediton');
+            $url->param('adminedit', 'on');
+        }
+        $buttons = $OUTPUT->single_button($url, $caption, 'get');
+        $PAGE->set_button($buttons);
+    }
 
-	$visiblepathtosection = array_reverse($settingspage->visiblepath);
+    $visiblepathtosection = array_reverse($settingspage->visiblepath);
 
-	$PAGE->set_title("$SITE->shortname: " . implode(": ",$visiblepathtosection));
-	$PAGE->set_heading($SITE->fullname);
-	echo $OUTPUT->header();
+    $PAGE->set_title("$SITE->shortname: " . implode(": ",$visiblepathtosection));
+    $PAGE->set_heading($SITE->fullname);
+    echo $OUTPUT->header();
 
-	if ($errormsg !== '') {
-		echo $OUTPUT->notification($errormsg);
+    if ($errormsg !== '') {
+        echo $OUTPUT->notification($errormsg);
 
-	} else if ($statusmsg !== '') {
-		echo $OUTPUT->notification($statusmsg, 'notifysuccess');
-	}
+    } else if ($statusmsg !== '') {
+        echo $OUTPUT->notification($statusmsg, 'notifysuccess');
+    }
 
-	// ---------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------------------------
 
-	echo '<form action="settings.php" method="post" id="adminsettings">';
-	echo '<div class="settingsform clearfix">';
-	echo html_writer::input_hidden_params($PAGE->url);
-	echo '<input type="hidden" name="sesskey" value="'.sesskey().'" />';
-	echo '<input type="hidden" name="return" value="'.$return.'" />';
-	echo $OUTPUT->heading($settingspage->visiblename);
+    echo '<form action="settings.php" method="post" id="adminsettings">';
+    echo '<div class="settingsform clearfix">';
+    echo html_writer::input_hidden_params($PAGE->url);
+    echo '<input type="hidden" name="sesskey" value="'.sesskey().'" />';
+    echo '<input type="hidden" name="return" value="'.$return.'" />';
+    // HACK to prevent browsers from automatically inserting the user's password into the wrong fields.
+    echo prevent_form_autofill_password();
+    echo $OUTPUT->heading($settingspage->visiblename);
 
-	echo $settingspage->output_html();
+    echo $settingspage->output_html();
 
-	if ($settingspage->show_save()) {
-		echo '<div class="form-buttons"><input class="form-submit" type="submit" value="'.get_string('savechanges','admin').'" /></div>';
-	}
+    if ($settingspage->show_save()) {
+        echo '<div class="form-buttons"><input class="form-submit" type="submit" value="'.get_string('savechanges','admin').'" /></div>';
+    }
 
-	echo '</div>';
-	echo '</form>';
+    echo '</div>';
+    echo '</form>';
 }
 
 $PAGE->requires->yui_module('moodle-core-formchangechecker',
-		'M.core_formchangechecker.init',
-		array(array(
-				'formid' => 'adminsettings'
-		))
+        'M.core_formchangechecker.init',
+        array(array(
+            'formid' => 'adminsettings'
+        ))
 );
 $PAGE->requires->string_for_js('changesmadereallygoaway', 'moodle');
 

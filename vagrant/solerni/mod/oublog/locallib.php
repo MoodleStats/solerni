@@ -186,6 +186,25 @@ function oublog_check_view_permissions($oublog, $context, $cm=null) {
 }
 
 /**
+ * Checks if user can post to the blog depending on time limits
+ * @param object $oublog
+ * @param context $context
+ * @return bool True if can post
+ */
+function oublog_can_post_now($oublog, $context) {
+    if (($oublog->postfrom == 0 || $oublog->postfrom <= time()) &&
+            ($oublog->postuntil == 0 || $oublog->postuntil > time())) {
+        // Within time limits.
+        return true;
+    }
+    if ($oublog->global && $context->contextlevel != CONTEXT_SYSTEM) {
+        // Global blog override and check at system context.
+        $context = context_system::instance();
+    }
+    return has_capability('mod/oublog:ignorepostperiod', $context);
+}
+
+/**
  * Determines whether the user can make a post to the given blog.
  * @param $oublog Blog object
  * @param $bloguserid Userid of person who owns blog (only needed for
@@ -217,10 +236,12 @@ function oublog_can_post($oublog, $bloguserid=0, $cm=null) {
  * @param $cm Course-module (null if personal blog)
  * @param $oublog Blog object
  * @param $post Post object
+ * @param bool $ignoretime True to ignore any comment time limits
  * @return bool True if user is allowed to make comments
  */
-function oublog_can_comment($cm, $oublog, $post) {
+function oublog_can_comment($cm, $oublog, $post, $ignoretime = false) {
     global $USER;
+
     if ($oublog->global) {
         // Just need the 'contributepersonal' permission at system level, OR
         // if you are not logged in but the blog allows public comments.
@@ -242,10 +263,10 @@ function oublog_can_comment($cm, $oublog, $post) {
                 $oublog->allowcomments == (OUBLOG_COMMENTS_ALLOWPUBLIC && !isloggedin()) ||
 
                 // 2. Post is visible to all logged-in users+, and you have the
-                // contributepersonal capabilty normally used for personal blogs.
+                // comment capabilty in context.
                 ($post->visibility >= OUBLOG_VISIBILITY_LOGGEDINUSER
                     && $oublog->maxvisibility >= OUBLOG_VISIBILITY_LOGGEDINUSER
-                    && has_capability('mod/oublog:contributepersonal',
+                    && has_capability('mod/oublog:comment',
                         $modcontext)) ||
 
                 // 3. You have comment permission in the specific context
@@ -263,11 +284,22 @@ function oublog_can_comment($cm, $oublog, $post) {
         // make this make sense, or some other changes.
     }
 
+    // Test comment time period.
+    $timeok = (($oublog->commentfrom == 0 || $oublog->commentfrom <= time()) &&
+            ($oublog->commentuntil == 0 || $oublog->commentuntil > time()));
+    if ($ignoretime) {
+        $timeok = true;
+    }
+    if (!$timeok && has_capability('mod/oublog:ignorecommentperiod',
+            $oublog->global ? context_system::instance() : context_module::instance($cm->id))) {
+                $timeok = true;
+    }
+
     // If the blog allows comments, this post must allow comments and either
     // it allows public comments or you're logged in (and not guest)
     return $blogok && $post->allowcomments &&
             ($post->allowcomments >= OUBLOG_COMMENTS_ALLOWPUBLIC ||
-                (isloggedin() && !isguestuser()));
+                (isloggedin() && !isguestuser())) && $timeok;
 }
 
 /**
@@ -589,7 +621,7 @@ function oublog_get_posts($oublog, $context, $offset = 0, $cm, $groupid, $indivi
 
     // Get posts. The post has the field timeposted not timecreated,
     // which is tested in rating::user_can_rate().
-    $fieldlist = "p.*, p.timeposted, p.timeposted AS timecreated,  bi.oublogid, $usernamefields,
+    $fieldlist = "p.*, p.timeposted AS timecreated,  bi.oublogid, $usernamefields,
                   bi.userid, u.idnumber, u.picture, u.imagealt, u.email, u.username,
                 $delusernamefields,
                 $editusernamefields";
@@ -831,7 +863,7 @@ function oublog_clarify_tags($tags) {
     }
 
     foreach ($tags as $idx => $tag) {
-        $tag = textlib::strtolower(trim($tag));
+        $tag = core_text::strtolower(trim($tag));
         if (empty($tag)) {
             unset($tags[$idx]);
             continue;
@@ -1057,7 +1089,7 @@ function oublog_get_tag_list($oublog, $groupid, $cm, $oubloginstanceid = null, $
             $tag->label = get_string('official', 'oublog');
             // Flat array of existing in use 'Set' tags.
             $existingtagnames[] = $tags[$idx]->tag;
-        } else if ($oublog->restricttags) {
+        } else if ($oublog->restricttags == 1 || $oublog->restricttags == 3) {
             // If we are restricting, remove this non-offical tag.
             unset($tags[$idx]);
         }
@@ -2278,6 +2310,9 @@ function oublog_individual_add_to_sqlwhere(&$sqlwhere, &$params, $userfield, $ou
  * Get last-modified time for blog, as it appears to this user. This takes into
  * account the user's groups/individual settings if required. Only works on
  * course blogs. (Does not check that user can view the blog.)
+ *
+ * This data is all in a static: so can be called in multiple places without issue
+ *
  * @param object $cm Course-modules entry for wiki
  * @param object $Course Course object
  * @param int $userid User ID or 0 = current
@@ -2289,10 +2324,29 @@ function oublog_get_last_modified($cm, $course, $userid=0) {
         $userid = $USER->id;
     }
 
-    // Get blog record and groupmode
-    if (!($oublog = $DB->get_record('oublog', array('id'=>$cm->instance)))) {
+    static $results;
+    if (!isset($results)) {
+        $results = array();
+    }
+    if (!array_key_exists($userid, $results)) {
+        $results[$userid] = array();
+    } else if (array_key_exists($cm->id, $results[$userid])) {
+        return $results[$userid][$cm->id];
+    }
+
+    static $oublogs; // Cache all blogs in this course, saves extra DB calls.
+    if (!isset($oublogs)) {
+        $oublogs = array();
+    }
+    if (empty($oublogs[$course->id])) {
+        $oublogs[$course->id] = $DB->get_records('oublog', array('course' => $course->id));
+    }
+
+    // Get blog record and groupmode.
+    if (!isset($oublogs[$course->id][$cm->instance])) {
         return false;
     }
+    $oublog = $oublogs[$course->id][$cm->instance];
     $groupmode = oublog_get_activity_groupmode($cm, $course);
 
     // Default applies no restriction
@@ -2355,6 +2409,9 @@ WHERE
     bi.oublogid = ?
     AND p.timedeleted IS NULL
     $restrictwhere", array_merge(array($oublog->id), $rwparam));
+
+    $results[$userid][$cm->id] = $result;
+
     return $result;
 }
 

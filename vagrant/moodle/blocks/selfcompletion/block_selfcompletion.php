@@ -34,79 +34,79 @@ require_once($CFG->libdir.'/completionlib.php');
  */
 class block_selfcompletion extends block_base {
 
-	public function init() {
-		$this->title = get_string('pluginname', 'block_selfcompletion');
-	}
+    public function init() {
+        $this->title = get_string('pluginname', 'block_selfcompletion');
+    }
 
-	function applicable_formats() {
-		return array('all' => true, 'mod' => false, 'tag' => false, 'my' => false);
-	}
+    function applicable_formats() {
+        return array('all' => true, 'mod' => false, 'tag' => false, 'my' => false);
+    }
 
-	public function get_content() {
-		global $CFG, $USER;
+    public function get_content() {
+        global $CFG, $USER;
 
-		// If content is cached
-		if ($this->content !== NULL) {
-			return $this->content;
-		}
+        // If content is cached
+        if ($this->content !== NULL) {
+          return $this->content;
+        }
 
-		// Create empty content
-		$this->content = new stdClass;
+        // Create empty content
+        $this->content = new stdClass;
 
-		// Can edit settings?
-		$can_edit = has_capability('moodle/course:update', context_course::instance($this->page->course->id));
+        // Can edit settings?
+        $can_edit = has_capability('moodle/course:update', context_course::instance($this->page->course->id));
 
-		// Get course completion data
-		$info = new completion_info($this->page->course);
+        // Get course completion data
+        $info = new completion_info($this->page->course);
 
-		// Don't display if completion isn't enabled!
-		if (!completion_info::is_enabled_for_site()) {
-			if ($can_edit) {
-				$this->content->text = get_string('completionnotenabledforsite', 'completion');
-			}
-			return $this->content;
+        // Don't display if completion isn't enabled!
+        if (!completion_info::is_enabled_for_site()) {
+            if ($can_edit) {
+                $this->content->text = get_string('completionnotenabledforsite', 'completion');
+            }
+            return $this->content;
 
-		} else if (!$info->is_enabled()) {
-			if ($can_edit) {
-				$this->content->text = get_string('completionnotenabledforcourse', 'completion');
-			}
-			return $this->content;
-		}
+        } else if (!$info->is_enabled()) {
+            if ($can_edit) {
+                $this->content->text = get_string('completionnotenabledforcourse', 'completion');
+            }
+            return $this->content;
+        }
 
-		// Get this user's data
-		$completion = $info->get_completion($USER->id, COMPLETION_CRITERIA_TYPE_SELF);
+        // Get this user's data
+        $completion = $info->get_completion($USER->id, COMPLETION_CRITERIA_TYPE_SELF);
 
-		// Check if self completion is one of this course's criteria
-		if (empty($completion)) {
-			if ($can_edit) {
-				$this->content->text = get_string('selfcompletionnotenabled', 'block_selfcompletion');
-			}
-			return $this->content;
-		}
+        // Check if self completion is one of this course's criteria
+        if (empty($completion)) {
+            if ($can_edit) {
+                $this->content->text = get_string('selfcompletionnotenabled', 'block_selfcompletion');
+            }
+            return $this->content;
+        }
 
-		// Check this user is enroled
-		if (!$info->is_tracked_user($USER->id)) {
-			$this->content->text = get_string('nottracked', 'completion');
-			return $this->content;
-		}
+        // Check this user is enroled
+        if (!$info->is_tracked_user($USER->id)) {
+            $this->content->text = get_string('nottracked', 'completion');
+            return $this->content;
+        }
 
-		// Is course complete?
-		if ($info->is_course_complete($USER->id)) {
-			$this->content->text = get_string('coursealreadycompleted', 'completion');
-			return $this->content;
+        // Is course complete?
+        if ($info->is_course_complete($USER->id)) {
+            $this->content->text = get_string('coursealreadycompleted', 'completion');
+            return $this->content;
 
-			// Check if the user has already marked themselves as complete
-		} else if ($completion->is_complete()) {
-			$this->content->text = get_string('alreadyselfcompleted', 'block_selfcompletion');
-			return $this->content;
+        // Check if the user has already marked themselves as complete
+        } else if ($completion->is_complete()) {
+            $this->content->text = get_string('alreadyselfcompleted', 'block_selfcompletion');
+            return $this->content;
 
-			// If user is not complete, or has not yet self completed
-		} else {
-			$this->content->text = '';
-			$this->content->footer = '<br /><a href="'.$CFG->wwwroot.'/course/togglecompletion.php?course='.$this->page->course->id.'">';
-			$this->content->footer .= get_string('completecourse', 'block_selfcompletion').'</a>...';
-		}
+        // If user is not complete, or has not yet self completed
+        } else {
+            $this->content->text = '';
+            $this->content->footer = '<br /><a href="'.$CFG->wwwroot.'/course/togglecompletion.php?course='.$this->page->course->id.'">';
+            $this->content->footer .= get_string('completecourse', 'block_selfcompletion').'</a>...';
+        }
 
-		return $this->content;
-	}
+        return $this->content;
+    }
 }

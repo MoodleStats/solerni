@@ -37,6 +37,7 @@ $string['event:postundeleted'] = 'Undelete post';
 $string['event:postupdated'] = 'Edit post';
 $string['event:postreported'] = 'Report post';
 $string['event:postsplit'] = 'Split post';
+$string['event:savefailed'] = 'Session fail on post save';
 $string['event:subscriptioncreated'] = 'Subscription created';
 $string['event:subscriptiondeleted'] = 'Subscription removed';
 
@@ -64,13 +65,15 @@ $string['postmailinfo'] = 'This is a copy of a message posted on the {$a} websit
 
 To add your reply via the website, click on this link:';
 
+$string['forumsubscription'] = 'Forum subscription';
+
 $string['discussionoptions'] = 'Discussion options';
 $string['forum'] = 'Forum';
 $string['subscribed'] = 'Subscribed';
-$string['subscribegroup'] = 'Subscribe to this group';
+$string['subscribegroup'] = 'Subscribe to this group\'s forum';
 $string['subscribeshort'] = 'Subscribe';
 $string['subscribelong'] = 'Subscribe to whole forum';
-$string['unsubscribegroup'] = 'Unsubscribe from this group';
+$string['unsubscribegroup'] = 'Unsubscribe from this group\'s forum';
 $string['unsubscribegroup_partial'] = 'Unsubscribe from discussions in this group';
 $string['unsubscribeshort'] = 'Unsubscribe';
 $string['unsubscribelong'] = 'Unsubscribe from the forum';
@@ -279,6 +282,8 @@ $string['subscribestate_discussionsubscribed'] = 'You receive messages from this
 email to {$a}.';
 $string['subscribestate_discussionunsubscribed'] = 'You do not currently receive messages from this
 discussion by email. If you would like to, click &lsquo;Subscribe to discussion&rsquo;.';
+$string['subscribestate_info'] = 'Your email preferences{$a}:';
+$string['subscribestate_info_link'] = 'change';
 $string['replytopost'] = 'Reply to post: {$a}';
 $string['editpost'] = 'Edit post: {$a}';
 $string['editdiscussionoptions'] = 'Edit discussion options: {$a}';
@@ -299,6 +304,7 @@ $string['text_desc'] = 'Z-A';
 $string['sortby'] = 'Sort by {$a}';
 $string['rate'] = 'Rate';
 $string['expand'] = 'Expand<span class=\'accesshide\'> post {$a}</span>';
+$string['expand_text'] = 'Expand post';
 $string['postnum'] = 'Post {$a->num}';
 $string['postnumreply'] = 'Post {$a->num}{$a->info} in reply to {$a->parent}';
 $string['postinfo_short'] = 'summarised';
@@ -450,6 +456,7 @@ $string['flaggedpostslink'] = '{$a} flagged posts';
 $string['post'] = 'Post';
 $string['author'] = 'Author';
 $string['clearflag'] = 'Remove flag';
+$string['flagpost'] = 'Flag post';
 $string['setflag'] = 'Flag this post for future reference';
 $string['flagon'] = 'You have flagged this post';
 $string['flagoff'] = 'Not flagged';
