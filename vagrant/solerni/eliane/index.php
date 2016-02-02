@@ -7,6 +7,30 @@ require_once($CFG->dirroot . '/my/lib.php');
 require_once("../local/orange_library/classes/forumng/forumng_object.php");
 //require_once("../lib/accesslib.php");
 
+$PAGE->set_url($CFG->wwwroot . "/eliane/index.php");
+
+$PAGE->set_context(context_system::instance());
+//$PAGE->set_context(get_system_context());
+echo "***************************************";
+
+$PAGE->set_pagelayout('course');
+$PAGE->set_title("About page");
+$PAGE->set_heading("About");
+
+//$PAGE->set_url($CFG->wwwroot . '/about.php');
+
+
+echo $OUTPUT->header();
+
+$PAGE->navbar->add("coucou");
+$PAGE->navbar->add("est");
+$PAGE->navbar->add("ce");
+$PAGE->navbar->add("que");
+$PAGE->navbar->add("ça");
+$PAGE->navbar->add("fonctionne ?");
+
+
+
 
 $forumng_o = new forumng_object();
 
@@ -35,5 +59,8 @@ foreach ($reponse->posts as $post) {
 	
 }
 
+echo "<br>-->" . $OUTPUT->navbar() ."<--<bR>";
 
 echo " <hr>FIN DU SCRIPT";
+
+echo $OUTPUT->footer();
