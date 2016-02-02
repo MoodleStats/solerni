@@ -22,4 +22,4 @@ moosh role-import apiuser solerni-config/instances/solerni-home/users_roles/sole
 moosh user-create --password apiuser01! --email solerniapiuser@orange.fr --firstname 'API' --lastname 'User' --city 'Paris' --country 'FR' 'api_user'
 
 # Settings PF Name
-moosh config-set fullname "${CUSTOMER_THEMATIC}"
+moosh course-config-set course 1 fullname "${CUSTOMER_THEMATIC}"
