@@ -53,8 +53,8 @@ class mail_override {
         $data->admin     = generate_email_signoff();
         $data->resetminutes = $pwresetmins;
 
-        $message = get_string('emailresetconfirmation', '', $data);
-        $messagehtml = get_string('emailresetconfirmationhtml', '', $data);
+        $messagehtml = get_string('emailresetconfirmation', '', $data);
+        $message = html_to_text($messagehtml);
         $subject = get_string('emailresetconfirmationsubject', '', format_string($site->fullname));
 
         // Directly email rather than using the messaging system to ensure its not routed to a popup or jabber.

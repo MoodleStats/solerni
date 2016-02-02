@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_tag_youtube', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'block_tag_youtube', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   block_tag_youtube
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -26,6 +26,9 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['anycategory'] = 'Toute catégorie';
+$string['apierror'] = 'Votre clef API YouTube n\'est pas définie. Veuillez contacter l\'administrateur de la plateforme.';
+$string['apikey'] = 'Clef API';
+$string['apikeyinfo'] = 'Obtenir une <a href="https://developers.google.com/youtube/v3/getting-started">clef API Google</a> pour votre plateforme Moodle.';
 $string['autosvehicles'] = 'Autos &amp; véhicules';
 $string['category'] = 'Catégorie';
 $string['comedy'] = 'Comédie';
@@ -41,7 +44,8 @@ $string['newspolitics'] = 'Nouvelles & politique';
 $string['numberofvideos'] = 'Nombre de vidéos';
 $string['peopleblogs'] = 'Personnes &amp; blogs';
 $string['petsanimals'] = 'Animaux domestiques &amp; autres animaux';
-$string['pluginname'] = 'Youtube';
+$string['pluginname'] = 'YouTube';
+$string['requesterror'] = 'Impossible d\'obtenir les données à partir du serveur. Veuillez contacter l\'administrateur de la plateforme si le problème persiste.';
 $string['scienceandtech'] = 'Science &amp; Technologie';
 $string['sports'] = 'Sports';
 $string['tag_youtube:addinstance'] = 'Ajouter un bloc YouTube';

@@ -25,8 +25,8 @@
  * @package    core
  * @subpackage cli
  * @copyright  2009 Petr Skoda (http://skodak.org)
-* @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
-*/
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
 define('CLI_SCRIPT', true);
 
@@ -36,26 +36,26 @@ require_once($CFG->libdir.'/cronlib.php');
 
 // now get cli options
 list($options, $unrecognized) = cli_get_params(array('help'=>false),
-		array('h'=>'help'));
+                                               array('h'=>'help'));
 
 if ($unrecognized) {
-	$unrecognized = implode("\n  ", $unrecognized);
-	cli_error(get_string('cliunknowoption', 'admin', $unrecognized));
+    $unrecognized = implode("\n  ", $unrecognized);
+    cli_error(get_string('cliunknowoption', 'admin', $unrecognized));
 }
 
 if ($options['help']) {
-	$help =
-	"Execute periodic cron actions.
+    $help =
+"Execute periodic cron actions.
 
-	Options:
-	-h, --help            Print out this help
+Options:
+-h, --help            Print out this help
 
-	Example:
-	\$sudo -u www-data /usr/bin/php admin/cli/cron.php
-	";
+Example:
+\$sudo -u www-data /usr/bin/php admin/cli/cron.php
+";
 
-	echo $help;
-	die;
+    echo $help;
+    die;
 }
 
 cron_run();

@@ -208,7 +208,6 @@ class core_course_courselib_testcase extends advanced_testcase {
         $moduleinfo->section = 1; // This is the section number in the course. Not the section id in the database.
         $moduleinfo->course = $course->id;
         $moduleinfo->groupingid = $grouping->id;
-        $moduleinfo->groupmembersonly = 0;
         $moduleinfo->visible = true;
 
         // Sometimes optional generic values for some modules.
@@ -234,7 +233,7 @@ class core_course_courselib_testcase extends advanced_testcase {
                 ']}';
         $coursegradeitem = grade_item::fetch_course_item($moduleinfo->course); //the activity will become available only when the user reach some grade into the course itself.
         $moduleinfo->conditiongradegroup = array(array('conditiongradeitemid' => $coursegradeitem->id, 'conditiongrademin' => 10, 'conditiongrademax' => 80));
-        $moduleinfo->conditionfieldgroup = array(array('conditionfield' => 'email', 'conditionfieldoperator' => OP_CONTAINS, 'conditionfieldvalue' => '@'));
+        $moduleinfo->conditionfieldgroup = array(array('conditionfield' => 'email', 'conditionfieldoperator' => \availability_profile\condition::OP_CONTAINS, 'conditionfieldvalue' => '@'));
         $moduleinfo->conditioncompletiongroup = array(array('conditionsourcecmid' => $assigncm->id, 'conditionrequiredcompletion' => COMPLETION_COMPLETE)); // "conditionsourcecmid == 0" => none
 
         // Grading and Advanced grading.
@@ -283,7 +282,6 @@ class core_course_courselib_testcase extends advanced_testcase {
         $this->assertEquals($moduleinfo->section, $section->section);
         $this->assertEquals($moduleinfo->course, $dbcm->course);
         $this->assertEquals($moduleinfo->groupingid, $dbcm->groupingid);
-        $this->assertEquals($moduleinfo->groupmembersonly, $dbcm->groupmembersonly);
         $this->assertEquals($moduleinfo->visible, $dbcm->visible);
         $this->assertEquals($moduleinfo->completion, $dbcm->completion);
         $this->assertEquals($moduleinfo->completionview, $dbcm->completionview);
@@ -445,7 +443,6 @@ class core_course_courselib_testcase extends advanced_testcase {
         $moduleinfo->modulename = $modulename;
         $moduleinfo->course = $course->id;
         $moduleinfo->groupingid = $grouping->id;
-        $moduleinfo->groupmembersonly = 0;
         $moduleinfo->visible = true;
 
         // Sometimes optional generic values for some modules.
@@ -467,13 +464,12 @@ class core_course_courselib_testcase extends advanced_testcase {
 
         // Conditional activity.
         $coursegradeitem = grade_item::fetch_course_item($moduleinfo->course); //the activity will become available only when the user reach some grade into the course itself.
-        $moduleinfo->availability = '{"op":"&","showc":[true,true,true,true,true],"c":[' .
-                '{"type":"date","d":">=","t":' . time() . '},' .
-                '{"type":"date","d":"<","t":' . (time() + (7 * 24 * 3600)) . '},' .
-                '{"type":"grade","id":' . $coursegradeitem->id . ',"min":10,"max":80},' .
-                '{"type":"profile","sf":"email","op":"contains","v":"@"},'.
-                '{"type":"completion","cm":'. $assigncm->id . ',"e":' . COMPLETION_COMPLETE . '}' .
-                ']}';
+        $moduleinfo->availability = json_encode(\core_availability\tree::get_root_json(
+                array(\availability_date\condition::get_json('>=', time()),
+                \availability_date\condition::get_json('<', time() + (7 * 24 * 3600)),
+                \availability_grade\condition::get_json($coursegradeitem->id, 10, 80),
+                \availability_profile\condition::get_json(false, 'email', 'contains', '@'),
+                \availability_completion\condition::get_json($assigncm->id, COMPLETION_COMPLETE)), '&'));
 
         // Grading and Advanced grading.
         require_once($CFG->dirroot . '/rating/lib.php');
@@ -516,7 +512,6 @@ class core_course_courselib_testcase extends advanced_testcase {
         $this->assertEquals($moduleinfo->modulename, $dbcm->modname);
         $this->assertEquals($moduleinfo->course, $dbcm->course);
         $this->assertEquals($moduleinfo->groupingid, $dbcm->groupingid);
-        $this->assertEquals($moduleinfo->groupmembersonly, $dbcm->groupmembersonly);
         $this->assertEquals($moduleinfo->visible, $dbcm->visible);
         $this->assertEquals($moduleinfo->completion, $dbcm->completion);
         $this->assertEquals($moduleinfo->completionview, $dbcm->completionview);
@@ -544,7 +539,23 @@ class core_course_courselib_testcase extends advanced_testcase {
         return $moduleinfo;
    }
 
+    /**
+     * Data provider for course_delete module
+     *
+     * @return array An array of arrays contain test data
+     */
+    public function provider_course_delete_module() {
+        $data = array();
 
+        $data['assign'] = array('assign', array('duedate' => time()));
+        $data['quiz'] = array('quiz', array('duedate' => time()));
+
+        return $data;
+    }
+
+    /**
+     * Test the create_course function
+     */
     public function test_create_course() {
         global $DB;
         $this->resetAfterTest(true);
@@ -862,6 +873,130 @@ class core_course_courselib_testcase extends advanced_testcase {
         // Verify that the course marker has been up to accomodate..
         $course = $DB->get_record('course', array('id' => $course->id));
         $this->assertEquals(3, $course->marker);
+    }
+
+    public function test_course_can_delete_section() {
+        global $DB;
+        $this->resetAfterTest(true);
+
+        $generator = $this->getDataGenerator();
+
+        $courseweeks = $generator->create_course(
+            array('numsections' => 5, 'format' => 'weeks'),
+            array('createsections' => true));
+        $assign1 = $generator->create_module('assign', array('course' => $courseweeks, 'section' => 1));
+        $assign2 = $generator->create_module('assign', array('course' => $courseweeks, 'section' => 2));
+
+        $coursetopics = $generator->create_course(
+            array('numsections' => 5, 'format' => 'topics'),
+            array('createsections' => true));
+
+        $coursesingleactivity = $generator->create_course(
+            array('format' => 'singleactivity'),
+            array('createsections' => true));
+
+        // Enrol student and teacher.
+        $roleids = $DB->get_records_menu('role', null, '', 'shortname, id');
+        $student = $generator->create_user();
+        $teacher = $generator->create_user();
+
+        $generator->enrol_user($student->id, $courseweeks->id, $roleids['student']);
+        $generator->enrol_user($teacher->id, $courseweeks->id, $roleids['editingteacher']);
+
+        $generator->enrol_user($student->id, $coursetopics->id, $roleids['student']);
+        $generator->enrol_user($teacher->id, $coursetopics->id, $roleids['editingteacher']);
+
+        $generator->enrol_user($student->id, $coursesingleactivity->id, $roleids['student']);
+        $generator->enrol_user($teacher->id, $coursesingleactivity->id, $roleids['editingteacher']);
+
+        // Teacher should be able to delete sections (except for 0) in topics and weeks format.
+        $this->setUser($teacher);
+
+        // For topics and weeks formats will return false for section 0 and true for any other section.
+        $this->assertFalse(course_can_delete_section($courseweeks, 0));
+        $this->assertTrue(course_can_delete_section($courseweeks, 1));
+
+        $this->assertFalse(course_can_delete_section($coursetopics, 0));
+        $this->assertTrue(course_can_delete_section($coursetopics, 1));
+
+        // For singleactivity course format no section can be deleted.
+        $this->assertFalse(course_can_delete_section($coursesingleactivity, 0));
+        $this->assertFalse(course_can_delete_section($coursesingleactivity, 1));
+
+        // Now let's revoke a capability from teacher to manage activity in section 1.
+        $modulecontext = context_module::instance($assign1->cmid);
+        assign_capability('moodle/course:manageactivities', CAP_PROHIBIT, $roleids['editingteacher'],
+            $modulecontext);
+        $modulecontext->mark_dirty();
+        $this->assertFalse(course_can_delete_section($courseweeks, 1));
+        $this->assertTrue(course_can_delete_section($courseweeks, 2));
+
+        // Student does not have permissions to delete sections.
+        $this->setUser($student);
+        $this->assertFalse(course_can_delete_section($courseweeks, 1));
+        $this->assertFalse(course_can_delete_section($coursetopics, 1));
+        $this->assertFalse(course_can_delete_section($coursesingleactivity, 1));
+    }
+
+    public function test_course_delete_section() {
+        global $DB;
+        $this->resetAfterTest(true);
+
+        $generator = $this->getDataGenerator();
+
+        $course = $generator->create_course(array('numsections' => 6, 'format' => 'topics'),
+            array('createsections' => true));
+        $assign0 = $generator->create_module('assign', array('course' => $course, 'section' => 0));
+        $assign1 = $generator->create_module('assign', array('course' => $course, 'section' => 1));
+        $assign21 = $generator->create_module('assign', array('course' => $course, 'section' => 2));
+        $assign22 = $generator->create_module('assign', array('course' => $course, 'section' => 2));
+        $assign3 = $generator->create_module('assign', array('course' => $course, 'section' => 3));
+        $assign5 = $generator->create_module('assign', array('course' => $course, 'section' => 5));
+        $assign6 = $generator->create_module('assign', array('course' => $course, 'section' => 6));
+
+        $this->setAdminUser();
+
+        // Attempt to delete non-existing section.
+        $this->assertFalse(course_delete_section($course, 10, false));
+        $this->assertFalse(course_delete_section($course, 9, true));
+
+        // Attempt to delete 0-section.
+        $this->assertFalse(course_delete_section($course, 0, true));
+        $this->assertTrue($DB->record_exists('course_modules', array('id' => $assign0->cmid)));
+
+        // Delete last section.
+        $this->assertTrue(course_delete_section($course, 6, true));
+        $this->assertFalse($DB->record_exists('course_modules', array('id' => $assign6->cmid)));
+        $this->assertEquals(5, course_get_format($course)->get_course()->numsections);
+
+        // Delete empty section.
+        $this->assertTrue(course_delete_section($course, 4, false));
+        $this->assertEquals(4, course_get_format($course)->get_course()->numsections);
+
+        // Delete section in the middle (2).
+        $this->assertFalse(course_delete_section($course, 2, false));
+        $this->assertTrue(course_delete_section($course, 2, true));
+        $this->assertFalse($DB->record_exists('course_modules', array('id' => $assign21->cmid)));
+        $this->assertFalse($DB->record_exists('course_modules', array('id' => $assign22->cmid)));
+        $this->assertEquals(3, course_get_format($course)->get_course()->numsections);
+        $this->assertEquals(array(0 => array($assign0->cmid),
+            1 => array($assign1->cmid),
+            2 => array($assign3->cmid),
+            3 => array($assign5->cmid)), get_fast_modinfo($course)->sections);
+
+        // Make last section orphaned.
+        update_course((object)array('id' => $course->id, 'numsections' => 2));
+        $this->assertEquals(2, course_get_format($course)->get_course()->numsections);
+
+        // Remove orphaned section.
+        $this->assertTrue(course_delete_section($course, 3, true));
+        $this->assertEquals(2, course_get_format($course)->get_course()->numsections);
+
+        // Remove marked section.
+        course_set_marker($course->id, 1);
+        $this->assertTrue(course_get_format($course)->is_section_current(1));
+        $this->assertTrue(course_delete_section($course, 1, true));
+        $this->assertFalse(course_get_format($course)->is_section_current(1));
     }
 
     public function test_get_course_display_name_for_list() {
@@ -1357,51 +1492,92 @@ class core_course_courselib_testcase extends advanced_testcase {
         $this->assertEquals($pagecm->visible, 0);
     }
 
-    public function test_course_delete_module() {
+    /**
+     * Tests the function that deletes a course module
+     *
+     * @param string $type The type of module for the test
+     * @param array $options The options for the module creation
+     * @dataProvider provider_course_delete_module
+     */
+    public function test_course_delete_module($type, $options) {
         global $DB;
         $this->resetAfterTest(true);
         $this->setAdminUser();
 
         // Create course and modules.
         $course = $this->getDataGenerator()->create_course(array('numsections' => 5));
+        $options['course'] = $course->id;
 
         // Generate an assignment with due date (will generate a course event).
-        $assign = $this->getDataGenerator()->create_module('assign', array('duedate' => time(), 'course' => $course->id));
+        $module = $this->getDataGenerator()->create_module($type, $options);
 
         // Get the module context.
-        $modcontext = context_module::instance($assign->cmid);
+        $modcontext = context_module::instance($module->cmid);
 
         // Verify context exists.
         $this->assertInstanceOf('context_module', $modcontext);
 
-        // Add some tags to this assignment.
-        tag_set('assign', $assign->id, array('Tag 1', 'Tag 2', 'Tag 3'), 'mod_assign', $modcontext->id);
+        // Make module specific messes.
+        switch ($type) {
+            case 'assign':
+                // Add some tags to this assignment.
+                tag_set('assign', $module->id, array('Tag 1', 'Tag 2', 'Tag 3'), 'mod_assign', $modcontext->id);
 
-        // Confirm the tag instances were added.
-        $this->assertEquals(3, $DB->count_records('tag_instance', array('component' => 'mod_assign', 'contextid' =>
-            $modcontext->id)));
+                // Confirm the tag instances were added.
+                $criteria = array('component' => 'mod_assign', 'contextid' => $modcontext->id);
+                $this->assertEquals(3, $DB->count_records('tag_instance', $criteria));
 
-        // Verify event assignment event has been generated.
-        $eventcount = $DB->count_records('event', array('instance' => $assign->id, 'modulename' => 'assign'));
-        $this->assertEquals(1, $eventcount);
+                // Verify event assignment event has been generated.
+                $eventcount = $DB->count_records('event', array('instance' => $module->id, 'modulename' => $type));
+                $this->assertEquals(1, $eventcount);
+
+                break;
+            case 'quiz':
+                $qgen = $this->getDataGenerator()->get_plugin_generator('core_question');
+                $qcat = $qgen->create_question_category(array('contextid' => $modcontext->id));
+                $questions = array(
+                    $qgen->create_question('shortanswer', null, array('category' => $qcat->id)),
+                    $qgen->create_question('shortanswer', null, array('category' => $qcat->id)),
+                );
+                $this->expectOutputRegex('/'.get_string('unusedcategorydeleted', 'question').'/');
+                break;
+            default:
+                break;
+        }
 
         // Run delete..
-        course_delete_module($assign->cmid);
+        course_delete_module($module->cmid);
 
         // Verify the context has been removed.
-        $this->assertFalse(context_module::instance($assign->cmid, IGNORE_MISSING));
+        $this->assertFalse(context_module::instance($module->cmid, IGNORE_MISSING));
 
         // Verify the course_module record has been deleted.
-        $cmcount = $DB->count_records('course_modules', array('id' => $assign->cmid));
+        $cmcount = $DB->count_records('course_modules', array('id' => $module->cmid));
         $this->assertEmpty($cmcount);
 
-        // Verify event assignment events have been removed.
-        $eventcount = $DB->count_records('event', array('instance' => $assign->id, 'modulename' => 'assign'));
-        $this->assertEmpty($eventcount);
+        // Test clean up of module specific messes.
+        switch ($type) {
+            case 'assign':
+                // Verify event assignment events have been removed.
+                $eventcount = $DB->count_records('event', array('instance' => $module->id, 'modulename' => $type));
+                $this->assertEmpty($eventcount);
 
-        // Verify the tag instances were deleted.
-        $this->assertEquals(0, $DB->count_records('tag_instance', array('component' => 'mod_assign', 'contextid' =>
-            $modcontext->id)));
+                // Verify the tag instances were deleted.
+                $criteria = array('component' => 'mod_assign', 'contextid' => $modcontext->id);
+                $this->assertEquals(0, $DB->count_records('tag_instance', $criteria));
+                break;
+            case 'quiz':
+                // Verify category deleted.
+                $criteria = array('contextid' => $modcontext->id);
+                $this->assertEquals(0, $DB->count_records('question_categories', $criteria));
+
+                // Verify questions deleted.
+                $criteria = array('category' => $qcat->id);
+                $this->assertEquals(0, $DB->count_records('question', $criteria));
+                break;
+            default:
+                break;
+        }
     }
 
     /**
@@ -1957,7 +2133,7 @@ class core_course_courselib_testcase extends advanced_testcase {
      * Tests for event related to course module creation.
      */
     public function test_course_module_created_event() {
-        global $USER, $DB, $CFG;
+        global $USER, $DB;
         $this->resetAfterTest();
 
         // Create an assign module.
@@ -1997,23 +2173,17 @@ class core_course_courselib_testcase extends advanced_testcase {
         // Let us see if duplicating an activity results in a nice course module created event.
         $sink->clear();
         $course = get_course($mod->course);
-
-        // Discard error logs.
-        $oldlog = ini_get('error_log');
-        ini_set('error_log', "$CFG->dataroot/testlog.log");
-        $newcmhtml = mod_duplicate_activity($course, $cm);
-        ini_set('error_log', $oldlog);
-
+        $newcm = duplicate_module($course, $cm);
         $events = $sink->get_events();
         $event = array_pop($events);
         $sink->close();
 
         // Validate event data.
         $this->assertInstanceOf('\core\event\course_module_created', $event);
-        $this->assertEquals($newcmhtml->cmid, $event->objectid);
+        $this->assertEquals($newcm->id, $event->objectid);
         $this->assertEquals($USER->id, $event->userid);
         $this->assertEquals($course->id, $event->courseid);
-        $url = new moodle_url('/mod/assign/view.php', array('id' => $newcmhtml->cmid));
+        $url = new moodle_url('/mod/assign/view.php', array('id' => $newcm->id));
         $this->assertEquals($url, $event->get_url());
     }
 
@@ -2506,6 +2676,28 @@ class core_course_courselib_testcase extends advanced_testcase {
     }
 
     /**
+     * Test duplicate_module()
+     */
+    public function test_duplicate_module() {
+        $this->setAdminUser();
+        $this->resetAfterTest();
+        $course = self::getDataGenerator()->create_course();
+        $res = self::getDataGenerator()->create_module('resource', array('course' => $course));
+        $cm = get_coursemodule_from_id('resource', $res->cmid, 0, false, MUST_EXIST);
+
+        $newcm = duplicate_module($course, $cm);
+
+        // Make sure they are the same, except obvious id changes.
+        foreach ($cm as $prop => $value) {
+            if ($prop == 'id' || $prop == 'url' || $prop == 'instance' || $prop == 'added') {
+                // Ignore obviously different properties.
+                continue;
+            }
+            $this->assertEquals($value, $newcm->$prop);
+        }
+    }
+
+    /**
      * Tests that when creating or updating a module, if the availability settings
      * are present but set to an empty tree, availability is set to null in
      * database.
@@ -2519,7 +2711,7 @@ class core_course_courselib_testcase extends advanced_testcase {
         set_config('enableavailability', 1);
 
         // Test add.
-        $emptyavailability = '{"op":"&","c":[],"showc":[]}';
+        $emptyavailability = json_encode(\core_availability\tree::get_root_json(array()));
         $course = self::getDataGenerator()->create_course();
         $label = self::getDataGenerator()->create_module('label', array(
                 'course' => $course, 'availability' => $emptyavailability));

@@ -32,24 +32,24 @@ require_once($CFG->libdir.'/adminlib.php');
 require_login();
 
 if (!has_capability('moodle/site:config', context_system::instance())) {
-	header('HTTP/1.1 403 Forbidden');
-	die();
+    header('HTTP/1.1 403 Forbidden');
+    die();
 }
 
 if (!empty($CFG->disableonclickaddoninstall)) {
-	header('HTTP/1.1 403 Forbidden');
-	die();
+    header('HTTP/1.1 403 Forbidden');
+    die();
 }
 
 if (!confirm_sesskey()) {
-	header('HTTP/1.1 403 Forbidden');
-	die();
+    header('HTTP/1.1 403 Forbidden');
+    die();
 }
 
 $plugintype = optional_param('plugintype', null, PARAM_ALPHANUMEXT);
 if (is_null($plugintype)) {
-	header('HTTP/1.1 400 Bad Request');
-	die();
+    header('HTTP/1.1 400 Bad Request');
+    die();
 }
 
 $installer = tool_installaddon_installer::instance();
@@ -57,16 +57,16 @@ $installer = tool_installaddon_installer::instance();
 $plugintypepath = $installer->get_plugintype_root($plugintype);
 
 if (empty($plugintypepath)) {
-	header('HTTP/1.1 400 Bad Request');
-	die();
+    header('HTTP/1.1 400 Bad Request');
+    die();
 }
 
 $response = array('path' => $plugintypepath);
 
 if ($installer->is_plugintype_writable($plugintype)) {
-	$response['writable'] = 1;
+    $response['writable'] = 1;
 } else {
-	$response['writable'] = 0;
+    $response['writable'] = 0;
 }
 
 header('Content-Type: application/json; charset: utf-8');

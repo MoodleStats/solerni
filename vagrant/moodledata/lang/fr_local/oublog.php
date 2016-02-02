@@ -21,6 +21,8 @@ $string['modulenameplural'] = 'OU blogs';
 $string['modulename_help'] = 'L\'activité blog permet la création de blogs dans un cours (il s\'agit de blogs distincts de ceux du système de blog du coeur de Moodle). Vous pouvez créer des blogs pour un cours entier (tous les participants à un cours postent dans le même blog), pour un groupe, ou des blogs individuels.';
 
 $string['oublogintro'] = 'Intro';
+$string['lastmodified'] = 'Dernier billet: {$a}';
+$string['strftimerecent'] = '%d %B %y, %H:%M';
 
 $string['oublog:view'] = 'Afficher les billets';
 $string['oublog:addinstance'] = 'Créer un OU blog';
@@ -37,6 +39,34 @@ $string['oublog:viewindividual'] = 'Afficher les blogs personnels';
 $string['oublog:exportownpost'] = 'Exporter votre billet';
 $string['oublog:exportpost'] = 'Exporter un billet';
 $string['oublog:exportposts'] = 'Exporter des billets';
+$string['oublog:ignorepostperiod'] = 'Ignorer le temps des billets';
+$string['oublog:ignorecommentperiod'] = 'Ignorer le temps des commentaires de billets';
+
+$string['advancedoptions'] = 'Options avancées';
+$string['limits'] = 'Période de contribution';
+$string['postfrom'] = 'Poster seulement à partir de';
+$string['postuntil'] = 'Poster seulement jusqu\'à';
+$string['commentfrom'] = 'Commenter seulement à partir de';
+$string['commentuntil'] = 'Commenter seulement jusqu\'à';
+$string['beforestartpost'] = 'Vous ne pouvez pas créer des billets pour l\'instant. La création de billet sera possible à partir du {$a}.';
+$string['beforestartpostcapable'] = 'Les apprenants ne peuvent pas créer leur propre billet, ils pourront le faire à partir du {$a}.
+<br/> Vous avez la possibilité de créer des billets avant cette date.';
+$string['beforeendpost'] = 'Vous pouvez seulement créer des billets jusqu\'au {$a}.';
+$string['beforeendpostcapable'] = 'Les apprenants peuvent créer leur propre billet jusqu\'au {$a}.
+<br/> Vous avez la possibilité de créer des billets après cette date.';
+$string['afterendpost'] = 'Vous ne pouvez pas créer des billets pour l\'instant. La possibilité de créer des billets est terminée depuis le {$a}.';
+$string['afterendpostcapable'] = 'Les apprenants peuvent créer leur propre billet jusqu\'au {$a}.
+<br/> Vous avez la possibilité de créer des billets après cette date.';
+$string['beforestartcomment'] = 'Vous ne pouvez pas commenter pour l\'instant. Les commentaires seront possibles à partir du {$a}.';
+$string['beforestartcommentcapable'] = 'Les apprenants ne peuvent pas commenter des billets jusqu\'au {$a}.
+<br/> Vous avez la possibilité de commenter des billets avant cette date.';
+$string['beforeendcomment'] = 'Vous pouvez seulement commenter des billets jusqu\'au {$a}.';
+$string['beforeendcommentcapable'] = 'Les apprenants peuvent commenter des billets jusqu\'au {$a}.
+<br/> Vous avez la possibilité de commenter des billets après cette date.';
+$string['afterendcomment'] = 'Vous ne pouvez pas commenter pour le moment. La possibilité de commenter des billets est terminée depuis le {$a}.';
+$string['afterendcommentcapable'] = 'Les apprenants peuvent commenter des billets jusqu\'au {$a}.
+<br/> Vous avez la possibilité de commenter des billets après cette date.';
+
 $string['mustprovidepost'] = 'Vous devez fournir un postid';
 $string['newpost'] = 'Nouveau billet {$a}';
 $string['removeblogs'] = 'Supprimer le contenu du blog';
@@ -566,6 +596,7 @@ $string['event:postupdated'] = 'Billet mis à jour';
 $string['event:postviewed'] = 'Billet consulté';
 $string['event:commentapproved'] = 'Commentaire approuvé';
 $string['event:participationviewed'] = 'Participation consultée';
+$string['event:savefailed'] = 'Il y a eu une erreur de session lors de la sauvegarde du billet';
 $string['event:siteentriesviewed'] = 'Page d\'un blog consultée';
 $string['event:postimported'] = 'Billet importé';
 $string['oublog:rate'] = 'Peut évaluer les billets.';
@@ -584,6 +615,9 @@ $string['tweet'] = 'Tweeter';
 $string['oublogcrontask'] = 'Tâches de maintenance d\'OU blog';
 
 $string['restricttags'] = 'Autoriser uniquement les \'tags prédéfinis\' ';
+$string['restricttags_req'] = 'Vous devez ajouter des tags';
+$string['restricttags_req_set'] = 'Vous devez seulement ajouter des tags pre-definis';
+$string['restricttags_set'] = 'Permettre seulement des tags pre-definis';
 $string['restricttags_help'] = 'si vous choisissez cette option, vous pouvez restreindre les tags
 à la liste définie au niveau de l\'activité.';
 $string['restricttagslist'] = 'Vous ne pouvez utiliser que les \'tags prédéfinis\' : {$a}';

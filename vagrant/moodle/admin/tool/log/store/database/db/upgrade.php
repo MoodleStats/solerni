@@ -24,17 +24,23 @@
 
 function xmldb_logstore_database_upgrade($oldversion) {
 
-	if ($oldversion < 2014041700) {
-		// Clean up old config.
-		unset_config('excludelevels', 'logstore_database');
-		unset_config('excludeactions', 'logstore_database');
+    if ($oldversion < 2014041700) {
+        // Clean up old config.
+        unset_config('excludelevels', 'logstore_database');
+        unset_config('excludeactions', 'logstore_database');
 
-		// Savepoint reached.
-		upgrade_plugin_savepoint(true, 2014041700, 'logstore', 'database');
-	}
+        // Savepoint reached.
+        upgrade_plugin_savepoint(true, 2014041700, 'logstore', 'database');
+    }
 
-	// Moodle v2.7.0 release upgrade line.
-	// Put any upgrade step following this.
+    // Moodle v2.7.0 release upgrade line.
+    // Put any upgrade step following this.
 
-	return true;
+    // Moodle v2.8.0 release upgrade line.
+    // Put any upgrade step following this.
+
+    // Moodle v2.9.0 release upgrade line.
+    // Put any upgrade step following this.
+
+    return true;
 }

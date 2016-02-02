@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_progress', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'block_progress', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   block_progress
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -28,19 +28,24 @@ defined('MOODLE_INTERNAL') || die();
 $string['activity_completion'] = 'réalisation des activités';
 $string['addallcurrentitems'] = 'Ajouter toutes les activités/ressources';
 $string['answered'] = 'répondu';
+$string['aspirelist'] = 'Liste des ressources Aspire';
 $string['assessed'] = 'évalué';
 $string['assign'] = 'Devoir';
 $string['assignment'] = 'Devoir';
 $string['attempted'] = 'tenté';
 $string['attempted_colour'] = '#33CC00';
+$string['attempted_colour_descr'] = 'Code de couleur HTML des éléments tentés';
+$string['attempted_colour_title'] = 'Couleur des éléments tentés';
 $string['awarded'] = 'attribué';
 $string['bigbluebuttonbn'] = 'Big Blue Button';
 $string['book'] = 'Livre';
+$string['cachedef_cachedlogs'] = 'Barre de progression de la mise en mémoire cache de la recherche';
 $string['certificate'] = 'Certificat';
 $string['chat'] = 'Chat';
 $string['choice'] = 'Choix';
 $string['completed'] = 'terminé';
 $string['config_default_title'] = 'Barre de progression';
+$string['config_group'] = 'Visible uniquement au groupe';
 $string['config_header_action'] = 'Action';
 $string['config_header_expected'] = 'Attendu le';
 $string['config_header_icon'] = 'Icône';
@@ -53,16 +58,26 @@ $string['config_orderby_course_order'] = 'Ordre dans le cours';
 $string['config_orderby_due_time'] = 'Date et heure de rendu';
 $string['config_percentage'] = 'Montrer pourcentage pour les étudiants';
 $string['config_title'] = 'Autre titre';
+$string['config_warning_loglifetime'] = 'Avertissement : Les journaux sont effacés après {$a} jour(s). Les actions reposant sur des vues seront affectées par cette mesure.';
+$string['config_warning_logstores'] = 'Avertissement : La journalisation est désactivée. Les actions en s\'appuyant sur des vues ne seront pas ne seront pas pris en considération.';
+$string['coursenametoshow'] = 'Nom du cours à afficher sur le tableau de bord';
 $string['data'] = 'Base de données';
+$string['dmelearn'] = 'Digital Media e-Learning';
+$string['equella'] = 'Equella';
 $string['feedback'] = 'Feedback';
 $string['finished'] = 'finis';
 $string['flashcardtrainer'] = 'Formateur Flashcard';
 $string['folder'] = 'Dossier';
 $string['forum'] = 'Forum';
+$string['fullname'] = 'Nom complet du cours';
 $string['futureNotAttempted_colour'] = '#3366FF';
+$string['futurenotattempted_colour_descr'] = 'Code de couleur HTML des éléments futurs non tentés';
+$string['futurenotattempted_colour_title'] = 'Couleur des éléments futurs non tentés';
 $string['glossary'] = 'Glossaire';
 $string['graded'] = 'noté';
 $string['hotpot'] = 'Hot Potatoes';
+$string['how_group_works'] = 'Comment fonction le groupe visible';
+$string['how_group_works_help'] = '<p>Sélectionnant un groupe limitera l\'affichage de ce bloc uniquement à ce groupe.</p>';
 $string['how_ordering_works'] = 'Comment fonctionne le tri';
 $string['how_ordering_works_help'] = '<p>Il y a deux façons d\'ordonner les éléments de la barre de progression. Ils peuvent être ordonnés selon : </p>
 <ul>
@@ -73,26 +88,35 @@ Les dates de rendu ou les dates entrées manuellement dans les activités ou les
 Les activités et ressources sont présentées dans le même ordre que sur la page du cours. Quand cette option est utilisée, les paramètres de temps ne sont pas pris en compte.
 </li>
 </ul>';
+$string['hsuforum'] = 'Forum avancé';
 $string['imscp'] = 'Paquets de contenus IMS';
 $string['journal'] = 'Journal';
-$string['lastonline'] = 'Dernière connexion';
+$string['lastonline'] = 'Dernière fois dans le cours';
 $string['lesson'] = 'Leçon';
+$string['lti'] = 'Outil externe';
 $string['marked'] = 'évalué';
 $string['mouse_over_prompt'] = 'Placez la souris sur le bloc pour plus d\'info.';
+$string['no_blocks'] = 'Aucun bloc de barre de progression établi pour vos cours.';
 $string['no_events_config_message'] = 'Il n\'y a aucune activité ou ressource à surveiller. Créez des activités et/ou des ressources et configurer ensuite ce bloc.';
 $string['no_events_message'] = 'Aucun événement à suivre. Ajoutez un événement à l\'aide du bouton Configuration.';
 $string['notAttempted_colour'] = '#FF3300';
+$string['notattempted_colour_descr'] = 'Code de couleur HTML des éléments actuels non tentés';
+$string['notattempted_colour_title'] = 'Couleur des éléments actuels non tentés';
 $string['no_visible_events_message'] = 'Aucun événement sélectionné n\'est visible en ce moment.';
-$string['now_indicator'] = 'NOW';
+$string['now_indicator'] = 'MAINTENANT';
+$string['ouwiki'] = 'OU Wiki';
 $string['overview'] = 'Aperçu des étudiants';
 $string['page'] = 'Page';
+$string['panopto'] = 'Vidéo Panopto';
 $string['passed'] = 'réussi';
+$string['passedby'] = 'date limite est passée';
 $string['passedscorm'] = 'réussi';
 $string['pluginname'] = 'Barre de progression';
 $string['posted_to'] = 'posté';
 $string['progress'] = 'Progression';
 $string['progress:addinstance'] = 'Ajouter un nouveau bloc "Barre de progression"';
 $string['progressbar'] = 'Barre de progression';
+$string['progress:myaddinstance'] = 'Ajout d\'un bloc de barre de progression à ma page d\'accueil';
 $string['progress:overview'] = 'View course overview of Progress bars for all students';
 $string['questionnaire'] = 'Questionnaire';
 $string['quiz'] = 'Questionnaire';
@@ -101,11 +125,16 @@ $string['resource'] = 'Fichier';
 $string['responded_to'] = 'répondu';
 $string['scorm'] = 'SCORM';
 $string['selectitemstobeadded'] = 'Choisissez des activités/ressources';
+$string['shortname'] = 'Nom abrégé du cours';
+$string['showinactive'] = 'Montrer aux élèves inactifs dans le tableau de bord';
 $string['submitted'] = 'soumis';
 $string['time_expected'] = 'Attendu le';
 $string['turnitintool'] = 'Outil Turnitin';
+$string['turnitintooltwo'] = 'Outil Turnitin 2';
 $string['url'] = 'URL';
+$string['video'] = 'Vidéo';
 $string['viewed'] = 'visualisé';
+$string['vpl'] = 'Laboratoire virtuel de programmation';
 $string['what_actions_can_be_monitored'] = 'Quelles actions peuvent être surveillées?';
 $string['what_actions_can_be_monitored_help'] = '<p>Différentes activités et ressources peuvent être surveillées.</p>
 <p>Du fait que les activités et les ressources fonctionnent différemment, ce qui est surveillé varie pour chaque module. Par exemple, pour les devoirs, une soumission est surveillée ; pour les questionnaires, des réponses sont attendues ; pour les forums, ce sont les posts qui sont surveillés ; pour les activités avec des choix, les réponses ou la visualisation des ressources sont surveillées.</p>

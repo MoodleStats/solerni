@@ -14,10 +14,19 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Local plugin "staticpage" - Version file
+ *
+ * @package     local
+ * @subpackage  local_staticpage
+ * @copyright   2013 Alexander Bias, University of Ulm <alexander.bias@uni-ulm.de>
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'local_staticpage';
-$plugin->version = 2014051200;
-$plugin->release = '2.7 (Build: 2014063000)';
-$plugin->requires = 2014051200;
+$plugin->version = 2015111601;
+$plugin->release = '3.0 (Build: 2016012500)';
+$plugin->requires = 2015051104;     // Original 2015111600 but then not working with Moodle 2.9.
 $plugin->maturity = MATURITY_STABLE;

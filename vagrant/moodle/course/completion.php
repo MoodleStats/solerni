@@ -44,20 +44,20 @@ $id = required_param('id', PARAM_INT);       // course id
 // Perform some basic access control checks.
 if ($id) {
 
-	if($id == SITEID){
-		// Don't allow editing of 'site course' using this form.
-		print_error('cannoteditsiteform');
-	}
+    if($id == SITEID){
+        // Don't allow editing of 'site course' using this form.
+        print_error('cannoteditsiteform');
+    }
 
-	if (!$course = $DB->get_record('course', array('id'=>$id))) {
-		print_error('invalidcourseid');
-	}
-	require_login($course);
-	require_capability('moodle/course:update', context_course::instance($course->id));
+    if (!$course = $DB->get_record('course', array('id'=>$id))) {
+        print_error('invalidcourseid');
+    }
+    require_login($course);
+    require_capability('moodle/course:update', context_course::instance($course->id));
 
 } else {
-	require_login();
-	print_error('needcourseid');
+    require_login();
+    print_error('needcourseid');
 }
 
 // Set up the page.
@@ -71,81 +71,81 @@ $PAGE->set_pagelayout('admin');
 $form = new course_completion_form('completion.php?id='.$id, array('course' => $course));
 
 if ($form->is_cancelled()){
-	redirect($CFG->wwwroot.'/course/view.php?id='.$course->id);
+    redirect($CFG->wwwroot.'/course/view.php?id='.$course->id);
 
 } else if ($data = $form->get_data()) {
-	$completion = new completion_info($course);
+    $completion = new completion_info($course);
 
-	// Process criteria unlocking if requested.
-	if (!empty($data->settingsunlock)) {
-		$completion->delete_course_completion_data();
+    // Process criteria unlocking if requested.
+    if (!empty($data->settingsunlock)) {
+        $completion->delete_course_completion_data();
 
-		// Return to form (now unlocked).
-		redirect($PAGE->url);
-	}
+        // Return to form (now unlocked).
+        redirect($PAGE->url);
+    }
 
-	// Delete old criteria.
-	$completion->clear_criteria();
+    // Delete old criteria.
+    $completion->clear_criteria();
 
-	// Loop through each criteria type and run its update_config() method.
-	global $COMPLETION_CRITERIA_TYPES;
-	foreach ($COMPLETION_CRITERIA_TYPES as $type) {
-		$class = 'completion_criteria_'.$type;
-		$criterion = new $class();
-		$criterion->update_config($data);
-	}
+    // Loop through each criteria type and run its update_config() method.
+    global $COMPLETION_CRITERIA_TYPES;
+    foreach ($COMPLETION_CRITERIA_TYPES as $type) {
+        $class = 'completion_criteria_'.$type;
+        $criterion = new $class();
+        $criterion->update_config($data);
+    }
 
-	// Handle overall aggregation.
-	$aggdata = array(
-			'course'        => $data->id,
-			'criteriatype'  => null
-	);
-	$aggregation = new completion_aggregation($aggdata);
-	$aggregation->setMethod($data->overall_aggregation);
-	$aggregation->save();
+    // Handle overall aggregation.
+    $aggdata = array(
+        'course'        => $data->id,
+        'criteriatype'  => null
+    );
+    $aggregation = new completion_aggregation($aggdata);
+    $aggregation->setMethod($data->overall_aggregation);
+    $aggregation->save();
 
-	// Handle activity aggregation.
-	if (empty($data->activity_aggregation)) {
-		$data->activity_aggregation = 0;
-	}
+    // Handle activity aggregation.
+    if (empty($data->activity_aggregation)) {
+        $data->activity_aggregation = 0;
+    }
 
-	$aggdata['criteriatype'] = COMPLETION_CRITERIA_TYPE_ACTIVITY;
-	$aggregation = new completion_aggregation($aggdata);
-	$aggregation->setMethod($data->activity_aggregation);
-	$aggregation->save();
+    $aggdata['criteriatype'] = COMPLETION_CRITERIA_TYPE_ACTIVITY;
+    $aggregation = new completion_aggregation($aggdata);
+    $aggregation->setMethod($data->activity_aggregation);
+    $aggregation->save();
 
-	// Handle course aggregation.
-	if (empty($data->course_aggregation)) {
-		$data->course_aggregation = 0;
-	}
+    // Handle course aggregation.
+    if (empty($data->course_aggregation)) {
+        $data->course_aggregation = 0;
+    }
 
-	$aggdata['criteriatype'] = COMPLETION_CRITERIA_TYPE_COURSE;
-	$aggregation = new completion_aggregation($aggdata);
-	$aggregation->setMethod($data->course_aggregation);
-	$aggregation->save();
+    $aggdata['criteriatype'] = COMPLETION_CRITERIA_TYPE_COURSE;
+    $aggregation = new completion_aggregation($aggdata);
+    $aggregation->setMethod($data->course_aggregation);
+    $aggregation->save();
 
-	// Handle role aggregation.
-	if (empty($data->role_aggregation)) {
-		$data->role_aggregation = 0;
-	}
+    // Handle role aggregation.
+    if (empty($data->role_aggregation)) {
+        $data->role_aggregation = 0;
+    }
 
-	$aggdata['criteriatype'] = COMPLETION_CRITERIA_TYPE_ROLE;
-	$aggregation = new completion_aggregation($aggdata);
-	$aggregation->setMethod($data->role_aggregation);
-	$aggregation->save();
+    $aggdata['criteriatype'] = COMPLETION_CRITERIA_TYPE_ROLE;
+    $aggregation = new completion_aggregation($aggdata);
+    $aggregation->setMethod($data->role_aggregation);
+    $aggregation->save();
 
-	// Trigger an event for course module completion changed.
-	$event = \core\event\course_completion_updated::create(
-			array(
-					'courseid' => $course->id,
-					'context' => context_course::instance($course->id)
-			)
-	);
-	$event->trigger();
+    // Trigger an event for course module completion changed.
+    $event = \core\event\course_completion_updated::create(
+            array(
+                'courseid' => $course->id,
+                'context' => context_course::instance($course->id)
+                )
+            );
+    $event->trigger();
 
-	// Redirect to the course main page.
-	$url = new moodle_url('/course/view.php', array('id' => $course->id));
-	redirect($url);
+    // Redirect to the course main page.
+    $url = new moodle_url('/course/view.php', array('id' => $course->id));
+    redirect($url);
 }
 
 // Print the form.

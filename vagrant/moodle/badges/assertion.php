@@ -22,7 +22,7 @@
  * @copyright  2012 onwards Totara Learning Solutions Ltd {@link http://www.totaralms.com/}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @author     Yuliya Bozhko <yuliya.bozhko@totaralms.com>
-*/
+ */
 
 define('AJAX_SCRIPT', true);
 define('NO_MOODLE_COOKIES', true); // No need for a session here.
@@ -30,7 +30,7 @@ define('NO_MOODLE_COOKIES', true); // No need for a session here.
 require_once(dirname(dirname(__FILE__)) . '/config.php');
 
 if (empty($CFG->enablebadges)) {
-	print_error('badgesdisabled', 'badges');
+    print_error('badgesdisabled', 'badges');
 }
 
 $hash = required_param('b', PARAM_ALPHANUM); // Issued badge unique hash for badge assertion.
@@ -39,11 +39,11 @@ $action = optional_param('action', null, PARAM_BOOL); // Generates badge class i
 $assertion = new core_badges_assertion($hash);
 
 if (!is_null($action)) {
-	// Get badge class or issuer information depending on $action.
-	$json = ($action) ? $assertion->get_badge_class() : $assertion->get_issuer();
+    // Get badge class or issuer information depending on $action.
+    $json = ($action) ? $assertion->get_badge_class() : $assertion->get_issuer();
 } else {
-	// Otherwise, get badge assertion.
-	$json = $assertion->get_badge_assertion();
+    // Otherwise, get badge assertion.
+    $json = $assertion->get_badge_assertion();
 }
 
 

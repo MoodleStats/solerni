@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tinymce_poodll', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'tinymce_poodll', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   tinymce_poodll
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -26,7 +26,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['drawtheninsert'] = 'Après avoir dessiné, appuyez sur « Enregistrer », puis « Insérer »';
-$string['poodll:allowaudiomp3'] = 'Permettre l\'enregistrement audio(MP3)';
+$string['pluginname'] = 'PoodLL partout (TinyMCE)';
+$string['poodll:allowaudiomp3'] = 'Permettre l\'enregistrement audio (MP3)';
 $string['poodll:allowaudiored5'] = 'Permettre l\'enregistrement audio(Red5)';
 $string['poodll:allowsnapshot'] = 'Permettre de prendre une photo';
 $string['poodll:allowvideo'] = 'Permettre l\'enregistrement vidéo';
@@ -37,6 +38,7 @@ $string['poodll:browse'] = 'Parcourir';
 $string['poodll:nothingtoinsert'] = 'Rien à insérer!';
 $string['poodll:snapshot_desc'] = 'Prendre une photo';
 $string['poodll:video_desc'] = 'Enregistrer une vidéo';
+$string['poodll:visible'] = 'Visible';
 $string['poodll:whiteboard_desc'] = 'Dessiner';
 $string['recorderstoshow'] = 'Montrer les enregistreurs';
 $string['recordtheninsert'] = 'Après l\'enregistrement, appuyez sur insérer.';

@@ -23,8 +23,8 @@
  * @package    cachestore_file
  * @category   cache
  * @copyright  2012 Sam Hemelryk
-* @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
-*/
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -39,8 +39,8 @@ $string['singledirectory'] = 'Single directory store';
 $string['singledirectory_help'] = 'If enabled files (cached items) will be stored in a single directory rather than being broken up into multiple directories.<br />
 Enabling this will speed up file interactions but comes at the cost of increased risk of hitting file system limitations.<br />
 It is advisable to only turn this on if the following is true:<br />
-- If you know the number of items in the cache is going to be small enough that it won\'t cause issues on the file system you are running with.<br />
-- The data being cached is not expensive to generate. If it is then sticking with the default may still be the better option as it reduces the chance of issues.';
+  - If you know the number of items in the cache is going to be small enough that it won\'t cause issues on the file system you are running with.<br />
+  - The data being cached is not expensive to generate. If it is then sticking with the default may still be the better option as it reduces the chance of issues.';
 
 /**
  * This is is like the file store, but designed for siutations where:

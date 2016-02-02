@@ -13,12 +13,12 @@ $site = get_site();
 
 $authsequence = get_enabled_auth_plugins(true); // auths, in sequence
 if (!in_array('ldap', $authsequence, true)) {
-	print_error('ldap_isdisabled', 'auth');
+    print_error('ldap_isdisabled', 'auth');
 }
 
 $authplugin = get_auth_plugin('ldap');
 if (empty($authplugin->config->ntlmsso_enabled)) {
-	print_error('ntlmsso_isdisabled', 'auth_ldap');
+    print_error('ntlmsso_isdisabled', 'auth_ldap');
 }
 
 $sesskey = sesskey();
@@ -35,7 +35,7 @@ echo $OUTPUT->header();
 
 // $PAGE->https_required() up above takes care of what $CFG->httpswwwroot should be.
 $msg = '<p>'.get_string('ntlmsso_attempting', 'auth_ldap').'</p>'
-. '<img width="1", height="1" '
-. ' src="' . $CFG->httpswwwroot . '/auth/ldap/ntlmsso_magic.php?sesskey='
-. $sesskey . '" />';
+    . '<img width="1", height="1" '
+    . ' src="' . $CFG->httpswwwroot . '/auth/ldap/ntlmsso_magic.php?sesskey='
+    . $sesskey . '" />';
 redirect($CFG->httpswwwroot . '/auth/ldap/ntlmsso_finish.php', $msg, 3);

@@ -46,6 +46,8 @@ class oublog_locallib_test extends oublog_test_lib {
     * Getting a single post
     * Getting a list of posts
     * Tags
+    * Time limited posting
+    * Last modified
 
     // TODO: Unit tests do NOT cover:
      * Personal blog auto creation on install has worked
@@ -211,14 +213,14 @@ class oublog_locallib_test extends oublog_test_lib {
         $this->assertEquals($postcount, $recordcount);
 
         // First post returned should match the last one added.
-        $this->assertEquals($titlecheck . '_' . $postcount, $posts[$postcount]->title);
+        $this->assertEquals($titlecheck . '_' . $postcount, $posts[max($postids)]->title);
         // Check fullname details returned for post author.
-        $this->assertEquals(fullname($USER), fullname($posts[$postcount]));
+        $this->assertEquals(fullname($USER), fullname($posts[max($postids)]));
 
         // Check deleted posts not shown.
         $deleteinfo = new stdClass();
         $deleteinfo->deletedby = $USER->id;
-        $deleteinfo->id = $posts[$postcount]->id;
+        $deleteinfo->id = $posts[max($postids)]->id;
         $DB->update_record('oublog_posts', $deleteinfo);
         list($posts, $recordcount) = oublog_get_posts($oublog, $context, 0, $cm, 0);
         $this->assertEquals($postcount, $recordcount);// User should see own deleted posts.
@@ -272,12 +274,12 @@ class oublog_locallib_test extends oublog_test_lib {
         $this->assertEquals($postcount, $recordcount);
 
         // First post returned should match the last one added.
-        $this->assertEquals($titlecheck . '_' . $postcount, $posts[$postcount]->title);
+        $this->assertEquals($titlecheck . '_' . $postcount, $posts[max($postids)]->title);
 
         // Specific (last) group.
         list($posts, $recordcount) = oublog_get_posts($oublog, $context, 0, $cm, $groups[count($groups)]);
         $this->assertEquals(1, $recordcount);
-        $this->assertEquals($titlecheck . '_' . $postcount, $posts[$postcount]->title);
+        $this->assertEquals($titlecheck . '_' . $postcount, $posts[max($postids)]->title);
     }
 
     public function test_oublog_get_posts_individual() {
@@ -483,6 +485,8 @@ class oublog_locallib_test extends oublog_test_lib {
         $course = $this->get_new_course();
         $oublog = $this->get_new_oublog($course->id);
         $cm = get_coursemodule_from_id('oublog', $oublog->cmid);
+        $stud1 = $this->get_new_user('student', $course->id);
+        $oublog2 = $this->get_new_oublog($course->id);
 
         $post = $this->get_post_stub($oublog->id);
         $postid = oublog_add_post($post, $cm, $oublog, $course);
@@ -490,6 +494,19 @@ class oublog_locallib_test extends oublog_test_lib {
         $lastmodified = oublog_get_last_modified($cm, $course, $USER->id);
         $this->assertTrue(is_numeric($lastmodified));
         $this->assertEquals($timeposted, $lastmodified);
+
+        $result = oublog_get_last_modified($oublog2->cm, $course);
+        $this->assertEmpty($result);
+        $this->get_new_post($oublog2);
+
+        // Should static cache result, so remains empty.
+        $result = oublog_get_last_modified($oublog2->cm, $course);
+        $this->assertEmpty($result);
+
+        $result = oublog_get_last_modified($oublog2->cm, $course, $stud1->id);
+        $this->assertNotEmpty($result);
+        $result1 = oublog_get_last_modified($oublog2->cm, $course, $stud1->id);
+        $this->assertEquals($result, $result1);
         // TODO: More comprehensive checking with separate group/individual blogs.
     }
 
@@ -1516,4 +1533,40 @@ class oublog_locallib_test extends oublog_test_lib {
         $this->assertContains('blogtag02', end($restrictedtaglist));// Last in restricted list.
     }
 
+    public function test_oublog_time_limits() {
+        $this->resetAfterTest();
+        $course = $this->get_new_course();
+        $stud1 = $this->get_new_user('student', $course->id);
+
+        // Future posts + comments start blog.
+        $oublog = $this->get_new_oublog($course->id, array('postfrom' => 2524611600, 'commentfrom' => 2524611600));
+        // Past posts + comments start blog.
+        $oublog1 = $this->get_new_oublog($course->id, array('postfrom' => 1262307600, 'commentfrom' => 1262307600));
+        // Future posts + comments end blog.
+        $oublog2 = $this->get_new_oublog($course->id, array('postuntil' => 2524611600, 'commentuntil' => 2524611600));
+        // Past posts + comments end blog.
+        $oublog3 = $this->get_new_oublog($course->id, array('postuntil' => 1262307600, 'commentuntil' => 1262307600));
+
+        $this->setAdminUser();
+        $this->assertTrue(oublog_can_post_now($oublog, context_module::instance($oublog->cm->id)));
+        $this->assertTrue(oublog_can_post_now($oublog1, context_module::instance($oublog1->cm->id)));
+        $this->assertTrue(oublog_can_post_now($oublog2, context_module::instance($oublog2->cm->id)));
+        $this->assertTrue(oublog_can_post_now($oublog3, context_module::instance($oublog3->cm->id)));
+        $post = (object) array('allowcomments' => true, 'visibility' => OUBLOG_VISIBILITY_COURSEUSER);
+        $this->assertTrue(oublog_can_comment($oublog->cm, $oublog, $post));
+        $this->assertTrue(oublog_can_comment($oublog1->cm, $oublog1, $post));
+        $this->assertTrue(oublog_can_comment($oublog2->cm, $oublog2, $post));
+        $this->assertTrue(oublog_can_comment($oublog3->cm, $oublog3, $post));
+
+        $this->setUser($stud1);
+        $this->assertFalse(oublog_can_post_now($oublog, context_module::instance($oublog->cm->id)));
+        $this->assertTrue(oublog_can_post_now($oublog1, context_module::instance($oublog1->cm->id)));
+        $this->assertTrue(oublog_can_post_now($oublog2, context_module::instance($oublog2->cm->id)));
+        $this->assertFalse(oublog_can_post_now($oublog3, context_module::instance($oublog3->cm->id)));
+        $post = (object) array('allowcomments' => true, 'visibility' => OUBLOG_VISIBILITY_COURSEUSER);
+        $this->assertFalse(oublog_can_comment($oublog->cm, $oublog, $post));
+        $this->assertTrue(oublog_can_comment($oublog1->cm, $oublog1, $post));
+        $this->assertTrue(oublog_can_comment($oublog2->cm, $oublog2, $post));
+        $this->assertFalse(oublog_can_comment($oublog3->cm, $oublog3, $post));
+    }
 }

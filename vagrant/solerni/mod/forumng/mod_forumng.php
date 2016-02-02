@@ -1859,12 +1859,7 @@ WHERE $conditions AND m.name = 'forumng' AND $restrictionsql",
                     break;
                 }
             } else {
-                require_once($CFG->libdir . '/conditionlib.php');
                 $visible = $cm->visible;
-                // Note: It is pretty terrible that this code is placed here.
-                // Shouldn't there be a function in cm_info to do this? :(
-                // Unfortunately I didn't think of that when redesigning
-                // cm_info, it can only work for current user.
                 $info = new \core_availability\info_module($cm);
                 $visible = $visible &&
                     $info->is_available($crap, false, $userid);
@@ -1873,17 +1868,14 @@ WHERE $conditions AND m.name = 'forumng' AND $restrictionsql",
                     $result = false;
                     break;
                 }
-                if ($cm->groupmembersonly && !has_capability(
-                    'moodle/site:accessallgroups', $context, $userid)) {
-                    // If the forum is restricted to group members only, then
-                    // limit it to people within groups on the course - or
-                    // groups in the grouping, if one is selected
-                    $groupobjs = groups_get_all_groups($course->id, $userid,
-                        $cm->groupingid, 'g.id');
-                    if (!$groupobjs || count($groupobjs)==0) {
-                        $result = false;
-                        break;
-                    }
+            }
+            if ($this->get_group_mode() == SEPARATEGROUPS &&
+                    !has_capability('moodle/site:accessallgroups', $context, $userid)) {
+                // Limit it to people within groups in the grouping, if one is selected.
+                $groupobjs = groups_get_all_groups($course->id, $userid, $cm->groupingid, 'g.id');
+                if (!$groupobjs || count($groupobjs) == 0) {
+                    $result = false;
+                    break;
                 }
             }
             $result = true;
@@ -1945,52 +1937,10 @@ WHERE $conditions AND m.name = 'forumng' AND $restrictionsql",
     public function is_in_auto_subscribe_list($userid=0, $expectingquery=false) {
         global $DB, $USER;
         $userid = mod_forumng_utils::get_real_userid($userid);
-        $context = $this->get_context();
 
-        // Check capability without doanything
-        if (!has_capability('mod/forumng:viewdiscussion', $context,
-            $userid, false)) {
+        // Check standard subscription allowed.
+        if (!$this->can_be_subscribed($userid)) {
             return false;
-        }
-
-        // Check user is in permitted group
-        $groups = $this->get_permitted_groups();
-        if ($groups) {
-            if (isset($USER) && $userid == $USER->id) {
-                $ok = false;
-                foreach ($USER->groupmember as $courseid => $values) {
-                    if ($courseid == $this->get_course_id()) {
-                        foreach ($values as $groupid) {
-                            if (in_array($groupid, $groups)) {
-                                $ok = true;
-                                break;
-                            }
-                        }
-                        if ($ok) {
-                            break;
-                        }
-                    }
-                }
-            } else {
-                if (!$expectingquery) {
-                    debugging('DB query required for is_in_auto_subscribe_list. ' .
-                        'Set $expectingquery to true or check code',
-                        DEBUG_DEVELOPER);
-                }
-                list($inorequals, $inparams) = mod_forumng_utils::get_in_array_sql('groupid',
-                        $groups);
-                $ok = $DB->count_records_sql("
-SELECT
-    COUNT(1)
-FROM
-    {groups_members}
-WHERE
-    userid = ? AND $inorequals",
-                        array_merge(array($userid), $inparams));
-            }
-            if (!$ok) {
-                return false;
-            }
         }
 
         // Check user has role in subscribe roles.
@@ -2221,24 +2171,40 @@ WHERE
         // limited to a group if specified.
         list($enrolsql, $enrolparams) = get_enrolled_sql($this->get_context(),
                 'mod/forumng:viewdiscussion', $groupid >= 0 ? $groupid : 0, true);
-        return $DB->get_records_sql("SELECT " .
+        $users =  $DB->get_records_sql("SELECT " .
                 mod_forumng_utils::select_username_fields('', true) .
                 " FROM {user} u WHERE u.id IN ($enrolsql)", $enrolparams);
+        $avail = new \core_availability\info_module($this->get_course_module());
+        $users = $avail->filter_user_list($users);
+        if ($groupid == self::ALL_GROUPS && $groups = $this->get_permitted_groups()) {
+            // Separate groups grouping enabled forum (+ group not specified) - must be in a group.
+            raise_memory_limit(MEMORY_EXTRA);
+            $groupmembers = get_users_by_capability($this->get_context(),
+                        'mod/forumng:viewdiscussion', 'u.id', '', '', '',
+                        $groups, '', 0, 0, true);
+            $newusers = array();
+            foreach ($users as $id => $ob) {
+                if (array_key_exists($id, $groupmembers)) {
+                    $newusers[$id] = $ob;
+                }
+            }
+            return $newusers;
+        }
+        return $users;
     }
 
     /**
      * Obtains a list of group IDs that are permitted to use this forum.
+     * This is not the same as restriction.
+     * Group id's will be sent when a separate groups forum with grouping applied.
      * @return mixed Either an array of IDs, or '' if all groups permitted
      */
     private function get_permitted_groups() {
         $groups = '';
-        $cm = $this->get_course_module();
-        if ($cm->groupmembersonly) {
-            // If the forum is restricted to group members only, then
-            // limit it to people within groups on the course - or
-            // groups in the grouping, if one is selected
-            $groupobjs = groups_get_all_groups($this->get_course()->id, 0,
-                $cm->groupingid, 'g.id');
+        $groupmode = $this->get_group_mode();
+        $grouping = $this->get_grouping();
+        if ($groupmode == SEPARATEGROUPS) {
+            $groupobjs = groups_get_all_groups($this->get_course()->id, 0, $grouping, 'g.id');
             $groups = array();
             foreach ($groupobjs as $groupobj) {
                 $groups[] = $groupobj->id;
@@ -2346,6 +2312,9 @@ WHERE
                     $allowedusers = get_users_by_capability($context,
                         'mod/forumng:viewdiscussion', 'u.id', '', '', '',
                         $groups, '', 0, 0, true);
+                    // Filter possible users by activity availability.
+                    $avail = new \core_availability\info_module($this->get_course_module());
+                    $allowedusers = $avail->filter_user_list($allowedusers);
                     mod_forumng_utils::add_admin_users($allowedusers);
                 }
                 // Get reference to current user, or make new object if required
@@ -3321,8 +3290,7 @@ WHERE
          AND fd.deleted = 0
          AND (
              ((fd.timestart = 0 OR fd.timestart <= ?)
-             AND (fd.timeend = 0 OR fd.timeend > ?))
-             OR ($inviewhiddenforums)
+             AND (fd.timeend = 0 OR fd.timeend > ? OR ($inviewhiddenforums)))
          )
          AND ((fplast.edituserid IS NOT NULL AND fplast.edituserid <> ?)
           OR fplast.userid <> ?)
@@ -3957,7 +3925,8 @@ WHERE
             'flagon' => null,
             'flagoff' => null,
             'clearflag' => null,
-            'setflag' => null);
+            'setflag' => null,
+            'flagpost' => null);
         if ($this->has_post_quota()) {
             $mainstrings['quotaleft_plural'] = (object)array(
                 'posts'=>'#', 'period' => $this->get_max_posts_period(true, true));
@@ -4459,10 +4428,10 @@ WHERE
         $newcm->groupmode = $cm->groupmode;
         $newcm->groupingid = $cm->groupingid;
         $newcm->idnumber = $cm->idnumber;
-        $newcm->groupmembersonly = $cm->groupmembersonly;
         $newcm->completion = $cm->completion;
         $newcm->completiongradeitemnumber = $cm->completiongradeitemnumber;
         $newcm->completionview = $cm->completionview;
+        $newcm->availability = $cm->availability;
 
         // Add
         $newcm->id = $DB->insert_record('course_modules', $newcm);
@@ -4886,9 +4855,10 @@ WHERE
      * @param string $order Sort order; the default is fp.id - note this is preferable
      *   to fp.timecreated because it works correctly if there are two posts in
      *   the same second
+     * @param bool $hasrating if true only returns posts which ahve been rated
      * @return array Array of mod_forumng_post objects
      */
-    public function get_all_posts_by_user($userid, $groupid, $order = 'fp.id', $start = null, $end = null) {
+    public function get_all_posts_by_user($userid, $groupid, $order = 'fp.id', $start = null, $end = null, $hasrating = false) {
         global $CFG, $USER;
         $where = 'fd.forumngid = ? AND fp.userid = ? AND fp.oldversion = 0 AND fp.deleted = 0';
         $whereparams = array($this->get_id(), $userid);
@@ -4905,6 +4875,12 @@ WHERE
             $where .= ' AND fp.created <= ?';
             $whereparams[] = $end;
         }
+        if ($hasrating) {
+            $where .= ' AND '.self::select_exists("SELECT r.itemid FROM {rating} r WHERE r.itemid = fp.id AND r.ratingarea = 'post'
+                    AND r.contextid = ? AND r.userid <> ?");
+            $whereparams[] = $this->get_context(true)->id;
+            $whereparams[] = $userid;
+        }
         $result = array();
         $posts = mod_forumng_post::query_posts($where, $whereparams, $order, false, false, true,
                 0, true, true);
@@ -4914,6 +4890,96 @@ WHERE
             // If grading is 'No grading' or 'Teacher grades students'.
             if ($this->get_grading() == mod_forumng::GRADING_NONE ||
                 $this->get_grading() == mod_forumng::GRADING_MANUAL) {
+                // Set the aggregation method.
+                if ($this->get_rating_scale() > 0) {
+                    $aggregate = RATING_AGGREGATE_AVERAGE;
+                } else {
+                    $aggregate = RATING_AGGREGATE_COUNT;
+                }
+            } else {
+                $aggregate = $this->get_grading();
+            }
+            $ratingoptions = new stdClass();
+            $ratingoptions->context = $this->get_context(true);
+            $ratingoptions->component = 'mod_forumng';
+            $ratingoptions->ratingarea = 'post';
+            $ratingoptions->items = $posts;
+            $ratingoptions->aggregate = $aggregate;
+            $ratingoptions->scaleid = $this->get_rating_scale();
+            $ratingoptions->userid = $USER->id;
+            $ratingoptions->assesstimestart = $this->get_ratingfrom();
+            $ratingoptions->assesstimefinish = $this->get_ratinguntil();
+
+            $rm = new rating_manager();
+            $posts = $rm->get_ratings($ratingoptions);
+        }
+        foreach ($posts as $fields) {
+            $discussionfields = mod_forumng_utils::extract_subobject($fields, 'fd_');
+            $discussion = new mod_forumng_discussion($this, $discussionfields, false, -1);
+            $result[$fields->id] = new mod_forumng_post($discussion, $fields);
+        }
+        return $result;
+    }
+
+    /**
+     * Returns all posts in this forum by the given user within the given group.
+     * @param object $forum
+     * @param int $userid
+     * @param int $groupid
+     * @param int $ratedstart
+     * @param int $ratedend
+     * @param string $order Sort order; the default is fp.id - note this is preferable
+     *   to fp.timecreated because it works correctly if there are two posts in
+     *   the same second
+     * @param bool $hasrating if true only returns posts which ahve been rated
+     * @return array Array of mod_forumng_post objects
+     */
+    public function get_rated_posts_by_user(
+            $forum, $userid, $groupid, $order = 'fp.id', $ratedstart = null, $ratedend = null, $start = null, $end = null) {
+        global $CFG, $USER;
+        if ($forum->get_enableratings() != mod_forumng::FORUMNG_STANDARD_RATING) {
+            return array();
+        }
+        $where = 'fd.forumngid = ? AND fp.userid <> ? AND fp.oldversion = 0 AND fp.deleted = 0';
+        $whereparams = array($this->get_id(), $userid);
+        if ($groupid != self::NO_GROUPS && $groupid != self::ALL_GROUPS) {
+            $where .= ' AND (fd.groupid = ? OR fd.groupid IS NULL)';
+            $whereparams[] = $groupid;
+        }
+        if (!empty($start)) {
+            $where .= ' AND fp.created >= ?';
+            $whereparams[] = $start;
+        }
+
+        if (!empty($end)) {
+            $where .= ' AND fp.created <= ?';
+            $whereparams[] = $end;
+        }
+        $sqlselectstring = 'SELECT r.itemid FROM {rating} r WHERE r.itemid = fp.id AND r.ratingarea = \'post\'
+                AND r.contextid = ? AND r.userid = ?';
+        $extraparams = array();
+        if (!empty($ratedstart)) {
+            $sqlselectstring .= ' AND r.timemodified >= ?';
+            $extraparams[] = $ratedstart;
+        }
+        if (!empty($ratedend)) {
+            $sqlselectstring .= ' AND r.timemodified <= ?';
+            $extraparams[] = $ratedend;
+        }
+        $where .= ' AND '.self::select_exists($sqlselectstring);
+        $whereparams[] = $this->get_context(true)->id;
+        $whereparams[] = $userid;
+        $whereparams = array_merge($whereparams, $extraparams);
+
+        $result = array();
+        $posts = mod_forumng_post::query_posts($where, $whereparams, $order, false, false, true,
+                0, true, true);
+        // Add standard ratings if enabled.
+        if ($this->get_enableratings() == mod_forumng::FORUMNG_STANDARD_RATING) {
+            require_once($CFG->dirroot . '/rating/lib.php');
+            // If grading is 'No grading' or 'Teacher grades students'.
+            if ($this->get_grading() == mod_forumng::GRADING_NONE ||
+            $this->get_grading() == mod_forumng::GRADING_MANUAL) {
                 // Set the aggregation method.
                 if ($this->get_rating_scale() > 0) {
                     $aggregate = RATING_AGGREGATE_AVERAGE;

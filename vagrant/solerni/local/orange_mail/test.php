@@ -49,7 +49,9 @@ $instances = enrol_get_instances ($course->id, true);
 $instances = array_filter ($instances, function ($element) {
     return $element->enrol == "self";
 });
-$instanceself = array_pop($instances);
+if (count($instances) != 0) {
+    $instanceself = array_pop($instances);
+}
 
 $langs = get_string_manager()->get_list_of_translations();
 foreach ($langs as $lang => $value) {
@@ -61,8 +63,10 @@ foreach ($langs as $lang => $value) {
         mail_test::send_password_change_confirmation_email($USER);
         mail_test::send_confirmation_email($USER);
         mail_test::send_email_deletion($USER);
-        mail_test::email_welcome_message($instanceself, $USER);
-        mail_test::email_information_message($instanceself, $USER);
+        if (count($instances) != 0) {
+            mail_test::email_welcome_message($instanceself, $USER);
+            mail_test::email_information_message($instanceself, $USER);
+        }
         mail_test::setnew_password_and_mail($USER);
     }
 
@@ -73,8 +77,10 @@ foreach ($langs as $lang => $value) {
         mail_test::send_password_change_confirmation_email($USER, true);
         mail_test::send_confirmation_email($USER, true);
         mail_test::send_email_deletion($USER, true);
-        mail_test::email_welcome_message($instanceself, $USER, true);
-        mail_test::email_information_message($instanceself, $USER, true);
+        if (count($instances) != 0) {
+            mail_test::email_welcome_message($instanceself, $USER, true);
+            mail_test::email_information_message($instanceself, $USER, true);
+        }
         mail_test::setnew_password_and_mail($USER, true);
     }
 }

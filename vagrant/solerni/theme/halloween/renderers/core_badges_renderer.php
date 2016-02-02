@@ -118,7 +118,7 @@ class theme_halloween_core_badges_renderer extends core_badges_renderer {
         $linkmybadges = "";
         if ($ismypage) {
             $mybadgesurl = new moodle_url('/badges/mybadges.php');
-            $linkmybadges = html_writer::link($mybadgesurl, get_string('mybadges', 'badges'));
+            $linkmybadges = html_writer::link($mybadgesurl, get_string('mybadges', 'theme_halloween'));
         }
 
         return $title . html_writer::alist($items, array('class' => 'badges')) . $linkmybadges;

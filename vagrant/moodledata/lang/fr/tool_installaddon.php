@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_installaddon', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'tool_installaddon', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   tool_installaddon
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -26,7 +26,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['acknowledgement'] = 'Quittance';
-$string['acknowledgementmust'] = 'Vous devez quittancer ceci';
 $string['acknowledgementtext'] = 'Je suis conscient qu\'il est de ma responsabilité d\'effectuer une sauvegarde complète de ce site avant d\'installer des plugins additionnels. J\'accepte et je suis conscient que des plugins additionnels (en particulier ceux provenant de sources non officielles, mais pas uniquement) peuvent comporter des lacunes de sécurité, rendre ce site indisponible et causer des pertes ou fuites de données privées.';
 $string['featuredisabled'] = 'L\'installeur de plugins additionnels est désactivé sur ce site.';
 $string['installaddon'] = 'Installer le plugin !';
@@ -42,10 +41,11 @@ $string['installfromziprootdir'] = 'Renommer le dossier principal';
 $string['installfromziprootdir_help'] = 'Certains paquetages ZIP, par exemple ceux qui sont générés par Github, peuvent comporter un nom de dossier principal incorrect. Vous pouvez renommer ce dossier en indiquant dans ce champ le nom correct.';
 $string['installfromzipsubmit'] = 'Installer le plugin à partir du fichier ZIP';
 $string['installfromziptype'] = 'Type de plugin';
-$string['installfromziptype_help'] = 'Veuillez choisir le type de plugin correspondant au plugin que vous voulez installer. La procédure d\'installation peut lamentablement échouer si un type incorrect est indiqué.';
+$string['installfromziptype_help'] = 'Pour les plugins qui déclarent correctement leur nom de composant, l\'installeur est capable de détecter automatiquement le type de plugin. Si la détection automatique échoue, veuillez choisir manuellement le type de plugin correct. Attention ! La procédure d\'installation peut lamentablement échouer si un type incorrect est indiqué.';
 $string['permcheck'] = 'Assurez-vous que l\'emplacement sur le serveur pour ce type de plugin est accessible en écriture par le serveur web.';
 $string['permcheckerror'] = 'Erreur lors de la vérification de l\'autorisation d\'écriture';
 $string['permcheckprogress'] = 'Vérification de l\'autorisation d\'écriture...';
+$string['permcheckrepeat'] = 'Veuillez vérifier à nouveau';
 $string['permcheckresultno'] = 'L\'emplacement pour le type de plugin <em>{$a->path}</em> n\'est pas accessible en écriture';
 $string['permcheckresultyes'] = 'L\'emplacement pour le type de plugin <em>{$a->path}</em> est accessible en écriture';
 $string['pluginname'] = 'Installeur de plugin';
@@ -54,13 +54,14 @@ $string['remoterequestconfirm'] = 'Une demande d\'installation sur ce site du pl
 $string['remoterequestinvalid'] = 'Une demande d\'installation d\'un plugin du répertoire de plugins Moodle a été détectée. La requête n\'est cependant pas valide et le plugin ne peut donc pas être installé.';
 $string['remoterequestpermcheck'] = 'Une demande d\'installation sur ce site du plugin {$a->name} ({$a->component}), version {$a->version} du répertoire de plugins Moodle a été détectée. L\'emplacement pour ce type de plugin <strong>{$a->typepath}</strong> sur le serveur n\'est toutefois <strong>pas accessible en écriture</strong>. Vous devez donner au serveur web l\'autorisation d\'accès en écriture à cet emplacement maintenant, puis cliquer sur le bouton continuer pour relancer la vérification.';
 $string['remoterequestpluginfoexception'] = 'Oups... Une erreur est survenue lors de la tentative d\'obtention d\'informations sur le plugin {$a->name} ({$a->component}), version {$a->version}. Le plugin ne peut pas être installé. Veuillez activer le mode de débogage pour en savoir plus sur cette erreur.';
+$string['typedetectionfailed'] = 'Impossible de détecter le type de plugin. Veuillez choisir manuellement le type de plugin.';
 $string['validation'] = 'Validation du paquetage du plugin';
 $string['validationmsg_componentmatch'] = 'Nom complet du composant';
 $string['validationmsg_componentmismatchname'] = 'Incohérence du nom du plugin';
 $string['validationmsg_componentmismatchname_help'] = 'Certains paquetages ZIP, par exemple ceux qui sont généré par Github, peuvent comporter un nom de dossier principal incorrect. Vous devez renommer ce dossier afin qu\'il corresponde au nom déclaré par le plugin.';
 $string['validationmsg_componentmismatchname_info'] = 'Ce plugin déclare que son nom est « {$a} », mais ce nom de correspond pas au nom du dossier principal.';
 $string['validationmsg_componentmismatchtype'] = 'Incohérence du type du plugin';
-$string['validationmsg_componentmismatchtype_info'] = 'Vous avez indiqué le type « {$a->expected} », alors que le plugin déclare que son type est « {$a->found} ».';
+$string['validationmsg_componentmismatchtype_info'] = 'Type de plugin attendu « {$a->expected} », alors que le plugin déclare que son type est « {$a->found} ».';
 $string['validationmsg_filenotexists'] = 'Fichier extrait introuvable';
 $string['validationmsg_filesnumber'] = 'Il n\'y a pas assez de fichiers dans le paquetage';
 $string['validationmsg_filestatus'] = 'Impossible d\'extraire tous les fichiers';

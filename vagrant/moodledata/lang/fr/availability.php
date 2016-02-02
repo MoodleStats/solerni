@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'availability', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'availability', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   availability
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -30,7 +30,7 @@ $string['addrestriction'] = 'Ajouter une restriction';
 $string['and'] = 'et';
 $string['condition_group'] = 'Jeu de restrictions';
 $string['condition_group_info'] = 'Ajouter un jeu de restrictions imbriquées pour obtenir une logique complexe.';
-$string['enableavailability'] = 'Activer la disponibilité conditionnelle';
+$string['enableavailability'] = 'Activer les restrictions d\'accès';
 $string['enableavailability_desc'] = 'Permet de définir des conditions (basées sur la date, une note ou la fin d\'une activité) qui déterminent si une activité ou une ressource est disponible.';
 $string['error_list_nochildren'] = 'Les jeux de restrictions doivent comporter au moins une condition';
 $string['hidden_all'] = 'Totalement caché si les conditions ne sont pas remplies par l\'utilisateur';
@@ -62,6 +62,7 @@ $string['manageplugins'] = 'Gérer les restrictions';
 $string['missingplugin'] = 'Plugin de restriction manquant';
 $string['or'] = 'ou';
 $string['restrictaccess'] = 'Restreindre la disponibilité';
+$string['restrictbygroup'] = 'Ajouter une restriction de groupe/groupement';
 $string['setheading'] = '{$a->number} jeu de {$a->count} restriction(s)';
 $string['shown_all'] = 'Affiché en grisé si les conditions ne sont pas remplies par l\'utilisateur';
 $string['shown_individual'] = 'Affiché en grisé si cette condition n\'est pas remplie par l\'utilisateur';

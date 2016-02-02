@@ -79,5 +79,6 @@ $string['notreplay']            = 'Don\'t replay';
 $string['configuration_error']  = 'Configuration errors for this course:';
 $string['enrolmentmethodmissing'] = 'Enrolment method "{$a}" missing.';
 $string['enrolmentmethoddisabled'] = 'Enrolment method "{$a}" should be enabled.';
-$string['moddescriptionpagemissing'] = '"Find out more" page missing.';
+$string['moddescriptionpagemissing'] = '"{$a}" page missing.';
+$string['moddescriptionpagemultiple'] = 'More than one "{$a}" page found.';
 $string['blockmissing'] = 'Block "{$a}" missing.';

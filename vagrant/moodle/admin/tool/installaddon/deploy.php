@@ -30,7 +30,7 @@ require_login();
 require_capability('moodle/site:config', context_system::instance());
 
 if (!empty($CFG->disableonclickaddoninstall)) {
-	notice(get_string('featuredisabled', 'tool_installaddon'));
+    notice(get_string('featuredisabled', 'tool_installaddon'));
 }
 
 require_sesskey();
@@ -42,31 +42,31 @@ $pluginname = required_param('name', PARAM_PLUGIN);
 $zipcontentpath = $CFG->tempdir.'/tool_installaddon/'.$jobid.'/contents';
 
 if (!is_dir($zipcontentpath)) {
-	debugging('Invalid location of the extracted ZIP package: '.s($zipcontentpath), DEBUG_DEVELOPER);
-	redirect(new moodle_url('/admin/tool/installaddon/index.php'),
-			get_string('invaliddata', 'core_error'));
+    debugging('Invalid location of the extracted ZIP package: '.s($zipcontentpath), DEBUG_DEVELOPER);
+    redirect(new moodle_url('/admin/tool/installaddon/index.php'),
+        get_string('invaliddata', 'core_error'));
 }
 
 if (!is_dir($zipcontentpath.'/'.$pluginname)) {
-	debugging('Invalid location of the plugin root directory: '.$zipcontentpath.'/'.$pluginname, DEBUG_DEVELOPER);
-	redirect(new moodle_url('/admin/tool/installaddon/index.php'),
-			get_string('invaliddata', 'core_error'));
+    debugging('Invalid location of the plugin root directory: '.$zipcontentpath.'/'.$pluginname, DEBUG_DEVELOPER);
+    redirect(new moodle_url('/admin/tool/installaddon/index.php'),
+        get_string('invaliddata', 'core_error'));
 }
 
 $installer = tool_installaddon_installer::instance();
 
 if (!$installer->is_plugintype_writable($plugintype)) {
-	debugging('Plugin type location not writable', DEBUG_DEVELOPER);
-	redirect(new moodle_url('/admin/tool/installaddon/index.php'),
-			get_string('invaliddata', 'core_error'));
+    debugging('Plugin type location not writable', DEBUG_DEVELOPER);
+    redirect(new moodle_url('/admin/tool/installaddon/index.php'),
+        get_string('invaliddata', 'core_error'));
 }
 
 $plugintypepath = $installer->get_plugintype_root($plugintype);
 
 if (file_exists($plugintypepath.'/'.$pluginname)) {
-	debugging('Target location already exists', DEBUG_DEVELOPER);
-	redirect(new moodle_url('/admin/tool/installaddon/index.php'),
-			get_string('invaliddata', 'core_error'));
+    debugging('Target location already exists', DEBUG_DEVELOPER);
+    redirect(new moodle_url('/admin/tool/installaddon/index.php'),
+        get_string('invaliddata', 'core_error'));
 }
 
 // Copy permissions form the plugin type directory.

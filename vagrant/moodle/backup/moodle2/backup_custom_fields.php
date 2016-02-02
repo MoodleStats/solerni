@@ -38,19 +38,19 @@ defined('MOODLE_INTERNAL') || die();
  */
 class anonymizer_final_element extends backup_final_element {
 
-	public function set_value($value) {
-		// Get parent name
-		$pname = $this->get_parent()->get_name();
-		// Get my name
-		$myname = $this->get_name();
-		// Define class and function name
-		$classname = 'backup_anonymizer_helper';
-		$methodname= 'process_' . $pname . '_' . $myname;
-		// Invoke the interception method
-		$result = call_user_func(array($classname, $methodname), $value);
-		// Finally set it
-		parent::set_value($result);
-	}
+    public function set_value($value) {
+        // Get parent name
+        $pname = $this->get_parent()->get_name();
+        // Get my name
+        $myname = $this->get_name();
+        // Define class and function name
+        $classname = 'backup_anonymizer_helper';
+        $methodname= 'process_' . $pname . '_' . $myname;
+        // Invoke the interception method
+        $result = call_user_func(array($classname, $methodname), $value);
+        // Finally set it
+        parent::set_value($result);
+    }
 }
 
 /**
@@ -63,19 +63,19 @@ class anonymizer_final_element extends backup_final_element {
  */
 class mnethosturl_final_element extends backup_final_element {
 
-	public function set_value($value) {
-		global $CFG;
+    public function set_value($value) {
+        global $CFG;
 
-		$localhostwwwroot = backup_plan_dbops::get_mnet_localhost_wwwroot();
+        $localhostwwwroot = backup_plan_dbops::get_mnet_localhost_wwwroot();
 
-		// If user wwwroot matches mnet local host one or if
-		// there isn't associated wwwroot, skip sending it to file
-		if ($localhostwwwroot == $value || empty($value)) {
-			// Do nothing
-		} else {
-			parent::set_value($value);
-		}
-	}
+        // If user wwwroot matches mnet local host one or if
+        // there isn't associated wwwroot, skip sending it to file
+        if ($localhostwwwroot == $value || empty($value)) {
+            // Do nothing
+        } else {
+            parent::set_value($value);
+        }
+    }
 }
 
 /**
@@ -89,39 +89,39 @@ class mnethosturl_final_element extends backup_final_element {
  */
 class file_nested_element extends backup_nested_element {
 
-	protected $backupid;
+    protected $backupid;
 
-	public function process($processor) {
-		// Get current backupid from processor, we'll need later
-		if (is_null($this->backupid)) {
-			$this->backupid = $processor->get_var(backup::VAR_BACKUPID);
-		}
-		return parent::process($processor);
-	}
+    public function process($processor) {
+        // Get current backupid from processor, we'll need later
+        if (is_null($this->backupid)) {
+            $this->backupid = $processor->get_var(backup::VAR_BACKUPID);
+        }
+        return parent::process($processor);
+    }
 
-	public function fill_values($values) {
-		// Fill values
-		parent::fill_values($values);
-		// Do our own tasks (copy file from moodle to backup)
-		try {
-			backup_file_manager::copy_file_moodle2backup($this->backupid, $values);
-		} catch (file_exception $e) {
-			$this->add_result(array('missing_files_in_pool' => true));
+    public function fill_values($values) {
+        // Fill values
+        parent::fill_values($values);
+        // Do our own tasks (copy file from moodle to backup)
+        try {
+            backup_file_manager::copy_file_moodle2backup($this->backupid, $values);
+        } catch (file_exception $e) {
+            $this->add_result(array('missing_files_in_pool' => true));
 
-			// Build helpful log message with all information necessary to identify
-			// file location.
-			$context = context::instance_by_id($values->contextid, IGNORE_MISSING);
-			$contextname = '';
-			if ($context) {
-				$contextname = ' \'' . $context->get_context_name() . '\'';
-			}
-			$message = 'Missing file in pool: ' . $values->filepath  . $values->filename .
-			' (context ' . $values->contextid . $contextname . ', component ' .
-			$values->component . ', filearea ' . $values->filearea . ', itemid ' .
-			$values->itemid . ') [' . $e->debuginfo . ']';
-			$this->add_log($message, backup::LOG_WARNING);
-		}
-	}
+            // Build helpful log message with all information necessary to identify
+            // file location.
+            $context = context::instance_by_id($values->contextid, IGNORE_MISSING);
+            $contextname = '';
+            if ($context) {
+                $contextname = ' \'' . $context->get_context_name() . '\'';
+            }
+            $message = 'Missing file in pool: ' . $values->filepath  . $values->filename .
+                    ' (context ' . $values->contextid . $contextname . ', component ' .
+                    $values->component . ', filearea ' . $values->filearea . ', itemid ' .
+                    $values->itemid . ') [' . $e->debuginfo . ']';
+            $this->add_log($message, backup::LOG_WARNING);
+        }
+    }
 }
 
 /**

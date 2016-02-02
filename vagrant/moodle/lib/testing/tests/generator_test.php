@@ -195,7 +195,6 @@ class core_test_generator_testcase extends advanced_testcase {
         // Enable advanced functionality.
         $CFG->enablecompletion = 1;
         $CFG->enableavailability = 1;
-        $CFG->enablegroupmembersonly = 1;
         $CFG->enableoutcomes = 1;
         require_once($CFG->libdir.'/gradelib.php');
         require_once($CFG->libdir.'/completionlib.php');
@@ -225,10 +224,8 @@ class core_test_generator_testcase extends advanced_testcase {
             'cmidnumber' => 'IDNUM', // Note: alternatively can have key 'idnumber'.
             // Module supports FEATURE_GROUPS;
             'groupmode' => SEPARATEGROUPS, // Note: will be reset to 0 if course groupmodeforce is set.
-            // Module supports FEATURE_GROUPINGS or module supports FEATURE_GROUPMEMBERSONLY:
+            // Module supports FEATURE_GROUPINGS.
             'groupingid' => $grouping->id,
-            // Module supports FEATURE_GROUPMEMBERSONLY:
-            'groupmembersonly' => 1,
         );
 
         // In case completion is enabled on site and for course every module can have manual completion.
@@ -297,7 +294,6 @@ class core_test_generator_testcase extends advanced_testcase {
         $this->assertEquals($optionsgeneral['cmidnumber'], $cm1->idnumber); // Note difference in key.
         $this->assertEquals($optionsgeneral['groupmode'], $cm1->groupmode);
         $this->assertEquals($optionsgeneral['groupingid'], $cm1->groupingid);
-        $this->assertEquals($optionsgeneral['groupmembersonly'], $cm1->groupmembersonly);
 
         $cm2 = $modinfo->cms[$m2->cmid];
         $this->assertEquals($featurecompletionmanual['completion'], $cm2->completion);
@@ -366,6 +362,7 @@ class core_test_generator_testcase extends advanced_testcase {
         $user1 = $this->getDataGenerator()->create_user();
         $user2 = $this->getDataGenerator()->create_user();
         $user3 = $this->getDataGenerator()->create_user();
+        $user4 = $this->getDataGenerator()->create_user();
 
         $this->assertEquals(3, $DB->count_records('enrol', array('enrol'=>'self')));
         $instance1 = $DB->get_record('enrol', array('courseid'=>$course1->id, 'enrol'=>'self'), '*', MUST_EXIST);
@@ -396,6 +393,13 @@ class core_test_generator_testcase extends advanced_testcase {
         $this->assertTrue($result);
         $this->assertTrue($DB->record_exists('user_enrolments', array('enrolid'=>$maninstance2->id, 'userid'=>$user1->id)));
         $this->assertTrue($DB->record_exists('role_assignments', array('contextid'=>$context2->id, 'userid'=>$user1->id, 'roleid'=>$teacherrole->id)));
+
+        $result = $this->getDataGenerator()->enrol_user($user4->id, $course2->id, 'teacher', 'manual');
+        $this->assertTrue($result);
+        $this->assertTrue($DB->record_exists('user_enrolments',
+                array('enrolid' => $maninstance2->id, 'userid' => $user4->id)));
+        $this->assertTrue($DB->record_exists('role_assignments',
+                array('contextid' => $context2->id, 'userid' => $user4->id, 'roleid' => $teacherrole->id)));
 
         $result = $this->getDataGenerator()->enrol_user($user1->id, $course3->id, 0, 'manual');
         $this->assertTrue($result);

@@ -294,7 +294,51 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
         if (empty($message)) {
             return '';
         }
-        
+
         return html_writer::tag('span', $message, array('class' => 'error'));
+    }
+
+    /**
+     * Function to iterate the resav nav items. $hosts could be a object (one host)
+     * or a array of host objects.
+     *
+     * @param array of hosts || host stdClass
+     */
+    public function resac_nav_items($hosts) {
+        $html = '';
+
+        if(is_object($hosts)) {
+            $html .= self::render_nav_item($hosts);
+        }
+
+        if(is_array($hosts)) {
+            foreach ($hosts as $host) {
+                $html .= self::render_nav_item($host);
+            }
+        }
+
+        return $html;
+    }
+
+    /**
+     * Return HTML <li> element use in resac nav. You have a regular link to thematics
+     * or a jump url weither you're logged in or not.
+     *
+     * @global type $CFG
+     * @param stdClass $host
+     * @return string <html fragment>
+     */
+    public function render_nav_item(stdClass $host) {
+        global $CFG;
+
+        $aclasses = 'navigation-item';
+        $aclasses .= (strcmp($CFG->wwwroot, $host->url) === 0) ? ' active' : '';
+        $url = isloggedin() ? $host->jump : $host->url;
+
+        $html = '<li class="list-group-item">';
+        $html .= '<a class="' . $aclasses . '" href="' . $url . '">' . $host->name . '</a>';
+        $html .= '</li>';
+
+        return $html;
     }
 }

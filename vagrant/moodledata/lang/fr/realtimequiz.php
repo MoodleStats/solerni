@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'realtimequiz', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'realtimequiz', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   realtimequiz
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -71,6 +71,7 @@ $string['incorrectstatus'] = 'Le test est dans un état incorrect :';
 $string['invalidanswer'] = 'Numéro de réponse non valide';
 $string['joininstruct'] = 'Attendez que votre enseignant vous le demande avant de cliquer sur ce bouton';
 $string['joinquiz'] = 'Rejoindre un test';
+$string['joinquizasstudent'] = 'Rejoindre le test en tant qu\'étudiant';
 $string['modulename'] = 'Test en temps réel';
 $string['modulenameplural'] = 'Tests en temps réel';
 $string['next'] = 'Suivant >>';
@@ -121,10 +122,13 @@ $string['servererror'] = 'Le serveur a retourné une erreur :';
 $string['sessions'] = 'Sessions';
 $string['showsession'] = 'Montrer';
 $string['showusers'] = 'Montrer les utilisateurs';
+$string['startnewquiz'] = 'Démarrer une nouvelle session de test';
+$string['startnewquizconfirm'] = 'Etes-vous absolument sûr de vouloir interrompre la session de test courante pour en démarrer une nouvelle?';
 $string['startquiz'] = 'Démarrer le test';
 $string['submissions'] = 'Tentatives';
 $string['teacherjoinquizinstruct'] = 'Utilisez ce bouton si vous voulez tester vous même votre quiz.<br />Vous aurez aussi besoin de démarrer le quiz dans une fenêtre séparée.';
 $string['teacherstartinstruct'] = 'Utilisez ce bouton pour démarrer le quiz pour les étudiants.<br/>Vous pouvez utiliser le champ textuel pour définir un nom pour cette session afin de vous aider lors des relectures ultérieures.';
+$string['teacherstartnewinstruct'] = 'Démarre une nouvelle session de test et interrompt la session en cours.<br />Vérifiez soigneusement que la session courante n\'est pas en cours d\'utilisation avant de lancer cette commande!<br />En cas de doute, utilisez le premier bouton pour vous reconnecter à la session courante.';
 $string['tick'] = 'Réponse juste';
 $string['timeleft'] = 'Temps restant pour répondre :';
 $string['totals'] = 'Calcul du total';

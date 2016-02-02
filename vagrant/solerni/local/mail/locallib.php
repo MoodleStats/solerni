@@ -104,20 +104,20 @@ function local_mail_send_notifications($message) {
     // Send the mail now!
     foreach ($message->recipients() as $userto) {
 
+        $attachment = '';
+
+        if ($message->has_attachment(false)) {
+            $attachment = get_string('hasattachments', 'local_mail');
+        }
         $plaindata->user = fullname($message->sender());
-        $plaindata->subject = $message->subject();
-        $plaindata->content = '';
+        $plaindata->subject = $message->subject() . ' ' . $attachment;
+        $plaindata->content = $message->content();
 
         $htmldata->user = fullname($message->sender());
-        $htmldata->subject = $message->subject();
+        $htmldata->subject = $message->subject() . ' ' . $attachment;
         $url = new moodle_url('/local/mail/view.php', array('t' => 'inbox', 'm' => $message->id()));
         $htmldata->url = $url->out(false);
-        $htmldata->content = '';
-
-        if (get_user_preferences('local_mail_fullmessage', false, $userto->id)) {
-            $plaindata->content = $message->content();
-            $htmldata->content = $message->content();
-        }
+        $htmldata->content = $message->content();
 
         $fullplainmessage = format_text_email(get_string('notificationbody', 'local_mail', $plaindata), $message->format());
 
@@ -125,7 +125,7 @@ function local_mail_send_notifications($message) {
         $eventdata->component         = 'local_mail';
         $eventdata->name              = 'mail';
         $eventdata->userfrom          = $message->sender();
-        $eventdata->userto            = $userto;
+        $eventdata->userto            = core_user::get_user($userto->id);
         $eventdata->subject           = get_string('notificationsubject', 'local_mail', $SITE->shortname);
         $eventdata->fullmessage       = $fullplainmessage;
         $eventdata->fullmessageformat = FORMAT_PLAIN;
@@ -264,6 +264,8 @@ function local_mail_getsqlrecipients($courseid, $search, $groupid, $roleid, $rec
 
     $context = context_course::instance($courseid);
 
+    $mailsamerole = has_capability('local/mail:mailsamerole', $context);
+
     list($esql, $params) = get_enrolled_sql($context, null, $groupid, true);
     $joins = array("FROM {user} u");
     $wheres = array();
@@ -282,10 +284,17 @@ function local_mail_getsqlrecipients($courseid, $search, $groupid, $roleid, $rec
     $select .= $ccselect;
     $joins[] = $ccjoin;
 
-    // We want to query both the current context and parent contexts.
-    list($relatedctxsql, $relatedctxparams) = $DB->get_in_or_equal($context->get_parent_context_ids(true), SQL_PARAMS_NAMED, 'relatedctx');
+    if (!$mailsamerole) {
+        $userroleids = local_mail_get_user_roleids($USER->id, $context);
+        list($relctxsql, $reldctxparams) = $DB->get_in_or_equal($context->get_parent_context_ids(true), SQL_PARAMS_NAMED, 'relctx');
+        list($samerolesql, $sameroleparams) = $DB->get_in_or_equal($userroleids, SQL_PARAMS_NAMED, 'samerole' , false);
+        $wheres[] = "u.id IN (SELECT userid FROM {role_assignments} WHERE roleid $samerolesql AND contextid $relctxsql)";
+        $params = array_merge($params, array('roleid' => $roleid), $sameroleparams, $reldctxparams);
+    }
 
     if ($roleid) {
+        // We want to query both the current context and parent contexts.
+        list($relatedctxsql, $relatedctxparams) = $DB->get_in_or_equal($context->get_parent_context_ids(true), SQL_PARAMS_NAMED, 'relatedctx');
         $wheres[] = "u.id IN (SELECT userid FROM {role_assignments} WHERE roleid = :roleid AND contextid $relatedctxsql)";
         $params = array_merge($params, array('roleid' => $roleid), $relatedctxparams);
     }
@@ -313,4 +322,13 @@ function local_mail_getsqlrecipients($courseid, $search, $groupid, $roleid, $rec
     $sort = 'ORDER BY u.lastname ASC, u.firstname ASC';
 
     return array($select, $from, $where, $sort, $params);
+}
+
+function local_mail_get_user_roleids($userid, $context) {
+    $roles = get_user_roles($context, $userid);
+
+    return array_map(
+        function ($role) {
+            return $role->roleid;
+        }, $roles);
 }

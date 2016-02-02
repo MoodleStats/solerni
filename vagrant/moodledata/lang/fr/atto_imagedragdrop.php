@@ -25,4 +25,5 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['pluginname'] = 'Glisser-déposer d\'image';
 $string['uploading'] = 'En cours de dépôt, veuillez patienter...';

@@ -36,44 +36,46 @@ $page       = optional_param('page', 0, PARAM_INT);
 require_login();
 
 if (empty($CFG->enablebadges)) {
-	print_error('badgesdisabled', 'badges');
+    print_error('badgesdisabled', 'badges');
 }
 
 if (empty($CFG->badges_allowcoursebadges) && $courseid != 0) {
-	print_error('coursebadgesdisabled', 'badges');
+    print_error('coursebadgesdisabled', 'badges');
 }
 
 if (!in_array($sortby, array('name', 'dateissued'))) {
-	$sortby = 'name';
+    $sortby = 'name';
 }
 
 if ($sorthow != 'ASC' && $sorthow != 'DESC') {
-	$sorthow = 'ACS';
+    $sorthow = 'ASC';
 }
 
 if ($page < 0) {
-	$page = 0;
+    $page = 0;
 }
 
 if ($course = $DB->get_record('course', array('id' => $courseid))) {
-	$PAGE->set_url('/badges/view.php', array('type' => $type, 'id' => $course->id, 'sort' => $sortby, 'dir' => $sorthow));
+    $PAGE->set_url('/badges/view.php', array('type' => $type, 'id' => $course->id, 'sort' => $sortby, 'dir' => $sorthow));
 } else {
-	$PAGE->set_url('/badges/view.php', array('type' => $type, 'sort' => $sortby, 'dir' => $sorthow));
+    $PAGE->set_url('/badges/view.php', array('type' => $type, 'sort' => $sortby, 'dir' => $sorthow));
 }
 
 if ($type == BADGE_TYPE_SITE) {
-	$title = get_string('sitebadges', 'badges');
-	$PAGE->set_context(context_system::instance());
-	$PAGE->set_pagelayout('admin');
-	$PAGE->set_heading($title);
+    $PAGE->set_context(context_system::instance());
+    $PAGE->set_pagelayout('admin');
+    $PAGE->set_heading($SITE->fullname);
+    $title = get_string('sitebadges', 'badges');
 } else {
-	require_login($course);
-	$coursename = format_string($course->fullname, true, array('context' => context_course::instance($course->id)));
-	$title = $coursename . ': ' . get_string('coursebadges', 'badges');
-	$PAGE->set_context(context_course::instance($course->id));
-	$PAGE->set_pagelayout('course');
-	$PAGE->set_heading($title);
+    require_login($course);
+    $coursename = format_string($course->fullname, true, array('context' => context_course::instance($course->id)));
+    $title = $coursename . ': ' . get_string('coursebadges', 'badges');
+    $PAGE->set_context(context_course::instance($course->id));
+    $PAGE->set_pagelayout('incourse');
+    $PAGE->set_heading($coursename);
 }
+
+require_capability('moodle/badges:viewbadges', $PAGE->context);
 
 $PAGE->set_title($title);
 $output = $PAGE->get_renderer('core', 'badges');
@@ -85,22 +87,22 @@ $totalcount = count(badges_get_badges($type, $courseid, '', '', '', '', $USER->i
 $records = badges_get_badges($type, $courseid, $sortby, $sorthow, $page, BADGE_PERPAGE, $USER->id);
 
 if ($totalcount) {
-	echo $output->heading(get_string('badgestoearn', 'badges', $totalcount), 4);
+    echo $output->heading(get_string('badgestoearn', 'badges', $totalcount), 4);
 
-	if ($course && $course->startdate > time()) {
-		echo $OUTPUT->box(get_string('error:notifycoursedate', 'badges'), 'generalbox notifyproblem');
-	}
+    if ($course && $course->startdate > time()) {
+        echo $OUTPUT->box(get_string('error:notifycoursedate', 'badges'), 'generalbox notifyproblem');
+    }
 
-	$badges             = new badge_collection($records);
-	$badges->sort       = $sortby;
-	$badges->dir        = $sorthow;
-	$badges->page       = $page;
-	$badges->perpage    = BADGE_PERPAGE;
-	$badges->totalcount = $totalcount;
+    $badges             = new badge_collection($records);
+    $badges->sort       = $sortby;
+    $badges->dir        = $sorthow;
+    $badges->page       = $page;
+    $badges->perpage    = BADGE_PERPAGE;
+    $badges->totalcount = $totalcount;
 
-	echo $output->render($badges);
+    echo $output->render($badges);
 } else {
-	echo $output->notification(get_string('nobadges', 'badges'));
+    echo $output->notification(get_string('nobadges', 'badges'));
 }
 
 echo $output->footer();

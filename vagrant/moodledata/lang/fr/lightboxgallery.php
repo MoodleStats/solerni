@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'lightboxgallery', language 'fr', branch 'MOODLE_27_STABLE'
+ * Strings for component 'lightboxgallery', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   lightboxgallery
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -80,6 +80,9 @@ $string['errornoimages'] = 'Aucune image n\'a été trouvée dans cette galerie'
 $string['errornosearchresults'] = 'Votre requête n\'a retourné aucune image';
 $string['erroruploadimage'] = 'Le fichier que vous déposez doit être un fichier image';
 $string['eventgallerycommentcreated'] = 'Commentaire créé';
+$string['eventgallerysearched'] = 'Galerie recherchée';
+$string['eventimageupdated'] = 'Image modifiée';
+$string['eventviewed'] = 'Galerie d\'images consultée';
 $string['extendedinfo'] = 'Afficher toutes les informations sur l\'image';
 $string['imageadd'] = 'Ajouter des images';
 $string['imagecount'] = 'Compter les images';
@@ -115,6 +118,7 @@ Optionnellement (si activé), les utilisateurs pourront laisser des commentaires
 $string['modulenameplural'] = 'Galeries d\'images';
 $string['modulenameshort'] = 'Galerie';
 $string['newgallerycomments'] = 'Nouveau commentaire de galerie';
+$string['nocomments'] = 'Pas de commentaire';
 $string['norssfeedavailable'] = 'Flux inaccessible';
 $string['pluginadministration'] = 'Administration de la galerie d\'images';
 $string['pluginname'] = 'Galerie d\'images';

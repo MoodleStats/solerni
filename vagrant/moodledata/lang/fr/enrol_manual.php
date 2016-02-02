@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol_manual', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'enrol_manual', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   enrol_manual
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -56,6 +56,7 @@ $string['expirymessageenrollersubject'] = 'Notification d\'échéance d\'inscrip
 $string['manual:config'] = 'Configurer les instances d\'inscription manuelle';
 $string['manual:enrol'] = 'Inscrire des utilisateurs';
 $string['manual:manage'] = 'Gérer les inscriptions';
+$string['manualpluginnotinstalled'] = 'Le plugin « Inscription manuelle » n\'est pas installé';
 $string['manual:unenrol'] = 'Désinscrire des utilisateurs du cours';
 $string['manual:unenrolself'] = 'Se désinscrire du cours';
 $string['messageprovider:expiry_notification'] = 'Notifications d\'échéance d\'inscriptions manuelles';

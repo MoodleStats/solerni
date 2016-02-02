@@ -21,7 +21,10 @@
  * @author Mark Nielsen
  */
 
-require_once($CFG->libdir.'/conditionlib.php');
+//origin : Orange
+//plugin version : 2016011800
+//modification : upgrading to moodle 2.9
+//class and CONST in conditionlib.php are deprecated
 require_once(__DIR__.'/abstract.php');
 require_once(__DIR__.'/condition/grade.php');
 require_once(__DIR__.'/condition/field.php');
@@ -163,7 +166,12 @@ class course_format_flexpage_model_page extends course_format_flexpage_model_abs
     protected $conditions = array();
 
     public function __construct($options = array()) {
-        $this->showavailability = CONDITION_STUDENTVIEW_SHOW;
+        //origin : Orange
+        //plugin version : 2016011800
+        //modification : upgrading to moodle 2.9
+        //class and CONST in conditionlib.php are deprecated
+        //replace CONDITION_STUDENTVIEW_SHOW by is value "1"
+        $this->showavailability = 1;
         $this->set_options($options);
     }
 

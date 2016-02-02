@@ -8,21 +8,8 @@ fi
 if [ -f ../conf/env_moosh.cfg ]; then
 . ../conf/env_moosh.cfg
 fi
-# ${CUSTOMER_LOG_DB_HOST}
-# ${CUSTOMER_LOG_DB_NAME}
-# ${CUSTOMER_LOG_DB_USERNAME}
-# ${CUSTOMER_LOG_DB_PASSWORD}
-# ${CUSTOMER_STATS_DB_HOST}
-# ${CUSTOMER_STATS_DB_NAME}
-# ${CUSTOMER_STATS_DB_USERNAME}
-# ${CUSTOMER_STATS_DB_PASSWORD}
-# ${CUSTOMER_PIWIK_URL}
-
-# ${CUSTOMER_STATIC_DIRECTORY}
-# ${GEOIP_FILE_PATH}
 
 # add conf for external logs (#us_289)
-# moosh config-set enabled_stores logstore_standard,logstore_database,logstore_legacy tool_log
 moosh config-set enabled_stores logstore_standard,logstore_database tool_log
 moosh config-set dbdriver native/mysqli logstore_database
 moosh config-set dbhost ${CUSTOMER_LOG_DB_HOST} logstore_database
@@ -195,8 +182,8 @@ moosh config-set defaultenrol 1 enrol_orangeinvitation
 moosh config-set status 0 enrol_orangeinvitation
 
 # Add cache store memcached
-moosh cache-admin --servers ${MEMCACHED_CACHE_SERVER} --prefix ${MEMCACHED_CACHE_PREFIX} memcached addstore ${MEMCACHED_CACHE_NAME}
-moosh cache-admin memcached editmodemappings ${MEMCACHED_CACHE_NAME}
+# moosh cache-admin --servers ${MEMCACHED_CACHE_SERVER} --prefix ${MEMCACHED_CACHE_PREFIX} memcached addstore ${MEMCACHED_CACHE_NAME}
+# moosh cache-admin memcached editmodemappings ${MEMCACHED_CACHE_NAME}
 
 # Make Anonymous : add empty mail subject & msg
 moosh config-set emailsubject '' local_eledia_makeanonymous
@@ -222,3 +209,29 @@ moosh config-set marketemail ${CUSTOMER_MARKET_USER_EMAIL} local_orangemail
 moosh config-set partneremail ${CUSTOMER_PARTNER_USER_EMAIL} local_orangemail
 moosh config-set noreplyemail ${CUSTOMER_NOREPLY_USER_EMAIL} local_orangemail
 moosh config-set integratoremail ${CUSTOMER_DATA_INTEGRATOR_USER_EMAIL} local_orangemail
+moosh config-set noreplyaddress ${CUSTOMER_NOREPLY_USER_EMAIL}
+
+# Hide some activities
+moosh module-manage hide assign
+moosh module-manage hide assignment
+moosh module-manage hide book
+moosh module-manage hide chat
+moosh module-manage hide choice
+moosh module-manage show data
+moosh module-manage hide feedback
+moosh module-manage hide forum
+moosh module-manage hide imscp
+moosh module-manage hide lesson
+moosh module-manage hide lti
+moosh module-manage hide scorm
+moosh module-manage hide survey
+moosh module-manage hide url
+moosh module-manage hide wiki
+moosh module-manage hide customlabel
+moosh module-manage hide listforumng
+
+# Set default Store (unable memcached)
+moosh cache-admin memcached editmodemappings "default_application"
+
+# Page contact
+moosh config-set footerlistscolumn2link2 ${CUSTOMER_HTTP_BASE_URL}/contact/ theme_halloween

@@ -31,5 +31,5 @@ defined('MOODLE_INTERNAL') || die();
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 abstract class backup_coursereport_plugin extends backup_plugin {
-	// Use default parent behaviour
+    // Use default parent behaviour
 }

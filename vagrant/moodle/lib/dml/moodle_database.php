@@ -577,6 +577,11 @@ abstract class moodle_database {
     protected function where_clause($table, array $conditions=null) {
         // We accept nulls in conditions
         $conditions = is_null($conditions) ? array() : $conditions;
+
+        if (empty($conditions)) {
+            return array('', array());
+        }
+
         // Some checks performed under debugging only
         if (debugging()) {
             $columns = $this->get_columns($table);
@@ -600,9 +605,6 @@ abstract class moodle_database {
         }
 
         $allowed_types = $this->allowed_param_types();
-        if (empty($conditions)) {
-            return array('', array());
-        }
         $where = array();
         $params = array();
 
@@ -1083,11 +1085,13 @@ abstract class moodle_database {
 
     /**
      * Enable/disable detailed sql logging
+     *
+     * @deprecated since Moodle 2.9
+     * @todo MDL-49824 This will be deleted in Moodle 3.1.
      * @param bool $state
      */
     public function set_logging($state) {
-        // adodb sql logging shares one table without prefix per db - this is no longer acceptable :-(
-        // we must create one table shared by all drivers
+        debugging('set_logging() is deprecated and will not be replaced.', DEBUG_DEVELOPER);
     }
 
     /**
@@ -2227,6 +2231,29 @@ abstract class moodle_database {
     }
 
     /**
+     * Returns the SQL that allows to find intersection of two or more queries
+     *
+     * @since Moodle 2.8
+     *
+     * @param array $selects array of SQL select queries, each of them only returns fields with the names from $fields
+     * @param string $fields comma-separated list of fields (used only by some DB engines)
+     * @return string SQL query that will return only values that are present in each of selects
+     */
+    public function sql_intersect($selects, $fields) {
+        if (!count($selects)) {
+            throw new coding_exception('sql_intersect() requires at least one element in $selects');
+        } else if (count($selects) == 1) {
+            return $selects[0];
+        }
+        static $aliascnt = 0;
+        $rv = '('.$selects[0].')';
+        for ($i = 1; $i < count($selects); $i++) {
+            $rv .= " INTERSECT (".$selects[$i].')';
+        }
+        return $rv;
+    }
+
+    /**
      * Does this driver support tool_replace?
      *
      * @since Moodle 2.6.1
@@ -2265,7 +2292,7 @@ abstract class moodle_database {
             if (core_text::strlen($search) < core_text::strlen($replace)) {
                 $colsize = $column->max_length;
                 $sql = "UPDATE {".$table."}
-                       SET $columnname = SUBSTRING(REPLACE($columnname, ?, ?), 1, $colsize)
+                       SET $columnname = " . $this->sql_substr("REPLACE(" . $columnname . ", ?, ?)", 1, $colsize) . "
                      WHERE $columnname IS NOT NULL";
             }
             $this->execute($sql, array($search, $replace));
@@ -2386,6 +2413,7 @@ abstract class moodle_database {
 
         if (empty($this->transactions)) {
             \core\event\manager::database_transaction_commited();
+            \core\message\manager::database_transaction_commited();
         }
     }
 
@@ -2433,6 +2461,7 @@ abstract class moodle_database {
             // finally top most level rolled back
             $this->force_rollback = false;
             \core\event\manager::database_transaction_rolledback();
+            \core\message\manager::database_transaction_rolledback();
         }
         throw $e;
     }
@@ -2467,6 +2496,7 @@ abstract class moodle_database {
         $this->force_rollback = false;
 
         \core\event\manager::database_transaction_rolledback();
+        \core\message\manager::database_transaction_rolledback();
     }
 
     /**

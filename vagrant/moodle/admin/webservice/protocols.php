@@ -42,41 +42,41 @@ $confirm    = optional_param('confirm', 0, PARAM_BOOL);
 // get currently installed and enabled auth plugins
 $available_webservices = core_component::get_plugin_list('webservice');
 if (!empty($webservice) and empty($available_webservices[$webservice])) {
-	redirect($returnurl);
+    redirect($returnurl);
 }
 
 $active_webservices = empty($CFG->webserviceprotocols) ? array() : explode(',', $CFG->webserviceprotocols);
 foreach ($active_webservices as $key=>$active) {
-	if (empty($available_webservices[$active])) {
-		unset($active_webservices[$key]);
-	}
+    if (empty($available_webservices[$active])) {
+        unset($active_webservices[$key]);
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // process actions
 
 if (!confirm_sesskey()) {
-	redirect($returnurl);
+    redirect($returnurl);
 }
 
 switch ($action) {
 
-	case 'disable':
-		// remove from enabled list
-		$key = array_search($webservice, $active_webservices);
-		unset($active_webservices[$key]);
-		break;
+    case 'disable':
+        // remove from enabled list
+        $key = array_search($webservice, $active_webservices);
+        unset($active_webservices[$key]);
+        break;
 
-	case 'enable':
-		// add to enabled list
-		if (!in_array($webservice, $active_webservices)) {
-			$active_webservices[] = $webservice;
-			$active_webservices = array_unique($active_webservices);
-		}
-		break;
+    case 'enable':
+        // add to enabled list
+        if (!in_array($webservice, $active_webservices)) {
+            $active_webservices[] = $webservice;
+            $active_webservices = array_unique($active_webservices);
+        }
+        break;
 
-	default:
-		break;
+    default:
+        break;
 }
 
 set_config('webserviceprotocols', implode(',', $active_webservices));

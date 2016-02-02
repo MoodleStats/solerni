@@ -25,10 +25,10 @@
 
 /**
  * Allow the administrator to look through a list of course requests and approve or reject them.
-*
-* @license http://www.gnu.org/copyleft/gpl.html GNU Public License
-* @package course
-*/
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
+ * @package course
+ */
 
 require_once(dirname(__FILE__) . '/../config.php');
 require_once($CFG->libdir . '/adminlib.php');
@@ -46,46 +46,46 @@ admin_externalpage_setup('coursespending');
 
 /// Process approval of a course.
 if (!empty($approve) and confirm_sesskey()) {
-	/// Load the request.
-	$course = new course_request($approve);
-	$courseid = $course->approve();
+    /// Load the request.
+    $course = new course_request($approve);
+    $courseid = $course->approve();
 
-	if ($courseid !== false) {
-		redirect($CFG->wwwroot.'/course/edit.php?id=' . $courseid);
-	} else {
-		print_error('courseapprovedfailed');
-	}
+    if ($courseid !== false) {
+        redirect($CFG->wwwroot.'/course/edit.php?id=' . $courseid);
+    } else {
+        print_error('courseapprovedfailed');
+    }
 }
 
 /// Process rejection of a course.
 if (!empty($reject)) {
-	// Load the request.
-	$course = new course_request($reject);
+    // Load the request.
+    $course = new course_request($reject);
 
-	// Prepare the form.
-	$rejectform = new reject_request_form($baseurl);
-	$default = new stdClass();
-	$default->reject = $course->id;
-	$rejectform->set_data($default);
+    // Prepare the form.
+    $rejectform = new reject_request_form($baseurl);
+    $default = new stdClass();
+    $default->reject = $course->id;
+    $rejectform->set_data($default);
 
-	/// Standard form processing if statement.
-	if ($rejectform->is_cancelled()){
-		redirect($baseurl);
+/// Standard form processing if statement.
+    if ($rejectform->is_cancelled()){
+        redirect($baseurl);
 
-	} else if ($data = $rejectform->get_data()) {
+    } else if ($data = $rejectform->get_data()) {
 
-		/// Reject the request
-		$course->reject($data->rejectnotice);
+        /// Reject the request
+        $course->reject($data->rejectnotice);
 
-		/// Redirect back to the course listing.
-		redirect($baseurl, get_string('courserejected'));
-	}
+        /// Redirect back to the course listing.
+        redirect($baseurl, get_string('courserejected'));
+    }
 
-	/// Display the form for giving a reason for rejecting the request.
-	echo $OUTPUT->header($rejectform->focus());
-	$rejectform->display();
-	echo $OUTPUT->footer();
-	exit;
+/// Display the form for giving a reason for rejecting the request.
+    echo $OUTPUT->header($rejectform->focus());
+    $rejectform->display();
+    echo $OUTPUT->footer();
+    exit;
 }
 
 /// Print a list of all the pending requests.
@@ -93,46 +93,48 @@ echo $OUTPUT->header();
 
 $pending = $DB->get_records('course_request');
 if (empty($pending)) {
-	echo $OUTPUT->heading(get_string('nopendingcourses'));
+    echo $OUTPUT->heading(get_string('nopendingcourses'));
 } else {
-	echo $OUTPUT->heading(get_string('coursespending'));
+    echo $OUTPUT->heading(get_string('coursespending'));
+    $role = $DB->get_record('role', array('id' => $CFG->creatornewroleid), '*', MUST_EXIST);
+    echo $OUTPUT->notification(get_string('courserequestwarning', 'core', role_get_name($role)), 'notifyproblem');
 
-	/// Build a table of all the requests.
-	$table = new html_table();
-	$table->attributes['class'] = 'pendingcourserequests generaltable';
-	$table->align = array('center', 'center', 'center', 'center', 'center', 'center');
-	$table->head = array(get_string('shortnamecourse'), get_string('fullnamecourse'), get_string('requestedby'),
-			get_string('summary'), get_string('category'), get_string('requestreason'), get_string('action'));
+/// Build a table of all the requests.
+    $table = new html_table();
+    $table->attributes['class'] = 'pendingcourserequests generaltable';
+    $table->align = array('center', 'center', 'center', 'center', 'center', 'center');
+    $table->head = array(get_string('shortnamecourse'), get_string('fullnamecourse'), get_string('requestedby'),
+            get_string('summary'), get_string('category'), get_string('requestreason'), get_string('action'));
 
-	foreach ($pending as $course) {
-		$course = new course_request($course);
+    foreach ($pending as $course) {
+        $course = new course_request($course);
 
-		// Check here for shortname collisions and warn about them.
-		$course->check_shortname_collision();
+        // Check here for shortname collisions and warn about them.
+        $course->check_shortname_collision();
 
-		$category = $course->get_category();
+        $category = $course->get_category();
 
-		$row = array();
-		$row[] = format_string($course->shortname);
-		$row[] = format_string($course->fullname);
-		$row[] = fullname($course->get_requester());
-		$row[] = format_text($course->summary, $course->summaryformat);
-		$row[] = $category->get_formatted_name();
-		$row[] = format_string($course->reason);
-		$row[] = $OUTPUT->single_button(new moodle_url($baseurl, array('approve' => $course->id, 'sesskey' => sesskey())), get_string('approve'), 'get') .
-		$OUTPUT->single_button(new moodle_url($baseurl, array('reject' => $course->id)), get_string('rejectdots'), 'get');
+        $row = array();
+        $row[] = format_string($course->shortname);
+        $row[] = format_string($course->fullname);
+        $row[] = fullname($course->get_requester());
+        $row[] = format_text($course->summary, $course->summaryformat);
+        $row[] = $category->get_formatted_name();
+        $row[] = format_string($course->reason);
+        $row[] = $OUTPUT->single_button(new moodle_url($baseurl, array('approve' => $course->id, 'sesskey' => sesskey())), get_string('approve'), 'get') .
+                 $OUTPUT->single_button(new moodle_url($baseurl, array('reject' => $course->id)), get_string('rejectdots'), 'get');
 
-		/// Add the row to the table.
-		$table->data[] = $row;
-	}
+    /// Add the row to the table.
+        $table->data[] = $row;
+    }
 
-	/// Display the table.
-	echo html_writer::table($table);
+/// Display the table.
+    echo html_writer::table($table);
 
-	/// Message about name collisions, if necessary.
-	if (!empty($collision)) {
-		print_string('shortnamecollisionwarning');
-	}
+/// Message about name collisions, if necessary.
+    if (!empty($collision)) {
+        print_string('shortnamecollisionwarning');
+    }
 }
 
 /// Finish off the page.

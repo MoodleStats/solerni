@@ -189,7 +189,7 @@ function survey_user_complete($course, $user, $mod, $survey) {
                 } else {
                     $answertext = "No answer";
                 }
-                $table->data[] = array("<b>$questiontext</b>", $answertext);
+                $table->data[] = array("<b>$questiontext</b>", s($answertext));
             }
             echo html_writer::table($table);
 
@@ -772,7 +772,6 @@ function survey_get_extra_capabilities() {
 /**
  * @uses FEATURE_GROUPS
  * @uses FEATURE_GROUPINGS
- * @uses FEATURE_GROUPMEMBERSONLY
  * @uses FEATURE_MOD_INTRO
  * @uses FEATURE_COMPLETION_TRACKS_VIEWS
  * @uses FEATURE_GRADE_HAS_GRADE
@@ -784,7 +783,6 @@ function survey_supports($feature) {
     switch($feature) {
         case FEATURE_GROUPS:                  return true;
         case FEATURE_GROUPINGS:               return true;
-        case FEATURE_GROUPMEMBERSONLY:        return true;
         case FEATURE_MOD_INTRO:               return true;
         case FEATURE_COMPLETION_TRACKS_VIEWS: return true;
         case FEATURE_GRADE_HAS_GRADE:         return false;

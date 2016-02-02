@@ -20,24 +20,6 @@ use local_orange_library\utilities\utilities_network;
 
 class log_and_session_utilities {
 
-
-    /**
-     * Function to determine if we have to log locally or not on this instance.
-     * @return bool
-     */
-    public static function is_platform_login_uses_mnet() {
-        global $CFG;
-        $mnethosts = utilities_network::get_hosts();
-        switch(true) {
-            case $CFG->solerni_isprivate:
-            case !is_enabled_auth('mnet'):
-            case empty($mnethosts):
-                return false;
-        }
-
-        return true;
-    }
-
     /**
      * Function checking testsession value and initialize some variables
      * used in login/index.php for error management.
@@ -168,7 +150,7 @@ class log_and_session_utilities {
         $formactionhost = $CFG->wwwroot;
         $isthematic = false;
 
-        if (self::is_platform_login_uses_mnet() && utilities_network::is_thematic() && !$locallog) {
+        if (utilities_network::is_platform_uses_mnet() && utilities_network::is_thematic() && !$locallog) {
             $homemnet = utilities_network::get_home();
             if ($homemnet) {
                 $formactionhost = $homemnet->url;
@@ -194,7 +176,7 @@ class log_and_session_utilities {
         $formaction = self::define_login_form_action(false);
         $query = '';
 
-        if (self::is_platform_login_uses_mnet() && $formaction['isthematic']) {
+        if (utilities_network::is_platform_uses_mnet() && $formaction['isthematic']) {
             $query = '?mnetorigin=' . urlencode($CFG->wwwroot);
         }
 

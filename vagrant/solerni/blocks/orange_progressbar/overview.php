@@ -66,7 +66,8 @@ $completion = new completion_info($COURSE);
 if ($completion->is_enabled()) {
 
     $activitymonitored = $completion->get_progress_all('u.id = '. $USER->id);
-    list($completed, $total, $all) = block_orange_progressbar_filterfollowedactivity($COURSE, $activitymonitored[$USER->id]);
+    list($completed, $total, $all) = block_orange_progressbar_filterfollowedactivity($COURSE, 
+            isset($activitymonitored[$USER->id]) ? $activitymonitored[$USER->id] : null);
 
     if ($total) {
         // Display progress bar.

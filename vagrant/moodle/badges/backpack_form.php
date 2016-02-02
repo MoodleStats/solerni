@@ -35,61 +35,61 @@ require_once($CFG->libdir . '/badgeslib.php');
  */
 class edit_backpack_form extends moodleform {
 
-	/**
-	 * Defines the form
-	 */
-	public function definition() {
-		global $USER, $PAGE, $OUTPUT;
-		$mform = $this->_form;
+    /**
+     * Defines the form
+     */
+    public function definition() {
+        global $USER, $PAGE, $OUTPUT;
+        $mform = $this->_form;
 
-		$mform->addElement('html', html_writer::tag('span', '', array('class' => 'notconnected', 'id' => 'connection-error')));
-		$mform->addElement('header', 'backpackheader', get_string('backpackconnection', 'badges'));
-		$mform->addHelpButton('backpackheader', 'backpackconnection', 'badges');
-		$mform->addElement('static', 'url', get_string('url'), 'http://' . BADGE_BACKPACKURL);
-		$status = html_writer::tag('span', get_string('notconnected', 'badges'),
-				array('class' => 'notconnected', 'id' => 'connection-status'));
-		$mform->addElement('static', 'status', get_string('status'), $status);
+        $mform->addElement('html', html_writer::tag('span', '', array('class' => 'notconnected', 'id' => 'connection-error')));
+        $mform->addElement('header', 'backpackheader', get_string('backpackconnection', 'badges'));
+        $mform->addHelpButton('backpackheader', 'backpackconnection', 'badges');
+        $mform->addElement('static', 'url', get_string('url'), BADGE_BACKPACKURL);
+        $status = html_writer::tag('span', get_string('notconnected', 'badges'),
+            array('class' => 'notconnected', 'id' => 'connection-status'));
+        $mform->addElement('static', 'status', get_string('status'), $status);
 
-		$nojs = html_writer::tag('noscript', get_string('error:personaneedsjs', 'badges'),
-				array('class' => 'notconnected'));
-		$personadiv = $OUTPUT->container($nojs, null, 'persona-container');
+        $nojs = html_writer::tag('noscript', get_string('error:personaneedsjs', 'badges'),
+            array('class' => 'notconnected'));
+        $personadiv = $OUTPUT->container($nojs, null, 'persona-container');
 
-		$mform->addElement('static', 'persona', '', $personadiv);
-		$mform->addHelpButton('persona', 'personaconnection', 'badges');
+        $mform->addElement('static', 'persona', '', $personadiv);
+        $mform->addHelpButton('persona', 'personaconnection', 'badges');
 
-		$PAGE->requires->js(new moodle_url('https://login.persona.org/include.js'));
-		$PAGE->requires->js('/badges/backpack.js');
-		$PAGE->requires->js_init_call('badges_init_persona_login_button', null, false);
-		$PAGE->requires->strings_for_js(array('error:backpackloginfailed', 'signinwithyouremail',
-				'error:noassertion', 'error:connectionunknownreason', 'error:badjson', 'connecting',
-				'notconnected'), 'badges');
+        $PAGE->requires->js(new moodle_url('https://login.persona.org/include.js'));
+        $PAGE->requires->js('/badges/backpack.js');
+        $PAGE->requires->js_init_call('badges_init_persona_login_button', null, false);
+        $PAGE->requires->strings_for_js(array('error:backpackloginfailed', 'signinwithyouremail',
+            'error:noassertion', 'error:connectionunknownreason', 'error:badjson', 'connecting',
+            'notconnected'), 'badges');
 
-		$mform->addElement('hidden', 'userid', $USER->id);
-		$mform->setType('userid', PARAM_INT);
+        $mform->addElement('hidden', 'userid', $USER->id);
+        $mform->setType('userid', PARAM_INT);
 
-		$mform->addElement('hidden', 'backpackurl', 'http://' . BADGE_BACKPACKURL);
-		$mform->setType('backpackurl', PARAM_URL);
+        $mform->addElement('hidden', 'backpackurl', BADGE_BACKPACKURL);
+        $mform->setType('backpackurl', PARAM_URL);
 
-	}
+    }
 
-	/**
-	 * Validates form data
-	 */
-	public function validation($data, $files) {
-		global $DB;
-		$errors = parent::validation($data, $files);
+    /**
+     * Validates form data
+     */
+    public function validation($data, $files) {
+        global $DB;
+        $errors = parent::validation($data, $files);
 
-		$check = new stdClass();
-		$check->backpackurl = $data['backpackurl'];
-		$check->email = $data['email'];
+        $check = new stdClass();
+        $check->backpackurl = $data['backpackurl'];
+        $check->email = $data['email'];
 
-		$bp = new OpenBadgesBackpackHandler($check);
-		$request = $bp->curl_request('user');
-		if (isset($request->status) && $request->status == 'missing') {
-			$errors['email'] = get_string('error:nosuchuser', 'badges');
-		}
-		return $errors;
-	}
+        $bp = new OpenBadgesBackpackHandler($check);
+        $request = $bp->curl_request('user');
+        if (isset($request->status) && $request->status == 'missing') {
+            $errors['email'] = get_string('error:nosuchuser', 'badges');
+        }
+        return $errors;
+    }
 }
 
 /**
@@ -98,54 +98,54 @@ class edit_backpack_form extends moodleform {
  */
 class edit_collections_form extends moodleform {
 
-	/**
-	 * Defines the form
-	 */
-	public function definition() {
-		global $USER;
-		$mform = $this->_form;
-		$email = $this->_customdata['email'];
-		$bid = $this->_customdata['backpackid'];
-		$selected = $this->_customdata['selected'];
+    /**
+     * Defines the form
+     */
+    public function definition() {
+        global $USER;
+        $mform = $this->_form;
+        $email = $this->_customdata['email'];
+        $bid = $this->_customdata['backpackid'];
+        $selected = $this->_customdata['selected'];
 
-		if (isset($this->_customdata['groups'])) {
-			$groups = $this->_customdata['groups'];
-			$nogroups = null;
-		} else {
-			$groups = null;
-			$nogroups = $this->_customdata['nogroups'];
-		}
+        if (isset($this->_customdata['groups'])) {
+            $groups = $this->_customdata['groups'];
+            $nogroups = null;
+        } else {
+            $groups = null;
+            $nogroups = $this->_customdata['nogroups'];
+        }
 
-		$mform->addElement('header', 'backpackheader', get_string('backpackconnection', 'badges'));
-		$mform->addHelpButton('backpackheader', 'backpackconnection', 'badges');
-		$mform->addElement('static', 'url', get_string('url'), 'http://' . BADGE_BACKPACKURL);
+        $mform->addElement('header', 'backpackheader', get_string('backpackconnection', 'badges'));
+        $mform->addHelpButton('backpackheader', 'backpackconnection', 'badges');
+        $mform->addElement('static', 'url', get_string('url'), BADGE_BACKPACKURL);
 
-		$status = html_writer::tag('span', get_string('connected', 'badges'), array('class' => 'connected'));
-		$mform->addElement('static', 'status', get_string('status'), $status);
-		$mform->addElement('static', 'email', get_string('email'), $email);
-		$mform->addHelpButton('email', 'backpackemail', 'badges');
-		$mform->addElement('submit', 'disconnect', get_string('disconnect', 'badges'));
+        $status = html_writer::tag('span', get_string('connected', 'badges'), array('class' => 'connected'));
+        $mform->addElement('static', 'status', get_string('status'), $status);
+        $mform->addElement('static', 'email', get_string('email'), $email);
+        $mform->addHelpButton('email', 'backpackemail', 'badges');
+        $mform->addElement('submit', 'disconnect', get_string('disconnect', 'badges'));
 
-		$mform->addElement('header', 'collectionheader', get_string('backpackimport', 'badges'));
-		$mform->addHelpButton('collectionheader', 'backpackimport', 'badges');
+        $mform->addElement('header', 'collectionheader', get_string('backpackimport', 'badges'));
+        $mform->addHelpButton('collectionheader', 'backpackimport', 'badges');
 
-		if (!empty($groups)) {
-			$mform->addElement('static', 'selectgroup', '', get_string('selectgroup_start', 'badges'));
-			foreach ($groups as $group) {
-				$name = $group->name . ' (' . $group->badges . ')';
-				$mform->addElement('advcheckbox', 'group[' . $group->groupId . ']', null, $name, array('group' => 1), array(false, $group->groupId));
-				if (in_array($group->groupId, $selected)) {
-					$mform->setDefault('group[' . $group->groupId . ']', $group->groupId);
-				}
-			}
-			$mform->addElement('static', 'selectgroup', '', get_string('selectgroup_end', 'badges'));
-		} else {
-			$mform->addElement('static', 'selectgroup', '', $nogroups);
-		}
+        if (!empty($groups)) {
+            $mform->addElement('static', 'selectgroup', '', get_string('selectgroup_start', 'badges'));
+            foreach ($groups as $group) {
+                $name = $group->name . ' (' . $group->badges . ')';
+                $mform->addElement('advcheckbox', 'group[' . $group->groupId . ']', null, $name, array('group' => 1), array(false, $group->groupId));
+                if (in_array($group->groupId, $selected)) {
+                    $mform->setDefault('group[' . $group->groupId . ']', $group->groupId);
+                }
+            }
+            $mform->addElement('static', 'selectgroup', '', get_string('selectgroup_end', 'badges'));
+        } else {
+            $mform->addElement('static', 'selectgroup', '', $nogroups);
+        }
 
-		$mform->addElement('hidden', 'backpackid', $bid);
-		$mform->setType('backpackid', PARAM_INT);
+        $mform->addElement('hidden', 'backpackid', $bid);
+        $mform->setType('backpackid', PARAM_INT);
 
-		$this->add_action_buttons();
-	}
+        $this->add_action_buttons();
+    }
 }

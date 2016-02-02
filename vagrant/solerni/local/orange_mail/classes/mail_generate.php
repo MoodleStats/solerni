@@ -47,7 +47,7 @@ class mail_generate {
 
         // Reset password.
         mail_object::generate('emailresetconfirmation', 'text');
-        mail_object::generate('emailresetconfirmationhtml', 'html');
+        mail_object::generate('emailresetconfirmation', 'html');
 
         // Registration e-mail validation.
         mail_object::generate('emailconfirmation', 'text', 'inscription');

@@ -36,7 +36,7 @@ if ($ADMIN->fulltree) {
        // General settings.
        */
     $settings->add(new admin_setting_configcheckbox('descriptionpage/requiremodintro',
-        get_string('requiremodintro', 'admin'), get_string('configrequiremodintro', 'admin'), 1));
+        get_string('requiremodintro', 'admin'), get_string('requiremodintro_desc', 'admin'), 1));
     $settings->add(new admin_setting_configmultiselect('descriptionpage/displayoptions',
         get_string('displayoptions', 'descriptionpage'), get_string('configdisplayoptions', 'descriptionpage'),
         $defaultdisplayoptions, $displayoptions));

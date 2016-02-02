@@ -18,9 +18,10 @@
 <div class="container">
     <header class="header row">
         <div class="col-xs-12">
-            <a href="<?php echo $CFG->wwwroot ?>" class="header-logo">
-                <img class="logo-image" src="<?php echo $OUTPUT->pix_url('logo-orange', 'theme'); ?>" alt="" width="50" height="50">
-                <span class="logo-brandname">Solerni</span>
+            <a href="<?php echo $CFG->wwwroot; ?>" class="header-logo">
+                <img class="logo-image" src="<?php echo $OUTPUT->pix_url('logo-orange', 'theme'); ?>"
+                     alt="" width="50" height="50">
+                <span class="logo-brandname"><?php echo $SITE->fullname; ?></span>
             </a>
             <?php if (isloggedin()) {
                 require($CFG->partialsdir . '/header/header_user_menu__auth.php');

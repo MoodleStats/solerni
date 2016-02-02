@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'theme_more', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'theme_more', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   theme_more
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -62,7 +62,7 @@ $string['invertdesc'] = 'Alterne le texte et le fond de la barre de navigation e
 $string['linkcolor'] = 'Couleur des liens';
 $string['linkcolor_desc'] = 'La couleur des liens.';
 $string['logo'] = 'Logo';
-$string['logodesc'] = 'Veuillez ajouter votre logo personnalisé si vous désirez l\'ajouter à l\'entête du site.<br />Si la hauteur de votre logo dépasse 75px, ajoutez la règle CSS suivante dans la zone CSS personnalisée ci-dessous.<br />a.logo {height: 100px;} en indiquant la hauteur en pixels de votre logo.';
+$string['logodesc'] = 'Le logo n\'est affiché que dans l\'entête de la page d\'accueil et de la page de connexion.<br />Si la hauteur de votre logo dépasse 75px, ajoutez la règle CSS div.logo {height: 100px;} dans la zone CSS personnalisée ci-dessous, en adaptant la hauteur en pixels à la taille de votre logo.';
 $string['pluginname'] = 'More';
 $string['region-side-post'] = 'Droite';
 $string['region-side-pre'] = 'Gauche';

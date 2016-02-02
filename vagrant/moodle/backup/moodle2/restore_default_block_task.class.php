@@ -33,29 +33,29 @@ defined('MOODLE_INTERNAL') || die();
  * TODO: Finish phpdocs
  */
 class restore_default_block_task extends restore_block_task {
-	// Nothing to do, it's just the restore_block_task in action
-	// with required methods doing nothing special
+    // Nothing to do, it's just the restore_block_task in action
+    // with required methods doing nothing special
 
-	protected function define_my_settings() {
-	}
+    protected function define_my_settings() {
+    }
 
-	protected function define_my_steps() {
-	}
+    protected function define_my_steps() {
+    }
 
-	public function get_fileareas() {
-		return array();
-	}
+    public function get_fileareas() {
+        return array();
+    }
 
-	public function get_configdata_encoded_attributes() {
-		return array();
-	}
+    public function get_configdata_encoded_attributes() {
+        return array();
+    }
 
-	static public function define_decode_contents() {
-		return array();
-	}
+    static public function define_decode_contents() {
+        return array();
+    }
 
-	static public function define_decode_rules() {
-		return array();
-	}
+    static public function define_decode_rules() {
+        return array();
+    }
 }
 

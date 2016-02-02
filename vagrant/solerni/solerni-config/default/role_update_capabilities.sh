@@ -567,6 +567,7 @@ moosh role-update-capability solerni_power_apprenant mod/forumng:viewallposts al
 moosh role-update-capability solerni_course_creator mod/forumng:viewdiscussion allow 1
 moosh role-update-capability solerni_course_creator mod/forumng:viewrating allow 1
 moosh role-update-capability solerni_course_creator mod/forumng:viewreadinfo allow 1
+moosh role-update-capability solerni_apprenant mod/forumng:startdiscussion inherit 1
 
 # solerni_course_creator : can add or delete roles in frontpage and courses
 moosh role-update-capability solerni_course_creator moodle/role:override allow 1
