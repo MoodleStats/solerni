@@ -187,7 +187,7 @@ $string['event_bookingremoved'] = 'Réservation supprimée';
 $string['everyone'] = 'Tout le monde';
 $string['excelformat'] = 'Excel';
 $string['exclusive'] = 'Exclusif';
-$string['exclusivity'] = 'Exclusivitée';
+$string['exclusivity'] = 'Exclusivité';
 $string['exclusivity_help'] = '<p>Vous pouvez fixer un nombre de places limité pour une plage horaire donnée.</p>
 <p>Fixer la limite à 1 (par défaut) fera basculer la plage horaire en mode exclusif.</p>
 <p>Si on fixe la plage horaire à un nombre illimité (0), elle ne sera jamais prise en compte dans l’évaluation des contraintes, même si d’autres plages horaires sont exclusives ou limitées dans la même période de temps.</p>';
