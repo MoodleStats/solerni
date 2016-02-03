@@ -160,7 +160,7 @@ moosh config-set cookiesecure 1
 moosh config-set updateautocheck 0
 
 # Timezone
-moosh timezone-import Europe/paris
+#moosh timezone-import Europe/paris
 moosh config-set timezone Europe/Paris
 
 # support contact : Admin > Server > Support contact
@@ -195,10 +195,6 @@ moosh mail-generate
 # Default frontpage role : changed to allow access to the general ForumNg
 moosh role-configset defaultfrontpageroleid solerni_utilisateur
 
-# Delete roles : solerni_animateur_plateforme, solerni_power_utilisateur
-moosh role-delete solerni_animateur_plateforme
-moosh role-delete solerni_power_utilisateur
-
 # Inverse Last Name and First Name in Signup Form
 moosh config-set fullnamedisplay "lastname, firstname"
 
@@ -227,7 +223,6 @@ moosh module-manage hide scorm
 moosh module-manage hide survey
 moosh module-manage hide url
 moosh module-manage hide wiki
-moosh module-manage hide customlabel
 moosh module-manage hide listforumng
 
 # Set default Store (unable memcached)
