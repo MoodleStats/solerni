@@ -51,11 +51,15 @@
         }
     }
 
-    & h1, & h4, & h5, & h6,
-    & .h1, & .h4, & .h5, & .h6, & p {
+    & h4, & h5, & h6,
+    & .h4, & .h5, & .h6, & p {
         color: @brand-tertiary;
     }
-
+    
+    & h1, 
+    & .h1  {
+        color: @brand-secondary;
+    }
     // button tag
     & button {
         background-color:   @brand-primary;

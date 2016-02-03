@@ -249,7 +249,7 @@ img.icon {
 
 /* en savoir plus */
 .zigzag .row {
-    padding: 20px;
+    padding: @grid-gutter-width;
 }
 .zigzag .row:nth-child(odd) {
     background: @gray-light;
@@ -259,18 +259,9 @@ img.icon {
 }
 
 .margin-bottom-md {
-     margin-bottom: 20px;
+     margin-bottom: @grid-gutter-width;
 }
 
-.height104 {
-    height:104px;
-}
-.subscription-banner {
-    text-align: center;
-    padding-bottom: 30px;
-    padding-top: 30px;
-    background-color: @component-active-bg;
-}
 .center {
         text-align: center;
 }
@@ -279,4 +270,8 @@ img.icon {
 .version-control {
     font-size:  (@font-size-base * 0.8);
     color:      @orange-dark-3;
+}
+
+.oneline {
+    line-height: 1 !important;
 }

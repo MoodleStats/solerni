@@ -36,7 +36,7 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class mod_page_generator extends testing_module_generator {
+class mod_descriptionpage_generator extends testing_module_generator {
 
     public function create_instance($record = null, array $options = null) {
         global $CFG;
