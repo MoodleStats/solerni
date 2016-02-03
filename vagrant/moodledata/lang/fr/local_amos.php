@@ -28,6 +28,7 @@ defined('MOODLE_INTERNAL') || die();
 $string['about'] = '<p>AMOS est le dépôt central des chaînes de caractères de Moodle, avec leur historique. AMOS détecte l\'ajout de chaînes en anglais dans le code source de Moodle, rassemble les traductions, gère les tâches fréquentes de traduction et génère les paquetages de langue afin de les mettre à disposition des serveurs Moodle.</p>
 <p>Référez-vous à la <a href="http://docs.moodle.org/fr/AMOS">documentation de AMOS</a> pour plus de renseignements.</p>';
 $string['amos'] = 'Utilitaire de traduction AMOS';
+$string['amos:changecontriblang'] = 'Modifier le paquetage de langue des chaînes proposées';
 $string['amos:commit'] = 'Implanter les chaînes du chantier dans le dépôt central';
 $string['amos:execute'] = 'Lancer le AMOScript donné';
 $string['amos:importfile'] = 'Importer des chaînes d\'un fichier et les placer dans le chantier';
@@ -73,13 +74,19 @@ $string['contribid'] = 'ID';
 $string['contribincomingnone'] = 'Pas de contribution arrivée';
 $string['contribincomingsome'] = 'Contributions arrivées ({$a})';
 $string['contriblanguage'] = 'Langue';
+$string['contriblanguagebutton'] = 'Convertir';
+$string['contriblanguagechange'] = 'Correction du paquetage de langue incorrect';
+$string['contriblanguagechange_help'] = 'Si la traduction a été proposée par erreur pour un paquetage de langue erroné, veuillez sélectionner le paquetage de langue correct dans le menu déroulant ci-dessous et cliquer sur le bouton Convertir.';
+$string['contriblanguagereport'] = 'Annonce de paquetage de langue incorrect';
+$string['contriblanguagereport_help'] = 'Si la traduction a été proposée par erreur pour un paquetage de langue erroné, veuillez copier et coller l\'URL de la contribution dans un message et l\'envoyer à « translation@moodle.org ». La contribution sera alors déplacée dans le paquetage correct.';
+$string['contriblanguagewrong'] = 'Paquetage de langue incorrect ?';
 $string['contribnotif'] = '[AMOS] Notification de contribution (#{$a->id})';
 $string['contribnotifaccepted'] = '{$a->fullname} a accepté votre contribution de traduction
 #{$a->id} {$a->subject}
 
 ---------------------------------------------------------------------
 Page de la contribution : {$a->contriburl}';
-$string['contribnotifcommented'] = '{$a->fullname} a commenté votre  votre contribution de traduction
+$string['contribnotifcommented'] = '{$a->fullname} a commenté votre contribution de traduction
 #{$a->id} {$a->subject}
 ---------------------------------------------------------------------
 
@@ -87,10 +94,20 @@ $string['contribnotifcommented'] = '{$a->fullname} a commenté votre  votre cont
 
 ---------------------------------------------------------------------
 Page de la contribution : {$a->contriburl}';
+$string['contribnotifconverted'] = '{$a->fullname} a modifié le paquetage de langue votre contribution de traduction
+#{$a->id} {$a->subject}
+
+Merci pour votre contribution. Il semble qu\'elle a été remise pour un paquetage de langue incorrect par erreur. Votre contribution a donc été rejetée du mauvais paquetage et déplacé dans le paquetage correct, pour être analysé par le mainteneur du paquetage. Aucune action n\'est requise de votre part.
+
+Veuillez à l\'avenir contrôler d\'avoir sélectionner le paquetage de langue correct avant de traduire les chaînes.
+
+---------------------------------------------------------------------------
+Page de la contribution originale : {$a->contriborigurl}
+Page de la nouvelle contribution : {$a->contribnewurl}';
 $string['contribnotifpending'] = 'Une contribution de traduction en attente requiert une action de votre part
 #{$a->id} {$a->subject}
 
-En tant que mainteneur du paquetage de langue, vous êtes censé relire et cas échéant implanter toutes les contributions de traduction. Une fois ceci fait, veuillez marquer les contributions comme acceptées ou rejetées.
+En tant que mainteneur du paquetage de langue, vous êtes censé relire et le cas échéant implanter toutes les contributions de traduction. Une fois ceci fait, veuillez marquer les contributions comme acceptées ou rejetées.
 
 Voyez {$a->docsurl} pour plus d\'information.
 ---------------------------------------------------------------------
@@ -180,8 +197,10 @@ $string['filterlngnothingselected'] = 'Veuillez sélectionner au moins une langu
 $string['filtermis'] = 'Divers';
 $string['filtermis_desc'] = 'Conditions supplémentaires sur les chaînes à afficher';
 $string['filtermisfglo'] = 'seulement chaînes en liste grise';
+$string['filtermisfhas'] = 'seulement chaînes traduites';
 $string['filtermisfhlp'] = 'seulement chaînes d\'aide';
 $string['filtermisfmis'] = 'seulement chaînes manquantes ou obsolètes';
+$string['filtermisfout'] = 'seulement chaînes obsolètes';
 $string['filtermisfstg'] = 'seulement chaînes du chantier';
 $string['filtermisfwog'] = 'sans les chaînes en liste grise';
 $string['filtersid'] = 'Identifiant de chaîne de caractères';
@@ -196,7 +215,7 @@ $string['filterver_desc'] = 'Afficher les chaînes de ces versions de Moodle';
 $string['filtervernothingselected'] = 'Veuillez sélectionner au moins une version';
 $string['found'] = '{$a->found} chaînes &nbsp;&nbsp;&nbsp; Manquantes : {$a->missing} ({$a->missingonpage})';
 $string['foundinfo'] = 'Nombre de chaînes trouvées';
-$string['foundinfo_help'] = 'Affiche le nombre total des rangées de la table de traduction, le nombre de traductions manquantes et le nombre de traductions manquantes sur la page affichée.';
+$string['foundinfo_help'] = 'Affiche le nombre total de rangées de la table de traduction, le nombre de traductions manquantes et le nombre de traductions manquantes sur la page affichée.';
 $string['googletranslate'] = 'Traduction Google';
 $string['gotofirst'] = 'vers la première page';
 $string['gotoprevious'] = 'vers la page précédente';
@@ -340,7 +359,7 @@ $string['stashactions'] = 'Enregistrer le travail en cours';
 $string['stashactions_help'] = 'Un entrepôt est une copie de votre chantier actuel. Les entrepôts peuvent être proposés aux responsables officiels du paquetage de langue pour inclusion dans celui-ci.';
 $string['stashapply'] = 'Appliquer';
 $string['stashautosave'] = 'Entrepôt enregistré automatiquement';
-$string['stashautosave_help'] = 'Cet entrepôt contient une copie de votre chantier le plus récent. Vous pouvez l\'utiliser comme une sauvegarde, dans le cas où vos chaînes sont retirées accidentellement du chantier, par exemple. Cliquez sur Appliquer pour copier toutes les chaînes de l\'entrepôt dans l\'atelier (ceci écrasera les chaînes qui sont déjà dans l\'atelier),';
+$string['stashautosave_help'] = 'Cet entrepôt contient une copie de votre chantier le plus récent. Vous pouvez l\'utiliser comme une sauvegarde, dans le cas où vos chaînes sont retirées accidentellement du chantier, par exemple. Cliquez sur Appliquer pour copier toutes les chaînes de l\'entrepôt dans le chantier (ceci écrasera les chaînes qui sont déjà dans le chantier),';
 $string['stashcomponents'] = '<span>Composants :</span> {$a}';
 $string['stashdrop'] = 'Jeter';
 $string['stashes'] = 'Entrepôts';
@@ -380,4 +399,8 @@ $string['unableenfixcountries'] = 'Les noms de pays sont tirés de la norme ISO 
 $string['unstage'] = 'Retirer du chantier ?';
 $string['unstageconfirm'] = 'Vraiment ?';
 $string['unstaging'] = 'Retrait du chantier';
+$string['untranslate'] = 'supprimer la traduction';
+$string['untranslateconfirm'] = '<p>Vous allez supprimer de toutes les versions du paquetage de langue <code>{$a->language}</code> la traduction existante de la chaîne <code>{$a->stringid}</code>, composant <code>{$a->component}</code>.</p><p>Voulez-vous vraiment continuer ?</p>';
+$string['untranslatetitle'] = 'Suppression de la traduction du paquetage de langue';
+$string['untranslating'] = 'Suppression de la traduction';
 $string['version'] = 'Version';

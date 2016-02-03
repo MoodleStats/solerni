@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'recordingsbn', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'recordingsbn', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   recordingsbn
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,6 +25,17 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['config_feature_ui_html_default'] = 'L\'interface en html est activée par défaut';
+$string['config_feature_ui_html_default_description'] = 'Si ce réglage est activé, la table d\'enregistrement est présentée en HTML par défaut.';
+$string['config_feature_ui_html_editable'] = 'Le choix interface en html peut être modifié';
+$string['config_feature_ui_html_editable_description'] = 'L\'interface en html par défaut peut-être modifiée quand les enregistrements sont ajoutés ou modifiés';
+$string['config_general'] = 'Configuration générale';
+$string['config_general_description'] = 'Ces paramètres sont <b>toujours</b> utilisés';
+$string['event_recording_deleted'] = 'Enregistrement supprimé';
+$string['event_recording_published'] = 'Enregistrement publié';
+$string['event_recording_unpublished'] = 'Enregistrement non publié';
+$string['event_resource_page_viewed'] = 'Page des enregistrements consultée';
+$string['mod_form_field_ui_html'] = 'Montrer la table en HTML';
 $string['modulename'] = 'Enregistrements BBB';
 $string['modulename_help'] = 'Utilisez le module « Enregistrements BBB » pour voir les enregistrements de conférences BigBlueButton';
 $string['modulename_link'] = 'BigBlueButton';
@@ -48,3 +59,4 @@ $string['view_head_duration'] = 'Durée';
 $string['view_head_length'] = 'Longueur';
 $string['view_head_recording'] = 'Enregistrement';
 $string['view_noguests'] = 'Le module « Enregistrements BBB » n\'est pas ouvert aux visiteurs anonymes';
+$string['view_no_recordings'] = 'Il n\'y a pas d\'enregistrement à afficher';

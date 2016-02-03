@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_poodll', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'atto_poodll', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   atto_poodll
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -33,7 +33,7 @@ $string['allowwhiteboard'] = 'Permettre le tableau blanc';
 $string['audiomp3_desc'] = 'Enregistrement MP3';
 $string['audiored5_desc'] = 'Enregistrement audio';
 $string['browse'] = 'Parcourir';
-$string['browserepositories'] = 'Parcourir les dépôts';
+$string['browserepositories'] = 'Parcourir les dépôts...';
 $string['cancel'] = 'Annuler';
 $string['createpoodll'] = 'Créer un PoodLL';
 $string['dialogtitle'] = 'Créer un fichier média';
@@ -62,6 +62,6 @@ $string['snaptheninsert'] = 'Après avoir pris une photo, cliquez sur "Insérer"
 $string['unpoodll'] = 'Supprimer ce PoodLL';
 $string['usewhiteboard'] = 'Choisissez le type de tableau blanc :';
 $string['video_desc'] = 'Enregistrer une vidéo';
-$string['visible'] = 'visible';
+$string['visible'] = 'Visible';
 $string['whiteboard_desc'] = 'Faire un dessin';
 $string['whiteboardheading'] = 'Tableau blanc';

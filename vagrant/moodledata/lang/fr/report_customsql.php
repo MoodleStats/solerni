@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'report_customsql', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'report_customsql', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   report_customsql
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -32,17 +32,21 @@ $string['addreportcategory'] = 'Ajouter une nouvelle catégorie de rapports';
 $string['anyonewhocanveiwthisreport'] = 'Toute personne pouvant voir ce rapport (report/customsql:view)';
 $string['archivedversions'] = 'Versions archivées de cette requête';
 $string['at'] = 'à';
+$string['automaticallydaily'] = 'Planifiée, quotidien';
 $string['automaticallymonthly'] = 'Planifiée, le premier jour de chaque mois';
 $string['automaticallyweekly'] = 'Planifiée, le premier jour de chaque semaine';
 $string['availablereports'] = 'Requêtes à la demande';
 $string['availableto'] = 'Disponible pour {$a}.';
 $string['backtoreportlist'] = 'Retour à la liste des requêtes';
+$string['categorycontent'] = '({$a->manual} sur demande, {$a->daily} quotidien, {$a->weekly} hebdomadaire, {$a->monthly} mensuel)';
 $string['categoryexists'] = 'Les noms de catégorie doivent être uniques ; ce nom existe déjà';
 $string['categorynamex'] = 'Nom de catégorie : {$a}';
 $string['changetheparameters'] = 'Changer les paramètres';
 $string['customsql:definequeries'] = 'Définir des requêtes personnalisées';
 $string['customsql:managecategories'] = 'Définir des catégories personnalisées';
 $string['customsql:view'] = 'Voir les rapports personnalisés';
+$string['dailyheader'] = 'Quotidien';
+$string['dailyheader_help'] = 'Ces requêtes sont automatiquement exécutées chaque jour à l\'heure indiquée. Ces liens vous permettent d\'afficher les résultats qui ont déjà été recueillis.';
 $string['defaultcategory'] = 'Divers';
 $string['delete'] = 'Supprimer';
 $string['deleteareyousure'] = 'Êtes vous certain de vouloir supprimer cette requête ?';
@@ -79,7 +83,13 @@ $string['errorupdatingreport'] = 'Erreur lors de la modification d\'une requête
 $string['invalidreportid'] = 'Identifiant de requête invalide {$a}.';
 $string['lastexecuted'] = 'Dernière exécution le {$a->lastrun}. Durée d\'exécution : {$a->lastexecutiontime} s.';
 $string['managecategories'] = 'Gérer les catégories de rapports';
+$string['manual'] = 'Sur demande';
+$string['manualheader'] = 'Sur demande';
+$string['manualheader_help'] = 'Ces requêtes sont exécutées sur demande, lorsque vous cliquez sur le lien pour afficher les résultats.';
 $string['messageprovider:notification'] = 'Notifications et alertes des rapports personnalisés';
+$string['monthlyheader'] = 'Mensuel';
+$string['monthlyheader_help'] = 'Ces requêtes sont exécutées automatiquement le premier jour de chaque mois pour faire rapport sur le mois précédent. Ces liens vous permettent d\'afficher les résultats qui ont déjà été recueillis.';
+$string['monthlynote_help'] = 'Ces requêtes sont exécutées automatiquement le premier jour de chaque mois pour faire rapport sur le mois précédent. Ces liens vous permettent d\'afficher les résultats qui ont déjà été recueillis.';
 $string['morethanonerowreturned'] = 'Plus d\'une ligne retournée comme résultat. Cette requête devrait retourner une seule ligne.';
 $string['nodatareturned'] = 'Cette requête n\'a retourné aucun résultat.';
 $string['noexplicitprefix'] = 'N\'incluez pas le préfixe de nom des tables <tt>{$a}</tt> dans la requête SQL. À la place, mettez le nom de table sans préfixe encadré de caractères  <tt>{}</tt>.';
@@ -93,6 +103,8 @@ $string['notrunyet'] = 'Cette requête n\'a pas encore été exécutée.';
 $string['onerow'] = 'La requête retourne une ligne, accumulez les résultats ligne par ligne';
 $string['parametervalue'] = '{$a->name} : {$a->value}';
 $string['pluginname'] = 'Rapports personnalisés';
+$string['query_deleted'] = 'Requête supprimée';
+$string['query_edited'] = 'Requête modifée';
 $string['queryfailed'] = 'Erreur à l\'exécution de la requête : {$a}';
 $string['querylimit'] = 'Nombre limite de lignes retournées';
 $string['querylimitrange'] = 'Le nombre doit être entre 1 et {$a}';
@@ -112,6 +124,7 @@ $string['queryparamschanged'] = 'Les paramètres dans la requête ont changé.';
 $string['queryrundate'] = 'date d\'exécution de la requête';
 $string['querysql'] = 'Requête SQL';
 $string['querysqlrequried'] = 'Vous devez saisir du code SQL';
+$string['query_viewed'] = 'Requête consultée';
 $string['recordlimitreached'] = 'Cette requête a atteint la limite de {$a} lignes de résultat. Des lignes ont certainement été omises à la fin.';
 $string['reportfor'] = 'Requête exécutée le {$a}';
 $string['requireint'] = 'Une valeur entière est requise';
@@ -128,4 +141,6 @@ $string['usernotfound'] = 'L\'utilisateur avec le nom  \'{$a}\' n\'existe pas';
 $string['userswhocanconfig'] = 'Administrateurs uniquement (moodle/site:config)';
 $string['userswhocanviewsitereports'] = 'Utilisateurs pouvant voir les rapports (moodle/site:viewreports)';
 $string['verifyqueryandupdate'] = 'Vérifier le texte de la requête SQLet mettre à jour le formulaire';
+$string['weeklyheader'] = 'Hebdomadaire';
+$string['weeklyheader_help'] = 'Ces requêtes sont exécutées automatiquement le premier jour de chaque semaine, pour faire rapport sur la semaine précédente. Ces liens vous permettent d\'afficher les résultats qui ont déjà été recueillis.';
 $string['whocanaccess'] = 'Qui peut accéder à cette requête';

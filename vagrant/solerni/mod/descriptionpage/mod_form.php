@@ -49,7 +49,8 @@ class mod_descriptionpage_mod_form extends moodleform_mod {
         }
         $mform->addRule('name', null, 'required', null, 'client');
         $mform->addRule('name', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
-        $this->add_intro_editor($config->requiremodintro);
+        // 20160127 Orange change for Moodle 2.9.
+        $this->standard_intro_elements();
 
         // Adding the "maxvisibility" field.
         $options = array(DESCRIPTIONPAGE_VISIBILITY_COURSEUSER => get_string('visiblecourseusers', 'descriptionpage'),

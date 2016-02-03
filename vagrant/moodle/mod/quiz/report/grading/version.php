@@ -24,6 +24,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version  = 2014051200;
-$plugin->requires = 2014050800;
+$plugin->version  = 2015051100;
+$plugin->requires = 2015050500;
 $plugin->component = 'quiz_grading';

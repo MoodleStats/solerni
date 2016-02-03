@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -18,7 +17,7 @@
 /**
  * Strings for component 'moodle', language 'en', branch 'MOODLE_20_STABLE'
  *
- * @package   moodle
+ * @package   core
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -160,8 +159,8 @@ $string['authenticateduserdescription'] = 'All logged in users.';
 $string['authentication'] = 'Authentication';
 $string['authenticationplugins'] = 'Authentication plugins';
 $string['autosubscribe'] = 'Forum auto-subscribe';
-$string['autosubscribeno'] = 'No: don\'t automatically subscribe me to forums';
-$string['autosubscribeyes'] = 'Yes: when I post, subscribe me to that forum';
+$string['autosubscribeno'] = 'No: don\'t automatically subscribe me to forum discussions';
+$string['autosubscribeyes'] = 'Yes: when I post, subscribe me to that forum discussion';
 $string['availability'] = 'Availability';
 $string['availablecourses'] = 'Available courses';
 $string['back'] = 'Back';
@@ -178,6 +177,7 @@ $string['backupdatenew'] = '&nbsp; {$a->TAG} is now {$a->weekday}, {$a->mday} {$
 $string['backupdateold'] = '{$a->TAG} was {$a->weekday}, {$a->mday} {$a->month} {$a->year}';
 $string['backupdaterecordtype'] = '<br />{$a->recordtype} - {$a->recordname}<br />';
 $string['backupdetails'] = 'Backup details';
+$string['backuperrorinvaliddestination'] = 'The backup destination folder does not exist or is not writable.';
 $string['backupexecuteathelp'] = 'Choose what time automated backups should run at.';
 $string['backupfailed'] = 'Some of your courses weren\'t saved!!';
 $string['backupfilename'] = 'backup';
@@ -195,7 +195,7 @@ $string['backupnonisowarning'] = 'Warning: this backup is from a non-Unicode ver
 $string['backupnotyetrun'] = 'Automated backup pending';
 $string['backuporiginalname'] = 'Backup name';
 $string['backuproleassignments'] = 'Backup role assignments for these roles';
-$string['backupsavetohelp'] = 'Full path to the directory where you want to save the backup files<br />(leave blank to save in its course default dir)';
+$string['backupsavetohelp'] = 'Full path to the directory where you want to save the backup files';
 $string['backupsitefileshelp'] = 'If enabled then site files used in courses will be included in automated backups';
 $string['backuptakealook'] = 'Please take a look at your backup logs in:
   {$a}';
@@ -270,6 +270,7 @@ $string['complete'] = 'Complete';
 $string['completereport'] = 'Complete report';
 $string['configuration'] = 'Configuration';
 $string['confirm'] = 'Confirm';
+$string['confirmdeletesection'] = 'Are you absolutely sure you want to completely delete "{$a}" and all the activities it contains?';
 $string['confirmed'] = 'Your registration has been confirmed';
 $string['confirmednot'] = 'Your registration has not yet been confirmed!';
 $string['confirmcheckfull'] = 'Are you absolutely sure you want to confirm {$a} ?';
@@ -316,6 +317,7 @@ $string['coursecompletion'] = 'Course completion';
 $string['coursecompletions'] = 'Course completions';
 $string['coursecreators'] = 'Course creator';
 $string['coursecreatorsdescription'] = 'Course creators can create new courses.';
+$string['coursedetails'] = 'Course details';
 $string['coursedisplay'] = 'Course layout';
 $string['coursedisplay_help'] = 'This setting determines whether the whole course is displayed on one page or split over several pages.';
 $string['coursedisplay_single'] = 'Show all sections on one page';
@@ -330,6 +332,7 @@ $string['courseformatdata'] = 'Course format data';
 $string['courseformats'] = 'Course formats';
 $string['courseformatoptions'] = 'Formatting options for {$a}';
 $string['courseformatudpate'] = 'Update format';
+$string['courseprofiles'] = 'Course profiles';
 $string['coursegrades'] = 'Course grades';
 $string['coursehelpcategory'] = 'Position the course on the course listing and may make it easier for students to find it.';
 $string['coursehelpforce'] = 'Force the course group mode to every activity in the course.';
@@ -355,7 +358,6 @@ $string['courselegacyfiles_link'] = 'coursefiles2';
 $string['courselegacyfilesofcourse'] = 'Legacy course files: {$a}';
 $string['courseoverview'] = 'Course overview';
 $string['courseoverviewgraph'] = 'Course overview graph';
-$string['courseprofiles'] = 'Course profiles';
 $string['coursereasonforrejecting'] = 'Your reasons for rejecting this request';
 $string['coursereasonforrejectingemail'] = 'This will be emailed to the requester';
 $string['coursereject'] = 'Reject a course request';
@@ -374,6 +376,7 @@ $string['courserequestintro'] = 'Use this form to request a course to be created
 $string['courserequestreason'] = 'Reasons for wanting this course';
 $string['courserequestsuccess'] = 'Your course request has been saved successfully. You will be sent an email to inform you whether your request was approved.';
 $string['courserequestsupport'] = 'Supporting information to help the administrator evaluate this request';
+$string['courserequestwarning'] = 'The user requesting this course will be automatically enrolled and assigned the role of {$a}.';
 $string['courserestore'] = 'Course restore';
 $string['courses'] = 'Courses';
 $string['coursesectionsummaries'] = 'Course section summaries';
@@ -477,9 +480,9 @@ $string['deletecheck'] = 'Delete {$a} ?';
 $string['deletechecktype'] = 'Are you sure that you want to delete this {$a->type}?';
 $string['deletechecktypename'] = 'Are you sure that you want to delete the {$a->type} "{$a->name}"?';
 $string['deletecheckfiles'] = 'Are you absolutely sure you want to delete these files?';
-$string['deletecheckfull'] = 'Are you absolutely sure you want to completely delete {$a} ?';
+$string['deletecheckfull'] = 'Are you absolutely sure you want to completely delete the user {$a}, including their enrolments, activity and other user data?';
 $string['deletecheckwarning'] = 'You are about to delete these files';
-$string['deletelogs'] = 'Delete logs';
+$string['deletesection'] = 'Delete section';
 $string['deleteselected'] = 'Delete selected';
 $string['deleteselectedkey'] = 'Delete selected key';
 $string['deletingcourse'] = 'Deleting {$a}';
@@ -524,11 +527,6 @@ $string['downloadtext'] = 'Download in text format';
 $string['doyouagree'] = 'Have you read these conditions and understood them?';
 $string['droptoupload'] = 'Drop files here to upload';
 $string['duplicate'] = 'Duplicate';
-$string['duplicateconfirm'] = 'Are you sure you want to duplicate {$a->modtype} \'{$a->modname}\' ?';
-$string['duplicatecontcourse'] = 'Return to the course';
-$string['duplicatecontedit'] = 'Edit the new copy';
-$string['duplicatesuccess'] = '{$a->modtype} \'{$a->modname}\' has been duplicated successfully';
-$string['duplicatinga'] = 'Duplicating: {$a}';
 $string['edhelpaspellpath'] = 'To use spell-checking within the editor, you MUST have <strong>aspell 0.50</strong> or later installed on your server, and you must specify the correct path to access the aspell binary.  On Unix/Linux systems, this path is usually <strong>/usr/bin/aspell</strong>, but it might be something else.';
 $string['edhelpbgcolor'] = 'Define the edit area\'s background color.<br />Valid values are, for example: #FFFFFF or white';
 $string['edhelpcleanword'] = 'This setting enables or disables Word-specific format filtering.';
@@ -555,6 +553,7 @@ $string['editordefaultfont'] = 'Default font';
 $string['editorenablespelling'] = 'Enable spellchecking';
 $string['editorfontlist'] = 'Fontlist';
 $string['editorfontsize'] = 'Default font-size';
+$string['editorpreferences'] = 'Editor preferences';
 $string['editorresettodefaults'] = 'Reset to default values';
 $string['editorsettings'] = 'Editor settings';
 $string['editorshortcutkeys'] = 'Editor shortcut keys';
@@ -701,28 +700,12 @@ If this password reset was not requested by you, no action is needed.
 
 If you need help, please contact the site administrator,
 {$a->admin}';
-$string['emailresetconfirmationhtml'] = '<html><body>
-<p>Hi {$a->firstname},</p>
-
-<p>A password reset was requested for your account \'{$a->username}\' at {$a->sitename}.</p>
-
-<p>To confirm this request, and set a new password for your account, please
-go to the following web address:</p>
-<br />
-{$a->link}
-<br />
-(This link is valid for {$a->resetminutes} minutes from the time this reset was first requested)
-<br />
-<br />
-<p>If this password reset was not requested by you, no action is needed.</p>
-<br />
-<p>If you need help, please contact the site administrator,
-{$a->admin}</p>
-</body></html>';
 $string['emailresetconfirmationsubject'] = '{$a}: Password reset request';
 $string['emailresetconfirmsent'] = 'An email has been sent to your address at <b>{$a}</b>.
 <br />It contains easy instructions to confirm and complete this password change.
 If you continue to have difficulty, contact the site administrator.';
+$string['emailtoprivatefiles'] = 'You can also e-mail files as attachments straight to your private files space. Simply attach your files to an e-mail and send it to {$a}';
+$string['emailtoprivatefilesdenied'] = 'Your administrator has disabled the option to upload your own private files.';
 $string['emptydragdropregion'] = 'empty region';
 $string['enable'] = 'Enable';
 $string['encryptedcode'] = 'Encrypted code';
@@ -837,6 +820,7 @@ $string['formatmarkdown'] = 'Markdown format';
 $string['formatplain'] = 'Plain text format';
 $string['formattext'] = 'Moodle auto-format';
 $string['formattexttype'] = 'Formatting';
+$string['forumpreferences'] = 'Forum preferences';
 $string['framesetinfo'] = 'This frameset document contains:';
 $string['from'] = 'From';
 $string['frontpagecategorycombo'] = 'Combo list';
@@ -1064,6 +1048,7 @@ $string['loggedinas'] = 'You are logged in as {$a}';
 $string['loggedinasguest'] = 'You are currently using guest access';
 $string['loggedinnot'] = 'You are not logged in.';
 $string['login'] = 'Log in';
+$string['loginactivity'] = 'Login activity';
 $string['loginalready'] = 'You are already logged in';
 $string['loginas'] = 'Log in as';
 $string['loginaspasswordexplain'] = '<p>You must enter the special "loginas password" to use this feature.<br />If you do not know it, ask your server administrator.</p>';
@@ -1137,7 +1122,9 @@ $string['maxsizeandattachmentsandareasize'] = 'Maximum size for new files: {$a->
 $string['memberincourse'] = 'People in the course';
 $string['messagebody'] = 'Message body';
 $string['messagedselectedusers'] = 'Selected users have been messaged and the recipient list has been reset.';
+$string['messagedselecteduserfailed'] = 'The message was not sent to user {$a->fullname}.';
 $string['messagedselectedusersfailed'] = 'Something went wrong while messaging selected users.  Some may have received the email.';
+$string['messagedselectedcountusersfailed'] = 'A problem occurred and {$a} messages have not been sent.';
 $string['messageprovider:availableupdate'] = 'Available update notifications';
 $string['messageprovider:backup'] = 'Backup notifications';
 $string['messageprovider:badgecreatornotice'] = 'Badge creator notifications';
@@ -1183,6 +1170,7 @@ $string['missingteacher'] = 'Must choose something';
 $string['missingurl'] = 'Missing URL';
 $string['missingusername'] = 'Missing username';
 $string['moddoesnotsupporttype'] = 'Module {$a->modname} does not support uploads of type {$a->type}';
+$string['moodlelogo'] = 'Moodle logo';
 $string['month'] = 'Month';
 $string['months'] = 'Months';
 $string['modified'] = 'Modified';
@@ -1198,6 +1186,7 @@ $string['moodleversion'] = 'Moodle version';
 $string['moodlerelease'] = 'Moodle release';
 $string['more'] = 'more';
 $string['morehelp'] = 'More help';
+$string['moreinfo'] = 'More info';
 $string['moreinformation'] = 'More information about this error';
 $string['moreprofileinfoneeded'] = 'Please tell us more about yourself';
 $string['mostrecently'] = 'most recently';
@@ -1230,7 +1219,8 @@ $string['mustchangepassword'] = 'The new password must be different than the cur
 $string['mycourses'] = 'My courses';
 $string['myfiles'] = 'My private files';
 $string['myfilesmanage'] = 'Manage my private files';
-$string['myhome'] = 'My home';
+$string['privatefilesmanage'] = 'Manage private files';
+$string['myhome'] = 'Dashboard';
 $string['mymoodledashboard'] = 'My Moodle dashboard';
 $string['myprofile'] = 'My profile';
 $string['name'] = 'Name';
@@ -1369,15 +1359,19 @@ $string['now'] = 'now';
 $string['numattempts'] = '{$a} failed login attempt(s)';
 $string['numberofcourses'] = 'Number of courses';
 $string['numberweeks'] = 'Number of sections';
+$string['numday'] = '{$a} day';
 $string['numdays'] = '{$a} days';
 $string['numhours'] = '{$a} hours';
 $string['numletters'] = '{$a} letters';
 $string['numminutes'] = '{$a} minutes';
+$string['nummonth'] = '{$a} month';
 $string['nummonths'] = '{$a} months';
 $string['numseconds'] = '{$a} seconds';
 $string['numviews'] = '{$a} views';
+$string['numweek'] = '{$a} week';
 $string['numweeks'] = '{$a} weeks';
 $string['numwords'] = '{$a} words';
+$string['numyear'] = '{$a} year';
 $string['numyears'] = '{$a} years';
 $string['ok'] = 'OK';
 $string['oldpassword'] = 'Current password';
@@ -1470,6 +1464,9 @@ $string['previous'] = 'Previous';
 $string['previouslyselectedusers'] = 'Previously selected users not matching \'{$a}\'';
 $string['previoussection'] = 'Previous section';
 $string['primaryadminsetup'] = 'Setup administrator account';
+$string['privatefiles'] = 'Private files';
+$string['private_files_handler'] = 'Store attachments to an e-mail in the user\'s private files storage space.';
+$string['private_files_handler_name'] = 'Email to Private files';
 $string['profile'] = 'Profile';
 $string['profilenotshown'] = 'This profile description will not be shown until this person is enrolled in at least one course.';
 $string['publicprofile'] = 'Public profile';
@@ -1536,12 +1533,9 @@ $string['resetstartdate'] = 'Reset start date';
 $string['resetstatus'] = 'Status';
 $string['resettask'] = 'Task';
 $string['resettodefaults'] = 'Reset to defaults';
-$string['resortsubcategoriesbyname'] = 'Sort subcategories by name';
-$string['resortsubcategoriesbyidnumber'] = 'Sort subcategories by idnumber';
+$string['resortsubcategoriesby'] = 'Sort subcategories by {$a} ascending';
+$string['resortsubcategoriesbyreverse'] = 'Sort subcategories by {$a} descending';
 $string['resortcourses'] = 'Sort courses';
-$string['resortbyshortname'] = 'By shortname';
-$string['resortbyfullname'] = 'By fullname';
-$string['resortbyidnumber'] = 'By idnumber';
 $string['resource'] = 'Resource';
 $string['resourcedisplayauto'] = 'Automatic';
 $string['resourcedisplaydownload'] = 'Force download';
@@ -1557,6 +1551,7 @@ $string['restorecancelled'] = 'Restore cancelled';
 $string['restorecannotassignroles'] = 'Restore needs to assign roles and you do not have permission to do so';
 $string['restorecannotcreateorassignroles'] = 'Restore needs to create or assign roles and you do not have permission to do so';
 $string['restorecannotcreateuser'] = 'Restore needs to create user \'{$a}\' from backup file and you do not have permission to do so';
+$string['restoremnethostidmismatch'] = 'MNet host id of user \'{$a}\' does not match local MNet host ID.';
 $string['restorecannotoverrideperms'] = 'Restore needs to override permissions and you do not have permission to do so';
 $string['restorecoursenow'] = 'Restore this course now!';
 $string['restoredaccount'] = 'Restored account';
@@ -1590,6 +1585,7 @@ $string['saveandnext'] = 'Save and show next';
 $string['savedat'] = 'Saved at:';
 $string['savechanges'] = 'Save changes';
 $string['savechangesanddisplay'] = 'Save and display';
+$string['savechangesandreturn'] = 'Save and return';
 $string['savechangesandreturntocourse'] = 'Save and return to course';
 $string['savecomment'] = 'Save comment';
 $string['savepreferences'] = 'Save preferences';
@@ -1625,6 +1621,7 @@ $string['searchhelp'] = '<p>You can search for multiple words at once and can re
 $string['searchoptions'] = 'Search options';
 $string['searchresults'] = 'Search results';
 $string['sec'] = 'sec';
+$string['secondsleft'] = '{$a} secs';
 $string['seconds'] = 'seconds';
 $string['secondstotime172800'] = '2 days';
 $string['secondstotime259200'] = '3 days';
@@ -1746,18 +1743,13 @@ $string['sort'] = 'Sort';
 $string['sortby'] = 'Sort by';
 $string['sortbyx'] = 'Sort by {$a} ascending';
 $string['sortbyxreverse'] = 'Sort by {$a} descending';
-$string['sortcategoriesbyname'] = 'Sort categories by name';
-$string['sortcategoriesbyidnumber'] = 'Sort categories by ID number';
-$string['sortcoursesbyfullname'] = 'Sort courses by full name';
-$string['sortcoursesbyshortname'] = 'Sort courses by short name';
-$string['sortcoursesbyidnumber'] = 'Sort courses by ID number';
 $string['sorting'] = 'Sorting';
 $string['sourcerole'] = 'Source role';
 $string['specifyname'] = 'You must specify a name.';
 $string['standard'] = 'Standard';
 $string['starpending'] = '([*] = course pending approval)';
 $string['startdate'] = 'Course start date';
-$string['startdate_help'] = 'This setting determines the start of the first week for a course in weekly format. It also determines the earliest date that logs of course activities are available for.';
+$string['startdate_help'] = 'This setting determines the start of the first week for a course in weekly format. It also determines the earliest date that logs of course activities are available for. If the course is reset and the course start date changed, all dates in the course will be moved in relation to the new start date.';
 $string['startingfrom'] = 'Starting from';
 $string['startsignup'] = 'Create new account';
 $string['state'] = 'State/Province';
@@ -1833,6 +1825,11 @@ $string['teacheronly'] = 'for the {$a} only';
 $string['teacherroles'] = '{$a} roles';
 $string['teachers'] = 'Teachers';
 $string['textediting'] = 'Text editor';
+$string['textediting_help'] = 'If an HTML editor such as Atto or TinyMCE is selected, text input areas will have a toolbar with buttons for easily adding content.
+
+If \'plain text area\' is selected, a format for text input areas such as HTML or Markdown can be chosen.
+
+The list of available text editors is determined by the site administrator.';
 $string['texteditor'] = 'Use standard web forms';
 $string['textformat'] = 'Plain text format';
 $string['thanks'] = 'Thanks';
@@ -1844,6 +1841,7 @@ $string['therearecourses'] = 'There are {$a} courses';
 $string['thiscategory'] = 'This category';
 $string['thiscategorycontains'] = 'This category contains';
 $string['time'] = 'Time';
+$string['timecreatedcourse'] = 'Course time created';
 $string['timezone'] = 'Timezone';
 $string['to'] = 'To';
 $string['tocreatenewaccount'] = 'Skip to create new account';
@@ -1870,6 +1868,7 @@ $string['trackforumsyes'] = 'Yes: highlight new posts for me';
 $string['trysearching'] = 'Try searching instead.';
 $string['turneditingoff'] = 'Turn editing off';
 $string['turneditingon'] = 'Turn editing on';
+$string['unauthorisedlogin'] = 'The user account "{$a}" is not available on this site';
 $string['undecided'] = 'Undecided';
 $string['unfinished'] = 'Unfinished';
 $string['unknowncategory'] = 'Unknown category';
@@ -1917,11 +1916,12 @@ $string['uploadserverlimit'] = 'Uploaded file exceeded the maximum size limit se
 $string['uploadthisfile'] = 'Upload this file';
 $string['url'] = 'URL';
 $string['used'] = 'Used';
+$string['userdetails'] = 'User details';
 $string['usedinnplaces'] = 'Used in {$a} places';
 $string['usemessageform'] = 'or use the form below to send a message to the selected students';
 $string['user'] = 'User';
+$string['useraccount'] = 'User account';
 $string['userconfirmed'] = 'Confirmed {$a}';
-$string['usercurrentsettings'] = 'My profile settings';
 $string['useractivity'] = 'Activity';
 $string['userdata'] = 'User data';
 $string['userdeleted'] = 'This user account has been deleted';
@@ -1930,6 +1930,7 @@ $string['userdescription_help'] = 'This box enables you to enter some text about
 $string['userdetails'] = 'User details';
 $string['userfiles'] = 'User files';
 $string['userlist'] = 'User list';
+$string['usermenu'] = 'User menu';
 $string['username'] = 'Username';
 $string['usernameemail'] = 'Username / email';
 $string['usernameemailmatch'] = 'The username and email address do not relate to the same user';
@@ -1947,7 +1948,6 @@ $string['usersnew'] = 'New users';
 $string['usersnoaccesssince'] = 'Inactive for more than';
 $string['userswithfiles'] = 'Users with files';
 $string['useruploadtype'] = 'User upload type: {$a}';
-$string['userviewingsettings'] = 'Profile settings for {$a}';
 $string['userzones'] = 'User zones';
 $string['usetheme'] = 'Use theme';
 $string['usingexistingcourse'] = 'Using existing course';

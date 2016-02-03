@@ -108,7 +108,7 @@ class behat_course extends behat_base {
             $steps[] = new Given('I set the following fields to these values:', $table);
         }
 
-        $steps[] = new Given('I press "' . get_string('savechanges') . '"');
+        $steps[] = new Given('I press "' . get_string('savechangesanddisplay') . '"');
 
         return $steps;
     }
@@ -180,7 +180,7 @@ class behat_course extends behat_base {
             // Clicks the selected activity if it exists.
             $activityxpath = "//div[@id='chooseform']/descendant::label" .
                 "/descendant::span[contains(concat(' ', normalize-space(@class), ' '), ' typename ')]" .
-                "[contains(., $activityliteral)]" .
+                "[normalize-space(.)=$activityliteral]" .
                 "/parent::label/child::input";
             $activitynode = $this->find('xpath', $activityxpath);
             $activitynode->doubleClick();
@@ -190,7 +190,7 @@ class behat_course extends behat_base {
 
             // Selecting the option from the select box which contains the option.
             $selectxpath = $sectionxpath . "/descendant::div[contains(concat(' ', normalize-space(@class), ' '), ' section_add_menus ')]" .
-                "/descendant::select[contains(., $activityliteral)]";
+                "/descendant::select[option[normalize-space(.)=$activityliteral]]";
             $selectnode = $this->find('xpath', $selectxpath);
             $selectnode->selectOption($activity);
 
@@ -734,10 +734,6 @@ class behat_course extends behat_base {
             $steps[] = new Given('I open "' . $activity . '" actions menu');
         }
         $steps[] = new Given('I click on "' . get_string('duplicate') . '" "link" in the "' . $activity . '" activity');
-        if (!$this->running_javascript()) {
-            $steps[] = new Given('I press "' . get_string('continue') .'"');
-            $steps[] = new Given('I press "' . get_string('duplicatecontcourse') .'"');
-        }
         return $steps;
     }
 
@@ -756,35 +752,35 @@ class behat_course extends behat_base {
         $activity = $this->escape($activityname);
         $activityliteral = $this->getSession()->getSelectorsHandler()->xpathLiteral($activityname);
 
-        if ($this->running_javascript()) {
-            $steps[] = new Given('I duplicate "' . $activity . '" activity');
+        $steps[] = new Given('I duplicate "' . $activity . '" activity');
 
+        // Determine the future new activity xpath from the former one.
+        $duplicatedxpath = "//li[contains(concat(' ', normalize-space(@class), ' '), ' activity ')]" .
+            "[contains(., $activityliteral)]/following-sibling::li";
+        $duplicatedactionsmenuxpath = $duplicatedxpath . "/descendant::a[@role='menuitem']";
+
+        if ($this->running_javascript()) {
             // We wait until the AJAX request finishes and the section is visible again.
-            $hiddenlightboxxpath = "//li[contains(concat(' ', normalize-space(@class), ' '), ' activity ')][contains(., $activityliteral)]" .
+            $hiddenlightboxxpath = "//li[contains(concat(' ', normalize-space(@class), ' '), ' activity ')]" .
+                "[contains(., $activityliteral)]" .
                 "/ancestor::li[contains(concat(' ', normalize-space(@class), ' '), ' section ')]" .
                 "/descendant::div[contains(concat(' ', @class, ' '), ' lightbox ')][contains(@style, 'display: none')]";
+
             $steps[] = new Given('I wait until the page is ready');
             $steps[] = new Given('I wait until "' . $this->escape($hiddenlightboxxpath) .'" "xpath_element" exists');
 
             // Close the original activity actions menu.
             $steps[] = new Given('I close "' . $activity . '" actions menu');
 
-            // Determine the future new activity xpath from the former one.
-            $duplicatedxpath = "//li[contains(concat(' ', normalize-space(@class), ' '), ' activity ')][contains(., $activityliteral)]" .
-                "/following-sibling::li";
-            $duplicatedactionsmenuxpath = $duplicatedxpath . "/descendant::a[@role='menuitem']";
-
             // The next sibling of the former activity will be the duplicated one, so we click on it from it's xpath as, at
             // this point, it don't even exists in the DOM (the steps are executed when we return them).
             $steps[] = new Given('I click on "' . $this->escape($duplicatedactionsmenuxpath) . '" "xpath_element"');
-
-            // We force the xpath as otherwise mink tries to interact with the former one.
-            $steps[] = new Given('I click on "' . get_string('editsettings') . '" "link" in the "' . $this->escape($duplicatedxpath) . '" "xpath_element"');
-        } else {
-            $steps[] = new Given('I click on "' . get_string('duplicate') . '" "link" in the "' . $activity . '" activity');
-            $steps[] = new Given('I press "' . get_string('continue') .'"');
-            $steps[] = new Given('I press "' . get_string('duplicatecontedit') . '"');
         }
+
+        // We force the xpath as otherwise mink tries to interact with the former one.
+        $steps[] = new Given('I click on "' . get_string('editsettings') . '" "link" in the "' .
+            $this->escape($duplicatedxpath) . '" "xpath_element"');
+
         $steps[] = new Given('I set the following fields to these values:', $data);
         $steps[] = new Given('I press "' . get_string('savechangesandreturntocourse') . '"');
         return $steps;
@@ -1447,7 +1443,7 @@ class behat_course extends behat_base {
                 break;
             case "Course categories":
                 $return[] = new Given('"#category-listing" "css_element" should exist');
-                $return[] = new Given('"#course-listing" "css_element" should not exist');
+                $return[] = new Given('"#course-listing" "css_element" should exist');
                 break;
             case "Courses categories and courses":
             default:

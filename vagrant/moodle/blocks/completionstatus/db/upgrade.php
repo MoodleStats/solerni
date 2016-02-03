@@ -22,53 +22,59 @@
  *
  * The upgrade function in this file will attempt to perform all the necessary
  * actions to upgrade your older installation to the current version.
-*
-* If there's something it cannot do itself, it will tell you what you need to do.
-*
-* The commands in here will all be database-neutral, using the methods of
-* database_manager class
-*
-* Please do not forget to use upgrade_set_timeout()
-* before any action that may take longer time to finish.
-*
-* @since Moodle 2.0
-* @package block_completionstatus
-* @copyright 2012 Mark Nelson <markn@moodle.com>
-* @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
-*/
+ *
+ * If there's something it cannot do itself, it will tell you what you need to do.
+ *
+ * The commands in here will all be database-neutral, using the methods of
+ * database_manager class
+ *
+ * Please do not forget to use upgrade_set_timeout()
+ * before any action that may take longer time to finish.
+ *
+ * @since Moodle 2.0
+ * @package block_completionstatus
+ * @copyright 2012 Mark Nelson <markn@moodle.com>
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
 /**
  * Handles upgrading instances of this block.
-*
-* @param int $oldversion
-* @param object $block
-*/
+ *
+ * @param int $oldversion
+ * @param object $block
+ */
 function xmldb_block_completionstatus_upgrade($oldversion, $block) {
-	global $DB;
+    global $DB;
 
-	// Moodle v2.4.0 release upgrade line
-	// Put any upgrade step following this.
+    // Moodle v2.4.0 release upgrade line
+    // Put any upgrade step following this.
 
-	if ($oldversion < 2012112901) {
-		// Get the instances of this block.
-		if ($blocks = $DB->get_records('block_instances', array('blockname' => 'completionstatus', 'pagetypepattern' => 'my-index'))) {
-			// Loop through and remove them from the My Moodle page.
-			foreach ($blocks as $block) {
-				blocks_delete_instance($block);
-			}
-		}
-		// Savepoint reached.
-		upgrade_block_savepoint(true, 2012112901, 'completionstatus');
-	}
-	// Moodle v2.5.0 release upgrade line.
-	// Put any upgrade step following this.
+    if ($oldversion < 2012112901) {
+        // Get the instances of this block.
+        if ($blocks = $DB->get_records('block_instances', array('blockname' => 'completionstatus', 'pagetypepattern' => 'my-index'))) {
+            // Loop through and remove them from the My Moodle page.
+            foreach ($blocks as $block) {
+                blocks_delete_instance($block);
+            }
+        }
+        // Savepoint reached.
+        upgrade_block_savepoint(true, 2012112901, 'completionstatus');
+    }
+    // Moodle v2.5.0 release upgrade line.
+    // Put any upgrade step following this.
 
 
-	// Moodle v2.6.0 release upgrade line.
-	// Put any upgrade step following this.
+    // Moodle v2.6.0 release upgrade line.
+    // Put any upgrade step following this.
 
-	// Moodle v2.7.0 release upgrade line.
-	// Put any upgrade step following this.
+    // Moodle v2.7.0 release upgrade line.
+    // Put any upgrade step following this.
 
-	return true;
+    // Moodle v2.8.0 release upgrade line.
+    // Put any upgrade step following this.
+
+    // Moodle v2.9.0 release upgrade line.
+    // Put any upgrade step following this.
+
+    return true;
 }

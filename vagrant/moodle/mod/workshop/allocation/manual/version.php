@@ -25,6 +25,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version  = 2014051200;
-$plugin->requires = 2014050800;  // Requires this Moodle version
+$plugin->version  = 2015051100;
+$plugin->requires = 2015050500;  // Requires this Moodle version.
 $plugin->component = 'workshopallocation_manual';

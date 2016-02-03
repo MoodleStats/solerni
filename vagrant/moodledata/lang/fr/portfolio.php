@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'portfolio', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'portfolio', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   portfolio
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -37,7 +37,7 @@ $string['callbackclassinvalid'] = 'La classe de rappel (callback) indiquée n\'e
 $string['callercouldnotpackage'] = 'Échec de la préparation de vos données pour l\'exportation : l\'erreur originale est {$a}';
 $string['cannotsetvisible'] = 'Impossible de rendre visible ceci. Le plugin a été désactivé en raison d\'un problème de configuration';
 $string['commonportfoliosettings'] = 'Réglages communs de portfolio';
-$string['commonsettingsdesc'] = '<p>En indiquant si la durée d\'un transfert doit être considérée comme <i>Modérée</i> ou comme <i>Élevée</i>, vous spécifiez si les utilisateurs pourront attendre la fin du transfert ou non.</p><p>Les transferts jusqu\'à une taille <i>Modérée</i> ont lieu immédiatement sans intervention de l\'utilisateur. Les transferts de taille supérieure sont mis dans la file d\'attente, avec l\'option de commencer, avec un avertissement que le transfert pourra durer un certain temps.</p><p>Il est possible que certains plugins de portfolio ignorent ce réglage et impose la mise en file d\'attente de tous les transferts.</p>';
+$string['commonsettingsdesc'] = '<p>En indiquant si la durée d\'un transfert doit être considérée comme <i>Modérée</i> ou comme <i>Élevée</i>, vous spécifiez si les utilisateurs pourront attendre la fin du transfert ou non.</p><p>Les transferts jusqu\'à une taille <i>Modérée</i> ont lieu immédiatement sans intervention de l\'utilisateur. Les transferts de taille supérieure sont mis dans la file d\'attente, avec l\'option de commencer, avec un avertissement que le transfert pourra durer un certain temps.</p><p>Il est possible que certains plugins de portfolio ignorent ce réglage et imposent la mise en file d\'attente de tous les transferts.</p>';
 $string['configexport'] = 'Configurer les données exportées';
 $string['configplugin'] = 'Configuration portfolio';
 $string['configure'] = 'Configurer';
@@ -181,5 +181,5 @@ $string['thirdpartyexception'] = 'Une exception d\'un logiciel additionnel a ét
 $string['transfertime'] = 'Durée de transfert';
 $string['unknownplugin'] = 'Inconnu (a été peut-être supprimé par l\'administrateur)';
 $string['wait'] = 'Attendre';
-$string['wanttowait_high'] = 'Il n\'est pas recommandé la fin du transfert. Vous pouvez cependant le faire, si vous êtes sûr de ce que vous faites';
+$string['wanttowait_high'] = 'Il n\'est pas recommandé d\'attendre la fin de ce transfert, mais vous pouvez si vous êtes sûr et que vous savez ce que vous faites';
 $string['wanttowait_moderate'] = 'Voulez-vous attendre la fin de ce transfert ? Cela pourrait prendre quelques minutes';

@@ -31,12 +31,13 @@
  *
  * orange 2015050500 : adding extended course data
  * orange 2015120300 : modifing default to flexpage creation : visible in menu and flexpage next and previous
+ * orange 2016011800 : migration Moodle 2.9
  */
 
-$plugin->version      = 2015121700;
+$plugin->version      = 2016011800;
 $plugin->requires     = 2014051203;
 $plugin->component    = 'format_flexpage';
-$plugin->release      = '2.7.0 (Build: 20141229)';
+$plugin->release      = '2.8.0 (Build: 20150708)';
 $plugin->maturity     = MATURITY_STABLE;
 $plugin->dependencies = array(
     'block_flexpagenav' => 2014093000,

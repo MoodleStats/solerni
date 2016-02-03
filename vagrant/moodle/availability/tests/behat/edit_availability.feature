@@ -30,6 +30,7 @@ Feature: edit_availability
 
   Scenario: Confirm the 'enable availability' option is working
     When I log in as "teacher1"
+    And I am on site homepage
     And I follow "Course 1"
     And I turn editing mode on
     And I add a "Page" to section "1"
@@ -39,15 +40,11 @@ Feature: edit_availability
     When I edit the section "1"
     Then "Restrict access" "fieldset" should not exist
 
-    When I log out
-    And I log in as "admin"
-    And I set the following administration settings values:
-      | Enable conditional access | 1 |
+    And the following config values are set as admin:
+      | enableavailability | 1 |
 
-    When I log out
-    And I log in as "teacher1"
+    And I am on site homepage
     And I follow "Course 1"
-    And I turn editing mode on
     And I add a "Page" to section "1"
     Then "Restrict access" "fieldset" should exist
 
@@ -58,10 +55,8 @@ Feature: edit_availability
   @javascript
   Scenario: Edit availability using settings in activity form
     # Set up.
-    Given I log in as "admin"
-    And I set the following administration settings values:
-      | Enable conditional access | 1 |
-    And I log out
+    Given the following config values are set as admin:
+      | enableavailability | 1 |
     And I log in as "teacher1"
     And I follow "Course 1"
 
@@ -153,11 +148,10 @@ Feature: edit_availability
   @javascript
   Scenario: Edit availability using settings in section form
     # Set up.
-    Given I log in as "admin"
-    And I set the following administration settings values:
-      | Enable conditional access | 1 |
-    And I log out
+    Given the following config values are set as admin:
+      | enableavailability | 1 |
     And I log in as "teacher1"
+    And I am on site homepage
     And I follow "Course 1"
     And I turn editing mode on
 
@@ -172,3 +166,63 @@ Feature: edit_availability
     And I should not see "None" in the "Restrict access" "fieldset"
     And "Restriction type" "select" should be visible
     And I should see "Date" in the "Restrict access" "fieldset"
+
+  @javascript
+  Scenario: 'Add group/grouping access restriction' button unavailable
+    # Button does not exist when conditional access restrictions are turned off.
+    Given I log in as "admin"
+    And I am on site homepage
+    And I follow "Course 1"
+    And I turn editing mode on
+    And I add a "Forum" to section "1"
+    When I expand all fieldsets
+    Then "Add group/grouping access restriction" "button" should not exist
+
+  @javascript
+  Scenario: Use the 'Add group/grouping access restriction' button
+    # Button should initially be disabled.
+    Given the following config values are set as admin:
+      | enableavailability | 1 |
+    And the following "groupings" exist:
+      | name | course | idnumber |
+      | GX1  | C1     | GXI1     |
+    And I log in as "admin"
+    And I am on site homepage
+    And I follow "Course 1"
+    And I turn editing mode on
+    And I add a "Forum" to section "1"
+    And I set the following fields to these values:
+      | Forum name  | MyForum |
+      | Description | x       |
+    When I expand all fieldsets
+    Then the "Add group/grouping access restriction" "button" should be disabled
+
+    # Turn on separate groups.
+    And I set the field "Group mode" to "Separate groups"
+    And the "Add group/grouping access restriction" "button" should be enabled
+
+    # Press the button and check it adds a restriction and disables itself.
+    And I should see "None" in the "Restrict access" "fieldset"
+    And I press "Add group/grouping access restriction"
+    And I should see "Group" in the "Restrict access" "fieldset"
+    And the "Add group/grouping access restriction" "button" should be disabled
+
+    # Delete the restriction and check it is enabled again.
+    And I click on "Delete" "link" in the "Restrict access" "fieldset"
+    And the "Add group/grouping access restriction" "button" should be enabled
+
+    # Try a grouping instead.
+    And I set the field "Grouping" to "GX1"
+    And I press "Add group/grouping access restriction"
+    And I should see "Grouping" in the "Restrict access" "fieldset"
+
+    # Check the button still works after saving and editing.
+    And I press "Save and display"
+    And I navigate to "Edit settings" node in "Forum administration"
+    And I expand all fieldsets
+    And the "Add group/grouping access restriction" "button" should be disabled
+    And I should see "Grouping" in the "Restrict access" "fieldset"
+
+    # And check it's still active if I delete the condition.
+    And I click on "Delete" "link" in the "Restrict access" "fieldset"
+    And the "Add group/grouping access restriction" "button" should be enabled

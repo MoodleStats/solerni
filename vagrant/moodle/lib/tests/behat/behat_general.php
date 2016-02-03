@@ -79,6 +79,15 @@ class behat_general extends behat_base {
     }
 
     /**
+     * Opens Moodle site homepage.
+     *
+     * @Given /^I am on site homepage$/
+     */
+    public function i_am_on_site_homepage() {
+        $this->getSession()->visit($this->locate_path('/?redirect=0'));
+    }
+
+    /**
      * Reloads the current page.
      *
      * @Given /^I reload the page$/
@@ -235,12 +244,11 @@ class behat_general extends behat_base {
      * @param int $seconds
      */
     public function i_wait_seconds($seconds) {
-
-        if (!$this->running_javascript()) {
-            throw new DriverException('Waits are disabled in scenarios without Javascript support');
+        if ($this->running_javascript()) {
+            $this->getSession()->wait($seconds * 1000, false);
+        } else {
+            sleep($seconds);
         }
-
-        $this->getSession()->wait($seconds * 1000, false);
     }
 
     /**
@@ -1084,7 +1092,7 @@ class behat_general extends behat_base {
 
         // Check if value exists in specific row/column.
         // Get row xpath.
-        $rowxpath = $tablexpath."/tbody/tr[th[normalize-space(.)=" . $rowliteral . "] | td[normalize-space(.)=" . $rowliteral . "]]";
+        $rowxpath = $tablexpath."/tbody/tr[th[normalize-space(.)=" . $rowliteral . "] or td[normalize-space(.)=" . $rowliteral . "]]";
 
         $columnvaluexpath = $rowxpath . $columnpositionxpath . "[contains(normalize-space(.)," . $valueliteral . ")]";
 
@@ -1404,5 +1412,63 @@ class behat_general extends behat_base {
             fread(STDIN, 1024);
             fwrite(STDOUT, "\033[2A\033[u\033[2B");
         }
+    }
+
+    /**
+     * Presses a given button in the browser.
+     * NOTE: Phantomjs and goutte driver reloads page while navigating back and forward.
+     *
+     * @Then /^I press the "(back|forward|reload)" button in the browser$/
+     * @param string $button the button to press.
+     * @throws ExpectationException
+     */
+    public function i_press_in_the_browser($button) {
+        $session = $this->getSession();
+
+        if ($button == 'back') {
+            $session->back();
+        } else if ($button == 'forward') {
+            $session->forward();
+        } else if ($button == 'reload') {
+            $session->reload();
+        } else {
+            throw new ExpectationException('Unknown browser button.', $session);
+        }
+    }
+
+    /**
+     * Trigger a keydown event for a key on a specific element.
+     *
+     * @When /^I press key "(?P<key_string>(?:[^"]|\\")*)" in "(?P<element_string>(?:[^"]|\\")*)" "(?P<selector_string>[^"]*)"$/
+     * @param string $key either char-code or character itself,
+     *               may optionally be prefixed with ctrl-, alt-, shift- or meta-
+     * @param string $element Element we look for
+     * @param string $selectortype The type of what we look for
+     * @throws DriverException
+     * @throws ExpectationException
+     */
+    public function i_press_key_in_element($key, $element, $selectortype) {
+        if (!$this->running_javascript()) {
+            throw new DriverException('Key down step is not available with Javascript disabled');
+        }
+        // Gets the node based on the requested selector type and locator.
+        $node = $this->get_selected_node($selectortype, $element);
+        $modifier = null;
+        $validmodifiers = array('ctrl', 'alt', 'shift', 'meta');
+        $char = $key;
+        if (strpos($key, '-')) {
+            list($modifier, $char) = preg_split('/-/', $key, 2);
+            $modifier = strtolower($modifier);
+            if (!in_array($modifier, $validmodifiers)) {
+                throw new ExpectationException(sprintf('Unknown key modifier: %s.', $modifier));
+            }
+        }
+        if (is_numeric($char)) {
+            $char = (int)$char;
+        }
+
+        $node->keyDown($char, $modifier);
+        $node->keyPress($char, $modifier);
+        $node->keyUp($char, $modifier);
     }
 }

@@ -25,11 +25,11 @@
  *
  * For all but the first two of those, you also need a roleid parameter, and
  * possibly some other data.
-*
-* @package    core_role
-* @copyright  1999 onwards Martin Dougiamas (http://dougiamas.com)
-* @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
-*/
+ *
+ * @package    core_role
+ * @copyright  1999 onwards Martin Dougiamas (http://dougiamas.com)
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
 require_once(dirname(__FILE__) . '/../../config.php');
 require_once($CFG->libdir.'/adminlib.php');
@@ -37,9 +37,9 @@ require_once($CFG->dirroot . '/' . $CFG->admin . '/roles/lib.php');
 
 $action = optional_param('action', '', PARAM_ALPHA);
 if ($action) {
-	$roleid = required_param('roleid', PARAM_INT);
+    $roleid = required_param('roleid', PARAM_INT);
 } else {
-	$roleid = 0;
+    $roleid = 0;
 }
 
 // Get the base URL for this and related pages into a convenient variable.
@@ -63,82 +63,82 @@ $undeletableroles[$CFG->defaultuserroleid] = 1;
 // Process submitted data.
 $confirmed = (optional_param('confirm', false, PARAM_BOOL) && data_submitted() && confirm_sesskey());
 switch ($action) {
-	case 'delete':
-		if (isset($undeletableroles[$roleid])) {
-			print_error('cannotdeletethisrole', '', $baseurl);
-		}
-		if (!$confirmed) {
-			// Show confirmation.
-			echo $OUTPUT->header();
-			$optionsyes = array('action'=>'delete', 'roleid'=>$roleid, 'sesskey'=>sesskey(), 'confirm'=>1);
-			$a = new stdClass();
-			$a->id = $roleid;
-			$a->name = $roles[$roleid]->name;
-			$a->shortname = $roles[$roleid]->shortname;
-			$a->count = $DB->count_records_select('role_assignments',
-					'roleid = ?', array($roleid), 'COUNT(DISTINCT userid)');
+    case 'delete':
+        if (isset($undeletableroles[$roleid])) {
+            print_error('cannotdeletethisrole', '', $baseurl);
+        }
+        if (!$confirmed) {
+            // Show confirmation.
+            echo $OUTPUT->header();
+            $optionsyes = array('action'=>'delete', 'roleid'=>$roleid, 'sesskey'=>sesskey(), 'confirm'=>1);
+            $a = new stdClass();
+            $a->id = $roleid;
+            $a->name = $roles[$roleid]->name;
+            $a->shortname = $roles[$roleid]->shortname;
+            $a->count = $DB->count_records_select('role_assignments',
+                'roleid = ?', array($roleid), 'COUNT(DISTINCT userid)');
 
-			$formcontinue = new single_button(new moodle_url($baseurl, $optionsyes), get_string('yes'));
-			$formcancel = new single_button(new moodle_url($baseurl), get_string('no'), 'get');
-			echo $OUTPUT->confirm(get_string('deleterolesure', 'core_role', $a), $formcontinue, $formcancel);
-			echo $OUTPUT->footer();
-			die;
-		}
-		if (!delete_role($roleid)) {
-			// The delete failed, but mark the context dirty in case.
-			$systemcontext->mark_dirty();
-			print_error('cannotdeleterolewithid', 'error', $baseurl, $roleid);
-		}
-		// Deleted a role sitewide...
-		$systemcontext->mark_dirty();
-		redirect($baseurl);
-		break;
+            $formcontinue = new single_button(new moodle_url($baseurl, $optionsyes), get_string('yes'));
+            $formcancel = new single_button(new moodle_url($baseurl), get_string('no'), 'get');
+            echo $OUTPUT->confirm(get_string('deleterolesure', 'core_role', $a), $formcontinue, $formcancel);
+            echo $OUTPUT->footer();
+            die;
+        }
+        if (!delete_role($roleid)) {
+            // The delete failed, but mark the context dirty in case.
+            $systemcontext->mark_dirty();
+            print_error('cannotdeleterolewithid', 'error', $baseurl, $roleid);
+        }
+        // Deleted a role sitewide...
+        $systemcontext->mark_dirty();
+        redirect($baseurl);
+        break;
 
-	case 'moveup':
-		if (confirm_sesskey()) {
-			$prevrole = null;
-			$thisrole = null;
-			foreach ($roles as $role) {
-				if ($role->id == $roleid) {
-					$thisrole = $role;
-					break;
-				} else {
-					$prevrole = $role;
-				}
-			}
-			if (is_null($thisrole) || is_null($prevrole)) {
-				print_error('cannotmoverolewithid', 'error', '', $roleid);
-			}
-			if (!switch_roles($thisrole, $prevrole)) {
-				print_error('cannotmoverolewithid', 'error', '', $roleid);
-			}
-		}
+    case 'moveup':
+        if (confirm_sesskey()) {
+            $prevrole = null;
+            $thisrole = null;
+            foreach ($roles as $role) {
+                if ($role->id == $roleid) {
+                    $thisrole = $role;
+                    break;
+                } else {
+                    $prevrole = $role;
+                }
+            }
+            if (is_null($thisrole) || is_null($prevrole)) {
+                print_error('cannotmoverolewithid', 'error', '', $roleid);
+            }
+            if (!switch_roles($thisrole, $prevrole)) {
+                print_error('cannotmoverolewithid', 'error', '', $roleid);
+            }
+        }
 
-		redirect($baseurl);
-		break;
+        redirect($baseurl);
+        break;
 
-	case 'movedown':
-		if (confirm_sesskey()) {
-			$thisrole = null;
-			$nextrole = null;
-			foreach ($roles as $role) {
-				if ($role->id == $roleid) {
-					$thisrole = $role;
-				} else if (!is_null($thisrole)) {
-					$nextrole = $role;
-					break;
-				}
-			}
-			if (is_null($nextrole)) {
-				print_error('cannotmoverolewithid', 'error', '', $roleid);
-			}
-			if (!switch_roles($thisrole, $nextrole)) {
-				print_error('cannotmoverolewithid', 'error', '', $roleid);
-			}
-		}
+    case 'movedown':
+        if (confirm_sesskey()) {
+            $thisrole = null;
+            $nextrole = null;
+            foreach ($roles as $role) {
+                if ($role->id == $roleid) {
+                    $thisrole = $role;
+                } else if (!is_null($thisrole)) {
+                    $nextrole = $role;
+                    break;
+                }
+            }
+            if (is_null($nextrole)) {
+                print_error('cannotmoverolewithid', 'error', '', $roleid);
+            }
+            if (!switch_roles($thisrole, $nextrole)) {
+                print_error('cannotmoverolewithid', 'error', '', $roleid);
+            }
+        }
 
-		redirect($baseurl);
-		break;
+        redirect($baseurl);
+        break;
 
 }
 
@@ -154,10 +154,10 @@ $table->colclasses = array('leftalign', 'leftalign', 'leftalign', 'leftalign');
 $table->id = 'roles';
 $table->attributes['class'] = 'admintable generaltable';
 $table->head = array(
-		get_string('role') . ' ' . $OUTPUT->help_icon('roles', 'core_role'),
-		get_string('description'),
-		get_string('roleshortname', 'core_role'),
-		get_string('edit')
+    get_string('role') . ' ' . $OUTPUT->help_icon('roles', 'core_role'),
+    get_string('description'),
+    get_string('roleshortname', 'core_role'),
+    get_string('edit')
 );
 
 // Get some strings outside the loop.
@@ -171,38 +171,38 @@ $table->data = array();
 $firstrole = reset($roles);
 $lastrole = end($roles);
 foreach ($roles as $role) {
-	// Basic data.
-	$row = array(
-			'<a href="' . $defineurl . '?action=view&amp;roleid=' . $role->id . '">' . $role->localname . '</a>',
-			role_get_description($role),
-			s($role->shortname),
-			'',
-	);
+    // Basic data.
+    $row = array(
+        '<a href="' . $defineurl . '?action=view&amp;roleid=' . $role->id . '">' . $role->localname . '</a>',
+        role_get_description($role),
+        s($role->shortname),
+        '',
+    );
 
-	// Move up.
-	if ($role->sortorder != $firstrole->sortorder) {
-		$row[3] .= get_action_icon($baseurl . '?action=moveup&amp;roleid=' . $role->id . '&amp;sesskey=' . sesskey(), 'up', $strmoveup, $strmoveup);
-	} else {
-		$row[3] .= get_spacer();
-	}
-	// Move down.
-	if ($role->sortorder != $lastrole->sortorder) {
-		$row[3] .= get_action_icon($baseurl . '?action=movedown&amp;roleid=' . $role->id . '&amp;sesskey=' . sesskey(), 'down', $strmovedown, $strmovedown);
-	} else {
-		$row[3] .= get_spacer();
-	}
-	// Edit.
-	$row[3] .= get_action_icon($defineurl . '?action=edit&amp;roleid=' . $role->id,
-			'edit', $stredit, get_string('editxrole', 'core_role', $role->localname));
-	// Delete.
-	if (isset($undeletableroles[$role->id])) {
-		$row[3] .= get_spacer();
-	} else {
-		$row[3] .= get_action_icon($baseurl . '?action=delete&amp;roleid=' . $role->id,
-				'delete', $strdelete, get_string('deletexrole', 'core_role', $role->localname));
-	}
+    // Move up.
+    if ($role->sortorder != $firstrole->sortorder) {
+        $row[3] .= get_action_icon($baseurl . '?action=moveup&amp;roleid=' . $role->id . '&amp;sesskey=' . sesskey(), 'up', $strmoveup, $strmoveup);
+    } else {
+        $row[3] .= get_spacer();
+    }
+    // Move down.
+    if ($role->sortorder != $lastrole->sortorder) {
+        $row[3] .= get_action_icon($baseurl . '?action=movedown&amp;roleid=' . $role->id . '&amp;sesskey=' . sesskey(), 'down', $strmovedown, $strmovedown);
+    } else {
+        $row[3] .= get_spacer();
+    }
+    // Edit.
+    $row[3] .= get_action_icon($defineurl . '?action=edit&amp;roleid=' . $role->id,
+            'edit', $stredit, get_string('editxrole', 'core_role', $role->localname));
+    // Delete.
+    if (isset($undeletableroles[$role->id])) {
+        $row[3] .= get_spacer();
+    } else {
+        $row[3] .= get_action_icon($baseurl . '?action=delete&amp;roleid=' . $role->id,
+              'delete', $strdelete, get_string('deletexrole', 'core_role', $role->localname));
+    }
 
-	$table->data[] = $row;
+    $table->data[] = $row;
 }
 echo html_writer::table($table);
 
@@ -214,11 +214,11 @@ echo $OUTPUT->footer();
 die;
 
 function get_action_icon($url, $icon, $alt, $tooltip) {
-	global $OUTPUT;
-	return '<a title="' . $tooltip . '" href="'. $url . '">' .
-			'<img src="' . $OUTPUT->pix_url('t/' . $icon) . '" class="iconsmall" alt="' . $alt . '" /></a> ';
+    global $OUTPUT;
+    return '<a title="' . $tooltip . '" href="'. $url . '">' .
+            '<img src="' . $OUTPUT->pix_url('t/' . $icon) . '" class="iconsmall" alt="' . $alt . '" /></a> ';
 }
 function get_spacer() {
-	global $OUTPUT;
-	return '<img src="' . $OUTPUT->pix_url('spacer') . '" class="iconsmall" alt="" /> ';
+    global $OUTPUT;
+    return '<img src="' . $OUTPUT->pix_url('spacer') . '" class="iconsmall" alt="" /> ';
 }

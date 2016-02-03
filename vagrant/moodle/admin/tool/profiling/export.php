@@ -43,14 +43,14 @@ $filepath = $CFG->tempdir . '/' . $tempdir . '/' . $filename;
 
 // Generate the mpr file and send it.
 if (profiling_export_runs($runids, $filepath)) {
-	send_file($filepath, $filename, 0, 0, false, false, '', true);
-	unlink($filepath); // Delete once sent.
-	die;
+    send_file($filepath, $filename, 0, 0, false, false, '', true);
+    unlink($filepath); // Delete once sent.
+    die;
 }
 
 // Something wrong happened, notice it and done.
 $urlparams = array(
-		'runid' => $runid,
-		'listurl' => $listurl);
+        'runid' => $runid,
+        'listurl' => $listurl);
 $url = new moodle_url('/admin/tool/profiling/index.php', $urlparams);
 notice(get_string('exportproblem', 'tool_profiling', $urlparams), $url);

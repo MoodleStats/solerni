@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'local_mobile', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'local_mobile', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   local_mobile
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -32,5 +32,8 @@ $string['local_mobiletypeoflogin'] = 'Sélectionner un type de connexion';
 $string['local_mobiletypeoflogin_key'] = 'Type de connexion';
 $string['loginintheapp'] = 'Via l\'app';
 $string['logininthebrowser'] = 'Via un navigateur (pour les plugins SSO)';
+$string['mod_scorm_protectpackagedownloads'] = 'Protéger le téléchargement des paquetages';
+$string['mod_scorm_protectpackagedownloads_desc'] = 'Si activé, les paquetages SCORM peuvent être téléchargés seulement si l\'utilisateur possède la capacité course:manageactivities. Si désactivé, les paquetages SCORM peuvent toujours être téléchargés (via mobile ou autre).';
+$string['mod_scorm_settings'] = 'Paramètres spécifiques au module SCORM';
 $string['pluginname'] = 'Fonctionnalités supplémentaires Moodle Mobile';
 $string['pluginnotenabledorconfigured'] = 'Le plugin local Moodle Mobile doit être activé et configuré pour pouvoir lancer l\'app';

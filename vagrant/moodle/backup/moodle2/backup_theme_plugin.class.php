@@ -47,35 +47,35 @@ defined('MOODLE_INTERNAL') || die();
  */
 abstract class backup_theme_plugin extends backup_plugin {
 
-	/**
-	 * @var string Current theme for course (may not be the same as plugin).
-	 */
-	protected $coursetheme;
+    /**
+     * @var string Current theme for course (may not be the same as plugin).
+     */
+    protected $coursetheme;
 
-	/**
-	 * @param string $plugintype Plugin type (always 'theme')
-	 * @param string $pluginname Plugin name (name of theme)
-	 * @param backup_optigroup $optigroup Group that will contain this data
-	 * @param backup_course_structure_step $step Backup step that this is part of
-	 */
-	public function __construct($plugintype, $pluginname, $optigroup, $step) {
+    /**
+     * @param string $plugintype Plugin type (always 'theme')
+     * @param string $pluginname Plugin name (name of theme)
+     * @param backup_optigroup $optigroup Group that will contain this data
+     * @param backup_course_structure_step $step Backup step that this is part of
+     */
+    public function __construct($plugintype, $pluginname, $optigroup, $step) {
 
-		parent::__construct($plugintype, $pluginname, $optigroup, $step);
+        parent::__construct($plugintype, $pluginname, $optigroup, $step);
 
-		$this->coursetheme = backup_plan_dbops::get_theme_from_courseid(
-				$this->task->get_courseid());
+        $this->coursetheme = backup_plan_dbops::get_theme_from_courseid(
+                    $this->task->get_courseid());
 
-	}
+    }
 
-	/**
-	 * Return condition for whether this theme should be backed up (= if it
-	 * is the same theme as the one used in this course). This condition has
-	 * the theme used in the course. It will be compared against the name
-	 * of the theme, by use of third parameter in get_plugin_element; in
-	 * subclass, you should do:
-	 * $plugin = $this->get_plugin_element(null, $this->get_theme_condition(), 'mytheme');
-	 */
-	protected function get_theme_condition() {
-		return array('sqlparam' => $this->coursetheme);
-	}
+    /**
+     * Return condition for whether this theme should be backed up (= if it
+     * is the same theme as the one used in this course). This condition has
+     * the theme used in the course. It will be compared against the name
+     * of the theme, by use of third parameter in get_plugin_element; in
+     * subclass, you should do:
+     * $plugin = $this->get_plugin_element(null, $this->get_theme_condition(), 'mytheme');
+     */
+    protected function get_theme_condition() {
+        return array('sqlparam' => $this->coursetheme);
+    }
 }

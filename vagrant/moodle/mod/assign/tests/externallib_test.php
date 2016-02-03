@@ -77,6 +77,18 @@ class mod_assign_external_testcase extends externallib_advanced_testcase {
 
         // Create a student and give them 2 grades (for 2 attempts).
         $student = self::getDataGenerator()->create_user();
+
+        $submission = new stdClass();
+        $submission->assignment = $assign->id;
+        $submission->userid = $student->id;
+        $submission->status = ASSIGN_SUBMISSION_STATUS_NEW;
+        $submission->latest = 0;
+        $submission->attemptnumber = 0;
+        $submission->groupid = 0;
+        $submission->timecreated = time();
+        $submission->timemodified = time();
+        $DB->insert_record('assign_submission', $submission);
+
         $grade = new stdClass();
         $grade->assignment = $assign->id;
         $grade->userid = $student->id;
@@ -86,6 +98,17 @@ class mod_assign_external_testcase extends externallib_advanced_testcase {
         $grade->grade = 50;
         $grade->attemptnumber = 0;
         $DB->insert_record('assign_grades', $grade);
+
+        $submission = new stdClass();
+        $submission->assignment = $assign->id;
+        $submission->userid = $student->id;
+        $submission->status = ASSIGN_SUBMISSION_STATUS_NEW;
+        $submission->latest = 1;
+        $submission->attemptnumber = 1;
+        $submission->groupid = 0;
+        $submission->timecreated = time();
+        $submission->timemodified = time();
+        $DB->insert_record('assign_submission', $submission);
 
         $grade = new stdClass();
         $grade->assignment = $assign->id;
@@ -149,6 +172,7 @@ class mod_assign_external_testcase extends externallib_advanced_testcase {
         $assign1 = self::getDataGenerator()->create_module('assign', array(
             'course' => $course1->id,
             'name' => 'lightwork assignment',
+            'intro' => 'the assignment intro text here',
             'markingworkflow' => 1,
             'markingallocation' => 1
         ));
@@ -173,6 +197,13 @@ class mod_assign_external_testcase extends externallib_advanced_testcase {
             'userid' => $USER->id
         ));
 
+        // Add a file as assignment attachment.
+        $filerecord = array('component' => 'mod_assign', 'filearea' => ASSIGN_INTROATTACHMENT_FILEAREA,
+                'contextid' => $context->id, 'itemid' => 0,
+                'filename' => 'introattachment.txt', 'filepath' => '/');
+        $fs = get_file_storage();
+        $fs->create_file_from_string($filerecord, 'Test intro attachment file');
+
         $result = mod_assign_external::get_assignments();
 
         // We need to execute the return values cleaning process to simulate the web service server.
@@ -187,8 +218,16 @@ class mod_assign_external_testcase extends externallib_advanced_testcase {
         $this->assertEquals($assign1->id, $assignment['id']);
         $this->assertEquals($course1->id, $assignment['course']);
         $this->assertEquals('lightwork assignment', $assignment['name']);
+        $this->assertEquals('the assignment intro text here', $assignment['intro']);
         $this->assertEquals(1, $assignment['markingworkflow']);
         $this->assertEquals(1, $assignment['markingallocation']);
+
+        $this->assertCount(1, $assignment['introattachments']);
+        $this->assertEquals('introattachment.txt', $assignment['introattachments'][0]['filename']);
+
+        // Now, hide the descritption until the submission from date.
+        $DB->set_field('assign', 'alwaysshowdescription', 0, array('id' => $assign1->id));
+        $DB->set_field('assign', 'allowsubmissionsfromdate', time() + DAYSECS, array('id' => $assign1->id));
 
         $result = mod_assign_external::get_assignments(array($course1->id));
 
@@ -203,6 +242,8 @@ class mod_assign_external_testcase extends externallib_advanced_testcase {
         $this->assertEquals($assign1->id, $assignment['id']);
         $this->assertEquals($course1->id, $assignment['course']);
         $this->assertEquals('lightwork assignment', $assignment['name']);
+        $this->assertArrayNotHasKey('intro', $assignment);
+        $this->assertArrayNotHasKey('introattachments', $assignment);
         $this->assertEquals(1, $assignment['markingworkflow']);
         $this->assertEquals(1, $assignment['markingallocation']);
 
@@ -244,6 +285,7 @@ class mod_assign_external_testcase extends externallib_advanced_testcase {
         $submission->timemodified = $submission->timecreated;
         $submission->status = 'draft';
         $submission->attemptnumber = 0;
+        $submission->latest = 0;
         $sid = $DB->insert_record('assign_submission', $submission);
 
         // Second attempt.
@@ -254,6 +296,7 @@ class mod_assign_external_testcase extends externallib_advanced_testcase {
         $submission->timemodified = $submission->timecreated;
         $submission->status = 'submitted';
         $submission->attemptnumber = 1;
+        $submission->latest = 1;
         $sid = $DB->insert_record('assign_submission', $submission);
         $submission->id = $sid;
 
@@ -273,7 +316,7 @@ class mod_assign_external_testcase extends externallib_advanced_testcase {
         // Create a teacher and give them capabilities.
         $context = context_course::instance($course1->id);
         $roleid = $this->assignUserCapability('moodle/course:viewparticipants', $context->id, 3);
-        $context = context_module::instance($assign1->id);
+        $context = context_module::instance($assign1->cmid);
         $this->assignUserCapability('mod/assign:grade', $context->id, $roleid);
 
         // Create the teacher's enrolment record.
@@ -284,6 +327,7 @@ class mod_assign_external_testcase extends externallib_advanced_testcase {
 
         $assignmentids[] = $assign1->id;
         $result = mod_assign_external::get_submissions($assignmentids);
+        $result = external_api::clean_returnvalue(mod_assign_external::get_submissions_returns(), $result);
 
         // Check the online text submission is returned.
         $this->assertEquals(1, count($result['assignments']));
@@ -485,6 +529,7 @@ class mod_assign_external_testcase extends externallib_advanced_testcase {
         $this->setUser($teacher);
         $students = array($student1->id, $student2->id);
         $result = mod_assign_external::lock_submissions($instance->id, $students);
+        $result = external_api::clean_returnvalue(mod_assign_external::lock_submissions_returns(), $result);
 
         // Check for 0 warnings.
         $this->assertEquals(0, count($result));
@@ -549,11 +594,13 @@ class mod_assign_external_testcase extends externallib_advanced_testcase {
         $this->setUser($teacher);
         $students = array($student1->id, $student2->id);
         $result = mod_assign_external::lock_submissions($instance->id, $students);
+        $result = external_api::clean_returnvalue(mod_assign_external::lock_submissions_returns(), $result);
 
         // Check for 0 warnings.
         $this->assertEquals(0, count($result));
 
         $result = mod_assign_external::unlock_submissions($instance->id, $students);
+        $result = external_api::clean_returnvalue(mod_assign_external::unlock_submissions_returns(), $result);
 
         // Check for 0 warnings.
         $this->assertEquals(0, count($result));
@@ -609,11 +656,13 @@ class mod_assign_external_testcase extends externallib_advanced_testcase {
         $plugin->save($submission, $data);
 
         $result = mod_assign_external::submit_for_grading($instance->id, false);
+        $result = external_api::clean_returnvalue(mod_assign_external::submit_for_grading_returns(), $result);
 
         // Should be 1 fail because the submission statement was not aceptted.
         $this->assertEquals(1, count($result));
 
         $result = mod_assign_external::submit_for_grading($instance->id, true);
+        $result = external_api::clean_returnvalue(mod_assign_external::submit_for_grading_returns(), $result);
 
         // Check for 0 warnings.
         $this->assertEquals(0, count($result));
@@ -664,28 +713,34 @@ class mod_assign_external_testcase extends externallib_advanced_testcase {
 
         $this->setUser($student1);
         $result = mod_assign_external::submit_for_grading($instance->id, true);
+        $result = external_api::clean_returnvalue(mod_assign_external::submit_for_grading_returns(), $result);
 
         // Check for 0 warnings.
         $this->assertEquals(1, count($result));
 
         $this->setUser($teacher);
         $result = mod_assign_external::save_user_extensions($instance->id, array($student1->id), array($now, $tomorrow));
+        $result = external_api::clean_returnvalue(mod_assign_external::save_user_extensions_returns(), $result);
         $this->assertEquals(1, count($result));
 
         $this->setUser($teacher);
         $result = mod_assign_external::save_user_extensions($instance->id, array($student1->id), array($yesterday - 10));
+        $result = external_api::clean_returnvalue(mod_assign_external::save_user_extensions_returns(), $result);
         $this->assertEquals(1, count($result));
 
         $this->setUser($teacher);
         $result = mod_assign_external::save_user_extensions($instance->id, array($student1->id), array($tomorrow));
+        $result = external_api::clean_returnvalue(mod_assign_external::save_user_extensions_returns(), $result);
         $this->assertEquals(0, count($result));
 
         $this->setUser($student1);
         $result = mod_assign_external::submit_for_grading($instance->id, true);
+        $result = external_api::clean_returnvalue(mod_assign_external::submit_for_grading_returns(), $result);
         $this->assertEquals(0, count($result));
 
         $this->setUser($student1);
         $result = mod_assign_external::save_user_extensions($instance->id, array($student1->id), array($now, $tomorrow));
+        $result = external_api::clean_returnvalue(mod_assign_external::save_user_extensions_returns(), $result);
 
     }
 
@@ -726,11 +781,13 @@ class mod_assign_external_testcase extends externallib_advanced_testcase {
         $this->setUser($student1);
         $this->setExpectedException('required_capability_exception');
         $result = mod_assign_external::reveal_identities($instance->id);
+        $result = external_api::clean_returnvalue(mod_assign_external::reveal_identities_returns(), $result);
         $this->assertEquals(1, count($result));
         $this->assertEquals(true, $assign->is_blind_marking());
 
         $this->setUser($teacher);
         $result = mod_assign_external::reveal_identities($instance->id);
+        $result = external_api::clean_returnvalue(mod_assign_external::reveal_identities_returns(), $result);
         $this->assertEquals(0, count($result));
         $this->assertEquals(false, $assign->is_blind_marking());
 
@@ -745,6 +802,7 @@ class mod_assign_external_testcase extends externallib_advanced_testcase {
 
         $assign = new assign($context, $cm, $course);
         $result = mod_assign_external::reveal_identities($instance->id);
+        $result = external_api::clean_returnvalue(mod_assign_external::reveal_identities_returns(), $result);
         $this->assertEquals(1, count($result));
         $this->assertEquals(false, $assign->is_blind_marking());
 
@@ -790,12 +848,14 @@ class mod_assign_external_testcase extends externallib_advanced_testcase {
         // Simulate a submission.
         $this->setUser($student1);
         $result = mod_assign_external::submit_for_grading($instance->id, true);
+        $result = external_api::clean_returnvalue(mod_assign_external::submit_for_grading_returns(), $result);
         $this->assertEquals(0, count($result));
 
         // Ready to test.
         $this->setUser($teacher);
         $students = array($student1->id, $student2->id);
         $result = mod_assign_external::revert_submissions_to_draft($instance->id, array($student1->id));
+        $result = external_api::clean_returnvalue(mod_assign_external::revert_submissions_to_draft_returns(), $result);
 
         // Check for 0 warnings.
         $this->assertEquals(0, count($result));
@@ -882,6 +942,7 @@ class mod_assign_external_testcase extends externallib_advanced_testcase {
                                         'itemid'=>$draftidonlinetext);
         $submissionpluginparams['onlinetext_editor'] = $onlinetexteditorparams;
         $result = mod_assign_external::save_submission($instance->id, $submissionpluginparams);
+        $result = external_api::clean_returnvalue(mod_assign_external::save_submission_returns(), $result);
 
         $this->assertEquals(0, count($result));
 
@@ -956,11 +1017,11 @@ class mod_assign_external_testcase extends externallib_advanced_testcase {
                                                   'released',
                                                   false,
                                                   $feedbackpluginparams);
-
         // No warnings.
-        $this->assertEquals(0, count($result));
+        $this->assertNull($result);
 
         $result = mod_assign_external::get_grades(array($instance->id));
+        $result = external_api::clean_returnvalue(mod_assign_external::get_grades_returns(), $result);
 
         $this->assertEquals($result['assignments'][0]['grades'][0]['grade'], '50.0');
     }
@@ -1106,8 +1167,7 @@ class mod_assign_external_testcase extends externallib_advanced_testcase {
         $grades[] = $student2gradeinfo;
 
         $result = mod_assign_external::save_grades($instance->id, false, $grades);
-        // No warnings.
-        $this->assertEquals(0, count($result));
+        $this->assertNull($result);
 
         $student1grade = $DB->get_record('assign_grades',
                                          array('userid' => $student1->id, 'assignment' => $instance->id),
@@ -1219,6 +1279,7 @@ class mod_assign_external_testcase extends externallib_advanced_testcase {
         $this->setExpectedException('invalid_parameter_exception');
         // Expect an exception since 2 grades have been submitted for the same team.
         $result = mod_assign_external::save_grades($instance->id, true, $grades1);
+        $result = external_api::clean_returnvalue(mod_assign_external::save_grades_returns(), $result);
 
         $grades2 = array();
         $student3gradeinfo = array();
@@ -1239,6 +1300,7 @@ class mod_assign_external_testcase extends externallib_advanced_testcase {
         $student4gradeinfo['plugindata'] = $feedbackpluginparams;
         $grades2[] = $student4gradeinfo;
         $result = mod_assign_external::save_grades($instance->id, true, $grades2);
+        $result = external_api::clean_returnvalue(mod_assign_external::save_grades_returns(), $result);
         // There should be no warnings.
         $this->assertEquals(0, count($result));
 
@@ -1300,6 +1362,7 @@ class mod_assign_external_testcase extends externallib_advanced_testcase {
         $submissionpluginparams['onlinetext_editor'] = $onlinetexteditorparams;
         $submissionpluginparams['files_filemanager'] = file_get_unused_draft_itemid();
         $result = mod_assign_external::save_submission($instance->id, $submissionpluginparams);
+        $result = external_api::clean_returnvalue(mod_assign_external::save_submission_returns(), $result);
 
         $this->setUser($teacher);
         // Add a grade and reopen the attempt.
@@ -1317,15 +1380,18 @@ class mod_assign_external_testcase extends externallib_advanced_testcase {
                                                   'released',
                                                   false,
                                                   $feedbackpluginparams);
+        $this->assertNull($result);
 
         $this->setUser($student1);
         // Now copy the previous attempt.
         $result = mod_assign_external::copy_previous_attempt($instance->id);
+        $result = external_api::clean_returnvalue(mod_assign_external::copy_previous_attempt_returns(), $result);
         // No warnings.
         $this->assertEquals(0, count($result));
 
         $this->setUser($teacher);
         $result = mod_assign_external::get_submissions(array($instance->id));
+        $result = external_api::clean_returnvalue(mod_assign_external::get_submissions_returns(), $result);
 
         // Check we are now on the second attempt.
         $this->assertEquals($result['assignments'][0]['submissions'][0]['attemptnumber'], 1);

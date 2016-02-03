@@ -47,7 +47,9 @@ class enrol_self_external_testcase extends externallib_advanced_testcase {
         $studentrole = $DB->get_record('role', array('shortname'=>'student'));
         $this->assertNotEmpty($studentrole);
 
-        $course = self::getDataGenerator()->create_course();
+        $coursedata = new stdClass();
+        $coursedata->visible = 0;
+        $course = self::getDataGenerator()->create_course($coursedata);
 
         // Add enrolment methods for course.
         $instanceid1 = $selfplugin->add_instance($course, array('status' => ENROL_INSTANCE_ENABLED,
@@ -68,7 +70,9 @@ class enrol_self_external_testcase extends externallib_advanced_testcase {
         $enrolmentmethods = $DB->get_records('enrol', array('courseid' => $course->id, 'status' => ENROL_INSTANCE_ENABLED));
         $this->assertCount(3, $enrolmentmethods);
 
+        $this->setAdminUser();
         $instanceinfo1 = enrol_self_external::get_instance_info($instanceid1);
+        $instanceinfo1 = external_api::clean_returnvalue(enrol_self_external::get_instance_info_returns(), $instanceinfo1);
 
         $this->assertEquals($instanceid1, $instanceinfo1['id']);
         $this->assertEquals($course->id, $instanceinfo1['courseid']);
@@ -78,6 +82,7 @@ class enrol_self_external_testcase extends externallib_advanced_testcase {
         $this->assertFalse(isset($instanceinfo1['enrolpassword']));
 
         $instanceinfo2 = enrol_self_external::get_instance_info($instanceid2);
+        $instanceinfo2 = external_api::clean_returnvalue(enrol_self_external::get_instance_info_returns(), $instanceinfo2);
         $this->assertEquals($instanceid2, $instanceinfo2['id']);
         $this->assertEquals($course->id, $instanceinfo2['courseid']);
         $this->assertEquals('self', $instanceinfo2['type']);
@@ -86,11 +91,21 @@ class enrol_self_external_testcase extends externallib_advanced_testcase {
         $this->assertFalse(isset($instanceinfo2['enrolpassword']));
 
         $instanceinfo3 = enrol_self_external::get_instance_info($instanceid3);
+        $instanceinfo3 = external_api::clean_returnvalue(enrol_self_external::get_instance_info_returns(), $instanceinfo3);
         $this->assertEquals($instanceid3, $instanceinfo3['id']);
         $this->assertEquals($course->id, $instanceinfo3['courseid']);
         $this->assertEquals('self', $instanceinfo3['type']);
         $this->assertEquals('Test instance 3', $instanceinfo3['name']);
         $this->assertTrue($instanceinfo3['status']);
         $this->assertEquals(get_string('password', 'enrol_self'), $instanceinfo3['enrolpassword']);
+
+        // Try to retrieve information using a normal user for a hidden course.
+        $user = self::getDataGenerator()->create_user();
+        $this->setUser($user);
+        try {
+            enrol_self_external::get_instance_info($instanceid3);
+        } catch (moodle_exception $e) {
+            $this->assertEquals('coursehidden', $e->errorcode);
+        }
     }
 }

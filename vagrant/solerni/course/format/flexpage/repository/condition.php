@@ -22,7 +22,10 @@
  */
 
 require_once($CFG->libdir.'/completionlib.php');
-require_once($CFG->libdir.'/conditionlib.php');
+//origin : Orange
+//plugin version : 2016011800
+//modification : upgrading to moodle 2.9
+//require_once($CFG->libdir.'/conditionlib.php');
 require_once($CFG->libdir.'/gradelib.php');
 
 /**

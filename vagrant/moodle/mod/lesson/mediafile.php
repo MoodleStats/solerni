@@ -38,6 +38,10 @@ $lesson = new lesson($DB->get_record('lesson', array('id' => $cm->instance), '*'
 
 require_login($course, false, $cm);
 
+
+// Apply overrides.
+$lesson->update_effective_access($USER->id);
+
 $context = context_module::instance($cm->id);
 $canmanage = has_capability('mod/lesson:manage', $context);
 
@@ -84,13 +88,29 @@ if (!$canmanage) {
     } else if ($lesson->usepassword && empty($USER->lessonloggedin[$lesson->id])) { // Password protected lesson code
         $correctpass = false;
         if (!empty($userpassword) && (($lesson->password == md5(trim($userpassword))) || ($lesson->password == trim($userpassword)))) {
+            require_sesskey();
             // with or without md5 for backward compatibility (MDL-11090)
             $USER->lessonloggedin[$lesson->id] = true;
+            $correctpass = true;
             if ($lesson->highscores) {
                 // Logged in - redirect so we go through all of these checks before starting the lesson.
                 redirect("$CFG->wwwroot/mod/lesson/view.php?id=$cm->id");
             }
-        } else {
+        } else if (isset($lesson->extrapasswords)) {
+            // Group overrides may have additional passwords.
+            foreach ($lesson->extrapasswords as $password) {
+                if (strcmp($password, md5(trim($userpassword))) === 0 || strcmp($password, trim($userpassword)) === 0) {
+                    require_sesskey();
+                    $correctpass = true;
+                    $USER->lessonloggedin[$lesson->id] = true;
+                    if ($lesson->highscores) {
+                        // Logged in - redirect so we go through all of these checks before starting the lesson.
+                        redirect("$CFG->wwwroot/mod/lesson/view.php?id=$cm->id");
+                    }
+                }
+            }
+        }
+        if (!$correctpass) {
             echo $lessonoutput->header($lesson, $cm);
             echo $lessonoutput->login_prompt($lesson, $userpassword !== '');
             echo $lessonoutput->footer();

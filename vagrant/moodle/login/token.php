@@ -31,6 +31,8 @@ $username = required_param('username', PARAM_USERNAME);
 $password = required_param('password', PARAM_RAW);
 $serviceshortname  = required_param('service',  PARAM_ALPHANUMEXT);
 
+// Allow CORS requests.
+header('Access-Control-Allow-Origin: *');
 echo $OUTPUT->header();
 
 if (!$CFG->enablewebservices) {
@@ -202,5 +204,5 @@ if (!empty($user)) {
     $usertoken->token = $token->token;
     echo json_encode($usertoken);
 } else {
-    throw new moodle_exception('usernamenotfound', 'moodle');
+    throw new moodle_exception('invalidlogin');
 }

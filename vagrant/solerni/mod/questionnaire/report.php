@@ -47,6 +47,7 @@ if ($instance === false) {
     }
 }
 $SESSION->instance = $instance;
+$usergraph = get_config('questionnaire', 'usergraph');
 
 if (! $questionnaire = $DB->get_record("questionnaire", array("id" => $instance))) {
     print_error('incorrectquestionnaire', 'questionnaire');
@@ -177,7 +178,7 @@ if ($groupmode > 0) {
         $groupname = '<strong>'.get_string('allparticipants').'</strong>';
     }
 }
-if ($CFG->questionnaire_usergraph) {
+if ($usergraph) {
     $charttype = $questionnaire->survey->chart_type;
     if ($charttype) {
         $PAGE->requires->js('/mod/questionnaire/javascript/RGraph/RGraph.common.core.js');
@@ -239,13 +240,13 @@ switch ($action) {
         // Print the tabs.
         $SESSION->questionnaire->current_tab = 'deleteresp';
         include('tabs.php');
-        
+
         $timesubmitted = '<br />'.get_string('submitted', 'questionnaire').'&nbsp;'.userdate($resp->submitted);
         if ($questionnaire->respondenttype == 'anonymous') {
                 $ruser = '- '.get_string('anonymous', 'questionnaire').' -';
                 $timesubmitted = '';
         }
-        
+
         // Print the confirmation.
         echo '<p>&nbsp;</p>';
         $msg = '<div class="warning centerpara">';
@@ -596,7 +597,8 @@ switch ($action) {
                         '<option value="'.$group->id.'">'.$thisgroupname.' ('.$respscount.')</option>', $groupselect);
                 } else {
                     // Remove groups with no responses from the groups select list.
-                    $groupselect = preg_replace('/\<option value="'.$group->id.'">'.$escapedgroupname.'<\/option>/', '', $groupselect);
+                    $groupselect = preg_replace('/\<option value="'.$group->id.'">'.$escapedgroupname.
+                            '<\/option>/', '', $groupselect);
                 }
             }
             echo isset($groupselect) ? $groupselect : '';
@@ -666,7 +668,7 @@ switch ($action) {
         }
         $ruser = false;
         $noresponses = false;
-        if ($CFG->questionnaire_usergraph) {
+        if ($usergraph) {
             $charttype = $questionnaire->survey->chart_type;
             if ($charttype) {
                 $PAGE->requires->js('/mod/questionnaire/javascript/RGraph/RGraph.common.core.js');

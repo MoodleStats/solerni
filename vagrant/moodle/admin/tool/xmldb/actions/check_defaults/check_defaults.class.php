@@ -24,136 +24,136 @@
  * This class will check all the default values existing in the DB
  * match those specified in the xml specs
  * and providing one SQL script to fix all them.
-*
-* @package    tool_xmldb
-* @copyright  2003 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
-* @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
-*/
+ *
+ * @package    tool_xmldb
+ * @copyright  2003 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class check_defaults extends XMLDBCheckAction {
 
-	/**
-	 * Init method, every subclass will have its own
-	 */
-	function init() {
-		$this->introstr = 'confirmcheckdefaults';
-		parent::init();
+    /**
+     * Init method, every subclass will have its own
+     */
+    function init() {
+        $this->introstr = 'confirmcheckdefaults';
+        parent::init();
 
-		// Set own core attributes
+        // Set own core attributes
 
-		// Set own custom attributes
+        // Set own custom attributes
 
-		// Get needed strings
-		$this->loadStrings(array(
-				'wrongdefaults' => 'tool_xmldb',
-				'nowrongdefaultsfound' => 'tool_xmldb',
-				'yeswrongdefaultsfound' => 'tool_xmldb',
-				'expected' => 'tool_xmldb',
-				'actual' => 'tool_xmldb',
-		));
-	}
+        // Get needed strings
+        $this->loadStrings(array(
+            'wrongdefaults' => 'tool_xmldb',
+            'nowrongdefaultsfound' => 'tool_xmldb',
+            'yeswrongdefaultsfound' => 'tool_xmldb',
+            'expected' => 'tool_xmldb',
+            'actual' => 'tool_xmldb',
+        ));
+    }
 
-	protected function check_table(xmldb_table $xmldb_table, array $metacolumns) {
-		$o = '';
-		$wrong_fields = array();
+    protected function check_table(xmldb_table $xmldb_table, array $metacolumns) {
+        $o = '';
+        $wrong_fields = array();
 
-		// Get and process XMLDB fields
-		if ($xmldb_fields = $xmldb_table->getFields()) {
-			$o.='        <ul>';
-			foreach ($xmldb_fields as $xmldb_field) {
+        // Get and process XMLDB fields
+        if ($xmldb_fields = $xmldb_table->getFields()) {
+            $o.='        <ul>';
+            foreach ($xmldb_fields as $xmldb_field) {
 
-				// Get the default value for the field
-				$xmldbdefault = $xmldb_field->getDefault();
+                // Get the default value for the field
+                $xmldbdefault = $xmldb_field->getDefault();
 
-				// If the metadata for that column doesn't exist or 'id' field found, skip
-				if (!isset($metacolumns[$xmldb_field->getName()]) or $xmldb_field->getName() == 'id') {
-					continue;
-				}
+                // If the metadata for that column doesn't exist or 'id' field found, skip
+                if (!isset($metacolumns[$xmldb_field->getName()]) or $xmldb_field->getName() == 'id') {
+                    continue;
+                }
 
-				// To variable for better handling
-				$metacolumn = $metacolumns[$xmldb_field->getName()];
+                // To variable for better handling
+                $metacolumn = $metacolumns[$xmldb_field->getName()];
 
-				// Going to check this field in DB
-				$o.='            <li>' . $this->str['field'] . ': ' . $xmldb_field->getName() . ' ';
+                // Going to check this field in DB
+                $o.='            <li>' . $this->str['field'] . ': ' . $xmldb_field->getName() . ' ';
 
-				// get the value of the physical default (or blank if there isn't one)
-				if ($metacolumn->has_default==1) {
-					$physicaldefault = $metacolumn->default_value;
-				}
-				else {
-					$physicaldefault = '';
-				}
+                // get the value of the physical default (or blank if there isn't one)
+                if ($metacolumn->has_default==1) {
+                    $physicaldefault = $metacolumn->default_value;
+                }
+                else {
+                    $physicaldefault = '';
+                }
 
-				// there *is* a default and it's wrong
-				if ($physicaldefault != $xmldbdefault) {
-					$info = '('.$this->str['expected']." '$xmldbdefault', ".$this->str['actual'].
-					" '$physicaldefault')";
-					$o.='<font color="red">' . $this->str['wrong'] . " $info</font>";
-					// Add the wrong field to the list
-					$obj = new stdClass();
-					$obj->table = $xmldb_table;
-					$obj->field = $xmldb_field;
-					$obj->physicaldefault = $physicaldefault;
-					$obj->xmldbdefault = $xmldbdefault;
-					$wrong_fields[] = $obj;
-				} else {
-					$o.='<font color="green">' . $this->str['ok'] . '</font>';
-				}
-				$o.='</li>';
-			}
-			$o.='        </ul>';
-		}
+                // there *is* a default and it's wrong
+                if ($physicaldefault != $xmldbdefault) {
+                    $info = '('.$this->str['expected']." '$xmldbdefault', ".$this->str['actual'].
+                    " '$physicaldefault')";
+                    $o.='<font color="red">' . $this->str['wrong'] . " $info</font>";
+                    // Add the wrong field to the list
+                    $obj = new stdClass();
+                    $obj->table = $xmldb_table;
+                    $obj->field = $xmldb_field;
+                    $obj->physicaldefault = $physicaldefault;
+                    $obj->xmldbdefault = $xmldbdefault;
+                    $wrong_fields[] = $obj;
+                } else {
+                    $o.='<font color="green">' . $this->str['ok'] . '</font>';
+                }
+                $o.='</li>';
+            }
+            $o.='        </ul>';
+        }
 
-		return array($o, $wrong_fields);
-	}
+        return array($o, $wrong_fields);
+    }
 
-	protected function display_results(array $wrong_fields) {
-		global $DB;
-		$dbman = $DB->get_manager();
+    protected function display_results(array $wrong_fields) {
+        global $DB;
+        $dbman = $DB->get_manager();
 
-		$s = '';
-		$r = '<table class="generaltable boxaligncenter boxwidthwide" border="0" cellpadding="5" cellspacing="0" id="results">';
-		$r.= '  <tr><td class="generalboxcontent">';
-		$r.= '    <h2 class="main">' . $this->str['searchresults'] . '</h2>';
-		$r.= '    <p class="centerpara">' . $this->str['wrongdefaults'] . ': ' . count($wrong_fields) . '</p>';
-		$r.= '  </td></tr>';
-		$r.= '  <tr><td class="generalboxcontent">';
+        $s = '';
+        $r = '<table class="generaltable boxaligncenter boxwidthwide" border="0" cellpadding="5" cellspacing="0" id="results">';
+        $r.= '  <tr><td class="generalboxcontent">';
+        $r.= '    <h2 class="main">' . $this->str['searchresults'] . '</h2>';
+        $r.= '    <p class="centerpara">' . $this->str['wrongdefaults'] . ': ' . count($wrong_fields) . '</p>';
+        $r.= '  </td></tr>';
+        $r.= '  <tr><td class="generalboxcontent">';
 
-		// If we have found wrong defaults inform about them
-		if (count($wrong_fields)) {
-			$r.= '    <p class="centerpara">' . $this->str['yeswrongdefaultsfound'] . '</p>';
-			$r.= '        <ul>';
-			foreach ($wrong_fields as $obj) {
-				$xmldb_table = $obj->table;
-				$xmldb_field = $obj->field;
-				$physicaldefault = $obj->physicaldefault;
-				$xmldbdefault = $obj->xmldbdefault;
+        // If we have found wrong defaults inform about them
+        if (count($wrong_fields)) {
+            $r.= '    <p class="centerpara">' . $this->str['yeswrongdefaultsfound'] . '</p>';
+            $r.= '        <ul>';
+            foreach ($wrong_fields as $obj) {
+                $xmldb_table = $obj->table;
+                $xmldb_field = $obj->field;
+                $physicaldefault = $obj->physicaldefault;
+                $xmldbdefault = $obj->xmldbdefault;
 
-				// get the alter table command
-				$sqlarr = $dbman->generator->getAlterFieldSQL($xmldb_table, $xmldb_field);
+                // get the alter table command
+                $sqlarr = $dbman->generator->getAlterFieldSQL($xmldb_table, $xmldb_field);
 
-				$r.= '            <li>' . $this->str['table'] . ': ' . $xmldb_table->getName() . '. ' .
-						$this->str['field'] . ': ' . $xmldb_field->getName() . ', ' .
-						$this->str['expected'] . ' ' . "'$xmldbdefault'" . ' ' .
-						$this->str['actual'] . ' ' . "'$physicaldefault'" . '</li>';
-				// Add to output if we have sentences
-				if ($sqlarr) {
-					$sqlarr = $dbman->generator->getEndedStatements($sqlarr);
-					$s.= '<code>' . str_replace("\n", '<br />', implode('<br />', $sqlarr)) . '</code><br />';
-				}
-			}
-			$r.= '        </ul>';
-			// Add the SQL statements (all together)
-			$r.= '<hr />' . $s;
-		} else {
-			$r.= '    <p class="centerpara">' . $this->str['nowrongdefaultsfound'] . '</p>';
-		}
-		$r.= '  </td></tr>';
-		$r.= '  <tr><td class="generalboxcontent">';
-		// Add the complete log message
-		$r.= '    <p class="centerpara">' . $this->str['completelogbelow'] . '</p>';
-		$r.= '  </td></tr>';
-		$r.= '</table>';
+                $r.= '            <li>' . $this->str['table'] . ': ' . $xmldb_table->getName() . '. ' .
+                                          $this->str['field'] . ': ' . $xmldb_field->getName() . ', ' .
+                                          $this->str['expected'] . ' ' . "'$xmldbdefault'" . ' ' .
+                                          $this->str['actual'] . ' ' . "'$physicaldefault'" . '</li>';
+                // Add to output if we have sentences
+                if ($sqlarr) {
+                    $sqlarr = $dbman->generator->getEndedStatements($sqlarr);
+                    $s.= '<code>' . str_replace("\n", '<br />', implode('<br />', $sqlarr)) . '</code><br />';
+                }
+            }
+            $r.= '        </ul>';
+            // Add the SQL statements (all together)
+            $r.= '<hr />' . $s;
+        } else {
+            $r.= '    <p class="centerpara">' . $this->str['nowrongdefaultsfound'] . '</p>';
+        }
+        $r.= '  </td></tr>';
+        $r.= '  <tr><td class="generalboxcontent">';
+        // Add the complete log message
+        $r.= '    <p class="centerpara">' . $this->str['completelogbelow'] . '</p>';
+        $r.= '  </td></tr>';
+        $r.= '</table>';
 
-		return $r;
-	}
+        return $r;
+    }
 }

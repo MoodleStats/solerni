@@ -77,6 +77,7 @@ if ($sid) {
 $PAGE->set_url($url);
 
 $PAGE->set_context($context);
+$PAGE->set_cm($cm);   //CONTRIB-5872 - I don't know why this is needed.
 
 $questionnaire = new questionnaire($qid, $questionnaire, $course, $cm);
 
@@ -124,14 +125,16 @@ if ($questionnaire->capabilities->printblank) {
 
     $linkname = '&nbsp;'.get_string('printblank', 'questionnaire');
     $title = get_string('printblanktooltip', 'questionnaire');
-    $url = '/mod/questionnaire/print.php?qid='.$questionnaire->id.'&amp;rid=0&amp;'.'courseid='.$questionnaire->course->id.'&amp;sec=1';
+    $url = '/mod/questionnaire/print.php?qid='.$questionnaire->id.'&amp;rid=0&amp;'.'courseid='.
+            $questionnaire->course->id.'&amp;sec=1';
     $options = array('menubar' => true, 'location' => false, 'scrollbars' => true, 'resizable' => true,
                     'height' => 600, 'width' => 800, 'title' => $title);
     $name = 'popup';
     $link = new moodle_url($url);
     $action = new popup_action('click', $link, $name, $options);
     $class = "floatprinticon";
-    echo $OUTPUT->action_link($link, $linkname, $action, array('class' => $class, 'title' => $title), new pix_icon('t/print', $title));
+    echo $OUTPUT->action_link($link, $linkname, $action, array('class' => $class, 'title' => $title),
+            new pix_icon('t/print', $title));
 }
 $questionnaire->survey_print_render('', 'preview', $course->id, $rid = 0, $popup);
 if ($popup) {

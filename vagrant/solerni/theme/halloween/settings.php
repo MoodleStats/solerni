@@ -335,3 +335,25 @@ $setting->set_updatedcallback('theme_reset_all_caches');
 $temp->add($setting);
 
 $ADMIN->add('theme_halloween', $temp);
+
+/*
+ * Signup : Settings
+ */
+$temp = new admin_settingpage('theme_halloween_webservices', get_string('webservicessettings',
+        'theme_halloween'));
+$name = 'theme_halloween/webservicesheading';
+$heading = get_string('webservicesheading', 'theme_halloween');
+$information = get_string('webservicesheadingdesc', 'theme_halloween');
+$setting = new admin_setting_heading($name, $heading, $information);
+$temp->add($setting);
+
+// MNET token
+$name = 'theme_halloween/webservicestoken';
+$title = get_string('webservicestoken', 'theme_halloween');
+$description = get_string('webservicestokendesc', 'theme_halloween');
+$default = '';
+$setting = new admin_setting_configtext($name, $title, $description, $default);
+$temp->add($setting);
+
+$ADMIN->add('theme_halloween', $temp);
+

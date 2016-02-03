@@ -56,13 +56,13 @@ file_prepare_standard_filemanager($data, 'files', $options, $filecontext, $compo
 $form = new backup_files_edit_form(null, array('data'=>$data, 'contextid'=>$contextid, 'currentcontext'=>$currentcontext, 'filearea'=>$filearea, 'component'=>$component, 'returnurl'=>$returnurl));
 
 if ($form->is_cancelled()) {
-	redirect($returnurl);
+    redirect($returnurl);
 }
 
 $data = $form->get_data();
 if ($data) {
-	$formdata = file_postupdate_standard_filemanager($data, 'files', $options, $filecontext, $component, $filearea, 0);
-	redirect($returnurl);
+    $formdata = file_postupdate_standard_filemanager($data, 'files', $options, $filecontext, $component, $filearea, 0);
+    redirect($returnurl);
 }
 
 echo $OUTPUT->header();

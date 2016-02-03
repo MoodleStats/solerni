@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'forumngfeature_copy', language 'fr', branch 'MOODLE_27_STABLE'
+ * Strings for component 'forumngfeature_copy', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   forumngfeature_copy
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}

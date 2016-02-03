@@ -40,11 +40,6 @@ In detail, the libraries added here are:
       Greg Beaver and Martin Jansen
     - License: PHP
     - http://pear.php.net/package/PEAR
-- PEAR HTTP_WebDAV_Server
-    - Current version: HEAD @ 28-01-2008
-    - by Hartmut Holzgraefe and Christian Stocker
-    - License: BSD
-    - http://pear.php.net/package/HTTP_WebDAV_Server
 - PEAR HTML_AJAX:
     - Current version: 0.5.6
     - by Elizabeth Smith, Arpad Ray, Joshua Eichorn, David Coallier and Laurent Yaish
@@ -60,13 +55,6 @@ In detail, the libraries added here are:
     - by Michael Bretterklieber
     - License: BSD
     - http://pear.php.net/package/Crypt_CHAP
-- PEAR XML_Parser:
-    - Current Version: 1.3.2 (2009-01-21)
-    - by Stephan Schmidt, Stig Bakken, Tomas V.V.Cox
-    - License: BSD
-    - http://pear.php.net/package/XML_Parser
-
-
 
 ----------------------------------------------------------------
 A NOTE TO DEVELOPERS

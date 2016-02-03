@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'blog', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'blog', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   blog
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -111,6 +111,7 @@ $string['invalidgroupid'] = 'Identifiant de groupe non valide';
 $string['invalidurl'] = 'Cette URL n\'est pas atteignable';
 $string['linktooriginalentry'] = 'Lien vers l\'article original';
 $string['maxexternalblogsperuser'] = 'Nombre maximal de blogs externes par utilisateur';
+$string['myprofileuserblogs'] = 'Consulter tous les articles de blog';
 $string['name'] = 'Nom';
 $string['name_help'] = 'Saisir un nom descriptif pour votre blog externe. Si aucun nom n\'est fourni, le nom de votre blog externe sera utilisé.';
 $string['noentriesyet'] = 'Aucun article visible ici';
@@ -127,7 +128,7 @@ $string['page-blog-x'] = 'Toutes les pages de blog';
 $string['pagesize'] = 'Nombre d\'articles par page';
 $string['permalink'] = 'Permalien';
 $string['personalblogs'] = 'Les utilisateurs ne peuvent voir que les articles de leur propre blog';
-$string['preferences'] = 'Préférences';
+$string['preferences'] = 'Préférences de blog';
 $string['publishto'] = 'Publier pour';
 $string['publishtocourse'] = 'Les participants à un de vos cours';
 $string['publishtocourseassoc'] = 'Les participants au cours associé';
@@ -151,6 +152,7 @@ $string['searchterm'] = 'Recherche : {$a}';
 $string['settingsupdatederror'] = 'Une erreur est survenue. Les préférences de blog n\'ont pas été enregistrées';
 $string['siteblog'] = 'Blog de site : {$a}';
 $string['siteblogdisable'] = 'Le blog du site n\'est pas activé';
+$string['siteblogheading'] = 'Blog du site';
 $string['siteblogs'] = 'Tous les utilisateurs du site peuvent voir les articles de tous les blogs';
 $string['tagdatelastused'] = 'Date de la dernière utilisation du tag';
 $string['tagparam'] = 'Tag : {$a}';

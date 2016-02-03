@@ -22,7 +22,7 @@
  * @copyright  2013 onwards Totara Learning Solutions Ltd {@link http://www.totaralms.com/}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @author     Yuliya Bozhko <yuliya.bozhko@totaralms.com>
-*/
+ */
 
 require_once(dirname(dirname(__FILE__)) . '/config.php');
 require_once($CFG->libdir . '/badgeslib.php');
@@ -47,62 +47,63 @@ $navurl = new moodle_url('/badges/index.php', array('type' => $badge->type));
 require_capability('moodle/badges:configurecriteria', $context);
 
 if (!empty($goback)) {
-	redirect($return);
+    redirect($return);
 }
 
 // Make sure that no actions available for locked or active badges.
 if ($badge->is_active() || $badge->is_locked()) {
-	redirect($return);
+    redirect($return);
 }
 
 if ($badge->type == BADGE_TYPE_COURSE) {
-	require_login($badge->courseid);
-	$navurl = new moodle_url('/badges/index.php', array('type' => $badge->type, 'id' => $badge->courseid));
-	$PAGE->set_pagelayout('standard');
-	navigation_node::override_active_url($navurl);
+    require_login($badge->courseid);
+    $navurl = new moodle_url('/badges/index.php', array('type' => $badge->type, 'id' => $badge->courseid));
+    $PAGE->set_pagelayout('standard');
+    navigation_node::override_active_url($navurl);
 } else {
-	$PAGE->set_pagelayout('admin');
-	navigation_node::override_active_url($navurl, true);
+    $PAGE->set_pagelayout('admin');
+    navigation_node::override_active_url($navurl, true);
 }
 
+$urlparams = array('badgeid' => $badgeid, 'edit' => $edit, 'type' => $type, 'crit' => $crit);
 $PAGE->set_context($context);
-$PAGE->set_url('/badges/criteria_settings.php');
+$PAGE->set_url('/badges/criteria_settings.php', $urlparams);
 $PAGE->set_heading($badge->name);
 $PAGE->set_title($badge->name);
 $PAGE->navbar->add($badge->name, new moodle_url('overview.php', array('id' => $badge->id)))->add(get_string('criteria_' . $type, 'badges'));
 
 $cparams = array('criteriatype' => $type, 'badgeid' => $badge->id);
 if ($edit) {
-	$criteria = $badge->criteria[$type];
-	$msg = 'criteriaupdated';
+    $criteria = $badge->criteria[$type];
+    $msg = 'criteriaupdated';
 } else {
-	$criteria = award_criteria::build($cparams);
-	$msg = 'criteriacreated';
+    $criteria = award_criteria::build($cparams);
+    $msg = 'criteriacreated';
 }
 
 $mform = new edit_criteria_form($FULLME, array('criteria' => $criteria, 'addcourse' => $addcourse, 'course' => $badge->courseid));
 
 if (!empty($addcourse)) {
-	if ($data = $mform->get_data()) {
-		// If no criteria yet, add overall aggregation.
-		if (count($badge->criteria) == 0) {
-			$criteria_overall = award_criteria::build(array('criteriatype' => BADGE_CRITERIA_TYPE_OVERALL, 'badgeid' => $badge->id));
-			$criteria_overall->save(array('agg' => BADGE_CRITERIA_AGGREGATION_ALL));
-		}
+    if ($data = $mform->get_data()) {
+        // If no criteria yet, add overall aggregation.
+        if (count($badge->criteria) == 0) {
+            $criteria_overall = award_criteria::build(array('criteriatype' => BADGE_CRITERIA_TYPE_OVERALL, 'badgeid' => $badge->id));
+            $criteria_overall->save(array('agg' => BADGE_CRITERIA_AGGREGATION_ALL));
+        }
 
-		$id = $criteria->add_courses($data->courses);
-		redirect(new moodle_url('/badges/criteria_settings.php',
-				array('badgeid' => $badgeid, 'edit' => true, 'type' => BADGE_CRITERIA_TYPE_COURSESET, 'crit' => $id)));
-	}
+        $id = $criteria->add_courses($data->courses);
+        redirect(new moodle_url('/badges/criteria_settings.php',
+            array('badgeid' => $badgeid, 'edit' => true, 'type' => BADGE_CRITERIA_TYPE_COURSESET, 'crit' => $id)));
+    }
 } else if ($data = $mform->get_data()) {
-	// If no criteria yet, add overall aggregation.
-	if (count($badge->criteria) == 0) {
-		$criteria_overall = award_criteria::build(array('criteriatype' => BADGE_CRITERIA_TYPE_OVERALL, 'badgeid' => $badge->id));
-		$criteria_overall->save(array('agg' => BADGE_CRITERIA_AGGREGATION_ALL));
-	}
-	$criteria->save($data);
-	$return->param('msg', $msg);
-	redirect($return);
+    // If no criteria yet, add overall aggregation.
+    if (count($badge->criteria) == 0) {
+        $criteria_overall = award_criteria::build(array('criteriatype' => BADGE_CRITERIA_TYPE_OVERALL, 'badgeid' => $badge->id));
+        $criteria_overall->save(array('agg' => BADGE_CRITERIA_AGGREGATION_ALL));
+    }
+    $criteria->save((array)$data);
+    $return->param('msg', $msg);
+    redirect($return);
 }
 
 echo $OUTPUT->header();

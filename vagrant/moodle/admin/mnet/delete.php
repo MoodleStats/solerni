@@ -50,16 +50,16 @@ $mnet_peer = new mnet_peer();
 $mnet_peer->set_id($hostid);
 
 if ('verify' == $step) {
-	echo $OUTPUT->header();
-	echo $OUTPUT->heading(get_string('deleteaserver', 'mnet'));
-	if ($live_users = $mnet_peer->count_live_sessions() > 0) {
-		echo $OUTPUT->notification(get_string('usersareonline', 'mnet', $live_users));
-	}
-	$yesurl = new moodle_url('/admin/mnet/delete.php', array('hostid' => $mnet_peer->id, 'step' => 'delete'));
-	$nourl = new moodle_url('/admin/mnet/peers.php');
-	echo $OUTPUT->confirm(get_string('reallydeleteserver', 'mnet')  . ': ' .  $mnet_peer->name, $yesurl, $nourl);
-	echo $OUTPUT->footer();
+    echo $OUTPUT->header();
+    echo $OUTPUT->heading(get_string('deleteaserver', 'mnet'));
+    if ($live_users = $mnet_peer->count_live_sessions() > 0) {
+        echo $OUTPUT->notification(get_string('usersareonline', 'mnet', $live_users));
+    }
+    $yesurl = new moodle_url('/admin/mnet/delete.php', array('hostid' => $mnet_peer->id, 'step' => 'delete'));
+    $nourl = new moodle_url('/admin/mnet/peers.php');
+    echo $OUTPUT->confirm(get_string('reallydeleteserver', 'mnet')  . ': ' .  $mnet_peer->name, $yesurl, $nourl);
+    echo $OUTPUT->footer();
 } elseif ('delete' == $step) {
-	$mnet_peer->delete();
-	redirect(new moodle_url('/admin/mnet/peers.php'), get_string('hostdeleted', 'mnet'), 5);
+    $mnet_peer->delete();
+    redirect(new moodle_url('/admin/mnet/peers.php'), get_string('hostdeleted', 'mnet'), 5);
 }

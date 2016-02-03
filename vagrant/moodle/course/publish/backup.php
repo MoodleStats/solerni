@@ -22,13 +22,13 @@
 
 /*
  * @package    course
-* @subpackage publish
-* @author     Jerome Mouneyrac <jerome@mouneyrac.com>
-* @license    http://www.gnu.org/copyleft/gpl.html GNU GPL
-* @copyright  (C) 1999 onwards Martin Dougiamas  http://dougiamas.com
-*
-* This page display the publication backup form
-*/
+ * @subpackage publish
+ * @author     Jerome Mouneyrac <jerome@mouneyrac.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL
+ * @copyright  (C) 1999 onwards Martin Dougiamas  http://dougiamas.com
+ *
+ * This page display the publication backup form
+ */
 
 require_once('../../config.php');
 require_once($CFG->dirroot . '/backup/util/includes/backup_includes.php');
@@ -48,42 +48,42 @@ $hubname = optional_param('hubname', '', PARAM_TEXT);
 $course = $DB->get_record('course', array('id'=>$id), '*', MUST_EXIST);
 require_login($course);
 if (!has_capability('moodle/course:publish', context_course::instance($id))
-		or !confirm_sesskey()) {
-	throw new moodle_exception('nopermission');
+        or !confirm_sesskey()) {
+    throw new moodle_exception('nopermission');
 }
 
 //page settings
 $PAGE->set_url('/course/publish/backup.php');
-$PAGE->set_pagelayout('course');
+$PAGE->set_pagelayout('incourse');
 $PAGE->set_title(get_string('course') . ': ' . $course->fullname);
 $PAGE->set_heading($course->fullname);
 
 //BEGIN backup processing
 $backupid = optional_param('backup', false, PARAM_ALPHANUM);
 if (!($bc = backup_ui::load_controller($backupid))) {
-	$bc = new backup_controller(backup::TYPE_1COURSE, $id, backup::FORMAT_MOODLE,
-			backup::INTERACTIVE_YES, backup::MODE_HUB, $USER->id);
+    $bc = new backup_controller(backup::TYPE_1COURSE, $id, backup::FORMAT_MOODLE,
+                    backup::INTERACTIVE_YES, backup::MODE_HUB, $USER->id);
 }
 $backup = new backup_ui($bc,
-		array('id' => $id, 'hubcourseid' => $hubcourseid, 'huburl' => $huburl, 'hubname' => $hubname));
+        array('id' => $id, 'hubcourseid' => $hubcourseid, 'huburl' => $huburl, 'hubname' => $hubname));
 $backup->process();
 if ($backup->get_stage() == backup_ui::STAGE_FINAL) {
-	$backup->execute();
+    $backup->execute();
 } else {
-	$backup->save_controller();
+    $backup->save_controller();
 }
 
 if ($backup->get_stage() !== backup_ui::STAGE_COMPLETE) {
-	$renderer = $PAGE->get_renderer('core', 'backup');
-	echo $OUTPUT->header();
-	echo $OUTPUT->heading(get_string('publishcourseon', 'hub', !empty($hubname)?$hubname:$huburl), 3, 'main');
-	if ($backup->enforce_changed_dependencies()) {
-		debugging('Your settings have been altered due to unmet dependencies', DEBUG_DEVELOPER);
-	}
-	echo $renderer->progress_bar($backup->get_progress_bar());
-	echo $backup->display($renderer);
-	echo $OUTPUT->footer();
-	die();
+    $renderer = $PAGE->get_renderer('core', 'backup');
+    echo $OUTPUT->header();
+    echo $OUTPUT->heading(get_string('publishcourseon', 'hub', !empty($hubname)?$hubname:$huburl), 3, 'main');
+    if ($backup->enforce_changed_dependencies()) {
+        debugging('Your settings have been altered due to unmet dependencies', DEBUG_DEVELOPER);
+    }
+    echo $renderer->progress_bar($backup->get_progress_bar());
+    echo $backup->display($renderer);
+    echo $OUTPUT->footer();
+    die();
 }
 
 //$backupfile = $backup->get_stage_results();
@@ -101,7 +101,7 @@ echo $OUTPUT->heading(get_string('sendingcourse', 'hub'), 3, 'main');
 $renderer = $PAGE->get_renderer('core', 'publish');
 echo $renderer->sendingbackupinfo($backupfile);
 if (ob_get_level()) {
-	ob_flush();
+    ob_flush();
 }
 flush();
 

@@ -30,16 +30,16 @@ require(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once($CFG->libdir.'/clilib.php');      // cli only functions
 
 if ($DB->get_dbfamily() !== 'mysql') {
-	cli_error('This function is designed for MySQL databases only!');
+    cli_error('This function is designed for MySQL databases only!');
 }
 
 // now get cli options
 list($options, $unrecognized) = cli_get_params(array('help'=>false, 'list'=>false, 'engine'=>false, 'available'=>false),
-		array('h'=>'help', 'l'=>'list', 'a'=>'available'));
+                                               array('h'=>'help', 'l'=>'list', 'a'=>'available'));
 
 if ($unrecognized) {
-	$unrecognized = implode("\n  ", $unrecognized);
-	cli_error(get_string('cliunknowoption', 'admin', $unrecognized));
+    $unrecognized = implode("\n  ", $unrecognized);
+    cli_error(get_string('cliunknowoption', 'admin', $unrecognized));
 }
 
 $help =
@@ -60,85 +60,85 @@ Example:
 ";
 
 if (!empty($options['engine'])) {
-	$engines = mysql_get_engines();
-	$engine = clean_param($options['engine'], PARAM_ALPHA);
-	if (!isset($engines[strtoupper($engine)])) {
-		cli_error("Error: engine '$engine' is not available on this server!");
-	}
+    $engines = mysql_get_engines();
+    $engine = clean_param($options['engine'], PARAM_ALPHA);
+    if (!isset($engines[strtoupper($engine)])) {
+        cli_error("Error: engine '$engine' is not available on this server!");
+    }
 
-	echo "Converting tables to '$engine' for $CFG->wwwroot:\n";
-	$prefix = $DB->get_prefix();
-	$prefix = str_replace('_', '\\_', $prefix);
-	$sql = "SHOW TABLE STATUS WHERE Name LIKE BINARY '$prefix%'";
-	$rs = $DB->get_recordset_sql($sql);
-	$converted = 0;
-	$skipped   = 0;
-	$errors    = 0;
-	foreach ($rs as $table) {
-		if (strtoupper($table->engine) === strtoupper($engine)) {
-			$newengine = mysql_get_table_engine($table->name);
-			echo str_pad($table->name, 40). " - NO CONVERSION NEEDED ($newengine)\n";
-			$skipped++;
-			continue;
-		}
-		echo str_pad($table->name, 40). " - ";
+    echo "Converting tables to '$engine' for $CFG->wwwroot:\n";
+    $prefix = $DB->get_prefix();
+    $prefix = str_replace('_', '\\_', $prefix);
+    $sql = "SHOW TABLE STATUS WHERE Name LIKE BINARY '$prefix%'";
+    $rs = $DB->get_recordset_sql($sql);
+    $converted = 0;
+    $skipped   = 0;
+    $errors    = 0;
+    foreach ($rs as $table) {
+        if (strtoupper($table->engine) === strtoupper($engine)) {
+            $newengine = mysql_get_table_engine($table->name);
+            echo str_pad($table->name, 40). " - NO CONVERSION NEEDED ($newengine)\n";
+            $skipped++;
+            continue;
+        }
+        echo str_pad($table->name, 40). " - ";
 
-		try {
-			$DB->change_database_structure("ALTER TABLE {$table->name} ENGINE = $engine");
-			$newengine = mysql_get_table_engine($table->name);
-			if (strtoupper($newengine) !== strtoupper($engine)) {
-				echo "ERROR ($newengine)\n";
-				$errors++;
-				continue;
-			}
-			echo "DONE ($newengine)\n";
-			$converted++;
-		} catch (moodle_exception $e) {
-			echo $e->getMessage()."\n";
-			$errors++;
-			continue;
-		}
-	}
-	$rs->close();
-	echo "Converted: $converted, skipped: $skipped, errors: $errors\n";
-	exit(0); // success
+        try {
+            $DB->change_database_structure("ALTER TABLE {$table->name} ENGINE = $engine");
+            $newengine = mysql_get_table_engine($table->name);
+            if (strtoupper($newengine) !== strtoupper($engine)) {
+                echo "ERROR ($newengine)\n";
+                $errors++;
+                continue;
+            }
+            echo "DONE ($newengine)\n";
+            $converted++;
+        } catch (moodle_exception $e) {
+            echo $e->getMessage()."\n";
+            $errors++;
+            continue;
+        }
+    }
+    $rs->close();
+    echo "Converted: $converted, skipped: $skipped, errors: $errors\n";
+    exit(0); // success
 
 } else if (!empty($options['list'])) {
-	echo "List of tables for $CFG->wwwroot:\n";
-	$prefix = $DB->get_prefix();
-	$prefix = str_replace('_', '\\_', $prefix);
-	$sql = "SHOW TABLE STATUS WHERE Name LIKE BINARY '$prefix%'";
-	$rs = $DB->get_recordset_sql($sql);
-	$counts = array();
-	foreach ($rs as $table) {
-		if (isset($counts[$table->engine])) {
-			$counts[$table->engine]++;
-		} else {
-			$counts[$table->engine] = 1;
-		}
-		echo str_pad($table->engine, 10);
-		echo $table->name .  "\n";
-	}
-	$rs->close();
+    echo "List of tables for $CFG->wwwroot:\n";
+    $prefix = $DB->get_prefix();
+    $prefix = str_replace('_', '\\_', $prefix);
+    $sql = "SHOW TABLE STATUS WHERE Name LIKE BINARY '$prefix%'";
+    $rs = $DB->get_recordset_sql($sql);
+    $counts = array();
+    foreach ($rs as $table) {
+        if (isset($counts[$table->engine])) {
+            $counts[$table->engine]++;
+        } else {
+            $counts[$table->engine] = 1;
+        }
+        echo str_pad($table->engine, 10);
+        echo $table->name .  "\n";
+    }
+    $rs->close();
 
-	echo "\n";
-	echo "Table engines summary for $CFG->wwwroot:\n";
-	foreach ($counts as $engine => $count) {
-		echo "$engine: $count\n";
-	}
-	exit(0); // success
+    echo "\n";
+    echo "Table engines summary for $CFG->wwwroot:\n";
+    foreach ($counts as $engine => $count) {
+        echo "$engine: $count\n";
+    }
+    exit(0); // success
 
 } else if (!empty($options['available'])) {
-	echo "List of available MySQL engines for $CFG->wwwroot:\n";
-	$engines = mysql_get_engines();
-	foreach ($engines as $engine) {
-		echo " $engine\n";
-	}
-	die;
+    echo "List of available MySQL engines for $CFG->wwwroot:\n";
+    $engines = mysql_get_engines();
+    foreach ($engines as $engine) {
+        echo " $engine\n";
+    }
+    die;
 
 } else {
-	echo $help;
-	die;
+    echo $help;
+    die;
 }
 
 
@@ -146,35 +146,35 @@ if (!empty($options['engine'])) {
 // ========== Some functions ==============
 
 function mysql_get_engines() {
-	global $DB;
+    global $DB;
 
-	$sql = "SHOW Engines";
-	$rs = $DB->get_recordset_sql($sql);
-	$engines = array();
-	foreach ($rs as $engine) {
-		if (strtoupper($engine->support) !== 'YES' and strtoupper($engine->support) !== 'DEFAULT') {
-			continue;
-		}
-		$engines[strtoupper($engine->engine)] = $engine->engine;
-		if (strtoupper($engine->support) === 'DEFAULT') {
-			$engines[strtoupper($engine->engine)] .= ' (default)';
-		}
-	}
-	$rs->close();
+    $sql = "SHOW Engines";
+    $rs = $DB->get_recordset_sql($sql);
+    $engines = array();
+    foreach ($rs as $engine) {
+        if (strtoupper($engine->support) !== 'YES' and strtoupper($engine->support) !== 'DEFAULT') {
+            continue;
+        }
+        $engines[strtoupper($engine->engine)] = $engine->engine;
+        if (strtoupper($engine->support) === 'DEFAULT') {
+            $engines[strtoupper($engine->engine)] .= ' (default)';
+        }
+    }
+    $rs->close();
 
-	return $engines;
+    return $engines;
 }
 
 function mysql_get_table_engine($tablename) {
-	global $DB;
+    global $DB;
 
-	$engine = null;
-	$sql = "SHOW TABLE STATUS WHERE Name = '$tablename'"; // no special chars expected here
-	$rs = $DB->get_recordset_sql($sql);
-	if ($rs->valid()) {
-		$record = $rs->current();
-		$engine = $record->engine;
-	}
-	$rs->close();
-	return $engine;
+    $engine = null;
+    $sql = "SHOW TABLE STATUS WHERE Name = '$tablename'"; // no special chars expected here
+    $rs = $DB->get_recordset_sql($sql);
+    if ($rs->valid()) {
+        $record = $rs->current();
+        $engine = $record->engine;
+    }
+    $rs->close();
+    return $engine;
 }

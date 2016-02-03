@@ -11,9 +11,9 @@ $return = optional_param('return', '', PARAM_ALPHA);
 /// no guest autologin
 require_login(0, false);
 if (isguestuser()) {
-	// Login as real user!
-	$SESSION->wantsurl = (string)new moodle_url('/admin/upgradesettings.php', array('return'=>$return));
-	redirect(get_login_url());
+    // Login as real user!
+    $SESSION->wantsurl = (string)new moodle_url('/admin/upgradesettings.php', array('return'=>$return));
+    redirect(get_login_url());
 }
 
 admin_externalpage_setup('upgradesettings'); // now hidden page
@@ -23,14 +23,14 @@ $adminroot = admin_get_root(); // need all settings
 
 // now we'll deal with the case that the admin has submitted the form with new settings
 if ($data = data_submitted() and confirm_sesskey()) {
-	$count = admin_write_settings($data);
+    $count = admin_write_settings($data);
 }
 
 $newsettings = admin_output_new_settings_by_page($adminroot);
 if (isset($newsettings['frontpagesettings'])) {
-	$frontpage = $newsettings['frontpagesettings'];
-	unset($newsettings['frontpagesettings']);
-	array_unshift($newsettings, $frontpage);
+    $frontpage = $newsettings['frontpagesettings'];
+    unset($newsettings['frontpagesettings']);
+    array_unshift($newsettings, $frontpage);
 }
 $newsettingshtml = implode($newsettings);
 unset($newsettings);
@@ -38,17 +38,17 @@ unset($newsettings);
 $focus = '';
 
 if (empty($adminroot->errors) and $newsettingshtml === '') {
-	// there must be either redirect without message or continue button or else upgrade would be sometimes broken
-	if ($return == 'site') {
-		redirect("$CFG->wwwroot/");
-	} else {
-		redirect("$CFG->wwwroot/$CFG->admin/index.php");
-	}
+    // there must be either redirect without message or continue button or else upgrade would be sometimes broken
+    if ($return == 'site') {
+        redirect("$CFG->wwwroot/");
+    } else {
+        redirect("$CFG->wwwroot/$CFG->admin/index.php");
+    }
 }
 
 if (!empty($adminroot->errors)) {
-	$firsterror = reset($adminroot->errors);
-	$focus = $firsterror->id;
+    $firsterror = reset($adminroot->errors);
+    $focus = $firsterror->id;
 }
 
 // and finally, if we get here, then there are new settings and we have to print a form
@@ -56,13 +56,15 @@ if (!empty($adminroot->errors)) {
 echo $OUTPUT->header($focus);
 
 if (!empty($SITE->fullname) and !empty($SITE->shortname)) {
-	echo $OUTPUT->box(get_string('upgradesettingsintro','admin'), 'generalbox');
+    echo $OUTPUT->box(get_string('upgradesettingsintro','admin'), 'generalbox');
 }
 
 echo '<form action="upgradesettings.php" method="post" id="adminsettings">';
 echo '<div>';
 echo '<input type="hidden" name="sesskey" value="'.sesskey().'" />';
 echo '<input type="hidden" name="return" value="'.$return.'" />';
+// HACK to prevent browsers from automatically inserting the user's password into the wrong fields.
+echo prevent_form_autofill_password();
 echo '<fieldset>';
 echo '<div class="clearer"><!-- --></div>';
 echo $newsettingshtml;
