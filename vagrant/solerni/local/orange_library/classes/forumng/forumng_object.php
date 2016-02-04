@@ -23,8 +23,7 @@
 
 //namespace local_orange_library\forumng;
 //defined('MOODLE_INTERNAL') || die();
-
-
+require_once($CFG->dirroot.'/mod/forumng/mod_forumng_post.php');
 
 class forumng_object {
 
