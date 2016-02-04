@@ -21,7 +21,7 @@
  * @copyright  2015 Orange based on block_comments plugin from 1999 onwards Martin Dougiamas (http://dougiamas.com)
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
+block_orange_comments.php
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/comment/lib.php');
@@ -37,11 +37,18 @@ class block_orange_comments extends block_base {
 
     public function specialization() {
         // Frontend Block Name.
-        $this->title = get_string('yourreactions', 'block_orange_comments');
+        if (block_orange_comments_comment_on_my_page()) {
+            $this->title = get_string('yourreactions', 'block_orange_comments');
+        }
     }
 
     public function applicable_formats() {
-        return array('all' => true);
+        return array(
+            'course-view'    => true,
+            'site'           => false,
+            'mod'            => false,
+            'my'             => false
+        );
     }
 
     public function instance_allow_multiple() {
@@ -49,7 +56,7 @@ class block_orange_comments extends block_base {
     }
 
     public function get_content() {
-        global $CFG, $PAGE, $OUTPUT;
+        global $CFG, $PAGE, $OUTPUT, $SCRIPT;
 
         if ($this->content !== null) {
             return $this->content;
@@ -67,9 +74,8 @@ class block_orange_comments extends block_base {
         $this->content = new stdClass();
         $this->content->footer = '';
 
-        if (empty($this->instance)) {
+        if (empty($this->instance) || (!block_orange_comments_comment_on_my_page()) ) {
             $this->content->text = '';
-
             return $this->content;
         }
 
@@ -89,6 +95,11 @@ class block_orange_comments extends block_base {
                     }
                 }
             }
+        }
+
+        if ($pageid == 0 ) {
+            $this->content->text = '';
+            return $this->content;
         }
 
         $args                   = new stdClass;

@@ -48,6 +48,7 @@ function block_orange_comments_comment_validate($commentparam) {
     if ($commentparam->itemid == 0) {
         throw new comment_exception('invalidcommentitemid');
     }
+
     return true;
 }
 
@@ -83,7 +84,17 @@ function block_orange_comments_comment_display($comments, $args) {
     if ($args->itemid == 0) {
         throw new comment_exception('invalidcommentitemid');
     }
-
     return $comments;
+}
+
+/**
+ * Checks whether the current page is the My home page.
+ *
+ * @return bool True when on the My home page.
+ */
+function block_orange_comments_comment_on_my_page() {
+	global $SCRIPT;
+
+	return $SCRIPT === '/course/view.php' ;
 }
 
