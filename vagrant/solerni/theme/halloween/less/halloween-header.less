@@ -9,16 +9,17 @@
 
 .header-logo {
     display:            inline-block;
-    margin-top:         @s-small-xs-margin;
-    margin-bottom:      @s-small-xs-margin;
-    height:             (@s-triple-xs-margin + 6); // 36px (same height as the button)
+    margin-top:         25px;
+    margin-bottom:      25px;
+    height:             50px;
     font-size:          0;
     font-weight:        bold;
 
+    /* clearly duplicate. Change values when we know design options for mobile */
     @media (min-width: @screen-sm-min) {
-        height:         floor(@s-double-md-margin * 1.666666667);  // 50px
-        margin-top:     @s-double-md-margin;
-        margin-bottom:  @s-double-md-margin;
+        height:         50px;
+        margin-top:     25px;
+        margin-bottom:  25px;
     }
 }
 
@@ -66,6 +67,11 @@
     color:              #000;
     text-decoration:    none;
     padding:            10px 15px;
+    font-weight:        bold;
+
+    &::first-letter {
+        text-transform: uppercase;
+    }
 }
 
 .resac-navigation .navigation-item:hover {
@@ -73,7 +79,6 @@
 }
 
 .resac-navigation .active {
-    background-color: @brand-primary;
     color: @brand-tertiary;
 }
 
@@ -106,11 +111,11 @@
     .action-area {
         position:   absolute;
         right:      (@grid-gutter-width / 2);
-        bottom:     @s-small-xs-margin;         // Same value as logo margin
+        bottom:     25px;         // Same value as logo margin
         font-size:  0;
 
         @media (min-width:  @screen-sm-min) {
-            bottom: @s-double-md-margin;
+            bottom: 25px;
         }
 
         & > .icon-halloween,

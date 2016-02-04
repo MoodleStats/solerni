@@ -56,10 +56,10 @@ class local_orange_library_external extends external_api {
         return new external_multiple_structure(
             new external_single_structure(
                 array(
-                    'url'   => new external_value(PARAM_TEXT, 'host url'),
+                    'url'   => new external_value(PARAM_URL, 'host url'),
                     'name'  => new external_value(PARAM_TEXT, 'host name'),
                     'id'    => new external_value(PARAM_INT, 'host id'),
-                    'jump'  => new external_value(PARAM_TEXT, 'host jump url')
+                    'jump'  => new external_value(PARAM_URL, 'host jump url')
                 )
             )
         );

@@ -19,15 +19,17 @@ use local_orange_library\utilities\utilities_network;
 $homeresac = utilities_network::get_home();
 $resacs = utilities_network::get_hosts_from_mnethome();
 ?>
-<div class="row">
-    <div class="col-xs-12">
-        <nav class="resac-navigation clearfix">
-            <ul class="list-group pull-left">
-                <?php echo $OUTPUT->resac_nav_items($homeresac); ?>
-            </ul>
-            <ul class="list-group pull-right">
-                <?php echo $OUTPUT->resac_nav_items($resacs); ?>
-            </ul>
-        </nav>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <nav class="resac-navigation clearfix">
+                <ul class="list-group pull-left">
+                    <?php echo $OUTPUT->resac_nav_items($homeresac); ?>
+                </ul>
+                <ul class="list-group pull-right">
+                    <?php echo $OUTPUT->resac_nav_items($resacs, true); ?>
+                </ul>
+            </nav>
+        </div>
     </div>
 </div>
