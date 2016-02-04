@@ -52,6 +52,19 @@ class block_orange_statistics extends block_base {
     $this->content->footer = 'Footer here...';
  
     return $this->content;
-  }
-    
+    }
+  
+  /**
+     * Defines where the block can be added
+     *
+     * @return array
+     */
+    public function applicable_formats() {
+        return array(
+            'course-view'    => true,
+            'site'           => false,
+            'mod'            => false,
+            'my'             => true
+        );
+    }
 }
