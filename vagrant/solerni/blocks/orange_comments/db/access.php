@@ -26,16 +26,6 @@ defined('MOODLE_INTERNAL') || die();
 
 $capabilities = array(
 
-        'block/orange_comments:myaddinstance' => array(
-                'captype' => 'write',
-                'contextlevel' => CONTEXT_BLOCK,
-                'archetypes' => array(
-                        'user' => CAP_ALLOW
-                ),
-
-                'clonepermissionsfrom' => 'moodle/my:manageblocks'
-        ),
-
         'block/orange_comments:addinstance' => array(
                 'riskbitmask' => RISK_SPAM | RISK_XSS,
 
