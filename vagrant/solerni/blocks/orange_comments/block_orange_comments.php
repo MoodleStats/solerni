@@ -21,7 +21,7 @@
  * @copyright  2015 Orange based on block_comments plugin from 1999 onwards Martin Dougiamas (http://dougiamas.com)
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-block_orange_comments.php
+
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/comment/lib.php');
@@ -37,7 +37,7 @@ class block_orange_comments extends block_base {
 
     public function specialization() {
         // Frontend Block Name.
-        if (block_orange_comments_comment_on_my_page()) {
+        if (block_orange_comments_comment_on_course_page()) {
             $this->title = get_string('yourreactions', 'block_orange_comments');
         }
     }
@@ -56,7 +56,7 @@ class block_orange_comments extends block_base {
     }
 
     public function get_content() {
-        global $CFG, $PAGE, $OUTPUT, $SCRIPT;
+        global $CFG, $PAGE, $OUTPUT;
 
         if ($this->content !== null) {
             return $this->content;
@@ -74,7 +74,7 @@ class block_orange_comments extends block_base {
         $this->content = new stdClass();
         $this->content->footer = '';
 
-        if (empty($this->instance) || (!block_orange_comments_comment_on_my_page()) ) {
+        if (empty($this->instance) || (!block_orange_comments_comment_on_course_page()) ) {
             $this->content->text = '';
             return $this->content;
         }
