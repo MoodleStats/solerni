@@ -73,10 +73,10 @@
 @text-color:            @brand-primary;
 
 //** Global textual link color.
-@link-color:            darken(@brand-secondary, 5%);  // For accessibility purpose
-@link-hover-color:      darken(@brand-secondary, 15%); // estimated target: #C15800
-@link-active-color:     darken(@brand-secondary, 25%); // estimated target: #914200;
-@link-visited-color:    darken(@brand-secondary, 35%); // estimated target: #84240C;
+@link-color:            @brand-primary;  // For accessibility purpose
+@link-hover-color:      @brand-secondary;
+@link-active-color:     @brand-secondary;
+@link-visited-color:    @brand-primary;
 
 //== Typography
 //
@@ -120,10 +120,10 @@
 // We can find regularities in paddings or margins across the design.
 // We will try to organize those regularities into numeric constants
 
-@s-small-md-margin:      @font-size-base;                        // 14px
-@s-medium-md-margin:     floor(@font-size-base * 1.428571429);   // 20px
-@s-double-md-margin:     floor(@font-size-base * 2.142857143);   // 30px
-@s-triple-md-margin:     floor(@font-size-base * 3);             // 42px
+@s-small-md-margin:      10px;  // 14px
+@s-medium-md-margin:     20px;  // 20px
+@s-double-md-margin:     30px;  // 30px
+@s-triple-md-margin:     50px;  // 42px
 
 @s-small-xs-margin:      ceil(@font-size-base * 0.714285714);    // 10px
 @s-medium-xs-margin:     @s-small-xs-margin;                     // 10px
