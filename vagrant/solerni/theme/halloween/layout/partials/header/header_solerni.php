@@ -13,6 +13,8 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+use local_orange_library\utilities\utilities_network;
 ?>
 
 <div class="container">
@@ -21,7 +23,10 @@
             <a href="<?php echo $CFG->wwwroot; ?>" class="header-logo">
                 <img class="logo-image" src="<?php echo $OUTPUT->pix_url('logo-orange', 'theme'); ?>"
                      alt="" width="50" height="50">
-                <span class="logo-brandname"><?php echo $SITE->fullname; ?></span>
+                <?php $sitename = (utilities_network::is_home())
+                        ? ucfirst($CFG->solerni_customer_name)
+                        : ucfirst($CFG->solerni_customer_name) . ' ' . ucfirst($CFG->solerni_thematic); ?>
+                <span class="logo-brandname"><?php echo $sitename; ?></span>
             </a>
             <?php if (isloggedin()) {
                 require($CFG->partialsdir . '/header/header_user_menu__auth.php');

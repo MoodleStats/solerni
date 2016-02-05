@@ -230,3 +230,7 @@ moosh cache-admin memcached editmodemappings "default_application"
 
 # Page contact
 moosh config-set footerlistscolumn2link2 ${CUSTOMER_HTTP_BASE_URL}/contact/ theme_halloween
+
+# Settings PF Name
+moosh course-config-set course 1 fullname "${CUSTOMER_NAME} ${CUSTOMER_THEMATIC}"
+moosh course-config-set course 1 shortname ${CUSTOMER_THEMATIC}
