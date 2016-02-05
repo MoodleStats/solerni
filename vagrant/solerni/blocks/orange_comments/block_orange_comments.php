@@ -37,11 +37,18 @@ class block_orange_comments extends block_base {
 
     public function specialization() {
         // Frontend Block Name.
-        $this->title = get_string('yourreactions', 'block_orange_comments');
+        if (block_orange_comments_comment_on_course_page()) {
+            $this->title = get_string('yourreactions', 'block_orange_comments');
+        }
     }
 
     public function applicable_formats() {
-        return array('all' => true);
+        return array(
+            'course-view'    => true,
+            'site'           => false,
+            'mod'            => false,
+            'my'             => false
+        );
     }
 
     public function instance_allow_multiple() {
@@ -67,9 +74,8 @@ class block_orange_comments extends block_base {
         $this->content = new stdClass();
         $this->content->footer = '';
 
-        if (empty($this->instance)) {
+        if (empty($this->instance) || (!block_orange_comments_comment_on_course_page()) ) {
             $this->content->text = '';
-
             return $this->content;
         }
 
@@ -89,6 +95,11 @@ class block_orange_comments extends block_base {
                     }
                 }
             }
+        }
+
+        if ($pageid == 0 ) {
+            $this->content->text = '';
+            return $this->content;
         }
 
         $args                   = new stdClass;
