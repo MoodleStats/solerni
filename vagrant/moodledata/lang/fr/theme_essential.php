@@ -105,20 +105,44 @@ $string['categoryiconinfo'] = 'Définissez des icônes de catégorie personnalis
 $string['categoryiconinfodesc'] = 'Chaque icône est définie par son "category ID". Vous les obtenez en regardant l\'URL de chaque catégorie.';
 $string['choosereadme'] = '<div class="clearfix">
 <div class="well">
-<h2> Essential </h2>
-<p><img class=img-polaroid src="essential/pix/screenshot.jpg" />
-</p>
+<h2>Essential</h2>
+<p><img class="img-polaroid" src="essential/pix/screenshot.jpg" alt="Copie d\'écran Essential"/></p>
 </div>
 <div class="well">
 <h3>À propos de Essential</h3>
-<p>Essential est un thème Bootstrap modifié de Moodle qui hérite des styles et des moteurs de rendus de son thème parent.</p>
-<h3>Parents</h3>
-<p>Ce thème est basé sur le thème Bootstrap, qui a été créé pour Moodle 2.5, avec l\'aide de :<br>
-Stuart Lamour, Mark Aberdour, Paul Hibbitts, Mary Evans. </p>
+<p>Essential est basé sur le thème Bootstrap, qui a été créé pour Moodle 2.5, avec l\'aide de :<br>
+Bas Brands, Stuart Lamour, Mark Aberdour, Paul Hibbitts, Mary Evans.</p>
 <h3>Crédits du thème</h3>
-<p>Auteurs : Julian Ridden <br>
-Contact : julian@moodleman.net<br>
-Site Web : <a href="http://www.moodleman.net">www.moodleman.net</a> </p>
+<p>Auteurs original : Julian Ridden <br>
+Travail repris en juillet 2014 par :<br>
+Gareth J. Barnard<br>
+David Bezemer<br>
+Travail repris le 9 octobre 2014 par :<br>
+Gareth J. Barnard<br>
+</p>
+<h3>Sponsors</h3>
+<p>Ce thème est fourni gratuitement ; si vous souhaitez exprimer votre gratitude pour son utilisation, veuillez considérer devenir sponsor via :
+<h4>PayPal</h4>
+<p>Merci de me contacter via mon <a href="http://moodle.org/user/profile.php?id=442195" target="_blank">\'profil Moodle\'</a> pour les  détails car je suis une personne et ne peux donc pas avoir de bouton "acheter maintenant".</p>
+<h4>Flattr</h4>
+<a href="https://flattr.com/profile/gjb2048" target="_blank">
+cliquer ici pour sponsoriser.
+</a>
+<br>Sponsoriser permet de faciliter la maintenance et me permet de vous apporter plus et de meilleures fonctionnalités. Sans votre support le thème ne pourrait pas être maintenu..</p>
+<p>
+<h3>Sponsors</h3>
+<p>Sponsoring reçu et remerciements pour :</p>
+<ul>
+<li>Mihai Bojonca, TCM International Institute.</li>
+<li>Guido Hornig, actXcellence <a href="//actxcellence.de" target="_blank">actxcellence.de</a></li>
+<li>Delvon Forrester, Esparanza co uk</li>
+<li>iZone</li>
+<li>Anis Jradah</li>
+<li>Ute Hlasek</li>
+</ul>
+</p>
+<h3>Personnalisation</h3>
+<p>Si vous aimez ce thème et voudriez que je le personnalise, transpose certaines fonctionnalités dans un autre thème ou créé un nouveau thème, j\'offre des tarifs compétitifs. Merci de me contacter via \'www.gjbarnard.co.uk/contact/\' ou \'gjbarnard à gmail point com\' ou \'about.me/gjbarnard\' pour discuter de vos besoins (en anglais).</p>
 </div></div>';
 $string['colordesc'] = 'Ici vous pouvez trouver différents réglages pour changer de nombreuses couleurs présentes dans ce thème.';
 $string['colorheading'] = 'Paramètres des couleurs';
@@ -143,9 +167,13 @@ $string['defaultcategoryicondesc'] = 'Définissez une icône de catégorie par d
 $string['defaultcolors'] = 'Couleurs par défaut';
 $string['displayafterlogin'] = 'Afficher après authentification uniquement';
 $string['displaybeforelogin'] = 'Afficher avant authentification uniquement';
+$string['displayeditingmenu'] = 'Afficher le bouton d\'édition';
+$string['displayeditingmenudesc'] = 'Affiche un bouton dans l\'entête avec la même fonctionnalité que le bouton d\'activation du mode édition.';
 $string['displaymycourses'] = 'Afficher les cours des utilisateurs';
 $string['displaymycoursesdesc'] = 'Afficher les cours des utilisateurs dans le menu personnalisé';
 $string['dontdisplay'] = 'Ne jamais afficher';
+$string['editingmenu'] = 'Bascule du mode édition de page';
+$string['editingmenudesc'] = 'Affiche un bouton pour activer/désactiver le mode édition si l’utilisateur possède les droits requis. C\'est la même fonctionnalité que le bouton d\'activation du mode édition.';
 $string['enablealert'] = 'Activer l\'alerte';
 $string['enablealertdesc'] = 'Active ou désactive les alertes';
 $string['enablealternativethemecolors'] = 'Activer les couleurs alternatives de thème {$a}';
@@ -171,6 +199,7 @@ $string['flattr_desc'] = '{$a->url}';
 $string['flickr'] = 'Flickr';
 $string['flickrdesc'] = 'Entrez l\'URL de votre page Flickr. (ex. http://www.flickr.com/mycollege)';
 $string['flickrurl'] = 'URL de Flickr';
+$string['floatingsubmitbuttons'] = 'Boutons de validation flotttants';
 $string['fontcharacterset'] = 'Jeu de caractères Google additionnel';
 $string['fontcharactersetcyrillic'] = 'Cyrillique';
 $string['fontcharactersetcyrillicext'] = 'Cyrillique étendu';
@@ -254,6 +283,8 @@ $string['helplink'] = 'Lien d\'aide';
 $string['helplinkdesc'] = 'Si vous avez choisi URL ci-dessus, renseignez l\'URL complète vers votre site d\'aide (doit inclure http:// ou https://). Si vous avez choisi adresse de courriel, renseignez la.';
 $string['helplinktype'] = 'Activez le lien d\'aide dans le menu';
 $string['helplinktypedesc'] = 'Choisissez si vous souhaitez activer une option d\'aide dans le menu de l\'utilisateur. Vous pouvez choisir de fournir une URL qui sera ouverte dans une nouvelle fenêtre ou une adresse e-mail.';
+$string['hidedefaulteditingbutton'] = 'Cacher le bouton d\'édition par défaut';
+$string['hidedefaulteditingbuttondesc'] = 'Cache le bouton d\'édition par défaut de toutes les pages. Ce paramètre n\'aura d\'effet que si le paramètre "Afficher le bouton d\'édition" est activé.';
 $string['hideonphone'] = 'Diaporama sur les mobiles';
 $string['hideonphonedesc'] = 'Choisissez si vous souhaitez que le diaporama s\'affiche sur les mobiles ou non';
 $string['hideontablet'] = 'Cacher le diaporama sur les tablettes';
@@ -337,6 +368,7 @@ $string['noenrolments'] = 'Vous n\'avez pas de cours actuellement';
 $string['nomessagesfound'] = 'Aucun message n\'a été trouvé';
 $string['noslidetitle'] = 'Pas de titre pour la diapositive {$a->slide}';
 $string['notitle'] = 'Pas de titre';
+$string['numberofcoursesandsubcatcourses'] = 'Nombre de cours - cours de sous catégories';
 $string['numberofslides'] = 'Nombre de diapositives';
 $string['numberofslides_desc'] = 'Nombre de diapositives dans le diaporama';
 $string['oldnavbar'] = 'Utiliser l\'ancienne position de la barre de navigation';
@@ -376,6 +408,7 @@ $string['region-home-middle'] = 'Accueil (centre)';
 $string['region-home-right'] = 'Accueil (droite)';
 $string['region-side-post'] = 'Droite';
 $string['region-side-pre'] = 'Gauche';
+$string['returntosection'] = 'Revenir à la section {$a->section}';
 $string['right'] = 'Droite';
 $string['serverload'] = 'Charge du serveur';
 $string['sessionsize'] = 'Taille de la session';

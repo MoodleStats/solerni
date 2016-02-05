@@ -23,10 +23,10 @@ $resacs = utilities_network::get_hosts_from_mnethome();
     <div class="row">
         <div class="col-xs-12">
             <nav class="resac-navigation clearfix">
-                <ul class="list-group pull-left">
+                <ul class="list-group pull-left resac-home">
                     <?php echo $OUTPUT->resac_nav_items($homeresac); ?>
                 </ul>
-                <ul class="list-group pull-right">
+                <ul class="list-group pull-right resac-hosts">
                     <?php echo $OUTPUT->resac_nav_items($resacs, true); ?>
                 </ul>
             </nav>
