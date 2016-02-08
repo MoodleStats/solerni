@@ -31,7 +31,8 @@ class block_orange_action_admin_setting_eventlist extends admin_setting_configse
             return true;
         }
 
-        $events = $DB->get_records_sql('SELECT id, name FROM {event} WHERE eventtype="site"');
+        $events = $DB->get_records_sql('SELECT id, name FROM {event} ' .
+                'WHERE eventtype="site" AND visible=1 AND timestart > ' . time());
         $choices = array();
         $choices[0] = get_string("selectevent", 'block_orange_action');
         foreach ($events as $event) {

@@ -23,6 +23,7 @@
  */
 
 defined('MOODLE_INTERNAL') || die();
+use local_orange_library\utilities\utilities_course;
 
 class block_orange_action_admin_setting_courselist extends admin_setting_configselect {
     public function load_choices() {
@@ -32,7 +33,9 @@ class block_orange_action_admin_setting_courselist extends admin_setting_configs
             return true;
         }
 
-        $courses = $DB->get_records_sql('SELECT id, fullname FROM {course} WHERE id > 1');
+        $utilitiescourse = new utilities_course();
+        $courses = $utilitiescourse->get_courses_recommended();
+
         $choices = array();
         $choices[0] = get_string("selectcourse", 'block_orange_action');
         foreach ($courses as $course) {

@@ -48,9 +48,29 @@ function block_orange_action_on_course_page() {
     return ($COURSE->id > 1);
 }
 
+/**
+ * Checks whether the current page is forum index page.
+ *
+ * @return bool True when on a forum index page.
+ */
+function block_orange_action_on_forum_index_page() {
+
+    return false;
+}
+
+/**
+ * Checks whether the current page is course dashboard.
+ *
+ * @return bool True when on a course dashboard.
+ */
+function block_orange_action_on_course_dashboard_page() {
+
+    return false;
+}
+
 function block_orange_action_get_course ($course) {
     Global $CFG;
-    
+
     $context = context_course::instance($course->id);
 
     $imgurl = "";
@@ -64,9 +84,9 @@ function block_orange_action_get_course ($course) {
             $imgurl = file_encode_url("$CFG->wwwroot/pluginfile.php",
                 '/'. $file->get_contextid(). '/'. $file->get_component(). '/'.
                 $file->get_filearea(). $file->get_filepath(). $file->get_filename(), !$isimage);
-        } 
+        }
     }
-    
+
     $extendedcourse = new extended_course_object();
     $extendedcourse->get_extended_course($course, $context);
 
