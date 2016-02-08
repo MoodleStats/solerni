@@ -38,18 +38,29 @@ class block_orange_statistics extends block_base {
      * @return void
      */
     public function init() {
-        Global $PAGE;
         $this->title = get_string('config_default_title', 'block_orange_statistics');
     }
 
     public function get_content() {
+        global $USER, $COURSE, $CFG, $OUTPUT, $DB;
     if ($this->content !== null) {
-      return $this->content;
+        return $this->content;
     }
- 
+    die($USER);
     $this->content         =  new stdClass;
     $this->content->text   = 'The content of our statistics block!';
     $this->content->footer = 'Footer here...';
+    $blockinstancesonpage = array();
+    
+    if (has_capability('block/orange_statistics:overview', $this->context)) {
+        $parameters = array('courseid' => $COURSE->id);
+        $url = new moodle_url('/blocks/orange_statistics/overview.php', $parameters);
+        $label = get_string('overviewbutton', 'block_orange_statistics');
+        $options = array('class' => 'overviewButton');
+        $this->content->text .= $OUTPUT->single_button($url, $label, 'post', $options);
+    }
+    
+    $blockinstancesonpage = array($this->instance->id);
  
     return $this->content;
     }
@@ -62,9 +73,23 @@ class block_orange_statistics extends block_base {
     public function applicable_formats() {
         return array(
             'course-view'    => true,
-            'site'           => false,
+            'site'           => true,
             'mod'            => false,
             'my'             => true
         );
     }
+    
+    public function instance_allow_multiple() {
+        return false;
+    }
+  
+    
+    
+    
+    
+    
+    
 }
+
+
+

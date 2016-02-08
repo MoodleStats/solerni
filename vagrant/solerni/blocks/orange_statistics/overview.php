@@ -16,70 +16,41 @@
 
 
 /**
- * Progress Bar block overview page
+ * Statistics block overview page
  *
- * @package    block_orange_progressbar
- * @copyright  Orange 2015
+ * @package    block_orange_Statistics
+ * @copyright  Orange 2016
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-// Include required files.
 require_once(dirname(__FILE__) . '/../../config.php');
-require_once($CFG->dirroot.'/blocks/orange_progressbar/lib.php');
 
-// Gather form data.
-$id       = required_param('progressbarid', PARAM_INT);
-$courseid = required_param('courseid', PARAM_INT);
 
-// Determine course and context.
-$course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
-$context = context_course::instance($courseid);
+global $COURSE, $DB;
 
-// Get specific block config and context.
-$progressblock = $DB->get_record('block_instances', array('id' => $id), '*', MUST_EXIST);
-$progressconfig = unserialize(base64_decode($progressblock->configdata));
-$progressblockcontext = context_block::instance($id);
+// $user = $DB->get_record_sql('SELECT * FROM {user} WHERE id = 1');
 
-// Set up page parameters.
-$PAGE->set_course($course);
-$PAGE->requires->css('/blocks/orange_progressbar/styles.css');
-$PAGE->set_url('/blocks/progress/overview.php', array('progressbarid' => $id, 'courseid' => $courseid));
-$PAGE->set_context($context);
-$title = get_string('overview', 'block_orange_progressbar');
-$PAGE->set_title($title);
-$PAGE->set_heading($title);
-$PAGE->navbar->add($title);
-$PAGE->set_pagelayout('standard');
-
-// Check user is logged in and capable of grading.
-require_login($course, false);
-require_capability('block/orange_progressbar:overview', $progressblockcontext);
-
-// Start page output.
-echo $OUTPUT->header();
-echo $OUTPUT->heading($title, 2);
-echo $OUTPUT->container_start('block_orange_progressbar');
-
-$renderer = $PAGE->get_renderer('block_orange_progressbar');
-
-$completion = new completion_info($COURSE);
-if ($completion->is_enabled()) {
-
-    $activitymonitored = $completion->get_progress_all('u.id = '. $USER->id);
-    list($completed, $total, $all) = block_orange_progressbar_filterfollowedactivity($COURSE, 
-            isset($activitymonitored[$USER->id]) ? $activitymonitored[$USER->id] : null);
-
-    if ($total) {
-        // Display progress bar.
-        $content = $renderer->display_progress($total, $completed, $all);
-
-    } else {
-        $content = $renderer->display_noactivity_monitored();
+// $user->lastcourseaccess    = array(); // During last session.
+// $user->currentcourseaccess = array();
+print_r('allo');
+print_object($user);
+    $user->currentcourseaccess = array(); // During current session.
+    if ($lastaccesses = $DB->get_records('user_lastaccess', array('userid' => $user->id))) {
+        foreach ($lastaccesses as $lastaccess) {
+            $user->lastcourseaccess[$lastaccess->courseid] = $lastaccess->timeaccess;
+        }
     }
-} else {
-    $content = $renderer->display_completion_notenabled();
-}
-echo $content;
+    
+    
+// $sql = 'SELECT u.firstname as Firstname, u.lastname as Lastname FROM {user} u
+// WHERE u.currentlogin>= 1454662160
+// FROM {course} as c
+// JOIN {enrol} as en ON en.courseid = c.course.id
+// JOIN {user_enrolments} as ue ON ue.enrolid = en.id
+// JOIN {user} as u ON ue.userid = u.id
+// where u.course.id='.$COURSE->id;
 
-echo $OUTPUT->container_end();
-echo $OUTPUT->footer();
+$lisusernoactive = $DB->get_record_sql($sql);
+
+
+print_r($sql);
