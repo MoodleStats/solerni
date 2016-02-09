@@ -105,8 +105,6 @@ class block_orange_action extends block_base {
             return $this->content;
         }
 
-        $config = get_config('block_orange_action');
-
         if (block_orange_action_on_course_dashboard_page()) {
             $this->content->text = $this->renderer->display_on_course_dashboard();
         }
@@ -121,16 +119,16 @@ class block_orange_action extends block_base {
         }
         if (block_orange_action_on_my_page()) {
             // Read course and event id from block_config. In priority we take the course if set.
-            if (!empty($config->course)) {
-                $course = $DB->get_record('course', array('id' => $config->course));
+            if (!empty($this->config->coursetopush)) {
+                $course = $DB->get_record('course', array('id' => $this->config->coursetopush));
                 // Get extended course information.
                 list ($extendedcourse, $imgurl) = block_orange_action_get_course($course);
                 // Check the course is not finished.
                 if ($extendedcourse->coursestatus != utilities_course::MOOCCLOSED) {
                     $this->content->text = $this->renderer->display_course_on_my_page($course, $extendedcourse, $imgurl);
                 }
-            } else if (!empty($config->event)) {
-                $event = $DB->get_record('event', array('id' => $config->event));
+            } else if (!empty($this->config->eventtopush)) {
+                $event = $DB->get_record('event', array('id' => $this->config->eventtopush));
                 // Check that event is not passed.
                 if ($event->timestart > time()) {
                     $hrefparams['view'] = 'day';
