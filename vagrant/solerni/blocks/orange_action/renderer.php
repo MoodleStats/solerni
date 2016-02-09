@@ -58,11 +58,13 @@ class block_orange_action_renderer extends plugin_renderer_base {
         $output .= html_writer::start_tag('div', array('class' => 'row', 'style' => 'background-color:#000;'));
             // Subscription button.
             $output .= html_writer::start_tag('div', array('class' => 'col-xs-4 col-md-12'));
-                    $output .=  '<a class="btn btn-default" href="' . $eventurl . '">'.get_string("gotocalendar", 'block_orange_action').'</a>';
+                    $output .= '<a class="btn btn-default" href="' . $eventurl . '">' .
+                            get_string("gotocalendar", 'block_orange_action').'</a>';
             $output .= html_writer::end_tag('div');
             $output .= html_writer::start_tag('div', array('class' => 'col-xs-4 col-md-12'));
                 $output .= html_writer::start_tag('h1', array('class' => '', 'style' => 'color:orange;'));
-                    $output .= $event->name;
+                    $output .= $event->name . " (" . calendar_day_representation($event->timestart) . " " .
+                            calendar_time_representation($event->timestart) . ")";
                 $output .= html_writer::end_tag('h1');
 
                 $output .= html_writer::start_tag('span', array('style' => 'font-size:28px;color:#FFF;'));
@@ -81,7 +83,18 @@ class block_orange_action_renderer extends plugin_renderer_base {
      */
     public function display_on_course_dashboard () {
         $output = html_writer::start_tag('div');
-        $output = "To be done";
+        $output .= html_writer::end_tag('div');
+
+        return $output;
+    }
+
+    /**
+     * Display for forum index page
+     *
+     * @return message
+     */
+    public function display_on_forum_index () {
+        $output = html_writer::start_tag('div');
         $output .= html_writer::end_tag('div');
 
         return $output;
@@ -98,6 +111,9 @@ class block_orange_action_renderer extends plugin_renderer_base {
         if ($imgurl) {
             $imgurl = utilities_image::get_resized_url($imgurl, array('w' => 940, 'h' => 360, 'scale' => false));
             $output .= html_writer::empty_tag('img', array('src' => $imgurl, 'class' => 'col-xs-12 essentiels-image'));
+        }
+        if (!empty($extendedcourse->videoplayer)) {
+            $output .= $extendedcourse->videoplayer;
         }
         $output .= html_writer::end_tag('div');
 

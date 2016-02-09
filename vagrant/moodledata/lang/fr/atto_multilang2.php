@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,19 +16,13 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Orange Action block settings
+ * Strings for component 'atto_multilang2', language 'fr', branch 'MOODLE_29_STABLE'
  *
- * @package    block_orange_action
- * @copyright  Orange 2016
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   atto_multilang2
+ * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-defined('MOODLE_INTERNAL') || die;
 
-if ($ADMIN->fulltree) {
-    $settings->add(new admin_setting_heading('generalconfig', new lang_string('generalconfig', 'block_orange_action'), ''));
+defined('MOODLE_INTERNAL') || die();
 
-    $settings->add(new admin_setting_configcheckbox('block_orange_action/hideblockheader',
-                        new lang_string('hideblockheader', 'block_orange_action'),
-                        new lang_string('hideblockheaderdesc', 'block_orange_action'), 1, PARAM_INT));
-
-}
+$string['pluginname'] = 'Contenu multilingue (v2)';

@@ -23,6 +23,7 @@
  */
 
 use local_orange_library\utilities\utilities_image;
+use local_orange_library\utilities\utilities_course;
 use local_orange_library\extended_course\extended_course_object;
 
 
@@ -48,9 +49,29 @@ function block_orange_action_on_course_page() {
     return ($COURSE->id > 1);
 }
 
+/**
+ * Checks whether the current page is forum index page.
+ *
+ * @return bool True when on a forum index page.
+ */
+function block_orange_action_on_forum_index_page() {
+
+    return false;
+}
+
+/**
+ * Checks whether the current page is course dashboard.
+ *
+ * @return bool True when on a course dashboard.
+ */
+function block_orange_action_on_course_dashboard_page() {
+
+    return false;
+}
+
 function block_orange_action_get_course ($course) {
     Global $CFG;
-    
+
     $context = context_course::instance($course->id);
 
     $imgurl = "";
@@ -64,11 +85,39 @@ function block_orange_action_get_course ($course) {
             $imgurl = file_encode_url("$CFG->wwwroot/pluginfile.php",
                 '/'. $file->get_contextid(). '/'. $file->get_component(). '/'.
                 $file->get_filearea(). $file->get_filepath(). $file->get_filename(), !$isimage);
-        } 
+        }
     }
-    
+
     $extendedcourse = new extended_course_object();
     $extendedcourse->get_extended_course($course, $context);
 
     return array($extendedcourse, $imgurl);
+}
+
+function block_orange_action_get_courses_list() {
+
+    $utilitiescourse = new utilities_course();
+    $courses = $utilitiescourse->get_courses_recommended();
+
+    $choices = array();
+    $choices[0] = get_string("selectcourse", 'block_orange_action');
+    foreach ($courses as $course) {
+        $choices[$course->id] = $course->fullname;
+    }
+
+    return $choices;
+}
+
+function block_orange_action_get_events_list() {
+    global $DB;
+
+    $events = $DB->get_records_sql('SELECT id, name FROM {event} ' .
+                'WHERE eventtype="site" AND visible=1 AND timestart > ' . time());
+    $choices = array();
+    $choices[0] = get_string("selectevent", 'block_orange_action');
+    foreach ($events as $event) {
+        $choices[$event->id] = $event->name;
+    }
+
+    return $choices;
 }

@@ -242,6 +242,18 @@ class extended_course_object {
      */
     public $displaybutton;
 
+    /**
+     * The $videoplayer of a course.
+     * @var text $videoplayer
+     */
+    public $videoplayer;
+
+    /**
+     * The $inactivitydelay of a course.
+     * @var text $inactivitydelay
+     */
+    public $inactivitydelay;
+
     const USERLOGGED        = 4;
     const USERENROLLED      = 5;
     const MAXREGISTRATEDUSERS = 100000;
@@ -358,6 +370,12 @@ class extended_course_object {
                 break;
             case 'coursethumbnailtext':
                 $this->thumbnailtext = $extendedcourseflexpagevalue->value;
+                break;
+            case 'coursevideoplayer':
+                $this->videoplayer = $extendedcourseflexpagevalue->value;
+                break;
+            case 'courseinactivitydelay':
+                $this->inactivitydelay = $extendedcourseflexpagevalue->value;
                 break;
         }
     }
