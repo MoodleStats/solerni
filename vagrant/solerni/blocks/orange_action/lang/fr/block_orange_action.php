@@ -37,7 +37,7 @@ $string['selectcourse'] = "Sélectionner un cours";
 $string['selectevent'] = "Sélectionner un événement";
 $string['generalconfig'] = "Configuration générale du bloc";
 $string['myconfig'] = "Configuration du bloc";
-$string['myconfigdesc'] = "Sélectionner le cours et/ou l'événement qui seront mis en avant. Si un cours et un événement sont sélectionné, seul le cours sera affiché sur la page my.";
+$string['myconfigdesc'] = "Sélectionner le cours et/ou l'événement qui seront mis en avant. Si un cours et un événement sont sélectionnés, seul le cours sera affiché sur la page my.";
 $string['gotocalendar'] = "Accéder à l'événement";
 
 
