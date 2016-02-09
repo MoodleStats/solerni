@@ -304,16 +304,16 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
      *
      * @param array of hosts || host stdClass
      */
-    public function resac_nav_items($hosts) {
+    public function resac_nav_items($hosts, $stripclient = false) {
         $html = '';
 
         if(is_object($hosts)) {
-            $html .= self::render_nav_item($hosts);
+            $html .= self::render_nav_item($hosts, $stripclient);
         }
 
         if(is_array($hosts)) {
             foreach ($hosts as $host) {
-                $html .= self::render_nav_item($host);
+                $html .= self::render_nav_item($host, $stripclient);
             }
         }
 
@@ -328,15 +328,20 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
      * @param stdClass $host
      * @return string <html fragment>
      */
-    public function render_nav_item(stdClass $host) {
+    public function render_nav_item(stdClass $host, $stripclient) {
         global $CFG;
+
+        // remove client name from host name for design reasons.
+        if ($stripclient) {
+            $host->name = str_replace($CFG->solerni_customer_name . ' ', '', $host->name);
+        }
 
         $aclasses = 'navigation-item';
         $aclasses .= (strcmp($CFG->wwwroot, $host->url) === 0) ? ' active' : '';
         $url = isloggedin() ? $host->jump : $host->url;
 
         $html = '<li class="list-group-item">';
-        $html .= '<a class="' . $aclasses . '" href="' . $url . '">' . $host->name . '</a>';
+        $html .= '<a class="' . $aclasses . '" href="' . $url . '">' . ucfirst($host->name) . '</a>';
         $html .= '</li>';
 
         return $html;
