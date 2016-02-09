@@ -15,21 +15,32 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Theme More version file.
+ * Admin settings class for the Orange Action block.
  *
- * @package    theme_halloween
- * @copyright  2014 Bas Brands
+ * @package    block_orange_action
+ * @copyright  Orange 2016
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
+defined('MOODLE_INTERNAL') || die();
 
+class block_orange_action_admin_setting_courselist extends admin_setting_configselect {
+    public function load_choices() {
+        global $CFG, $DB;
 
-$plugin->version   = 2016020400;
-$plugin->requires  = 2014051200;
-$plugin->release  = 2014051300;
-$plugin->maturity  = MATURITY_BETA;
-$plugin->component = 'theme_halloween';
-$plugin->dependencies = array(
-    'theme_bootstrap'  => 2015062200
-);
+        if (is_array($this->choices)) {
+            return true;
+        }
+
+        $courses = $DB->get_records_sql('SELECT id, fullname FROM {course} WHERE id > 1');
+        $choices = array();
+        $choices[0] = get_string("selectcourse", 'block_orange_action');
+        foreach ($courses as $course) {
+            $choices[$course->id] = $course->fullname;
+        }
+
+        $this->choices = $choices;
+
+        return true;
+    }
+}

@@ -290,6 +290,7 @@ $string['seecatalog']               = "Voir le catalogue";
 
 // Block "My Badge" on dashboard.
 $string['lastbadge']                = 'Dernier badge obtenu:';
+$string['mybadges']                 = 'Mes badges';
 
 // Contact page
 $string['contact_us']               = 'Nous contacter';
