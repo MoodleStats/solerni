@@ -215,7 +215,7 @@ moosh module-manage hide chat
 moosh module-manage hide choice
 moosh module-manage show data
 moosh module-manage hide feedback
-moosh module-manage hide forum
+moosh module-manage show forum
 moosh module-manage hide imscp
 moosh module-manage hide lesson
 moosh module-manage hide lti
@@ -234,3 +234,6 @@ moosh config-set footerlistscolumn2link2 ${CUSTOMER_HTTP_BASE_URL}/contact/ them
 # Settings PF Name
 moosh course-config-set course 1 fullname "${CUSTOMER_NAME} ${CUSTOMER_THEMATIC}"
 moosh course-config-set course 1 shortname ${CUSTOMER_THEMATIC}
+
+# block_orange_action (#us_458)
+moosh config-set hideblockheader 1 block_orange_action

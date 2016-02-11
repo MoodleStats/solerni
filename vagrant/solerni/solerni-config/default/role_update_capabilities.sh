@@ -571,3 +571,6 @@ moosh role-update-capability solerni_apprenant mod/forumng:startdiscussion inher
 
 # solerni_course_creator : can add or delete roles in frontpage and courses
 moosh role-update-capability solerni_course_creator moodle/role:override allow 1
+
+# As we can't hide forum activity, we delete capability for solerni_teacher
+moosh role-update-capability solerni_teacher mod/forum:addinstance prevent 1
