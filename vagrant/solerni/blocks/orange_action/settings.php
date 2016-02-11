@@ -22,21 +22,12 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 defined('MOODLE_INTERNAL') || die;
-require_once($CFG->dirroot.'/blocks/orange_action/classes/admin_setting_courselist.php');
-require_once($CFG->dirroot.'/blocks/orange_action/classes/admin_setting_eventlist.php');
 
 if ($ADMIN->fulltree) {
-    $settings->add(new admin_setting_heading('generalconfig', '', get_string('generalconfig', 'block_orange_action')));
+    $settings->add(new admin_setting_heading('generalconfig', new lang_string('generalconfig', 'block_orange_action'), ''));
 
     $settings->add(new admin_setting_configcheckbox('block_orange_action/hideblockheader',
                         new lang_string('hideblockheader', 'block_orange_action'),
                         new lang_string('hideblockheaderdesc', 'block_orange_action'), 1, PARAM_INT));
 
-    $settings->add(new admin_setting_heading('myconfig', '', get_string('myconfig', 'block_orange_action')));
-    $settings->add(new block_orange_action_admin_setting_courselist('block_orange_action/course',
-                        new lang_string('coursetopush', 'block_orange_action'),
-                        new lang_string('coursetopushdesc', 'block_orange_action'), null, PARAM_INT));
-    $settings->add(new block_orange_action_admin_setting_eventlist('block_orange_action/event',
-                        new lang_string('eventtopush', 'block_orange_action'),
-                        new lang_string('eventtopushdesc', 'block_orange_action'), null, PARAM_INT));
 }
