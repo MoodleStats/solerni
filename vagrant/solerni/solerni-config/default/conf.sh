@@ -237,3 +237,6 @@ moosh course-config-set course 1 shortname ${CUSTOMER_THEMATIC}
 
 # block_orange_action (#us_458)
 moosh config-set hideblockheader 1 block_orange_action
+
+# defaulthomepage = Dashboard (#us_380)
+moosh config-set defaulthomepage 1

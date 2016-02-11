@@ -141,10 +141,10 @@ $string['contentuseraccountemail'] = '<p>Bonjour <span class="txt18BNoir">{$a->f
 Nous vous remercions pour votre inscription sur le site <strong>{$a->sitename}</strong>.</p>
 <p>Voici un rappel de vos identifiants de connexion pour accéder à votre compte :</p>
 <ul>
-    <li>Email : <a href=\'{$a->email}\' class="lientxt18orange">{$a->email}</a></li>
+    <li>E-mail : <a href="mailto:{$a->email}" class="lientxt18orange">{$a->email}</a></li>
     <li>Mot de passe : vous seul le connaissez</li>
 </ul>
-<p>Vous pouvez dès à présent accéder à votre compte en cliquant <a href="{$a->profilurl}" class="lientxt18orange">ici</a>.</p>
+<p>Vous pouvez dès à présent accéder à votre compte en cliquant <a href="{$a->profileurl}" class="lientxt18orange">ici</a>.</p>
 <p>A très vite sur {$a->sitename}, votre nouvelle plateforme de Moocs francophone collaborative.</p>';
 
 $string['contentwelcomeemail'] = '<p>Bienvenue <span class="txt18BNoir">{$a->fullname}</span>,</p>
