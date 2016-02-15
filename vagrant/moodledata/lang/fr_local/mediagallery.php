@@ -22,6 +22,7 @@
  * if you like, and it can span multiple lines.
  *
  * @package    mod_mediagallery
+ * 
  * @copyright  Orange 2015
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -110,7 +111,8 @@ Si vous souhaitez supprimer le lien vers la bibliothèque et supprimer son conte
 $string['deleteorremovecollectionwarn'] = 'En supprimant cette bibliothèque vous confirmez vouloir :<br/>
 - supprimer le lien vers la bibliothèque multimédia<br/>
 - supprimer la bibliothèque et tous ses albums et élements (incluant les contenus stockés sur le service theBox)<br/>
-- désactiver tous les liens vers cette bibliothèque ou son contenu dans d\'autres cours.';
+- désactiver tous les liens vers cette bibliothèque ou son contenu dans d\'autres cours.
+';
 $string['deleteorremovegallery'] = 'Si vous souhaitez supprimer le lien vers l\'album sans supprimer son contenu, cliquez sur \'Valider\'.<br/><br/>
 
 Si vous souhaitez supprimer le lien sur l\'album et supprimer son contenu, saisir \'DELETE\' dans le champ de saisie et cliquez sur \'Valider\'.';
@@ -127,7 +129,11 @@ $string['deleteorremoveitemwarn'] = 'En supprimant cet élement vous confirmez v
 - désactiver tous les liens vers cet élement dans d\'autres cours';
 $string['disablestandardgallery'] = 'Désactiver les albums standards';
 $string['displayfullcaption'] = 'Afficher le texte intégral de la légende';
-$string['editgallery'] = 'Modifier les paramètres de l\'album';
+$string['download'] = 'Télécharger';
+$string['editgallery'] = 'Modifier l\'album';
+$string['editgallerysettings'] = 'Modifier les paramètres de l\'album';
+$string['edititem'] = 'Modifier l\'élément';
+$string['edititemtype'] = 'Modifier {$a}';
 $string['editthisgallery'] = 'Modifier la galerie';
 $string['enablethebox'] = 'Activer l\'accès au service theBox';
 $string['enforcedefaults'] = 'Forcer les valeurs par défaut pour les albums';
