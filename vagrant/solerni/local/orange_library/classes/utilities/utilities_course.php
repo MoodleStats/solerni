@@ -689,6 +689,16 @@ class utilities_course {
                     $instance = array_pop($instances);
                     if ($instance->status != 0) {
                         $error[] = get_string('enrolmentmethoddisabled', 'local_orange_library', $enrolname);
+                    } else {
+                        // For self enrol me need start and end enrol date.
+                        if ($instance->enrol == "self") {
+                            if (empty($instance->enrolstartdate)) {
+                                $error[] = get_string('startenrolmentdatemissing', 'local_orange_library');
+                            }
+                            if (empty($instance->enrolenddate)) {
+                                $error[] = get_string('endenrolmentdatemissing', 'local_orange_library');
+                            }
+                        }
                     }
                 }
             }

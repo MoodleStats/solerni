@@ -82,3 +82,5 @@ $string['enrolmentmethoddisabled'] = 'Enrolment method "{$a}" should be enabled.
 $string['moddescriptionpagemissing'] = '"{$a}" page missing.';
 $string['moddescriptionpagemultiple'] = 'More than one "{$a}" page found.';
 $string['blockmissing'] = 'Block "{$a}" missing.';
+$string['startenrolmentdatemissing'] = "The enrolment start date is missing on Self Enrol method";
+$string['endenrolmentdatemissing'] = "The enrolment end date is missing on Self Enrol method";
