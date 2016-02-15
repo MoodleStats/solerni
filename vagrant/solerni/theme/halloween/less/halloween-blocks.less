@@ -83,7 +83,8 @@
     padding-left: (@s-small-xs-margin * 6);
 }
 
-.block .header {
+.block .header,
+#dockeditempanel .dockeditempanel_hd {
     background-color:   @gray-light;
     border-color:       @gray-light;
 }
@@ -186,7 +187,9 @@
 .block .tree_item a,
 .block .tree_item span,
 .block .header h2,
-.block .header .h2{
+.block .header .h2,
+#dockeditempanel .dockeditempanel_hd h2,
+#dockeditempanel .dockeditempanel_hd .h2 {
     display:        inline-block;
     color:          @brand-primary;
     font-size:      @font-size-base;
@@ -210,4 +213,23 @@
 
 .block .contains_branch .branch a {
     font-weight: 800;
+}
+
+/*
+ * Docking navigation functionnality
+ */
+
+#dock {
+    top: 100px;
+}
+
+.block_action {
+    margin-top:     1px;
+    margin-right:   -5px;
+}
+
+#dockeditempanel .commands {
+    position:   absolute;
+    top:        10px;
+    right:      15px;
 }
