@@ -26,7 +26,7 @@
  */
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version  = 2015122200;
+$plugin->version  = 2016021600;
 $plugin->requires = 2014051200;
 $plugin->maturity = MATURITY_STABLE;
 $plugin->component = 'enrol_orangenextsession';      // Full name of the plugin (used for diagnostics)

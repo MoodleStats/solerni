@@ -304,11 +304,21 @@ class format_flexpage extends format_base {
                 ),
                 'coursecontactemail' => array(
                     'default' => get_config('contactemail', 'format_flexpage'),
-                    'type' => PARAM_TEXT
+                    'type' => PARAM_TEXT,
+                    'default' => 'contact@solerni.com'
                 ),
                 'coursethumbnailtext' => array(
                     'default' => get_config('thumbnailtext', 'format_flexpage'),
                     'type' => PARAM_TEXT
+                ),
+                'coursevideoplayer' => array(
+                    'default' => get_config('videoplayer', 'format_flexpage'),
+                    'type' => PARAM_RAW
+                ),
+                'courseinactivitydelay' => array(
+                    'default' => get_config('inactivitydelay', 'format_flexpage'),
+                    'type' => PARAM_INT,
+                    'default' => 7
                 )
             );
         }
@@ -465,6 +475,18 @@ class format_flexpage extends format_base {
                 'coursethumbnailtext' => array(
                     'label' => get_string('thumbnailtext', 'format_flexpage'),
                     'help' => 'thumbnailtext',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'text'
+                ),
+                'coursevideoplayer' => array(
+                    'label' => get_string('videoplayer', 'format_flexpage'),
+                    'help' => 'videoplayer',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'textarea'
+                ),
+                'courseinactivitydelay' => array(
+                    'label' => get_string('inactivitydelay', 'format_flexpage'),
+                    'help' => 'inactivitydelay',
                     'help_component' => 'format_flexpage',
                     'element_type' => 'text'
                 )

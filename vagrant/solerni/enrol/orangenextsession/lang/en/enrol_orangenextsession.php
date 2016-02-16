@@ -44,3 +44,4 @@ $string['orangenextsessioninfo'] = '<b>This course is presently booked</b>. <br/
 $string['exportuserlist'] = 'Export users in CSV files';
 $string['alreadyenrolled'] = 'You are already enrolled for this course';
 $string['alreadyinlist'] = 'You are already on the list to be informed of next session.';
+$string['custominformationmessage'] = 'Custom e-mail';

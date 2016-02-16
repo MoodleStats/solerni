@@ -73,8 +73,11 @@ echo $OUTPUT->doctype() ?>
         <?php require_once($CFG->partialsdir . '/header/skiplinks.php'); ?>
     </div>
     <?php if (utilities_network::is_platform_uses_mnet()) : ?>
-    <div class="container">
+    <div class="u-inverse">
         <?php require_once($CFG->partialsdir . '/header/nav-resac.php'); ?>
+    </div>
+    <div class="u-inverse">
+        <div class="col-xs-12 fullwidth-line"></div>
     </div>
     <?php endif; ?>
     <!-- header -->
@@ -83,9 +86,9 @@ echo $OUTPUT->doctype() ?>
     </div>
     <!-- content from template -->
     <div id="page" class="container">
-        <?php if(!utilities_course::is_frontpage_course($COURSE)) {
-            require_once($CFG->partialsdir . '/breadcrumb.php');
-        } ?>
+        <?php
+        require_once($CFG->partialsdir . '/breadcrumb.php');
+        ?>
         <div id="page-content" class="row">
             <div id="region-main" class="<?php echo $regions['content']; ?>">
                 <!-- content from plugin/mod/activity/local/page -->

@@ -302,8 +302,16 @@ $string['teachingteam_default'] = 'Conception : Orange with Learning CRM';
 
 $string['contactemail'] = 'Contact Email';
 $string['contactemail_help'] = 'Mooc contact email used by the contact form';
-$string['contactemail_default'] = 'contact@solerni.com';
+$string['contactemail_default'] = '';
 
 $string['thumbnailtext'] = 'Promotionnal message';
 $string['thumbnailtext_help'] = 'Promotionnal message in thumbnail';
 $string['thumbnailtext_default'] = '';
+
+$string['videoplayer'] = 'Video Player (HTML)';
+$string['videoplayer_help'] = 'HTML code for the video player and the video of the course';
+$string['videoplayer_default'] = '';
+
+$string['inactivitydelay'] = 'Time limit of inactivity';
+$string['inactivitydelay_help'] = 'Time limit of inactivity';
+$string['inactivitydelay_default'] = '';

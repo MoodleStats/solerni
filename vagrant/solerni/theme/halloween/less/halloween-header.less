@@ -9,16 +9,17 @@
 
 .header-logo {
     display:            inline-block;
-    margin-top:         @s-small-xs-margin;
-    margin-bottom:      @s-small-xs-margin;
-    height:             (@s-triple-xs-margin + 6); // 36px (same height as the button)
+    margin-top:         25px;
+    margin-bottom:      25px;
+    height:             50px;
     font-size:          0;
     font-weight:        bold;
 
+    /* clearly duplicate. Change values when we know design options for mobile */
     @media (min-width: @screen-sm-min) {
-        height:         floor(@s-double-md-margin * 1.666666667);  // 50px
-        margin-top:     @s-double-md-margin;
-        margin-bottom:  @s-double-md-margin;
+        height:         50px;
+        margin-top:     25px;
+        margin-bottom:  25px;
     }
 }
 
@@ -55,62 +56,68 @@
     padding:    0;
 }
 
-.resac-navigation .list-group-item {
-    display:    inline-block;
-    border:     0;
-    padding:    0;
-}
+    .resac-navigation .list-group-item {
+        display:    inline-block;
+        border:     0;
+        padding:    0;
+    }
 
-.resac-navigation .navigation-item {
-    display:            block;
-    color:              #000;
-    text-decoration:    none;
-    padding:            10px 15px;
-}
+    .resac-navigation .navigation-item {
+        display:            block;
+        text-decoration:    none;
+        padding:            10px 15px;
+        font-weight:        bold;
 
-.resac-navigation .navigation-item:hover {
-    color: @brand-secondary;
-}
+        &::first-letter {
+            text-transform: uppercase;
+        }
+    }
 
-.resac-navigation .active {
-    background-color: @brand-primary;
-    color: @brand-tertiary;
-}
+        .resac-home .list-group-item .navigation-item {
+            margin-left: -15px;
+        }
 
+        .resac-hosts .list-group-item:last-child .navigation-item {
+            margin-right: -15px;
+        }
 
+    .resac-navigation .navigation-item:hover {
+        color: @brand-secondary;
+    }
 
 /*
  * Header
  * */
+
 .skip-links {
     height: 0;
 }
 
-.skip-links a {
-    display:    inline-block;
-    overflow:   hidden;
-    height:     0;
-}
-
-.skip-links a:focus {
-    height: auto;
-    color:  @brand-primary;
-
-    .u-inverse & {
-        color:  @brand-tertiary;
+    .skip-links a {
+        display:    inline-block;
+        overflow:   hidden;
+        height:     0;
     }
-}
+
+    .skip-links a:focus {
+        height: auto;
+        color:  @brand-primary;
+
+        .u-inverse & {
+            color:  @brand-tertiary;
+        }
+    }
 
 .header{}
 
     .action-area {
         position:   absolute;
         right:      (@grid-gutter-width / 2);
-        bottom:     @s-small-xs-margin;         // Same value as logo margin
+        bottom:     25px;         // Same value as logo margin
         font-size:  0;
 
         @media (min-width:  @screen-sm-min) {
-            bottom: @s-double-md-margin;
+            bottom: 25px;
         }
 
         & > .icon-halloween,
