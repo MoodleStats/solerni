@@ -86,3 +86,4 @@ $string['moddescriptionpagemultiple'] = 'Ce cours dispose de plus d\'une page "{
 $string['blockmissing'] = 'Bloc "{$a}" manquant.';
 $string['startenrolmentdatemissing'] = "La date de début d'inscription n'est pas renseignée dans la méthode 'auto-inscription'";
 $string['endenrolmentdatemissing'] = "La date de fin d'inscription n'est pas renseignée dans la méthode 'auto-inscription'";
+$string['orangeinvitationconfigmissing'] = "Vous devez enregistrer au moins une fois la configuration de la méthode d'inscription 'URLs d'accès au cours'";

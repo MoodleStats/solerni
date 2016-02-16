@@ -43,7 +43,6 @@ class enrol_orangenextsession_edit_form extends moodleform {
         $options = array(ENROL_INSTANCE_ENABLED  => get_string('yes'),
                          ENROL_INSTANCE_DISABLED => get_string('no'));
         $mform->addElement('select', 'status', get_string('status', 'enrol_orangenextsession'), $options);
-        $mform->addHelpButton('status', 'status', 'enrol_orangenextsession');
         $mform->setDefault('status', $plugin->get_config('status'));
 
         $mform->addElement('advcheckbox', 'customint1', get_string('sendconfirmationmessage', 'enrol_orangenextsession'));

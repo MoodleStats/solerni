@@ -44,3 +44,4 @@ $string['orangenextsessioninfo'] = '<b>Les inscriptions pour ce cours sont termi
 $string['exportuserlist'] = 'Exporter la liste des utilisateurs au format CSV';
 $string['alreadyenrolled'] = 'Vous êtes déjà inscrit au cours';
 $string['alreadyinlist'] = 'Vous êtes déjà inscrit sur la liste pour être averti de la prochaine session.';
+$string['custominformationmessage'] = 'E-mail personnalisé';
