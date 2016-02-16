@@ -434,8 +434,8 @@ class enrol_self_plugin extends enrol_plugin {
                 $messagetext = html_to_text($messagehtml);
             }
         } else {
-            $messagetext = get_string('welcometocoursetext', 'enrol_self', $a);
-            $messagehtml = text_to_html($messagetext, null, false, true);
+            $messagehtml = get_string('welcometocoursetext', 'enrol_self', $a);
+            $messagetext = html_to_text($messagehtml, null, false, true);
         }
 
         $subject = get_string('welcometocourse', 'enrol_self', format_string($course->fullname, true, array('context'=>$context)));
