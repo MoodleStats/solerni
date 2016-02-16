@@ -34,10 +34,10 @@
  * orange 2016011800 : migration Moodle 2.9
  */
 
-$plugin->version      = 2016020504;
+$plugin->version      = 2016020505; //fork 2016012600
 $plugin->requires     = 2014051203;
 $plugin->component    = 'format_flexpage';
-$plugin->release      = '2.8.0 (Build: 20150708)';
+$plugin->release      = '2.9.3 (Build: 20160204)';
 $plugin->maturity     = MATURITY_STABLE;
 $plugin->dependencies = array(
     'block_flexpagenav' => 2014093000,
