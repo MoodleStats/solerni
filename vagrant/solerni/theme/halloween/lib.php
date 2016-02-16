@@ -56,6 +56,7 @@ function theme_halloween_bootstrap_grid($hassidepre, $hassidepost) {
             $regions['post'] = 'col-sm-3 col-sm-pull-9 col-lg-2 col-lg-pull-10';
         }
     }
+    
     return $regions;
 }
 
