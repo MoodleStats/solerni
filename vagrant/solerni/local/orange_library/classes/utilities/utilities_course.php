@@ -698,6 +698,10 @@ class utilities_course {
                             if (empty($instance->enrolenddate)) {
                                 $error[] = get_string('endenrolmentdatemissing', 'local_orange_library');
                             }
+                        } else if ($instance->enrol == "orangeinvitation") {
+                            if (empty($instance->customtext1) || empty($instance->customtext2) || empty($instance->customtext3)) {
+                                $error[] = get_string('orangeinvitationconfigmissing', 'local_orange_library');
+                            }
                         }
                     }
                 }

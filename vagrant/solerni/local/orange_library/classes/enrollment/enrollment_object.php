@@ -71,7 +71,6 @@ class enrollment_object {
         $instances = enrol_get_instances($course->id, false);
         foreach ($instances as $instanceinfo) {
             if ($instanceinfo->enrol == "orangeinvitation") {
-                $instanceinfo->customtext2 = $instanceinfo->customtext1 . "&id2=1";
                 return $instanceinfo;
             }
         }
