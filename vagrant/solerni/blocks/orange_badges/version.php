@@ -15,17 +15,17 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Orange library & utilities
+ * Version details
  *
- * @package     local
- * @subpackage  orange_library
- * @copyright   2015 Orange
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    block_orange_badges
+ * @copyright  Orange 2015
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ *
+ * orange 2016020500 : block_badges fork (2015051100)
  */
-
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2016021601;                // The current module version (Date: YYYYMMDDXX).
-$plugin->requires  = 2014051207;                // Requires this Moodle version Moodle 2.7.7.
-$plugin->component = 'local_orange_library';    // Full name of the plugin (used for diagnostics).
+$plugin->version   = 2016020500;        // The current plugin version (Date: YYYYMMDDXX).
+$plugin->requires  = 2015050500;        // Requires this Moodle version.
+$plugin->component = 'block_orange_badges';

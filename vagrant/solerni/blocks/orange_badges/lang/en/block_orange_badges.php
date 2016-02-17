@@ -15,17 +15,17 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Orange library & utilities
+ * Language file for block "Orange badges"
  *
- * @package     local
- * @subpackage  orange_library
- * @copyright   2015 Orange
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    block_orange_badges
+ * @copyright  Orange 2015
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-
-defined('MOODLE_INTERNAL') || die();
-
-$plugin->version   = 2016021601;                // The current module version (Date: YYYYMMDDXX).
-$plugin->requires  = 2014051207;                // Requires this Moodle version Moodle 2.7.7.
-$plugin->component = 'local_orange_library';    // Full name of the plugin (used for diagnostics).
+$string['pluginname'] = 'Last Badges';
+$string['titlemooc'] = 'MOOC badges';
+$string['allmoocbadges'] = 'All MOOC badges';
+$string['numbadgestodisplay'] = 'Number of badges to display';
+$string['nothingtodisplay'] = 'You have no badge to display';
+$string['orange_badges:addinstance'] = 'Add a new Orange badges block';
+$string['orange_badges:myaddinstance'] = 'Add a new Orange badges block to Dashboard';
