@@ -31,7 +31,8 @@ class block_orange_mooc_badges_edit_form extends block_edit_form {
             $numberofbadges[$i] = $i;
         }
 
-        $mform->addElement('select', 'config_numberofbadges', get_string('numbadgestodisplay', 'block_orange_badges'), $numberofbadges);
+        $mform->addElement('select', 'config_numberofbadges',
+                           get_string('numbadgestodisplay', 'block_orange_badges'), $numberofbadges);
         $mform->setDefault('config_numberofbadges', 10);
     }
 }

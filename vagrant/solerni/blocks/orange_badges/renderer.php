@@ -54,16 +54,18 @@ class block_orange_badges_renderer extends plugin_renderer_base {
             }
 
             if ($ismypage) {
-                $name = html_writer::tag('span', $bname, array('class' => 'badge-name')) . html_writer::tag('span', $cname, array('class' => 'course-name'));
+                $name = html_writer::tag('span', $bname,
+                                array('class' => 'badge-name')) . html_writer::tag('span', $cname, array('class' => 'course-name'));
             } else {
                 $name = html_writer::tag('span', $bname, array('class' => 'badge-name'));
             }
 
-            // image different if is earned or not
-            if(isset($badge->dateissued))
+            // Image different if is earned or not.
+            if (isset($badge->dateissued)) {
                 $image = html_writer::empty_tag('img', array('src' => $imageurl, 'class' => 'badge-image'));
-            else
+            } else {
                 $image = html_writer::empty_tag('img', array('src' => $imageurl, 'class' => 'badge-image-notearn'));
+            }
             if (!empty($badge->dateexpire) && $badge->dateexpire < time()) {
                 $image .= $this->output->pix_icon('i/expired',
                                 get_string('expireddate', 'badges', userdate($badge->dateexpire)),
@@ -95,7 +97,6 @@ class block_orange_badges_renderer extends plugin_renderer_base {
                 }
             }
 
-
             if ($ismypage) {
                 $mybadgesurl = new moodle_url('/badges/mybadges.php');
             } else {
@@ -103,11 +104,9 @@ class block_orange_badges_renderer extends plugin_renderer_base {
             }
 
             if (!$profile) {
-                //$url = new moodle_url('badge.php', array('hash' => $badge->uniquehash));
                 $url = $mybadgesurl;
             } else {
                 if (!$external) {
-                    //$url = new moodle_url('/badges/badge.php', array('hash' => $badge->uniquehash));
                     $url = $mybadgesurl;
                 } else {
                     $hash = hash('md5', $badge->hostedUrl);
