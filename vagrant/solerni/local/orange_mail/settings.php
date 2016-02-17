@@ -92,8 +92,8 @@ body, td, th, ul {
 	font-size: 18px;
 	font-weight: bold;
 }
-.txt18BBlanc, .txt18BBlanc > p {
-	font-family: \'Helvetica Neue LT Std!important\';
+.txt22BBlanc, .txt22BBlanc > p {
+	font-family: "OrangeSans", Arial, Helvetica, sans-serif;;
 	color: #FFF;
 	font-size: 18px;
 	font-weight: bold;
@@ -139,7 +139,7 @@ ul.forumng-commands a {
             <td width="70" >
                 <a href="{$b->siteurl}"><img src="{$b->imageurl}logo.png" width="62" height="54" alt="{$b->sitename}"
                 title="{$b->sitename}" /></a>
-            </td><td class="txt18BBlanc" align="left">Solerni<br />{$b->sitename}</td>
+            </td><td class="txt22BBlanc" align="left">{$b->sitename}</td>
         </tr>
       </table></td>
   </tr>
