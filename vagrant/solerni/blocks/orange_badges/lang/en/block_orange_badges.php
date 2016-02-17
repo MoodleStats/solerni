@@ -26,6 +26,6 @@ $string['pluginname'] = 'Last Badges';
 $string['titlemooc'] = 'MOOC badges';
 $string['allmoocbadges'] = 'All MOOC badges';
 $string['numbadgestodisplay'] = 'Number of badges to display';
-$string['nothingtodisplay'] = 'You have no badges to display';
+$string['nothingtodisplay'] = 'You have no badge to display';
 $string['orange_badges:addinstance'] = 'Add a new Orange badges block';
 $string['orange_badges:myaddinstance'] = 'Add a new Orange badges block to Dashboard';

@@ -100,7 +100,7 @@ class block_orange_badges_renderer extends plugin_renderer_base {
             if ($ismypage) {
                 $mybadgesurl = new moodle_url('/badges/mybadges.php');
             } else {
-                $mybadgesurl = new moodle_url('/badges/view.php', array('type' => '2', 'id' => $badge->courseid));
+                $mybadgesurl = new moodle_url('/badges/view.php', array('type' => BADGE_TYPE_COURSE, 'id' => $badge->courseid));
             }
 
             if (!$profile) {

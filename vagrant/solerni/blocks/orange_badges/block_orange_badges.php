@@ -36,7 +36,7 @@ class block_orange_badges extends block_base {
     }
 
     public function instance_allow_multiple() {
-        return true;
+        return false;
     }
 
     public function has_config() {
