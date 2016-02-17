@@ -331,9 +331,10 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
     public function render_nav_item(stdClass $host, $stripclient) {
         global $CFG;
 
-        // remove client name from host name for design reasons.
+        // remove client name from host name for reasons.
         if ($stripclient) {
             $host->name = str_replace($CFG->solerni_customer_name . ' ', '', $host->name);
+            $host->name = str_replace(strtolower($CFG->solerni_customer_name) . ' ', '', $host->name);
         }
 
         $aclasses = 'navigation-item';
