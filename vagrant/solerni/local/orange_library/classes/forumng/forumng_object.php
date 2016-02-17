@@ -51,9 +51,8 @@ class forumng_object {
         // A couple of quick setups.
         $isloggedin = isloggedin();
         $isguestuser = $isloggedin && isguestuser();
-        // A REMMETTRE A SITUATION REELLE :.
-        // $iscurrentuser = $isloggedin && $USER->id == $user->id;.
-        $iscurrentuser = true;
+        // Orange : it may be necessary $iscurrentuser = true? .
+         $iscurrentuser = $isloggedin && $USER->id == $user->id;
 
         // Checkout whether or not the current user has capabilities over the requested
         // user and if so they have the capabilities required to view the requested

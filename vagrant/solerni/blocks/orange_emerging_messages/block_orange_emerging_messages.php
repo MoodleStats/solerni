@@ -118,35 +118,35 @@ class block_orange_emerging_messages extends block_base {
 
         $renderer = $this->page->get_renderer('block_orange_emerging_messages');
 
-        switch ($this->config->typetop ) {
-            case "1":
-                $listposts = block_orange_emerging_messages_get_user_posts($COURSE->id, $USER->id, $this->config->nbdisplaypost);
-                if (count($listposts->posts) != 0) {
-                    $this->content->text = $this->renderer->display_emerging_messages_by_user($listposts->posts);
-                } else {
-                    $this->content->text = $this->renderer->display_emerging_messages_by_user_no_result();
-                }
-                break;
-            case "2":
-                $listposts = block_orange_emerging_messages_get_last_discussions($COURSE->id, $this->config->nbdisplaypost);
-                if (count($listposts->posts) != 0) {
-                    $this->content->text = $this->renderer->display_emerging_discussions_last($listposts->posts);
-                } else {
-                    $listposts = $this->renderer->block_orange_emerging_messages_get_last_discussions_no_result();
-                }
-
-                break;
-            case "3":
-                $listposts = block_orange_emerging_messages_get_best_messages($COURSE->id, $this->config->nbdisplaypost);
-                if (count($listposts->posts) != 0) {
-                    $this->content->text = $this->renderer->display_emerging_best_messages($listposts->posts);
-                } else {
-                    $listposts = $this->renderer->block_orange_emerging_best_messages_no_result();
-                }
-
-                break;
-            default:
-                break;
+        if (isset($this->config->typetop)) {
+	        switch ($this->config->typetop ) {
+	            case "1":
+	                $listposts = block_orange_emerging_messages_get_user_posts($COURSE->id, $USER->id, $this->config->nbdisplaypost);
+	                if (count($listposts->posts) != 0) {
+	                    $this->content->text = $this->renderer->display_emerging_messages_by_user($listposts->posts);
+	                } else {
+	                    $this->content->text = $this->renderer->display_emerging_messages_by_user_no_result();
+	                }
+	                break;
+	            case "2":
+	                $listposts = block_orange_emerging_messages_get_last_discussions($COURSE->id, $this->config->nbdisplaypost);
+	                if (count($listposts->posts) != 0) {
+	                    $this->content->text = $this->renderer->display_emerging_discussions_last($listposts->posts);
+	                } else {
+	                    $this->content->text = $this->renderer->display_emerging_discussions_last_no_result();
+	                }
+	                break;
+	            case "3":
+	                $listposts = block_orange_emerging_messages_get_best_messages($COURSE->id, $this->config->nbdisplaypost);
+	                if (count($listposts->posts) != 0) {
+	                    $this->content->text = $this->renderer->display_emerging_best_messages($listposts->posts);
+	                } else {
+	                    $this->content->text = $this->renderer->display_emerging_best_messages_no_result();
+	                }
+	                break;
+	            default:
+	                break;
+	        }
         }
         return $this->content;
     }

@@ -52,7 +52,7 @@ class block_orange_emerging_messages_renderer extends plugin_renderer_base {
      *
      * @return message
      */
-    public function display_emerging_messages_by_user_no_result($listpost) {
+    public function display_emerging_messages_by_user_no_result() {
         $output = html_writer::start_tag('div');
         $output .= get_string('nouserposts', 'block_orange_emerging_messages');
         $output .= html_writer::end_tag('div');
@@ -90,7 +90,7 @@ class block_orange_emerging_messages_renderer extends plugin_renderer_base {
      *
      * @return message
      */
-    public function display_emerging_discussions_last_no_result($listpost) {
+    public function display_emerging_discussions_last_no_result() {
         $output = html_writer::start_tag('div');
         $output .= get_string('nodiscussions', 'block_orange_emerging_messages');
         $output .= html_writer::end_tag('div');
@@ -126,7 +126,7 @@ class block_orange_emerging_messages_renderer extends plugin_renderer_base {
      *
      * @return message
      */
-    public function display_emerging_best_messages_no_results($listpost) {
+    public function display_emerging_best_messages_no_result() {
         $output = html_writer::start_tag('div');
         $output .= get_string('nobestposts', 'block_orange_emerging_messages');
         $output .= html_writer::end_tag('div');

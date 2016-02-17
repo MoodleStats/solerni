@@ -30,9 +30,7 @@ function block_orange_emerging_messages_get_user_posts($courseid, $userid, $npdi
 
     $forumngobj = new forumng_object();
 
-    $course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
-    $courses = array();
-    $courses[] = $course;
+    $courses = $DB->get_records('course', array('id' => $courseid));
 
     return $forumngobj->get_posts_by_user($userid, $courses, false, false, 0, $npdisplayed);
 }
