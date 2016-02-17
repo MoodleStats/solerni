@@ -139,3 +139,26 @@ function halloween_profile_signup_fields($mform) {
         }
     }
 }
+
+/**
+ * Check if user is connected, if we have a wantsurl in $SESSION
+ * and redirects accordingly.
+ *
+ * @global $SESSION
+ *
+ * return @void
+ */
+function theme_halloween_redirect_if_wantsurl() {
+
+    if(!isloggedin()) {
+        return;
+    }
+
+    global $SESSION;
+
+    if(isset($SESSION->wantsurl)) {
+        $urltogo = $SESSION->wantsurl;
+        unset($SESSION->wantsurl);
+        redirect($urltogo);
+    }
+}
