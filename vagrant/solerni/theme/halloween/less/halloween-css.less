@@ -272,9 +272,36 @@ img.icon {
     background-color: @component-active-bg;
 }
 .center {
-        text-align: center;
+    text-align: center;
 }
 
+.icon-map  {
+    float:left;
+    .centered {
+        vertical-align: middle;
+    }
+
+    img {
+        width: @font-size-h2;
+        height: @font-size-h2;
+
+    }
+    
+}
+
+.icon-map .logo-image {
+    
+    .centertext {
+        display:block;
+        float: left;      
+    }
+    
+}
+
+.icon-map .textcentered{
+    float: right;
+    line-height: 45px;
+}
 // Footer version control display
 .version-control {
     font-size:  (@font-size-base * 0.8);
