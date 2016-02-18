@@ -48,6 +48,7 @@ $contacts[CONTACT_REQUEST_OTHER_ID] = array ('libel' => get_string('contact_requ
 $PAGE->set_context(context_system::instance());
 $PAGE->set_url('/contact/index.php');
 $PAGE->set_pagelayout('base');
+$PAGE->navbar->add(get_string('contact_us', 'theme_halloween'));
 $PAGE->blocks->add_region('side-pre');
 $PAGE->set_title($SITE->shortname . ' : ' . get_string('contact_page_title', 'theme_halloween'));
 $USER->editing = false;

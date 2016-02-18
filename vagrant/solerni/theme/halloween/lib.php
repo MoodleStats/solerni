@@ -56,6 +56,7 @@ function theme_halloween_bootstrap_grid($hassidepre, $hassidepost) {
             $regions['post'] = 'col-sm-3 col-sm-pull-9 col-lg-2 col-lg-pull-10';
         }
     }
+    
     return $regions;
 }
 
@@ -137,5 +138,28 @@ function halloween_profile_signup_fields($mform) {
             $formfield = new $newfield($field->fieldid);
             $formfield->edit_field($mform);
         }
+    }
+}
+
+/**
+ * Check if user is connected, if we have a wantsurl in $SESSION
+ * and redirects accordingly.
+ *
+ * @global $SESSION
+ *
+ * return @void
+ */
+function theme_halloween_redirect_if_wantsurl() {
+
+    if(!isloggedin()) {
+        return;
+    }
+
+    global $SESSION;
+
+    if(isset($SESSION->wantsurl)) {
+        $urltogo = $SESSION->wantsurl;
+        unset($SESSION->wantsurl);
+        redirect($urltogo);
     }
 }

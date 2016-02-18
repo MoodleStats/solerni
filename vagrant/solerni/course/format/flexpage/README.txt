@@ -7,3 +7,5 @@ For more information about installation, configuration and usage, please see htt
 
 orange 2015050500:
 Adding extended course data in the course_format_options() function in lib.php
+orange 2015120300 : modifing default to flexpage creation : visible in menu and flexpage next and previous
+orange 2016011800 : migration Moodle 2.9

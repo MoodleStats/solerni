@@ -21,10 +21,6 @@
  * @author Mark Nielsen
  */
 
-//origin : Orange
-//plugin version : 2016011800
-//modification : upgrading to moodle 2.9
-//class and CONST in conditionlib.php are deprecated
 require_once(__DIR__.'/abstract.php');
 require_once(__DIR__.'/condition/grade.php');
 require_once(__DIR__.'/condition/field.php');
@@ -102,6 +98,8 @@ class course_format_flexpage_model_page extends course_format_flexpage_model_abs
      *
      * @var int
      */
+    //origin : Orange
+    //modification : modifing default to flexpage creation : visible in menu
     protected $display = self::DISPLAY_VISIBLE_MENU;
 
     /**
@@ -123,7 +121,9 @@ class course_format_flexpage_model_page extends course_format_flexpage_model_abs
      *
      * @var int
      */
-    protected $navigation = self::NAV_BOTH ;
+    //origin : Orange
+    //modification : modifing default to flexpage creation : visible in next and previous
+    protected $navigation = self::NAV_BOTH;
 
     /**
      * Conditional release: release code
@@ -151,7 +151,7 @@ class course_format_flexpage_model_page extends course_format_flexpage_model_abs
      *
      * @var int
      */
-    protected $showavailability;
+    protected $showavailability = 1;
 
     /**
      * Page region widths
@@ -166,12 +166,6 @@ class course_format_flexpage_model_page extends course_format_flexpage_model_abs
     protected $conditions = array();
 
     public function __construct($options = array()) {
-        //origin : Orange
-        //plugin version : 2016011800
-        //modification : upgrading to moodle 2.9
-        //class and CONST in conditionlib.php are deprecated
-        //replace CONDITION_STUDENTVIEW_SHOW by is value "1"
-        $this->showavailability = 1;
         $this->set_options($options);
     }
 

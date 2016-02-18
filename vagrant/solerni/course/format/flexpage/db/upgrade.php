@@ -104,6 +104,8 @@ function xmldb_format_flexpage_upgrade($oldversion = 0) {
         upgrade_plugin_savepoint(true, 2014093000, 'format', 'flexpage');
     }
 
+    //origin : Orange
+    //modification : modifing default to flexpage creation : visible in menu and next and previous
     if ($oldversion < 2015120300) {
         $cacherepo->clear_all_cache();
 
