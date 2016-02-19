@@ -103,7 +103,7 @@ input[type="checkbox"] {
  * Line (as in footer)
  * */
 .fullwidth-line {
-    border-bottom-color: @brand-primary;
+    border-bottom-color: @orange-light-4;
     border-bottom-style: solid;
     border-bottom-width: 1px;
 }
@@ -250,17 +250,21 @@ img.icon {
 
 /* en savoir plus */
 .zigzag .row {
-    padding: @grid-gutter-width;
+    padding-bottom: 50px;
+    padding-top: 60px;
 }
 
 .zigzag .row:nth-child(odd) {
-    background: @gray-light;
+    background: @orange-light-2;
 }
 
 .zigzag .row:nth-child(even) {
-    background: @gray-lighter;
+    background: @brand-tertiary;
 }
-
+.zigzag .h2 {
+    line-height:    1; 
+    margin-top:     0;
+}
 .margin-bottom-md {
      margin-bottom: @grid-gutter-width;
 }
@@ -277,6 +281,7 @@ img.icon {
 
 .icon-map  {
     float:left;
+    font-weight:bold;
     .centered {
         vertical-align: middle;
     }
