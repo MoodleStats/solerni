@@ -26,15 +26,15 @@
 
 // Probably never use, but we never know.
 .font-primary {
-    font-family: @font-family-base;
+    font-family:    @font-family-base;
 }
 
 .font-secondary {
-    font-family: @font-family-serif;
+    font-family:    @font-family-serif;
 }
 
 .font-mono {
-    font-family: @font-family-monospace;
+    font-family:    @font-family-monospace;
 }
 
 // Titles
@@ -46,7 +46,7 @@ h1, h2, h3, h4, h5, h6,
 h1, .h1,
 h2, .h2,
 h4, .h4 {
-    color: @brand-primary;
+    color:          @brand-primary;
 }
 
 // Forms Moodle missing type="email"
@@ -58,16 +58,16 @@ form input[type="email"],
 form.atto_form input[type="url"],
 select.singleselect {
     .form-control;
-    width: auto;
-    max-width: 300px;
-    display: inline;
-    margin: 0 0 @padding-small-vertical 0;
+    width:          auto;
+    max-width:      300px;
+    display:        inline;
+    margin:         0 0 @padding-small-vertical 0;
 }
 
 // Moodle uses some margins, Bootstrap others : mixing both
 input[type="radio"],
 input[type="checkbox"] {
-    margin: 4px;
+    margin:         4px;
 }
 
  /*
@@ -81,7 +81,7 @@ input[type="checkbox"] {
  }
 
  .dropdown .btn {
-     margin-left: 0;
+     margin-left:   0;
  }
 
  .dropdown-menu > li > a {
@@ -90,13 +90,13 @@ input[type="checkbox"] {
      text-decoration:   none;
 
     @media (min-width:  @screen-xs-min) {
-        padding: (@s-medium-md-margin / 2) @s-medium-md-margin;
+        padding:    (@s-medium-md-margin / 2) @s-medium-md-margin;
     }
 
  }
 
  .header-dropdown .dropdown-menu a {
-     font-weight: bold;
+     font-weight:   bold;
  }
 
 /*
@@ -113,32 +113,32 @@ input[type="checkbox"] {
  */
 
 .imageWrapper {
-    position: relative;
-    width: 600px;
-    height: 450px;
+    position:       relative;
+    width:          600px;
+    height:         450px;
 }
 .imageWrapper .img-thumbnail {
-    display: block;
+    display:        block;
 }
 .imageWrapper .cornerLink {
-    opacity: 10;
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
-    padding: 2px 0px;
-    color: #ffffff;
-    background: #000000;
+    opacity:        10;
+    position:       absolute;
+    bottom:         0px;
+    left:           0px;
+    right:          0px;
+    padding:        2px 0px;
+    color:          #ffffff;
+    background:     #000000;
     text-decoration: none;
-    text-align: center;
+    text-align:     center;
     -webkit-transition: opacity 500ms;
     -moz-transition: opacity 500ms;
-    -o-transition: opacity 500ms;
-    transition: opacity 500ms;
+    -o-transition:  opacity 500ms;
+    transition:     opacity 500ms;
 
 }
 .imageWrapper:hover .cornerLink {
-    opacity: 0.8;
+    opacity:        0.8;
 }
 
 /*
@@ -149,7 +149,7 @@ input[type="checkbox"] {
 }
 
 .filters-form-fieldset {
-    margin-bottom: @s-medium-xs-margin;
+    margin-bottom:  @s-medium-xs-margin;
 
     @media (min-width: @screen-xs-min) {
         margin-bottom: @s-medium-md-margin;
@@ -157,7 +157,7 @@ input[type="checkbox"] {
 }
 
 .filters-form-fieldset:last-of-type {
-    margin-bottom: 0;
+    margin-bottom:  0;
 }
 
     .form-fieldset-legend {
@@ -187,13 +187,13 @@ input[type="checkbox"] {
 }
 
 .orange-course-name {
-    font-weight: bold;
+    font-weight:    bold;
 }
 
 .orange-course-logo {
-    position:   absolute;
-    top:        0;
-    right:      0;
+    position:       absolute;
+    top:            0;
+    right:          0;
 }
 
 .orange-badges-list {
@@ -206,7 +206,7 @@ input[type="checkbox"] {
  * Page Moodle
  */
 #page {
-    margin-top: @s-double-xs-margin;
+    margin-top:     @s-double-xs-margin;
 
     @media (min-width: @screen-md-min) {
         margin-bottom: @s-double-md-margin;
@@ -215,33 +215,33 @@ input[type="checkbox"] {
 
 /* hide moodle icons */
 .tree_item a .smallicon {
-    display: none;
+    display:        none;
 }
 
 /* fix small css */
 img.icon {
-    float: left;
+    float:          left;
 }
 
 .formsettingheading {
-    margin-bottom: 2em;
+    margin-bottom:  2em;
 }
 
 /* calendar quickfix */
 .calendar-controls {
-    font-size:  @font-size-large;
-    text-align: center;
+    font-size:      @font-size-large;
+    text-align:     center;
 }
 
 .block.block_calendar_month .calendar-controls .current,
 .block.block_calendar_month .calendar-controls .arrow_link {
-    display:            inline-block;
-    width:              auto;
-    float:              none;
+    display:        inline-block;
+    width:          auto;
+    float:          none;
 }
 
 .block.block_calendar_month .calendar-controls .current {
-    margin: 0 .5em;
+    margin:         0 .5em;
 }
 
 .block.block_calendar_month .calendar-controls a {
@@ -251,15 +251,15 @@ img.icon {
 /* en savoir plus */
 .zigzag .row {
     padding-bottom: 50px;
-    padding-top: 60px;
+    padding-top:    60px;
 }
 
 .zigzag .row:nth-child(odd) {
-    background: @orange-light-2;
+    background:     @orange-light-2;
 }
 
 .zigzag .row:nth-child(even) {
-    background: @brand-tertiary;
+    background:     @brand-tertiary;
 }
 .zigzag .h2 {
     line-height:    1; 
@@ -270,49 +270,50 @@ img.icon {
 }
 
 .subscription-banner {
-    text-align: center;
+    text-align:     center;
     padding-bottom: 30px;
-    padding-top: 30px;
+    padding-top:    30px;
     background-color: @component-active-bg;
 }
+
 .center {
-    text-align: center;
+    text-align:     center;
 }
 
 .icon-map  {
-    float:left;
-    font-weight:bold;
+    float:          left;
+    font-weight:    bold;
+    
     .centered {
         vertical-align: middle;
     }
 
     img {
-        width: @font-size-h2;
-        height: @font-size-h2;
+        width:      @font-size-h2;
+        height:     @font-size-h2;
 
-    }
-    
+    }    
 }
 
 .icon-map .logo-image {
     
     .centertext {
-        display:block;
-        float: left;      
+        display:    block;
+        float:      left;      
     }
     
 }
 
 .icon-map .textcentered{
-    float: right;
-    line-height: 45px;
+    float:          right;
+    line-height:    45px;
 }
 // Footer version control display
 .version-control {
-    font-size:  (@font-size-base * 0.8);
-    color:      @orange-dark-3;
+    font-size:      (@font-size-base * 0.8);
+    color:          @orange-dark-3;
 }
 
 .oneline {
-    line-height: 1 !important;
+    line-height:    1 !important;
 }
