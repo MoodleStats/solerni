@@ -18,9 +18,11 @@
  * Required : include flexpage library
  */
 require_once($CFG->dirroot.'/course/format/flexpage/locallib.php');
-use local_orange_library\utilities\utilities_course;
 use theme_halloween\tools\theme_utilities;
 use local_orange_library\utilities\utilities_network;
+
+theme_halloween_redirect_if_wantsurl();
+
 
 $hassidepre = $PAGE->blocks->region_has_content('side-pre', $OUTPUT);
 $hassidepost = $PAGE->blocks->region_has_content('side-post', $OUTPUT);
@@ -86,9 +88,9 @@ echo $OUTPUT->doctype() ?>
     </div>
     <!-- content from template -->
     <div id="page" class="container">
-        <?php if(!utilities_course::is_frontpage_course($COURSE)) {
-            require_once($CFG->partialsdir . '/breadcrumb.php');
-        } ?>
+        <?php
+        require_once($CFG->partialsdir . '/breadcrumb.php');
+        ?>
         <div id="page-content" class="row">
             <div id="region-main" class="<?php echo $regions['content']; ?>">
                 <!-- content from plugin/mod/activity/local/page -->

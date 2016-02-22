@@ -36,6 +36,8 @@ require_once($CFG->dirroot.'/course/format/flexpage/locallib.php');
 $output = $PAGE->get_renderer('format_flexpage');
 $layout = course_format_flexpage_lib_moodlepage::LAYOUT;
 
+//origin : Orange
+//modification : display configuration errors for courses
 echo \local_orange_library\utilities\utilities_course::check_mooc_configuration($COURSE->id);
  
 if (!course_format_flexpage_lib_moodlepage::layout_exists($PAGE, $layout)) {

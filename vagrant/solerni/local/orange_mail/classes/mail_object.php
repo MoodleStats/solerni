@@ -46,7 +46,7 @@ class mail_object {
 
         $b = new stdClass();
         $b->imageurl = $imageurl->out();
-        $b->sitename = format_string($site->fullname);
+        $b->sitename = ucwords(format_string($site->fullname));
         $b->siteurl = $CFG->wwwroot;
         $b->catalogurl = $CFG->wwwroot . '/catalog/';
         $b->profilurl = $CFG->wwwroot . '/user/profile.php';

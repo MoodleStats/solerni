@@ -59,8 +59,8 @@ class theme_halloween_mod_quiz_renderer extends mod_quiz_renderer {
         $output .= html_writer::start_tag('div');
         // Print all the questions.
         foreach ($slots as $slot) {
-            $output .= $attemptobj->render_question($slot, false,
-                    $attemptobj->attempt_url($slot, $page));
+            $output .= $attemptobj->render_question($slot, false, $this,
+                    $attemptobj->attempt_url($slot, $page), $this);
         }
 
         $output .= html_writer::start_tag('div', array('class' => 'submitbtns'));
@@ -86,7 +86,7 @@ class theme_halloween_mod_quiz_renderer extends mod_quiz_renderer {
         // if you navigate before the form has finished loading, it does not wipe all
         // the student's answers.
         $output .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => 'slots',
-                'value' => implode(',', $slots)));
+                'value' => implode(',', $attemptobj->get_active_slots($page))));
 
         // Finish the form.
         $output .= html_writer::end_tag('div');

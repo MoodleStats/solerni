@@ -44,6 +44,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 h1, .h1,
+h2, .h2,
 h4, .h4 {
     color: @brand-primary;
 }
@@ -249,7 +250,7 @@ img.icon {
 
 /* en savoir plus */
 .zigzag .row {
-    padding: 20px;
+    padding: @grid-gutter-width;
 }
 
 .zigzag .row:nth-child(odd) {
@@ -261,7 +262,7 @@ img.icon {
 }
 
 .margin-bottom-md {
-     margin-bottom: 20px;
+     margin-bottom: @grid-gutter-width;
 }
 
 .subscription-banner {
@@ -271,11 +272,42 @@ img.icon {
     background-color: @component-active-bg;
 }
 .center {
-        text-align: center;
+    text-align: center;
 }
 
+.icon-map  {
+    float:left;
+    .centered {
+        vertical-align: middle;
+    }
+
+    img {
+        width: @font-size-h2;
+        height: @font-size-h2;
+
+    }
+    
+}
+
+.icon-map .logo-image {
+    
+    .centertext {
+        display:block;
+        float: left;      
+    }
+    
+}
+
+.icon-map .textcentered{
+    float: right;
+    line-height: 45px;
+}
 // Footer version control display
 .version-control {
     font-size:  (@font-size-base * 0.8);
     color:      @orange-dark-3;
+}
+
+.oneline {
+    line-height: 1 !important;
 }

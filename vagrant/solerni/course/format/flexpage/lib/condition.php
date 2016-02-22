@@ -23,11 +23,6 @@
 
 use core_availability\info;
 
-//origin : Orange
-//plugin version : 2016011800
-//modification : upgrading to moodle 2.9
-//class and CONST in conditionlib.php are deprecated
-
 /**
  * @author Mark Nielsen
  * @package format_flexpage
