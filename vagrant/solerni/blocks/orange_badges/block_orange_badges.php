@@ -60,19 +60,18 @@ class block_orange_badges extends block_base {
     public function specialization() {
         global $PAGE;
 
-        $url = $PAGE->url;
         // If we are on the dashboard (My) then we customized the output for Solerni.
-        if (!empty($url)) {
+        if (isset($PAGE->url) && !empty($PAGE->url)) {
             $ismypage = ($PAGE->url->compare(new moodle_url('/my/index.php'), URL_MATCH_BASE) ||
                 $PAGE->url->compare(new moodle_url('/my/indexsys.php'), URL_MATCH_BASE));
 
             if ($ismypage) {
-                $this->title = get_string('pluginname', 'block_orange_badges');
+                $this->title = get_string('titledashboard', 'block_orange_badges');
             } else {
                 $this->title = get_string('titlemooc', 'block_orange_badges');
             }
         } else {
-            $this->title = get_string('pluginname', 'block_orange_badges');
+            $this->title = get_string('titledashboard', 'block_orange_badges');
         }
     }
 
