@@ -94,10 +94,33 @@ $string['complete'] = 'Complet';
 $string['composeemail'] = 'Composer un courriel&nbsp;:';
 $string['confirmdelete'] = 'Vous ne pourrez plus annuler la suppression. Continuer ?';
 $string['conflictingslots'] = 'Il y a des créneaux horaires incompatibles :<br/>';
+$string['contentformat'] = 'Format';
+$string['contentformat_help'] = '<p>Il y a trois choix de base pour le format d\'exportation, présentant de façons différentes la manipulation des créneaux de plusieurs rendez-vous.
+     <dl>
+          <dt>Une ligne par créneau</ dt> :
+          <dd>
+Le fichier de sortie contient une ligne pour chaque créneau. Si un créneau contient plusieurs
+rendez-vous, un marqueur « (multiple) » sera affiché à la place du nom de l\'étudiant, etc.
+         </dd>
+          <dt> Une ligne par rendez-vous</dt> :
+          <dd>
+Le fichier de sortie contient une ligne pour chaque rendez-vous. Si un créneau contient plusieurs
+rendez-vous, alors il apparaît plusieurs fois dans la liste (avec ses données répétées).
+          </dd>
+          <dt>Nominations regroupées par emplacement</dt> :
+          <dd>
+Tous les rendez-vous d\'un créneau sont regroupés, précédés par une ligne d\'en-tête
+indiquant l\'emplacement en question. Cela peut ne pas bien fonctionner avec le format de fichier de sortie CSV, comme le nombre de colonnes non constant.
+          </dd>
+     </dl>
+Vous pouvez vérifier l\'effet de ces options en utilisant le bouton « Prévisualisation ». </ P>';
 $string['course'] = 'Cours';
+$string['createexport'] = 'Créer le fichier d\'exportation';
 $string['csvfieldseparator'] = 'Séparateur de champs csv';
+$string['csvformat'] = 'CSV';
 $string['cumulatedduration'] = 'Durée totale des rendez-vous';
 $string['datatoinclude'] = 'Données à inclure';
+$string['datatoinclude_help'] = 'Sélectionnez les champs qui doivent être inclus dans l\'exportation. Chacun apparaîtra dans une colonne du fichier de sortie.';
 $string['date'] = 'Date';
 $string['datelist'] = 'Synthèse';
 $string['defaultslotduration'] = 'Durée du créneau par défaut';
@@ -118,11 +141,11 @@ $string['dontforgetsaveadvice'] = 'Vous avez modifié la liste temporaire des re
 $string['duration'] = 'Durée';
 $string['durationrange'] = 'La durée d\'un créneau doit se trouver entre {$a->min} et {$a->max} minutes.';
 $string['email_applied_html'] = '<p>Un rendez-vous a été choisi le {$a->date} à {$a->time},<br/>
-par l\'étudiant <a href="{$a->attendee_url}">{$a->attendee}</a> pour le cours:
+par l\'étudiant <a href="{$a->attendee_url}">{$a->attendee}</a> pour le cours :
 
 <p>{$a->course_short}: <a href="{$a->course_url}">{$a->course}</a></p>
 
-<p>dans le planning intitulé "<em>{$a->module}</em>" sur le site: <a href="{$a->site_url}">{$a->site}</a>.</p>';
+<p>dans le planning intitulé "<em>{$a->module}</em>" sur le site : <a href="{$a->site_url}">{$a->site}</a>.</p>';
 $string['email_applied_plain'] = 'Un rendez-vous a été pris le {$a->date} à {$a->time},
 par l\'étudiant {$a->attendee} pour le cours :
 

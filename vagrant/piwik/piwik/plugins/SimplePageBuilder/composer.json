@@ -1,0 +1,17 @@
+{
+    "name": "piwikpro/SimplePageBuilder",
+    "type": "piwik-plugin",
+    "description": "Lets you add a custom page to Piwik.",
+    "license": "Paid plugin",
+    "license_homepage": "http://piwik.pro/contact",
+    "homepage": "http://piwik.pro",
+    "authors": [
+        {
+            "name": "PiwikPRO",
+            "email": "contact@piwik.pro"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2"
+    }
+}

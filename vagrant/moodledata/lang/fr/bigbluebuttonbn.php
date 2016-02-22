@@ -282,4 +282,3 @@ $string['view_recording_recording'] = 'Enregistrement';
 $string['view_recording_tags'] = 'Tags';
 $string['view_section_title_presentation'] = 'Fichier de présentation';
 $string['view_section_title_recordings'] = 'Enregistrements';
-$string['view_wait'] = 'La conférence n\'a pas encore démarré. En attente de connexion d\'un modérateur...';
