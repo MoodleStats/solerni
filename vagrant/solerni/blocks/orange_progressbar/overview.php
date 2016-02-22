@@ -43,7 +43,7 @@ $progressblockcontext = context_block::instance($id);
 // Set up page parameters.
 $PAGE->set_course($course);
 $PAGE->requires->css('/blocks/orange_progressbar/styles.css');
-$PAGE->set_url('/blocks/progress/overview.php', array('progressbarid' => $id, 'courseid' => $courseid));
+$PAGE->set_url('/blocks/orange_progressbar/overview.php', array('progressbarid' => $id, 'courseid' => $courseid));
 $PAGE->set_context($context);
 $title = get_string('overview', 'block_orange_progressbar');
 $PAGE->set_title($title);
