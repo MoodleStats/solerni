@@ -240,3 +240,8 @@ moosh config-set hideblockheader 1 block_orange_action
 
 # defaulthomepage = Dashboard (#us_380)
 moosh config-set defaulthomepage 1
+
+# Manage blocks for 'Dashboard' page (badges + course overview deleted)
+moosh block-add system 0 orange_badges my-index content 0
+moosh block-delete system 0 badges my-index
+moosh block-delete system 0 course_overview my-index
