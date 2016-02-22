@@ -22,10 +22,11 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['orange_badges:addinstance'] = 'Ajouter un bloc Orange Mes badges';
-$string['orange_badges:myaddinstance'] = 'Ajouter un bloc Orange Mes badges au tableau de bord';
-$string['nothingtodisplay'] = 'Vous n\'avez pas de badge à afficher';
-$string['numbadgestodisplay'] = 'Nombre de derniers badges à afficher';
+$string['pluginname'] = 'Orange badges';
+$string['titledashboard'] = 'Derniers badges';
 $string['titlemooc'] = 'Les badges du MOOC';
 $string['allmoocbadges'] = 'Tous les badges du mooc';
-$string['pluginname'] = 'Derniers badges';
+$string['numbadgestodisplay'] = 'Nombre de derniers badges à afficher';
+$string['nothingtodisplay'] = 'Vous n\'avez pas de badge à afficher';
+$string['orange_badges:addinstance'] = 'Ajouter un bloc Orange Mes badges';
+$string['orange_badges:myaddinstance'] = 'Ajouter un bloc Orange Mes badges au tableau de bord';
