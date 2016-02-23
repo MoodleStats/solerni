@@ -42,7 +42,7 @@ class block_orange_horizontal_numbers extends block_base {
      */
     public function init() {
         Global $PAGE;
-        $this->title = ''; // No title displayed for this block.
+        $this->title = get_string('pluginname', 'block_orange_horizontal_numbers');
         $this->renderer = $PAGE->get_renderer('block_orange_horizontal_numbers');
     }
 
@@ -53,6 +53,10 @@ class block_orange_horizontal_numbers extends block_base {
      */
     public function has_config() {
         return false;
+    }
+
+    public function specialization() {
+        $this->title = "";
     }
 
     /**

@@ -21,30 +21,11 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Orange Messages Horizontaux';
-$string['titleblock'] = '(Titre du bloc)';
+$string['pluginname'] = 'Orange Nombres Horizontaux';
 
-$string['orange_emerging_messages:addinstance'] = 'Ajouter un block Orange Messages Horizontaux';
-
+$string['orange_emerging_messages:addinstance'] = 'Ajouter un block Orange Nombres Horizontaux';
 
 $string['nbposts'] = 'Messages postés';
 $string['nbusers'] = 'Membres';
 $string['lastuserconnected'] = 'Dernier inscrit';
 $string['nbusersconnected'] = 'Connectés en ce moment';
-
-$string['title'] = 'Titre du block';
-$string['nbdisplaypostdefault'] = '3';
-$string['nbdisplaypost'] = 'Nombre de messages affichés';
-$string['settings'] = "Paramètres";
-
-$string['typetop'] = 'Type des messages à afficher';
-$string['mylastposts'] = 'Derniers messages de l\'utilisateur';
-$string['lastdiscussions'] = 'Dernières discussions';
-$string['bestposts'] = 'Messages les mieux notés';
-$string['nouserposts'] = "Vous n'avez posté aucun message dans les forums.";
-$string['nodiscussions'] = "Aucune discussion n'a été amorcé.";
-$string['nobestposts'] = "Les messages ne sont pas encore notés";
-
-
-$string['orange_emerging_messages:myaddinstance'] = 'Ajouter un nouveau block Messages Importants à ma Page';
-$string['orange_emerging_messages:addinstance'] = 'Ajouter un block Messages Importants';

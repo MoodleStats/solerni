@@ -21,29 +21,11 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Orange Horizontal Messages';
-$string['titleblock'] = '(Title of block)';
+$string['pluginname'] = 'Orange Horizontal Numbers';
 
-$string['orange_emerging_messages:addinstance'] = 'Add a new block Orange Horizontal Messages';
+$string['orange_emerging_messages:addinstance'] = 'Add a new block Orange Horizontal Numbers';
 
 $string['nbposts'] = 'Posted Messages';
 $string['nbusers'] = 'Registered';
 $string['lastuserconnected'] = 'Last connected';
 $string['nbusersconnected'] = 'Users connected Now';
-
-$string['title'] = 'Title of block';
-$string['nbdisplaypostdefault'] = '3';
-$string['nbdisplaypost'] = 'Numbers of posts displayed';
-$string['settings'] = "Settings";
-
-$string['typetop'] = 'Type of posts displayed';
-$string['mylastposts'] = 'Last posts of user';
-$string['lastdiscussions'] = 'Last discussions';
-$string['bestposts'] = 'Top rated posts';
-$string['nouserposts'] = "You have no messages posted in the forums.";
-$string['nodiscussions'] = "No discussions have been initiated.";
-$string['nobestposts'] = "The messages are not rated yet";
-
-
-$string['orange_emerging_messages:myaddinstance'] = 'Add a new block Emerging Messages to My home';
-$string['orange_emerging_messages:addinstance'] = 'Add a new block Emerging Messages';
