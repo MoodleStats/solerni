@@ -77,5 +77,4 @@ class block_orange_horizontal_numbers_renderer extends plugin_renderer_base {
 
         return $output;
     }
-
 }
