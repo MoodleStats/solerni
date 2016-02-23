@@ -26,6 +26,9 @@
  *
  * @author Mark Nielsen
  * @package format_flexpage
+ *
+ * Orange : add the extended page parameters
+ *          2016022300 : add deleteactivitywarn, modify deletemodwarn
  */
 $string['pluginname'] = 'Flexpage format';
 $string['defaultcoursepagename'] = 'Default flexpage (Change me)';
@@ -96,7 +99,7 @@ $string['next'] = 'Next';
 $string['previouspage'] = '< Previous';
 $string['previous'] = 'Previous';
 $string['themelayoutmissing'] = 'Your current theme does not support Flexpage.  Please change the theme (or if enabled, the course theme or your preferred theme in your profile) to one that has a "{$a}" layout.';
-$string['deletemodwarn'] = 'If this activity is deleted, then it will be removed from all flexpages.';
+$string['deletemodwarn'] = 'If this block is deleted, then it will be removed from all flexpages.';
 $string['continuedotdotdot'] = 'Continue...';
 $string['warning'] = 'Warning';
 $string['actionbar'] = 'Action bar';
@@ -315,3 +318,6 @@ $string['videoplayer_default'] = '';
 $string['inactivitydelay'] = 'Time limit of inactivity';
 $string['inactivitydelay_help'] = 'Time limit of inactivity';
 $string['inactivitydelay_default'] = '';
+
+// Adding the delete activity warning message.
+$string['deleteactivitywarn'] = 'If this activity is deleted, then it will be removed from all flexpages.';
