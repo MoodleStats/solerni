@@ -56,7 +56,7 @@ function theme_halloween_bootstrap_grid($hassidepre, $hassidepost) {
             $regions['post'] = 'col-sm-3 col-sm-pull-9 col-lg-2 col-lg-pull-10';
         }
     }
-    
+
     return $regions;
 }
 
@@ -162,4 +162,11 @@ function theme_halloween_redirect_if_wantsurl() {
         unset($SESSION->wantsurl);
         redirect($urltogo);
     }
+}
+
+/*
+ * Loads core jQuery in theme
+ */
+function theme_halloween_page_init(moodle_page $page) {
+    $page->requires->jquery();
 }
