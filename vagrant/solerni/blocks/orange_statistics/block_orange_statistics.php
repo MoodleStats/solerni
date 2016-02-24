@@ -43,18 +43,24 @@ class block_orange_statistics extends block_base {
 
     public function get_content() {
         global $USER, $COURSE, $CFG, $OUTPUT, $DB;
+        
+        
+        print_object($COURSE);
     if ($this->content !== null) {
         return $this->content;
     }
-    die($USER);
+    // die($USER);
     $this->content         =  new stdClass;
     $this->content->text   = 'The content of our statistics block!';
     $this->content->footer = 'Footer here...';
     $blockinstancesonpage = array();
     
     if (has_capability('block/orange_statistics:overview', $this->context)) {
-        $parameters = array('courseid' => $COURSE->id);
-        $url = new moodle_url('/blocks/orange_statistics/overview.php', $parameters);
+        
+        $courseid = $COURSE->id;
+        $parameters = array('courseid' =>$courseid);
+
+        $url = new moodle_url('/blocks/orange_statistics/overview.php', array('courseid' =>$courseid));
         $label = get_string('overviewbutton', 'block_orange_statistics');
         $options = array('class' => 'overviewButton');
         $this->content->text .= $OUTPUT->single_button($url, $label, 'post', $options);

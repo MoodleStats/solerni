@@ -24,22 +24,46 @@
  */
 
 require_once(dirname(__FILE__) . '/../../config.php');
+use local_orange_library\utilities\utilities_course;
+use local_orange_library\extended_course\extended_course_object;
+use context_course;
 
+global $DB;
 
-global $COURSE, $DB;
+$courseid = optional_param('courseid', SITEID, PARAM_INT);
+if (!$course = $DB->get_record('course', array('id' => $courseid))) {
+    print_error("No such course id");
+}
+
+$context = context_course::instance($courseid, MUST_EXIST);
+
+$extendedcourse = new extended_course_object();
+$extendedcourse->get_extended_course($course, $context);
+
+$inactivitydelay=$extendedcourse->inactivitydelay;
+echo $inactivitydelay;
+// print_r($PAGE->context);
+
+//$context = $PAGE->context;
+//$coursecontext = $context->get_course_context();
+
+        //if ($coursecontext) { // No course context for system / user profile.
+         //   $courseid = $coursecontext->instanceid;
+       // }
 
 // $user = $DB->get_record_sql('SELECT * FROM {user} WHERE id = 1');
 
 // $user->lastcourseaccess    = array(); // During last session.
 // $user->currentcourseaccess = array();
-print_r('allo');
-print_object($user);
-    $user->currentcourseaccess = array(); // During current session.
-    if ($lastaccesses = $DB->get_records('user_lastaccess', array('userid' => $user->id))) {
-        foreach ($lastaccesses as $lastaccess) {
-            $user->lastcourseaccess[$lastaccess->courseid] = $lastaccess->timeaccess;
-        }
-    }
+
+    
+
+    // $user->currentcourseaccess = array(); // During current session.
+    // if ($lastaccesses = $DB->get_records('user_lastaccess', array('userid' => $user->id))) {
+     //   foreach ($lastaccesses as $lastaccess) {
+    //        $user->lastcourseaccess[$lastaccess->courseid] = $lastaccess->timeaccess;
+     //   }
+    // }
     
     
 // $sql = 'SELECT u.firstname as Firstname, u.lastname as Lastname FROM {user} u
@@ -50,7 +74,7 @@ print_object($user);
 // JOIN {user} as u ON ue.userid = u.id
 // where u.course.id='.$COURSE->id;
 
-$lisusernoactive = $DB->get_record_sql($sql);
+// $lisusernoactive = $DB->get_record_sql($sql);
 
 
-print_r($sql);
+//print_r($sql);
