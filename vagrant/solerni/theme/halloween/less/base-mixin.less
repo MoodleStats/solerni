@@ -7,6 +7,7 @@
 
 @import "moodle/variables";
 
+@import "variables-orange2015.less"; // Definition file : Orange Boosted variables
 @import "halloween-variables.less"; // Definition file : Halloween variables
 
 // Override Bootstrap defaults.
@@ -44,15 +45,18 @@
 @import "moodle/dock";
 @import "moodle/grade";
 
-@import "glyphicons.less";                      // Glyphicons from Boostrap 3.3.2
-@import "halloween-buttons.less";               // Buttons
-@import "orange-css.less";                      // Use new variables from Boost
-@import "iconOrange.less";                      // Orange iconic Font from Boost
+@import "halloween-buttons.less";               // Halloween Buttons
+@import "orange-css.less";                      // Use new variables from Boosted
+@import "iconOrange.less";                      // Orange iconic Font from Boosted
+@import "local.less";                           // Boosted specific
+@import "modal.less";                           // Boosted modals
+@import "pagination.less";                      // Boosted pagination
 @import "classic_tab.less";                     // Use new object from Boost
 @import "pointed_tab.less";                     // Use new object from Boost
 @import "o-checkbox.less";                      // Boost form checkboxes
-@import "o-radio";                              // Boost form radio
-@import "responsive_table";                     // Boost responsive table
+@import "o-radio.less";                         // Boost form radio
+@import "responsive_table.less";                // Boost responsive table
+@import "bullet_points.less";                   // Boost responsive table
 @import "halloween-css.less";                   // Halloween CSS
 @import "halloween-icons.less";                 // Halloween Icons
 @import "halloween-header.less";                // Header CSS Rules
@@ -62,5 +66,6 @@
 @import "halloween-login-signup.less";          // Login and signup process
 @import "halloween-thumbnails.less";            // Thumbnails (Mooc Block)
 @import "halloween-u-inverse.less";             // Rules about black background
-@import "halloween-action-banner.less";   // Subscription banner (En savoir plus)
+@import "halloween-action-banner.less";         // Subscription banner (En savoir plus)
+@import "halloween-forms.less";                 // Forms
 @import (inline) "../style/flexpage.css";       // Flexpage CSS
