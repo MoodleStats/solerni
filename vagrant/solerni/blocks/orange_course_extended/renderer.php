@@ -326,9 +326,10 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
                 $registrationvalue = get_string('registration_case1', 'block_orange_course_extended').$registrationstring;
             break;
             case '1':
-                $registrationvalue = get_string('registration_case2', 'block_orange_course_extended').
-                $extendedcourse->maxregisteredusers.' '.
-                get_string('registration_case2_2', 'block_orange_course_extended').$registrationstring;
+                $registrationvalue = get_string('registration_case2', 'block_orange_course_extended', 
+                        $extendedcourse->maxregisteredusers - $extendedcourse->enrolledusersself);
+                //$extendedcourse->maxregisteredusers.' '.
+                //get_string('registration_case2_2', 'block_orange_course_extended').$registrationstring;
             break;
             case '2':
                 $registrationvalue = get_string('registration_case3', 'block_orange_course_extended').

@@ -159,8 +159,7 @@ $string['registration_to'] = ' au ';
 $string['registrationcompany'] = 'Propriétaire: ';
 $string['registrationcompany_default'] = 'Propriétaire';
 $string['registrationcompany_help'] = 'Société à laquelle appartient le mooc.';
-$string['registration_case2'] = 'limité a(ux) ';
-$string['registration_case2_2'] = 'premier(s) inscrit(s) ';
+$string['registration_case2'] = '{$a} place(s) disponible(s)';
 $string['registration_case3'] = 'Vous êtes autorisé à vous inscrire par ';
 
 // Registered users.
