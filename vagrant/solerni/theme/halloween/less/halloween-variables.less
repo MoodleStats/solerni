@@ -13,11 +13,12 @@
 //
 
 @brand-primary:         #000000; // Black
-@brand-secondary:       #F16E00; // Orange
+@brand-secondary:       #FF7900; // Orange
 @brand-tertiary:        #FFFFFF; // White
+@brand-contrasted:      #F16E00; // Orange Contrasted
 
 @brand-success:         #32C832; // Green
-@brand-info:            #527EBD; // Blue
+@brand-info:            #4BB4E6; // Blue
 @brand-warning:         #FFCC00; // Yellow
 @brand-danger:          #DC3C14; // Red
 
@@ -30,18 +31,17 @@
 @orange-purple:         #A885D8;
 @orange-pink:           #FFB4E6;
 
-@orange-light-1:        #F6F6F6;
-@orange-light-2:        #EEEEEE;
-@orange-light-3:        #DDDDDD;
-@orange-light-4:        #CCCCCC;
-@orange-mid-1:          #999999;
-@orange-mid-2:          #666666;
-@orange-dark-1:         #444444;
+@orange-light-1:        #FAFAFA;
+@orange-light-2:        #F6F6F6;
+@orange-light-3:        #EEEEEE;
+@orange-light-4:        #DDDDDD;
+@orange-mid-1:          #CCCCCC;
+@orange-mid-2:          #999999;
+@orange-dark-1:         #666666;
 @orange-dark-2:         #333333;
-@orange-dark-3:         #232323;
 
 // Grays mapping to orange grays
-@gray-darker:           @orange-dark-3;
+@gray-darker:           @orange-dark-2;
 @gray-dark:             @orange-dark-1;
 @gray:                  @orange-mid-1;
 @gray-light:            @orange-light-3;
@@ -87,9 +87,10 @@
 
 @html-font-size-base: 62.5%;
 
-@font-family-titles:      "OrangeSans","Orange Sans",Arial,sans-serif;
-@font-family-sans-serif:  "OrangeSans", Arial, Helvetica, sans-serif;
-@font-family-serif:       Georgia, "Times New Roman", Times, serif;
+@font-family-titles:        "HelvNeue75", Arial,sans-serif;
+@font-family-sans-serif:    "HelvNeue55", Arial,sans-serif;
+@font-family-serif:         Georgia, "Times New Roman", Times, serif;
+
 //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
 @font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
 @font-family-base:        @font-family-sans-serif;
@@ -106,7 +107,7 @@
 @font-size-h6:            floor((@font-size-base * 1.25));      // ~20px
 
 //** Unit-less `line-height` for use in components like buttons.
-@line-height-base:        1.428571429; // 20/14
+@line-height-base:        1.25; // 20/16
 //** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
 @line-height-computed:    floor((@font-size-base * @line-height-base)); // ~20px
 
@@ -120,21 +121,18 @@
 // We can find regularities in paddings or margins across the design.
 // We will try to organize those regularities into numeric constants
 
-@s-small-md-margin:      10px;  // 14px
-@s-medium-md-margin:     20px;  // 20px
-@s-double-md-margin:     30px;  // 30px
-@s-triple-md-margin:     50px;  // 42px
+@s-small-md-margin:      10px;
+@s-medium-md-margin:     20px;
+@s-double-md-margin:     30px;
+@s-triple-md-margin:     50px;
 
-@s-small-xs-margin:      10px;    // 10px
-@s-medium-xs-margin:     @s-small-xs-margin;                     // 10px
-@s-double-xs-margin:     ceil(@s-small-xs-margin * 2);           // 20px
-@s-triple-xs-margin:     ceil(@s-small-xs-margin * 3);           // 30px
+@s-small-xs-margin:      10px;                          // 10px
+@s-medium-xs-margin:     @s-small-xs-margin;            // 10px
+@s-double-xs-margin:     ceil(@s-small-xs-margin * 2);  // 20px
+@s-triple-xs-margin:     ceil(@s-small-xs-margin * 3);  // 30px
 
-@s-standard-icon-size:   36px;
-@s-double-icon-size:     @s-standard-icon-size * 2;
-@s-triple-icon-size:     @s-standard-icon-size * 3;
-@s-quadruple-icon-size:  @s-standard-icon-size * 4;
-
+@s-standard-icon-size:      36px;
+@s-small-icon-size:         30px;
 
 //-- Iconography
 //
@@ -149,17 +147,17 @@
 //## Define common padding and border radius sizes and more. Values based on 14px text and 1.428 line-height (~20px to start).
 //## Boost-Based Values
 
-@padding-base-vertical:     10px;
-@padding-base-horizontal:   20px;
+@padding-base-vertical:     @s-medium-md-margin; // 20px
+@padding-base-horizontal:   @s-medium-md-margin;
 
-@padding-large-vertical:    12px;
-@padding-large-horizontal:  20px;
+@padding-large-vertical:    @s-triple-md-margin; // 50px
+@padding-large-horizontal:  @s-triple-md-margin;
 
-@padding-small-vertical:    5px;
-@padding-small-horizontal:  10px;
+@padding-small-vertical:    @s-small-md-margin; // 10px
+@padding-small-horizontal:  @s-small-md-margin;
 
-@padding-xs-vertical:       1px;
-@padding-xs-horizontal:     10px;
+@padding-xs-vertical:       @s-small-xs-margin; // 10px
+@padding-xs-horizontal:     @s-small-xs-margin;
 
 @line-height-large:         1.2;
 @line-height-small:         1.5;
@@ -299,7 +297,7 @@
 @input-border-focus:             @brand-primary;
 
 //** Placeholder text color
-@input-color-placeholder:        @orange-dark-2;
+@input-color-placeholder:        @gray;
 
 //** Default `.form-control` height
 @input-height-base:              (@line-height-computed + (@padding-base-vertical * 2) + 2);
@@ -422,20 +420,19 @@
 //## Define the maximum width of `.container` for different screen sizes.
 
 // Small screen / tablet
-@container-tablet:             ((720px + @grid-gutter-width));
+@container-tablet:             ((704px + @grid-gutter-width));
 //** For `@screen-sm-min` and up.
 @container-sm:                 @container-tablet;
 
 // Medium screen / desktop
-@container-desktop:            ((940px + @grid-gutter-width));
+@container-desktop:            ((920px + @grid-gutter-width));
 //** For `@screen-md-min` and up.
 @container-md:                 @container-desktop;
 
 // Large screen / wide desktop
-@container-large-desktop:      ((1140px + @grid-gutter-width));
+@container-large-desktop:      ((1160px + @grid-gutter-width));
 //** For `@screen-lg-min` and up.
 @container-lg:                 @container-large-desktop;
-
 
 //== Navbar
 //

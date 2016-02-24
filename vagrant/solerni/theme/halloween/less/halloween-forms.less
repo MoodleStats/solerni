@@ -1,0 +1,40 @@
+/*
+    Moodle Forms rules
+*/
+
+label {
+    margin-bottom: @padding-small-vertical;
+    font-family:    @font-family-titles;
+}
+
+.form-group,
+.mform .fitem,
+.form-item {
+  margin-bottom: @padding-large-vertical;
+}
+
+.form-control,
+.fp-formset .controls input[type="text"],
+.fp-formset .controls select {
+    border-color:   @gray;
+    padding:        @padding-small-vertical;
+    height:         40px;
+    font-weight:    bold;
+    font-family:    @font-family-titles;
+}
+
+input[type=text], input[type=password], textarea {
+    width: 100%; // overrides YUI funny rules.
+}
+
+.form-control:focus {
+    border-color: @orange-mid-2;
+}
+
+select.form-control {
+    height: 45px;
+}
+
+select[multiple] {
+    height: auto;
+}
