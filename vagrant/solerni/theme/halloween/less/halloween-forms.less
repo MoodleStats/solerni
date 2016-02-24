@@ -112,15 +112,30 @@ fieldset[disabled] .form-control {
 .o-checkbox[type="checkbox"]:disabled:checked + label:before{
   border-color: @gray;
 }
+
+input.o-checkbox[type="checkbox"]:disabled:checked + label:after {
+    background-color: @gray;
+}
+
 /* styles de la coche (si cochée/désactivée) */
 .o-checkbox[type="checkbox"]:disabled:checked + label:after{
-  border-color:@gray;
-  background-color:@gray-lighter;
-  color: @brand-tertiary;
+  border-color:     @gray;
+  background-color: @gray-lighter;
+  color:            @brand-tertiary;
 }
 /* on style aussi le label quand désactivé */
 .o-checkbox[type="checkbox"]:disabled + label{
   color: @gray;
+}
+
+.o-checkbox[type="checkbox"]:not(:checked) + label:before,
+.o-checkbox[type="checkbox"]:checked + label:before {
+    border-color: @gray;
+}
+
+.o-checkbox[type="checkbox"]:not(:checked) + label:after,
+.o-checkbox[type="checkbox"]:checked + label:after{
+    transition: all .2s;
 }
 
 .o-checkbox[type="checkbox"]:not(:checked) + label:before,
@@ -139,4 +154,38 @@ fieldset[disabled] .form-control {
 .o-checkbox-right.o-checkbox[type="checkbox"]:not(:checked) + label,
 .o-checkbox-right.o-checkbox[type="checkbox"]:checked + label {
     padding-right: (@font-size-large * 1.75);
+}
+
+/*
+ * Radio buttons
+ */
+.o-radio[type="radio"]:not(:checked) + label:before,
+.o-radio[type="radio"]:checked + label:before,
+.o-radio[type="radio"]:not(:checked) + label:after,
+.o-radio[type="radio"]:checked + label:after{
+    width: (@font-size-large + 2);
+    height: (@font-size-large + 2);
+}
+
+.o-radio[type="radio"]:not(:checked) + label:before {
+    border-color: @gray;
+}
+
+.o-radio[type="radio"]:not(:checked) + label,
+.o-radio[type="radio"]:checked + label {
+    padding-left: (@font-size-large * 1.75);
+}
+
+.o-radio-right.o-radio[type="radio"]:not(:checked) + label,
+.o-radio-right.o-radio[type="radio"]:checked + label {
+    padding-right: (@font-size-large * 1.75);
+}
+
+.o-radio[type="radio"]:disabled + label {
+    color: @gray;
+}
+
+.o-radio[type="radio"]:disabled:not(:checked) + label:before,
+.o-radio[type="radio"]:disabled:checked + label:before {
+    border-color: @gray;
 }
