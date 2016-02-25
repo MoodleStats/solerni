@@ -26,6 +26,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2016020500;        // The current plugin version (Date: YYYYMMDDXX).
+$plugin->version   = 2016020501;        // The current plugin version (Date: YYYYMMDDXX).
 $plugin->requires  = 2015050500;        // Requires this Moodle version.
 $plugin->component = 'block_orange_badges';
