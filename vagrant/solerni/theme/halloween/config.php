@@ -250,10 +250,4 @@ $THEME->rendererfactory = 'theme_overridden_renderer_factory';
  * $THEME->javascripts_footer includes files in the footer
  */
 
-$THEME->javascripts = array('jquery-1.11.3');
 $THEME->javascripts_footer = array('piwik_tag_events');
-
-/*
- * Allow docking for navigation blocks
- */
-$THEME->enable_dock = true;

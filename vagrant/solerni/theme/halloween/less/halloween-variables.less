@@ -197,7 +197,6 @@
 //** Border color for table and cell borders.
 @table-border-color:            @gray-light;
 
-
 //== Buttons
 //
 //## For each of Bootstrap's buttons, define text, background and border color
@@ -214,6 +213,8 @@
 @btn-default-color-active:       @btn-default-bg;
 @btn-default-bg-active:          @brand-secondary;
 @btn-default-border-active:      @btn-default-bg-active;
+@btn-default-disabled-bg:        @brand-tertiary;
+@btn-default-disabled-color:     @gray;
 
 @btn-primary-color:              @brand-tertiary;
 @btn-primary-bg:                 @brand-primary;
@@ -224,16 +225,20 @@
 @btn-primary-color-active:       @btn-primary-color;
 @btn-primary-bg-active:          @brand-secondary;
 @btn-primary-border-active:      @btn-primary-bg-active;
+@btn-primary-disabled-bg:        @gray;
+@btn-primary-disabled-color:     @brand-tertiary;
 
-@btn-success-color:              @brand-tertiary;
+@btn-success-color:              @brand-primary;
 @btn-success-bg:                 @brand-success;
-@btn-success-border:             @btn-success-bg;
-@btn-success-color-hover:        @btn-success-color;
-@btn-success-bg-hover:           darken(@btn-success-bg, 12%);
+@btn-success-border:             @brand-success;
+@btn-success-color-hover:        @brand-tertiary;
+@btn-success-bg-hover:           @brand-primary;
 @btn-success-border-hover:       @btn-success-bg-hover;
-@btn-success-color-active:       @btn-success-color;
-@btn-success-bg-active:          darken(@btn-success-bg, 24%);
+@btn-success-color-active:       @brand-tertiary;
+@btn-success-bg-active:          @brand-secondary;
 @btn-success-border-active:      @btn-success-bg-active;
+@btn-success-disabled-bg:        @gray;
+@btn-success-disabled-color:     @brand-tertiary;
 
 @btn-info-color:                 @brand-tertiary;
 @btn-info-bg:                    @brand-info;
@@ -244,6 +249,8 @@
 @btn-info-color-active:          @btn-info-color;
 @btn-info-bg-active:             darken(@btn-info-bg, 24%);
 @btn-info-border-active:         @btn-info-bg-active;
+@btn-info-disabled-bg:           @gray;
+@btn-info-disabled-color:        @brand-tertiary;
 
 @btn-warning-color:              @brand-tertiary;
 @btn-warning-bg:                 @brand-warning;
@@ -254,29 +261,34 @@
 @btn-warning-color-active:       @btn-warning-color;
 @btn-warning-bg-active:          darken(@btn-warning-bg, 24%);
 @btn-warning-border-active:      @btn-warning-bg-active;
+@btn-warning-disabled-bg:        @gray;
+@btn-warning-disabled-color:     @brand-tertiary;
 
-@btn-danger-color:               @brand-tertiary;
+@btn-danger-color:               @brand-primary;
 @btn-danger-bg:                  @brand-danger;
 @btn-danger-border:              @btn-danger-bg;
-@btn-danger-color-hover:         @btn-danger-color;
-@btn-danger-bg-hover:            darken(@btn-danger-bg, 12%);
+@btn-danger-color-hover:         @brand-tertiary;
+@btn-danger-bg-hover:            @brand-primary;
 @btn-danger-border-hover:        @btn-danger-bg-hover;
-@btn-danger-color-active:        @btn-danger-color;
-@btn-danger-bg-active:           darken(@btn-danger-bg, 24%);
+@btn-danger-color-active:        @brand-tertiary;
+@btn-danger-bg-active:           @brand-secondary;
 @btn-danger-border-active:       @btn-danger-bg-active;
+@btn-danger-disabled-bg:         @gray;
+@btn-danger-disabled-color:      @brand-tertiary;
 
 @btn-engage-color:               @brand-tertiary;
 @btn-engage-bg:                  @brand-secondary;
 @btn-engage-border:              @btn-engage-bg;
-@btn-engage-color-hover:         @btn-engage-color;
-@btn-engage-bg-hover:            darken(@btn-engage-bg, 12%);
-@btn-engage-border-hover:        @btn-engage-bg-hover;
-@btn-engage-color-active:        @btn-engage-color;
-@btn-engage-bg-active:           darken(@btn-engage-bg, 24%);
-@btn-engage-border-active:       @btn-engage-bg-active;
+@btn-engage-color-hover:         @brand-tertiary;
+@btn-engage-bg-hover:            @brand-primary;
+@btn-engage-border-hover:        @brand-tertiary;
+@btn-engage-color-active:        @brand-primary;
+@btn-engage-bg-active:           @brand-tertiary;
+@btn-engage-border-active:       @btn-engage-color-active;
+@btn-engage-disabled-bg:         @gray;
+@btn-engage-disabled-color:      @brand-tertiary;
 
-@btn-link-disabled-color:        @orange-dark-2;
-
+@btn-link-disabled-color:        @gray;
 
 //== Forms
 //
