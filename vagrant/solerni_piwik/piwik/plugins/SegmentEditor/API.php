@@ -298,15 +298,16 @@ class API extends \Piwik\Plugin\API
         return $id;
     }
 
- public function addwithlogin($name, $definition, $login, $idSite = false, $autoArchive = false, $enabledAllUsers = false)
+ public function addwithlogin($name, $definition, $login=false, $idSite = false, $autoArchive = false, $enabledAllUsers = false)
     {
         $this->checkUserCanAddNewSegment($idSite);
+	$this->checkLoginExists($login);
         $idSite = $this->checkIdSite($idSite);
         $this->checkSegmentName($name);
         $definition = $this->checkSegmentValue($definition, $idSite);
         $enabledAllUsers = $this->checkEnabledAllUsers($enabledAllUsers);
         $autoArchive = $this->checkAutoArchive($autoArchive, $idSite);
-
+        $login = ($login) ? $login : Piwik::getCurrentUserLogin();
         $bind = array(
             'name'               => $name,
             'definition'         => $definition,
@@ -358,6 +359,18 @@ class API extends \Piwik\Plugin\API
         }
 
         return $segment;
+    }
+
+    /**
+     * Returns true if the given userLogin is known in the database
+     *
+     * @param string $userLogin
+     * @return bool true if the user is known
+     */
+    public function CheckLoginExists
+    {
+	$userLogin = new Piwik\Plugins\UsersManager\Model();
+	return $this->userExists($userLogin);
     }
 
     /**
