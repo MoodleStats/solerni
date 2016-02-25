@@ -42,6 +42,11 @@ $youvegotmail = utilities_user::user_have_new_mail($USER);
                 </a>
             </li>
             <li>
+                <a href="<?php echo $CFG->wwwroot ?>/user/preferences.php">
+                    <?php echo get_string('preferences'); ?>
+                </a>
+            </li>
+            <li>
                 <a href="<?php echo $CFG->wwwroot ?>/local/mail/view.php?t=inbox">
                     <?php echo get_string('user_menu_email', 'theme_halloween'); ?>
                 </a>

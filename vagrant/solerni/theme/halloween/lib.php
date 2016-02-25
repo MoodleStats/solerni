@@ -190,3 +190,10 @@ function theme_halloween_redirect_if_wantsurl() {
         redirect($urltogo);
     }
 }
+
+/*
+ * Loads core jQuery in theme
+ */
+function theme_halloween_page_init(moodle_page $page) {
+    $page->requires->jquery();
+}

@@ -22,7 +22,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Last Badges';
+$string['pluginname'] = 'Orange badges';
+$string['titledashboard'] = 'Last Badges';
 $string['titlemooc'] = 'MOOC badges';
 $string['allmoocbadges'] = 'All MOOC badges';
 $string['numbadgestodisplay'] = 'Number of badges to display';
