@@ -182,7 +182,8 @@ function check_course_redirection ($cookie=null, $enrolinvitationtoken=null, $co
                 $extendedcourse = new extended_course_object();
                 $extendedcourse->get_extended_course($course, $context);
 
-                if ($extendedcourse->registrationstatus == utilities_course::MOOCREGISTRATIONCOMPLETE) {
+                if (($extendedcourse->registrationstatus == utilities_course::MOOCREGISTRATIONCOMPLETE) ||
+                    ($extendedcourse->registrationstatus == utilities_course::MOOCREGISTRATIONSTOPPED)) {
                     $waitlistenrol = new enrol_orangenextsession_plugin();
                     $instancewaitlist = array_pop($instancewaitlist);
                     $enrolstatus = $waitlistenrol->enrol_orangenextsession($instancewaitlist);
