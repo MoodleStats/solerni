@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,17 +16,17 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    blocks
- * @subpackage course_extended
- * @copyright  2015 Orange
+ * Strings for component 'tool_resetmymoodle', language 'fr', branch 'MOODLE_29_STABLE'
+ *
+ * @package   tool_resetmymoodle
+ * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component  = 'block_orange_course_extended';
-$plugin->release    = '1.0';
-$plugin->version    = 2016022401;
-$plugin->requires   = 2014051200; // Moodle 2.7.
-$plugin->maturity   = MATURITY_STABLE;
-$plugin->dependencies = array('format_flexpage' => 2015050500, 'local_orange_library' => 2015052700);
+$string['nopages'] = 'Réinitialisation : aucune page "Tableau de bord" réinitialisée.';
+$string['pageheader'] = 'Réinitialiser "Tableau de bord"';
+$string['pluginname'] = 'Réinitialiser "Tableau de bord"';
+$string['resetok'] = 'Réinitialisation : {$a} pages utilisateurs "Tableau de bord" réinitialisées.';
+$string['warning'] = 'ATTENTION : cet outil réinitialisera la page "Tableau de bord" de tous les utilisateurs, sauf l\'administrateur principal !';
