@@ -100,7 +100,7 @@ $string['cachesused'] = 'Mise en cache utilisée';
 $string['categoryiconcategory'] = 'L\'icône de la catégorie : {$a->category}.';
 $string['categoryicondesc'] = 'Si activé, ceci vous permettra de définir des icônes pour chaque catégorie de cours.';
 $string['categoryiconheading'] = 'Affichage d\'icône basé sur la catégorie';
-$string['categoryiconheadingsub'] = 'Utilisez des icônes pour illustrer vos catégories';
+$string['categoryiconheadingsub'] = 'Utiliser des icônes pour représenter vos catégories';
 $string['categoryiconinfo'] = 'Définissez des icônes de catégorie personnalisées';
 $string['categoryiconinfodesc'] = 'Chaque icône est définie par son "category ID". Vous les obtenez en regardant l\'URL de chaque catégorie.';
 $string['choosereadme'] = '<div class="clearfix">
@@ -138,7 +138,7 @@ cliquer ici pour sponsoriser.
 <li>Delvon Forrester, Esparanza co uk</li>
 <li>iZone</li>
 <li>Anis Jradah</li>
-<li>Ute Hlasek</li>
+<li>Ute Hlasek, <a href="//hlasek-it.de/moodle" target="_blank">hlasek-it.de/moodle</a></li>
 </ul>
 </p>
 <h3>Personnalisation</h3>
@@ -152,12 +152,14 @@ $string['contactinfo'] = 'Coordonnées';
 $string['contactinfodesc'] = 'Entrez vos coordonnées';
 $string['copyright'] = 'Droits d\'auteur';
 $string['copyrightdesc'] = 'Le nom de votre organisation';
+$string['coursecontentsearch'] = 'Recherche de contenus de cours';
+$string['coursecontentsearchdesc'] = 'Active la recherche de contenu de cours sur le "Tableau de bord". Fonctionne seulement lorsque Essential n\'est pas dans \'$CFG->themedir\'.';
 $string['coursegrades'] = 'Notes de cours';
 $string['courselistteachericon'] = 'Course';
 $string['courselistteachericondesc'] = 'Nom de l\'icône que vous souhaitez utiliser ou vide pour aucun. La liste est <a href="http://fortawesome.github.io/Font-Awesome/cheatsheet/" target="_new">ici</a>. Entrer simplement ce qui est après le "fa-", e.g. "star".';
-$string['credit'] = 'Le thème Essential est développé, amélioré et maintenu par';
+$string['credit'] = 'Le thème Essential est développé par ';
 $string['customcss'] = 'CSS personnalisées';
-$string['customcssdesc'] = 'Toutes les règles CSS que vous ajoutez à cette zone de texte seront reflétées dans chaque page, ce qui rend plus facile la personnalisation de ce thème.';
+$string['customcssdesc'] = 'Toutes les règles CSS que vous ajoutez à cette zone de texte seront répercutées dans chaque page, ce qui rend plus facile la personnalisation de ce thème.';
 $string['customscrollbars'] = 'Barres de défilement personnalisées';
 $string['customscrollbarsdesc'] = 'Utiliser des barres de défilement personnalisées. Cela remplacera les barres de défilement standard du navigateur.';
 $string['dbqueries'] = 'Lectures/Écritures en base de données';
@@ -188,13 +190,17 @@ $string['facebookdesc'] = 'Entrez l\'URL de votre page Facebook. (ex. http://www
 $string['facebookurl'] = 'URL Facebook';
 $string['favicon'] = 'Favicon personnalisée';
 $string['favicondesc'] = 'Déposez votre propre fichier favicon. Cela doit être un fichier .ico.';
+$string['featuredesc'] = 'Vous trouvez ici divers réglages permettant de modifier les nombreuses fonctionnalités de ce thème.';
+$string['featureheading'] = 'Fonctionnalités';
+$string['featureheadingsub'] = 'Régler les fonctionnalités utilisées par votre thème';
 $string['few'] = 'Quelques';
+$string['findcoursecontent'] = 'Contenu de cours :';
 $string['fitvids'] = 'Utiliser FitVids';
 $string['fitvidsdesc'] = 'Activer FitVids (fitvidsjs.com) pour afficher vos vidéos de manière adaptative. Si FitVids est activé et que vous voulez exclure une vidéo, il faut ajouter «class="fitvidsignore"» au tag «iframe» dans le mode HTML de l\'éditeur. Par exemple : <iframe class="fitvidsignore" width="420" height="315" src="//www.youtube.com/embed/enmEmym85xc" frameborder="0" allowfullscreen=""></iframe>';
 $string['fixedwidthnarrow'] = 'Largeur fixe - Rapproché';
 $string['fixedwidthnormal'] = 'Largeur fixe - Normal';
 $string['fixedwidthwide'] = 'Largeur fixe - Large';
-$string['flattr_click'] = 'donner via Flattr';
+$string['flattr_click'] = 'soutenez Essential via Flattr';
 $string['flattr_desc'] = '{$a->url}';
 $string['flickr'] = 'Flickr';
 $string['flickrdesc'] = 'Entrez l\'URL de votre page Flickr. (ex. http://www.flickr.com/mycollege)';
@@ -237,7 +243,7 @@ $string['fonttypestandard'] = 'Polices standard';
 $string['footercolor'] = 'Couleur de fond du pied de page';
 $string['footercolordesc'] = 'Régler la couleur de fond de la boîte du pied de page.';
 $string['footercolors'] = 'Couleurs du pied-de-page';
-$string['footercolorsdesc'] = 'Changer les couleurs du pied de page';
+$string['footercolorsdesc'] = 'Changer les couleurs du pied de page.';
 $string['footerheading'] = 'Pied de page';
 $string['footerheadingcolor'] = 'Couleur des titres dans le pied de page';
 $string['footerheadingcolordesc'] = 'Définissez la couleur des titres pour les blocs dans le pied de page.';
@@ -269,7 +275,7 @@ $string['generalheadingdesc'] = 'Configurez les paramètres globaux du thème su
 $string['generalheadingsub'] = 'Paramètres généraux';
 $string['genericsettings'] = 'Paramètres généraux';
 $string['googleplus'] = 'Google+';
-$string['googleplusdesc'] = 'Entrez l\'URL de votre profil Google+. (ex. http://plus.google.com/107817105228930159735)';
+$string['googleplusdesc'] = 'Saisir l\'URL de votre profil Google+ (p. ex. http://plus.google.com/107817105228930159735).';
 $string['googleplusurl'] = 'URL Google+';
 $string['gotobottom'] = 'Aller en bas de page';
 $string['headerbackground'] = 'Image de fond de l\'en-tête';
@@ -306,7 +312,7 @@ $string['iphoneicon'] = 'Icône iPhone/iPod Touch (Non Retina)';
 $string['iphoneicondesc'] = 'L\'icône devrait être un fichier PNG d\'une dimension de 57 px par 57 px.';
 $string['iphoneretinaicon'] = 'Icône iPhone/iPod Touch (Retina)';
 $string['iphoneretinaicondesc'] = 'L\'icône devrait être un fichier PNG d\'une dimension de 114 px par 114 px.';
-$string['layout'] = 'Utilisez une disposition de cours standard';
+$string['layout'] = 'Utiliser une disposition de cours standard';
 $string['layoutdesc'] = 'Ce thème est conçu pour mettre les deux colonnes de blocs sur le côté. Si vous préférez la disposition standard des cours Moodle, vous pouvez cocher cette case et retourner à l\'ancienne et ennuyeuse disposition en trois colonnes.';
 $string['left'] = 'Gauche';
 $string['linkedin'] = 'LinkedIn';
@@ -380,7 +386,7 @@ $string['pagebackgroundstyledesc'] = 'Sélectionnez le style de l\'image téléc
 $string['pagewidth'] = 'Largeur de page';
 $string['pagewidthdesc'] = 'Choisissez parmi la liste de largeurs de page disponibles pour votre site';
 $string['paypal_click'] = 'Profil Moodle';
-$string['paypal_desc'] = '{$a->url}\' pour les détails car je suis un individu et je ne peux donc pas recevoir de \'dons\'/ boutons \'achetez-moi maintenant\'  ou';
+$string['paypal_desc'] = '{$a->url} pour les détails (car en tant qu\'individu, je ne peux donc pas avoir le bouton « Achetez maintenant ») ou&nbsp;';
 $string['peakmem'] = 'Pic de mémoire';
 $string['people'] = 'Personnes';
 $string['perfinfo'] = 'Mode d\'indications de performance';
@@ -408,7 +414,11 @@ $string['region-home-middle'] = 'Accueil (centre)';
 $string['region-home-right'] = 'Accueil (droite)';
 $string['region-side-post'] = 'Droite';
 $string['region-side-pre'] = 'Gauche';
-$string['returntosection'] = 'Revenir à la section {$a->section}';
+$string['returntosection'] = 'Revenir à {$a->section}';
+$string['returntosectionfeature'] = 'Revenir à la section';
+$string['returntosectionfeaturedesc'] = 'Active la fonctionnalité "Revenir à la section" au sein des modules de cours.';
+$string['returntosectiontextlimitfeature'] = 'Longueur de texte pour "Revenir à la section"';
+$string['returntosectiontextlimitfeaturedesc'] = 'Longueur maximale pour le nom de la section sur le bouton entre {$a->lower} et {$a->upper} caractères.';
 $string['right'] = 'Droite';
 $string['serverload'] = 'Charge du serveur';
 $string['sessionsize'] = 'Taille de la session';
@@ -458,8 +468,8 @@ $string['socialdesc'] = 'Fournir des liens directs vers les réseaux sociaux ess
 $string['socialheading'] = 'Réseautage social';
 $string['socialheadingsub'] = 'Motivez vos utilisateurs avec les réseaux sociaux';
 $string['socialnetworks'] = 'Réseaux sociaux';
-$string['sponsor_desc'] = 'Merci de sponsoriser Essential via Paypal ou en me contactant via mon';
-$string['sponsor_desc2'] = 'pour poursuivre le développement de Essential, ou simplement exprimer votre gratitude.';
+$string['sponsor_desc'] = 'Merci de sponsoriser Essential via Paypal ou en me contactant via mon&nbsp;';
+$string['sponsor_desc2'] = '&nbsp;pour la poursuite du développement de Essential ou simplement pour exprimer votre gratitude.';
 $string['sponsor_title'] = 'Sponsoriser Essential';
 $string['themecolor'] = 'Couleur du thème';
 $string['themecolordesc'] = 'La couleur que votre thème devrait avoir. Ceci va changer de multiples composants pour produire la couleur que vous souhaitez sur le site Moodle';
