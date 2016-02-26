@@ -76,9 +76,7 @@ function block_orange_horizontal_numbers_get_nbposts() {
 /**
  * Get the numbers of users enrolled in the service
  *
- * @param int $courseid
- * @param int $nbdisplayed
- * @return nb
+ * @return int
  */
 
 function block_orange_horizontal_numbers_get_nbusers() {

@@ -23,7 +23,7 @@
 
 $string['pluginname'] = 'Orange Horizontal Numbers';
 
-$string['orange_emerging_messages:addinstance'] = 'Add a new block Orange Horizontal Numbers';
+$string['orange_horizontal_numbers:addinstance'] = 'Add a new block Orange Horizontal Numbers';
 
 $string['nbposts'] = 'Posted Messages';
 $string['nbusers'] = 'Registered';

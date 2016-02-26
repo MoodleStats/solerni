@@ -89,8 +89,6 @@ class block_orange_horizontal_numbers extends block_base {
      * @return string
      */
     public function get_content() {
-        //global $USER, $COURSE, $CFG, $OUTPUT, $DB;
-
         // If content has already been generated, don't waste time generating it again.
         if ($this->content !== null) {
             return $this->content;
