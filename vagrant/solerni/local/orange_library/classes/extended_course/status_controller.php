@@ -332,7 +332,6 @@ function incoming_unsubscribe($course, &$extendedcourse) {
 function running_unsubscribe($course, &$extendedcourse) {
     global $PAGE;
     $pagetype = $PAGE->pagetype;
-
     if ($pagetype == 'moocs-mymoocs') {
 
         $extendedcourse->statuslink = $extendedcourse->unenrolurl;
@@ -393,15 +392,12 @@ function subscription_closed($course, &$extendedcourse) {
  * */
 function course_running_button_enabled($course, &$extendedcourse) {
     global $PAGE;
+    
     $pagetype = $PAGE->pagetype;
-    if ($pagetype != 'my-index') {
-        $extendedcourse->statuslink = $extendedcourse->unenrolurl;
-        $extendedcourse->statuslinktext = get_string('unsubscribe', 'local_orange_library');
+    
+    $extendedcourse->statuslink = $extendedcourse->unenrolurl;
+    $extendedcourse->statuslinktext = get_string('unsubscribe', 'local_orange_library');
 
-    } else {
-        $extendedcourse->statuslink = "#";
-        $extendedcourse->statuslinktext = '';
-    }
     $extendedcourse->statustext = get_string('status_running', 'local_orange_library');
     $extendedcourse->displaybutton = display_button('access_to_mooc', $extendedcourse->moocurl, "btn btn-success", $course);
 }
