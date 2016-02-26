@@ -77,7 +77,7 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
     protected function halloween_render_lang_menu_item(custom_menu_item $menunode, $level = 0, $menutitle = '' ) {
         static $submenucount = 0;
         $content = '';
-        $currenttitle = str_replace(array( ' (fr)', ' (en)' ), '',  $menunode->get_text());
+        $currenttitle = str_replace(array('(fr)', '(en)', '&lrm;'), '',  ($menunode->get_text()));
         if ($menunode->has_children()) {
             $menutitle = $currenttitle;
             $submenucount++;
@@ -86,7 +86,7 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
             } else {
                 $url = '#cm_submenu_'.$submenucount;
             }
-            $content .= '<button id="dLabel" class="btn btn-primary " type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
+            $content .= '<button id="dLabel" class="btn btn-default " type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
             $content .= $menutitle;
             $content .= '<span class="caret"></span></button>';
             $content .= '<ul class="dropdown-menu list-unstyled list-link" aria-labelledby="dLabel">';
