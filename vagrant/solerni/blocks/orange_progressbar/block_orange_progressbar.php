@@ -60,9 +60,7 @@ class block_orange_progressbar extends block_base {
      * @return bool
      */
     public function specialization() {
-        if (isset($this->config->progressTitle) && trim($this->config->progressTitle) != '') {
-            $this->title = format_string($this->config->progressTitle);
-        }
+        $this->title = get_string('block_title', 'block_orange_progressbar');
     }
 
     /**
