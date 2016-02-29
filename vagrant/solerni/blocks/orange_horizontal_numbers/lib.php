@@ -81,7 +81,7 @@ function block_orange_horizontal_numbers_get_nbposts() {
 
 function block_orange_horizontal_numbers_get_nbusers() {
     global $DB;
-
+    // Timecreated = 0 if user has been deleted.
     $sql = "SELECT count(*) as count
         FROM {user}
         WHERE timecreated <> 0
@@ -103,7 +103,7 @@ function block_orange_horizontal_numbers_get_nbusers() {
 
 function block_orange_horizontal_numbers_get_lastregistered() {
     global $DB;
-
+    // Timecreated = 0 if user has been deleted.
     $sql = "SELECT *
         FROM {user}
         WHERE timecreated <> 0
