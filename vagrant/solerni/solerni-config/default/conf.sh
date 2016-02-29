@@ -245,3 +245,13 @@ moosh config-set defaulthomepage 1
 moosh block-add system 0 orange_badges my-index content 0
 moosh block-delete system 0 badges my-index
 moosh block-delete system 0 course_overview my-index
+
+# Disable Oauth2 authentication method
+moosh auth-manage disable googleoauth2
+
+# block_orange_course_dashboard
+moosh config-set defaultmaxrecommendations 0 block_orange_course_dashboard
+moosh config-set mymoocsurl '/moocs/mymoocs.php' block_orange_course_dashboard
+
+# Delete Main Menu block in frontpage (course=1)
+moosh block-delete course 1 site_main_menu site-index

@@ -225,6 +225,12 @@ class extended_course_object {
     public $enrolledusers;
 
     /**
+     * The $enrolledusersself of a course (using self enrolment).
+     * @var int $enrolledusersself
+     */
+    public $enrolledusersself;
+
+    /**
      * The $enrolstartdate of a course.
      * @var int $enrolstartdate
      */
@@ -301,6 +307,8 @@ class extended_course_object {
             $this->registrationcompany = $customer->name;
         }
         $this->enrolledusers = count_enrolled_users($context);
+
+        $this->enrolledusersself = $enrolment->count_enrolled_users_by_instance($instanceself);
 
         $this->enrolstartdate = $enrolment->get_enrolment_startdate($course);
 

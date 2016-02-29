@@ -19,6 +19,8 @@
  * @license http://opensource.org/licenses/gpl-3.0.html GNU Public License
  * @package format_flexpage
  * @author Mark Nielsen
+ *
+ * Orange 2016022300 : add deleteactivitywarn message in function get_js_module()
  */
 
 require($CFG->dirroot.'/local/mr/bootstrap.php');
@@ -62,6 +64,8 @@ class format_flexpage_renderer extends plugin_renderer_base {
      * The javascript module used by the presentation layer
      *
      * @return array
+     *
+     * Orange : add deleteactivitywarn message
      */
     public function get_js_module() {
         return array(
@@ -99,6 +103,7 @@ class format_flexpage_renderer extends plugin_renderer_base {
                 array('formnamerequired', 'format_flexpage'),
                 array('deletepage', 'format_flexpage'),
                 array('deletemodwarn', 'format_flexpage'),
+                array('deleteactivitywarn', 'format_flexpage'),
                 array('continuedotdotdot', 'format_flexpage'),
                 array('warning', 'format_flexpage'),
                 array('actionbar', 'format_flexpage'),
