@@ -60,7 +60,7 @@ class block_orange_horizontal_numbers_renderer extends plugin_renderer_base {
         $el5->attributes['class'] = 'tdvalue';
 
         $el6 = new html_table_cell();
-        $el6->text = get_string('lastuserconnected', 'block_orange_horizontal_numbers');
+        $el6->text = get_string('lastuserregistered', 'block_orange_horizontal_numbers');
         $el6->attributes['class'] = 'tdtext';
 
         $el7 = new html_table_cell();

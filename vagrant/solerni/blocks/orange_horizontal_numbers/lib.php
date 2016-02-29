@@ -84,27 +84,31 @@ function block_orange_horizontal_numbers_get_nbusers() {
 
     $sql = "SELECT count(*) as count
         FROM {user}
-        WHERE timecreated <> 0";
+        WHERE timecreated <> 0
+        AND confirmed = 1
+        AND suspended = 0";
 
-    if ($nbusersconnected = $DB->get_record_sql($sql)) {
-        return $nbusersconnected->count;
+    if ($nbusers = $DB->get_record_sql($sql)) {
+        return $nbusers->count;
     }
     return 0;
 }
 
 
 /**
- * Get the last user connected at the service
+ * Get the last user registered at the service
  *
  * @return object User
  */
 
-function block_orange_horizontal_numbers_get_lastconnected() {
+function block_orange_horizontal_numbers_get_lastregistered() {
     global $DB;
 
     $sql = "SELECT *
         FROM {user}
         WHERE timecreated <> 0
+        AND confirmed = 1
+        AND suspended = 0
         ORDER BY timecreated DESC
         LIMIT 1";
 

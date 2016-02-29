@@ -27,5 +27,5 @@ $string['orange_horizontal_numbers:addinstance'] = 'Ajouter un block Orange Nomb
 
 $string['nbposts'] = 'Messages postés';
 $string['nbusers'] = 'Membres';
-$string['lastuserconnected'] = 'Dernier inscrit';
+$string['lastuserregistered'] = 'Dernier inscrit';
 $string['nbusersconnected'] = 'Connectés en ce moment';

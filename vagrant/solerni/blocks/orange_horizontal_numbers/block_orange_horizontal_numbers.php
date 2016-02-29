@@ -103,7 +103,7 @@ class block_orange_horizontal_numbers extends block_base {
 
         $nbuserssonnected = block_orange_horizontal_numbers_get_nbconnectedusers();
 
-        $lastuser = block_orange_horizontal_numbers_get_lastconnected();
+        $lastuser = block_orange_horizontal_numbers_get_lastregistered();
 
         $nbposts = block_orange_horizontal_numbers_get_nbposts();
 

@@ -27,5 +27,5 @@ $string['orange_horizontal_numbers:addinstance'] = 'Add a new block Orange Horiz
 
 $string['nbposts'] = 'Posted Messages';
 $string['nbusers'] = 'Registered';
-$string['lastuserconnected'] = 'Last connected';
+$string['lastuserregistered'] = 'Last registered';
 $string['nbusersconnected'] = 'Users connected Now';
