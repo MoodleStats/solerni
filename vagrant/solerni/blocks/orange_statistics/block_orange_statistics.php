@@ -45,7 +45,7 @@ class block_orange_statistics extends block_base {
         global $USER, $COURSE, $CFG, $OUTPUT, $DB;
         
         
-        print_object($COURSE);
+     
     if ($this->content !== null) {
         return $this->content;
     }
