@@ -295,13 +295,15 @@ class extended_course_object {
         $instanceself = $enrolment->get_self_enrolment($course);
         $extendedcourseflexpagevalues = $DB->get_records('course_format_options',
                 array('courseid' => $course->id));
+        print_object($extendedcourseflexpagevalues);
         foreach ($extendedcourseflexpagevalues as $extendedcourseflexpagevalue) {
             if ($extendedcourseflexpagevalue->format == "flexpage") {
+
                 $this->set_extended_course($extendedcourseflexpagevalue, $course, $context);
             }
         }
         if (!$context) {
-            $context = context_course::instance($course->id);
+            $context = \context_course::instance($course->id);
         }
         if ($customer) {
             $this->registrationcompany = $customer->name;
@@ -314,14 +316,20 @@ class extended_course_object {
 
         $this->enrolenddate = $enrolment->get_enrolment_enddate($course);
 
-        $this->maxregisteredusers = $instanceself->customint3;
+        if (isset($instanceself->customint3)) {
+            $this->maxregisteredusers = $instanceself->customint3;
+        }
 
         $this->moocurl = new moodle_url('/course/view.php', array('id' => $course->id));
         $this->unenrolurl = $enrolment->get_unenrol_url($course);
 
-        $this->enrolurl = $instanceorangeinvitation->customtext2;
+        if (isset($instanceorangeinvitation->customtext2)) {
+            $this->enrolurl = $instanceorangeinvitation->customtext2;
+        }
 
-        $this->newsessionurl = $instanceorangeinvitation->customtext3;
+        if (isset($instanceorangeinvitation->customtext3)) {
+            $this->newsessionurl = $instanceorangeinvitation->customtext3;
+        }
         $this->coursestatus = set_course_status($course, $context, $this);
 
     }
@@ -332,7 +340,7 @@ class extended_course_object {
      * @param object $extendedcourseflexpagevalue
      * @return object $this->extendedcourse
      */
-    private function set_extended_course ($extendedcourseflexpagevalue, $course, $context) {
+    protected function set_extended_course ($extendedcourseflexpagevalue, $course, $context) {
         switch ($extendedcourseflexpagevalue->name) {
             case 'coursereplay':
                 $this->set_replay($extendedcourseflexpagevalue);

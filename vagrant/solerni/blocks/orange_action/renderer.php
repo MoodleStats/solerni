@@ -106,6 +106,84 @@ class block_orange_action_renderer extends plugin_renderer_base {
      * @return message
      */
     public function display_on_course_page ($course, $extendedcourse, $imgurl) {
+
+       // display_old_version();
+
+        $output = html_writer::start_tag('div', array('class' => 'container '));
+        $output .= html_writer::start_tag('div', array('class' => 'row '));
+
+        $output .= $this->display_action_media($course, $extendedcourse, $imgurl);
+        $output .= html_writer::end_tag('div');
+        $output .= html_writer::start_tag('div', array('class' => 'row margin-bottom-md action-banner '));
+
+        $output .= $this->display_action_banner($course, $extendedcourse, $imgurl);
+        $output .= html_writer::end_tag('div');
+        $output .= html_writer::end_tag('div');
+        return $output;
+
+    }
+
+
+    /**
+     * Display for "Find out more" page
+     *
+     * @return message
+     */
+    public function display_action_media ($course, $extendedcourse, $imgurl) {
+
+        $output = html_writer::start_tag('div', array('class' => 'embed-responsive embed-responsive-16by9 '));
+        $output .= html_writer::start_tag('iframe', array('class' => 'embed-responsive-item', 'src' => 'https://www.youtube.com/embed/YE7VzlLtp-4?rel=0'));
+        $output .= html_writer::end_tag('iframe');
+        $output .= html_writer::end_tag('div');
+        return $output;
+
+    }
+
+    /**
+     * Display for "Find out more" page
+     *
+     * @return message
+     */
+    public function display_action_banner ($course, $extendedcourse, $imgurl) {
+
+        $output = html_writer::start_tag('div', array('class' => 'col-md-4 action-banner__left'));
+        $output .= $this->display_button_engage();
+        $output .= html_writer::end_tag('div');
+        $output .= html_writer::start_tag('div', array('class' => 'col-md-8 u-inverse action-banner__right'));
+        $output .= html_writer::start_tag('h1', array('class' => 'oneline'));
+        $output .= $course->fullname;
+        $output .= html_writer::end_tag('h1');
+        // Course summary if present.
+        if ($course->summary) {
+            $output .= html_writer::start_tag('h3', array('class' => 'oneline'));
+                $output .= html_to_text($course->summary);
+            $output .= html_writer::end_tag('h3');
+        }
+        $output .= $this->display_image($imgurl);
+        // Nomber of enrolled users.
+        $output .= html_writer::start_tag('span');
+            if ($extendedcourse->enrolledusers <= 1) {
+                $output .= get_string("enrolleduser", 'block_orange_action', $extendedcourse->enrolledusers);
+            } else {
+                $output .= get_string("enrolledusers", 'block_orange_action', $extendedcourse->enrolledusers);
+            }
+        $output .= html_writer::end_tag('span');
+        // If next session link shoulfd be display.
+        if ($extendedcourse->registrationstatus == utilities_course::MOOCREGISTRATIONCOMPLETE) {
+            $output .= html_writer::tag('a', get_string('nextsessionlink', 'block_orange_action'),
+                array('class' => '', 'href' => $extendedcourse->newsessionurl ));
+        }
+        return $output;
+    }
+
+
+    /**
+     * Display for "Find out more" page
+     *
+     * @return message
+     */
+    public function display_old_version ($course, $extendedcourse, $imgurl) {
+
         $output = html_writer::start_tag('div', array('class' => 'row '));
 
         if ($imgurl) {

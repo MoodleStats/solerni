@@ -1,0 +1,141 @@
+/*
+ * This file include Solerni CSS specific code :
+ * keeps code that is not lengthy enough to be into a specific file
+ */
+/*
+ * Element LESS template as model :
+
+.classname {
+    permanent_property: value;
+
+    @media (min-width: @screen-sm-min) {
+        sm-specific_property: value;
+        (remove @media block if unused)
+    }
+
+    @media (min-width: @screen-md-min) {
+        md-specific_property: value;
+}
+
+    @media (min-width: @screen-lg-min) {
+        lg-specific_property: value;
+    }
+}
+
+*/
+
+/* en savoir plus */
+.zigzag .row {
+    padding-bottom: @s-triple-md-margin;
+    padding-top:    @s-triple-md-margin;
+}
+
+.zigzag .row:nth-child(odd) {
+    background:     @orange-light-2;
+}
+
+.zigzag .row:nth-child(even) {
+    background:     @brand-tertiary;
+}
+
+.zigzag .h2 {
+    line-height:    1; 
+    margin-top:     0;
+}
+
+.list-3-items .row {
+    background:     @orange-light-2;
+    padding-bottom: @s-triple-md-margin;
+    padding-top:    @s-triple-md-margin;
+    
+    .items-block {
+        background: @brand-tertiary;
+        border:     10px solid @orange-light-2;
+        padding-left: 0;
+        padding-right: 0;
+
+        .images-mask {
+            width: 100%;
+            height: 275px;
+            overflow: hidden;
+        }
+    }
+        
+    .items-block > img {
+	width: 100%;
+	height: 275px;
+	transition: all 1s;
+	-moz-transition: all 1s;
+	-webkit-transition: all 1s;
+	-o-transition: all 1s;
+    }
+    
+    .items-block:hover img {
+	transform:          scale(1.2);
+	-ms-transform:      scale(1.2);
+	-webkit-transform:  scale(1.2);
+	-o-transform:       scale(1.2);
+	-moz-transform:     scale(1.2);
+    }
+       
+    .items-block:hover {
+        background: @gray-light;
+    }
+}
+
+.margin-bottom-md {
+     margin-bottom: @grid-gutter-width;
+}
+
+.subscription-banner {
+    text-align:         center;
+    padding-bottom:     @s-double-md-margin;
+    padding-top:        @s-double-md-margin;
+    background-color:   @component-active-bg;
+}
+
+.text-centered {
+    text-align:     center;
+    padding-top:    @s-medium-md-margin;
+    padding-bottom: @s-triple-md-margin;
+}
+
+.information-text {
+    height: 70px;
+    padding-top:    @s-double-md-margin;
+    padding-bottom: @s-double-md-margin;
+}
+
+.item-centered {
+    text-align:     center;
+}
+
+.icon-map  {
+    float:          left;
+    font-weight:    bold;
+    
+    .centered {
+        vertical-align: middle;
+    }
+
+    img {
+        width:      @font-size-h2;
+        height:     @font-size-h2;
+
+    }    
+}
+
+.icon-map .logo-image {
+
+    .centertext {
+        display:    block;
+        float:      left;      
+    }
+
+}
+
+.icon-map .textcentered{
+    float:          right;
+    line-height:    @s-double-md-margin;
+}
+

@@ -105,10 +105,10 @@ class local_orange_event_course_created_observer {
            // We test XML Piwik responses to kwow if segment and user are correctly created and send mail
             $XML = new SimpleXMLElement($response);
             $XMLuseraccess = new SimpleXMLElement($responseuseraccess);
-            $xmlsegment = new SimpleXMLElement($responsesegment);
-            $xmlsegmentlogin = new SimpleXMLElement($responsesegmentlogin);
+            $XMLsegment = new SimpleXMLElement($responsesegment);
+            $XMLsegmentlogin = new SimpleXMLElement($responsesegmentlogin);
             $XMLsegment = intval($XMLsegment);
-            $XMLsegmentlogin = intval($xmlsegmentlogin);
+            $XMLsegmentlogin = intval($XMLsegmentlogin);
             $srtsuccess = 'ok';
 
             if (($XML->success['message'] == $srtsuccess) && ($XMLuseraccess->success['message'] == $srtsuccess) && is_int($XMLsegment) == true && is_int($XMLsegmentlogin) == true ) {
@@ -122,7 +122,7 @@ class local_orange_event_course_created_observer {
             } else {
                 $message = get_string('content_piwik_fail', 'local_orange_event_course_created');
                 $subject = get_string('subject_piwik_fail', 'local_orange_event_course_created');
-                email_to_user($user, $contact, $subject, mail_object::get_mail($message, 'text', ''), mail_object::get_mail($message, 'html', ''));
+                //email_to_user($user, $contact, $subject, mail_object::get_mail($message, 'text', ''), mail_object::get_mail($message, 'html', ''));
             }
 
         }
