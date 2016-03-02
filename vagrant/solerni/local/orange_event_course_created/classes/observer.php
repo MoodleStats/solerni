@@ -45,8 +45,7 @@ class local_orange_event_course_created_observer {
             // Values usefull for call UsersManager.addUser method.
             $course = $DB->get_record('course', array('id' => $event->courseid));
             $category = $DB->get_record('course_categories', array('id' => $course->category));
-            $url = $CFG->piwik_internal_url;
-            $module = 'module=API';
+            $url = $CFG->piwik_internal_url;             $module = 'module=API';
             $method = '&method=UsersManager.addUser';
             $userpiwik = $course->shortname;
             $password = md5($userpiwik);
@@ -119,13 +118,15 @@ class local_orange_event_course_created_observer {
                 $subject = get_string('subject_piwik_success', 'local_orange_event_course_created');
                 $subject = str_replace('{$a->sitename}', format_string($site->fullname), $subject);
                 email_to_user($user, $contact, $subject, mail_object::get_mail($message, 'text', ''), mail_object::get_mail($message, 'html', ''));
+                return true;
             } else {
                 $message = get_string('content_piwik_fail', 'local_orange_event_course_created');
                 $subject = get_string('subject_piwik_fail', 'local_orange_event_course_created');
                 email_to_user($user, $contact, $subject, mail_object::get_mail($message, 'text', ''), mail_object::get_mail($message, 'html', ''));
+                return false;
             }
 
         }
-        return true;
+        return false;
     }
 }
