@@ -23,6 +23,7 @@
 
 use local_orange_library\utilities\utilities_course;
 use local_orange_library\utilities\utilities_user;
+use local_orange_library\enrollment\enrollment_object;
 
 /**
  *  Set and display the button describing the status of a course.
@@ -357,7 +358,11 @@ function new_session($course, &$extendedcourse) {
     global $PAGE;
     $pagetype = $PAGE->pagetype;
 
-    if ($pagetype == 'mod-descriptionpage-view') {
+    // Check if user is not already enrol for next session.
+    $enrolmentobject = new enrollment_object();
+    $enrolstatus = $enrolmentobject->is_enrol_orangenextsession($course);
+
+    if ((!$enrolstatus) && ($pagetype == 'mod-descriptionpage-view')) {
         $extendedcourse->statuslink = $extendedcourse->newsessionurl;
         $extendedcourse->statuslinktext = get_string('new_session', 'local_orange_library');
 

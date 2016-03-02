@@ -127,4 +127,38 @@ class enrollment_object {
 
         return $DB->count_records('user_enrolments', array('enrolid'=>$instance->id));
     }
+
+    /**
+     *  Get orangenextsession enrollment instance.
+     *
+     * @param object $course
+     * @return object enrollinstance
+     */
+    public function get_orangenextsession_enrolment($course) {
+
+        $instances = enrol_get_instances($course->id, false);
+        foreach ($instances as $instanceinfo) {
+            if ($instanceinfo->enrol == "orangenextsession") {
+                return $instanceinfo;
+            }
+        }
+        return false;
+    }
+
+    /**
+     *  Check if user is already enrol for next session.
+     *
+     * @param object $course
+     * @return object enrollinstance
+     */
+    public function is_enrol_orangenextsession($course) {
+        global $DB, $USER;
+
+        $instance = $this->get_orangenextsession_enrolment($course);
+        if ($DB->record_exists('user_enrol_nextsession', array('userid' => $USER->id, 'instanceid' => $instance->id))) {
+            return true;
+        }
+        
+        return false;
+    }
 }
