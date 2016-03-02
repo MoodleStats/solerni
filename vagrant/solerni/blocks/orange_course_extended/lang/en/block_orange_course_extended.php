@@ -160,8 +160,7 @@ $string['registration_to'] = ' to ';
 $string['registrationcompany'] = 'Registration company: ';
 $string['registrationcompany_default'] = 'No registration company';
 $string['registrationcompany_help'] = 'registration company name';
-$string['registration_case2'] = 'limited to ';
-$string['registration_case2_2'] = 'first registered users ';
+$string['registration_case2'] = '{$a} place(s) available';
 $string['registration_case3'] = 'You may register by ';
 
 // Registered users.

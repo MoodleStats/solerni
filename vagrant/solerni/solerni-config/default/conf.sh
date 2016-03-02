@@ -245,3 +245,26 @@ moosh config-set defaulthomepage 1
 moosh block-add system 0 orange_badges my-index content 0
 moosh block-delete system 0 badges my-index
 moosh block-delete system 0 course_overview my-index
+
+# Disable Oauth2 authentication method
+moosh auth-manage disable googleoauth2
+
+# block_orange_course_dashboard
+moosh config-set defaultmaxrecommendations 0 block_orange_course_dashboard
+moosh config-set mymoocsurl '/moocs/mymoocs.php' block_orange_course_dashboard
+
+# Delete Main Menu block in frontpage (course=1)
+moosh block-delete course 1 site_main_menu site-index
+
+# local_goodbye : delete value to keep default text (#us_442)
+moosh config-set farewell "" local_goodbye
+
+# hide block admin for solerni_utilisateur, solerni_apprenant, solerni_power_apprenant, solerni_animateur, solerni_client (#us_252)
+moosh role-update-capability-ctx solerni_utilisateur moodle/block:view prevent block settings
+moosh role-update-capability-ctx solerni_apprenant moodle/block:view prevent block settings
+moosh role-update-capability-ctx solerni_power_apprenant moodle/block:view prevent block settings
+moosh role-update-capability-ctx solerni_animateur moodle/block:view prevent block settings
+moosh role-update-capability-ctx solerni_client moodle/block:view prevent block settings
+moosh role-update-capability-ctx solerni_teacher moodle/block:view allow block settings
+moosh role-update-capability-ctx solerni_course_creator moodle/block:view allow block settings
+moosh role-update-capability-ctx solerni_marketing moodle/block:view allow block settings

@@ -225,6 +225,12 @@ class extended_course_object {
     public $enrolledusers;
 
     /**
+     * The $enrolledusersself of a course (using self enrolment).
+     * @var int $enrolledusersself
+     */
+    public $enrolledusersself;
+
+    /**
      * The $enrolstartdate of a course.
      * @var int $enrolstartdate
      */
@@ -302,6 +308,8 @@ class extended_course_object {
         }
         $this->enrolledusers = count_enrolled_users($context);
 
+        $this->enrolledusersself = $enrolment->count_enrolled_users_by_instance($instanceself);
+
         $this->enrolstartdate = $enrolment->get_enrolment_startdate($course);
 
         $this->enrolenddate = $enrolment->get_enrolment_enddate($course);
@@ -311,9 +319,14 @@ class extended_course_object {
         $this->moocurl = new moodle_url('/course/view.php', array('id' => $course->id));
         $this->unenrolurl = $enrolment->get_unenrol_url($course);
 
-        $this->enrolurl = $instanceorangeinvitation->customtext2;
+        $this->enrolurl = ($instanceorangeinvitation)
+                ? $instanceorangeinvitation->customtext2
+                : '#';
 
-        $this->newsessionurl = $instanceorangeinvitation->customtext3;
+        $this->newsessionurl = ($instanceorangeinvitation)
+                ? $instanceorangeinvitation->customtext3
+                : '#';
+
         $this->coursestatus = set_course_status($course, $context, $this);
 
     }
