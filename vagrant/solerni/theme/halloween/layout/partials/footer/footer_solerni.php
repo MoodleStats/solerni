@@ -39,8 +39,7 @@ $filtermultilang = new filter_multilang($PAGE->context, array()); ?>
         <?php endif; ?>
         </div>
         <div class="col-xs-12 col-md-4">
-            <div class="col-xs-12 col-md-6"></div>
-            <div class="col-xs-12 col-md-6">
+            <div class="col-xs-12 col-md-7 pull-right">
                 <ul class="list-unstyled list-link" role="navigation">
                    <li class="link-item h6">
                         <?php if (theme_utilities::is_theme_settings_exists_and_nonempty('footerlistscolumn1title')) {

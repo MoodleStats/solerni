@@ -23,6 +23,7 @@
 
 use local_orange_library\utilities\utilities_course;
 use local_orange_library\utilities\utilities_user;
+use local_orange_library\enrollment\enrollment_object;
 
 /**
  *  Set and display the button describing the status of a course.
@@ -332,7 +333,6 @@ function incoming_unsubscribe($course, &$extendedcourse) {
 function running_unsubscribe($course, &$extendedcourse) {
     global $PAGE;
     $pagetype = $PAGE->pagetype;
-
     if ($pagetype == 'moocs-mymoocs') {
 
         $extendedcourse->statuslink = $extendedcourse->unenrolurl;
@@ -358,7 +358,11 @@ function new_session($course, &$extendedcourse) {
     global $PAGE;
     $pagetype = $PAGE->pagetype;
 
-    if ($pagetype == 'mod-descriptionpage-view') {
+    // Check if user is not already enrol for next session.
+    $enrolmentobject = new enrollment_object();
+    $enrolstatus = $enrolmentobject->is_enrol_orangenextsession($course);
+
+    if ((!$enrolstatus) && ($pagetype == 'mod-descriptionpage-view')) {
         $extendedcourse->statuslink = $extendedcourse->newsessionurl;
         $extendedcourse->statuslinktext = get_string('new_session', 'local_orange_library');
 
@@ -393,15 +397,12 @@ function subscription_closed($course, &$extendedcourse) {
  * */
 function course_running_button_enabled($course, &$extendedcourse) {
     global $PAGE;
+    
     $pagetype = $PAGE->pagetype;
-    if ($pagetype != 'my-index') {
-        $extendedcourse->statuslink = $extendedcourse->unenrolurl;
-        $extendedcourse->statuslinktext = get_string('unsubscribe', 'local_orange_library');
+    
+    $extendedcourse->statuslink = $extendedcourse->unenrolurl;
+    $extendedcourse->statuslinktext = get_string('unsubscribe', 'local_orange_library');
 
-    } else {
-        $extendedcourse->statuslink = "#";
-        $extendedcourse->statuslinktext = '';
-    }
     $extendedcourse->statustext = get_string('status_running', 'local_orange_library');
     $extendedcourse->displaybutton = display_button('access_to_mooc', $extendedcourse->moocurl, "btn btn-success", $course);
 }

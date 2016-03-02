@@ -14,16 +14,25 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
- * Orange Progress Bar block version details
+ * Orange Horizontal Numbers capability setup
  *
- * @package    block_orange_progressbar
- * @copyright  Orange 2015
+ * @package    block_orange_horizontal_numbers
+ * @copyright  Orange 2016
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$plugin->version   = 2016022600;
-$plugin->requires  = 2014050800;
-$plugin->maturity  = MATURITY_STABLE;
-$plugin->component = 'block_orange_progressbar';
+defined('MOODLE_INTERNAL') or die("Direct access to this location is not allowed.");
+
+$capabilities = array (
+    'block/orange_horizontal_numbers:addinstance' => array(
+        'riskbitmask' => RISK_PERSONAL,
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_BLOCK,
+        'archetypes' => array(
+            'editingteacher' => CAP_ALLOW,
+            'manager'        => CAP_ALLOW
+        ),
+        'clonepermissionsfrom' => 'moodle/site:manageblocks'
+    ),
+);
