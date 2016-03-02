@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'offlinequiz', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'offlinequiz', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   offlinequiz
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -93,7 +93,6 @@ $string['correcterror'] = 'corriger';
 $string['correctforgroup'] = 'Réponses correctes pour le groupe {$a}';
 $string['correctionform'] = 'Formulaire de correction';
 $string['correctionforms'] = 'Formulaires de correction';
-$string['correctionoptionsheading'] = 'Options de correction.';
 $string['correctupdated'] = 'Formulaire de correction mis à jour pour le groupe {$a}.';
 $string['couldnotgrab'] = 'Saisie de l\'image {$a} impossible';
 $string['couldnotregister'] = 'Enregistrement de l\'utilisateur {$a} impossible';
@@ -143,10 +142,6 @@ $string['dragtostart'] = 'Au début';
 $string['editgroupquestions'] = 'Modifier les questions des groupes';
 $string['editgroups'] = 'Modifier les groupes hors-ligne';
 $string['editingofflinequiz'] = 'Modification des questions des groupes';
-$string['editingofflinequiz_help'] = 'Lors de la création d\'un test hors-ligne, les concepts principaux suivants sont à considérer :
-
-* le test, qui contient des questions sur une ou plusieurs pages ;
-* la banque de questions, qui contient des copies de toutes les questions, organisées en catégories.';
 $string['editingofflinequizx'] = 'Modifier le test hors-ligne : {$a}';
 $string['editlist'] = 'Modifier la liste';
 $string['editlists'] = 'Modifier les listes';
@@ -217,7 +212,6 @@ $string['idnumber'] = 'Numéro d\'identification';
 $string['imagefile'] = 'Fichier image';
 $string['imagenotfound'] = 'Fichier image : {$a} non trouvé !';
 $string['imagenotjpg'] = 'Image non jpg ou png : {$a}';
-$string['imagickwarning'] = 'ImageMagick manquant : demandez à votre administrateur système d\'installer la librairie imagemagick et vérifiez le chemin du binaire convert dans les réglages du filtre de notation TeX. Vous ne pouvez pas importer de fichiers TIFF sans imagemagick !';
 $string['import'] = 'Importer';
 $string['importedon'] = 'Importé le';
 $string['importerror11'] = 'Un autre résultat existe';
@@ -509,7 +503,6 @@ $string['select'] = 'Sélectionnez';
 $string['selectagroup'] = 'Sélectionnez un groupe';
 $string['selectall'] = 'Tout sélectionner';
 $string['selectcategory'] = 'Selectionnez une catégorie';
-$string['selectdifferentgroup'] = 'Veuillez sélectionner un groupe différent !';
 $string['selectedattempts'] = 'Tentatives sélectionnées...';
 $string['selectformat'] = 'Sélectionner un format...';
 $string['selectgroup'] = 'Sélectionner un groupe';
@@ -525,7 +518,6 @@ $string['showgrades_help'] = 'Cette option détermine si la note maximale de cha
 $string['showmissingattemptonly'] = 'Afficher tous les participants cochés et sans résultat';
 $string['showmissingcheckonly'] = 'Afficher tous les participants non cochés et avec un résultat';
 $string['shownumpartsperpage'] = 'Afficher {$a} participants par page';
-$string['showstudentview'] = 'Afficher la vue étudiante.';
 $string['showtutorial'] = 'Afficher un tutoriel sur les tests hors-ligne aux étudiants';
 $string['showtutorialdescription'] = 'Vous pouvez ajouter un lien vers le tutoriel sur la page de cours en utilisant l\'URL :';
 $string['showtutorial_help'] = 'Cette option détermine si les étudiants peuvent visualiser un tutoriel sur les bases des tests hors-ligne.

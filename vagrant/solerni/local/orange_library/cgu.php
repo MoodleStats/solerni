@@ -23,37 +23,37 @@
 
 require_once(dirname(__FILE__) . '/../../config.php');
 
-// Get plugin config
-$local_staticpage_config = get_config('local_staticpage');
+// Get plugin config.
+$localstaticpageconfig = get_config('local_staticpage');
 
-// Put together absolute document paths based on requested page and current language
+// Put together absolute document paths based on requested page and current language.
 $lang = current_language();
 $page = 'cgu';
-$path_language = rtrim($local_staticpage_config->documentdirectory, '/').'/'.$page.'.'.$lang.'.html';
-$path_language = str_replace('\\', '/', $path_language); // Replace backslashes in path with forward slashes if we are on a windows system
-$path_international = rtrim($local_staticpage_config->documentdirectory, '/').'/'.$page.'.html';
-$path_international = str_replace('\\', '/', $path_international); // Replace backslashes in path with forward slashes if we are on a windows system
+$pathlanguage = rtrim($localstaticpageconfig->documentdirectory, '/').'/'.$page.'.'.$lang.'.html';
+// Replace backslashes in path with forward slashes if we are on a windows system.
+$pathlanguage = str_replace('\\', '/', $pathlanguage);
+$pathinternational = rtrim($localstaticpageconfig->documentdirectory, '/').'/'.$page.'.html';
+// Replace backslashes in path with forward slashes if we are on a windows system.
+$pathinternational = str_replace('\\', '/', $pathinternational);
 
 // Does language based document file exist?
-if (is_readable($path_language) == true) {
-    // Remember document path
-    $path = $path_language;
-}
-// Otherwise, does international document file exist?
-else if (is_readable($path_international) == true) {
-    // Remember document path
-    $path = $path_international;
-}
-// If not, quit with error message
-else {
+if (is_readable($pathlanguage) == true) {
+    // Remember document path.
+    $path = $pathlanguage;
+} else if (is_readable($pathinternational) == true) {
+    // Otherwise, does international document file exist?
+    // Remember document path.
+    $path = $pathinternational;
+} else {
+    // If not, quit with error message.
     print_error('pagenotfound', 'local_staticpage');
 }
 
-// Import the document, load DOM
+// Import the document, load DOM.
 $staticdoc = new DOMDocument();
 $staticdoc->loadHTMLFile($path);
 $html = $staticdoc->saveHTML();
 
-// Print html code
+// Print html code.
 echo $html;
 
