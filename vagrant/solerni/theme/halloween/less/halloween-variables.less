@@ -13,11 +13,12 @@
 //
 
 @brand-primary:         #000000; // Black
-@brand-secondary:       #F16E00; // Orange
+@brand-secondary:       #FF7900; // Orange
 @brand-tertiary:        #FFFFFF; // White
+@brand-contrasted:      #F16E00; // Orange Contrasted
 
 @brand-success:         #32C832; // Green
-@brand-info:            #527EBD; // Blue
+@brand-info:            #4BB4E6; // Blue
 @brand-warning:         #FFCC00; // Yellow
 @brand-danger:          #DC3C14; // Red
 
@@ -30,18 +31,17 @@
 @orange-purple:         #A885D8;
 @orange-pink:           #FFB4E6;
 
-@orange-light-1:        #F6F6F6;
-@orange-light-2:        #EEEEEE;
-@orange-light-3:        #DDDDDD;
-@orange-light-4:        #CCCCCC;
-@orange-mid-1:          #999999;
-@orange-mid-2:          #666666;
-@orange-dark-1:         #444444;
+@orange-light-1:        #FAFAFA;
+@orange-light-2:        #F6F6F6;
+@orange-light-3:        #EEEEEE;
+@orange-light-4:        #DDDDDD;
+@orange-mid-1:          #CCCCCC;
+@orange-mid-2:          #999999;
+@orange-dark-1:         #666666;
 @orange-dark-2:         #333333;
-@orange-dark-3:         #232323;
 
 // Grays mapping to orange grays
-@gray-darker:           @orange-dark-3;
+@gray-darker:           @orange-dark-2;
 @gray-dark:             @orange-dark-1;
 @gray:                  @orange-mid-1;
 @gray-light:            @orange-light-3;
@@ -87,26 +87,27 @@
 
 @html-font-size-base: 62.5%;
 
-@font-family-titles:      "OrangeSans","Orange Sans",Arial,sans-serif;
-@font-family-sans-serif:  "OrangeSans", Arial, Helvetica, sans-serif;
-@font-family-serif:       Georgia, "Times New Roman", Times, serif;
+@font-family-titles:        "HelvNeue75", Arial,sans-serif;
+@font-family-sans-serif:    "HelvNeue55", Arial,sans-serif;
+@font-family-serif:         Georgia, "Times New Roman", Times, serif;
+
 //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
 @font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
 @font-family-base:        @font-family-sans-serif;
 
 @font-size-base:          16px;
-@font-size-large:         ceil((@font-size-base * 1.25));  // ~18px
-@font-size-small:         ceil((@font-size-base * 0.875)); // ~12px
+@font-size-large:         ceil((@font-size-base * 1.125)); // ~18px
+@font-size-small:         ceil((@font-size-base * 0.75)); // ~12px
 
-@font-size-h1:            floor((@font-size-base * 2.75)); // ~44px
-@font-size-h2:            floor((@font-size-base * 2.625));// ~42px
-@font-size-h3:            floor((@font-size-base * 1.75)); // ~28px
-@font-size-h4:            floor((@font-size-base * 1.5));  // ~24px
-@font-size-h5:            floor((@font-size-base * 1.31)); // ~21px
-@font-size-h6:            floor((@font-size-base * 1.2));  // ~16px
+@font-size-h1:            floor((@font-size-base * 2.75));      // ~44px
+@font-size-h2:            floor((@font-size-base * 2.625));     // ~42px
+@font-size-h3:            floor((@font-size-base * 1.75));      // ~28px
+@font-size-h4:            floor((@font-size-base * 1.5));       // ~24px
+@font-size-h5:            floor((@font-size-base * 1.3125));    // ~21px
+@font-size-h6:            floor((@font-size-base * 1.25));      // ~20px
 
 //** Unit-less `line-height` for use in components like buttons.
-@line-height-base:        1.428571429; // 20/14
+@line-height-base:        1.25; // 20/16
 //** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
 @line-height-computed:    floor((@font-size-base * @line-height-base)); // ~20px
 
@@ -120,21 +121,18 @@
 // We can find regularities in paddings or margins across the design.
 // We will try to organize those regularities into numeric constants
 
-@s-small-md-margin:      10px;  // 14px
-@s-medium-md-margin:     20px;  // 20px
-@s-double-md-margin:     30px;  // 30px
-@s-triple-md-margin:     50px;  // 42px
+@s-small-md-margin:      10px;
+@s-medium-md-margin:     20px;
+@s-double-md-margin:     30px;
+@s-triple-md-margin:     50px;
 
-@s-small-xs-margin:      10px;    // 10px
-@s-medium-xs-margin:     @s-small-xs-margin;                     // 10px
-@s-double-xs-margin:     ceil(@s-small-xs-margin * 2);           // 20px
-@s-triple-xs-margin:     ceil(@s-small-xs-margin * 3);           // 30px
+@s-small-xs-margin:      10px;                          // 10px
+@s-medium-xs-margin:     @s-small-xs-margin;            // 10px
+@s-double-xs-margin:     ceil(@s-small-xs-margin * 2);  // 20px
+@s-triple-xs-margin:     ceil(@s-small-xs-margin * 3);  // 30px
 
-@s-standard-icon-size:   36px;
-@s-double-icon-size:     @s-standard-icon-size * 2;
-@s-triple-icon-size:     @s-standard-icon-size * 3;
-@s-quadruple-icon-size:  @s-standard-icon-size * 4;
-
+@s-standard-icon-size:      36px;
+@s-small-icon-size:         30px;
 
 //-- Iconography
 //
@@ -149,17 +147,17 @@
 //## Define common padding and border radius sizes and more. Values based on 14px text and 1.428 line-height (~20px to start).
 //## Boost-Based Values
 
-@padding-base-vertical:     10px;
-@padding-base-horizontal:   20px;
+@padding-base-vertical:     @s-medium-md-margin; // 20px
+@padding-base-horizontal:   @s-medium-md-margin;
 
-@padding-large-vertical:    12px;
-@padding-large-horizontal:  20px;
+@padding-large-vertical:    @s-triple-md-margin; // 50px
+@padding-large-horizontal:  @s-triple-md-margin;
 
-@padding-small-vertical:    5px;
-@padding-small-horizontal:  10px;
+@padding-small-vertical:    @s-small-md-margin; // 10px
+@padding-small-horizontal:  @s-small-md-margin;
 
-@padding-xs-vertical:       1px;
-@padding-xs-horizontal:     10px;
+@padding-xs-vertical:       @s-small-xs-margin; // 10px
+@padding-xs-horizontal:     @s-small-xs-margin;
 
 @line-height-large:         1.2;
 @line-height-small:         1.5;
@@ -184,21 +182,20 @@
 //## Customizes the `.table` component with basic values, each used across all table variations.
 
 //** Padding for `<th>`s and `<td>`s.
-@table-cell-padding:            8px;
+@table-cell-padding:            (@padding-xs-vertical + 1);
 //** Padding for cells in `.table-condensed`.
-@table-condensed-cell-padding:  5px;
+@table-condensed-cell-padding:  (@padding-xs-vertical / 2);
 
 //** Default background color used for all tables.
 @table-bg:                      @brand-tertiary;
 //** Background color used for `.table-striped`.
-@table-bg-accent:               @gray-lighter;
+@table-bg-accent:               @gray-light;
 //** Background color used for `.table-hover`.
-@table-bg-hover:                @gray-lighter;
-@table-bg-active:               @table-bg-hover;
+@table-bg-hover:                @gray-light;
+@table-bg-active:               @orange-light-4;
 
 //** Border color for table and cell borders.
-@table-border-color:            @gray-light;
-
+@table-border-color:            @gray;
 
 //== Buttons
 //
@@ -216,6 +213,8 @@
 @btn-default-color-active:       @btn-default-bg;
 @btn-default-bg-active:          @brand-secondary;
 @btn-default-border-active:      @btn-default-bg-active;
+@btn-default-disabled-bg:        @brand-tertiary;
+@btn-default-disabled-color:     @gray;
 
 @btn-primary-color:              @brand-tertiary;
 @btn-primary-bg:                 @brand-primary;
@@ -226,16 +225,20 @@
 @btn-primary-color-active:       @btn-primary-color;
 @btn-primary-bg-active:          @brand-secondary;
 @btn-primary-border-active:      @btn-primary-bg-active;
+@btn-primary-disabled-bg:        @gray;
+@btn-primary-disabled-color:     @brand-tertiary;
 
-@btn-success-color:              @brand-tertiary;
+@btn-success-color:              @brand-primary;
 @btn-success-bg:                 @brand-success;
-@btn-success-border:             @btn-success-bg;
-@btn-success-color-hover:        @btn-success-color;
-@btn-success-bg-hover:           darken(@btn-success-bg, 12%);
+@btn-success-border:             @brand-success;
+@btn-success-color-hover:        @brand-tertiary;
+@btn-success-bg-hover:           @brand-primary;
 @btn-success-border-hover:       @btn-success-bg-hover;
-@btn-success-color-active:       @btn-success-color;
-@btn-success-bg-active:          darken(@btn-success-bg, 24%);
+@btn-success-color-active:       @brand-tertiary;
+@btn-success-bg-active:          @brand-secondary;
 @btn-success-border-active:      @btn-success-bg-active;
+@btn-success-disabled-bg:        @gray;
+@btn-success-disabled-color:     @brand-tertiary;
 
 @btn-info-color:                 @brand-tertiary;
 @btn-info-bg:                    @brand-info;
@@ -246,6 +249,8 @@
 @btn-info-color-active:          @btn-info-color;
 @btn-info-bg-active:             darken(@btn-info-bg, 24%);
 @btn-info-border-active:         @btn-info-bg-active;
+@btn-info-disabled-bg:           @gray;
+@btn-info-disabled-color:        @brand-tertiary;
 
 @btn-warning-color:              @brand-tertiary;
 @btn-warning-bg:                 @brand-warning;
@@ -256,29 +261,34 @@
 @btn-warning-color-active:       @btn-warning-color;
 @btn-warning-bg-active:          darken(@btn-warning-bg, 24%);
 @btn-warning-border-active:      @btn-warning-bg-active;
+@btn-warning-disabled-bg:        @gray;
+@btn-warning-disabled-color:     @brand-tertiary;
 
-@btn-danger-color:               @brand-tertiary;
+@btn-danger-color:               @brand-primary;
 @btn-danger-bg:                  @brand-danger;
 @btn-danger-border:              @btn-danger-bg;
-@btn-danger-color-hover:         @btn-danger-color;
-@btn-danger-bg-hover:            darken(@btn-danger-bg, 12%);
+@btn-danger-color-hover:         @brand-tertiary;
+@btn-danger-bg-hover:            @brand-primary;
 @btn-danger-border-hover:        @btn-danger-bg-hover;
-@btn-danger-color-active:        @btn-danger-color;
-@btn-danger-bg-active:           darken(@btn-danger-bg, 24%);
+@btn-danger-color-active:        @brand-tertiary;
+@btn-danger-bg-active:           @brand-secondary;
 @btn-danger-border-active:       @btn-danger-bg-active;
+@btn-danger-disabled-bg:         @gray;
+@btn-danger-disabled-color:      @brand-tertiary;
 
 @btn-engage-color:               @brand-tertiary;
 @btn-engage-bg:                  @brand-secondary;
 @btn-engage-border:              @btn-engage-bg;
-@btn-engage-color-hover:         @btn-engage-color;
-@btn-engage-bg-hover:            darken(@btn-engage-bg, 12%);
-@btn-engage-border-hover:        @btn-engage-bg-hover;
-@btn-engage-color-active:        @btn-engage-color;
-@btn-engage-bg-active:           darken(@btn-engage-bg, 24%);
-@btn-engage-border-active:       @btn-engage-bg-active;
+@btn-engage-color-hover:         @brand-tertiary;
+@btn-engage-bg-hover:            @brand-primary;
+@btn-engage-border-hover:        @brand-tertiary;
+@btn-engage-color-active:        @brand-primary;
+@btn-engage-bg-active:           @brand-tertiary;
+@btn-engage-border-active:       @btn-engage-color-active;
+@btn-engage-disabled-bg:         @gray;
+@btn-engage-disabled-color:      @brand-tertiary;
 
-@btn-link-disabled-color:        @orange-dark-2;
-
+@btn-link-disabled-color:        @gray;
 
 //== Forms
 //
@@ -299,7 +309,7 @@
 @input-border-focus:             @brand-primary;
 
 //** Placeholder text color
-@input-color-placeholder:        @orange-dark-2;
+@input-color-placeholder:        @gray;
 
 //** Default `.form-control` height
 @input-height-base:              (@line-height-computed + (@padding-base-vertical * 2) + 2);
@@ -422,20 +432,19 @@
 //## Define the maximum width of `.container` for different screen sizes.
 
 // Small screen / tablet
-@container-tablet:             ((720px + @grid-gutter-width));
+@container-tablet:             ((704px + @grid-gutter-width));
 //** For `@screen-sm-min` and up.
 @container-sm:                 @container-tablet;
 
 // Medium screen / desktop
-@container-desktop:            ((940px + @grid-gutter-width));
+@container-desktop:            ((920px + @grid-gutter-width));
 //** For `@screen-md-min` and up.
 @container-md:                 @container-desktop;
 
 // Large screen / wide desktop
-@container-large-desktop:      ((1140px + @grid-gutter-width));
+@container-large-desktop:      ((1160px + @grid-gutter-width));
 //** For `@screen-lg-min` and up.
 @container-lg:                 @container-large-desktop;
-
 
 //== Navbar
 //

@@ -319,9 +319,14 @@ class extended_course_object {
         $this->moocurl = new moodle_url('/course/view.php', array('id' => $course->id));
         $this->unenrolurl = $enrolment->get_unenrol_url($course);
 
-        $this->enrolurl = $instanceorangeinvitation->customtext2;
+        $this->enrolurl = ($instanceorangeinvitation)
+                ? $instanceorangeinvitation->customtext2
+                : '#';
 
-        $this->newsessionurl = $instanceorangeinvitation->customtext3;
+        $this->newsessionurl = ($instanceorangeinvitation)
+                ? $instanceorangeinvitation->customtext3
+                : '#';
+
         $this->coursestatus = set_course_status($course, $context, $this);
 
     }
