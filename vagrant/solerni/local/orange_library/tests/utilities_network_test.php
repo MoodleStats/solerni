@@ -19,18 +19,18 @@ use local_orange_library\utilities\utilities_network;
 
 class utilities_network_testcase extends advanced_testcase {
 
-	private $user;
+    private $user;
     private $mnethost;
 
     protected function setUp() {
         global $CFG;
         $this->resetAfterTest();
         $this->user = self::getDataGenerator()->create_user();
-		self::setUser($this->user);
+        self::setUser($this->user);
 
         $this->mnethost = $this->add_mnet_host();
 
-        // Simulate MNET is activated
+        // Simulate MNET is activated.
         if (!$CFG->solerni_isprivate) {
             $CFG->auth = 'mnet';
         }

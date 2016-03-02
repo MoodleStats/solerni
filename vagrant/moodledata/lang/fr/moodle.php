@@ -1483,6 +1483,7 @@ $string['restorecoursenow'] = 'Restaurer ce cours maintenant!';
 $string['restoredaccount'] = 'Compte restauré';
 $string['restoredaccountinfo'] = 'Ce compte a été importé d\'un autre serveur et son mot de passe a été perdu. Pour définir un nouveau mot de passe par courriel, veuillez cliquer sur « Continuer »';
 $string['restorefinished'] = 'Restauration réussie';
+$string['restoremnethostidmismatch'] = 'L\'identifiant de l\'utilisateur {$a} sur le serveur MNet  ne correspond pas à l\'ID local du serveur MNet.';
 $string['restoreto'] = 'Restaurer vers';
 $string['restoretositeadding'] = 'Attention ! Vous allez restaurer des données en les ajoutant à la page d\'accueil du site !';
 $string['restoretositedeleting'] = 'Attention ! Vous allez restaurer des données sur la page d\'accueil du site, en supprimant certaines données existantes !';

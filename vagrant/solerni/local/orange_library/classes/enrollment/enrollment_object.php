@@ -125,6 +125,6 @@ class enrollment_object {
     public function count_enrolled_users_by_instance($instance) {
         global $DB;
 
-        return $DB->count_records('user_enrolments', array('enrolid'=>$instance->id));
+        return $DB->count_records('user_enrolments', array('enrolid' => $instance->id));
     }
 }
