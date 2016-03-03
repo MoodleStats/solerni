@@ -70,6 +70,10 @@ input[type="checkbox"] {
   * Dropdowns
   * */
 
+ .dropdown {
+     display: inline-block;
+ }
+
  div[role="main"] button + .dropdown-menu,
  button + .dropdown-menu {
      padding:       0;
@@ -78,6 +82,11 @@ input[type="checkbox"] {
 
  .dropdown .btn {
      margin-left:   0;
+ }
+
+ .dropdown-menu {
+     min-width: 100%;
+     width:     100%;
  }
 
  .dropdown-menu > li > a {
@@ -93,6 +102,10 @@ input[type="checkbox"] {
 
  .header-dropdown .dropdown-menu a {
      font-weight:   bold;
+ }
+
+ .btn .caret {
+     margin-left: @s-triple-md-margin;
  }
 
 /*
