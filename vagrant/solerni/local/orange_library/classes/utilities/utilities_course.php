@@ -678,16 +678,31 @@ class utilities_course {
             // Check needed enrolment methods.
             $neededenrolment = array ('manual', 'self', 'orangeinvitation', 'orangenextsession');
             foreach ($neededenrolment as $enrol) {
+                $enrolname = get_string('pluginname', 'enrol_' . $enrol);
                 $instances = enrol_get_instances ($courseid, true);
                 $instances = array_filter ($instances, function ($element) use($enrol) {
                     return $element->enrol == $enrol;
                 });
                 if (count($instances) == 0) {
-                    $error[] = get_string('enrolmentmethodmissing', 'local_orange_library', $enrol);
+                    $error[] = get_string('enrolmentmethodmissing', 'local_orange_library', $enrolname);
                 } else {
                     $instance = array_pop($instances);
                     if ($instance->status != 0) {
-                        $error[] = get_string('enrolmentmethoddisabled', 'local_orange_library', $enrol);
+                        $error[] = get_string('enrolmentmethoddisabled', 'local_orange_library', $enrolname);
+                    } else {
+                        // For self enrol me need start and end enrol date.
+                        if ($instance->enrol == "self") {
+                            if (empty($instance->enrolstartdate)) {
+                                $error[] = get_string('startenrolmentdatemissing', 'local_orange_library');
+                            }
+                            if (empty($instance->enrolenddate)) {
+                                $error[] = get_string('endenrolmentdatemissing', 'local_orange_library');
+                            }
+                        } else if ($instance->enrol == "orangeinvitation") {
+                            if (empty($instance->customtext1) || empty($instance->customtext2) || empty($instance->customtext3)) {
+                                $error[] = get_string('orangeinvitationconfigmissing', 'local_orange_library');
+                            }
+                        }
                     }
                 }
             }
@@ -695,9 +710,13 @@ class utilities_course {
 
         if (has_capability('mod/descriptionpage:addinstance', $context)) {
             // Check descriptionpage module.
-            $descriptionpages = $DB->get_record('descriptionpage', array('course' => $courseid));
+            $descriptionpages = $DB->get_records('descriptionpage', array('course' => $courseid));
+            $modname = get_string('modulename', 'mod_descriptionpage');
             if (empty($descriptionpages)) {
-                $error[] = get_string('moddescriptionpagemissing', 'local_orange_library');
+                $error[] = get_string('moddescriptionpagemissing', 'local_orange_library', $modname);
+            }
+            if (count($descriptionpages) > 1) {
+                $error[] = get_string('moddescriptionpagemultiple', 'local_orange_library', $modname);
             }
         }
 

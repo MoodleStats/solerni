@@ -27,7 +27,7 @@ $string['pluginname'] = 'Solerni Mail';
 $string['orange_mail:config'] = 'Configure Orange mail plugin';
 $string['mailsetting'] = 'Settings';
 $string['mailgenerate'] = 'Generate templates email';
-$string['mailgeneratestatus'] = 'Email\'s templates generation completed.';
+$string['mailgeneratestatus'] = 'Email\'s templates generation completed. You need to purge caches to take into account these new templates.';
 $string['mailtest'] = 'Send test emails';
 $string['mailteststatus'] = 'Tests emails send.';
 $string['pluginname_desc'] = 'This plugin allow to configure mails sent by Solerni.';
@@ -140,10 +140,10 @@ $string['contentuseraccountemail'] = '<p>Hello <span class="txt18BNoir">{$a->ful
 Thank you for registering to <strong>{$a->sitename}</strong>.<p>
 <p>Here is a reminder of your account login details :</p>
 <ul>
-    <li>E-mail : <a href=\'{$a->email}\' class="lientxt18orange">{$a->email}</a></li>
+    <li>E-mail : <a href="mailto:{$a->email}" class="lientxt18orange">{$a->email}</a></li>
     <li>Password : you are the only one to know</li>
 </ul>
-<p>You can now access your account by <a href="{$a->profilurl}" class="lientxt18orange">here</a>.</p>
+<p>You can now access your account by <a href="{$a->profileurl}" class="lientxt18orange">here</a>.</p>
 <p>See you very soon on {$a->sitename}, your new collaborative French MOOC platform.</p>';
 $string['contentwelcomeemail'] = '<p>Welcome <span class="txt18BNoir">{$a->fullname}</span>,</p>
 <p>We are delighted to welcome you to {$a->sitename}, your new collaborative French MOOC platform.</p>
@@ -156,24 +156,13 @@ $string['contentwelcomeemail'] = '<p>Welcome <span class="txt18BNoir">{$a->fulln
 <p><strong>For effective communication, complete your profile</strong></p>
 <p>And to ensure you are able to interact with other learners and teachers, don\'t forget to complete and configure your <a href="{$b->profilurl}" class="lientxt18orange">profile</a>.</p>
 <p>That\'s it! You\'re now ready to start your collaborative MOOC adventure with us. We hope to see you very soon on {$a->sitename} and hope you enjoy new and rewarding experiences with us!</p>';
-$string['emailresetconfirmationhtml'] = '<p>Hello <span class="txt18BNoir">{$a->firstname} {$a->lastname}</span>,</p>
+$string['emailresetconfirmation'] = '<p>Hello <span class="txt18BNoir">{$a->firstname} {$a->lastname}</span>,</p>
 
 <p>You have requested a password reset. If you did not request this reset, please ignore this message.</p>
 
 Your username is : <span class="txt18BNoir">{$a->username}</span>
 <br />
 <p><a href="{$a->link}" class="lientxt18orange">Click on the link to reset your password</a>';
-$string['emailresetconfirmation'] = 'Hello <span class="txt18BNoir">{$a->firstname}</span>,
-
-You have requested a password reset. If you did not request this reset, please ignore this message.
-
-Your username is : <span class="txt18BNoir">{$a->username}</span>.
-
-Click on the link to reset your password :
-{$a->link}
-
-If the link does not work, copy and paste the URL to your browser\'s address bar.
-';
 $string['emailconfirmation'] = '<p>Hello <span class="txt18BNoir">{$a->firstname}</span>,</p>
 
 <p>We have received a registration request from you using your email address.</p>

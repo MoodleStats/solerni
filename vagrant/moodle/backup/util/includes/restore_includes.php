@@ -24,7 +24,7 @@
 
 // Prevent direct access to this file
 if (!defined('MOODLE_INTERNAL')) {
-	die('Direct access to this script is forbidden.');
+    die('Direct access to this script is forbidden.');
 }
 
 // Include all the backup needed stuff

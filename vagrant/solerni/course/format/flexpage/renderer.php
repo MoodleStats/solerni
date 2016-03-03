@@ -19,6 +19,8 @@
  * @license http://opensource.org/licenses/gpl-3.0.html GNU Public License
  * @package format_flexpage
  * @author Mark Nielsen
+ *
+ * Orange 2016022300 : add deleteactivitywarn message in function get_js_module()
  */
 
 require($CFG->dirroot.'/local/mr/bootstrap.php');
@@ -62,6 +64,8 @@ class format_flexpage_renderer extends plugin_renderer_base {
      * The javascript module used by the presentation layer
      *
      * @return array
+     *
+     * Orange : add deleteactivitywarn message
      */
     public function get_js_module() {
         return array(
@@ -99,6 +103,7 @@ class format_flexpage_renderer extends plugin_renderer_base {
                 array('formnamerequired', 'format_flexpage'),
                 array('deletepage', 'format_flexpage'),
                 array('deletemodwarn', 'format_flexpage'),
+                array('deleteactivitywarn', 'format_flexpage'),
                 array('continuedotdotdot', 'format_flexpage'),
                 array('warning', 'format_flexpage'),
                 array('actionbar', 'format_flexpage'),
@@ -342,9 +347,11 @@ class format_flexpage_renderer extends plugin_renderer_base {
         foreach ($pages as $page) {
             $info = $cache->is_page_available($page);
             if (is_string($info)) {
+                $formattedinfo = \core_availability\info::format_info($info, $page->get_courseid());
+
                 $box->add_new_row()->add_new_cell(
-                    html_writer::tag('div', format_string($page->get_name()), array('class' => 'format_flexpage_pagename')).
-                    html_writer::tag('div', $info, array('class' => 'availabilityinfo'))
+                    html_writer::div(format_string($page->get_name()), 'format_flexpage_pagename').
+                    html_writer::div($formattedinfo, 'availabilityinfo')
                 );
             }
         }
@@ -623,7 +630,11 @@ class format_flexpage_renderer extends plugin_renderer_base {
 
             if (!empty($CFG->enableavailability)) {
                 $conditionlib = new course_format_flexpage_lib_condition($page);
-                $pagename .= html_writer::tag('div', $conditionlib->get_full_information(), array('class' => 'availabilityinfo'));
+                $fullinfo     = $conditionlib->get_full_information();
+                if ($fullinfo) {
+                    $formattedinfo = \core_availability\info::format_info($fullinfo, $page->get_courseid());
+                    $pagename .= html_writer::div($formattedinfo, 'availabilityinfo');
+                }
             }
             $row = $box->add_new_row(array('pageid' => $page->get_id()));
             $row->add_new_cell($pagename, array('class' => 'format_flexpage_name_cell'))
@@ -723,8 +734,8 @@ class format_flexpage_renderer extends plugin_renderer_base {
                 $templates .= $this->condition_completion();
             }
             $showopts = array(
-                CONDITION_STUDENTVIEW_SHOW => get_string('showavailability_show', 'format_flexpage'),
-                CONDITION_STUDENTVIEW_HIDE => get_string('showavailability_hide', 'format_flexpage')
+                1 => get_string('showavailability_show', 'format_flexpage'),
+                0 => get_string('showavailability_hide', 'format_flexpage')
             );
             $box->add_new_row()->add_new_cell(html_writer::label($this->flexpage_help_icon('showavailability'), 'id_showavailability'))
                                ->add_new_cell(html_writer::select($showopts, 'showavailability', $page->get_showavailability(), false, array('id' => 'id_showavailability')));

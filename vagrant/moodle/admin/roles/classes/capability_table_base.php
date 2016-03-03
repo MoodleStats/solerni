@@ -33,147 +33,147 @@ defined('MOODLE_INTERNAL') || die();
  * An ajaxy search UI shown at the top, if JavaScript is on.
  */
 abstract class core_role_capability_table_base {
-	/** The context this table relates to. */
-	protected $context;
+    /** The context this table relates to. */
+    protected $context;
 
-	/** The capabilities to display. Initialised as $context->get_capabilities(). */
-	protected $capabilities = array();
+    /** The capabilities to display. Initialised as $context->get_capabilities(). */
+    protected $capabilities = array();
 
-	/** Added as an id="" attribute to the table on output. */
-	protected $id;
+    /** Added as an id="" attribute to the table on output. */
+    protected $id;
 
-	/** Added to the class="" attribute on output. */
-	protected $classes = array('rolecap');
+    /** Added to the class="" attribute on output. */
+    protected $classes = array('rolecap');
 
-	/** Default number of capabilities in the table for the search UI to be shown. */
-	const NUM_CAPS_FOR_SEARCH = 12;
+    /** Default number of capabilities in the table for the search UI to be shown. */
+    const NUM_CAPS_FOR_SEARCH = 12;
 
-	/**
-	 * Constructor.
-	 * @param context $context the context this table relates to.
-	 * @param string $id what to put in the id="" attribute.
-	 */
-	public function __construct(context $context, $id) {
-		$this->context = $context;
-		$this->capabilities = $context->get_capabilities();
-		$this->id = $id;
-	}
+    /**
+     * Constructor.
+     * @param context $context the context this table relates to.
+     * @param string $id what to put in the id="" attribute.
+     */
+    public function __construct(context $context, $id) {
+        $this->context = $context;
+        $this->capabilities = $context->get_capabilities();
+        $this->id = $id;
+    }
 
-	/**
-	 * Use this to add class="" attributes to the table. You get the rolecap by
-	 * default.
-	 * @param array $classnames of class names.
-	 */
-	public function add_classes($classnames) {
-		$this->classes = array_unique(array_merge($this->classes, $classnames));
-	}
+    /**
+     * Use this to add class="" attributes to the table. You get the rolecap by
+     * default.
+     * @param array $classnames of class names.
+     */
+    public function add_classes($classnames) {
+        $this->classes = array_unique(array_merge($this->classes, $classnames));
+    }
 
-	/**
-	 * Display the table.
-	 */
-	public function display() {
-		if (count($this->capabilities) > self::NUM_CAPS_FOR_SEARCH) {
-			global $PAGE;
-			$jsmodule = array(
-					'name' => 'rolescapfilter',
-					'fullpath' => '/admin/roles/module.js',
-					'strings' => array(
-							array('filter', 'moodle'),
-							array('clear', 'moodle'),                ),
-					'requires' => array('node', 'cookie', 'escape')
-			);
-			$PAGE->requires->js_init_call('M.core_role.init_cap_table_filter', array($this->id, $this->context->id), false,
-					$jsmodule);
-		}
-		echo '<table class="' . implode(' ', $this->classes) . '" id="' . $this->id . '">' . "\n<thead>\n";
-		echo '<tr><th class="name" align="left" scope="col">' . get_string('capability', 'core_role') . '</th>';
-		$this->add_header_cells();
-		echo "</tr>\n</thead>\n<tbody>\n";
+    /**
+     * Display the table.
+     */
+    public function display() {
+        if (count($this->capabilities) > self::NUM_CAPS_FOR_SEARCH) {
+            global $PAGE;
+            $jsmodule = array(
+                'name' => 'rolescapfilter',
+                'fullpath' => '/admin/roles/module.js',
+                'strings' => array(
+                    array('filter', 'moodle'),
+                    array('clear', 'moodle'),                ),
+                'requires' => array('node', 'cookie', 'escape')
+            );
+            $PAGE->requires->js_init_call('M.core_role.init_cap_table_filter', array($this->id, $this->context->id), false,
+                $jsmodule);
+        }
+        echo '<table class="' . implode(' ', $this->classes) . '" id="' . $this->id . '">' . "\n<thead>\n";
+        echo '<tr><th class="name" align="left" scope="col">' . get_string('capability', 'core_role') . '</th>';
+        $this->add_header_cells();
+        echo "</tr>\n</thead>\n<tbody>\n";
 
-		// Loop over capabilities.
-		$contextlevel = 0;
-		$component = '';
-		foreach ($this->capabilities as $capability) {
-			if ($this->skip_row($capability)) {
-				continue;
-			}
+        // Loop over capabilities.
+        $contextlevel = 0;
+        $component = '';
+        foreach ($this->capabilities as $capability) {
+            if ($this->skip_row($capability)) {
+                continue;
+            }
 
-			// Prints a breaker if component or name or context level has changed.
-			if (component_level_changed($capability, $component, $contextlevel)) {
-				$this->print_heading_row($capability);
-			}
-			$contextlevel = $capability->contextlevel;
-			$component = $capability->component;
+            // Prints a breaker if component or name or context level has changed.
+            if (component_level_changed($capability, $component, $contextlevel)) {
+                $this->print_heading_row($capability);
+            }
+            $contextlevel = $capability->contextlevel;
+            $component = $capability->component;
 
-			// Start the row.
-			echo '<tr class="' . implode(' ', array_unique(array_merge(array('rolecap'),
-					$this->get_row_classes($capability)))) . '">';
+            // Start the row.
+            echo '<tr class="' . implode(' ', array_unique(array_merge(array('rolecap'),
+                    $this->get_row_classes($capability)))) . '">';
 
-			// Table cell for the capability name.
-			echo '<th scope="row" class="name"><span class="cap-desc">' . get_capability_docs_link($capability) .
-			'<span class="cap-name">' . $capability->name . '</span></span></th>';
+            // Table cell for the capability name.
+            echo '<th scope="row" class="name"><span class="cap-desc">' . get_capability_docs_link($capability) .
+                '<span class="cap-name">' . $capability->name . '</span></span></th>';
 
-			// Add the cells specific to this table.
-			$this->add_row_cells($capability);
+            // Add the cells specific to this table.
+            $this->add_row_cells($capability);
 
-			// End the row.
-			echo "</tr>\n";
-		}
+            // End the row.
+            echo "</tr>\n";
+        }
 
-		// End of the table.
-		echo "</tbody>\n</table>\n";
-	}
+        // End of the table.
+        echo "</tbody>\n</table>\n";
+    }
 
-	/**
-	 * Used to output a heading rows when the context level or component changes.
-	 * @param stdClass $capability gives the new component and contextlevel.
-	 */
-	protected function print_heading_row($capability) {
-		echo '<tr class="rolecapheading header"><td colspan="' . (1 + $this->num_extra_columns()) . '" class="header"><strong>' .
-				get_component_string($capability->component, $capability->contextlevel) .
-				'</strong></td></tr>';
+    /**
+     * Used to output a heading rows when the context level or component changes.
+     * @param stdClass $capability gives the new component and contextlevel.
+     */
+    protected function print_heading_row($capability) {
+        echo '<tr class="rolecapheading header"><td colspan="' . (1 + $this->num_extra_columns()) . '" class="header"><strong>' .
+            get_component_string($capability->component, $capability->contextlevel) .
+            '</strong></td></tr>';
 
-	}
+    }
 
-	/**
-	 * For subclasses to override, output header cells, after the initial capability one.
-	 */
-	protected abstract function add_header_cells();
+    /**
+     * For subclasses to override, output header cells, after the initial capability one.
+     */
+    protected abstract function add_header_cells();
 
-	/**
-	 * For subclasses to override, return the number of cells that add_header_cells/add_row_cells output.
-	 */
-	protected abstract function num_extra_columns();
+    /**
+     * For subclasses to override, return the number of cells that add_header_cells/add_row_cells output.
+     */
+    protected abstract function num_extra_columns();
 
-	/**
-	 * For subclasses to override. Allows certain capabilties
-	 * to be left out of the table.
-	 *
-	 * @param object $capability the capability this row relates to.
-	 * @return boolean. If true, this row is omitted from the table.
-	 */
-	protected function skip_row($capability) {
-		return false;
-	}
+    /**
+     * For subclasses to override. Allows certain capabilties
+     * to be left out of the table.
+     *
+     * @param object $capability the capability this row relates to.
+     * @return boolean. If true, this row is omitted from the table.
+     */
+    protected function skip_row($capability) {
+        return false;
+    }
 
-	/**
-	 * For subclasses to override. A change to reaturn class names that are added
-	 * to the class="" attribute on the &lt;tr> for this capability.
-	 *
-	 * @param stdClass $capability the capability this row relates to.
-	 * @return array of class name strings.
-	 */
-	protected function get_row_classes($capability) {
-		return array();
-	}
+    /**
+     * For subclasses to override. A change to reaturn class names that are added
+     * to the class="" attribute on the &lt;tr> for this capability.
+     *
+     * @param stdClass $capability the capability this row relates to.
+     * @return array of class name strings.
+     */
+    protected function get_row_classes($capability) {
+        return array();
+    }
 
-	/**
-	 * For subclasses to override. Output the data cells for this capability. The
-	 * capability name cell will already have been output.
-	 *
-	 * You can rely on get_row_classes always being called before add_row_cells.
-	 *
-	 * @param stdClass $capability the capability this row relates to.
-	 */
-	protected abstract function add_row_cells($capability);
+    /**
+     * For subclasses to override. Output the data cells for this capability. The
+     * capability name cell will already have been output.
+     *
+     * You can rely on get_row_classes always being called before add_row_cells.
+     *
+     * @param stdClass $capability the capability this row relates to.
+     */
+    protected abstract function add_row_cells($capability);
 }

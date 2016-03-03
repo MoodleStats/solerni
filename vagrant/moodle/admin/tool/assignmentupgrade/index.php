@@ -20,18 +20,18 @@
  * The upgrade can be done on any old assignment instance providing it is using one of the core
  * assignment subtypes (online text, single upload, etc).
  * The new assignment module was introduced in Moodle 2.3 and although it completely reproduces
-* the features of the existing assignment type it wasn't designed to replace it entirely as there
-* are many custom assignment types people use and it wouldn't be practical to try to convert them.
-* Instead the existing assignment type will be left in core and people will be encouraged to
-* use the new assignment type.
-*
-* This screen is the main entry-point to the plugin, it gives the admin a list
-* of options available to them.
-*
-* @package    tool_assignmentupgrade
-* @copyright  2012 NetSpot
-* @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
-*/
+ * the features of the existing assignment type it wasn't designed to replace it entirely as there
+ * are many custom assignment types people use and it wouldn't be practical to try to convert them.
+ * Instead the existing assignment type will be left in core and people will be encouraged to
+ * use the new assignment type.
+ *
+ * This screen is the main entry-point to the plugin, it gives the admin a list
+ * of options available to them.
+ *
+ * @package    tool_assignmentupgrade
+ * @copyright  2012 NetSpot
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
 require_once(dirname(__FILE__) . '/../../../config.php');
 require_once($CFG->libdir . '/adminlib.php');

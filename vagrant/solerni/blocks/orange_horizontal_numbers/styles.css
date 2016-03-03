@@ -1,0 +1,17 @@
+.block_orange_horizontal_numbers .tdvalue {
+  border:1px solid #ffffff;
+  width:10%;
+  font-size:80%;
+  background-color: #BDBDBD;
+  vertical-align:middle;
+  text-align: center;
+}
+
+.block_orange_horizontal_numbers .tdtext {
+  border:1px solid #ffffff;
+  width:15%;
+  font-size:80%;
+  background-color: #ffffff;
+  vertical-align:middle;
+  text-align: center;
+}

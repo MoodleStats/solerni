@@ -264,19 +264,19 @@ function create_subtrees () {
 	init_subtree vagrant/solerni/auth/googleoauth2 goauth-source https://github.com/mouneyrac/moodle-auth_googleoauth2.git master
 
 	# Flexpage Format (master = 2.7.0)
-	init_subtree vagrant/solerni/course/format/flexpage flexpage-source https://github.com/moodlerooms/moodle-format_flexpage.git MOODLE_27_STABLE
+	init_subtree vagrant/solerni/course/format/flexpage flexpage-source https://github.com/moodlerooms/moodle-format_flexpage.git MOODLE_28_STABLE
 
 		#Flexpage Format Dependencies : block_flexpagenav
-		init_subtree vagrant/solerni/blocks/flexpagenav flexpagenav-source https://github.com/moodlerooms/moodle-block_flexpagenav.git MOODLE_27_STABLE
+		init_subtree vagrant/solerni/blocks/flexpagenav flexpagenav-source https://github.com/moodlerooms/moodle-block_flexpagenav.git MOODLE_28_STABLE
 
 		#Flexpage Format Dependencies : block_flexpagemod
-		init_subtree vagrant/solerni/blocks/flexpagemod flexpagemod-source https://github.com/moodlerooms/moodle-block_flexpagemod.git MOODLE_27_STABLE
+		init_subtree vagrant/solerni/blocks/flexpagemod flexpagemod-source https://github.com/moodlerooms/moodle-block_flexpagemod.git MOODLE_28_STABLE
 
 		#Flexpage Format Dependencies : theme_flexpage
-		init_subtree vagrant/solerni/theme/flexpage flexpagetheme-source https://github.com/moodlerooms/moodle-theme_flexpage.git MOODLE_27_STABLE
+		init_subtree vagrant/solerni/theme/flexpage flexpagetheme-source https://github.com/moodlerooms/moodle-theme_flexpage.git MOODLE_28_STABLE
 
 		#Flexpage Format Dependencies : local_mr
-		init_subtree vagrant/solerni/local/mr mr-source https://github.com/moodlerooms/moodle-local_mr.git MOODLE_27_STABLE
+		init_subtree vagrant/solerni/local/mr mr-source https://github.com/moodlerooms/moodle-local_mr.git MOODLE_28_STABLE
 
 	# Goodbye (master = 1)
 	init_subtree vagrant/solerni/local/goodbye goodbye-source https://github.com/bmbrands/moodle-local_goodbye.git master
@@ -288,10 +288,10 @@ function create_subtrees () {
 	#init_subtree vagrant/solerni autoenrol-source https://github.com/markward/enrol_autoenrol.git master
 
 	# OU Blog (master = 2.7 r1)
-	init_subtree vagrant/solerni/mod/oublog oublog-source https://github.com/moodleou/moodle-mod_oublog.git MOODLE_27_STABLE
+	init_subtree vagrant/solerni/mod/oublog oublog-source https://github.com/moodleou/moodle-mod_oublog.git MOODLE_29_STABLE
 
 	# mail (master = MOODLE_LEGACY) MOODLE 2.6-2.7
-	init_subtree vagrant/solerni/local/mail mail-source https://github.com/IOC/moodle-local_mail.git MOODLE_LEGACY
+	init_subtree vagrant/solerni/local/mail mail-source https://github.com/IOC/moodle-local_mail.git master
 
 	# Question Type Drag and drop onto text (master = 1.5 for Moodle 2.6+)
 	init_subtree vagrant/solerni/question/type/ddwtos ddwtos-source https://github.com/moodleou/moodle-qtype_ddwtos.git master
@@ -311,8 +311,8 @@ function create_subtrees () {
         # mediagallery (master = master)
         init_subtree vagrant/solerni/mod/mediagallery mediagallery-source https://github.com/netspotau/moodle-mod_mediagallery.git master
 
-	# questionnaire (master = 2.7.2)
-	init_subtree vagrant/solerni/mod/questionnaire questionnaire-source https://github.com/remotelearner/moodle-mod_questionnaire.git MOODLE_27_STABLE
+	# questionnaire (master = 2.9.1)
+	init_subtree vagrant/solerni/mod/questionnaire questionnaire-source https://github.com/remotelearner/moodle-mod_questionnaire.git MOODLE_29_STABLE
 
         # forumng (master = 2.7 r2)
         init_subtree vagrant/solerni/mod/forumng forumng-source https://github.com/moodleou/moodle-mod_forumng.git MOODLE_27_STABLE
@@ -329,6 +329,8 @@ function create_subtrees () {
         # local_staticpage (master = master)
         init_subtree vagrant/solerni/local/staticpage staticpage-source https://github.com/moodleuulm/moodle-local_staticpage.git master
 
+        # theme_bootstrap (master = 2015062200)
+        init_subtree vagrant/solerni/theme/bootstrap bootstrap-source https://github.com/bmbrands/theme_bootstrap.git MOODLE_29_STABLE
 }
 
 

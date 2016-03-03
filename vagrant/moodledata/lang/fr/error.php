@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'error', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'error', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   error
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -79,6 +79,7 @@ $string['cannoteditcomment'] = 'Vous ne pouvez pas modifier ce commentaire, qui 
 $string['cannoteditcommentexpired'] = 'Impossible de modifier ce commentaire. Le délai est échu !';
 $string['cannoteditpostorblog'] = 'Vous ne pouvez pas écrire ou modifier de blogs';
 $string['cannoteditsiteform'] = 'Vous ne pouvez pas modifier le cours du site par l\'intermédiaire de ce formulaire';
+$string['cannotedituserpreferences'] = 'Impossible de modifier les préférences de cet utilisateur';
 $string['cannotedityourprofile'] = 'Vous ne pouvez pas modifier votre propre profil';
 $string['cannotexecduringupgrade'] = 'Ne peut pas être lancé durant la mise à jour';
 $string['cannotfindcategory'] = 'Enregistrement de la catégorie (ID {$a}) introuvable dans la base de données';
@@ -108,7 +109,7 @@ $string['cannotinsertrecord'] = 'Impossible d\'insérer le nouvel enregistrement
 $string['cannotmailconfirm'] = 'Erreur lors de l\'envoi du courriel de confirmation de modification de mot de passe';
 $string['cannotmanualctrack'] = 'L\'activité ne permet pas le suivi manuel de l\'achèvement';
 $string['cannotmapfield'] = 'Collision détectée : deux champs correspondent au même élément d\'évaluation {$a}';
-$string['cannotmarktopic'] = 'Impossible de marquer cette section comme actuelle dans ce cours';
+$string['cannotmarktopic'] = 'Impossible de marquer cette section';
 $string['cannotmigratedatacomments'] = 'Impossible de migrer les commentaires du module base de données';
 $string['cannotmodulename'] = 'Impossible d\'obtenir le nom du module dans la navigation';
 $string['cannotmoduletype'] = 'Impossible d\'obtenir le type du module dans la navigation';
@@ -230,6 +231,7 @@ $string['errorcreatingfile'] = 'Erreur lors de la création du fichier « {$a}�
 $string['errorcreatingrole'] = 'Erreur lors de la création du rôle';
 $string['errorfetchingrssfeed'] = 'Erreur lors de la récupération du flux RSS.';
 $string['erroronline'] = 'Erreur à la ligne {$a}';
+$string['erroroutput'] = 'Erreur de sortie. La redirection automatique a été désactivée.';
 $string['errorparsingxml'] = 'Erreur d\'analyse XML : {$a->errorstring} à la ligne {$a->errorline}, caractère {$a->errorchar}';
 $string['errorprocessingarchive'] = 'Erreur lors du traitement du fichier d\'archive';
 $string['errorreadingfile'] = 'Erreur lors de la lecture du fichier « {$a} »';
@@ -303,7 +305,7 @@ $string['invalidcourselevel'] = 'Niveau de contexte incorrect';
 $string['invalidcoursemodule'] = 'Identifiant de module de cours non valide';
 $string['invalidcoursenameshort'] = 'Le nom abrégé du cours n\'est pas valide';
 $string['invaliddata'] = 'Les données envoyées ne sont pas valides';
-$string['invaliddatarootpermissions'] = 'Des droits d\'accès non valides ont été détectées dans le dossier $CFG->dataroot. Il est impératif que l\'administrateur corrige ces droits d\'accès.';
+$string['invaliddatarootpermissions'] = 'Des droits d\'accès non valides ont été détectées lors de la création d\'un dossier. Veuillez activer le débogage pour plus de détails.';
 $string['invaliddevicetype'] = 'Type d\'appareil non valide';
 $string['invalidelementid'] = 'Identifiant d\'élément incorrect !';
 $string['invalidentry'] = 'Article non valide';
@@ -387,6 +389,7 @@ $string['movecatcontentstoroot'] = 'Il n\'est pas permis de déplacer le contenu
 $string['movecategorynotpossible'] = 'Vous ne pouvez pas déplacer la catégorie « {$a} » dans la catégorie sélectionnée.';
 $string['movecategoryownparent'] = 'Vous ne pouvez pas faire de la catégorie « {$a} » un parent d\'elle-même.';
 $string['movecategoryparentconflict'] = 'Vous ne pouvez pas faire de la catégorie « {$a} » une sous-catégorie de l\'une de ses propres sous-catégories.';
+$string['mssqlrcsmodemissing'] = 'La base de données n\'utilise pas le mode attendu READ_COMMITTED_SNAPSHOT, ce qui peut conduire à des résultats erronés, particulièrement lors de situations avec de nombreux accès simultanés. Veuillez activer ce mode pour un fonctionnement correct. Vous trouverez plus d\'informations à ce sujet sur <a href="https://docs.moodle.org/en/Installing_MSSQL_for_PHP">Moodle Docs (en anglais)</a>.';
 $string['multiplerecordsfound'] = 'Plusieurs enregistrement trouvés, alors qu\'un seul enregistrement est attendu.';
 $string['multiplerestorenotallow'] = 'Il n\'est pas autorisé d\'effectuer des restaurations multiples !';
 $string['mustbeloggedin'] = 'Vous devez être connecté pour faire ceci';
@@ -472,8 +475,8 @@ $string['sendmessage'] = 'Envoyer message';
 $string['serverconnection'] = 'Erreur lors de la connexion au serveur';
 $string['servicedonotexist'] = 'Le service n\'existe pas';
 $string['sessioncookiesdisable'] = 'Utilisation incorrecte de require_key_login(). Les cookies de session doivent être désactivés !';
-$string['sessiondiskfull'] = 'La partition de session du disque dur est pleine. Il n\'est actuellement pas possible de se connecter. Veuillez contacter l\'administrateur du serveur.';
-$string['sessionerroruser'] = 'Votre session est échue. Veuillez vous connecter à nouveau';
+$string['sessiondiskfull'] = 'La partition de session est pleine. Il n\'est actuellement pas possible de se connecter. Veuillez contacter l\'administrateur du serveur.';
+$string['sessionerroruser'] = 'Votre session est échue. Veuillez vous connecter à nouveau.';
 $string['sessionerroruser2'] = 'Une erreur du serveur affectant votre session de connexion a été détectée. Veuillez vous connecter à nouveau ou relancer votre navigateur.';
 $string['sessionhandlerproblem'] = 'Traitement des sessions mal configuré';
 $string['sessionipnomatch'] = 'Votre adresse IP semble avoir changé depuis votre connexion. Ce réglage de sécurité empêche des pirates d\'usurper votre identité lorsque vous êtes connecté sur ce site. Les utilisateurs ne devraient en principe pas rencontrer ce message. Veuillez demander de l\'aide à l\'administrateur de ce site';

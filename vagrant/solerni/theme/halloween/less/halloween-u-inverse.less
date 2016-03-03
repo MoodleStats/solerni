@@ -18,8 +18,7 @@
     & a.visited,
     & li a:visited,
     & li a.visited {
-        color:              @orange-light-4;
-        text-decoration:    none;
+        color: @brand-tertiary;
     }
 
     & a:active,
@@ -30,7 +29,7 @@
     & a.focus,
     & li a:focus,
     & li a.focus {
-        color: @orange-light-4;
+        color: @brand-secondary;
     }
 
     & a:focus,
@@ -51,8 +50,13 @@
         }
     }
 
-    & h1, & h4, & h5, & h6,
-    & .h1, & .h4, & .h5, & .h6, & p {
+    & h1, & h2, & h3, & h4, & h5, & h6,
+    & .h1, & .h2, & .h3, & .h4, & .h5, & .h6 {
+        color: @brand-secondary;
+    }
+
+    & p,
+    & .p  {
         color: @brand-tertiary;
     }
 
@@ -98,11 +102,20 @@
     }
 
     & .fullwidth-line {
-        border-bottom-color: @gray;
+        border-bottom-color: @orange-light-4;
     }
 
     // Header Home Link
     & .logo-brandname {
         color: @brand-tertiary;
+    }
+
+    // RESAC NAV
+    .resac-navigation .navigation-item {
+        background-color: @brand-primary;
+
+        &.active {
+            color: @brand-secondary;
+        }
     }
 }

@@ -56,6 +56,7 @@ function theme_halloween_bootstrap_grid($hassidepre, $hassidepost) {
             $regions['post'] = 'col-sm-3 col-sm-pull-9 col-lg-2 col-lg-pull-10';
         }
     }
+
     return $regions;
 }
 
@@ -138,4 +139,61 @@ function halloween_profile_signup_fields($mform) {
             $formfield->edit_field($mform);
         }
     }
+}
+
+/**
+ * Check if user is connected,
+ * if user if on different page that we could be redirects to or chose to go,
+ * like enrol, policy, logout, that we are not in some kind of loop,
+ * and if we have a wantsurl in $SESSION we redirects accordingly.
+ *
+ * @global $SESSION
+ * @global $PAGE
+ *
+ * return @void
+ */
+function theme_halloween_redirect_if_wantsurl() {
+    global $PAGE, $SESSION;
+
+    if(!isloggedin()) {
+            return;
+    }
+
+    // Those page are redirection free.
+    if( strpos('/enrol/index.php', $PAGE->url->get_path()) !== false
+        || strpos('/user/policy.php', $PAGE->url->get_path()) !== false
+        || strpos('/logout.php', $PAGE->url->get_path()) !== false) {
+            return;
+    }
+
+    // Loop detector. It means the system has redirected the user,
+    // or the user has clicked something different,
+    // meaning we need to stop forcing user journey.
+    if (isset($SESSION->hasbeenredirected) && !empty($SESSION->hasbeenredirected)
+         && isset($SESSION->wantsurl) && !empty($SESSION->wantsurl)) {
+        unset($SESSION->wantsurl);
+        unset($SESSION->hasbeenredirected);
+            return;
+    }
+
+    // We had been redirected but wantsurl is empty. Unprobable but we never know.
+    if(isset($SESSION->hasbeenredirected)
+        && (!isset($SESSION->wantsurl) || empty($SESSION->wantsurl))) {
+            unset($SESSION->hasbeenredirected);
+            return;
+    }
+
+    if (isset($SESSION->wantsurl) && !empty($SESSION->wantsurl)) {
+        $SESSION->hasbeenredirected = 1;
+        $urltogo = $SESSION->wantsurl;
+        unset($SESSION->wantsurl);
+        redirect($urltogo);
+    }
+}
+
+/*
+ * Loads core jQuery in theme
+ */
+function theme_halloween_page_init(moodle_page $page) {
+    $page->requires->jquery();
 }

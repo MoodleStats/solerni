@@ -23,8 +23,6 @@
 
 use core_availability\info;
 
-require_once($CFG->libdir.'/conditionlib.php');
-
 /**
  * @author Mark Nielsen
  * @package format_flexpage
@@ -101,6 +99,16 @@ class course_format_flexpage_lib_condition extends info {
     }
 
     /**
+     * Gets the capability used to view hidden activities/sections (as
+     * appropriate).
+     *
+     * @return string Name of capability used to view hidden items of this type
+     */
+    protected function get_view_hidden_capability() {
+        return 'format/flexpage:managepages';
+    }
+
+    /**
      * Obtains the name of the item (cm_info or section_info, at present) that
      * this is controlling availability of. Name should be formatted ready
      * for on-screen display.
@@ -120,12 +128,4 @@ class course_format_flexpage_lib_condition extends info {
     protected function set_in_database($availabilty) {
         throw new coding_exception('The set_in_database method has not been implemented for Flexpage');
     }
-
-    /**
-     * Gets the capability used to view hidden activities/sections (as
-     * appropriate).
-     *
-     * @return string Name of capability used to view hidden items of this type
-     */
-    protected function get_view_hidden_capability(){return '';}
 }

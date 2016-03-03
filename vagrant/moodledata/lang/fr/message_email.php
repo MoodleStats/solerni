@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'message_email', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'message_email', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   message_email
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -28,7 +28,7 @@ defined('MOODLE_INTERNAL') || die();
 $string['allowattachments'] = 'Permettre les annexes';
 $string['allowusermailcharset'] = 'Autoriser les utilisateurs à choisir un jeu de caractères';
 $string['configallowattachments'] = 'Si ce réglage est activé, les courriels envoyés depuis ce site peuvent comporter des annexes, par exemple des badges.';
-$string['configallowusermailcharset'] = 'Si ce réglage est activé, les utilisateurs peuvent spécifier dans leur profil l\'encodage de caractères à utiliser pour leurs courriels.';
+$string['configallowusermailcharset'] = 'Si ce réglage est activé, les utilisateurs peuvent spécifier dans leurs préférences de messagerie l\'encodage de caractères à utiliser pour leurs courriels.';
 $string['configemailonlyfromnoreplyaddress'] = 'Si ce réglage est activé, tous les courriels seront envoyés avec comme adresse d\'expédition l\'adresse de non-réponse. Ce réglage peut être utilisé pour empêcher les systèmes de courriels anti-usurpation d\'adresse de bloquer les courriels.';
 $string['configmailnewline'] = 'Caractère de nouvelle ligne à utiliser dans les messages par courriel. Selon la RFC 822bis, CRLF est obligatoire. Certains serveurs de courriel effectuent une conversion automatique de LF (LineFeed) vers CRLF (CarriageReturn et LineFeed), tandis que d\'autres effectuent une conversion incorrecte de CRLF vers CRCRLF. D\'autres encore rejettent les messages comprenant LF seulement (par exemple qmail). Si vous avez des problèmes de messages non délivrés ou contenant des lignes vides, essayez de modifier ce réglage.';
 $string['confignoreplyaddress'] = 'Les courriels sont parfois envoyés au nom d\'un utilisateur (par exemple les messages des forums). L\'adresse de courriel spécifiée ici sera utilisée comme adresse de l\'expéditeur lorsqu\'il n\'est pas souhaitable que les utilisateurs répondent directement à l\'auteur du message (par exemple s\'il ne veut pas que son adresse de courriel soit divulguée).';

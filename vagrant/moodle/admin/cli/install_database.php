@@ -25,21 +25,21 @@
  * @package    core
  * @subpackage cli
  * @copyright  2010 Petr Skoda (http://skodak.org)
-* @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
-*/
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
 define('CLI_SCRIPT', true);
 define('CACHE_DISABLE_ALL', true);
 
 // extra execution prevention - we can not just require config.php here
 if (isset($_SERVER['REMOTE_ADDR'])) {
-	exit(1);
+    exit(1);
 }
 
 // Force OPcache reset if used, we do not want any stale caches
 // when preparing test environment.
 if (function_exists('opcache_reset')) {
-	opcache_reset();
+    opcache_reset();
 }
 
 $help =
@@ -52,6 +52,7 @@ Options:
 --lang=CODE           Installation and default site language. Default is en.
 --adminuser=USERNAME  Username for the moodle admin account. Default is admin.
 --adminpass=PASSWORD  Password for the moodle admin account.
+--adminemail=STRING   Email address for the moodle admin account.
 --agree-license       Indicates agreement with software license.
 --fullname=STRING     Name of the site
 --shortname=STRING    Name of the site
@@ -63,19 +64,19 @@ Example:
 
 // Check that PHP is of a sufficient version
 if (version_compare(phpversion(), "5.4.4") < 0) {
-	$phpversion = phpversion();
-	// do NOT localise - lang strings would not work here and we CAN NOT move it after installib
-	fwrite(STDERR, "Moodle 2.7 or later requires at least PHP 5.4.4 (currently using version $phpversion).\n");
-	fwrite(STDERR, "Please upgrade your server software or install older Moodle version.\n");
-	exit(1);
+    $phpversion = phpversion();
+    // do NOT localise - lang strings would not work here and we CAN NOT move it after installib
+    fwrite(STDERR, "Moodle 2.7 or later requires at least PHP 5.4.4 (currently using version $phpversion).\n");
+    fwrite(STDERR, "Please upgrade your server software or install older Moodle version.\n");
+    exit(1);
 }
 
 // Nothing to do if config.php does not exist
 $configfile = dirname(dirname(dirname(__FILE__))).'/config.php';
 if (!file_exists($configfile)) {
-	fwrite(STDERR, 'config.php does not exist, can not continue'); // do not localize
-	fwrite(STDERR, "\n");
-	exit(1);
+    fwrite(STDERR, 'config.php does not exist, can not continue'); // do not localize
+    fwrite(STDERR, "\n");
+    exit(1);
 }
 
 // Include necessary libs
@@ -88,7 +89,7 @@ require_once($CFG->libdir.'/componentlib.class.php');
 
 // make sure no tables are installed yet
 if ($DB->get_tables() ) {
-	cli_error(get_string('clitablesexist', 'install'));
+    cli_error(get_string('clitablesexist', 'install'));
 }
 
 $CFG->early_install_lang = true;
@@ -98,53 +99,60 @@ raise_memory_limit(MEMORY_EXTRA);
 
 // now get cli options
 list($options, $unrecognized) = cli_get_params(
-		array(
-				'lang'              => 'en',
-				'adminuser'         => 'admin',
-				'adminpass'         => '',
-				'fullname'          => '',
-				'shortname'         => '',
-				'agree-license'     => false,
-				'help'              => false
-		),
-		array(
-				'h' => 'help'
-		)
+    array(
+        'lang'              => 'en',
+        'adminuser'         => 'admin',
+        'adminpass'         => '',
+        'adminemail'        => '',
+        'fullname'          => '',
+        'shortname'         => '',
+        'agree-license'     => false,
+        'help'              => false
+    ),
+    array(
+        'h' => 'help'
+    )
 );
 
 
 if ($options['help']) {
-	echo $help;
-	die;
+    echo $help;
+    die;
 }
 
 if (!$options['agree-license']) {
-	cli_error('You have to agree to the license. --help prints out the help'); // TODO: localize
+    cli_error('You have to agree to the license. --help prints out the help'); // TODO: localize
 }
 
 if ($options['adminpass'] === true or $options['adminpass'] === '') {
-	cli_error('You have to specify admin password. --help prints out the help'); // TODO: localize
+    cli_error('You have to specify admin password. --help prints out the help'); // TODO: localize
+}
+
+// Validate that the address provided was an e-mail address.
+if (!empty($options['adminemail']) && !validate_email($options['adminemail'])) {
+    $a = (object) array('option' => 'adminemail', 'value' => $options['adminemail']);
+    cli_error(get_string('cliincorrectvalueerror', 'admin', $a));
 }
 
 $options['lang'] = clean_param($options['lang'], PARAM_SAFEDIR);
 if (!file_exists($CFG->dirroot.'/install/lang/'.$options['lang'])) {
-	$options['lang'] = 'en';
+    $options['lang'] = 'en';
 }
 $CFG->lang = $options['lang'];
 
 // download required lang packs
 if ($CFG->lang !== 'en') {
-	make_upload_directory('lang');
-	$installer = new lang_installer($CFG->lang);
-	$results = $installer->run();
-	foreach ($results as $langcode => $langstatus) {
-		if ($langstatus === lang_installer::RESULT_DOWNLOADERROR) {
-			$a       = new stdClass();
-			$a->url  = $installer->lang_pack_url($langcode);
-			$a->dest = $CFG->dataroot.'/lang';
-			cli_problem(get_string('remotedownloaderror', 'error', $a));
-		}
-	}
+    make_upload_directory('lang');
+    $installer = new lang_installer($CFG->lang);
+    $results = $installer->run();
+    foreach ($results as $langcode => $langstatus) {
+        if ($langstatus === lang_installer::RESULT_DOWNLOADERROR) {
+            $a       = new stdClass();
+            $a->url  = $installer->lang_pack_url($langcode);
+            $a->dest = $CFG->dataroot.'/lang';
+            cli_problem(get_string('remotedownloaderror', 'error', $a));
+        }
+    }
 }
 
 // switch the string_manager instance to stop using install/lang/
@@ -157,20 +165,20 @@ require("$CFG->dirroot/version.php");
 require_once($CFG->libdir . '/environmentlib.php');
 list($envstatus, $environment_results) = check_moodle_environment(normalize_version($release), ENV_SELECT_RELEASE);
 if (!$envstatus) {
-	$errors = environment_get_errors($environment_results);
-	cli_heading(get_string('environment', 'admin'));
-	foreach ($errors as $error) {
-		list($info, $report) = $error;
-		echo "!! $info !!\n$report\n\n";
-	}
-	exit(1);
+    $errors = environment_get_errors($environment_results);
+    cli_heading(get_string('environment', 'admin'));
+    foreach ($errors as $error) {
+        list($info, $report) = $error;
+        echo "!! $info !!\n$report\n\n";
+    }
+    exit(1);
 }
 
 // Test plugin dependencies.
 $failed = array();
 if (!core_plugin_manager::instance()->all_plugins_ok($version, $failed)) {
-	cli_problem(get_string('pluginscheckfailed', 'admin', array('pluginslist' => implode(', ', array_unique($failed)))));
-	cli_error(get_string('pluginschecktodo', 'admin'));
+    cli_problem(get_string('pluginscheckfailed', 'admin', array('pluginslist' => implode(', ', array_unique($failed)))));
+    cli_error(get_string('pluginschecktodo', 'admin'));
 }
 
 install_cli_database($options, true);

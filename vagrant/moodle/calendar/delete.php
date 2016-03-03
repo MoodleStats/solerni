@@ -38,7 +38,7 @@ $courseid = optional_param('course', 0, PARAM_INT);
 $PAGE->set_url('/calendar/delete.php', array('id'=>$eventid));
 
 if(!$site = get_site()) {
-	redirect(new moodle_url('/admin/index.php'));
+    redirect(new moodle_url('/admin/index.php'));
 }
 
 $event = calendar_event::load($eventid);
@@ -50,17 +50,17 @@ $event = calendar_event::load($eventid);
  * a course
  */
 if ($event->eventtype !== 'user' && $event->eventtype !== 'site') {
-	$courseid = $event->courseid;
+    $courseid = $event->courseid;
 }
 $course = $DB->get_record('course', array('id'=>$courseid));
 require_login($course);
 if (!$course) {
-	$PAGE->set_context(context_system::instance()); //TODO: wrong
+    $PAGE->set_context(context_system::instance()); //TODO: wrong
 }
 
 // Check the user has the required capabilities to edit an event
 if (!calendar_edit_event_allowed($event)) {
-	print_error('nopermissions');
+    print_error('nopermissions');
 }
 
 // Count the repeats, do we need to consider the possibility of deleting repeats
@@ -73,18 +73,18 @@ $viewcalendarurl->param('time', $event->timestart, '%Y');
 
 // If confirm is set (PARAM_BOOL) then we have confirmation of initention to delete
 if ($confirm) {
-	// Confirm the session key to stop CSRF
-	if (!confirm_sesskey()) {
-		print_error('confirmsesskeybad');
-	}
-	// Delete the event and possibly repeats
-	$event->delete($repeats);
-	// If the event has an associated course then we need to include it in the redirect link
-	if (!empty($event->courseid) && $event->courseid > 0) {
-		$viewcalendarurl->param('course', $event->courseid);
-	}
-	// And redirect
-	redirect($viewcalendarurl);
+    // Confirm the session key to stop CSRF
+    if (!confirm_sesskey()) {
+        print_error('confirmsesskeybad');
+    }
+    // Delete the event and possibly repeats
+    $event->delete($repeats);
+    // If the event has an associated course then we need to include it in the redirect link
+    if (!empty($event->courseid) && $event->courseid > 0) {
+        $viewcalendarurl->param('course', $event->courseid);
+    }
+    // And redirect
+    redirect($viewcalendarurl);
 }
 
 // Prepare the page to show the confirmation form
@@ -102,29 +102,22 @@ echo $OUTPUT->box_start('eventlist');
 $url = new moodle_url(CALENDAR_URL.'delete.php', array('id'=>$event->id, 'confirm'=>true));
 $buttons = $OUTPUT->single_button($url, get_string('delete'));
 
-// If there are repeated events then add a Delete Repeated button
-$repeatspan = '';
-if (!empty($event->eventrepeats) && $event->eventrepeats > 0) {
-	$url = new moodle_url(CALENDAR_URL.'delete.php', array('id'=>$event->repeatid, 'confirm'=>true, 'repeats'=>true));
-	$buttons .= $OUTPUT->single_button($url, get_string('deleteall'));
-	$repeatspan = '<br /><br /><span>'.get_string('youcandeleteallrepeats', 'calendar', $event->eventrepeats).'</span>';
-}
-
-// And add the cancel button
+// And add the cancel button.
 $buttons .= $OUTPUT->single_button($viewcalendarurl, get_string('cancel'));
 
-// And show the buttons and notes
+// And show the buttons and notes.
 echo $OUTPUT->box_start('generalbox', 'notice');
-echo $OUTPUT->box(get_string('confirmeventdelete', 'calendar').$repeatspan);
+echo html_writer::tag('p', get_string('confirmeventdelete', 'calendar', format_string($event->name)));
+
+// If there are repeated events then add a Delete Repeated button.
+if (!empty($event->eventrepeats) && $event->eventrepeats > 0) {
+    $url = new moodle_url(CALENDAR_URL.'delete.php', array('id'=>$event->repeatid, 'confirm'=>true, 'repeats'=>true));
+    $buttons .= $OUTPUT->single_button($url, get_string('deleteall'));
+    echo html_writer::tag('p', get_string('youcandeleteallrepeats', 'calendar', $event->eventrepeats));
+}
+
 echo $OUTPUT->box($buttons, 'buttons');
 echo $OUTPUT->box_end();
-
-// Print the event so that people can visually confirm they have the correct event
-$event->time = calendar_format_event_time($event, time(), null, false);
-$renderer = $PAGE->get_renderer('core_calendar');
-echo $renderer->start_layout();
-echo $renderer->event($event, false);
-echo $renderer->complete_layout();
 
 echo $OUTPUT->box_end();
 echo $OUTPUT->footer();

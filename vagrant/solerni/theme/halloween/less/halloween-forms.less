@@ -1,0 +1,192 @@
+/*
+    Moodle Forms rules
+*/
+
+label {
+    margin-bottom:  @padding-small-vertical;
+    font-family:    @font-family-titles;
+    margin-right:   @s-medium-md-margin;
+}
+
+.form-group,
+.mform .fitem,
+.form-item {
+  margin-bottom: @padding-large-vertical;
+}
+
+.form-control,
+.fp-formset .controls input[type="text"],
+.fp-formset .controls select {
+    border-color:   @gray;
+    padding:        @padding-small-vertical;
+    height:         40px;
+    font-weight:    bold;
+    font-family:    @font-family-titles;
+}
+
+input[type=text], input[type=password], textarea {
+    width: 100%; // overrides YUI funny rules.
+}
+
+.form-control:focus {
+    border-color: @orange-mid-2;
+}
+
+select.form-control {
+    height: 45px;
+}
+
+select[multiple] {
+    height: auto;
+}
+
+.help-block {
+    margin:         0;
+    font-family:    @font-family-titles;
+    font-weight: bold;
+}
+
+/*
+ * States
+ */
+.has-success {
+
+    .control-label,
+    label {
+        color: @brand-primary;
+    }
+
+    input,
+    textarea {
+        color: @brand-success;
+    }
+
+    .form-control:focus {
+        border-color: #009900;
+    }
+}
+
+.has-warning {
+
+    .control-label,
+    label {
+        color: @brand-primary;
+    }
+
+    input,
+    textarea {
+        color: @brand-warning;
+    }
+
+    .form-control:focus {
+        border-color: #FFB400;
+    }
+}
+
+.has-error {
+
+    .control-label,
+    label {
+        color: @brand-primary;
+    }
+
+    input,
+    textarea {
+        color: @brand-danger;
+    }
+
+    .form-control:focus {
+        border-color: darken(@brand-danger, 10%);
+    }
+}
+
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control {
+    border-color:   @gray;
+    color:          @gray;
+}
+
+/* o-checkbox */
+/* aspect désactivée */
+.o-checkbox[type="checkbox"]:disabled:not(:checked) + label:before,
+.o-checkbox[type="checkbox"]:disabled:checked + label:before{
+  border-color: @gray;
+}
+
+input.o-checkbox[type="checkbox"]:disabled:checked + label:after {
+    background-color: @gray;
+}
+
+/* styles de la coche (si cochée/désactivée) */
+.o-checkbox[type="checkbox"]:disabled:checked + label:after{
+  border-color:     @gray;
+  background-color: @gray-lighter;
+  color:            @brand-tertiary;
+}
+/* on style aussi le label quand désactivé */
+.o-checkbox[type="checkbox"]:disabled + label{
+  color: @gray;
+}
+
+.o-checkbox[type="checkbox"]:not(:checked) + label:before,
+.o-checkbox[type="checkbox"]:checked + label:before {
+    border-color: @gray;
+}
+
+.o-checkbox[type="checkbox"]:not(:checked) + label:after,
+.o-checkbox[type="checkbox"]:checked + label:after{
+    transition: all .2s;
+}
+
+.o-checkbox[type="checkbox"]:not(:checked) + label:before,
+.o-checkbox[type="checkbox"]:checked + label:before,
+.o-checkbox[type="checkbox"]:not(:checked) + label:after,
+.o-checkbox[type="checkbox"]:checked + label:after{
+    width: (@font-size-large + 2);
+    height: (@font-size-large + 2);
+}
+
+.o-checkbox[type="checkbox"]:not(:checked) + label,
+.o-checkbox[type="checkbox"]:checked + label {
+    padding-left: (@font-size-large * 1.75);
+}
+
+.o-checkbox-right.o-checkbox[type="checkbox"]:not(:checked) + label,
+.o-checkbox-right.o-checkbox[type="checkbox"]:checked + label {
+    padding-right: (@font-size-large * 1.75);
+}
+
+/*
+ * Radio buttons
+ */
+.o-radio[type="radio"]:not(:checked) + label:before,
+.o-radio[type="radio"]:checked + label:before,
+.o-radio[type="radio"]:not(:checked) + label:after,
+.o-radio[type="radio"]:checked + label:after{
+    width: (@font-size-large + 2);
+    height: (@font-size-large + 2);
+}
+
+.o-radio[type="radio"]:not(:checked) + label:before {
+    border-color: @gray;
+}
+
+.o-radio[type="radio"]:not(:checked) + label,
+.o-radio[type="radio"]:checked + label {
+    padding-left: (@font-size-large * 1.75);
+}
+
+.o-radio-right.o-radio[type="radio"]:not(:checked) + label,
+.o-radio-right.o-radio[type="radio"]:checked + label {
+    padding-right: (@font-size-large * 1.75);
+}
+
+.o-radio[type="radio"]:disabled + label {
+    color: @gray;
+}
+
+.o-radio[type="radio"]:disabled:not(:checked) + label:before,
+.o-radio[type="radio"]:disabled:checked + label:before {
+    border-color: @gray;
+}

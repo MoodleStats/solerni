@@ -202,6 +202,13 @@ function uninstall_plugin($type, $name) {
     // Delete scheduled tasks.
     $DB->delete_records('task_scheduled', array('component' => $pluginname));
 
+    // Delete Inbound Message datakeys.
+    $DB->delete_records_select('messageinbound_datakeys',
+            'handler IN (SELECT id FROM {messageinbound_handlers} WHERE component = ?)', array($pluginname));
+
+    // Delete Inbound Message handlers.
+    $DB->delete_records('messageinbound_handlers', array('component' => $pluginname));
+
     // delete all the logs
     $DB->delete_records('log', array('module' => $pluginname));
 
@@ -2175,6 +2182,59 @@ class admin_setting_configtext extends admin_setting {
     }
 }
 
+/**
+ * Text input with a maximum length constraint.
+ *
+ * @copyright 2015 onwards Ankit Agarwal
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+class admin_setting_configtext_with_maxlength extends admin_setting_configtext {
+
+    /** @var int maximum number of chars allowed. */
+    protected $maxlength;
+
+    /**
+     * Config text constructor
+     *
+     * @param string $name unique ascii name, either 'mysetting' for settings that in config,
+     *                     or 'myplugin/mysetting' for ones in config_plugins.
+     * @param string $visiblename localised
+     * @param string $description long localised info
+     * @param string $defaultsetting
+     * @param mixed $paramtype int means PARAM_XXX type, string is a allowed format in regex
+     * @param int $size default field size
+     * @param mixed $maxlength int maxlength allowed, 0 for infinite.
+     */
+    public function __construct($name, $visiblename, $description, $defaultsetting, $paramtype=PARAM_RAW,
+                                $size=null, $maxlength = 0) {
+        $this->maxlength = $maxlength;
+        parent::__construct($name, $visiblename, $description, $defaultsetting, $paramtype, $size);
+    }
+
+    /**
+     * Validate data before storage
+     *
+     * @param string $data data
+     * @return mixed true if ok string if error found
+     */
+    public function validate($data) {
+        $parentvalidation = parent::validate($data);
+        if ($parentvalidation === true) {
+            if ($this->maxlength > 0) {
+                // Max length check.
+                $length = core_text::strlen($data);
+                if ($length > $this->maxlength) {
+                    return get_string('maximumchars', 'moodle',  $this->maxlength);
+                }
+                return true;
+            } else {
+                return true; // No max length check needed.
+            }
+        } else {
+            return $parentvalidation;
+        }
+    }
+}
 
 /**
  * General text area without html editor.
@@ -2259,6 +2319,7 @@ class admin_setting_confightmleditor extends admin_setting_configtext {
         }
 
         $editor = editors_get_preferred_editor(FORMAT_HTML);
+        $editor->set_text($data);
         $editor->use_editor($this->get_id(), array('noclean'=>true));
 
         return format_admin_setting($this, $this->visiblename,
@@ -3238,7 +3299,8 @@ class admin_setting_configtime extends admin_setting {
         }
         $return .= '</select>';
         $return .= '</div>';
-        return format_admin_setting($this, $this->visiblename, $return, $this->description, false, '', $defaultinfo, $query);
+        return format_admin_setting($this, $this->visiblename, $return, $this->description,
+            $this->get_id() . 'h', '', $defaultinfo, $query);
     }
 
 }
@@ -3386,8 +3448,13 @@ class admin_setting_configduration extends admin_setting {
 
         $units = self::get_units();
 
+        $inputid = $this->get_id() . 'v';
+
         $return = '<div class="form-duration defaultsnext">';
-        $return .= '<input type="text" size="5" id="'.$this->get_id().'v" name="'.$this->get_full_name().'[v]" value="'.s($data['v']).'" />';
+        $return .= '<input type="text" size="5" id="' . $inputid . '" name="' . $this->get_full_name() .
+            '[v]" value="' . s($data['v']) . '" />';
+        $return .= '<label for="' . $this->get_id() . 'u" class="accesshide">' .
+            get_string('durationunits', 'admin') . '</label>';
         $return .= '<select id="'.$this->get_id().'u" name="'.$this->get_full_name().'[u]">';
         foreach ($units as $val => $text) {
             $selected = '';
@@ -3401,7 +3468,32 @@ class admin_setting_configduration extends admin_setting {
             $return .= '<option value="'.$val.'"'.$selected.'>'.$text.'</option>';
         }
         $return .= '</select></div>';
-        return format_admin_setting($this, $this->visiblename, $return, $this->description, false, '', $defaultinfo, $query);
+        return format_admin_setting($this, $this->visiblename, $return, $this->description, $inputid, '', $defaultinfo, $query);
+    }
+}
+
+
+/**
+ * Seconds duration setting with an advanced checkbox, that controls a additional
+ * $name.'_adv' setting.
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @copyright 2014 The Open University
+ */
+class admin_setting_configduration_with_advanced extends admin_setting_configduration {
+    /**
+     * Constructor
+     * @param string $name unique ascii name, either 'mysetting' for settings that in config,
+     *                     or 'myplugin/mysetting' for ones in config_plugins.
+     * @param string $visiblename localised name
+     * @param string $description localised long description
+     * @param array  $defaultsetting array of int value, and bool whether it is
+     *                     is advanced by default.
+     * @param int $defaultunit - day, week, etc. (in seconds)
+     */
+    public function __construct($name, $visiblename, $description, $defaultsetting, $defaultunit = 86400) {
+        parent::__construct($name, $visiblename, $description, $defaultsetting['value'], $defaultunit);
+        $this->set_advanced_flag_options(admin_setting_flag::ENABLED, !empty($defaultsetting['adv']));
     }
 }
 
@@ -3410,6 +3502,7 @@ class admin_setting_configduration extends admin_setting {
  * Used to validate a textarea used for ip addresses
  *
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @copyright 2011 Petr Skoda (http://skodak.org)
  */
 class admin_setting_configiplist extends admin_setting_configtextarea {
 
@@ -3908,9 +4001,14 @@ class admin_setting_sitesettext extends admin_setting_configtext {
      * @return mixed true or message string
      */
     public function validate($data) {
+        global $DB, $SITE;
         $cleaned = clean_param($data, PARAM_TEXT);
         if ($cleaned === '') {
             return get_string('required');
+        }
+        if ($this->name ==='shortname' &&
+                $DB->record_exists_sql('SELECT id from {course} WHERE shortname = ? AND id <> ?', array($data, $SITE->id))) {
+            return get_string('shortnametaken', 'error', $data);
         }
         if ("$data" == "$cleaned") { // implicit conversion to string is needed to do exact comparison
             return true;
@@ -4382,6 +4480,44 @@ class admin_setting_special_backupdays extends admin_setting_configmulticheckbox
     }
 }
 
+/**
+ * Special setting for backup auto destination.
+ *
+ * @package    core
+ * @subpackage admin
+ * @copyright  2014 Frédéric Massart - FMCorz.net
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+class admin_setting_special_backup_auto_destination extends admin_setting_configdirectory {
+
+    /**
+     * Calls parent::__construct with specific arguments.
+     */
+    public function __construct() {
+        parent::__construct('backup/backup_auto_destination', new lang_string('saveto'), new lang_string('backupsavetohelp'), '');
+    }
+
+    /**
+     * Check if the directory must be set, depending on backup/backup_auto_storage.
+     *
+     * Note: backup/backup_auto_storage must be specified BEFORE this setting otherwise
+     * there will be conflicts if this validation happens before the other one.
+     *
+     * @param string $data Form data.
+     * @return string Empty when no errors.
+     */
+    public function write_setting($data) {
+        $storage = (int) get_config('backup', 'backup_auto_storage');
+        if ($storage !== 0) {
+            if (empty($data) || !file_exists($data) || !is_dir($data) || !is_writable($data) ) {
+                // The directory must exist and be writable.
+                return get_string('backuperrorinvaliddestination');
+            }
+        }
+        return parent::write_setting($data);
+    }
+}
+
 
 /**
  * Special debug setting
@@ -4742,6 +4878,8 @@ class admin_setting_special_coursecontact extends admin_setting_pickroles {
         parent::__construct('coursecontact', get_string('coursecontact', 'admin'),
             get_string('coursecontact_desc', 'admin'),
             array('editingteacher'));
+        $this->set_updatedcallback(create_function('',
+                "cache::make('core', 'coursecontacts')->purge();"));
     }
 }
 
@@ -4787,6 +4925,51 @@ class admin_setting_special_gradelimiting extends admin_setting_configcheckbox {
             }
         }
         return ($this->config_write($this->name, $data) ? '' : get_string('errorsetting', 'admin'));
+    }
+
+}
+
+/**
+ * Special setting for $CFG->grade_minmaxtouse.
+ *
+ * @package    core
+ * @copyright  2015 Frédéric Massart - FMCorz.net
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+class admin_setting_special_grademinmaxtouse extends admin_setting_configselect {
+
+    /**
+     * Constructor.
+     */
+    public function __construct() {
+        parent::__construct('grade_minmaxtouse', new lang_string('minmaxtouse', 'grades'),
+            new lang_string('minmaxtouse_desc', 'grades'), GRADE_MIN_MAX_FROM_GRADE_ITEM,
+            array(
+                GRADE_MIN_MAX_FROM_GRADE_ITEM => get_string('gradeitemminmax', 'grades'),
+                GRADE_MIN_MAX_FROM_GRADE_GRADE => get_string('gradegrademinmax', 'grades')
+            )
+        );
+    }
+
+    /**
+     * Saves the new setting.
+     *
+     * @param mixed $data
+     * @return string empty string or error message
+     */
+    function write_setting($data) {
+        global $CFG;
+
+        $previous = $this->get_setting();
+        $result = parent::write_setting($data);
+
+        // If saved and the value has changed.
+        if (empty($result) && $previous != $data) {
+            require_once($CFG->libdir . '/gradelib.php');
+            grade_force_site_regrading();
+        }
+
+        return $result;
     }
 
 }
@@ -5123,6 +5306,52 @@ class admin_setting_grade_profilereport extends admin_setting_configselect {
     }
 }
 
+/**
+ * Provides a selection of grade reports to be used for "grades".
+ *
+ * @copyright 2015 Adrian Greeve <adrian@moodle.com>
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+class admin_setting_my_grades_report extends admin_setting_configselect {
+
+    /**
+     * Calls parent::__construct with specific arguments.
+     */
+    public function __construct() {
+        parent::__construct('grade_mygrades_report', new lang_string('mygrades', 'grades'),
+                new lang_string('mygrades_desc', 'grades'), 'overview', null);
+    }
+
+    /**
+     * Loads an array of choices for the configselect control.
+     *
+     * @return bool always returns true.
+     */
+    public function load_choices() {
+        global $CFG; // Remove this line and behold the horror of behat test failures!
+        $this->choices = array();
+        foreach (core_component::get_plugin_list('gradereport') as $plugin => $plugindir) {
+            if (file_exists($plugindir . '/lib.php')) {
+                require_once($plugindir . '/lib.php');
+                // Check to see if the class exists. Check the correct plugin convention first.
+                if (class_exists('gradereport_' . $plugin)) {
+                    $classname = 'gradereport_' . $plugin;
+                } else if (class_exists('grade_report_' . $plugin)) {
+                    // We are using the old plugin naming convention.
+                    $classname = 'grade_report_' . $plugin;
+                } else {
+                    continue;
+                }
+                if ($classname::supports_mygrades()) {
+                    $this->choices[$plugin] = get_string('pluginname', 'gradereport_' . $plugin);
+                }
+            }
+        }
+        // Add an option to specify an external url.
+        $this->choices['external'] = get_string('externalurl', 'grades');
+        return true;
+    }
+}
 
 /**
  * Special class for register auth selection
@@ -6904,7 +7133,7 @@ function admin_output_new_settings_by_page($node) {
  * @param string $title label element
  * @param string $form form fragment, html code - not highlighted automatically
  * @param string $description
- * @param bool $label link label to id, true by default
+ * @param mixed $label link label to id, true by default or string being the label to connect it to
  * @param string $warning warning text
  * @param sting $defaultinfo defaults info, null means nothing, '' is converted to "Empty" string, defaults to null
  * @param string $query search query to be highlighted
@@ -6917,10 +7146,12 @@ function format_admin_setting($setting, $title='', $form='', $description='', $l
     $fullname = $setting->get_full_name();
 
     // sometimes the id is not id_s_name, but id_s_name_m or something, and this does not validate
-    if ($label) {
+    if ($label === true) {
         $labelfor = 'for = "'.$setting->get_id().'"';
-    } else {
+    } else if ($label === false) {
         $labelfor = '';
+    } else {
+        $labelfor = 'for="' . $label . '"';
     }
     $form .= $setting->output_setting_flags();
 
@@ -8916,5 +9147,85 @@ class admin_setting_php_extension_enabled extends admin_setting {
             $o .= format_admin_setting($this, $this->visiblename, $warning);
         }
         return $o;
+    }
+}
+
+/**
+ * Server timezone setting.
+ *
+ * @copyright 2015 Totara Learning Solutions Ltd {@link http://www.totaralms.com/}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author    Petr Skoda <petr.skoda@totaralms.com>
+ */
+class admin_setting_servertimezone extends admin_setting_configselect {
+    /**
+     * Constructor.
+     */
+    public function __construct() {
+        $default = core_date::get_default_php_timezone();
+        if ($default === 'UTC') {
+            // Nobody really wants UTC, so instead default selection to the country that is confused by the UTC the most.
+            $default = 'Europe/London';
+        }
+
+        parent::__construct('timezone',
+            new lang_string('timezone', 'core_admin'),
+            new lang_string('configtimezone', 'core_admin'), $default, null);
+    }
+
+    /**
+     * Lazy load timezone options.
+     * @return bool true if loaded, false if error
+     */
+    public function load_choices() {
+        global $CFG;
+        if (is_array($this->choices)) {
+            return true;
+        }
+
+        $current = isset($CFG->timezone) ? $CFG->timezone : null;
+        $this->choices = core_date::get_list_of_timezones($current, false);
+        if ($current == 99) {
+            // Do not show 99 unless it is current value, we want to get rid of it over time.
+            $this->choices['99'] = new lang_string('timezonephpdefault', 'core_admin',
+                core_date::get_default_php_timezone());
+        }
+
+        return true;
+    }
+}
+
+/**
+ * Forced user timezone setting.
+ *
+ * @copyright 2015 Totara Learning Solutions Ltd {@link http://www.totaralms.com/}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author    Petr Skoda <petr.skoda@totaralms.com>
+ */
+class admin_setting_forcetimezone extends admin_setting_configselect {
+    /**
+     * Constructor.
+     */
+    public function __construct() {
+        parent::__construct('forcetimezone',
+            new lang_string('forcetimezone', 'core_admin'),
+            new lang_string('helpforcetimezone', 'core_admin'), '99', null);
+    }
+
+    /**
+     * Lazy load timezone options.
+     * @return bool true if loaded, false if error
+     */
+    public function load_choices() {
+        global $CFG;
+        if (is_array($this->choices)) {
+            return true;
+        }
+
+        $current = isset($CFG->forcetimezone) ? $CFG->forcetimezone : null;
+        $this->choices = core_date::get_list_of_timezones($current, true);
+        $this->choices['99'] = new lang_string('timezonenotforced', 'core_admin');
+
+        return true;
     }
 }

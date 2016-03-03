@@ -28,6 +28,25 @@ defined('MOODLE_INTERNAL') || die();
 class utilities_network {
 
     /**
+     * Function to determine if the platform should use (ie not private, not guest) and is
+     * correctly configured to use mnet.
+     * @return bool
+     */
+    public static function is_platform_uses_mnet() {
+        global $CFG;
+        $mnethosts = utilities_network::get_hosts();
+        switch(true) {
+            case (isset($CFG->solerni_isprivate) && $CFG->solerni_isprivate):
+            case isguestuser():
+            case !is_enabled_auth('mnet'):
+            case empty($mnethosts):
+                return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Check is the Moodle instance is the home server of the Moodle Network.
      *
      * @return boolean
@@ -61,18 +80,25 @@ class utilities_network {
     /**
      * get the home server URL of the Moodle Network.
      *
-     * @return false or one hosts array(URL/name/IDs)
+     * @return false or host object (URL/name/IDs)
      */
     static public function get_home() {
-
+        global $CFG, $SITE;
         if (self::is_thematic()) {
             $hosts = self::get_hosts();
             if (is_array($hosts)) {
-                return array_pop($hosts); // MNETHOME is the first host.
+                $return = array_pop($hosts);    // MNETHOME is the first host.
+                $return->jump = $return->url;   // Do not jump onto MNET HOME.
             }
+        } else {
+            $return = new \stdClass();
+            $return->url = $CFG->wwwroot;
+            $return->name = $SITE->fullname;
+            $return->id = 1;
+            $return->jump = $CFG->wwwroot;
         }
 
-        return false;
+        return $return;
     }
 
     /**
@@ -82,16 +108,6 @@ class utilities_network {
      */
     static public function get_hosts() {
         global $CFG, $DB;
-
-        // Guest user not supported.
-        if (isguestuser()) {
-            return false;
-        }
-
-        if (!is_enabled_auth('mnet')) {
-            // Auth MNet show be enabled.
-            return false;
-        }
 
         // Get the hosts and whether we are doing SSO with them.
         $sql = "
@@ -130,14 +146,53 @@ class utilities_network {
 
         if (!empty($hosts)) {
             foreach ($hosts as $host) {
+                $jumpurl = new \moodle_url($CFG->wwwroot . '/auth/mnet/jump.php', array('hostid' => $host->id));
                 $thematic = new \stdClass();
                 $thematic->url = $host->wwwroot;
                 $thematic->name = $host->name;
                 $thematic->id = $host->id;
+                $thematic->jump = $jumpurl->__toString();
                 $thematics[] = $thematic;
             }
         }
 
         return $thematics;
+    }
+
+    /**
+     * This function is called from REST webservices. Returns local mnet hosts
+     * or false if the curl call gets an error.
+     *
+     * @global type $CFG
+     * @return mixed false or array of host objects
+     */
+    static public function get_hosts_from_mnethome() {
+
+        if (self::is_home()) {
+            return self::get_hosts();
+        }
+
+        if (theme_utilities::is_theme_settings_exists_and_nonempty('webservicestoken') ) {
+            global $CFG, $PAGE;
+            require_once($CFG->libdir . '/filelib.php'); // Include moodle curl class.
+            $token = $PAGE->theme->settings->webservicestoken;
+            $homemnet = self::get_home();
+            $serverurl = new \moodle_url($homemnet->url . '/webservice/rest/server.php',
+                    array('wstoken' => $token,
+                        'wsfunction' => 'local_orange_library_get_resac_hosts',
+                        'moodlewsrestformat' => 'json'));
+            $curl = new \curl;
+            $resacs = json_decode($curl->post(
+                    htmlspecialchars_decode($serverurl->__toString()), array()));
+
+            if ($resacs && is_object($resacs) && $resacs->errorcode) {
+                error_log('Resac Nav Curl Request Returned An Error. Message: ' . $resacs->message);
+                $resacs = false;
+            }
+        } else {
+            $resacs = false;
+        }
+
+        return $resacs;
     }
 }

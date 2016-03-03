@@ -9,19 +9,29 @@
 // Also added some rules of repetition and specificity,
 // because when the .btn is also a <a>,
 // We have a lot of :focus and :active conflicts.
+
 .btn {
-    border-width: 2px;
+    border-width:   2px;
+    font-family:    @font-family-titles;
+    line-height:    1;
+
+    .u-inverse &.disabled,
+    .u-inverse  &[disabled],
+    .u-inverse fieldset[disabled] & {
+       border-color: @gray-dark !important;
+    }
 }
 
 .button-variant(
     @color; @background; @border;
     @color-hover; @bg-hover; @border-hover;
-    @color-active; @bg-active; @border-active) {
+    @color-active; @bg-active; @border-active;
+    @bg-disabled; @color-disabled) {
     color:            @color;
     background-color: @background;
     border-color:     @border;
     text-decoration:  none;
-    padding:          @s-small-xs-margin @s-double-xs-margin;
+    padding:          @s-small-xs-margin;
 
     &:visited {
         color:            @color;
@@ -56,6 +66,7 @@
     &.focus.btn:active {
         background-color:   @bg-active;
         outline:            0;
+        border-color:       @border-active;
     }
 
     &.disabled,
@@ -66,12 +77,11 @@
         &:focus,
         &:active,
         &.active {
-            font-style:       normal;
-            background-color: @background;
-            border-color:     @border;
-            color:            @color;
-            opacity:          .3;
-            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)"; // IE8 opcaity
+            font-style:         normal;
+            background-color:   @bg-disabled;
+            border-color:       @gray;
+            color:              @color-disabled;
+            opacity:            1;
         }
     }
 
@@ -85,72 +95,103 @@
     .dropdown &:active.btn {
         color:              @color;
         background-color:   @background;
-        border-color:       @background;
+        border-color:       @color;
     }
 
+    // Inverse rules.
+
+    .u-inverse & {
+        color:            @color;
+        background-color: @background;
+        border-color:     @border;
+    }
+
+
+    // Dropdown.
     .u-inverse .dropdown &:hover.btn,
     .u-inverse .dropdown &:focus.btn,
     .u-inverse .dropdown &:active.btn {
         border-color:   transparent;
         color:          @color;
     }
-
-    .u-inverse &:visited.btn,
-    .u-inverse &:active.btn,
-    .u-inverse &:active:focus.btn {
-        color: @color;
-    }
-
-    .u-inverse &:focus.btn,
-    .u-inverse &:visited:hover.btn {
-        color: @color-hover;
-    }
-
-    .u-inverse &:visited:hover:active.btn {
-        color: @color-active;
-    }
 }
 
 // Creation of a new btn-engage button
-// Alternate buttons
+// Alternate buttons and inverse versions
 // --------------------------------------------------
 
 .btn-default {
     .button-variant(
         @btn-default-color; @btn-default-bg; @btn-default-border;
         @btn-default-color-hover; @btn-default-bg-hover; @btn-default-border-hover;
-        @btn-default-color-active; @btn-default-bg-active; @btn-default-border-active
+        @btn-default-color-active; @btn-default-bg-active; @btn-default-border-active;
+        @btn-default-disabled-bg; @btn-default-disabled-color
     );
 }
+
+.u-inverse .btn-default {
+    .button-variant(
+        @btn-default-bg; @btn-default-color; @btn-default-bg;
+        @btn-default-bg-hover; @btn-default-color-hover; @btn-default-color-hover;
+        @btn-default-color-active; @btn-default-bg-active; @btn-default-border-active;
+        @btn-default-color; @gray-dark
+    );
+}
+
 .btn-primary {
     .button-variant(
         @btn-primary-color; @btn-primary-bg; @btn-primary-border;
         @btn-primary-color-hover; @btn-primary-bg-hover; @btn-primary-border-hover;
-        @btn-primary-color-active; @btn-primary-bg-active; @btn-primary-border-active
+        @btn-primary-color-active; @btn-primary-bg-active; @btn-primary-border-active;
+        @btn-primary-disabled-bg; @btn-primary-disabled-color
     );
 }
+
+.u-inverse .btn-primary {
+    .button-variant(
+        @btn-primary-bg; @btn-primary-color; @btn-primary-border;
+        @btn-primary-bg-hover; @btn-primary-color-hover; @btn-primary-color;
+        @btn-primary-color-active; @btn-primary-bg-active; @btn-primary-border-active;
+        @gray-dark; @btn-primary-bg
+    );
+}
+
 // Success appears as green
 .btn-success {
     .button-variant(
         @btn-success-color; @btn-success-bg; @btn-success-border;
         @btn-success-color-hover; @btn-success-bg-hover; @btn-success-border-hover;
-        @btn-success-color-active; @btn-success-bg-active; @btn-success-border-active
+        @btn-success-color-active; @btn-success-bg-active; @btn-success-border-active;
+        @btn-success-disabled-bg; @btn-success-disabled-color
     );
 }
+
+.u-inverse .btn-success {
+    .button-variant(
+        @btn-success-color; @btn-success-bg; @btn-success-border;
+        @btn-success-bg-hover; @btn-success-color-hover; @btn-success-color-hover;
+        @btn-success-color-active; @btn-success-bg-active; @btn-success-border-active;
+        @gray-dark; @btn-success-color
+    );
+}
+
 // Info appears as blue-green
 .btn-info {
     .button-variant(
         @btn-info-color; @btn-info-bg; @btn-info-border;
         @btn-info-color-hover; @btn-info-bg-hover; @btn-info-border-hover;
-        @btn-info-color-active; @btn-info-bg-active; @btn-info-border-active
+        @btn-info-color-active; @btn-info-bg-active; @btn-info-border-active;
+        @btn-info-disabled-bg; @btn-info-disabled-color
     );
 }
+
 // Warning appears as orange
 .btn-warning {
     .button-variant(
         @btn-warning-color; @btn-warning-bg; @btn-warning-border;
         @btn-warning-color-hover; @btn-warning-bg-hover; @btn-warning-border-hover;
-        @btn-warning-color-active; @btn-warning-bg-active; @btn-warning-border-active
+        @btn-warning-color-active; @btn-warning-bg-active; @btn-warning-border-active;
+        @btn-warning-disabled-bg; @btn-warning-disabled-color
     );
 }
 // Danger and error appear as red
@@ -158,22 +199,44 @@
     .button-variant(
         @btn-danger-color; @btn-danger-bg; @btn-danger-border;
         @btn-danger-color-hover; @btn-danger-bg-hover; @btn-danger-border-hover;
-        @btn-danger-color-active; @btn-danger-bg-active; @btn-danger-border-active
+        @btn-danger-color-active; @btn-danger-bg-active; @btn-danger-border-active;
+        @btn-danger-disabled-bg; @btn-danger-disabled-color
     );
 }
+
+.u-inverse .btn-danger {
+    .button-variant(
+        @btn-danger-color; @btn-danger-bg; @btn-danger-border;
+        @btn-danger-bg-hover; @btn-danger-color-hover; @btn-danger-color-hover;
+        @btn-danger-color-active; @btn-danger-bg-active; @btn-danger-border-active;
+        @gray-dark; @btn-danger-color
+    );
+}
+
 // Engagement button
 .btn-engage {
     .button-variant(
         @btn-engage-color; @btn-engage-bg; @btn-engage-border;
         @btn-engage-color-hover; @btn-engage-bg-hover; @btn-engage-border-hover;
-        @btn-engage-color-active; @btn-engage-bg-active; @btn-engage-border-active
+        @btn-engage-color-active; @btn-engage-bg-active; @btn-engage-border-active;
+        @btn-engage-disabled-bg; @btn-engage-disabled-color
+    );
+}
+
+// Inverse Engagement button
+.u-inverse .btn-engage {
+    .button-variant(
+        @btn-engage-color; @btn-engage-bg; @btn-engage-border;
+        @btn-engage-bg-hover; @btn-engage-color-hover; @btn-engage-border-hover;
+        @btn-engage-bg-active; @btn-engage-color-active; @btn-engage-bg-active;
+        @gray-dark; @btn-engage-bg-hover
     );
 }
 
 // Small button
 .btn-sm {
     font-size:  @font-size-base;
-    padding:    4px 20px 2px 20px;
+    padding:    4px @s-small-md-margin 2px @s-small-md-margin;
 }
 
 // Special case: override moodle default on form generated submit buttons
@@ -182,3 +245,45 @@ input[type="button"].btn.btn-engage {
     .btn-engage();
 }
 
+// Plugin auth_googleoauth2 buttons
+.signinprovider.google,
+.signinprovider.google:focus {
+    background-color: #DC4E41;
+    border-color: #DC4E41;
+}
+
+.signinprovider.facebook,
+.signinprovider.facebook:focus {
+    background-color: #3b5998;
+    border-color: #3b5998;
+}
+
+.signinprovider.github,
+.signinprovider.github:focus {
+    background-color: #4183c4;
+    border-color: #4183c4;
+}
+
+.signinprovider.linkedin,
+.signinprovider.linkedin:focus {
+    background-color: #0077b5;
+    border-color: #0077b5;
+}
+
+.signinprovider.messenger,
+.signinprovider.messenger:focus {
+    background-color: #f65314;
+    border-color: #f65314;
+}
+
+.signinprovider.vk,
+.signinprovider.vk:focus {
+    background-color: #45668e;
+    border-color: #45668e;
+}
+
+.signinprovider.dropbox,
+.signinprovider.dropbox:focus {
+    background-color: #007ee5;
+    border-color: #007ee5;
+}

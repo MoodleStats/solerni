@@ -20,7 +20,7 @@
 		<namespace>http://ltsc.ieee.org/xsd/imscc/LOM/unique</namespace>
 		<path>domainProfile_1/loose.xsd</path>
 	</mapping>
-	<mapping>
+		<mapping>
 		<namespace>http://ltsc.ieee.org/xsd/imscc/LOM/vocab</namespace>
 		<path>domainProfile_1/vocab/loose.xsd</path>
 	</mapping>

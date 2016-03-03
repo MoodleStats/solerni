@@ -16,11 +16,11 @@
 
 /*
  * Handling all ajax request for comments API
-*
-* @package   core
-* @copyright 2010 Dongsheng Cai {@link http://dongsheng.org}
-* @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
-*/
+ *
+ * @package   core
+ * @copyright 2010 Dongsheng Cai {@link http://dongsheng.org}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 define('AJAX_SCRIPT', true);
 define('NO_DEBUG_DISPLAY', true);
 
@@ -31,13 +31,13 @@ $contextid = optional_param('contextid', SYSCONTEXTID, PARAM_INT);
 $action    = optional_param('action', '', PARAM_ALPHA);
 
 if (empty($CFG->usecomments)) {
-	throw new comment_exception('commentsnotenabled', 'moodle');
+    throw new comment_exception('commentsnotenabled', 'moodle');
 }
 
 list($context, $course, $cm) = get_context_info_array($contextid);
 
 if ( $contextid == SYSCONTEXTID ) {
-	$course = $SITE;
+    $course = $SITE;
 }
 
 $PAGE->set_url('/comment/comment_ajax.php');
@@ -46,14 +46,14 @@ $PAGE->set_url('/comment/comment_ajax.php');
 require_course_login($course, true, $cm);
 $PAGE->set_context($context);
 if (!empty($cm)) {
-	$PAGE->set_cm($cm, $course);
+    $PAGE->set_cm($cm, $course);
 } else if (!empty($course)) {
-	$PAGE->set_course($course);
+    $PAGE->set_course($course);
 }
 
 if (!confirm_sesskey()) {
-	$error = array('error'=>get_string('invalidsesskey', 'error'));
-	die(json_encode($error));
+    $error = array('error'=>get_string('invalidsesskey', 'error'));
+    die(json_encode($error));
 }
 
 $client_id = required_param('client_id', PARAM_ALPHANUM);
@@ -79,49 +79,49 @@ echo $OUTPUT->header(); // send headers
 
 // process ajax request
 switch ($action) {
-	case 'add':
-		if ($manager->can_post()) {
-			$result = $manager->add($content);
-			if (!empty($result) && is_object($result)) {
-				$result->count = $manager->count();
-				$result->client_id = $client_id;
-				echo json_encode($result);
-				die();
-			}
-		}
-		break;
-	case 'delete':
-		$comment_record = $DB->get_record('comments', array('id'=>$commentid));
-		if ($manager->can_delete($commentid) || $comment_record->userid == $USER->id) {
-			if ($manager->delete($commentid)) {
-				$result = array(
-						'client_id' => $client_id,
-						'commentid' => $commentid
-				);
-				echo json_encode($result);
-				die();
-			}
-		}
-		break;
-	case 'get':
-	default:
-		if ($manager->can_view()) {
-			$comments = $manager->get_comments($page);
-			$result = array(
-					'list'       => $comments,
-					'count'      => $manager->count(),
-					'pagination' => $manager->get_pagination($page),
-					'client_id'  => $client_id
-			);
-			echo json_encode($result);
-			die();
-		}
-		break;
+    case 'add':
+        if ($manager->can_post()) {
+            $result = $manager->add($content);
+            if (!empty($result) && is_object($result)) {
+                $result->count = $manager->count();
+                $result->client_id = $client_id;
+                echo json_encode($result);
+                die();
+            }
+        }
+        break;
+    case 'delete':
+        $comment_record = $DB->get_record('comments', array('id'=>$commentid));
+        if ($manager->can_delete($commentid) || $comment_record->userid == $USER->id) {
+            if ($manager->delete($commentid)) {
+                $result = array(
+                    'client_id' => $client_id,
+                    'commentid' => $commentid
+                );
+                echo json_encode($result);
+                die();
+            }
+        }
+        break;
+    case 'get':
+    default:
+        if ($manager->can_view()) {
+            $comments = $manager->get_comments($page);
+            $result = array(
+                'list'       => $comments,
+                'count'      => $manager->count(),
+                'pagination' => $manager->get_pagination($page),
+                'client_id'  => $client_id
+            );
+            echo json_encode($result);
+            die();
+        }
+        break;
 }
 
 if (!isloggedin()) {
-	// tell user to log in to view comments
-	echo json_encode(array('error'=>'require_login'));
+    // tell user to log in to view comments
+    echo json_encode(array('error'=>'require_login'));
 }
 // ignore request
 die;

@@ -83,7 +83,8 @@
     padding-left: (@s-small-xs-margin * 6);
 }
 
-.block .header {
+.block .header,
+#dockeditempanel .dockeditempanel_hd {
     background-color:   @gray-light;
     border-color:       @gray-light;
 }
@@ -161,6 +162,7 @@
 
 .block .slrn-bold {
     font-weight: bold;
+    font-family: @font-family-titles;
 }
 .block .unlist {
     margin-top: @s-small-xs-margin;
@@ -186,13 +188,16 @@
 .block .tree_item a,
 .block .tree_item span,
 .block .header h2,
-.block .header .h2{
+.block .header .h2,
+#dockeditempanel .dockeditempanel_hd h2,
+#dockeditempanel .dockeditempanel_hd .h2 {
     display:        inline-block;
     color:          @brand-primary;
     font-size:      @font-size-base;
 }
 
 .block .tree_item span {
+    font-family:    @font-family-titles;
     font-weight:    bold;
 }
 
@@ -201,4 +206,18 @@
 .block .tree_item a:focus,
 .block .active_tree_node > a {
     color: @brand-secondary;
+}
+
+/* Navigation */
+.block .block_tree .tree_item.hasicon .item-content-wrap {
+    font-weight: 200;
+}
+
+.block .contains_branch .branch a {
+    font-family: @font-family-titles;
+    font-weight: 800;
+}
+
+.block_navigation .block_tree .active_tree_node {
+    font-family: @font-family-titles;
 }

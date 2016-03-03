@@ -35,21 +35,21 @@ defined('MOODLE_INTERNAL') || die();
  */
 abstract class backup_format_plugin extends backup_plugin {
 
-	protected $courseformat; // To store the format (course->format) of the instance
+    protected $courseformat; // To store the format (course->format) of the instance
 
-	public function __construct($plugintype, $pluginname, $optigroup, $step) {
+    public function __construct($plugintype, $pluginname, $optigroup, $step) {
 
-		parent::__construct($plugintype, $pluginname, $optigroup, $step);
+        parent::__construct($plugintype, $pluginname, $optigroup, $step);
 
-		$this->courseformat = backup_plan_dbops::get_courseformat_from_courseid($this->task->get_courseid());
+        $this->courseformat = backup_plan_dbops::get_courseformat_from_courseid($this->task->get_courseid());
 
-	}
+    }
 
-	/**
-	 * Return the condition encapsulated into sqlparam format
-	 * to get evaluated by value, not by path nor processor setting
-	 */
-	protected function get_format_condition() {
-		return array('sqlparam' => $this->courseformat);
-	}
+    /**
+     * Return the condition encapsulated into sqlparam format
+     * to get evaluated by value, not by path nor processor setting
+     */
+    protected function get_format_condition() {
+        return array('sqlparam' => $this->courseformat);
+    }
 }

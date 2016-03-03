@@ -18,6 +18,8 @@
 * @license http://opensource.org/licenses/gpl-3.0.html GNU Public License
 * @package format_flexpage
 * @author Mark Nielsen
+*
+* Orange 2016022300 : add deleteactivitywarn message in function init_edit
 */
 
 /**
@@ -84,6 +86,8 @@ M.format_flexpage.init_actionbar = function(Y) {
  * General method to execute JS after DOM has loaded on the editing screen
  *
  * @param Y
+ *
+ * Orange : add deleteactivitywarn message in function init_edit
  */
 M.format_flexpage.init_edit = function(Y) {
     // Prevent core duplication handler as we do not want to duplicate inline.
@@ -104,13 +108,19 @@ M.format_flexpage.init_edit = function(Y) {
             // Prevent core handler
             e.stopPropagation();
 
+            var text_warn= M.str.format_flexpage.deletemodwarn;
+
+            if (e.target.ancestor('div').hasClass('section-cm-edit-actions')) {
+                text_warn= M.str.format_flexpage.deleteactivitywarn;
+            }
+
             var dialog = new Y.YUI2.widget.SimpleDialog("modDeleteDialog", {
                 constraintoviewport: true,
                 modal: true,
                 visible: false,
                 underlay: "none",
-                close: true,
-                text: M.str.format_flexpage.deletemodwarn,
+                close: false, // workaround bug in SimpleDialog causing multiple close buttons
+                text: text_warn,
                 icon: Y.YUI2.widget.SimpleDialog.ICON_WARN,
                 buttons: [
                     { text: M.str.moodle.cancel, handler: function () { this.hide(); }, isDefault:true },

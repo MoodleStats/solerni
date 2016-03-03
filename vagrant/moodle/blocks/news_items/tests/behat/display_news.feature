@@ -8,7 +8,7 @@ Feature: Latest news block displays the course latest news
   Scenario: Latest course news are displayed and can be configured
     Given the following "users" exist:
       | username | firstname | lastname | email |
-      | teacher1 | Teacher | 1 | teacher1@asd.com |
+      | teacher1 | Teacher | 1 | teacher1@example.com |
     And I log in as "admin"
     And I create a course with:
       | Course full name | Course 1 |
@@ -34,12 +34,12 @@ Feature: Latest news block displays the course latest news
     And I follow "Edit settings"
     And I set the following fields to these values:
       | News items to show | 2 |
-    And I press "Save changes"
+    And I press "Save and display"
     And I should not see "Discussion One" in the "Latest news" "block"
     And I should see "Discussion Two" in the "Latest news" "block"
     And I should see "Discussion Three" in the "Latest news" "block"
     And I follow "Edit settings"
     And I set the following fields to these values:
       | News items to show | 0 |
-    And I press "Save changes"
+    And I press "Save and display"
     And "Latest news" "block" should not exist

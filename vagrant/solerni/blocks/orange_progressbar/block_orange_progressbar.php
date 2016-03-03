@@ -18,7 +18,7 @@
 /**
  * Orange Progress Bar block definition
  *
- * @package    block_orange_last_message
+ * @package    block_orange_progressbar
  * @copyright  Orange 2015
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -60,9 +60,7 @@ class block_orange_progressbar extends block_base {
      * @return bool
      */
     public function specialization() {
-        if (isset($this->config->progressTitle) && trim($this->config->progressTitle) != '') {
-            $this->title = format_string($this->config->progressTitle);
-        }
+        $this->title = get_string('block_title', 'block_orange_progressbar');
     }
 
     /**

@@ -11,20 +11,20 @@ $hassiteconfig = has_capability('moodle/site:config', $systemcontext);
 $ADMIN->add('root', new admin_externalpage('adminnotifications', new lang_string('notifications'), "$CFG->wwwroot/$CFG->admin/index.php"));
 
 $ADMIN->add('root', new admin_externalpage('registrationmoodleorg', new lang_string('registration', 'admin'),
-		"$CFG->wwwroot/$CFG->admin/registration/register.php?huburl=" . HUB_MOODLEORGHUBURL . "&hubname=Moodle.org"));
+        "$CFG->wwwroot/$CFG->admin/registration/register.php?huburl=" . HUB_MOODLEORGHUBURL . "&hubname=Moodle.org&sesskey=" . sesskey()));
 $ADMIN->add('root', new admin_externalpage('registrationhub', new lang_string('registerwith', 'hub'),
-		"$CFG->wwwroot/$CFG->admin/registration/register.php", 'moodle/site:config', true));
+        "$CFG->wwwroot/$CFG->admin/registration/register.php", 'moodle/site:config', true));
 $ADMIN->add('root', new admin_externalpage('registrationhubs', new lang_string('hubs', 'admin'),
-		"$CFG->wwwroot/$CFG->admin/registration/index.php", 'moodle/site:config', true));
+        "$CFG->wwwroot/$CFG->admin/registration/index.php", 'moodle/site:config', true));
 $ADMIN->add('root', new admin_externalpage('siteregistrationconfirmed',
-		new lang_string('registrationconfirmed', 'hub'),
-		$CFG->wwwroot."/".$CFG->admin."/registration/confirmregistration.php", 'moodle/site:config', true));
-// hidden upgrade script
+        new lang_string('registrationconfirmed', 'hub'),
+        $CFG->wwwroot."/".$CFG->admin."/registration/confirmregistration.php", 'moodle/site:config', true));
+ // hidden upgrade script
 $ADMIN->add('root', new admin_externalpage('upgradesettings', new lang_string('upgradesettings', 'admin'), "$CFG->wwwroot/$CFG->admin/upgradesettings.php", 'moodle/site:config', true));
 
 if ($hassiteconfig) {
-	$optionalsubsystems = new admin_settingpage('optionalsubsystems', new lang_string('advancedfeatures', 'admin'));
-	$ADMIN->add('root', $optionalsubsystems);
+    $optionalsubsystems = new admin_settingpage('optionalsubsystems', new lang_string('advancedfeatures', 'admin'));
+    $ADMIN->add('root', $optionalsubsystems);
 }
 
 $ADMIN->add('root', new admin_category('users', new lang_string('users','admin')));

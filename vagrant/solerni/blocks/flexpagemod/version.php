@@ -26,11 +26,14 @@
  *
  * @author Mark Nielsen
  * @package block_flexpagemod
+ *
+ * orange 2016011800 : lang fr
+ *                    + Overload add_mod_commands() to add completion
  */
 
-$plugin->version      = 2014093000;
-$plugin->requires     = 2014051203;
+$plugin->version      = 2016020500; //fork 2016012600
+$plugin->requires     = 2014111006;
 $plugin->component    = 'block_flexpagemod';
-$plugin->release      = '2.7.0 (Build: 20141229)';
+$plugin->release      = '2.9.3 (Build: 20160204)';
 $plugin->maturity     = MATURITY_STABLE;
 $plugin->dependencies = array('format_flexpage' => 2014093000);

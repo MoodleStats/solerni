@@ -80,7 +80,13 @@ if (defined('BEHAT_SITE_RUNNING')) {
     // The behat is configured on this server, we need to find out if this is the behat test
     // site based on the URL used for access.
     require_once(__DIR__ . '/../lib/behat/lib.php');
+
+    // Update config variables for parallel behat runs.
+    behat_update_vars_for_process();
+
     if (behat_is_test_site()) {
+        clearstatcache();
+
         // Checking the integrity of the provided $CFG->behat_* vars and the
         // selected wwwroot to prevent conflicts with production and phpunit environments.
         behat_check_config_vars();
@@ -89,10 +95,11 @@ if (defined('BEHAT_SITE_RUNNING')) {
         if (!file_exists("$CFG->behat_dataroot/behattestdir.txt")) {
             if ($dh = opendir($CFG->behat_dataroot)) {
                 while (($file = readdir($dh)) !== false) {
-                    if ($file === 'behat' or $file === '.' or $file === '..' or $file === '.DS_Store') {
+                    if ($file === 'behat' or $file === '.' or $file === '..' or $file === '.DS_Store' or is_numeric($file)) {
                         continue;
                     }
-                    behat_error(BEHAT_EXITCODE_CONFIG, '$CFG->behat_dataroot directory is not empty, ensure this is the directory where you want to install behat test dataroot');
+                    behat_error(BEHAT_EXITCODE_CONFIG, "$CFG->behat_dataroot directory is not empty, ensure this is the " .
+                        "directory where you want to install behat test dataroot");
                 }
                 closedir($dh);
                 unset($dh);
@@ -131,11 +138,6 @@ if (defined('BEHAT_SITE_RUNNING')) {
         $CFG->prefix = $CFG->behat_prefix;
         $CFG->dataroot = $CFG->behat_dataroot;
     }
-}
-
-// Force timezone to be Australia/Perth for behat tests, so we don't get time zone problems.
-if (defined('BEHAT_SITE_RUNNING') || defined('BEHAT_TEST') || defined('BEHAT_UTIL')) {
-    @date_default_timezone_set('Australia/Perth');
 }
 
 // Normalise dataroot - we do not want any symbolic links, trailing / or any other weirdness there
@@ -277,14 +279,8 @@ if (!defined('CACHE_DISABLE_STORES')) {
     define('CACHE_DISABLE_STORES', false);
 }
 
-// Servers should define a default timezone in php.ini, but if they don't then make sure something is defined.
-// This is a quick hack.  Ideally we should ask the admin for a value.  See MDL-22625 for more on this.
-if (function_exists('date_default_timezone_set') and function_exists('date_default_timezone_get')) {
-    $olddebug = error_reporting(0);
-    date_default_timezone_set(date_default_timezone_get());
-    error_reporting($olddebug);
-    unset($olddebug);
-}
+// Servers should define a default timezone in php.ini, but if they don't then make sure no errors are shown.
+date_default_timezone_set(@date_default_timezone_get());
 
 // Detect CLI scripts - CLI scripts are executed from command line, do not have session and we do not want HTML in output
 // In your new CLI scripts just add "define('CLI_SCRIPT', true);" before requiring config.php.
@@ -357,17 +353,15 @@ if (!defined('AJAX_SCRIPT')) {
 
 // Exact version of currently used yui2 and 3 library.
 $CFG->yui2version = '2.9.0';
-$CFG->yui3version = '3.15.0';
+$CFG->yui3version = '3.17.2';
 
 // Patching the upstream YUI release.
 // For important information on patching YUI modules, please see http://docs.moodle.org/dev/YUI/Patching.
 // If we need to patch a YUI modules between official YUI releases, the yuipatchlevel will need to be manually
 // incremented here. The module will also need to be listed in the yuipatchedmodules.
 // When upgrading to a subsequent version of YUI, these should be reset back to 0 and an empty array.
-$CFG->yuipatchlevel = 1;
+$CFG->yuipatchlevel = 0;
 $CFG->yuipatchedmodules = array(
-    'dd-drag',
-    'dd-gestures',
 );
 
 // Store settings from config.php in array in $CFG - we can use it later to detect problems and overrides.
@@ -498,7 +492,7 @@ global $OUTPUT;
  * Full script path including all params, slash arguments, scheme and host.
  *
  * Note: Do NOT use for getting of current page URL or detection of https,
- * instead use $PAGE->url or strpos($CFG->httpswwwroot, 'https:') === 0
+ * instead use $PAGE->url or is_https().
  *
  * @global string $FULLME
  * @name $FULLME
@@ -583,6 +577,9 @@ if (defined('COMPONENT_CLASSLOADER')) {
 } else {
     spl_autoload_register('core_component::classloader');
 }
+
+// Remember the default PHP timezone, we will need it later.
+core_date::store_default_php_timezone();
 
 // Load up standard libraries
 require_once($CFG->libdir .'/filterlib.php');       // Functions for filtering test as it is output
@@ -706,6 +703,9 @@ ini_set('arg_separator.output', '&amp;');
 
 // Work around for a PHP bug   see MDL-11237
 ini_set('pcre.backtrack_limit', 20971520);  // 20 MB
+
+// Set PHP default timezone to server timezone.
+core_date::set_default_server_timezone();
 
 // Location of standard files
 $CFG->wordlist = $CFG->libdir .'/wordlist.txt';

@@ -27,7 +27,7 @@ require_once($CFG->libdir .'/simplepie/moodle_simplepie.php');
 
 require_login();
 if (isguestuser()) {
-	print_error('guestsarenotallowed');
+    print_error('guestsarenotallowed');
 }
 
 $returnurl = optional_param('returnurl', '', PARAM_LOCALURL);
@@ -35,23 +35,23 @@ $courseid = optional_param('courseid', 0, PARAM_INT);
 $rssid = required_param('rssid', PARAM_INT);
 
 if ($courseid = SITEID) {
-	$courseid = 0;
+    $courseid = 0;
 }
 if ($courseid) {
-	$course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
-	$PAGE->set_course($course);
-	$context = $PAGE->context;
+    $course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
+    $PAGE->set_course($course);
+    $context = $PAGE->context;
 } else {
-	$context = context_system::instance();
-	$PAGE->set_context($context);
+    $context = context_system::instance();
+    $PAGE->set_context($context);
 }
 
 $urlparams = array('rssid' => $rssid);
 if ($courseid) {
-	$urlparams['courseid'] = $courseid;
+    $urlparams['courseid'] = $courseid;
 }
 if ($returnurl) {
-	$urlparams['returnurl'] = $returnurl;
+    $urlparams['returnurl'] = $returnurl;
 }
 $PAGE->set_url('/blocks/rss_client/viewfeed.php', $urlparams);
 $PAGE->set_pagelayout('popup');
@@ -61,8 +61,8 @@ $rssrecord = $DB->get_record('block_rss_client', array('id' => $rssid), '*', MUS
 $rss = new moodle_simplepie($rssrecord->url);
 
 if ($rss->error()) {
-	debugging($rss->error());
-	print_error('errorfetchingrssfeed');
+    debugging($rss->error());
+    print_error('errorfetchingrssfeed');
 }
 
 $strviewfeed = get_string('viewfeed', 'block_rss_client');
@@ -78,21 +78,21 @@ $PAGE->navbar->add($strviewfeed);
 echo $OUTPUT->header();
 
 if (!empty($rssrecord->preferredtitle)) {
-	$feedtitle = $rssrecord->preferredtitle;
+    $feedtitle = $rssrecord->preferredtitle;
 } else {
-	$feedtitle =  $rss->get_title();
+    $feedtitle =  $rss->get_title();
 }
 echo '<table align="center" width="50%" cellspacing="1">'."\n";
 echo '<tr><td colspan="2"><strong>'. s($feedtitle) .'</strong></td></tr>'."\n";
 foreach ($rss->get_items() as $item) {
-	echo '<tr><td valign="middle">'."\n";
-	echo '<a href="'.$item->get_link().'" target="_blank"><strong>';
-	echo s($item->get_title());
-	echo '</strong></a>'."\n";
-	echo '</td>'."\n";
-	echo '</tr>'."\n";
-	echo '<tr><td colspan="2"><small>';
-	echo format_text($item->get_description(), FORMAT_HTML) .'</small></td></tr>'."\n";
+    echo '<tr><td valign="middle">'."\n";
+    echo '<a href="'.$item->get_link().'" target="_blank"><strong>';
+    echo s($item->get_title());
+    echo '</strong></a>'."\n";
+    echo '</td>'."\n";
+    echo '</tr>'."\n";
+    echo '<tr><td colspan="2"><small>';
+    echo format_text($item->get_description(), FORMAT_HTML) .'</small></td></tr>'."\n";
 }
 echo '</table>'."\n";
 

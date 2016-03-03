@@ -77,7 +77,7 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
     protected function halloween_render_lang_menu_item(custom_menu_item $menunode, $level = 0, $menutitle = '' ) {
         static $submenucount = 0;
         $content = '';
-        $currenttitle = str_replace(array( ' (fr)', ' (en)' ), '',  $menunode->get_text());
+        $currenttitle = str_replace(array('(fr)', '(en)', '&lrm;'), '',  ($menunode->get_text()));
         if ($menunode->has_children()) {
             $menutitle = $currenttitle;
             $submenucount++;
@@ -86,7 +86,7 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
             } else {
                 $url = '#cm_submenu_'.$submenucount;
             }
-            $content .= '<button id="dLabel" class="btn btn-primary " type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
+            $content .= '<button id="dLabel" class="btn btn-default " type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
             $content .= $menutitle;
             $content .= '<span class="caret"></span></button>';
             $content .= '<ul class="dropdown-menu list-unstyled list-link" aria-labelledby="dLabel">';
@@ -281,5 +281,70 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
         <?php } ?>
         </div>
     <?php
+    }
+
+    /**
+     * Output an error message. By default wraps the error message in <span class="error">.
+     * If the error message is blank, nothing is output.
+     *
+     * @param string $message the error message.
+     * @return string the HTML to output.
+     */
+    public function error_text($message) {
+        if (empty($message)) {
+            return '';
+        }
+
+        return html_writer::tag('span', $message, array('class' => 'error'));
+    }
+
+    /**
+     * Function to iterate the resav nav items. $hosts could be a object (one host)
+     * or a array of host objects.
+     *
+     * @param array of hosts || host stdClass
+     */
+    public function resac_nav_items($hosts, $stripclient = false) {
+        $html = '';
+
+        if(is_object($hosts)) {
+            $html .= self::render_nav_item($hosts, $stripclient);
+        }
+
+        if(is_array($hosts)) {
+            foreach ($hosts as $host) {
+                $html .= self::render_nav_item($host, $stripclient);
+            }
+        }
+
+        return $html;
+    }
+
+    /**
+     * Return HTML <li> element use in resac nav. You have a regular link to thematics
+     * or a jump url weither you're logged in or not.
+     *
+     * @global type $CFG
+     * @param stdClass $host
+     * @return string <html fragment>
+     */
+    public function render_nav_item(stdClass $host, $stripclient) {
+        global $CFG;
+
+        // remove client name from host name for reasons.
+        if ($stripclient) {
+            $host->name = str_replace($CFG->solerni_customer_name . ' ', '', $host->name);
+            $host->name = str_replace(strtolower($CFG->solerni_customer_name) . ' ', '', $host->name);
+        }
+
+        $aclasses = 'navigation-item';
+        $aclasses .= (strcmp($CFG->wwwroot, $host->url) === 0) ? ' active' : '';
+        $url = isloggedin() ? $host->jump : $host->url;
+
+        $html = '<li class="list-group-item">';
+        $html .= '<a class="' . $aclasses . '" href="' . $url . '">' . ucfirst($host->name) . '</a>';
+        $html .= '</li>';
+
+        return $html;
     }
 }

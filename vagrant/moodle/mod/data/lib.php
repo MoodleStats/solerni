@@ -137,6 +137,7 @@ class data_field_base {     // Base class for Database Field Types (see field/*/
         $this->field->param3 = '';
         $this->field->name = '';
         $this->field->description = '';
+        $this->field->required = false;
 
         return true;
     }
@@ -152,6 +153,7 @@ class data_field_base {     // Base class for Database Field Types (see field/*/
 
         $this->field->name        = trim($data->name);
         $this->field->description = trim($data->description);
+        $this->field->required    = !empty($data->required) ? 1 : 0;
 
         if (isset($data->param1)) {
             $this->field->param1 = trim($data->param1);
@@ -268,10 +270,13 @@ class data_field_base {     // Base class for Database Field Types (see field/*/
      * @param int $recordid
      * @return string
      */
-    function display_add_field($recordid=0){
-        global $DB;
+    function display_add_field($recordid=0, $formdata=null) {
+        global $DB, $OUTPUT;
 
-        if ($recordid){
+        if ($formdata) {
+            $fieldname = 'field_' . $this->field->id;
+            $content = $formdata->$fieldname;
+        } else if ($recordid) {
             $content = $DB->get_field('data_content', 'content', array('fieldid'=>$this->field->id, 'recordid'=>$recordid));
         } else {
             $content = '';
@@ -282,9 +287,15 @@ class data_field_base {     // Base class for Database Field Types (see field/*/
             $content='';
         }
 
-        $str = '<div title="'.s($this->field->description).'">';
-        $str .= '<label class="accesshide" for="field_'.$this->field->id.'">'.$this->field->description.'</label>';
-        $str .= '<input class="basefieldinput" type="text" name="field_'.$this->field->id.'" id="field_'.$this->field->id.'" value="'.s($content).'" />';
+        $str = '<div title="' . s($this->field->description) . '">';
+        $str .= '<label for="field_'.$this->field->id.'"><span class="accesshide">'.$this->field->name.'</span>';
+        if ($this->field->required) {
+            $image = html_writer::img($OUTPUT->pix_url('req'), get_string('requiredelement', 'form'),
+                                     array('class' => 'req', 'title' => get_string('requiredelement', 'form')));
+            $str .= html_writer::div($image, 'inline-req');
+        }
+        $str .= '</label><input class="basefieldinput mod-data-input" type="text" name="field_'.$this->field->id.'"';
+        $str .= ' id="field_' . $this->field->id . '" value="'.s($content).'" />';
         $str .= '</div>';
 
         return $str;
@@ -548,7 +559,7 @@ function data_generate_default_template(&$data, $template, $recordid=0, $form=fa
         foreach ($fields as $field) {
             if ($form) {   // Print forms instead of data
                 $fieldobj = data_get_field($field, $data);
-                $token = $fieldobj->display_add_field($recordid);
+                $token = $fieldobj->display_add_field($recordid, null);
             } else {           // Just print the tag
                 $token = '[['.$field->name.']]';
             }
@@ -875,7 +886,7 @@ function data_tags_check($dataid, $template) {
     // then we generate strings to replace
     $tagsok = true; // let's be optimistic
     foreach ($fields as $field){
-        $pattern="/\[\[".$field->name."\]\]/i";
+        $pattern="/\[\[" . preg_quote($field->name, '/') . "\]\]/i";
         if (preg_match_all($pattern, $template, $dummy)>1){
             $tagsok = false;
             echo $OUTPUT->notification('[['.$field->name.']] - '.get_string('multipletags','data'));
@@ -897,6 +908,11 @@ function data_add_instance($data, $mform = null) {
 
     if (empty($data->assessed)) {
         $data->assessed = 0;
+    }
+
+    if (empty($data->ratingtime) || empty($data->assessed)) {
+        $data->assesstimestart  = 0;
+        $data->assesstimefinish = 0;
     }
 
     $data->timemodified = time();
@@ -1122,37 +1138,6 @@ function data_update_grades($data, $userid=0, $nullifnone=true) {
 }
 
 /**
- * Update all grades in gradebook.
- *
- * @global object
- */
-function data_upgrade_grades() {
-    global $DB;
-
-    $sql = "SELECT COUNT('x')
-              FROM {data} d, {course_modules} cm, {modules} m
-             WHERE m.name='data' AND m.id=cm.module AND cm.instance=d.id";
-    $count = $DB->count_records_sql($sql);
-
-    $sql = "SELECT d.*, cm.idnumber AS cmidnumber, d.course AS courseid
-              FROM {data} d, {course_modules} cm, {modules} m
-             WHERE m.name='data' AND m.id=cm.module AND cm.instance=d.id";
-    $rs = $DB->get_recordset_sql($sql);
-    if ($rs->valid()) {
-        // too much debug output
-        $pbar = new progress_bar('dataupgradegrades', 500, true);
-        $i=0;
-        foreach ($rs as $data) {
-            $i++;
-            upgrade_set_timeout(60*5); // set up timeout, may also abort execution
-            data_update_grades($data, 0, false);
-            $pbar->update($i, $count, "Updating Database grades ($i/$count).");
-        }
-    }
-    $rs->close();
-}
-
-/**
  * Update/create grade item for given data
  *
  * @category grade
@@ -1302,6 +1287,10 @@ function data_print_template($template, $records, $data, $search='', $page=0, $r
         $patterns[]='##user##';
         $replacement[] = '<a href="'.$CFG->wwwroot.'/user/view.php?id='.$record->userid.
                                '&amp;course='.$data->course.'">'.fullname($record).'</a>';
+
+        $patterns[] = '##userpicture##';
+        $ruser = user_picture::unalias($record, null, 'userid');
+        $replacement[] = $OUTPUT->user_picture($ruser, array('courseid' => $data->course));
 
         $patterns[]='##export##';
 
@@ -1529,6 +1518,58 @@ function data_rating_validate($params) {
     }
 
     return true;
+}
+
+/**
+ * Can the current user see ratings for a given itemid?
+ *
+ * @param array $params submitted data
+ *            contextid => int contextid [required]
+ *            component => The component for this module - should always be mod_data [required]
+ *            ratingarea => object the context in which the rated items exists [required]
+ *            itemid => int the ID of the object being rated [required]
+ *            scaleid => int scale id [optional]
+ * @return bool
+ * @throws coding_exception
+ * @throws rating_exception
+ */
+function mod_data_rating_can_see_item_ratings($params) {
+    global $DB;
+
+    // Check the component is mod_data.
+    if (!isset($params['component']) || $params['component'] != 'mod_data') {
+        throw new rating_exception('invalidcomponent');
+    }
+
+    // Check the ratingarea is entry (the only rating area in data).
+    if (!isset($params['ratingarea']) || $params['ratingarea'] != 'entry') {
+        throw new rating_exception('invalidratingarea');
+    }
+
+    if (!isset($params['itemid'])) {
+        throw new rating_exception('invaliditemid');
+    }
+
+    $datasql = "SELECT d.id as dataid, d.course, r.groupid
+                  FROM {data_records} r
+                  JOIN {data} d ON r.dataid = d.id
+                 WHERE r.id = :itemid";
+    $dataparams = array('itemid' => $params['itemid']);
+    if (!$info = $DB->get_record_sql($datasql, $dataparams)) {
+        // Item doesn't exist.
+        throw new rating_exception('invaliditemid');
+    }
+
+    // User can see ratings of all participants.
+    if ($info->groupid == 0) {
+        return true;
+    }
+
+    $course = $DB->get_record('course', array('id' => $info->course), '*', MUST_EXIST);
+    $cm = get_coursemodule_from_instance('data', $info->dataid, $course->id, false, MUST_EXIST);
+
+    // Make sure groups allow this user to see the item they're rating.
+    return groups_group_visible($info->groupid, $course, $cm);
 }
 
 
@@ -2724,7 +2765,6 @@ function data_supports($feature) {
     switch($feature) {
         case FEATURE_GROUPS:                  return true;
         case FEATURE_GROUPINGS:               return true;
-        case FEATURE_GROUPMEMBERSONLY:        return true;
         case FEATURE_MOD_INTRO:               return true;
         case FEATURE_COMPLETION_TRACKS_VIEWS: return true;
         case FEATURE_GRADE_HAS_GRADE:         return true;
@@ -3643,7 +3683,10 @@ function data_get_recordids($alias, $searcharray, $dataid, $recordids) {
 function data_get_advanced_search_sql($sort, $data, $recordids, $selectdata, $sortorder) {
     global $DB;
 
-    $namefields = get_all_user_name_fields(true, 'u');
+    $namefields = user_picture::fields('u');
+    // Remove the id from the string. This already exists in the sql statement.
+    $namefields = str_replace('u.id,', '', $namefields);
+
     if ($sort == 0) {
         $nestselectsql = 'SELECT r.id, r.approved, r.timecreated, r.timemodified, r.userid, ' . $namefields . '
                         FROM {data_content} c,
@@ -3752,6 +3795,12 @@ function data_delete_record($recordid, $data, $courseid, $cmid) {
                 $DB->delete_records('data_content', array('recordid'=>$deleterecord->id));
                 $DB->delete_records('data_records', array('id'=>$deleterecord->id));
 
+                // Delete cached RSS feeds.
+                if (!empty($CFG->enablerssfeeds)) {
+                    require_once($CFG->dirroot.'/mod/data/rsslib.php');
+                    data_rss_delete_file($data);
+                }
+
                 // Trigger an event for deleting this record.
                 $event = \mod_data\event\record_deleted::create(array(
                     'objectid' => $deleterecord->id,
@@ -3764,15 +3813,110 @@ function data_delete_record($recordid, $data, $courseid, $cmid) {
                 $event->add_record_snapshot('data_records', $deleterecord);
                 $event->trigger();
 
-                // Delete cached RSS feeds.
-                if (!empty($CFG->enablerssfeeds)) {
-                    require_once($CFG->dirroot.'/mod/data/rsslib.php');
-                    data_rss_delete_file($data);
-                }
-
                 return true;
             }
         }
     }
     return false;
+}
+
+/**
+ * Check for required fields, and build a list of fields to be updated in a
+ * submission.
+ *
+ * @param $mod stdClass The current recordid - provided as an optimisation.
+ * @param $fields array The field data
+ * @param $datarecord stdClass The submitted data.
+ * @return stdClass containing:
+ * * string[] generalnotifications Notifications for the form as a whole.
+ * * string[] fieldnotifications Notifications for a specific field.
+ * * bool validated Whether the field was validated successfully.
+ * * data_field_base[] fields The field objects to be update.
+ */
+function data_process_submission(stdClass $mod, $fields, stdClass $datarecord) {
+    $result = new stdClass();
+
+    // Empty form checking - you can't submit an empty form.
+    $emptyform = true;
+    $requiredfieldsfilled = true;
+    $fieldsvalidated = true;
+
+    // Store the notifications.
+    $result->generalnotifications = array();
+    $result->fieldnotifications = array();
+
+    // Store the instantiated classes as an optimisation when processing the result.
+    // This prevents the fields being re-initialised when updating.
+    $result->fields = array();
+
+    $submitteddata = array();
+    foreach ($datarecord as $fieldname => $fieldvalue) {
+        if (strpos($fieldname, '_')) {
+            $namearray = explode('_', $fieldname, 3);
+            $fieldid = $namearray[1];
+            if (!isset($submitteddata[$fieldid])) {
+                $submitteddata[$fieldid] = array();
+            }
+            if (count($namearray) === 2) {
+                $subfieldid = 0;
+            } else {
+                $subfieldid = $namearray[2];
+            }
+
+            $fielddata = new stdClass();
+            $fielddata->fieldname = $fieldname;
+            $fielddata->value = $fieldvalue;
+            $submitteddata[$fieldid][$subfieldid] = $fielddata;
+        }
+    }
+
+    // Check all form fields which have the required are filled.
+    foreach ($fields as $fieldrecord) {
+        // Check whether the field has any data.
+        $fieldhascontent = false;
+
+        $field = data_get_field($fieldrecord, $mod);
+        if (isset($submitteddata[$fieldrecord->id])) {
+            // Field validation check.
+            if (method_exists($field, 'field_validation')) {
+                $errormessage = $field->field_validation($submitteddata[$fieldrecord->id]);
+                if ($errormessage) {
+                    $result->fieldnotifications[$field->field->name][] = $errormessage;
+                    $fieldsvalidated = false;
+                }
+            }
+            foreach ($submitteddata[$fieldrecord->id] as $fieldname => $value) {
+                if ($field->notemptyfield($value->value, $value->fieldname)) {
+                    // The field has content and the form is not empty.
+                    $fieldhascontent = true;
+                    $emptyform = false;
+                }
+            }
+        }
+
+        // If the field is required, add a notification to that effect.
+        if ($field->field->required && !$fieldhascontent) {
+            if (!isset($result->fieldnotifications[$field->field->name])) {
+                $result->fieldnotifications[$field->field->name] = array();
+            }
+            $result->fieldnotifications[$field->field->name][] = get_string('errormustsupplyvalue', 'data');
+            $requiredfieldsfilled = false;
+        }
+
+        // Update the field.
+        if (isset($submitteddata[$fieldrecord->id])) {
+            foreach ($submitteddata[$fieldrecord->id] as $value) {
+                $result->fields[$value->fieldname] = $field;
+            }
+        }
+    }
+
+    if ($emptyform) {
+        // The form is empty.
+        $result->generalnotifications[] = get_string('emptyaddform', 'data');
+    }
+
+    $result->validated = $requiredfieldsfilled && !$emptyform && $fieldsvalidated;
+
+    return $result;
 }

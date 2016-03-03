@@ -43,7 +43,7 @@ $progressblockcontext = context_block::instance($id);
 // Set up page parameters.
 $PAGE->set_course($course);
 $PAGE->requires->css('/blocks/orange_progressbar/styles.css');
-$PAGE->set_url('/blocks/progress/overview.php', array('progressbarid' => $id, 'courseid' => $courseid));
+$PAGE->set_url('/blocks/orange_progressbar/overview.php', array('progressbarid' => $id, 'courseid' => $courseid));
 $PAGE->set_context($context);
 $title = get_string('overview', 'block_orange_progressbar');
 $PAGE->set_title($title);
@@ -66,7 +66,8 @@ $completion = new completion_info($COURSE);
 if ($completion->is_enabled()) {
 
     $activitymonitored = $completion->get_progress_all('u.id = '. $USER->id);
-    list($completed, $total, $all) = block_orange_progressbar_filterfollowedactivity($COURSE, $activitymonitored[$USER->id]);
+    list($completed, $total, $all) = block_orange_progressbar_filterfollowedactivity($COURSE, 
+            isset($activitymonitored[$USER->id]) ? $activitymonitored[$USER->id] : null);
 
     if ($total) {
         // Display progress bar.

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'journal', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'journal', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   journal
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -36,7 +36,7 @@ $string['entries'] = 'Entrées';
 $string['entry'] = 'Entrée';
 $string['evententriesviewed'] = 'Entrées du journal visualisées';
 $string['evententryupdated'] = 'Entrée de journal modifiée';
-$string['eventfeedbackupdated'] = 'Feedback du journal modifiée';
+$string['eventfeedbackupdated'] = 'Feedback du journal modifié';
 $string['eventjournalcreated'] = 'Journal créé';
 $string['eventjournaldeleted'] = 'Journal supprimé';
 $string['eventjournalviewed'] = 'Journal consulté';
@@ -45,11 +45,11 @@ $string['gradeingradebook'] = 'Note dans le carnet';
 $string['journal:addentries'] = 'Ajouter une entrée dans le journal';
 $string['journal:addinstance'] = 'Ajouter une instance du module';
 $string['journalmail'] = '{$a->teacher} a ajouté un feedback
- dans votre journal pour \'{$a->journal}\'
+ dans votre journal pour « {$a->journal} »
 
-Pour y accéder: {$a->url}';
-$string['journalmailhtml'] = '{$a->teacher} a ajouté un feedback dans votre journal pour \'<i>{$a->journal}</i>\'<br /><br />
-Pour y accéder: <a href="{$a->url}">journal entry</a>.';
+Pour y accéder : {$a->url}';
+$string['journalmailhtml'] = '{$a->teacher} a ajouté un feedback dans votre journal pour « <i>{$a->journal}</i> »<br /><br />
+Pour y accéder : <a href="{$a->url}">Entrée du journal</a>.';
 $string['journal:manageentries'] = 'Gérer les entrées dans votre journal';
 $string['journalname'] = 'Nom du journal';
 $string['journalquestion'] = 'Question du journal';
@@ -70,6 +70,7 @@ $string['pluginadministration'] = 'Administration du module journal';
 $string['pluginname'] = 'Journal';
 $string['rate'] = 'Note';
 $string['removeentries'] = 'Supprimer toutes les entrées';
+$string['removemessages'] = 'Supprimer toutes les entrées du journal';
 $string['saveallfeedback'] = 'Enregistrer tous mes feedbacks';
 $string['showoverview'] = 'Afficher le sommaire des journaux sur Ma Page';
 $string['showrecentactivity'] = 'Afficher les activités récentes';

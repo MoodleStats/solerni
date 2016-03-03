@@ -34,7 +34,12 @@ defined('MOODLE_INTERNAL') || die();
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class testing_data_generator {
+    /** @var int The number of grade categories created */
     protected $gradecategorycounter = 0;
+    /** @var int The number of grade items created */
+    protected $gradeitemcounter = 0;
+    /** @var int The number of grade outcomes created */
+    protected $gradeoutcomecounter = 0;
     protected $usercounter = 0;
     protected $categorycount = 0;
     protected $cohortcount = 0;
@@ -220,7 +225,23 @@ EOD;
         }
 
         if (!isset($record['maildisplay'])) {
-            $record['maildisplay'] = 1;
+            $record['maildisplay'] = $CFG->defaultpreference_maildisplay;
+        }
+
+        if (!isset($record['mailformat'])) {
+            $record['mailformat'] = $CFG->defaultpreference_mailformat;
+        }
+
+        if (!isset($record['maildigest'])) {
+            $record['maildigest'] = $CFG->defaultpreference_maildigest;
+        }
+
+        if (!isset($record['autosubscribe'])) {
+            $record['autosubscribe'] = $CFG->defaultpreference_autosubscribe;
+        }
+
+        if (!isset($record['trackforums'])) {
+            $record['trackforums'] = $CFG->defaultpreference_trackforums;
         }
 
         if (!isset($record['deleted'])) {
@@ -317,6 +338,10 @@ EOD;
 
         if (!isset($record['descriptionformat'])) {
             $record['descriptionformat'] = FORMAT_MOODLE;
+        }
+
+        if (!isset($record['visible'])) {
+            $record['visible'] = 1;
         }
 
         if (!isset($record['component'])) {
@@ -418,23 +443,45 @@ EOD;
     }
 
     /**
-     * Create a test block
-     * @param string $blockname
-     * @param array|stdClass $record
-     * @param array $options
-     * @return stdClass block instance record
+     * Create a test block.
+     *
+     * The $record passed in becomes the basis for the new row added to the
+     * block_instances table. You only need to supply the values of interest.
+     * Any missing values have sensible defaults filled in, and ->blockname will be set based on $blockname.
+     *
+     * The $options array provides additional data, not directly related to what
+     * will be inserted in the block_instance table, which may affect the block
+     * that is created. The meanings of any data passed here depends on the particular
+     * type of block being created.
+     *
+     * @param string $blockname the type of block to create. E.g. 'html'.
+     * @param array|stdClass $record forms the basis for the entry to be inserted in the block_instances table.
+     * @param array $options further, block-specific options to control how the block is created.
+     * @return stdClass new block_instance record.
      */
-    public function create_block($blockname, $record=null, array $options=null) {
+    public function create_block($blockname, $record=null, array $options=array()) {
         $generator = $this->get_plugin_generator('block_'.$blockname);
         return $generator->create_instance($record, $options);
     }
 
     /**
-     * Create a test module
-     * @param string $modulename
-     * @param array|stdClass $record
-     * @param array $options
-     * @return stdClass activity record
+     * Create a test activity module.
+     *
+     * The $record should contain the same data that you would call from
+     * ->get_data() when the mod_[type]_mod_form is submitted, except that you
+     * only need to supply values of interest. The only required value is
+     * 'course'. Any missing values will have a sensible default supplied.
+     *
+     * The $options array provides additional data, not directly related to what
+     * would come back from the module edit settings form, which may affect the activity
+     * that is created. The meanings of any data passed here depends on the particular
+     * type of activity being created.
+     *
+     * @param string $modulename the type of activity to create. E.g. 'forum' or 'quiz'.
+     * @param array|stdClass $record data, as if from the module edit settings form.
+     * @param array $options additional data that may affect how the module is created.
+     * @return stdClass activity record new new record that was just inserted in the table
+     *      like 'forum' or 'quiz', with a ->cmid field added.
      */
     public function create_module($modulename, $record=null, array $options=null) {
         $generator = $this->get_plugin_generator('mod_'.$modulename);
@@ -767,12 +814,19 @@ EOD;
             $record['userid'] = $USER->id;
         }
 
-        if (!isset($record['name'])) {
-            $record['name'] = 'Tag name ' . $i;
+        if (!isset($record['rawname'])) {
+            if (isset($record['name'])) {
+                $record['rawname'] = $record['name'];
+            } else {
+                $record['rawname'] = 'Tag name ' . $i;
+            }
         }
 
-        if (!isset($record['rawname'])) {
-            $record['rawname'] = 'Raw tag name ' . $i;
+        // Attribute 'name' should be a lowercase version of 'rawname', if not set.
+        if (!isset($record['name'])) {
+            $record['name'] = core_text::strtolower($record['rawname']);
+        } else {
+            $record['name'] = core_text::strtolower($record['name']);
         }
 
         if (!isset($record['tagtype'])) {
@@ -827,7 +881,7 @@ EOD;
      *
      * @param int $userid
      * @param int $courseid
-     * @param int $roleid optional role id, use only with manual plugin
+     * @param int|string $roleidorshortname optional role id or role shortname, use only with manual plugin
      * @param string $enrol name of enrol plugin,
      *     there must be exactly one instance in course,
      *     it must support enrol_user() method.
@@ -836,8 +890,16 @@ EOD;
      * @param int $status (optional) default to ENROL_USER_ACTIVE for new enrolments
      * @return bool success
      */
-    public function enrol_user($userid, $courseid, $roleid = null, $enrol = 'manual', $timestart = 0, $timeend = 0, $status = null) {
+    public function enrol_user($userid, $courseid, $roleidorshortname = null, $enrol = 'manual',
+            $timestart = 0, $timeend = 0, $status = null) {
         global $DB;
+
+        // If role is specified by shortname, convert it into an id.
+        if (!is_numeric($roleidorshortname) && is_string($roleidorshortname)) {
+            $roleid = $DB->get_field('role', 'id', array('shortname' => $roleidorshortname), MUST_EXIST);
+        } else {
+            $roleid = $roleidorshortname;
+        }
 
         if (!$plugin = enrol_get_plugin($enrol)) {
             return false;
@@ -894,7 +956,6 @@ EOD;
         global $CFG;
 
         $this->gradecategorycounter++;
-        $i = $this->gradecategorycounter;
 
         $record = (array)$record;
 
@@ -903,7 +964,7 @@ EOD;
         }
 
         if (!isset($record['fullname'])) {
-            $record['fullname'] = 'Grade category ' . $i;
+            $record['fullname'] = 'Grade category ' . $this->gradecategorycounter;
         }
 
         // For gradelib classes.
@@ -920,5 +981,69 @@ EOD;
 
         $gradecategory->update_from_db();
         return $gradecategory->get_record_data();
+    }
+
+    /**
+     * Create a grade_item.
+     *
+     * @param array|stdClass $record
+     * @return stdClass the grade item record
+     */
+    public function create_grade_item($record = null) {
+        global $CFG;
+        require_once("$CFG->libdir/gradelib.php");
+
+        $this->gradeitemcounter++;
+
+        if (!isset($record['itemtype'])) {
+            $record['itemtype'] = 'manual';
+        }
+
+        if (!isset($record['itemname'])) {
+            $record['itemname'] = 'Grade item ' . $this->gradeitemcounter;
+        }
+
+        if (isset($record['outcomeid'])) {
+            $outcome = new grade_outcome(array('id' => $record['outcomeid']));
+            $record['scaleid'] = $outcome->scaleid;
+        }
+        if (isset($record['scaleid'])) {
+            $record['gradetype'] = GRADE_TYPE_SCALE;
+        } else if (!isset($record['gradetype'])) {
+            $record['gradetype'] = GRADE_TYPE_VALUE;
+        }
+
+        // Create new grade item in this course.
+        $gradeitem = new grade_item($record, false);
+        $gradeitem->insert();
+
+        $gradeitem->update_from_db();
+        return $gradeitem->get_record_data();
+    }
+
+    /**
+     * Create a grade_outcome.
+     *
+     * @param array|stdClass $record
+     * @return stdClass the grade outcome record
+     */
+    public function create_grade_outcome($record = null) {
+        global $CFG;
+
+        $this->gradeoutcomecounter++;
+        $i = $this->gradeoutcomecounter;
+
+        if (!isset($record['fullname'])) {
+            $record['fullname'] = 'Grade outcome ' . $i;
+        }
+
+        // For gradelib classes.
+        require_once($CFG->libdir . '/gradelib.php');
+        // Create new grading outcome in this course.
+        $gradeoutcome = new grade_outcome($record, false);
+        $gradeoutcome->insert();
+
+        $gradeoutcome->update_from_db();
+        return $gradeoutcome->get_record_data();
     }
 }

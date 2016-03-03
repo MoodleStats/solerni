@@ -15,5 +15,5 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 ?>
 <div class="action-area">
-    <a href="<?php echo $CFG->wwwroot ?>/login/index.php" class="btn btn-primary btn-sm"><?php echo get_string('login', 'theme_halloween'); ?></a>
+    <a href="<?php echo $CFG->wwwroot ?>/login/index.php" class="btn btn-default"><?php echo get_string('login', 'theme_halloween'); ?></a>
 </div>

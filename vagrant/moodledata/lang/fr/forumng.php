@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'forumng', language 'fr', branch 'MOODLE_27_STABLE'
+ * Strings for component 'forumng', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   forumng
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -536,7 +536,6 @@ $string['subscribed'] = 'Abonné';
 $string['subscribeddiscussionall'] = 'Toutes les discussions';
 $string['subscribediscussion'] = 'S\'abonner à ce fil de discussions';
 $string['subscribedthisgroup'] = 'Ce groupe';
-$string['subscribegroup'] = 'S\'abonner à ce groupe';
 $string['subscribelong'] = 'S\'abonner à tout le forum';
 $string['subscribers'] = 'Abonnés';
 $string['subscribers_nopermission'] = 'Vous n\'avez pas la possibilité de voir la liste des abonnés.';
@@ -585,7 +584,6 @@ $string['unsubscribe_already_group'] = 'Vous êtes déjà désabonné de ce grou
 $string['unsubscribe_confirm'] = 'Vous avez été désabonné.';
 $string['unsubscribe_confirm_group'] = 'Vous avez été désabonné du groupe.';
 $string['unsubscribediscussion'] = 'Se désabonner de ce fil de discussions';
-$string['unsubscribegroup'] = 'Se désabonner de ce groupe';
 $string['unsubscribegroup_partial'] = 'Se désabonner des discussions de ce groupe';
 $string['unsubscribelong'] = 'Se désabonner du forum';
 $string['unsubscribe_nopermission'] = 'Vous n\'avez pas l\'autorisation de désabonner les autres utilisateurs.';

@@ -230,6 +230,13 @@ $string['create_account']           = 'Create my account';
 $string['policyaccept']             = 'I have read and agree to the <a class="js-target-blank" href="{$a}" target="_blank">terms and conditions</a>';
 $string['missingusername']          = 'Your {$a} cannot be empty';
 
+// Webservices settings page
+$string['webservicessettings']      = 'MNET/RESAC';
+$string['webservicesheading']       = 'Configure communication between RESAC instances';
+$string['webservicesheadingdesc']   = '';
+$string['webservicestoken']         = 'Security token';
+$string['webservicestokendesc']     = 'Insert the HOME MNET token generated for RESAC Web Service';
+
 // Search filters.
 $string['catalog_page_title']       = 'Catalog';
 $string['filterstatustitle']        = 'Status';
@@ -239,6 +246,7 @@ $string['filterstatusregistrationcomplete']   = 'Mooc complete';
 $string['filterstatusregistrationopen']       = 'Registration open';
 $string['filterstatusregistrationstopped']    = 'Registration stopped';
 $string['filterstatusregistrationnotopen']    = 'Registration not open';
+
 $string['filterstatusclosed']       = 'Closed';
 $string['filterstatusnotstarted']   = 'Coming soon';
 $string['filterstatusrunning']      = 'In progress';
@@ -264,6 +272,10 @@ $string['or']                       = 'or';
 $string['username']                 = 'Nickname';
 $string['invalidlogin']             = 'Connection failed. Please check your {$a} and your password.';
 
+// Register page.
+$string['already_registered']       = 'Already registered?';
+$string['i_do_login']               = 'I log in';
+
 // Mooc component.
 $string['courseproposedby']         = "Proposed by";
 $string['coursefindoutmore']        = "Find out more";
@@ -278,6 +290,7 @@ $string['seecatalog']               = "See the catalogue";
 
 // Block "My Badge" on dashboard.
 $string['lastbadge']                = 'Last badge obtained:';
+$string['mybadges']                 = 'My badges';
 
 // Contact page
 $string['contact_us']               = 'Contact us';

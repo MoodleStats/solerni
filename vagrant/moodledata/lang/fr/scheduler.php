@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'scheduler', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'scheduler', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   scheduler
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -38,28 +38,29 @@ $string['addsingleslot'] = 'Ajouter un créneau';
 $string['addslot'] = 'Vous pouvez ajouter des créneaux horaires à tout moment.';
 $string['addstudenttogroup'] = 'Ajouter un étudiant au groupe';
 $string['allappointments'] = 'Tous les rendez-vous';
+$string['allononepage'] = 'Tous les créneaux sur une page';
 $string['allowgroup'] = 'Créneau exclusif - cliquer pour changer';
 $string['allslotsincloseddays'] = 'Tous les créneaux sont dans des jours invalidés';
 $string['allteachersgrading'] = 'Les enseignants peuvent noter tous les entretiens';
 $string['allteachersgrading_desc'] = 'Lorsqu\'activé, les enseignants peuvent noter les entretiens auxquels ils ne sont pas assignés.';
 $string['alreadyappointed'] = 'Impossible de fixer un entretien. Le créneau est déjà plein.';
-$string['appointagroup'] = 'Rendez-vous de groupe';
 $string['appointagroup_help'] = 'Choisir si vous voulez prendre rendez-vous pour vous seul ou pour un groupe entier.';
-$string['appointfor'] = 'Prendre rendez-vous pour';
-$string['appointformygroup'] = 'Prendre rendez-vous pour mon groupe entier';
+$string['appointforgroup'] = 'Prendre un rendez-vous pour : {$a}';
 $string['appointingstudent'] = 'Ajouter un rendez-vous';
 $string['appointingstudentinnew'] = 'Ajouter un rendez-vous';
+$string['appointment'] = 'Rendez-vous';
 $string['appointmentmode'] = 'Option sur le mode de rendez-vous';
 $string['appointmentmode_help'] = '<p>Vous pouvez choisir différentes méthodes de prise de rendez-vous. </p>
 <p><ul>
-<li><strong>"<emph>n</emph> rendez-vous":</strong> L\'étudiant peut choisir autant de rendez-vous qu\'il souhaite, dans la limite du nombre de rendez-vous défini dans l\'activité. Même si l\'enseignant les marque comme "vu", l\'étudiant ne sera pas autorisé à choisir un autre rendez-vous. La seule manière de redonner la possibilité à l\'étudiant de choisir un autre rendez-vous est de supprimer l\'ancien rendez-vous.</li>
-<li><strong>"<emph>n</emph> rendez-vous à la fois":</strong> L\'étudiant peut choisir parmi un nombre limité de rendez-vous. Une fois le rendez-vous passé et que l\'enseignant a noté comme ayant "vu" l\'étudiant, l\'étudiant peut alors choisir un autre rendez-vous. Cependant l\'étudiant est limité aux <emph>n</emph> créneaux disponibles (non vu) restants.
+<li><strong>« <emph>n</emph> rendez-vous » :</strong> L\'étudiant peut choisir autant de rendez-vous qu\'il souhaite, dans la limite du nombre de rendez-vous défini dans l\'activité. Même si l\'enseignant les marque comme « vu », l\'étudiant ne sera pas autorisé à choisir un autre rendez-vous. La seule manière de redonner la possibilité à l\'étudiant de choisir un autre rendez-vous est de supprimer l\'ancien rendez-vous.</li>
+<li><strong>« <emph>n</emph> rendez-vous à la fois » :</strong> L\'étudiant peut choisir parmi un nombre limité de rendez-vous. Une fois le rendez-vous passé et que l\'enseignant a noté comme ayant « vu » l\'étudiant, l\'étudiant peut alors choisir un autre rendez-vous. Cependant l\'étudiant est limité aux <emph>n</emph> créneaux disponibles (non vu) restants.
 </li>
 </ul>
 </p>';
 $string['appointmentno'] = 'Séance {$a}';
 $string['appointmentnotes'] = 'Notes de séance';
 $string['appointments'] = 'Réservations';
+$string['appointmentsgrouped'] = 'Rendez-vous groupés par créneaux';
 $string['appointmentsummary'] = 'Rendez-vous le {$a->startdate} de {$a->starttime} à {$a->endtime} avec {$a->teacher}';
 $string['appointsolo'] = 'moi seulement';
 $string['appointsomeone'] = 'Ajouter un étudiant';
@@ -72,6 +73,7 @@ $string['availableslots'] = 'Créneaux ouverts';
 $string['availableslotsall'] = 'Tous les créneaux';
 $string['availableslotsnotowned'] = 'Au nom des autres';
 $string['availableslotsowned'] = 'Pour soi-même';
+$string['bookslot'] = 'Réserver un créneau';
 $string['bookwithteacher'] = 'Enseignant';
 $string['bookwithteacher_help'] = 'Choisir un enseignant pour le rendez-vous.';
 $string['break'] = 'Pause entre les créneaux';
@@ -81,9 +83,9 @@ $string['canbooknappointments'] = 'Vous pouvez choisir {$a} rendez-vous de plus.
 $string['canbooknofurtherappointments'] = 'Vous ne pouvez plus choisir de rendez-vous.';
 $string['canbooksingleappointment'] = 'Vous pouvez choisir un rendez-vous.';
 $string['canbookunlimitedappointments'] = 'Vous pouvez choisir un certain nombre de rendez-vous.';
+$string['cancelbooking'] = 'Annuler le rendez-vous';
 $string['cancelledbystudent'] = '{$a} : Rendez-vous annulé ou déplacé par un étudiant';
 $string['cancelledbyteacher'] = '{$a} : Rendez-vous annulé par votre professeur';
-$string['choice'] = 'Choix';
 $string['chooseexisting'] = 'Choisir un créneau existant';
 $string['choosingslotstart'] = 'Choisir le début';
 $string['choosingslotstart_help'] = 'Changer (ou choisir) la date de début du rendez-vous. Si le rendez-vous chevauche avec d\'autres créneaux, il vous sera demandé si le créneau doit remplacer tous les autres rendez-vous conflictuels. À noter que les paramètres du nouveau créneau remplacera tous les paramètres précédents.';
@@ -92,12 +94,33 @@ $string['complete'] = 'Complet';
 $string['composeemail'] = 'Composer un courriel&nbsp;:';
 $string['confirmdelete'] = 'Vous ne pourrez plus annuler la suppression. Continuer ?';
 $string['conflictingslots'] = 'Il y a des créneaux horaires incompatibles :<br/>';
+$string['contentformat'] = 'Format';
+$string['contentformat_help'] = '<p>Il y a trois choix de base pour le format d\'exportation, présentant de façons différentes la manipulation des créneaux de plusieurs rendez-vous.
+     <dl>
+          <dt>Une ligne par créneau</ dt> :
+          <dd>
+Le fichier de sortie contient une ligne pour chaque créneau. Si un créneau contient plusieurs
+rendez-vous, un marqueur « (multiple) » sera affiché à la place du nom de l\'étudiant, etc.
+         </dd>
+          <dt> Une ligne par rendez-vous</dt> :
+          <dd>
+Le fichier de sortie contient une ligne pour chaque rendez-vous. Si un créneau contient plusieurs
+rendez-vous, alors il apparaît plusieurs fois dans la liste (avec ses données répétées).
+          </dd>
+          <dt>Nominations regroupées par emplacement</dt> :
+          <dd>
+Tous les rendez-vous d\'un créneau sont regroupés, précédés par une ligne d\'en-tête
+indiquant l\'emplacement en question. Cela peut ne pas bien fonctionner avec le format de fichier de sortie CSV, comme le nombre de colonnes non constant.
+          </dd>
+     </dl>
+Vous pouvez vérifier l\'effet de ces options en utilisant le bouton « Prévisualisation ». </ P>';
 $string['course'] = 'Cours';
-$string['csvencoding'] = 'Encodage texte du fichier';
+$string['createexport'] = 'Créer le fichier d\'exportation';
 $string['csvfieldseparator'] = 'Séparateur de champs csv';
-$string['csvparms'] = 'Paramètres csv';
-$string['csvrecordseparator'] = 'Séparateur d\'enregistrements csv';
+$string['csvformat'] = 'CSV';
 $string['cumulatedduration'] = 'Durée totale des rendez-vous';
+$string['datatoinclude'] = 'Données à inclure';
+$string['datatoinclude_help'] = 'Sélectionnez les champs qui doivent être inclus dans l\'exportation. Chacun apparaîtra dans une colonne du fichier de sortie.';
 $string['date'] = 'Date';
 $string['datelist'] = 'Synthèse';
 $string['defaultslotduration'] = 'Durée du créneau par défaut';
@@ -115,29 +138,27 @@ $string['displayfrom'] = 'Afficher le rendez-vous aux étudiants à partir de';
 $string['distributetoslot'] = 'Distribuer à tout le groupe';
 $string['divide'] = 'Diviser en créneaux ?';
 $string['dontforgetsaveadvice'] = 'Vous avez modifié la liste temporaire des rendez-vous. N\'oubliez pas de sauvegarder ce formulaire pour enregistrer définitivement les modifications';
-$string['downloadexcel'] = 'Exports vers Excel';
-$string['downloads'] = 'Exports';
 $string['duration'] = 'Durée';
 $string['durationrange'] = 'La durée d\'un créneau doit se trouver entre {$a->min} et {$a->max} minutes.';
 $string['email_applied_html'] = '<p>Un rendez-vous a été choisi le {$a->date} à {$a->time},<br/>
-par l\'étudiant <a href="{$a->attendee_url}">{$a->attendee}</a> pour le cours:
+par l\'étudiant <a href="{$a->attendee_url}">{$a->attendee}</a> pour le cours :
 
 <p>{$a->course_short}: <a href="{$a->course_url}">{$a->course}</a></p>
 
-<p>dans le planning intitulé "<em>{$a->module}</em>" sur le site: <a href="{$a->site_url}">{$a->site}</a>.</p>';
+<p>dans le planning intitulé « <em>{$a->module}</em> » sur le site : <a href="{$a->site_url}">{$a->site}</a>.</p>';
 $string['email_applied_plain'] = 'Un rendez-vous a été pris le {$a->date} à {$a->time},
 par l\'étudiant {$a->attendee} pour le cours :
 
 {$a->course_short}: {$a->course}
 
-dans le planning intitulé "{$a->module}" sur le site : {$a->site}.';
+dans le planning intitulé « {$a->module} » sur le site : {$a->site}.';
 $string['email_applied_subject'] = '{$a->course_short}: Nouveau rendez-vous';
 $string['email_cancelled_html'] = '<p>Votre rendez-vous le <strong>{$a->date}</strong> à <strong>{$a->time}</strong>,<br/>
 avec l\'étudiant <strong><a href="{$a->attendee_url}">{$a->attendee}</a></strong> pour le cours :</p>
 
 <p><strong>{$a->course_short} : <a href="{$a->course_url}">{$a->course}</a></strong></p>
 
-<p>dans le planning intitulé "<em>{$a->module}</em>" sur le site : <strong><a href="{$a->site_url}">{$a->site}</a></strong></p>
+<p>dans le planning intitulé « <em>{$a->module}</em> » sur le site : <strong><a href="{$a->site_url}">{$a->site}</a></strong></p>
 
 <p><strong><span class="error">a été annulé ou déplacé</span></strong>.</p>';
 $string['email_cancelled_plain'] = 'Votre rendez-vous du {$a->date} à {$a->time},
@@ -167,7 +188,7 @@ avec <strong><a href="{$a->attendant_url}">{$a->attendant}</a></strong> ({$a->st
 
 <p><strong>{$a->course_short}: <a href="{$a->course_url}">{$a->course}</a></strong></p>
 
-<p>dans le planning intitulé "<em>{$a->module}</em>" sur le site : <strong><a href="{$a->site_url}">{$a->site}</a></strong></p>
+<p>dans le planning intitulé « <em>{$a->module}</em> » sur le site : <strong><a href="{$a->site_url}">{$a->site}</a></strong></p>
 
 <p><strong><span class="error">a été annulé</span></strong>. Merci de choisir un nouveau créneau horaire.</p>';
 $string['email_teachercancelled_plain'] = 'Votre rendez-vous du {$a->date} à {$a->time},
@@ -186,18 +207,46 @@ $string['event_appointmentlistviewed'] = 'Liste des rendez-vous consultée';
 $string['event_bookingadded'] = 'Réservation ajoutée';
 $string['event_bookingformviewed'] = 'Formulaire de réservation consulté';
 $string['event_bookingremoved'] = 'Réservation supprimée';
+$string['everyone'] = 'Tout le monde';
+$string['excelformat'] = 'Excel';
 $string['exclusive'] = 'Exclusif';
-$string['exclusivity'] = 'Exclusivitée';
+$string['exclusivity'] = 'Exclusivité';
 $string['exclusivity_help'] = '<p>Vous pouvez fixer un nombre de places limité pour une plage horaire donnée.</p>
 <p>Fixer la limite à 1 (par défaut) fera basculer la plage horaire en mode exclusif.</p>
 <p>Si on fixe la plage horaire à un nombre illimité (0), elle ne sera jamais prise en compte dans l’évaluation des contraintes, même si d’autres plages horaires sont exclusives ou limitées dans la même période de temps.</p>';
-$string['exclusivitylockedto'] = 'Vous ne pouvez pas changer le mode du créneau lors d\'une planification. La limite du créneau de destination s\'appliquera. si le créneau est nouveau, une limite de 1 sera appliquée par défaut.';
 $string['exclusivityoverload'] = 'Le créneau possède {$a} étudiants inscrits, ce qui est plus que la valeur permise par ce paramètre.';
+$string['exclusivitypositive'] = 'Le nombre d\'étudiants par créneau doit être de 1 ou plus.';
 $string['explaingeneralconfig'] = 'Ces options sont réglables au niveau site et sont applicables à tous les Rendez-vous actifs sur cette plate-forme.';
-$string['exportinstructions'] = 'De préférence, enregistrez le fichier exporté sur votre disque dur avant de l\'exploiter.';
+$string['export'] = 'Exporter';
+$string['exporthdr'] = 'Exporter les créneaux et les rendez-vous';
+$string['field-appointmentnotes'] = 'Notes sur le rendez-vous';
+$string['field-attended'] = 'Présent';
+$string['field-date'] = 'Date';
+$string['field-endtime'] = 'Heure de fin';
+$string['field-grade'] = 'Résultat';
+$string['field-location'] = 'Lieu';
+$string['field-maxstudents'] = 'Étudiants max.';
+$string['field-slotnotes'] = 'Notes du créneau';
+$string['field-starttime'] = 'Heure de début';
+$string['field-studentemail'] = 'Adresse courriel de l\'étudiant';
+$string['field-studentfirstname'] = 'Prénom de l\'étudiant';
+$string['field-studentfullname'] = 'Nom complet de l\'étudiant';
+$string['field-studentidnumber'] = 'Numéro d\'identification de l\'étudiant';
+$string['field-studentlastname'] = 'Nom de famille de l\'étudiant';
+$string['field-studentusername'] = 'Nom d\'usager de l\'étudiant';
+$string['fileformat'] = 'Format de fichier';
+$string['fileformat_help'] = 'Les formats de fichier suivants sont disponibles :
+     <ul>
+          <li> Format texte séparé par virgule (CSV). Le séparateur de champ, par défaut, une virgule, peut être choisi ci-dessous.
+Les fichiers CSV peuvent être ouverts dans la plupart des tableurs ; </li>
+          <li> Format Microsoft Excel (Excel format 2007) ; </li>
+          <li> Feuilles de calcul Open Document (ODS) ; </li>
+          <li> Format HTML - une page Web affichant la table de sortie,
+qui peut être imprimée en utilisant la fonction d\'impression du navigateur ; </li>
+          <li> Documents PDF. Vous pouvez choisir entre orientation paysage ou portrait. </li>
+     </ul>';
 $string['finalgrade'] = 'Note de l\'activité';
 $string['firstslotavailable'] = 'Le premier créneau horaire sera ouvert le : {$a}';
-$string['for'] = 'pour';
 $string['forbidgroup'] = 'Créneau de groupe - cliquer pour changer';
 $string['forcewhenoverlap'] = 'Forcer si recouvrements';
 $string['forcewhenoverlap_help'] = '<h3>Forcer la création d\'un créneau lors de chevauchement de créneaux</h3>
@@ -208,10 +257,16 @@ $string['forcourses'] = 'Cours concernés';
 $string['friday'] = 'Vendredi';
 $string['generalconfig'] = 'Configuration générale';
 $string['grade'] = 'Note';
+$string['gradeingradebook'] = 'Note dans le carnet';
 $string['gradingstrategy'] = 'Stratégie de notation';
 $string['gradingstrategy_help'] = 'Dans un planning où les étudiants peuvent avoir plusieurs entretiens, choisissez comment la notation doit être affichée.<br/> Le carnet de notes peut afficher soit <ul><li>la note moyenne ou</li><li>la note maximale</li></ul> que l\'étudiant a reçue.';
 $string['group'] = 'groupe';
+$string['groupbookings'] = 'Réservation en groupes';
+$string['groupbookings_help'] = 'Permettre aux élèves de réserver un créneau pour tous les membres de leur groupe.
+(Notez que ceci est différent du réglage « mode de groupe », qui contrôle la visibilité d\'un créneau par un étudiant.)';
 $string['groupbreakdown'] = 'Par taille de groupe';
+$string['groupmodeyourgroups'] = 'Mode de groupe : {$a->groupmode}. Seuls les étudiants de {$a->grouplist} peuvent prendre rendez-vous avec vous.';
+$string['groupmodeyourgroupsempty'] = 'Mode de groupe : {$a->groupmode}. Vous n\'êtes pas membre d\'un groupe, donc les étudiants ne peuvent prendre rendez-vous avec vous.';
 $string['groupscheduling'] = 'Autoriser les rendez-vous collectifs';
 $string['groupscheduling_desc'] = 'Permet à des groupes entiers d\'être en rendez-vous d\'un coup.
 (En plus de l\'option globale, l\'option de groupe de l\'activité doit être «&nbsp;Groupes visibles&nbsp;» ou «&nbsp;Groupes séparés&nbsp;» pour activer cette fonctionnalité.)';
@@ -222,14 +277,18 @@ $string['guardtime_help'] = 'Le délai d\'annulation empêche l\'étudiant de ch
 <p>Si le délai d\'annulation est activé et défini, par exemple, à 2 heures, alors l\'étudiant ne pourra plus modifier son rendez-vous 2 heures avant le début de celui-ci.</p>';
 $string['guestscantdoanything'] = 'Les invités ne peuvent pas utiliser cette activité.';
 $string['howtoaddstudents'] = 'Pour ajouter des étudiants à un planificateur global, utilisez le réglage des rôles du module.<br/>Vous pouvez également définir par les rôles les personnes qui pourront accueillir vos étudiants.';
+$string['htmlformat'] = 'HTML';
 $string['ignoreconflicts'] = 'Ignorer les conflits de plannings';
 $string['ignoreconflicts_help'] = 'Si cette case est cochée, alors le créneau sera déplacé à la date et l\'heure demandées, même si d\'autres créneaux existent au même moment.
 Cela peut provoquer des chevauchements d\'entretiens pour certains enseignants ou étudiants, et doit donc être utilisé avec précaution.';
+$string['includeemptyslots'] = 'Inclure les créneaux vides';
+$string['includeslotsfor'] = 'Inclure les créneaux pour';
 $string['incourse'] = 'dans le cours';
 $string['introduction'] = 'Introduction';
 $string['invitation'] = 'Invitation';
 $string['invitationtext'] = 'Veuillez choisir un créneau horaire pour un rendez-vous ici :';
 $string['isnonexclusive'] = 'Non exclusif';
+$string['landscape'] = 'Paysage';
 $string['lengthbreakdown'] = 'Par longueur de créneau';
 $string['limited'] = 'Limité (reste {$a})';
 $string['location'] = 'Lieu';
@@ -244,7 +303,6 @@ $string['maxstudentsperslot_desc'] = 'Les créneaux de groupes / les groupes non
 $string['meangrade'] = 'Prendre la moyenne des notes';
 $string['meetingwith'] = 'Rendez-vous avec votre';
 $string['meetingwithplural'] = 'Rendez-vous avec vos';
-$string['mins'] = 'minutes';
 $string['minutes'] = 'minutes';
 $string['minutesperslot'] = 'minutes par créneau';
 $string['missingstudents'] = '{$a} étudiant(s) doivent encore prendre rendez-vous';
@@ -265,8 +323,9 @@ $string['modulenameplural'] = 'Rendez-vous';
 $string['monday'] = 'Lundi';
 $string['move'] = 'Modifier';
 $string['moveslot'] = 'Déplacer le créneau';
-$string['multiplestudents'] = 'Autoriser plusieurs étudiants par créneau';
+$string['multiple'] = '(multiple)';
 $string['myappointments'] = 'Mes rendez-vous';
+$string['myself'] = 'Moi-même';
 $string['name'] = 'Titre du planning';
 $string['needteachers'] = 'Les créneaux ne peuvent pas être ajoutés car ce cours n\'a pas d\'enseignant';
 $string['negativerange'] = 'Plage négative impossible';
@@ -278,7 +337,7 @@ $string['nogroups'] = 'Aucun groupe disponible';
 $string['noresults'] = 'Pas de rendez-vous.';
 $string['noschedulers'] = 'Personne dans le planning';
 $string['noslots'] = 'Aucun créneau horaire n\'est disponible pour un rendez-vous. Veuillez contacter votre enseignant pour fixer un rendez-vous.';
-$string['noslotsavailable'] = 'Aucun rendez-vous exigé, ou toutes les créneaux définis sont complets.';
+$string['noslotsavailable'] = 'Aucun rendez-vous exigé, ou tous les créneaux définis sont complets.';
 $string['noslotsopennow'] = 'Aucun créneau horaire n\'est encore disponible à cette date.';
 $string['nostudents'] = 'Aucun étudiant';
 $string['nostudenttobook'] = 'Aucun étudiant à planifier';
@@ -292,20 +351,33 @@ $string['notseen'] = 'Pas vu';
 $string['notselected'] = 'Vous n\'avez pas encore fait de choix';
 $string['now'] = 'Maintenant';
 $string['occurrences'] = 'Occurrences';
+$string['odsformat'] = 'ODS';
 $string['on'] = 'le';
 $string['onedaybefore'] = '1 jour avant le rendez-vous';
+$string['onelineperappointment'] = 'Une ligne par rendez-vous';
+$string['onelineperslot'] = 'Une ligne par créneau';
 $string['oneslotadded'] = '1 créneau ajouté';
 $string['oneweekbefore'] = '1 semaine avant le rendez-vous';
 $string['onthemorningofappointment'] = 'Le matin du rendez-vous';
+$string['options'] = 'Options';
 $string['otherstudents'] = 'Autres participants';
 $string['overall'] = 'Vue d\'ensemble';
 $string['overlappings'] = 'Collisions';
+$string['pageperteacher'] = 'Une page pour chaque {$a}';
+$string['pagination'] = 'Pagination';
+$string['pagination_help'] = 'Choisissez si l\'exportation doit contenir une page distincte pour chaque enseignant.
+   Au format Excel et au format de fichier ODS, ces pages correspondent à des onglets (feuilles de calcul) dans le classeur.';
+$string['pdfformat'] = 'PDF';
+$string['pdforientation'] = 'Orientation de la page PDF';
 $string['pluginadministration'] = 'Administration Rendez-vous';
 $string['pluginname'] = 'Rendez-vous';
+$string['portrait'] = 'Portrait';
+$string['preview'] = 'Aperçu';
+$string['previewlimited'] = '(L\'aperçu est limité à {$a} lignes.)';
 $string['registeredlbl'] = 'Elèves enregistrés en rendez-vous';
 $string['reminder'] = 'Rappel';
 $string['remindertext'] = 'Ce message pour vous rappeler que vous n\'avez pas encore fixé votre rendez-vous. Veuillez choisir un créneau horaire aussi vite que possible ici :';
-$string['remindtitle'] = '{$a}: Rappel de rendez-vous';
+$string['remindtitle'] = '{$a} : Rappel de rendez-vous';
 $string['remindwhere'] = 'Lieu du rendez-vous:';
 $string['remindwithwhom'] = 'Votre rendez-vous avec :';
 $string['resetappointments'] = 'Effacer les séances et les notes';
@@ -334,12 +406,21 @@ $string['scheduler:manage'] = 'Gérer ses données de rendez-vous';
 $string['scheduler:manageallappointments'] = 'Gérer toutes les données de rendez-vous';
 $string['scheduler:seeotherstudentsbooking'] = 'Voir les autres étudiants du créneau';
 $string['scheduler:seeotherstudentsresults'] = 'Voir les notes des autres étudiants du créneau';
+$string['scheduler:seeoverviewoutsideactivity'] = 'Utilisez l\'écran d\'aperçu pour voir les créneaux en dehors de l\'activité-même Rendez-vous.';
 $string['schedulestudents'] = 'Planifier par étudiant';
+$string['scopemenu'] = 'Voir les créneaux dans : {$a}';
+$string['scopemenuself'] = 'Voir mes créneaux dans : {$a}';
 $string['seen'] = 'Vu';
 $string['selectedtoomany'] = 'Vous avez sélectionné trop de créneaux. Vous ne pouvez pas en sélectionner plus de {$a}.';
+$string['sepcolon'] = 'Deux-points';
+$string['sepcomma'] = 'Virgule';
+$string['sepsemicolon'] = 'Point-virgule';
+$string['septab'] = 'Tabulation';
 $string['showemailplain'] = 'Afficher les adresses de courriel en texte clair';
-$string['showemailplain_desc'] = 'Dans la vue enseignant du planning, afficher les adresses e-mails des étudiants voulant un entretien de façon textuelle, en plus des liens mailto:.';
+$string['showemailplain_desc'] = 'Dans la vue enseignant du planning, afficher les adresses e-mails des étudiants voulant un entretien de façon textuelle, en plus des liens « mailto: ».';
 $string['showparticipants'] = 'Afficher les participants';
+$string['slot'] = 'Créneau';
+$string['slotdatetime'] = '{$a->shortdatetime} pour {$a->duration} minutes';
 $string['slotdescription'] = '{$a->status} le {$a->startdate} de {$a->starttime} à {$a->endtime}, à {$a->location} avec {$a->facilitator}.';
 $string['slot_is_just_in_use'] = 'Désolé, ce créneau vient juste d\'être choisi par un autre étudiant ! Veuillez réessayer.';
 $string['slots'] = 'Créneaux';
@@ -355,12 +436,6 @@ $string['start'] = 'Début';
 $string['startpast'] = 'Vous ne pouvez pas ouvrir un créneau horaire dans le passé';
 $string['starttime'] = 'Heure de début';
 $string['statistics'] = 'Statistiques';
-$string['strdownloadcsvgrades'] = 'Export des notes au format cvs';
-$string['strdownloadcsvslots'] = 'Export des créneaux au format cvs';
-$string['strdownloadexcelsingle'] = 'Export vers une feuille excel';
-$string['strdownloadexcelteachers'] = 'Export vers excel par {$a}';
-$string['strdownloadodssingle'] = 'Export vers une feuille OpenDocument';
-$string['strdownloadodsteachers'] = 'Export OpenDocument par {$a}';
 $string['student'] = 'Étudiant';
 $string['studentbreakdown'] = 'Par étudiant';
 $string['studentcomments'] = 'Notes de l\'Etudiant';
@@ -373,7 +448,12 @@ $string['tab-otherappointments'] = 'Tous les rendez-vous de cet étudiant';
 $string['tab-otherstudents'] = 'Tous les étudiants dans ce créneau';
 $string['tab-thisappointment'] = 'Ce rendez-vous';
 $string['teacher'] = 'Enseignant';
+$string['teachersmenu'] = 'Afficher les créneaux pour : {$a}';
+$string['thiscourse'] = 'ce cours';
+$string['thisscheduler'] = 'ce planificateur';
+$string['thissite'] = 'ce site en entier';
 $string['thursday'] = 'Jeudi';
+$string['totalgrade'] = 'Note finale';
 $string['tuesday'] = 'Mardi';
 $string['unattended'] = 'Elèves à recevoir';
 $string['unlimited'] = 'Sans limite';
@@ -395,5 +475,8 @@ $string['who'] = 'Avec qui ?';
 $string['whosthere'] = 'Qui est là ?';
 $string['xdaysbefore'] = '{$a} jours avant le créneau';
 $string['xweeksbefore'] = '{$a} semaines avant le créneau';
+$string['yesallgroups'] = 'Oui, pour tous les groupes';
+$string['yesingrouping'] = 'Oui, dans les groupes  {$a}';
 $string['yourappointmentnote'] = 'Commentaire sur votre prestation individuelle';
 $string['yourslotnotes'] = 'Commentaires généraux de séance';
+$string['yourtotalgrade'] = 'Votre note finale pour cette activité est <strong>{$a}</ strong>.';

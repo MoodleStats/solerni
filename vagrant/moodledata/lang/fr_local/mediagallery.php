@@ -22,6 +22,7 @@
  * if you like, and it can span multiple lines.
  *
  * @package    mod_mediagallery
+ * 
  * @copyright  Orange 2015
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -31,7 +32,8 @@ defined('MOODLE_INTERNAL') || die();
 $string['addagallery'] = 'Ajouter un album';
 $string['addanitem'] = 'Ajouter un élément';
 $string['addbulkitems'] = 'Ajouter un ensemble d\'éléments';
-$string['addsamplegallery'] = 'Rajouter un album d\'exemple';
+$string['addsamplegallery'] = 'Ajouter un album d\'exemple';
+$string['addfiles'] = 'Ajouter des fichiers';
 $string['allowcomments'] = 'Autoriser les commentaires';
 $string['allowcomments_help'] = 'Autoriser les utilisateurs à commenter les éléments et les albums.';
 $string['allowlikes'] = 'Autoriser les \'J\'aime\'';
@@ -40,6 +42,9 @@ $string['areaitem'] = 'Eléments';
 $string['arealowres'] = 'Basse résolution';
 $string['areathumbnail'] = 'Vignettes';
 $string['areagallery'] = 'Albums';
+$string['assignedit'] = 'Modifier l\'affectation';
+$string['assignsubmit'] = 'Soumettre l\'affectation';
+$string['assignsubmitted'] = 'Affectation soumise';
 $string['automatic'] = 'Automatique';
 $string['beingprocessed'] = 'En cours de traitement';
 $string['bottom'] = 'Bas';
@@ -90,6 +95,8 @@ $string['contentbulk_help'] = 'Vous pouvez sélectionner un fichier archive (fic
 $string['contentlinked'] = 'Contenu';
 $string['contentlinkedinfo'] = 'Cet élément est lié au fichier {$a} du service theBox.';
 $string['contentlinked_help'] = 'Quand un élément est lié à un contenu du service theBox, vous ne pouvez pas changer le lien.';
+$string['contributable'] = 'Collaborative';
+$string['contributable_help'] = 'Quand une galerie est collaborative, cela permet à d\'autres utilisateurs d\'ajouter du contenu à votre galerie. Ils ne pourront modifier que leurs propres éléments. La créateur de la galerie aura la possibilité de supprimer les éléments de la galerie.';
 $string['copyright'] = 'Licence';
 $string['copyright_help'] = 'Définit la licence qui sera attribuée à tous les éléments que vous téléchargez via ce formulaire.';
 $string['createdby'] = 'Créé par : {$a}';
@@ -97,13 +104,15 @@ $string['creator'] = 'Créateur';
 $string['datecreated'] = 'Date de création';
 $string['deletegallery'] = 'Supprimer l\'album';
 $string['deleteitem'] = 'Supprimer l\'élément';
+$string['deleteitemtype'] = 'Supprimer {$a}';
 $string['deleteorremovecollection'] = 'Si vous désirez supprimer le lien vers la bibliothèque sans supprimer son contenu, cliquer sur \'Valider\'.<br/><br/>
 
 Si vous souhaitez supprimer le lien vers la bibliothèque et supprimer son contenu, saisir \'DELETE\' dans le champ de saisie et cliquer sur \'Valider\'.';
 $string['deleteorremovecollectionwarn'] = 'En supprimant cette bibliothèque vous confirmez vouloir :<br/>
 - supprimer le lien vers la bibliothèque multimédia<br/>
 - supprimer la bibliothèque et tous ses albums et élements (incluant les contenus stockés sur le service theBox)<br/>
-- désactiver tous les liens vers cette bibliothèque ou son contenu dans d\'autres cours.';
+- désactiver tous les liens vers cette bibliothèque ou son contenu dans d\'autres cours.
+';
 $string['deleteorremovegallery'] = 'Si vous souhaitez supprimer le lien vers l\'album sans supprimer son contenu, cliquez sur \'Valider\'.<br/><br/>
 
 Si vous souhaitez supprimer le lien sur l\'album et supprimer son contenu, saisir \'DELETE\' dans le champ de saisie et cliquez sur \'Valider\'.';
@@ -120,7 +129,11 @@ $string['deleteorremoveitemwarn'] = 'En supprimant cet élement vous confirmez v
 - désactiver tous les liens vers cet élement dans d\'autres cours';
 $string['disablestandardgallery'] = 'Désactiver les albums standards';
 $string['displayfullcaption'] = 'Afficher le texte intégral de la légende';
-$string['editgallery'] = 'Modifier les paramètres de l\'album';
+$string['download'] = 'Télécharger';
+$string['editgallery'] = 'Modifier l\'album';
+$string['editgallerysettings'] = 'Modifier les paramètres de l\'album';
+$string['edititem'] = 'Modifier l\'élément';
+$string['edititemtype'] = 'Modifier {$a}';
 $string['editthisgallery'] = 'Modifier la galerie';
 $string['enablethebox'] = 'Activer l\'accès au service theBox';
 $string['enforcedefaults'] = 'Forcer les valeurs par défaut pour les albums';
@@ -139,6 +152,7 @@ $string['eventitemdeleted'] = 'Elément supprimé';
 $string['eventitemupdated'] = 'Elément modifié';
 $string['eventgalleryviewed'] = 'Consultation d\'un album';
 $string['export'] = 'Exporter';
+$string['exportascsv'] = 'Exporter en CSV';
 $string['exportgallery'] = 'Exporter l\'album';
 $string['externalurl'] = 'URL externe';
 $string['externalurl_help'] = 'Seuls les liens vers des images et des vidéos Youtube sont actuellement supportés.';
@@ -176,6 +190,7 @@ $string['maxitems_help'] = 'Le nombre maximum d\'élements qu\'un utilisateur pe
 
 Note: pour un gestionnaire il n\'y a pas de limite.';
 $string['maxitemsreached'] = 'Nombre maximum d\'éléments atteint';
+$string['mediatype'] = 'Type de média';
 $string['modulename'] = 'Bibliothèque multimédia';
 $string['modulenameplural'] = 'Bibliothèques multimédia';
 $string['modulename_help'] = 'Utiliser le module Bibliothèque multimédia pour créer des albums contenant des fichiers multimédia.
@@ -194,6 +209,11 @@ $string['mediagalleryfieldset'] = 'Exemple de champs personnalisés';
 $string['mediagalleryname'] = 'Nom de la Bibliothèque multimédia';
 $string['mediagalleryname_help'] = 'Le nom que vous souhaitez donner à votre bibliothèque multimédia.';
 $string['mediagallery'] = 'Bibliothèque multimédia';
+$string['mediainformation'] = 'Information sur le média';
+$string['mediasize'] = 'Taille du média';
+$string['mediasizesm'] = 'Petit';
+$string['mediasizemd'] = 'Moyen';
+$string['mediasizelg'] = 'Grand';
 $string['medium'] = 'Type';
 $string['medium_help'] = 'Le moyen utilisé pour créer l\'oeuvre (i.e. peinture, photographie, son, etc...).';
 $string['metainfobulkheader'] = 'Les valeurs ci-dessous seront utilisées comme valeurs par défaut pour tous les éléments ajoutés.';
@@ -228,6 +248,8 @@ $string['reference_help'] = 'Référence de la bibliothèque (si elle existe) do
 $string['removethecollection'] = 'Ajouter/Supprimer une bibliothèque';
 $string['removecollectionconfirm'] = 'Êtes-vous sûr de vouloir supprimer le lien vers cette bibliothèque multimédia ?';
 $string['removegalleryconfirm'] = 'Êtes-vous sûr de vouloir supprimer le lien vers cet album ?';
+$string['removefromcollection'] = 'Supprimer de la bibliothèque multimédia';
+$string['removefromgallery'] = 'Supprimer de la galerie';
 $string['removeitemconfirm'] = 'Êtes-vous sûr de vouloir supprimer le lien vers cet élément ?';
 $string['restrictavailableinfo'] = 'Pour restreindre les dates de disponibilité de cette activité, utilisez la rubrique \'Restreindre l\'accès\' ci-dessous.';
 $string['sample'] = 'Exemple';
@@ -261,6 +283,7 @@ $string['thumbnailsperrow'] = 'Vignettes par ligne';
 $string['togglefullscreen'] = 'Basculer en plein écran';
 $string['togglesidebar'] = 'Afficher ou masquer le menu';
 $string['top'] = 'Haut';
+$string['typeall'] = 'Tous les fichiers';
 $string['typeaudio'] = 'Audio';
 $string['typeimage'] = 'Photo';
 $string['typevideo'] = 'Vidéo';

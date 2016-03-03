@@ -25,16 +25,16 @@
  *
  * Version 0.3  2006/09/07 by Jonathan Harker (plugin class)
  * Version 0.2: 2004/09/01 by Martin V�geli (stable version)
-* Version 0.1: 2004/08/30 by Martin V�geli (first draft)
-*
-* Contact: martinvoegeli@gmx.ch
-* Website 1: http://elearning.zhwin.ch/
-* Website 2: http://birdy1976.com/
-*
-* @package auth_pam
-* @author Martin Dougiamas
-* @license http://www.gnu.org/copyleft/gpl.html GNU Public License
-*/
+ * Version 0.1: 2004/08/30 by Martin V�geli (first draft)
+ *
+ * Contact: martinvoegeli@gmx.ch
+ * Website 1: http://elearning.zhwin.ch/
+ * Website 2: http://birdy1976.com/
+ *
+ * @package auth_pam
+ * @author Martin Dougiamas
+ * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
+ */
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -45,88 +45,88 @@ require_once($CFG->libdir.'/authlib.php');
  */
 class auth_plugin_pam extends auth_plugin_base {
 
-	/**
-	 * Store error messages from pam authentication attempts.
-	 */
-	var $lasterror;
+    /**
+     * Store error messages from pam authentication attempts.
+     */
+    var $lasterror;
 
-	/**
-	 * Constructor.
-	 */
-	function auth_plugin_pam() {
-		$this->authtype = 'pam';
-		$this->config = get_config('auth/pam');
-		$this->errormessage = '';
-	}
+    /**
+     * Constructor.
+     */
+    function auth_plugin_pam() {
+        $this->authtype = 'pam';
+        $this->config = get_config('auth/pam');
+        $this->errormessage = '';
+    }
 
-	/**
-	 * Returns true if the username and password work and false if they are
-	 * wrong or don't exist.
-	 *
-	 * @param string $username The username
-	 * @param string $password The password
-	 * @return bool Authentication success or failure.
-	 */
-	function user_login ($username, $password) {
-		// variable to store possible errors during authentication
-		$errormessage = str_repeat(' ', 2048);
+    /**
+     * Returns true if the username and password work and false if they are
+     * wrong or don't exist.
+     *
+     * @param string $username The username
+     * @param string $password The password
+     * @return bool Authentication success or failure.
+     */
+    function user_login ($username, $password) {
+        // variable to store possible errors during authentication
+        $errormessage = str_repeat(' ', 2048);
 
-		// just for testing and debugging
-		// error_reporting(E_ALL);
+        // just for testing and debugging
+        // error_reporting(E_ALL);
 
-		// call_time_pass_reference of errormessage is deprecated - throws warnings in multiauth
-		//if (pam_auth($username, $password, &$errormessage)) {
-		if (pam_auth($username, $password)) {
-			return true;
-		}
-		else {
-			$this->lasterror = $errormessage;
-			return false;
-		}
-		}
+        // call_time_pass_reference of errormessage is deprecated - throws warnings in multiauth
+        //if (pam_auth($username, $password, &$errormessage)) {
+        if (pam_auth($username, $password)) {
+            return true;
+        }
+        else {
+            $this->lasterror = $errormessage;
+            return false;
+        }
+    }
 
-		function prevent_local_passwords() {
-			return true;
-		}
+    function prevent_local_passwords() {
+        return true;
+    }
 
-		/**
-		 * Returns true if this authentication plugin is 'internal'.
-		 *
-		 * @return bool
-		 */
-		function is_internal() {
-			return false;
-		}
+    /**
+     * Returns true if this authentication plugin is 'internal'.
+     *
+     * @return bool
+     */
+    function is_internal() {
+        return false;
+    }
 
-		/**
-		 * Returns true if this authentication plugin can change the user's
-		 * password.
-		 *
-		 * @return bool
-		 */
-		function can_change_password() {
-			return false;
-		}
+    /**
+     * Returns true if this authentication plugin can change the user's
+     * password.
+     *
+     * @return bool
+     */
+    function can_change_password() {
+        return false;
+    }
 
-		/**
-		 * Prints a form for configuring this authentication plugin.
-		 *
-		 * This function is called from admin/auth.php, and outputs a full page with
-		 * a form for configuring this plugin.
-		 *
-		 * @param array $page An object containing all the data for this page.
-		 */
-		function config_form($config, $err, $user_fields) {
-			include "config.html";
-		}
+    /**
+     * Prints a form for configuring this authentication plugin.
+     *
+     * This function is called from admin/auth.php, and outputs a full page with
+     * a form for configuring this plugin.
+     *
+     * @param array $page An object containing all the data for this page.
+     */
+    function config_form($config, $err, $user_fields) {
+        include "config.html";
+    }
 
-		/**
-		 * Processes and stores configuration data for this authentication plugin.
-		 */
-		function process_config($config) {
-			return true;
-		}
+    /**
+     * Processes and stores configuration data for this authentication plugin.
+     */
+    function process_config($config) {
+        return true;
+    }
 
-	}
+}
 
 

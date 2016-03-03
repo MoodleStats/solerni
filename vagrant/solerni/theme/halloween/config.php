@@ -213,7 +213,7 @@ $THEME->layouts = array(
     ),
     // The pagelayout used when a redirection is occuring.
     'redirect' => array(
-        'file' => 'embedded.php',
+        'file' => 'redirect.php',
         'regions' => array(),
     ),
     // The pagelayout used for reports.
@@ -250,5 +250,4 @@ $THEME->rendererfactory = 'theme_overridden_renderer_factory';
  * $THEME->javascripts_footer includes files in the footer
  */
 
-$THEME->javascripts = array('jquery-1.11.3');
 $THEME->javascripts_footer = array('piwik_tag_events');

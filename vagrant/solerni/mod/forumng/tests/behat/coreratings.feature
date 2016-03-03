@@ -1,4 +1,4 @@
-@mod @mod_forumng @ou @ou_vle
+@mod @mod_forumng @ou @ou_vle @forumng_rating
 Feature: Add forumng activity and test basic ratings functionality
   In order to rate posts
   As a teacher
@@ -15,6 +15,7 @@ Feature: Add forumng activity and test basic ratings functionality
       | user | course | role |
       | teacher1 | C1 | teacher |
     And I log in as "admin"
+    And I am on site homepage
     And I follow "Course 1"
     And I turn editing mode on
     When I add a "ForumNG" to section "1" and I fill the form with:
@@ -32,11 +33,13 @@ Feature: Add forumng activity and test basic ratings functionality
       | Message | Test2 |
     # Forum chooses average of ratings by default for point scales.
     Then I should see "Average of ratings"
+    And I am on homepage
     And I log out
 
   @javascript
   Scenario: Access forum as teacher and rate
     Given I log in as "teacher1"
+    And I am on site homepage
     And I follow "Course 1"
     And I follow "Test forum name"
     And I follow "Admin1"
@@ -48,16 +51,15 @@ Feature: Add forumng activity and test basic ratings functionality
     And ".forumng-p1 .forumng-ratings-standard select" "css_element" should exist
     And ".forumng-p2 .forumng-ratings-standard select" "css_element" should exist
     And ".forumng-p3 .forumng-ratings-standard select" "css_element" should not exist
-    Given I set the field "menurating1" to "3"
-    When I set the field "menurating2" to "4"
+    Given I set the field "rating" to "3"
     Then I should see "Average of ratings: 3 (1)"
     # Re-access, testing rating works when posts collapsed.
     Given I click on "#forumng-arrowback a" "css_element"
     And I follow "Admin1"
-    When I set the field "menurating1" to "5"
+    When I set the field "rating" to "5"
     Then I should see "Average of ratings: 5 (1)"
     Given I expand post "2"
-    When I set the field "menurating2" to "1"
+    When I set the field "rating" to "1"
     Then I should see "Average of ratings: 1 (1)"
     # Check rating output on view all posts page.
     Given I follow "Test forum name"
@@ -69,6 +71,7 @@ Feature: Add forumng activity and test basic ratings functionality
     And I log out
     And I wait until the page is ready
     And I log in as "admin"
+    And I am on site homepage
     And I follow "Course 1"
     And I follow "Test forum name"
     And I navigate to "Edit settings" node in "ForumNG administration"

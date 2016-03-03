@@ -30,31 +30,31 @@ require_once($CFG->dirroot.'/backup/util/xml/parser/processors/progressive_parse
  */
 class findpaths_parser_processor extends progressive_parser_processor {
 
-	protected $foundpaths; // array of paths foudn in the chunks received from the parser
+   protected $foundpaths; // array of paths foudn in the chunks received from the parser
 
-	public function __construct() {
-		parent::__construct();
-		$this->foundpaths = array();
-	}
+   public function __construct() {
+       parent::__construct();
+       $this->foundpaths = array();
+   }
 
-	public function process_chunk($data) {
-		if (isset($data['tags'])) {
-			foreach ($data['tags'] as $tag) {
-				$tagpath = $data['path'] . '/' . $tag['name'];
-				if (!array_key_exists($tagpath, $this->foundpaths)) {
-					$this->foundpaths[$tagpath] = 1;
-				} else {
-					$this->foundpaths[$tagpath]++;
-				}
-			}
-		}
-	}
+   public function process_chunk($data) {
+       if (isset($data['tags'])) {
+           foreach ($data['tags'] as $tag) {
+               $tagpath = $data['path'] . '/' . $tag['name'];
+               if (!array_key_exists($tagpath, $this->foundpaths)) {
+                   $this->foundpaths[$tagpath] = 1;
+               } else {
+                   $this->foundpaths[$tagpath]++;
+               }
+           }
+       }
+   }
 
-	public function debug_info() {
-		$debug = array();
-		foreach($this->foundpaths as $path => $chunks) {
-			$debug['paths'][$path] = $chunks;
-		}
-		return array_merge($debug, parent::debug_info());
-	}
+   public function debug_info() {
+       $debug = array();
+       foreach($this->foundpaths as $path => $chunks) {
+           $debug['paths'][$path] = $chunks;
+       }
+       return array_merge($debug, parent::debug_info());
+   }
 }

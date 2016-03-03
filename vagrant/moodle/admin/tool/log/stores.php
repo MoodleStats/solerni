@@ -38,9 +38,9 @@ require_sesskey();
 $all = \tool_log\log\manager::get_store_plugins();
 $enabled = get_config('tool_log', 'enabled_stores');
 if (!$enabled) {
-	$enabled = array();
+    $enabled = array();
 } else {
-	$enabled = array_flip(explode(',', $enabled));
+    $enabled = array_flip(explode(',', $enabled));
 }
 
 $return = new moodle_url('/admin/settings.php', array('section' => 'managelogging'));
@@ -48,51 +48,51 @@ $return = new moodle_url('/admin/settings.php', array('section' => 'manageloggin
 $syscontext = context_system::instance();
 
 switch ($action) {
-	case 'disable':
-		unset($enabled[$enrol]);
-		set_config('enabled_stores', implode(',', array_keys($enabled)), 'tool_log');
-		break;
+    case 'disable':
+        unset($enabled[$enrol]);
+        set_config('enabled_stores', implode(',', array_keys($enabled)), 'tool_log');
+        break;
 
-	case 'enable':
-		if (!isset($all[$enrol])) {
-			break;
-		}
-		$enabled = array_keys($enabled);
-		$enabled[] = $enrol;
-		set_config('enabled_stores', implode(',', $enabled), 'tool_log');
-		break;
+    case 'enable':
+        if (!isset($all[$enrol])) {
+            break;
+        }
+        $enabled = array_keys($enabled);
+        $enabled[] = $enrol;
+        set_config('enabled_stores', implode(',', $enabled), 'tool_log');
+        break;
 
-	case 'up':
-		if (!isset($enabled[$enrol])) {
-			break;
-		}
-		$enabled = array_keys($enabled);
-		$enabled = array_flip($enabled);
-		$current = $enabled[$enrol];
-		if ($current == 0) {
-			break; // Already at the top.
-		}
-		$enabled = array_flip($enabled);
-		$enabled[$current] = $enabled[$current - 1];
-		$enabled[$current - 1] = $enrol;
-		set_config('enabled_stores', implode(',', $enabled), 'tool_log');
-		break;
+    case 'up':
+        if (!isset($enabled[$enrol])) {
+            break;
+        }
+        $enabled = array_keys($enabled);
+        $enabled = array_flip($enabled);
+        $current = $enabled[$enrol];
+        if ($current == 0) {
+            break; // Already at the top.
+        }
+        $enabled = array_flip($enabled);
+        $enabled[$current] = $enabled[$current - 1];
+        $enabled[$current - 1] = $enrol;
+        set_config('enabled_stores', implode(',', $enabled), 'tool_log');
+        break;
 
-	case 'down':
-		if (!isset($enabled[$enrol])) {
-			break;
-		}
-		$enabled = array_keys($enabled);
-		$enabled = array_flip($enabled);
-		$current = $enabled[$enrol];
-		if ($current == count($enabled) - 1) {
-			break; // Already at the end.
-		}
-		$enabled = array_flip($enabled);
-		$enabled[$current] = $enabled[$current + 1];
-		$enabled[$current + 1] = $enrol;
-		set_config('enabled_stores', implode(',', $enabled), 'tool_log');
-		break;
+    case 'down':
+        if (!isset($enabled[$enrol])) {
+            break;
+        }
+        $enabled = array_keys($enabled);
+        $enabled = array_flip($enabled);
+        $current = $enabled[$enrol];
+        if ($current == count($enabled) - 1) {
+            break; // Already at the end.
+        }
+        $enabled = array_flip($enabled);
+        $enabled[$current] = $enabled[$current + 1];
+        $enabled[$current + 1] = $enrol;
+        set_config('enabled_stores', implode(',', $enabled), 'tool_log');
+        break;
 }
 
 redirect($return);

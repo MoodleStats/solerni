@@ -28,6 +28,7 @@ Feature: Move discussions
       | GI3       | g1 |
       | GI3       | g3 |
     And I log in as "admin"
+    And I am on site homepage
     And I follow "Course 1"
     And I turn editing mode on
     And I add a "ForumNG" to section "1" and I fill the form with:
@@ -85,6 +86,7 @@ Feature: Move discussions
 
   Scenario: Move discussion from in discussion option.
     Given I log in as "admin"
+    And I am on site homepage
     And I follow "Course 1"
     And I follow "No groups"
     And I follow "Discussion 1"
@@ -123,6 +125,7 @@ Feature: Move discussions
 
   Scenario: Move discussions from main forum page.
     Given I log in as "admin"
+    And I am on site homepage
     And I follow "Course 1"
     And I follow "No groups"
     When I press "Move"
@@ -165,17 +168,6 @@ Feature: Move discussions
     Given I set the field "Separate groups" to "group3"
     When I press "Go"
     Then I should see "Discussion 4"
-    Given I press "Move"
-    And I press "Selected discussions"
-    And I set the field "selectd4" to "1"
-    And I press "Confirm selection"
-    And I set the field "id_forum" to "G3 grouping"
-    When I press "Move discussions"
-    Then I should see "Discussion 4"
-    And I should see "G3 grouping forum"
-    # Check Multi-group move to forum without all groups.
-    Given I follow "Course 1"
-    And I follow "G2 grouping"
     And I set the field "Separate groups" to "All participants"
     And I press "Go"
     When I press "Move"

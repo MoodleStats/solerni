@@ -39,15 +39,15 @@ $string['auth_ldap_create_error'] = 'Error creating user in LDAP.';
 $string['auth_ldap_creators'] = 'List of groups or contexts whose members are allowed to create new courses. Separate multiple groups with \';\'. Usually something like \'cn=teachers,ou=staff,o=myorg\'';
 $string['auth_ldap_creators_key'] = 'Creators';
 $string['auth_ldapdescription'] = 'This method provides authentication against an external LDAP server.
-If the given username and password are valid, Moodle creates a new user
-entry in its database. This module can read user attributes from LDAP and prefill
-wanted fields in Moodle.  For following logins only the username and
-password are checked.';
+                                  If the given username and password are valid, Moodle creates a new user
+                                  entry in its database. This module can read user attributes from LDAP and prefill
+                                  wanted fields in Moodle.  For following logins only the username and
+                                  password are checked.';
 $string['auth_ldap_expiration_desc'] = 'Select No to disable expired password checking or LDAP to read passwordexpiration time directly from LDAP';
 $string['auth_ldap_expiration_key'] = 'Expiration';
 $string['auth_ldap_expiration_warning_desc'] = 'Number of days before password expiration warning is issued.';
 $string['auth_ldap_expiration_warning_key'] = 'Expiration warning';
-$string['auth_ldap_expireattr_desc'] = 'Optional: overrides ldap-attribute that stores password expiration time';
+$string['auth_ldap_expireattr_desc'] = 'Optional: Overrides the LDAP attribute that stores password expiration time.';
 $string['auth_ldap_expireattr_key'] = 'Expiration attribute';
 $string['auth_ldapextrafields'] = 'These fields are optional.  You can choose to pre-fill some Moodle user fields with information from the <b>LDAP fields</b> that you specify here. <p>If you leave these fields blank, then nothing will be transferred from LDAP and Moodle defaults will be used instead.</p><p>In either case, the user will be able to edit all of these fields after they log in.</p>';
 $string['auth_ldap_graceattr_desc'] = 'Optional: Overrides  gracelogin attribute';
@@ -71,7 +71,7 @@ $string['auth_ldap_noconnect_all'] = 'LDAP-module cannot connect to any servers:
 $string['auth_ldap_noextension'] = '<em>The PHP LDAP module does not seem to be present. Please ensure it is installed and enabled if you want to use this authentication plugin.</em>';
 $string['auth_ldap_no_mbstring'] = 'You need the mbstring extension to create users in Active Directory.';
 $string['auth_ldapnotinstalled'] = 'Cannot use LDAP authentication. The PHP LDAP module is not installed.';
-$string['auth_ldap_objectclass'] = 'Optional: Overrides objectClass used to name/search users on ldap_user_type. Usually you dont need to chage this.';
+$string['auth_ldap_objectclass'] = 'Optional: Overrides objectClass used to name/search users on ldap_user_type. Usually you don\'t need to change this.';
 $string['auth_ldap_objectclass_key'] = 'Object class';
 $string['auth_ldap_opt_deref'] = 'Determines how aliases are handled during search. Select one of the following values: "No" (LDAP_DEREF_NEVER) or "Yes" (LDAP_DEREF_ALWAYS)';
 $string['auth_ldap_opt_deref_key'] = 'Dereference aliases';

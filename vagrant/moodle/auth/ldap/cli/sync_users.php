@@ -23,28 +23,28 @@
  * Sample cron entry:
  * # 5 minutes past 4am
  * 5 4 * * * $sudo -u www-data /usr/bin/php /var/www/moodle/auth/ldap/cli/sync_users.php
-*
-* Notes:
-*   - it is required to use the web server account when executing PHP CLI scripts
-*   - you need to change the "www-data" to match the apache user account
-*   - use "su" if "sudo" not available
-*   - If you have a large number of users, you may want to raise the memory limits
-*     by passing -d momory_limit=256M
-*   - For debugging & better logging, you are encouraged to use in the command line:
-*     -d log_errors=1 -d error_reporting=E_ALL -d display_errors=0 -d html_errors=0
-*   - If you have a large number of users, you may want to raise the memory limits
-*     by passing -d momory_limit=256M
-*   - For debugging & better logging, you are encouraged to use in the command line:
-*     -d log_errors=1 -d error_reporting=E_ALL -d display_errors=0 -d html_errors=0
-*
-* Performance notes:
-* We have optimized it as best as we could for PostgreSQL and MySQL, with 27K students
-* we have seen this take 10 minutes.
-*
-* @package    auth_ldap
-* @copyright  2004 Martin Langhoff
-* @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
-*/
+ *
+ * Notes:
+ *   - it is required to use the web server account when executing PHP CLI scripts
+ *   - you need to change the "www-data" to match the apache user account
+ *   - use "su" if "sudo" not available
+ *   - If you have a large number of users, you may want to raise the memory limits
+ *     by passing -d momory_limit=256M
+ *   - For debugging & better logging, you are encouraged to use in the command line:
+ *     -d log_errors=1 -d error_reporting=E_ALL -d display_errors=0 -d html_errors=0
+ *   - If you have a large number of users, you may want to raise the memory limits
+ *     by passing -d momory_limit=256M
+ *   - For debugging & better logging, you are encouraged to use in the command line:
+ *     -d log_errors=1 -d error_reporting=E_ALL -d display_errors=0 -d html_errors=0
+ *
+ * Performance notes:
+ * We have optimized it as best as we could for PostgreSQL and MySQL, with 27K students
+ * we have seen this take 10 minutes.
+ *
+ * @package    auth_ldap
+ * @copyright  2004 Martin Langhoff
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
 define('CLI_SCRIPT', true);
 
@@ -55,8 +55,8 @@ require_once($CFG->dirroot.'/course/lib.php');
 set_debugging(DEBUG_DEVELOPER, true);
 
 if (!is_enabled_auth('ldap')) {
-	error_log('[AUTH LDAP] '.get_string('pluginnotenabled', 'auth_ldap'));
-	die;
+    error_log('[AUTH LDAP] '.get_string('pluginnotenabled', 'auth_ldap'));
+    die;
 }
 
 $ldapauth = get_auth_plugin('ldap');

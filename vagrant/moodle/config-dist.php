@@ -1,4 +1,4 @@
-<?PHP
+<?php
 ///////////////////////////////////////////////////////////////////////////
 //                                                                       //
 // Moodle configuration file                                             //
@@ -172,6 +172,11 @@ $CFG->admin = 'admin';
 // permanently, try restoring the backup on a different site, back it up again
 // and then restore on the target server.
 //    $CFG->forcedifferentsitecheckingusersonrestore = true;
+//
+// Force the backup system to continue to create backups in the legacy zip
+// format instead of the new tgz format. Does not affect restore, which
+// auto-detects the underlying file format.
+//    $CFG->usezipbackups = true;
 //
 // Prevent stats processing and hide the GUI
 //      $CFG->disablestatsprocessing = true;
@@ -379,7 +384,7 @@ $CFG->admin = 'admin';
 // Localcachedir is intended for server clusters, it does not have to be shared by cluster nodes.
 // The directories must not be accessible via web.
 //
-//     $CFG->tempdir = '/var/www/moodle/temp';        // Files used during one HTTP request only.
+//     $CFG->tempdir = '/var/www/moodle/temp';        // Directory MUST BE SHARED by all clsuter nodes.
 //     $CFG->cachedir = '/var/www/moodle/cache';      // Directory MUST BE SHARED by all cluster nodes, locking required.
 //     $CFG->localcachedir = '/var/local/cache';      // Intended for local node caching.
 //
@@ -484,8 +489,8 @@ $CFG->admin = 'admin';
 //      $CFG->supportuserid = -20;
 //
 // Moodle 2.7 introduces a locking api for critical tasks (e.g. cron).
-// The default locking system to use is DB locking for MySQL and Postgres, and File
-// locking for Oracle and SQLServer. If $CFG->preventfilelocking is set, then the default
+// The default locking system to use is DB locking for Postgres, and file locking for
+// MySQL, Oracle and SQLServer. If $CFG->preventfilelocking is set, then the default
 // will always be DB locking. It can be manually set to one of the lock
 // factory classes listed below, or one of your own custom classes implementing the
 // \core\lock\lock_factory interface.
@@ -507,6 +512,23 @@ $CFG->admin = 'admin';
 // Location for lock files used by the File locking factory. This must exist
 // on a shared file system that supports locking.
 //      $CFG->lock_file_root = $CFG->dataroot . '/lock';
+//
+// Moodle 2.9 allows administrators to customise the list of supported file types.
+// To add a new filetype or override the definition of an existing one, set the
+// customfiletypes variable like this:
+//
+// $CFG->customfiletypes = array(
+//     (object)array(
+//         'extension' => 'frog',
+//         'icon' => 'archive',
+//         'type' => 'application/frog',
+//         'customdescription' => 'Amphibian-related file archive'
+//     )
+// );
+//
+// The extension, icon, and type fields are required. The icon field can refer to
+// any icon inside the pix/f folder. You can also set the customdescription field
+// (shown above) and (for advanced use) the groups, string, and defaulticon fields.
 //
 //=========================================================================
 // 7. SETTINGS FOR DEVELOPMENT SERVERS - not intended for production use!!!
@@ -698,6 +720,50 @@ $CFG->admin = 'admin';
 // Example:
 //   $CFG->behat_faildump_path = '/my/path/to/save/failure/dumps';
 //
+// You can specify db, selenium wd_host etc. for behat parallel run by setting following variable.
+// Example:
+//   $CFG->behat_parallel_run = array (
+//       array (
+//           'dbtype' => 'mysqli',
+//           'dblibrary' => 'native',
+//           'dbhost' => 'localhost',
+//           'dbname' => 'moodletest',
+//           'dbuser' => 'moodle',
+//           'dbpass' => 'moodle',
+//           'behat_prefix' => 'mdl_',
+//           'wd_host' => 'http://127.0.0.1:4444/wd/hub',
+//           'behat_wwwroot' => 'http://127.0.0.1/moodle',
+//           'behat_dataroot' => '/home/example/bht_moodledata'
+//       ),
+//   );
+//
+// To change name of behat parallel run site, define BEHAT_PARALLEL_SITE_NAME and parallel run sites will be suffixed
+// with this value
+// Example:
+//   define('BEHAT_PARALLEL_SITE_NAME', 'behatparallelsite');
+//
+// Command line output for parallel behat install is limited to 80 chars, if you are installing more then 4 sites and
+// want to expand output to more then 80 chars, then define BEHAT_MAX_CMD_LINE_OUTPUT
+// Example:
+//   define('BEHAT_MAX_CMD_LINE_OUTPUT', 120);
+//
+// Behat feature files will be distributed randomly between the processes by default. If you have timing file or want
+// to create timing file then define BEHAT_FEATURE_TIMING_FILE with path to timing file. It will be updated for each
+// run with latest time taken to execute feature.
+// Example:
+//   define('BEHAT_FEATURE_TIMING_FILE', '/PATH_TO_TIMING_FILE/timing.json');
+//
+// If you don't have timing file and want some stable distribution of features, then you can use step counts to
+// distribute the features. You can generate step file by executing php admin/tool/behat/cli/util.php --updatesteps
+// this will update step file which is defined by BEHAT_FEATURE_STEP_FILE.
+// Example:
+//   define('BEHAT_FEATURE_STEP_FILE', '/PATH_TO_FEATURE_STEP_COUNT_FILE/stepcount.json');
+//
+// Feature distribution for each process is displayed as histogram. you can disable it by setting
+// BEHAT_DISABLE_HISTOGRAM
+// Example:
+//   define('BEHAT_DISABLE_HISTOGRAM', true);
+//
 //=========================================================================
 // 12. DEVELOPER DATA GENERATOR
 //=========================================================================
@@ -711,6 +777,40 @@ $CFG->admin = 'admin';
 // generated by this tool, but only in case you want to generate a JMeter test. The value should be a string.
 // Example:
 //   $CFG->tool_generator_users_password = 'examplepassword';
+//
+//=========================================================================
+// 13. SYSTEM PATHS (You need to set following, depending on your system)
+//=========================================================================
+// Ghostscript path.
+// On most Linux installs, this can be left as '/usr/bin/gs'.
+// On Windows it will be something like 'c:\gs\bin\gswin32c.exe' (make sure
+// there are no spaces in the path - if necessary copy the files 'gswin32c.exe'
+// and 'gsdll32.dll' to a new folder without a space in the path)
+//      $CFG->pathtogs = '/usr/bin/gs';
+//
+// Clam AV path.
+// Probably something like /usr/bin/clamscan or /usr/bin/clamdscan. You need
+// this in order for clam AV to run.
+//      $CFG->pathtoclam = '';
+//
+// Path to du.
+// Probably something like /usr/bin/du. If you enter this, pages that display
+// directory contents will run much faster for directories with a lot of files.
+//      $CFG->pathtodu = '';
+//
+// Path to aspell.
+// To use spell-checking within the editor, you MUST have aspell 0.50 or later
+// installed on your server, and you must specify the correct path to access the
+// aspell binary. On Unix/Linux systems, this path is usually /usr/bin/aspell,
+// but it might be something else.
+//      $CFG->aspellpath = '';
+//
+// Path to dot.
+// Probably something like /usr/bin/dot. To be able to generate graphics from
+// DOT files, you must have installed the dot executable and point to it here.
+// Note that, for now, this only used by the profiling features
+// (Development->Profiling) built into Moodle.
+//      $CFG->pathtodot = '';
 
 //=========================================================================
 // ALL DONE!  To continue installation, visit your main page with a browser

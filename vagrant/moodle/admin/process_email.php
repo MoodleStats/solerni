@@ -9,34 +9,34 @@ $address = $tmp[0];
 
 // BOUNCE EMAILS TO NOREPLY
 if ($_ENV['RECIPIENT'] == $CFG->noreplyaddress) {
-	$user = new stdClass();
-	$user->email = $_ENV['SENDER'];
+    $user = new stdClass();
+    $user->email = $_ENV['SENDER'];
 
-	if (!validate_email($user->email)) {
-		die();
-	}
+    if (!validate_email($user->email)) {
+        die();
+    }
 
-	$site = get_site();
-	$subject = get_string('noreplybouncesubject','moodle',format_string($site->fullname));
-	$body = get_string('noreplybouncemessage','moodle',format_string($site->fullname))."\n\n";
+    $site = get_site();
+    $subject = get_string('noreplybouncesubject','moodle',format_string($site->fullname));
+    $body = get_string('noreplybouncemessage','moodle',format_string($site->fullname))."\n\n";
 
-	$fd = fopen('php://stdin','r');
-	if ($fd) {
-		while(!feof($fd)) {
-			$body .=  fgets($fd);
-		}
-		fclose($fd);
-	}
+    $fd = fopen('php://stdin','r');
+    if ($fd) {
+        while(!feof($fd)) {
+            $body .=  fgets($fd);
+        }
+        fclose($fd);
+    }
 
-	$user->id = 0; // to prevent anything annoying happening
+    $user->id = 0; // to prevent anything annoying happening
 
-	$from->firstname = null;
-	$from->lastname = null;
-	$from->email = '<>';
-	$from->maildisplay = true;
+    $from->firstname = null;
+    $from->lastname = null;
+    $from->email = '<>';
+    $from->maildisplay = true;
 
-	email_to_user($user,$from,$subject,$body);
-	die ();
+    email_to_user($user,$from,$subject,$body);
+    die ();
 }
 /// ALL OTHER PROCESSING
 // we need to split up the address
@@ -46,29 +46,29 @@ $modargs = substr($address,6,-16);
 $hash = substr($address,-16);
 
 if (substr(md5($prefix.$mod.$modargs.$CFG->siteidentifier),0,16) != $hash) {
-	die("HASH DIDN'T MATCH!\n");
+    die("HASH DIDN'T MATCH!\n");
 }
 list(,$modid) = unpack('C',base64_decode($mod.'=='));
 
 if ($modid == '0') { // special
-	$modname = 'moodle';
+    $modname = 'moodle';
 }
 else {
-	$modname = $DB->get_field("modules", "name", array("id"=>$modid));
-	include_once('mod/'.$modname.'/lib.php');
+    $modname = $DB->get_field("modules", "name", array("id"=>$modid));
+    include_once('mod/'.$modname.'/lib.php');
 }
 $function = $modname.'_process_email';
 
 if (!function_exists($function)) {
-	die();
+    die();
 }
 $fd = fopen('php://stdin','r');
 if (!$fd) {
-	exit();
+    exit();
 }
 
 while(!feof($fd)) {
-	$body .= fgets($fd);
+    $body .= fgets($fd);
 }
 
 $function($modargs,$body);

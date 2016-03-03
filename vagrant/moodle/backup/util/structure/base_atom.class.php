@@ -26,81 +26,81 @@
 
 /**
  * Abstract class representing one atom (name/value) piece of information
-*/
+ */
 abstract class base_atom {
 
-	/** @var string name of the element (maps to XML name) */
-	private $name;
+    /** @var string name of the element (maps to XML name) */
+    private $name;
 
-	/** @var string value of the element (maps to XML content) */
-	private $value;
+    /** @var string value of the element (maps to XML content) */
+    private $value;
 
-	/** @var bool flag to indicate when one value has been set (true) or no (false) */
-	private $is_set;
+    /** @var bool flag to indicate when one value has been set (true) or no (false) */
+    private $is_set;
 
-	/**
-	 * Constructor - instantiates one base_atom, specifying its basic info.
-	 *
-	 * @param string $name name of the element
-	 * @param string $value optional value of the element
-	 */
-	public function __construct($name) {
+    /**
+     * Constructor - instantiates one base_atom, specifying its basic info.
+     *
+     * @param string $name name of the element
+     * @param string $value optional value of the element
+     */
+    public function __construct($name) {
 
-		$this->validate_name($name); // Check name
+        $this->validate_name($name); // Check name
 
-		$this->name  = $name;
-		$this->value = null;
-		$this->is_set= false;
-	}
+        $this->name  = $name;
+        $this->value = null;
+        $this->is_set= false;
+    }
 
-	protected function validate_name($name) {
-		// Validate various name constraints, throwing exception if needed
-		if (empty($name)) {
-			throw new base_atom_struct_exception('backupatomemptyname', $name);
-		}
-		if (preg_replace('/\s/', '', $name) != $name) {
-			throw new base_atom_struct_exception('backupatomwhitespacename', $name);
-		}
-		if (preg_replace('/[^\x30-\x39\x41-\x5a\x5f\x61-\x7a]/', '', $name) != $name) {
-			throw new base_atom_struct_exception('backupatomnotasciiname', $name);
-		}
-	}
+    protected function validate_name($name) {
+        // Validate various name constraints, throwing exception if needed
+        if (empty($name)) {
+            throw new base_atom_struct_exception('backupatomemptyname', $name);
+        }
+        if (preg_replace('/\s/', '', $name) != $name) {
+            throw new base_atom_struct_exception('backupatomwhitespacename', $name);
+        }
+        if (preg_replace('/[^\x30-\x39\x41-\x5a\x5f\x61-\x7a]/', '', $name) != $name) {
+            throw new base_atom_struct_exception('backupatomnotasciiname', $name);
+        }
+    }
 
-	/// Public API starts here
+/// Public API starts here
 
-	public function get_name() {
-		return $this->name;
-	}
+    public function get_name() {
+        return $this->name;
+    }
 
-	public function get_value() {
-		return $this->value;
-	}
+    public function get_value() {
+        return $this->value;
+    }
 
-	public function set_value($value) {
-		if ($this->is_set) {
-			throw new base_atom_content_exception('backupatomalreadysetvalue', $value);
-		}
-		$this->value = $value;
-		$this->is_set= true;
-	}
+    public function set_value($value) {
+        if ($this->is_set) {
+            throw new base_atom_content_exception('backupatomalreadysetvalue', $value);
+        }
+        $this->value = $value;
+        $this->is_set= true;
+    }
 
-	public function clean_value() {
-		$this->value = null;
-		$this->is_set= false;
-	}
+    public function clean_value() {
+        $this->value = null;
+        $this->is_set= false;
+    }
 
-	public function is_set() {
-		return $this->is_set;
-	}
+    public function is_set() {
+        return $this->is_set;
+    }
 
-	public function to_string($showvalue = false) {
-		$output = $this->name;
-		if ($showvalue) {
-			$value = $this->is_set ? $this->value : 'not set';
-			$output .= ' => ' . $value;
-		}
-		return $output;
-	}
+    public function to_string($showvalue = false) {
+        $output = $this->name;
+        if ($showvalue) {
+            $value = $this->is_set ? $this->value : 'not set';
+            $output .= ' => ' . $value;
+        }
+        return $output;
+    }
 }
 
 /**
@@ -111,16 +111,16 @@ abstract class base_atom {
  */
 abstract class base_atom_exception extends moodle_exception {
 
-	/**
-	 * Constructor - instantiates one base_atom_exception.
-	 *
-	 * @param string $errorcode key for the corresponding error string
-	 * @param object $a extra words and phrases that might be required in the error string
-	 * @param string $debuginfo optional debugging information
-	 */
-	public function __construct($errorcode, $a = null, $debuginfo = null) {
-		parent::__construct($errorcode, '', '', $a, $debuginfo);
-	}
+    /**
+     * Constructor - instantiates one base_atom_exception.
+     *
+     * @param string $errorcode key for the corresponding error string
+     * @param object $a extra words and phrases that might be required in the error string
+     * @param string $debuginfo optional debugging information
+     */
+    public function __construct($errorcode, $a = null, $debuginfo = null) {
+        parent::__construct($errorcode, '', '', $a, $debuginfo);
+    }
 }
 
 /**
@@ -132,16 +132,16 @@ abstract class base_atom_exception extends moodle_exception {
  */
 class base_atom_struct_exception extends base_atom_exception {
 
-	/**
-	 * Constructor - instantiates one base_atom_struct_exception
-	 *
-	 * @param string $errorcode key for the corresponding error string
-	 * @param object $a extra words and phrases that might be required in the error string
-	 * @param string $debuginfo optional debugging information
-	 */
-	public function __construct($errorcode, $a = null, $debuginfo = null) {
-		parent::__construct($errorcode, $a, $debuginfo);
-	}
+    /**
+     * Constructor - instantiates one base_atom_struct_exception
+     *
+     * @param string $errorcode key for the corresponding error string
+     * @param object $a extra words and phrases that might be required in the error string
+     * @param string $debuginfo optional debugging information
+     */
+    public function __construct($errorcode, $a = null, $debuginfo = null) {
+        parent::__construct($errorcode, $a, $debuginfo);
+    }
 }
 
 /**
@@ -153,14 +153,14 @@ class base_atom_struct_exception extends base_atom_exception {
  */
 class base_atom_content_exception extends base_atom_exception {
 
-	/**
-	 * Constructor - instantiates one base_atom_content_exception
-	 *
-	 * @param string $errorcode key for the corresponding error string
-	 * @param object $a extra words and phrases that might be required in the error string
-	 * @param string $debuginfo optional debugging information
-	 */
-	public function __construct($errorcode, $a = null, $debuginfo = null) {
-		parent::__construct($errorcode, $a, $debuginfo);
-	}
+    /**
+     * Constructor - instantiates one base_atom_content_exception
+     *
+     * @param string $errorcode key for the corresponding error string
+     * @param object $a extra words and phrases that might be required in the error string
+     * @param string $debuginfo optional debugging information
+     */
+    public function __construct($errorcode, $a = null, $debuginfo = null) {
+        parent::__construct($errorcode, $a, $debuginfo);
+    }
 }

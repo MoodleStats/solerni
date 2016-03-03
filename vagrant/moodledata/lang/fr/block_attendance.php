@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_attendance', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'block_attendance', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   block_attendance
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,6 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['attendance:addinstance'] = 'Ajouter un nouveau bloc Présence';
 $string['blockname'] = 'Présence';
 $string['needactivity'] = 'Ce bloc ne peut fonctionner qu\'avec l\'activité Présence. Merci d\'ajouter l\'activité dans ce cours.';
 $string['pluginname'] = 'Présence';

@@ -16,6 +16,7 @@ Feature: Add forumng activity and test basic functionality
       | user | course | role |
       | student1 | C1 | student |
     And I log in as "admin"
+    And I am on site homepage
     And I follow "Course 1"
     And I turn editing mode on
     And I add a "ForumNG" to section "1" and I fill the form with:
@@ -25,6 +26,7 @@ Feature: Add forumng activity and test basic functionality
 
   Scenario: Access forum as student
     Given I log in as "student1"
+    And I am on site homepage
     And I follow "Course 1"
     And I follow "Test forum name"
     Then I should see "Test forum description"
@@ -32,6 +34,7 @@ Feature: Add forumng activity and test basic functionality
 
   Scenario: Add discussions and check sorting and sticky
     Given I log in as "admin"
+    And I am on site homepage
     And I follow "Course 1"
     And I follow "Test forum name"
     And I add a discussion with the following data:
@@ -75,6 +78,7 @@ Feature: Add forumng activity and test basic functionality
   @mod_forumng_unread
   Scenario: Check discussion post replies, unread and editing
     Given I log in as "admin"
+    And I am on site homepage
     And I follow "Course 1"
     And I follow "Test forum name"
     And I add a discussion with the following data:
@@ -86,6 +90,7 @@ Feature: Add forumng activity and test basic functionality
       | Message | REPLY2 |
     And I log out
     Given I log in as "student1"
+    And I am on site homepage
     And I follow "Course 1"
     Then I should see "(Unread posts)"
     Given I follow "Test forum name"
@@ -120,6 +125,7 @@ Feature: Add forumng activity and test basic functionality
     Then I should not see "(unread posts)"
     And I log out
     Given I log in as "admin"
+    And I am on site homepage
     And I follow "Course 1"
     Then I should see "(Unread posts)"
     Given I follow "Test forum name"
@@ -151,6 +157,7 @@ Feature: Add forumng activity and test basic functionality
   Scenario: Deleting + locking discussions + posts
     # NOTE - this is non-js specific, will fail if @javascript enabled on this scenario.
     Given I log in as "admin"
+    And I am on site homepage
     And I follow "Course 1"
     And I follow "Test forum name"
     And I add a discussion with the following data:
@@ -195,6 +202,7 @@ Feature: Add forumng activity and test basic functionality
 
   Scenario: Flagging (and removing flag) posts without javascript
     Given I log in as "admin"
+    And I am on site homepage
     And I follow "Course 1"
     And I follow "Test forum name"
     And I add a discussion with the following data:
@@ -210,25 +218,25 @@ Feature: Add forumng activity and test basic functionality
     And I should see "REPLY1"
     And I should see "REPLY2"
     And I should see "REPLY3"
-    And ".forumng-flag" "css_element" should exist
+    And ".forumng-flagpost" "css_element" should exist
 
     # Discussion1 post
-    And ".forumng-p1 .forumng-flag img" "css_element" should exist
+    And ".forumng-p1 .forumng-flagpost img" "css_element" should exist
     # Reply1 post
-    And ".forumng-p2 .forumng-flag img" "css_element" should exist
+    And ".forumng-p2 .forumng-flagpost img" "css_element" should exist
     # Reply3 post
-    And ".forumng-p4 .forumng-flag img" "css_element" should exist
-    And the "alt" attribute of ".forumng-p1 .forumng-flag a img" "css_element" should contain "Flag this post for future reference"
+    And ".forumng-p4 .forumng-flagpost img" "css_element" should exist
+    And the "title" attribute of ".forumng-p1 .forumng-flagpost a" "css_element" should contain "Flag this post for future reference"
 
     # Click to flag Reply1
-    And I click on ".forumng-p2 .forumng-flag a" "css_element"
+    And I click on ".forumng-p2 .forumng-flagpost a" "css_element"
     # Click 'Expand' to access 'Flag' for Replies
     And I expand post "3"
-    And I click on ".forumng-p3 .forumng-flag a" "css_element"
+    And I click on ".forumng-p3 .forumng-flagpost a" "css_element"
     And I expand post "4"
-    And I click on ".forumng-p4 .forumng-flag a" "css_element"
-    And ".forumng-p4 .forumng-flag img" "css_element" should exist
-    And the "alt" attribute of ".forumng-p2 .forumng-flag a img" "css_element" should contain "Remove flag"
+    And I click on ".forumng-p4 .forumng-flagpost a" "css_element"
+    And ".forumng-p4 .forumng-flagpost img" "css_element" should exist
+    And the "title" attribute of ".forumng-p2 .forumng-flagpost a" "css_element" should contain "Remove flag"
 
     # Check flagged posts display ok on main forum page
     And I follow "Test forum name"
@@ -247,11 +255,11 @@ Feature: Add forumng activity and test basic functionality
 
     # Return to discussion page
     And I follow "Discussion 1"
-    And the "alt" attribute of ".forumng-p2 .forumng-flag a img" "css_element" should contain "Remove flag"
+    And the "title" attribute of ".forumng-p2 .forumng-flagpost a" "css_element" should contain "Remove flag"
     # Click to un-flag Reply1
-    And I click on ".forumng-p2 .forumng-flag a" "css_element"
+    And I click on ".forumng-p2 .forumng-flagpost a" "css_element"
     And I expand post "2"
-    And the "alt" attribute of ".forumng-p2 .forumng-flag a img" "css_element" should contain "Flag this post for future reference"
+    And the "title" attribute of ".forumng-p2 .forumng-flagpost a" "css_element" should contain "Flag this post for future reference"
 
     # Check numbner of flagged posts display on main forum page
     And I follow "Test forum name"
@@ -261,9 +269,11 @@ Feature: Add forumng activity and test basic functionality
     And "REPLY2" "link" should exist
     And I log out
 
+
   @javascript
   Scenario: Flagging (and removing flag) posts with javascript
     Given I log in as "admin"
+    And I am on site homepage
     And I follow "Course 1"
     And I follow "Test forum name"
     And I add a discussion with the following data:
@@ -281,20 +291,20 @@ Feature: Add forumng activity and test basic functionality
     And I should see "REPLY3"
 
     # Discussion1 post
-    And ".forumng-p1 .forumng-flag img" "css_element" should exist
+    And ".forumng-p1 .forumng-flagpost a img" "css_element" should exist
     # Reply3 post
-    And ".forumng-p4 .forumng-flag img" "css_element" should exist
-    And the "alt" attribute of ".forumng-p4 .forumng-flag a img" "css_element" should contain "Flag this post for future reference"
+    And ".forumng-p4 .forumng-flagpost a img" "css_element" should exist
+    And the "title" attribute of ".forumng-p4 .forumng-flagpost a" "css_element" should contain "Flag this post for future reference"
 
     # Click to flag Reply1.
-    And I click on ".forumng-p2 .forumng-flag img" "css_element"
+    And I click on ".forumng-p2 .forumng-flagpost a" "css_element"
     And I wait "1" seconds
     # Click to flag Reply2.
-    And I click on ".forumng-p3 .forumng-flag img" "css_element"
+    And I click on ".forumng-p3 .forumng-flagpost a" "css_element"
     And I wait "1" seconds
     # Click to flag Reply3.
-    And I click on ".forumng-p4 .forumng-flag img" "css_element"
-    And the "alt" attribute of ".forumng-p4 .forumng-flag a img" "css_element" should contain "You have flagged this post"
+    And I click on ".forumng-p4 .forumng-flagpost a" "css_element"
+    And the "title" attribute of ".forumng-p4 .forumng-flagpost a" "css_element" should contain "Remove flag"
 
     # Check flagged posts display ok on main forum page
     And I follow "Test forum name"
@@ -315,9 +325,9 @@ Feature: Add forumng activity and test basic functionality
     # Return to discussion page
     And I follow "Discussion 1 abc"
     # Click to un-flag Reply1
-    And the "alt" attribute of ".forumng-p2 .forumng-flag a img" "css_element" should contain "Remove flag"
-    And I click on ".forumng-p2 .forumng-flag img" "css_element"
-    And the "alt" attribute of ".forumng-p2 .forumng-flag a img" "css_element" should contain "Not flagged"
+    And the "title" attribute of ".forumng-p2 .forumng-flagpost a" "css_element" should contain "Remove flag"
+    And I click on ".forumng-p2 .forumng-flagpost img" "css_element"
+    And the "title" attribute of ".forumng-p2 .forumng-flagpost a" "css_element" should contain "Flag this post for future reference"
 
     # Check number of flagged posts display on main forum page.
     And I follow "Test forum name"
@@ -328,3 +338,58 @@ Feature: Add forumng activity and test basic functionality
     And "REPLY1" "link" should not exist
     And "REPLY2" "link" should exist
     And I log out
+
+    Scenario: Test subscription buttons
+    Given I log in as "student1"
+    And I am on site homepage
+    And I follow "Course 1"
+    When I follow "Test forum name"
+    Then I should see "You do not currently receive messages from this forum"
+    And "Subscribe" "button" should exist
+    Given I add a discussion with the following data:
+      | Subject | Discussion 1 |
+      | Message | abc |
+    Then I should see "You do not currently receive messages from this"
+    And "Subscribe to discussion" "button" should exist
+    Given I press "Subscribe to discussion"
+    Then I should see "Your email preferences"
+    And I should see "No digest (single email per forum post)"
+    And I should see "Pretty HTML format"
+    And "change" "link" should exist
+    And "Unsubscribe from discussion" "button" should exist
+    Given I follow "Test forum name"
+    Then I should see "You receive messages from some discussions in"
+    And I should see "Your email preferences ("
+    Given I press "Subscribe to whole forum"
+    Then I should see "You receive messages from this forum via email to"
+    And I should see "Your email preferences ("
+    And "Unsubscribe" "button" should exist
+    Given I follow "change"
+    And I should see "Forum preferences"
+    And I should see "Email digest type"
+    And I should see "Email format"
+    And I set the field "mailformat" to "0"
+    And I set the field "maildigest" to "1"
+    When I press "Save changes"
+    Then I should see "Complete (daily email with full posts)"
+    And I should see "Plain text format"
+    Given I follow "Discussion 1"
+    Then I should not see "You do not currently receive messages from this"
+    And I should not see "Your email preferences"
+    Given I follow "Test forum name"
+    And I press "Unsubscribe"
+    Then I should see "You do not currently receive messages from this"
+    Given I log out
+    And I log in as "admin"
+    And I am on site homepage
+    And I follow "Course 1"
+    And I follow "Test forum name"
+    And I follow "Edit settings"
+    And I set the field "subscription" to "3"
+    And I press "Save and display"
+    When I log out
+    And I log in as "student1"
+    And I follow "Course 1"
+    When I follow "Test forum name"
+    Then I should see "You receive messages from this forum via email to"
+    And I should see "This forum does not allow you to unsubscribe"

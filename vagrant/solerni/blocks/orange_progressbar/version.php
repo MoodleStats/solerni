@@ -18,12 +18,12 @@
 /**
  * Orange Progress Bar block version details
  *
- * @package    block_orange_last_message
+ * @package    block_orange_progressbar
  * @copyright  Orange 2015
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$plugin->version   = 2015101404;
+$plugin->version   = 2016030200;
 $plugin->requires  = 2014050800;
 $plugin->maturity  = MATURITY_STABLE;
 $plugin->component = 'block_orange_progressbar';

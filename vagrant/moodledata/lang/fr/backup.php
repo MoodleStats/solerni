@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'backup', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'backup', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   backup
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -87,6 +87,7 @@ $string['configgeneralbadges'] = 'Si ce réglage est activé, les badges seront 
 $string['configgeneralblocks'] = 'Détermine le réglage par défaut pour l\'inclusion des blocs dans les sauvegardes.';
 $string['configgeneralcomments'] = 'Détermine le réglage par défaut pour l\'inclusion des commentaires dans les sauvegardes.';
 $string['configgeneralfilters'] = 'Détermine le réglage par défaut pour l\'inclusion des filtres dans les sauvegardes.';
+$string['configgeneralgroups'] = 'Détermine le réglage par défaut pour l’inclusion des groupes et groupements dans les sauvegardes.';
 $string['configgeneralhistories'] = 'Détermine le réglage par défaut pour l\'inclusion de l\'historique des activités des utilisateurs dans les sauvegardes.';
 $string['configgenerallogs'] = 'Détermine le réglage par défaut pour l\'inclusion des historiques dans les sauvegardes.';
 $string['configgeneralquestionbank'] = 'Si ce réglage est activé, la banque de questions sera par défaut incluse dans les sauvegardes.
@@ -113,13 +114,13 @@ $string['currentstage4'] = 'Confirmation';
 $string['currentstage8'] = 'Effectuer la sauvegarde';
 $string['enterasearch'] = 'Saisir une expression à rechercher';
 $string['error_block_for_module_not_found'] = 'Instance de bloc orpheline (id : {$a->bid}) trouvée dans un module de cours (id : {$a->mid}). Ce bloc ne sera pas sauvegardé.';
-$string['error_course_module_not_found'] = 'Module de cours orphelin (id : {$a->mid}) trouvé. Ce module ne sera pas sauvegardé.';
+$string['error_course_module_not_found'] = 'Module de cours orphelin (id : {$a}) détecté. Ce module ne sera pas sauvegardé.';
 $string['errorfilenamemustbezip'] = 'Le fichier doit être un fichier au format ZIP et son nom doit avoir l\'extension .mbz';
 $string['errorfilenamerequired'] = 'Veuillez saisir un nom de fichier valide pour cette sauvegarde';
 $string['errorinvalidformat'] = 'Format de sauvegarde inconnu';
 $string['errorinvalidformatinfo'] = 'Le fichier sélectionné n\'est pas un fichier de sauvegarde Moodle valide et ne peut pas être restauré.';
 $string['errorminbackup20version'] = 'Restauration impossible. Ce fichier de sauvegarde a été créé avec une version de développement du moteur de sauvegardes de Moodle ({$a->backup}). La version minimale requise pour la restaurer est {$a->min}.';
-$string['errorrestorefrontpage'] = 'La restauration de la page d\'accueil n\'est pas autorisée.';
+$string['errorrestorefrontpagebackup'] = 'Les sauvegardes de la page d\'accueil ne peuvent être restaurées que sur la page d\'accueil';
 $string['executionsuccess'] = 'Le fichier de sauvegarde a été enregistré correctement.';
 $string['filealiasesrestorefailures'] = 'Échec de la restauration des alias';
 $string['filealiasesrestorefailures_help'] = 'Les alias sont des liens vers d\'autres fichiers, y compris ceux qui sont stockés dans des dépôts externes. Dans certains cas, Moodle ne peut pas les restaurer, par exemple lors de la restauration de sauvegardes d\'un autre site ou si le fichier lié n\'existe pas.
@@ -138,6 +139,7 @@ $string['generalblocks'] = 'Inclure les blocs';
 $string['generalcomments'] = 'Inclure les commentaires';
 $string['generalfilters'] = 'Inclure les filtres';
 $string['generalgradehistories'] = 'Inclure les historiques';
+$string['generalgroups'] = 'Inclure les groupes et groupements';
 $string['generalhistories'] = 'Inclure l\'historique des activités des utilisateurs';
 $string['generallogs'] = 'Inclure les historiques';
 $string['generalquestionbank'] = 'Inclure la banque de questions';
@@ -158,6 +160,8 @@ $string['importcurrentstage2'] = 'Réglages du schéma';
 $string['importcurrentstage4'] = 'Confirmation et relecture';
 $string['importcurrentstage8'] = 'Effectuer l\'importation';
 $string['importfile'] = 'Importer un fichier de sauvegarde';
+$string['importgeneralduplicateadminallowed'] = 'Permettre la résolution de conflit admin';
+$string['importgeneralduplicateadminallowed_desc'] = 'Lorsqu\'il existe sur la plateforme un compte dont le nom d\'utilisateur est « admin », la restauration d\'un fichier de sauvegarde contenant un compte avec ce même nom d\'utilisateur causera un conflit. Si ce réglage est activé, le conflit sera résolu en changeant le nom d\'utilisateur en « admin_xyz ».';
 $string['importgeneralmaxresults'] = 'Nombre maximal de cours listés pour importation';
 $string['importgeneralmaxresults_desc'] = 'Ce réglage détermine le nombre de cours qui sont listés lors de la première étape du processus d\'importation';
 $string['importgeneralsettings'] = 'Réglages généraux d\'importation par défaut';
@@ -234,6 +238,7 @@ $string['rootsettingcalendarevents'] = 'Inclure les événements du calendrier';
 $string['rootsettingcomments'] = 'Inclure les commentaires';
 $string['rootsettingfilters'] = 'Inclure les filtres';
 $string['rootsettinggradehistories'] = 'Inclure les historiques des notes';
+$string['rootsettinggroups'] = 'Inclure les groupes et groupements';
 $string['rootsettingimscc1'] = 'Convertir en IMS Common Cartridge 1.0';
 $string['rootsettingimscc11'] = 'Convertir en IMS Common Cartridge 1.1';
 $string['rootsettinglogs'] = 'Inclure les historiques du cours';
@@ -254,6 +259,7 @@ $string['setting_keep_groups_and_groupings'] = 'Conserver les groupes et groupem
 $string['setting_keep_roles_and_enrolments'] = 'Conserver les rôles et droits d\'accès actuels';
 $string['setting_overwriteconf'] = 'Écraser la configuration du cours';
 $string['showtypes'] = 'Afficher les types d\'options';
+$string['sitecourseformatwarning'] = 'Cette sauvegarde ne peut être restaurée que sur la page d\'accueil, car il s\'agit d\'une sauvegarde de la page d\'accueil';
 $string['skiphidden'] = 'Omettre les cours cachés';
 $string['skiphiddenhelp'] = 'Choisir s\'il faut ou non omettre les cours cachés';
 $string['skipmodifdays'] = 'Omettre les cours non modifiés depuis';

@@ -34,48 +34,48 @@ require_once($CFG->libdir.'/cronlib.php');
 
 // now get cli options
 list($options, $unrecognized) = cli_get_params(array('help'=>false),
-		array('h'=>'help'));
+                                               array('h'=>'help'));
 
 if ($unrecognized) {
-	$unrecognized = implode("\n  ", $unrecognized);
-	cli_error(get_string('cliunknowoption', 'admin', $unrecognized));
+    $unrecognized = implode("\n  ", $unrecognized);
+    cli_error(get_string('cliunknowoption', 'admin', $unrecognized));
 }
 
 if ($options['help']) {
-	$help =
-	"Execute automated backups.
+    $help =
+"Execute automated backups.
 
-	This script executes automated backups completely and is designed to be
-	called via cron.
+This script executes automated backups completely and is designed to be
+called via cron.
 
-	Options:
-	-h, --help            Print out this help
+Options:
+-h, --help            Print out this help
 
-	Example:
-	\$sudo -u www-data /usr/bin/php admin/cli/automated_backups.php
-	";
+Example:
+\$sudo -u www-data /usr/bin/php admin/cli/automated_backups.php
+";
 
-	echo $help;
-	die;
+    echo $help;
+    die;
 }
 if (CLI_MAINTENANCE) {
-	echo "CLI maintenance mode active, backup execution suspended.\n";
-	exit(1);
+    echo "CLI maintenance mode active, backup execution suspended.\n";
+    exit(1);
 }
 
 if (moodle_needs_upgrading()) {
-	echo "Moodle upgrade pending, backup execution suspended.\n";
-	exit(1);
+    echo "Moodle upgrade pending, backup execution suspended.\n";
+    exit(1);
 }
 
 require_once($CFG->libdir.'/adminlib.php');
 require_once($CFG->libdir.'/gradelib.php');
 
 if (!empty($CFG->showcronsql)) {
-	$DB->set_debug(true);
+    $DB->set_debug(true);
 }
 if (!empty($CFG->showcrondebugging)) {
-	set_debugging(DEBUG_DEVELOPER, true);
+    set_debugging(DEBUG_DEVELOPER, true);
 }
 
 $starttime = microtime();

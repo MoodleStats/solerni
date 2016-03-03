@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'format_topcoll', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'format_topcoll', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   format_topcoll
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -92,6 +92,8 @@ Dernière semaine en premier
 Section actuelle en premier
 
 Jour';
+$string['defaultshowsectionsummary'] = 'Afficher le résumé de la section si réduite';
+$string['defaultshowsectionsummary_desc'] = 'Fixe le résumé de la section toujours affiché même si la section est réduite.';
 $string['defaulttgbgcolour'] = 'Couleur du fond (bandeau)';
 $string['defaulttgbgcolour_desc'] = 'Définit la couleur du fond de la section réduite.';
 $string['defaulttgbghvrcolour'] = 'Couleur du bandeau au survol de la souris';
@@ -148,6 +150,8 @@ $string['defaultuserpreference'] = 'Que faire avec les sections basculées lorsq
 $string['defaultuserpreference_desc'] = 'Ce réglage établit le comportement de base des sections réduites lorsque l\'utilisateur accède pour la première fois au cours, ou lorsque sont ajoutées des sections au cours.';
 $string['displayinstructions'] = 'Afficher les instructions';
 $string['displayinstructions_help'] = 'Définit si les instructions seront affichées aux utilisateurs';
+$string['donotshowdate'] = 'Ne pas afficher la date';
+$string['donotshowdate_help'] = 'Ne pas afficher la date lors de l\'utilisation d\'une structure hebdomadaire avec l\'option ­« nom de la section par défaut » décochée.';
 $string['em0_0'] = '0.0em';
 $string['em0_1'] = '0.1em';
 $string['em0_2'] = '0.2em';
@@ -190,6 +194,8 @@ $string['em3_8'] = '3.8em';
 $string['em3_9'] = '3.9em';
 $string['em4_0'] = '4.0em';
 $string['eye'] = 'Œil';
+$string['formatresponsive'] = 'Format responsive';
+$string['formatresponsive_desc'] = 'Activez si vous utiliser un thème non-responsive et le format s\'adaptera à la taille de l\'écran/appareil. Désactivez si vous utilisez un thème responsive. Le support Bootstrab 2.3.2 est inclus, pour les autres versions et frameworks, passez outre les méthodes \'get_row_class()\' et \'get_column_class()\' dans renderer.php.';
 $string['formatsettings'] = 'Réinitialisation des réglages du format';
 $string['formatsettingsinformation'] = '<br />Pour modifier les paramètres du format du cours, cliquez sur l\'icône à droite.';
 $string['formattopcoll'] = 'Sections réduites';
@@ -286,6 +292,8 @@ $string['setlayout_toggle_section_x_section_number'] = 'Mention de « Sujet x »
 $string['setlayout_toggle_word'] = 'Mention de « Basculer»';
 $string['setlayout_toggle_word_section_number'] = 'Mention de « Basculer » et numéro de section';
 $string['setlayout_toggle_word_section_x'] = 'Mention de « Basculer » et « Section x  » / « Semaine x » / « Jour x à basculer »';
+$string['setshowsectionsummary'] = 'Afficher le résumé de la section si réduite';
+$string['setshowsectionsummary_help'] = 'Fixe le résumé de la section toujours affiché même si la section est réduite.';
 $string['settogglealignment'] = 'Réglages de l\'alignement du texte';
 $string['settogglealignment_help'] = 'Définit l\'alignement du texte dans le bandeau de la section réduite';
 $string['settoggleallhover'] = 'Réglages de la position des icônes';
@@ -316,6 +324,6 @@ $string['topcoll:changetogglealignment'] = 'Modifier ou réinitialiser l\'aligne
 $string['topcoll:changetoggleiconset'] = 'Modifier ou réinitialiser les icônes';
 $string['topcollclosed'] = 'Tout fermer';
 $string['topcollopened'] = 'Tout ouvrir';
-$string['topcollsidewidth'] = '28px';
+$string['topcollsidewidthlang'] = 'en-28px';
 $string['topcolltoggle'] = 'Basculer';
 $string['two'] = 'Deux';

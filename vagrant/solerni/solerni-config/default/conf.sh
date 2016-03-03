@@ -8,21 +8,8 @@ fi
 if [ -f ../conf/env_moosh.cfg ]; then
 . ../conf/env_moosh.cfg
 fi
-# ${CUSTOMER_LOG_DB_HOST}
-# ${CUSTOMER_LOG_DB_NAME}
-# ${CUSTOMER_LOG_DB_USERNAME}
-# ${CUSTOMER_LOG_DB_PASSWORD}
-# ${CUSTOMER_STATS_DB_HOST}
-# ${CUSTOMER_STATS_DB_NAME}
-# ${CUSTOMER_STATS_DB_USERNAME}
-# ${CUSTOMER_STATS_DB_PASSWORD}
-# ${CUSTOMER_PIWIK_URL}
-
-# ${CUSTOMER_STATIC_DIRECTORY}
-# ${GEOIP_FILE_PATH}
 
 # add conf for external logs (#us_289)
-# moosh config-set enabled_stores logstore_standard,logstore_database,logstore_legacy tool_log
 moosh config-set enabled_stores logstore_standard,logstore_database tool_log
 moosh config-set dbdriver native/mysqli logstore_database
 moosh config-set dbhost ${CUSTOMER_LOG_DB_HOST} logstore_database
@@ -145,9 +132,6 @@ moosh config-set mnet_register_allhosts 0
 moosh config-set sessioncookie ${CUSTOMER_COOKIE_PREFIX}
 moosh peer-add ${MNET_PEER}
 
-# Default sitepolicy (cgus)
-moosh config-set sitepolicy https://${CUSTOMER_DOMAIN}/static/cgu.html
-
 # oauth2: do not display buttons on login page
 moosh config-set oauth2displaybuttons 0 'auth/googleoauth2'
 
@@ -158,7 +142,7 @@ moosh auth-manage enable mnet
 moosh config-set smtphosts ${SMTP_SERVER}
 
 # Create a support user (normally id=3)
-moosh user-create --password pass --email ${CUSTOMER_CONTACT_USER_EMAIL} --firstname 'Contact' --lastname 'Solerni' --city 'Paris' --country 'FR' 'supportuser'  
+moosh user-create --password pass --email ${CUSTOMER_CONTACT_USER_EMAIL} --firstname 'Contact' --lastname 'Solerni' --city 'Paris' --country 'FR' 'supportuser'
 
 # disable default messaging system (#us_226)
 moosh config-set messaging 0
@@ -176,15 +160,14 @@ moosh config-set cookiesecure 1
 moosh config-set updateautocheck 0
 
 # Timezone
-moosh timezone-import Europe/paris
+#moosh timezone-import Europe/paris
 moosh config-set timezone Europe/Paris
 
 # support contact : Admin > Server > Support contact
 moosh config-set supportname "Contact Solerni"
 moosh config-set supportemail ${CUSTOMER_CONTACT_USER_EMAIL}
-moosh config-set supportpage ${CUSTOMER_DOMAIN}/static/faq.html
 
-# support contacts (#us_288) 
+# support contacts (#us_288)
 moosh username-configset supportuserid supportuser
 moosh username-configset noreplyuserid supportuser
 
@@ -199,18 +182,89 @@ moosh config-set defaultenrol 1 enrol_orangeinvitation
 moosh config-set status 0 enrol_orangeinvitation
 
 # Add cache store memcached
-moosh cache-admin --servers ${MEMCACHED_CACHE_SERVER} --prefix ${MEMCACHED_CACHE_PREFIX} memcached addstore ${MEMCACHED_CACHE_NAME}
-moosh cache-admin memcached editmodemappings ${MEMCACHED_CACHE_NAME}
+# moosh cache-admin --servers ${MEMCACHED_CACHE_SERVER} --prefix ${MEMCACHED_CACHE_PREFIX} memcached addstore ${MEMCACHED_CACHE_NAME}
+# moosh cache-admin memcached editmodemappings ${MEMCACHED_CACHE_NAME}
 
-# Make Anonymous : add empty mail subject
+# Make Anonymous : add empty mail subject & msg
 moosh config-set emailsubject '' local_eledia_makeanonymous
+moosh config-set emailmsg '' local_eledia_makeanonymous
 
 # Generate mail string html/txt
 moosh mail-generate
 
-# Default frontpage role : changed to allow access to the general ForumNg 
-moosh role-configset defaultfrontpageroleid solerni_apprenant
+# Default frontpage role : changed to allow access to the general ForumNg
+moosh role-configset defaultfrontpageroleid solerni_utilisateur
 
-# Delete roles : solerni_animateur_plateforme, solerni_power_utilisateur
-moosh role-delete solerni_animateur_plateforme
-moosh role-delete solerni_power_utilisateur
+# Inverse Last Name and First Name in Signup Form
+moosh config-set fullnamedisplay "lastname, firstname"
+
+# local_orangemail : add email support, contact...
+moosh config-set contactemail ${CUSTOMER_CONTACT_USER_EMAIL} local_orangemail
+moosh config-set supportemail ${CUSTOMER_SUPPORT_USER_EMAIL} local_orangemail
+moosh config-set marketemail ${CUSTOMER_MARKET_USER_EMAIL} local_orangemail
+moosh config-set partneremail ${CUSTOMER_PARTNER_USER_EMAIL} local_orangemail
+moosh config-set noreplyemail ${CUSTOMER_NOREPLY_USER_EMAIL} local_orangemail
+moosh config-set integratoremail ${CUSTOMER_DATA_INTEGRATOR_USER_EMAIL} local_orangemail
+moosh config-set noreplyaddress ${CUSTOMER_NOREPLY_USER_EMAIL}
+
+# Hide some activities
+moosh module-manage hide assign
+moosh module-manage hide assignment
+moosh module-manage hide book
+moosh module-manage hide chat
+moosh module-manage hide choice
+moosh module-manage show data
+moosh module-manage hide feedback
+moosh module-manage show forum
+moosh module-manage hide imscp
+moosh module-manage hide lesson
+moosh module-manage hide lti
+moosh module-manage hide scorm
+moosh module-manage hide survey
+moosh module-manage hide url
+moosh module-manage hide wiki
+moosh module-manage hide listforumng
+
+# Set default Store (unable memcached)
+moosh cache-admin memcached editmodemappings "default_application"
+
+# Page contact
+moosh config-set footerlistscolumn2link2 ${CUSTOMER_HTTP_BASE_URL}/contact/ theme_halloween
+
+# Settings PF Name
+moosh course-config-set course 1 fullname "${CUSTOMER_NAME} ${CUSTOMER_THEMATIC}"
+moosh course-config-set course 1 shortname ${CUSTOMER_THEMATIC}
+
+# block_orange_action (#us_458)
+moosh config-set hideblockheader 1 block_orange_action
+
+# defaulthomepage = Dashboard (#us_380)
+moosh config-set defaulthomepage 1
+
+# Manage blocks for 'Dashboard' page (badges + course overview deleted)
+moosh block-add system 0 orange_badges my-index content 0
+moosh block-delete system 0 badges my-index
+moosh block-delete system 0 course_overview my-index
+
+# Disable Oauth2 authentication method
+moosh auth-manage disable googleoauth2
+
+# block_orange_course_dashboard
+moosh config-set defaultmaxrecommendations 0 block_orange_course_dashboard
+moosh config-set mymoocsurl '/moocs/mymoocs.php' block_orange_course_dashboard
+
+# Delete Main Menu block in frontpage (course=1)
+moosh block-delete course 1 site_main_menu site-index
+
+# local_goodbye : delete value to keep default text (#us_442)
+moosh config-set farewell "" local_goodbye
+
+# hide block admin for solerni_utilisateur, solerni_apprenant, solerni_power_apprenant, solerni_animateur, solerni_client (#us_252)
+moosh role-update-capability-ctx solerni_utilisateur moodle/block:view prevent block settings
+moosh role-update-capability-ctx solerni_apprenant moodle/block:view prevent block settings
+moosh role-update-capability-ctx solerni_power_apprenant moodle/block:view prevent block settings
+moosh role-update-capability-ctx solerni_animateur moodle/block:view prevent block settings
+moosh role-update-capability-ctx solerni_client moodle/block:view prevent block settings
+moosh role-update-capability-ctx solerni_teacher moodle/block:view allow block settings
+moosh role-update-capability-ctx solerni_course_creator moodle/block:view allow block settings
+moosh role-update-capability-ctx solerni_marketing moodle/block:view allow block settings

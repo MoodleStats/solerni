@@ -387,7 +387,8 @@ function xmldb_questionnaire_upgrade($oldversion=0) {
             $dbman->add_field($table, $field);
         }
 
-        // Replace the = separator with :: separator in quest_choice content. This fixes radio button options using old "value"="display" formats. 
+        // Replace the = separator with :: separator in quest_choice content.
+        // This fixes radio button options using old "value"="display" formats.
         require_once($CFG->dirroot.'/mod/questionnaire/locallib.php');
         $choices = $DB->get_recordset('questionnaire_quest_choice', $conditions = null);
         $total = $DB->count_records('questionnaire_quest_choice');
@@ -507,6 +508,28 @@ function xmldb_questionnaire_upgrade($oldversion=0) {
 
         // Questionnaire savepoint reached.
          upgrade_mod_savepoint(true, 2014010300, 'questionnaire');
+    }
+
+    if ($oldversion < 2015051101) {
+        // Move the global config value for 'usergraph' to the plugin config setting instead.
+        if (isset($CFG->questionnaire_usergraph)) {
+            set_config('usergraph', $CFG->questionnaire_usergraph, 'questionnaire');
+            unset_config('questionnaire_usergraph');
+        }
+        upgrade_mod_savepoint(true, 2015051101, 'questionnaire');
+    }
+
+    // Add index to reduce load on the questionnaire_quest_choice table.
+    if ($oldversion < 2015051102) {
+        // Conditionally add an index to the question_id field.
+        $table = new xmldb_table('questionnaire_quest_choice');
+        $index = new xmldb_index('quest_choice_quesidx', XMLDB_INDEX_NOTUNIQUE, array('question_id'));
+        // Only add the index if it does not exist.
+        if (!$dbman->index_exists($table, $index)) {
+            $dbman->add_index($table, $index);
+        }
+        // Questionnaire savepoint reached.
+        upgrade_mod_savepoint(true, 2015051102, 'questionnaire');
     }
 
     return $result;

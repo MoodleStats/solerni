@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'glossary', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'glossary', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   glossary
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -95,8 +95,8 @@ $string['current'] = 'Tri actuellement {$a}';
 $string['currentglossary'] = 'Glossaire actuel';
 $string['date'] = 'date';
 $string['dateview'] = 'Consulter par date';
-$string['defaultapproval'] = 'Approbation par défaut';
-$string['defaultapproval_help'] = 'Si ce réglage est désactivé, les articles requièrent une approbation de la part de l\'enseignant avant de pouvoir être consultés.';
+$string['defaultapproval'] = 'Approuvé automatiquement';
+$string['defaultapproval_help'] = 'Si ce réglage est défini à non, les articles requièrent une approbation de la part de l\'enseignant avant de pouvoir être consultés.';
 $string['defaulthook'] = 'Sélection affichée par défaut';
 $string['defaultmode'] = 'Mode d\'affichage par défaut';
 $string['defaultsortkey'] = 'Clef de tri par défaut';

@@ -47,86 +47,86 @@ $return = new moodle_url('/admin/settings.php', array('section'=>'manageenrols')
 $syscontext = context_system::instance();
 
 switch ($action) {
-	case 'disable':
-		unset($enabled[$enrol]);
-		set_config('enrol_plugins_enabled', implode(',', array_keys($enabled)));
-		core_plugin_manager::reset_caches();
-		$syscontext->mark_dirty(); // resets all enrol caches
-		break;
+    case 'disable':
+        unset($enabled[$enrol]);
+        set_config('enrol_plugins_enabled', implode(',', array_keys($enabled)));
+        core_plugin_manager::reset_caches();
+        $syscontext->mark_dirty(); // resets all enrol caches
+        break;
 
-	case 'enable':
-		if (!isset($all[$enrol])) {
-			break;
-		}
-		$enabled = array_keys($enabled);
-		$enabled[] = $enrol;
-		set_config('enrol_plugins_enabled', implode(',', $enabled));
-		core_plugin_manager::reset_caches();
-		$syscontext->mark_dirty(); // resets all enrol caches
-		break;
+    case 'enable':
+        if (!isset($all[$enrol])) {
+            break;
+        }
+        $enabled = array_keys($enabled);
+        $enabled[] = $enrol;
+        set_config('enrol_plugins_enabled', implode(',', $enabled));
+        core_plugin_manager::reset_caches();
+        $syscontext->mark_dirty(); // resets all enrol caches
+        break;
 
-	case 'up':
-		if (!isset($enabled[$enrol])) {
-			break;
-		}
-		$enabled = array_keys($enabled);
-		$enabled = array_flip($enabled);
-		$current = $enabled[$enrol];
-		if ($current == 0) {
-			break; //already at the top
-		}
-		$enabled = array_flip($enabled);
-		$enabled[$current] = $enabled[$current - 1];
-		$enabled[$current - 1] = $enrol;
-		set_config('enrol_plugins_enabled', implode(',', $enabled));
-		break;
+    case 'up':
+        if (!isset($enabled[$enrol])) {
+            break;
+        }
+        $enabled = array_keys($enabled);
+        $enabled = array_flip($enabled);
+        $current = $enabled[$enrol];
+        if ($current == 0) {
+            break; //already at the top
+        }
+        $enabled = array_flip($enabled);
+        $enabled[$current] = $enabled[$current - 1];
+        $enabled[$current - 1] = $enrol;
+        set_config('enrol_plugins_enabled', implode(',', $enabled));
+        break;
 
-	case 'down':
-		if (!isset($enabled[$enrol])) {
-			break;
-		}
-		$enabled = array_keys($enabled);
-		$enabled = array_flip($enabled);
-		$current = $enabled[$enrol];
-		if ($current == count($enabled) - 1) {
-			break; //already at the end
-		}
-		$enabled = array_flip($enabled);
-		$enabled[$current] = $enabled[$current + 1];
-		$enabled[$current + 1] = $enrol;
-		set_config('enrol_plugins_enabled', implode(',', $enabled));
-		break;
+    case 'down':
+        if (!isset($enabled[$enrol])) {
+            break;
+        }
+        $enabled = array_keys($enabled);
+        $enabled = array_flip($enabled);
+        $current = $enabled[$enrol];
+        if ($current == count($enabled) - 1) {
+            break; //already at the end
+        }
+        $enabled = array_flip($enabled);
+        $enabled[$current] = $enabled[$current + 1];
+        $enabled[$current + 1] = $enrol;
+        set_config('enrol_plugins_enabled', implode(',', $enabled));
+        break;
 
-	case 'migrate':
-		if (get_string_manager()->string_exists('pluginname', 'enrol_'.$enrol)) {
-			$strplugin = get_string('pluginname', 'enrol_'.$enrol);
-		} else {
-			$strplugin = $enrol;
-		}
+    case 'migrate':
+        if (get_string_manager()->string_exists('pluginname', 'enrol_'.$enrol)) {
+            $strplugin = get_string('pluginname', 'enrol_'.$enrol);
+        } else {
+            $strplugin = $enrol;
+        }
 
-		$PAGE->set_title($strplugin);
-		echo $OUTPUT->header();
+        $PAGE->set_title($strplugin);
+        echo $OUTPUT->header();
 
-		// This may take a long time.
-		core_php_time_limit::raise();
+        // This may take a long time.
+        core_php_time_limit::raise();
 
-		// Disable plugin to prevent concurrent cron execution.
-		unset($enabled[$enrol]);
-		set_config('enrol_plugins_enabled', implode(',', array_keys($enabled)));
+        // Disable plugin to prevent concurrent cron execution.
+        unset($enabled[$enrol]);
+        set_config('enrol_plugins_enabled', implode(',', array_keys($enabled)));
 
-		echo $OUTPUT->heading(get_string('uninstallmigrating', 'enrol', 'enrol_'.$enrol));
+        echo $OUTPUT->heading(get_string('uninstallmigrating', 'enrol', 'enrol_'.$enrol));
 
-		require_once("$CFG->dirroot/enrol/manual/locallib.php");
-		enrol_manual_migrate_plugin_enrolments($enrol);
+        require_once("$CFG->dirroot/enrol/manual/locallib.php");
+        enrol_manual_migrate_plugin_enrolments($enrol);
 
-		echo $OUTPUT->notification(get_string('success'), 'notifysuccess');
+        echo $OUTPUT->notification(get_string('success'), 'notifysuccess');
 
-		if (!$return = core_plugin_manager::instance()->get_uninstall_url('enrol_'.$enrol, 'manage')) {
-			$return = new moodle_url('/admin/plugins.php');
-		}
-		echo $OUTPUT->continue_button($return);
-		echo $OUTPUT->footer();
-		exit;
+        if (!$return = core_plugin_manager::instance()->get_uninstall_url('enrol_'.$enrol, 'manage')) {
+            $return = new moodle_url('/admin/plugins.php');
+        }
+        echo $OUTPUT->continue_button($return);
+        echo $OUTPUT->footer();
+        exit;
 }
 
 

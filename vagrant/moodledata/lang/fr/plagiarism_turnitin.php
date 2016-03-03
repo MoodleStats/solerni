@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'plagiarism_turnitin', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'plagiarism_turnitin', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   plagiarism_turnitin
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}

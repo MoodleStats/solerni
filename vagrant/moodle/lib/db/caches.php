@@ -179,6 +179,7 @@ $definitions = array(
         'mode' => cache_store::MODE_APPLICATION,
         'staticacceleration' => true,
         'simplekeys' => true,
+        'ttl' => 3600,
     ),
     // Used to store data for repositories to avoid repetitive DB queries within one request.
     'repositories' => array(
@@ -211,6 +212,15 @@ $definitions = array(
         'staticacceleration' => true,
         'staticaccelerationsize' => 2, // Should not be required for more than one user at a time.
         'ttl' => 3600,
+    ),
+
+    // Used to cache activity completion status.
+    'completion' => array(
+        'mode' => cache_store::MODE_APPLICATION,
+        'simplekeys' => true,
+        'ttl' => 3600,
+        'staticacceleration' => true,
+        'staticaccelerationsize' => 2, // Should be current course and site course.
     ),
 
     // A simple cache that stores whether a user can expand a course in the navigation.

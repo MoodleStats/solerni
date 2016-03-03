@@ -26,6 +26,9 @@
  *
  * @author Mark Nielsen
  * @package format_flexpage
+ *
+ * Orange : add the extended page parameters
+ *          2016022300 : add deleteactivitywarn, modify deletemodwarn
  */
 $string['pluginname'] = 'Flexpage format';
 $string['defaultcoursepagename'] = 'Flexpage par défaut (Modifiez-moi !)';
@@ -96,7 +99,7 @@ $string['next'] = 'Suivante';
 $string['previouspage'] = '< Précédente';
 $string['previous'] = 'Précédente';
 $string['themelayoutmissing'] = 'Votre thème actuel ne supporte pas Flexpage. Veuillez changer de thème (ou s’il est activé, changer le thème du cours ou votre thème préféré dans votre profil) pour utiliser un thème possédant une mise en page "{$a}".';
-$string['deletemodwarn'] = 'Si cette activité est supprimée, alors elle sera enlevée de toutes les flexpages.';
+$string['deletemodwarn'] = 'Si ce block est supprimé, alors il sera enlevé de toutes les flexpages.';
 $string['continuedotdotdot'] = 'Continuer...';
 $string['warning'] = 'Avertissement';
 $string['actionbar'] = 'Barre d’actions';
@@ -297,4 +300,19 @@ $string['teachingteam_default'] = 'Conception : Orange avec Learning CRM';
 
 $string['contactemail'] = 'Email de contact';
 $string['contactemail_help'] = 'Email de contact du Mooc utilisé pour le formulaire de contact';
-$string['contactemail_default'] = 'contact@solerni.com';
+$string['contactemail_default'] = '';
+
+$string['thumbnailtext'] = 'Promotionnal message';
+$string['thumbnailtext_help'] = 'Promotionnal message in thumbnail';
+$string['thumbnailtext_default'] = '';
+
+$string['videoplayer'] = 'Player Vidéo (HTML)';
+$string['videoplayer_help'] = 'Code HTML du player vidéo et lien de la vidéo de présentation du cours.';
+$string['videoplayer_default'] = '';
+
+$string['inactivitydelay'] = 'Delai d\'inactivité';
+$string['inactivitydelay_help'] = 'Delai d\'inactivité';
+$string['inactivitydelay_default'] = '';
+
+// Adding the delete activity warning message.
+$string['deleteactivitywarn'] = 'Si cette activité est supprimée, alors elle sera enlevée de toutes les flexpages.';

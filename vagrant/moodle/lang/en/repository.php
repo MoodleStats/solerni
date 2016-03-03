@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -18,7 +17,7 @@
 /**
  * Strings for component 'repository', language 'en', branch 'MOODLE_20_STABLE'
  *
- * @package   repository
+ * @package   core_repository
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -131,7 +130,6 @@ $string['foldernotfound'] = 'Folder not found';
 $string['folderrecurse'] = 'Folder can not be moved to it\'s own subfolder';
 $string['getfile'] = 'Select this file';
 $string['getfiletimeout'] = 'Get file timeout';
-$string['hidden'] = 'Hidden';
 $string['help'] = 'Help';
 $string['choosealink'] = 'Choose a link...';
 $string['chooselicense'] = 'Choose license';
@@ -163,6 +161,7 @@ $string['makefileinternal'] = 'Make a copy of the file';
 $string['makefilelink'] = 'Link to the file directly';
 $string['makefilereference'] = 'Create an alias/shortcut to the file';
 $string['manage'] = 'Manage repositories';
+$string['manageinstances'] = 'Manage instances';
 $string['manageurl'] = 'Manage';
 $string['manageuserrepository'] = 'Manage individual repository';
 $string['moving'] = 'Moving';
@@ -187,7 +186,6 @@ $string['on'] = 'Enabled and visible';
 $string['overwrite'] = 'Overwrite';
 $string['overwriteall'] = 'Overwrite all';
 $string['path'] = 'Path';
-$string['personalrepositories'] = 'Available repository instances';
 $string['plugin'] = 'Repository plug-ins';
 $string['pluginerror'] = 'Errors in repository plugin.';
 $string['popup'] = 'Click "Login" button to login';
@@ -244,3 +242,9 @@ $string['unzipped'] = 'Unzipped successfully';
 $string['wrongcontext'] = 'You cannot access to this context';
 $string['xhtmlerror'] = 'You are probably using an XHTML strict header. Certain YUI components don\'t work in this mode; please turn it off.';
 $string['ziped'] = 'Compress folder successfully';
+
+// Deprecated since Moodle 2.8.
+$string['hidden'] = 'Hidden';
+
+// Deprecated since Moodle 2.9.
+$string['personalrepositories'] = 'Available repository instances';

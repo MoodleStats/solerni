@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -30,37 +29,39 @@ require_once('lib.php');
 
 require_login();
 $context = context_system::instance();
-$PAGE->set_context($context);
+$PAGE->set_context(context_user::instance($USER->id));
 $PAGE->set_url(new moodle_url('/blog/external_blogs.php'));
 require_capability('moodle/blog:manageexternal', $context);
 
 $delete = optional_param('delete', null, PARAM_INT);
 
-$strexternalblogs = get_string('externalblogs','blog');
-$straddnewexternalblog = get_string('addnewexternalblog','blog');
-$strblogs = get_string('blogs','blog');
+$strexternalblogs = get_string('externalblogs', 'blog');
+$straddnewexternalblog = get_string('addnewexternalblog', 'blog');
+$strblogs = get_string('blogs', 'blog');
 $message = null;
 
 if ($delete && confirm_sesskey()) {
-	$externalbloguserid = $DB->get_field('blog_external', 'userid', array('id' => $delete));
-	if ($externalbloguserid == $USER->id) {
-		// Delete the external blog
-		$DB->delete_records('blog_external', array('id' => $delete));
+    $externalbloguserid = $DB->get_field('blog_external', 'userid', array('id' => $delete));
+    if ($externalbloguserid == $USER->id) {
+        // Delete the external blog.
+        $DB->delete_records('blog_external', array('id' => $delete));
 
-		// Delete the external blog's posts
-		$deletewhere = 'module = :module
-		AND userid = :userid
-		AND ' . $DB->sql_isnotempty('post', 'uniquehash', false, false) . '
-		AND ' . $DB->sql_compare_text('content') . ' = ' . $DB->sql_compare_text(':delete');
-		$DB->delete_records_select('post', $deletewhere, array('module' => 'blog_external', 'userid' => $USER->id, 'delete' => $delete));
+        // Delete the external blog's posts.
+        $deletewhere = 'module = :module
+                            AND userid = :userid
+                            AND ' . $DB->sql_isnotempty('post', 'uniquehash', false, false) . '
+                            AND ' . $DB->sql_compare_text('content') . ' = ' . $DB->sql_compare_text(':delete');
+        $DB->delete_records_select('post', $deletewhere, array('module' => 'blog_external',
+                                                               'userid' => $USER->id,
+                                                               'delete' => $delete));
 
-		$message = get_string('externalblogdeleted', 'blog');
-	}
+        $message = get_string('externalblogdeleted', 'blog');
+    }
 }
 
 $blogs = $DB->get_records('blog_external', array('userid' => $USER->id));
 
-$PAGE->set_heading("$SITE->shortname: $strblogs: $strexternalblogs", $SITE->fullname);
+$PAGE->set_heading(fullname($USER));
 $PAGE->set_title("$SITE->shortname: $strblogs: $strexternalblogs");
 $PAGE->set_pagelayout('standard');
 
@@ -68,33 +69,41 @@ echo $OUTPUT->header();
 echo $OUTPUT->heading($strexternalblogs, 2);
 
 if (!empty($message)) {
-	echo $OUTPUT->notification($message);
+    echo $OUTPUT->notification($message);
 }
 
 echo $OUTPUT->box_start('generalbox boxaligncenter');
 
 if (!empty($blogs)) {
-	$table = new html_table();
-	$table->cellpadding = 4;
-	$table->attributes['class'] = 'generaltable boxaligncenter';
-	$table->head = array(get_string('name'), get_string('url', 'blog'), get_string('timefetched', 'blog'), get_string('valid', 'blog'), get_string('actions'));
+    $table = new html_table();
+    $table->cellpadding = 4;
+    $table->attributes['class'] = 'generaltable boxaligncenter';
+    $table->head = array(get_string('name'),
+                         get_string('url', 'blog'),
+                         get_string('timefetched', 'blog'),
+                         get_string('valid', 'blog'),
+                         get_string('actions'));
 
-	foreach ($blogs as $blog) {
-		if ($blog->failedlastsync) {
-			$validicon = $OUTPUT->pix_icon('i/invalid', get_string('feedisinvalid', 'blog'));
-		} else {
-			$validicon = $OUTPUT->pix_icon('i/valid', get_string('feedisvalid', 'blog'));
-		}
+    foreach ($blogs as $blog) {
+        if ($blog->failedlastsync) {
+            $validicon = $OUTPUT->pix_icon('i/invalid', get_string('feedisinvalid', 'blog'));
+        } else {
+            $validicon = $OUTPUT->pix_icon('i/valid', get_string('feedisvalid', 'blog'));
+        }
 
-		$editurl = new moodle_url('/blog/external_blog_edit.php', array('id' => $blog->id));
-		$editicon = $OUTPUT->action_icon($editurl, new pix_icon('t/edit', get_string('editexternalblog', 'blog')));
+        $editurl = new moodle_url('/blog/external_blog_edit.php', array('id' => $blog->id));
+        $editicon = $OUTPUT->action_icon($editurl, new pix_icon('t/edit', get_string('editexternalblog', 'blog')));
 
-		$deletelink = new moodle_url('/blog/external_blogs.php', array('delete' => $blog->id, 'sesskey'=>sesskey()));
-		$deleteicon = $OUTPUT->action_icon($deletelink, new pix_icon('t/delete', get_string('deleteexternalblog', 'blog')));
+        $deletelink = new moodle_url('/blog/external_blogs.php', array('delete' => $blog->id, 'sesskey'=>sesskey()));
+        $deleteicon = $OUTPUT->action_icon($deletelink, new pix_icon('t/delete', get_string('deleteexternalblog', 'blog')));
 
-		$table->data[] = new html_table_row(array($blog->name, $blog->url, userdate($blog->timefetched), $validicon, $editicon . '&nbsp'. $deleteicon));
-	}
-	echo html_writer::table($table);
+        $table->data[] = new html_table_row(array($blog->name,
+                                                  $blog->url,
+                                                  userdate($blog->timefetched),
+                                                  $validicon,
+                                                  $editicon . '&nbsp'. $deleteicon));
+    }
+    echo html_writer::table($table);
 }
 
 $newexternalurl = new moodle_url('/blog/external_blog_edit.php');

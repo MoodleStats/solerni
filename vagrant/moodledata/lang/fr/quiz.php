@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'quiz', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'quiz', language 'fr', branch 'MOODLE_29_STABLE'
  *
  * @package   quiz
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -35,6 +35,7 @@ $string['addaquestion'] = 'une question';
 $string['addarandomquestion'] = 'une question aléatoire';
 $string['addarandomquestion_help'] = 'Quand une question aléatoire est ajoutée, une question choisie au hasard dans la catégorie est insérée dans le test. Les étudiants auront une sélection de questions différentes. Quand un test permet plusieurs tentatives, chaque tentative pourra contenir une sélection différente de questions.';
 $string['addarandomselectedquestion'] = 'Ajouter une question choisie aléatoirement...';
+$string['addasection'] = 'Un nouveau titre de section';
 $string['adddescriptionlabel'] = 'Ajouter un élément descriptif';
 $string['addingquestion'] = 'Ajout d\'une question';
 $string['addingquestions'] = '<p>Vous gérez votre banque de questions dans cette partie de la page. Les questions sont réparties en catégories, afin de les organiser. Elles peuvent être utilisées dans n\'importe lequel de vos cours, ou même dans d\'autres cours si vous les « publiez ».</p>
@@ -47,6 +48,7 @@ $string['addnewuseroverride'] = 'Ajouter une dérogation d\'utilisateur';
 $string['addpagebreak'] = 'Ajouter un saut de page';
 $string['addpagehere'] = 'Ajouter une page ici';
 $string['addquestion'] = 'Ajouter question';
+$string['addquestionfrombankatend'] = 'Ajouter une question à la fin, tirée de la banque de questions';
 $string['addquestionfrombanktopage'] = 'Ajouter à la page {$a} une question de la banque de questions';
 $string['addquestions'] = 'Ajouter des questions';
 $string['addquestionstoquiz'] = 'Ajouter ces questions au test en cours';
@@ -55,6 +57,7 @@ $string['addrandom1'] = '<< Ajouter';
 $string['addrandom2'] = 'questions aléatoires';
 $string['addrandomfromcategory'] = 'Ajouter des questions aléatoires depuis la catégorie';
 $string['addrandomquestion'] = 'Ajouter question aléatoire';
+$string['addrandomquestionatend'] = 'Ajouter une question aléatoire à la fin';
 $string['addrandomquestiontopage'] = 'Ajouter à la page {$a} une question aléatoire';
 $string['addrandomquestiontoquiz'] = 'Ajouter une question aléatoire au test {$a}';
 $string['addselectedquestionstoquiz'] = 'Ajouter au test les questions sélectionnées';
@@ -105,8 +108,8 @@ $string['attemptsonly'] = 'N\'afficher que les étudiants ayant déjà effectué
 $string['attemptstate'] = 'État';
 $string['attemptstillinprogress'] = 'Tentative encore en cours';
 $string['attemptsunlimited'] = 'Nombre illimité de tentatives';
-$string['autosaveperiod'] = 'Période d\'enregistrement automatique';
-$string['autosaveperiod_desc'] = 'Durant les tests, les réponses des participants peuvent être enregistrées automatiquement toutes les quelques minutes. Il y a cependant une contrepartie : cet enregistrement augmente la charge sur le serveur. Elle réduit en revanche les risques de perte du travail des participants.';
+$string['autosaveperiod'] = 'Délai d\'enregistrement automatique';
+$string['autosaveperiod_desc'] = 'Durant les tests, les réponses des participants peuvent être enregistrées automatiquement. Les réponses sont enregistrées dès que l\'une d\'entre elles est modifiée ou après la durée indiquée ici. Un délai plus court augmente la charge sur le serveur, mais réduit en revanche les risques de perte du travail des participants. Si vous voulez réduire considérablement ce délai, essayez de le diminuer graduellement en observant la charge du serveur. Si elle devient trop grande, allongez le délai. En fixant le délai à 0, l\'enregistrement automatique est désactivé.';
 $string['back'] = 'Retour à la question précédente';
 $string['backtocourse'] = 'Retour au cours';
 $string['backtoquestionlist'] = 'Retour à la liste des questions';
@@ -142,6 +145,14 @@ $string['cannotstartgradesmismatch'] = 'Impossible de commencer une tentative. C
 $string['cannotstartmissingquestion'] = 'Impossible de démarrer ce test. Le test comporte une question qui n\'existe pas.';
 $string['cannotstartnoquestions'] = 'Impossible de commencer une tentative. Ce test n\'a pas encore été configuré et ne comporte aucune question.';
 $string['cannotwrite'] = 'Impossible d\'écrire dans le fichier d\'exportation ({$a})';
+$string['canredoquestions'] = 'Autoriser à répondre à nouveau aux questions au cours d\'une tentative';
+$string['canredoquestions_desc'] = 'Si cette option est activée, après que les élèves ont répondu à une question, ils voient un bouton « Répondre à nouveau à la question ». Cette fonction permet de répondre différemment à la même question, sans avoir à envoyer la tentative de l\'ensemble du test et d\'en commencer une autre. Elle est avant tout utile pour les tests de formation ou d\'entraînement.
+
+Ce réglage n\'affecte que les questions et les comportements offrant aux étudiants la possibilité de terminer la question avant que la tentative ne soit envoyée (par exemple, les comportements « Feedback immédiat » et « Interactif avec essais multiples »). Il ne s\'applique donc pas aux questions de composition.';
+$string['canredoquestions_help'] = 'Si cette option est activée, après que les élèves ont répondu à une question, ils voient un bouton « Répondre à nouveau à la question ». Cette fonction permet de répondre différemment à la même question, sans avoir à envoyer la tentative de l\'ensemble du test et d\'en commencer une autre. Elle est avant tout utile pour les tests de formation ou d\'entraînement.
+
+Ce réglage n\'affecte que les questions et les comportements offrant aux étudiants la possibilité de terminer la question avant que la tentative ne soit envoyée (par exemple, les comportements « Feedback immédiat » et « Interactif avec essais multiples »). Il ne s\'applique donc pas aux questions de composition.';
+$string['canredoquestionsyes'] = 'Les étudiants peuvent répondre à nouveau à toute question terminée';
 $string['caseno'] = 'La casse des caractères indiffère';
 $string['casesensitive'] = 'Casse des caractères';
 $string['caseyes'] = 'La casse des caractères doit être respectée';
@@ -187,13 +198,13 @@ $string['configrequiresubnet'] = 'Les participants me peuvent effectuer des tent
 $string['configreviewoptions'] = 'Ces options déterminent les informations que les participants peuvent voir lorsqu\'ils relisent une tentative de test ou quand ils consultent les rapports de tests.';
 $string['configshowblocks'] = 'Afficher les blocs durant les tests.';
 $string['configshowuserpicture'] = 'Afficher l\'avatar du participant durant les tentatives.';
-$string['configshufflequestions'] = 'Si cette option est activée, l\'ordre des questions des tests sera déterminé aléatoirement lors de chaque tentative de chaque participant.';
 $string['configshufflewithin'] = 'Si cette option est activée, les parties des questions seront mélangées aléatoirement lors de chaque tentative de chaque participant, pour autant que l\'option soit également définie dans les réglages de la question.';
 $string['configtimelimit'] = 'Le temps imparti aux participants pour effectuer les tests, en minutes. Le nombre 0 indique qu\'il n\'y a pas de limite de temps.';
 $string['configtimelimitsec'] = 'Le temps imparti aux participants pour effectuer les tests, en secondes. Le nombre 0 indique qu\'il n\'y a pas de limite de temps.';
 $string['configurerandomquestion'] = 'Configurer la question';
 $string['confirmclose'] = 'Une fois la tentative envoyée, vous n\'aurez plus la possibilité de modifier vos réponses pour cette tentative.';
 $string['confirmremovequestion'] = 'Voulez-vous vraiment supprimer cette question {$a} ?';
+$string['confirmremovesectionheading'] = 'Voulez-vous vraiment supprimer le titre de section « {$a} » ?';
 $string['confirmserverdelete'] = 'Voulez-vous vraiment supprimer le serveur <b>{$a}</b> de la liste ?';
 $string['confirmstartattemptlimit'] = 'Nombre de tentatives permises : {$a}. Vous allez commencer une nouvelle tentative. Voulez-vous continuer ?';
 $string['confirmstartattempttimelimit'] = 'Ce test a une limite de temps et est limité à {$a} tentative(s). Vous êtes sur le point de commencer une nouvelle tentative. Voulez-vous continuer ?';
@@ -357,7 +368,6 @@ $string['finishattemptdots'] = 'Terminer le test...';
 $string['finishreview'] = 'Terminer la relecture';
 $string['forceregeneration'] = 'Forcer l\'actualisation';
 $string['formatnotfound'] = 'Le format d\'importation/exportation {$a} n\'a pas été trouvé';
-$string['formatnotimplemented'] = 'Ce format n\'a pas été implémenté correctement';
 $string['formulaerror'] = 'Erreur de formule';
 $string['fractionsaddwrong'] = 'La somme des notes positives que vous avez choisies n\'atteint pas 100%.<br />Elle est de {$a}%.<br />Souhaitez-vous revenir en arrière pour corriger cela ?';
 $string['fractionsnomax'] = 'L\'une des propositions devrait avoir la note 100% afin qu\'il soit<br />possible d\'obtenir la note maximale à cette question.<br />Souhaitez-vous revenir en arrière pour corriger cela ?';
@@ -366,12 +376,11 @@ $string['functiondisabledbysecuremode'] = 'Cette fonctionnalité est actuellemen
 $string['generalfeedback'] = 'Feedback général';
 $string['generalfeedback_help'] = 'Le feedback général d\'une question est le texte présenté à l\'étudiant après une tentative de réponse. Contrairement au feedback pour une question spécifique, qui dépend du type de question et de la réponse donnée, le même feedback général est toujours affiché.';
 $string['graceperiod'] = 'Délai supplémentaire pour envoi';
-$string['graceperiod_desc'] = 'La valeur par défaut du temps supplémentaire octroyé pour envoyer le test, en secondes, lorsque le réglage déterminant le comportement après le délai offre un laps de temps supplémentaire pour envoyer le test.';
-$string['graceperiod_help'] = 'La valeur par défaut du temps supplémentaire octroyé pour envoyer le test.';
+$string['graceperiod_desc'] = 'Si à l\'échéance du temps imparti, il s\'agit de donner un délai supplémentaire pour envoyer le test, sans permettre de modification aux réponses, cette valeur désigne le temps supplémentaire octroyé, en secondes.';
+$string['graceperiod_help'] = 'Le délai supplémentaire octroyé pour envoyer le test, sans permettre de modifier les réponses.';
 $string['graceperiodmin'] = 'Délai supplémentaire pour envoi';
-$string['graceperiodmin_desc'] = 'Il y a un problème potentiel à la fin du test. Vous voulez laisser travailler les participants jusqu\'à la dernière seconde, et laisser le chronomètre envoyer automatiquement le test lorsque le temps imparti est écoulé. Cependant, le serveur pourrait être surchargé à cet instant et prendre un peu de temps pour traiter les réponses. Pour éviter tout problème et de pénaliser certaines réponses, Moodle les acceptera pendant la durée spécifiée ici après l\'échéance du délai. Cela a pour conséquence que les participants pourraient tricher en utilisant ce laps de temps supplémentaire pour répondre.
-
-C\'est à vous de décider la durée à fixer ici, suivant la performance de votre serveur durant les tests.';
+$string['graceperiodmin_desc'] = 'Un problème peut survenir à la fin d\'un test. D\'une part, vous voulez laisser travailler les participants jusqu\'à la dernière seconde, et laisser le chronomètre envoyer automatiquement le test lorsque le temps imparti est écoulé. D\'autre part, le serveur pourrait être surchargé à cet instant et prendre un peu de temps pour traiter les réponses.
+Pour éviter de pénaliser les participants si le serveur est lent, Moodle accepte les réponses après l\'échéance du délai, durant le laps de temps spécifié ici. Cela a pour conséquence que les participants pourraient tricher en utilisant ce laps de temps supplémentaire pour répondre. C\'est à vous de décider la durée à fixer ici, suivant la performance de votre serveur durant les tests.';
 $string['graceperiodtoosmall'] = 'Le délai supplémentaire doit être plus grand que {$a}';
 $string['grade'] = 'Note';
 $string['gradeall'] = 'Tout évaluer';
@@ -394,6 +403,7 @@ $string['gradingdetailspenalty'] = 'Cet envoi a reçu une pénalité de {$a}.';
 $string['gradingdetailszeropenalty'] = 'Vous n\'avez pas été pénalisé par cet envoi.';
 $string['gradingmethod'] = 'Méthode d\'évaluation : {$a}';
 $string['groupoverrides'] = 'Dérogations de groupe';
+$string['groupoverridesdeleted'] = 'Dérogations de groupe supprimées';
 $string['groupsnone'] = 'Il n\'y a pas de groupe dans ce cours';
 $string['guestsno'] = 'Désolé, les visiteurs anonymes n\'ont pas accès aux tests';
 $string['hidebreaks'] = 'Cacher les sauts de page';
@@ -445,6 +455,7 @@ $string['literal'] = 'Lettre';
 $string['loadingquestionsfailed'] = 'Échec du chargement des questions : {$a}';
 $string['makecopy'] = 'Enregistrer comme nouvelle question';
 $string['managetypes'] = 'Gérer les types de question et les serveurs';
+$string['manualgradequestion'] = 'Évaluer manuellement la question {$a->question} dans {$a->quiz}, de {$a->user}';
 $string['manualgrading'] = 'Attribution des notes';
 $string['mark'] = 'Envoyer';
 $string['markall'] = 'Envoyer la page';
@@ -464,20 +475,21 @@ $string['missingcorrectanswer'] = 'La réponse correcte doit être indiquée';
 $string['missingitemtypename'] = 'Nom manquant';
 $string['missingquestion'] = 'La question n\'existe plus.';
 $string['modulename'] = 'Test';
-$string['modulename_help'] = 'Le module d\'activité test permet à l\'enseignant de concevoir et gérer des tests comportant des questions de divers types, notamment des questions à choix multiples, vrai-faux, de correspondances, à réponses courtes ou calculées.
+$string['modulename_help'] = 'Le module d\'activité test permet à l\'enseignant de créer des tests comportant des questions de divers types, notamment des questions à choix multiples, vrai-faux, de correspondances, à réponses courtes ou calculées.
 
-L\'enseignant peut autoriser plusieurs tentatives pour un test, l\'ordre des questions étant choisi aléatoirement. Une limite de temps peut être fixée au besoin.
+L\'enseignant peut autoriser plusieurs tentatives pour un test, les questions étant mélangées ou choisies aléatoirement dans une banque de questions. Une limite de temps peut être fixée.
 
-Chaque tentative est évaluée automatiquement et la note enregistrée dans le carnet de notes. L\'enseignant peut choisir de donner un feedback et/ou d\'afficher les réponses correctes durant la tentative, immédiatement après la tentative ou ultérieurement, lorsque le test est fermé.
+Chaque tentative est évaluée automatiquement, à l\'exception des questions de composition, et la note est enregistrée dans le carnet de notes.
 
-L\'enseignant peut choisir entre divers comportements de questions, notamment le mode adaptatif, qui propose des indices avant que l\'étudiant n\'essaie une nouvelle fois de répondre, et le feedback immédiat avec évaluation de la certitude de la réponse, où l\'étudiant doit indiquer dans quelle mesure il pense que sa réponse est la bonne.
+L\'enseignant peut choisir quand et si il veut que des indices, un feedback et les réponses correctes soient proposés aux étudiants.
 
-Les tests peuvent être utilisés :
+Les tests peuvent notamment être utilisés :
 
-* comme mini-tests pour des devoirs de lecture ou au terme de l\'étude d\'un thème
-* comme exercice pour un examen, en utilisant les questions de l\'examen de l\'année précédente
-* pour fournir un feedback de performance
-* pour l\'auto-évaluation';
+* pour des évaluations certificatives (examen),
+* comme mini-tests pour des devoirs de lecture ou au terme de l\'étude d\'un thème,
+* comme exercice pour un examen, en utilisant les questions de l\'examen de l\'année précédente,
+* pour fournir un feedback de performance,
+* pour l\'auto-évaluation.';
 $string['modulenameplural'] = 'Tests';
 $string['moveselectedonpage'] = 'Déplacer les questions sélectionnées vers la page {$a}';
 $string['multichoice'] = 'Choix multiples';
@@ -616,6 +628,10 @@ $string['questionbankmanagement'] = 'Gestion banque de questions';
 $string['questionbehaviour'] = 'Comportement des questions';
 $string['questioncats'] = 'Catégories de questions';
 $string['questiondeleted'] = 'Cette question a été supprimée. Veuillez contacter votre enseignant';
+$string['questiondependencyadd'] = 'Il n\'y a pas de restriction sur le moment où cette question peut être tentée. Cliquez pour modifier';
+$string['questiondependencyfree'] = 'Il n\'y a pas de restriction sur cette question.';
+$string['questiondependencyremove'] = 'La question {$a->thisq} ne peut pas être tentée avant que la question précédente {$a->previousq} ait reçu une réponse. Cliquez pour modifier';
+$string['questiondependsonprevious'] = 'Cette question ne peut pas être tentée avant que la question précédente ait reçu une réponse.';
 $string['questioninuse'] = 'La question « {$a->questionname} » est actuellement utilisée dans<br />{$a->quiznames}<br />Elle ne sera pas retirée de ce(s) test(s), mais seulement de la catégorie.';
 $string['questionmissing'] = 'La question est manquante pour cette session';
 $string['questionname'] = 'Nom de la question';
@@ -652,7 +668,7 @@ $string['quizisclosedwillopen'] = 'Test fermé (ouverture {$a})';
 $string['quizisopen'] = 'Ce test est ouvert';
 $string['quizisopenwillclose'] = 'Test ouvert (fermera le {$a})';
 $string['quiz:manage'] = 'Gérer les tests';
-$string['quiz:manageoverrides'] = 'Gérer les modifications de test';
+$string['quiz:manageoverrides'] = 'Gérer les dérogations de test';
 $string['quiznavigation'] = 'Navigation du test';
 $string['quizopen'] = 'Ouvrir ce test';
 $string['quizopenclose'] = 'Dates d\'ouverture et de fermeture';
@@ -683,6 +699,8 @@ $string['readytosend'] = 'Vous êtes sur le point d\'envoyer votre test à l\'é
 $string['reattemptquiz'] = 'Effectuer de nouveau le test';
 $string['recentlyaddedquestion'] = 'Question ajoutée récemment !';
 $string['recurse'] = 'Afficher aussi les questions des sous-catégories';
+$string['redoesofthisquestion'] = 'Autres questions déjà répondues ici : {$a}';
+$string['redoquestion'] = 'Répondre à nouveau à la question';
 $string['regrade'] = 'Recalculer les notes de toutes les tentatives';
 $string['regradecomplete'] = 'Toutes les notes ont été recalculées';
 $string['regradecount'] = '{$a->changed} sur {$a->attempt} notes ont été changées';
@@ -691,7 +709,9 @@ $string['regradenotallowed'] = 'Vous n\'avez pas les droits d\'accès requis pou
 $string['regradingquestion'] = 'Nouveau calcul de « {$a} ».';
 $string['regradingquiz'] = 'Nouveau calcul des notes du test « {$a} »';
 $string['remove'] = 'Supprimer';
+$string['removeallgroupoverrides'] = 'Supprimer toutes les dérogations de groupe';
 $string['removeallquizattempts'] = 'Supprimer toutes les tentatives des tests';
+$string['removealluseroverrides'] = 'Supprimer toutes les dérogations utilisateur';
 $string['removeemptypage'] = 'Supprimer page vide';
 $string['removepagebreak'] = 'Supprimer le saut de page';
 $string['removeselected'] = 'Retirer la sélection';
@@ -722,7 +742,7 @@ $string['reports'] = 'Rapports';
 $string['reportshowonly'] = 'Afficher selon les tentatives';
 $string['reportshowonlyfinished'] = 'Afficher au plus une tentative terminée par utilisateur ({$a})';
 $string['reportsimplestat'] = 'Statistique simple';
-$string['reportusersall'] = 'tous les utilisateurs ayant effectué le test';
+$string['reportusersall'] = 'Tous les utilisateurs qui ont effectué le test';
 $string['reportuserswith'] = 'Les utilisateurs inscrits qui ont effectué le test';
 $string['reportuserswithorwithout'] = 'Les utilisateurs inscrits qui ont ou n\'ont pas effectué le test';
 $string['reportuserswithout'] = 'Les utilisateurs inscrits qui n\'ont pas effectué le test';
@@ -748,12 +768,13 @@ $string['reviewimmediately'] = 'Immédiatement après la tentative';
 $string['reviewnever'] = 'Ne jamais permettre la relecture';
 $string['reviewofattempt'] = 'Relecture de la tentative {$a}';
 $string['reviewofpreview'] = 'Relecture de la prévisualisation';
+$string['reviewofquestion'] = 'Relecture de la question {$a->question} dans {$a->quiz}, de {$a->user}';
 $string['reviewopen'] = 'Plus tard, alors que le test est encore ouvert';
 $string['reviewoptions'] = 'Les étudiants peuvent relire';
 $string['reviewoptionsheading'] = 'Options de relecture';
 $string['reviewoptionsheading_help'] = 'Ces options permettent de décider les informations que les participants au test peuvent voir lorsqu\'ils relisent une tentative ou consultent les rapports des tests effectués.
 
-**Durant la tentative** n\'est valable que pour certains comportements de test, par exemple Interactif avec plusieurs essais, qui peut afficher des feedbacks durant la tentative.
+**Durant la tentative** n\'est valable que pour certains comportements de test, par exemple « Interactif avec essais multiples », qui peut afficher des feedbacks durant la tentative.
 
 **Immédiatement après la tentative** signifie dans les deux minutes après que le participant a terminé sa tentative en cliquant sur le bouton « Tout envoyer et terminer ».
 
@@ -782,6 +803,8 @@ $string['savingnewgradeforquestion'] = 'Enregistrement d\'une nouvelle note pour
 $string['savingnewmaximumgrade'] = 'Enregistrement de la nouvelle note maximale.';
 $string['score'] = 'Score brut';
 $string['scores'] = 'Scores';
+$string['sectionheadingedit'] = 'Modifier le titre « {$a} »';
+$string['sectionheadingremove'] = 'Supprimer le titre « {$a} »';
 $string['seequestions'] = '(voir les questions)';
 $string['select'] = 'Sélectionner';
 $string['selectall'] = 'Tout sélectionner';
@@ -819,8 +842,10 @@ $string['showuserpicture_help'] = 'Si ce réglage est activé, le nom et l\'avat
 $string['shuffle'] = 'Mélanger';
 $string['shuffleanswers'] = 'Mélanger les réponses';
 $string['shuffledrandomly'] = 'Mélangées aléatoirement';
-$string['shufflequestions'] = 'Mélanger les questions';
-$string['shufflequestionsselected'] = 'Le mélange des questions a été activé. Certaines options relatives aux pages ne sont pas disponibles. Pour changer le réglage du mélange des questions, {$a}';
+$string['shufflequestions'] = 'Mélanger';
+$string['shufflequestions_help'] = 'Si ce réglage est activé, à chaque tentative du test, l\'ordre des questions dans cette section sera mélangé dans un ordre aléatoire différent.
+
+Ceci permet de rendre plus difficile le partage des réponses entre étudiants, mais rend également plus difficile les discussions entre les étudiants et vous sur une question déterminée.';
 $string['shufflewithin'] = 'Mélanger les éléments des questions';
 $string['shufflewithin_help'] = 'Si cette option est activée, les propositions de réponses aux questions seront mélangées aléatoirement à chaque nouvelle tentative du test, à condition que l\'option correspondant ait également été activée dans les paramètres de la question. Le réglage ne s\'applique qu\'aux questions qui comportent des propositions de réponses, telles que les questions à choix multiples ou les questions d\'appariement.';
 $string['singleanswer'] = 'Veuillez choisir une réponse.';
@@ -894,6 +919,7 @@ $string['upgradingveryoldquizattempts'] = 'Mise à jour des tentatives vraiment 
 $string['url'] = 'URL';
 $string['usedcategorymoved'] = 'Cette catégorie a été déplacée au niveau du site, car elle est publiée et certaines de ses questions sont utilisées dans d\'autres cours.';
 $string['useroverrides'] = 'Dérogations utilisateur';
+$string['useroverridesdeleted'] = 'Dérogations utilisateur supprimées';
 $string['usersnone'] = 'Aucun étudiant n\'a accès à ce test';
 $string['validate'] = 'Valider';
 $string['viewallanswers'] = 'Afficher les {$a} tentatives du test';

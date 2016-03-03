@@ -34,8 +34,8 @@ $coursecontext = context_course::instance($course->id);
 require_login();
 
 if ($SITE->id == $course->id || !can_delete_course($id)) {
-	// Can not delete frontpage or don't have permission to delete the course.
-	print_error('cannotdeletecourse');
+    // Can not delete frontpage or don't have permission to delete the course.
+    print_error('cannotdeletecourse');
 }
 
 $categorycontext = context_coursecat::instance($course->category);
@@ -50,25 +50,25 @@ $categoryurl = new moodle_url('/course/management.php', array('categoryid' => $c
 
 // Check if we've got confirmation.
 if ($delete === md5($course->timemodified)) {
-	// We do - time to delete the course.
-	require_sesskey();
+    // We do - time to delete the course.
+    require_sesskey();
 
-	$strdeletingcourse = get_string("deletingcourse", "", $courseshortname);
+    $strdeletingcourse = get_string("deletingcourse", "", $courseshortname);
 
-	$PAGE->navbar->add($strdeletingcourse);
-	$PAGE->set_title("$SITE->shortname: $strdeletingcourse");
-	$PAGE->set_heading($SITE->fullname);
+    $PAGE->navbar->add($strdeletingcourse);
+    $PAGE->set_title("$SITE->shortname: $strdeletingcourse");
+    $PAGE->set_heading($SITE->fullname);
 
-	echo $OUTPUT->header();
-	echo $OUTPUT->heading($strdeletingcourse);
-	// We do this here because it spits out feedback as it goes.
-	delete_course($course);
-	echo $OUTPUT->heading( get_string("deletedcourse", "", $courseshortname) );
-	// Update course count in categories.
-	fix_course_sortorder();
-	echo $OUTPUT->continue_button($categoryurl);
-	echo $OUTPUT->footer();
-	exit; // We must exit here!!!
+    echo $OUTPUT->header();
+    echo $OUTPUT->heading($strdeletingcourse);
+    // We do this here because it spits out feedback as it goes.
+    delete_course($course);
+    echo $OUTPUT->heading( get_string("deletedcourse", "", $courseshortname) );
+    // Update course count in categories.
+    fix_course_sortorder();
+    echo $OUTPUT->continue_button($categoryurl);
+    echo $OUTPUT->footer();
+    exit; // We must exit here!!!
 }
 
 $strdeletecheck = get_string("deletecheck", "", $courseshortname);
@@ -76,11 +76,12 @@ $strdeletecoursecheck = get_string("deletecoursecheck");
 $message = "{$strdeletecoursecheck}<br /><br />{$coursefullname} ({$courseshortname})";
 
 $continueurl = new moodle_url('/course/delete.php', array('id' => $course->id, 'delete' => md5($course->timemodified)));
+$continuebutton = new single_button($continueurl, get_string('delete'), 'post');
 
 $PAGE->navbar->add($strdeletecheck);
 $PAGE->set_title("$SITE->shortname: $strdeletecheck");
 $PAGE->set_heading($SITE->fullname);
 echo $OUTPUT->header();
-echo $OUTPUT->confirm($message, $continueurl, $categoryurl);
+echo $OUTPUT->confirm($message, $continuebutton, $categoryurl);
 echo $OUTPUT->footer();
 exit;

@@ -24,6 +24,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+use local_orange_library\utilities\utilities_network;
+
 /**
  * Event observer for block orange_ruels.
  */
@@ -51,47 +53,53 @@ class local_orange_event_user_loggedin_observer {
             $contact = core_user::get_support_user();
             $siteurl = $CFG->wwwroot;
 
-            // Send account email reminder.
-            $message = get_string('contentuseraccountemail', 'local_orange_event_user_loggedin');
-            $key = array('{$a->fullname}', '{$a->email}', '{$a->sitename}', '{$a->siteurl}', '{$a->profileurl}');
-            $value = array(fullname($user[$event->objectid]), $user[$event->objectid]->email, format_string($site->fullname),
-                $siteurl, $profileurl);
-            $message = str_replace($key, $value, $message);
-            if (strpos($message, '<') === false) {
-                // Plain text only.
-                $messagetext = $message;
-                $messagehtml = text_to_html($messagetext, null, false, true);
-            } else {
-                // This is most probably the tag/newline soup known as FORMAT_MOODLE.
-                $messagehtml = $message;
-                $messagetext = html_to_text($messagehtml);
+            if ((utilities_network::is_platform_uses_mnet() && utilities_network::is_home()) ||
+                ($CFG->solerni_isprivate)) {
+                // Send account email reminder.
+                $message = get_string('contentuseraccountemail', 'local_orange_event_user_loggedin');
+                $key = array('{$a->fullname}', '{$a->email}', '{$a->sitename}', '{$a->siteurl}', '{$a->profileurl}');
+                $value = array(fullname($user[$event->objectid]), $user[$event->objectid]->email, format_string($site->fullname),
+                    $siteurl, $profileurl);
+                $message = str_replace($key, $value, $message);
+                if (strpos($message, '<') === false) {
+                    // Plain text only.
+                    $messagetext = $message;
+                    $messagehtml = text_to_html($messagetext, null, false, true);
+                } else {
+                    // This is most probably the tag/newline soup known as FORMAT_MOODLE.
+                    $messagehtml = $message;
+                    $messagetext = html_to_text($messagehtml);
+                }
+
+                $subject = get_string('subjectuseraccountemail', 'local_orange_event_user_loggedin');
+                $subject = str_replace('{$a->sitename}', format_string($site->fullname), $subject);
+
+                email_to_user($user[$event->objectid], $contact, $subject, $messagetext, $messagehtml);
             }
 
-            $subject = get_string('subjectuseraccountemail', 'local_orange_event_user_loggedin');
-            $subject = str_replace('{$a->sitename}', format_string($site->fullname), $subject);
+            if ((utilities_network::is_platform_uses_mnet() && utilities_network::is_thematic()) ||
+                ($CFG->solerni_isprivate)) {
+                // Send welcome message.
+                $message = get_string('contentwelcomeemail', 'local_orange_event_user_loggedin');
+                $key = array('{$a->fullname}', '{$a->email}', '{$a->sitename}', '{$a->siteurl}', '{$a->profileurl}');
+                $value = array(fullname($user[$event->objectid]), $user[$event->objectid]->email, format_string($site->fullname),
+                    $siteurl, $profileurl);
+                $message = str_replace($key, $value, $message);
+                if (strpos($message, '<') === false) {
+                    // Plain text only.
+                    $messagetext = $message;
+                    $messagehtml = text_to_html($messagetext, null, false, true);
+                } else {
+                    // This is most probably the tag/newline soup known as FORMAT_MOODLE.
+                    $messagehtml = $message;
+                    $messagetext = html_to_text($messagehtml);
+                }
 
-            email_to_user($user[$event->objectid], $contact, $subject, $messagetext, $messagehtml);
+                $subject = get_string('subjectwelcomeemail', 'local_orange_event_user_loggedin');
+                $subject = str_replace('{$a->sitename}', format_string($site->fullname), $subject);
 
-            // Send welcome message.
-            $message = get_string('contentwelcomeemail', 'local_orange_event_user_loggedin');
-            $key = array('{$a->fullname}', '{$a->email}', '{$a->sitename}', '{$a->siteurl}', '{$a->profileurl}');
-            $value = array(fullname($user[$event->objectid]), $user[$event->objectid]->email, format_string($site->fullname),
-                $siteurl, $profileurl);
-            $message = str_replace($key, $value, $message);
-            if (strpos($message, '<') === false) {
-                // Plain text only.
-                $messagetext = $message;
-                $messagehtml = text_to_html($messagetext, null, false, true);
-            } else {
-                // This is most probably the tag/newline soup known as FORMAT_MOODLE.
-                $messagehtml = $message;
-                $messagetext = html_to_text($messagehtml);
+                email_to_user($user[$event->objectid], $contact, $subject, $messagetext, $messagehtml);
             }
-
-            $subject = get_string('subjectwelcomeemail', 'local_orange_event_user_loggedin');
-            $subject = str_replace('{$a->sitename}', format_string($site->fullname), $subject);
-
-            email_to_user($user[$event->objectid], $contact, $subject, $messagetext, $messagehtml);
 
             // Redirection to a course page in case of MoodleEnrolToken cookie.
             // This cookie is set when the user subscribe to the platform and to a course at the same time.

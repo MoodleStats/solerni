@@ -27,7 +27,7 @@ $string['pluginname'] = 'Solerni Mail';
 $string['orange_mail:config'] = 'Configuration du plugin Orange mail';
 $string['mailsetting'] = 'Configuration';
 $string['mailgenerate'] = 'Génération des modèles';
-$string['mailgeneratestatus'] = 'Génération des modèles de mails terminée.';
+$string['mailgeneratestatus'] = 'Génération des modèles de mails terminée. Vous devez purger les caches afin que ces nouveaux modèles soient pris en compte.';
 $string['mailtest'] = 'Envoi d\'emails de test';
 $string['mailteststatus'] = 'Envoi des emails de test terminé.';
 $string['pluginname_desc'] = 'Ce plugin permet de configurer les email envoyé par Solerni.';
@@ -141,10 +141,10 @@ $string['contentuseraccountemail'] = '<p>Bonjour <span class="txt18BNoir">{$a->f
 Nous vous remercions pour votre inscription sur le site <strong>{$a->sitename}</strong>.</p>
 <p>Voici un rappel de vos identifiants de connexion pour accéder à votre compte :</p>
 <ul>
-    <li>Email : <a href=\'{$a->email}\' class="lientxt18orange">{$a->email}</a></li>
+    <li>E-mail : <a href="mailto:{$a->email}" class="lientxt18orange">{$a->email}</a></li>
     <li>Mot de passe : vous seul le connaissez</li>
 </ul>
-<p>Vous pouvez dès à présent accéder à votre compte en cliquant <a href="{$a->profilurl}" class="lientxt18orange">ici</a>.</p>
+<p>Vous pouvez dès à présent accéder à votre compte en cliquant <a href="{$a->profileurl}" class="lientxt18orange">ici</a>.</p>
 <p>A très vite sur {$a->sitename}, votre nouvelle plateforme de Moocs francophone collaborative.</p>';
 
 $string['contentwelcomeemail'] = '<p>Bienvenue <span class="txt18BNoir">{$a->fullname}</span>,</p>
@@ -159,24 +159,13 @@ $string['contentwelcomeemail'] = '<p>Bienvenue <span class="txt18BNoir">{$a->ful
 <p>Et pour être sûr(e) de pouvoir échanger avec les autres apprenants et les pédagogues, n’oubliez pas de remplir et de paramétrer votre <a href="{$b->profilurl}" class="lientxt18orange">profil</a>.</p>
 <p>Voilà, vous êtes prêt(e) à présent pour vous lancer avec nous dans l’aventure des Moocs collaboratifs.
 En espérant vous retrouver très vite sur {$a->sitename} où nous vous souhaitons de vivre de nouvelles expériences enrichissantes&nbsp;!</p>';
-$string['emailresetconfirmationhtml'] = '<p>Bienvenue <span class="txt18BNoir">{$a->firstname} {$a->lastname}</span>,</p>
+$string['emailresetconfirmation'] = '<p>Bienvenue <span class="txt18BNoir">{$a->firstname} {$a->lastname}</span>,</p>
 
 <p> Vous avez demandé la réinitialisation de votre mot de passe. Si vous n\'êtes pas à l\'origine de cette action, veuillez ignorer ce message.</p>
 
 Votre pseudo est : <span class="txt18BNoir">{$a->username}</span>
 <br />
 <p><a href="{$a->link}" class="lientxt18orange">Veuillez cliquer sur ce lien pour réinitialiser votre mot de passe</a>';
-$string['emailresetconfirmation'] = 'Bonjour <span class="txt18BNoir">{$a->firstname}</span>,
-
-Vous avez demandé la réinitialisation de votre mot de passe. Si vous n\'êtes pas à l\'origine de cette action, veuillez ignorer ce message.
-
-Votre pseudo est : <span class="txt18BNoir">{$a->username}</span>.
-
-Veuillez cliquer sur le lien suivant pour réinitialiser votre mot de passe :
-{$a->link}
-
-Si le lien ne fonctionne pas, copiez-collez le lien dans la barre d\'adresse de votre navigateur.
-';
 $string['emailconfirmation'] = '<p>Bonjour <span class="txt18BNoir">{$a->firstname}</span>,</p>
 
 <p>Nous avons reçu une demande d’inscription de votre part avec votre adresse e-mail.</p>

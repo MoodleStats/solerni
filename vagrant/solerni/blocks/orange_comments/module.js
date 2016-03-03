@@ -17,7 +17,7 @@
  * Comment Helper
  * @author Dongsheng Cai <dongsheng@moodle.com>
  */
-M.block_orange_comment = {
+M.block_orange_comments = {
     /**
      * Initialize commenting system
      */
@@ -25,19 +25,21 @@ M.block_orange_comment = {
         var CommentHelper = function(args) {
             CommentHelper.superclass.constructor.apply(this, arguments);
         };
-        CommentHelper.NAME = "COMMENT";
+        CommentHelper.NAME = "ORANGE_COMMENTS";
         CommentHelper.ATTRS = {
             options: {},
             lang: {}
         };
         Y.extend(CommentHelper, Y.Base, {
-            api: M.cfg.wwwroot+'/comment/comment_ajax.php',
+            api: M.cfg.wwwroot+'/blocks/orange_comments/comment_ajax.php',
             initializer: function(args) {
                 var scope = this;
                 this.client_id = args.client_id;
                 this.itemid = args.itemid;
                 this.commentarea = args.commentarea;
                 this.component = args.component;
+                this.pluginname = args.pluginname;
+                this.plugintype = args.plugintype;
                 this.courseid = args.courseid;
                 this.contextid = args.contextid;
                 this.autostart = (args.autostart);
@@ -57,6 +59,8 @@ M.block_orange_comment = {
                         this.view(0);
                         return false;
                     }, this);
+                    this.register_delete_buttons();
+                    this.register_pagination();
                 }
                 scope.toggle_textarea(false);
             },
@@ -64,7 +68,7 @@ M.block_orange_comment = {
                 var ta = Y.one('#dlg-content-'+this.client_id);
                 var scope = this;
                 var value = ta.get('value');
-                if (value && value != M.util.get_string('addcomment', 'moodle')) {
+                if (value && value != M.util.get_string('saysomething', 'block_orange_comments')) {
                     var params = {'content': value};
                     this.request({
                         action: 'add',
@@ -121,6 +125,8 @@ M.block_orange_comment = {
                 params['courseid']  = this.courseid;
                 params['contextid'] = this.contextid;
                 params['component'] = this.component;
+                params['pluginname'] = this.pluginname;
+                params['plugintype'] = this.plugintype;
                 if (args['params']) {
                     for (i in args['params']) {
                         params[i] = args['params'][i];
@@ -381,13 +387,13 @@ M.block_orange_comment = {
                     return false;
                 }
                 if (focus) {
-                    if (t.get('value') == M.util.get_string('addcomment', 'moodle')) {
+                    if (t.get('value') == M.util.get_string('saysomething', 'block_orange_comments')) {
                         t.set('value', '');
                         t.setStyle('color', 'black');
                     }
-                }else{
+                } else {
                     if (t.get('value') == '') {
-                        t.set('value', M.util.get_string('addcomment', 'moodle'));
+                        t.set('value', M.util.get_string('saysomething', 'block_orange_comments'));
                         t.setStyle('color','grey');
                         t.set('rows', 2);
                     }
