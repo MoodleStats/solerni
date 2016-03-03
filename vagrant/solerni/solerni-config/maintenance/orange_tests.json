@@ -1,1 +1,8 @@
-[{"directory": "local/orange_rules"},{"directory": "blocks/orange_badges"},{"directory": "local/orange__customers"},{"directory": "local/orange_mail"}]
+[
+    {"class": "log_and_session_utilities_testcase",
+    "file": "theme/halloween/tests/log_and_session_utilities_test.php"},
+    {"class": "utilities_network_testcase",
+    "file": "local/orange_library/tests/utilities_network_test.php"},
+    {"class": "local_orange_rules_events_testcase",
+    "file": "local/orange_rules/tests/event_test.php"}
+]
