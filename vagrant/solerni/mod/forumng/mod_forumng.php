@@ -2444,10 +2444,16 @@ WHERE
             // User must be logged in and able to access the activity. (This
             // call sets up the global course and checks various other access
             // restrictions that apply at course-module level, such as visibility.)
+
             if (count((array)$course) == 1) {
                 require_login($course->id, $autologinasguest, $cm);
             } else {
-                require_login($course, $autologinasguest, $cm);
+                // ORANGE : open forumng in home page at all users
+                if($course->id == 1) {
+                    require_capability('mod/forumng:view', $context);
+                } else {
+                    require_login($course, $autologinasguest, $cm);
+                }
             }
         } else {
             // Since require_login is not being called, we need to set up $PAGE->context
@@ -2580,7 +2586,8 @@ WHERE
         global $CFG, $USER;
         $user = mod_forumng_utils::get_user($userid);
         return $this->can_view_discussions($userid)
-                && $CFG->forumng_trackreadposts && !isguestuser($user);
+                && $CFG->forumng_trackreadposts && !isguestuser($user)
+                && isloggedin();
     }
 
     /**
