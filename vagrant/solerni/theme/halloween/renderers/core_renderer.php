@@ -347,4 +347,48 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
 
         return $html;
     }
+
+    public function redirect_message($encodedurl, $message, $delay, $debugdisableredirect) {
+        global $CFG;
+        $url = str_replace('&amp;', '&', $encodedurl);
+
+        switch ($this->page->state) {
+            case moodle_page::STATE_BEFORE_HEADER :
+                // No output yet it is safe to delivery the full arsenal of redirect methods
+                if (!$debugdisableredirect) {
+                    // Don't use exactly the same time here, it can cause problems when both redirects fire at the same time.
+                    $this->metarefreshtag = '<meta http-equiv="refresh" content="'. $delay .'; url='. $encodedurl .'" />'."\n";
+                    $this->page->requires->js_function_call('document.location.replace', array($url), false, ($delay + 3));
+                }
+                $output = $this->header();
+                break;
+            case moodle_page::STATE_PRINTING_HEADER :
+                // We should hopefully never get here
+                throw new coding_exception('You cannot redirect while printing the page header');
+                break;
+            case moodle_page::STATE_IN_BODY :
+                // We really shouldn't be here but we can deal with this
+                debugging("You should really redirect before you start page output");
+                if (!$debugdisableredirect) {
+                    $this->page->requires->js_function_call('document.location.replace', array($url), false, $delay);
+                }
+                $output = $this->opencontainers->pop_all_but_last();
+                break;
+            case moodle_page::STATE_DONE :
+                // Too late to be calling redirect now
+                throw new coding_exception('You cannot redirect after the entire page has been generated');
+                break;
+        }
+
+        $output .= $this->notification($message, 'redirectmessage');
+        $output .= '<div class="text-center">';
+            $output .= '<a class="btn btn-primary" href="'. $encodedurl .'">'. get_string('continue') .'</a>';
+        $output .= '</div>';
+        if ($debugdisableredirect) {
+            $output .= '<p><strong>'.get_string('erroroutput', 'error').'</strong></p>';
+        }
+        $output .= $this->footer();
+
+        return $output;
+    }
 }
