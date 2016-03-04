@@ -132,7 +132,7 @@ if ($frm and isset($frm->username)) {
             // unset previous session language - use user preference instead
             unset($SESSION->lang);
         }
-        
+
         // This account need to have its email confirmed
         if (empty($user->confirmed)) {
             $PAGE->set_title(get_string("mustconfirm"));
@@ -221,14 +221,25 @@ if ($session_has_timed_out and !data_submitted()) {
 }
 
 /// First, let's remember where the user was trying to get to before they got here
-if (empty($SESSION->wantsurl)) {
-    $SESSION->wantsurl = (array_key_exists('HTTP_REFERER',$_SERVER) &&
-                          $_SERVER["HTTP_REFERER"] != $CFG->wwwroot &&
-                          $_SERVER["HTTP_REFERER"] != $CFG->wwwroot.'/' &&
-                          $_SERVER["HTTP_REFERER"] != $CFG->httpswwwroot.'/login/' &&
-                          strpos($_SERVER["HTTP_REFERER"], $CFG->httpswwwroot.'/login/?') !== 0 &&
-                          strpos($_SERVER["HTTP_REFERER"], $CFG->httpswwwroot.'/login/index.php') !== 0) // There might be some extra params such as ?lang=.
-        ? $_SERVER["HTTP_REFERER"] : NULL;
+if (empty($SESSION->wantsurl) && array_key_exists('HTTP_REFERER',$_SERVER)) {
+    $specialurls = array($CFG->wwwroot, $CFG->wwwroot.'/', $CFG->httpswwwroot.'/login/',
+    $CFG->httpswwwroot.'/login/?', $CFG->httpswwwroot.'/login/index.php',
+    $CFG->wwwroot.'/local/goodbye/index.php');
+
+    foreach($specialurls as $urlfragment) {
+        if (strpos($_SERVER["HTTP_REFERER"], $urlfragment) !== false) {
+            $nogo = true;
+        }
+    }
+
+    if(!isset($nogo)) {
+        $SESSION->wantsurl = $_SERVER["HTTP_REFERER"];
+    }
+}
+
+// We need a value later in this page
+if (!isset($SESSION->wantsurl)) {
+    $SESSION->wantsurl = NULL;
 }
 
 /// Redirect to alternative login URL if needed
