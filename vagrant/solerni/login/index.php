@@ -220,24 +220,42 @@ if ($session_has_timed_out and !data_submitted()) {
     $errorcode = 4;
 }
 
-/// First, let's remember where the user was trying to get to before they got here
+/// First, let's remember where the user was trying to get to before they got here.
 if (empty($SESSION->wantsurl) && array_key_exists('HTTP_REFERER',$_SERVER)) {
-    $specialurls = array($CFG->wwwroot, $CFG->wwwroot.'/', $CFG->httpswwwroot.'/login/',
-    $CFG->httpswwwroot.'/login/?', $CFG->httpswwwroot.'/login/index.php',
-    $CFG->wwwroot.'/local/goodbye/index.php');
 
-    foreach($specialurls as $urlfragment) {
-        if (strpos($_SERVER["HTTP_REFERER"], $urlfragment) !== false) {
-            $nogo = true;
+    // array of urls with strict comparaison, or not.
+    $specialurls = array(
+        array('url' => $CFG->wwwroot, 'strict' => true),
+        array('url' => $CFG->wwwroot.'/', 'strict' => true),
+        array('url' => $CFG->httpswwwroot.'/login/', 'strict' => false),
+        array('url' => $CFG->wwwroot.'/login/', 'strict' => false),
+        array('url' => $CFG->wwwroot.'/local/goodbye/index.php', 'strict' => false)
+    );
+    $nogo = false;
+
+    //referrer is another domain
+    if (strpos($_SERVER["HTTP_REFERER"], $CFG->wwwroot) === false) {
+         $nogo = true;
+    }
+
+    // Check each specialurl unless allready resolved.
+    if (!$nogo) {
+        foreach($specialurls as $url) {
+            if($url['strict']) {
+                $nogo = ($url['url'] == $_SERVER["HTTP_REFERER"]) ? true : false;
+            } else {
+                $nogo = (strpos($_SERVER["HTTP_REFERER"], $url['url']) !==  false) ? true : false;
+            }
         }
     }
 
-    if(!isset($nogo)) {
+    // Register the referrer as wanted url if referrer is not enlisted as exception.
+    if(!$nogo) {
         $SESSION->wantsurl = $_SERVER["HTTP_REFERER"];
     }
 }
 
-// We need a value later in this page
+// We need a value later in this page.
 if (!isset($SESSION->wantsurl)) {
     $SESSION->wantsurl = NULL;
 }
