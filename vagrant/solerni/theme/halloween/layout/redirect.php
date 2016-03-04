@@ -27,19 +27,25 @@ echo $OUTPUT->doctype() ?>
 
 <body <?php echo $OUTPUT->body_attributes(); ?>>
 <?php echo $OUTPUT->standard_top_of_body_html() ?>
+    <script>
+        document.body.className += ' jsenabled';
+    </script>
     <div class="u-inverse">
         <?php require_once($CFG->partialsdir . '/header/skiplinks.php'); ?>
     </div>
     <?php if (utilities_network::is_platform_uses_mnet()) : ?>
-    <div class="container">
+    <div class="u-inverse">
         <?php require_once($CFG->partialsdir . '/header/nav-resac.php'); ?>
+    </div>
+    <div class="u-inverse">
+        <div class="col-xs-12 fullwidth-line"></div>
     </div>
     <?php endif; ?>
     <!-- header -->
     <div class="u-inverse">
         <?php require($CFG->partialsdir . '/header/header_solerni.php'); ?>
     </div>
-
+    <!-- content -->
     <div id="page">
         <div id="page-content" class="clearfix">
             <?php echo $OUTPUT->main_content(); ?>
