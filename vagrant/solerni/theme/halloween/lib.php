@@ -162,7 +162,8 @@ function theme_halloween_redirect_if_wantsurl() {
     // Those page are redirection free.
     if( strpos('/enrol/index.php', $PAGE->url->get_path()) !== false
         || strpos('/user/policy.php', $PAGE->url->get_path()) !== false
-        || strpos('/logout.php', $PAGE->url->get_path()) !== false) {
+        || strpos('/logout.php', $PAGE->url->get_path()) !== false
+        || strpos('/change_password.php', $PAGE->url->get_path()) !== false) {
             return;
     }
 
