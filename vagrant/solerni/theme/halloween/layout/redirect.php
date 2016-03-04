@@ -47,7 +47,7 @@ echo $OUTPUT->doctype() ?>
     </div>
     <!-- content -->
     <div id="page">
-        <div id="page-content" class="clearfix">
+        <div id="page-content" class="container clearfix">
             <?php echo $OUTPUT->main_content(); ?>
         </div>
     </div>
