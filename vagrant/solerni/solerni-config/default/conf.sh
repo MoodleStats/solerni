@@ -268,3 +268,6 @@ moosh role-update-capability-ctx solerni_client moodle/block:view prevent block 
 moosh role-update-capability-ctx solerni_teacher moodle/block:view allow block settings
 moosh role-update-capability-ctx solerni_course_creator moodle/block:view allow block settings
 moosh role-update-capability-ctx solerni_marketing moodle/block:view allow block settings
+
+# cgu = '' on all platforms except HOME, if a value exists in config.php, it will be kept (#us_485)
+moosh config-set sitepolicy ''
