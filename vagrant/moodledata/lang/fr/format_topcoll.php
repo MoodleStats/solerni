@@ -148,10 +148,12 @@ $string['defaulttogglepersistence_desc'] = '« On » ou « Off ». Vous devr
 Remarque : mettre la persistance sur \'Off\' supprime toutes les lignes contenant \'topcoll_toggle_x\' dans le champ \'name\' de la table \'user_preferences de la base de données (quand \'x\' dans \'topcoll_toggle_x\' correspond à l\'id du cours).';
 $string['defaultuserpreference'] = 'Que faire avec les sections basculées lorsque l\'utilisateur accède pour la première fois au cours, ou lors d\'ajout de sections.';
 $string['defaultuserpreference_desc'] = 'Ce réglage établit le comportement de base des sections réduites lorsque l\'utilisateur accède pour la première fois au cours, ou lorsque sont ajoutées des sections au cours.';
+$string['deletesection'] = 'Supprimer la section';
 $string['displayinstructions'] = 'Afficher les instructions';
 $string['displayinstructions_help'] = 'Définit si les instructions seront affichées aux utilisateurs';
 $string['donotshowdate'] = 'Ne pas afficher la date';
 $string['donotshowdate_help'] = 'Ne pas afficher la date lors de l\'utilisation d\'une structure hebdomadaire avec l\'option ­« nom de la section par défaut » décochée.';
+$string['editsection'] = 'Modifier la section';
 $string['em0_0'] = '0.0em';
 $string['em0_1'] = '0.1em';
 $string['em0_2'] = '0.2em';
