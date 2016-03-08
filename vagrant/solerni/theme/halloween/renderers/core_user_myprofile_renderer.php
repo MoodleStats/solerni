@@ -44,18 +44,26 @@ class theme_halloween_core_user_myprofile_renderer extends core_user\output\mypr
      */
     public function render_tree(core_user\output\myprofile\tree $tree) {
         global $USER;
-        $return = \html_writer::tag('h1', fullname($USER));
+        $userid = optional_param('id', 0, PARAM_INT);
+        $ismyprofile = ($userid == $USER->id) || empty($userid);
+        
+        $return = "";
+        if ($ismyprofile) {
+            $return = \html_writer::tag('h1', fullname($USER));
+        }
         $return .= \html_writer::start_tag('div', array('class' => 'profile_tree'));
         $categories = $tree->categories;
         foreach ($categories as $category) {
             $return .= $this->render($category);
         }
         $return .= \html_writer::end_tag('div');
-        // Add delete account button.
-        $deleteaccount = \html_writer::link(new moodle_url('/local/goodbye/index.php'),
-                get_string('manageaccount', 'local_goodbye'),
-                array('class' => 'btn btn-danger btn-sm'));
-        $return .= $deleteaccount;
+        if ($ismyprofile) {
+            // Add delete account button.
+            $deleteaccount = \html_writer::link(new moodle_url('/local/goodbye/index.php'),
+                    get_string('manageaccount', 'local_goodbye'),
+                    array('class' => 'btn btn-danger btn-sm'));
+            $return .= $deleteaccount;
+        }
         return $return;
     }
 
