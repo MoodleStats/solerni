@@ -289,8 +289,8 @@ $string['maximumnumberofattempts'] = 'Nombre maximal de tentatives';
 $string['maximumnumberofattempts_help'] = 'Ce réglage fixe le nombre maximal de tentatives à disposition des étudiants pour répondre à chaque question. Si une réponse incorrecte est répétée, lorsque cette valeur est atteinte, la page suivante de la leçon est affichée.';
 $string['maximumnumberofattemptsreached'] = 'Le nombre maximal de tentatives a été atteint - On passe à la page suivante';
 $string['mediaclose'] = 'Afficher un bouton fermer';
-$string['mediafile'] = 'Pop-up vers fichier';
-$string['mediafile_help'] = 'Cette option créera au début de la leçon une fenêtre surgissante contenant un fichier. En outre, un lien permettant de rouvrir cette fenêtre sera affiché sur chacune des pages de la leçon.';
+$string['mediafile'] = 'Média lié';
+$string['mediafile_help'] = 'Un fichier média peut être déposé pour utilisation dans la leçon. Dans ce cas, un bloc « Média lié » sera affiché sur chaque page de la leçon, comprenant un lien pour afficher ce fichier.';
 $string['mediafilepopup'] = 'Cliquer ici pour afficher';
 $string['mediaheight'] = 'Hauteur de la fenêtre surgissante';
 $string['mediawidth'] = 'Largeur de la fenêtre surgissante';
@@ -304,7 +304,7 @@ $string['modattemptsnoteacher'] = 'La critique par les étudiants ne fonctionne 
 $string['modulename'] = 'Leçon';
 $string['modulename_help'] = 'Le module d\'activité leçon permet à l\'enseignant de proposer des contenus et/ou des activités d\'exercice d\'une façon intéressante et flexible.
 
-Une leçon est créée par l\'enseignant et se compose de plusieurs pages qui chacune se termine normalement par une question et un choix de réponses. Les types de questions comprennent les questions à choix multiples, de correspondance et à réponse courte. Selon la réponse du participant, la leçon peut se poursuivre par la page suivante ou par une autre page.
+Une leçon est créée par l\'enseignant et se compose de plusieurs pages qui chacune se termine normalement par une question et un choix de réponses. Les types de questions comprennent les questions à choix multiple, d\'appariement et à réponse courte. Selon la réponse du participant, la leçon peut se poursuivre par la page suivante ou par une autre page.
 
 Une leçon peut si désiré être sanctionnée par une note. La note est alors enregistrée dans le carnet de notes.
 
@@ -322,7 +322,7 @@ $string['movepagenamed'] = 'Déplacer la page {$a}';
 $string['moving'] = 'Déplacement de la page : {$a}';
 $string['multianswer'] = 'Plusieurs réponses';
 $string['multianswer_help'] = 'Veuillez cocher cette option si toutes les réponses correctes dans l\'ensemble proposé doivent être indiquées.';
-$string['multichoice'] = 'Choix multiples';
+$string['multichoice'] = 'Choix multiple';
 $string['multipleanswer'] = 'Réponses multiples';
 $string['nameapproved'] = 'Nom approuvé';
 $string['namereject'] = 'Désolé, votre nom a été rejeté par le filtre.<br />Veuillez essayer un autre nom.';
