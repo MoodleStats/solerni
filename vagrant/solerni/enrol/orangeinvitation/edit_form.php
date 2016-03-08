@@ -72,10 +72,7 @@ class enrol_orangeinvitation_edit_form extends moodleform {
     }
 
     public function validation($data, $files) {
-        global $DB, $CFG;
         $errors = parent::validation($data, $files);
-
-        list($instance, $plugin, $context) = $this->_customdata;
 
         return $errors;
     }

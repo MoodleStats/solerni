@@ -39,7 +39,7 @@ class block_orange_course_dashboard_renderer extends plugin_renderer_base {
      * @return string html to be displayed in orange_course_dashboard block
      */
     public function course_recommendation($courses, $coursesdetails) {
-        global $CFG, $PAGE;
+        global $PAGE;
 
         $html = '';
         $config = get_config('block_orange_course_dashboard');
@@ -59,7 +59,7 @@ class block_orange_course_dashboard_renderer extends plugin_renderer_base {
 
         // Display each recommended course.
         $renderer = $PAGE->get_renderer('core', 'course');
-        foreach ($courses as $key => $course) {
+        foreach ($courses as $course) {
             $html .= $renderer->render_halloween_mooc_component(null, $course);
         }
         return $html;
@@ -108,7 +108,6 @@ class block_orange_course_dashboard_renderer extends plugin_renderer_base {
         $config = get_config('block_orange_course_dashboard');
 
         $courseordernumber = 0;
-        $maxcourses = count($courses);
         $userediting = false;
         // Intialise string/icon etc if user is editing and courses > 1.
         if ($this->page->user_is_editing() && (count($courses) > 1)) {
@@ -126,7 +125,7 @@ class block_orange_course_dashboard_renderer extends plugin_renderer_base {
         $html .= html_writer::link($mymoocsurl, get_string('displaymymoocs', 'block_orange_course_dashboard'));
         $html .= html_writer::end_tag('div');
 
-        foreach ($courses as $key => $course) {
+        foreach ($courses as $course) {
             $html .= $this->output->box_start('coursebox', "course-{$course->id}");
             $html .= html_writer::start_tag('div', array('class' => 'course_title'));
 

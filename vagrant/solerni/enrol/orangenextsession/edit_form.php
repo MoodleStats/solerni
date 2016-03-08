@@ -63,7 +63,6 @@ class enrol_orangenextsession_edit_form extends moodleform {
     }
 
     public function validation($data, $files) {
-        global $DB, $CFG;
         $errors = parent::validation($data, $files);
 
         return $errors;

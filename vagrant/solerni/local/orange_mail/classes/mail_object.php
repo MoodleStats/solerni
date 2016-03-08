@@ -37,7 +37,7 @@ class mail_object {
      * @return string (content of mail template)
      */
     public static function get_mail($content, $mailtype, $footertype) {
-        global $CFG, $USER;
+        global $CFG;
         $imageurl = new moodle_url('/local/orange_mail/pix/mail/');
 
         $site  = get_site();
