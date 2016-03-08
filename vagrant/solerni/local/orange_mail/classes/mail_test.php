@@ -262,8 +262,6 @@ class mail_test {
         $message = html_to_text($messagehtml);
         $subject = '(M7)' . get_string('informationmessage', 'enrol_orangenextsession', format_string($course->fullname));
 
-        $context = context_course::instance($instance->courseid, MUST_EXIST);
-
         if ($modetext) {
             $user->mailformat = 0;
         } else {
@@ -320,7 +318,7 @@ class mail_test {
     // Mail M9 to M13 in Forum NG plugin.
 
     static public function setnew_password_and_mail($user, $modetext=false) {
-        global $CFG, $DB;
+        global $CFG;
 
         // We try to send the mail in language the user understands,
         // unfortunately the filter_string() does not support alternative langs yet

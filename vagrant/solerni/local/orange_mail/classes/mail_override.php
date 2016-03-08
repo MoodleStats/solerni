@@ -148,7 +148,7 @@ class mail_override {
      * @return bool|string Returns "true" if mail was sent OK and "false" if there was an error
      */
     public static function setnew_password_and_mail($user, $fasthash = false) {
-        global $CFG, $DB;
+        global $CFG;
 
         // We try to send the mail in language the user understands,
         // unfortunately the filter_string() does not support alternative langs yet
