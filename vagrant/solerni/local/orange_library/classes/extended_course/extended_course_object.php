@@ -295,7 +295,6 @@ class extended_course_object {
         $instanceself = $enrolment->get_self_enrolment($course);
         $extendedcourseflexpagevalues = $DB->get_records('course_format_options',
                 array('courseid' => $course->id));
-        print_object($extendedcourseflexpagevalues);
         foreach ($extendedcourseflexpagevalues as $extendedcourseflexpagevalue) {
             if ($extendedcourseflexpagevalue->format == "flexpage") {
 
