@@ -4,11 +4,11 @@
     {"directory": "blocks/orange_comments"},
     {"directory": "blocks/orange_course_dashboard"},
     {"directory": "blocks/orange_course_extended"},
-    {"directory": "blocks/orange_emerging_message"},
+    {"directory": "blocks/orange_emerging_messages"},
     {"directory": "blocks/orange_horizontal_numbers"},
     {"directory": "blocks/orange_last_message"},
     {"directory": "blocks/orange_listforumng"},
-    {"directory": "blocks/progressbar"},
+    {"directory": "blocks/orange_progressbar"},
     {"directory": "blocks/orange_social_sharing"},
     {"directory": "catalog"},
     {"directory": "enrol/orangeinvitation"},
@@ -25,5 +25,6 @@
     {"directory": "local/orange_thematics"},
     {"directory": "login"},
     {"directory": "moocs"},
-    {"directory": "theme/halloween"}
+    {"directory": "theme/halloween"},
+    {"directory": "mod/descriptionpage"}
 ]
