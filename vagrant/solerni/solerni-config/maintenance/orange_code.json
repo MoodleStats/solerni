@@ -23,6 +23,8 @@
     {"directory": "local/orange_mail"},
     {"directory": "local/orange_rules"},
     {"directory": "local/orange_thematics"},
+    {"directory": "local/eledia_makeanonymous"},
+    {"directory": "local/goodbye"},
     {"directory": "login"},
     {"directory": "moocs"},
     {"directory": "theme/halloween"}
