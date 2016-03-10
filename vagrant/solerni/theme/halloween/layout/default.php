@@ -88,21 +88,29 @@ echo $OUTPUT->doctype() ?>
     </div>
     <!-- content from template -->
     <div id="page" class="container">
-        <?php
-        require_once($CFG->partialsdir . '/breadcrumb.php');
-        ?>
+        <?php require_once($CFG->partialsdir . '/breadcrumb.php'); ?>
         <div id="page-content" class="row">
             <div id="region-main" class="<?php echo $regions['content']; ?>">
                 <!-- content from plugin/mod/activity/local/page -->
                 <?php
                 echo $OUTPUT->course_content_header();
                 echo $OUTPUT->main_content();
-                // Flexpage
-                if ($PAGE->blocks->region_has_content('main', $OUTPUT)) {
-                    echo $OUTPUT->blocks('main');
-                }
-                echo $OUTPUT->course_content_footer();
                 ?>
+                <!-- Flexpage main block -->
+                <?php if ($PAGE->blocks->region_has_content('main', $OUTPUT)) {
+                    echo $OUTPUT->blocks('main');
+
+                    if (format_flexpage_has_next_or_previous()) : ?>
+                        <!-- flexpage nav -->
+                        <div class="flexpage_prev_next">
+                            <?php
+                            echo format_flexpage_previous_button();
+                            echo format_flexpage_next_button();
+                            ?>
+                        </div>
+                    <?php endif;
+                }
+                echo $OUTPUT->course_content_footer(); ?>
             </div>
             <?php
             if ($knownregionpre) {

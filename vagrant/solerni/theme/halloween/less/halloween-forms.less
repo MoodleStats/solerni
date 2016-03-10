@@ -28,7 +28,12 @@ input[type=text], input[type=password], textarea {
     width: 100%; // overrides YUI funny rules.
 }
 
-.form-control:focus {
+.form-control:focus,
+form select:focus,
+form input[type="text"]:focus,
+form input[type="password"]:focus,
+form.atto_form input[type="url"]:focus,
+select.singleselect:focus {
     border-color: @orange-mid-2;
 }
 
@@ -57,7 +62,8 @@ select[multiple] {
     }
 
     input,
-    textarea {
+    textarea,
+    .form-control {
         color: @brand-success;
     }
 
@@ -74,7 +80,8 @@ select[multiple] {
     }
 
     input,
-    textarea {
+    textarea,
+    .form-control {
         color: @brand-warning;
     }
 
@@ -91,7 +98,8 @@ select[multiple] {
     }
 
     input,
-    textarea {
+    textarea,
+    .form-control {
         color: @brand-danger;
     }
 

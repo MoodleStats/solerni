@@ -68,12 +68,11 @@ endif; ?>
         <form action="<?php echo $formaction['host']; ?>/login/index.php"
               method="POST" id="login" <?php echo $autocomplete;
               if ($errormsg) : ?> class="has-error"<?php endif; ?> >
+            
             <?php if ( $formaction['isthematic']) :?>
                 <input type="hidden" name="mnetorigin" value="<?php echo $CFG->wwwroot; ?>">
             <?php endif; ?>
-            <!--<?php if (isset($SESSION->wantsurl) && !empty($SESSION->wantsurl)): ?>
-                <input type="hidden" name="mnetredirect" value="<?php echo $SESSION->wantsurl; ?>">
-            <?php endif; ?>-->
+
             <div class="form-group">
                 <?php $usernamelabel = (theme_utilities::is_theme_settings_exists_and_nonempty('loginusername')) ?
                         $filtermultilang->filter($PAGE->theme->settings->loginusername) :

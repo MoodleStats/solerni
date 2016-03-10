@@ -33,8 +33,22 @@
 
 .login-box,
 .signup-box {
-    margin: @s-double-xs-margin 0;
+    padding: @s-triple-md-margin 0;
 }
+
+.login-inner-panel {
+    margin-top:         @s-double-md-margin;
+    margin-bottom:      @s-triple-md-margin;
+    border:             1px solid @brand-primary;
+    padding:            @s-triple-md-margin;
+    background-color:   @brand-tertiary;
+
+    .form-group:last-child {
+        margin-bottom: 0;
+    }
+}
+
+
 
 .password-wrapper {
     position: relative;
