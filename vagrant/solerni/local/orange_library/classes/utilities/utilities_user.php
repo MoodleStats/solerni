@@ -111,4 +111,16 @@ class utilities_user {
 
         return $userdata;
     }
+
+    /**
+     * Get edit user profile link for thematic.
+     *
+     * @return url $url
+     */
+    static public function get_edituserprofile_url() {
+        $home = utilities_network::get_home();
+
+        $url = $home->url . "/user/edit.php?returnto=profile";
+        return $url;
+    }
 }
