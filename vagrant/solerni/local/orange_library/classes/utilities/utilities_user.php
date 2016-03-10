@@ -72,7 +72,6 @@ class utilities_user {
      * @param none
      * @return $userstatus
      */
-
     static public function get_user_status($context) {
 
         $userstatus = self::USERUNENROLLED;
@@ -87,4 +86,41 @@ class utilities_user {
         return $userstatus;
     }
 
+    /**
+     * Get the user profile fields based on a username.
+     *
+     * @param user name $username
+     * @return array $userdata
+     */
+    static public function get_user_profile_fields($username) {
+        global $CFG, $DB;
+
+        $userdata = array();
+
+        if ($user = $DB->get_record('user', array('username' => $username))) {
+            if ($fields = $DB->get_records('user_info_field')) {
+                foreach ($fields as $field) {
+                    require_once($CFG->dirroot.'/user/profile/lib.php');
+                    require_once($CFG->dirroot.'/user/profile/field/'.$field->datatype.'/field.class.php');
+                    $newfield = 'profile_field_'.$field->datatype;
+                    $formfield = new $newfield($field->id, $user->id);
+                    $userdata[] = array ('name' => 'profile_field_'.$field->shortname, 'value' => $formfield->data);
+                }
+            }
+        }
+
+        return $userdata;
+    }
+
+    /**
+     * Get edit user profile link for thematic.
+     *
+     * @return url $url
+     */
+    static public function get_edituserprofile_url() {
+        $home = utilities_network::get_home();
+
+        $url = $home->url . "/user/edit.php?returnto=profile";
+        return $url;
+    }
 }

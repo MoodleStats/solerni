@@ -24,6 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die;
 use core_user\output\myprofile;
+use local_orange_library\utilities\utilities_user;
 
 /**
  * Report log renderer's for printing reports.
@@ -43,13 +44,16 @@ class theme_halloween_core_user_myprofile_renderer extends core_user\output\mypr
      * @return string
      */
     public function render_tree(core_user\output\myprofile\tree $tree) {
-        global $USER;
+        global $USER, $OUTPUT;
         $userid = optional_param('id', 0, PARAM_INT);
         $ismyprofile = ($userid == $USER->id) || empty($userid);
-        
+
         $return = "";
         if ($ismyprofile) {
-            $return = \html_writer::tag('h1', fullname($USER));
+            // Display using the same format of other user profile (taken form /user/view.php).
+            $usercontext   = context_user::instance($USER->id, IGNORE_MISSING);
+            $headerinfo = array('heading' => fullname($USER), 'user' => $USER, 'usercontext' => $usercontext);
+            $return = $OUTPUT->context_header($headerinfo, 2);
         }
         $return .= \html_writer::start_tag('div', array('class' => 'profile_tree'));
         $categories = $tree->categories;
@@ -118,6 +122,8 @@ class theme_halloween_core_user_myprofile_renderer extends core_user\output\mypr
      * @return string
      */
     public function render_node(core_user\output\myprofile\node $node) {
+        Global $USER;
+
         $return = '';
 
         // For Solerni we hide some entries.
@@ -141,7 +147,6 @@ class theme_halloween_core_user_myprofile_renderer extends core_user\output\mypr
         $content = $node->content;
         $classes = $node->classes;
         if (!empty($content)) {
-            $return = \html_writer::tag('b', $header);
             if (($node->name == "custom_field_blog") ||
                        ($node->name == "custom_field_googleplus") ||
                        ($node->name == "custom_field_linkedin") ||
@@ -151,13 +156,34 @@ class theme_halloween_core_user_myprofile_renderer extends core_user\output\mypr
                     $content = "http://" . $content;
                 }
                 $content = \html_writer::link(new moodle_url($content), $content, array('target' => '_new'));
+            } else if (($node->name == "mnet") && ($node->classes == "remoteuserinfo")) {
+                // Replace link to home by link to edit profile on MNET home.
+                // Link only available on "my profile".
+                $userid = optional_param('id', 0, PARAM_INT);
+                $ismyprofile = ($userid == $USER->id) || empty($userid);
+                if ($ismyprofile) {
+                    $editprofileurl = utilities_user::get_edituserprofile_url();
+                    $content = \html_writer::link($editprofileurl, get_string('editmyprofile'),
+                            array('class' => 'btn btn-primary btn-sm pull-right'));
+                    $header = "";
+                } else {
+                    $content = "";
+                }
+            } else if ($node->name == "custom_field_ddn") {
+                // Hide the field il value if "Not fixed".
+                if ($content == get_string('notset', 'profilefield_datetime')) {
+                    $content = "";
+                }
             }
-            $return .= \html_writer::tag('div', $content, array ('style' => 'padding-bottom:10px;'));
+            if (!empty($content)) {
+                $return = \html_writer::tag('b', $header);
+                $return .= \html_writer::tag('div', $content, array ('style' => 'padding-bottom:10px;'));
 
-            if ($classes) {
-                $return = \html_writer::tag('div', $return, array('class' => 'contentnode ' . $classes));
-            } else {
-                $return = \html_writer::tag('div', $return, array('class' => 'contentnode'));
+                if ($classes) {
+                    $return = \html_writer::tag('div', $return, array('class' => 'contentnode ' . $classes));
+                } else {
+                    $return = \html_writer::tag('div', $return, array('class' => 'contentnode'));
+                }
             }
         } else {
             $return = \html_writer::span($header);
