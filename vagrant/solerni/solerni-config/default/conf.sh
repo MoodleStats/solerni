@@ -255,3 +255,19 @@ moosh config-set mymoocsurl '/moocs/mymoocs.php' block_orange_course_dashboard
 
 # Delete Main Menu block in frontpage (course=1)
 moosh block-delete course 1 site_main_menu site-index
+
+# local_goodbye : delete value to keep default text (#us_442)
+moosh config-set farewell "" local_goodbye
+
+# hide block admin for solerni_utilisateur, solerni_apprenant, solerni_power_apprenant, solerni_animateur, solerni_client (#us_252)
+moosh role-update-capability-ctx solerni_utilisateur moodle/block:view prevent block settings
+moosh role-update-capability-ctx solerni_apprenant moodle/block:view prevent block settings
+moosh role-update-capability-ctx solerni_power_apprenant moodle/block:view prevent block settings
+moosh role-update-capability-ctx solerni_animateur moodle/block:view prevent block settings
+moosh role-update-capability-ctx solerni_client moodle/block:view prevent block settings
+moosh role-update-capability-ctx solerni_teacher moodle/block:view allow block settings
+moosh role-update-capability-ctx solerni_course_creator moodle/block:view allow block settings
+moosh role-update-capability-ctx solerni_marketing moodle/block:view allow block settings
+
+# cgu = '' on all platforms except HOME, if a value exists in config.php, it will be kept (#us_485)
+moosh config-set sitepolicy ''

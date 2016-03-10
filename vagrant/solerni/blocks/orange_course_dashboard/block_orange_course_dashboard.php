@@ -42,7 +42,6 @@ class block_orange_course_dashboard extends block_base {
      * @return stdClass contents of block
      */
     public function get_content() {
-        global $USER, $CFG, $DB;
 
         if ($this->content !== null) {
             return $this->content;
@@ -74,11 +73,11 @@ class block_orange_course_dashboard extends block_base {
             if ($config->defaultmaxrecommendations == 0) {
                 $config->defaultmaxrecommendations = 4;
             }
-            list($recommendedcourses, $recommendedcoursesdetails, $totalrecommendedcourses) =
+            list($courses, $coursesdetails, $totalrecommendedcourses) =
                     block_orange_course_dashboard_get_recommended_courses($config->defaultmaxrecommendations);
             // We display recommandation to the user.
             if ($totalrecommendedcourses && !$this->hide_recommendation()) {
-                $this->content->text .= $renderer->course_recommendation($recommendedcourses, $recommendedcoursesdetails);
+                $this->content->text .= $renderer->course_recommendation($courses, $coursesdetails);
             } else {
                 $this->content->text .= $renderer->course_norecommendation();
             }

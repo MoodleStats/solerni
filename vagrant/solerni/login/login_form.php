@@ -38,21 +38,22 @@ $formaction = log_and_session_utilities::define_login_form_action($locallog); ?>
 <?php if (!$CFG->solerni_isprivate) :
     require_once($CFG->dirroot . '/auth/googleoauth2/lib.php');
     $oauthbuttons = auth_googleoauth2_render_buttons();
-    if (0 !== $oauthbuttons['providers']) : ?>
-<!-- authentication plugin row -->
-<div class="row login-oauth2">
-    <div class="col-md-6 col-md-offset-3">
-        <?php echo $oauthbuttons['html']; ?>
-    </div>
-    <div class="col-md-6 col-md-offset-3">
-        <div class="login-line">
-            <span class="line-inner">
-                <?php echo get_string('or', 'theme_halloween'); ?>
-            </span>
+    if (isset($oauthbuttons['providers']) && 0 !== $oauthbuttons['providers']) : ?>
+        <!-- authentication plugin row -->
+        <div class="row login-oauth2">
+            <div class="col-md-6 col-md-offset-3">
+                <?php echo $oauthbuttons['html']; ?>
+            </div>
+            <div class="col-md-6 col-md-offset-3">
+                <div class="login-line">
+                    <span class="line-inner">
+                        <?php echo get_string('or', 'theme_halloween'); ?>
+                    </span>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-<?php endif; endif; ?>
+    <?php endif;
+endif; ?>
 <!-- login form -->
 <div class="row login-box">
     <div class="loginpanel col-md-6 col-md-offset-3">

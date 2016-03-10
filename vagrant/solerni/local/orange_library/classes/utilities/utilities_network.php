@@ -88,7 +88,7 @@ class utilities_network {
             $hosts = self::get_hosts();
             if (is_array($hosts)) {
                 $return = array_pop($hosts);    // MNETHOME is the first host.
-                $return->jump = $return->url;   // Do not jump onto MNET HOME
+                $return->jump = $return->url;   // Do not jump onto MNET HOME.
             }
         } else {
             $return = new \stdClass();
@@ -174,7 +174,7 @@ class utilities_network {
 
         if (theme_utilities::is_theme_settings_exists_and_nonempty('webservicestoken') ) {
             global $CFG, $PAGE;
-            require_once($CFG->libdir . '/filelib.php'); // include moodle curl class
+            require_once($CFG->libdir . '/filelib.php'); // Include moodle curl class.
             $token = $PAGE->theme->settings->webservicestoken;
             $homemnet = self::get_home();
             $serverurl = new \moodle_url($homemnet->url . '/webservice/rest/server.php',

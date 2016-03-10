@@ -21,3 +21,4 @@ require_once('renderers/core_renderer.php');
 require_once('renderers/mod_quiz_renderer.php');
 require_once('renderers/local_mail_renderer.php');
 require_once('renderers/solerni_quickform_renderer.php');
+require_once('renderers/core_user_myprofile_renderer.php');
