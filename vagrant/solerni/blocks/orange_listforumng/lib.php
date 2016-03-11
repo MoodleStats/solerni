@@ -24,65 +24,13 @@
 function block_orange_listforumng_get_all($courseid) {
     global $CFG, $DB, $USER;
 
-    if ($courseid != 1) {
-        $forumngs = $DB->get_records_sql("
+    $forumngs = $DB->get_records_sql("
             SELECT F.id, F.name, F.intro, CM.id as instance, CM.added, CM.course
             FROM {forumng} F LEFT OUTER JOIN
             {course_modules} CM  ON (F.id=CM.instance) LEFT OUTER JOIN {modules} M ON (M.id = CM.module)
             WHERE M.name='forumng' AND M.visible=1 AND CM.visible=1 AND CM.course= ?  ORDER BY CM.course", array($courseid));
-    } else {
-        $forumngs = $DB->get_records_sql("
-            SELECT F.id, F.name, F.intro, CM.id as instance, CM.added, CM.course
-            FROM {forumng} F LEFT OUTER JOIN
-            {course_modules} CM  ON (F.id=CM.instance) LEFT OUTER JOIN {modules} M ON (M.id = CM.module)
-            WHERE M.name='forumng' AND M.visible=1 AND CM.visible=1 ORDER BY CM.course", array());
-    }
 
-    $listforumng = array();
-
-    foreach ($forumngs as $forumng) {
-        $forumnginstance = $forumng->instance;
-
-        // Recuperation de toutes les discussions d'un forum.
-        $forum = mod_forumng::get_from_id($forumng->id, mod_forumng::CLONE_DIRECT, true);
-
-        $listdiscus = $forum->get_discussion_list();
-
-        // Parcours des discussions pour trouver le nbre de post.
-        // puis la date et l'user qui a posté le dernier.
-        $nbposts = 0;
-        $datelastpost = "";
-        $username = "";
-
-        $lastpostdate = array();
-        foreach ($listdiscus->get_normal_discussions() as $discus) {
-            $nbposts += $discus->get_num_posts();
-            $lastpostid = $discus->get_last_post_id();
-            $lastpost = mod_forumng_post::get_from_id($lastpostid, mod_forumng::CLONE_DIRECT);
-            $lastpostdate[$lastpost->get_modified()] = $lastpost->get_user();
-        }
-
-        if (!empty($lastpostdate)) {
-            $datelastpost = userdate(max(array_keys($lastpostdate)));
-            $username = fullname($lastpostdate[max(array_keys($lastpostdate))]);
-        }
-
-        if (!isset($listforumng[$forumng->course])) {
-            $listforumng[$forumng->course] = array();
-        }
-
-        $listforumng[$forumng->course][] = array('id' => $forumng->id,
-        'instance' => $forumng->instance,
-        'name' => $forumng->name,
-        'courseid' => $forumng->course,
-        'intro' => $forumng->intro,
-        'createddate' => $forumng->added,
-        'nbposts' => $nbposts,
-        'usernamelastpost' => $username,
-        'datelastpost' => $datelastpost);
-    }
-
-        return $listforumng;
+    return $forumngs;
 }
 
 
@@ -118,20 +66,30 @@ function block_orange_listforumng_get_bylistforumngid($listforumngid) {
         // Parcours des discussions pour trouver le nbre de post.
         // puis la date et l'user qui a posté le dernier.
         $nbposts = 0;
+        $postunread = false;
         $datelastpost = "";
         $username = "";
-
+        $nbdiscus = 0;
+        $discussionname = "-";
+        $picture = "";
         $lastpostdate = array();
         foreach ($listdiscus->get_normal_discussions() as $discus) {
             $nbposts += $discus->get_num_posts();
             $lastpostid = $discus->get_last_post_id();
+            if ($postunread == false && ($discus->get_num_unread_posts() != 0 || $discus->get_num_unread_posts() != "")) {
+                $postunread = true;
+            }
             $lastpost = mod_forumng_post::get_from_id($lastpostid, mod_forumng::CLONE_DIRECT);
-            $lastpostdate[$lastpost->get_modified()] = $lastpost->get_user();
+            $lastpostdate[$lastpost->get_modified()] = $lastpost;
+            $nbdiscus++;
         }
 
         if (!empty($lastpostdate)) {
+            $ind = max(array_keys($lastpostdate));
             $datelastpost = userdate(max(array_keys($lastpostdate)));
-            $username = fullname($lastpostdate[max(array_keys($lastpostdate))]);
+            $username = fullname($lastpostdate[$ind]->get_user());
+            $discussionname = $lastpostdate[$ind]->get_discussion()->get_subject();
+            $picture = $lastpostdate[$ind]->display_user_picture();
         }
 
         $listforumng[] = array('id' => $forumng->id,
@@ -142,7 +100,12 @@ function block_orange_listforumng_get_bylistforumngid($listforumngid) {
                 'createddate' => $forumng->added,
                 'nbposts' => $nbposts,
                 'usernamelastpost' => $username,
-                'datelastpost' => $datelastpost);
+                'datelastpost' => $datelastpost,
+                'nbdiscus' => $nbdiscus,
+                'postunread' => $postunread,
+                'discussionname' => $discussionname,
+                'picture' => $picture,
+                );
     }
 
     return $listforumng;
