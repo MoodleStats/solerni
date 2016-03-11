@@ -28,7 +28,9 @@ use local_orange_library\utilities\utilities_course;
 require_once(dirname(dirname(__FILE__)) . '/config.php');
 require_once($CFG->dirroot.'/blocks/course_overview/locallib.php');
 require_once($CFG->dirroot.'/blocks/orange_action/block_orange_action.php');
+require_once($CFG->dirroot.'/blocks/orange_iconsmap/block_orange_iconsmap.php');
 require_once($CFG->dirroot.'/blocks/orange_action/renderer.php');
+
 
 
 
@@ -48,10 +50,15 @@ $PAGE->set_context($context);
 
     $block_orange_action = new block_orange_action();
     $orange_action = new block_contents(array('class' => 'block_orange_action'));
+    print_object($block_orange_action->get_content());
     $orange_action->content = $block_orange_action->get_content()->text;
     $PAGE->blocks->add_fake_block($orange_action, 'main');
 
-
+    $block_orange_iconsmap = new block_orange_iconsmap();
+    $orange_iconsmap = new block_contents(array('class' => 'block_orange_iconsmap'));
+    print_object($block_orange_iconsmap->get_content());
+    $orange_iconsmap->content = $block_orange_iconsmap->get_content()->text;
+    $PAGE->blocks->add_fake_block($orange_iconsmap, 'main');
 
 echo $OUTPUT->header();
 

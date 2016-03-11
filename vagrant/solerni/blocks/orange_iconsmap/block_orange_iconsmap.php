@@ -24,13 +24,11 @@
  */
 
 require_once(dirname(__FILE__) . '/../../config.php');
-require_once($CFG->dirroot.'/blocks/orange_action/lib.php');
-require_once($CFG->dirroot.'/calendar/lib.php');
-// adding requirement to avoid  Class 'block_base' not found
+require_once($CFG->dirroot.'/blocks/orange_iconsmap/lib.php');
 require_once($CFG->dirroot . '/blocks/moodleblock.class.php');
 use local_orange_library\utilities\utilities_course;
 
-class block_orange_action extends block_base {
+class block_orange_iconsmap extends block_base {
 
     /**
      * Sets the block title
@@ -38,10 +36,10 @@ class block_orange_action extends block_base {
      * @return void
      */
     public function init() {
-        Global $PAGE, $COURSE;
+        Global $PAGE;
 
-        $this->title = get_string('config_default_title', 'block_orange_action');
-        $this->renderer = $PAGE->get_renderer('block_orange_action');
+        $this->title = get_string('config_default_title', 'block_orange_iconsmap');
+        $this->renderer = $PAGE->get_renderer('block_orange_iconsmap');
     }
 
     /**
@@ -50,7 +48,7 @@ class block_orange_action extends block_base {
      * @return bool
      */
     public function has_config() {
-        return true;
+        return false;
     }
 
 
@@ -69,7 +67,7 @@ class block_orange_action extends block_base {
      * @return bool
      */
     public function instance_allow_config() {
-        return true;
+        return false;
     }
 
     /**
@@ -82,7 +80,7 @@ class block_orange_action extends block_base {
             'course-view'    => true,
             'site'           => false,
             'mod'            => false,
-            'my'             => true
+            'my'             => false
         );
     }
 
@@ -92,7 +90,7 @@ class block_orange_action extends block_base {
      * @return string
      */
     public function get_content() {
-        global $USER, $COURSE, $CFG, $OUTPUT, $DB;
+        global $COURSE, $CONTEXT;
 
         // If content has already been generated, don't waste time generating it again.
         if ($this->content !== null) {
@@ -107,40 +105,9 @@ class block_orange_action extends block_base {
             return $this->content;
         }
 
-        if (block_orange_action_on_course_dashboard_page()) {
-            $this->content->text = $this->renderer->display_on_course_dashboard();
-        }
-
-        if (block_orange_action_on_forum_index_page()) {
-            $this->content->text = $this->renderer->display_on_forum_index();
-        }
-
-        if (block_orange_action_on_course_page()) {
-            list ($extendedcourse, $imgurl) = block_orange_action_get_course($COURSE);
-            $this->content->text = $this->renderer->display_on_course_page($COURSE, $extendedcourse, $imgurl);
-        }
-
-        if (block_orange_action_on_my_page()) {
-            // Read course and event id from block_config. In priority we take the course if set.
-            if (!empty($this->config->coursetopush)) {
-                $course = $DB->get_record('course', array('id' => $this->config->coursetopush));
-                // Get extended course information.
-                list ($extendedcourse, $imgurl) = block_orange_action_get_course($course);
-                // Check the course is not finished.
-                if ($extendedcourse->coursestatus != utilities_course::MOOCCLOSED) {
-                    $this->content->text = $this->renderer->display_course_on_my_page($course, $extendedcourse, $imgurl);
-                }
-            } else if (!empty($this->config->eventtopush)) {
-                $event = $DB->get_record('event', array('id' => $this->config->eventtopush));
-                // Check that event is not passed.
-                if ($event->timestart > time()) {
-                    $hrefparams['view'] = 'day';
-                    $eventurl = calendar_get_link_href(new moodle_url(CALENDAR_URL . 'view.php', $hrefparams),
-                            0, 0, 0, $event->timestart);
-                    $imgurl = $CFG->dirroot.'/blocks/orange_action/pix/default.jpg';
-                    $this->content->text = $this->renderer->display_event_on_my_page($event, $imgurl, $eventurl);
-                }
-            }
+        if (block_orange_iconsmap_on_course_page()) {
+            $extendedcourse = block_orange_iconsmap_get_course($COURSE);
+            $this->content->text = $this->renderer->display_on_course_page($COURSE, $CONTEXT);
         }
 
         return $this->content;
@@ -152,7 +119,7 @@ class block_orange_action extends block_base {
      * @return bool if true then header will be visible.
      */
     public function hide_header() {
-        $config = get_config('block_orange_action');
+        $config = get_config('block_orange_iconsmap');
         return !empty($config->hideblockheader);
     }
 }

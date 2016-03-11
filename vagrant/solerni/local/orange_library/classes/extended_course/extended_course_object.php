@@ -421,8 +421,9 @@ class extended_course_object {
     private function set_duration($extendedcourseflexpagevalue) {
         $this->duration = get_string('duration_default', 'local_orange_library');
         if ($extendedcourseflexpagevalue->value != 0) {
-            $this->duration = utilities_object::duration_to_time($extendedcourseflexpagevalue->value);
+            $this->duration = utilities_object::duration_to_week($extendedcourseflexpagevalue->value);
         }
+
     }
 
     /**
@@ -433,7 +434,7 @@ class extended_course_object {
     private function set_workingtime($extendedcourseflexpagevalue) {
         $this->workingtime = get_string('workingtime_default', 'local_orange_library');
         if ($extendedcourseflexpagevalue->value != 0) {
-            $this->workingtime = utilities_object::duration_to_time($extendedcourseflexpagevalue->value);
+            $this->workingtime = utilities_object::duration_to_week($extendedcourseflexpagevalue->value);
         }
     }
 
@@ -457,11 +458,7 @@ class extended_course_object {
      * @param object $extendedcourseflexpagevalue
      */
     private function set_badge($extendedcourseflexpagevalue) {
-        if ($extendedcourseflexpagevalue->value == 1) {
-            $this->badge = get_string('badges', 'local_orange_library');
-        } else {
-            $this->badge = get_string('badge_default', 'local_orange_library');
-        }
+        $this->badge = $extendedcourseflexpagevalue->value;
     }
 
     /**
@@ -485,11 +482,7 @@ class extended_course_object {
      * @param object $extendedcourseflexpagevalue
      */
     private function set_certification($extendedcourseflexpagevalue) {
-        if ($extendedcourseflexpagevalue->value == 1) {
-            $this->certification = get_string('certification', 'local_orange_library');
-        } else {
-            $this->certification = get_string('certification_default', 'local_orange_library');
-        }
+        $this->certification = $extendedcourseflexpagevalue->value;
     }
 
     /**

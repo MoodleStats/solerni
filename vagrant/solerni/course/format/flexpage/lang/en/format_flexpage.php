@@ -227,14 +227,14 @@ $string['enddate_help'] = 'enddate_help ';
 
 $string['duration'] = 'Duration: ';
 $string['duration_help'] = 'duration_help ';
-$string['duration_default'] = 'Less than four weeks';
+$string['duration_default'] = 0;
 $string['duration0'] = 'Less than four weeks';
 $string['duration1'] = 'Four to six weeks';
 $string['duration2'] = 'More than six weeks';
 
 $string['workingtime'] = 'Working time per day';
 $string['workingtime_help'] = 'working time per day_help ';
-$string['workingtime_default'] = 'Less than one hour';
+$string['workingtime_default'] = 0;
 $string['workingtime0'] = 'Less than one hour';
 $string['workingtime1'] = 'One to two hours';
 $string['workingtime2'] = 'Two to three hours';

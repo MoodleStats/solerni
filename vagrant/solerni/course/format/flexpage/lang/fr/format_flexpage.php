@@ -222,14 +222,14 @@ $string['enddate_help'] = 'date de fin du cours';
 
 $string['duration'] = 'Durée';
 $string['duration_help'] = 'durée du cours ';
-$string['duration_default'] = 'Inférieur à quatre semaines';
+$string['duration_default'] = 0;
 $string['duration0'] = 'Inférieur à quatre semaines';
 $string['duration1'] = 'Quatre à six semaines';
 $string['duration2'] = 'Supérieur à six semaines';
 
 $string['workingtime'] = 'Temps de travail hebdomadaire';
 $string['workingtime_help'] = 'sélectionner le temps de travail hebdomadaire ';
-$string['workingtime_default'] = 'Inférieur à une heure';
+$string['workingtime_default'] = 0;
 $string['workingtime0'] = 'Inférieur à une heure';
 $string['workingtime1'] = 'Une à deux heures';
 $string['workingtime2'] = 'Deux à trois heures';
