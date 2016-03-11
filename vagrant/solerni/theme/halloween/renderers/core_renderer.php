@@ -391,4 +391,29 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
 
         return $output;
     }
+    /**
+     * Renders preferences group (for page preference).
+     *
+     * @param  preferences_group $renderable The renderable
+     * @return string The output.
+     */
+    public function render_preferences_group(preferences_group $renderable) {
+        $html = '';
+        $html .= html_writer::start_tag('div', array('class' => 'span4 preferences-group'));
+        $html .= $this->heading($renderable->title, 3);
+        $html .= html_writer::start_tag('ul');
+        foreach ($renderable->nodes as $node) {
+            // This has been added to hide icon before text => avoid two bullets point.
+            $node->hideicon = true;
+
+            if ($node->has_children()) {
+                debugging('Preferences nodes do not support children', DEBUG_DEVELOPER);
+            }
+            $html .= html_writer::tag('li', $this->render($node));
+        }
+        $html .= html_writer::end_tag('ul');
+        $html .= html_writer::end_tag('div');
+        
+        return $html;
+    }
 }
