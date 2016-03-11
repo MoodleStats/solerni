@@ -14,6 +14,10 @@ label {
   margin-bottom: @padding-large-vertical;
 }
 
+.form-group.fitem_fcheckbox + .form-group.fitem_fcheckbox {
+    margin-top: ((@padding-large-vertical - @s-small-md-margin) * -1 );
+}
+
 .form-control,
 .fp-formset .controls input[type="text"],
 .fp-formset .controls select {
