@@ -271,3 +271,6 @@ moosh role-update-capability-ctx solerni_marketing moodle/block:view allow block
 
 # cgu = '' on all platforms except HOME, if a value exists in config.php, it will be kept (#us_485)
 moosh config-set sitepolicy ''
+
+# disable external open badges
+moosh config-set badges_allowexternalbackpack 0

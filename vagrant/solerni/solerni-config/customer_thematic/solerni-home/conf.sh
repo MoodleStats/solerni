@@ -23,3 +23,6 @@ moosh user-create --password apiuser01! --email solerniapiuser@orange.fr --first
 
 # Settings PF Name
 moosh course-config-set course 1 fullname "${CUSTOMER_THEMATIC}"
+
+# Prevent course creator to create course in HOME PF
+moosh role-update-capability solerni_course_creator moodle/course:create prevent 1
