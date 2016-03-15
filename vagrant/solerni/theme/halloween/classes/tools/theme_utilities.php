@@ -108,4 +108,21 @@ class theme_utilities {
             require_once($CFG->dirroot . '/local/analytics/lib.php');
         }
     }
+
+    /**
+     *  Identifying helper for page layout without breadcrumb
+     *
+     * @return bool
+     */
+    public static function is_layout_uses_breadcrumbs() {
+        global $PAGE;
+
+        $pageswithoutbreadcrumbs = array('login');
+
+        if(in_array($PAGE->pagelayout, $pageswithoutbreadcrumbs)) {
+            return false;
+        }
+
+        return true;
+    }
 }
