@@ -16,6 +16,8 @@
 
 namespace theme_halloween\tools;
 
+use theme_halloween\tools\log_and_session_utilities;
+
 class theme_utilities {
 
     /**
@@ -55,10 +57,21 @@ class theme_utilities {
         return false;
     }
 
+    /**
+     *
+     * Returns true if the settings exists in the $PAGE object
+     * and that it is truly not empty (i.e. not a empty tag),
+     * otherwise, return false.
+     *
+     * @global type $PAGE
+     * @param string $setting
+     * @return boolean
+     */
     private static function is_theme_setting_exists($setting) {
         global $PAGE;
+
         if (property_exists($PAGE->theme->settings, $setting)) {
-            return !empty($PAGE->theme->settings->$setting);
+            return !empty(strip_tags($PAGE->theme->settings->$setting));
         }
 
         return false;
@@ -124,5 +137,67 @@ class theme_utilities {
         }
 
         return true;
+    }
+
+    /**
+     *  Identifying helper for page layout without breadcrumb
+     *
+     * @return bool
+     */
+    public static function is_layout_uses_page_block_title() {
+        global $PAGE;
+
+        $pageswithoutpageblocktitle = array('admin');
+
+        if(in_array($PAGE->pagelayout, $pageswithoutpageblocktitle)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Returns the titles for the page
+     * meta_title, meta_desc, page_title, page_desc
+     *
+     *
+     * @return object
+     */
+    public static function define_page_titles_and_desc() {
+
+        global $PAGE, $CFG;
+
+        require_once($CFG->dirroot . '/filter/multilang/filter.php');
+        $filtermultilang = new \filter_multilang($PAGE->context, array());
+
+        $return = new \stdClass;
+
+        switch ($PAGE->pagelayout) {
+
+            case 'login':
+                if (theme_utilities::is_theme_settings_exists_and_nonempty('logintitle')) {
+                    $return->pageblocktitleh1 = $filtermultilang->filter($PAGE->theme->settings->logintitle);
+                } else {
+                    $return->pageblocktitleh1 = get_string('login');
+                }
+
+                if (theme_utilities::is_theme_settings_exists_and_nonempty('logintext')) {
+                    $return->pageblockdesc = $filtermultilang->filter($PAGE->theme->settings->logintext);
+                } else {
+                    $return->pageblockdesc = get_string('not_registered_yet', 'theme_halloween');
+                    $return->pageblockdesc .=  ' ';
+                    $return->pageblockdesc .= \html_writer::tag('a', get_string('i_do_register', 'theme_halloween'),
+                        array('class' => 'tag-platform-subscription', 'href' => log_and_session_utilities::get_register_form_url()));
+                }
+                break;
+
+            default:
+                $return->pageblocktitleh1 = $PAGE->title;
+                $return->pageblockdesc = '';
+                break;
+        }
+
+        return $return;
+
     }
 }

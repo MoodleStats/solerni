@@ -56,6 +56,10 @@ if ( !isset($showsidepre) && !isset($showsidepost) && !isset($hassidetop)) {
     theme_utilities::load_required_plugins();
 }
 
+/*
+ * Define page titles and description, the unified way.
+ */
+$titles = theme_utilities::define_page_titles_and_desc();
 $PAGE->set_popup_notification_allowed(false);
 
 echo $OUTPUT->doctype() ?>
@@ -75,6 +79,7 @@ echo $OUTPUT->doctype() ?>
         <?php require_once($CFG->partialsdir . '/header/skiplinks.php'); ?>
     </div>
     <?php if (utilities_network::is_platform_uses_mnet()) : ?>
+    <!-- resac nav -->
     <div class="u-inverse">
         <?php require_once($CFG->partialsdir . '/header/nav-resac.php'); ?>
     </div>
@@ -82,46 +87,57 @@ echo $OUTPUT->doctype() ?>
         <div class="col-xs-12 fullwidth-line"></div>
     </div>
     <?php endif; ?>
-    <!-- header -->
+    <!-- navigation header -->
     <div class="u-inverse">
         <?php require_once($CFG->partialsdir . '/header/header_solerni.php'); ?>
     </div>
-    <!-- content from template -->
-    <div id="page" class="container">
-        <?php require_once($CFG->partialsdir . '/breadcrumb.php'); ?>
-        <div id="page-content" class="row">
-            <div id="region-main" class="<?php echo $regions['content']; ?>">
-                <!-- content from plugin/mod/activity/local/page -->
-                <?php
-                echo $OUTPUT->course_content_header();
-                echo $OUTPUT->main_content();
-                ?>
-                <!-- Flexpage main block -->
-                <?php if ($PAGE->blocks->region_has_content('main', $OUTPUT)) {
-                    echo $OUTPUT->blocks('main');
-
-                    if (format_flexpage_has_next_or_previous()) : ?>
-                        <!-- flexpage nav -->
-                        <div class="flexpage_prev_next">
-                            <?php
-                            echo format_flexpage_previous_button();
-                            echo format_flexpage_next_button();
-                            ?>
-                        </div>
-                    <?php endif;
-                }
-                echo $OUTPUT->course_content_footer(); ?>
-            </div>
-            <?php
-            if ($knownregionpre) {
-                echo $OUTPUT->blocks('side-pre', $regions['pre']);
-            }
-            if ($knownregionpost) {
-                echo $OUTPUT->blocks('side-post', $regions['post']);
-            }
-            ?>
+    <?php if (theme_utilities::is_layout_uses_breadcrumbs() || theme_utilities::is_layout_uses_page_block_title()) : ?>
+        <!-- page breadcrumbs & headings -->
+        <div class="container">
+            <?php if (theme_utilities::is_layout_uses_breadcrumbs()) : ?>
+                <?php require_once($CFG->partialsdir . '/breadcrumb.php'); ?>
+            <?php endif; ?>
+            <?php if (theme_utilities::is_layout_uses_page_block_title()) : ?>
+                <?php require_once($CFG->partialsdir . '/page-block-title.php'); ?>
+            <?php endif; ?>
         </div>
-    </div>
+    <?php endif; ?>
+    <main class="main-page-content">
+        <div class="container">
+            <div id="page-content" class="row">
+                <div id="region-main" class="<?php echo $regions['content']; ?>">
+                    <!-- content from plugin/mod/activity/local/page -->
+                    <?php
+                        echo $OUTPUT->course_content_header();
+                        echo $OUTPUT->main_content();
+                    ?>
+                    <!-- Flexpage main block -->
+                    <?php if ($PAGE->blocks->region_has_content('main', $OUTPUT)) {
+                        echo $OUTPUT->blocks('main');
+
+                        if (format_flexpage_has_next_or_previous()) : ?>
+                            <!-- flexpage nav -->
+                            <div class="flexpage_prev_next">
+                                <?php
+                                echo format_flexpage_previous_button();
+                                echo format_flexpage_next_button();
+                                ?>
+                            </div>
+                        <?php endif;
+                    }
+                    echo $OUTPUT->course_content_footer(); ?>
+                </div>
+                <?php
+                if ($knownregionpre) {
+                    echo $OUTPUT->blocks('side-pre', $regions['pre']);
+                }
+                if ($knownregionpost) {
+                    echo $OUTPUT->blocks('side-post', $regions['post']);
+                }
+                ?>
+            </div>
+        </div>
+    </main>
     <!-- footer -->
     <div class="u-inverse">
         <?php require_once($CFG->partialsdir . '/footer/platform_social_bar.php'); ?>

@@ -146,11 +146,6 @@
     font-size:      @font-size-base;
 }
 
-.block .tree_item span {
-    font-family:    @font-family-sans-serif;
-    font-weight:    bold;
-}
-
 .block .tree_item a:hover,
 .block .tree_item a:active,
 .block .tree_item a:focus,
@@ -163,7 +158,8 @@
     font-weight: 200;
 }
 
-.block .contains_branch .branch a {
+.block .contains_branch .branch > a,
+.block .contains_branch .branch > span {
     font-family: @font-family-titles;
     font-weight: 800;
 }

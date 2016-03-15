@@ -271,6 +271,8 @@ $string['loginoauth']               = 'Log in with {$a}';
 $string['or']                       = 'or';
 $string['username']                 = 'Nickname';
 $string['invalidlogin']             = 'Connection failed. Please check your {$a} and your password.';
+$string['invalidemail']             = 'Invalid login';
+$string['invalidpassword']          = 'Invalid password';
 
 // Register page.
 $string['already_registered']       = 'Already registered?';

@@ -5,30 +5,17 @@
 /*
  *Login
  */
+
+.pagelayout-login .main-page-content {
+    background-color: @gray-lighter;
+}
+
 .login-oauth2 {
     margin: @s-double-xs-margin 0;
 }
 
 .login-oauth2 .btn {
     margin-bottom: @s-double-xs-margin;
-}
-
-.login-line {
-    border-top: 2px solid @gray-dark;
-    text-align: center;
-    margin:     @s-small-xs-margin 0;
-}
-
-.line-inner {
-    position:           relative;
-    display:            inline-block;
-    background-color:   @brand-tertiary;
-    top:                -.7em;
-    padding:            0 1em;
-    text-transform:     uppercase;
-    color:              @gray-dark;
-    font-weight:        bold;
-    font-size:          1.2em;
 }
 
 .login-box,
@@ -46,9 +33,15 @@
     .form-group:last-child {
         margin-bottom: 0;
     }
+
+    .form-group-line .form-group:last-child {
+        margin-bottom: @s-triple-md-margin;
+    }
 }
 
-
+form > .form-group:last-child {
+        margin-bottom: 0;
+    }
 
 .password-wrapper {
     position: relative;

@@ -160,14 +160,6 @@ $information = get_string('loginheadingdesc', 'theme_halloween');
 $setting = new admin_setting_heading($name, $heading, $information);
 $temp->add($setting);
 
-// Login logo.
-$name = 'theme_halloween/loginlogo';
-$title = get_string('loginlogo', 'theme_halloween');
-$description = get_string('loginlogodesc', 'theme_halloween');
-$setting = new admin_setting_configstoredfile($name, $title, $description, 'loginlogo');
-$setting->set_updatedcallback('theme_reset_all_caches');
-$temp->add($setting);
-
 // Login Title.
 $name = 'theme_halloween/logintitle';
 $title = get_string('logintitle', 'theme_halloween');
