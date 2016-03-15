@@ -172,9 +172,9 @@ class theme_utilities {
 
         $return = new \stdClass;
 
-        switch ($PAGE->pagelayout) {
+        switch ($PAGE->pagetype) {
 
-            case 'login':
+            case 'login-index':
                 if (theme_utilities::is_theme_settings_exists_and_nonempty('logintitle')) {
                     $return->pageblocktitleh1 = $filtermultilang->filter($PAGE->theme->settings->logintitle);
                 } else {
@@ -188,6 +188,23 @@ class theme_utilities {
                     $return->pageblockdesc .=  ' ';
                     $return->pageblockdesc .= \html_writer::tag('a', get_string('i_do_register', 'theme_halloween'),
                         array('class' => 'tag-platform-subscription', 'href' => log_and_session_utilities::get_register_form_url()));
+                }
+                break;
+
+            case 'login-signup':
+                if (theme_utilities::is_theme_settings_exists_and_nonempty('signuptitle')) {
+                    $return->pageblocktitleh1 = $filtermultilang->filter($PAGE->theme->settings->signuptitle);
+                } else {
+                    $return->pageblocktitleh1 = get_string('signup');
+                }
+
+                if (theme_utilities::is_theme_settings_exists_and_nonempty('signuptext')) {
+                    $return->pageblockdesc = $filtermultilang->filter($PAGE->theme->settings->signuptext);
+                } else {
+                    $return->pageblockdesc = get_string('already_registered', 'theme_halloween');
+                    $return->pageblockdesc .=  ' ';
+                    $return->pageblockdesc .= \html_writer::tag('a', get_string('i_do_login', 'theme_halloween'),
+                        array('class' => 'tag-platform-subscription', 'href' => $CFG->wwwroot . '/login/index.php'));
                 }
                 break;
 

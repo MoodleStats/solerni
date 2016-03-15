@@ -312,20 +312,6 @@ $setting = new admin_setting_configtextarea($name, $title, $description, $defaul
 $setting->set_updatedcallback('theme_reset_all_caches');
 $temp->add($setting);
 
-// Signup Form Bottom Helper Text.
-$name = 'theme_halloween/signupformfooter';
-$title = get_string('signupformfooter', 'theme_halloween');
-$description = get_string('signupformfooterdesc', 'theme_halloween');
-$default = ($CFG->solerni_isprivate) ?
-        '<span lang="fr" class="multilang"><div><strong>Un problème ?</strong>'
-        . '<p>Contactez notre support (voir email d\'instructions reçu)</p></div></span>'
-        . '<span lang="en" class="multilang"><div><strong>Any problem ?</strong>'
-        . '<p>Contact our support (see your instruction email)</p></div></span>' :
-        '<span lang="fr" class="multilang"></span><span lang="en" class="multilang"></span>';
-$setting = new admin_setting_configtextarea($name, $title, $description, $default);
-$setting->set_updatedcallback('theme_reset_all_caches');
-$temp->add($setting);
-
 $ADMIN->add('theme_halloween', $temp);
 
 /*
