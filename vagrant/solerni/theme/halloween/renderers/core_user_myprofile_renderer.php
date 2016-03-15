@@ -174,6 +174,9 @@ class theme_halloween_core_user_myprofile_renderer extends core_user\output\mypr
                 if ($content == get_string('notset', 'profilefield_datetime')) {
                     $content = "";
                 }
+            } else if ($node->name == "webpage") {
+                // Add target to link.
+                $content = str_replace("<a href=", "<a target='_new' href=", $content);
             }
             if (!empty($content)) {
                 $return = \html_writer::tag('b', $header);
