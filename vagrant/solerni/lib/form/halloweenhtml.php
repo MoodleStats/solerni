@@ -17,17 +17,17 @@
 
 
 /**
- * Helper text with Bootstrap class
+ * Allows to display arbitrary text in a moodle form
  */
 
 require_once("HTML/QuickForm/static.php");
 
 /**
- * Text type element
+ * Text element
  *
- * HTML class for a text type element
+ * HTML class for any element
  *
- * @package   core_form
+ * @package   theme_halloween
  * @category  form
  * @copyright 2006 Jamie Pratt <me@jamiep.org>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -45,15 +45,15 @@ class MoodleQuickForm_halloweenhtml extends HTML_QuickForm_static{
     /**
      * constructor
      *
-     * @param string $elementName (optional) name of the text field
+     * @param string $htmlcontent (optionnal) the content we want to insert
      * @param string $elementLabel (optional) text field label
      * @param string $text (optional) Text to put in text field
      */
-    function MoodleQuickForm_halloweenhtml($elementName=null, $elementLabel=null, $text=null) {
+    function MoodleQuickForm_halloweenhtml($htmlcontent=null, $elementLabel=null, $text=null) {
 
-        $this->_html = $elementName;
+        $this->_html = $htmlcontent;
 
-        parent::HTML_QuickForm_static($elementName, $elementLabel, $text);
+        parent::HTML_QuickForm_static($htmlcontent, $elementLabel, $text);
     }
 
     /**
