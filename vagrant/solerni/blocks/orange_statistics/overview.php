@@ -42,6 +42,74 @@ $extendedcourse->get_extended_course($course, $context);
 
 $inactivitydelay=$extendedcourse->inactivitydelay;
 echo $inactivitydelay;
+
+
+// Performance hacks - we preload user contexts together with accounts.
+$ccselect = ', ' . context_helper::get_preload_record_columns_sql('ctx');
+print_object($ccselect);
+$ccjoin = "LEFT JOIN {context} ctx ON (ctx.instanceid = u.id AND ctx.contextlevel = :contextlevel)";
+$params['contextlevel'] = CONTEXT_USER;
+$select .= $ccselect;
+$joins[] = $ccjoin;
+
+
+// Limit list to users with some role only.
+if ($roleid) {
+    // We want to query both the current context and parent contexts.
+    list($relatedctxsql, $relatedctxparams) = $DB->get_in_or_equal($context->get_parent_context_ids(true), SQL_PARAMS_NAMED, 'relatedctx');
+
+    $wheres[] = "u.id IN (SELECT userid FROM {role_assignments} WHERE roleid = :roleid AND contextid $relatedctxsql)";
+    $params = array_merge($params, array('roleid' => $roleid), $relatedctxparams);
+}
+
+$from = implode("\n", $joins);
+if ($wheres) {
+    $where = "WHERE " . implode(" AND ", $wheres);
+} else {
+    $where = "";
+}
+
+$totalcount = $DB->count_records_sql("SELECT COUNT(u.id) $from $where", $params);
+
+if (!empty($search)) {
+    $fullname = $DB->sql_fullname('u.firstname', 'u.lastname');
+    $wheres[] = "(". $DB->sql_like($fullname, ':search1', false, false) .
+                " OR ". $DB->sql_like('email', ':search2', false, false) .
+                " OR ". $DB->sql_like('idnumber', ':search3', false, false) .") ";
+    $params['search1'] = "%$search%";
+    $params['search2'] = "%$search%";
+    $params['search3'] = "%$search%";
+}
+
+list($twhere, $tparams) = $table->get_sql_where();
+if ($twhere) {
+    $wheres[] = $twhere;
+    $params = array_merge($params, $tparams);
+}
+
+$from = implode("\n", $joins);
+if ($wheres) {
+    $where = "WHERE " . implode(" AND ", $wheres);
+} else {
+    $where = "";
+}
+
+if ($table->get_sql_sort()) {
+    $sort = ' ORDER BY '.$table->get_sql_sort();
+} else {
+    $sort = '';
+}
+
+$matchcount = $DB->count_records_sql("SELECT COUNT(u.id) $from $where", $params);
+
+$table->initialbars(true);
+$table->pagesize($perpage, $matchcount);
+
+// List of users at the current visible page - paging makes it relatively short.
+print_r("$select $from $where $sort");
+//$userlist = $DB->get_recordset_sql("$select $from $where $sort", $params, $table->get_page_start(), $table->get_page_size());
+print_objet($userlist);
+
 // print_r($PAGE->context);
 
 //$context = $PAGE->context;
