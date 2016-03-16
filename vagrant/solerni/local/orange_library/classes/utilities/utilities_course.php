@@ -258,11 +258,13 @@ class utilities_course {
         $params = array('siteid' => SITEID);
 
         // Filter on categories.
-        if (($key = array_search(0, $filter->categoriesid)) !== false) {
-            unset($filter->categoriesid[$key]);
+        if (isset($filter->categoriesid) && is_array($filter->categoriesid)) {
+            if (($key = array_search(0, $filter->categoriesid)) !== false) {
+                unset($filter->categoriesid[$key]);
+            }
         }
 
-        if (is_array($filter->categoriesid) && count($filter->categoriesid)) {
+        if (isset($filter->categoriesid) && is_array($filter->categoriesid) && count($filter->categoriesid)) {
             $wherecategory[] = "c.category IN (" . implode(',', $filter->categoriesid) . ")";
         } else {
             $wherecategory[] = "c.id != 0";
@@ -270,10 +272,12 @@ class utilities_course {
 
         // Filter on thematics.
         $wherethematic = array();
-        if (($key = array_search(0, $filter->thematicsid)) !== false) {
-            unset($filter->thematicsid[$key]);
+        if (isset($filter->thematicsid) && is_array($filter->thematicsid)) {
+            if (($key = array_search(0, $filter->thematicsid)) !== false) {
+                unset($filter->thematicsid[$key]);
+            }
         }
-        if (is_array($filter->thematicsid) && count($filter->thematicsid)) {
+        if (isset($filter->thematicsid) && is_array($filter->thematicsid) && count($filter->thematicsid)) {
             foreach ($filter->thematicsid as $thematicid) {
                 $wherethematic[] = "find_in_set ('" . $thematicid . "', co2.value) <> 0";
             }
@@ -281,7 +285,7 @@ class utilities_course {
 
         // Filter en status.
         $wherestatus = array();
-        if (is_array($filter->statusid)) {
+        if (isset($filter->statusid) && is_array($filter->statusid)) {
             foreach ($filter->statusid as $statusid) {
                 // En cours : date de début <= NOW et date de fin > NOW.
                 if ($statusid == 1) {
@@ -301,7 +305,7 @@ class utilities_course {
 
         // Filter en duration.
         $whereduration = array();
-        if (is_array($filter->durationsid)) {
+        if (isset($filter->durationsid) && is_array($filter->durationsid)) {
             foreach ($filter->durationsid as $durationid) {
                 // 1 : Moins de 4 semaines.
                 if ($durationid == 1) {
