@@ -32,7 +32,7 @@ class HalloweenMoodleQuickForm_Renderer extends MoodleQuickForm_Renderer {
 
         $this->_elementTemplates = array(
 
-            'default' =>"\n\t\t".'<div id="{id}" class="fitem-legacy form-group {advanced}<!-- BEGIN required --> required<!-- END required --> fitem_{type} {emptylabel} <!-- BEGIN error --> has-error<!-- END error -->" {aria-live}><label>{label}</label><!-- BEGIN error --><div class="text-danger error-msg">{error}</div><!-- END error --><div>{element}</div></div>',
+            'default' =>"\n\t\t".'<div id="{id}" class="fitem-legacy form-group {advanced}<!-- BEGIN required --> required<!-- END required --> fitem_{type} {emptylabel} <!-- BEGIN error --> has-error<!-- END error -->" {aria-live}><label>{label}</label><div>{element}<!-- BEGIN error --><div class="help-block small">{error}</div><!-- END error --></div></div>',
 
             'actionbuttons' =>"\n\t\t".'<div id="{id}" class="fitem fitem_actionbuttons fitem_{type}"><div class="felement {type}">{element}</div></div>',
 

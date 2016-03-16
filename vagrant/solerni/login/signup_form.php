@@ -33,18 +33,24 @@ class login_signup_form extends moodleform {
 
         $mform = $this->_form;
         $mform->addElement('halloweenhtml', '<div class="inner-panel">');
-            // Name, surname.
-            $namefields = useredit_get_required_name_fields();
-            foreach ($namefields as $field) {
-                $mform->addElement('text', $field, get_string($field),
-                        array('maxlength' => 100, 'size' => 30, 'class' => 'form-control'));
-                $mform->setType($field, PARAM_TEXT);
-                $stringid = 'missing' . $field;
-                if (!get_string_manager()->string_exists($stringid, 'moodle')) {
-                    $stringid = 'required';
+            $mform->addElement('halloweenhtml', '<div class="form-group '
+                    . 'bold">Tous les champs sont obligatoires.</div>');
+            $mform->addElement('halloweenhtml', '<div class="row form-group-line">');
+                // Name, surname.
+                $namefields = useredit_get_required_name_fields();
+                foreach ($namefields as $field) {
+                    $mform->addElement('halloweenhtml', '<div class="col-xs-12 col-md-6">');
+                        $mform->addElement('text', $field, get_string($field),
+                                array('maxlength' => 100, 'size' => 30, 'class' => 'form-control'));
+                        $mform->setType($field, PARAM_TEXT);
+                        $stringid = 'missing' . $field;
+                        if (!get_string_manager()->string_exists($stringid, 'moodle')) {
+                            $stringid = 'required';
+                        }
+                        $mform->addRule($field, get_string($stringid), 'required', null, 'server');
+                    $mform->addElement('halloweenhtml', '</div>');
                 }
-                $mform->addRule($field, get_string($stringid), 'required', null, 'client');
-            }
+            $mform->addElement('halloweenhtml', '</div>');
             // Pseudo.
             $usernamelabel = (theme_utilities::is_theme_settings_exists_and_nonempty('signupusername')) ?
                 $filtermultilang->filter($PAGE->theme->settings->signupusername) :
@@ -55,7 +61,7 @@ class login_signup_form extends moodleform {
             $mform->addElement('text', 'username', $usernamelabel, array('maxlength' => 100, 'size' => 12, 'class' => 'form-control'));
             $mform->setType('username', PARAM_NOTAGS);
             $mform->addRule('username', get_string('missingusername', 'theme_halloween',
-                    strtolower($usernamelabel)), 'required', null, 'client');
+                    strtolower($usernamelabel)), 'required', null, 'server');
             if ($usernamehelptext) {
                 $mform->addElement('helpblock', 'usernamehelper', 'label', $usernamehelptext);
             }
@@ -69,7 +75,7 @@ class login_signup_form extends moodleform {
             $mform->addElement('text', 'email', $emaillabel,
                     array('maxlength' => 100, 'size' => 25, 'class' => 'form-control'));
             $mform->setType('email', PARAM_RAW_TRIMMED);
-            $mform->addRule('email', get_string('missingemail'), 'required', null, 'client');
+            $mform->addRule('email', get_string('missingemail'), 'required', null, 'server');
             if ($emailhelptext) {
                 $mform->addElement('helpblock', 'emailhelper', 'label', $emailhelptext);
             }
@@ -80,18 +86,18 @@ class login_signup_form extends moodleform {
             $mform->addElement('passwordunmask', 'password', get_string('password'),
                     array('maxlength' => 100, 'size' => 12, 'class' => 'form-control'));
             $mform->setType('password', PARAM_RAW);
-            $mform->addRule('password', get_string('missingpassword'), 'required', null, 'client');
+            $mform->addRule('password', get_string('missingpassword'), 'required', null, 'server');
             if (isset($passwordhelptext)) {
                 $mform->addElement('helpblock', 'passwordhelper', 'label', $passwordhelptext);
             }
             // CGU required.
             if ($cgulink = theme_utilities::get_platform_cgu_url()) {
                 $mform->addElement('inversecheckbox', 'policyagreed', get_string('policyaccept', 'theme_halloween', $cgulink));
-                $mform->addRule('policyagreed', get_string('policyagree'), 'required', null, 'client');
+                $mform->addRule('policyagreed', get_string('policyagree'), 'required', null, 'server');
             }
             // Commercial purposes (from personnal fields).
             halloween_profile_signup_fields($mform);
-            
+
         $mform->addElement('halloweenhtml', '</div>');
         // Submit.
         $mform->addElement('submit', 'submitbutton', get_string('create_account', 'theme_halloween'),
