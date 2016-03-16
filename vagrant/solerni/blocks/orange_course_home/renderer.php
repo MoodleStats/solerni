@@ -38,9 +38,7 @@ class block_orange_course_home_renderer extends plugin_renderer_base {
     public function display_courses($courses, $sitename, $catalogurl="") {
         global $PAGE;
 
-        $html = '';
-
-        $html .= html_writer::tag('h2', get_string('titlecoursehome', 'block_orange_course_home'));
+        $html = html_writer::tag('h2', get_string('titlecoursehome', 'block_orange_course_home'));
         $html .= html_writer::tag('p', get_string('subtitlecoursehome', 'block_orange_course_home', $sitename));
 
         // Display each recommended course.

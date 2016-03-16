@@ -29,7 +29,7 @@ use local_orange_library\utilities\utilities_course;
  * @param int maxcourses to retreive.
  * @return array list of sorted courses and count of courses.
  */
-function block_orange_course_home_get_courses($maxcourses = 0) {
+function block_orange_course_home_get_courses($maxcourses = 3) {
     $utilitiescourse = new utilities_course();
 
     // We ask for one course more to detect if we have the Catalog button to display.
