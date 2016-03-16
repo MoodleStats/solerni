@@ -17,9 +17,11 @@ Y.extend(PASSWORDUNMASK, Y.Base, {
         var node = Y.one('#'+elementid);
 
         // Retaining unmask div from previous implementation.
+        // @orange modified (add class).
         var unmaskdiv = Y.Node.create('<div id="'+elementid+'unmaskdiv" class="unmask pull-right"></div>');
 
         // Add checkbox for unmasking to unmaskdiv.
+        // @orange modified (add class).
         var unmaskchb = Y.Node.create('<input class="o-checkbox" id="'+elementid+'unmask" type="checkbox" name="'+
             checkboxname+'unmask">');
         unmaskdiv.appendChild(unmaskchb);

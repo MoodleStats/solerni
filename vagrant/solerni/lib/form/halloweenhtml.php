@@ -74,6 +74,11 @@ class MoodleQuickForm_halloweenhtml extends HTML_QuickForm_static{
         return $this->_elementTemplateType;
     }
 
+    /*
+     * Returns the html fragment
+     *
+     * @return string
+     */
     function toHtml() {
         return $this->_html;
     }
