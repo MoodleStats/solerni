@@ -51,6 +51,7 @@ class login_signup_form extends moodleform {
                     $mform->addElement('halloweenhtml', '</div>');
                 }
             $mform->addElement('halloweenhtml', '</div>');
+
             // Pseudo.
             $usernamelabel = (theme_utilities::is_theme_settings_exists_and_nonempty('signupusername')) ?
                 $filtermultilang->filter($PAGE->theme->settings->signupusername) :
@@ -58,13 +59,14 @@ class login_signup_form extends moodleform {
             if (theme_utilities::is_theme_settings_exists_and_nonempty('signupusernamesub')) {
                 $usernamehelptext = $filtermultilang->filter($PAGE->theme->settings->signupusernamesub);
             }
+            if (isset($usernamehelptext)) {
+                $mform->addElement('helpblock', 'usernamehelper', 'label', $usernamehelptext);
+            }
             $mform->addElement('text', 'username', $usernamelabel, array('maxlength' => 100, 'size' => 12, 'class' => 'form-control'));
             $mform->setType('username', PARAM_NOTAGS);
             $mform->addRule('username', get_string('missingusername', 'theme_halloween',
                     strtolower($usernamelabel)), 'required', null, 'server');
-            if ($usernamehelptext) {
-                $mform->addElement('helpblock', 'usernamehelper', 'label', $usernamehelptext);
-            }
+
             //Email.
             $emaillabel = (theme_utilities::is_theme_settings_exists_and_nonempty('signupemail')) ?
                 $filtermultilang->filter($PAGE->theme->settings->signupemail) :
@@ -72,36 +74,40 @@ class login_signup_form extends moodleform {
             if (theme_utilities::is_theme_settings_exists_and_nonempty('signupemailsub')) {
                 $emailhelptext = $filtermultilang->filter($PAGE->theme->settings->signupemailsub);
             }
+            if (isset($emailhelptext)) {
+                $mform->addElement('helpblock', 'emailhelper', 'label', $emailhelptext);
+            }
             $mform->addElement('text', 'email', $emaillabel,
                     array('maxlength' => 100, 'size' => 25, 'class' => 'form-control'));
             $mform->setType('email', PARAM_RAW_TRIMMED);
             $mform->addRule('email', get_string('missingemail'), 'required', null, 'server');
-            if ($emailhelptext) {
-                $mform->addElement('helpblock', 'emailhelper', 'label', $emailhelptext);
-            }
+
             // Password.
             if (theme_utilities::is_theme_settings_exists_and_nonempty('signuppasswordsub')) {
                 $passwordhelptext = $filtermultilang->filter($PAGE->theme->settings->signuppasswordsub);
+            }
+            if (isset($passwordhelptext)) {
+                $mform->addElement('helpblock', 'passwordhelper', 'label', $passwordhelptext);
             }
             $mform->addElement('passwordunmask', 'password', get_string('password'),
                     array('maxlength' => 100, 'size' => 12, 'class' => 'form-control'));
             $mform->setType('password', PARAM_RAW);
             $mform->addRule('password', get_string('missingpassword'), 'required', null, 'server');
-            if (isset($passwordhelptext)) {
-                $mform->addElement('helpblock', 'passwordhelper', 'label', $passwordhelptext);
-            }
+
             // CGU required.
             if ($cgulink = theme_utilities::get_platform_cgu_url()) {
-                $mform->addElement('inversecheckbox', 'policyagreed', get_string('policyaccept', 'theme_halloween', $cgulink));
+                $mform->addElement('inversecheckbox', 'policyagreed',
+                        get_string('policyaccept', 'theme_halloween', $cgulink));
                 $mform->addRule('policyagreed', get_string('policyagree'), 'required', null, 'server');
             }
             // Commercial purposes (from personnal fields).
             halloween_profile_signup_fields($mform);
 
         $mform->addElement('halloweenhtml', '</div>');
+
         // Submit.
         $mform->addElement('submit', 'submitbutton', get_string('create_account', 'theme_halloween'),
-                array('class' => 'btn btn-engage'));
+                array('class' => 'btn btn-engage btn-block'));
     }
     /**
      * Does something (trimming, obviously) with username
@@ -158,7 +164,7 @@ class login_signup_form extends moodleform {
             $errors['password'] = $errmsg;
         }
 
-        if (!$data['policyagreed']) {
+        if (isset($data['policyagreed'])) {
             $errors['policyagreed'] = get_string('policyagree');
         }
 

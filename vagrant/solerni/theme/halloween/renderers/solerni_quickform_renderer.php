@@ -46,7 +46,7 @@ class HalloweenMoodleQuickForm_Renderer extends MoodleQuickForm_Renderer {
 
             'inverseadvcheckbox' =>"\n\t\t".'<div id="{id}" class="fitem-legacy form-group form-group--inverseadvcheckbox  {advanced}<!-- BEGIN required --> required<!-- END required --> fitem_{type} {emptylabel} <!-- BEGIN error --> has-error<!-- END error -->" {aria-live}><!-- BEGIN error --><p class="text-warning">{error}</p><!-- END error -->{element}<label>{label}</label></div>',
 
-            'inversecheckbox' =>"\n\t\t".'<div id="{id}" class="fitem-legacy form-group {advanced}<!-- BEGIN required --> required<!-- END required --> fitem_{type} {emptylabel} <!-- BEGIN error --> has-error<!-- END error -->" {aria-live}><!-- BEGIN error --><div class="text-danger error-msg">{error}</div><!-- END error -->{element}<label>{label}</label></div>',
+            'inversecheckbox' =>"\n\t\t".'<div id="{id}" class="fitem-legacy form-group {advanced}<!-- BEGIN required --> required<!-- END required --> fitem_{type} {emptylabel}<!-- BEGIN error --> has-error<!-- END error -->" {aria-live}>{element}<label>{label}</label><!-- BEGIN error --><div class="help-block small">{error}</div><!-- END error --></div>',
 
             'halloweenhtml' => "\n\t\t".'{element}',
 

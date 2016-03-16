@@ -24,7 +24,6 @@
 }
 
 .inner-panel {
-    margin-top:         @s-double-md-margin;
     margin-bottom:      @s-triple-md-margin;
     border:             1px solid @brand-primary;
     padding:            @s-triple-md-margin;
@@ -79,14 +78,14 @@ form > .form-group:last-child {
 }
 
 /* signup */
-.fitem-legacy + .help-block {
-    margin-top:     -10px;
-    margin-bottom:  15px;
+
+.help-block {
+    margin: 0 0 @s-small-md-margin 0;
 }
 
 .error-msg {
     line-height:    1.5;
-    margin:         0 0 10px;
+    margin:         0 0 @s-small-md-margin;
 }
 
 .signup-box {
@@ -96,7 +95,7 @@ form > .form-group:last-child {
     }
 
     .fitem_fsubmit {
-        margin-top: 30px;
+        margin-top: @s-double-md-margin;
         text-align: center;
     }
 
