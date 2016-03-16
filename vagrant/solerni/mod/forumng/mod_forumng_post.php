@@ -1773,6 +1773,11 @@ WHERE
             return false;
         }
 
+        // ORANGE : The user not connected cannot alert
+        if (!isloggedin()) {
+            return false;
+        }
+
         // If not site level or forum level reporting email has been set
         if (!$this->get_forum()->has_reporting_email()) {
             $whynot = 'alert_turnedoff';

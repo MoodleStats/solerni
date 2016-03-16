@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version  = 2016030800;
+$plugin->version  = 2016031401;
 $plugin->requires = 2014051200;
-$plugin->component = 'local_orange_mail';      // Full name of the plugin (used for diagnostics)
+$plugin->component = 'local_orange_mail';      // Full name of the plugin (used for diagnostics).
 $plugin->maturity = MATURITY_RC;

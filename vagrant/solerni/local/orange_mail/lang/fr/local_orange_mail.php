@@ -200,3 +200,7 @@ afin de personnaliser votre mot de passe.</p>
 <p>Si le lien ne fonctionne pas, copiez-collez le lien dans la barre d\'adresse de votre navigateur.</p>
 <p>Vous recevez cet e-mail car votre entreprise a souhaité vous inscrire automatiquement sur notre plateforme.</p>
 <p>A très bientôt sur {$a->sitename}</p>';
+
+$string['badgemessagebody'] = '<p>Bonjour,</p>
+<p>Vous venez d’obtenir le badge « %badgename% »!</p>
+<p>Pour retrouver tous les détails de votre badge, rendez-vous sur la page {$a}.</p>';

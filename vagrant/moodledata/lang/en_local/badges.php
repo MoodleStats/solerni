@@ -15,15 +15,16 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Language file for 'badges' component
  *
- * @package    local_orange_event_user_loggedin
- * @copyright  2015 Orange
+ * @package    core_badges
+ * @subpackage badges
+ * @copyright  2012 onwards Totara Learning Solutions Ltd {@link http://www.totaralms.com/}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author     Yuliya Bozhko <yuliya.bozhko@totaralms.com>
  */
-
 defined('MOODLE_INTERNAL') || die();
+require_once("$CFG->dirroot/local/orange_mail/mail_init.php");
 
-$plugin->version   = 2016031001;        // The current plugin version (Date: YYYYMMDDXX)
-$plugin->requires  = 2014050800;        // Requires this Moodle version
-$plugin->component = 'local_orange_event_user_loggedin';   // Full name of the plugin (used for diagnostics).
+$string['messagebody'] = mail_init::init('badgemessagebody','html');
+$string['messagesubject'] = 'Congratulations! You just earned a badge!';
