@@ -24,6 +24,8 @@
 
 defined('MOODLE_INTERNAL') || die;
 
+use local_orange_library\utilities\utilities_object;
+
 class block_orange_listforumng_renderer extends plugin_renderer_base {
 
     /**
@@ -40,22 +42,45 @@ class block_orange_listforumng_renderer extends plugin_renderer_base {
 
         $table = new html_table;
 
-        $table->head = array(get_string('headtablename', 'listforumng'));
-        $table->head[] = get_string('headtablenbposts', 'listforumng');
-        $table->head[] = get_string('headtablelastpost', 'listforumng');
-
         $table->data = array();
 
         foreach ($listforumngdisplay as $forumng) {
             $row = array();
 
-            $row[] = "<a class='text-bold' href=" . $CFG->wwwroot. "/mod/forumng/view.php?&id=" . $forumng['instance'] . ">"
-            .  $forumng['name'] . "</a>"
-            . "<br>". $forumng['intro']
-            . '<span class="listforumng-date text-italic">'
-            . get_string('created', 'block_orange_listforumng') . userdate($forumng['createddate']) . '</span>';
-            $row[] = $forumng['nbposts'];
-            $row[] = $forumng['usernamelastpost']. "<br>". $forumng['datelastpost'];
+            // Read / unread.
+            if ($forumng['postunread']) {
+                $row[] = '<span class="glyphicon glyphicon-arrow-right""></span>';
+            } else {
+                $row[] = '<span class="glyphicon glyphicon-arrow-right" style="opacity:0.2";></span>';
+            }
+
+            // Forum : Title, description and date created.
+            $row[] = "<a class='text-bold' href=" . $CFG->wwwroot. "/mod/forumng/view.php?&id=" . $forumng['instance'] . "><b>"
+            . $forumng['name'] . "</b></a>"
+            . "<br>". utilities_object::trim_text($forumng['intro'], 100);
+
+            // Nb disucssions and nb posts.
+            $strdiscus = get_string('discussions', 'block_orange_listforumng');
+            if ($forumng['nbdiscus'] > 1) {
+                $strdiscus .= "s";
+            }
+            $strmsg = get_string('messages', 'block_orange_listforumng');
+            if ($forumng['nbdiscus'] > 1) {
+                $strmsg .= "s";
+            }
+            $row[] = "<font color='orange'><b>". $forumng['nbdiscus'] . "</b></font> "
+                    . $strdiscus
+                    . "<br>"
+                    . "<font color='orange'><b>" . $forumng['nbposts']. "</b></font> "
+                    . $strmsg;
+
+            // User picture.
+            $row[] = $forumng['picture'];
+
+            // Last post : name of discusssion, name of user, date created.
+            $row[] = "<b>" . utilities_object::trim_text($forumng['discussionname'], 30). "</b><br>"
+                    . get_string('from', 'block_orange_listforumng') . $forumng['usernamelastpost']
+                    . "<br>". $forumng['datelastpost'];
 
             $table->data[] = $row;
         }

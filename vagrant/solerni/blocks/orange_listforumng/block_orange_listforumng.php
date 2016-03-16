@@ -55,7 +55,8 @@ class block_orange_listforumng extends block_base {
     }
 
     public function specialization() {
-        $this->title = isset($this->config->title) ? format_string($this->config->title) : format_string(get_string('newlistforumnglock', 'block_orange_listforumng'));
+        $this->title = isset($this->config->title) ?
+                format_string($this->config->title) : format_string(get_string('newlistforumnglock', 'block_orange_listforumng'));
     }
 
     /**

@@ -197,3 +197,7 @@ and personalise your password.</p>
 <p>if the link does not work, copy and paste the URL to your browser\'s address bar.</p>
 <p>You have received this email because your company wanted to automatically register you on our platform.</p>
 <p>See you soon on {$a->sitename}</p>';
+
+$string['badgemessagebody'] = '<p>Hello,</p>
+<p>You have been awarded the badge "%badgename%"!</p>
+<p>More information about this badge can be found from {$a} page.</p>';
