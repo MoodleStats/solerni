@@ -56,16 +56,16 @@ class block_orange_course_home extends block_base {
 
         $renderer = $this->page->get_renderer('block_orange_course_home');
 
-        list($courses, $totalcourses) = block_orange_course_home_get_courses($config->defaultmaxcourses);
+        list($courses, $catalogbutton) = block_orange_course_home_get_courses($config->defaultmaxcourses);
 
-        // We display courses to the user.
-        // Catalog link if more than 3 courses.
-        if ($totalcourses > $config->defaultmaxcourses) {
-            $this->content->text .= $renderer->display_courses($courses, format_string($site->fullname), $config->catalogurl);
-        } else if ($totalcourses) {
-            $this->content->text .= $renderer->display_courses($courses, format_string($site->fullname));
-        } else {
+        if (!count($courses)) {
             $this->content->text .= $renderer->display_nocourse();
+            return $this->content;
+        }
+
+        $this->content->text .= $renderer->display_courses($courses, format_string($site->fullname));
+        if ($catalogbutton) {
+            $this->content->text .= $renderer->display_catalogbutton(format_string($site->fullname), $config->catalogurl);
         }
 
         return $this->content;

@@ -28,14 +28,13 @@ require_once($CFG->dirroot.'/theme/halloween/renderers/core_course_renderer.php'
 class block_orange_course_home_renderer extends plugin_renderer_base {
 
     /**
-     * Construct contents of orange_course_home block
+     * Construct courses list of orange_course_home block
      *
      * @param array $courses list of courses to display
      * @param string $sitename thematic name
-     * @param url $catalogurl URL of catalog
      * @return string html to be displayed in orange_course_home block
      */
-    public function display_courses($courses, $sitename, $catalogurl="") {
+    public function display_courses($courses, $sitename) {
         global $PAGE;
 
         $html = html_writer::tag('h2', get_string('titlecoursehome', 'block_orange_course_home'));
@@ -47,10 +46,23 @@ class block_orange_course_home_renderer extends plugin_renderer_base {
             $html .= $renderer->render_halloween_mooc_component(null, $course);
         }
 
+        return $html;
+    }
+
+    /**
+     * Construct catalog button of orange_course_home block
+     *
+     * @param string $sitename thematic name
+     * @param url $catalogurl URL of catalog
+     * @return string html to be displayed in orange_course_home block
+     */
+    public function display_catalogbutton($sitename, $catalogurl="") {
+
+        $html = "";
         if (!empty($catalogurl)) {
             $html .= html_writer::start_tag('div', array('class' => 'col-sm-12'));
-            $catalogmoodleurl = new moodle_url($catalogurl);
-            $html .= html_writer::link($catalogmoodleurl, get_string('displaycatalog', 'block_orange_course_home', $sitename),
+            $html .= html_writer::link(new moodle_url($catalogurl),
+                    get_string('displaycatalog', 'block_orange_course_home', $sitename),
                     array('class' => 'btn btn-default btn-block'));
             $html .= html_writer::end_tag('div');
         }
@@ -64,9 +76,8 @@ class block_orange_course_home_renderer extends plugin_renderer_base {
      * @return string html to be displayed in orange_course_home block
      */
     public function display_nocourse() {
-        $html = '';
 
-        $html .= html_writer::tag('h2', get_string('titlecoursehome', 'block_orange_course_home'));
+        $html = html_writer::tag('h2', get_string('titlecoursehome', 'block_orange_course_home'));
         $html .= html_writer::tag('p', get_string('nomooctodisplay', 'block_orange_course_home'));
 
         return $html;

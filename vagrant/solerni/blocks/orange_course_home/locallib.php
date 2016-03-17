@@ -30,12 +30,15 @@ use local_orange_library\utilities\utilities_course;
  * @return array list of sorted courses and count of courses.
  */
 function block_orange_course_home_get_courses($maxcourses = 3) {
+    if (empty($maxcourses)) {
+        return array(array(), 0);
+    }    
     $utilitiescourse = new utilities_course();
 
     // We ask for one course more to detect if we have the Catalog button to display.
     $courses = $utilitiescourse->get_courses_catalogue(new stdclass(), array('limit' => ($maxcourses + 1)));
-    $totalcourses = count($courses);
+    $displaycatalogbutton = (count($courses) > $maxcourses);
     $courses = array_slice($courses, 0, $maxcourses, true);
 
-    return array($courses, $totalcourses);
+    return array($courses, $displaycatalogbutton);
 }

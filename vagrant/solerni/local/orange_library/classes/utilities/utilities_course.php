@@ -203,15 +203,114 @@ class utilities_course {
             $fields[] = $DB->sql_substr('c.summary', 1, 1) . ' as hassummary';
         }
 
+        if (!empty($whereclause)) {
+            $whereclause .= " AND ";
+        }
+
         $sql = "SELECT " . join(',', $fields) . ", $ctxselect
                 FROM {course} c
                 JOIN {context} ctx ON c.id = ctx.instanceid AND ctx.contextlevel = :contextcourse
                 LEFT OUTER JOIN {course_format_options} co ON c.id = co.courseid AND co.name = 'courseenddate'
                 LEFT OUTER JOIN {course_format_options} co2 ON c.id = co2.courseid AND co2.name = 'coursethematics'
-                WHERE " . $whereclause . " AND c.id != 1 ORDER BY c.sortorder";
+                WHERE " . $whereclause . "c.id != 1 ORDER BY c.sortorder";
         $list = $DB->get_records_sql($sql, array('contextcourse' => CONTEXT_COURSE) + $params);
 
         return $list;
+    }
+
+    /**
+     * Construct the SQL where clause for categories
+     * @param array $categories 
+     * @return wherecategory[]
+     */
+    private static function catalogue_filter_category ($categories) {
+        $wherecategory = array();
+
+        if (($key = array_search(0, $categories)) !== false) {
+            unset($categories[$key]);
+        }
+
+        if (count($categories)) {
+            $wherecategory[] = "c.category IN (" . implode(',', $categories) . ")";
+        } else {
+            $wherecategory[] = "c.id != 0";
+        }
+
+        return $wherecategory;
+    }
+
+    /**
+     * Construct the SQL where clause for thematics
+     * @param array $thematics 
+     * @return $wherethematic[]
+     */
+    private static function catalogue_filter_thematic ($thematics) {
+        $wherethematic = array();
+
+        if (($key = array_search(0, $thematics)) !== false) {
+            unset($thematics[$key]);
+        }
+
+        if (count($thematics)) {
+            foreach ($thematics as $thematicid) {
+                $wherethematic[] = "find_in_set ('" . $thematicid . "', co2.value) <> 0";
+            }
+        }
+
+        return $wherethematic;
+    }
+
+    /**
+     * Construct the SQL where clause for status
+     * @param array $status 
+     * @return $wherestatus[]
+     */
+    private static function catalogue_filter_status ($status) {
+        $wherestatus = array();
+
+        foreach ($status as $statusid) {
+            // En cours : date de début <= NOW et date de fin > NOW.
+            if ($statusid == 1) {
+                $wherestatus[] = "(c.startdate <= UNIX_TIMESTAMP(CURRENT_TIMESTAMP) AND " .
+                        "co.value > UNIX_TIMESTAMP(CURRENT_TIMESTAMP))";
+            }
+            // A venir : date de début > NOW.
+            if ($statusid == 2) {
+                $wherestatus[] = "(c.startdate > UNIX_TIMESTAMP(CURRENT_TIMESTAMP))";
+            }
+            // Terminé : date de fin < NOW.
+            if ($statusid == 3) {
+                $wherestatus[] = "(co.value < UNIX_TIMESTAMP(CURRENT_TIMESTAMP))";
+            }
+        }
+
+        return $wherestatus;
+    }
+
+    /**
+     * Construct the SQL where clause for durations
+     * @param array $durations
+     * @return $whereduration[]
+     */
+    private static function catalogue_filter_durations ($durations) {
+        $whereduration = array();
+
+        foreach ($durations as $durationid) {
+            // 1 : Moins de 4 semaines.
+            if ($durationid == 1) {
+                $whereduration[] = "((co.value-c.startdate) < (3600*24*7*4))";
+            }
+            // 2 : de 4 à 6 semaines.
+            if ($durationid == 2) {
+                $whereduration[] = "((co.value-c.startdate) >= (3600*24*7*4) AND (co.value-c.startdate) <= (3600*24*7*6))";
+            }
+            // 3 : plus de 6 semaines.
+            if ($durationid == 3) {
+                $whereduration[] = "(co.value-c.startdate) > (3600*24*7*6)";
+            }
+        }
+
+        return $whereduration;
     }
 
     /**
@@ -254,88 +353,43 @@ class utilities_course {
         $sortfields = !empty($options['sort']) ? $options['sort'] :
                 array('closed' => 1, 'timeleft' => 1, 'enddate' => -1, 'startdate' => 1);
 
-        $wherecategory = array();
-        $params = array('siteid' => SITEID);
-
         // Filter on categories.
         if (isset($filter->categoriesid) && is_array($filter->categoriesid)) {
-            if (($key = array_search(0, $filter->categoriesid)) !== false) {
-                unset($filter->categoriesid[$key]);
-            }
-        }
-
-        if (isset($filter->categoriesid) && is_array($filter->categoriesid) && count($filter->categoriesid)) {
-            $wherecategory[] = "c.category IN (" . implode(',', $filter->categoriesid) . ")";
-        } else {
-            $wherecategory[] = "c.id != 0";
+            $wherecategory = self::catalogue_filter_category($filter->categoriesid);
         }
 
         // Filter on thematics.
-        $wherethematic = array();
         if (isset($filter->thematicsid) && is_array($filter->thematicsid)) {
-            if (($key = array_search(0, $filter->thematicsid)) !== false) {
-                unset($filter->thematicsid[$key]);
-            }
-        }
-        if (isset($filter->thematicsid) && is_array($filter->thematicsid) && count($filter->thematicsid)) {
-            foreach ($filter->thematicsid as $thematicid) {
-                $wherethematic[] = "find_in_set ('" . $thematicid . "', co2.value) <> 0";
-            }
+            $wherethematic = self::catalogue_filter_thematic($filter->thematicsid);
         }
 
         // Filter en status.
         $wherestatus = array();
         if (isset($filter->statusid) && is_array($filter->statusid)) {
-            foreach ($filter->statusid as $statusid) {
-                // En cours : date de début <= NOW et date de fin > NOW.
-                if ($statusid == 1) {
-                    $wherestatus[] = "(c.startdate <= UNIX_TIMESTAMP(CURRENT_TIMESTAMP) AND " .
-                            "co.value > UNIX_TIMESTAMP(CURRENT_TIMESTAMP))";
-                }
-                // A venir : date de début > NOW.
-                if ($statusid == 2) {
-                    $wherestatus[] = "(c.startdate > UNIX_TIMESTAMP(CURRENT_TIMESTAMP))";
-                }
-                // Terminé : date de fin < NOW.
-                if ($statusid == 3) {
-                    $wherestatus[] = "(co.value < UNIX_TIMESTAMP(CURRENT_TIMESTAMP))";
-                }
-            }
+            $wherestatus = self::catalogue_filter_status($filter->statusid);
         }
 
         // Filter en duration.
-        $whereduration = array();
         if (isset($filter->durationsid) && is_array($filter->durationsid)) {
-            foreach ($filter->durationsid as $durationid) {
-                // 1 : Moins de 4 semaines.
-                if ($durationid == 1) {
-                    $whereduration[] = "((co.value-c.startdate) < (3600*24*7*4))";
-                }
-                // 2 : de 4 à 6 semaines.
-                if ($durationid == 2) {
-                    $whereduration[] = "((co.value-c.startdate) >= (3600*24*7*4) AND (co.value-c.startdate) <= (3600*24*7*6))";
-                }
-                // 3 : plus de 6 semaines.
-                if ($durationid == 3) {
-                    $whereduration[] = "(co.value-c.startdate) > (3600*24*7*6)";
-                }
-            }
+            $whereduration = self::catalogue_filter_durations($filter->durationsid);
         }
 
         // Construct the where claude.
         $where = array();
-        if (count($wherecategory) != 0) {
+        if (!empty($wherecategory)) {
             $where[] = '(' . implode(' OR ', $wherecategory) . ')';
         }
-        if (count($wherethematic) != 0) {
+        if (!empty($wherethematic) != 0) {
             $where[] = '(' . implode(' OR ', $wherethematic) . ')';
         }
-        if (count($wherestatus) != 0) {
+        if (!empty($wherestatus) != 0) {
             $where[] = '(' . implode(' OR ', $wherestatus) . ')';
         }
-        if (count($whereduration) != 0) {
+        if (!empty($whereduration) != 0) {
             $where[] = '(' . implode(' OR ', $whereduration) . ')';
         }
+
+        $params = array('siteid' => SITEID);
 
         $list = self::get_course_records(implode(' AND ', $where), $params,
                 array_diff_key($options, array('coursecontacts' => 0)), true);
