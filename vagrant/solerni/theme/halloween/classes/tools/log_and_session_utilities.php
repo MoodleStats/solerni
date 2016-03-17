@@ -88,6 +88,12 @@ class log_and_session_utilities {
         global $SESSION, $CFG;
 
         switch (true) {
+            // We are in a mnet situation.
+            // mnetredirect variable come from the login page first iteration (define_form_action).
+            case isset($SESSION->mnetredirect):
+                $urltogo = $SESSION->mnetredirect;
+                unset($SESSION->mnetredirect);
+                break;
             // User needs to be redirect to a previous page.
             case isset($SESSION->wantsurl):
                 $urltogo = $SESSION->wantsurl;

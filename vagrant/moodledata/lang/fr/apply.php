@@ -25,10 +25,10 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['accept_entry'] = 'accepter';
-$string['acked_accept'] = 'Accepter';
+$string['accept_entry'] = 'accepté';
+$string['acked_accept'] = 'Accepté';
 $string['acked_notyet'] = 'Pas encore';
-$string['acked_reject'] = 'Rejeter';
+$string['acked_reject'] = 'Refusé';
 $string['add_item'] = 'Ajouter une question';
 $string['add_items'] = 'Ajouter des questions';
 $string['add_pagebreak'] = 'Ajouter un saut de page';
@@ -46,18 +46,19 @@ $string['apply_is_closed'] = 'L\'activité est fermée.';
 $string['apply_is_disable'] = 'Vous ne pouvez pas utiliser cette activité.';
 $string['apply_is_not_open'] = 'L\'activité n\'est pas encore disponible.';
 $string['apply_is_not_ready'] = 'L\'activité n\'est pas encore prête. Créez d\'abord des questions.';
-$string['apply:mapcourse'] = 'vison globale des demandes';
-$string['apply_options'] = 'Options de l\'activité.';
+$string['apply:mapcourse'] = 'Vision globale des demandes';
+$string['apply:operatesubmit'] = 'Réglages de questions et d’envoi.';
+$string['apply_options'] = 'Appliquer les options';
 $string['apply:preview'] = 'Prévisualiser';
 $string['apply:receivemail'] = 'Recevoir une notification par courriel';
 $string['apply:submit'] = 'Envoyer une entrée';
 $string['apply:view'] = 'Voir une demande';
 $string['apply:viewanalysepage'] = 'Voir la page d\'analyse après l\'envoi.';
-$string['apply:viewentries'] = 'Liste de demandes.';
+$string['apply:viewentries'] = 'Liste des demandes.';
 $string['apply:viewreports'] = 'Voir les rapports';
 $string['average'] = 'Moyenne';
 $string['back_button'] = 'Retour';
-$string['before_apply'] = 'Avant envoi';
+$string['before_apply'] = 'Versions précédentes';
 $string['cancel_entry'] = 'Annuler';
 $string['cancel_entry_button'] = 'Annuler';
 $string['cancel_moving'] = 'Annuler le déplacement';
@@ -69,15 +70,15 @@ $string['class_cancel'] = 'Annuler';
 $string['class_draft'] = 'Brouillon';
 $string['class_newpost'] = 'Nouvelle demande';
 $string['class_update'] = 'Mettre à jour';
-$string['confirm_cancel_entry'] = 'Etes-vous sur de vouloir annuler cette entrée?';
-$string['confirm_delete_entry'] = 'Etes-vous sur de vouloir supprimer cette entrée?';
-$string['confirm_delete_item'] = 'Etes-vous sur de vouloir supprimer cet élément?';
-$string['confirm_delete_submit'] = 'Etes-vous sur de vouloir supprimer cette demande?';
-$string['confirm_delete_template'] = 'Etes-vous sur de vouloir supprimer ce modèle?';
-$string['confirm_rollback_entry'] = 'Etes-vous sur de vouloir supprimer cette entrée?';
-$string['confirm_use_template'] = 'Etes-vous sur de vouloir utiliser ce modèle?';
+$string['confirm_cancel_entry'] = 'Voulez-vous vraiment annuler cette entrée ?';
+$string['confirm_delete_entry'] = 'Voulez-vous vraiment supprimer cette entrée ?';
+$string['confirm_delete_item'] = 'Voulez-vous vraiment supprimer cet élément ?';
+$string['confirm_delete_submit'] = 'Voulez-vous vraiment supprimer cette demande ?';
+$string['confirm_delete_template'] = 'Voulez-vous vraiment supprimer ce modèle ?';
+$string['confirm_rollback_entry'] = 'Voulez-vous vraiment supprimer cette entrée ?';
+$string['confirm_use_template'] = 'Voulez-vous vraiment utiliser ce modèle ?';
 $string['count_of_nums'] = 'Nombre de chiffres';
-$string['creating_templates'] = 'Sauvegarder ces questions comme nouveau modèle?';
+$string['creating_templates'] = 'Sauvegarder ces questions comme nouveau modèle ?';
 $string['delete_entry'] = 'Supprimer';
 $string['delete_entry_button'] = 'Supprimer';
 $string['delete_item'] = 'Supprimer la question';
@@ -85,33 +86,33 @@ $string['delete_submit'] = 'Supprimer l\'activité';
 $string['delete_template'] = 'Supprimer le modèle';
 $string['delete_templates'] = 'Supprimer le modèle...';
 $string['depending'] = 'Dépendances';
-$string['depending_help'] = 'Il est possible de montrer une question en fonction de la réponse à une autre question.<br />
+$string['depending_help'] = 'Il est possible d\'afficher un élément en fonction de la valeur d\'un autre élément.<br />
 <strong>Voici un exemple.</strong><br />
 <ul>
-<li>Premièrement, créez une question qui est liée à l\'affichage d\'une autre question.</li>
+<li>D\'abord, créer un élément dont la valeur va déterminer l\'affichage d\'autres éléments.</li>
 <li>Ensuite, ajoutez un saut de page.</li>
-<li>Enfin, ajoutez les choix possibles pour la question qui vient d\'être créée. Choisissez la question dans la liste nommée "Question dépendante" et indiquez la valeur requise dans la zone de texte appelée "valeur dépendante".</li>
+<li>Pour terminer, ajouter les éléments dont l\'affichage dépendra de la valeur du premier élément créé. Sélectionner ce dernier élément dans la liste intitulée « Éléments de dépendance » et indiquer la valeur requise dans le champ « Valeur de la dépendance ».</li>
 </ul>
-<strong>La structure de la question peut ressembler à ceci.</strong>
+<strong>La structure des éléments ressemblera à ceci.</strong>
 <ol>
-<li>Question Q: Avez-vous une voiture? A: Oui/Non</li>
+<li>Question Q: Avez-vous une voiture ? A: Oui/Non</li>
 <li>Saut de page</li>
-<li>Question Q: Quelle est la couleur de votre voiture?<br />
+<li>Question Q: Quelle est la couleur de votre voiture ?<br />
 (Cette question est liée à la question 1 avec la réponse = oui)</li>
-<li>Question Q: pourquoi n\'avez-vous pas de voiture?<br />
+<li>Question Q: Pourquoi n\'avez-vous pas de voiture ?<br />
 (Cette question est liée à la question 1 avec la réponse = non)</li>
 <li> ... autres questions</li>
 </ol>';
-$string['dependitem'] = 'Question interdépendante';
-$string['dependvalue'] = 'Valeur interdépendante';
+$string['dependitem'] = 'Élément de dépendance';
+$string['dependvalue'] = 'Valeur de la dépendance';
 $string['description'] = 'Description';
 $string['display_button'] = 'Afficher';
 $string['do_not_analyse_empty_submits'] = 'Ne pas analyser les envois nuls';
 $string['dropdown'] = 'Liste déroulante';
-$string['edit_entry'] = 'Editer';
-$string['edit_entry_button'] = 'Editer';
-$string['edit_item'] = 'Editer une question';
-$string['edit_items'] = 'Editer des questions';
+$string['edit_entry'] = 'Éditer';
+$string['edit_entry_button'] = 'Éditer';
+$string['edit_item'] = 'Éditer une question';
+$string['edit_items'] = 'Éditer des questions';
 $string['email_confirm_html'] = ': <i>\'{$a->apply}\'</i><br /><br /> Vous pouvez le voir <a href="{$a->url}">ici</a>.';
 $string['email_confirm_text'] = ': \'{$a->apply}\'
 
@@ -119,54 +120,55 @@ Vous pouvez le voir ici:
 {$a->url}';
 $string['email_entry'] = 'Envoyer un email au participant';
 $string['email_noreply'] = 'Ceci est un mail automatique. Merci de ne pas y répondre.';
-$string['email_notification'] = 'Envoyer une notification par email à l\'administrateur';
-$string['email_notification_help'] = 'Si l\'option est activée, les titulaires du cours recevront un email de notification lors des demandes effectuées par les participants.';
-$string['email_notification_user'] = 'Envoyer un email de notification au participant';
-$string['email_notification_user_help'] = 'Si cette option est activée, l\'enseignant peut envoyer un email sur le statut  aux participants.';
+$string['email_notification'] = 'Envoyer une notification par email à l\'évaluateur';
+$string['email_notification_help'] = 'Si l\'option est activée, les évaluateurs recevront un email de notification lors des demandes effectuées par les participants.';
+$string['email_notification_user'] = 'Envoyer un email de notification aux participants';
+$string['email_notification_user_help'] = 'Si cette option est activée, l\'évaluateur peut envoyer un email sur le statut  aux participants.';
 $string['email_teacher'] = '{$a->username} a été envoyé à l\'activité';
 $string['email_user_accept'] = 'Votre demande est acceptée';
 $string['email_user_done'] = 'Votre demande est clôturée.';
-$string['email_user_other'] = 'L\'enseignant a évalué votre demande.';
+$string['email_user_other'] = 'L\'évaluateur a analysé votre demande.';
 $string['email_user_reject'] = 'Votre demande est rejetée';
 $string['enable_deletemode'] = 'Mode suppression';
-$string['enable_deletemode_help'] = 'Cette option permet à l\'enseignât de supprimer toutes les demandes.<br />Usually, Par sécurité, merci de le laisser su "Non".';
+$string['enable_deletemode_help'] = 'Cette option permet à l’évaluateur de supprimer toutes les demandes.<br />Par mesure de sécurité, merci de le laisser sur « Non".';
 $string['entries_list_title'] = 'Liste de demandes';
-$string['entry_saved'] = 'Votre demande est sauvegardée. Merci.';
-$string['entry_saved_draft'] = 'Votre demande a bien été sauvegardée comme brouillon.';
+$string['entry_saved'] = 'Votre demande est enregistrée. Merci.';
+$string['entry_saved_draft'] = 'Votre demande a bien été sauvegardée comme <strong>Brouillion</strong>.';
 $string['entry_saved_operation'] = 'Votre demande a été analysée';
-$string['execd_done'] = 'Evalué';
-$string['execd_entry'] = 'Evalué';
+$string['execd_done'] = 'Évalué';
+$string['execd_entry'] = 'Évalué';
 $string['execd_notyet'] = 'Pas encore';
 $string['export_templates'] = 'Exporter les modèles';
-$string['hide_no_select_option'] = 'Cacher les option non sélectionnées';
+$string['hide_no_select_option'] = 'Cacher les options «non sélectionnées»';
 $string['horizontal'] = 'horizontal';
 $string['import_templates'] = 'Importer un modèle';
 $string['info'] = 'Information';
-$string['item_label'] = 'étiquette';
-$string['item_label_help'] = 'Etiquettes spéciales<br />
+$string['infotype'] = 'Type d’information';
+$string['item_label'] = 'Étiquette';
+$string['item_label_help'] = 'Étiquettes spéciales<br />
 <ul>
-<li><strong>submit_title</strong>
-<ul><li>Quand l\'étiquette est liée au champs de texte (réponse à texte court), elle est considérée comme un titre de requête.</li></ul>
+<li><strong>titre</strong>
+<ul><li>Quand l\'étiquette est liée au champ de texte (réponse à texte court), elle est considérée comme un titre de requête.</li></ul>
 </li>
-<li><strong>submit_only</strong>
-<ul><li>This is an item displayed only at the time of an application. This is used for use consent etc.</li></ul>
+<li><strong>accord</strong>
+<ul><li>C’est une option qui est affichée uniquement au moment de l’envoi par l’utilisateur. Elle est utilisée afin d’obtenir le consentement etc.</li></ul>
 </li>
-<li><strong>admin_reply</strong>
-<ul><li>Although not displayed on a user at the time of an application, it is displayed after an application.
-Since the administrator can edit, This is uses for the comment from an administrator, etc. </li></ul>
+<li><strong>réponse</strong>
+<ul><li>Cette question ne sera pas affichée lors de la demande par l’utilisateur. Elle sera affichée lors de la réponse à la requête.
+L’évaluateur pourra y laisser un feedback lors de l’analyse de la requête.  </li></ul>
 </li>
-<li><strong>admin_only</strong>
-<ul><li>C\'est une question qui peut être activée à l\'attention d\'un professeur et ne pourra être modifiée uniquement par un enseignant. On l\'utilisera par exemple comme un mémo privé pour l\'enseignant etc.</li></ul>
+<li><strong>mémo</strong>
+<ul><li>C’est une question qui peut être activée à l’attention d\'un évaluateur et ne pourra être modifiée que par celui-ci. On l\'utilisera par exemple comme un mémo privé pour l\'évaluateur etc.</li></ul>
 </li>
 </ul>';
 $string['item_name'] = 'Question';
 $string['items_are_required'] = 'La réponse est requise';
-$string['label'] = 'étiquette';
+$string['label'] = 'Étiquette';
 $string['maximal'] = 'maximum';
 $string['modulename'] = 'Formulaire de demandes';
 $string['modulename_help'] = 'Vous pouvez faire simplement un formulaire de demande et recevoir une réponse de l\'utilisateur.';
 $string['modulenameplural'] = 'Formulaire de demandes';
-$string['movedown_item'] = 'déplacer cette question vers le bas';
+$string['movedown_item'] = 'Déplacer cette question en bas';
 $string['move_here'] = 'Déplacer ici';
 $string['move_item'] = 'Déplacer cette question';
 $string['moveup_item'] = 'Déplacer cette question en haut';
@@ -179,10 +181,11 @@ $string['name'] = 'Nom';
 $string['name_required'] = 'Nom requis';
 $string['next_page_button'] = 'Page suivante';
 $string['no_itemlabel'] = 'Pas d\'étiquette';
+$string['no_itemname'] = 'Pas de nom de question';
 $string['no_items_available_yet'] = 'Aucunes questions n\'a encore été configurée';
 $string['no_settings_captcha'] = 'Les options de CAPTCHA ne peuvent être éditées.';
 $string['no_submit_data'] = 'Les données entrées ne sont pas valables.';
-$string['no_templates_available_yet'] = 'Pas de modèle encore défini';
+$string['no_templates_available_yet'] = 'Pas de modèles encore défini';
 $string['not_exist'] = 'N\'existe pas';
 $string['no_title'] = 'Pas de titre';
 $string['not_selected'] = 'pas sélectionné';
@@ -191,26 +194,28 @@ $string['numeric_range_from'] = 'Intervalle de...';
 $string['numeric_range_to'] = 'Intervalle jusqu\'à...';
 $string['only_one_captcha_allowed'] = 'Seulement un captcha est autorisé par requête';
 $string['operate_is_disable'] = 'Vous ne pouvez pas utiliser cette opération';
-$string['operate_submit_button'] = 'En cours';
+$string['operate_submit'] = 'Analyser';
+$string['operate_submit_button'] = 'Publier';
 $string['operation_error_execd'] = 'Tant que vous n\'avez pas accepté la requête, vous ne pouvez pas cocher la case "terminé".';
 $string['overview'] = 'Aperçu et Envoi';
 $string['pagebreak'] = 'Saut de page';
 $string['pluginadministration'] = 'Administration';
 $string['pluginname'] = 'Formulaire de demande';
-$string['position'] = 'position';
-$string['preview'] = 'prévisualiser';
+$string['position'] = 'Position';
+$string['preview'] = 'Prévisualiser';
 $string['preview_help'] = 'Dans l\'aperçu, vous pouvez changer l\'ordre des questions.';
 $string['previous_apply'] = 'Aperçu envoyé';
 $string['previous_page_button'] = 'Page précédente';
-$string['public'] = 'publique';
+$string['public'] = 'Publique';
 $string['radio'] = 'bouton de radio';
 $string['radiobutton'] = 'bouton de radio';
 $string['radiobutton_rated'] = 'bouton de radio (évalué)';
-$string['radiorated'] = 'bouton de radio (évalué)';
+$string['radiorated'] = 'Bouton de radio (évalué)';
 $string['reject_entry'] = 'refusé';
 $string['related_items_deleted'] = 'Toutes vos réponses vont être supprimées.';
 $string['required'] = 'requis';
 $string['resetting_data'] = 'Réinitialiser les réponses';
+$string['responsetime'] = 'Heure de réponse';
 $string['returnto_course'] = 'Retour';
 $string['rollback_entry'] = 'Se rétracter';
 $string['rollback_entry_button'] = 'Se rétracter';
@@ -239,28 +244,31 @@ $string['textarea'] = 'Question texte long';
 $string['textarea_height'] = 'Nombre de lignes';
 $string['textarea_width'] = 'Largeur';
 $string['textfield'] = 'Question à texte court';
-$string['textfield_maxlength'] = 'Nombre de caractère maximum';
+$string['textfield_maxlength'] = 'Nombre de caractères maximum';
 $string['textfield_size'] = 'Largeur du champs de texte';
-$string['time_close'] = 'Heure de fermeture';
+$string['time_close'] = 'Permettre les réponses jusqu\'au';
 $string['time_close_help'] = 'Vous pouvez indiquer un période lorsque l\'activité est accessible aux participants.
 Si la case n\'est pas cochée, il n\'y a pas de limite définie.';
-$string['time_open'] = 'Heure d\'ouverture';
+$string['time_open'] = 'Permettre les réponses dès le';
 $string['time_open_help'] = 'Vous pouvez indiquer un période lorsque l\'activité est accessible aux participants.
 Si la case n\'est pas cochée, il n\'y a pas de limite définie.';
-$string['title_ack'] = 'Réception';
-$string['title_before'] = 'Avant l\'envoi';
+$string['title_ack'] = 'Décision';
+$string['title_before'] = 'Versions précédentes';
 $string['title_check'] = 'Vérifié';
 $string['title_class'] = 'Statut';
 $string['title_draft'] = 'Brouillon';
-$string['title_exec'] = 'Execution';
+$string['title_exec'] = 'État';
 $string['title_title'] = 'Titre';
+$string['title_version'] = 'Ver.';
 $string['update_entry'] = 'Mettre à jour';
 $string['update_entry_button'] = 'Mettre à jour';
 $string['update_item'] = 'Sauvegarder la question';
 $string['use_calendar'] = 'Utiliser le calendrier';
 $string['use_calendar_help'] = 'La période d\'envoi pour une demande est consignée dans le calendrier';
 $string['use_item'] = 'utiliser {$a}';
-$string['use_one_line_for_each_value'] = 'Utiliser une ligne pour chaque réponse';
+$string['use_one_line_for_each_value'] = '<br />Utiliser une ligne pour chaque réponse';
+$string['username_manage'] = 'Affichage du nom d’utilisateur';
+$string['username_manage_help'] = 'Vous pouvez choisir l’affichage du nom d’utilisateur dans le menu déroulant.';
 $string['user_pic'] = 'Photo';
 $string['use_this_template'] = 'Utiliser ce modèle';
 $string['using_templates'] = 'Utiliser un modèle';
