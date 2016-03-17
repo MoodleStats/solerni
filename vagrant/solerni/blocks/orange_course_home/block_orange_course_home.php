@@ -39,7 +39,7 @@ class block_orange_course_home extends block_base {
      * @return stdClass contents of block
      */
     public function get_content() {
-        if (utilities_network::is_home()) {
+        if (utilities_network::is_platform_uses_mnet() && utilities_network::is_home()) {
             return "";
         }
         if ($this->content !== null) {
