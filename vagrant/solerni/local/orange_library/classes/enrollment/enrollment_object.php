@@ -158,7 +158,7 @@ class enrollment_object {
         if ($DB->record_exists('user_enrol_nextsession', array('userid' => $USER->id, 'instanceid' => $instance->id))) {
             return true;
         }
-        
+
         return false;
     }
 }

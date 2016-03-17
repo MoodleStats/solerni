@@ -41,6 +41,7 @@ $string['autonumbering_help'] = 'Active ou désactive les numéros automatiques 
 $string['average'] = 'Moyenne';
 $string['bold'] = 'Gras';
 $string['cancel_moving'] = 'Annuler déplacement';
+$string['cannotaccess'] = 'Il n\'est possible d\'accéder à ce feedback que depuis un cours';
 $string['cannotmapfeedback'] = 'Problème de base de données, impossible d\'associer le feedback au cours';
 $string['cannotsavetempl'] = 'L\'enregistrement des modèles n\'est pas autorisé';
 $string['cannotunmap'] = 'Problème de base de données, impossible de dissocier le feedback';
