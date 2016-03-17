@@ -5,6 +5,11 @@
 /*
  *Login
  */
+
+.pagelayout-login .main-page-content {
+    background-color: @gray-lighter;
+}
+
 .login-oauth2 {
     margin: @s-double-xs-margin 0;
 }
@@ -13,28 +18,29 @@
     margin-bottom: @s-double-xs-margin;
 }
 
-.login-line {
-    border-top: 2px solid @gray-dark;
-    text-align: center;
-    margin:     @s-small-xs-margin 0;
-}
-
-.line-inner {
-    position:           relative;
-    display:            inline-block;
-    background-color:   @brand-tertiary;
-    top:                -.7em;
-    padding:            0 1em;
-    text-transform:     uppercase;
-    color:              @gray-dark;
-    font-weight:        bold;
-    font-size:          1.2em;
-}
-
 .login-box,
 .signup-box {
-    margin: @s-double-xs-margin 0;
+    padding: @s-triple-md-margin 0;
 }
+
+.inner-panel {
+    margin-bottom:      @s-triple-md-margin;
+    border:             1px solid @brand-primary;
+    padding:            @s-triple-md-margin;
+    background-color:   @brand-tertiary;
+
+    .form-group:last-child {
+        margin-bottom: 0;
+    }
+
+    .form-group-line .form-group:last-child {
+        margin-bottom: @s-triple-md-margin;
+    }
+}
+
+form > .form-group:last-child {
+        margin-bottom: 0;
+    }
 
 .password-wrapper {
     position: relative;
@@ -52,26 +58,16 @@
     position: relative;
 }
 
-.signup-box .unmask {
-    .login-forgot();
-    .btn();
-    .btn-warning();
-    top:    auto;
-    bottom: 0;
+.unmask {
+
+    label {
+        font-weight:    normal;
+        font-family:    @font-family-sans-serif;
+        margin:         0;
+    }
 }
 
-.signup-box .unmask input {
-    float:      left;
-    margin-top: 3px;
-}
 
-.signup-box .unmask label {
-    padding-left:   5px;
-    padding-right:  10px;
-    font-weight:    bold;
-    line-height:    1;
-    min-height:     auto;
-}
 
 .login-forgot:hover {
     border:     1px solid @gray-light;
@@ -82,30 +78,40 @@
 }
 
 /* signup */
-.fitem-legacy + .help-block {
-    margin-top:     -10px;
-    margin-bottom:  15px;
-}
 
-.signup-box .fdescription {
-    display: none;
+.help-block {
+    margin: 0 0 @s-small-md-margin 0;
 }
 
 .error-msg {
     line-height:    1.5;
-    margin:         0 0 10px;
+    margin:         0 0 @s-small-md-margin;
 }
 
-.signup-box .fitem_fsubmit {
-    margin-top: 30px;
-    text-align: center;
-}
+.signup-box {
 
-.signup-box .fsubmit {
-    display:    inline-block;
-    margin:     0 auto !important;
-    width:      auto !important;
-    float:      none !important;
+    .fdescription.required {
+        display: none;
+    }
+
+    .fitem_fsubmit {
+        margin-top: @s-double-md-margin;
+        text-align: center;
+    }
+
+    .fsubmit {
+        margin:     0 auto !important;
+        width:      auto !important;
+        float:      none !important;
+    }
+
+    .btn {
+        margin: 0;
+    }
+
+    #fitem_id_submitbutton {
+        margin-bottom: 0 !important;
+    }
 }
 
 .signup-footer {

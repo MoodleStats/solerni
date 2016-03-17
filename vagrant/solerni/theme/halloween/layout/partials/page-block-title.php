@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
+// This file is part of The Orange Halloween Moodle Theme
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,24 +12,14 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>. ?>
 
-/**
- * Theme More version file.
- *
- * @package    theme_halloween
- * @copyright  2014 Bas Brands
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
-defined('MOODLE_INTERNAL') || die;
+<!-- page block title -->
+<div class="row">
+    <div class="col-xs-12 page-block-title">
+        <h1><?php echo $titles->pageblocktitleh1; ?></h1>
+        <p><?php echo $titles->pageblockdesc; ?></p>
+    </div>
+</div>
 
 
-$plugin->version   = 2016031600;
-$plugin->requires  = 2014051200;
-$plugin->release  = 2014051300;
-$plugin->maturity  = MATURITY_BETA;
-$plugin->component = 'theme_halloween';
-$plugin->dependencies = array(
-    'theme_bootstrap'  => 2015062200
-);
