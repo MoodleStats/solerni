@@ -59,7 +59,6 @@ endif; ?>
                 <?php if ( $formaction['isthematic']) :?>
                     <input type="hidden" name="mnetorigin" value="<?php echo $CFG->wwwroot; ?>">
                 <?php endif; ?>
-
                 <div class="form-group">
                     <?php $usernamelabel = (theme_utilities::is_theme_settings_exists_and_nonempty('loginusername')) ?
                             $filtermultilang->filter($PAGE->theme->settings->loginusername) :
