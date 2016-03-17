@@ -374,7 +374,7 @@ class utilities_course {
             $whereduration = self::catalogue_filter_durations($filter->durationsid);
         }
 
-        // Construct the where claude.
+        // Construct the where clause.
         $where = array();
         if (!empty($wherecategory)) {
             $where[] = '(' . implode(' OR ', $wherecategory) . ')';
