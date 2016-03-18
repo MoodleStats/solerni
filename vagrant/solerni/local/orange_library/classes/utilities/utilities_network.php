@@ -199,6 +199,12 @@ class utilities_network {
         return $resacs;
     }
 
+    /**
+     * This function is called from CRON task to check validiy of MNet keys.
+     *
+     * @global type $CFG, $DB
+     * @return none
+     */
     static public function renew_mnet_key() {
         global $CFG, $DB;
 
@@ -307,6 +313,14 @@ class utilities_network {
     }
 
 
+    /**
+     * This send a status of MNet key validy to admin user.
+     *
+     * @global type $CFG
+     * @params user $user
+     * @params mail content $content
+     * @return none
+     */
     static public function send_mnet_key_check_status($user, $content='') {
         global $CFG;
 
