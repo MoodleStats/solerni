@@ -25,7 +25,7 @@ use local_orange_library\utilities\utilities_array;
 defined('MOODLE_INTERNAL') || die();
 
 
-class block_orange_social_sharing_renderer extends plugin_renderer_base {
+class block_orange_social_following_renderer extends plugin_renderer_base {
 
     /**
      *  Set the dicplayed text in the block.
@@ -42,7 +42,7 @@ class block_orange_social_sharing_renderer extends plugin_renderer_base {
         $socialclassarray = new utilities_array();
         $socialurlarray = new utilities_array();
 
-        $title = get_string('sharetitle', 'block_orange_social_sharing');
+        $title = get_string('followtitle', 'block_orange_social_sharing');
 
         $shareonarray->add(get_string('shareonfacebook', 'block_orange_social_sharing'));
         $socialclassarray->add('facebook');
@@ -61,6 +61,7 @@ class block_orange_social_sharing_renderer extends plugin_renderer_base {
         $socialurlarray->add(get_string('urlshareongoogleplus', 'block_orange_social_sharing'));
 
         $count = $shareonarray->count;
+
         $text = html_writer::start_tag('div');
         $text .= html_writer::start_tag('ul', array('class' => "list-unstyled list-social"));
 

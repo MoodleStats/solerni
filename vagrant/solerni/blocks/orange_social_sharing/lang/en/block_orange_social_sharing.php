@@ -26,6 +26,8 @@ defined('MOODLE_INTERNAL') || die();
 $string['pluginname']                           = 'Social sharing block';
 $string['title']                                = 'Social sharing';
 $string['configtitle']                          = 'Social sharing';
+$string['sharetitle']                           = 'Share';
+$string['followtitle']                          = 'Follow';
 $string['defaulttitle']                         = 'Social sharing';
 $string['defaulttext']                          = 'Pealse, configure the social sharing block.';
 

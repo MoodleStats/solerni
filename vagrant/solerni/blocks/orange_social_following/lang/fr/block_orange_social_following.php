@@ -30,8 +30,8 @@ $string['followtitle']                          = 'Suivez le cours';
 $string['defaulttitle']                         = 'Partage social';
 $string['defaulttext']                          = 'Veuillez configurer le bloc de partage social.';
 
-$string['orange_social_sharing:addinstance']    = 'Ajout d\un nouveau bloc de partage social';
-$string['orange_social_sharing:myaddinstance']  = 'Ajout d\un nouveau bloc de partage social dans ma page d\'accueil';
+$string['orange_social_following:addinstance']    = 'Ajout d\un nouveau bloc de partage social';
+$string['orange_social_following:myaddinstance']  = 'Ajout d\un nouveau bloc de partage social dans ma page d\'accueil';
 
 // Settings configuration.
 

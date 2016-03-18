@@ -23,7 +23,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once(dirname(__FILE__) . '/../../config.php');
+defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot.'/blocks/orange_iconsmap/lib.php');
 require_once($CFG->dirroot . '/blocks/moodleblock.class.php');
 use local_orange_library\utilities\utilities_course;
@@ -38,7 +38,7 @@ class block_orange_iconsmap extends block_base {
     public function init() {
         Global $PAGE;
 
-        $this->title = get_string('config_default_title', 'block_orange_iconsmap');
+        $this->title = get_string('default_title', 'block_orange_iconsmap');
         $this->renderer = $PAGE->get_renderer('block_orange_iconsmap');
     }
 

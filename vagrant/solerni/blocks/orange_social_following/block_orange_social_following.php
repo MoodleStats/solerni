@@ -20,7 +20,7 @@
  * @copyright  2015 Orange
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class block_orange_social_sharing extends block_base{
+class block_orange_social_following extends block_base{
     public function has_config() {
         return false;
     }
@@ -35,8 +35,8 @@ class block_orange_social_sharing extends block_base{
     public function init() {
         Global $PAGE;
 
-        $this->title = get_string('title', 'block_orange_social_sharing');
-        $this->renderer = $PAGE->get_renderer('block_orange_social_sharing');
+        $this->title = get_string('title', 'block_orange_social_following');
+        $this->renderer = $PAGE->get_renderer('block_orange_social_following');
     }
 
     /**

@@ -22,8 +22,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Orange Champ d\'icones';
-$string['config_default_title'] = 'Orange Champ d\'icones';
+$string['pluginname'] = 'Orange Champ d icones';
+$string['default_title'] = 'Orange Champ d icones';
 $string['hideblockheader'] = 'Masquer le titre';
 $string['hideblockheaderdesc'] = 'Permet de masquer le titre du bloc';
 $string['enrolleduser'] = '{$a} inscrit';

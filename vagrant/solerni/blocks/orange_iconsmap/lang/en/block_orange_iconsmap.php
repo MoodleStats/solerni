@@ -23,7 +23,7 @@
  */
 
 $string['pluginname'] = 'Orange Icons Map';
-$string['config_default_title'] = 'Orange Icons Map';
+$string['default_title'] = 'Orange Icons Map';
 $string['hideblockheader'] = 'Hide title';
 $string['hideblockheaderdesc'] = 'Allow to hide the block title';
 $string['enrolleduser'] = '{$a} registered user';
