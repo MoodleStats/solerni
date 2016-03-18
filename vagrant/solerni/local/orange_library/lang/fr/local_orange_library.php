@@ -87,3 +87,10 @@ $string['blockmissing'] = 'Bloc "{$a}" manquant.';
 $string['startenrolmentdatemissing'] = "La date de début d'inscription n'est pas renseignée dans la méthode 'auto-inscription'";
 $string['endenrolmentdatemissing'] = "La date de fin d'inscription n'est pas renseignée dans la méthode 'auto-inscription'";
 $string['orangeinvitationconfigmissing'] = "Vous devez enregistrer au moins une fois la configuration de la méthode d'inscription 'URLs d'accès au cours'";
+
+// Cron Tasks.
+$string['orange_library_mnet_task'] = "Mise à jour des clés MNET";
+$string['orange_library_mnet_mail'] = '<p>Hello  {$a->firstname}  {$a->lastname},</p>
+<p>This is the cron task for Mnet Key check on <b>{$a->sitename}</b>';
+$string['orange_library_mnet_mail_subject'] = "Mnet Key Check";
+
