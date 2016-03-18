@@ -240,7 +240,7 @@ $string['webservicestokendesc']     = 'Insérez ici le jeton de sécurité déli
 // Search filters.
 $string['catalog_page_title']       = 'Catalogue';
 $string['filterstatustitle']        = 'Statuts';
-$string['filterstatusall']          = 'Tous les MOOCs';
+$string['filterstatusall']          = 'Tous';
 
 $string['filterstatusregistrationcomplete']   = 'MOOC complet';
 $string['filterstatusregistrationopen']       = 'Enregistrement ouvert';
