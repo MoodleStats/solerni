@@ -18,7 +18,7 @@ Y.extend(PASSWORDUNMASK, Y.Base, {
 
         // Retaining unmask div from previous implementation.
         // @orange modified (add class).
-        var unmaskdiv = Y.Node.create('<div id="'+elementid+'unmaskdiv" class="unmask pull-right"></div>');
+        var unmaskdiv = Y.Node.create('<div id="'+elementid+'unmaskdiv" class="unmask form-helper-link pull-right"></div>');
 
         // Add checkbox for unmasking to unmaskdiv.
         // @orange modified (add class).
