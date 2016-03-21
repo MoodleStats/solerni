@@ -169,7 +169,8 @@ class forumngtype_general extends forumngtype {
         }
 
         // Show Alert info.
-        if ($forum->has_reporting_email()) {
+        // ORANGE : add control if user is connected
+        if ($forum->has_reporting_email() && isloggedin()) {
             print $out->box(get_string('alert_intro', 'forumng'), 'generalbox', 'forumng-reportingon');
         }
 

@@ -164,7 +164,7 @@ class login_signup_form extends moodleform {
             $errors['password'] = $errmsg;
         }
 
-        if (isset($data['policyagreed'])) {
+        if (!isset($data['policyagreed'])) {
             $errors['policyagreed'] = get_string('policyagree');
         }
 
