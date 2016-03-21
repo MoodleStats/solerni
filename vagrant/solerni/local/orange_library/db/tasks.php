@@ -29,7 +29,7 @@ $tasks = array(
     array(
         'classname' => '\local_orange_library\task\orange_library_mnet_task',
         'blocking' => 0,
-        'minute' => '*',
+        'minute' => '30',
         'hour' => '23',
         'day' => '*',
         'dayofweek' => '*',
