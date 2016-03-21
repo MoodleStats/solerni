@@ -40,3 +40,4 @@ codecheck
 vagrant/solerni/theme/solerni/
 Vagrantfile-mono_instance
 Vagrantfile-multi_instance
+ssh_key.priv

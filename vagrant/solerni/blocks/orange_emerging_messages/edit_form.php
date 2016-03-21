@@ -50,6 +50,7 @@ class block_orange_emerging_messages_edit_form extends block_edit_form {
         $radioarray[] = $mform->createElement('radio', 'config_typetop', '', get_string('lastdiscussions', 'block_orange_emerging_messages'), 2);
         $radioarray[] = $mform->createElement('radio', 'config_typetop', '', get_string('bestposts', 'block_orange_emerging_messages'), 3);
         $mform->addGroup($radioarray, 'radioar', get_string('typetop', 'block_orange_emerging_messages'), array(' '), false);
+        $mform->addRule('radioar', null, 'required', null, 'client');
     }
 
     public function set_data($defaults) {

@@ -95,24 +95,7 @@
     .dropdown &:active.btn {
         color:              @color;
         background-color:   @background;
-        border-color:       @background;
-    }
-
-    // Inverse rules.
-
-    .u-inverse & {
-        color:            @color;
-        background-color: @background;
-        border-color:     @border;
-    }
-
-
-    // Dropdown.
-    .u-inverse .dropdown &:hover.btn,
-    .u-inverse .dropdown &:focus.btn,
-    .u-inverse .dropdown &:active.btn {
-        border-color:   transparent;
-        color:          @color;
+        border-color:       @color;
     }
 }
 
@@ -228,7 +211,7 @@
     .button-variant(
         @btn-engage-color; @btn-engage-bg; @btn-engage-border;
         @btn-engage-bg-hover; @btn-engage-color-hover; @btn-engage-border-hover;
-        @btn-engage-bg-active; @btn-engage-color-active; @btn-engage-bg-active; 
+        @btn-engage-bg-active; @btn-engage-color-active; @btn-engage-bg-active;
         @gray-dark; @btn-engage-bg-hover
     );
 }

@@ -210,9 +210,11 @@ function controller_mooc_incoming_registration_not_available($context, $course, 
  * @return $extendedcourse
  * */
 function controller_mooc_running_registration_available($context, $course, &$extendedcourse) {
+    global $CFG;
+
     $userstatus = utilities_user::get_user_status($context);
 
-    if ($userstatus == utilities_user::USERENROLLED) {
+    if (($userstatus == utilities_user::USERENROLLED) && empty($CFG->solerni_isprivate)) {
 
         running_unsubscribe($course, $extendedcourse);
         $extendedcourse->statuslink = $extendedcourse->unenrolurl;
@@ -308,9 +310,9 @@ function controller_mooc_ended_registration_closed($context, $course, &$extended
  * @return $extendedcourse
  * */
 function incoming_unsubscribe($course, &$extendedcourse) {
-    global $PAGE;
+    global $PAGE, $CFG;
     $pagetype = $PAGE->pagetype;
-    if ($pagetype == 'moocs-mymoocs') {
+    if (($pagetype == 'moocs-mymoocs') && empty($CFG->solerni_isprivate)) {
         $extendedcourse->statuslink = $extendedcourse->unenrolurl;
         $extendedcourse->statuslinktext = get_string('unsubscribe', 'local_orange_library');
 
@@ -331,10 +333,9 @@ function incoming_unsubscribe($course, &$extendedcourse) {
  * @return $extendedcourse
  * */
 function running_unsubscribe($course, &$extendedcourse) {
-    global $PAGE;
+    global $PAGE, $CFG;
     $pagetype = $PAGE->pagetype;
-    if ($pagetype == 'moocs-mymoocs') {
-
+    if (($pagetype == 'moocs-mymoocs') && empty($CFG->solerni_isprivate)) {
         $extendedcourse->statuslink = $extendedcourse->unenrolurl;
         $extendedcourse->statuslinktext = get_string('unsubscribe', 'local_orange_library');
 
@@ -396,12 +397,17 @@ function subscription_closed($course, &$extendedcourse) {
  * @return $extendedcourse
  * */
 function course_running_button_enabled($course, &$extendedcourse) {
-    global $PAGE;
-    
+    global $PAGE, $CFG;
+
     $pagetype = $PAGE->pagetype;
-    
-    $extendedcourse->statuslink = $extendedcourse->unenrolurl;
-    $extendedcourse->statuslinktext = get_string('unsubscribe', 'local_orange_library');
+
+    if (empty($CFG->solerni_isprivate)) {
+        $extendedcourse->statuslink = $extendedcourse->unenrolurl;
+        $extendedcourse->statuslinktext = get_string('unsubscribe', 'local_orange_library');
+    } else {
+        $extendedcourse->statuslink = "#";
+        $extendedcourse->statuslinktext = '';
+    }
 
     $extendedcourse->statustext = get_string('status_running', 'local_orange_library');
     $extendedcourse->displaybutton = display_button('access_to_mooc', $extendedcourse->moocurl, "btn btn-success", $course);

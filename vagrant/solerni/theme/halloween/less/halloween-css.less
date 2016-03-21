@@ -45,6 +45,11 @@ h1, h2, h3, h4, h5, h6,
     margin:         .5em 0;
 }
 
+.bold {
+    font-weight: bold;
+    font-family: @font-family-titles;
+}
+
 // Forms Moodle missing type="email"
 // Overrides same function from boostrap/less/moodle/forms.less # 160
 form select,
@@ -70,6 +75,10 @@ input[type="checkbox"] {
   * Dropdowns
   * */
 
+ .dropdown {
+     display: inline-block;
+ }
+
  div[role="main"] button + .dropdown-menu,
  button + .dropdown-menu {
      padding:       0;
@@ -78,6 +87,11 @@ input[type="checkbox"] {
 
  .dropdown .btn {
      margin-left:   0;
+ }
+
+ .dropdown-menu {
+     min-width: 100%;
+     width:     100%;
  }
 
  .dropdown-menu > li > a {
@@ -93,6 +107,10 @@ input[type="checkbox"] {
 
  .header-dropdown .dropdown-menu a {
      font-weight:   bold;
+ }
+
+ .btn .caret {
+     margin-left: @s-triple-md-margin;
  }
 
 /*
@@ -206,17 +224,6 @@ input[type="checkbox"] {
     padding:        @padding-small-vertical @padding-base-vertical;
     padding-top:    @padding-small-vertical;
     padding-bottom: @padding-small-vertical;
-}
-
-/*
- * Page Moodle
- */
-#page {
-    margin-top:     @s-double-xs-margin;
-
-    @media (min-width: @screen-md-min) {
-        margin-bottom: @s-double-md-margin;
-    }
 }
 
 /* hide moodle icons */

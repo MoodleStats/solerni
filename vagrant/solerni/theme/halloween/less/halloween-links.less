@@ -3,28 +3,38 @@ Links rules !
 */
 
 // Links rules and colors from guidelines
-a {
+a,
+.link {
     text-decoration: underline;
 }
 
 a:visited,
-a.visited {
+a.visited,
+.link:visited,
+.link.visited {
     color: @link-visited-color;
 }
 
 a:active,
 a.active,
 a:focus,
-a.focus {
+a.focus,
+.link:active,
+.link.active,
+.link:focus,
+.link.focus {
     color: @link-active-color;
 }
 
-a:hover {
+a:hover,
+.link:hover {
     color: @link-hover-color;
 }
 
 a:focus,
-a.focus {
+a.focus,
+.link:focus,
+.link.focus {
     outline:        1px dotted currentColor;
     outline-offset: 2px;
 }

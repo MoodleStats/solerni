@@ -17,6 +17,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 use local_orange_library\utilities\utilities_network;
+use local_orange_library\utilities\utilities_user;
 
 /**
  * Exposes web services as "external" functions
@@ -65,4 +66,40 @@ class local_orange_library_external extends external_api {
         );
     }
 
+    /**
+     * Returns User profile fields from from library utilities_user
+     */
+    public static function get_profile_fields($username) {
+
+        return utilities_user::get_user_profile_fields($username);
+    }
+
+    /**
+     * Define function parameters
+     *
+     * @return \external_function_parameters
+     */
+    public static function get_profile_fields_parameters() {
+        return new external_function_parameters(
+            array(
+                'username' => new external_value(PARAM_TEXT, 'user name')
+            )
+        );
+    }
+
+    /**
+     * Define expected function return
+     *
+     * @return \external_multiple_structure
+     */
+    public static function get_profile_fields_returns() {
+        return new external_multiple_structure(
+            new external_single_structure(
+                array(
+                    'name'   => new external_value(PARAM_TEXT, 'profile field name'),
+                    'value'  => new external_value(PARAM_TEXT, 'profile field value')
+                )
+            )
+        );
+    }
 }

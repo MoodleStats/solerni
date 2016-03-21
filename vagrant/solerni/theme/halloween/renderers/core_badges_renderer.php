@@ -31,100 +31,6 @@ require_once($CFG->libdir . '/formslib.php');
 
 class theme_halloween_core_badges_renderer extends core_badges_renderer {
 
-    // Outputs badges list.
-    public function print_badges_list($badges, $userid, $profile = false, $external = false) {
-        global $USER, $CFG, $PAGE;
-
-        // If we are on the dashboard (My) then we customized the output for Solerni.
-        $ismypage = ($PAGE->url->compare(new moodle_url('/my/index.php'), URL_MATCH_BASE) ||
-                $PAGE->url->compare(new moodle_url('/my/indexsys.php'), URL_MATCH_BASE));
-
-        $title = "";
-        if ($ismypage) {
-            $title = html_writer::tag('p', get_string('lastbadge', 'theme_halloween'), array('class' => 'todo-tobedefined'));
-        }
-
-        foreach ($badges as $badge) {
-            // We need to have the course name here for Solerni and we don't have it in the input parameters
-            // We read it even if it should not be done in a renderer. This prevent to create a new block.
-            if ($ismypage) {
-                $course = get_course($badge->courseid);
-                $cname = $course->fullname;
-            }
-
-            if (!$external) {
-                $context = ($badge->type == BADGE_TYPE_SITE) ?
-                        context_system::instance() : context_course::instance($badge->courseid);
-                $bname = $badge->name;
-                    $imageurl = moodle_url::make_pluginfile_url($context->id, 'badges', 'badgeimage', $badge->id, '/', 'f1', false);
-            } else {
-                $bname = s($badge->assertion->badge->name);
-                $imageurl = $badge->imageUrl;
-            }
-
-            if ($ismypage) {
-                $name = html_writer::tag('span', $bname, array('class' => 'badge-name')) . html_writer::tag('span', $cname, array('class' => 'course-name'));
-            } else {
-                $name = html_writer::tag('span', $bname, array('class' => 'badge-name'));
-            }
-
-            $image = html_writer::empty_tag('img', array('src' => $imageurl, 'class' => 'badge-image'));
-            if (!empty($badge->dateexpire) && $badge->dateexpire < time()) {
-                $image .= $this->output->pix_icon('i/expired',
-                                get_string('expireddate', 'badges', userdate($badge->dateexpire)),
-                                'moodle',
-                                array('class' => 'expireimage'));
-                $name .= '(' . get_string('expired', 'badges') . ')';
-            }
-
-            $download = $status = $push = '';
-            if (($userid == $USER->id) && !$profile) {
-                $url = new moodle_url('mybadges.php', array('download' => $badge->id,
-                    'hash' => $badge->uniquehash, 'sesskey' => sesskey()));
-                $notexpiredbadge = (empty($badge->dateexpire) || $badge->dateexpire > time());
-                $backpackexists = badges_user_has_backpack($USER->id);
-                if (!empty($CFG->badges_allowexternalbackpack) && $notexpiredbadge && $backpackexists) {
-                        $assertion = new moodle_url('/badges/assertion.php', array('b' => $badge->uniquehash));
-                        $action = new component_action('click', 'addtobackpack', array('assertion' => $assertion->out(false)));
-                        $push = $this->output->action_icon(new moodle_url('#'),
-                                new pix_icon('t/backpack', get_string('addtobackpack', 'badges')), $action);
-                }
-
-                $download = $this->output->action_icon($url, new pix_icon('t/download', get_string('download')));
-                if ($badge->visible) {
-                        $url = new moodle_url('mybadges.php', array('hide' => $badge->issuedid, 'sesskey' => sesskey()));
-                        $status = $this->output->action_icon($url, new pix_icon('t/hide', get_string('makeprivate', 'badges')));
-                } else {
-                        $url = new moodle_url('mybadges.php', array('show' => $badge->issuedid, 'sesskey' => sesskey()));
-                        $status = $this->output->action_icon($url, new pix_icon('t/show', get_string('makepublic', 'badges')));
-                }
-            }
-
-            if (!$profile) {
-                $url = new moodle_url('badge.php', array('hash' => $badge->uniquehash));
-            } else {
-                if (!$external) {
-                    $url = new moodle_url('/badges/badge.php', array('hash' => $badge->uniquehash));
-                } else {
-                    $hash = hash('md5', $badge->hostedUrl);
-                    $url = new moodle_url('/badges/external.php', array('hash' => $hash, 'user' => $userid));
-                }
-            }
-            $actions = html_writer::tag('div', $push . $download . $status, array('class' => 'badge-actions'));
-            $items[] = html_writer::link($url, $image . $actions . $name, array('title' => $bname));
-        }
-
-        // On Dashboard display link to "my badges" page.
-        $linkmybadges = "";
-        if ($ismypage) {
-            $mybadgesurl = new moodle_url('/badges/mybadges.php');
-            $linkmybadges = html_writer::link($mybadgesurl, get_string('mybadges', 'theme_halloween'));
-        }
-
-        return $title . html_writer::alist($items, array('class' => 'badges')) . $linkmybadges;
-    }
-
-
     /**
     * Displays the user badges
     *
@@ -134,7 +40,7 @@ class theme_halloween_core_badges_renderer extends core_badges_renderer {
     * @return string
     */
     protected function render_badge_user_collection(badge_user_collection $badges) {
-        global $CFG, $USER, $SITE, $PAGE;
+        global $CFG, $USER, $SITE;
         $backpack = $badges->backpack;
         $mybackpack = new moodle_url('/badges/mybackpack.php');
 
@@ -208,31 +114,25 @@ class theme_halloween_core_badges_renderer extends core_badges_renderer {
         global $USER, $CFG, $DB;
 
         $courseid = optional_param('courseid',     0, PARAM_INT);
-
         $coursebadges = array();
         $courses = array(0 => "Tous les moocs");
         // change sort order of badges : order by course.
         foreach ($badges as $badge) {
-
             if (array_key_exists($badge->courseid, $coursebadges)) {
                 array_push($coursebadges[$badge->courseid], $badge);
             } else {
                 $coursebadges[$badge->courseid] = array();
                 array_push($coursebadges[$badge->courseid], $badge);
-
-                $coursename = $DB->get_field('course', 'fullname', array('id' => $badge->courseid));
-                $courses[$badge->courseid] = $coursename;
+                $courses[$badge->courseid] = $DB->get_field('course', 'fullname', array('id' => $badge->courseid));
             }
         }
 
         $furl = new moodle_url('/badges/mybadges.php', array('sesskey' => sesskey()));
-
         $attrs = [
             'onchange' => 'location.href = "' . $furl . '" + "&courseid=" + encodeURIComponent(this[this.selectedIndex].value)',
             'id' => 'courseid'
         ];
-
-        $selectcourse = html_writer::start_tag('form', array('method' => 'post', 'action' => $url, 'id' => 'badge_order_course_form'));
+        $selectcourse = html_writer::start_tag('form', array('method' => 'post', 'action' => $furl, 'id' => 'badge_order_course_form'));
         $selectcourse .= html_writer::select($courses, 'courseid', $courseid, null, $attrs);
         $selectcourse .= html_writer::end_tag('form');
 
@@ -254,7 +154,6 @@ class theme_halloween_core_badges_renderer extends core_badges_renderer {
                     }
 
                     $name = html_writer::tag('span', $bname, array('class' => 'badge-name'));
-
                     $image = html_writer::empty_tag('img', array('src' => $imageurl, 'class' => 'badge-image'));
                     if (!empty($badge->dateexpire) && $badge->dateexpire < time()) {
                         $image .= $this->output->pix_icon('i/expired',

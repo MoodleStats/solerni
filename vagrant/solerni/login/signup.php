@@ -79,17 +79,9 @@ echo $OUTPUT->header();
 if (isloggedin() and !isguestuser()) {
     require($CFG->partialsdir . '/login/exception_already_logged.php');
 } else {
-    require($CFG->partialsdir . '/login/signup_header.php');
     echo '<div class="row signup-box">';
-        echo '<div class="signup-panel col-md-6 col-md-offset-3">';
+        echo '<div class="signup-panel col-xs-12 col-md-8 col-md-offset-2">';
             $mform_signup->display();
-            if (theme_utilities::is_theme_settings_exists_and_nonempty('signupformfooter')) {
-                require_once($CFG->dirroot . '/filter/multilang/filter.php');
-                $filtermultilang = new filter_multilang($PAGE->context, array());
-                echo '<div class="signup-footer text-center">';
-                    echo $filtermultilang->filter($PAGE->theme->settings->signupformfooter);
-                echo '</div>';
-            }
         echo '</div>';
     echo '</div>';
 }

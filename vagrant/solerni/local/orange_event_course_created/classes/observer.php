@@ -24,6 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot . '/local/orange_mail/classes/mail_object.php');
+require_once($CFG->dirroot.'/local/orange_event_course_created/lib.php');
 /**
  * Event observer for block orange_ruels.
  */
@@ -35,7 +36,11 @@ class local_orange_event_course_created_observer {
      * @param \core\event\course_viewed $event
      */
 
-    public static function course_created(\core\event\course_created  $event) {
+    public static function course_created(\core\event\course_created $event) {
+        
+        if ($event->courseid == 1) {
+            return false;
+        }
         global $CFG, $DB;
         $site = get_site();
         $contact = core_user::get_support_user();
