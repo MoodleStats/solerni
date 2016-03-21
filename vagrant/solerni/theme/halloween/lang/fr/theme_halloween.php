@@ -241,6 +241,8 @@ $string['webservicestokendesc']     = 'Insérez ici le jeton de sécurité déli
 $string['catalog_page_title']       = 'Catalogue';
 $string['filterstatustitle']        = 'Statuts';
 $string['filterstatusall']          = 'Tous les MOOCs';
+$string['filterstatusallmoocs']          = 'Tous';
+
 
 $string['filterstatusregistrationcomplete']   = 'MOOC complet';
 $string['filterstatusregistrationopen']       = 'Enregistrement ouvert';
