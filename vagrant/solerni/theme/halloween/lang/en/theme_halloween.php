@@ -240,7 +240,8 @@ $string['webservicestokendesc']     = 'Insert the HOME MNET token generated for 
 // Search filters.
 $string['catalog_page_title']       = 'Catalog';
 $string['filterstatustitle']        = 'Status';
-$string['filterstatusall']          = 'All';
+$string['filterstatusall']          = 'All MOOCs';
+$string['filterstatusallmoocs']          = 'All';
 
 $string['filterstatusregistrationcomplete']   = 'Mooc complete';
 $string['filterstatusregistrationopen']       = 'Registration open';

@@ -479,7 +479,7 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
             5 => get_string('filterstatusnotstarted', 'theme_halloween'),
             4 => get_string('filterstatusclosed', 'theme_halloween'),
 
-            0 => get_string('filterstatusall', 'theme_halloween'),
+            0 => get_string('filterstatusallmoocs', 'theme_halloween'),
         );
 
         foreach ($labels as $key => $label) {
