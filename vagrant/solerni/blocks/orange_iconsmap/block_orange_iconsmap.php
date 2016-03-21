@@ -16,9 +16,9 @@
 
 
 /**
- * Orange Action block
+ * Orange Icons Map
  *
- * @package    block_orange_action
+ * @package    block_orange_iconsmap
  * @copyright  Orange 2016
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -90,7 +90,7 @@ class block_orange_iconsmap extends block_base {
      * @return string
      */
     public function get_content() {
-        global $COURSE, $CONTEXT;
+        global $COURSE, $context;
 
         // If content has already been generated, don't waste time generating it again.
         if ($this->content !== null) {
@@ -105,9 +105,8 @@ class block_orange_iconsmap extends block_base {
             return $this->content;
         }
 
-        if (block_orange_iconsmap_on_course_page()) {
-            $extendedcourse = block_orange_iconsmap_get_course($COURSE);
-            $this->content->text = $this->renderer->display_on_course_page($COURSE, $CONTEXT);
+        if (block_orange_iconsmap_is_on_course_page()) {
+            $this->content->text = $this->renderer->display_on_course_page($COURSE, $context);
         }
 
         return $this->content;

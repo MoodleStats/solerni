@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Orange Action block
+ * Orange Icons Map
  *
- * @package    block_orange_action
+ * @package    block_orange_iconsmap
  * @copyright  Orange 2016
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -33,7 +33,7 @@ use local_orange_library\extended_course\extended_course_object;
  *
  * @return bool True when on a course page.
  */
-function block_orange_iconsmap_on_course_page() {
+function block_orange_iconsmap_is_on_course_page() {
     Global $COURSE;
 
     return ($COURSE->id > 1);

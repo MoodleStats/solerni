@@ -15,12 +15,23 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Orange Social Sharing Class
+ *
  * @package    blocks
- * @subpackage orange_social_sharing
- * @copyright  2015 Orange
+ * @subpackage orange_orange_social_sharing
+ * @copyright  2016 Orange
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 class block_orange_social_sharing extends block_base{
+
+    /**
+     *  Set orange social sharing configuration setting.
+     *
+     * @global none
+     * @param $mform
+     * @return boolean
+     */
     public function has_config() {
         return false;
     }
@@ -42,12 +53,12 @@ class block_orange_social_sharing extends block_base{
     /**
      *  Get the content of social sharing block.
      *
-     * @global none
+     * @global $COURSE
      * @param none
      * @return string $this->content
      */
     public function get_content() {
-    Global $PAGE, $COURSE;
+    Global $COURSE;
 
         $this->content = new stdClass();
         $this->content->text   = '';

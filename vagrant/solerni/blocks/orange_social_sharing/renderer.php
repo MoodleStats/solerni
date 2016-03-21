@@ -15,11 +15,14 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Orange Social Sharing renderer
+ *
  * @package    blocks
- * @subpackage orange_social_sharing
- * @copyright  2015 Orange
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @subpackage orange_orange_social_sharing
+ * @copyright  2016 Orange
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 use local_orange_library\utilities\utilities_array;
 
 defined('MOODLE_INTERNAL') || die();
@@ -28,15 +31,14 @@ defined('MOODLE_INTERNAL') || die();
 class block_orange_social_sharing_renderer extends plugin_renderer_base {
 
     /**
-     *  Set the dicplayed text in the block.
+     *  Set the displayed text in the block.
      *
-     * @param moodle_url $imgurl
-     * @param object $course
-     * @param object $context
+     * @global $PAGE
+     * @param none
      * @return string $text
      */
     public function get_text() {
-        Global $PAGE, $DB;
+        Global $PAGE;
 
         $shareonarray = new utilities_array();
         $socialclassarray = new utilities_array();

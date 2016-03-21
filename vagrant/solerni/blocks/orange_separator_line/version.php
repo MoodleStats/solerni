@@ -15,36 +15,17 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Orange Social Sharing access configuration page
- *
+ * Orange Separator Line version details
  * @package    blocks
- * @subpackage orange_orange_social_sharing
+ * @subpackage orange_separator_line
  * @copyright  2016 Orange
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-    $capabilities = array(
+defined('MOODLE_INTERNAL') || die();
 
-    'block/orange_social_sharing:myaddinstance' => array(
-        'captype' => 'write',
-        'contextlevel' => CONTEXT_SYSTEM,
-        'archetypes' => array(
-            'user' => CAP_ALLOW
-        ),
-
-        'clonepermissionsfrom' => 'moodle/my:manageblocks'
-    ),
-
-    'block/orange_social_sharing:addinstance' => array(
-        'riskbitmask' => RISK_SPAM | RISK_XSS,
-
-        'captype' => 'write',
-        'contextlevel' => CONTEXT_BLOCK,
-        'archetypes' => array(
-            'editingteacher' => CAP_ALLOW,
-            'manager' => CAP_ALLOW
-        ),
-
-        'clonepermissionsfrom' => 'moodle/site:manageblocks'
-    ),
-);
+$plugin->component  = 'block_orange_separator_line';
+$plugin->release    = '0.1';
+$plugin->version    = 2015112700;
+$plugin->requires   = 2014051200; // Moodle 2.7.
+$plugin->dependencies = array('local_orange_library' => 2015061000, 'theme_halloween' => 2015093000);

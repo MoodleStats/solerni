@@ -15,18 +15,18 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Orange Social Sharing version details
+ * Orange Separator Line english translation
  *
  * @package    blocks
- * @subpackage orange_orange_social_sharing
+ * @subpackage orange_separator_line
  * @copyright  2016 Orange
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component  = 'block_orange_social_sharing';
-$plugin->release    = '0.1';
-$plugin->version    = 2015112700;
-$plugin->requires   = 2014051200; // Moodle 2.7.
-$plugin->dependencies = array('local_orange_library' => 2015061000, 'theme_halloween' => 2015093000);
+$string['pluginname']                           = 'Bloc separator line';
+$string['title']                                = 'Bloc separator line';
+$string['configtitle']                          = 'Bloc separator line';
+$string['orange_social_following:addinstance']    = 'Adding a new separator line block';
+$string['orange_social_following:myaddinstance']  = 'Adding a new separator line block in page My';

@@ -15,18 +15,17 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Orange Social Following Class
+ * Orange Separator Line class
  *
  * @package    blocks
- * @subpackage orange_orange_social_sharing
+ * @subpackage orange_separator_line
  * @copyright  2016 Orange
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-class block_orange_social_following extends block_base{
+class block_orange_separator_line extends block_base{
 
     /**
-     *  Set orange social following configuration setting.
+     *  Set orange separator line configuration setting.
      *
      * @global none
      * @param $mform
@@ -37,7 +36,7 @@ class block_orange_social_following extends block_base{
     }
 
     /**
-     *  Set the initial values for social sharing block.
+     *  Set the initial values for orange_separator_line.
      *
      * @global type $PAGE
      * @param none
@@ -46,8 +45,8 @@ class block_orange_social_following extends block_base{
     public function init() {
         Global $PAGE;
 
-        $this->title = get_string('title', 'block_orange_social_following');
-        $this->renderer = $PAGE->get_renderer('block_orange_social_following');
+        $this->title = get_string('title', 'block_orange_separator_line');
+        $this->renderer = $PAGE->get_renderer('block_orange_separator_line');
     }
 
     /**
@@ -58,19 +57,9 @@ class block_orange_social_following extends block_base{
      * @return string $this->content
      */
     public function get_content() {
-    Global $COURSE;
 
         $this->content = new stdClass();
         $this->content->text   = '';
-
-        $course = $COURSE;
-
-        $this->content->text .= html_writer::start_tag('ul');
-        $this->content->text .= html_writer::start_tag('li');
-        $this->content->text .= html_writer::link('span', $course->fullname);
-        $this->content->text .= html_writer::end_tag('li');
-        $this->content->text .= html_writer::end_tag('ul');
-
         $text = $this->renderer->get_text();
         $this->content->text = $text;
 
@@ -79,7 +68,7 @@ class block_orange_social_following extends block_base{
     }
 
     /**
-     *  Allowing multiple instance social sharing block.
+     *  Allowing multiple instance of separator line.
      *
      * @global none
      * @param none
@@ -88,6 +77,7 @@ class block_orange_social_following extends block_base{
     public function instance_allow_multiple() {
         return true;
     }
+
 
     /**
      * Defines where the block can be added

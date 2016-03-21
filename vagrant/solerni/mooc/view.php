@@ -31,6 +31,7 @@ require_once($CFG->dirroot.'/blocks/orange_action/block_orange_action.php');
 require_once($CFG->dirroot.'/blocks/orange_social_sharing/block_orange_social_sharing.php');
 require_once($CFG->dirroot.'/blocks/orange_social_following/block_orange_social_following.php');
 require_once($CFG->dirroot.'/blocks/orange_iconsmap/block_orange_iconsmap.php');
+require_once($CFG->dirroot.'/blocks/orange_separator_line/block_orange_separator_line.php');
 require_once($CFG->dirroot.'/blocks/orange_action/renderer.php');
 
 
@@ -61,10 +62,20 @@ $PAGE->set_context($context);
     $orange_iconsmap->content = $block_orange_iconsmap->get_content()->text;
     $PAGE->blocks->add_fake_block($orange_iconsmap, 'main');
 
+    $block_orange_separator_line = new block_orange_separator_line();
+    $orange_separator_line = new block_contents(array('class' => 'block_orange_separator_line'));
+    $orange_separator_line->content = $block_orange_separator_line->get_content()->text;
+    $PAGE->blocks->add_fake_block($orange_separator_line, 'main');
+
     $block_orange_social_sharing = new block_orange_social_sharing();
     $orange_social_sharing = new block_contents(array('class' => 'block_orange_social_sharing'));
     $orange_social_sharing->content = $block_orange_social_sharing->get_content()->text;
     $PAGE->blocks->add_fake_block($orange_social_sharing, 'main');
+
+    $block_orange_separator_line = new block_orange_separator_line();
+    $orange_separator_line = new block_contents(array('class' => 'block_orange_separator_line'));
+    $orange_separator_line->content = $block_orange_separator_line->get_content()->text;
+    $PAGE->blocks->add_fake_block($orange_separator_line, 'main');
 
     $block_orange_social_following = new block_orange_social_following();
     $orange_social_following = new block_contents(array('class' => '$block_orange_social_following'));

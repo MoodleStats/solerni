@@ -26,7 +26,7 @@
 require_once(dirname(__FILE__) . '/../../config.php');
 require_once($CFG->dirroot.'/blocks/orange_action/lib.php');
 require_once($CFG->dirroot.'/calendar/lib.php');
-// adding requirement to avoid  Class 'block_base' not found
+// Adding requirement to avoid  Class 'block_base' not found.
 require_once($CFG->dirroot . '/blocks/moodleblock.class.php');
 use local_orange_library\utilities\utilities_course;
 

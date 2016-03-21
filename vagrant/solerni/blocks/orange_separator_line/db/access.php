@@ -15,34 +15,36 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Orange Icons Map capability setup
+ * Orange Separator Line access configuration
  *
- * @package    block_orange_iconsmap
- * @copyright  Orange 2016
+ * @package    blocks
+ * @subpackage orange_separator_line
+ * @copyright  2016 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') or die("Direct access to this location is not allowed.");
+    $capabilities = array(
 
-$capabilities = array (
-    'block/orange_iconsmap:addinstance' => array(
-        'riskbitmask' => RISK_PERSONAL,
+    'block/orange_separator_line:myaddinstance' => array(
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes' => array(
+            'user' => CAP_ALLOW
+        ),
+
+        'clonepermissionsfrom' => 'moodle/my:manageblocks'
+    ),
+
+    'block/orange_separator_line:addinstance' => array(
+        'riskbitmask' => RISK_SPAM | RISK_XSS,
+
         'captype' => 'write',
         'contextlevel' => CONTEXT_BLOCK,
         'archetypes' => array(
             'editingteacher' => CAP_ALLOW,
-            'manager'        => CAP_ALLOW
+            'manager' => CAP_ALLOW
         ),
+
         'clonepermissionsfrom' => 'moodle/site:manageblocks'
     ),
-
-    'block/orange_iconsmap:myaddinstance' => array(
-        'riskbitmask' => RISK_PERSONAL,
-        'captype' => 'read',
-        'contextlevel' => CONTEXT_BLOCK,
-        'archetypes' => array(
-            'user' => CAP_ALLOW
-        ),
-        'clonepermissionsfrom' => 'moodle/my:manageblocks'
-    )
 );

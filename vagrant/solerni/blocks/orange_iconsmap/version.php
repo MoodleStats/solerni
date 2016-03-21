@@ -16,9 +16,9 @@
 
 
 /**
- * Orange Action block version details
+ * Orange Icons Map version details
  *
- * @package    block_orange_action
+ * @package    block_orange_iconsmap
  * @copyright  Orange 2016
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

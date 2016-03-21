@@ -15,15 +15,24 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Orange Social following edit form
+ *
  * @package    blocks
- * @subpackage orange_social_sharing
- * @copyright  2015 Orange
+ * @subpackage orange_orange_social_following
+ * @copyright  2016 Orange
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 class block_orange_social_following_edit_form extends block_edit_form {
 
 
+    /**
+     *  Set orange social following configuration parameters.
+     *
+     * @global none
+     * @param $mform
+     * @return string $text
+     */
     protected function specific_definition($mform) {
 
         // Section header title according to language file.

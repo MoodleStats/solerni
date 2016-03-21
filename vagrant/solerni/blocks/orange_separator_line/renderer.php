@@ -15,18 +15,33 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Orange Social Sharing version details
+ * Orange Separator Line renderer
  *
  * @package    blocks
- * @subpackage orange_orange_social_sharing
+ * @subpackage orange_separator_line
  * @copyright  2016 Orange
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+use local_orange_library\utilities\utilities_array;
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component  = 'block_orange_social_sharing';
-$plugin->release    = '0.1';
-$plugin->version    = 2015112700;
-$plugin->requires   = 2014051200; // Moodle 2.7.
-$plugin->dependencies = array('local_orange_library' => 2015061000, 'theme_halloween' => 2015093000);
+
+class block_orange_separator_line_renderer extends plugin_renderer_base {
+
+    /**
+     *  Set the displayed text in the block.
+     *
+     * @global none
+     * @param none
+     * @return string $text
+     */
+    public function get_text() {
+
+        $text = html_writer::start_tag('div', array('class' => "col-xs-12 fullwidth-line"));
+        $text .= html_writer::end_tag('div');
+
+        return $text;
+
+    }
+}

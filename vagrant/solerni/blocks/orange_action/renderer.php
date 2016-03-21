@@ -106,48 +106,55 @@ class block_orange_action_renderer extends plugin_renderer_base {
      * @return message
      */
     public function display_on_course_page ($course, $extendedcourse, $imgurl) {
-        $output = html_writer::start_tag('div', array('class' => 'row '));
 
+        $output = html_writer::start_tag('div', array('class' => 'container'));
+            $output .= html_writer::start_tag('div', array('class' => 'row'));
         if ($imgurl) {
             $imgurl = utilities_image::get_resized_url($imgurl, array('w' => 940, 'h' => 360, 'scale' => false));
             $output .= html_writer::empty_tag('img', array('src' => $imgurl, 'class' => 'col-xs-12 essentiels-image'));
         }
         if (!empty($extendedcourse->videoplayer)) {
+            $output .= html_writer::start_tag('div', array('class' => 'embed-responsive embed-responsive-16by9'));
             $output .= $extendedcourse->videoplayer;
-        }
-        $output .= html_writer::end_tag('div');
-
-        $output .= html_writer::start_tag('div', array('class' => 'row', 'style' => 'background-color:#000;'));
-            // Subscription button.
-            $output .= html_writer::start_tag('div', array('class' => 'col-xs-4 col-md-12'));
-                    $output .= $extendedcourse->displaybutton;
             $output .= html_writer::end_tag('div');
-            $output .= html_writer::start_tag('div', array('class' => 'col-xs-4 col-md-12'));
-                $output .= html_writer::start_tag('h1', array('class' => '', 'style' => 'color:orange;'));
-                    $output .= $course->fullname;
-                $output .= html_writer::end_tag('h1');
+        }
+            $output .= html_writer::end_tag('div');
+            $output .= html_writer::start_tag('div', array('class' => 'row margin-bottom-md action-banner'));
+                $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-8 u-inverse action-banner__left'));
+                    $output .= html_writer::start_tag('h1', array('class' => 'oneline'));
+                        $output .= $course->fullname;
+                    $output .= html_writer::end_tag('h1');
 
-                // Course summary if present.
-                if ($course->summary) {
-                    $output .= html_writer::start_tag('span', array('style' => 'font-size:28px;color:#FFF;'));
+        // Course summary if present.
+        if ($course->summary) {
+                    $output .= html_writer::start_tag('h3', array('style' => 'oneline'));
                         $output .= html_to_text($course->summary);
-                    $output .= html_writer::end_tag('span');
-                }
+                    $output .= html_writer::end_tag('h3');
+        }
 
-                // Nomber of enrolled users.
-                $output .= html_writer::start_tag('span', array('style' => 'font-size:16px;color:#FFF;'));
-                    if ($extendedcourse->enrolledusers <= 1) {
-                        $output .= get_string("enrolleduser", 'block_orange_action', $extendedcourse->enrolledusers);
-                    } else {
-                        $output .= get_string("enrolledusers", 'block_orange_action', $extendedcourse->enrolledusers);
-                    }
-                $output .= html_writer::end_tag('span');
+                    $output .= html_writer::start_tag('div',
+                            array('class' => 'oneline glyphicon-halloween_small glyphicon-picture'));
+                    // Number of enrolled users.
+                        $output .= html_writer::start_tag('span');
+        if ($extendedcourse->enrolledusers <= 1) {
+                            $output .= get_string("enrolleduser", 'block_orange_action', $extendedcourse->enrolledusers);
+        } else {
+                            $output .= get_string("enrolledusers", 'block_orange_action', $extendedcourse->enrolledusers);
+        }
+                        $output .= html_writer::end_tag('span');
+                    $output .= html_writer::end_tag('div');
+                $output .= html_writer::end_tag('div');
+                            // Subscription button.
+                $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-4 action-banner__left'));
+                    $output .= $extendedcourse->displaybutton;
 
-                // If next session link shoulfd be display.
-                if ($extendedcourse->registrationstatus == utilities_course::MOOCREGISTRATIONCOMPLETE) {
+        // If next session link shoulfd be display.
+        if ($extendedcourse->registrationstatus == utilities_course::MOOCREGISTRATIONCOMPLETE) {
                     $output .= html_writer::tag('a', get_string('nextsessionlink', 'block_orange_action'),
-                        array('class' => '', 'href' => $extendedcourse->newsessionurl ));
-                }
+                array('class' => '', 'href' => $extendedcourse->newsessionurl ));
+        }
+                $output .= html_writer::end_tag('div');
+
             $output .= html_writer::end_tag('div');
         $output .= html_writer::end_tag('div');
 
