@@ -208,65 +208,25 @@ class utilities_network {
     static public function renew_mnet_key() {
         global $CFG, $DB;
 
-        // If we are in mnet configuration.
-        if (!self::is_platform_uses_mnet()) {
-            return;
+        if (!isset($CFG->mnet_key_autorenew)) {
+            set_config('mnet_key_autorenew', 0); // Not activated as a default.
+        }
+
+        // If we are not in mnet configuration or autorenew not enabled.
+        if (!self::is_platform_uses_mnet() || empty($CFG->mnet_key_autorenew) || ($CFG->mnet_key_autorenew == 0)) {
+            return false;
         }
 
         require_once($CFG->dirroot.'/mnet/lib.php');
         $mnet = get_mnet_environment();
 
-        // Setting some defaults if the config has not been setup.
-        if (!isset($CFG->mnet_key_autorenew_gap)) {
-            set_config('mnet_key_autorenew_gap', 24 * 3); // Three days.
-        }
-        if (!isset($CFG->mnet_key_autorenew)) {
-            set_config('mnet_key_autorenew', 0); // Not activated as a default.
-        }
-        if (!isset($CFG->mnet_key_autorenew_hour)) {
-            set_config('mnet_key_autorenew_hour', 0); // Midnight.
-        }
-        if (!isset($CFG->mnet_key_autorenew_min)) {
-            set_config('mnet_key_autorenew_min', 0); // Midnight.
-        }
-
-        $CFG->mnet_key_autorenew_time = $CFG->mnet_key_autorenew_hour * HOURSECS + $CFG->mnet_key_autorenew_min * MINSECS;
-
-        // Check if key is getting obsolete.
-        $havetorenew = false;
-
-        $content = "";
-
-        // If autorenewal is enabled.
-        if (!empty($CFG->mnet_key_autorenew)) {
-
-            // Key is getting old : check if it is time to operate.
-            if ($mnet->public_key_expires - time() < $CFG->mnet_key_autorenew_gap * HOURSECS) {
-                // This one is needed as temporary global toggle between distinct cron invocations,
-                // but should not be changed through the GUI.
-                if (empty($CFG->mnet_autorenew_haveto)) {
-                    set_config('mnet_autorenew_haveto', 1);
-                    $content .= "<p>Local key is expiring. Need renewing MNET keys...</p>";
-                } else {
-                    if (!empty($CFG->mnet_key_autorenew_time)) {
-                        $now = getdate(time());
-                        if ( ($now['hours'] * HOURSECS + $now['minutes'] * MINSECS) > $CFG->mnet_key_autorenew_time ) {
-                            $havetorenew = true;
-                        }
-                    } else {
-                        $havetorenew = true;
-                    }
-                }
-            }
-        }
-
         (isset($CFG->mnet_autorenew) && ($CFG->mnet_autorenew == 1)) ? $force = true : $force = false;
 
-        if ($havetorenew || $force) {
+        if (self::mnet_key_havetorenew($mnet) || $force) {
             if ($force) {
-                $content .= "<p>Enter key Renew process (force mode)</p>";
+                $content = "<p>Enter key Renew process (force mode)</p>";
             } else {
-                $content .= "<p>Enter key Renew process (regular mode)</p>";
+                $content = "<p>Enter key Renew process (regular mode)</p>";
             }
             include_once($CFG->dirroot.'/mnet/peer.php');
 
@@ -306,12 +266,56 @@ class utilities_network {
             }
             set_config('mnet_autorenew_haveto', 0);
         } else {
-            $content .= "<p>Keys still valid - nothing to do.</p>";
+            $content = "<p>Keys still valid - nothing to do.</p>";
         }
         $user = \core_user::get_user_by_username('admin');
         self::send_mnet_key_check_status($user, $content);
     }
 
+    /**
+     * Check if key is getting obsolete.
+     *
+     * @global type $CFG
+     * @params mnet environment $mnet
+     * @return boolean
+     */
+    static public function mnet_key_havetorenew($mnet) {
+        global $CFG;
+        $havetorenew = false;
+
+        // Setting some defaults if the config has not been setup.
+        if (!isset($CFG->mnet_key_autorenew_gap)) {
+            set_config('mnet_key_autorenew_gap', 24 * 3); // Three days.
+        }
+        if (!isset($CFG->mnet_key_autorenew_hour)) {
+            set_config('mnet_key_autorenew_hour', 0); // Midnight.
+        }
+        if (!isset($CFG->mnet_key_autorenew_min)) {
+            set_config('mnet_key_autorenew_min', 0); // Midnight.
+        }
+
+        $CFG->mnet_key_autorenew_time = $CFG->mnet_key_autorenew_hour * HOURSECS + $CFG->mnet_key_autorenew_min * MINSECS;
+
+        // Key is getting old : check if it is time to operate.
+        if ($mnet->public_key_expires - time() < $CFG->mnet_key_autorenew_gap * HOURSECS) {
+            // This one is needed as temporary global toggle between distinct cron invocations,
+            // but should not be changed through the GUI.
+            if (empty($CFG->mnet_autorenew_haveto)) {
+                set_config('mnet_autorenew_haveto', 1);
+            } else {
+                if (!empty($CFG->mnet_key_autorenew_time)) {
+                    $now = getdate(time());
+                    if ( ($now['hours'] * HOURSECS + $now['minutes'] * MINSECS) > $CFG->mnet_key_autorenew_time ) {
+                        $havetorenew = true;
+                    }
+                } else {
+                    $havetorenew = true;
+                }
+            }
+        }
+
+        return $havetorenew;
+    }
 
     /**
      * This send a status of MNet key validy to admin user.

@@ -54,6 +54,27 @@ class utilities_network_testcase extends advanced_testcase {
     public function test_is_platform_uses_mnet() {
         $mnetlog = utilities_network::is_platform_uses_mnet();
         $this->assertInternalType('bool', $mnetlog);
+        // Answer should be false because all Mnet configuration is not set up.
+        $this->assertFalse($mnetlog);
+    }
+
+    public function test_mnet_key_validity() {
+        global $CFG;
+
+        require_once($CFG->dirroot.'/mnet/lib.php');
+        $mnet = get_mnet_environment();
+
+        // Empty config, should return false.
+        $havetorenew = utilities_network::mnet_key_havetorenew($mnet);
+        $this->assertInternalType('bool', $havetorenew);
+        $this->assertFalse($havetorenew);
+
+        // Set value to be in renew case, should return True.
+        $mnet->public_key_expires = time();
+        $CFG->mnet_autorenew_haveto = 1;
+        $havetorenew = utilities_network::mnet_key_havetorenew($mnet);
+        $this->assertInternalType('bool', $havetorenew);
+        $this->asserttrue($havetorenew);
     }
 
     protected function assert_valid_url($url) {
