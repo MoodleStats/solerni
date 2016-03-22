@@ -213,7 +213,7 @@ class utilities_network {
         }
 
         // If we are not in mnet configuration or autorenew not enabled.
-        if (!self::is_platform_uses_mnet() || empty($CFG->mnet_key_autorenew) || ($CFG->mnet_key_autorenew == 0)) {
+        if (!self::is_platform_uses_mnet() || empty($CFG->mnet_key_autorenew)) {
             return false;
         }
 
@@ -252,7 +252,7 @@ class utilities_network {
                     $currentkey = mnet_get_public_key($mnetpeer->wwwroot, $application, 1);
                     if ($currentkey) {
                         $mnetpeer->public_key = clean_param($currentkey, PARAM_PEM);
-                        $mnetpeer->updateparams = new \StdClass();
+                        $mnetpeer->updateparams = new \stdClass();
                         $mnetpeer->updateparams->public_key = clean_param($currentkey, PARAM_PEM);
                         $mnetpeer->public_key_expires = $mnetpeer->check_common_name($currentkey);
                         $mnetpeer->updateparams->public_key_expires = $mnetpeer->check_common_name($currentkey);
