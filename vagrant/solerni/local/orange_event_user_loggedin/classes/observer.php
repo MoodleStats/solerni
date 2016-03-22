@@ -133,35 +133,44 @@ class local_orange_event_user_loggedin_observer {
      * @param user $user
      */
     private static function update_profile_fields($user) {
+
         // Check that Webservice is activated.
-        if (theme_utilities::is_theme_settings_exists_and_nonempty('webservicestoken') ) {
-            global $CFG, $DB, $PAGE;
-            require_once($CFG->libdir . '/filelib.php'); // Include moodle curl class.
-            $token = $PAGE->theme->settings->webservicestoken;
-            $homemnet = utilities_network::get_home();
-            $serverurl = new \moodle_url($homemnet->url . '/webservice/rest/server.php',
-                    array('wstoken' => $token,
-                        'wsfunction' => 'local_orange_library_get_profile_fields',
-                        'moodlewsrestformat' => 'json'));
-            $curl = new \curl;
-            $profile = json_decode($curl->post(
-                    htmlspecialchars_decode($serverurl->__toString()), array('username' => $user->username)));
-
-            if ($profile && is_object($profile) && $profile->errorcode) {
-                error_log('Resac Update Profile Curl Request Returned An Error. Message: ' . $profile->message);
-                $profile = false;
-            }
-
-            $localuser = $DB->get_record('user', array('id' => $user->id));
-
-            foreach ($profile as $field) {
-                $localuser->{$field->name} = $field->value;
-            }
-
-            require_once($CFG->dirroot.'/user/profile/lib.php');
-            profile_save_data($localuser);
-        } else {
-            error_log('Resac WebService not configurated - Profile not updated');
+        if (!theme_utilities::is_theme_settings_exists_and_nonempty('webservicestoken')) {
+            error_log('Resac WebService not configurated - Cannot update profile');
+            return false;
         }
+
+        global $CFG, $DB, $PAGE;
+        require_once($CFG->libdir . '/filelib.php'); // Include moodle curl class.
+
+        $token = $PAGE->theme->settings->webservicestoken;
+        $homemnet = utilities_network::get_home();
+        $serverurl = new \moodle_url($homemnet->url . '/webservice/rest/server.php',
+                array('wstoken' => $token,
+                    'wsfunction' => 'local_orange_library_get_profile_fields',
+                    'moodlewsrestformat' => 'json'));
+        $curl = new \curl;
+        $profile = json_decode($curl->post(
+                htmlspecialchars_decode($serverurl->__toString()),
+                array('username' => $user->username)), true);
+
+        if ($profile && is_object($profile) && $profile->errorcode) {
+            error_log('Resac Update Profile Curl Request Returned An Error. Message: '
+                    . $profile->message);
+            $profile = false;
+        }
+
+        if (!$profile || !is_array($profile)) {
+            return false;
+        }
+
+        $localuser = $DB->get_record('user', array('id' => $user->id));
+        foreach ($profile as $field) {
+            $localuser->{$field->name} = $field->value;
+        }
+
+        require_once($CFG->dirroot.'/user/profile/lib.php');
+        profile_save_data($localuser);
+
     }
 }
