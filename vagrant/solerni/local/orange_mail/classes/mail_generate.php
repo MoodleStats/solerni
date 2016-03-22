@@ -69,6 +69,10 @@ class mail_generate {
         mail_object::generate('newusernewpasswordtext', 'text');
         mail_object::generate('newusernewpasswordtext', 'html');
 
+        // Mail for Badges.
+        mail_object::generate('badgemessagebody', 'text');
+        mail_object::generate('badgemessagebody', 'html');
+
         return true;
     }
 

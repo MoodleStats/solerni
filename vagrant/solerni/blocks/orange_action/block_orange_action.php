@@ -36,7 +36,7 @@ class block_orange_action extends block_base {
      * @return void
      */
     public function init() {
-        Global $PAGE, $COURSE;
+        Global $PAGE;
 
         $this->title = get_string('config_default_title', 'block_orange_action');
         $this->renderer = $PAGE->get_renderer('block_orange_action');
@@ -90,7 +90,7 @@ class block_orange_action extends block_base {
      * @return string
      */
     public function get_content() {
-        global $USER, $COURSE, $CFG, $OUTPUT, $DB;
+        global $COURSE, $CFG, $DB;
 
         // If content has already been generated, don't waste time generating it again.
         if ($this->content !== null) {

@@ -132,7 +132,7 @@ if ($frm and isset($frm->username)) {
             // unset previous session language - use user preference instead
             unset($SESSION->lang);
         }
-        
+
         // This account need to have its email confirmed
         if (empty($user->confirmed)) {
             $PAGE->set_title(get_string("mustconfirm"));
@@ -220,15 +220,44 @@ if ($session_has_timed_out and !data_submitted()) {
     $errorcode = 4;
 }
 
-/// First, let's remember where the user was trying to get to before they got here
-if (empty($SESSION->wantsurl)) {
-    $SESSION->wantsurl = (array_key_exists('HTTP_REFERER',$_SERVER) &&
-                          $_SERVER["HTTP_REFERER"] != $CFG->wwwroot &&
-                          $_SERVER["HTTP_REFERER"] != $CFG->wwwroot.'/' &&
-                          $_SERVER["HTTP_REFERER"] != $CFG->httpswwwroot.'/login/' &&
-                          strpos($_SERVER["HTTP_REFERER"], $CFG->httpswwwroot.'/login/?') !== 0 &&
-                          strpos($_SERVER["HTTP_REFERER"], $CFG->httpswwwroot.'/login/index.php') !== 0) // There might be some extra params such as ?lang=.
-        ? $_SERVER["HTTP_REFERER"] : NULL;
+/// First, let's remember where the user was trying to get to before they got here.
+if (empty($SESSION->wantsurl) && array_key_exists('HTTP_REFERER',$_SERVER)) {
+
+    // array of urls with strict comparaison, or not.
+    $specialurls = array(
+        array('url' => $CFG->wwwroot, 'strict' => true),
+        array('url' => $CFG->wwwroot.'/', 'strict' => true),
+        array('url' => $CFG->httpswwwroot.'/login/', 'strict' => false),
+        array('url' => $CFG->wwwroot.'/login/', 'strict' => false),
+        array('url' => $CFG->wwwroot.'/local/goodbye/index.php', 'strict' => false)
+    );
+    $nogo = false;
+
+    //referrer is another domain
+    if (strpos($_SERVER["HTTP_REFERER"], $CFG->wwwroot) === false) {
+         $nogo = true;
+    }
+
+    // Check each specialurl unless allready resolved.
+    if (!$nogo) {
+        foreach($specialurls as $url) {
+            if($url['strict']) {
+                $nogo = ($url['url'] == $_SERVER["HTTP_REFERER"]) ? true : false;
+            } else {
+                $nogo = (strpos($_SERVER["HTTP_REFERER"], $url['url']) !==  false) ? true : false;
+            }
+        }
+    }
+
+    // Register the referrer as wanted url if referrer is not enlisted as exception.
+    if(!$nogo) {
+        $SESSION->wantsurl = $_SERVER["HTTP_REFERER"];
+    }
+}
+
+// We need a value later in this page.
+if (!isset($SESSION->wantsurl)) {
+    $SESSION->wantsurl = NULL;
 }
 
 /// Redirect to alternative login URL if needed

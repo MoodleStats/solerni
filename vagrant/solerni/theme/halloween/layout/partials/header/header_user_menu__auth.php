@@ -25,7 +25,7 @@ $youvegotmail = utilities_user::user_have_new_mail($USER);
         <?php endif; ?>
     </a>
     <div class="dropdown header-dropdown">
-        <button class="btn btn-primary btn-sm" type="button" data-toggle="dropdown"
+        <button class="btn btn-default" type="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
                 <?php echo $USER->firstname . ' ' . $USER->lastname; ?>
                 <span class="caret"></span>

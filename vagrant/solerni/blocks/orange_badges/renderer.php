@@ -47,17 +47,22 @@ class block_orange_badges_renderer extends plugin_renderer_base {
                 $context = ($badge->type == BADGE_TYPE_SITE) ?
                         context_system::instance() : context_course::instance($badge->courseid);
                 $bname = $badge->name . " " . $cname;
-                    $imageurl = moodle_url::make_pluginfile_url($context->id, 'badges', 'badgeimage', $badge->id, '/', 'f1', false);
+                $imageurl = moodle_url::make_pluginfile_url($context->id, 'badges', 'badgeimage', $badge->id, '/', 'f1', false);
             } else {
                 $bname = s($badge->assertion->badge->name . " " . $cname);
                 $imageurl = $badge->imageUrl;
             }
 
+            $linkmybadges = "";
             if ($ismypage) {
                 $name = html_writer::tag('span', $bname,
                                 array('class' => 'badge-name')) . html_writer::tag('span', $cname, array('class' => 'course-name'));
+                $mybadgesurl = new moodle_url('/badges/mybadges.php');
+                $linkmybadges = html_writer::link($mybadgesurl, get_string('mybadges', 'theme_halloween'));
             } else {
                 $name = html_writer::tag('span', $bname, array('class' => 'badge-name'));
+                $mybadgesurl = new moodle_url('/badges/view.php', array('type' => BADGE_TYPE_COURSE, 'id' => $badge->courseid));
+                $linkmybadges = html_writer::link($mybadgesurl, get_string('allmoocbadges', 'block_orange_badges'));
             }
 
             // Image different if is earned or not.
@@ -97,12 +102,6 @@ class block_orange_badges_renderer extends plugin_renderer_base {
                 }
             }
 
-            if ($ismypage) {
-                $mybadgesurl = new moodle_url('/badges/mybadges.php');
-            } else {
-                $mybadgesurl = new moodle_url('/badges/view.php', array('type' => BADGE_TYPE_COURSE, 'id' => $badge->courseid));
-            }
-
             if (!$profile) {
                 $url = $mybadgesurl;
             } else {
@@ -118,13 +117,6 @@ class block_orange_badges_renderer extends plugin_renderer_base {
         }
 
         // On Dashboard display link to "my badges" page.
-        $linkmybadges = "";
-        if ($ismypage) {
-            $linkmybadges = html_writer::link($mybadgesurl, get_string('mybadges', 'theme_halloween'));
-        } else {
-            $linkmybadges = html_writer::link($mybadgesurl, get_string('allmoocbadges', 'block_orange_badges'));
-        }
-
         return html_writer::alist($items, array('class' => 'badges')) . $linkmybadges;
     }
 }

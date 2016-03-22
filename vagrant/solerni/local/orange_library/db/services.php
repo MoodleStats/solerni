@@ -30,12 +30,19 @@ $functions = array(
         'classpath'     => 'local/orange_library/externallib.php',
         'description'   => 'Allows to get the resac navigation from MNET HOME to external hosts',
         'type'          => 'read'
+    ),
+    'local_orange_library_get_profile_fields' => array(
+        'classname'     => 'local_orange_library_external',
+        'methodname'    => 'get_profile_fields',
+        'classpath'     => 'local/orange_library/externallib.php',
+        'description'   => 'Allows to get the profile fields of a user from MNET HOME to external hosts',
+        'type'          => 'read'
     )
 );
 
 $services = array(
     'MNET RESAC' => array(
-            'functions'         => array('local_orange_library_get_resac_hosts'),
+            'functions'         => array('local_orange_library_get_resac_hosts', 'local_orange_library_get_profile_fields'),
             'restricted_users'  => 0,
             'enabled'           => 1
     )

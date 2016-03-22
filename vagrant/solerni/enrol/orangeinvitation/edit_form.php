@@ -39,7 +39,7 @@ class enrol_orangeinvitation_edit_form extends moodleform {
         $mform->addElement('header', 'header', get_string('pluginname', 'enrol_orangeinvitation'));
 
         $mform->addElement('text', 'name', get_string('custominstancename', 'enrol'));
-        $mform->setType('name', PARAM_NOTAGS);
+        $mform->setType('name', PARAM_TEXT);
 
         $options = array(ENROL_INSTANCE_ENABLED  => get_string('yes'),
                          ENROL_INSTANCE_DISABLED => get_string('no'));
@@ -72,10 +72,7 @@ class enrol_orangeinvitation_edit_form extends moodleform {
     }
 
     public function validation($data, $files) {
-        global $DB, $CFG;
         $errors = parent::validation($data, $files);
-
-        list($instance, $plugin, $context) = $this->_customdata;
 
         return $errors;
     }

@@ -39,6 +39,7 @@ class enrol_orangenextsession_edit_form extends moodleform {
         $mform->addElement('header', 'header', get_string('pluginname', 'enrol_orangenextsession'));
 
         $mform->addElement('text', 'name', get_string('custominstancename', 'enrol'));
+        $mform->setType('name', PARAM_TEXT);
 
         $options = array(ENROL_INSTANCE_ENABLED  => get_string('yes'),
                          ENROL_INSTANCE_DISABLED => get_string('no'));
@@ -63,7 +64,6 @@ class enrol_orangenextsession_edit_form extends moodleform {
     }
 
     public function validation($data, $files) {
-        global $DB, $CFG;
         $errors = parent::validation($data, $files);
 
         return $errors;

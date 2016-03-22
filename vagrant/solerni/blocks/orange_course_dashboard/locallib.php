@@ -96,9 +96,9 @@ function block_orange_course_dashboard_get_child_shortnames($courseid) {
  * @param int maxcourses to retreive.
  * @return array list of sorted courses and count of courses.
  */
-function block_orange_course_dashboard_get_recommended_courses($maxrecommendedcourses = 0) {
+function block_orange_course_dashboard_get_recommended_courses($maxcourses = 0) {
     $utilitiescourse = new utilities_course();
-    $courses = $utilitiescourse->get_courses_recommended(array('limit' => $maxrecommendedcourses));
+    $courses = $utilitiescourse->get_courses_recommended(array('limit' => $maxcourses));
     $coursedetails = array();
     foreach ($courses as $course) {
         $coursedetails[$course->id] = $utilitiescourse->solerni_get_course_infos($course);

@@ -25,6 +25,9 @@
 $string['modulename'] = 'List ForumNG';
 $string['pluginname'] = 'List ForumNG';
 $string['newlistforumnglock'] = '(New block List of Forums)';
+$string['title'] = 'Title';
+
+$string['course'] = 'Course : ';
 
 $string['modulenameplural'] = 'Lists of ForumNG';
 $string['pluginadministration'] = 'Administration list of forums';
@@ -35,7 +38,10 @@ $string['defaultname'] = 'List of all forums';
 $string['headtablename'] = 'Title';
 $string['headtablenbposts'] = 'Post';
 $string['headtablelastpost'] = 'Last post';
-$string['created'] = 'Created the ';
+$string['from'] = 'From ';
+
+$string['messages'] = 'message';
+$string['discussions'] = 'discussion';
 
 $string['assignforum'] = "Forums assignment";
 $string['no_forumng_affected'] = "No forum is assigned to this list.";

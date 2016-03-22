@@ -101,7 +101,7 @@ class block_orange_progressbar extends block_base {
      * @return string
      */
     public function get_content() {
-        global $USER, $COURSE, $CFG, $OUTPUT, $DB;
+        global $USER, $COURSE, $OUTPUT;
 
         // If content has already been generated, don't waste time generating it again.
         if ($this->content !== null) {
