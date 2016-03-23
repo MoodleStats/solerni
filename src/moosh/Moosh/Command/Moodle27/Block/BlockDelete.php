@@ -72,14 +72,14 @@ class BlockDelete extends MooshCommand
         //Only delete if already exist.
         $block_instances = $DB->get_records('block_instances', array('blockname' => $blocktype, 'pagetypepattern' => $pagetypepattern, 'parentcontextid' => $contextid));
         $nb_blocks = count($block_instances);
-        if (count($block_instances)) {
+        if ($nb_blocks) {
             $DB->delete_records('block_instances', array('blockname' => $blocktype, 'pagetypepattern' => $pagetypepattern, 'parentcontextid' => $contextid));
             if($nb_blocks == 1)
                 echo $nb_blocks . " block '" . $blocktype . "' was deleted\n";
             else
                 echo $nb_blocks . " blocks '" . $blocktype . "' were deleted\n";
-        }else{
-            echo "There is no block '" . $blocktype . "' on page '" . $pagetypepattern . "' with contextid " . $contextid . "\n";
+        } else {
+            echo "There is no block '" . $blocktype . "' to delete on page '" . $pagetypepattern . "' with contextid " . $contextid . "\n";
         }
 
     }
