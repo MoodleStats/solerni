@@ -145,6 +145,7 @@ class BlockAdd extends MooshCommand
     protected function getArgumentsHelp()
     {
         return "\n\nARGUMENTS:".
+                "\n\tsystem 0 blocktype pagetypepattern region weight => add or update a system-level block".
                 "\n\tcourse courseid blocktype pagetypepattern region weight".
                 "\n\tcategorycourses categoryid[all] blocktype pagetypepattern region weight".
                 "\n\tcategory categoryid blocktype pagetypepattern region weight".
