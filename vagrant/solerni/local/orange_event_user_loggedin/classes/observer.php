@@ -152,7 +152,7 @@ class local_orange_event_user_loggedin_observer {
         $curl = new \curl;
         $profile = json_decode($curl->post(
                 htmlspecialchars_decode($serverurl->__toString()),
-                array('username' => $user->username)), true);
+                array('username' => $user->username)));
 
         if ($profile && is_object($profile) && $profile->errorcode) {
             error_log('Resac Update Profile Curl Request Returned An Error. Message: '
@@ -160,7 +160,7 @@ class local_orange_event_user_loggedin_observer {
             $profile = false;
         }
 
-        if (!$profile || !is_array($profile)) {
+        if (empty($profile)) {
             return false;
         }
 
