@@ -166,7 +166,7 @@ class local_orange_event_user_loggedin_observer {
 
         $localuser = $DB->get_record('user', array('id' => $user->id));
         foreach ($profile as $field) {
-            $localuser->{$field->name} = $field->value;
+            $localuser->{$field['name']} = $field['value'];
         }
 
         require_once($CFG->dirroot.'/user/profile/lib.php');
