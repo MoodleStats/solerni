@@ -85,16 +85,19 @@ class BlockAdd extends MooshCommand
 
             foreach ($block_instances as $block_instance) {
 
-                if($block_instance->defaultweight == $weight) {
+                if($block_instance->defaultweight == $weight && $block_instance->defaultregion == $region) {
                     echo "Block '" . $blocktype . "' already exist on page '" . $pagetypepattern . "' with contextid "
-                        . $context->id . " and a weight of " . $block_instance->defaultweight . "\n";
+                        . $context->id . " and a weight of " . $block_instance->defaultweight .
+                        " in the region " . $region . "\n";
                     continue;
                 }
 
+                $block_instance->defaultregion = $region;
                 $block_instance->defaultweight = $weight;
                 $DB->update_record('block_instances', $block_instance);
                 echo "Block '" . $blocktype . "' updated on page '" . $pagetypepattern . "' with contextid "
-                        . $context->id . " and the weight of " . $block_instance->defaultweight . "\n";
+                        . $context->id . " and the weight of " . $block_instance->defaultweight .
+                        " in the region " . $region . "\n";
             }
             break;
 
@@ -152,4 +155,5 @@ class BlockAdd extends MooshCommand
                 "\n\n\tpagetypepattern = *|course-view-*|mod-*-view|site-index|...".
                 "\n\tregion = side-pre|side-post|content|...";
     }
+
 }
