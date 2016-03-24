@@ -15,6 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 require_once($CFG->dirroot . '/auth/googleoauth2/lib.php');
+use local_orange_library\utilities\utilities_network;
 
 class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
 
@@ -307,11 +308,11 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
     public function resac_nav_items($hosts, $stripclient = false) {
         $html = '';
 
-        if(is_object($hosts)) {
+        if (is_object($hosts)) {
             $html .= self::render_nav_item($hosts, $stripclient);
         }
 
-        if(is_array($hosts)) {
+        if (is_array($hosts)) {
             foreach ($hosts as $host) {
                 $html .= self::render_nav_item($host, $stripclient);
             }
@@ -331,7 +332,7 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
     public function render_nav_item(stdClass $host, $stripclient) {
         global $CFG;
 
-        // remove client name from host name for reasons.
+        // Remove client name from host name for reasons.
         if ($stripclient) {
             $host->name = str_replace($CFG->solerni_customer_name . ' ', '', $host->name);
             $host->name = str_replace(strtolower($CFG->solerni_customer_name) . ' ', '', $host->name);
@@ -354,7 +355,7 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
 
         switch ($this->page->state) {
             case moodle_page::STATE_BEFORE_HEADER :
-                // No output yet it is safe to delivery the full arsenal of redirect methods
+                // No output yet it is safe to delivery the full arsenal of redirect methods.
                 if (!$debugdisableredirect) {
                     // Don't use exactly the same time here, it can cause problems when both redirects fire at the same time.
                     $this->metarefreshtag = '<meta http-equiv="refresh" content="'. $delay .'; url='. $encodedurl .'" />'."\n";
@@ -363,11 +364,11 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
                 $output = $this->header();
                 break;
             case moodle_page::STATE_PRINTING_HEADER :
-                // We should hopefully never get here
+                // We should hopefully never get here.
                 throw new coding_exception('You cannot redirect while printing the page header');
                 break;
             case moodle_page::STATE_IN_BODY :
-                // We really shouldn't be here but we can deal with this
+                // We really shouldn't be here but we can deal with this.
                 debugging("You should really redirect before you start page output");
                 if (!$debugdisableredirect) {
                     $this->page->requires->js_function_call('document.location.replace', array($url), false, $delay);
@@ -375,7 +376,7 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
                 $output = $this->opencontainers->pop_all_but_last();
                 break;
             case moodle_page::STATE_DONE :
-                // Too late to be calling redirect now
+                // Too late to be calling redirect now.
                 throw new coding_exception('You cannot redirect after the entire page has been generated');
                 break;
         }
@@ -398,6 +399,8 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
      * @return string The output.
      */
     public function render_preferences_group(preferences_group $renderable) {
+        Global $USER;
+
         $html = '';
         $html .= html_writer::start_tag('div', array('class' => 'span4 preferences-group'));
         $html .= $this->heading($renderable->title, 3);
@@ -409,11 +412,42 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
             if ($node->has_children()) {
                 debugging('Preferences nodes do not support children', DEBUG_DEVELOPER);
             }
-            $html .= html_writer::tag('li', $this->render($node));
+
+            switch ($node->text) {
+                // We hide the manage badge link, access by "My Badge" bloc.
+                case get_string('managebadges', 'badges') :
+                    break;
+
+                // We hide the preference badge link on thematics.
+                case get_string('preferences', 'badges') :
+                    if (utilities_network::is_home()) {
+                        $html .= html_writer::tag('li', $this->render($node));
+                    }
+                    break;
+
+                default :
+                    $html .= html_writer::tag('li', $this->render($node));
+                    break;
+            }
+
+            // Hack to add 'delete my account' link after change password.
+            if ($node->key === "changepassword") {
+                $enabled = get_config('local_goodbye', 'enabled');
+                if (isloggedin() &&
+                        !isguestuser() &&
+                        !is_siteadmin($USER) &&
+                        $enabled &&
+                        utilities_network::is_platform_uses_mnet() &&
+                        utilities_network::is_home()) {
+                    $deleteaccount = \html_writer::link(new moodle_url('/local/goodbye/index.php'),
+                        get_string('manageaccount', 'local_goodbye'));
+                    $html .= html_writer::tag('li', $deleteaccount);
+                }
+            }
         }
         $html .= html_writer::end_tag('ul');
         $html .= html_writer::end_tag('div');
-        
+
         return $html;
     }
 }
