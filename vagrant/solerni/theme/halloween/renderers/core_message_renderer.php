@@ -59,7 +59,8 @@ class theme_halloween_core_message_renderer extends core_message_renderer {
 
         $numprocs = count($processors);
         // Display the messaging options table(s)
-        // Select components used by Solerni form email configuration
+        // Orange - Select components used by Solerni for email configuration.
+        // By default take only Moodle config, and default value for other plugin.
         $usedcomponents = array('moodle');
         foreach ($components as $component) {
             if (in_array($component, $usedcomponents)) {
@@ -175,6 +176,9 @@ class theme_halloween_core_message_renderer extends core_message_renderer {
                 $output .= html_writer::end_tag('fieldset');
             }
         }
+
+        // Orange : delete defaultmaxrecommendations blocs including configuration of
+        // beepnewmessage, blocknoncontacts and notificationsdisabled.
 
         $redirect = new moodle_url("/user/preferences.php", array('userid' => $userid));
         $output .= html_writer::end_tag('fieldset');
