@@ -97,6 +97,7 @@ class utilities_user {
 
         $userdata = array();
 
+        // Profile fields to synchronized.
         if ($user = $DB->get_record('user', array('username' => $username))) {
             if ($fields = $DB->get_records('user_info_field')) {
                 foreach ($fields as $field) {
@@ -104,9 +105,23 @@ class utilities_user {
                     require_once($CFG->dirroot.'/user/profile/field/'.$field->datatype.'/field.class.php');
                     $newfield = 'profile_field_'.$field->datatype;
                     $formfield = new $newfield($field->id, $user->id);
-                    $userdata[] = array ('name' => 'profile_field_'.$field->shortname, 'value' => $formfield->data);
+                    $userdata[] = array ('type' => 'profile', 'name' => 'profile_field_'.$field->shortname,
+                        'value' => $formfield->data);
                 }
             }
+        }
+
+        // Forum preferences stored in user record.
+        $userparameters = array('maildigest', 'autosubscribe', 'trackforums', 'mailformat');
+        foreach ($userparameters as $userparameter) {
+            $userdata[] = array ('type' => 'profile', 'name' => $userparameter, 'value' => $user->{$userparameter});
+        }
+
+        // Preferences to synchronized.
+        $preferences = array('badgeprivacysetting');
+        foreach ($preferences as $preference) {
+            $userdata[] = array ('type' => 'preference', 'name' => $preference,
+                'value' => get_user_preferences($preference, 1, $user));
         }
 
         return $userdata;

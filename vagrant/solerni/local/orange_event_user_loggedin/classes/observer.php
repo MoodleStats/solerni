@@ -26,6 +26,7 @@ defined('MOODLE_INTERNAL') || die();
 
 use local_orange_library\utilities\utilities_network;
 use theme_halloween\tools\theme_utilities;
+require_once($CFG->dirroot.'/user/lib.php');
 
 /**
  * Event observer for block orange_ruels.
@@ -166,11 +167,18 @@ class local_orange_event_user_loggedin_observer {
 
         $localuser = $DB->get_record('user', array('id' => $user->id));
         foreach ($profile as $field) {
-            $localuser->{$field->name} = $field->value;
+            if ($field['type'] == 'profile') {
+                $localuser->{$field['name']} = $field['value'];
+            } else if ($field['type'] == 'preference') {
+                set_user_preference($field['name'], $field['value'], $user);
+            } else {
+                error_log('Resac Update Profile, unsupported data type : ' . $field['type']);
+            }
         }
 
         require_once($CFG->dirroot.'/user/profile/lib.php');
         profile_save_data($localuser);
+        user_update_user($user, false, false);
 
     }
 }
