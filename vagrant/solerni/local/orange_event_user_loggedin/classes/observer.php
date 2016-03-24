@@ -167,12 +167,12 @@ class local_orange_event_user_loggedin_observer {
 
         $localuser = $DB->get_record('user', array('id' => $user->id));
         foreach ($profile as $field) {
-            if ($field['type'] == 'profile') {
-                $localuser->{$field['name']} = $field['value'];
-            } else if ($field['type'] == 'preference') {
-                set_user_preference($field['name'], $field['value'], $user);
+            if ($field->type == 'profile') {
+                $localuser->{$field->name} = $field->value;
+            } else if ($field->type == 'preference') {
+                set_user_preference($field->name, $field->value, $user);
             } else {
-                error_log('Resac Update Profile, unsupported data type : ' . $field['type']);
+                error_log('Resac Update Profile, unsupported data type : ' . $field->type);
             }
         }
 
