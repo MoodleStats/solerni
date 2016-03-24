@@ -109,13 +109,20 @@ moosh config-set geoipfile ${GEOIP_FILE_PATH}
 moosh config-set catalogurl /catalog block_orange_course_dashboard
 moosh config-set hideblockheader 1 block_orange_course_dashboard
 
+# Manage blocks for 'Dashboard' page (badges + course overview deleted)
+moosh block-delete system 0 badges my-index
+moosh block-delete system 0 course_overview my-index
+moosh block-delete system 0 calendar_upcoming my-index
+moosh block-delete system 0 calendar_month my-index
+moosh block-delete system 0 news_items my-index
+moosh block-delete system 0 orange_last_message my-index
+
 # Manage blocks for 'my' page (Dashboard)
-moosh block-add system 0 orange_course_dashboard my-index content 0
-moosh block-add system 0 calendar_upcoming my-index content 0
-moosh block-add system 0 private_files my-index content 0
-moosh block-add system 0 calendar_month my-index content 0
-moosh block-add system 0 news_items my-index content 0
-moosh block-add system 0 orange_last_message my-index content 0
+moosh block-add system 0 orange_action my-index content -10
+moosh block-add system 0 orange_course_dashboard my-index content -9
+# moosh block-add system 0 <block forum> my-index content -8
+moosh block-add system 0 orange_badges my-index content -7
+moosh block-add system 0 private_files my-index content -6
 
 # Enable self enrolment method in new courses - Plugin Enrolments/Self enrolment
 # /!\ this value is reversed 0 => true, 1 => false
@@ -238,11 +245,6 @@ moosh config-set hideblockheader 1 block_orange_action
 
 # defaulthomepage = Dashboard (#us_380)
 moosh config-set defaulthomepage 1
-
-# Manage blocks for 'Dashboard' page (badges + course overview deleted)
-moosh block-add system 0 orange_badges my-index content 0
-moosh block-delete system 0 badges my-index
-moosh block-delete system 0 course_overview my-index
 
 # Disable Oauth2 authentication method
 moosh auth-manage disable googleoauth2
