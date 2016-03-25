@@ -67,8 +67,7 @@ class block_orange_list_bestforumng_renderer extends plugin_renderer_base {
         global $CFG, $OUTPUT;
         $output = "";
 
-        $output .= html_writer::start_tag('div', array('class' => 'row text-tertiary',
-                                                       'style' => 'background-color:black; padding:1% 0% 1% 0%;'));
+        $output .= html_writer::start_tag('div', array('class' => 'row text-tertiary'));
             $output .= html_writer::start_tag('div', array('class' => 'H4 col-md-9 orange-course-name'));
                 $output .= html_writer::tag('span', $course->fullname);
             $output .= html_writer::end_tag('div');
@@ -79,21 +78,19 @@ class block_orange_list_bestforumng_renderer extends plugin_renderer_base {
             $output .= html_writer::end_tag('div');
         $output .= html_writer::end_tag('div');
 
-        $output .= html_writer::start_tag('div', array('class' => 'row', 'style' => 'border:1px solid black;'));
+        $output .= html_writer::start_tag('div', array('class' => 'row'));
 
             $output .= html_writer::start_tag('div', array('class' => 'col-md-4'));
                 $output .= html_writer::empty_tag('img',
                     array('src' => $courseimageurl,
-                          'alt' => 'image du mooc',
-                          'class' => 'col-md-12 essentiels-image',
-                          'style' => 'padding:2%;'));
+                          'class' => 'col-md-12 essentiels-image'));
                 $output .= html_writer::start_tag('div', array('class' => 'overpicture'));
                     $output .= html_writer::tag('span', $extendedcourse->enrolledusers . " inscrits");
                 $output .= html_writer::end_tag('div');
             $output .= html_writer::end_tag('div');
 
-            $output .= html_writer::start_tag('div', array('class' => 'col-md-8', 'style' => 'padding:2%'));
-                $output .= html_writer::start_tag('div', array('class' => 'row', 'style' => 'padding: 0% 0% 3% 0%;'));
+            $output .= html_writer::start_tag('div', array('class' => 'col-md-8'));
+                $output .= html_writer::start_tag('div', array('class' => 'row'));
                     $output .= html_writer::start_tag('div', array('class' => 'col-md-10'));
                         $output .= html_writer::tag('span', get_string('linebestdiscussion', 'block_orange_list_bestforumng'));
                     $output .= html_writer::end_tag('div');
@@ -131,7 +128,7 @@ class block_orange_list_bestforumng_renderer extends plugin_renderer_base {
 
                 $output .= html_writer::end_tag('div');
 
-                $output .= html_writer::start_tag('div', array('class' => 'row', 'style' => 'padding: 2% 0% 0% 0%;'));
+                $output .= html_writer::start_tag('div', array('class' => 'row'));
 
                     $courselinkdescript = $CFG->wwwroot . "/mod/descriptionpage/view.php?courseid=" . $course->id;
                     $output .= html_writer::start_tag('div', array('class' => 'col-md-12'));
