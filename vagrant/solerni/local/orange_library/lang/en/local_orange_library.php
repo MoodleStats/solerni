@@ -85,3 +85,6 @@ $string['blockmissing'] = 'Block "{$a}" missing.';
 $string['startenrolmentdatemissing'] = "The enrolment start date is missing on Self Enrol method";
 $string['endenrolmentdatemissing'] = "The enrolment end date is missing on Self Enrol method";
 $string['orangeinvitationconfigmissing'] = "The configuration of 'MOOC URLs access' enrolment method need to be save once";
+
+$string['today'] = "tda, ";
+$string['yesterday'] = "yda, ";

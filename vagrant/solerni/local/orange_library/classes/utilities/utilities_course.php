@@ -605,6 +605,45 @@ class utilities_course {
     }
 
     /**
+     * Returns "forrum page" url of a course
+     *
+     * @global type $CFG
+     * @param type $course
+     * @return string
+     *
+     */
+    public function get_course_url_page_forum($course = null) {
+
+        global $CFG, $DB;
+        $url = '#';
+
+        if (!$course) {
+            global $COURSE;
+            $course = $COURSE;
+        }
+
+        if ($course) {
+            $sql = "SELECT distinct(I.subpagepattern)
+                     FROM mdl_block_instances I LEFT OUTER JOIN mdl_format_flexpage_page P ON (I.subpagepattern = P.id)
+                     WHERE P.courseid = ?
+                     AND I.blockname='orange_listforumng'
+                     AND I.pagetypepattern LIKE 'course-view%' LIMIT 1" ;
+
+            $idpage = $DB->get_record_sql($sql, array($course->id));
+
+            // To avoid having an error page when the forum page is not setup.
+            if ($idpage != null) {
+                $url = $CFG->wwwroot . '/course/view.php?id=' . $course->id . "&pageid=" . $idpage->subpagepattern;
+            } else {
+                $url = $CFG->wwwroot;
+
+            }
+        }
+
+        return $url;
+    }
+
+    /**
      * Very simple function to check if we are inside the frontpage course (id=1)
      *
      * @param: $course
