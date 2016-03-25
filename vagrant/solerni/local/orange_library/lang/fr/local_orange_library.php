@@ -90,3 +90,9 @@ $string['orangeinvitationconfigmissing'] = "Vous devez enregistrer au moins une 
 
 $string['today'] = "auj, ";
 $string['yesterday'] = "hier, ";
+// Cron Tasks.
+$string['orange_library_mnet_task'] = "Mise à jour des clés MNET";
+$string['orange_library_mnet_mail'] = '<p>Bonjour  {$a->firstname}  {$a->lastname},</p>
+<p>Je suis la tâche automatisée de vérification de la validité des clés MNet pour <b>{$a->sitename}</b>';
+$string['orange_library_mnet_mail_subject'] = "Test de validité des clés MNet ";
+

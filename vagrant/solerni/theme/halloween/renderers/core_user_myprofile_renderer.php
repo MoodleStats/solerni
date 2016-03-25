@@ -61,13 +61,7 @@ class theme_halloween_core_user_myprofile_renderer extends core_user\output\mypr
             $return .= $this->render($category);
         }
         $return .= \html_writer::end_tag('div');
-        if ($ismyprofile) {
-            // Add delete account button.
-            $deleteaccount = \html_writer::link(new moodle_url('/local/goodbye/index.php'),
-                    get_string('manageaccount', 'local_goodbye'),
-                    array('class' => 'btn btn-danger btn-sm'));
-            $return .= $deleteaccount;
-        }
+
         return $return;
     }
 

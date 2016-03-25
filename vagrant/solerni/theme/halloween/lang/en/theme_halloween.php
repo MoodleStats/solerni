@@ -227,7 +227,7 @@ $string['signupformfooterdesc']     = '';
 
 // Signup frontend page.
 $string['create_account']           = 'Create my account';
-$string['policyaccept']             = 'I have read and agree to the <a class="js-target-blank" href="{$a}" target="_blank">terms and conditions</a>';
+$string['policyaccept']             = 'I have read and agree to the <a class="js-target-blank" href="{$a}" target="_blank">Terms and Conditions</a>';
 $string['missingusername']          = 'Your {$a} cannot be empty';
 
 // Webservices settings page
@@ -241,6 +241,7 @@ $string['webservicestokendesc']     = 'Insert the HOME MNET token generated for 
 $string['catalog_page_title']       = 'Catalog';
 $string['filterstatustitle']        = 'Status';
 $string['filterstatusall']          = 'All MOOCs';
+$string['filterstatusallmoocs']          = 'All';
 
 $string['filterstatusregistrationcomplete']   = 'Mooc complete';
 $string['filterstatusregistrationopen']       = 'Registration open';

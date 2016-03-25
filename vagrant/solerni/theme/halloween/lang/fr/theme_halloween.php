@@ -227,7 +227,7 @@ $string['signupformfooterdesc']     = '';
 
 // Signup frontend page.
 $string['create_account']           = 'Créer mon compte';
-$string['policyaccept']             = 'J\'ai lu et j\'accepte les <a class="js-target-blank" href="{$a}" target="_blank">conditions générales d\'utilisation</a>';
+$string['policyaccept']             = 'J\'ai lu et j\'accepte les <a class="js-target-blank" href="{$a}" target="_blank">Conditions Générales d\'Utilisation</a>';
 $string['missingusername']          = 'Le {$a} ne peut pas etre vide';
 
 // Webservices settings page
@@ -241,6 +241,8 @@ $string['webservicestokendesc']     = 'Insérez ici le jeton de sécurité déli
 $string['catalog_page_title']       = 'Catalogue';
 $string['filterstatustitle']        = 'Statuts';
 $string['filterstatusall']          = 'Tous les MOOCs';
+$string['filterstatusallmoocs']          = 'Tous';
+
 
 $string['filterstatusregistrationcomplete']   = 'MOOC complet';
 $string['filterstatusregistrationopen']       = 'Enregistrement ouvert';
