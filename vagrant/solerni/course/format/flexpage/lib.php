@@ -315,6 +315,127 @@ class format_flexpage extends format_base {
                     'default' => get_config('videoplayer', 'format_flexpage'),
                     'type' => PARAM_RAW
                 ),
+                //Paragraph descriptions for find out more page
+                'paragraph1' => array(
+                    'default' => get_config('paragraph1', 'format_flexpage'),
+                    'type' => PARAM_RAW
+                ),
+                'description1' => array(
+                    'default' => get_config('description1', 'format_flexpage'),
+                    'type' => PARAM_RAW
+                ),
+                'paragraph1picture' => array(
+                    'default' => get_config('paragraph1picture', 'format_flexpage'),
+                    'type' => PARAM_CLEANFILE,
+                ),
+                'paragraph2' => array(
+                    'default' => get_config('paragraph2', 'format_flexpage'),
+                    'type' => PARAM_RAW
+                ),
+                'description2' => array(
+                    'default' => get_config('description2', 'format_flexpage'),
+                    'type' => PARAM_RAW
+                ),
+                'paragraph2picture' => array(
+                    'default' => get_config('paragraph2picture', 'format_flexpage'),
+                    'type' => PARAM_CLEANFILE,
+                ),
+                'paragraph3' => array(
+                    'default' => get_config('paragraph3', 'format_flexpage'),
+                    'type' => PARAM_RAW
+                ),
+                'description3' => array(
+                    'default' => get_config('description3', 'format_flexpage'),
+                    'type' => PARAM_RAW
+                ),
+                'paragraph3picture' => array(
+                    'default' => get_config('paragraph3picture', 'format_flexpage'),
+                    'type' => PARAM_CLEANFILE,
+                ),
+                'paragraph4' => array(
+                    'default' => get_config('paragraph4', 'format_flexpage'),
+                    'type' => PARAM_RAW
+                ),
+                'description4' => array(
+                    'default' => get_config('description4', 'format_flexpage'),
+                    'type' => PARAM_RAW
+                ),
+                'paragraph4picture' => array(
+                    'default' => get_config('paragraph4picture', 'format_flexpage'),
+                    'type' => PARAM_CLEANFILE,
+                ),
+                'paragraph5' => array(
+                    'default' => get_config('paragraph5', 'format_flexpage'),
+                    'type' => PARAM_RAW
+                ),
+                'description5' => array(
+                    'default' => get_config('description5', 'format_flexpage'),
+                    'type' => PARAM_RAW
+                ),
+                'paragraph5picture' => array(
+                    'default' => get_config('paragraph5picture', 'format_flexpage'),
+                    'type' => PARAM_CLEANFILE,
+                ),
+                'paragraph6' => array(
+                    'default' => get_config('paragraph6', 'format_flexpage'),
+                    'type' => PARAM_RAW
+                ),
+                'description6' => array(
+                    'default' => get_config('description6', 'format_flexpage'),
+                    'type' => PARAM_RAW
+                ),
+                'paragraph6picture' => array(
+                    'default' => get_config('paragraph6picture', 'format_flexpage'),
+                    'type' => PARAM_CLEANFILE,
+                ),
+                'paragraph7' => array(
+                    'default' => get_config('paragraph7', 'format_flexpage'),
+                    'type' => PARAM_RAW
+                ),
+                'description7' => array(
+                    'default' => get_config('description7', 'format_flexpage'),
+                    'type' => PARAM_RAW
+                ),
+                'paragraph7picture' => array(
+                    'default' => get_config('paragraph7picture', 'format_flexpage'),
+                    'type' => PARAM_CLEANFILE,
+                ),
+                'paragraph8' => array(
+                    'default' => get_config('paragraph8', 'format_flexpage'),
+                    'type' => PARAM_RAW
+                ),
+                'description8' => array(
+                    'default' => get_config('description8', 'format_flexpage'),
+                    'type' => PARAM_RAW
+                ),
+                'paragraph8picture' => array(
+                    'default' => get_config('paragraph8picture', 'format_flexpage'),
+                    'type' => PARAM_CLEANFILE,
+                ),
+                'paragraph9' => array(
+                    'default' => get_config('paragraph9', 'format_flexpage'),
+                    'type' => PARAM_RAW
+                ),
+                'description9' => array(
+                    'default' => get_config('description9', 'format_flexpage'),
+                    'type' => PARAM_RAW
+                ),
+                'paragraph9picture' => array(
+                    'default' => get_config('paragraph9picture', 'format_flexpage'),
+                    'type' => PARAM_CLEANFILE,
+                ),
+                'paragraph10' => array(
+                    'default' => get_config('paragraph10', 'format_flexpage'),
+                    'type' => PARAM_RAW
+                ),
+                'description10' => array(
+                    'default' => get_config('description10', 'format_flexpage'),
+                    'type' => PARAM_RAW
+                ),
+                'paragraph10picture' => array(
+                    'default' => get_config('paragraph10picture', 'format_flexpage'),
+                    'type' => PARAM_CLEANFILE,
+                ),
                 'courseinactivitydelay' => array(
                     'default' => get_config('inactivitydelay', 'format_flexpage'),
                     'type' => PARAM_INT,
@@ -484,6 +605,277 @@ class format_flexpage extends format_base {
                     'help_component' => 'format_flexpage',
                     'element_type' => 'textarea'
                 ),
+                // Paragraph configuration for find out more page
+                'paragraph1' => array(
+                    'label' => get_string('paragraph1', 'format_flexpage'),
+                    'help' => 'paragraph1',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'text'
+                ),
+                'description1' => array(
+                    'label' => get_string('description1', 'format_flexpage'),
+                    'help' => 'description1',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'textarea'
+                ),
+                'paragraph1picture' => array(
+                    'label' => get_string('paragraph1picture', 'format_flexpage'),
+                    'element_type' => 'filemanager',
+                    'element_attributes' => array(
+                        array(
+                            'subdirs' => 0,
+                            'maxbytes' => $CFG->maxbytes,
+                            'maxfiles' => 1,
+                            'accepted_types' => array('document'),
+                            'return_types' => FILE_INTERNAL | FILE_EXTERNAL
+                            )
+                        ),
+                    'help' => 'paragraph1picture',
+                    'help_component' => 'format_flexpage',
+                ),
+                'paragraph2' => array(
+                    'label' => get_string('paragraph2', 'format_flexpage'),
+                    'help' => 'paragraph2',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'text'
+                ),
+                'description2' => array(
+                    'label' => get_string('description2', 'format_flexpage'),
+                    'help' => 'description2',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'textarea'
+                ),
+                'paragraph2picture' => array(
+                    'label' => get_string('paragraph2picture', 'format_flexpage'),
+                    'element_type' => 'filemanager',
+                    'element_attributes' => array(
+                        array(
+                            'subdirs' => 0,
+                            'maxbytes' => $CFG->maxbytes,
+                            'maxfiles' => 1,
+                            'accepted_types' => array('document'),
+                            'return_types' => FILE_INTERNAL | FILE_EXTERNAL
+                            )
+                        ),
+                    'help' => 'paragraph2picture',
+                    'help_component' => 'format_flexpage',
+                ),
+                'paragraph3' => array(
+                    'label' => get_string('paragraph3', 'format_flexpage'),
+                    'help' => 'paragraph3',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'text'
+                ),
+                'description3' => array(
+                    'label' => get_string('description3', 'format_flexpage'),
+                    'help' => 'description3',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'textarea'
+                ),
+                'paragraph3picture' => array(
+                    'label' => get_string('paragraph3picture', 'format_flexpage'),
+                    'element_type' => 'filemanager',
+                    'element_attributes' => array(
+                        array(
+                            'subdirs' => 0,
+                            'maxbytes' => $CFG->maxbytes,
+                            'maxfiles' => 1,
+                            'accepted_types' => array('document'),
+                            'return_types' => FILE_INTERNAL | FILE_EXTERNAL
+                            )
+                        ),
+                    'help' => 'paragraph3picture',
+                    'help_component' => 'format_flexpage',
+                ),
+                'paragraph4' => array(
+                    'label' => get_string('paragraph4', 'format_flexpage'),
+                    'help' => 'paragraph4',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'text'
+                ),
+                'description4' => array(
+                    'label' => get_string('description4', 'format_flexpage'),
+                    'help' => 'description4',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'textarea'
+                ),
+                'paragraph4picture' => array(
+                    'label' => get_string('paragraph4picture', 'format_flexpage'),
+                    'element_type' => 'filemanager',
+                    'element_attributes' => array(
+                        array(
+                            'subdirs' => 0,
+                            'maxbytes' => $CFG->maxbytes,
+                            'maxfiles' => 1,
+                            'accepted_types' => array('document'),
+                            'return_types' => FILE_INTERNAL | FILE_EXTERNAL
+                            )
+                        ),
+                    'help' => 'paragraph4picture',
+                    'help_component' => 'format_flexpage',
+                ),
+                'paragraph5' => array(
+                    'label' => get_string('paragraph5', 'format_flexpage'),
+                    'help' => 'paragraph1',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'text'
+                ),
+                'description5' => array(
+                    'label' => get_string('description5', 'format_flexpage'),
+                    'help' => 'description5',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'textarea'
+                ),
+                'paragraph5picture' => array(
+                    'label' => get_string('paragraph5picture', 'format_flexpage'),
+                    'element_type' => 'filemanager',
+                    'element_attributes' => array(
+                        array(
+                            'subdirs' => 0,
+                            'maxbytes' => $CFG->maxbytes,
+                            'maxfiles' => 1,
+                            'accepted_types' => array('document'),
+                            'return_types' => FILE_INTERNAL | FILE_EXTERNAL
+                            )
+                        ),
+                    'help' => 'paragraph5picture',
+                    'help_component' => 'format_flexpage',
+                ),
+                'paragraph6' => array(
+                    'label' => get_string('paragraph6', 'format_flexpage'),
+                    'help' => 'paragraph6',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'text'
+                ),
+                'description6' => array(
+                    'label' => get_string('description6', 'format_flexpage'),
+                    'help' => 'description6',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'textarea'
+                ),
+                'paragraph6picture' => array(
+                    'label' => get_string('paragraph6picture', 'format_flexpage'),
+                    'element_type' => 'filemanager',
+                    'element_attributes' => array(
+                        array(
+                            'subdirs' => 0,
+                            'maxbytes' => $CFG->maxbytes,
+                            'maxfiles' => 1,
+                            'accepted_types' => array('document'),
+                            'return_types' => FILE_INTERNAL | FILE_EXTERNAL
+                            )
+                        ),
+                    'help' => 'paragraph6picture',
+                    'help_component' => 'format_flexpage',
+                ),
+                'paragraph7' => array(
+                    'label' => get_string('paragraph7', 'format_flexpage'),
+                    'help' => 'paragraph7',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'text'
+                ),
+                'description7' => array(
+                    'label' => get_string('description7', 'format_flexpage'),
+                    'help' => 'description7',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'textarea'
+                ),
+                'paragraph7picture' => array(
+                    'label' => get_string('paragraph7picture', 'format_flexpage'),
+                    'element_type' => 'filemanager',
+                    'element_attributes' => array(
+                        array(
+                            'subdirs' => 0,
+                            'maxbytes' => $CFG->maxbytes,
+                            'maxfiles' => 1,
+                            'accepted_types' => array('document'),
+                            'return_types' => FILE_INTERNAL | FILE_EXTERNAL
+                            )
+                        ),
+                    'help' => 'paragraph7picture',
+                    'help_component' => 'format_flexpage',
+                ),
+                'paragraph8' => array(
+                    'label' => get_string('paragraph8', 'format_flexpage'),
+                    'help' => 'paragraph8',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'text'
+                ),
+                'description8' => array(
+                    'label' => get_string('description8', 'format_flexpage'),
+                    'help' => 'description8',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'textarea'
+                ),
+                'paragraph8picture' => array(
+                    'label' => get_string('paragraph8picture', 'format_flexpage'),
+                    'element_type' => 'filemanager',
+                    'element_attributes' => array(
+                        array(
+                            'subdirs' => 0,
+                            'maxbytes' => $CFG->maxbytes,
+                            'maxfiles' => 1,
+                            'accepted_types' => array('document'),
+                            'return_types' => FILE_INTERNAL | FILE_EXTERNAL
+                            )
+                        ),
+                    'help' => 'paragraph8picture',
+                    'help_component' => 'format_flexpage',
+                ),
+                'paragraph9' => array(
+                    'label' => get_string('paragraph9', 'format_flexpage'),
+                    'help' => 'paragraph1',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'text'
+                ),
+                'description9' => array(
+                    'label' => get_string('description9', 'format_flexpage'),
+                    'help' => 'description9',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'textarea'
+                ),
+                'paragraph9picture' => array(
+                    'label' => get_string('paragraph9picture', 'format_flexpage'),
+                    'element_type' => 'filemanager',
+                    'element_attributes' => array(
+                        array(
+                            'subdirs' => 0,
+                            'maxbytes' => $CFG->maxbytes,
+                            'maxfiles' => 1,
+                            'accepted_types' => array('document'),
+                            'return_types' => FILE_INTERNAL | FILE_EXTERNAL
+                            )
+                        ),
+                    'help' => 'paragraph9picture',
+                    'help_component' => 'format_flexpage',
+                ),
+                'paragraph10' => array(
+                    'label' => get_string('paragraph10', 'format_flexpage'),
+                    'help' => 'paragraph10',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'text'
+                ),
+                'description10' => array(
+                    'label' => get_string('description10', 'format_flexpage'),
+                    'help' => 'description10',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'textarea'
+                ),
+                'paragraph10picture' => array(
+                    'label' => get_string('paragraph10picture', 'format_flexpage'),
+                    'element_type' => 'filemanager',
+                    'element_attributes' => array(
+                        array(
+                            'subdirs' => 0,
+                            'maxbytes' => $CFG->maxbytes,
+                            'maxfiles' => 1,
+                            'accepted_types' => array('document'),
+                            'return_types' => FILE_INTERNAL | FILE_EXTERNAL
+                            )
+                        ),
+                    'help' => 'paragraph10picture',
+                    'help_component' => 'format_flexpage',
+                ),
                 'courseinactivitydelay' => array(
                     'label' => get_string('inactivitydelay', 'format_flexpage'),
                     'help' => 'inactivitydelay',
@@ -511,6 +903,14 @@ class format_flexpage extends format_base {
         $context = context_course::instance($this->courseid);
         $saved = file_save_draft_area_files($data->coursepicture, $context->id, 'format_flexpage',
         'coursepicture', 0, array('subdirs' => 0, 'maxfiles' => 1));
+        for ($i=0; $i<=9; $i++) {
+            $property = 'paragraph' .$i.'picture';
+            if(!empty($data->{$property})) {
+                file_save_draft_area_files($data->{$property}, $context->id, 'format_flexpage',
+                $property, 0, array('subdirs' => 0, 'maxfiles' => 1));
+                }
+        }
+
         $data = (array)$data;
 
         if (isset($data['coursethematics'])) {

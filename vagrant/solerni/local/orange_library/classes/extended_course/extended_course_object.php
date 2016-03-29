@@ -297,11 +297,12 @@ class extended_course_object {
                 array('courseid' => $course->id));
         foreach ($extendedcourseflexpagevalues as $extendedcourseflexpagevalue) {
             if ($extendedcourseflexpagevalue->format == "flexpage") {
+
                 $this->set_extended_course($extendedcourseflexpagevalue, $course, $context);
             }
         }
         if (!$context) {
-            $context = context_course::instance($course->id);
+            $context = \context_course::instance($course->id);
         }
         if ($customer) {
             $this->registrationcompany = $customer->name;
@@ -314,18 +315,24 @@ class extended_course_object {
 
         $this->enrolenddate = $enrolment->get_enrolment_enddate($course);
 
-        $this->maxregisteredusers = $instanceself->customint3;
+        if (isset($instanceself->customint3)) {
+            $this->maxregisteredusers = $instanceself->customint3;
+        }
 
         $this->moocurl = new moodle_url('/course/view.php', array('id' => $course->id));
         $this->unenrolurl = $enrolment->get_unenrol_url($course);
 
+        if (isset($instanceorangeinvitation->customtext2)) {
         $this->enrolurl = ($instanceorangeinvitation)
                 ? $instanceorangeinvitation->customtext2
                 : '#';
+        }
 
+        if (isset($instanceorangeinvitation->customtext3)) {
         $this->newsessionurl = ($instanceorangeinvitation)
                 ? $instanceorangeinvitation->customtext3
                 : '#';
+        }
 
         $this->coursestatus = set_course_status($course, $context, $this);
 
@@ -337,7 +344,7 @@ class extended_course_object {
      * @param object $extendedcourseflexpagevalue
      * @return object $this->extendedcourse
      */
-    private function set_extended_course ($extendedcourseflexpagevalue, $course, $context) {
+    protected function set_extended_course ($extendedcourseflexpagevalue, $course, $context) {
         switch ($extendedcourseflexpagevalue->name) {
             case 'coursereplay':
                 $this->set_replay($extendedcourseflexpagevalue);
@@ -414,8 +421,9 @@ class extended_course_object {
     private function set_duration($extendedcourseflexpagevalue) {
         $this->duration = get_string('duration_default', 'local_orange_library');
         if ($extendedcourseflexpagevalue->value != 0) {
-            $this->duration = utilities_object::duration_to_time($extendedcourseflexpagevalue->value);
+            $this->duration = utilities_object::duration_to_week($extendedcourseflexpagevalue->value);
         }
+
     }
 
     /**
@@ -426,7 +434,7 @@ class extended_course_object {
     private function set_workingtime($extendedcourseflexpagevalue) {
         $this->workingtime = get_string('workingtime_default', 'local_orange_library');
         if ($extendedcourseflexpagevalue->value != 0) {
-            $this->workingtime = utilities_object::duration_to_time($extendedcourseflexpagevalue->value);
+            $this->workingtime = utilities_object::duration_to_week($extendedcourseflexpagevalue->value);
         }
     }
 
@@ -450,11 +458,7 @@ class extended_course_object {
      * @param object $extendedcourseflexpagevalue
      */
     private function set_badge($extendedcourseflexpagevalue) {
-        if ($extendedcourseflexpagevalue->value == 1) {
-            $this->badge = get_string('badges', 'local_orange_library');
-        } else {
-            $this->badge = get_string('badge_default', 'local_orange_library');
-        }
+        $this->badge = $extendedcourseflexpagevalue->value;
     }
 
     /**
@@ -478,11 +482,7 @@ class extended_course_object {
      * @param object $extendedcourseflexpagevalue
      */
     private function set_certification($extendedcourseflexpagevalue) {
-        if ($extendedcourseflexpagevalue->value == 1) {
-            $this->certification = get_string('certification', 'local_orange_library');
-        } else {
-            $this->certification = get_string('certification_default', 'local_orange_library');
-        }
+        $this->certification = $extendedcourseflexpagevalue->value;
     }
 
     /**

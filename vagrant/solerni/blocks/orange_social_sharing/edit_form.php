@@ -15,14 +15,24 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Orange Social Sharing edit form
+ *
  * @package    blocks
- * @subpackage orange_social_sharing
- * @copyright  2015 Orange
+ * @subpackage orange_orange_social_sharing
+ * @copyright  2016 Orange
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 class block_orange_social_sharing_edit_form extends block_edit_form {
 
+
+    /**
+     *  Set orange social sharing configuration parameters.
+     *
+     * @global none
+     * @param $mform
+     * @return string $text
+     */
 
     protected function specific_definition($mform) {
 
