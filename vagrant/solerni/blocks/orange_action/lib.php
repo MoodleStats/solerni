@@ -22,20 +22,19 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-use local_orange_library\utilities\utilities_image;
 use local_orange_library\utilities\utilities_course;
 use local_orange_library\extended_course\extended_course_object;
 
 
 /**
- * Checks whether the current page is the My home page.
+ * Checks whether the current page is the My home page or the my edition page.
  *
- * @return bool True when on the My home page.
+ * @return bool True when on the My home page or the admin template edition (indexsys).
  */
 function block_orange_action_on_my_page() {
-    Global $SCRIPT;
+    global $SCRIPT;
 
-    return $SCRIPT === '/my/index.php';
+    return $SCRIPT == ('/my/index.php' || '/my/indexsys.php');
 }
 
 /**

@@ -26,7 +26,10 @@
 require_once(dirname(__FILE__) . '/../../config.php');
 require_once($CFG->dirroot.'/blocks/orange_action/lib.php');
 require_once($CFG->dirroot.'/calendar/lib.php');
+require_once($CFG->dirroot.'/blocks/moodleblock.class.php');
+
 use local_orange_library\utilities\utilities_course;
+
 
 class block_orange_action extends block_base {
 
@@ -36,7 +39,7 @@ class block_orange_action extends block_base {
      * @return void
      */
     public function init() {
-        Global $PAGE;
+        global $PAGE;
 
         $this->title = get_string('config_default_title', 'block_orange_action');
         $this->renderer = $PAGE->get_renderer('block_orange_action');

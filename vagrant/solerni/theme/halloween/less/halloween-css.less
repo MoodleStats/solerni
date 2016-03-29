@@ -123,7 +123,6 @@ input[type="checkbox"] {
 }
 
 .midwidth-line {
-
     border-bottom-color:    @orange-light-4;
     border-bottom-style:    solid;
     border-bottom-width:    1px;
@@ -198,7 +197,7 @@ input[type="checkbox"] {
 }
 
 /*
- *  Badges: use variables instead
+ *  Badges
  */
 
 .orange-course-name-logo {
@@ -342,4 +341,53 @@ th, td {
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
     font-size: (@font-size-base * 0.875);
+}
+
+/* breadcrumbs */
+.breadcrumb {
+    margin:         0;
+    line-height:    1;
+
+    li {
+        font-size:      @font-size-small;
+        font-family:    @font-family-titles;
+        padding:        ((@typical-height-orange - @font-size-small * 2) + 1) 0;
+    }
+
+    a {
+        text-decoration: none;
+
+        &:hover {
+            color: @brand-primary;
+        }
+    }
+
+    li + li:before {
+        display:    inline-block;
+        width:      (@font-size-small * 2);
+        padding:    0 @s-small-md-margin;
+        position:   relative;
+        top:        -1px;
+    }
+}
+
+.page-single-button {
+    width:      100%;
+    padding:    @s-small-md-margin 0;
+    overflow:   hidden;
+
+    .singlebutton {
+        float:      right;
+        overflow:   hidden;
+
+        & div,
+        & input {
+            margin: 0;
+        }
+    }
+}
+
+/* Weirdly, Moodle CSS for maincontent use 1px height ? */
+#maincontent {
+    display: inline-block;
 }

@@ -120,7 +120,7 @@ moosh block-delete system 0 orange_last_message my-index
 # Manage blocks for 'my' page (Dashboard)
 moosh block-add system 0 orange_action my-index content -10
 moosh block-add system 0 orange_course_dashboard my-index content -9
-# moosh block-add system 0 <block forum> my-index content -8
+moosh block-add system 0 orange_emerging_messages my-index content -8
 moosh block-add system 0 orange_badges my-index content -7
 moosh block-add system 0 private_files my-index content -6
 

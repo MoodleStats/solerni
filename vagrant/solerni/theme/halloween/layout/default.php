@@ -91,15 +91,24 @@ echo $OUTPUT->doctype() ?>
     <div class="u-inverse">
         <?php require_once($CFG->partialsdir . '/header/header_solerni.php'); ?>
     </div>
-    <?php if (theme_utilities::is_layout_uses_breadcrumbs() || theme_utilities::is_layout_uses_page_block_title()) : ?>
-        <!-- page breadcrumbs & headings -->
+    <?php if (theme_utilities::is_layout_uses_breadcrumbs()) : ?>
+        <!-- page breadcrumbs -->
         <div class="container">
-            <?php if (theme_utilities::is_layout_uses_breadcrumbs()) : ?>
-                <?php require_once($CFG->partialsdir . '/breadcrumb.php'); ?>
-            <?php endif; ?>
-            <?php if (theme_utilities::is_layout_uses_page_block_title()) : ?>
-                <?php require_once($CFG->partialsdir . '/page-block-title.php'); ?>
-            <?php endif; ?>
+            <?php echo $OUTPUT->navbar(); ?>
+        </div>
+        <div class="col-xs-12 fullwidth-line"></div>
+    <?php endif; ?>
+    <?php if ($PAGE->button) : ?>
+        <div class="container">
+            <div class="page-single-button">
+                <?php echo $OUTPUT->page_heading_button(); ?>
+            </div>
+        </div>
+    <?php endif; ?>
+    <?php if (theme_utilities::is_layout_uses_page_block_title()) : ?>
+        <!-- page block title -->
+        <div class="container">
+            <?php require_once($CFG->partialsdir . '/page-block-title.php'); ?>
         </div>
     <?php endif; ?>
     <main class="main-page-content">

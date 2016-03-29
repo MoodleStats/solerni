@@ -17,7 +17,7 @@
 
 /**
  * orange_action block config form class
- * 
+ *
  * @package block_orange_action
  * @copyright  2016 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -26,21 +26,22 @@
 require_once($CFG->dirroot.'/blocks/orange_action/lib.php');
 
 class block_orange_action_edit_form extends block_edit_form {
+
     protected function specific_definition($mform) {
 
+        // The config ability is limited on the my page.
         if (block_orange_action_on_my_page()) {
             // Section header title according to language file.
             $mform->addElement('header', 'configheader', get_string('myconfig', 'block_orange_action'));
-
             $mform->addElement('html', '<p>' . get_string('myconfigdesc', 'block_orange_action') . '</p>');
 
             $courses = block_orange_action_get_courses_list();
-            $mform->addElement('select', 'config_coursetopush', get_string('coursetopush', 'block_orange_action'), $courses);
             $mform->addElement('html', '<span>' . get_string('coursetopush_help', 'block_orange_action') . "</span><br /><br />");
+            $mform->addElement('select', 'config_coursetopush', get_string('coursetopush', 'block_orange_action'), $courses);
 
             $events = block_orange_action_get_events_list();
-            $mform->addElement('select', 'config_eventtopush', get_string('eventtopush', 'block_orange_action'), $events);
             $mform->addElement('html', '<span>' . get_string('eventtopush_help', 'block_orange_action') . "</span><br/><br />");
+            $mform->addElement('select', 'config_eventtopush', get_string('eventtopush', 'block_orange_action'), $events);
         }
     }
 }

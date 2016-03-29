@@ -147,7 +147,7 @@ class theme_utilities {
     public static function is_layout_uses_page_block_title() {
         global $PAGE;
 
-        $pageswithoutpageblocktitle = array('admin');
+        $pageswithoutpageblocktitle = array('admin', 'mydashboard');
 
         if(in_array($PAGE->pagelayout, $pageswithoutpageblocktitle)) {
             return false;
@@ -158,7 +158,7 @@ class theme_utilities {
 
     /**
      * Returns the titles for the page
-     * meta_title, meta_desc, page_title, page_desc
+     * meta_title, meta_desc, pageblocktitleh1, pageblockdesc
      *
      *
      * @return object
@@ -206,6 +206,11 @@ class theme_utilities {
                     $return->pageblockdesc .= \html_writer::tag('a', get_string('i_do_login', 'theme_halloween'),
                         array('class' => 'tag-platform-subscription', 'href' => $CFG->wwwroot . '/login/index.php'));
                 }
+                break;
+
+            case 'my-index':
+                $return->pageblocktitleh1 = $PAGE->title;
+                $return->pageblockdesc = '';
                 break;
 
             default:
