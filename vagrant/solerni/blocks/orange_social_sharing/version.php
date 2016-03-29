@@ -27,6 +27,6 @@ defined('MOODLE_INTERNAL') || die();
 
 $plugin->component  = 'block_orange_social_sharing';
 $plugin->release    = '0.1';
-$plugin->version    = 2015112700;
+$plugin->version    = 2016032100;
 $plugin->requires   = 2014051200; // Moodle 2.7.
 $plugin->dependencies = array('local_orange_library' => 2015061000, 'theme_halloween' => 2015093000);

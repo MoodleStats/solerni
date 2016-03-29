@@ -15,18 +15,29 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Orange Social following version
+ * Backup task for the orange_paragraph_list block
  *
- * @package    blocks
- * @subpackage orange_orange_social_following
- * @copyright  2016 Orange
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    block_orange_paragraph_list
+ * @copyright  Orange 2016
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+class backup_orange_paragraph_list_block_task extends backup_block_task {
 
-defined('MOODLE_INTERNAL') || die();
+    protected function define_my_settings() {
+    }
 
-$plugin->component  = 'block_orange_social_following';
-$plugin->release    = '0.1';
-$plugin->version    = 2016032100;
-$plugin->requires   = 2014051200; // Moodle 2.7.
-$plugin->dependencies = array('local_orange_library' => 2015061000, 'theme_halloween' => 2015093000);
+    protected function define_my_steps() {
+    }
+
+    public function get_fileareas() {
+        return array();
+    }
+
+    public function get_configdata_encoded_attributes() {
+        return array();
+    }
+
+    static public function encode_content_links($content) {
+        return $content;
+    }
+}

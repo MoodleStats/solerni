@@ -15,18 +15,19 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Orange Social following version
+ * orange_paragraph_list block settings
  *
- * @package    blocks
- * @subpackage orange_orange_social_following
- * @copyright  2016 Orange
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    orange_paragraph_list
+ * @copyright  Orange 2016
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+defined('MOODLE_INTERNAL') || die;
 
-defined('MOODLE_INTERNAL') || die();
+if ($ADMIN->fulltree) {
+    $settings->add(new admin_setting_heading('generalconfig', new lang_string('generalconfig', 'block_orange_paragraph_list'), ''));
 
-$plugin->component  = 'block_orange_social_following';
-$plugin->release    = '0.1';
-$plugin->version    = 2016032100;
-$plugin->requires   = 2014051200; // Moodle 2.7.
-$plugin->dependencies = array('local_orange_library' => 2015061000, 'theme_halloween' => 2015093000);
+    $settings->add(new admin_setting_configcheckbox('block_orange_paragraph_list/hideblockheader',
+                        new lang_string('hideblockheader', 'block_orange_paragraph_list'),
+                        new lang_string('hideblockheaderdesc', 'block_orange_paragraph_list'), 1, PARAM_INT));
+
+}

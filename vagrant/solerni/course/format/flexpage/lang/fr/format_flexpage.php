@@ -314,5 +314,127 @@ $string['inactivitydelay'] = 'Delai d\'inactivité';
 $string['inactivitydelay_help'] = 'Delai d\'inactivité';
 $string['inactivitydelay_default'] = '';
 
+
+//Paragraph description for find out more page
+$string['paragraph1'] = 'Titre Paragraphe 1';
+$string['paragraph1_help'] = 'Titre du paragraphe 1';
+$string['paragraph1_default'] = '';
+
+$string['description1'] = 'Description du Paragraphe 1';
+$string['description1_help'] = 'Description du Paragraphe 1';
+$string['description1_default'] = '';
+
+$string['paragraph1picture'] = 'Image du Paragraphe 1';
+$string['paragraph1picture_help'] = 'Image du Paragraphe 1';
+$string['paragraph1picture_default'] = '';
+
+$string['paragraph2'] = 'Titre Paragraphe 2';
+$string['paragraph2_help'] = 'Titre Paragraphe 2';
+$string['paragraph2_default'] = '';
+
+$string['description2'] = 'Description du Paragraphe 2';
+$string['description2_help'] = 'Description du Paragraphe 2';
+$string['description2_default'] = '';
+
+$string['paragraph2picture'] = 'Image du Paragraphe 2';
+$string['paragraph2picture_help'] = 'Image du Paragraphe 2';
+$string['paragraph2picture_default'] = '';
+
+$string['paragraph3'] = 'Titre Paragraphe 3';
+$string['paragraph3_help'] = 'Titre Paragraphe 3';
+$string['paragraph3_default'] = '';
+
+$string['description3'] = 'Description du Paragraphe 3';
+$string['description3_help'] = 'Description du Paragraphe 3';
+$string['description3_default'] = '';
+
+$string['paragraph3picture'] = 'Image du Paragraphe 3';
+$string['paragraph3picture_help'] = 'Image du Paragraphe 3';
+$string['paragraph3picture_default'] = '';
+
+$string['paragraph4'] = 'Titre Paragraphe 4';
+$string['paragraph4_help'] = 'Titre Paragraphe 4';
+$string['paragraph4_default'] = '';
+
+$string['description4'] = 'Description du Paragraphe 4';
+$string['description4_help'] = 'Description du Paragraphe 4';
+$string['description4_default'] = '';
+
+$string['paragraph4picture'] = 'Image du Paragraphe 4';
+$string['paragraph4picture_help'] = 'Image du Paragraphe 4';
+$string['paragraph4picture_default'] = '';
+
+$string['paragraph5'] = 'Titre Paragraphe 5';
+$string['paragraph5_help'] = 'Titre Paragraphe 5';
+$string['paragraph5_default'] = '';
+
+$string['description5'] = 'Description du Paragraphe 5';
+$string['description5_help'] = 'Description du Paragraphe 5';
+$string['description5_default'] = '';
+
+$string['paragraph5picture'] = 'Image du Paragraphe 5';
+$string['paragraph5picture_help'] = 'Image du Paragraphe 5';
+$string['paragraph5picture_default'] = '';
+
+$string['paragraph6'] = 'Titre Paragraphe 6';
+$string['paragraph6_help'] = 'Titre Paragraphe 6';
+$string['paragraph6_default'] = '';
+
+$string['description6'] = 'Description du Paragraphe 6';
+$string['description6_help'] = 'Description du Paragraphe 6';
+$string['description6_default'] = '';
+
+$string['paragraph6picture'] = 'Image du Paragraphe 6';
+$string['paragraph6picture_help'] = 'Image du Paragraphe 6';
+$string['paragraph6picture_default'] = '';
+
+$string['paragraph7'] = 'Titre Paragraphe 7';
+$string['paragraph7_help'] = 'Titre Paragraphe 7';
+$string['paragraph7_default'] = '';
+
+$string['description7'] = 'Description du Paragraphe 7';
+$string['description7_help'] = 'Description du Paragraphe 7';
+$string['description7_default'] = '';
+
+$string['paragraph7picture'] = 'Image du Paragraphe 7';
+$string['paragraph7picture_help'] = 'Image du Paragraphe 7';
+$string['paragraph7picture_default'] = '';
+
+$string['paragraph8'] = 'Titre Paragraphe 8';
+$string['paragraph8_help'] = 'Titre Paragraphe 8';
+$string['paragraph8_default'] = '';
+
+$string['description8'] = 'Description du Paragraphe 8';
+$string['description8_help'] = 'Description du Paragraphe 8';
+$string['description8_default'] = '';
+
+$string['paragraph8picture'] = 'Image du Paragraphe 8';
+$string['paragraph8picture_help'] = 'Image du Paragraphe 8';
+$string['paragraph8picture_default'] = '';
+
+$string['paragraph9'] = 'Titre Paragraphe 9';
+$string['paragraph9_help'] = 'Titre Paragraphe 9';
+$string['paragraph9_default'] = '';
+
+$string['description9'] = 'Description du Paragraphe 9';
+$string['description9_help'] = 'Description du Paragraphe 9';
+$string['description9_default'] = '';
+
+$string['paragraph9picture'] = 'Image du Paragraphe 9';
+$string['paragraph9picture_help'] = 'Image du Paragraphe 9';
+$string['paragraph9picture_default'] = '';
+
+$string['paragraph10'] = 'Titre Paragraphe 10';
+$string['paragraph10_help'] = 'Titre Paragraphe 10';
+$string['paragraph10_default'] = '';
+
+$string['description10'] = 'Description du Paragraphe 10';
+$string['description10_help'] = 'Description du Paragraphe 10';
+$string['description10_default'] = '';
+
+$string['paragraph10picture'] = 'Image du Paragraphe 10';
+$string['paragraph10picture_help'] = 'Image du Paragraphe 10';
+$string['paragraph10picture_default'] = '';
+
 // Adding the delete activity warning message.
 $string['deleteactivitywarn'] = 'Si cette activité est supprimée, alors elle sera enlevée de toutes les flexpages.';

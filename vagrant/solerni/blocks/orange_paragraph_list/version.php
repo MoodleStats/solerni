@@ -14,19 +14,16 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+
 /**
- * Orange Social following version
+ * orange_paragraph_list block version details
  *
- * @package    blocks
- * @subpackage orange_orange_social_following
- * @copyright  2016 Orange
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    block_orange_paragraph_list
+ * @copyright  Orange 2016
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
-$plugin->component  = 'block_orange_social_following';
-$plugin->release    = '0.1';
-$plugin->version    = 2016032100;
-$plugin->requires   = 2014051200; // Moodle 2.7.
-$plugin->dependencies = array('local_orange_library' => 2015061000, 'theme_halloween' => 2015093000);
+$plugin->version   = 2016032100;
+$plugin->requires  = 2015051104;
+$plugin->maturity  = MATURITY_STABLE;
+$plugin->component = 'block_orange_paragraph_list';
