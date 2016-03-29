@@ -1,0 +1,11 @@
+.block_orange_list_bestforumng .boxhover:hover {
+    background-color: #BDBDBD;
+}
+
+.block_orange_list_bestforumng .overpicture {
+    position:absolute;
+    bottom:2em;
+    background-color:#666666;
+    color:#FFFFFF;
+    padding:1%;
+}

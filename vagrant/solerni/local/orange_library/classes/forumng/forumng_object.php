@@ -406,7 +406,7 @@ class forumng_object {
 
     /**
      * Get the discussion for a course ordered by date modified
-     * @return array $usedbadges
+     * @return array return->post : last post of
      */
     public function get_recent_discussions($courseid, $limitfrom = 0, $limitnum = 50) {
         global $DB;
