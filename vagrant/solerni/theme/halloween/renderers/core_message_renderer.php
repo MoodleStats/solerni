@@ -15,6 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 include_once($CFG->dirroot . "/message/renderer.php");
+use local_orange_library\utilities\utilities_network;
 
 class theme_halloween_core_message_renderer extends core_message_renderer {
 
@@ -168,6 +169,10 @@ class theme_halloween_core_message_renderer extends core_message_renderer {
         $output .= html_writer::end_tag('fieldset');
         foreach ($processors as $processor) {
             if (($processorconfigform = $processor->object->config_form($preferences)) && $processor->enabled) {
+                // Orange - hide form for Email on Thematics. Treated by profil sync process.
+                if (($processor->name == "email") && utilities_network::is_platform_uses_mnet() && utilities_network::is_thematic()) {
+                    continue;
+                }
                 $output .= html_writer::start_tag('fieldset', array('id' => 'messageprocessor_'.$processor->name, 'class' => 'clearfix'));
                 $output .= html_writer::nonempty_tag('legend', get_string('pluginname', 'message_'.$processor->name), array('class' => 'ftoggler'));
                 $output .= html_writer::start_tag('div');

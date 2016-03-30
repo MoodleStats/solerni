@@ -311,3 +311,7 @@ moosh editor-manage disable textarea
 
 # Blog : enableblogs to false (#us_468)
 moosh config-set enableblogs 0
+
+# Set defaut email for badge (#us_468)
+moosh config-set message_provider_moodle_badgerecipientnotice_loggedin popup,email message
+moosh config-set message_provider_moodle_badgecreatornotice_loggedin email message

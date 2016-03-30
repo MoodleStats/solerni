@@ -418,9 +418,18 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
                 case get_string('managebadges', 'badges') :
                     break;
 
+                // We hide the preference messaging link on thematics.
+                case get_string('messaging', 'message') :
+                    if ((utilities_network::is_platform_uses_mnet() && utilities_network::is_home()) || 
+                            (!utilities_network::is_platform_uses_mnet())){
+                        $html .= html_writer::tag('li', $this->render($node));
+                    }
+                    break;
+                
                 // We hide the preference badge link on thematics.
                 case get_string('preferences', 'badges') :
-                    if (utilities_network::is_home()) {
+                    if ((utilities_network::is_platform_uses_mnet() && utilities_network::is_home()) || 
+                            (!utilities_network::is_platform_uses_mnet())){
                         $html .= html_writer::tag('li', $this->render($node));
                     }
                     break;

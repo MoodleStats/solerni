@@ -15,6 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 use local_orange_library\utilities\utilities_user;
+use local_orange_library\utilities\utilities_network;
 $youvegotmail = utilities_user::user_have_new_mail($USER);
 ?>
 <div class="action-area">
@@ -42,7 +43,13 @@ $youvegotmail = utilities_user::user_have_new_mail($USER);
                 </a>
             </li>
             <li>
-                <a href="<?php echo $CFG->wwwroot ?>/user/preferences.php">
+                <?php if (utilities_network::is_platform_uses_mnet()) { 
+                    $home = utilities_network::get_home();
+                    ?>
+                    <a href="<?php echo $home->url; ?>/user/preferences.php">
+                <?php } else { ?>
+                    <a href="<?php echo $CFG->wwwroot ?>/user/preferences.php">
+                <?php } ?>
                     <?php echo get_string('preferences'); ?>
                 </a>
             </li>
