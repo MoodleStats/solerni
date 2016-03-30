@@ -318,3 +318,7 @@ moosh block-instance_config system 0 orange_course_dashboard my-index defaultmax
 # disable 'Popup' and 'Jabber' notification in Plugins/Messages outputs (#us_468)
 moosh message-manage disable jabber
 moosh message-manage disable popup
+
+# Set defaut email for badge (#us_468)
+moosh config-set message_provider_moodle_badgerecipientnotice_loggedin popup,email message
+moosh config-set message_provider_moodle_badgecreatornotice_loggedin email message
