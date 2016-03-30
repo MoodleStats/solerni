@@ -43,13 +43,10 @@ $youvegotmail = utilities_user::user_have_new_mail($USER);
                 </a>
             </li>
             <li>
-                <?php if (utilities_network::is_platform_uses_mnet()) { 
-                    $home = utilities_network::get_home();
-                    ?>
-                    <a href="<?php echo $home->url; ?>/user/preferences.php">
-                <?php } else { ?>
-                    <a href="<?php echo $CFG->wwwroot ?>/user/preferences.php">
-                <?php } ?>
+                <?php 
+                $domaine = (utilities_network::is_platform_uses_mnet()) ? utilities_network::get_home()->url : $CFG->wwwroot;
+                ?>
+                <a href="<?php echo $domaine ?>/user/preferences.php">
                     <?php echo get_string('preferences'); ?>
                 </a>
             </li>
