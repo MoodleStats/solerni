@@ -329,7 +329,7 @@ class utilities_network {
         global $CFG;
 
         $site  = get_site();
-        $supportuser = \core_user::get_noreply_user();
+        $supportuser = \core_user::get_support_user();
 
         $a = new \stdClass();
         $a->firstname   = $user->firstname;
