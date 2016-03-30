@@ -65,6 +65,8 @@ class BlockInstanceConfig extends MooshCommand
         if(count($instances)){
             foreach ($instances as $instance) {
                 $config = unserialize(base64_decode($instance->configdata));
+                if(empty($config))
+                    $config = new \stdClass;
                 echo "Last configuration : \n";
                 print_r($config);
                 $config->$configname = $configvalue;
