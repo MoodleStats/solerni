@@ -274,3 +274,40 @@ moosh config-set sitepolicy ''
 
 # disable external open badges
 moosh config-set badges_allowexternalbackpack 0
+
+# Hide blocks for solerni_teacher (#us_507)
+moosh block-manage hide admin_bookmarks
+moosh block-manage hide badges
+moosh block-manage hide blog_menu
+moosh block-manage hide blog_recent
+moosh block-manage hide blog_tags
+moosh block-manage hide comments
+moosh block-manage hide community
+moosh block-manage hide completionstatus
+moosh block-manage hide course_list
+moosh block-manage hide course_list
+moosh block-manage hide course_overview
+moosh block-manage hide course_summary
+moosh block-manage hide feedback
+moosh block-manage hide login
+moosh block-manage hide mentees
+moosh block-manage hide messages
+moosh block-manage hide mnet_hosts
+moosh block-manage hide myprofile
+moosh block-manage hide news_items
+moosh block-manage hide participants
+moosh block-manage hide recent_activity
+moosh block-manage hide search_forums
+moosh block-manage hide section_links
+moosh block-manage hide selfcompletion
+moosh block-manage hide site_main_menu
+moosh block-manage hide social_activities
+moosh block-manage hide tag_flickr
+moosh block-manage hide tag_youtube
+
+# disable editors 'plain text' and 'Atto HTML'
+moosh editor-manage disable atto
+moosh editor-manage disable textarea
+
+# Blog : enableblogs to false (#us_468)
+moosh config-set enableblogs 0
