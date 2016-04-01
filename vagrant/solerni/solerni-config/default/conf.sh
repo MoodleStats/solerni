@@ -109,13 +109,20 @@ moosh config-set geoipfile ${GEOIP_FILE_PATH}
 moosh config-set catalogurl /catalog block_orange_course_dashboard
 moosh config-set hideblockheader 1 block_orange_course_dashboard
 
+# Manage blocks for 'Dashboard' page (badges + course overview deleted)
+moosh block-delete system 0 badges my-index
+moosh block-delete system 0 course_overview my-index
+moosh block-delete system 0 calendar_upcoming my-index
+moosh block-delete system 0 calendar_month my-index
+moosh block-delete system 0 news_items my-index
+moosh block-delete system 0 orange_last_message my-index
+
 # Manage blocks for 'my' page (Dashboard)
-moosh block-add system 0 orange_course_dashboard my-index content 0
-moosh block-add system 0 calendar_upcoming my-index content 0
-moosh block-add system 0 private_files my-index content 0
-moosh block-add system 0 calendar_month my-index content 0
-moosh block-add system 0 news_items my-index content 0
-moosh block-add system 0 orange_last_message my-index content 0
+moosh block-add system 0 orange_action my-index content -10
+moosh block-add system 0 orange_course_dashboard my-index content -9
+# moosh block-add system 0 <block forum> my-index content -8
+moosh block-add system 0 orange_badges my-index content -7
+moosh block-add system 0 private_files my-index content -6
 
 # Enable self enrolment method in new courses - Plugin Enrolments/Self enrolment
 # /!\ this value is reversed 0 => true, 1 => false
@@ -239,11 +246,6 @@ moosh config-set hideblockheader 1 block_orange_action
 # defaulthomepage = Dashboard (#us_380)
 moosh config-set defaulthomepage 1
 
-# Manage blocks for 'Dashboard' page (badges + course overview deleted)
-moosh block-add system 0 orange_badges my-index content 0
-moosh block-delete system 0 badges my-index
-moosh block-delete system 0 course_overview my-index
-
 # Disable Oauth2 authentication method
 moosh auth-manage disable googleoauth2
 
@@ -272,3 +274,51 @@ moosh config-set sitepolicy ''
 
 # disable external open badges
 moosh config-set badges_allowexternalbackpack 0
+
+# Hide blocks for solerni_teacher (#us_507)
+moosh block-manage hide admin_bookmarks
+moosh block-manage hide badges
+moosh block-manage hide blog_menu
+moosh block-manage hide blog_recent
+moosh block-manage hide blog_tags
+moosh block-manage hide comments
+moosh block-manage hide community
+moosh block-manage hide completionstatus
+moosh block-manage hide course_list
+moosh block-manage hide course_list
+moosh block-manage hide course_overview
+moosh block-manage hide course_summary
+moosh block-manage hide feedback
+moosh block-manage hide login
+moosh block-manage hide mentees
+moosh block-manage hide messages
+moosh block-manage hide mnet_hosts
+moosh block-manage hide myprofile
+moosh block-manage hide news_items
+moosh block-manage hide participants
+moosh block-manage hide recent_activity
+moosh block-manage hide search_forums
+moosh block-manage hide section_links
+moosh block-manage hide selfcompletion
+moosh block-manage hide site_main_menu
+moosh block-manage hide social_activities
+moosh block-manage hide tag_flickr
+moosh block-manage hide tag_youtube
+
+# disable editors 'plain text' and 'Atto HTML'
+moosh editor-manage disable atto
+moosh editor-manage disable textarea
+
+# Blog : enableblogs to false (#us_468)
+moosh config-set enableblogs 0
+
+# block_orange_course_dashboard (#us_307)
+moosh block-instance_config system 0 orange_course_dashboard my-index defaultmaxrecommendations 0
+
+# disable 'Popup' and 'Jabber' notification in Plugins/Messages outputs (#us_468)
+moosh message-manage disable jabber
+moosh message-manage disable popup
+
+# Set defaut email for badge (#us_468)
+moosh config-set message_provider_moodle_badgerecipientnotice_loggedin popup,email message
+moosh config-set message_provider_moodle_badgecreatornotice_loggedin email message
