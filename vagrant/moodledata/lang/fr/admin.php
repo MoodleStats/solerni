@@ -314,8 +314,8 @@ $string['configproxyport'] = 'Si le serveur requiert l\'utilisation d\'un proxy,
 $string['configproxytype'] = 'Type de proxy web (PHP5 et son extension cURL sont requis pour le support de SOCKS5).';
 $string['configproxyuser'] = 'Nom d\'utilisateur requis pour accéder à Internet au travers du proxy, si nécessaire. Laisser vide dans le cas contraire (l\'extension cURL de PHP est requise).';
 $string['configquarantinedir'] = 'Si vous désirez que clam AV déplace les fichiers infectés vers un dossier de quarantaine, spécifiez ici son chemin d\'accès. Le serveur web doit pouvoir écrire dans ce dossier. Si vous laissez ce champ vide ou si vous spécifiez un dossier inexistant ou sans droit d\'écriture, les fichiers infectés seront détruits. Ne pas écrire la barre oblique finale.';
-$string['configrecaptchaprivatekey'] = 'Chaîne de caractères utilisée pour communiquer entre votre serveur Moodle et le serveur recaptcha.net. Vous pouvez obtenir une telle clef pour votre site en visitant http://www.google.com/recaptcha';
-$string['configrecaptchapublickey'] = 'Chaîne de caractères utilisée pour afficher l\'élément reCAPTCHA dans le formulaire d\'enregistrement. Cette chaîne est générée par http://www.google.com/recaptcha';
+$string['configrecaptchaprivatekey'] = 'Chaîne de caractères (clef privée) utilisée pour communiquer entre votre serveur Moodle et le serveur recaptcha.net. Les clefs reCAPTCHA peuvent être obtenues de <a target="_blank" href="https://www.google.com/recaptcha">Google reCAPTCHA</a>.';
+$string['configrecaptchapublickey'] = 'Chaîne de caractères (clef publique) utilisée pour afficher l\'élément reCAPTCHA dans le formulaire d\'enregistrement. Les clefs reCAPTCHA peuvent être obtenues de <a target="_blank" href="https://www.google.com/recaptcha">Google reCAPTCHA</a>.';
 $string['configrequestcategoryselection'] = 'Permettre le choix d\'une catégorie lors de la demande d\'un cours';
 $string['configrequestedstudentname'] = 'Terme utilisé pour « étudiant » dans les cours demandés';
 $string['configrequestedstudentsname'] = 'Terme utilisé pour « étudiants » dans les cours demandés';
@@ -897,8 +897,8 @@ $string['questioncwqpfsok'] = 'Il n\'y a dans vos tests aucune question aléatoi
 $string['questiontype'] = 'Type de question';
 $string['questiontypes'] = 'Types de question';
 $string['quizattemptsupgradedmessage'] = 'Une mise à jour majeure des questions était comprise dans Moodle 2.1. Il était alors possible de retarder cette mise à niveau. Avant de passer à Moodle 2.7, cette mise à jour est désormais obligatoire.';
-$string['recaptchaprivatekey'] = 'Clef privée ReCAPTCHA';
-$string['recaptchapublickey'] = 'Clef publique ReCAPTCHA';
+$string['recaptchaprivatekey'] = 'Clef secrète ReCAPTCHA';
+$string['recaptchapublickey'] = 'Clef de site ReCAPTCHA';
 $string['register'] = 'Enregistrer votre site';
 $string['registermoodleorg'] = 'Lors de l\'enregistrement de votre site';
 $string['registermoodleorgli1'] = 'Vous êtes inscrit à une liste de diffusion à bas trafic diffusant des notifications importantes, comme des alertes de sécurité et les nouvelles versions de Moodle.';
