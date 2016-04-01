@@ -86,7 +86,7 @@ function block_orange_listforumng_get_bylistforumngid($listforumngid) {
 
         if (!empty($lastpostdate)) {
             $ind = max(array_keys($lastpostdate));
-            $datelastpost = userdate(max(array_keys($lastpostdate)));
+            $datelastpost = mod_forumng_utils::display_date(max(array_keys($lastpostdate)));
             $username = fullname($lastpostdate[$ind]->get_user());
             $discussionname = $lastpostdate[$ind]->get_discussion()->get_subject();
             $picture = $lastpostdate[$ind]->display_user_picture();
