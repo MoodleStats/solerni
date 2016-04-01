@@ -67,14 +67,14 @@ class block_orange_list_bestforumng_renderer extends plugin_renderer_base {
         global $CFG, $OUTPUT;
         $output = "";
 
-        $output .= html_writer::start_tag('div', array('class' => 'row text-tertiary'));
+        $output .= html_writer::start_tag('div', array('class' => 'row u-inverse'));
             $output .= html_writer::start_tag('div', array('class' => 'H4 col-md-9 orange-course-name'));
                 $output .= html_writer::tag('span', $course->fullname);
             $output .= html_writer::end_tag('div');
 
             $output .= html_writer::start_tag('div', array('class' => 'col-md-3 text-right'));
                 $output .= html_writer::tag('span', $nbdiscussions , array('class' => 'text-secondary'));
-                $output .= html_writer::tag('span', " discussions", array('class' => 'text-tertiary'));
+                $output .= html_writer::tag('span', " discussions");
             $output .= html_writer::end_tag('div');
         $output .= html_writer::end_tag('div');
 
@@ -130,7 +130,7 @@ class block_orange_list_bestforumng_renderer extends plugin_renderer_base {
 
                 $output .= html_writer::start_tag('div', array('class' => 'row'));
 
-                    $courselinkdescript = $CFG->wwwroot . "/mod/descriptionpage/view.php?courseid=" . $course->id;
+                    $courselinkdescript = new moodle_url('/mod/descriptionpage/view.php', array('courseid' => $course->id));
                     $output .= html_writer::start_tag('div', array('class' => 'col-md-12'));
                         $output .= html_writer::tag('span', get_string('questionunregistered', 'block_orange_list_bestforumng'));
                         $output .= html_writer::link($courselinkdescript,

@@ -682,7 +682,7 @@ class utilities_course {
 
         if ($course) {
             $sql = "SELECT distinct(I.subpagepattern)
-                     FROM mdl_block_instances I LEFT OUTER JOIN mdl_format_flexpage_page P ON (I.subpagepattern = P.id)
+                     FROM {block_instances} I LEFT OUTER JOIN {format_flexpage_page} P ON (I.subpagepattern = P.id)
                      WHERE P.courseid = ?
                      AND I.blockname='orange_listforumng'
                      AND I.pagetypepattern LIKE 'course-view%' LIMIT 1" ;
@@ -691,7 +691,7 @@ class utilities_course {
 
             // To avoid having an error page when the forum page is not setup.
             if ($idpage != null) {
-                $url = $CFG->wwwroot . '/course/view.php?id=' . $course->id . "&pageid=" . $idpage->subpagepattern;
+                $url = new \moodle_url('/course/view.php', array('id' => $course->id, 'pageid' => $idpage->subpagepattern));
             } else {
                 $url = $CFG->wwwroot;
 
