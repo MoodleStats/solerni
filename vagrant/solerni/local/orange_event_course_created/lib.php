@@ -20,7 +20,7 @@ function xml_from_piwik($url) {
   return ($xmlresponse);
 }
 
-function sendmail_to_admin_piwik($course,$event,$xmlaccount,$xmlaccess,$xmlsegment,$xmllogin) {
+function sendmail_to_admin_piwik($course,$event,$pass,$xmlaccount,$xmlaccess,$xmlsegment,$xmllogin) {
     global $CFG, $DB;
     $site = get_site();
     $contact = core_user::get_support_user();
@@ -29,11 +29,10 @@ function sendmail_to_admin_piwik($course,$event,$xmlaccount,$xmlaccess,$xmlsegme
     $xmllogin = intval($xmllogin);
     $srtsuccess = 'ok';
     $userpiwik = $course->shortname;
-    $password = md5($userpiwik);
     if (($xmlaccount->success['message'] == $srtsuccess) && ($xmlaccess->success['message'] == $srtsuccess) && is_int($xmlsegment) == true && is_int($xmllogin) == true ) {
         $message = get_string('content_piwik_success', 'local_orange_event_course_created');
         $key = array('{$a->username}', '{$a->coursename}', '{$a->sitename}', '{$a->userpiwik}', '{$a->passwordpiwik}');
-        $value = array($user->username, $course->fullname, $site->fullname, $userpiwik, $password);
+        $value = array($user->username, $course->fullname, $site->fullname, $userpiwik, $pass);
         $message = str_replace($key, $value, $message);
         $subject = get_string('subject_piwik_success', 'local_orange_event_course_created');
         $subject = str_replace('{$a->sitename}', format_string($site->fullname), $subject);
