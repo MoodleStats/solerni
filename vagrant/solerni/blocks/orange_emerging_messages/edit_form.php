@@ -27,7 +27,6 @@ require_once($CFG->dirroot . '/mod/forumng/mod_forumng.php');
 
 class block_orange_emerging_messages_edit_form extends block_edit_form {
     protected function specific_definition($mform) {
-        global $CFG, $COURSE, $DB, $OUTPUT;
 
         // Fields for editing HTML block title and contents.
         $mform->addElement('header', 'configheader', get_string('blocksettings', 'block'));

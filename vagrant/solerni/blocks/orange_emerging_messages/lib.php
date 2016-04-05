@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 function block_orange_emerging_messages_get_user_posts($courseid, $userid, $npdisplayed) {
-    global $CFG, $DB, $USER;
+    global $DB;
 
     $forumngobj = new forumng_object();
 
@@ -45,7 +45,6 @@ function block_orange_emerging_messages_get_user_posts($courseid, $userid, $npdi
  */
 
 function block_orange_emerging_messages_get_last_discussions($courseid, $npdisplayed) {
-    global $CFG, $DB, $USER;
 
     $forumngobj = new forumng_object();
 
@@ -61,7 +60,6 @@ function block_orange_emerging_messages_get_last_discussions($courseid, $npdispl
  */
 
 function block_orange_emerging_messages_get_best_messages($courseid, $npdisplayed) {
-    global $CFG, $DB, $USER;
 
     $forumngobj = new forumng_object();
 
@@ -89,7 +87,6 @@ function block_orange_emerging_messages_on_my_page() {
  * @return string
  */
 function cut_message($msg, $limitchar = 150, $limitlengthword = 3) {
-    global $DB;
 
     $msg = str_replace("<p>", " ", $msg);
     $msg = str_replace("</p>", "", $msg);
@@ -105,7 +102,6 @@ function cut_message($msg, $limitchar = 150, $limitlengthword = 3) {
     }
 
     $atext = explode(" ", $msg);
-    $newmsg = "";
     $lenghtstring = 0;
     $i = 0;
     $indacceptable = 0;

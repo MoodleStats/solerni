@@ -45,7 +45,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 function xmldb_local_orange_thematics_upgrade($oldversion) {
-    global $CFG, $DB;
+    global $DB;
 
     $dbman = $DB->get_manager();
 

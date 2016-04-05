@@ -92,7 +92,7 @@ class block_orange_emerging_messages extends block_base {
      * @return string
      */
     public function get_content() {
-        global $USER, $COURSE, $CFG, $OUTPUT, $DB;
+        global $USER, $COURSE;
 
         // If content has already been generated, don't waste time generating it again.
         if ($this->content !== null) {
@@ -115,8 +115,6 @@ class block_orange_emerging_messages extends block_base {
         ) {
             return $this->content;
         }
-
-        $renderer = $this->page->get_renderer('block_orange_emerging_messages');
 
         if (isset($this->config->typetop)) {
 	        switch ($this->config->typetop ) {
