@@ -36,7 +36,6 @@ require_once($CFG->libdir . '/formslib.php');
 class orange_thematics_form extends moodleform implements renderable {
 
     public function definition() {
-        global $CFG;
 
         $mform = & $this->_form;
         // Step header.
@@ -60,7 +59,6 @@ class orange_thematics_form extends moodleform implements renderable {
 
 
     public function validation($data, $files) {
-        global $DB;
         $errors = array();
 
         return $errors;

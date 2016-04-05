@@ -36,7 +36,6 @@ class block_orange_horizontal_numbers_renderer extends plugin_renderer_base {
      * @return string html 
      */
     public function display_horizontal_numbers($nbuserssonnected = 0, $nbposts = 0, $nbusers = 0, $lastuser = null) {
-        global $CFG;
         $output = "";
 
         $el1 = new html_table_cell();
