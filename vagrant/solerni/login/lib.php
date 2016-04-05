@@ -168,7 +168,8 @@ function core_login_process_password_reset_request() {
     // DISPLAY FORM.
 
     echo $OUTPUT->header();
-    echo $OUTPUT->box(get_string('passwordforgotteninstructions2'), 'generalbox boxwidthnormal boxaligncenter');
+    // 20160404 - Orange - change class
+    echo $OUTPUT->box(get_string('passwordforgotteninstructions2'), 'generalbox boxwidthwide');
     $mform->display();
 
     echo $OUTPUT->footer();

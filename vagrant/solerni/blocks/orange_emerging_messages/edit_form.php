@@ -31,25 +31,10 @@ class block_orange_emerging_messages_edit_form extends block_edit_form {
         // Fields for editing HTML block title and contents.
         $mform->addElement('header', 'configheader', get_string('blocksettings', 'block'));
 
-        // Set emerging message block instance title.
-        $mform->addElement('text', 'config_title', get_string('title', 'block_orange_emerging_messages'));
-        $mform->setType('config_title', PARAM_TEXT);
-
-        // Output the section header.
-        $sectionname = get_string('settings', 'block_orange_emerging_messages');
-        $mform->addElement('header', 'section', format_string($sectionname));
-        $mform->setExpanded('section');
-
         $mform->addElement('text', 'config_nbdisplaypost', get_string('nbdisplaypost', 'block_orange_emerging_messages'));
         $mform->setType('config_nbdisplaypost', PARAM_INT);
         $mform->setDefault('config_nbdisplaypost', get_string('nbdisplaypostdefault', 'block_orange_emerging_messages'));
 
-        $radioarray = array();
-        $radioarray[] = $mform->createElement('radio', 'config_typetop', '', get_string('mylastposts', 'block_orange_emerging_messages'), 1);
-        $radioarray[] = $mform->createElement('radio', 'config_typetop', '', get_string('lastdiscussions', 'block_orange_emerging_messages'), 2);
-        $radioarray[] = $mform->createElement('radio', 'config_typetop', '', get_string('bestposts', 'block_orange_emerging_messages'), 3);
-        $mform->addGroup($radioarray, 'radioar', get_string('typetop', 'block_orange_emerging_messages'), array(' '), false);
-        $mform->addRule('radioar', null, 'required', null, 'client');
     }
 
     public function set_data($defaults) {
@@ -60,10 +45,6 @@ class block_orange_emerging_messages_edit_form extends block_edit_form {
                 $defaults->config_title = format_string($title, true, $this->page->context);
                 // Remove the title from the config so that parent::set_data doesn't set it.
                 unset($this->block->config->title);
-            }
-
-            if (!empty($this->block->config->typetop)) {
-                $defaults->config_typetop = $this->block->config->typetop;
             }
 
             if (!empty($this->block->config->nbdisplaypost)) {
