@@ -64,7 +64,7 @@ class mail_test {
     }
 
 
-    static public function user_account_mail($user, $modetext=false) {
+    static public function user_account_mail_public($user, $modetext=false) {
         global $CFG;
 
         $profileurl = "$CFG->wwwroot/user/view.php?id=" . $user->id;
@@ -88,7 +88,7 @@ class mail_test {
         }
 
         $subject = get_string('subjectuseraccountemail', 'local_orange_event_user_loggedin');
-        $subject = '(M2)' . str_replace('{$a->sitename}', format_string($site->fullname), $subject);
+        $subject = '(M2)' . str_replace('{$a->customername}', ucfirst($CFG->solerni_customer_name), $subject);
 
         if ($modetext) {
             $user->mailformat = 0;
@@ -99,8 +99,7 @@ class mail_test {
         email_to_user($user, $contact, $subject, $messagetext, $messagehtml);
     }
 
-
-    static public function user_welcome_mail($user, $modetext=false) {
+    static public function user_account_mail_private($user, $modetext=false) {
         global $CFG;
 
         $profileurl = "$CFG->wwwroot/user/view.php?id=" . $user->id;
@@ -108,8 +107,8 @@ class mail_test {
         $siteurl = $CFG->wwwroot;
         $site  = get_site();
 
-        // Send welcome message.
-        $message = get_string('contentwelcomeemail', 'local_orange_event_user_loggedin');
+        // Send account email reminder.
+        $message = get_string('contentuseraccountemailprivate', 'local_orange_event_user_loggedin');
         $key = array('{$a->fullname}', '{$a->email}', '{$a->sitename}', '{$a->siteurl}', '{$a->profileurl}');
         $value = array(fullname($user), $user->email, format_string($site->fullname),
             $siteurl, $profileurl);
@@ -123,8 +122,8 @@ class mail_test {
             $messagetext = html_to_text($messagehtml);
         }
 
-        $subject = get_string('subjectwelcomeemail', 'local_orange_event_user_loggedin');
-        $subject = '(M3)' . str_replace('{$a->sitename}', format_string($site->fullname), $subject);
+        $subject = get_string('subjectuseraccountemailprivate', 'local_orange_event_user_loggedin');
+        $subject = '(M2)' . str_replace('{$a->customername}', ucfirst($CFG->solerni_customer_name), $subject);
 
         if ($modetext) {
             $user->mailformat = 0;
@@ -133,7 +132,6 @@ class mail_test {
         }
 
         email_to_user($user, $contact, $subject, $messagetext, $messagehtml);
-
     }
 
     static public function send_password_change_confirmation_email($user, $modetext=false) {
