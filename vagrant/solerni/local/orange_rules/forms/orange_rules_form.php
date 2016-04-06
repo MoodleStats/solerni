@@ -90,7 +90,6 @@ class orange_rules_form extends moodleform implements renderable {
 
 
     public function validation($data, $files) {
-        global $DB;
         $errors = array();
 
         return $errors;

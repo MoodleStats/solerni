@@ -53,7 +53,7 @@ class orange_rules  {
      * Outputs the packaging form
      */
     public function rules_form() {
-        global $CFG, $PAGE, $DB;
+        global $DB;
 
         $get = new stdClass();
         foreach ($_GET as $varname => $value) {
@@ -77,7 +77,7 @@ class orange_rules  {
     }
 
     public function rules_delete() {
-        global $CFG, $PAGE, $DB;
+        global $DB;
 
         if (empty($_GET)) {
             return false;
@@ -95,7 +95,7 @@ class orange_rules  {
     }
 
     public function rules_suspend() {
-        global $CFG, $PAGE, $DB;
+        global $DB;
 
         if (empty($_GET)) {
             return false;
@@ -116,7 +116,7 @@ class orange_rules  {
     }
 
     public function rules_unsuspend() {
-        global $CFG, $PAGE, $DB;
+        global $DB;
 
         if (empty($_GET)) {
             return false;
@@ -139,7 +139,7 @@ class orange_rules  {
 
 
     public function rules_add() {
-        global $CFG, $PAGE, $DB;
+        global $DB;
 
         if (empty($_POST)) {
             return false;
@@ -151,7 +151,7 @@ class orange_rules  {
             $rule->{"$varname"} = $value;
         }
         if ($rule->id == 0) {
-            $lastinsertid = $DB->insert_record('orange_rules', $rule, false);
+            $DB->insert_record('orange_rules', $rule, false);
         } else {
             $DB->update_record('orange_rules', $rule);
         }
@@ -162,7 +162,7 @@ class orange_rules  {
     }
 
     public function rules_list() {
-        global $CFG, $PAGE, $DB, $OUTPUT;
+        global $DB, $OUTPUT;
 
         $sitecontext = context_system::instance();
 

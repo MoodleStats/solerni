@@ -89,7 +89,7 @@ class block_orange_listforumng extends block_base {
      * @return string
      */
     public function get_content() {
-        global $USER, $COURSE, $CFG, $OUTPUT, $DB;
+        global $USER;
 
         // If content has already been generated, don't waste time generating it again.
         if ($this->content !== null) {
@@ -98,7 +98,6 @@ class block_orange_listforumng extends block_base {
         $this->content = new stdClass;
         $this->content->text = '';
         $this->content->footer = '';
-        $blockinstancesonpage = array();
 
         // Guests do not have any progress. Don't show them the block.
         if (!isloggedin() or isguestuser()) {
@@ -113,8 +112,6 @@ class block_orange_listforumng extends block_base {
         ) {
             return $this->content;
         }
-
-        $renderer = $this->page->get_renderer('block_orange_listforumng');
 
         $listforumngid = array();
         if (isset($this->config)) {
