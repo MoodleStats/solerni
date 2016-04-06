@@ -325,3 +325,7 @@ moosh config-set message_provider_moodle_badgecreatornotice_loggedin email messa
 
 # Set import/export fields for Mnet user profil copy (#us_486)
 moosh peer-fields policyagreed,suspended,idnumber,emailstop,icq,skype,yahoo,aim,msn,phone1,phone2,institution,department,address,city,country,lang,calendartype,timezone,firstaccess,lastaccess,lastlogin,currentlogin,secret,picture,url,description,descriptionformat,mailformat,maildigest,maildisplay,autosubscribe,trackforums,trustbitmask,imagealt,lastnamephonetic,firstnamephonetic,middlename,alternatename
+
+# Set user fullname format (#us_504)
+moosh config-set fullnamedisplay "firstname lastname"
+moosh config-set emailonlyfromnoreplyaddress 1
