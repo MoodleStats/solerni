@@ -27,9 +27,9 @@ $string['orange_horizontal_numbers:addinstance'] = 'Add a new block Orange Horiz
 
 $string['title'] = 'Welcome to the discussion space Solerni {$a}';
 $string['intro'] = 'Come talk with other enthusiasts on the topics that interest you.<br/>'
-        . 'Enrich your knowledge, your expertise paratagez and expand your network '
+        . 'Enrich your knowledge, share your expertise and expand your network '
         . 'by connecting with other users Solerni community..';
-$string['tofaq'] = 'Learn more about how forums ? <a href=\'{$a}\'>Go to our F.A.Q.</a>';
+$string['tofaq'] = 'Learn more about forums ? <a href=\'{$a}\'>Go to our F.A.Q.</a>';
 
 $string['nbposts'] = 'posted Messages';
 $string['nbusers'] = 'registered';

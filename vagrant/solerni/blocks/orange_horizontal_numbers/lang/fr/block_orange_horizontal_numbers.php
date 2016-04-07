@@ -27,7 +27,7 @@ $string['orange_horizontal_numbers:addinstance'] = 'Ajouter un block Orange Nomb
 
 $string['title'] = 'Bienvenue dans l\'espace de discussion de Solerni  {$a}';
 $string['intro'] = 'Venez échanger avec d\'autres passionné(e)s sur les sujets qui
-    vous intéressent.<br/>Enrichissez vos connaissances, paratagez votre expertise et
+    vous intéressent.<br/>Enrichissez vos connaissances, partagez votre expertise et
     agrandissez votre réseau en vous connectant avec d\'autres utilisateurs de la communauté Solerni.';
 $string['tofaq'] = 'En savoir plus sur le fonctionnement des forums ? <a href=\'{$a}\'>Parcourez notre F.A.Q.</a>';
 
