@@ -34,7 +34,6 @@ class block_orange_emerging_messages_renderer extends plugin_renderer_base {
      * @return string html
      */
     public function display_emerging_messages($course, $listposts, $listdiscussions, $listbestposts) {
-        global $OUTPUT;
         $output = "";
 
         // Get link acces forum of course.
@@ -106,7 +105,6 @@ class block_orange_emerging_messages_renderer extends plugin_renderer_base {
      * @return string html 
      */
     public function display_emerging_discus_and_post($listpost) {
-        global $CFG;
         $output = "";
 
         foreach ($listpost as $post) {
@@ -157,7 +155,6 @@ class block_orange_emerging_messages_renderer extends plugin_renderer_base {
      * @return string html
      */
     public function display_emerging_best_messages($listpost) {
-        global $CFG;
         $output = "";
         foreach ($listpost as $post) {
             $link = new moodle_url('/mod/forumng/discuss.php', array('d' => $post->discussionid . "#p" . $post->id));
