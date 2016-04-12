@@ -76,7 +76,7 @@ function main () {
 	execute_moosh_command "moosh config-set webserviceprotocols rest"
 
 	#Import Role
-	execute_moosh_command "moosh role-import apiuser solerni-config/customer_thematic/${CUSTOMER_THEMATIC_KEY}/users_roles/solerniapiuser.xml"
+	execute_moosh_command "moosh role-import apiuser /opt/solerni/conf/moosh/customer_thematic/${CUSTOMER_THEMATIC_KEY}/users_roles/solerniapiuser.xml"
 
 	# Create API User
 	execute_moosh_command "moosh user-create --password apiuser01! --email solerniapiuser@orange.fr --firstname 'API' --lastname 'User' --city 'Paris' --country 'FR' 'api_user'"

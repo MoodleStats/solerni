@@ -86,14 +86,14 @@ function main () {
 
 	# First install : import Solerni roles
 	# Attention : order is important to keep roles assignments
-	execute_moosh_command "moosh role-import solerni_utilisateur solerni-config/default/users_roles/solerni_utilisateur.xml"
-	execute_moosh_command "moosh role-import solerni_apprenant solerni-config/default/users_roles/solerni_apprenant.xml"
-	execute_moosh_command "moosh role-import solerni_power_apprenant solerni-config/default/users_roles/solerni_power_apprenant.xml"
-	execute_moosh_command "moosh role-import solerni_animateur solerni-config/default/users_roles/solerni_animateur.xml"
-	execute_moosh_command "moosh role-import solerni_client solerni-config/default/users_roles/solerni_client.xml"
-	execute_moosh_command "moosh role-import solerni_teacher solerni-config/default/users_roles/solerni_teacher.xml"
-	execute_moosh_command "moosh role-import solerni_marketing solerni-config/default/users_roles/solerni_marketing.xml"
-	execute_moosh_command "moosh role-import solerni_course_creator solerni-config/default/users_roles/solerni_course_creator.xml"
+	execute_moosh_command "moosh role-import solerni_utilisateur /opt/solerni/conf/moosh/default/users_roles/solerni_utilisateur.xml"
+	execute_moosh_command "moosh role-import solerni_apprenant  /opt/solerni/conf/moosh/default/users_roles/solerni_apprenant.xml"
+	execute_moosh_command "moosh role-import solerni_power_apprenant /opt/solerni/conf/moosh/default/users_roles/solerni_power_apprenant.xml"
+	execute_moosh_command "moosh role-import solerni_animateur /opt/solerni/conf/moosh/default/users_roles/solerni_animateur.xml"
+	execute_moosh_command "moosh role-import solerni_client /opt/solerni/conf/moosh/default/users_roles/solerni_client.xml"
+	execute_moosh_command "moosh role-import solerni_teacher /opt/solerni/conf/moosh/default/users_roles/solerni_teacher.xml"
+	execute_moosh_command "moosh role-import solerni_marketing /opt/solerni/conf/moosh/default/users_roles/solerni_marketing.xml"
+	execute_moosh_command "moosh role-import solerni_course_creator /opt/solerni/conf/moosh/default/users_roles/solerni_course_creator.xml"
 
 	# Default role for all users (#us_62-69)
 	execute_moosh_command "moosh role-configset defaultuserroleid solerni_utilisateur"
@@ -135,7 +135,7 @@ function main () {
 	execute_moosh_command "moosh filter-manage -c on multilang"
 
 	# Add new user profil fields (#us_110)
-	execute_moosh_command "moosh userprofilefields-import solerni-config/default/users_profil/profile_fields.csv"
+	execute_moosh_command "moosh userprofilefields-import /opt/solerni/conf/moosh/default/users_profil/profile_fields.csv"
 
 	# Enable cron via the web (Security)
 	execute_moosh_command "moosh config-set cronclionly 1"
