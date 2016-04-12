@@ -17,7 +17,6 @@
 require_once(dirname(__FILE__) . '/../config.php');
 require_once('lib.php');
 
-use local_orange_library\utilities\utilities_network;
 use theme_halloween\tools\log_and_session_utilities;
 
 redirect_if_major_upgrade_required();
