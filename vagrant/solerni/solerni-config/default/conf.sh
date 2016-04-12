@@ -329,3 +329,8 @@ moosh peer-fields policyagreed,suspended,idnumber,emailstop,icq,skype,yahoo,aim,
 # Set user fullname format (#us_504)
 moosh config-set fullnamedisplay "firstname lastname"
 moosh config-set emailonlyfromnoreplyaddress 1
+
+# Manage blocks for 'forum' page (All forum in thematic)
+moosh block-add system 0 orange_horizontal_numbers forum-index content -10
+moosh block-add system 0 orange_listforumng forum-index content -8
+moosh block-add system 0 orange_list_bestforumng forum-index content -4
