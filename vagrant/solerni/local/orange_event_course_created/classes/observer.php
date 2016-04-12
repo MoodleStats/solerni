@@ -17,8 +17,9 @@
 /**
  * Version details
  *
- * @package    local_orange_event_course_created
- * @copyright  2015 Orange
+ * @package    block_orange_local
+ * @subpackage orange_event_course_created
+ * @copyright  2016 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -42,43 +43,64 @@ class local_orange_event_course_created_observer {
             return false;
         }
         global $CFG, $DB;
-        $site = get_site();
         $contact = core_user::get_support_user();
         $user = $DB->get_record('user', array('id' => $event->userid));
         // values usefull for call UsersManager.addUser method.
         $course = $DB->get_record('course', array('id' => $event->courseid));
         $category = $DB->get_record('course_categories', array('id' => $course->category));
-        $url = $CFG->piwik_internal_url;             
+        
+        $url = $CFG->piwik_internal_url;
         $module = 'module=API';
         $method = '&method=UsersManager.addUser';
-        $userpiwik = $course->shortname;
-        $password = md5($userpiwik);
-        $email = '&email='.$course->shortname.'@yopmail.com'.
+        $userpiwik = '&userLogin='.$course->shortname;
+        $pass = substr(md5($userpiwik),0,8);  
+        $password = '&password='.$pass;
+        $email = '&email='.$course->shortname.'@yopmail.com';
         $tokenauth = '&token_auth='.$CFG->piwik_token_admin;
         // values usefull for call UsersManager.setUserAccess method.
         $methodaccessuser = '&method=UsersManager.setUserAccess';
-        $idsite = '&idSites=1';
         $access = '&access=view';
-        // values usefull for call SegmentEditor.add2 method
-        $methodsegment = '&method=SegmentEditor.add2';
-        $name = '&name='.$course->shortname;
-        $definition = '&definition=customVariablePageValue1=='.$course->fullname;
-        $login = '&login='.$course->shortname;
-        $idsite = '&idSites=1';
-        $autoarchive = '&autoArchive=0';
-        $enabledallusers = '&enabledAllUsers=0';
-        $methodsegmentlogin = '&method=SegmentEditor.add2';
-        // url calling piwik API
-        $urlaccount = $url.'?'.$module.$method.'&userLogin='.$userpiwik.'&password='.$password.$email.$tokenauth;
-        $urluseraccess = $url.'?'.$module.$methodaccessuser.'&userLogin='.$userpiwik.$access.$idsite.$tokenauth;
-        $urlsegment = $url.'?'.$module.$methodsegment.$name.$definition.$idsite.$autoarchive.$enabledallusers.$tokenauth;
-        $urlsegmentlogin = $url.'?'.$module.$methodsegmentlogin.$name.$definition.$idsite.$autoarchive.$enabledallusers.$login.$tokenauth;
-        // We call the API PIWIK in order to create a account piwik.
+       
+        // values usefull for call addSite.
+        $methodaddsite ='&method=SitesManager.addSite';
+        $sitename ='&siteName='.$course->shortname;
+        $urls = '&urls='.$CFG->wwwroot;
+        $ecommerce ='&ecommerce=0';
+        $sitesearch ='&siteSearch=1';
+        $timezone ='&timezone=Europe/Paris';
+        $currency ='&amp;currency=USD';
+        $currentdate = date('m/d/Y');
+        $startDate = '&startDate='.$currentdate;
+        $keepurlfragments = '&keepURLFragments=0';
+        $type = '&type=website';
+        $excludeUnknowurls = '&excludeUnknowUrls=0';
+        // url calling piwik API for add site.
+        $urladdsite = $url.'?'.$module.$methodaddsite.$sitename.$urls.$ecommerce.$sitesearch.$timezone.$currency.$startDate.$keepurlfragments.$type.$excludeUnknowurls.$tokenauth;
+        // We call the API PIWIK in order to create a id site piwik.
+        print_r($urladdsite);
+        $xmladdsite = xml_from_piwik($urladdsite);
+        // We retreive the id site from piwik.
+        $methodgetsite = '&method=SitesManager.getAllSitesId';
+        $urlgetsites = $url.'?'.$module.$methodgetsite.$tokenauth;
+        $xmlgetsite = xml_from_piwik($urlgetsites);
+        $arraysiteid = (array)$xmlgetsite->row;
+        $lastsiteid = array_pop($arraysiteid);
+        // We feed piwik_site table.
+        $site =new stdClass();
+        $site->piwik_siteid = $lastsiteid;
+        $site->courseid = $event->courseid;
+        $lastinsertid = $DB->insert_record('piwik_site', $site, false);
+        // We retreive idsite from piwik_site table.
+        $idsite = $DB->get_record_sql('SELECT piwik_siteid FROM {piwik_site} WHERE courseid = ?', array($event->courseid));
+        $piwiksiteid = '&idSites='.$idsite->piwik_siteid;
+        // We call again API Piwik in order to create an account.
+        $urlaccount = $url.'?'.$module.$method.$userpiwik.$password.$email.$tokenauth;
+        $urluseraccess = $url.'?'.$module.$methodaccessuser.$userpiwik.$access.$piwiksiteid.$tokenauth;    
+        
         $xmlaccount = xml_from_piwik($urlaccount);
         $xmlaccess = xml_from_piwik($urluseraccess);
-        $xmlsegment = xml_from_piwik($urlsegment);
-        $xmllogin = xml_from_piwik($urlsegmentlogin);
-        // We test xml Piwik responses to kwow if segment and user are correctly created and send mail
-        $return = sendmail_to_admin_piwik($course,$event, $xmlaccount, $xmlaccess, $xmlsegment, $xmllogin);
+        
+        // We test xml Piwik responses to kwow if siteid and user are correctly created and send mail.
+        $return = sendmail_to_admin_piwik($course,$event,$pass,$xmlaccount,$xmlaccess);
     }
 }
