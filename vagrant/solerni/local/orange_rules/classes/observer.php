@@ -136,7 +136,6 @@ class local_orange_rules_observer {
      * @param \local_orange_rules\event\rule_updated $event
      */
     public static function userregistration_updated(\local_orange_rules\event\rule_updated $event) {
-        global $DB;
 
         $rule = (object)$event->get_record_snapshot('orange_rules', $event->objectid);
 

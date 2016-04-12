@@ -192,13 +192,14 @@ class forumng_object {
         foreach ($return->courses as $course) {
             // Now we need to get the forums.
             $modinfo = get_fast_modinfo($course);
-            if (empty($modinfo->instances['forum'])) {
+            if (empty($modinfo->instances['forumng'])) {
                 // Hmmm, no forums? well at least its easy... skip!.
                 continue;
             }
 
             // Iterate.
             foreach ($modinfo->get_instances_of('forumng') as $forumid => $cm) {
+
                 if (!$cm->uservisible or !isset($forums[$forumid])) {
                     continue;
                 }
@@ -492,6 +493,10 @@ class forumng_object {
         // Get forumngid in this course.
         $sql = "SELECT id FROM {forumng} WHERE course = " . $courseid;
         $resps = $DB->get_records_sql($sql);
+        if (count($resps) == 0) {
+            return $return;
+        }
+
         // Get instanceid.
         $cms = array();
         foreach ($resps as $resp) {

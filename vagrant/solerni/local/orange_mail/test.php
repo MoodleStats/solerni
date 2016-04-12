@@ -58,8 +58,8 @@ foreach ($langs as $lang => $value) {
     force_current_language($lang);
     if ($sendhtmlemail) {
         mail_test::reset_password_and_mail($USER);
-        mail_test::user_account_mail($USER);
-        mail_test::user_welcome_mail($USER);
+        mail_test::user_account_mail_public($USER);
+        mail_test::user_account_mail_private($USER);
         mail_test::send_password_change_confirmation_email($USER);
         mail_test::send_confirmation_email($USER);
         mail_test::send_email_deletion($USER);
@@ -72,8 +72,8 @@ foreach ($langs as $lang => $value) {
 
     if ($sendtextemail) {
         mail_test::reset_password_and_mail($USER, true);
-        mail_test::user_account_mail($USER, true);
-        mail_test::user_welcome_mail($USER, true);
+        mail_test::user_account_mail_public($USER, true);
+        mail_test::user_account_mail_private($USER, true);
         mail_test::send_password_change_confirmation_email($USER, true);
         mail_test::send_confirmation_email($USER, true);
         mail_test::send_email_deletion($USER, true);

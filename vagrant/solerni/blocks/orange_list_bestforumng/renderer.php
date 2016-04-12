@@ -36,7 +36,22 @@ class block_orange_list_bestforumng_renderer extends plugin_renderer_base {
      */
     public function display_list_bestforumng($listcourseforuminfo) {
 
-        $output = html_writer::start_tag('div', array('class' => 'row'));
+        global $CFG;
+
+        $output = html_writer::start_tag('div', array('class' => 'row', 'style' => 'height:30px'));
+        $output .= html_writer::end_tag('div');
+
+        $output .= html_writer::start_tag('div', array('class' => 'row'));
+            $output .= html_writer::start_tag('div', array('class' => 'col-md-12 text-left'));
+                $output .= html_writer::tag('h2', get_string('title', 'block_orange_list_bestforumng', $CFG->solerni_thematic));
+                $output .= html_writer::tag('h3', get_string('intro', 'block_orange_list_bestforumng'));
+            $output .= html_writer::end_tag('div');
+        $output .= html_writer::end_tag('div');
+
+        $output .= html_writer::start_tag('div', array('class' => 'row', 'style' => 'height:30px'));
+        $output .= html_writer::end_tag('div');
+
+        $output .= html_writer::start_tag('div', array('class' => 'row'));
 
         foreach ($listcourseforuminfo as $courseforuminfo) {
             $output .= $this->display_list_bestforumng_course($courseforuminfo->course,
@@ -68,8 +83,8 @@ class block_orange_list_bestforumng_renderer extends plugin_renderer_base {
         $output = "";
 
         $output .= html_writer::start_tag('div', array('class' => 'row u-inverse'));
-            $output .= html_writer::start_tag('div', array('class' => 'H4 col-md-9 orange-course-name'));
-                $output .= html_writer::tag('span', $course->fullname);
+            $output .= html_writer::start_tag('div', array('class' => 'col-md-9'));
+                $output .= html_writer::tag('h4', $course->fullname);
             $output .= html_writer::end_tag('div');
 
             $output .= html_writer::start_tag('div', array('class' => 'col-md-3 text-right'));
