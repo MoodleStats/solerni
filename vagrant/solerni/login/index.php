@@ -342,8 +342,6 @@ echo $OUTPUT->header();
 if (isloggedin() and !isguestuser()) {
     require($CFG->partialsdir . '/login/exception_already_logged.php');
 } else {
-    // set domaine for lostpassword page.
-    $lostpassworddomain = (utilities_network::is_platform_uses_mnet()) ? utilities_network::get_home()->url : $CFG->wwwroot;
     require('login_form.php');
     if ($errormsg) {
         $PAGE->requires->js_init_call('M.util.focus_login_error', null, true);

@@ -88,7 +88,7 @@ endif; ?>
                     <div class="password-wrapper">
                         <input class="form-control" type="password" name="password" id="password" size="15"
                                value="" <?php echo $autocomplete; ?> required />
-                        <a class="forgot-password-link pull-right form-helper-link" href="<?php echo $lostpassworddomain; ?>/login/forgot_password.php">
+                        <a class="forgot-password-link pull-right form-helper-link" href="<?php echo $formaction['host'] ?>/login/forgot_password.php">
                             <?php print_string('forgotten', 'theme_halloween') ?>
                         </a>
                     </div>
