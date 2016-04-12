@@ -37,13 +37,13 @@ class mail_generate {
         mail_object::generate('newpasswordtext', 'text');
         mail_object::generate('newpasswordtext', 'html');
 
-        // Mail sent after user registration.
+        // Mail sent after user registration for public platform.
         mail_object::generate('contentuseraccountemail', 'text');
         mail_object::generate('contentuseraccountemail', 'html');
 
-        // Welcome message.
-        mail_object::generate('contentwelcomeemail', 'text');
-        mail_object::generate('contentwelcomeemail', 'html');
+        // Mail sent after user registration for private platform.
+        mail_object::generate('contentuseraccountemailprivate', 'text');
+        mail_object::generate('contentuseraccountemailprivate', 'html');
 
         // Reset password.
         mail_object::generate('emailresetconfirmation', 'text');

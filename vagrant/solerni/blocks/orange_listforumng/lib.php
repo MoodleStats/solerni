@@ -22,7 +22,7 @@
  * @return array
  */
 function block_orange_listforumng_get_all($courseid) {
-    global $CFG, $DB, $USER;
+    global $DB;
 
     $forumngs = $DB->get_records_sql("
             SELECT F.id, F.name, F.intro, CM.id as instance, CM.added, CM.course
@@ -41,7 +41,7 @@ function block_orange_listforumng_get_all($courseid) {
  * @return array
  */
 function block_orange_listforumng_get_bylistforumngid($listforumngid) {
-    global $CFG, $DB, $USER;
+    global $DB;
 
     if (empty($listforumngid)) {
         return array();
@@ -56,7 +56,6 @@ function block_orange_listforumng_get_bylistforumngid($listforumngid) {
     $listforumng = array();
 
     foreach ($forumngs as $forumng) {
-        $forumnginstance = $forumng->instance;
 
         // Recuperation de toutes les discussions d'un forum.
         $forum = mod_forumng::get_from_id($forumng->id, mod_forumng::CLONE_DIRECT, true);
@@ -86,7 +85,7 @@ function block_orange_listforumng_get_bylistforumngid($listforumngid) {
 
         if (!empty($lastpostdate)) {
             $ind = max(array_keys($lastpostdate));
-            $datelastpost = userdate(max(array_keys($lastpostdate)));
+            $datelastpost = mod_forumng_utils::display_date(max(array_keys($lastpostdate)));
             $username = fullname($lastpostdate[$ind]->get_user());
             $discussionname = $lastpostdate[$ind]->get_discussion()->get_subject();
             $picture = $lastpostdate[$ind]->display_user_picture();

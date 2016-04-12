@@ -21,22 +21,20 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Emerging messages';
-$string['titleblock'] = '(Title of block)';
+$string['pluginname'] = 'Orange Emerging messages';
 
-$string['title'] = 'Title of block';
+$string['title'] = 'Discussion space';
 $string['nbdisplaypostdefault'] = '3';
 $string['nbdisplaypost'] = 'Numbers of posts displayed';
 $string['settings'] = "Settings";
 
-$string['typetop'] = 'Type of posts displayed';
-$string['mylastposts'] = 'Last posts of user';
-$string['lastdiscussions'] = 'Last discussions';
-$string['bestposts'] = 'Top rated posts';
+$string['mylastposts'] = 'My last posts';
+$string['lastdiscussions'] = 'Last posts';
+$string['bestposts'] = 'Best posts';
 $string['nouserposts'] = "You have no messages posted in the forums.";
 $string['nodiscussions'] = "No discussions have been initiated.";
 $string['nobestposts'] = "The messages are not rated yet";
+$string['rate'] = 'Rate : ';
+$string['linkdiscus'] = 'all discussions spaces';
 
-
-$string['orange_emerging_messages:myaddinstance'] = 'Add a new block Emerging Messages to My home';
 $string['orange_emerging_messages:addinstance'] = 'Add a new block Emerging Messages';

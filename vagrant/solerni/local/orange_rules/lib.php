@@ -35,7 +35,7 @@ defined('MOODLE_INTERNAL') || die();
  * @return boolean
  */
 function rule_add_rule($rule) {
-    global $CFG, $DB;
+    global $DB;
 
     if (!isset($rule->name)) {
         throw new coding_exception('Missing rule name in rule_add_rule().');
@@ -56,7 +56,7 @@ function rule_add_rule($rule) {
             return false;
         }
 
-        $lastinsertid = $DB->insert_record('orange_rules', $rule, false);
+        $DB->insert_record('orange_rules', $rule, false);
 
     } else {
         $DB->update_record('orange_rules', $rule);
@@ -98,7 +98,7 @@ function rule_add_rule($rule) {
  * @return stdClass $rule 
  */
 function rule_get_rule($id) {
-    global $CFG, $DB;
+    global $DB;
 
     $rule = $DB->get_record('orange_rules', array('id' => $id));
 
@@ -113,7 +113,7 @@ function rule_get_rule($id) {
  * @return string
  */
 function rule_get_cohortname($cohortid) {
-    global $CFG, $DB;
+    global $DB;
 
     $cohort = $DB->get_record('cohort', array('id' => $cohortid));
     if (isset($cohort->name)) {

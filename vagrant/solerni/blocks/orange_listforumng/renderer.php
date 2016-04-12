@@ -65,7 +65,7 @@ class block_orange_listforumng_renderer extends plugin_renderer_base {
                 $strdiscus .= "s";
             }
             $strmsg = get_string('messages', 'block_orange_listforumng');
-            if ($forumng['nbdiscus'] > 1) {
+            if ($forumng['nbposts'] > 1) {
                 $strmsg .= "s";
             }
             $row[] = "<font color='orange'><b>". $forumng['nbdiscus'] . "</b></font> "

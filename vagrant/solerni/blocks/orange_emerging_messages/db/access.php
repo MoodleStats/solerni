@@ -35,14 +35,4 @@ $capabilities = array (
         ),
         'clonepermissionsfrom' => 'moodle/site:manageblocks'
     ),
-
-    'block/orange_emerging_messages:myaddinstance' => array(
-        'riskbitmask' => RISK_PERSONAL,
-        'captype' => 'read',
-        'contextlevel' => CONTEXT_SYSTEM,
-        'archetypes' => array(
-            'user' => CAP_ALLOW
-        ),
-        'clonepermissionsfrom' => 'moodle/my:manageblocks'
-    ),
 );

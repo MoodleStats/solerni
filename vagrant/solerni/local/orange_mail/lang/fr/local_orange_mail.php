@@ -28,12 +28,12 @@ $string['orange_mail:config'] = 'Configuration du plugin Orange mail';
 $string['mailsetting'] = 'Configuration';
 $string['mailgenerate'] = 'Génération des modèles';
 $string['mailgeneratestatus'] = 'Génération des modèles de mails terminée. Vous devez purger les caches afin que ces nouveaux modèles soient pris en compte.';
-$string['mailtest'] = 'Envoi d\'emails de test';
-$string['mailteststatus'] = 'Envoi des emails de test terminé.';
-$string['pluginname_desc'] = 'Ce plugin permet de configurer les email envoyé par Solerni.';
+$string['mailtest'] = 'Envoi d\'e-mails de test';
+$string['mailteststatus'] = 'Envoi des e-mails de test terminé.';
+$string['pluginname_desc'] = 'Ce plugin permet de configurer les e-mail envoyé par Solerni.';
 $string['orange_mail'] = 'Orange mail';
-$string['css'] = 'CSS inclu dans l\'email';
-$string['css_desc'] = 'CSS inclus dans tous les emails. Il doit commencer par <STYLE> et terminer par </STYLE>';
+$string['css'] = 'CSS inclu dans l\'e-mail';
+$string['css_desc'] = 'CSS inclus dans tous les e-mails. Il doit commencer par <STYLE> et terminer par </STYLE>';
 $string['header'] = 'Entête du mail';
 $string['header_desc'] = 'Entête du mail (partie contenant le logo Orange).';
 $string['contentstart'] = 'Avant le contenu du mail';
@@ -58,16 +58,16 @@ $string['followus'] = 'Add "Follow us" section to mail';
 $string['followus_desc'] = 'Add "Follow us" section based on the template settings';
 $string['followustext'] = 'Add "Follow us" section to mail';
 $string['followustext_desc'] = 'Add "Follow us" section based on the template settings';
-$string['contactemail'] = 'Email de contact Solerni';
-$string['contactemail_desc'] = 'Email de contact Solerni. Cet e-mail est utilisé pour les mails envoyés par la plateforme mais aussi pour le formulaire de contact.';
-$string['supportemail'] = 'Email de support Solerni';
-$string['supportemail_desc'] = 'Email de support Solerni. Cet e-mail est utilisé pour les mails envoyés par la plateforme mais aussi pour le formulaire de contact.';
-$string['marketemail'] = 'Email marketing Solerni';
-$string['marketemail_desc'] = 'Email marketing Solerni. Cet e-mail est utilisé pour les mails envoyés par la plateforme mais aussi pour le formulaire de contact.';
-$string['partneremail'] = 'Email de partenariat Solerni';
-$string['partneremail_desc'] = 'Email de partenariat Solerni. Cet e-mail est utilisé pour les mails envoyés par la plateforme mais aussi pour le formulaire de contact.';
-$string['noreplyemail'] = 'Email No Reply Solerni';
-$string['noreplyemail_desc'] = 'Email No Reply Solerni. Cet e-mail est utilisé pour les mails envoyés par la plateforme mais aussi pour le formulaire de contact.';
+$string['contactemail'] = 'E-mail de contact Solerni';
+$string['contactemail_desc'] = 'E-mail de contact Solerni. Cet e-mail est utilisé pour les mails envoyés par la plateforme mais aussi pour le formulaire de contact.';
+$string['supportemail'] = 'E-mail de support Solerni';
+$string['supportemail_desc'] = 'E-mail de support Solerni. Cet e-mail est utilisé pour les mails envoyés par la plateforme mais aussi pour le formulaire de contact.';
+$string['marketemail'] = 'E-mail marketing Solerni';
+$string['marketemail_desc'] = 'E-mail marketing Solerni. Cet e-mail est utilisé pour les mails envoyés par la plateforme mais aussi pour le formulaire de contact.';
+$string['partneremail'] = 'E-mail de partenariat Solerni';
+$string['partneremail_desc'] = 'E-mail de partenariat Solerni. Cet e-mail est utilisé pour les mails envoyés par la plateforme mais aussi pour le formulaire de contact.';
+$string['noreplyemail'] = 'E-mail No Reply Solerni';
+$string['noreplyemail_desc'] = 'E-mail No Reply Solerni. Cet e-mail est utilisé pour les mails envoyés par la plateforme mais aussi pour le formulaire de contact.';
 $string['heading_general'] = 'Général';
 $string['heading_htmltemplate'] = 'Modèle HTML du mail';
 $string['heading_texttemplate'] = 'Modèle texte du mail';
@@ -83,11 +83,12 @@ $string['helptext'] = 'Vous pouvez utiliser les variables suivantes dans les tem
         . '<li>{$b->linkedin} : url du Linkedin de Solerni</li>'
         . '<li>{$b->googleplus} : url de la page Googleplus de Solerni</li>'
         . '<li>{$b->dailymotion} : url de la chaîne Dailymotion de Solerni</li>'
+        . '<li>{$b->servicename} : Solerni pour la Home ou Solerni - nom de la thématique</li>'
         . '</ul>'
         . '<br />Les variables en {$a->xxx} seront traitées par Moodle lors de l\'envoi du mail. Leur nombre varie en fonction de chaque mail.';
 $string['helphtml'] = 'Vous pouvez utiliser les variables suivantes dans les templates. Ces variables seront remplacées par du contenu lors de la génération des modèles.'
         . '<ul>'
-        . '<li>{$b->imageurl} : répertoire des images pour les emails</li>'
+        . '<li>{$b->imageurl} : répertoire des images pour les e-mails</li>'
         . '<li>{$b->sitename} : nom du site</li>'
         . '<li>{$b->siteurl} : url du site</li>'
         . '<li>{$b->catalogurl} : url du catalogue</li>'
@@ -98,14 +99,15 @@ $string['helphtml'] = 'Vous pouvez utiliser les variables suivantes dans les tem
         . '<li>{$b->linkedin} : url du Linkedin de Solerni</li>'
         . '<li>{$b->googleplus} : url de la page Googleplus de Solerni</li>'
         . '<li>{$b->dailymotion} : url de la chaîne Dailymotion de Solerni</li>'
+        . '<li>{$b->servicename} : Solerni pour la Home ou Solerni - nom de la thématique</li>'
         . '</ul>'
         . '<br />Les variables en {$a->xxx} seront traitées par Moodle lors de l\'envoi du mail. Leur nombre varie en fonction de chaque mail.';
 
 // Mail template strings.
-$string['solernimailsignature'] = 'L’équipe de <a href="{$b->siteurl}" class="lientxt18orange">{$b->sitename}</a><br />'
-        . 'Apprendre c’est toujours mieux ensemble <a href="{$b->siteurl}" class="lientxt18orange">solerni.com</a>';
-$string['solernimailsignaturetext'] = 'L’équipe de {$b->sitename}
-Apprendre c’est toujours mieux ensemble solerni.com';
+$string['solernimailsignature'] = '<span class="txt18BNoir">L’équipe de {$b->servicename}</span><br />'
+        . 'Apprendre c’est toujours mieux ensemble<br /> <a href="{$b->siteurl}" class="lientxt18orange">{$b->siteurl}</a>';
+$string['solernimailsignaturetext'] = 'L’équipe de {$b->servicename}
+Apprendre c’est toujours mieux ensemble {$b->siteurl}';
 $string['solernimailfootertext'] = 'Ce message vous est envoyé automatiquement, merci de ne pas y répondre directement.
               Si vous avez des questions écrivez-nous à {$b->contactemail}.
               Afin de bien recevoir nos e-mails, ajoutez cette adresse {$b->noreplyemail} dans votre carnet d\'adresses.';
@@ -138,27 +140,24 @@ Les informations pour vous connecter sont désormais :<br />
 
 <p>Dans la plupart des logiciels de messagerie, cette adresse devrait apparaître comme un lien de couleur bleue qu\'il vous suffit de cliquer. Si cela ne fonctionne pas, copiez ce lien et collez-le dans la barre d\'adresse de votre navigateur web.</p>';
 $string['contentuseraccountemail'] = '<p>Bonjour <span class="txt18BNoir">{$a->fullname}</span>,<br /><br />
-Nous vous remercions pour votre inscription sur le site <strong>{$a->sitename}</strong>.</p>
-<p>Voici un rappel de vos identifiants de connexion pour accéder à votre compte :</p>
+Bienvenue sur <strong>{$b->servicename}</strong>, votre nouvelle plateforme d\'apprentissage collaborative.</p>
+<p>Vos identifiants de connexion pour accéder à votre compte {$b->servicename} sont:</p>
 <ul>
-    <li>E-mail : <a href="mailto:{$a->email}" class="lientxt18orange">{$a->email}</a></li>
+    <li>Adresse e-mail : <a href="mailto:{$a->email}" class="lientxt18orange">{$a->email}</a></li>
     <li>Mot de passe : vous seul le connaissez</li>
 </ul>
-<p>Vous pouvez dès à présent accéder à votre compte en cliquant <a href="{$a->profileurl}" class="lientxt18orange">ici</a>.</p>
-<p>A très vite sur {$a->sitename}, votre nouvelle plateforme de Moocs francophone collaborative.</p>';
+<p>Vos identifiants vous permettent de vous connecter sur l\'ensemble des sites d\'apprentissage collaboratif proposé par {$b->servicename}.</p>
+<p>Vous pouvez donc vous connecter à partir de n\'importe quelle thématique et naviguer librement d\'une thématique à une autre.</p>
+<p>A bientôt sur {$b->servicename}.</p>';
+$string['contentuseraccountemailprivate'] = '<p>Bonjour <span class="txt18BNoir">{$a->fullname}</span>,<br /><br />
+Bienvenue sur <strong>{$b->servicename}</strong>, votre nouvelle plateforme d\'apprentissage collaborative.</p>
+<p>Vos identifiants de connexion pour accéder à votre compte {$b->servicename} sont:</p>
+<ul>
+    <li>Adresse e-mail : <a href="mailto:{$a->email}" class="lientxt18orange">{$a->email}</a></li>
+    <li>Mot de passe : vous seul le connaissez</li>
+</ul>
+<p>A bientôt sur {$b->servicename}.</p>';
 
-$string['contentwelcomeemail'] = '<p>Bienvenue <span class="txt18BNoir">{$a->fullname}</span>,</p>
-<p>Nous sommes ravis de vous accueillir sur {$a->sitename}, votre nouvelle plateforme de Moocs francophone collaborative.</p>
-<p>Plus que l’acquisition de connaissances, nous souhaitons que cette plateforme vous aide à développer vos compétences. Nous pensons en effet qu’aujourd’hui, l’apprentissage ne peut plus se faire seul face à un professeur ou un formateur mais aussi ensemble, en réseau. C\'est à travers un parcours favorisant les échanges et les activités que vous développerez vos compétences. Vous serez à tout moment accompagné(e) par vos pairs mais aussi par des pédagogues dont l’objectif est de faciliter vos apprentissages en stimulant le partage d’information et l\'enrichissement mutuel.</p>
-<p><strong>C’est parti, inscrivez-vous à un Mooc</strong><br /></p>
-<p>Notre plateforme vient tout juste d’être lancée et s’enrichira au fil des semaines de nouveaux Moocs aux contenus variés. </p>
-<p>Vous pouvez d’ores et déjà consulter <a href="{$b->catalogurl}" class="lientxt18orange">notre catalogue</a> et vous inscrire à l’un des Moocs disponibles aujourd’hui. Notre plateforme est ouverte et gratuite, les inscriptions sont donc illimitées&nbsp;! </p>
-<p><strong>Restez en contact, restez connecté</strong></p>
-<p>Pour être au courant des nouveautés et des évènements sur {$a->sitename}, rejoignez nous sur <a href="{$b->facebook}" target="_new" class="lientxt18orange">Facebook</a> et <a href="{$b->twitter}" target="_new" class="lientxt18orange">Twitter</a>, sans oublier d\'aller faire un tour sur notre <a href="{$b->blog}" target="_new" class="lientxt18orange">Blog</a> qui vous informera des actualités liées  à l’univers de ces nouvelles méthodes d’apprentissage sociales et collaboratives.</p>
-<p><strong>Pour bien communiquer, remplissez votre profil</strong></p>
-<p>Et pour être sûr(e) de pouvoir échanger avec les autres apprenants et les pédagogues, n’oubliez pas de remplir et de paramétrer votre <a href="{$b->profilurl}" class="lientxt18orange">profil</a>.</p>
-<p>Voilà, vous êtes prêt(e) à présent pour vous lancer avec nous dans l’aventure des Moocs collaboratifs.
-En espérant vous retrouver très vite sur {$a->sitename} où nous vous souhaitons de vivre de nouvelles expériences enrichissantes&nbsp;!</p>';
 $string['emailresetconfirmation'] = '<p>Bienvenue <span class="txt18BNoir">{$a->firstname} {$a->lastname}</span>,</p>
 
 <p> Vous avez demandé la réinitialisation de votre mot de passe. Si vous n\'êtes pas à l\'origine de cette action, veuillez ignorer ce message.</p>

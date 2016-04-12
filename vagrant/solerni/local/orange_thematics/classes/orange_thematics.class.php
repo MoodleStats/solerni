@@ -66,7 +66,7 @@ class orange_thematics {
      * Delete thematic and redirects to the list page
      */
     public function thematics_delete() {
-        global $CFG, $PAGE, $DB;
+        global $DB;
 
         if (empty($_GET)) {
             return false;
@@ -107,7 +107,7 @@ class orange_thematics {
      * Add new thematic or update if it exists. Redirects to the list page.
      */
     public function thematics_add() {
-        global $CFG, $PAGE, $DB;
+        global $DB;
 
         if (empty($_POST)) {
             return false;
@@ -121,7 +121,7 @@ class orange_thematics {
 
         if (isset($thematic->id)) {
             if ($thematic->id == 0) {
-                $lastinsertid = $DB->insert_record('orange_thematics', $thematics, false);
+                $DB->insert_record('orange_thematics', $thematic, false);
             } else {
                 $DB->update_record('orange_thematics', $thematic);
             }
