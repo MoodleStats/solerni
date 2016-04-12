@@ -115,21 +115,19 @@ class block_orange_paragraph_list extends block_base {
             $context = context_course::instance($course->id);
             $imgurl = array();
             $resizedimgurl = array();
-            $file = utilities_image::get_moodle_stored_file($context, 'format_flexpage', 'coursepicture');
 
-            $imgurl[0] = utilities_image::get_moodle_url_from_stored_file($file);
-            echo $imgurl[0];
-            for ($i=0; $i<=9; $i++) {
-                $property = 'paragraph' .$i.'picture';
+            for ($i=0; $i<=10; $i++) {
+                $property = 'paragraph' .($i+1).'picture';
                 $file = utilities_image::get_moodle_stored_file($context, 'format_flexpage', $property);
+                if ($file) {
+                    $imgurl[$i] = utilities_image::get_moodle_url_from_stored_file($file);
+                    $resizedimgurl[$i] = utilities_image::get_resized_url($imgurl[$i], array('w' => 400, 'h' => 250, 'scale' => true));
+                }
 
-                $imgurl[$i] = utilities_image::get_moodle_url_from_stored_file($file);
-            $resizedimgurl[$i] = utilities_image::get_resized_url($imgurl[$i], array('w' => 940, 'h' => 360, 'scale' => false));
-                echo $resizedimgurl[$i];
             }
+            $findoutmore->get_find_out_more($course);
             $this->content->text = $this->renderer->display_on_course_page($COURSE, $findoutmore, $resizedimgurl);
         }
-
 
         return $this->content;
     }

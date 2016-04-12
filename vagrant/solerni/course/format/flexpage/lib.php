@@ -885,6 +885,7 @@ class format_flexpage extends format_base {
             );
             $courseformatoptions = array_merge_recursive($courseformatoptions, $courseformatoptionsedit);
         }
+
         return $courseformatoptions;
     }
 
@@ -903,13 +904,26 @@ class format_flexpage extends format_base {
         $context = context_course::instance($this->courseid);
         $saved = file_save_draft_area_files($data->coursepicture, $context->id, 'format_flexpage',
         'coursepicture', 0, array('subdirs' => 0, 'maxfiles' => 1));
-        for ($i=0; $i<=9; $i++) {
-            $property = 'paragraph' .$i.'picture';
-            if(!empty($data->{$property})) {
-                file_save_draft_area_files($data->{$property}, $context->id, 'format_flexpage',
-                $property, 0, array('subdirs' => 0, 'maxfiles' => 1));
-                }
-        }
+        $saved = file_save_draft_area_files($data->paragraph1picture, $context->id, 'format_flexpage',
+        'paragraph1picture', 0, array('subdirs' => 0, 'maxfiles' => 1));
+        $saved = file_save_draft_area_files($data->paragraph2picture, $context->id, 'format_flexpage',
+        'paragraph2picture', 0, array('subdirs' => 0, 'maxfiles' => 1));
+        $saved = file_save_draft_area_files($data->paragraph3picture, $context->id, 'format_flexpage',
+        'paragraph3picture', 0, array('subdirs' => 0, 'maxfiles' => 1));
+        $saved = file_save_draft_area_files($data->paragraph4picture, $context->id, 'format_flexpage',
+        'paragraph4picture', 0, array('subdirs' => 0, 'maxfiles' => 1));
+        $saved = file_save_draft_area_files($data->paragraph5picture, $context->id, 'format_flexpage',
+        'paragraph5picture', 0, array('subdirs' => 0, 'maxfiles' => 1));
+        $saved = file_save_draft_area_files($data->paragraph6picture, $context->id, 'format_flexpage',
+        'paragraph6picture', 0, array('subdirs' => 0, 'maxfiles' => 1));
+        $saved = file_save_draft_area_files($data->paragraph7picture, $context->id, 'format_flexpage',
+        'paragraph7picture', 0, array('subdirs' => 0, 'maxfiles' => 1));
+        $saved = file_save_draft_area_files($data->paragraph8picture, $context->id, 'format_flexpage',
+        'paragraph8picture', 0, array('subdirs' => 0, 'maxfiles' => 1));
+        $saved = file_save_draft_area_files($data->paragraph9picture, $context->id, 'format_flexpage',
+        'paragraph9picture', 0, array('subdirs' => 0, 'maxfiles' => 1));
+        $saved = file_save_draft_area_files($data->paragraph10picture, $context->id, 'format_flexpage',
+        'paragraph10picture', 0, array('subdirs' => 0, 'maxfiles' => 1));
 
         $data = (array)$data;
 
@@ -985,7 +999,10 @@ function format_flexpage_pluginfile($course, $cm, $context, $filearea, $args, $f
 
     // ...requirelogin supressed to allow course image.
     // ...require_login();.
-    if ($filearea != 'coursepicture') {
+    if ($filearea != 'coursepicture' && $filearea != 'paragraph1picture' && $filearea != 'paragraph2picture'
+            && $filearea != 'paragraph3picture' && $filearea != 'paragraph4picture' && $filearea != 'paragraph5picture'
+            && $filearea != 'paragraph6picture' && $filearea != 'paragraph7picture' && $filearea != 'paragraph8picture'
+            && $filearea != 'paragraph9picture' && $filearea != 'paragraph10picture') {
         return false;
     }
 
