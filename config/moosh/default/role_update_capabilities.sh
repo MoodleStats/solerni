@@ -4,11 +4,16 @@
 BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 function init () {
-	# load of ansible variables us_290 us_292 us_71 us_247
-	if [ -f /opt/solerni/customers/${INSTANCE_KEY}/conf/env_moosh.cfg ]; then
-		. /opt/solerni/customers/${INSTANCE_KEY}/conf/env_moosh.cfg
+	local parent_directory="$(dirname `pwd`)"
+	local env_moosh_file=$parent_directory/conf/env_moosh.cfg
+	log_action "> Loading Moosh environment '${env_moosh_file}'..."
+	if [ -f $env_moosh_file ]; then
+		. ${env_moosh_file}
+		log_ok "- OK"
+	else
+		log_error "- Unable to load file '${env_moosh_file}'"
+		exit 1
 	fi
-}
 }
 
 function log_action () {
