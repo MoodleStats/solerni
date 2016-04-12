@@ -1,15 +1,14 @@
 #!/bin/bash
-# Fichier "default/conf.sh"
+# Fichier "default/conf_dev.sh"
+# DEV ENV specific conf - do not use any settings for production
 
 # The directory where this script is located
 BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 function init () {
-	if [ -f ../../conf/env_moosh.cfg ]; then
-		. ../../conf/env_moosh.cfg
-	fi
-	if [ -f ../conf/env_moosh.cfg ]; then
-		. ../conf/env_moosh.cfg
+	# load of ansible variables us_290 us_292 us_71 us_247
+	if [ -f /opt/solerni/customers/${INSTANCE_KEY}/conf/env_moosh.cfg ]; then
+		. /opt/solerni/customers/${INSTANCE_KEY}/conf/env_moosh.cfg
 	fi
 }
 
@@ -39,8 +38,8 @@ function log_ok () {
 
 function execute_moosh_command () {
 	log_action "> Executing Moosh command '$1'..."
-	local moosh_temp_stdout="/tmp/moosh-stdout-temp-`date '+%d%m%Y%H%M%S%N'`"
-	local moosh_temp_stderr="/tmp/moosh-stderr-temp-`date '+%d%m%Y%H%M%S%N'`"
+	local moosh_temp_stdout="/tmp/moosh-dev-stdout-temp-`date '+%d%m%Y%H%M%S%N'`"
+	local moosh_temp_stderr="/tmp/moosh-dev-stderr-temp-`date '+%d%m%Y%H%M%S%N'`"
 
 	local moosh_output=$(eval $1 2> $moosh_temp_stderr 1> $moosh_temp_stdout)
 
@@ -72,12 +71,9 @@ function execute_moosh_command () {
 
 function main () {
 	init
-	# Enable OAuth2 (googleoauth2) auth plugin (#us_13 and #us_23)
-	execute_moosh_command "moosh auth-manage enable googleoauth2"
 
-	# unenrolself is only for students in public PF
-	execute_moosh_command "moosh role-update-capability solerni_apprenant enrol/self:unenrolself allow 1"
-	execute_moosh_command "moosh role-update-capability solerni_apprenant enrol/manual:unenrolself allow 1"
+	# Disallow automatic updates
+	execute_moosh_command "moosh config-set updateautocheck 1"
 }
 
 main "$@"
