@@ -87,17 +87,21 @@ class block_orange_action extends block_base {
     }
 
     /**
-     * Creates the blocks main content
+     * Creates the blocks main content. Block orange_action wan be visible in three contexts :
+     * course dashboard, user dashboard and forum list.
+     *
+     * It could display either a course or a event.
      *
      * @return string
      */
     public function get_content() {
-        global $COURSE, $CFG, $DB;
+        global $COURSE;
 
         // If content has already been generated, don't waste time generating it again.
         if ($this->content !== null) {
             return $this->content;
         }
+
         $this->content = new stdClass;
         $this->content->text = '';
         $this->content->footer = '';
@@ -116,30 +120,17 @@ class block_orange_action extends block_base {
         }
 
         if (block_orange_action_on_course_page()) {
-            list ($extendedcourse, $imgurl) = block_orange_action_get_course($COURSE);
-            $this->content->text = $this->renderer->display_on_course_page($COURSE, $extendedcourse, $imgurl);
+             $this->content->text = block_orange_action_get_course($COURSE->id);
         }
 
         if (block_orange_action_on_my_page()) {
-            // Read course and event id from block_config. In priority we take the course if set.
+            // Read course id from block config. In priority we take the course.
             if (!empty($this->config->coursetopush)) {
-                $course = $DB->get_record('course', array('id' => $this->config->coursetopush));
-                // Get extended course information.
-                list ($extendedcourse, $imgurl) = block_orange_action_get_course($course);
-                // Check the course is not finished.
-                if ($extendedcourse->coursestatus != utilities_course::MOOCCLOSED) {
-                    $this->content->text = $this->renderer->display_course_on_my_page($course, $extendedcourse, $imgurl);
-                }
-            } else if (!empty($this->config->eventtopush)) {
-                $event = $DB->get_record('event', array('id' => $this->config->eventtopush));
-                // Check that event is not passed.
-                if ($event->timestart > time()) {
-                    $hrefparams['view'] = 'day';
-                    $eventurl = calendar_get_link_href(new moodle_url(CALENDAR_URL . 'view.php', $hrefparams),
-                            0, 0, 0, $event->timestart);
-                    $imgurl = $CFG->dirroot.'/blocks/orange_action/pix/default.jpg';
-                    $this->content->text = $this->renderer->display_event_on_my_page($event, $imgurl, $eventurl);
-                }
+                $this->content->text = block_orange_action_get_course($this->config->coursetopush);
+            }
+            // Read event id from block config.
+            if (!$this->content && !empty($this->config->eventtopush)) {
+                $this->content->text = block_orange_action_get_event($this->config->coursetopush);
             }
         }
 

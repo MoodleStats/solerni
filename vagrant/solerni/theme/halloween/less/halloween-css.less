@@ -131,6 +131,10 @@ input[type="checkbox"] {
     margin-right:           auto;
 }
 
+.line-primary {
+    border-bottom-color:    @brand-primary;
+}
+
 /*
  * Rollover
  */
@@ -314,17 +318,15 @@ img.icon {
     float:          right;
     line-height:    @s-double-md-margin;
 }
+
 // Footer version control display
 .version-control {
     font-size:  (@font-size-base * 0.8);
     color:      @orange-dark-2;
 }
 
-.oneline {
+.text-oneline {
     line-height:    1 !important;
-        margin-left:            60px;
-    margin-right:           auto;
-    
 }
 
 /* table */
@@ -369,8 +371,7 @@ th, td {
         display:    inline-block;
         width:      (@font-size-small * 2);
         padding:    0 @s-small-md-margin;
-        position:   relative;
-        top:        -1px;
+        font-size:  1.2em;
     }
 }
 
@@ -392,5 +393,5 @@ th, td {
 
 /* Weirdly, Moodle CSS for maincontent use 1px height ? */
 #maincontent {
-    display: inline-block;
+    display: inline;
 }

@@ -297,7 +297,6 @@ class extended_course_object {
                 array('courseid' => $course->id));
         foreach ($extendedcourseflexpagevalues as $extendedcourseflexpagevalue) {
             if ($extendedcourseflexpagevalue->format == "flexpage") {
-
                 $this->set_extended_course($extendedcourseflexpagevalue, $course, $context);
             }
         }

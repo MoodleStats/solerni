@@ -96,7 +96,7 @@ echo $OUTPUT->doctype() ?>
         <div class="container">
             <?php echo $OUTPUT->navbar(); ?>
         </div>
-        <div class="col-xs-12 fullwidth-line"></div>
+        <div class="col-xs-12 fullwidth-line line-primary"></div>
     <?php endif; ?>
     <?php if ($PAGE->button) : ?>
         <div class="container">

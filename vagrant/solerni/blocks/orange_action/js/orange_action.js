@@ -1,5 +1,4 @@
-<?php
-// This file is part of Moodle - http://moodle.org/
+// This file is part of The Orange Halloween Moodle Theme
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -14,18 +13,12 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Orange library & utilities
- *
- * @package     local
- * @subpackage  orange_library
- * @copyright   2015 Orange
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
 
+jQuery(document).ready(function() {
 
-defined('MOODLE_INTERNAL') || die();
+    jQuery('.js-action-media-playbutton').on ('click', function() {
+        jQuery('.action-media-video').show(250);
+        jQuery('.action-media-image .img-responsive').addClass('get-blurry');
+    });
 
-$plugin->version   = 2016041200;                // The current module version (Date: YYYYMMDDXX).
-$plugin->requires  = 2014051207;                // Requires this Moodle version Moodle 2.7.7.
-$plugin->component = 'local_orange_library';    // Full name of the plugin (used for diagnostics).
+});
