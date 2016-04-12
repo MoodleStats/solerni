@@ -55,7 +55,7 @@ class orange_customers  {
      * Outputs the packaging form
      */
     public function customers_form() {
-        global $CFG, $PAGE, $DB;
+        global $DB;
 
         $get = new stdClass();
 
@@ -85,12 +85,9 @@ class orange_customers  {
      * Outputs list of customers.
      */
     public function customers_list() {
-        global $CFG, $PAGE, $DB, $OUTPUT;
+        global $DB;
 
         $sitecontext = context_system::instance();
-
-        $stredit   = get_string('edit');
-        $strdelete = get_string('delete');
 
         $table = new html_table();
         $table->head = array ();

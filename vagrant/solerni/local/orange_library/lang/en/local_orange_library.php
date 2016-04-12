@@ -86,6 +86,8 @@ $string['startenrolmentdatemissing'] = "The enrolment start date is missing on S
 $string['endenrolmentdatemissing'] = "The enrolment end date is missing on Self Enrol method";
 $string['orangeinvitationconfigmissing'] = "The configuration of 'MOOC URLs access' enrolment method need to be save once";
 
+$string['today'] = "tda, ";
+$string['yesterday'] = "yda, ";
 // Cron Tasks.
 $string['orange_library_mnet_task'] = "Update MNET keys";
 $string['orange_library_mnet_mail'] = '<p>Hello {$a->firstname} {$a->lastname},</p>

@@ -274,3 +274,58 @@ moosh config-set sitepolicy ''
 
 # disable external open badges
 moosh config-set badges_allowexternalbackpack 0
+
+# Hide blocks for solerni_teacher (#us_507)
+moosh block-manage hide admin_bookmarks
+moosh block-manage hide badges
+moosh block-manage hide blog_menu
+moosh block-manage hide blog_recent
+moosh block-manage hide blog_tags
+moosh block-manage hide comments
+moosh block-manage hide community
+moosh block-manage hide completionstatus
+moosh block-manage hide course_list
+moosh block-manage hide course_list
+moosh block-manage hide course_overview
+moosh block-manage hide course_summary
+moosh block-manage hide feedback
+moosh block-manage hide login
+moosh block-manage hide mentees
+moosh block-manage hide messages
+moosh block-manage hide mnet_hosts
+moosh block-manage hide myprofile
+moosh block-manage hide news_items
+moosh block-manage hide participants
+moosh block-manage hide recent_activity
+moosh block-manage hide search_forums
+moosh block-manage hide section_links
+moosh block-manage hide selfcompletion
+moosh block-manage hide site_main_menu
+moosh block-manage hide social_activities
+moosh block-manage hide tag_flickr
+moosh block-manage hide tag_youtube
+
+# disable editors 'plain text' and 'Atto HTML'
+moosh editor-manage disable atto
+moosh editor-manage disable textarea
+
+# Blog : enableblogs to false (#us_468)
+moosh config-set enableblogs 0
+
+# block_orange_course_dashboard (#us_307)
+moosh block-instance_config system 0 orange_course_dashboard my-index defaultmaxrecommendations 0
+
+# disable 'Popup' and 'Jabber' notification in Plugins/Messages outputs (#us_468)
+moosh message-manage disable jabber
+moosh message-manage disable popup
+
+# Set defaut email for badge (#us_468)
+moosh config-set message_provider_moodle_badgerecipientnotice_loggedin popup,email message
+moosh config-set message_provider_moodle_badgecreatornotice_loggedin email message
+
+# Set import/export fields for Mnet user profil copy (#us_486)
+moosh peer-fields policyagreed,suspended,idnumber,emailstop,icq,skype,yahoo,aim,msn,phone1,phone2,institution,department,address,city,country,lang,calendartype,timezone,firstaccess,lastaccess,lastlogin,currentlogin,secret,picture,url,description,descriptionformat,mailformat,maildigest,maildisplay,autosubscribe,trackforums,trustbitmask,imagealt,lastnamephonetic,firstnamephonetic,middlename,alternatename
+
+# Set user fullname format (#us_504)
+moosh config-set fullnamedisplay "firstname lastname"
+moosh config-set emailonlyfromnoreplyaddress 1

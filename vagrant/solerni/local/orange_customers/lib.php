@@ -35,7 +35,7 @@ defined('MOODLE_INTERNAL') || die();
  * @return boolean
  */
 function customer_add_customer($customer) {
-    global $CFG, $DB;
+    global $DB;
 
     if (!isset($customer->name)) {
         throw new coding_exception('Missing customer name in customer_add_customer().');
@@ -59,7 +59,7 @@ function customer_add_customer($customer) {
  * @return stdClass $customer
  */
 function customer_get_customer($id) {
-    global $CFG, $DB;
+    global $DB;
 
     $customer = $DB->get_record('orange_customers', array('id' => $id));
 
@@ -74,7 +74,7 @@ function customer_get_customer($id) {
  * @return stdClass $customer
  */
 function customer_get_customerbycategoryid($categoryid) {
-    global $CFG, $DB;
+    global $DB;
 
     $customer = $DB->get_record('orange_customers', array('categoryid' => $categoryid));
 
@@ -126,7 +126,6 @@ function customer_get_customerbycategoryid($categoryid) {
  * $args[] = filename
  */
 function local_orange_customers_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options=array()) {
-    global $CFG, $DB;
 
     // Not sure about that, I'm not context-fluent. Our module use SYSTEM.
     if ( $context->contextlevel != CONTEXT_SYSTEM ) {

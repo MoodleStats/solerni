@@ -109,7 +109,8 @@ class block_orange_horizontal_numbers extends block_base {
 
         $nbusersregistred = block_orange_horizontal_numbers_get_nbusers();
 
-        $this->content->text = $this->renderer->display_horizontal_numbers($nbuserssonnected, $nbposts, $nbusersregistred, $lastuser);
+        $this->content->text = $this->renderer->display_horizontal_numbers(
+                $nbuserssonnected, $nbposts, $nbusersregistred, $lastuser);
 
         return $this->content;
     }

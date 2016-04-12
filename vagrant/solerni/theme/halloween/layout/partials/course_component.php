@@ -40,7 +40,9 @@ if ( $courseinfos ) :
     <div class="col-sm-12 col-md-6">
         <div class="thumbnail">
             <div class="thumbnail-slide">
-                <img src="<?php echo $courseimageurl; ?>" class="img-thumbnail img-responsive">
+                <?php if (!empty($courseimageurl)) : ?>
+                    <img src="<?php echo $courseimageurl; ?>" class="img-thumbnail img-responsive">
+                <?php endif; ?>
                 <div class="caption">
                     <h4><?php echo $coursename; ?></h4>
                     <?php if ($customerurl && $customer && $customer->name) : ?>

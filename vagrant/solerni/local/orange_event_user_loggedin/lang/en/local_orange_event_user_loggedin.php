@@ -26,7 +26,7 @@ require_once("$CFG->dirroot/local/orange_mail/mail_init.php");
 
 $string['pluginname'] = 'Orange Evt user_loggedin';
 $string['local_orange_event_user_loggedin'] = 'Orange Evt user_loggedin';
-$string['subjectuseraccountemail'] = 'Reminder of your {$a->sitename} login details';
+$string['subjectuseraccountemail'] = 'Reminder of your {$a->customername} login details';
 $string['contentuseraccountemail'] = mail_init::init('contentuseraccountemail', 'html');
-$string['subjectwelcomeemail'] = 'Welcome to {$a->sitename}';
-$string['contentwelcomeemail'] = mail_init::init('contentwelcomeemail', 'html');
+$string['subjectuseraccountemailprivate'] = 'Reminder of your {$a->customername} login details';
+$string['contentuseraccountemailprivate'] = mail_init::init('contentuseraccountemailprivate', 'html');

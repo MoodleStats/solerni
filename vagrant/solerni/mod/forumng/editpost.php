@@ -124,6 +124,9 @@ function send_edit_email($formdata, $post) {
 }
 
 try {
+    // ORANGE : Introducing the login screen to be able to reply when not connected yet
+    require_login();
+
     // Get type of action/request and check security
     $isdiscussion = false;
     $isroot = false;

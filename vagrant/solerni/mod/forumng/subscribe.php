@@ -37,6 +37,9 @@ $discussionid = optional_param('d', 0, PARAM_INT);
 $groupid = optional_param('g', 0, PARAM_INT);
 $cloneid = optional_param('clone', 0, PARAM_INT);
 
+// ORANGE : Introducing the login screen to be able to subscribe or unsubscribe when not connected yet
+require_login();
+
 $pageparams = array();
 if ($courseid) {
     $pageparams['course'] = $courseid;

@@ -96,8 +96,9 @@ class local_orange_library_external extends external_api {
         return new external_multiple_structure(
             new external_single_structure(
                 array(
-                    'name'   => new external_value(PARAM_TEXT, 'profile field name'),
-                    'value'  => new external_value(PARAM_TEXT, 'profile field value')
+                    'type'   => new external_value(PARAM_TEXT, 'profile field or preference'),
+                    'name'   => new external_value(PARAM_TEXT, 'field name'),
+                    'value'  => new external_value(PARAM_TEXT, 'field value')
                 )
             )
         );

@@ -35,7 +35,7 @@ defined('MOODLE_INTERNAL') || die();
  * @return int
  */
 function thematic_add_thematic($thematic) {
-    global $CFG, $DB;
+    global $DB;
 
     if (!isset($thematic->name)) {
         throw new coding_exception('Missing thematic name in thematic_add_thematic().');
@@ -59,7 +59,7 @@ function thematic_add_thematic($thematic) {
  * @return stdClass $thematics
  */
 function thematic_get_thematic($id=null) {
-    global $CFG, $DB;
+    global $DB;
 
     if ($id == null) {
 
@@ -86,7 +86,7 @@ function thematic_get_thematic($id=null) {
  * @return stdClass $thematics
  */
 function thematic_get_thematic_alllanguages($id=null) {
-    global $CFG, $DB;
+    global $DB;
 
     if ($id == null) {
         $thematics = $DB->get_records('orange_thematics');

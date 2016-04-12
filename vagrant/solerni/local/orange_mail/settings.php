@@ -33,7 +33,7 @@ if ($hassiteconfig) {
 
     $page->add(new admin_setting_configtext('local_orangemail/contactemail',
             new lang_string('contactemail', 'local_orange_mail'),
-            new lang_string('contactemail_desc', 'local_orange_mail'), 'contact@solerni.com', PARAM_NOTAGS));
+            new lang_string('contactemail_desc', 'local_orange_mail'), 'contact@solerni.fr', PARAM_NOTAGS));
 
     $page->add(new admin_setting_configtext('local_orangemail/supportemail',
             new lang_string('supportemail', 'local_orange_mail'),
@@ -49,7 +49,7 @@ if ($hassiteconfig) {
 
     $page->add(new admin_setting_configtext('local_orangemail/noreplyemail',
             new lang_string('noreplyemail', 'local_orange_mail'),
-            new lang_string('noreplyemail_desc', 'local_orange_mail'), 'noreply@solerni.com', PARAM_NOTAGS));
+            new lang_string('noreplyemail_desc', 'local_orange_mail'), 'noreply@solerni.fr', PARAM_NOTAGS));
 
 
     $page->add(new admin_setting_heading('htmltemplate',
@@ -139,7 +139,7 @@ ul.forumng-commands a {
             <td width="70" >
                 <a href="{$b->siteurl}"><img src="{$b->imageurl}logo.png" width="62" height="54" alt="{$b->sitename}"
                 title="{$b->sitename}" /></a>
-            </td><td class="txt22BBlanc" align="left">{$b->sitename}</td>
+            </td><td class="txt22BBlanc" align="left">{$b->servicename}</td>
         </tr>
       </table></td>
   </tr>

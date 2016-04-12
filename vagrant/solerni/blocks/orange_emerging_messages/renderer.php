@@ -23,6 +23,7 @@
  */
 
 defined('MOODLE_INTERNAL') || die;
+use local_orange_library\utilities\utilities_course;
 
 class block_orange_emerging_messages_renderer extends plugin_renderer_base {
 
@@ -30,18 +31,90 @@ class block_orange_emerging_messages_renderer extends plugin_renderer_base {
      * Display list of lasts posts of user
      *
      * @param $listpost array contains posts
+     * @return string html
+     */
+    public function display_emerging_messages($course, $listposts, $listdiscussions, $listbestposts) {
+        $output = "";
+
+        // Get link acces forum of course.
+        $courseutilities = new utilities_course();
+        $courselinkforum = $courseutilities->get_course_url_page_forum($course);
+
+        $output .= html_writer::start_tag('div', array('class' => 'row'));
+
+            $output .= html_writer::start_tag('div', array('class' => 'col-md-8 text-left'));
+                $output .= html_writer::tag('h2', get_string('title', 'block_orange_emerging_messages'));
+            $output .= html_writer::end_tag('div');
+
+            $output .= html_writer::start_tag('div', array('class' => 'col-md-4 text-right'));
+                $output .= html_writer::link($courselinkforum, get_string('linkdiscus', 'block_orange_emerging_messages'),
+                        array('class' => 'btn btn-default'));
+            $output .= html_writer::end_tag('div');
+
+         $output .= html_writer::end_tag('div');
+
+        $output .= html_writer::start_tag('div', array('class' => 'row'));
+            $output .= html_writer::start_tag('div', array('class' => 'col-md-4'));
+
+                $output .= html_writer::start_tag('div', array('class' => 'u-inverse'));
+                    $output .= html_writer::tag('h4', get_string('mylastposts', 'block_orange_emerging_messages'));
+                $output .= html_writer::end_tag('div');
+
+        if (count($listposts) != 0) {
+                    $output .= $this->display_emerging_discus_and_post($listposts);
+        } else {
+                    $output .= $this->display_emerging_messages_by_user_no_result();
+        }
+
+            $output .= html_writer::end_tag('div');
+
+            $output .= html_writer::start_tag('div', array('class' => 'col-md-4'));
+                $output .= html_writer::start_tag('div', array('class' => 'u-inverse'));
+                    $output .= html_writer::tag('h4', get_string('lastdiscussions', 'block_orange_emerging_messages'));
+                $output .= html_writer::end_tag('div');
+
+        if (count($listdiscussions) != 0) {
+                    $output .= $this->display_emerging_discus_and_post($listdiscussions);
+        } else {
+                    $output .= $this->display_emerging_discussions_last_no_result();
+        }
+            $output .= html_writer::end_tag('div');
+
+            $output .= html_writer::start_tag('div', array('class' => 'col-md-4'));
+                $output .= html_writer::start_tag('div', array('class' => 'u-inverse'));
+                    $output .= html_writer::tag('h4', get_string('bestposts', 'block_orange_emerging_messages'));
+                $output .= html_writer::end_tag('div');
+
+        if (count($listbestposts) != 0) {
+                    $output .= $this->display_emerging_best_messages($listbestposts);
+        } else {
+                    $output .= $this->display_emerging_best_messages_no_result();
+        }
+            $output .= html_writer::end_tag('div');
+
+        $output .= html_writer::end_tag('div');
+
+        return $output;
+    }
+
+
+    /**
+     * Display list of lasts posts of user
+     *
+     * @param $listpost array contains posts
      * @return string html 
      */
-    public function display_emerging_messages_by_user($listpost) {
-        global $CFG;
+    public function display_emerging_discus_and_post($listpost) {
         $output = "";
+
         foreach ($listpost as $post) {
-            $link = $CFG->wwwroot . "/mod/forumng/discuss.php?d=" . $post->discussionid . "#p" . $post->id;
+            $link = new moodle_url('/mod/forumng/discuss.php', array('d' => $post->discussionid . "#p" . $post->id));
             $output .= html_writer::start_tag('div', array('class' => 'boxmessage'));
-            $output  .= html_writer::start_tag('a', array('class' => 'linkboxmessage',  'href' => $link));
-            $output .= "<b>" . $post->discussionname . "</b><br>";
-            $output .= "<i>" . cut_message($post->message) . "</i><br>";
-            $output .= html_writer::end_tag('a');
+                $output .= html_writer::start_tag('a', array('class' => 'linkboxmessage',  'href' => $link));
+                    $output .= html_writer::tag('span', "<strong>" . $post->discussionname . "</strong>");
+                    $output .= html_writer::empty_tag('br');
+                    $output .= html_writer::tag('span', "<em>" . cut_message($post->message) . "</em>");
+                $output .= html_writer::end_tag('a');
             $output .= html_writer::end_tag('div');
         }
         return $output;
@@ -54,33 +127,9 @@ class block_orange_emerging_messages_renderer extends plugin_renderer_base {
      */
     public function display_emerging_messages_by_user_no_result() {
         $output = html_writer::start_tag('div');
-        $output .= get_string('nouserposts', 'block_orange_emerging_messages');
+            $output .= html_writer::tag('span', get_string('nouserposts', 'block_orange_emerging_messages'));
         $output .= html_writer::end_tag('div');
 
-        return $output;
-    }
-
-
-    /**
-     * Display lasts discussions list
-     *
-     * @param $listpost array contains posts
-     * @return string html
-     */
-    public function display_emerging_discussions_last($listpost) {
-        global $CFG;
-        $output = "";
-        foreach ($listpost as $post) {
-            $link = $CFG->wwwroot . "/mod/forumng/discuss.php?d=" . $post->discussionid;
-            $output .= html_writer::start_tag('div', array('class' => 'boxdiscus'));
-            $output  .= html_writer::start_tag('a', array('class' => 'linkboxmessage',  'href' => $link));
-            $output .= html_writer::start_tag('b', array('class' => 'valign'));
-            $output .= $post->discussionname;
-            // $output .= "<i>" . $post->message . "</i>";
-            $output .= html_writer::end_tag('b');
-            $output .= html_writer::end_tag('a');
-            $output .= html_writer::end_tag('div');
-        }
         return $output;
     }
 
@@ -92,7 +141,7 @@ class block_orange_emerging_messages_renderer extends plugin_renderer_base {
      */
     public function display_emerging_discussions_last_no_result() {
         $output = html_writer::start_tag('div');
-        $output .= get_string('nodiscussions', 'block_orange_emerging_messages');
+            $output .= html_writer::tag('span', get_string('nodiscussions', 'block_orange_emerging_messages'));
         $output .= html_writer::end_tag('div');
 
         return $output;
@@ -106,16 +155,17 @@ class block_orange_emerging_messages_renderer extends plugin_renderer_base {
      * @return string html
      */
     public function display_emerging_best_messages($listpost) {
-        global $CFG;
         $output = "";
         foreach ($listpost as $post) {
-            $link = $CFG->wwwroot . '/mod/forumng/discuss.php?d='.$post->discussionid . '#p' . $post->id;
+            $link = new moodle_url('/mod/forumng/discuss.php', array('d' => $post->discussionid . "#p" . $post->id));
             $output .= html_writer::start_tag('div', array('class' => 'boxmessage'));
-            $output  .= html_writer::start_tag('a', array('class' => 'linkboxmessage',  'href' => $link));
-            $output .= "<b>" . $post->discussionname . "</b><br>";
-            $output .= "<i>" . cut_message($post->message) . "</i><br>";
-            $output .= "<i> Note : " . $post->rate . "</i><br>";
-            $output .= html_writer::end_tag('a');
+                $output  .= html_writer::start_tag('a', array('class' => 'linkboxmessage',  'href' => $link));
+                    $output .= html_writer::tag('span', "<strong>" . $post->discussionname . "</strong>");
+                    $output .= html_writer::empty_tag('br');
+                    $output .= html_writer::tag('span', "<em>" . cut_message($post->message) . "</em>");
+                    $output .= html_writer::empty_tag('br');
+                    $output .= html_writer::tag('span', get_string('rate', 'block_orange_emerging_messages') . $post->rate);
+                $output .= html_writer::end_tag('a');
             $output .= html_writer::end_tag('div');
         }
         return $output;
@@ -128,7 +178,7 @@ class block_orange_emerging_messages_renderer extends plugin_renderer_base {
      */
     public function display_emerging_best_messages_no_result() {
         $output = html_writer::start_tag('div');
-        $output .= get_string('nobestposts', 'block_orange_emerging_messages');
+            $output .= html_writer::tag('span', get_string('nobestposts', 'block_orange_emerging_messages'));
         $output .= html_writer::end_tag('div');
 
         return $output;
