@@ -294,7 +294,6 @@ function main () {
 	execute_moosh_command "moosh module-manage hide survey"
 	execute_moosh_command "moosh module-manage hide url"
 	execute_moosh_command "moosh module-manage hide wiki"
-	execute_moosh_command "moosh module-manage hide listforumng"
 
 	# Set default Store (unable memcached)
 	execute_moosh_command "moosh cache-admin memcached editmodemappings \"default_application\""
