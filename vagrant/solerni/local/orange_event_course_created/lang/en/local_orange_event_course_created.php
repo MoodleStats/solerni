@@ -28,8 +28,8 @@ $string['welcome_enrolment_message_notstarted'] = 'This MOOC is not started : it
 $string['welcome_enrolment_message_started'] = 'The MOOC is open : you can start now. Good MOOC !';
 $string['content_piwik_fail'] = 'The creation of Solerni course  didn\'t generate a new Piwik account or Piwik segment. Please contact the manager of Solerni statistics';
 $string['content_piwik_success'] = '<p>Hello <span class="txt18BNoir">{$a->username}</span>,</p>
-<p>The creation of new course \'{$a->coursename}\'on platform {$a->sitename} generated automatically a new account and Segment Piwik.</p>
-<p>Please find bebow Your Piwik login details :</p>
+<p>The creation of new course \'{$a->coursename}\'on platform {$a->sitename} generated automatically a new account and site Piwik.</p>
+<p>Please find below Your Piwik login details :</p>
 <ul>
    <li>user name : {$a->userpiwik}</li>
    <li>password  : {$a->passwordpiwik}</li>

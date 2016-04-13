@@ -180,6 +180,25 @@ class utilities_object {
         }
         return $return;
     }
+
+    /**
+     * format date for forum
+     * @param string $date date
+     * @return string
+     */
+    public static function get_formatted_date_forum($date) {
+
+        // The date is today.
+        if (date('Y-m-d', $date) == date('Y-m-d')) {
+            return get_string('today', 'local_orange_library') . userdate($date, '%H:%M');
+        }
+
+        // The date is yesterday.
+        if (date('Y-m-d', $date) == date('Y-m-d', mktime(0, 0, 0, date("m")  , date("d") - 1, date("Y")))) {
+            return get_string('yesterday', 'local_orange_library') . userdate($date, '%H:%M');
+        }
+
+        // The date is another day.
+        return userdate($date, '%d %b %Y');
+    }
 }
-
-

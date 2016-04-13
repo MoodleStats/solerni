@@ -168,7 +168,8 @@ function core_login_process_password_reset_request() {
     // DISPLAY FORM.
 
     echo $OUTPUT->header();
-    echo $OUTPUT->box(get_string('passwordforgotteninstructions2'), 'generalbox boxwidthnormal boxaligncenter');
+    // 20160404 - Orange - change class
+    echo $OUTPUT->box(get_string('passwordforgotteninstructions2'), 'generalbox boxwidthwide');
     $mform->display();
 
     echo $OUTPUT->footer();
@@ -234,7 +235,8 @@ function core_login_process_password_set($token) {
         $mform->set_data($setdata);
         $PAGE->verify_https_required();
         echo $OUTPUT->header();
-        echo $OUTPUT->box(get_string('setpasswordinstructions'), 'generalbox boxwidthnormal boxaligncenter');
+        // 20160407 - Orange - change in CSS class.
+        echo $OUTPUT->box(get_string('setpasswordinstructions'), 'generalbox boxwidthwide');
         $mform->display();
         echo $OUTPUT->footer();
         return;
