@@ -294,7 +294,6 @@ function main () {
 	execute_moosh_command "moosh module-manage hide survey"
 	execute_moosh_command "moosh module-manage hide url"
 	execute_moosh_command "moosh module-manage hide wiki"
-	execute_moosh_command "moosh module-manage hide listforumng"
 
 	# Set default Store (unable memcached)
 	execute_moosh_command "moosh cache-admin memcached editmodemappings \"default_application\""
@@ -395,6 +394,11 @@ function main () {
 	# Set user fullname format (#us_504)
 	execute_moosh_command "moosh config-set fullnamedisplay \"firstname lastname\""
 	execute_moosh_command "moosh config-set emailonlyfromnoreplyaddress 1"
+
+	# Manage blocks for 'forum' page (#us_413 - All forum in thematic)
+	execute_moosh_command "moosh block-add system 0 orange_horizontal_numbers forum-index content -10"
+	execute_moosh_command "moosh block-add system 0 orange_listforumng forum-index content -8"
+	execute_moosh_command "moosh block-add system 0 orange_list_bestforumng forum-index content -4"
 }
 
 main "$@"
