@@ -394,6 +394,11 @@ function main () {
 	# Set user fullname format (#us_504)
 	execute_moosh_command "moosh config-set fullnamedisplay \"firstname lastname\""
 	execute_moosh_command "moosh config-set emailonlyfromnoreplyaddress 1"
+
+	# Manage blocks for 'forum' page (#us_413 - All forum in thematic)
+	execute_moosh_command "moosh block-add system 0 orange_horizontal_numbers forum-index content -10"
+	execute_moosh_command "moosh block-add system 0 orange_listforumng forum-index content -8"
+	execute_moosh_command "moosh block-add system 0 orange_list_bestforumng forum-index content -4"
 }
 
 main "$@"
