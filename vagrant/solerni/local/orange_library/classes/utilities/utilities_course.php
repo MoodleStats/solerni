@@ -840,4 +840,38 @@ class utilities_course {
         return $output;
 
     }
+
+    /**
+     * Get the URL for course menu "PARTAGER"
+     *
+     * @return url 
+     */
+    public static function get_mooc_share_menu($courseid) {
+        global $DB;
+        
+        $folder = $DB->get_record('folder', array('course'=>$courseid), '*', MUST_EXIST);
+
+        if ($folder) {
+            return new \moodle_url('/mod/folder/view.php', array('f' => $folder->id));
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Get the URL for course menu "S'INFORMER"
+     *
+     * @return url 
+     */
+    public static function get_mooc_learnmore_menu($courseid) {
+        global $DB;
+        
+        $blog = $DB->get_record('oublog', array('course'=>$courseid), '*', MUST_EXIST);
+
+        if ($blog) {
+            return new \moodle_url('/mod/oublog/view.php', array('id' => $blog->id));
+        } else {
+            return null;
+        }
+    }
 }
