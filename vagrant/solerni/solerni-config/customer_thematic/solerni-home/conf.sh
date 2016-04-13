@@ -16,7 +16,7 @@ moosh config-set enablewebservices 1
 moosh config-set webserviceprotocols rest
 
 #Import Role
-moosh role-import apiuser solerni-config/customer_thematic/${CUSTOMER_THEMATIC_KEY}/users_roles/solerniapiuser.xml
+moosh role-import api_user solerni-config/customer_thematic/${CUSTOMER_THEMATIC_KEY}/users_roles/solerniapiuser.xml
 
 # Create API User
 moosh user-create --password apiuser01! --email solerniapiuser@orange.fr --firstname 'API' --lastname 'User' --city 'Paris' --country 'FR' 'api_user'
