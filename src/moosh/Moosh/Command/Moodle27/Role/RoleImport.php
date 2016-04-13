@@ -21,9 +21,8 @@ class RoleImport extends MooshCommand
 
     public function execute()
     {
-        global $CFG, $DB;
+        global $DB;
 
-        $arguments = $this->arguments;
         $shortname = $this->arguments[0];
         $filearg = $this->arguments[1];
 
