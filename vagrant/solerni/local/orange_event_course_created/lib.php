@@ -1,10 +1,26 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * @package    block_orange_local
+ * @subpackage orange_event_course_created
+ * @copyright  2016 Orange
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 function xml_from_piwik($url) {   
   $ch = curl_init();
   $timeout = 5;
@@ -20,20 +36,17 @@ function xml_from_piwik($url) {
   return ($xmlresponse);
 }
 
-function sendmail_to_admin_piwik($course,$event,$xmlaccount,$xmlaccess,$xmlsegment,$xmllogin) {
+function sendmail_to_admin_piwik($course,$event,$pass,$xmlaccount,$xmlaccess) {
     global $CFG, $DB;
     $site = get_site();
     $contact = core_user::get_support_user();
     $user = $DB->get_record('user', array('id' => $event->userid));
-    $xmlsegment = intval($xmlsegment);
-    $xmllogin = intval($xmllogin);
     $srtsuccess = 'ok';
     $userpiwik = $course->shortname;
-    $password = md5($userpiwik);
-    if (($xmlaccount->success['message'] == $srtsuccess) && ($xmlaccess->success['message'] == $srtsuccess) && is_int($xmlsegment) == true && is_int($xmllogin) == true ) {
+    if (($xmlaccount->success['message'] == $srtsuccess) && ($xmlaccess->success['message'] == $srtsuccess)) {
         $message = get_string('content_piwik_success', 'local_orange_event_course_created');
         $key = array('{$a->username}', '{$a->coursename}', '{$a->sitename}', '{$a->userpiwik}', '{$a->passwordpiwik}');
-        $value = array($user->username, $course->fullname, $site->fullname, $userpiwik, $password);
+        $value = array($user->username, $course->fullname, $site->fullname, $userpiwik, $pass);
         $message = str_replace($key, $value, $message);
         $subject = get_string('subject_piwik_success', 'local_orange_event_course_created');
         $subject = str_replace('{$a->sitename}', format_string($site->fullname), $subject);
