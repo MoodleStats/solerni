@@ -89,7 +89,7 @@ class block_orange_listforumng extends block_base {
      * @return string
      */
     public function get_content() {
-        global $USER;
+        global $USER, $CFG;
 
         // If content has already been generated, don't waste time generating it again.
         if ($this->content !== null) {
@@ -100,8 +100,13 @@ class block_orange_listforumng extends block_base {
         $this->content->footer = '';
 
         // Guests do not have any progress. Don't show them the block.
-        if (!isloggedin() or isguestuser()) {
+        if ((!block_orange_listforumng_on_forum_index_page()) && (!isloggedin() or isguestuser())) {
             return $this->content;
+        }
+
+        $title = "";
+        if (block_orange_listforumng_on_forum_index_page()) {
+            $title = get_string('titleforum', 'block_orange_listforumng', $CFG->solerni_thematic);
         }
 
         // Check if user is in group for block.
@@ -127,7 +132,7 @@ class block_orange_listforumng extends block_base {
             $this->content->text = $this->renderer->display_noforumng_affected();
         } else {
             $listforumngdisplay = block_orange_listforumng_get_bylistforumngid($listforumngid);
-            $this->content->text = $this->renderer->display_listforumng($listforumngdisplay);
+            $this->content->text = $this->renderer->display_listforumng($listforumngdisplay, $title);
         }
 
         return $this->content;
