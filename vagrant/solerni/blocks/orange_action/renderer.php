@@ -33,11 +33,8 @@ class block_orange_action_renderer extends plugin_renderer_base {
      *
      * @return message
      */
-    public function display_course_on_my_page ($course, $extendedcourse, $imgurl) {
-        // To be done after having the design for this case.
-        $output = $this->display_on_course_page($course, $extendedcourse, $imgurl);
-
-        return $output;
+    public function display_course_on_my_page($course, $extendedcourse, $imgurl) {
+        return $this->display_on_course_page($course, $extendedcourse, $imgurl);
     }
 
     /**
@@ -45,7 +42,7 @@ class block_orange_action_renderer extends plugin_renderer_base {
      *
      * @return message
      */
-    public function display_event_on_my_page ($event, $imgurl, $eventurl) {
+    public function display_event_on_my_page($event, $imgurl, $eventurl) {
 
         $output = html_writer::start_tag('div', array('class' => 'row '));
 

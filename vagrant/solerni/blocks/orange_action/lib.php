@@ -161,18 +161,18 @@ function block_orange_action_get_events_list() {
 function block_orange_action_get_event($eventid) {
     global $DB, $CFG, $PAGE;
 
-     if ($event = $DB->get_record('event', array('id' => $eventid))) {
+    $query = "SELECT * FROM {event} WHERE id = ? AND timestart >= ? LIMIT 1";
+
+     if (!$event = $DB->get_records_sql($query, array( $eventid, time()))) {
         error_log('Invalid event id: ' . $eventid . ' Cannot get content for block_orange_action.');
         return false;
      }
 
-     if ($event->timestart <= time()) {
-         return false;
-     }
-
+    $event = array_shift($event);
     $hrefparams['view'] = 'day';
     $eventurl = calendar_get_link_href(new moodle_url(CALENDAR_URL . 'view.php', $hrefparams),
             0, 0, 0, $event->timestart);
+    // Image par défaut
     $imgurl = $CFG->dirroot.'/blocks/orange_action/pix/default.jpg';
     return $PAGE->get_renderer('block_orange_action')->display_event_on_my_page($event, $imgurl, $eventurl);
 }

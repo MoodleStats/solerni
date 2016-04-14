@@ -127,10 +127,8 @@ class block_orange_action extends block_base {
             // Read course id from block config. In priority we take the course.
             if (!empty($this->config->coursetopush)) {
                 $this->content->text = block_orange_action_get_course($this->config->coursetopush);
-            }
-            // Read event id from block config.
-            if (!$this->content && !empty($this->config->eventtopush)) {
-                $this->content->text = block_orange_action_get_event($this->config->coursetopush);
+            } elseif (!empty($this->config->eventtopush)) {
+                $this->content->text = block_orange_action_get_event($this->config->eventtopush);
             }
         }
 
