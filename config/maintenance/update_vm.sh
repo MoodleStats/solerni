@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# This script allows to update all local Moodle instances at once.
+# Just run it from /opt/solerni/customers/solerni(x)/www/
+# using the command-line: bash /opt/solerni/conf/maintenance/update_vm.sh
+# By default the script purges all caches, if pressing "u" it will also update
+# the Moodle database.
+
 # update all jobs, all instances
 echo
 do_instance=p
