@@ -231,43 +231,52 @@ class utilities_network {
             include_once($CFG->dirroot.'/mnet/peer.php');
 
             $mnet->replace_keys();
+            $content .= "<p>Renew Local key. Validy : " . userdate($mnet->public_key_expires) ."</p>";
+        } else {
+            $content = "<p>Local key still valid. Validy : " . userdate($mnet->public_key_expires) ."</p>";
+        }
 
-            // Send new key using key exchange transportation.
-            // Make a key and exchange it with all known and active peers.
-            $mnetpeers = $DB->get_records('mnet_host', array('deleted' => 0));
-            if ($mnetpeers) {
-                foreach ($mnetpeers as $peer) {
-                    if (($peer->id == $CFG->mnet_all_hosts_id) || ($peer->id == $CFG->mnet_localhost_id)) {
-                        continue;
-                    }
+        // Send new key using key exchange transportation.
+        // Make a key and exchange it with all known and active peers.
+        $mnetpeers = $DB->get_records('mnet_host', array('deleted' => 0));
+        if ($mnetpeers) {
+            foreach ($mnetpeers as $peer) {
+                if (($peer->id == $CFG->mnet_all_hosts_id) || ($peer->id == $CFG->mnet_localhost_id)) {
+                    continue;
+                }
 
-                    $content .= "<p> Traitement : ". $peer->name . " ("  . $peer->wwwroot . ") : </p>";
+                $content .= "<p> Remote Host : ". $peer->name . " ("  . $peer->wwwroot . ") : </p>";
 
-                    $application = $DB->get_record('mnet_application', array('id' => $peer->applicationid));
+                $application = $DB->get_record('mnet_application', array('id' => $peer->applicationid));
 
-                    $mnetpeer = new \mnet_peer();
-                    $mnetpeer->set_wwwroot($peer->wwwroot);
-                    // Get the sessions for each vmoodle that have same ID Number.
-                    // We use a force parameter to force fetching the key remotely anyway.
-                    $currentkey = mnet_get_public_key($mnetpeer->wwwroot, $application, 1);
-                    if ($currentkey) {
+                $mnetpeer = new \mnet_peer();
+                $mnetpeer->set_wwwroot($peer->wwwroot);
+                // Get the sessions for each vmoodle that have same ID Number.
+                // We use a force parameter to force fetching the key remotely anyway.
+                $content .= "<ul>". "Get remote key for host". "</ul>";
+                $currentkey = mnet_get_public_key($mnetpeer->wwwroot, $application, 1);
+                if ($currentkey) {
+                    if (clean_param($currentkey, PARAM_PEM) != $peer->public_key) {
+                        $content .= "<ul>". "Key difference, update localy". "</ul>";
+
                         $mnetpeer->public_key = clean_param($currentkey, PARAM_PEM);
                         $mnetpeer->updateparams = new \stdClass();
                         $mnetpeer->updateparams->public_key = clean_param($currentkey, PARAM_PEM);
                         $mnetpeer->public_key_expires = $mnetpeer->check_common_name($currentkey);
                         $mnetpeer->updateparams->public_key_expires = $mnetpeer->check_common_name($currentkey);
                         $mnetpeer->commit();
-                        $content .= "<ul>".'Key renewed on '.$peer->wwwroot.' till ' .
-                                userdate($mnetpeer->public_key_expires) . "</ul>";
+                        $content .= "<ul>".'Key validity : '. userdate($mnetpeer->public_key_expires) . "</ul>";
                     } else {
-                        $content .= "<p>". 'Failed renewing key with '.$peer->wwwroot. "</p>";
+                        $content .= "<ul>". "Key up to date. Validy : ".
+                                userdate($mnetpeer->check_common_name($currentkey)) . "</ul>";
                     }
+                } else {
+                    $content .= "<p>". 'Failed renewing key with '.$peer->wwwroot. "</p>";
                 }
             }
-            set_config('mnet_autorenew_haveto', 0);
-        } else {
-            $content = "<p>Keys still valid - nothing to do.</p>";
         }
+        set_config('mnet_autorenew_haveto', 0);
+
         $user = \core_user::get_user_by_username('admin');
         self::send_mnet_key_check_status($user, $content);
     }
