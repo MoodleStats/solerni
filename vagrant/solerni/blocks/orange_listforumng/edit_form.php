@@ -16,6 +16,7 @@
 
 require_once($CFG->dirroot . '/course/moodleform_mod.php');
 require_once($CFG->dirroot . '/mod/forumng/mod_forumng.php');
+require_once($CFG->dirroot.'/blocks/orange_listforumng/lib.php');
 
 /**
  * Listforumng block config form class
@@ -31,12 +32,15 @@ class block_orange_listforumng_edit_form extends block_edit_form {
 
         $turnallon = optional_param('turnallon', 0, PARAM_INT);
 
-        // Fields for editing HTML block title and contents.
-        $mform->addElement('header', 'configheader', get_string('blocksettings', 'block'));
+        // No title if in forum page : title is defined in lang file.
+        if (!block_orange_listforumng_on_forum_index_page()) {
+            // Fields for editing HTML block title and contents.
+            $mform->addElement('header', 'configheader', get_string('blocksettings', 'block'));
 
-        // Set listforumng block instance title.
-        $mform->addElement('text', 'config_title', get_string('title', 'block_orange_listforumng'));
-        $mform->setType('config_title', PARAM_TEXT);
+            // Set listforumng block instance title.
+            $mform->addElement('text', 'config_title', get_string('title', 'block_orange_listforumng'));
+            $mform->setType('config_title', PARAM_TEXT);
+        }
 
         // Get course section information.
         $allforums = block_orange_listforumng_get_all($COURSE->id);
@@ -55,7 +59,8 @@ class block_orange_listforumng_edit_form extends block_edit_form {
 
         foreach ($allforums as $forum) {
             // Allow monitoring turned on or off.
-            $mform->addElement('advcheckbox', 'config_forumng_'.$forum->id, null, $forum->name);
+            $mform->addElement('advcheckbox',
+                    'config_forumng_'.$forum->id, null, $forum->name);
             $mform->setDefault('config_forumng_'.$forum->id, $turnallon);
         }
 
