@@ -96,3 +96,8 @@ $string['orange_library_mnet_mail'] = '<p>Bonjour  {$a->firstname}  {$a->lastnam
 <p>Je suis la tâche automatisée de vérification de la validité des clés MNet pour <b>{$a->sitename}</b>';
 $string['orange_library_mnet_mail_subject'] = "Test de validité des clés MNet ";
 
+// Course menu item.
+$string['coursemenulearn'] = "Apprendre";
+$string['coursemenulearnmore'] = "Actualités";
+$string['coursemenuforum'] = "Forum";
+$string['coursemenushare'] = "Ressource";
