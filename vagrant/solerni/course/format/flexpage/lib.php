@@ -55,6 +55,7 @@ class format_flexpage extends format_base {
         $parentnodes   = array(0 => $node);
         $modinfo       = get_fast_modinfo($course);
 
+
         foreach ($cache->get_pages() as $page) {
             /**
              * @var navigation_node $childnode
@@ -328,6 +329,10 @@ class format_flexpage extends format_base {
                     'default' => get_config('paragraph1picture', 'format_flexpage'),
                     'type' => PARAM_CLEANFILE,
                 ),
+                'paragraph1bgcolor' => array(
+                    'default' => get_config('paragraph1bgcolor', 'format_flexpage'),
+                    'type' => PARAM_RAW,
+                ),
                 'paragraph2' => array(
                     'default' => get_config('paragraph2', 'format_flexpage'),
                     'type' => PARAM_RAW
@@ -339,6 +344,10 @@ class format_flexpage extends format_base {
                 'paragraph2picture' => array(
                     'default' => get_config('paragraph2picture', 'format_flexpage'),
                     'type' => PARAM_CLEANFILE,
+                ),
+                'paragraph2bgcolor' => array(
+                    'default' => get_config('paragraph2bgcolor', 'format_flexpage'),
+                    'type' => PARAM_RAW,
                 ),
                 'paragraph3' => array(
                     'default' => get_config('paragraph3', 'format_flexpage'),
@@ -352,6 +361,10 @@ class format_flexpage extends format_base {
                     'default' => get_config('paragraph3picture', 'format_flexpage'),
                     'type' => PARAM_CLEANFILE,
                 ),
+                'paragraph3bgcolor' => array(
+                    'default' => get_config('paragraph3bgcolor', 'format_flexpage'),
+                    'type' => PARAM_RAW,
+                ),
                 'paragraph4' => array(
                     'default' => get_config('paragraph4', 'format_flexpage'),
                     'type' => PARAM_RAW
@@ -363,6 +376,10 @@ class format_flexpage extends format_base {
                 'paragraph4picture' => array(
                     'default' => get_config('paragraph4picture', 'format_flexpage'),
                     'type' => PARAM_CLEANFILE,
+                ),
+                'paragraph4bgcolor' => array(
+                    'default' => get_config('paragraph4bgcolor', 'format_flexpage'),
+                    'type' => PARAM_RAW,
                 ),
                 'paragraph5' => array(
                     'default' => get_config('paragraph5', 'format_flexpage'),
@@ -376,6 +393,10 @@ class format_flexpage extends format_base {
                     'default' => get_config('paragraph5picture', 'format_flexpage'),
                     'type' => PARAM_CLEANFILE,
                 ),
+                'paragraph5bgcolor' => array(
+                    'default' => get_config('paragraph5bgcolor', 'format_flexpage'),
+                    'type' => PARAM_RAW,
+                ),
                 'paragraph6' => array(
                     'default' => get_config('paragraph6', 'format_flexpage'),
                     'type' => PARAM_RAW
@@ -387,6 +408,10 @@ class format_flexpage extends format_base {
                 'paragraph6picture' => array(
                     'default' => get_config('paragraph6picture', 'format_flexpage'),
                     'type' => PARAM_CLEANFILE,
+                ),
+                'paragraph6bgcolor' => array(
+                    'default' => get_config('paragraph6bgcolor', 'format_flexpage'),
+                    'type' => PARAM_RAW,
                 ),
                 'paragraph7' => array(
                     'default' => get_config('paragraph7', 'format_flexpage'),
@@ -400,6 +425,10 @@ class format_flexpage extends format_base {
                     'default' => get_config('paragraph7picture', 'format_flexpage'),
                     'type' => PARAM_CLEANFILE,
                 ),
+                'paragraph7bgcolor' => array(
+                    'default' => get_config('paragraph7bgcolor', 'format_flexpage'),
+                    'type' => PARAM_RAW,
+                ),
                 'paragraph8' => array(
                     'default' => get_config('paragraph8', 'format_flexpage'),
                     'type' => PARAM_RAW
@@ -411,6 +440,10 @@ class format_flexpage extends format_base {
                 'paragraph8picture' => array(
                     'default' => get_config('paragraph8picture', 'format_flexpage'),
                     'type' => PARAM_CLEANFILE,
+                ),
+                'paragraph8bgcolor' => array(
+                    'default' => get_config('paragraph8bgcolor', 'format_flexpage'),
+                    'type' => PARAM_RAW,
                 ),
                 'paragraph9' => array(
                     'default' => get_config('paragraph9', 'format_flexpage'),
@@ -424,6 +457,10 @@ class format_flexpage extends format_base {
                     'default' => get_config('paragraph9picture', 'format_flexpage'),
                     'type' => PARAM_CLEANFILE,
                 ),
+                'paragraph9bgcolor' => array(
+                    'default' => get_config('paragraph9bgcolor', 'format_flexpage'),
+                    'type' => PARAM_RAW,
+                ),
                 'paragraph10' => array(
                     'default' => get_config('paragraph10', 'format_flexpage'),
                     'type' => PARAM_RAW
@@ -435,6 +472,10 @@ class format_flexpage extends format_base {
                 'paragraph10picture' => array(
                     'default' => get_config('paragraph10picture', 'format_flexpage'),
                     'type' => PARAM_CLEANFILE,
+                ),
+                'paragraph10bgcolor' => array(
+                    'default' => get_config('paragraph10bgcolor', 'format_flexpage'),
+                    'type' => PARAM_RAW,
                 ),
                 'courseinactivitydelay' => array(
                     'default' => get_config('inactivitydelay', 'format_flexpage'),
@@ -453,7 +494,22 @@ class format_flexpage extends format_base {
             foreach ($thematics as $thematic) {
                 $listthematics[$thematic->id] = $thematic->name;
             }
+            $colorarray = array(
 
+                            'bg-white' => get_string('white', 'format_flexpage'),
+                            'bg-yellow' => get_string('yellow', 'format_flexpage'),
+                            'bg-blue' => get_string('blue', 'format_flexpage'),
+                            'bg-green' => get_string('green', 'format_flexpage'),
+                            'bg-purple' => get_string('purple', 'format_flexpage'),
+                            'bg-pink' => get_string('pink', 'format_flexpage'),
+                            'bg-red' => get_string('red', 'format_flexpage'),
+                            'bg-orange' => get_string('orange', 'format_flexpage'),
+                            'bg-graydarker' => get_string('graydarker', 'format_flexpage'),
+                            'bg-graydark' => get_string('graydark', 'format_flexpage'),
+                            'bg-gray' => get_string('gray', 'format_flexpage'),
+                            'bg-graylight' => get_string('graylight', 'format_flexpage'),
+                            'bg-graylighter' => get_string('graylighter', 'format_flexpage')
+                        );
             $courseformatoptionsedit = array(
                 'courseenddate' => array(
                     'label' => get_string('enddate', 'format_flexpage'),
@@ -633,6 +689,13 @@ class format_flexpage extends format_base {
                     'help' => 'paragraph1picture',
                     'help_component' => 'format_flexpage',
                 ),
+                'paragraph1bgcolor' => array(
+                    'label' => get_string('paragraph1bgcolor', 'format_flexpage'),
+                    'help' => 'paragraph1bgcolor',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'select',
+                    'element_attributes' => array($colorarray)
+                ),
                 'paragraph2' => array(
                     'label' => get_string('paragraph2', 'format_flexpage'),
                     'help' => 'paragraph2',
@@ -659,6 +722,13 @@ class format_flexpage extends format_base {
                         ),
                     'help' => 'paragraph2picture',
                     'help_component' => 'format_flexpage',
+                ),
+                'paragraph2bgcolor' => array(
+                    'label' => get_string('paragraph2bgcolor', 'format_flexpage'),
+                    'help' => 'paragraph2bgcolor',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'select',
+                    'element_attributes' => array($colorarray)
                 ),
                 'paragraph3' => array(
                     'label' => get_string('paragraph3', 'format_flexpage'),
@@ -687,6 +757,13 @@ class format_flexpage extends format_base {
                     'help' => 'paragraph3picture',
                     'help_component' => 'format_flexpage',
                 ),
+                'paragraph3bgcolor' => array(
+                    'label' => get_string('paragraph3bgcolor', 'format_flexpage'),
+                    'help' => 'paragraph3bgcolor',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'select',
+                    'element_attributes' => array($colorarray)
+                ),
                 'paragraph4' => array(
                     'label' => get_string('paragraph4', 'format_flexpage'),
                     'help' => 'paragraph4',
@@ -713,6 +790,13 @@ class format_flexpage extends format_base {
                         ),
                     'help' => 'paragraph4picture',
                     'help_component' => 'format_flexpage',
+                ),
+                'paragraph4bgcolor' => array(
+                    'label' => get_string('paragraph4bgcolor', 'format_flexpage'),
+                    'help' => 'paragraph4bgcolor',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'select',
+                    'element_attributes' => array($colorarray)
                 ),
                 'paragraph5' => array(
                     'label' => get_string('paragraph5', 'format_flexpage'),
@@ -741,6 +825,13 @@ class format_flexpage extends format_base {
                     'help' => 'paragraph5picture',
                     'help_component' => 'format_flexpage',
                 ),
+                'paragraph5bgcolor' => array(
+                    'label' => get_string('paragraph5bgcolor', 'format_flexpage'),
+                    'help' => 'paragraph5bgcolor',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'select',
+                    'element_attributes' => array($colorarray)
+                ),
                 'paragraph6' => array(
                     'label' => get_string('paragraph6', 'format_flexpage'),
                     'help' => 'paragraph6',
@@ -767,6 +858,13 @@ class format_flexpage extends format_base {
                         ),
                     'help' => 'paragraph6picture',
                     'help_component' => 'format_flexpage',
+                ),
+                'paragraph6bgcolor' => array(
+                    'label' => get_string('paragraph6bgcolor', 'format_flexpage'),
+                    'help' => 'paragraph6bgcolor',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'select',
+                    'element_attributes' => array($colorarray)
                 ),
                 'paragraph7' => array(
                     'label' => get_string('paragraph7', 'format_flexpage'),
@@ -795,6 +893,13 @@ class format_flexpage extends format_base {
                     'help' => 'paragraph7picture',
                     'help_component' => 'format_flexpage',
                 ),
+                'paragraph7bgcolor' => array(
+                    'label' => get_string('paragraph7bgcolor', 'format_flexpage'),
+                    'help' => 'paragraph7bgcolor',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'select',
+                    'element_attributes' => array($colorarray)
+                ),
                 'paragraph8' => array(
                     'label' => get_string('paragraph8', 'format_flexpage'),
                     'help' => 'paragraph8',
@@ -821,6 +926,13 @@ class format_flexpage extends format_base {
                         ),
                     'help' => 'paragraph8picture',
                     'help_component' => 'format_flexpage',
+                ),
+                'paragraph8bgcolor' => array(
+                    'label' => get_string('paragraph8bgcolor', 'format_flexpage'),
+                    'help' => 'paragraph8bgcolor',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'select',
+                    'element_attributes' => array($colorarray)
                 ),
                 'paragraph9' => array(
                     'label' => get_string('paragraph9', 'format_flexpage'),
@@ -849,6 +961,13 @@ class format_flexpage extends format_base {
                     'help' => 'paragraph9picture',
                     'help_component' => 'format_flexpage',
                 ),
+                'paragraph9bgcolor' => array(
+                    'label' => get_string('paragraph9bgcolor', 'format_flexpage'),
+                    'help' => 'paragraph9bgcolor',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'select',
+                    'element_attributes' => array($colorarray)
+                ),
                 'paragraph10' => array(
                     'label' => get_string('paragraph10', 'format_flexpage'),
                     'help' => 'paragraph10',
@@ -876,6 +995,13 @@ class format_flexpage extends format_base {
                     'help' => 'paragraph10picture',
                     'help_component' => 'format_flexpage',
                 ),
+                'paragraph10bgcolor' => array(
+                    'label' => get_string('paragraph10bgcolor', 'format_flexpage'),
+                    'help' => 'paragraph10bgcolor',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'select',
+                    'element_attributes' => array($colorarray)
+                ),
                 'courseinactivitydelay' => array(
                     'label' => get_string('inactivitydelay', 'format_flexpage'),
                     'help' => 'inactivitydelay',
@@ -901,15 +1027,21 @@ class format_flexpage extends format_base {
      */
     public function update_course_format_options($data, $oldcourse = null) {
 
+
         $context = context_course::instance($this->courseid);
+
         $saved = file_save_draft_area_files($data->coursepicture, $context->id, 'format_flexpage',
         'coursepicture', 0, array('subdirs' => 0, 'maxfiles' => 1));
+
         $saved = file_save_draft_area_files($data->paragraph1picture, $context->id, 'format_flexpage',
         'paragraph1picture', 0, array('subdirs' => 0, 'maxfiles' => 1));
+
         $saved = file_save_draft_area_files($data->paragraph2picture, $context->id, 'format_flexpage',
         'paragraph2picture', 0, array('subdirs' => 0, 'maxfiles' => 1));
+
         $saved = file_save_draft_area_files($data->paragraph3picture, $context->id, 'format_flexpage',
         'paragraph3picture', 0, array('subdirs' => 0, 'maxfiles' => 1));
+
         $saved = file_save_draft_area_files($data->paragraph4picture, $context->id, 'format_flexpage',
         'paragraph4picture', 0, array('subdirs' => 0, 'maxfiles' => 1));
         $saved = file_save_draft_area_files($data->paragraph5picture, $context->id, 'format_flexpage',
@@ -926,6 +1058,7 @@ class format_flexpage extends format_base {
         'paragraph10picture', 0, array('subdirs' => 0, 'maxfiles' => 1));
 
         $data = (array)$data;
+
 
         if (isset($data['coursethematics'])) {
             $selectedids = implode(",", $data['coursethematics']);

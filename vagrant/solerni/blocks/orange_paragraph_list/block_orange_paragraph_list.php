@@ -28,7 +28,6 @@ require_once($CFG->dirroot.'/blocks/orange_paragraph_list/lib.php');
 require_once($CFG->dirroot.'/calendar/lib.php');
 // Adding requirement to avoid  Class 'block_base' not found.
 require_once($CFG->dirroot . '/blocks/moodleblock.class.php');
-use local_orange_library\utilities\utilities_course;
 use local_orange_library\utilities\utilities_image;
 use local_orange_library\find_out_more\find_out_more_object;
 
@@ -52,7 +51,7 @@ class block_orange_paragraph_list extends block_base {
      * @return bool
      */
     public function has_config() {
-        return true;
+        return false;
     }
 
 
@@ -71,7 +70,7 @@ class block_orange_paragraph_list extends block_base {
      * @return bool
      */
     public function instance_allow_config() {
-        return true;
+        return false;
     }
 
     /**
@@ -105,14 +104,9 @@ class block_orange_paragraph_list extends block_base {
         $this->content->footer = '';
 
         $findoutmore = new find_out_more_object();
-        // TODO-a revoir Guests do not have any progress. Don't show them the block.
-        if (!isloggedin() or isguestuser()) {
-            return $this->content;
-        }
 
         if (block_orange_paragraph_list_on_course_page()) {
-            $course = $COURSE; // Needed to have numsections property available.
-            $context = context_course::instance($course->id);
+            $context = context_course::instance($COURSE->id);
             $imgurl = array();
             $resizedimgurl = array();
 
@@ -125,21 +119,11 @@ class block_orange_paragraph_list extends block_base {
                 }
 
             }
-            $findoutmore->get_find_out_more($course);
+            $findoutmore->get_find_out_more($COURSE);
+
             $this->content->text = $this->renderer->display_on_course_page($COURSE, $findoutmore, $resizedimgurl);
         }
 
         return $this->content;
-    }
-
-
-    /**
-     * Sets block header to be hidden
-     *
-     * @return bool if true then header will be visible.
-     */
-    public function hide_header() {
-        $config = get_config('block_orange_paragraph_list');
-        return !empty($config->hideblockheader);
     }
 }

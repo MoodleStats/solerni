@@ -23,8 +23,7 @@
  */
 
 defined('MOODLE_INTERNAL') || die;
-use local_orange_library\utilities\utilities_course;
-use local_orange_library\utilities\utilities_image;
+
 use local_orange_library\extended_course\extended_course_object;
 
 class block_orange_iconsmap_renderer extends plugin_renderer_base {
@@ -39,22 +38,24 @@ class block_orange_iconsmap_renderer extends plugin_renderer_base {
         $extendedcourse = new extended_course_object();
         $extendedcourse->get_extended_course($course, $context);
 
-        // Display first line.
-        $output = html_writer::start_tag('div', array('class' => 'row'));
-            // Display begin and end date.
-            $output .= $this->display_date($course, $extendedcourse);
-            // Display sequences number.
-            $output .= $this->display_duration($extendedcourse);
-            // Display working time.
-            $output .= $this->display_working_time($extendedcourse);
-        $output .= html_writer::end_tag('div');
-        $output .= html_writer::start_tag('div', array('class' => 'row'));
-            // Display certification.
-            $output .= $this->display_certificate($extendedcourse);
-            // Display Badges.
-            $output .= $this->display_badge($extendedcourse);
-            // Display price.
-            $output .= $this->display_price($extendedcourse);
+        $output = html_writer::start_tag('div', array('class' => 'row icons-map'));
+            // Display first line.
+            $output .= html_writer::start_tag('div', array('class' => 'row secondary-line'));
+                // Display begin and end date.
+                $output .= $this->display_date($course, $extendedcourse);
+                // Display sequences number.
+                $output .= $this->display_duration($extendedcourse);
+                // Display working time.
+                $output .= $this->display_working_time($extendedcourse);
+            $output .= html_writer::end_tag('div');
+            $output .= html_writer::start_tag('div', array('class' => 'row secondary-line'));
+                // Display certification.
+                $output .= $this->display_certificate($extendedcourse);
+                // Display Badges.
+                $output .= $this->display_badge($extendedcourse);
+                // Display price.
+                $output .= $this->display_price($extendedcourse);
+            $output .= html_writer::end_tag('div');
         $output .= html_writer::end_tag('div');
 
         return $output;
@@ -82,6 +83,7 @@ class block_orange_iconsmap_renderer extends plugin_renderer_base {
 
             $output .= html_writer::end_tag('div');
         $output .= html_writer::end_tag('div');
+
         return $output;
     }
 
@@ -137,7 +139,6 @@ class block_orange_iconsmap_renderer extends plugin_renderer_base {
             $output .= html_writer::end_tag('div');
         $output .= html_writer::end_tag('div');
 
-
         return $output;
     }
 
@@ -149,9 +150,9 @@ class block_orange_iconsmap_renderer extends plugin_renderer_base {
     public function display_certificate ($extendedcourse) {
 
         $display = " inactive";
-        $certifitatetext = get_string("certification_default", 'local_orange_library');
+        $certificatetext = get_string("certification_default", 'local_orange_library');
         if ($extendedcourse->badge) {
-            $certifitatetext = get_string("certification", 'local_orange_library');
+            $certificatetext = get_string("certification", 'local_orange_library');
             $display = "";
         }
         $output = html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-4'.$display));
@@ -163,7 +164,7 @@ class block_orange_iconsmap_renderer extends plugin_renderer_base {
 
                 $output .= html_writer::start_tag('div');
                     $output .= html_writer::start_tag('div', array('class' => 'movetext'));
-                        $output .= html_writer::tag('span', $certifitatetext);
+                        $output .= html_writer::tag('span', $certificatetext);
                     $output .= html_writer::end_tag('div');
                 $output .= html_writer::end_tag('div');
 
@@ -179,7 +180,6 @@ class block_orange_iconsmap_renderer extends plugin_renderer_base {
      * @return $output
      */
     public function display_badge ($extendedcourse) {
-
 
         $display = " inactive";
         if ($extendedcourse->badge) {

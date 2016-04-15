@@ -26,7 +26,6 @@
 defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot.'/blocks/orange_iconsmap/lib.php');
 require_once($CFG->dirroot . '/blocks/moodleblock.class.php');
-use local_orange_library\utilities\utilities_course;
 
 class block_orange_iconsmap extends block_base {
 
@@ -48,6 +47,7 @@ class block_orange_iconsmap extends block_base {
      * @return bool
      */
     public function has_config() {
+
         return false;
     }
 
@@ -58,6 +58,7 @@ class block_orange_iconsmap extends block_base {
      * @return bool
      */
     public function instance_allow_multiple() {
+
         return false;
     }
 
@@ -67,6 +68,7 @@ class block_orange_iconsmap extends block_base {
      * @return bool
      */
     public function instance_allow_config() {
+
         return false;
     }
 
@@ -76,6 +78,7 @@ class block_orange_iconsmap extends block_base {
      * @return array
      */
     public function applicable_formats() {
+
         return array(
             'course-view'    => true,
             'site'           => false,
@@ -100,25 +103,11 @@ class block_orange_iconsmap extends block_base {
         $this->content->text = '';
         $this->content->footer = '';
 
-        // TODO-a revoir Guests do not have any progress. Don't show them the block.
-        if (!isloggedin() or isguestuser()) {
-            return $this->content;
-        }
 
         if (block_orange_iconsmap_is_on_course_page()) {
             $this->content->text = $this->renderer->display_on_course_page($COURSE, $context);
         }
 
         return $this->content;
-    }
-
-    /**
-     * Sets block header to be hidden
-     *
-     * @return bool if true then header will be visible.
-     */
-    public function hide_header() {
-        $config = get_config('block_orange_iconsmap');
-        return !empty($config->hideblockheader);
     }
 }

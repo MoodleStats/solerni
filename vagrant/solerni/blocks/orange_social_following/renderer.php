@@ -37,7 +37,7 @@ class block_orange_social_following_renderer extends plugin_renderer_base {
      * @return string $text
      */
     public function get_text() {
-        Global $PAGE;
+    Global $PAGE;
 
         $shareonarray = new utilities_array();
         $socialclassarray = new utilities_array();
@@ -64,27 +64,27 @@ class block_orange_social_following_renderer extends plugin_renderer_base {
         $count = $shareonarray->count;
 
         $text = html_writer::start_tag('div');
-        $text .= html_writer::start_tag('ul', array('class' => "list-unstyled list-social"));
+            $text .= html_writer::start_tag('ul', array('class' => "list-unstyled list-social"));
 
-        $text .= html_writer::tag("li", $title , array('class' => "social-item h7 hidden-xs"));
+                $text .= html_writer::tag("li", $title , array('class' => "social-item h7 hidden-xs"));
 
-        for ($i = 1; $i <= $count; $i++) {
+                for ($i = 1; $i <= $count; $i++) {
                     $shareonarray->setCurrent($i);
                     $socialclassarray->setCurrent($i);
                     $socialurlarray->setCurrent($i);
 
                     $text .= html_writer::start_tag('li', array('class' => 'social-item'));
 
-                    $text .= html_writer::tag('a', " ",
-                            array('class' => 'icon-halloween icon-halloween--social icon-halloween--'.$socialclassarray->getCurrent(),
-                            'href' => $socialurlarray->getCurrent().$PAGE->url, 'target' => '_blank'));
+                        $text .= html_writer::tag('a', " ",
+                                array('class' => 'icon-halloween social icon-halloween--'.$socialclassarray->getCurrent(),
+                                'href' => $socialurlarray->getCurrent().$PAGE->url, 'target' => '_blank'));
                     $text .= html_writer::end_tag('li');
 
-        }
-        $text .= html_writer::end_tag('ul');
+                }
+                $text .= html_writer::end_tag('li');
+            $text .= html_writer::end_tag('ul');
         $text .= html_writer::end_tag('div');
 
         return $text;
-
     }
 }

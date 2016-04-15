@@ -66,16 +66,15 @@ class block_orange_social_following extends block_base{
         $course = $COURSE;
 
         $this->content->text .= html_writer::start_tag('ul');
-        $this->content->text .= html_writer::start_tag('li');
-        $this->content->text .= html_writer::link('span', $course->fullname);
-        $this->content->text .= html_writer::end_tag('li');
+            $this->content->text .= html_writer::start_tag('li');
+                $this->content->text .= html_writer::link('span', $course->fullname);
+            $this->content->text .= html_writer::end_tag('li');
         $this->content->text .= html_writer::end_tag('ul');
 
         $text = $this->renderer->get_text();
         $this->content->text = $text;
 
         return $this->content;
-
     }
 
     /**

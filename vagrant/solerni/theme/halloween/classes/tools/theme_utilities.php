@@ -15,8 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace theme_halloween\tools;
-
+use local_orange_library\extended_course\extended_course_object;
+use local_orange_library\utilities\utilities_course;
 use theme_halloween\tools\log_and_session_utilities;
+use html_writer;
 
 class theme_utilities {
 
@@ -217,4 +219,34 @@ class theme_utilities {
         return $return;
 
     }
+
+        /**
+     * Display for "Find out more" page
+     *
+     * @return string $output
+     */
+    public function display_button ($setting) {
+    global $COURSE, $context;
+        $extendedcourse = new extended_course_object();
+        $extendedcourse->get_extended_course($COURSE, $context);
+        if($setting) {
+            $css = ' '.$setting;
+        }
+
+        // Display first line.
+        $output = html_writer::start_tag('div', array('class' => 'row'));
+        $output .= html_writer::tag('div', $extendedcourse->displaybutton, array('class' => $css));
+
+                // If next session link shoulfd be display.
+        if ($extendedcourse->registrationstatus == utilities_course::MOOCREGISTRATIONCOMPLETE) {
+                    $output .= html_writer::tag('a', get_string('nextsessionlink', 'block_orange_action'),
+                array('class' => '', 'href' => $extendedcourse->newsessionurl ));
+        }
+
+        $output .= html_writer::end_tag('div');
+
+
+        return $output;
+    }
+
 }

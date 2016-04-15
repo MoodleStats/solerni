@@ -35,6 +35,46 @@
     margin-top:     0;
 }
 
+.bg-white {
+    background:     @brand-tertiary;
+}
+.bg-yellow {
+    background:     @orange-yellow;
+}
+.bg-blue {
+    background:     @orange-blue;
+}
+.bg-green {
+    background:     @orange-green;
+}
+.bg-purple {
+    background:     @orange-purple;
+}
+.bg-pink {
+    background:     @orange-pink;
+}
+.bg-red {
+    background:     @brand-danger;
+}
+.bg-orange {
+    background:     @brand-secondary;
+}
+.bg-graydarker {
+    background:     @orange-dark-2;
+}
+.bg-graydark {
+    background:     @orange-dark-1;
+}
+.bg-gray {
+    background:     @orange-mid-1;
+}
+.bg-graylight {
+    background:     @orange-light-3;
+}
+.bg-graylighter {
+    background:     @orange-light-1;
+}
+
 .list-3-items .row {
     background:     @orange-light-2;
     padding-bottom: @s-triple-md-margin;
@@ -101,13 +141,21 @@
 .item-centered {
     text-align:     center;
 }
+.icons-map {
+        padding-top:   @s-triple-md-margin;
+        padding-bottom: @s-triple-md-margin;
 
+    .secondary-line+.secondary-line {
+        margin-top: (@s-triple-md-margin - @s-small-md-margin); //40px
+        
+    }
+}
 .icon-map  {
-    float:          left;
-    font-weight:    bold;
-    display: inline-block; 
-    width: 100%;
-    padding: @s-small-xs-margin;
+    float:              left;
+    font-weight:        bold;
+    display:            inline-block; 
+    width:              100%;
+    margin-top: @s-small-md-margin;
     
     .centeredicon {
         position: absolute;
@@ -151,4 +199,8 @@
 }
 .grey {
     color: @orange-mid-1;
+}
+
+.page_mooc_block .btn{
+    display: block;
 }

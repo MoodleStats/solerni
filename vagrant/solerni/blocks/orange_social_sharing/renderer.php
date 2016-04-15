@@ -18,7 +18,7 @@
  * Orange Social Sharing renderer
  *
  * @package    blocks
- * @subpackage orange_orange_social_sharing
+ * @subpackage orange_social_sharing
  * @copyright  2016 Orange
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -76,7 +76,7 @@ class block_orange_social_sharing_renderer extends plugin_renderer_base {
                     $text .= html_writer::start_tag('li', array('class' => 'social-item'));
 
                     $text .= html_writer::tag('a', " ",
-                            array('class' => 'icon-halloween icon-halloween--social icon-halloween--'.$socialclassarray->getCurrent(),
+                            array('class' => 'icon-halloween social icon-halloween--'.$socialclassarray->getCurrent(),
                             'href' => $socialurlarray->getCurrent().$PAGE->url, 'target' => '_blank'));
                     $text .= html_writer::end_tag('li');
 

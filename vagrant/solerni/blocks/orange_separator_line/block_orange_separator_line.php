@@ -22,6 +22,12 @@
  * @copyright  2016 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+require_once(dirname(__FILE__) . '/../../config.php');
+require_once($CFG->dirroot.'/blocks/orange_separator_line/lib.php');
+// Adding requirement to avoid  Class 'block_base' not found.
+require_once($CFG->dirroot . '/blocks/moodleblock.class.php');
+
+
 class block_orange_separator_line extends block_base{
 
     /**
@@ -50,24 +56,6 @@ class block_orange_separator_line extends block_base{
     }
 
     /**
-     *  Get the content of social sharing block.
-     *
-     * @global none
-     * @param none
-     * @return string $this->content
-     */
-    public function get_content() {
-
-        $this->content = new stdClass();
-        $this->content->text   = '';
-        $text = $this->renderer->get_text();
-        $this->content->text = $text;
-
-        return $this->content;
-
-    }
-
-    /**
      *  Allowing multiple instance of separator line.
      *
      * @global none
@@ -75,9 +63,19 @@ class block_orange_separator_line extends block_base{
      * @return boolean
      */
     public function instance_allow_multiple() {
+
         return true;
     }
 
+    /**
+     * Controls whether the block is configurable
+     *
+     * @return bool
+     */
+    public function instance_allow_config() {
+
+        return false;
+    }
 
     /**
      * Defines where the block can be added
@@ -85,12 +83,37 @@ class block_orange_separator_line extends block_base{
      * @return array
      */
     public function applicable_formats() {
+
         return array(
             'course-view'    => true,
             'site'           => false,
             'mod'            => false,
             'my'             => true
         );
+    }
+
+
+    /**
+     * Creates the blocks main content
+     *
+     * @return string
+     */
+    public function get_content() {
+        global $COURSE, $context;
+
+        // If content has already been generated, don't waste time generating it again.
+        if ($this->content !== null) {
+            return $this->content;
+        }
+        $this->content = new stdClass;
+        $this->content->text = '';
+        $this->content->footer = '';
+
+        if (block_orange_separator_line_on_course_page()) {
+            $this->content->text = $this->renderer->display_on_course_page($COURSE, $context);
+        }
+
+        return $this->content;
     }
 }
 

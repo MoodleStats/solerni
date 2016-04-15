@@ -15,19 +15,21 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * orange_paragraph_list block settings
+ * orange_paragraph_list block
  *
  * @package    orange_paragraph_list
  * @copyright  Orange 2016
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-defined('MOODLE_INTERNAL') || die;
 
-if ($ADMIN->fulltree) {
-    $settings->add(new admin_setting_heading('generalconfig', new lang_string('generalconfig', 'block_orange_paragraph_list'), ''));
 
-    $settings->add(new admin_setting_configcheckbox('block_orange_paragraph_list/hideblockheader',
-                        new lang_string('hideblockheader', 'block_orange_paragraph_list'),
-                        new lang_string('hideblockheaderdesc', 'block_orange_paragraph_list'), 1, PARAM_INT));
+/**
+ * Checks whether the current page is course page.
+ *
+ * @return bool True when on a course page.
+ */
+function block_orange_separator_line_on_course_page() {
+    Global $COURSE;
 
+    return ($COURSE->id > 1);
 }
