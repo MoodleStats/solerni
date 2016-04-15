@@ -77,7 +77,6 @@ class local_orange_event_course_created_observer {
         // url calling piwik API for add site.
         $urladdsite = $url.'?'.$module.$methodaddsite.$sitename.$urls.$ecommerce.$sitesearch.$timezone.$currency.$startDate.$keepurlfragments.$type.$excludeUnknowurls.$tokenauth;
         // We call the API PIWIK in order to create a id site piwik.
-        print_r($urladdsite);
         $xmladdsite = xml_from_piwik($urladdsite);
         // We retreive the id site from piwik.
         $methodgetsite = '&method=SitesManager.getAllSitesId';
