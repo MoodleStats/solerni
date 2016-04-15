@@ -394,6 +394,14 @@ function main () {
 	# Set user fullname format (#us_504)
 	execute_moosh_command "moosh config-set fullnamedisplay \"firstname lastname\""
 	execute_moosh_command "moosh config-set emailonlyfromnoreplyaddress 1"
+
+        # Set blocks for find out more page (#us_397)
+	execute_moosh_command "moosh block-add system 0 block_orange_action mooc-view content -10"
+	execute_moosh_command "moosh block-add system 0 block_orange_iconsmap find-out-more content -9"
+	execute_moosh_command "moosh block-add system 0 block_orange_separator_line find-out-more content -8"
+	execute_moosh_command "moosh block-add system 0 block_orange_social_sharing find-out-more content -7"
+	execute_moosh_command "moosh block-add system 0 block_orange_paragraph_list find-out-more content -6"
+
 }
 
 main "$@"

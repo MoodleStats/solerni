@@ -39,45 +39,33 @@ require_once($CFG->dirroot.'/blocks/orange_paragraph_list/block_orange_paragraph
 
 $filter = optional_param('filter', utilities_course::MOOCRUNNING, PARAM_INT);
 
-$url = new moodle_url('/mooc/index.php');
+$url = new moodle_url('/mooc/view.php');
 $courseid      = optional_param('id', 0, PARAM_INT); // Course Module ID.
-$context = context_course::instance($courseid);
-$PAGE->set_url($url);
-$PAGE->blocks->add_region('main');
-$course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
-$PAGE->set_course($course);
-$extendedcourse = new extended_course_object();
-$extendedcourse->get_extended_course($course, $context);
-$themeutilities = new theme_utilities();
+
+if (isloggedin()) {
+    $context = context_user::instance($USER->id);
+    if (has_capability('moodle/block:edit', $context)) {
+        $PAGE->set_blocks_editing_capability('moodle/block:edit');
+    }
+} else {
+    $USER->editing = $edit = 0;  // Just in case.
+    $context = context_system::instance();
+}
+print_object($context);
 
 $PAGE->set_context($context);
+$PAGE->set_url($url);
+$PAGE->set_pagetype('mooc-view');
+$PAGE->blocks->add_region('content');
+$course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
+$PAGE->set_course($course);
+//$extendedcourse = new extended_course_object();
+//$extendedcourse->get_extended_course($course, $context);
+$themeutilities = new theme_utilities();
 
-$block_orange_action = new block_orange_action();
-$orange_action = new block_contents(array('class' => 'block_orange_action'));
-$orange_action->content = $block_orange_action->get_content()->text;
-$PAGE->blocks->add_fake_block($orange_action, 'main');
 
-$block_orange_iconsmap = new block_orange_iconsmap();
-$orange_iconsmap = new block_contents(array('class' => 'block_orange_iconsmap'));
-$orange_iconsmap->content = $block_orange_iconsmap->get_content()->text;
-$PAGE->blocks->add_fake_block($orange_iconsmap, 'main');
-
-$block_orange_separator_line = new block_orange_separator_line();
-$orange_separator_line = new block_contents(array('class' => 'block_orange_separator_line'));
-$orange_separator_line->content = $block_orange_separator_line->get_content()->text;
-$PAGE->blocks->add_fake_block($orange_separator_line, 'main');
-
-$block_orange_social_sharing = new block_orange_social_sharing();
-$orange_social_sharing = new block_contents(array('class' => 'block_orange_social_sharing'));
-$orange_social_sharing->content = $block_orange_social_sharing->get_content()->text;
-$PAGE->blocks->add_fake_block($orange_social_sharing, 'main');
-
-$block_orange_paragraph_list = new block_orange_paragraph_list();
-$orange_paragraph_list = new block_contents(array('class' => 'block_orange_paragraph_list'));
-$orange_paragraph_list->content = $block_orange_paragraph_list->get_content()->text;
-$PAGE->blocks->add_fake_block($orange_paragraph_list, 'main');
 
 echo $OUTPUT->header();
-echo $OUTPUT->blocks('main');
-echo $themeutilities->display_button('page_mooc_block');
+echo $OUTPUT->custom_block_region('content');
+echo $themeutilities->display_button('page_mooc_block', $courseid);
 echo $OUTPUT->footer();

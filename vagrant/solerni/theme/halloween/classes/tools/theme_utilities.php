@@ -225,8 +225,9 @@ class theme_utilities {
      *
      * @return string $output
      */
-    public function display_button ($setting) {
-    global $COURSE, $context;
+    public function display_button ($setting, $courseid) {
+    global $COURSE;
+    $context = \context_course::instance($courseid);
         $extendedcourse = new extended_course_object();
         $extendedcourse->get_extended_course($COURSE, $context);
         if($setting) {
