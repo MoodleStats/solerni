@@ -174,5 +174,6 @@ function block_orange_action_get_event($eventid) {
             0, 0, 0, $event->timestart);
     // Image par défaut
     $imgurl = $CFG->dirroot.'/blocks/orange_action/pix/default.jpg';
+    
     return $PAGE->get_renderer('block_orange_action')->display_event_on_my_page($event, $imgurl, $eventurl);
 }

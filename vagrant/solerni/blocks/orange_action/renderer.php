@@ -40,36 +40,47 @@ class block_orange_action_renderer extends plugin_renderer_base {
     /**
      * Display Event for my page (loggedin user dashboard)
      *
+     * @todo factorize code with the course version
+     *
      * @return message
      */
     public function display_event_on_my_page($event, $imgurl, $eventurl) {
 
-        $output = html_writer::start_tag('div', array('class' => 'row '));
-
-        if ($imgurl) {
-            $imgurl = utilities_image::get_resized_url($imgurl, array('w' => 940, 'h' => 360, 'scale' => false));
-            $output .= html_writer::empty_tag('img', array('src' => $imgurl, 'class' => 'col-xs-12 essentiels-image'));
-        }
+        // Image
+        $output = html_writer::start_tag('div', array('class' => 'orange-action-media'));
+            if ($imgurl) {
+                $output .= html_writer::start_tag('div', array('class' => 'action-media-image'));
+                    $imgurl = utilities_image::get_resized_url($imgurl, array('w' => 940, 'h' => 360, 'scale' => false));
+                    $output .= html_writer::empty_tag('img', array('src' => $imgurl, 'class' => 'img-responsive'));
+                $output .= html_writer::end_tag('div');
+            }
         $output .= html_writer::end_tag('div');
 
-        $output .= html_writer::start_tag('div', array('class' => 'row', 'style' => 'background-color:#000;'));
-            // Subscription button.
-            $output .= html_writer::start_tag('div', array('class' => 'col-xs-4 col-md-12'));
-                    $output .= '<a class="btn btn-default" href="' . $eventurl . '">' .
-                            get_string("gotocalendar", 'block_orange_action').'</a>';
-            $output .= html_writer::end_tag('div');
-            $output .= html_writer::start_tag('div', array('class' => 'col-xs-4 col-md-12'));
-                $output .= html_writer::start_tag('h1', array('class' => '', 'style' => 'color:orange;'));
-                    $output .= $event->name . " (" . calendar_day_representation($event->timestart) . " " .
-                            calendar_time_representation($event->timestart) . ")";
-                $output .= html_writer::end_tag('h1');
-
-                $output .= html_writer::start_tag('span', array('style' => 'font-size:28px;color:#FFF;'));
-                    $output .= html_to_text($event->description);
-                $output .= html_writer::end_tag('span');
-
+        // Banner
+        $output .= html_writer::start_tag('div', array('class' => 'orange-action-banner u-inverse'));
+            $output .= html_writer::start_tag('div', array('class' => 'row'));
+                // First cell.
+                $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-8 orange-action-banner-cell text-container'));
+                    $output .= html_writer::tag('h1', $event->name, array('class' => 'text-oneline'));
+                    // Event description
+                    if ($event->description) {
+                        $output .= html_writer::tag('div', html_to_text($event->description), array('class' => 'summary h3'));
+                    }
+                    // Date representation
+                    $output .= html_writer::start_tag('div', array('class' => 'metadata'));
+                        $output .= html_writer::tag('span', '', array('class' => 'icon-calendar_month', 'aria-hidden' => true));
+                        $output .= html_writer::start_tag('span');
+                            $output .= calendar_day_representation($event->timestart) . ' (' . calendar_time_representation($event->timestart) . ')';
+                        $output .= html_writer::end_tag('span');
+                    $output .= html_writer::end_tag('div');
+                $output .= html_writer::end_tag('div');
+                // Second cell.
+                $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-4 orange-action-banner-cell button-container'));
+                    $output .= html_writer::tag('a', get_string('gotocalendar', 'block_orange_action'), array('class' => 'btn btn-success', 'href' => $eventurl ));
+                $output .= html_writer::end_tag('div');
             $output .= html_writer::end_tag('div');
         $output .= html_writer::end_tag('div');
+        
         return $output;
     }
 
@@ -99,6 +110,8 @@ class block_orange_action_renderer extends plugin_renderer_base {
 
     /**
      * Display for "Find out more" page
+     *
+     * @todo factorize code with the event version
      *
      * @return message
      */
@@ -131,6 +144,7 @@ class block_orange_action_renderer extends plugin_renderer_base {
                     $output .= $extendedcourse->videoplayer;
                 $output .= html_writer::end_tag('div');
             }
+
         $output .= '</div>';
 
         // Banner
@@ -138,21 +152,15 @@ class block_orange_action_renderer extends plugin_renderer_base {
             $output .= html_writer::start_tag('div', array('class' => 'row'));
                 // First cell.
                 $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-8 orange-action-banner-cell text-container'));
-                    $output .= html_writer::start_tag('h1', array('class' => 'text-oneline'));
-                        $output .= $course->fullname;
-                    $output .= html_writer::end_tag('h1');
+                    $output .= html_writer::tag('h1', $course->fullname, array('class' => 'text-oneline'));
                     // Course summary if present.
                     if ($course->summary) {
-                        $output .= html_writer::start_tag('div', array('class' => 'summary h3'));
-                            $output .= html_to_text($course->summary);
-                        $output .= html_writer::end_tag('div');
+                        $output .= html_writer::tag('div', html_to_text($course->summary), array('class' => 'summary h3'));
                     }
                     // Number of enrolled users.
                     $output .= html_writer::start_tag('div', array('class' => 'metadata'));
                         $output .= html_writer::tag('span', '', array('class' => 'icon-avatar', 'aria-hidden' => true));
-                        $output .= html_writer::start_tag('span');
-                            $output .= get_string("enrolledusers", 'block_orange_action', $translations);
-                        $output .= html_writer::end_tag('span');
+                        $output .= html_writer::tag('span', get_string("enrolledusers", 'block_orange_action', $translations));
                     $output .= html_writer::end_tag('div');
                 $output .= html_writer::end_tag('div');
                 // Second cell.
@@ -161,7 +169,7 @@ class block_orange_action_renderer extends plugin_renderer_base {
                     // If next session link should be display.
                     if ($extendedcourse->registrationstatus == utilities_course::MOOCREGISTRATIONCOMPLETE) {
                                 $output .= html_writer::tag('a', get_string('nextsessionlink', 'block_orange_action'),
-                            array('class' => '', 'href' => $extendedcourse->newsessionurl ));
+                            array('href' => $extendedcourse->newsessionurl ));
                     }
                 $output .= html_writer::end_tag('div');
             $output .= html_writer::end_tag('div');
