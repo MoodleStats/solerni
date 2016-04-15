@@ -63,14 +63,14 @@ class block_orange_action_renderer extends plugin_renderer_base {
                 $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-8 orange-action-banner-cell text-container'));
                     $output .= html_writer::tag('h1', $event->name, array('class' => 'text-oneline'));
                     // Event description
-                    if ($event->description) {
+                    if (isset($event->description) && $event->description) {
                         $output .= html_writer::tag('div', html_to_text($event->description), array('class' => 'summary h3'));
                     }
                     // Date representation
                     $output .= html_writer::start_tag('div', array('class' => 'metadata'));
                         $output .= html_writer::tag('span', '', array('class' => 'icon-calendar_month', 'aria-hidden' => true));
                         $output .= html_writer::start_tag('span');
-                            $output .= calendar_day_representation($event->timestart) . ' (' . calendar_time_representation($event->timestart) . ')';
+                            $output .= ucfirst(calendar_day_representation($event->timestart)) . ' (' . calendar_time_representation($event->timestart) . ')';
                         $output .= html_writer::end_tag('span');
                     $output .= html_writer::end_tag('div');
                 $output .= html_writer::end_tag('div');
@@ -80,7 +80,7 @@ class block_orange_action_renderer extends plugin_renderer_base {
                 $output .= html_writer::end_tag('div');
             $output .= html_writer::end_tag('div');
         $output .= html_writer::end_tag('div');
-        
+
         return $output;
     }
 
