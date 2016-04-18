@@ -96,12 +96,11 @@ class block_orange_transverse_discussion_renderer extends plugin_renderer_base {
 
                         $output .= html_writer::empty_tag('br');
 
+                        $plural = ($discussion->get_num_posts() > 1) ? 's':'';
+
                         $output .= html_writer::tag('span', get_string('lineresponsebegin', 'block_orange_transverse_discussion'));
                         $output .= html_writer::tag('span', '<strong>' . $discussion->get_num_posts() . '</strong>', array('class' => 'text-orange'));
-                        $output .= html_writer::tag('span', '<strong>' . get_string('lineresponseend', 'block_orange_transverse_discussion') . '</strong>');
-                        if ($discussion->get_num_posts() > 1) {
-                            $output .= html_writer::tag('span', '<strong>s</strong>');
-                        }
+                        $output .= html_writer::tag('span', '<strong>' . get_string('lineresponseend', 'block_orange_transverse_discussion', $plural) . '</strong>');
 
                     $output .= html_writer::end_tag('div');
                 $output .= html_writer::end_tag('div');

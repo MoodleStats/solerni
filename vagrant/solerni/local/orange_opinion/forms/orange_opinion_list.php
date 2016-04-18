@@ -14,7 +14,30 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-defined('MOODLE_INTERNAL') || die();
+/**
+ * To manage list of rules
+ *
+ * @package    local
+ * @subpackage orange_customers
+ * @copyright  2015 Orange
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
-// If this file isn't here, when you click the link to the user's profile page,
-// there are two warnings on the page.
+require_once($CFG->libdir . '/formslib.php');
+
+/**
+ * Form to select the ingredients to deploy
+ *
+ * @package local
+ * @subpackage orange_customers
+ * @copyright 2015 ORANGE
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+class orange_customers_list extends moodleform implements renderable {
+
+    public function definition() {
+
+        $mform = & $this->_form;
+
+    }
+}

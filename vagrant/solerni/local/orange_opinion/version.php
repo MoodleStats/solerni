@@ -15,24 +15,18 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Lang strings.
- * @package block_orange_transverse_discussion
- * @copyright  2016 Orange
+ * version.php
+ *
+ * @package    local
+ * @subpackage orange_customers
+ * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Orange Transverse Discussion';
+defined('MOODLE_INTERNAL') || die;
 
-$string['orange_transverse_discussion:addinstance'] = 'Add a new block Orange Transverse Discussion';
+$plugin->version  = 20150317184;
+$plugin->requires = 2012110900;
 
-$string['title'] = 'The forums';
-$string['intro'] = 'Learn and share with the community members';
-$string['linkforum'] = 'Forums {$a}';
-
-$string['titlebanner'] = 'Last active subject on the forums {$a}';
-$string['forumname'] = 'Forum : ';
-$string['discussionname'] = 'Discussion : ';
-$string['createdby'] = 'Created by ';
-$string['lineresponsebegin'] = 'Has received ';
-$string['lineresponseend'] = ' response{$a}';
-$string['linkdiscuss'] = 'Join the discussion';
+$plugin->maturity = MATURITY_RC;
+$plugin->release = '0.2';
