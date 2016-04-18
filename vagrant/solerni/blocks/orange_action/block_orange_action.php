@@ -26,6 +26,8 @@
 require_once(dirname(__FILE__) . '/../../config.php');
 require_once($CFG->dirroot.'/blocks/orange_action/lib.php');
 require_once($CFG->dirroot.'/calendar/lib.php');
+// Adding requirement to avoid  Class 'block_base' not found.
+require_once($CFG->dirroot . '/blocks/moodleblock.class.php');
 use local_orange_library\utilities\utilities_course;
 
 class block_orange_action extends block_base {
@@ -117,6 +119,7 @@ class block_orange_action extends block_base {
             list ($extendedcourse, $imgurl) = block_orange_action_get_course($COURSE);
             $this->content->text = $this->renderer->display_on_course_page($COURSE, $extendedcourse, $imgurl);
         }
+
         if (block_orange_action_on_my_page()) {
             // Read course and event id from block_config. In priority we take the course if set.
             if (!empty($this->config->coursetopush)) {

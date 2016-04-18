@@ -46,8 +46,8 @@ $string['new_session']          = 'new_session';
 // Extended course object.
 $string['english']              = 'English';
 $string['french']               = 'French';
-$string['duration_default']     = 'Less than four weeks';
-$string['workingtime_default']  = 'Less than one hour';
+$string['duration_default']     = 0;
+$string['workingtime_default']  = 0;
 $string['prerequesites_default'] = 'No prerequisites';
 $string['subtitle']             = ' subtitles';
 $string['subtitle_default']     = 'subtitles';
