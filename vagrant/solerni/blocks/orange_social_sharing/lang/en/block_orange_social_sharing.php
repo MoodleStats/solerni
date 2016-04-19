@@ -15,9 +15,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Orange Social Sharing english translation page
+ *
  * @package    blocks
- * @subpackage orange_social_sharing
- * @copyright  2015 Orange
+ * @subpackage orange_orange_social_sharing
+ * @copyright  2016 Orange
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -26,6 +28,8 @@ defined('MOODLE_INTERNAL') || die();
 $string['pluginname']                           = 'Social sharing block';
 $string['title']                                = 'Social sharing';
 $string['configtitle']                          = 'Social sharing';
+$string['sharetitle']                           = 'Share';
+$string['followtitle']                          = 'Follow';
 $string['defaulttitle']                         = 'Social sharing';
 $string['defaulttext']                          = 'Pealse, configure the social sharing block.';
 

@@ -121,3 +121,14 @@ function block_orange_listforumng_on_my_page() {
 
     return $SCRIPT === '/my/index.php';
 }
+
+/**
+ * Checks whether the current page is forum index page.
+ *
+ * @return bool True when on a forum index page.
+ */
+function block_orange_listforumng_on_forum_index_page() {
+    global $SCRIPT;
+
+    return $SCRIPT === '/forum/index.php';
+}

@@ -661,7 +661,7 @@ class utilities_course {
     }
 
     /**
-     * Returns "forrum page" url of a course
+     * Returns "forum page" url of a course
      *
      * @global type $CFG
      * @param type $course
@@ -669,9 +669,33 @@ class utilities_course {
      *
      */
     public function get_course_url_page_forum($course = null) {
+        global $CFG;
+
+        $idpage = $this->get_course_id_page_forum($course);
+
+        // To avoid having an error page when the forum page is not setup.
+        if ($idpage != null) {
+            $url = new \moodle_url('/course/view.php', array('id' => $course->id, 'pageid' => $idpage));
+        } else {
+            $url = $CFG->wwwroot;
+
+        }
+
+        return $url;
+    }
+
+    /**
+     * Returns "forrum page" id of a course
+     *
+     * @global type $CFG
+     * @param type $course
+     * @return id
+     *
+     */
+    public function get_course_id_page_forum($course = null) {
 
         global $CFG, $DB;
-        $url = '#';
+        $idpage = null;
 
         if (!$course) {
             global $COURSE;
@@ -686,17 +710,13 @@ class utilities_course {
                      AND I.pagetypepattern LIKE 'course-view%' LIMIT 1";
 
             $idpage = $DB->get_record_sql($sql, array($course->id));
-
-            // To avoid having an error page when the forum page is not setup.
-            if ($idpage != null) {
-                $url = new \moodle_url('/course/view.php', array('id' => $course->id, 'pageid' => $idpage->subpagepattern));
-            } else {
-                $url = $CFG->wwwroot;
-
-            }
         }
 
-        return $url;
+        if ($idpage != null) {
+            return $idpage->subpagepattern;
+        } else {
+            return $idpage;
+        }
     }
 
     /**
@@ -952,7 +972,10 @@ class utilities_course {
     public static function store_course_page($pageid) {
         global $DB, $USER, $COURSE;
 
-        if (!empty($pageid)) {
+        // If we access the forum page of the MOOC then we should not store the id.
+        $utilitiescourse = new utilities_course();
+        $idpageforum = $utilitiescourse->get_course_id_page_forum($COURSE);
+        if (!empty($pageid) && ($pageid != $idpageforum)) {
             $currentpage = $DB->get_record('last_page_viewed',
                     array('courseid' => $COURSE->id, 'userid' => $USER->id), '*', IGNORE_MISSING);
             if ($currentpage) {
@@ -995,5 +1018,45 @@ class utilities_course {
             }
         }
         return null;
+    }
+
+    /**
+     * Check if tab is active
+     *
+     * @param tab identifier $tabid
+     * @param current script $script
+     * @param course $course
+     * @return none
+     */
+    public static function is_active_tab($tabid, $script, $course) {
+        $forumurl = self::get_mooc_forum_menu($course);
+
+        switch ($tabid) {
+            case "learn":
+                if ((strpos($script, "/course/view") !== false) &&
+                    (is_null($forumurl) || (strpos($script, $forumurl->out_as_local_url(false)) === false))) {
+                    return 'class="active"';
+                }
+                break;
+            case "learnmore":
+                if (strpos($script, "/mod/oublog") !== false) {
+                    return 'class="active"';
+                }
+                break;
+            case "forum":
+                if (!is_null($forumurl)) {
+                    if (strpos($script, $forumurl->out_as_local_url(false)) !== false) {
+                        return 'class="active"';
+                    }
+                }
+                break;
+            case "share":
+                if (strpos($script, "/mod/folder") !== false) {
+                    return 'class="active"';
+                }
+                break;
+        }
+
+        return '';
     }
 }

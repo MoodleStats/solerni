@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 use local_orange_library\utilities\utilities_course;
-global $COURSE; ?>
+global $COURSE, $SCRIPT, $ME; ?>
 
 <!-- page block title -->
 <div class="row">
@@ -32,22 +32,22 @@ global $COURSE; ?>
         ?>
         <ul class="nav nav-tabs orange-nav-tabs" role="tablist">
         <?php if (!empty($learnmorelink)) : ?>
-            <li role="presentation" class="active"><a class="orange-nav-tabs-link" href="<?php echo $learnmorelink; ?>">
+            <li role="presentation" <?php echo utilities_course::is_active_tab("learnmore", $SCRIPT, $COURSE) ?>><a class="orange-nav-tabs-link" href="<?php echo $learnmorelink; ?>">
                 <?php echo get_string('coursemenulearnmore', 'local_orange_library') ?>
             </a></li>        
         <?php endif; ?>
         <?php if (!empty($learnlink)) : ?>
-            <li role="presentation"><a class="orange-nav-tabs-link" href="<?php echo $learnlink ?>">
+            <li role="presentation" <?php echo utilities_course::is_active_tab("learn", $ME, $COURSE) ?>><a class="orange-nav-tabs-link" href="<?php echo $learnlink ?>">
                 <?php echo get_string('coursemenulearn', 'local_orange_library') ?>
             </a></li>        
         <?php endif; ?>
         <?php if (!empty($forumlink)) : ?>
-            <li role="presentation"><a class="orange-nav-tabs-link" href="<?php echo $forumlink ?>">
+            <li role="presentation" <?php echo utilities_course::is_active_tab("forum", $ME, $COURSE) ?>><a class="orange-nav-tabs-link" href="<?php echo $forumlink ?>">
                 <?php echo get_string('coursemenuforum', 'local_orange_library') ?>
             </a></li>
         <?php endif; ?>
         <?php if (!empty($sharelink)) : ?>
-            <li role="presentation"><a class="orange-nav-tabs-link" href="<?php echo $sharelink ?>">
+            <li role="presentation" <?php echo utilities_course::is_active_tab("share", $SCRIPT, $COURSE) ?>><a class="orange-nav-tabs-link" href="<?php echo $sharelink ?>">
                 <?php echo get_string('coursemenushare', 'local_orange_library') ?>
             </a></li>
         <?php endif; ?>
