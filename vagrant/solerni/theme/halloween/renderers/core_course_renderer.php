@@ -522,13 +522,13 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
                 $arrayclass = array('role' => 'presentation');
             }
             $buttons .= html_writer::start_tag('li', $arrayclass);
-            $buttons .= html_writer::link($url.'?filter=' . $key, $label . " (" . $nbcourses[$key] . ")", array('class' => 'orange-nav-tabs-link'));
+                $buttons .= html_writer::link($url.'?filter=' . $key, $label . " (" . $nbcourses[$key] . ")", array('class' => 'orange-nav-tabs-link'));
             $buttons .= html_writer::end_tag('li');
         }
         $buttons .= html_writer::end_tag('ul');
 
-        $title = html_writer::start_tag('h2', array('class' => ''));
-        $title .= get_string('titlefollowedcourses', 'block_orange_course_dashboard');
+        $title = html_writer::start_tag('h2');
+            $title .= get_string('titlefollowedcourses', 'block_orange_course_dashboard');
         $title .= html_writer::end_tag('h2');
 
         return $title . $buttons . $moocslist;
