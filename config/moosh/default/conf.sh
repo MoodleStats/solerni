@@ -394,6 +394,14 @@ function main () {
 	# Set user fullname format (#us_504)
 	execute_moosh_command "moosh config-set fullnamedisplay \"firstname lastname\""
 	execute_moosh_command "moosh config-set emailonlyfromnoreplyaddress 1"
+
+	# Reduce quiz question type qtype (#us_478)
+	execute_moosh_command "moosh plugin-uninstall qtype_calculatedmulti"
+	execute_moosh_command "moosh plugin-uninstall qtype_calculatedsimple"
+	execute_moosh_command "moosh plugin-uninstall qtype_calculated"
+	execute_moosh_command "moosh plugin-uninstall qtype_essay"
+	execute_moosh_command "moosh plugin-uninstall qtype_multianswer"
+	execute_moosh_command "moosh plugin-uninstall qtype_randomsamatch"
 }
 
 main "$@"
