@@ -252,7 +252,7 @@ $string['configfullnamedisplay'] = 'Ce réglage définit comment les noms sont a
 
 Pour la plupart des sites monolingues, le réglage le plus efficace est le réglage « Prénom Nom », mais vous pouvez choisir par exemple de cacher les noms de familles. Vous pouvez utiliser ici les variables prédéfinies suivantes : firstname, lastname, firstnamephonetic, lastnamephonetic, middlename, et alternatename.';
 $string['configgeoipfile'] = 'Emplacement du fichier binaire GeoIP City. Ce fichier ne fait pas partie de la distribution de Moodle. Il doit être obtenu séparément chez <a href="http://www.maxmind.com/">MaxMind</a>. Vous pouvez soit en acheter une version commerciale, soit utiliser la version gratuite. Téléchargez simplement le fichier <a href="http://www.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz" >http://www.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz</a> et décompressez-le dans le dossier « {$a} » sur votre serveur.';
-$string['configgetremoteaddrconf'] = 'Si votre serveur est situé derrière un proxy inverse, vous pouvez utiliser ce réglage pour indiquer les entêtes HTTP dont on peut être sûr qu\'ils contiennent l\'adresse IP distante. Les entêtes sont lues dans l\'ordre indiqué, la première disponible étant utilisée.';
+$string['configgetremoteaddrconf'] = 'Si votre serveur est situé derrière un proxy inverse, vous pouvez utiliser ce réglage pour indiquer les entêtes HTTP dont on peut être sûr qu\'elles contiennent l\'adresse IP distante. Les entêtes sont lues dans l\'ordre indiqué, la première disponible étant utilisée.';
 $string['configgradebookroles'] = 'Ce réglage permet de configurer les rôles apparaissant dans le carnet de notes. Pour être mentionnés dans le carnet de notes d\'un cours, les utilisateurs doivent avoir au moins l\'un de ces rôles dans ce cours.';
 $string['configgradeexport'] = 'Sélectionnez les formats d\'exportation privilégiés du carnet de notes. Les sélections mettront en place et utiliseront ensuite un champ « dernière exportation » pour chaque note. Par exemple, cela permettra d\'identifier des notes exportées comme « nouvelles » ou « modifiées ». Si vous n\'êtes pas sûr à ce sujet, ne cochez rien.';
 $string['confighiddenuserfields'] = 'Veuillez sélectionner quelles informations vous désirez cacher aux autres utilisateurs du cours que les administrateurs/enseignants. Vous pourrez ainsi améliorer la protection des données des étudiants. Il est possible de sélectionner plusieurs champs.';
@@ -1015,7 +1015,7 @@ $string['taskautomatedbackup'] = 'Sauvegardes automatiques';
 $string['taskbackupcleanup'] = 'Nettoyage des tables de sauvegarde et les historiques';
 $string['taskbadgescron'] = 'Décernement des badges';
 $string['taskblogcron'] = 'Synchronisation des blogs externes';
-$string['taskcachecleanup'] = 'Suppression des entrées échues des caches';
+$string['taskcachecleanup'] = 'Suppression des éléments en cache échus';
 $string['taskcachecron'] = 'Traitement en tâche de fond des caches';
 $string['taskcalendarcron'] = 'Envoi des notifications de calendrier';
 $string['taskcheckforupdates'] = 'Recherche des mises à jour';

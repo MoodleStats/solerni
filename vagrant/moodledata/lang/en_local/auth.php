@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,17 +16,15 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * version.php
+ * Strings for component 'auth', language 'en', branch 'MOODLE_29_STABLE'
  *
- * @package    local
- * @subpackage orange_mail
- * @copyright  2015 Orange
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   auth
+ * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
+defined('MOODLE_INTERNAL') || die();
 
-$plugin->version  = 2016041903;
-$plugin->requires = 2014051200;
-$plugin->component = 'local_orange_mail';      // Full name of the plugin (used for diagnostics).
-$plugin->maturity = MATURITY_RC;
+require_once("$CFG->dirroot/local/orange_mail/mail_init.php");
+
+$string['emailupdatemessage'] = mail_init::init('emailupdatemessage','html');
