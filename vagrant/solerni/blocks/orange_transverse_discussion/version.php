@@ -14,18 +14,16 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+
 /**
- * @package    blocks
- * @subpackage course_extended
- * @copyright  2015 Orange
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * Orange Transverse Discussion block version details
+ *
+ * @package    block_orange_transverse_discussion
+ * @copyright  Orange 2016
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
-$plugin->component  = 'block_orange_course_extended';
-$plugin->release    = '1.0';
-$plugin->version    = 2016032100;
-$plugin->requires   = 2014051200; // Moodle 2.7.
-$plugin->maturity   = MATURITY_STABLE;
-$plugin->dependencies = array('format_flexpage' => 2015050500, 'local_orange_library' => 2015052700);
+$plugin->version   = 2016041300;
+$plugin->requires  = 2015051104;
+$plugin->maturity  = MATURITY_STABLE;
+$plugin->component = 'block_orange_transverse_discussion';

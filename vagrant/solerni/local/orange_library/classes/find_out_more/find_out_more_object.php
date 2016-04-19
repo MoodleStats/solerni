@@ -24,7 +24,6 @@
 namespace local_orange_library\find_out_more;
 
 use local_orange_library\extended_course\extended_course_object;
-use local_orange_library\utilities\utilities_object;
 use local_orange_library\utilities\utilities_course;
 use local_orange_library\enrollment\enrollment_object;
 
@@ -100,13 +99,12 @@ class find_out_more_object extends extended_course_object{
      * @return object $this->extendedcourse
      */
     protected function set_find_out_more ($extendedcourseflexpagevalue, $course, $context) {
-        echo 'set_find_out_more ';
+
         for ($i=0;$i<=5;$i++) {
-            //echo ' $extendedcourseflexpagevalue = '.$extendedcourseflexpagevalue->name;
 
             switch ($extendedcourseflexpagevalue->name) {
                 case 'paragraph'.($i+1):
-                    echo " ".$extendedcourseflexpagevalue->name." ". $this->paragraphtitle[$i];
+                    $this->paragraphtitle[$i] = $extendedcourseflexpagevalue->value;
                     break;
                 case 'description'.($i+1):
                     $this->paragraphdescription[$i] = $extendedcourseflexpagevalue->value;
@@ -115,92 +113,7 @@ class find_out_more_object extends extended_course_object{
                     $this->paragraphpicture[$i] = $extendedcourseflexpagevalue->value;
                     break;
             }
-
         }
-                            /*
-            case 'paragraph2':
-                $this->pragraphtitle[1] = $extendedcourseflexpagevalue->value;
-                break;
-            case 'description2':
-                $this->pragraphdescription[1] = $extendedcourseflexpagevalue->value;
-                break;
-            case 'paragraph2picture':
-                $this->pragraphpicture[1] = $extendedcourseflexpagevalue->value;
-                break;
-            case 'paragraph13':
-                $this->pragraphtitle[2] = $extendedcourseflexpagevalue->value;
-                break;
-            case 'description3':
-                $this->pragraphdescription[2] = $extendedcourseflexpagevalue->value;
-                break;
-            case 'paragraph3picture':
-                $this->pragraphpicture[2] = $extendedcourseflexpagevalue->value;
-                break;
-            case 'paragraph4':
-                $this->pragraphtitle[3] = $extendedcourseflexpagevalue->value;
-                break;
-            case 'description4':
-                $this->pragraphdescription[3] = $extendedcourseflexpagevalue->value;
-                break;
-            case 'paragraph4picture':
-                $this->pragraphpicture4 = $extendedcourseflexpagevalue->value;
-                break;
-            case 'paragraph5':
-                $this->pragraphtitle5 = $extendedcourseflexpagevalue->value;
-                break;
-            case 'description5':
-                $this->pragraphdescription5 = $extendedcourseflexpagevalue->value;
-                break;
-            case 'paragraph5picture':
-                $this->pragraphpicture5 = $extendedcourseflexpagevalue->value;
-                break;
-            case 'paragraph6':
-                $this->pragraphtitle6 = $extendedcourseflexpagevalue->value;
-                break;
-            case 'description6':
-                $this->pragraphdescription6 = $extendedcourseflexpagevalue->value;
-                break;
-            case 'paragraph6picture':
-                $this->pragraphpicture6 = $extendedcourseflexpagevalue->value;
-                break;
-            case 'paragraph7':
-                $this->pragraphtitle7 = $extendedcourseflexpagevalue->value;
-                break;
-            case 'description7':
-                $this->pragraphdescription7 = $extendedcourseflexpagevalue->value;
-                break;
-            case 'paragraph7picture':
-                $this->pragraphpicture7 = $extendedcourseflexpagevalue->value;
-                break;
-            case 'paragraph8':
-                $this->pragraphtitle8 = $extendedcourseflexpagevalue->value;
-                break;
-            case 'description8':
-                $this->pragraphdescription8 = $extendedcourseflexpagevalue->value;
-                break;
-            case 'paragraph8picture':
-                $this->pragraphpicture8 = $extendedcourseflexpagevalue->value;
-                break;
-            case 'paragraph9':
-                $this->pragraphtitle9 = $extendedcourseflexpagevalue->value;
-                break;
-            case 'description9':
-                $this->pragraphdescription9 = $extendedcourseflexpagevalue->value;
-                break;
-            case 'paragraph9picture':
-                $this->pragraphpicture9 = $extendedcourseflexpagevalue->value;
-                break;
-            case 'paragraph10':
-                $this->pragraphtitle10 = $extendedcourseflexpagevalue->value;
-                break;
-            case 'description10':
-                $this->pragraphdescription10 = $extendedcourseflexpagevalue->value;
-                break;
-            case 'paragraph10picture':
-                $this->pragraphpicture10 = $extendedcourseflexpagevalue->value;
-                break;
-        }
-*/    }
-
+    }
 
 }

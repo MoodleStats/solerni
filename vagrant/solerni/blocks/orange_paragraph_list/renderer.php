@@ -48,7 +48,6 @@ class block_orange_paragraph_list_renderer extends plugin_renderer_base {
      * @return message
      */
     public function display_event_on_my_page ($event, $imgurl, $eventurl) {
-        echo 'display_event_on_my_page';
 
         $output = html_writer::start_tag('div', array('class' => 'row '));
 
@@ -112,25 +111,16 @@ class block_orange_paragraph_list_renderer extends plugin_renderer_base {
      * @return message
      */
     public function display_on_course_page ($course, $findoutmore, $imgurl) {
-        echo 'display_on_course_page';
-$findoutmore = new find_out_more_object();
+
         $output = html_writer::start_tag('div', array('class' => 'zigzag'));
         $i=0;
-        print_object($imgurl);
+        $bgcolor = array ("bg-success", "", "bg-info", "", "bg-warning", "", "bg-danger");
         foreach ($imgurl as $value) {
-            $output .= html_writer::start_tag('div', array('class' => 'row bg-info'));
-                $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-5'));
-                    $output .= html_writer::empty_tag('img', array('src' => $value, 'class' => 'img-responsive'));
-                $output .= html_writer::end_tag('div');
-                $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-5 col-md-offset-1'));
-                    $output .= html_writer::start_tag('p', array('class' => 'h2'));
-                        $output .= $findoutmore->paragraphtitle[$i];
-                    $output .= html_writer::end_tag('p');
-                    $output .= html_writer::start_tag('p', array('class' => 'h7 thumbnail-text'));
-                        $output .= $findoutmore->paragraphdescription[$i];
-                    $output .= html_writer::end_tag('p');
-                $output .= html_writer::end_tag('div');
-            $output .= html_writer::end_tag('div');
+            if ($i%2 ==1) {
+                $output .= $this->display_left_text($findoutmore->paragraphtitle[$i], $findoutmore->paragraphdescription[$i], $value);
+            } else {
+                $output .= $this->display_right_text($findoutmore->paragraphtitle[$i], $findoutmore->paragraphdescription[$i], $value, $bgcolor[$i]);
+            }
             $i++;
         }
         $output .= html_writer::end_tag('div');
@@ -138,4 +128,52 @@ $findoutmore = new find_out_more_object();
         return $output;
     }
 
+    /**
+     * Display for "Find out more" page
+     *
+     * @return message
+     */
+    public function display_right_text ($paragraphtitle, $paragraphdescription, $imgurl, $bgcolor) {
+
+            $output = html_writer::start_tag('div', array('class' => 'row '.$bgcolor));
+                $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-5'));
+                    $output .= html_writer::empty_tag('img', array('src' => $imgurl, 'class' => 'img-responsive'));
+                $output .= html_writer::end_tag('div');
+                $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-5 col-md-offset-1'));
+                    $output .= html_writer::start_tag('p', array('class' => 'h2'));
+                        $output .= $paragraphtitle;
+                    $output .= html_writer::end_tag('p');
+                    $output .= html_writer::start_tag('p', array('class' => 'h7 thumbnail-text'));
+                        $output .= $paragraphdescription;
+                    $output .= html_writer::end_tag('p');
+                $output .= html_writer::end_tag('div');
+            $output .= html_writer::end_tag('div');
+
+
+        return $output;
+    }
+
+        /**
+     * Display for "Find out more" page
+     *
+     * @return message
+     */
+    public function display_left_text ($paragraphtitle, $paragraphdescription, $imgurl) {
+
+            $output = html_writer::start_tag('div', array('class' => 'row'));
+                $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-5'));
+                    $output .= html_writer::start_tag('p', array('class' => 'h2'));
+                        $output .= $paragraphtitle;
+                    $output .= html_writer::end_tag('p');
+                    $output .= html_writer::start_tag('p', array('class' => 'h7 thumbnail-text'));
+                        $output .= $paragraphdescription;
+                    $output .= html_writer::end_tag('p');
+                $output .= html_writer::end_tag('div');
+                $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-5 col-md-offset-1'));
+                    $output .= html_writer::empty_tag('img', array('src' => $imgurl, 'class' => 'img-responsive'));
+                $output .= html_writer::end_tag('div');
+            $output .= html_writer::end_tag('div');
+
+        return $output;
+    }
 }

@@ -105,9 +105,16 @@
 .icon-map  {
     float:          left;
     font-weight:    bold;
+    display: inline-block; 
+    width: 100%;
+    padding: @s-small-xs-margin;
     
-    .centered {
-        vertical-align: middle;
+    .centeredicon {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-left: @s-small-xs-margin;  
+
     }
 
     img {
@@ -115,6 +122,11 @@
         height:     @font-size-h2;
 
     }    
+}
+
+.icon-map .movetext {
+    float:          right;
+    width: calc(~'100% - 50px');
 }
 
 .icon-map .logo-image {
@@ -128,9 +140,15 @@
 
 .icon-map .textcentered {
     float:          right;
-    line-height:    @s-double-md-margin;
+//    line-height:    @s-double-md-margin;
+    margin-left: @s-small-xs-margin;
 }
 
+.icon-map .bigtext {
+    color:          @brand-primary;
+    font-size:      @font-size-h2;
+    //margin-left: @s-small-xs-margin;
+}
 .grey {
     color: @orange-mid-1;
 }

@@ -14,16 +14,25 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
- * Orange Icons Map version details
- *
- * @package    block_orange_iconsmap
- * @copyright  Orange 2016
+ * Lang strings.
+ * @package block_orange_transverse_discussion
+ * @copyright  2016 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$plugin->version   = 2016041200;
-$plugin->requires  = 2015051104;
-$plugin->maturity  = MATURITY_STABLE;
-$plugin->component = 'block_orange_iconsmap';
+$string['pluginname'] = 'Orange Transverse Discussion';
+
+$string['orange_transverse_discussion:addinstance'] = 'Add a new block Orange Transverse Discussion';
+
+$string['title'] = 'The forums';
+$string['intro'] = 'Learn and share with the community members';
+$string['linkforum'] = 'Forums {$a}';
+
+$string['titlebanner'] = 'Last active subject on the forums {$a}';
+$string['forumname'] = 'Forum : ';
+$string['discussionname'] = 'Discussion : ';
+$string['createdby'] = 'Created by ';
+$string['lineresponsebegin'] = 'Has received ';
+$string['lineresponseend'] = ' response{$a}';
+$string['linkdiscuss'] = 'Join the discussion';
