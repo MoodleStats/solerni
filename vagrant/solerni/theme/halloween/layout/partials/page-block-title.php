@@ -27,27 +27,27 @@ global $COURSE, $SCRIPT, $ME; ?>
         <?php if (utilities_course::is_on_course_page()) :
             $sharelink = utilities_course::get_mooc_share_menu($COURSE->id);
             $learnmorelink = utilities_course::get_mooc_learnmore_menu($COURSE->id);
-            $forumlink = utilities_course::get_mooc_forum_menu($COURSE);
+            $forumlink = utilities_course::get_mooc_forum_menu($COURSE->id);
             $learnlink = utilities_course::get_mooc_learn_menu($COURSE->id);
         ?>
         <ul class="nav nav-tabs orange-nav-tabs" role="tablist">
         <?php if (!empty($learnmorelink)) : ?>
-            <li role="presentation" <?php echo utilities_course::is_active_tab("learnmore", $SCRIPT, $COURSE) ?>><a class="orange-nav-tabs-link" href="<?php echo $learnmorelink; ?>">
+            <li role="presentation" <?php echo utilities_course::is_active_tab("learnmore", $SCRIPT, $COURSE->id) ?>><a class="orange-nav-tabs-link" href="<?php echo $learnmorelink; ?>">
                 <?php echo get_string('coursemenulearnmore', 'local_orange_library') ?>
             </a></li>        
         <?php endif; ?>
         <?php if (!empty($learnlink)) : ?>
-            <li role="presentation" <?php echo utilities_course::is_active_tab("learn", $ME, $COURSE) ?>><a class="orange-nav-tabs-link" href="<?php echo $learnlink ?>">
+            <li role="presentation" <?php echo utilities_course::is_active_tab("learn", $ME, $COURSE->id) ?>><a class="orange-nav-tabs-link" href="<?php echo $learnlink ?>">
                 <?php echo get_string('coursemenulearn', 'local_orange_library') ?>
             </a></li>        
         <?php endif; ?>
         <?php if (!empty($forumlink)) : ?>
-            <li role="presentation" <?php echo utilities_course::is_active_tab("forum", $ME, $COURSE) ?>><a class="orange-nav-tabs-link" href="<?php echo $forumlink ?>">
+            <li role="presentation" <?php echo utilities_course::is_active_tab("forum", $ME, $COURSE->id) ?>><a class="orange-nav-tabs-link" href="<?php echo $forumlink ?>">
                 <?php echo get_string('coursemenuforum', 'local_orange_library') ?>
             </a></li>
         <?php endif; ?>
         <?php if (!empty($sharelink)) : ?>
-            <li role="presentation" <?php echo utilities_course::is_active_tab("share", $SCRIPT, $COURSE) ?>><a class="orange-nav-tabs-link" href="<?php echo $sharelink ?>">
+            <li role="presentation" <?php echo utilities_course::is_active_tab("share", $SCRIPT, $COURSE->id) ?>><a class="orange-nav-tabs-link" href="<?php echo $sharelink ?>">
                 <?php echo get_string('coursemenushare', 'local_orange_library') ?>
             </a></li>
         <?php endif; ?>

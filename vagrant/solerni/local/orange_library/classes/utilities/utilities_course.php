@@ -664,52 +664,48 @@ class utilities_course {
      * Returns "forum page" url of a course
      *
      * @global type $CFG
-     * @param type $course
+     * @param course Id $courseid
      * @return string
      *
      */
-    public function get_course_url_page_forum($course = null) {
+    public function get_course_url_page_forum($courseid = null) {
         global $CFG;
 
-        $idpage = $this->get_course_id_page_forum($course);
+        $idpage = $this->get_course_id_page_forum($courseid);
 
-        // To avoid having an error page when the forum page is not setup.
-        if ($idpage != null) {
-            $url = new \moodle_url('/course/view.php', array('id' => $course->id, 'pageid' => $idpage));
-        } else {
-            $url = $CFG->wwwroot;
-
+        if (is_null($idpage)) {
+            return null;
         }
 
-        return $url;
+        return new \moodle_url('/course/view.php', array('id' => $courseid, 'pageid' => $idpage));
     }
 
     /**
-     * Returns "forrum page" id of a course
+     * Returns "forum page" id of a course
      *
      * @global type $CFG
-     * @param type $course
+     * @param course Id $courseid
      * @return id
      *
      */
-    public function get_course_id_page_forum($course = null) {
+    public function get_course_id_page_forum($courseid = null) {
 
         global $CFG, $DB;
         $idpage = null;
 
-        if (!$course) {
+        if (!$courseid) {
             global $COURSE;
-            $course = $COURSE;
+            $courseid = $COURSE->id;
         }
 
-        if ($course) {
+        if ($courseid) {
             $sql = "SELECT distinct(I.subpagepattern)
                      FROM {block_instances} I LEFT OUTER JOIN {format_flexpage_page} P ON (I.subpagepattern = P.id)
                      WHERE P.courseid = ?
                      AND I.blockname='orange_listforumng'
                      AND I.pagetypepattern LIKE 'course-view%' LIMIT 1";
 
-            $idpage = $DB->get_record_sql($sql, array($course->id));
+            $idpage = $DB->get_record_sql($sql, array($courseid));
         }
 
         if ($idpage != null) {
@@ -900,18 +896,15 @@ class utilities_course {
     /**
      * Get the URL for course menu "DISCUTER"
      *
-     * @param course $course
+     * @param course Id $courseid
      * @return url 
      */
-    public static function get_mooc_forum_menu($course) {
+    public static function get_mooc_forum_menu($courseid) {
         global $CFG;
 
         $utilitiescourse = new utilities_course();
-        $url = $utilitiescourse->get_course_url_page_forum($course);
-        if ($url == $CFG->wwwroot) {
-            return null;
-        }
-        return $url;
+
+        return $utilitiescourse->get_course_url_page_forum($courseid);
     }
 
     /**
@@ -932,20 +925,20 @@ class utilities_course {
                                                      WHERE fp.courseid = :id AND fp.display=2
                                                      ORDER BY fp.parentid ASC
                                                      LIMIT 1", array('id' => $courseid), IGNORE_MISSING);
-            if ($home) {
-                // Get first Sequence.
-                $firstpage = $DB->get_field_sql("SELECT fp.id
-                                                     FROM {format_flexpage_page} fp
-                                                     WHERE fp.parentid = :id AND fp.display=2
-                                                     ORDER BY fp.weight ASC
-                                                     LIMIT 1", array('id' => $home), IGNORE_MISSING);
-                if ($firstpage) {
-                    return new \moodle_url('/course/view.php', array('id' => $courseid, 'pageid' => $firstpage));
-                } else {
-                    return new \moodle_url('/course/view.php', array('id' => $courseid, 'pageid' => $home));
-                }
-            } else {
+            if (!isset($home)) {
                 return null;
+            }
+
+            // Get first Sequence.
+            $firstpage = $DB->get_field_sql("SELECT fp.id
+                                                 FROM {format_flexpage_page} fp
+                                                 WHERE fp.parentid = :id AND fp.display=2
+                                                 ORDER BY fp.weight ASC
+                                                 LIMIT 1", array('id' => $home), IGNORE_MISSING);
+            if ($firstpage) {
+                return new \moodle_url('/course/view.php', array('id' => $courseid, 'pageid' => $firstpage));
+            } else {
+                return new \moodle_url('/course/view.php', array('id' => $courseid, 'pageid' => $home));
             }
         } else {
             return new \moodle_url('/course/view.php', array('id' => $courseid, 'pageid' => $pageid));
@@ -974,7 +967,7 @@ class utilities_course {
 
         // If we access the forum page of the MOOC then we should not store the id.
         $utilitiescourse = new utilities_course();
-        $idpageforum = $utilitiescourse->get_course_id_page_forum($COURSE);
+        $idpageforum = $utilitiescourse->get_course_id_page_forum($COURSE->id);
         if (!empty($pageid) && ($pageid != $idpageforum)) {
             $currentpage = $DB->get_record('last_page_viewed',
                     array('courseid' => $COURSE->id, 'userid' => $USER->id), '*', IGNORE_MISSING);
@@ -1013,10 +1006,9 @@ class utilities_course {
                     array('id' => $COURSE->id, 'pageid' => $currentpage->pageid), IGNORE_MISSING);
             if ($page) {
                 return $currentpage->pageid;
-            } else {
-                return null;
             }
         }
+
         return null;
     }
 
@@ -1025,11 +1017,11 @@ class utilities_course {
      *
      * @param tab identifier $tabid
      * @param current script $script
-     * @param course $course
+     * @param course Id $courseid
      * @return none
      */
-    public static function is_active_tab($tabid, $script, $course) {
-        $forumurl = self::get_mooc_forum_menu($course);
+    public static function is_active_tab($tabid, $script, $courseid) {
+        $forumurl = self::get_mooc_forum_menu($courseid);
 
         switch ($tabid) {
             case "learn":
@@ -1045,7 +1037,8 @@ class utilities_course {
                 break;
             case "forum":
                 if (!is_null($forumurl)) {
-                    if (strpos($script, $forumurl->out_as_local_url(false)) !== false) {
+                    if ((strpos($script, $forumurl->out_as_local_url(false)) !== false) ||
+                        (strpos($script, "/mod/forumng") !== false)) {
                         return 'class="active"';
                     }
                 }
