@@ -514,16 +514,18 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
             $moocslist .= get_string('nocourses', 'my');
         }
 
-        $buttons = html_writer::start_tag('div', array('class' => ''));
+        $buttons = html_writer::start_tag('ul', array('class' => 'nav nav-tabs orange-nav-tabs', 'role' => 'tablist'));
         foreach ($labels as $key => $label) {
             if($filter == $key) {
-                $arrayclass = array('class' => 'btn btn-default btn-lg btn-primary');
+                $arrayclass = array('class' => 'active', 'role' => 'presentation');
             } else {
-                $arrayclass = array('class' => 'btn btn-default btn-lg');
+                $arrayclass = array('role' => 'presentation');
             }
-            $buttons .= html_writer::link($url.'?filter=' . $key, $label . " (" . $nbcourses[$key] . ")", $arrayclass);
+            $buttons .= html_writer::start_tag('li', $arrayclass);
+            $buttons .= html_writer::link($url.'?filter=' . $key, $label . " (" . $nbcourses[$key] . ")", array('class' => 'orange-nav-tabs-link'));
+            $buttons .= html_writer::end_tag('li');
         }
-        $buttons .= html_writer::end_tag('div');
+        $buttons .= html_writer::end_tag('ul');
 
         $title = html_writer::start_tag('h2', array('class' => ''));
         $title .= get_string('titlefollowedcourses', 'block_orange_course_dashboard');
