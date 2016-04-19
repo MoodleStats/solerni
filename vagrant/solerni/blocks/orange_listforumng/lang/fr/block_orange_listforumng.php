@@ -26,6 +26,8 @@ $string['pluginname'] = 'List ForumNG';
 $string['newlistforumnglock'] = '(Nouveau bloc Liste de Forums)';
 $string['title'] = 'Titre';
 
+$string['titleforum'] = 'Forums de {$a}';
+
 $string['course'] = 'Cours : ';
 
 $string['modulenameplural'] = 'Listes des ForumNG';
