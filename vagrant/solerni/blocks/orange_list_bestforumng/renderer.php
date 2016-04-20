@@ -154,12 +154,14 @@ class block_orange_list_bestforumng_renderer extends plugin_renderer_base {
 
                     // Get link acces forum of course.
                     $courseutilities = new utilities_course();
-                    $courselinkdescript = $courseutilities->get_course_url_page_forum($course);
-                    $output .= html_writer::start_tag('div', array('class' => 'col-md-12'));
-                        $output .= html_writer::tag('span', get_string('questionregistered', 'block_orange_list_bestforumng'));
-                        $output .= html_writer::link($courselinkdescript,
-                                                     get_string('answerregistered', 'block_orange_list_bestforumng'));
-                    $output .= html_writer::end_tag('div');
+                    $courselinkdescript = $courseutilities->get_course_url_page_forum($course->id);
+                    if (!is_null($courselinkdescript)) {
+                        $output .= html_writer::start_tag('div', array('class' => 'col-md-12'));
+                            $output .= html_writer::tag('span', get_string('questionregistered', 'block_orange_list_bestforumng'));
+                            $output .= html_writer::link($courselinkdescript,
+                                                 get_string('answerregistered', 'block_orange_list_bestforumng'));
+                        $output .= html_writer::end_tag('div');
+                    }
 
                 $output .= html_writer::end_tag('div');
 

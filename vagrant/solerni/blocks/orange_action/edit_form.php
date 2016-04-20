@@ -17,7 +17,7 @@
 
 /**
  * orange_action block config form class
- * 
+ *
  * @package block_orange_action
  * @copyright  2016 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later

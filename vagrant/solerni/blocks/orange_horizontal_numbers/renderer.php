@@ -39,6 +39,11 @@ class block_orange_horizontal_numbers_renderer extends plugin_renderer_base {
         global $CFG;
         $output = "";
 
+        $output .= html_writer::start_tag('div', array('class' => 'row text-center'));
+            $output .= html_writer::empty_tag('img', array(
+                'src' => $CFG->wwwroot. '/blocks/orange_horizontal_numbers/pix/image-tmp-forum.png'));
+        $output .= html_writer::end_tag('div');
+
         $output .= html_writer::start_tag('div', array('class' => 'row', 'style' => 'height:60px'));
         $output .= html_writer::end_tag('div');
 

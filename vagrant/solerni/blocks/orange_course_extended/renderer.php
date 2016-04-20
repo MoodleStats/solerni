@@ -45,7 +45,7 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
         $extendedcourse->get_extended_course($course, $context);
 
         $text = html_writer::start_tag('div', array('class' => 'row '));
-        
+
         if ($imgurl) {
             $text .= html_writer::empty_tag('img', array('src' => $imgurl, 'class' => 'col-xs-12 essentiels-image'));
         }
@@ -274,7 +274,7 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
             $text .= html_writer::tag('span', get_string('video', 'format_flexpage'), array('class' => 'h6'));
         if ($extendedcourse->subtitle != 0) {
             $language = $extendedcourse->language;
-            if ($USER->lang == 'fr') {
+            if (isset($USER->lang) && $USER->lang == 'fr') {
                 $text .= html_writer::tag('span', get_string('subtitle', 'block_orange_course_extended').' '.$language,
                     array('class' => 'center-block'));
             } else {
@@ -326,7 +326,7 @@ class block_orange_course_extended_renderer extends plugin_renderer_base {
                 $registrationvalue = get_string('registration_case1', 'block_orange_course_extended').$registrationstring;
             break;
             case '1':
-                $registrationvalue = get_string('registration_case2', 'block_orange_course_extended', 
+                $registrationvalue = get_string('registration_case2', 'block_orange_course_extended',
                         $extendedcourse->maxregisteredusers - $extendedcourse->enrolledusersself);
             break;
             case '2':

@@ -77,7 +77,7 @@ class local_orange_event_course_created_observer {
         // url calling piwik API for add site.
         $urladdsite = $url.'?'.$module.$methodaddsite.$sitename.$urls.$ecommerce.$sitesearch.$timezone.$currency.$startDate.$keepurlfragments.$type.$excludeUnknowurls.$tokenauth;
         // We call the API PIWIK in order to create a id site piwik.
-        print_r($urladdsite);
+        debugging('urladdsite: '.$urladdsite, DEBUG_DEVELOPER);
         $xmladdsite = xml_from_piwik($urladdsite);
         // We retreive the id site from piwik.
         $methodgetsite = '&method=SitesManager.getAllSitesId';
@@ -95,7 +95,9 @@ class local_orange_event_course_created_observer {
         $piwiksiteid = '&idSites='.$idsite->piwik_siteid;
         // We call again API Piwik in order to create an account.
         $urlaccount = $url.'?'.$module.$method.$userpiwik.$password.$email.$tokenauth;
-        $urluseraccess = $url.'?'.$module.$methodaccessuser.$userpiwik.$access.$piwiksiteid.$tokenauth;    
+        $urluseraccess = $url.'?'.$module.$methodaccessuser.$userpiwik.$access.$piwiksiteid.$tokenauth;  
+        debugging('urlaccount: '.$urlaccount, DEBUG_DEVELOPER);
+        debugging('urluseraccess: '.$urluseraccess, DEBUG_DEVELOPER);
         
         $xmlaccount = xml_from_piwik($urlaccount);
         $xmlaccess = xml_from_piwik($urluseraccess);

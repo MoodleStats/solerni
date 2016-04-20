@@ -15,12 +15,23 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Orange Social Sharing Class
+ *
  * @package    blocks
- * @subpackage orange_social_sharing
- * @copyright  2015 Orange
+ * @subpackage orange_orange_social_sharing
+ * @copyright  2016 Orange
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 class block_orange_social_sharing extends block_base{
+
+    /**
+     *  Set orange social sharing configuration setting.
+     *
+     * @global none
+     * @param $mform
+     * @return boolean
+     */
     public function has_config() {
         return false;
     }
@@ -34,6 +45,7 @@ class block_orange_social_sharing extends block_base{
      */
     public function init() {
         Global $PAGE;
+
         $this->title = get_string('title', 'block_orange_social_sharing');
         $this->renderer = $PAGE->get_renderer('block_orange_social_sharing');
     }
@@ -41,22 +53,18 @@ class block_orange_social_sharing extends block_base{
     /**
      *  Get the content of social sharing block.
      *
-     * @global none
+     * @global $COURSE
      * @param none
      * @return string $this->content
      */
     public function get_content() {
+    Global $COURSE;
 
-        if (!is_null($this->content)) {
-            return $this->content;
-        }
         $this->content = new stdClass();
         $this->content->text   = '';
 
-        if (empty($this->instance)) {
-            return $this->content;
-        }
-        $course = $this->page->course;
+
+        $course = $COURSE;
 
         $this->content->text .= html_writer::start_tag('ul');
         $this->content->text .= html_writer::start_tag('li');
@@ -66,6 +74,7 @@ class block_orange_social_sharing extends block_base{
 
         $text = $this->renderer->get_text();
         $this->content->text = $text;
+
         return $this->content;
 
     }
@@ -78,56 +87,22 @@ class block_orange_social_sharing extends block_base{
      * @return boolean
      */
     public function instance_allow_multiple() {
-        return false;
+        return true;
     }
 
-    /**
-     *  This "magic" method is guaranteed to be automatically called by Moodle
-     *  as soon as our instance configuration is loaded and available
-     * @global none
-     * @param none
-     * @return boolean
-     */
-    public function specialization() {
-        if (isset($this->config)) {
-            if (empty($this->config->title)) {
-                $this->title = get_string('defaulttitle', 'block_orange_social_sharing');
-            } else {
-                $this->title = $this->config->title;
-            }
-            if (empty($this->config->facebook)) {
-                $this->facebook = get_string('labelfacebook', 'block_orange_social_sharing');
-            } else {
-                $this->facebook = $this->config->facebook;
-            }
-            if (empty($this->config->twitter)) {
-                $this->twitter = get_string('labeltwitter', 'block_orange_social_sharing');
-            } else {
-                $this->twitter = $this->config->twitter;
-            }
-            if (empty($this->config->linkedin)) {
-                $this->linkedin = get_string('labellinkedin', 'block_orange_social_sharing');
-            } else {
-                $this->linkedin = $this->config->linkedin;
-            }
-            if (empty($this->config->google_plus)) {
-                $this->google_plus = get_string('labelgoogleplus', 'block_orange_social_sharing');
-            } else {
-                $this->google_plus = $this->config->google_plus;
-            }
-        }
-    }
 
     /**
-     *  Is this block allowed into this page or not?
+     * Defines where the block can be added
      *
-     * @global none
-     * @param none
-     * @return boolean
+     * @return array
      */
     public function applicable_formats() {
         return array(
-            'mod-descriptionpage-view' => true);
+            'course-view'    => true,
+            'site'           => false,
+            'mod'            => false,
+            'my'             => true
+        );
     }
 }
 
