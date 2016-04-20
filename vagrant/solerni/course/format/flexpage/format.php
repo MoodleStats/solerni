@@ -39,7 +39,10 @@ $layout = course_format_flexpage_lib_moodlepage::LAYOUT;
 //origin : Orange
 //modification : display configuration errors for courses
 echo \local_orange_library\utilities\utilities_course::check_mooc_configuration($COURSE->id);
- 
+
+// orange - 20160414 - store last page view
+\local_orange_library\utilities\utilities_course::store_course_page(optional_param('pageid', 0, PARAM_INT));
+
 if (!course_format_flexpage_lib_moodlepage::layout_exists($PAGE, $layout)) {
     echo $output->box(get_string('themelayoutmissing', 'format_flexpage', $layout), 'generalbox');
 

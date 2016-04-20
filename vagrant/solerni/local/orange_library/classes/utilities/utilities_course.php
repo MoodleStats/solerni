@@ -15,12 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This is built using the bootstrapbase template to allow for new theme's using
- * Moodle's new Bootstrap theme engine
- *
- * @package     theme_solerni
- * @copyright   2015 Orange
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    orange_library
+ * @subpackage utilities
+ * @copyright  2015 Orange
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace local_orange_library\utilities;
@@ -663,42 +661,58 @@ class utilities_course {
     }
 
     /**
-     * Returns "forrum page" url of a course
+     * Returns "forum page" url of a course
      *
      * @global type $CFG
-     * @param type $course
+     * @param course Id $courseid
      * @return string
      *
      */
-    public function get_course_url_page_forum($course = null) {
+    public function get_course_url_page_forum($courseid = null) {
+        global $CFG;
 
-        global $CFG, $DB;
-        $url = '#';
+        $idpage = $this->get_course_id_page_forum($courseid);
 
-        if (!$course) {
-            global $COURSE;
-            $course = $COURSE;
+        if (is_null($idpage)) {
+            return null;
         }
 
-        if ($course) {
+        return new \moodle_url('/course/view.php', array('id' => $courseid, 'pageid' => $idpage));
+    }
+
+    /**
+     * Returns "forum page" id of a course
+     *
+     * @global type $CFG
+     * @param course Id $courseid
+     * @return id
+     *
+     */
+    public function get_course_id_page_forum($courseid = null) {
+
+        global $CFG, $DB;
+        $idpage = null;
+
+        if (!$courseid) {
+            global $COURSE;
+            $courseid = $COURSE->id;
+        }
+
+        if ($courseid) {
             $sql = "SELECT distinct(I.subpagepattern)
                      FROM {block_instances} I LEFT OUTER JOIN {format_flexpage_page} P ON (I.subpagepattern = P.id)
                      WHERE P.courseid = ?
                      AND I.blockname='orange_listforumng'
-                     AND I.pagetypepattern LIKE 'course-view%' LIMIT 1" ;
+                     AND I.pagetypepattern LIKE 'course-view%' LIMIT 1";
 
-            $idpage = $DB->get_record_sql($sql, array($course->id));
-
-            // To avoid having an error page when the forum page is not setup.
-            if ($idpage != null) {
-                $url = new \moodle_url('/course/view.php', array('id' => $course->id, 'pageid' => $idpage->subpagepattern));
-            } else {
-                $url = $CFG->wwwroot;
-
-            }
+            $idpage = $DB->get_record_sql($sql, array($courseid));
         }
 
-        return $url;
+        if ($idpage != null) {
+            return $idpage->subpagepattern;
+        } else {
+            return $idpage;
+        }
     }
 
     /**
@@ -839,5 +853,203 @@ class utilities_course {
         }
         return $output;
 
+    }
+
+    /**
+     * Get the URL for course menu "PARTAGER"
+     *
+     * @param course id $courseid
+     * @return url 
+     */
+    public static function get_mooc_share_menu($courseid) {
+        global $DB;
+
+        $folder = $DB->get_record('folder', array('course' => $courseid), '*', IGNORE_MISSING);
+
+        if ($folder) {
+            return new \moodle_url('/mod/folder/view.php', array('f' => $folder->id));
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Get the URL for course menu "S'INFORMER"
+     *
+     * @param course id $courseid
+     * @return url 
+     */
+    public static function get_mooc_learnmore_menu($courseid) {
+        global $DB;
+
+        $params = array('course' => $courseid);
+        if (!$coursemodule = $DB->get_field_sql("SELECT cm.id
+                                                 FROM {course_modules} cm
+                                                 JOIN {modules} md ON md.id = cm.module
+                                                WHERE cm.course = :course AND md.name='oublog'", $params, IGNORE_MISSING)) {
+            return null;
+        }
+
+        return new \moodle_url('/mod/oublog/view.php', array('id' => $coursemodule));
+    }
+
+    /**
+     * Get the URL for course menu "DISCUTER"
+     *
+     * @param course Id $courseid
+     * @return url 
+     */
+    public static function get_mooc_forum_menu($courseid) {
+        global $CFG;
+
+        $utilitiescourse = new utilities_course();
+
+        return $utilitiescourse->get_course_url_page_forum($courseid);
+    }
+
+    /**
+     * Get the URL for course menu "APPRENDRE"
+     *
+     * @param course id $courseid
+     * @return url 
+     */
+    public static function get_mooc_learn_menu($courseid) {
+        global $DB;
+
+        // Get last page view in course if exist.
+        if (!$pageid = self::get_course_lastpage()) {
+
+            // Get course homepage.
+            $home = $DB->get_field_sql("SELECT fp.id
+                                                     FROM {format_flexpage_page} fp
+                                                     WHERE fp.courseid = :id AND fp.display=2
+                                                     ORDER BY fp.parentid ASC
+                                                     LIMIT 1", array('id' => $courseid), IGNORE_MISSING);
+            if (!isset($home)) {
+                return null;
+            }
+
+            // Get first Sequence.
+            $firstpage = $DB->get_field_sql("SELECT fp.id
+                                                 FROM {format_flexpage_page} fp
+                                                 WHERE fp.parentid = :id AND fp.display=2
+                                                 ORDER BY fp.weight ASC
+                                                 LIMIT 1", array('id' => $home), IGNORE_MISSING);
+            if ($firstpage) {
+                return new \moodle_url('/course/view.php', array('id' => $courseid, 'pageid' => $firstpage));
+            } else {
+                return new \moodle_url('/course/view.php', array('id' => $courseid, 'pageid' => $home));
+            }
+        } else {
+            return new \moodle_url('/course/view.php', array('id' => $courseid, 'pageid' => $pageid));
+        }
+    }
+
+    /**
+     * Detect if we are on a course page
+     *
+     * @return boolean
+     */
+    public static function is_on_course_page() {
+        global $COURSE;
+
+        return ($COURSE->id > 1);
+    }
+
+    /**
+     * Store current course page
+     *
+     * @param page id $pageid
+     * @return none
+     */
+    public static function store_course_page($pageid) {
+        global $DB, $USER, $COURSE;
+
+        // If we access the forum page of the MOOC then we should not store the id.
+        $utilitiescourse = new utilities_course();
+        $idpageforum = $utilitiescourse->get_course_id_page_forum($COURSE->id);
+        if (!empty($pageid) && ($pageid != $idpageforum)) {
+            $currentpage = $DB->get_record('last_page_viewed',
+                    array('courseid' => $COURSE->id, 'userid' => $USER->id), '*', IGNORE_MISSING);
+            if ($currentpage) {
+                $currentpage->pageid = $pageid;
+                $currentpage->time = time();
+                $DB->update_record('last_page_viewed', $currentpage);
+            } else {
+                $page = new \stdClass();
+                $page->userid = $USER->id;
+                $page->courseid = $COURSE->id;
+                $page->pageid = $pageid;
+                $page->time = time();
+                $DB->insert_record('last_page_viewed', $page);
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Get last course page view
+     *
+     * @param page id $pageid
+     * @return none
+     */
+    public static function get_course_lastpage() {
+        global $DB, $USER, $COURSE;
+
+        $currentpage = $DB->get_record('last_page_viewed',
+                array('courseid' => $COURSE->id, 'userid' => $USER->id), 'pageid', IGNORE_MISSING);
+        if ($currentpage) {
+            // Check that the page still exist and is visible.
+            $page = $DB->get_field_sql("SELECT fp.id
+                                                     FROM {format_flexpage_page} fp
+                                                     WHERE fp.courseid = :id AND fp.display=2 AND fp.id = :pageid",
+                    array('id' => $COURSE->id, 'pageid' => $currentpage->pageid), IGNORE_MISSING);
+            if ($page) {
+                return $currentpage->pageid;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Check if tab is active
+     *
+     * @param tab identifier $tabid
+     * @param current script $script
+     * @param course Id $courseid
+     * @return none
+     */
+    public static function is_active_tab($tabid, $script, $courseid) {
+        $forumurl = self::get_mooc_forum_menu($courseid);
+
+        switch ($tabid) {
+            case "learn":
+                if ((strpos($script, "/course/view") !== false) &&
+                    (is_null($forumurl) || (strpos($script, $forumurl->out_as_local_url(false)) === false))) {
+                    return 'class="active"';
+                }
+                break;
+            case "learnmore":
+                if (strpos($script, "/mod/oublog") !== false) {
+                    return 'class="active"';
+                }
+                break;
+            case "forum":
+                if (!is_null($forumurl)) {
+                    if ((strpos($script, $forumurl->out_as_local_url(false)) !== false) ||
+                        (strpos($script, "/mod/forumng") !== false)) {
+                        return 'class="active"';
+                    }
+                }
+                break;
+            case "share":
+                if (strpos($script, "/mod/folder") !== false) {
+                    return 'class="active"';
+                }
+                break;
+        }
+
+        return '';
     }
 }

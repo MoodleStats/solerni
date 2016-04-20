@@ -93,3 +93,9 @@ $string['orange_library_mnet_task'] = "Update MNET keys";
 $string['orange_library_mnet_mail'] = '<p>Hello {$a->firstname} {$a->lastname},</p>
 <p>This is the cron task for MNet Key check on <b>{$a->sitename}</b>';
 $string['orange_library_mnet_mail_subject'] = "MNet Key Check";
+
+// Course menu item.
+$string['coursemenulearn'] = "Learn";
+$string['coursemenulearnmore'] = "News";
+$string['coursemenuforum'] = "Forum";
+$string['coursemenushare'] = "Resource";

@@ -402,6 +402,13 @@ function main () {
 	execute_moosh_command "moosh block-add system 0 orange_social_sharing mooc-view content -7"
 	execute_moosh_command "moosh block-add system 0 orange_paragraph_list mooc-view content -6"
 
+	# Reduce quiz question type qtype (#us_478)
+	execute_moosh_command "moosh plugin-uninstall qtype_calculatedmulti"
+	execute_moosh_command "moosh plugin-uninstall qtype_calculatedsimple"
+	execute_moosh_command "moosh plugin-uninstall qtype_calculated"
+	execute_moosh_command "moosh plugin-uninstall qtype_essay"
+	execute_moosh_command "moosh plugin-uninstall qtype_multianswer"
+	execute_moosh_command "moosh plugin-uninstall qtype_randomsamatch"
 }
 
 main "$@"
