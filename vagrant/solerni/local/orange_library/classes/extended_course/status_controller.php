@@ -399,8 +399,6 @@ function subscription_closed($course, &$extendedcourse) {
 function course_running_button_enabled($course, &$extendedcourse) {
     global $PAGE, $CFG;
 
-    $pagetype = $PAGE->pagetype;
-
     if (empty($CFG->solerni_isprivate)) {
         $extendedcourse->statuslink = $extendedcourse->unenrolurl;
         $extendedcourse->statuslinktext = get_string('unsubscribe', 'local_orange_library');

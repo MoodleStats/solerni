@@ -23,6 +23,7 @@
  */
 
 use local_orange_library\utilities\utilities_course;
+use local_orange_library\utilities\utilities_user;
 use local_orange_library\extended_course\extended_course_object;
 use local_orange_library\utilities\utilities_image;
 
@@ -106,6 +107,12 @@ function block_orange_action_get_course($courseid) {
         return false;
     }
 
+    // Get the course last page of the enroled user and replace extended_course button.
+    if (isloggedin() && utilities_user::get_user_status($context) == utilities_user::USERENROLLED) {
+        require_once($CFG->dirroot.'/local/orange_library/classes/extended_course/button_renderer.php');
+        $extendedcourse->displaybutton = block_orange_action_displaybutton($course);
+    }
+
     return $PAGE->get_renderer('block_orange_action')->display_course_on_my_page($course, $extendedcourse, $imgurl);
 }
 
@@ -174,6 +181,23 @@ function block_orange_action_get_event($eventid) {
             0, 0, 0, $event->timestart);
     // Image par défaut
     $imgurl = $CFG->dirroot.'/blocks/orange_action/pix/default.jpg';
-    
+
     return $PAGE->get_renderer('block_orange_action')->display_event_on_my_page($event, $imgurl, $eventurl);
+}
+
+/*
+ * Generate HTML string for the block action
+ */
+function block_orange_action_displaybutton($course) {
+
+    $data = utilities_course::get_mooc_learn_menu($course->id);
+    $output = html_writer::tag('p', $data->title, array('class' => 'sequence-title pull-left'));
+    $output .= html_writer::tag('a',  get_string("gotosequence", 'block_orange_action'),
+        array('class' => 'btn btn-default pull-left',
+            'href' => $data->url,
+            'data-mooc-name' => $course->fullname,
+            'title' => $data->title));
+
+    return $output;
+
 }

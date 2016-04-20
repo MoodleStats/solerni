@@ -38,6 +38,7 @@ $string['generalconfig'] = "General block configuration";
 $string['myconfig'] = "Block configuration";
 $string['myconfigdesc'] = "Select the course or the event to be pushed. If both are set, only the course will be displayed on the my page.";
 $string['gotocalendar'] = "Access the event";
+$string['gotosequence'] = "Go to the sequence";
 
 // For capabilities.
 $string['orange_action:addinstance'] = 'Add a new Orange Action block';

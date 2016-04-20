@@ -46,7 +46,7 @@ class block_orange_action_renderer extends plugin_renderer_base {
      */
     public function display_event_on_my_page($event, $imgurl, $eventurl) {
 
-        // Image
+        // Image.
         $output = html_writer::start_tag('div', array('class' => 'orange-action-media'));
             if ($imgurl) {
                 $output .= html_writer::start_tag('div', array('class' => 'action-media-image'));
@@ -56,17 +56,17 @@ class block_orange_action_renderer extends plugin_renderer_base {
             }
         $output .= html_writer::end_tag('div');
 
-        // Banner
+        // Banner.
         $output .= html_writer::start_tag('div', array('class' => 'orange-action-banner u-inverse'));
             $output .= html_writer::start_tag('div', array('class' => 'row'));
                 // First cell.
                 $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-8 orange-action-banner-cell text-container'));
                     $output .= html_writer::tag('h1', $event->name, array('class' => 'text-oneline'));
-                    // Event description
+                    // Event description.
                     if (isset($event->description) && $event->description) {
                         $output .= html_writer::tag('div', html_to_text($event->description), array('class' => 'summary h3'));
                     }
-                    // Date representation
+                    // Date representation.
                     $output .= html_writer::start_tag('div', array('class' => 'metadata'));
                         $output .= html_writer::tag('span', '', array('class' => 'icon-calendar_month', 'aria-hidden' => true));
                         $output .= html_writer::start_tag('span');
@@ -76,7 +76,7 @@ class block_orange_action_renderer extends plugin_renderer_base {
                 $output .= html_writer::end_tag('div');
                 // Second cell.
                 $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-4 orange-action-banner-cell button-container'));
-                    $output .= html_writer::tag('a', get_string('gotocalendar', 'block_orange_action'), array('class' => 'btn btn-success', 'href' => $eventurl ));
+                    $output .= html_writer::tag('a', get_string('gotocalendar', 'block_orange_action'), array('class' => 'btn btn-default', 'href' => $eventurl ));
                 $output .= html_writer::end_tag('div');
             $output .= html_writer::end_tag('div');
         $output .= html_writer::end_tag('div');
@@ -147,7 +147,7 @@ class block_orange_action_renderer extends plugin_renderer_base {
 
         $output .= '</div>';
 
-        // Banner
+        // Banner.
         $output .= html_writer::start_tag('div', array('class' => 'orange-action-banner u-inverse'));
             $output .= html_writer::start_tag('div', array('class' => 'row'));
                 // First cell.

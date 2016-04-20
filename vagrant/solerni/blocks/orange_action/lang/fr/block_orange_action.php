@@ -38,7 +38,7 @@ $string['generalconfig'] = "Configuration générale du bloc";
 $string['myconfig'] = "Configuration du bloc";
 $string['myconfigdesc'] = "Sélectionner le cours et/ou l'événement qui seront mis en avant. Si un cours et un événement sont sélectionnés, seul le cours sera affiché sur la page my.";
 $string['gotocalendar'] = "Accéder à l'événement";
-
+$string['gotosequence'] = "Accéder à la séquence";
 
 // For capabilities.
 $string['orange_action:addinstance'] = 'Ajouter un bloc Orange Action';
