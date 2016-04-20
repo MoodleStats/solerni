@@ -220,23 +220,26 @@ class theme_utilities {
 
     }
 
-        /**
-     * Display for "Find out more" page
+      /**
+     * Display button for "Find out more" page
      *
      * @return string $output
      */
-    public function display_button ($setting, $courseid) {
+    public function display_button ($buttonsetting, $containersetting, $courseid) {
     global $COURSE;
     $context = \context_course::instance($courseid);
         $extendedcourse = new extended_course_object();
         $extendedcourse->get_extended_course($COURSE, $context);
-        if($setting) {
-            $css = ' '.$setting;
+        if($buttonsetting) {
+            $cssbutton = ' '.$buttonsetting;
+        }
+        if($containersetting) {
+            $csscontainer = ' '.$containersetting;
         }
 
         // Display first line.
-        $output = html_writer::start_tag('div', array('class' => 'row'));
-        $output .= html_writer::tag('div', $extendedcourse->displaybutton, array('class' => $css));
+        $output = html_writer::start_tag('div', array('class' => 'row'. $csscontainer));
+        $output .= html_writer::tag('div', $extendedcourse->displaybutton, array('class' => $cssbutton));
 
                 // If next session link shoulfd be display.
         if ($extendedcourse->registrationstatus == utilities_course::MOOCREGISTRATIONCOMPLETE) {
@@ -245,6 +248,18 @@ class theme_utilities {
         }
 
         $output .= html_writer::end_tag('div');
+
+
+        return $output;
+    }
+
+       /**
+     * Display line for "Find out more" page
+     *
+     * @return string $output
+     */
+    public function display_line ($containersetting) {
+    $output = html_writer::tag('div', '', array('class' => "col-xs-12 fullwidth-line ". $containersetting));
 
 
         return $output;

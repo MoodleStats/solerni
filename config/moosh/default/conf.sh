@@ -396,11 +396,11 @@ function main () {
 	execute_moosh_command "moosh config-set emailonlyfromnoreplyaddress 1"
 
         # Set blocks for find out more page (#us_397)
-	execute_moosh_command "moosh block-add system 0 block_orange_action mooc-view content -10"
-	execute_moosh_command "moosh block-add system 0 block_orange_iconsmap find-out-more content -9"
-	execute_moosh_command "moosh block-add system 0 block_orange_separator_line find-out-more content -8"
-	execute_moosh_command "moosh block-add system 0 block_orange_social_sharing find-out-more content -7"
-	execute_moosh_command "moosh block-add system 0 block_orange_paragraph_list find-out-more content -6"
+	execute_moosh_command "moosh block-add system 0 orange_action mooc-view content -10"
+	execute_moosh_command "moosh block-add system 0 orange_iconsmap mooc-view content -9"
+	execute_moosh_command "moosh block-add system 0 orange_separator_line mooc-view content -8"
+	execute_moosh_command "moosh block-add system 0 orange_social_sharing mooc-view content -7"
+	execute_moosh_command "moosh block-add system 0 orange_paragraph_list mooc-view content -6"
 
 }
 

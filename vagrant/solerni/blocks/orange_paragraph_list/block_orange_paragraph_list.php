@@ -25,7 +25,6 @@
 
 require_once(dirname(__FILE__) . '/../../config.php');
 require_once($CFG->dirroot.'/blocks/orange_paragraph_list/lib.php');
-require_once($CFG->dirroot.'/calendar/lib.php');
 // Adding requirement to avoid  Class 'block_base' not found.
 require_once($CFG->dirroot . '/blocks/moodleblock.class.php');
 use local_orange_library\utilities\utilities_image;
@@ -93,7 +92,7 @@ class block_orange_paragraph_list extends block_base {
      * @return string
      */
     public function get_content() {
-        global $COURSE, $CFG, $DB;
+        global $COURSE;
 
         // If content has already been generated, don't waste time generating it again.
         if ($this->content !== null) {

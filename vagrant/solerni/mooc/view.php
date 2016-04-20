@@ -41,31 +41,58 @@ $filter = optional_param('filter', utilities_course::MOOCRUNNING, PARAM_INT);
 
 $url = new moodle_url('/mooc/view.php');
 $courseid      = optional_param('id', 0, PARAM_INT); // Course Module ID.
+// TODO Add sesskey check to edit
+$edit   = optional_param('edit', null, PARAM_BOOL);    // Turn editing on and off.
 
-if (isloggedin()) {
-    $context = context_user::instance($USER->id);
-    if (has_capability('moodle/block:edit', $context)) {
-        $PAGE->set_blocks_editing_capability('moodle/block:edit');
-    }
-} else {
-    $USER->editing = $edit = 0;  // Just in case.
-    $context = context_system::instance();
-}
-print_object($context);
 
-$PAGE->set_context($context);
+//$PAGE->set_context($context);
 $PAGE->set_url($url);
 $PAGE->set_pagetype('mooc-view');
 $PAGE->blocks->add_region('content');
 $course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
 $PAGE->set_course($course);
+$context = \context_course::instance($course->id);
+$PAGE->set_context($context);
 //$extendedcourse = new extended_course_object();
 //$extendedcourse->get_extended_course($course, $context);
 $themeutilities = new theme_utilities();
 
+// Toggle the editing state and switches.
+if ($PAGE->user_allowed_editing()) {
+    if ($edit !== null) {             // Editing state was specified.
+        $USER->editing = $edit;       // Change editing state.
+    } else {                          // Editing state is in session.
+        if (!empty($USER->editing)) {
+            $edit = 1;
+        } else {
+            $edit = 0;
+        }
+    }
 
+    // Add button for editing page.
+    $params = array('edit' => !$edit);
+
+    if (empty($edit)) {
+        $editstring = get_string('updatemymoodleon');
+    } else {
+        $editstring = get_string('updatemymoodleoff');
+    }
+
+    $url = new moodle_url("$CFG->wwwroot/mooc/view.php", $params);
+    $button = $OUTPUT->single_button($url, $editstring);
+    $PAGE->set_button($button);
+
+} else {
+    $USER->editing = $edit = 0;
+}
 
 echo $OUTPUT->header();
 echo $OUTPUT->custom_block_region('content');
-echo $themeutilities->display_button('page_mooc_block', $courseid);
+echo $themeutilities->display_button('page_mooc_block', 'bottom-space', $courseid);
+echo $themeutilities->display_line('bottom-line-space');
+echo '<div class = "bottom-space">';
+echo '<span>'.get_string('more_info', 'theme_halloween').'  </span>';
+echo '<a href= '.$CFG->wwwroot . '/contact/'.'>'.get_string('contact_us', 'theme_halloween').'</a>';
+echo '</div>';
+
 echo $OUTPUT->footer();

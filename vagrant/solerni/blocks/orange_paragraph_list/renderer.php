@@ -35,16 +35,18 @@ class block_orange_paragraph_list_renderer extends plugin_renderer_base {
 
         $output = html_writer::start_tag('div', array('class' => 'zigzag'));
         $i=0;
-        foreach ($findoutmore->paragraphtitle as $value) {
-            if ($findoutmore->paragraphtitle[$i] != '') {
-                if ($i%2 ==1) {
-                    $output .= $this->display_left_text($findoutmore->paragraphtitle[$i], $findoutmore->paragraphdescription[$i], $imgurl[$i], $findoutmore->paragraphbgcolor[$i]);
-                } else {
-                    $output .= $this->display_right_text($findoutmore->paragraphtitle[$i], $findoutmore->paragraphdescription[$i], $imgurl[$i], $findoutmore->paragraphbgcolor[$i]);
+        if($findoutmore->paragraphtitle){
+            foreach ($findoutmore->paragraphtitle as $value) {
+                if ($findoutmore->paragraphtitle[$i] != '') {
+                    if ($i%2 ==1) {
+                        $output .= $this->display_left_text($findoutmore->paragraphtitle[$i], $findoutmore->paragraphdescription[$i], $imgurl[$i], $findoutmore->paragraphbgcolor[$i]);
+                    } else {
+                        $output .= $this->display_right_text($findoutmore->paragraphtitle[$i], $findoutmore->paragraphdescription[$i], $imgurl[$i], $findoutmore->paragraphbgcolor[$i]);
+                    }
                 }
-            }
 
-            $i++;
+                $i++;
+            }
         }
         $output .= html_writer::end_tag('div');
 
