@@ -22,6 +22,10 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+/*
+ * @todo: write unit tests for this lib
+ */
+
 use local_orange_library\utilities\utilities_course;
 use local_orange_library\utilities\utilities_user;
 use local_orange_library\extended_course\extended_course_object;
