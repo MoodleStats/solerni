@@ -36,11 +36,11 @@ class block_orange_action_edit_form extends block_edit_form {
             $mform->addElement('html', '<p>' . get_string('myconfigdesc', 'block_orange_action') . '</p>');
 
             $courses = block_orange_action_get_courses_list();
-            $mform->addElement('html', '<span>' . get_string('coursetopush_help', 'block_orange_action') . "</span><br /><br />");
+            $mform->addElement('html', '<span class="bottom-space">' . get_string('coursetopush_help', 'block_orange_action') . "</span>");
             $mform->addElement('select', 'config_coursetopush', get_string('coursetopush', 'block_orange_action'), $courses);
 
             $events = block_orange_action_get_events_list();
-            $mform->addElement('html', '<span>' . get_string('eventtopush_help', 'block_orange_action') . "</span><br/><br />");
+            $mform->addElement('html', '<span class="bottom-space">' . get_string('eventtopush_help', 'block_orange_action') . "</span>");
             $mform->addElement('select', 'config_eventtopush', get_string('eventtopush', 'block_orange_action'), $events);
         }
     }
