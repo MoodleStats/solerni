@@ -87,7 +87,7 @@ function insert_analytics_tracking() {
     $cleanurl = get_config('local_analytics', 'cleanurl');
     $location = "additionalhtml".get_config('local_analytics', 'location');
 
-    $CFG->$location .= "<!-- Start Piwik Code -->";
+    $CFG->$location .= "<!-- Start first tracker Piwik Code -->";
 
 	if (!empty($siteurl)) {
 		if ($imagetrack) {
@@ -124,7 +124,14 @@ function insert_analytics_tracking() {
        $CFG->$location .= get_string('url_not_set', 'local_analytics');
     }
 
-    $CFG->$location .= "<!-- End Piwik Code -->";
+    $CFG->$location .= "<!-- End first tracker Piwik Code -->";
+    if ($COURSE->id != 1) { 
+        $CFG->$location .= '<script type="text/javascript">$( document ).ready(function() {
+            var piwik2Tracker = Piwik.getTracker();
+            piwik2Tracker.setSiteId('.$siteidforcourseid.' );
+            piwik2Tracker.trackPageView();});</script>';
+    } 
+    
 }
 //_paq.push(['setSiteId', ".$siteid."]); 
 insert_analytics_tracking();
