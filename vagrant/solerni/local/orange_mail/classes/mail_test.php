@@ -358,4 +358,30 @@ class mail_test {
 
     // Mail M15 solerni contact form.
 
+    // Mail M16 Badge.
+
+    static public function emailupdatemessage($user, $modetext=false) {
+        global $CFG;
+
+        $site  = get_site();
+
+        $a = new stdClass();
+        $a->url = $CFG->wwwroot . '/user/emailupdate.php?key=' . 'dummy' . '&id=' . $user->id;
+        $a->site = format_string($site->fullname, true, array('context' => context_course::instance(SITEID)));
+        $a->fullname = fullname($user, true);
+
+        $emailupdatemessage = get_string('emailupdatemessage', 'auth', $a);
+        $emailupdatetitle = '(M17)' . get_string('emailupdatetitle', 'auth', $a);
+
+        if ($modetext) {
+            $user->mailformat = 0;
+        } else {
+            $user->mailformat = 1;
+        }
+
+        // Email confirmation directly rather than using messaging so they will definitely get an email.
+        $supportuser = core_user::get_support_user();
+
+        return email_to_user($user, $supportuser, $emailupdatetitle, html_to_text($emailupdatemessage), $emailupdatemessage);
+    }
 }
