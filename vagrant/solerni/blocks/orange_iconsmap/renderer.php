@@ -72,11 +72,14 @@ class block_orange_iconsmap_renderer extends plugin_renderer_base {
             $output .= html_writer::start_tag('div', array('class' => 'icon-map'));
 
                 $output .= html_writer::start_tag('div');
-                    $output .= html_writer::tag('span', "", array('class' => 'centeredicon icon-halloween icon-halloween--calendar'));
+                    $output .= html_writer::tag('span', "",
+                            array('class' => 'centeredicon icon-halloween icon-halloween--calendar'));
                 $output .= html_writer::end_tag('div');
 
                 $output .= html_writer::start_tag('div');
-                    $output .= html_writer::tag('div', date("d-m-Y", $course->startdate).get_string('to', 'block_orange_iconsmap'), array('class' => 'movetext'));
+                    $output .= html_writer::tag('div',
+                            date("d-m-Y", $course->startdate).get_string('to', 'block_orange_iconsmap'),
+                            array('class' => 'movetext'));
                     $enddate = $extendedcourse->enddate;
                     $output .= html_writer::tag('div', date("d-m-Y", $enddate), array('class' => 'movetext'));
                 $output .= html_writer::end_tag('div');
@@ -98,7 +101,8 @@ class block_orange_iconsmap_renderer extends plugin_renderer_base {
             $output .= html_writer::start_tag('div', array('class' => 'icon-map'));
 
                 $output .= html_writer::start_tag('div');
-                    $output .= html_writer::tag('span', "", array('class' => 'centeredicon icon-halloween icon-halloween--sequence'));
+                    $output .= html_writer::tag('span', "",
+                            array('class' => 'centeredicon icon-halloween icon-halloween--sequence'));
                 $output .= html_writer::end_tag('div');
 
                 $output .= html_writer::start_tag('div');
@@ -159,7 +163,8 @@ class block_orange_iconsmap_renderer extends plugin_renderer_base {
             $output .= html_writer::start_tag('div', array('class' => 'icon-map'));
 
                 $output .= html_writer::start_tag('div');
-                    $output .= html_writer::tag('span', "", array('class' => 'centeredicon icon-halloween icon-halloween--certificate'));
+                    $output .= html_writer::tag('span', "",
+                            array('class' => 'centeredicon icon-halloween icon-halloween--certificate'));
                 $output .= html_writer::end_tag('div');
 
                 $output .= html_writer::start_tag('div');

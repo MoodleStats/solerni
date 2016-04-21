@@ -24,6 +24,7 @@
  */
 
 use local_orange_library\utilities\utilities_array;
+require_once($CFG->dirroot.'/blocks/orange_social_sharing/lib.php');
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -40,27 +41,11 @@ class block_orange_social_sharing_renderer extends plugin_renderer_base {
     public function get_text() {
         Global $PAGE;
 
-        $shareonarray = new utilities_array();
-        $socialclassarray = new utilities_array();
-        $socialurlarray = new utilities_array();
+        $shareonarray = block_orange_social_sharing_shareonarray();
+        $socialclassarray = block_orange_social_sharing_socialclassarray();
+        $socialurlarray = block_orange_social_sharing_socialurlarray();
 
         $title = get_string('sharetitle', 'block_orange_social_sharing');
-
-        $shareonarray->add(get_string('shareonfacebook', 'block_orange_social_sharing'));
-        $socialclassarray->add('facebook');
-        $socialurlarray->add(get_string('urlshareonfacebook', 'block_orange_social_sharing'));
-
-        $shareonarray->add(get_string('shareontwitter', 'block_orange_social_sharing'));
-        $socialclassarray->add('twitter');
-        $socialurlarray->add(get_string('urlshareontwitter', 'block_orange_social_sharing'));
-
-        $shareonarray->add(get_string('shareonlinkedin', 'block_orange_social_sharing'));
-        $socialclassarray->add('linkedin');
-        $socialurlarray->add(get_string('urlshareonlinkedin', 'block_orange_social_sharing'));
-
-        $shareonarray->add(get_string('shareongoogleplus', 'block_orange_social_sharing'));
-        $socialclassarray->add('googleplus');
-        $socialurlarray->add(get_string('urlshareongoogleplus', 'block_orange_social_sharing'));
 
         $count = $shareonarray->count;
         $text = html_writer::start_tag('div');

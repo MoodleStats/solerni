@@ -23,7 +23,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 require_once(dirname(__FILE__) . '/../../config.php');
-require_once($CFG->dirroot.'/blocks/orange_separator_line/lib.php');
 // Adding requirement to avoid  Class 'block_base' not found.
 require_once($CFG->dirroot . '/blocks/moodleblock.class.php');
 
@@ -101,19 +100,21 @@ class block_orange_separator_line extends block_base{
     public function get_content() {
         global $COURSE, $context;
 
-        // If content has already been generated, don't waste time generating it again.
-        if ($this->content !== null) {
-            return $this->content;
-        }
         $this->content = new stdClass;
-        $this->content->text = '';
         $this->content->footer = '';
-
-        if (block_orange_separator_line_on_course_page()) {
-            $this->content->text = $this->renderer->display_on_course_page($COURSE, $context);
-        }
+        $this->content->text = $this->renderer->display_on_course_page($COURSE, $context);
 
         return $this->content;
+    }
+
+    /**
+     * Sets block header to be hidden
+     *
+     * @return bool if true then header will be visible.
+     */
+    public function hide_header() {
+
+        return true;
     }
 }
 

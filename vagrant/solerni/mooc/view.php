@@ -40,10 +40,9 @@ require_once($CFG->dirroot.'/blocks/orange_paragraph_list/block_orange_paragraph
 $filter = optional_param('filter', utilities_course::MOOCRUNNING, PARAM_INT);
 
 $url = new moodle_url('/mooc/view.php');
-$courseid      = optional_param('id', 0, PARAM_INT); // Course Module ID.
+$courseid = optional_param('courseid', 0, PARAM_INT); // Course Module ID.
 // TODO Add sesskey check to edit
 $edit   = optional_param('edit', null, PARAM_BOOL);    // Turn editing on and off.
-
 
 //$PAGE->set_context($context);
 $PAGE->set_url($url);
@@ -56,35 +55,6 @@ $PAGE->set_context($context);
 //$extendedcourse = new extended_course_object();
 //$extendedcourse->get_extended_course($course, $context);
 $themeutilities = new theme_utilities();
-
-// Toggle the editing state and switches.
-if ($PAGE->user_allowed_editing()) {
-    if ($edit !== null) {             // Editing state was specified.
-        $USER->editing = $edit;       // Change editing state.
-    } else {                          // Editing state is in session.
-        if (!empty($USER->editing)) {
-            $edit = 1;
-        } else {
-            $edit = 0;
-        }
-    }
-
-    // Add button for editing page.
-    $params = array('edit' => !$edit);
-
-    if (empty($edit)) {
-        $editstring = get_string('updatemymoodleon');
-    } else {
-        $editstring = get_string('updatemymoodleoff');
-    }
-
-    $url = new moodle_url("$CFG->wwwroot/mooc/view.php", $params);
-    $button = $OUTPUT->single_button($url, $editstring);
-    $PAGE->set_button($button);
-
-} else {
-    $USER->editing = $edit = 0;
-}
 
 echo $OUTPUT->header();
 echo $OUTPUT->custom_block_region('content');

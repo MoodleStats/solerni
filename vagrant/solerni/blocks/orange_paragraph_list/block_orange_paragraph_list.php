@@ -24,10 +24,10 @@
  */
 
 require_once(dirname(__FILE__) . '/../../config.php');
-require_once($CFG->dirroot.'/blocks/orange_paragraph_list/lib.php');
 // Adding requirement to avoid  Class 'block_base' not found.
 require_once($CFG->dirroot . '/blocks/moodleblock.class.php');
 use local_orange_library\utilities\utilities_image;
+use local_orange_library\utilities\utilities_course;
 use local_orange_library\find_out_more\find_out_more_object;
 
 class block_orange_paragraph_list extends block_base {
@@ -104,7 +104,7 @@ class block_orange_paragraph_list extends block_base {
 
         $findoutmore = new find_out_more_object();
 
-        if (block_orange_paragraph_list_on_course_page()) {
+        if (utilities_course::is_on_course_page()) {
             $context = context_course::instance($COURSE->id);
             $imgurl = array();
             $resizedimgurl = array();
@@ -124,5 +124,15 @@ class block_orange_paragraph_list extends block_base {
         }
 
         return $this->content;
+    }
+
+        /**
+     * Sets block header to be hidden
+     *
+     * @return bool if true then header will be visible.
+     */
+    public function hide_header() {
+
+        return true;
     }
 }

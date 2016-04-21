@@ -34,18 +34,24 @@ class block_orange_paragraph_list_renderer extends plugin_renderer_base {
     public function display_on_course_page ($course, $findoutmore, $imgurl) {
 
         $output = html_writer::start_tag('div', array('class' => 'zigzag'));
-        $i=0;
-        if($findoutmore->paragraphtitle){
-            foreach ($findoutmore->paragraphtitle as $value) {
-                if ($findoutmore->paragraphtitle[$i] != '') {
-                    if ($i%2 ==1) {
-                        $output .= $this->display_left_text($findoutmore->paragraphtitle[$i], $findoutmore->paragraphdescription[$i], $imgurl[$i], $findoutmore->paragraphbgcolor[$i]);
+
+        if ($findoutmore->paragraphtitle) {
+            foreach ($findoutmore->paragraphtitle as $key => $value) {
+                if ($findoutmore->paragraphtitle[$key] != '') {
+                    if ($key % 2 == 1) {
+                        $output .= $this->display_left_text(
+                                $findoutmore->paragraphtitle[$key],
+                                $findoutmore->paragraphdescription[$key],
+                                $imgurl[$key],
+                                $findoutmore->paragraphbgcolor[$key]);
                     } else {
-                        $output .= $this->display_right_text($findoutmore->paragraphtitle[$i], $findoutmore->paragraphdescription[$i], $imgurl[$i], $findoutmore->paragraphbgcolor[$i]);
+                        $output .= $this->display_right_text(
+                                $findoutmore->paragraphtitle[$key],
+                                $findoutmore->paragraphdescription[$key],
+                                $imgurl[$key],
+                                $findoutmore->paragraphbgcolor[$key]);
                     }
                 }
-
-                $i++;
             }
         }
         $output .= html_writer::end_tag('div');
@@ -62,15 +68,15 @@ class block_orange_paragraph_list_renderer extends plugin_renderer_base {
 
         $output = html_writer::start_tag('div', array('class' => 'row '.$bgcolor));
 
-            $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-5'));
+            $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-6'));
                 $output .= html_writer::empty_tag('img', array('src' => $imgurl, 'class' => 'img-responsive'));
             $output .= html_writer::end_tag('div');
 
-            $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-5 col-md-offset-1'));
+            $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-6 description-text-right'));
                 $output .= html_writer::start_tag('p', array('class' => 'h2'));
                     $output .= $paragraphtitle;
                 $output .= html_writer::end_tag('p');
-                $output .= html_writer::start_tag('p', array('class' => 'h7 thumbnail-text'));
+                $output .= html_writer::start_tag('p', array('class' => 'h7 description-text'));
                     $output .= $paragraphdescription;
                 $output .= html_writer::end_tag('p');
             $output .= html_writer::end_tag('div');
@@ -80,7 +86,7 @@ class block_orange_paragraph_list_renderer extends plugin_renderer_base {
         return $output;
     }
 
-        /**
+    /**
      * Display for "Find out more" page
      *
      * @return message
@@ -89,16 +95,16 @@ class block_orange_paragraph_list_renderer extends plugin_renderer_base {
 
         $output = html_writer::start_tag('div', array('class' => 'row '.$bgcolor));
 
-            $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-5'));
+            $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-6 description-text-left'));
                 $output .= html_writer::start_tag('p', array('class' => 'h2'));
                     $output .= $paragraphtitle;
                 $output .= html_writer::end_tag('p');
-                $output .= html_writer::start_tag('p', array('class' => 'h7 thumbnail-text'));
+                $output .= html_writer::start_tag('p', array('class' => 'h7 description-text'));
                     $output .= $paragraphdescription;
                 $output .= html_writer::end_tag('p');
             $output .= html_writer::end_tag('div');
 
-            $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-5 col-md-offset-1'));
+            $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-6'));
                 $output .= html_writer::empty_tag('img', array('src' => $imgurl, 'class' => 'img-responsive'));
             $output .= html_writer::end_tag('div');
 

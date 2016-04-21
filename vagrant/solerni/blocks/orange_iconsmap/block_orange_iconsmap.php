@@ -103,11 +103,20 @@ class block_orange_iconsmap extends block_base {
         $this->content->text = '';
         $this->content->footer = '';
 
-
         if (block_orange_iconsmap_is_on_course_page()) {
             $this->content->text = $this->renderer->display_on_course_page($COURSE, $context);
         }
 
         return $this->content;
+    }
+
+    /**
+     * Sets block header to be hidden
+     *
+     * @return bool if true then header will be visible.
+     */
+    public function hide_header() {
+
+        return true;
     }
 }

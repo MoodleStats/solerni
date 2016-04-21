@@ -34,7 +34,6 @@ class block_orange_separator_line_renderer extends plugin_renderer_base {
      */
     public function display_on_course_page ($course, $context) {
 
-
         // Display first line.
         $output = html_writer::tag('div', '', array('class' => "col-xs-12 fullwidth-line"));
 
