@@ -42,10 +42,11 @@ class options {
         return array(
             'body_bg'           => '#FFFFFF',
             'brand_primary'     => '#000000',
-            'brand_secondary'   => '#F16E00',
+            'brand_secondary'   => '#FF7900',
             'brand_tertiary'    => '#FFFFFF',
+            'brand_contrasted'  => '#F16E00',
             'brand_success'     => '#32C832',
-            'brand_info'        => '#527EBD',
+            'brand_info'        => '#4BB4E6',
             'brand_warning'     => '#FFCC00',
             'brand_danger'      => '#DC3C14',
             'orange_yellow'     => '#FFD200',
@@ -53,15 +54,14 @@ class options {
             'orange_green'      => '#50BE87',
             'orange_purple'     => '#A885D8',
             'orange_pink'       => '#FFB4E6',
-            'orange_light_1'    => '#F6F6F6',
-            'orange_light_2'    => '#EEEEEE',
-            'orange_light_3'    => '#DDDDDD',
-            'orange_light_4'    => '#CCCCCC',
-            'orange_mid_1'      => '#999999',
-            'orange_mid_2'      => '#666666',
-            'orange_dark_1'     => '#444444',
-            'orange_dark_2'     => '#333333',
-            'orange_dark_3'     => '#232323'
+            'orange_light_1'    => '#FAFAFA',
+            'orange_light_2'    => '#F6F6F6',
+            'orange_light_3'    => '#EEEEEE',
+            'orange_light_4'    => '#DDDDDD',
+            'orange_mid_1'      => '#CCCCCC',
+            'orange_mid_2'      => '#999999',
+            'orange_dark_1'     => '#666666',
+            'orange_dark_2'     => '#333333'
         );
     }
 

@@ -166,8 +166,8 @@ $THEME->layouts = array(
     // My dashboard page.
     'mydashboard' => array(
         'file' => 'default.php',
-        'regions' => array('side-pre'),
-        'defaultregion' => 'side-pre',
+        'regions' => array(),
+        'defaultregion' => 'content',
         'options' => array('langmenu' => true),
     ),
     // My public page.
