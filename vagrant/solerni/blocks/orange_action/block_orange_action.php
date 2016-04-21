@@ -28,7 +28,11 @@ require_once($CFG->dirroot.'/blocks/orange_action/lib.php');
 require_once($CFG->dirroot.'/calendar/lib.php');
 // Adding requirement to avoid  Class 'block_base' not found.
 require_once($CFG->dirroot . '/blocks/moodleblock.class.php');
-use local_orange_library\utilities\utilities_course;
+
+/**
+ * @todo: separate the renderer calls from the lib.php inside the renderer
+ * to avoid mixing logic and presentation.
+ */
 
 class block_orange_action extends block_base {
 
