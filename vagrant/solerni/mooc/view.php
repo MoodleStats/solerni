@@ -24,6 +24,8 @@
  */
 
 use local_orange_library\utilities\utilities_course;
+use local_orange_library\extended_course\extended_course_object;
+use theme_halloween\tools\theme_utilities;
 
 require_once(dirname(dirname(__FILE__)) . '/config.php');
 require_once($CFG->dirroot.'/blocks/course_overview/locallib.php');
@@ -35,49 +37,32 @@ require_once($CFG->dirroot.'/blocks/orange_separator_line/block_orange_separator
 require_once($CFG->dirroot.'/blocks/orange_action/renderer.php');
 require_once($CFG->dirroot.'/blocks/orange_paragraph_list/block_orange_paragraph_list.php');
 
+$filter = optional_param('filter', utilities_course::MOOCRUNNING, PARAM_INT);
 
+$url = new moodle_url('/mooc/view.php');
+$courseid = optional_param('courseid', 0, PARAM_INT); // Course Module ID.
+// TODO Add sesskey check to edit
+$edit   = optional_param('edit', null, PARAM_BOOL);    // Turn editing on and off.
 
-
-$filter      = optional_param('filter', utilities_course::MOOCRUNNING, PARAM_INT);
-
-//require_login();
-
-$url = new moodle_url('/mooc/index.php');
-$courseid      = optional_param('id', 0, PARAM_INT); // Course Module ID.
-$context = context_course::instance($courseid);
+//$PAGE->set_context($context);
 $PAGE->set_url($url);
-$PAGE->blocks->add_region('main');
+$PAGE->set_pagetype('mooc-view');
+$PAGE->blocks->add_region('content');
 $course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
 $PAGE->set_course($course);
-
+$context = \context_course::instance($course->id);
 $PAGE->set_context($context);
-
-    $block_orange_action = new block_orange_action();
-    $orange_action = new block_contents(array('class' => 'block_orange_action'));
-    $orange_action->content = $block_orange_action->get_content()->text;
-    $PAGE->blocks->add_fake_block($orange_action, 'main');
-
-    $block_orange_iconsmap = new block_orange_iconsmap();
-    $orange_iconsmap = new block_contents(array('class' => 'block_orange_iconsmap'));
-    $orange_iconsmap->content = $block_orange_iconsmap->get_content()->text;
-    $PAGE->blocks->add_fake_block($orange_iconsmap, 'main');
-
-    $block_orange_separator_line = new block_orange_separator_line();
-    $orange_separator_line = new block_contents(array('class' => 'block_orange_separator_line'));
-    $orange_separator_line->content = $block_orange_separator_line->get_content()->text;
-    $PAGE->blocks->add_fake_block($orange_separator_line, 'main');
-
-    $block_orange_social_sharing = new block_orange_social_sharing();
-    $orange_social_sharing = new block_contents(array('class' => 'block_orange_social_sharing'));
-    $orange_social_sharing->content = $block_orange_social_sharing->get_content()->text;
-    $PAGE->blocks->add_fake_block($orange_social_sharing, 'main');
-
-    $block_orange_paragraph_list = new block_orange_paragraph_list();
-    $orange_paragraph_list = new block_contents(array('class' => 'block_orange_paragraph_list'));
-    $orange_paragraph_list->content = $block_orange_paragraph_list->get_content()->text;
-    $PAGE->blocks->add_fake_block($orange_paragraph_list, 'main');
+//$extendedcourse = new extended_course_object();
+//$extendedcourse->get_extended_course($course, $context);
+$themeutilities = new theme_utilities();
 
 echo $OUTPUT->header();
-
+echo $OUTPUT->custom_block_region('content');
+echo $themeutilities->display_button('page_mooc_block', 'bottom-space', $courseid);
+echo $themeutilities->display_line('bottom-line-space');
+echo '<div class = "bottom-space">';
+echo '<span>'.get_string('more_info', 'theme_halloween').'  </span>';
+echo '<a href= '.$CFG->wwwroot . '/contact/'.'>'.get_string('contact_us', 'theme_halloween').'</a>';
+echo '</div>';
 
 echo $OUTPUT->footer();

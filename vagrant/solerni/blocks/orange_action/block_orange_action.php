@@ -106,11 +106,6 @@ class block_orange_action extends block_base {
         $this->content->text = '';
         $this->content->footer = '';
 
-        // TODO-a revoir Guests do not have any progress. Don't show them the block.
-        if (!isloggedin() or isguestuser()) {
-            return $this->content;
-        }
-
         if (block_orange_action_on_course_dashboard_page()) {
             $this->content->text = $this->renderer->display_on_course_dashboard();
         }
