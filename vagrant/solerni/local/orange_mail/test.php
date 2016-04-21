@@ -68,6 +68,7 @@ foreach ($langs as $lang => $value) {
             mail_test::email_information_message($instanceself, $USER);
         }
         mail_test::setnew_password_and_mail($USER);
+        mail_test::emailupdatemessage($USER);
     }
 
     if ($sendtextemail) {
@@ -82,6 +83,7 @@ foreach ($langs as $lang => $value) {
             mail_test::email_information_message($instanceself, $USER, true);
         }
         mail_test::setnew_password_and_mail($USER, true);
+        mail_test::emailupdatemessage($USER, true);
     }
 }
 force_current_language($currentlang);
