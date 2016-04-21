@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,31 +16,15 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Helper functions for Orange Last Message block (from plugin local mail)
+ * Strings for component 'auth', language 'en', branch 'MOODLE_29_STABLE'
  *
- * @package    block_orange_last_message
- * @copyright  Orange 2015
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   auth
+ * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die();
 
-/**
- * Return array with last message informations
- *
- * @param array $courses courses for which overview needs to be shown
- * @return array
- */
-function get_user_last_message($USER) {
+require_once("$CFG->dirroot/local/orange_mail/mail_init.php");
 
-    if (!class_exists('local_mail_message')) {
-        global $CFG;
-        require_once($CFG->dirroot.'/local/mail/message.class.php');
-    }
-
-    $query['limit'] = 1;
-    $lastmsg = local_mail_message::search_index ($USER->id, 'inbox', 0, $query);
-
-    return $lastmsg;
-}
-
-
+$string['emailupdatemessage'] = mail_init::init('emailupdatemessage','html');

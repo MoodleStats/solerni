@@ -1,5 +1,4 @@
-<?php
-// This file is part of Moodle - http://moodle.org/
+// This file is part of The Orange Halloween Moodle Theme
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -14,18 +13,12 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * version.php
- *
- * @package    local
- * @subpackage orange_mail
- * @copyright  2015 Orange
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
 
-defined('MOODLE_INTERNAL') || die;
+jQuery(document).ready(function() {
 
-$plugin->version  = 2016041903;
-$plugin->requires = 2014051200;
-$plugin->component = 'local_orange_mail';      // Full name of the plugin (used for diagnostics).
-$plugin->maturity = MATURITY_RC;
+    jQuery('.js-action-media-playbutton').on ('click', function() {
+        jQuery('.action-media-video').show(250);
+        jQuery('.action-media-image .img-responsive').addClass('get-blurry');
+    });
+
+});

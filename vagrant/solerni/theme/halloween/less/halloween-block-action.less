@@ -1,0 +1,131 @@
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+
+/* Block Orange Action */
+.block_orange_action {
+
+    border: 0;
+
+    .header {
+        border: 0;
+    }
+
+    .content {
+        border:     0;
+        padding:    0;
+    }
+
+    .orange-action-media {
+        position:   relative;
+        overflow:   hidden;
+
+        .action-media-image {
+
+            .action-media-playbutton {
+                position:   absolute;
+                left:       50%;
+                top:        50%;
+                transform:  translate(-50%, -50%);
+            }
+
+            .img-responsive {
+                width:    100%;
+                height:   auto;
+            }
+
+            .get-blurry {
+                -webkit-filter: blur(7px);
+                filter: blur(7px);
+            }
+        }
+
+        .action-media-image + .action-media-video {
+            display:    none;
+            position:   absolute;
+            height:     100%;
+            top:        0;
+            left:       50%;
+            transform:  translateX(-50%);
+
+            iframe {
+                height: 100%;
+            }
+        }
+    }
+
+    .orange-action-banner {
+
+        padding-top:    @s-double-md-margin;
+        padding-bottom: @s-double-md-margin;
+
+        .row {
+            display:    table;
+            width:      100%;
+        }
+
+        .orange-action-banner-cell {
+
+            @media (min-width: @screen-md-min) {
+                display: table-cell;
+                float: none;
+            }
+        }
+
+        .text-container {
+            padding-right:  @s-double-md-margin;
+            padding-left:   @s-triple-md-margin;
+        }
+
+        h1 {
+            margin-top:     0;
+            margin-bottom:  @s-medium-md-margin;
+        }
+
+        .summary {
+            margin-top:     0;
+            margin-bottom:  @s-medium-md-margin;
+        }
+
+        .metadata {
+            font-family:    @font-family-titles;
+            font-weight:    bold;
+            font-size:      @font-size-h4;
+
+            [class^="icon"] {
+                font-size:      inherit;
+                margin-right:   (@s-small-md-margin / 2);
+            }
+        }
+
+        .button-container {
+             text-align:    center;
+             padding:      0 @s-double-md-margin;
+
+            @media (min-width: @screen-md-min) {
+                border-left:    1px solid @orange-mid-2;
+                vertical-align: middle;
+            }
+
+            .sequence-title {
+                width:      100%;
+                text-align: left;
+                margin:     0 0 @s-medium-md-margin;
+            }
+        }
+    }
+}
+
+
