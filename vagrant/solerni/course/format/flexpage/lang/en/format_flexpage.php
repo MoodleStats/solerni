@@ -316,6 +316,8 @@ $string['videoplayer_help'] = 'HTML code for the video player and the video of t
 $string['videoplayer_default'] = '';
 
 //Paragraph description for find out more page
+
+$string['paragraphheader'] = 'En savoir plus';
 $string['paragraph1'] = 'Paragraph 1 title';
 $string['paragraph1_help'] = 'Title of the 1 paragraph';
 $string['paragraph1_default'] = '';
