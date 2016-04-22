@@ -37,18 +37,11 @@ class block_orange_list_bestforumng_renderer extends plugin_renderer_base {
     public function display_list_bestforumng($listcourseforuminfo) {
 
         global $CFG;
+        $output = "";
 
-        $output = html_writer::start_tag('div', array('class' => 'row', 'style' => 'height:30px'));
-        $output .= html_writer::end_tag('div');
-
-        $output .= html_writer::start_tag('div', array('class' => 'row'));
-            $output .= html_writer::start_tag('div', array('class' => 'col-md-12 text-left'));
+        $output .= html_writer::start_tag('div', array('class' => 'row orange-listbestforumng-header'));
                 $output .= html_writer::tag('h2', get_string('title', 'block_orange_list_bestforumng', $CFG->solerni_thematic));
                 $output .= html_writer::tag('h3', get_string('intro', 'block_orange_list_bestforumng'));
-            $output .= html_writer::end_tag('div');
-        $output .= html_writer::end_tag('div');
-
-        $output .= html_writer::start_tag('div', array('class' => 'row', 'style' => 'height:30px'));
         $output .= html_writer::end_tag('div');
 
         $output .= html_writer::start_tag('div', array('class' => 'row'));
@@ -82,68 +75,69 @@ class block_orange_list_bestforumng_renderer extends plugin_renderer_base {
         global $CFG, $OUTPUT;
         $output = "";
 
-        $output .= html_writer::start_tag('div', array('class' => 'row u-inverse'));
-            $output .= html_writer::start_tag('div', array('class' => 'col-md-9'));
-                $output .= html_writer::tag('h4', $course->fullname);
-            $output .= html_writer::end_tag('div');
+        $output .= html_writer::start_tag('div', array('class' => 'u-inverse'));
+            $output .= html_writer::start_tag('div', array('class' => 'row u-row-table'));
+                $output .= html_writer::start_tag('div', array('class' => 'col-xs-9'));
+                    $output .= html_writer::tag('h4', $course->fullname);
+                $output .= html_writer::end_tag('div');
 
-            $output .= html_writer::start_tag('div', array('class' => 'col-md-3 text-right'));
-                $output .= html_writer::tag('span', $nbdiscussions , array('class' => 'text-secondary'));
-                $output .= html_writer::tag('span', " discussions");
+                $output .= html_writer::start_tag('div', array('class' => 'col-xs-3 text-right u-vertical-align'));
+                    $output .= html_writer::tag('span', $nbdiscussions , array('class' => 'text-secondary'));
+                    $plural = ($nbdiscussions > 1) ? 's' : '';
+                    $output .= html_writer::tag('span', get_string('discussion', 'block_orange_list_bestforumng', $plural));
+                $output .= html_writer::end_tag('div');
             $output .= html_writer::end_tag('div');
         $output .= html_writer::end_tag('div');
 
         $output .= html_writer::start_tag('div', array('class' => 'row'));
 
-            $output .= html_writer::start_tag('div', array('class' => 'col-md-4'));
+            $output .= html_writer::start_tag('div', array('class' => 'col-md-4 orange-listbestforumng-image'));
                 $output .= html_writer::empty_tag('img',
                     array('src' => $courseimageurl,
-                          'class' => 'col-md-12 essentiels-image'));
+                          'class' => 'img-responsive'));
                 $output .= html_writer::start_tag('div', array('class' => 'overpicture'));
                     $output .= html_writer::tag('span', $extendedcourse->enrolledusers . " inscrits");
                 $output .= html_writer::end_tag('div');
             $output .= html_writer::end_tag('div');
 
-            $output .= html_writer::start_tag('div', array('class' => 'col-md-8'));
-                $output .= html_writer::start_tag('div', array('class' => 'row'));
-                    $output .= html_writer::start_tag('div', array('class' => 'col-md-10'));
+            $output .= html_writer::start_tag('div', array('class' => 'col-md-8 orange-listbestforumng-text'));
+
+                $output .= html_writer::start_tag('div', array('class' => 'row baner-text'));
+                    $output .= html_writer::start_tag('div', array('class' => 'col-md-12'));
                         $output .= html_writer::tag('span', get_string('linebestdiscussion', 'block_orange_list_bestforumng'));
                     $output .= html_writer::end_tag('div');
                 $output .= html_writer::end_tag('div');
 
-                $output .= html_writer::start_tag('div', array('class' => 'row boxhover'));
+                $output .= html_writer::start_tag('div', array('class' => 'baner-forum'));
+                    $output .= html_writer::start_tag('div', array('class' => 'row u-row-table'));
 
-                    $output .= html_writer::start_tag('div', array('class' => 'col-md-12 fullwidth-line'));
-                    $output .= html_writer::end_tag('div');
+                        $output .= html_writer::start_tag('div', array('class' => 'col-md-6 u-vertical-align'));
+                            $output .= html_writer::tag('span', '<strong>' . $lastpost->get_discussion()->get_subject() . '</strong>');
+                        $output .= html_writer::end_tag('div');
 
-                    $output .= html_writer::start_tag('div', array('class' => 'col-md-6'));
-                        $output .= html_writer::tag('span', '<strong>' . $lastpost->get_discussion()->get_subject() . '</strong>');
-                    $output .= html_writer::end_tag('div');
+                        $output .= html_writer::start_tag('div', array('class' => 'col-md-3 text-center u-vertical-align'));
+                            $output .= html_writer::tag('span', "<strong>"
+                                    . $lastpost->get_discussion()->get_num_posts()
+                                    . " </strong>",
+                                    array('class' => 'text-orange'));
+                            $output .= html_writer::tag('span', get_string('responses', 'block_orange_list_bestforumng'));
+                        $output .= html_writer::end_tag('div');
 
-                    $output .= html_writer::start_tag('div', array('class' => 'col-md-3 text-center'));
-                        $output .= html_writer::tag('span', "<strong>"
-                                . $lastpost->get_discussion()->get_num_posts()
-                                . " </strong>",
-                                array('class' => 'text-orange'));
-                        $output .= html_writer::tag('span', get_string('responses', 'block_orange_list_bestforumng'));
-                    $output .= html_writer::end_tag('div');
+                        $output .= html_writer::start_tag('div', array('class' => 'col-md-1 u-vertical-align'));
+                            $output .= $OUTPUT->user_picture($lastpost->get_user(), array('class' => ''));
+                        $output .= html_writer::end_tag('div');
 
-                    $output .= html_writer::start_tag('div', array('class' => 'col-md-1 center-block'));
-                        $output .= $OUTPUT->user_picture($lastpost->get_user(), array('class' => ''));
-                    $output .= html_writer::end_tag('div');
+                        $output .= html_writer::start_tag('div', array('class' => 'col-md-2 u-vertical-align'));
+                            $output .= fullname($lastpost->get_user())
+                                    . "<br>"
+                                    . utilities_object::get_formatted_date_forum($lastpost->get_modified());
+                        $output .= html_writer::end_tag('div');
 
-                    $output .= html_writer::start_tag('div', array('class' => 'col-md-2 center-block'));
-                        $output .= fullname($lastpost->get_user())
-                                . "<br>"
-                                . utilities_object::get_formatted_date_forum($lastpost->get_modified());
-                    $output .= html_writer::end_tag('div');
-
-                    $output .= html_writer::start_tag('div', array('class' => 'col-md-12 fullwidth-line'));
                     $output .= html_writer::end_tag('div');
 
                 $output .= html_writer::end_tag('div');
 
-                $output .= html_writer::start_tag('div', array('class' => 'row'));
+                $output .= html_writer::start_tag('div', array('class' => 'row baner-text'));
 
                     $courselinkdescript = new moodle_url('/mod/descriptionpage/view.php', array('courseid' => $course->id));
                     $output .= html_writer::start_tag('div', array('class' => 'col-md-12'));
