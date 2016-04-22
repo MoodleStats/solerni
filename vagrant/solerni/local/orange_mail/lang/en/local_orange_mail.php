@@ -201,3 +201,7 @@ and personalise your password.</p>
 $string['badgemessagebody'] = '<p>Hello,</p>
 <p>You have been awarded the badge "%badgename%"!</p>
 <p>More information about this badge can be found from {$a} page.</p>';
+
+$string['emailupdatemessage'] = '<p>Dear <span class="txt18BNoir">{$a->fullname}</span>,</p>
+<p>You have requested a change of your email address for your user account at {$a->site}. Please open the following URL in your browser in order to confirm this change.</p>
+<a href="{$a->url}" class="lientxt18orange">{$a->url}</a>';

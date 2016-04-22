@@ -222,14 +222,14 @@ $string['enddate_help'] = 'date de fin du cours';
 
 $string['duration'] = 'Durée';
 $string['duration_help'] = 'durée du cours ';
-$string['duration_default'] = 'Inférieur à quatre semaines';
+$string['duration_default'] = 0;
 $string['duration0'] = 'Inférieur à quatre semaines';
 $string['duration1'] = 'Quatre à six semaines';
 $string['duration2'] = 'Supérieur à six semaines';
 
 $string['workingtime'] = 'Temps de travail hebdomadaire';
 $string['workingtime_help'] = 'sélectionner le temps de travail hebdomadaire ';
-$string['workingtime_default'] = 'Inférieur à une heure';
+$string['workingtime_default'] = 0;
 $string['workingtime0'] = 'Inférieur à une heure';
 $string['workingtime1'] = 'Une à deux heures';
 $string['workingtime2'] = 'Deux à trois heures';
@@ -313,6 +313,192 @@ $string['videoplayer_default'] = '';
 $string['inactivitydelay'] = 'Delai d\'inactivité';
 $string['inactivitydelay_help'] = 'Delai d\'inactivité';
 $string['inactivitydelay_default'] = '';
+
+
+//Paragraph description for find out more page
+$string['paragraph1'] = 'Titre Paragraphe 1';
+$string['paragraph1_help'] = 'Titre du paragraphe 1';
+$string['paragraph1_default'] = '';
+
+$string['description1'] = 'Description du Paragraphe 1';
+$string['description1_help'] = 'Description du Paragraphe 1';
+$string['description1_default'] = '';
+
+$string['paragraph1picture'] = 'Image du Paragraphe 1';
+$string['paragraph1picture_help'] = 'Image du Paragraphe 1';
+$string['paragraph1picture_default'] = '';
+
+$string['paragraph1bgcolor'] = 'Paragraphe 1: couleur de fond';
+$string['paragraph1bgcolor_help'] = 'Paragraphe 1: couleur de fond';
+$string['paragraph1bgcolor_default'] = 'couleur de fond';
+$string['bgcolor1'] = 'couleur de fond';
+
+$string['paragraph2'] = 'Titre Paragraphe 2';
+$string['paragraph2_help'] = 'Titre Paragraphe 2';
+$string['paragraph2_default'] = '';
+
+$string['description2'] = 'Description du Paragraphe 2';
+$string['description2_help'] = 'Description du Paragraphe 2';
+$string['description2_default'] = '';
+
+$string['paragraph2picture'] = 'Image du Paragraphe 2';
+$string['paragraph2picture_help'] = 'Image du Paragraphe 2';
+$string['paragraph2picture_default'] = '';
+
+$string['paragraph2bgcolor'] = 'Paragraphe 2: couleur de fond';
+$string['paragraph2bgcolor_help'] = 'Paragraphe 2: couleur de fond';
+$string['paragraph2bgcolor_default'] = 'couleur de fond';
+$string['bgcolor2'] = 'couleur de fond';
+
+$string['paragraph3'] = 'Titre Paragraphe 3';
+$string['paragraph3_help'] = 'Titre Paragraphe 3';
+$string['paragraph3_default'] = '';
+
+$string['description3'] = 'Description du Paragraphe 3';
+$string['description3_help'] = 'Description du Paragraphe 3';
+$string['description3_default'] = '';
+
+$string['paragraph3picture'] = 'Image du Paragraphe 3';
+$string['paragraph3picture_help'] = 'Image du Paragraphe 3';
+$string['paragraph3picture_default'] = '';
+
+$string['paragraph3bgcolor'] = 'Paragraphe 3: couleur de fond';
+$string['paragraph3bgcolor_help'] = 'Paragraphe 3: couleur de fond';
+$string['paragraph3bgcolor_default'] = 'couleur de fond';
+$string['bgcolor3'] = 'couleur de fond';
+
+$string['paragraph4'] = 'Titre Paragraphe 4';
+$string['paragraph4_help'] = 'Titre Paragraphe 4';
+$string['paragraph4_default'] = '';
+
+$string['description4'] = 'Description du Paragraphe 4';
+$string['description4_help'] = 'Description du Paragraphe 4';
+$string['description4_default'] = '';
+
+$string['paragraph4picture'] = 'Image du Paragraphe 4';
+$string['paragraph4picture_help'] = 'Image du Paragraphe 4';
+$string['paragraph4picture_default'] = '';
+
+$string['paragraph4bgcolor'] = 'Paragraphe 4: couleur de fond';
+$string['paragraph4bgcolor_help'] = 'Paragraphe 4: couleur de fond';
+$string['paragraph4bgcolor_default'] = 'couleur de fond';
+$string['bgcolor4'] = 'couleur de fond';
+
+$string['paragraph5'] = 'Titre Paragraphe 5';
+$string['paragraph5_help'] = 'Titre Paragraphe 5';
+$string['paragraph5_default'] = '';
+
+$string['description5'] = 'Description du Paragraphe 5';
+$string['description5_help'] = 'Description du Paragraphe 5';
+$string['description5_default'] = '';
+
+$string['paragraph5picture'] = 'Image du Paragraphe 5';
+$string['paragraph5picture_help'] = 'Image du Paragraphe 5';
+$string['paragraph5picture_default'] = '';
+
+$string['paragraph5bgcolor'] = 'Paragraphe 5: couleur de fond';
+$string['paragraph5bgcolor_help'] = 'Paragraphe 5: couleur de fond';
+$string['paragraph5bgcolor_default'] = 'couleur de fond';
+$string['bgcolor5'] = 'couleur de fond';
+
+$string['paragraph6'] = 'Titre Paragraphe 6';
+$string['paragraph6_help'] = 'Titre Paragraphe 6';
+$string['paragraph6_default'] = '';
+
+$string['description6'] = 'Description du Paragraphe 6';
+$string['description6_help'] = 'Description du Paragraphe 6';
+$string['description6_default'] = '';
+
+$string['paragraph6picture'] = 'Image du Paragraphe 6';
+$string['paragraph6picture_help'] = 'Image du Paragraphe 6';
+$string['paragraph6picture_default'] = '';
+
+$string['paragraph6bgcolor'] = 'Paragraphe 6: couleur de fond';
+$string['paragraph6bgcolor_help'] = 'Paragraphe 6: couleur de fond';
+$string['paragraph6bgcolor_default'] = 'couleur de fond';
+$string['bgcolor6'] = 'couleur de fond';
+
+$string['paragraph7'] = 'Titre Paragraphe 7';
+$string['paragraph7_help'] = 'Titre Paragraphe 7';
+$string['paragraph7_default'] = '';
+
+$string['description7'] = 'Description du Paragraphe 7';
+$string['description7_help'] = 'Description du Paragraphe 7';
+$string['description7_default'] = '';
+
+$string['paragraph7picture'] = 'Image du Paragraphe 7';
+$string['paragraph7picture_help'] = 'Image du Paragraphe 7';
+$string['paragraph7picture_default'] = '';
+
+$string['paragraph7bgcolor'] = 'Paragraphe 7: couleur de fond';
+$string['paragraph7bgcolor_help'] = 'Paragraphe 7: couleur de fond';
+$string['paragraph7bgcolor_default'] = 'couleur de fond';
+$string['bgcolor7'] = 'couleur de fond';
+
+$string['paragraph8'] = 'Titre Paragraphe 8';
+$string['paragraph8_help'] = 'Titre Paragraphe 8';
+$string['paragraph8_default'] = '';
+
+$string['description8'] = 'Description du Paragraphe 8';
+$string['description8_help'] = 'Description du Paragraphe 8';
+$string['description8_default'] = '';
+
+$string['paragraph8picture'] = 'Image du Paragraphe 8';
+$string['paragraph8picture_help'] = 'Image du Paragraphe 8';
+$string['paragraph8picture_default'] = '';
+
+$string['paragraph8bgcolor'] = 'Paragraphe 8: couleur de fond';
+$string['paragraph8bgcolor_help'] = 'Paragraphe 8: couleur de fond';
+$string['paragraph8bgcolor_default'] = 'couleur de fond';
+$string['bgcolor8'] = 'couleur de fond';
+
+$string['paragraph9'] = 'Titre Paragraphe 9';
+$string['paragraph9_help'] = 'Titre Paragraphe 9';
+$string['paragraph9_default'] = '';
+
+$string['description9'] = 'Description du Paragraphe 9';
+$string['description9_help'] = 'Description du Paragraphe 9';
+$string['description9_default'] = '';
+
+$string['paragraph9picture'] = 'Image du Paragraphe 9';
+$string['paragraph9picture_help'] = 'Image du Paragraphe 9';
+$string['paragraph9picture_default'] = '';
+
+$string['paragraph9bgcolor'] = 'Paragraphe 9: couleur de fond';
+$string['paragraph9bgcolor_help'] = 'Paragraphe 9: couleur de fond';
+$string['paragraph9bgcolor_default'] = 'couleur de fond';
+$string['bgcolor9'] = 'couleur de fond';
+
+$string['paragraph10'] = 'Titre Paragraphe 10';
+$string['paragraph10_help'] = 'Titre Paragraphe 10';
+$string['paragraph10_default'] = '';
+
+$string['description10'] = 'Description du Paragraphe 10';
+$string['description10_help'] = 'Description du Paragraphe 10';
+$string['description10_default'] = '';
+
+$string['paragraph10picture'] = 'Image du Paragraphe 10';
+$string['paragraph10picture_help'] = 'Image du Paragraphe 10';
+$string['paragraph10picture_default'] = '';
+
+$string['paragraph10bgcolor'] = 'Paragraphe 10: couleur de fond';
+$string['paragraph10bgcolor_help'] = 'Paragraphe 10: couleur de fond';
+$string['paragraph10bgcolor_default'] = 'couleur de fond';
+$string['bgcolor10'] = 'couleur de fond';
+
+$string['white'] = 'blanc';
+$string['yellow'] = 'jaune';
+$string['blue'] = 'bleu';
+$string['green'] = 'vert';
+$string['purple'] = 'violet';
+$string['pink'] = 'rose';
+$string['red'] = 'rouge';
+$string['orange'] = 'orange';
+$string['graydarker'] = 'graydarker';
+$string['graydark'] = 'graydark';
+$string['gray'] = 'gray';
+$string['graylight'] = 'graylight';
+$string['graylighter'] = 'graylighter';
 
 // Adding the delete activity warning message.
 $string['deleteactivitywarn'] = 'Si cette activité est supprimée, alors elle sera enlevée de toutes les flexpages.';

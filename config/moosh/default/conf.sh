@@ -394,6 +394,21 @@ function main () {
 	# Set user fullname format (#us_504)
 	execute_moosh_command "moosh config-set fullnamedisplay \"firstname lastname\""
 	execute_moosh_command "moosh config-set emailonlyfromnoreplyaddress 1"
+
+        # Set blocks for find out more page (#us_397)
+	execute_moosh_command "moosh block-add system 0 orange_action mooc-view content -10"
+	execute_moosh_command "moosh block-add system 0 orange_iconsmap mooc-view content -9"
+	execute_moosh_command "moosh block-add system 0 orange_separator_line mooc-view content -8"
+	execute_moosh_command "moosh block-add system 0 orange_social_sharing mooc-view content -7"
+	execute_moosh_command "moosh block-add system 0 orange_paragraph_list mooc-view content -6"
+
+	# Reduce quiz question type qtype (#us_478)
+	execute_moosh_command "moosh plugin-uninstall qtype_calculatedmulti"
+	execute_moosh_command "moosh plugin-uninstall qtype_calculatedsimple"
+	execute_moosh_command "moosh plugin-uninstall qtype_calculated"
+	execute_moosh_command "moosh plugin-uninstall qtype_essay"
+	execute_moosh_command "moosh plugin-uninstall qtype_multianswer"
+	execute_moosh_command "moosh plugin-uninstall qtype_randomsamatch"
 }
 
 main "$@"

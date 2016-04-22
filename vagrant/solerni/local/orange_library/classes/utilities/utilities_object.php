@@ -76,6 +76,30 @@ class utilities_object {
     }
 
     /**
+     * trasform duration format to week format
+     * @param type $extendedcourse
+     * @return type
+     */
+    public static function duration_to_week($duration) {
+
+        $secondsinaminute = 60;
+        $secondsinanhour = 60 * $secondsinaminute;
+        $secondsinaday = 24 * $secondsinanhour;
+        $secondsinaweek = 7 * $secondsinaday;
+
+        $weeks = floor($duration / $secondsinaweek);
+        $text = 0;
+
+        if ($weeks > 0) {
+            $text = $weeks;
+        } else {
+            $text = 1;
+        }
+
+        return $text;
+    }
+
+    /**
      * trims text to a space then adds ellipses if desired
      * @param string $input text to trim
      * @param int $length in characters to trim to

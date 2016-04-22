@@ -84,7 +84,8 @@
             margin-right: -15px;
         }
 
-    .resac-navigation .navigation-item:hover {
+    .resac-navigation .navigation-item:hover,
+    .resac-navigation .navigation-item.active {
         color: @brand-secondary;
     }
 
@@ -136,7 +137,13 @@
                 margin-right: @s-medium-md-margin;
             }
         }
+
+        .is-logged .btn {
+            border: 0;
+        }
     }
+
+
 
 /*
  * Notification email in header
@@ -149,7 +156,7 @@
     position:           absolute;
     top:                0;
     right:              0;
-    background-color:   @brand-secondary;
+    background-color:   @brand-info;
     color:              @brand-tertiary;
     width:              @padding-base-horizontal;
     height:             @padding-base-horizontal;

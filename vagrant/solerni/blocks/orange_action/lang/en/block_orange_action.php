@@ -26,8 +26,7 @@ $string['pluginname'] = 'Orange Action';
 $string['config_default_title'] = 'Orange Action';
 $string['hideblockheader'] = 'Hide title';
 $string['hideblockheaderdesc'] = 'Allow to hide the block title';
-$string['enrolleduser'] = '{$a} registered user';
-$string['enrolledusers'] = '{$a} registered users';
+$string['enrolledusers'] = '{$a->number} registered user{$a->plural}';
 $string['nextsessionlink'] = 'Je souhaite être averti de la prochaine session.';
 $string['coursetopush'] = 'Course to push';
 $string['coursetopush_help'] = 'Select the course which will be push on user dashboard (Only non closed MOOCs are in the list).';
@@ -39,6 +38,7 @@ $string['generalconfig'] = "General block configuration";
 $string['myconfig'] = "Block configuration";
 $string['myconfigdesc'] = "Select the course or the event to be pushed. If both are set, only the course will be displayed on the my page.";
 $string['gotocalendar'] = "Access the event";
+$string['gotosequence'] = "Go to the sequence";
 
 // For capabilities.
 $string['orange_action:addinstance'] = 'Add a new Orange Action block';

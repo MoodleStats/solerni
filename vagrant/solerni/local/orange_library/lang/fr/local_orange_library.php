@@ -48,8 +48,8 @@ $string['new_session']          = 'nouvelle session';
 // Extended course object.
 $string['english']              = 'Anglais';
 $string['french']               = 'Français';
-$string['duration_default']     = 'Moins de 4 semaines';
-$string['workingtime_default']  = 'Moins d\'une heure';
+$string['duration_default']     = 0;
+$string['workingtime_default']  = 0;
 $string['prerequesites_default'] = 'Pas de prérequis';
 $string['subtitle']             = 'Sous-titres';
 $string['subtitle_default']     = 'Sous-titres';
@@ -96,3 +96,8 @@ $string['orange_library_mnet_mail'] = '<p>Bonjour  {$a->firstname}  {$a->lastnam
 <p>Je suis la tâche automatisée de vérification de la validité des clés MNet pour <b>{$a->sitename}</b>';
 $string['orange_library_mnet_mail_subject'] = "Test de validité des clés MNet ";
 
+// Course menu item.
+$string['coursemenulearn'] = "Apprendre";
+$string['coursemenulearnmore'] = "Actualités";
+$string['coursemenuforum'] = "Forum";
+$string['coursemenushare'] = "Ressource";

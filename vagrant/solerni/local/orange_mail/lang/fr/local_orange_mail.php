@@ -203,3 +203,7 @@ afin de personnaliser votre mot de passe.</p>
 $string['badgemessagebody'] = '<p>Bonjour,</p>
 <p>Vous venez d’obtenir le badge « %badgename% »!</p>
 <p>Pour retrouver tous les détails de votre badge, rendez-vous sur la page {$a}.</p>';
+
+$string['emailupdatemessage'] = '<p>Bonjour <span class="txt18BNoir">{$a->fullname}</span>,</p>
+<p>Vous avez demandé la modification de votre adresse e-mail pour votre compte utilisateur sur {$a->site}. Veuillez cliquer sur l\'URL ci-dessous afin de confirmer la modification.</p>
+<a href="{$a->url}" class="lientxt18orange">{$a->url}</a>';

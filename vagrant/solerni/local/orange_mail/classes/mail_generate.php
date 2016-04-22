@@ -73,6 +73,10 @@ class mail_generate {
         mail_object::generate('badgemessagebody', 'text');
         mail_object::generate('badgemessagebody', 'html');
 
+        // Mail for email change confirmation.
+        mail_object::generate('emailupdatemessage', 'text');
+        mail_object::generate('emailupdatemessage', 'html');
+
         return true;
     }
 
