@@ -28,12 +28,20 @@ $string['opinion'] = 'Gestion des témoignages';
 $string['actionopinion_list'] = 'List of opinions';
 
 $string['username'] = 'Nom de l\'apprenant';
+
 $string['title'] = 'Titre';
+$string['defaulttitle'] = '<span lang="fr" class="multilang">Mon titre</span><span lang="en" class="multilang">My Title</span>';
+
 $string['date'] = 'Date';
-$string['moocname'] = 'Mooc(s) suivi(s)';
-$string['content'] = 'Témoignage';
 $string['date_help'] = 'Date du témoignage au format JJ/MM/AAAA';
+$string['defaultdate'] = '<span lang="fr" class="multilang">JJ/MM/AAAA</span><span lang="en" class="multilang">DD/MM/YYYY</span>';
+
+$string['moocname'] = 'Mooc(s) suivi(s)';
 $string['moocname_help'] = 'Séparer par des virgules si il y a plusieurs Moocs';
+$string['defaultmoocname'] = '<span lang="fr" class="multilang">Tous les moocs suivis</span><span lang="en" class="multilang">All moocs followed</span>';
+
+$string['content'] = 'Témoignage';
+$string['defaultcontent'] = '<span lang="fr" class="multilang">Bla bla bla</span> <br/> <span lang="en" class="multilang">Bla bla bla</span>';
 
 $string['defineopinionheader'] = 'Gestion des témoignages';
 $string['opinionlink'] = 'Témoignages';

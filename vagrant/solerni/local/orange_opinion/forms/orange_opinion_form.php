@@ -43,27 +43,30 @@ class orange_opinion_form extends moodleform implements renderable {
         $steplabel = get_string('defineopinionheader', 'local_orange_opinion');
         $mform->addElement('header', 'flavourdata', $steplabel);
 
-        $mform->addElement('text', 'username', get_string('username', 'local_orange_opinion'));
-        $mform->addRule('username', null, 'required', null, 'client');
+        $mform->addElement('text', 'username', get_string('username', 'local_orange_opinion'), array('size' => '64'));
         $mform->setType('username', PARAM_TEXT);
+        $mform->addRule('username', null, 'required', null, 'client');
 
-        $mform->addElement('text', 'title', get_string('title', 'local_orange_opinion'));
+        $mform->addElement('textarea', 'title', get_string('title', 'local_orange_opinion'));
         $mform->addRule('title', null, 'required', null, 'client');
         $mform->setType('title', PARAM_TEXT);
+        $mform->setDefault('title', get_string('defaulttitle', 'local_orange_opinion'));
 
-        $mform->addElement('text', 'moocname', get_string('moocname', 'local_orange_opinion'));
+        $mform->addElement('textarea', 'moocname', get_string('moocname', 'local_orange_opinion'));
         $mform->addRule('moocname', null, 'required', null, 'client');
         $mform->setType('moocname', PARAM_TEXT);
         $mform->addHelpButton('moocname', 'moocname', 'local_orange_opinion');
+        $mform->setDefault('moocname', get_string('defaultmoocname', 'local_orange_opinion'));
        
-        $mform->addElement('text', 'dateopinion', get_string('date', 'local_orange_opinion'));
+        $mform->addElement('textarea', 'dateopinion', get_string('date', 'local_orange_opinion'));
         $mform->addRule('dateopinion', null, 'required', null, 'client');
         $mform->setType('dateopinion', PARAM_TEXT);
         $mform->addHelpButton('dateopinion', 'date', 'local_orange_opinion');
+        $mform->setDefault('dateopinion', get_string('defaultdate', 'local_orange_opinion'));
         
-
-        $mform->addElement('editor', 'content_editor', get_string('content', 'local_orange_opinion'));
-        $mform->setType('summary_editor', PARAM_RAW);
+        $mform->addElement('textarea', 'content', get_string('content', 'local_orange_opinion'));
+        $mform->setType('content', PARAM_TEXT);
+        $mform->setDefault('content', get_string('defaultcontent', 'local_orange_opinion'));
         
         $mform->addElement('hidden', 'id', 0);
         $mform->setType('id', PARAM_RAW);

@@ -28,12 +28,20 @@ $string['opinion'] = 'Manage user\'s opinion';
 $string['actionopinion_list'] = 'Gestion des témoignages';
 
 $string['username'] = 'Name of student';
+
 $string['title'] = 'Title';
+$string['defaulttitle'] = '<span lang="fr" class="multilang">Mon titre</span><span lang="en" class="multilang">My Title</span>';
+
 $string['date'] = 'Date';
-$string['moocname'] = 'Mooc(s) followed';
-$string['content'] = 'Opinion';
 $string['date_help'] = 'Date of opinion formatted DD/MM/YYYY';
+$string['defaultdate'] = '<span lang="fr" class="multilang">JJ/MM/AAAA</span><span lang="en" class="multilang">DD/MM/YYYY</span>';
+
+$string['moocname'] = 'Mooc(s) followed';
 $string['moocname_help'] = 'Separated by commas if there are more Moocs';
+$string['defaultmoocname'] = '<span lang="fr" class="multilang">Tous les moocs suivis</span><span lang="en" class="multilang">All moocs followed</span>';
+
+$string['content'] = 'Opinion';
+$string['defaultcontent'] = '<span lang="fr" class="multilang">Bla bla bla</span> <br/> <span lang="en" class="multilang">Bla bla bla</span>';
 
 $string['defineopinionheader'] = 'Manage the opinions';
 $string['opinionlink'] = 'Opinions';

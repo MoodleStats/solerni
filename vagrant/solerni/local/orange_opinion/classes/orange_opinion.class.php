@@ -160,7 +160,7 @@ class orange_opinion  {
         $table->colclasses = array();
         $table->attributes['class'] = 'admintable generaltable';
         $table->head[] = get_string('username', 'local_orange_opinion');
-        $table->head[] = get_string('title', 'local_orange_opinion');
+        $table->head[] = get_string('content', 'local_orange_opinion');
         $table->head[] = get_string('date', 'local_orange_opinion');
         $table->head[] = "";
 
@@ -218,8 +218,8 @@ class orange_opinion  {
             $row = array();
             $row[] = "<a href=\"view.php?sesskey=".sesskey()."&id=$opinion->id\">
                      $opinion->username</a>";
-            $row[] = $opinion->title;
-            $row[] = $opinion->dateopinion;        
+            $row[] = "<strong>" . format_text($opinion->title) . "</strong>" . format_text($opinion->content);
+            $row[] = format_text($opinion->dateopinion);
             $row[] = implode(' ', $buttons);            
             
             $table->data[] = $row;
