@@ -326,3 +326,6 @@ $string['contact_email_body']       = 'The following request has been issued usi
 // Page badges/mybadges.php.
 $string['nobadgesfaq'] = 'There are no badges available.<br/>
 <strong><a href="{$a}">Consult FAQ</a></strong> to understand how badges work.';
+
+//Page en savoir plus
+$string['more_info']               = 'more info';

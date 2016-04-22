@@ -328,6 +328,11 @@ $string['paragraph1picture'] = 'Paragraph 1 picture';
 $string['paragraph1picture_help'] = 'Paragraph 1 picture';
 $string['paragraph1picture_default'] = '';
 
+$string['paragraph1bgcolor'] = 'Paragraph 1 background color';
+$string['paragraph1bgcolor_help'] = 'Paragraph 1 background color';
+$string['paragraph1bgcolor_default'] = 'background color';
+$string['bgcolor1'] = 'background color';
+
 $string['paragraph2'] = 'Paragraph 2 title';
 $string['paragraph2_help'] = 'Title of the 2 paragraph';
 $string['paragraph2_default'] = '';
@@ -339,6 +344,11 @@ $string['description2_default'] = '';
 $string['paragraph2picture'] = 'Paragraph 2 picture';
 $string['paragraph2picture_help'] = 'Paragraph 2 picture';
 $string['paragraph2picture_default'] = '';
+
+$string['paragraph2bgcolor'] = 'Paragraph 2 background color';
+$string['paragraph2bgcolor_help'] = 'Paragraph 2 background color';
+$string['paragraph2bgcolor_default'] = 'background color';
+$string['bgcolor2'] = 'background color';
 
 $string['paragraph3'] = 'Paragraph 3 title';
 $string['paragraph3_help'] = 'Title of the 3 paragraph';
@@ -352,6 +362,11 @@ $string['paragraph3picture'] = 'Paragraph 3 picture';
 $string['paragraph3picture_help'] = 'Paragraph 3 picture';
 $string['paragraph3picture_default'] = '';
 
+$string['paragraph3bgcolor'] = 'Paragraph 3 background color';
+$string['paragraph3bgcolor_help'] = 'Paragraph 3 background color';
+$string['paragraph3bgcolor_default'] = 'background color';
+$string['bgcolor3'] = 'background color';
+
 $string['paragraph4'] = 'Paragraph 4 title';
 $string['paragraph4_help'] = 'Title of the 4 paragraph';
 $string['paragraph4_default'] = '';
@@ -363,6 +378,11 @@ $string['description4_default'] = '';
 $string['paragraph4picture'] = 'Paragraph 4 picture';
 $string['paragraph4picture_help'] = 'Paragraph 4 picture';
 $string['paragraph4picture_default'] = '';
+
+$string['paragraph4bgcolor'] = 'Paragraph 4 background color';
+$string['paragraph4bgcolor_help'] = 'Paragraph 4 background color';
+$string['paragraph4bgcolor_default'] = 'background color';
+$string['bgcolor4'] = 'background color';
 
 $string['paragraph5'] = 'Paragraph 5 title';
 $string['paragraph5_help'] = 'Title of the 5 paragraph';
@@ -376,6 +396,11 @@ $string['paragraph5picture'] = 'Paragraph 5 picture';
 $string['paragraph5picture_help'] = 'Paragraph 5 picture';
 $string['paragraph5picture_default'] = '';
 
+$string['paragraph5bgcolor'] = 'Paragraph 5 background color';
+$string['paragraph5bgcolor_help'] = 'Paragraph 5 background color';
+$string['paragraph5bgcolor_default'] = 'background color';
+$string['bgcolor5'] = 'background color';
+
 $string['paragraph6'] = 'Paragraph 6 title';
 $string['paragraph6_help'] = 'Title of the 6 paragraph';
 $string['paragraph6_default'] = '';
@@ -387,6 +412,11 @@ $string['description6_default'] = '';
 $string['paragraph6picture'] = 'Paragraph 6 picture';
 $string['paragraph6picture_help'] = 'Paragraph 6 picture';
 $string['paragraph6picture_default'] = '';
+
+$string['paragraph6bgcolor'] = 'Paragraph 6 background color';
+$string['paragraph6bgcolor_help'] = 'Paragraph 6 background color';
+$string['paragraph6bgcolor_default'] = 'background color';
+$string['bgcolor6'] = 'background color';
 
 $string['paragraph7'] = 'Paragraph 7 title';
 $string['paragraph7_help'] = 'Title of the 7 paragraph';
@@ -400,6 +430,11 @@ $string['paragraph7picture'] = 'Paragraph 7 picture';
 $string['paragraph7picture_help'] = 'Paragraph 7 picture';
 $string['paragraph7picture_default'] = '';
 
+$string['paragraph7bgcolor'] = 'Paragraph 7 background color';
+$string['paragraph7bgcolor_help'] = 'Paragraph 7 background color';
+$string['paragraph7bgcolor_default'] = 'background color';
+$string['bgcolor7'] = 'background color';
+
 $string['paragraph8'] = 'Paragraph 8 title';
 $string['paragraph8_help'] = 'Title of the 8 paragraph';
 $string['paragraph8_default'] = '';
@@ -411,6 +446,11 @@ $string['description8_default'] = '';
 $string['paragraph8picture'] = 'Paragraph 8 picture';
 $string['paragraph8picture_help'] = 'Paragraph 8 picture';
 $string['paragraph8picture_default'] = '';
+
+$string['paragraph8bgcolor'] = 'Paragraph 8 background color';
+$string['paragraph8bgcolor_help'] = 'Paragraph 8 background color';
+$string['paragraph8bgcolor_default'] = 'background color';
+$string['bgcolor8'] = 'background color';
 
 $string['paragraph9'] = 'Paragraph 9 title';
 $string['paragraph9_help'] = 'Title of the 9 paragraph';
@@ -424,6 +464,11 @@ $string['paragraph9picture'] = 'Paragraph 9 picture';
 $string['paragraph9picture_help'] = 'Paragraph 9 picture';
 $string['paragraph9picture_default'] = '';
 
+$string['paragraph9bgcolor'] = 'Paragraph 9 background color';
+$string['paragraph9bgcolor_help'] = 'Paragraph 9 background color';
+$string['paragraph9bgcolor_default'] = 'background color';
+$string['bgcolor9'] = 'background color';
+
 $string['paragraph10'] = 'Paragraph 10 title';
 $string['paragraph10_help'] = 'Title of the 10 paragraph';
 $string['paragraph10_default'] = '';
@@ -435,6 +480,25 @@ $string['description10_default'] = '';
 $string['paragraph10picture'] = 'Paragraph 10 picture';
 $string['paragraph10picture_help'] = 'Paragraph 10 picture';
 $string['paragraph10picture_default'] = '';
+
+$string['paragraph10bgcolor'] = 'Paragraph 10 background color';
+$string['paragraph10bgcolor_help'] = 'Paragraph 10 background color';
+$string['paragraph10bgcolor_default'] = 'background color';
+$string['bgcolor10'] = 'background color';
+
+$string['white'] = 'white';
+$string['yellow'] = 'yellow';
+$string['blue'] = 'blue';
+$string['green'] = 'green';
+$string['purple'] = 'purple';
+$string['pink'] = 'pink';
+$string['red'] = 'red';
+$string['orange'] = 'orange';
+$string['graydarker'] = 'graydarker';
+$string['graydark'] = 'graydark';
+$string['gray'] = 'gray';
+$string['graylight'] = 'graylight';
+$string['graylighter'] = 'graylighter';
 
 $string['inactivitydelay'] = 'Time limit of inactivity';
 $string['inactivitydelay_help'] = 'Time limit of inactivity';

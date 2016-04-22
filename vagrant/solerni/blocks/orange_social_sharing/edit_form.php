@@ -18,7 +18,7 @@
  * Orange Social Sharing edit form
  *
  * @package    blocks
- * @subpackage orange_orange_social_sharing
+ * @subpackage orange_social_sharing
  * @copyright  2016 Orange
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
