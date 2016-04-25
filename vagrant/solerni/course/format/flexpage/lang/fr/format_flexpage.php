@@ -316,6 +316,7 @@ $string['inactivitydelay_default'] = '';
 
 
 //Paragraph description for find out more page
+$string['paragraphheader'] = 'En savoir plus';
 $string['paragraph1'] = 'Titre Paragraphe 1';
 $string['paragraph1_help'] = 'Titre du paragraphe 1';
 $string['paragraph1_default'] = '';

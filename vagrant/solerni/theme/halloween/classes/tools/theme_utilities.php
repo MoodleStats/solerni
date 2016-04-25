@@ -231,8 +231,10 @@ class theme_utilities {
      * @return string $output
      */
     public function display_button ($buttonsetting, $containersetting, $courseid) {
-    global $COURSE;
-    $context = \context_course::instance($courseid);
+
+        global $COURSE;
+
+        $context = \context_course::instance($courseid);
         $extendedcourse = new extended_course_object();
         $extendedcourse->get_extended_course($COURSE, $context);
         if($buttonsetting) {
@@ -264,8 +266,8 @@ class theme_utilities {
      * @return string $output
      */
     public function display_line ($containersetting) {
-    $output = html_writer::tag('div', '', array('class' => "col-xs-12 fullwidth-line ". $containersetting));
-
+        
+        $output = html_writer::tag('div', '', array('class' => "col-xs-12 fullwidth-line ". $containersetting));
 
         return $output;
     }

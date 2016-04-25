@@ -31,7 +31,6 @@ require_once(dirname(dirname(__FILE__)) . '/config.php');
 require_once($CFG->dirroot.'/blocks/course_overview/locallib.php');
 require_once($CFG->dirroot.'/blocks/orange_action/block_orange_action.php');
 require_once($CFG->dirroot.'/blocks/orange_social_sharing/block_orange_social_sharing.php');
-require_once($CFG->dirroot.'/blocks/orange_social_following/block_orange_social_following.php');
 require_once($CFG->dirroot.'/blocks/orange_iconsmap/block_orange_iconsmap.php');
 require_once($CFG->dirroot.'/blocks/orange_separator_line/block_orange_separator_line.php');
 require_once($CFG->dirroot.'/blocks/orange_action/renderer.php');
