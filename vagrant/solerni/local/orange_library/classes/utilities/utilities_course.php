@@ -218,7 +218,7 @@ class utilities_course {
 
     /**
      * Construct the SQL where clause for categories
-     * @param array $categories 
+     * @param array $categories
      * @return wherecategory[]
      */
     private static function catalogue_filter_category ($categories) {
@@ -239,7 +239,7 @@ class utilities_course {
 
     /**
      * Construct the SQL where clause for thematics
-     * @param array $thematics 
+     * @param array $thematics
      * @return $wherethematic[]
      */
     private static function catalogue_filter_thematic ($thematics) {
@@ -260,7 +260,7 @@ class utilities_course {
 
     /**
      * Construct the SQL where clause for status
-     * @param array $status 
+     * @param array $status
      * @return $wherestatus[]
      */
     private static function catalogue_filter_status ($status) {
@@ -673,7 +673,7 @@ class utilities_course {
 
         $idpage = $this->get_course_id_page_forum($courseid);
 
-        if (is_null($idpage)) {
+        if (!$idpage) {
             return null;
         }
 
@@ -707,6 +707,8 @@ class utilities_course {
 
             $idpage = $DB->get_record_sql($sql, array($courseid));
         }
+
+
 
         if ($idpage != null) {
             return $idpage->subpagepattern;
@@ -859,7 +861,7 @@ class utilities_course {
      * Get the URL for course menu "PARTAGER"
      *
      * @param course id $courseid
-     * @return url 
+     * @return url
      */
     public static function get_mooc_share_menu($courseid) {
         global $DB;
@@ -877,7 +879,7 @@ class utilities_course {
      * Get the URL for course menu "S'INFORMER"
      *
      * @param course id $courseid
-     * @return url 
+     * @return url
      */
     public static function get_mooc_learnmore_menu($courseid) {
         global $DB;
@@ -897,7 +899,7 @@ class utilities_course {
      * Get the URL for course menu "DISCUTER"
      *
      * @param course Id $courseid
-     * @return url 
+     * @return url
      */
     public static function get_mooc_forum_menu($courseid) {
         global $CFG;
@@ -911,38 +913,61 @@ class utilities_course {
      * Get the URL for course menu "APPRENDRE"
      *
      * @param course id $courseid
-     * @return url 
+     *
+     * @return mixed $tab object
      */
     public static function get_mooc_learn_menu($courseid) {
         global $DB;
 
+        $tab = new \stdClass();
+        $tab->url = null;
+
         // Get last page view in course if exist.
-        if (!$pageid = self::get_course_lastpage()) {
 
-            // Get course homepage.
-            $home = $DB->get_field_sql("SELECT fp.id
-                                                     FROM {format_flexpage_page} fp
-                                                     WHERE fp.courseid = :id AND fp.display=2
-                                                     ORDER BY fp.parentid ASC
-                                                     LIMIT 1", array('id' => $courseid), IGNORE_MISSING);
-            if (!isset($home)) {
-                return null;
-            }
+        switch ($lastpage = self::get_course_lastpage($courseid)) {
 
-            // Get first Sequence.
-            $firstpage = $DB->get_field_sql("SELECT fp.id
-                                                 FROM {format_flexpage_page} fp
-                                                 WHERE fp.parentid = :id AND fp.display=2
-                                                 ORDER BY fp.weight ASC
-                                                 LIMIT 1", array('id' => $home), IGNORE_MISSING);
-            if ($firstpage) {
-                return new \moodle_url('/course/view.php', array('id' => $courseid, 'pageid' => $firstpage));
-            } else {
-                return new \moodle_url('/course/view.php', array('id' => $courseid, 'pageid' => $home));
-            }
-        } else {
-            return new \moodle_url('/course/view.php', array('id' => $courseid, 'pageid' => $pageid));
+            case true:
+                $tab->pageid = $lastpage->id;
+                $tab->title = $lastpage->name;
+            break;
+
+            default:
+                // We have no pageid from previous visit. Get flexpage course homepage.
+                // Which is: lowest ID of visible flexpage for the mooc.
+                $home = $DB->get_record_sql("SELECT fp.id, fp.name
+                    FROM {format_flexpage_page} fp
+                    WHERE fp.courseid = :id AND fp.display=2
+                    ORDER BY fp.parentid ASC
+                    LIMIT 1", array('id' => $courseid), IGNORE_MISSING);
+
+                if (!$home) {
+                    debbuging('This course which id is: ' . $courseid . ' has no flexpage.', DEBUG_DEVELOPER);
+                    return $tab;
+                }
+
+                // Get first Sequence page.
+                // Which is: lowest ID of $home children.
+                // @todo: make it in one query ?
+                $firstpage = $DB->get_record_sql("SELECT fp.id, fp.name
+                    FROM {format_flexpage_page} fp
+                    WHERE fp.parentid = :id AND fp.display=2
+                    ORDER BY fp.weight ASC
+                    LIMIT 1", array('id' => $home->id), IGNORE_MISSING);
+
+                if ($firstpage) {
+                    $tab->pageid = $firstpage->id;
+                    $tab->title = $firstpage->name;
+                } else {
+                    $tab->pageid = $home->id;
+                    $tab->title = $home->name;
+                }
+            break;
         }
+
+        $tab->url = new \moodle_url('/course/view.php',
+            array('id' => $courseid, 'pageid' => $tab->pageid));
+
+        return $tab;
     }
 
     /**
@@ -988,28 +1013,33 @@ class utilities_course {
     }
 
     /**
-     * Get last course page view
+     * Return last course page view id (from flexpage format) or null.
      *
      * @param page id $pageid
-     * @return none
+     *
+     * @return mixed $pagedata (int || null)
      */
-    public static function get_course_lastpage() {
+    public static function get_course_lastpage($courseid = null) {
         global $DB, $USER, $COURSE;
 
-        $currentpage = $DB->get_record('last_page_viewed',
-                array('courseid' => $COURSE->id, 'userid' => $USER->id), 'pageid', IGNORE_MISSING);
-        if ($currentpage) {
-            // Check that the page still exist and is visible.
-            $page = $DB->get_field_sql("SELECT fp.id
-                                                     FROM {format_flexpage_page} fp
-                                                     WHERE fp.courseid = :id AND fp.display=2 AND fp.id = :pageid",
-                    array('id' => $COURSE->id, 'pageid' => $currentpage->pageid), IGNORE_MISSING);
-            if ($page) {
-                return $currentpage->pageid;
-            }
+        if (!$courseid) {
+            $courseid = $COURSE->id;
         }
 
-        return null;
+        $pagedata = new \stdClass();
+        $pagedata->id = null;
+
+        $pagedata = $DB->get_record_sql("SELECT fp.id, fp.name
+            FROM {format_flexpage_page} fp
+            WHERE fp.display=2 AND fp.id =
+                (   SELECT pageid
+                    FROM {last_page_viewed}
+                    WHERE courseid = :courseid
+                    AND userid = :userid)
+            LIMIT 1",
+            array('courseid' => $courseid, 'userid' => $USER->id), IGNORE_MISSING);
+
+        return $pagedata;
     }
 
     /**
@@ -1029,12 +1059,14 @@ class utilities_course {
                     (is_null($forumurl) || (strpos($script, $forumurl->out_as_local_url(false)) === false))) {
                     return 'class="active"';
                 }
-                break;
+            break;
+
             case "learnmore":
                 if (strpos($script, "/mod/oublog") !== false) {
                     return 'class="active"';
                 }
-                break;
+            break;
+
             case "forum":
                 if (!is_null($forumurl)) {
                     if ((strpos($script, $forumurl->out_as_local_url(false)) !== false) ||
@@ -1042,12 +1074,13 @@ class utilities_course {
                         return 'class="active"';
                     }
                 }
-                break;
+            break;
+
             case "share":
                 if (strpos($script, "/mod/folder") !== false) {
                     return 'class="active"';
                 }
-                break;
+            break;
         }
 
         return '';

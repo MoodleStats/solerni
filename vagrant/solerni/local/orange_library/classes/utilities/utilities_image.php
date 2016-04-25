@@ -212,31 +212,25 @@ class utilities_image {
     }
 
     /**
-     * Returns a moodle url object from Moodle File Storage
+     * Check and returns a moodle url object from Moodle File Storage.
      *
      * @param stored_file $storedfile
-     * @return moodle_url
+     * @return string
      */
-    public static function get_moodle_url_from_stored_file($storedfile) {
+    public static function get_moodle_url_from_stored_file($storedfile, $forcedownload = false) {
 
-        if (!is_a($storedfile, 'stored_file')) {
+        if (!is_a($storedfile, 'stored_file') || $storedfile->get_filename() == ".") {
             return false;
         }
 
-        if ($storedfile->get_filename() == ".") {
-            return false;
-        }
-
-        $url = \moodle_url::make_pluginfile_url(
+        return \moodle_url::make_pluginfile_url(
             $storedfile->get_contextid(),
             $storedfile->get_component(),
             $storedfile->get_filearea(),
-            $storedfile->get_itemid(),
+            ($storedfile->get_itemid()) ? $storedfile->get_itemid() : NULL,
             $storedfile->get_filepath(),
-            $storedfile->get_filename()
+            $storedfile->get_filename(),
+            $forcedownload
         );
-
-        return $url;
     }
-
 }

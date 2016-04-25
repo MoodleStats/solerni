@@ -1,5 +1,4 @@
-<?php
-// This file is part of Moodle - http://moodle.org/
+// This file is part of The Orange Halloween Moodle Theme
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -14,19 +13,12 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Orange Social following version
- *
- * @package    blocks
- * @subpackage orange_orange_social_following
- * @copyright  2016 Orange
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
 
-defined('MOODLE_INTERNAL') || die();
+jQuery(document).ready(function() {
 
-$plugin->component  = 'block_orange_social_following';
-$plugin->release    = '0.1';
-$plugin->version    = 2016041200;
-$plugin->requires   = 2014051200; // Moodle 2.7.
-$plugin->dependencies = array('local_orange_library' => 2015061000, 'theme_halloween' => 2015093000);
+    jQuery('.js-action-media-playbutton').on ('click', function() {
+        jQuery('.action-media-video').show(250);
+        jQuery('.action-media-image .img-responsive').addClass('get-blurry');
+    });
+
+});

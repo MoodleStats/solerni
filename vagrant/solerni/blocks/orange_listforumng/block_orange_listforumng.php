@@ -40,7 +40,7 @@ class block_orange_listforumng extends block_base {
      * @return void
      */
     public function init() {
-        Global $PAGE;
+        global $PAGE;
         $this->title = get_string('pluginname', 'block_orange_listforumng');
         $this->renderer = $PAGE->get_renderer('block_orange_listforumng');
     }

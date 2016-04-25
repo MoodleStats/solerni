@@ -142,10 +142,10 @@ class log_and_session_utilities {
      * Return array with form action url $formactionhost and boolean $isthematic
      *
      * @global global $CFG
-     * @param bool $locallog
+     * @param optional bool $locallog
      * @return array()
      */
-    public static function define_login_form_action($locallog) {
+    public static function define_login_form_action($locallog = false) {
         global $CFG;
         $formactionhost = $CFG->wwwroot;
         $isthematic = false;

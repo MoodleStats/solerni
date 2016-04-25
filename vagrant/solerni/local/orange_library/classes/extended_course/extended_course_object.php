@@ -36,6 +36,13 @@ require_once('status_controller.php');
 
 defined('MOODLE_INTERNAL') || die();
 
+/**
+ * Carry the most commun values for a Solerni course like registration status, etc.
+ *
+ * @todo: Some factorization could occur, would like to refacto part of it (for a better
+ * readability and maintenance). Maybe add userstatus for the mooc context to simplify the
+ * controller tests. Remove useless properties (like price).
+ */
 
 class extended_course_object {
 
@@ -297,7 +304,6 @@ class extended_course_object {
                 array('courseid' => $course->id));
         foreach ($extendedcourseflexpagevalues as $extendedcourseflexpagevalue) {
             if ($extendedcourseflexpagevalue->format == "flexpage") {
-
                 $this->set_extended_course($extendedcourseflexpagevalue, $course, $context);
             }
         }

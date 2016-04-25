@@ -28,6 +28,7 @@ $string['orange_list_bestforumng:addinstance'] = 'Ajouter un block Orange Liste 
 $string['title'] = 'Forums des MOOCs {$a}';
 $string['intro'] = 'Inscrivez-vous aux MOOCs pour pouvoir participer aux discussions, c\'est gratuit !';
 
+$string['discussion'] = ' discussion{$a}';
 $string['questionunregistered'] = 'Vous n\'êtes pas inscrit ? ';
 $string['questionregistered'] = 'Vous êtes inscrit ? ';
 $string['answerunregistered'] = 'En savoir plus sur le Mooc';

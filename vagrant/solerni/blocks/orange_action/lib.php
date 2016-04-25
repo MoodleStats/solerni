@@ -22,20 +22,25 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-use local_orange_library\utilities\utilities_image;
+/*
+ * @todo: write unit tests for this lib
+ */
+
 use local_orange_library\utilities\utilities_course;
+use local_orange_library\utilities\utilities_user;
 use local_orange_library\extended_course\extended_course_object;
+use local_orange_library\utilities\utilities_image;
 
 
 /**
- * Checks whether the current page is the My home page.
+ * Checks whether the current page is the My home page or the my edition page.
  *
- * @return bool True when on the My home page.
+ * @return bool True when on the My home page or the admin template edition (indexsys).
  */
 function block_orange_action_on_my_page() {
-    Global $SCRIPT;
+    global $SCRIPT;
 
-    return $SCRIPT === '/my/index.php';
+    return $SCRIPT == ('/my/index.php' || '/my/indexsys.php');
 }
 
 /**
@@ -44,7 +49,7 @@ function block_orange_action_on_my_page() {
  * @return bool True when on a course page.
  */
 function block_orange_action_on_course_page() {
-    Global $COURSE;
+    global $COURSE;
 
     return ($COURSE->id > 1);
 }
@@ -69,31 +74,57 @@ function block_orange_action_on_course_dashboard_page() {
     return false;
 }
 
-function block_orange_action_get_course ($course) {
-    Global $CFG;
+/**
+ *
+ * Check conditions and get course information and content from course id.
+ *
+ * @global  object  $CFG
+ * @global  object  $DB
+ * @param   int     $courseid
+ *
+ * @return mixed string or bool
+ */
+function block_orange_action_get_course($courseid) {
+    global $CFG, $DB, $PAGE;
 
+    if (!$course = $DB->get_record('course', array('id' => $courseid))) {
+        error_log('Invalid course id: ' . $courseid . ' Cannot get content for block_orange_action.');
+        return false;
+    }
+
+    require_once($CFG->libdir. '/coursecatlib.php');
     $context = context_course::instance($course->id);
+    $course = new course_in_list($course);
 
     $imgurl = "";
-    if ($course instanceof stdClass) {
-        require_once($CFG->libdir. '/coursecatlib.php');
-        $course = new course_in_list($course);
-    }
     foreach ($course->get_course_overviewfiles() as $file) {
-        $isimage = $file->is_valid_image();
-        if ($isimage) {
-            $imgurl = file_encode_url("$CFG->wwwroot/pluginfile.php",
-                '/'. $file->get_contextid(). '/'. $file->get_component(). '/'.
-                $file->get_filearea(). $file->get_filepath(). $file->get_filename(), !$isimage);
+        if ($file->is_valid_image()) {
+           $imgurl = utilities_image::get_moodle_url_from_stored_file($file);
         }
     }
 
+    // Get Solerni extended informations for the course.
     $extendedcourse = new extended_course_object();
     $extendedcourse->get_extended_course($course, $context);
 
-    return array($extendedcourse, $imgurl);
+    if ($extendedcourse->coursestatus === utilities_course::MOOCCLOSED) {
+        return false;
+    }
+
+    // Get the course last page of the enroled user and replace extended_course button.
+    if (isloggedin() && utilities_user::get_user_status($context) == utilities_user::USERENROLLED) {
+        require_once($CFG->dirroot.'/local/orange_library/classes/extended_course/button_renderer.php');
+        $extendedcourse->displaybutton = block_orange_action_displaybutton($course);
+    }
+
+    return $PAGE->get_renderer('block_orange_action')->display_course_on_my_page($course, $extendedcourse, $imgurl);
 }
 
+/**
+ * return a list of courses
+ *
+ * @return array()
+ */
 function block_orange_action_get_courses_list() {
 
     $utilitiescourse = new utilities_course();
@@ -108,6 +139,12 @@ function block_orange_action_get_courses_list() {
     return $choices;
 }
 
+/**
+ * Return a list of events.
+ *
+ * @global object $DB
+ * @return array()
+ */
 function block_orange_action_get_events_list() {
     global $DB;
 
@@ -120,4 +157,51 @@ function block_orange_action_get_events_list() {
     }
 
     return $choices;
+}
+
+/**
+ *
+ * Check conditions and get event information and content from event id.
+ *
+ * @global  object  $DB
+ * @global  object  $CFG
+ * @global  object  $PAGE
+ * @param   int     $eventid
+ * @return  mixed   string or bool
+ */
+function block_orange_action_get_event($eventid) {
+    global $DB, $CFG, $PAGE;
+
+    $query = "SELECT * FROM {event} WHERE id = ? AND timestart >= ? LIMIT 1";
+
+     if (!$event = $DB->get_records_sql($query, array( $eventid, time()))) {
+        error_log('Invalid event id: ' . $eventid . ' Cannot get content for block_orange_action.');
+        return false;
+     }
+
+    $event = array_shift($event);
+    $hrefparams['view'] = 'day';
+    $eventurl = calendar_get_link_href(new moodle_url(CALENDAR_URL . 'view.php', $hrefparams),
+            0, 0, 0, $event->timestart);
+    // Image par défaut
+    $imgurl = $CFG->dirroot.'/blocks/orange_action/pix/default.jpg';
+
+    return $PAGE->get_renderer('block_orange_action')->display_event_on_my_page($event, $imgurl, $eventurl);
+}
+
+/*
+ * Generate HTML string for the block action
+ */
+function block_orange_action_displaybutton($course) {
+
+    $data = utilities_course::get_mooc_learn_menu($course->id);
+    $output = html_writer::tag('p', $data->title, array('class' => 'sequence-title pull-left'));
+    $output .= html_writer::tag('a',  get_string("gotosequence", 'block_orange_action'),
+        array('class' => 'btn btn-default pull-left',
+            'href' => $data->url,
+            'data-mooc-name' => $course->fullname,
+            'title' => $data->title));
+
+    return $output;
+
 }

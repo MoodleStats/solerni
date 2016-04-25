@@ -15,10 +15,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 use local_orange_library\utilities\utilities_user;
-use local_orange_library\utilities\utilities_network;
+use theme_halloween\tools\log_and_session_utilities;
 $youvegotmail = utilities_user::user_have_new_mail($USER);
-?>
-<div class="action-area">
+$formaction = log_and_session_utilities::define_login_form_action(); ?>
+
+<div class="action-area is-logged">
     <a title="email" href="<?php echo $CFG->wwwroot ?>/local/mail/view.php?t=inbox" class="header-email-icon icon-halloween icon-halloween--email">
         email
         <?php if ($youvegotmail) : ?>
@@ -43,10 +44,7 @@ $youvegotmail = utilities_user::user_have_new_mail($USER);
                 </a>
             </li>
             <li>
-                <?php 
-                $domaine = (utilities_network::is_platform_uses_mnet()) ? utilities_network::get_home()->url : $CFG->wwwroot;
-                ?>
-                <a href="<?php echo $domaine ?>/user/preferences.php">
+                <a href="<?php echo $formaction['host'] ?>/user/preferences.php">
                     <?php echo get_string('preferences'); ?>
                 </a>
             </li>

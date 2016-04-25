@@ -33,5 +33,14 @@ $capabilities = array(
             'manager' => CAP_ALLOW
             ),
         'clonepermissionsfrom' => 'moodle/site:manageblocks'
+    ),
+    'block/orange_course_home:myaddinstance' => array(
+        'riskbitmask' => RISK_PERSONAL,
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_BLOCK,
+        'archetypes' => array(
+            'manager' => CAP_ALLOW
+            ),
+        'clonepermissionsfrom' => 'moodle/site:manageblocks'
     )
 );

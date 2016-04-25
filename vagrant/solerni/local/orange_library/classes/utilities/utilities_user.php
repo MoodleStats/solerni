@@ -29,7 +29,7 @@ class utilities_user {
     const USERLOGGED                = 0;
     const USERENROLLED              = 1;
     const USERUNENROLLED            = 2;
-    const USERUNLOGGED            = 3;
+    const USERUNLOGGED              = 3;
     const PRIVATEPF                 = 4;
 
     static public function is_user_site_admin($user) {
