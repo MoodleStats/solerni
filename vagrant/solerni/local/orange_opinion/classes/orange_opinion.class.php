@@ -66,14 +66,8 @@ class orange_opinion  {
         // Create or modify.
         $toform = new stdClass();
         if (isset($get->id)) {
-            $tobemodified = $DB->get_record('orange_opinion', array ('id' => $get->id));
-            $toform->id = $tobemodified->id;
-            $toform->username = $tobemodified->username;
-            $toform->title = $tobemodified->title;
-            $toform->content = $tobemodified->content;
-            $toform->dateopinion = $tobemodified->dateopinion;
-            $toform->suspended = $tobemodified->suspended;
-            $toform->moocname = $tobemodified->moocname;
+
+            $toform = $DB->get_record('orange_opinion', array ('id' => $get->id), '*', MUST_EXIST);
         }
 
         $this->renderable = new orange_opinion_form();
