@@ -36,7 +36,7 @@ defined('MOODLE_INTERNAL') || die();
  */
 function opinion_add_opinion($opinion) {
     global $DB;
-    
+
     if (!isset($opinion->username)) {
         throw new coding_exception('Missing opinion username in opinion_add_opinion().');
     }

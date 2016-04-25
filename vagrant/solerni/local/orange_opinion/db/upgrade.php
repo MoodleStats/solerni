@@ -48,11 +48,11 @@ function xmldb_local_orange_opinion_upgrade($oldversion) {
     global $DB;
 
     $dbman = $DB->get_manager();
-error_log("oldversion : " . $oldversion);
+
     if ($oldversion < 2016041503) {
 
-        // Define the table 'orange_opinion' and the field 'moocname' which we will be adding 
-        $table = new xmldb_table('orange_opinion');        
+        // Define the table 'orange_opinion' and the field 'moocname' which we will be adding.
+        $table = new xmldb_table('orange_opinion');
         $field = new xmldb_field('moocname', XMLDB_TYPE_TEXT, null, null, null, null, null, null);
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);

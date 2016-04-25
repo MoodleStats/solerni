@@ -57,17 +57,17 @@ class orange_opinion_form extends moodleform implements renderable {
         $mform->setType('moocname', PARAM_TEXT);
         $mform->addHelpButton('moocname', 'moocname', 'local_orange_opinion');
         $mform->setDefault('moocname', get_string('defaultmoocname', 'local_orange_opinion'));
-       
+
         $mform->addElement('textarea', 'dateopinion', get_string('date', 'local_orange_opinion'));
         $mform->addRule('dateopinion', null, 'required', null, 'client');
         $mform->setType('dateopinion', PARAM_TEXT);
         $mform->addHelpButton('dateopinion', 'date', 'local_orange_opinion');
         $mform->setDefault('dateopinion', get_string('defaultdate', 'local_orange_opinion'));
-        
+
         $mform->addElement('textarea', 'content', get_string('content', 'local_orange_opinion'));
         $mform->setType('content', PARAM_TEXT);
         $mform->setDefault('content', get_string('defaultcontent', 'local_orange_opinion'));
-        
+
         $mform->addElement('hidden', 'id', 0);
         $mform->setType('id', PARAM_RAW);
 

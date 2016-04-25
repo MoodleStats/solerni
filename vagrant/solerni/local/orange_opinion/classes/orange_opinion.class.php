@@ -192,7 +192,7 @@ class orange_opinion  {
                                                                                     'alt' => $strunsuspend,
                                                                                     'class' => 'iconsmall')),
                                                        array('title' => $strunsuspend));
-                    
+
                 } else {
                     $buttons[] = html_writer::link(new moodle_url('index.php',
                                                                   array('action' => 'opinion_suspend',
@@ -214,14 +214,14 @@ class orange_opinion  {
                                                                                 'class' => 'iconsmall')),
                                                    array('title' => get_string('edit')));
             }
-                       
+
             $row = array();
             $row[] = "<a href=\"view.php?sesskey=".sesskey()."&id=$opinion->id\">
                      $opinion->username</a>";
             $row[] = "<strong>" . format_text($opinion->title) . "</strong>" . format_text($opinion->content);
             $row[] = format_text($opinion->dateopinion);
-            $row[] = implode(' ', $buttons);            
-            
+            $row[] = implode(' ', $buttons);
+
             $table->data[] = $row;
         }
 

@@ -36,12 +36,4 @@ if ($hassiteconfig or has_capability('local/orange_opinion:edit', context_system
         new moodle_url($orangelistopinionurl),
         array('local/orange_opinion:edit')
         ));
-/*
-    $ADMIN->add('opinion',
-        new admin_externalpage('opinioncoursemgmt', get_string('opinionlinkadd', $orangeplugin),
-        $CFG->wwwroot . '/course/management.php',
-        array('moodle/category:manage', 'moodle/course:create')
-        ));
- * 
- */
 }

@@ -61,22 +61,6 @@ $PAGE->set_url($url);
 $PAGE->set_context($context);
 $PAGE->set_pagelayout('admin');
 
-/*
-$editoroptions = array('maxfiles' => 0, 'context' => $context);
-$optionsfilemanager = array(
-    'maxfiles' => 1,
-    'maxbytes' => $CFG->maxbytes,
-    'subdirs' => 0,
-    'accepted_types' => 'web_image'
-);
-
-
-$opinion = file_prepare_standard_editor($opinion, 'content', $editoroptions, $context);
-
-
-$editform = new orange_opinion_form(null,
-        array('editoroptions' => $editoroptions, 'data' => $opinion, 'optionsfilemanager' => $optionsfilemanager));
-*/
 $editform = new orange_opinion_form();
 
 if ($editform->is_cancelled()) {
@@ -84,8 +68,6 @@ if ($editform->is_cancelled()) {
     redirect($returnurl);
 
 } else if ($data = $editform->get_data()) {
-
-    //$data = file_postupdate_standard_editor($data, 'content', $editoroptions, $context);
 
     $added = opinion_add_opinion($data);
     $returnurl = new moodle_url('index.php', array('action' => 'opinion_list', 'sesskey' => sesskey()));
@@ -95,7 +77,7 @@ if ($editform->is_cancelled()) {
 } else {
     echo $OUTPUT->header();
 
-    if (isset($_GET['id'])) {       
+    if (isset($_GET['id'])) {
         $editform->set_data($opinion);
     }
 
