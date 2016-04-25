@@ -115,7 +115,7 @@ class block_orange_list_bestforumng_renderer extends plugin_renderer_base {
                             $output .= html_writer::tag('span', '<strong>' . $lastpost->get_discussion()->get_subject() . '</strong>');
                         $output .= html_writer::end_tag('div');
 
-                        $output .= html_writer::start_tag('div', array('class' => 'col-md-3 text-center u-vertical-align'));
+                        $output .= html_writer::start_tag('div', array('class' => 'col-md-3 u-vertical-align'));
                             $output .= html_writer::tag('span', "<strong>"
                                     . $lastpost->get_discussion()->get_num_posts()
                                     . " </strong>",
@@ -140,7 +140,7 @@ class block_orange_list_bestforumng_renderer extends plugin_renderer_base {
                 $output .= html_writer::start_tag('div', array('class' => 'row baner-text'));
 
                     $courselinkdescript = new moodle_url('/mod/descriptionpage/view.php', array('courseid' => $course->id));
-                    $output .= html_writer::start_tag('div', array('class' => 'col-md-12'));
+                    $output .= html_writer::start_tag('div', array('class' => 'col-xs-12'));
                         $output .= html_writer::tag('span', get_string('questionunregistered', 'block_orange_list_bestforumng'));
                         $output .= html_writer::link($courselinkdescript,
                                                      get_string('answerunregistered', 'block_orange_list_bestforumng'));
@@ -150,7 +150,7 @@ class block_orange_list_bestforumng_renderer extends plugin_renderer_base {
                     $courseutilities = new utilities_course();
                     $courselinkdescript = $courseutilities->get_course_url_page_forum($course->id);
                     if (!is_null($courselinkdescript)) {
-                        $output .= html_writer::start_tag('div', array('class' => 'col-md-12'));
+                        $output .= html_writer::start_tag('div', array('class' => 'col-xs-12'));
                             $output .= html_writer::tag('span', get_string('questionregistered', 'block_orange_list_bestforumng'));
                             $output .= html_writer::link($courselinkdescript,
                                                  get_string('answerregistered', 'block_orange_list_bestforumng'));
