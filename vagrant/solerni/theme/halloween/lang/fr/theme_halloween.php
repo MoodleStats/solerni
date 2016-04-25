@@ -327,3 +327,6 @@ $string['contact_email_body']       = 'La requête suivante a été réalisée v
 // Page badges/mybadges.php.
 $string['nobadgesfaq'] = 'Vous n’avez pas encore obtenu de badge.<br/>
 <strong><a href="{$a}">Consultez les FAQ</a></strong> afin de découvrir le fonctionnement des badges. ';
+
+//Page en savoir plus
+$string['more_info']               = 'Besoin d\informations complémentaires';

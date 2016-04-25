@@ -22,11 +22,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-use local_orange_library\utilities\utilities_image;
-use local_orange_library\utilities\utilities_course;
 use local_orange_library\extended_course\extended_course_object;
-
-
 
 /**
  * Checks whether the current page is course page.
@@ -44,7 +40,6 @@ function block_orange_iconsmap_get_course ($course) {
 
     $context = context_course::instance($course->id);
 
-    $imgurl = "";
     if ($course instanceof stdClass) {
         require_once($CFG->libdir. '/coursecatlib.php');
         $course = new course_in_list($course);

@@ -72,8 +72,7 @@ class find_out_more_object extends extended_course_object{
      * @return object $this->extendedcourse
      */
     public function get_find_out_more($course, $context = null) {
-
-        global $DB;
+    global $DB;
 
         $utilitiescourse = new utilities_course();
         $categoryid = $utilitiescourse->get_categoryid_by_courseid($course->id);
@@ -84,9 +83,7 @@ class find_out_more_object extends extended_course_object{
         $extendedcourseflexpagevalues = $DB->get_records('course_format_options',
                 array('courseid' => $course->id));
         foreach ($extendedcourseflexpagevalues as $extendedcourseflexpagevalue) {
-
             if ($extendedcourseflexpagevalue->format == "flexpage") {
-
                 $this->set_find_out_more($extendedcourseflexpagevalue, $course, $context);
             }
         }
@@ -100,7 +97,7 @@ class find_out_more_object extends extended_course_object{
      */
     protected function set_find_out_more ($extendedcourseflexpagevalue, $course, $context) {
 
-        for ($i=0;$i<=5;$i++) {
+        for ($i=0;$i<=9;$i++) {
 
             switch ($extendedcourseflexpagevalue->name) {
                 case 'paragraph'.($i+1):
@@ -112,8 +109,10 @@ class find_out_more_object extends extended_course_object{
                 case 'paragraph'.($i+1).'picture':
                     $this->paragraphpicture[$i] = $extendedcourseflexpagevalue->value;
                     break;
+                case 'paragraph'.($i+1).'bgcolor':
+                    $this->paragraphbgcolor[$i] = $extendedcourseflexpagevalue->value;
+                    break;
             }
         }
     }
-
 }

@@ -22,26 +22,21 @@
  * @copyright  2016 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-use local_orange_library\utilities\utilities_array;
 
 defined('MOODLE_INTERNAL') || die();
-
 
 class block_orange_separator_line_renderer extends plugin_renderer_base {
 
     /**
-     *  Set the displayed text in the block.
+     * Display for "Find out more" page
      *
-     * @global none
-     * @param none
-     * @return string $text
+     * @return string $output
      */
-    public function get_text() {
+    public function display_on_course_page ($course, $context) {
 
-        $text = html_writer::start_tag('div', array('class' => "col-xs-12 fullwidth-line"));
-        $text .= html_writer::end_tag('div');
+        // Display first line.
+        $output = html_writer::tag('div', '', array('class' => "col-xs-12 fullwidth-line"));
 
-        return $text;
-
+        return $output;
     }
 }
