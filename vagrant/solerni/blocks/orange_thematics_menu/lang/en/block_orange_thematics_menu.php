@@ -15,17 +15,18 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Orange library & utilities
+ * Strings for component 'Orange Thematics Menu block', language 'en'
  *
- * @package     local
- * @subpackage  orange_library
- * @copyright   2015 Orange
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    block_orange_thematics_menu
+ * @copyright  2016 Orange
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-
-defined('MOODLE_INTERNAL') || die();
-
-$plugin->version   = 2016042501;                // The current module version (Date: YYYYMMDDXX).
-$plugin->requires  = 2014051207;                // Requires this Moodle version Moodle 2.7.7.
-$plugin->component = 'local_orange_library';    // Full name of the plugin (used for diagnostics).
+$string['orange_thematics_menu:addinstance'] = 'Add a new Thematic menu block';
+$string['pluginname'] = 'Orange Thematics Menu';
+$string['gotothematic'] = 'I go';
+$string['mooc'] = ' Mooc{$a}';
+$string['moocinprogress'] = ' MOOC{$a} in progress';
+$string['moocfuture'] = ' MOOC{$a} to come up';
+$string['registereduser'] = ' registered user{$a}';
+$string['connecteduser'] = ' online user{$a}';

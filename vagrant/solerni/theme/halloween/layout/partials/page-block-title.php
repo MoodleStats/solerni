@@ -29,12 +29,12 @@ global $COURSE, $SCRIPT, $ME; ?>
             $learnmorelink = utilities_course::get_mooc_learnmore_menu($COURSE->id);
             $forumlink = utilities_course::get_mooc_forum_menu($COURSE->id);
             $learnlink = utilities_course::get_mooc_learn_menu($COURSE->id);
-            
+
             $sharelinkactive = utilities_course::is_active_tab("share", $SCRIPT, $COURSE->id);
             $learnmorelinkactive = utilities_course::is_active_tab("learnmore", $SCRIPT, $COURSE->id);
             $forumlinkactive = utilities_course::is_active_tab("forum", $ME, $COURSE->id);
             $learnlinkactive = utilities_course::is_active_tab("learn", $ME, $COURSE->id);
-            
+
             // By Default we set the LEARN tab active.
             if (empty($sharelinkactive) && empty($forumlinkactive) && empty($learnmorelinkactive)) {
                 $learnlinkactive = 'class="active"';

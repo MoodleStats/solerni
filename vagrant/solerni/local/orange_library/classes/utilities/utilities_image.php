@@ -82,7 +82,7 @@ class utilities_image {
         if ($file) {
             $downloadimage = true;
             $localfilepath = $remotefolder.$file->get_filename();
-            if (file_exists($localfilepath)) {
+            if (file_exists($localfilepath) && filesize($localfilepath)) {
                 if ($file->get_timecreated() < strtotime('+'.$opts['cache_http_minutes'].' minutes')) {
                     $downloadimage = false;
                 }
@@ -96,7 +96,7 @@ class utilities_image {
             list($filename) = explode('?', $finfo['basename']);
             $localfilepath = $remotefolder.$filename;
             $downloadimage = true;
-            if (file_exists($localfilepath)) {
+            if (file_exists($localfilepath) && filesize($localfilepath)) {
                 if (filemtime($localfilepath) < strtotime('+'.$opts['cache_http_minutes'].' minutes')) {
                     $downloadimage = false;
                 }
