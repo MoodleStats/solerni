@@ -80,6 +80,9 @@ class block_orange_thematics_menu extends block_base {
         $this->content->text .= $output;
         foreach ($hosts as $host) {
             $host = block_orange_thematics_menu_get_infos($host);
+            if (isloggedin() and !isguestuser()) {
+                $host->url = $host->jump;
+            }
             $this->content->text .= $this->renderer->menu_item($host);
         }
         $output = html_writer::end_tag('div');

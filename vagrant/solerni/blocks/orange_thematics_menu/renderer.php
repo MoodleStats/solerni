@@ -26,6 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 use local_orange_library\utilities\utilities_image;
+use local_orange_library\utilities\utilities_user;
 
 class block_orange_thematics_menu_renderer extends plugin_renderer_base {
 
@@ -36,72 +37,73 @@ class block_orange_thematics_menu_renderer extends plugin_renderer_base {
      * @return string $output
      */
     public function menu_item($host) {
-
         $imgurl = utilities_image::get_resized_url($host->illustration, array('w' => 664, 'h' => 354, 'scale' => false));
         $output = html_writer::start_tag('div', array('class' => 'col-xs-12 col-sm-6 col-md-4 orange-thematics-menu-item'));
+            $output .= '<a href="' . $host->url . '">';
 
-            // Title.
-            $output .= html_writer::start_tag('div', array('class' => 'u-inverse'));
-                $output .= html_writer::start_tag('div', array('class' => 'row orange-thematics-menu-top'));
-                    $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 icon-thematic'));
-                        $output .= html_writer::empty_tag('img', array('src' => $host->logo, 'class' => 'essentiels-image'));
-                        $output .= html_writer::tag('span', ucfirst($host->name));
+                // Title.
+                $output .= html_writer::start_tag('div', array('class' => 'u-inverse'));
+                    $output .= html_writer::start_tag('div', array('class' => 'row orange-thematics-menu-top'));
+                        $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 icon-thematic'));
+                            $output .= html_writer::empty_tag('img', array('src' => $host->logo, 'class' => 'essentiels-image'));
+                            $output .= html_writer::tag('span', ucfirst($host->name));
+                        $output .= html_writer::end_tag('div');
                     $output .= html_writer::end_tag('div');
                 $output .= html_writer::end_tag('div');
-            $output .= html_writer::end_tag('div');
 
-            // Image and numbers.
-            $output .= html_writer::start_tag('div', array('class' => 'orange-thematics-middle'));
-                $output .= html_writer::start_tag('div', array('class' => 'orange-thematics-menu-image'));
-                    $output .= html_writer::empty_tag('img', array('src' => $imgurl, 'class' => 'img-responsive'));
-                $output .= html_writer::end_tag('div');
-                $output .= html_writer::start_tag('div', array('class' => 'orange-thematics-menu-numbers'));
-                    $output .= html_writer::start_tag('div', array('class' => 'row'));
-                        $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 icon-thematic'));
-                            $output .= html_writer::start_tag('div');
-                                $output .= html_writer::tag('span', $host->nbusers);
-                                $output .= get_string('registereduser', 'block_orange_thematics_menu',
-                                        ($host->nbusers > 1) ? 's' : '');
-                            $output .= html_writer::end_tag('div');
-                            $output .= html_writer::start_tag('div');
-                                $output .= html_writer::tag('span', $host->nbconnected);
-                                $output .= get_string('connecteduser', 'block_orange_thematics_menu',
-                                        ($host->nbconnected > 1) ? 's' : '');
-                            $output .= html_writer::end_tag('div');
-                            $output .= html_writer::start_tag('div');
-                                $output .= html_writer::tag('span', $host->nbinprogressmooc);
-                                $output .= get_string('moocinprogress', 'block_orange_thematics_menu',
-                                        ($host->nbinprogressmooc > 1) ? 's' : '');
-                            $output .= html_writer::end_tag('div');
-                            $output .= html_writer::start_tag('div');
-                                $output .= html_writer::tag('span', $host->nbfuturemooc);
-                                $output .= get_string('moocfuture', 'block_orange_thematics_menu',
-                                        ($host->nbfuturemooc > 1) ? 's' : '');
+                // Image and numbers.
+                $output .= html_writer::start_tag('div', array('class' => 'orange-thematics-middle'));
+                    $output .= html_writer::start_tag('div', array('class' => 'orange-thematics-menu-image'));
+                        $output .= html_writer::empty_tag('img', array('src' => $imgurl, 'class' => 'img-responsive'));
+                    $output .= html_writer::end_tag('div');
+                    $output .= html_writer::start_tag('div', array('class' => 'orange-thematics-menu-numbers'));
+                        $output .= html_writer::start_tag('div', array('class' => 'row'));
+                            $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 icon-thematic'));
+                                $output .= html_writer::start_tag('div');
+                                    $output .= html_writer::tag('span', $host->nbusers);
+                                    $output .= get_string('registereduser', 'block_orange_thematics_menu',
+                                            ($host->nbusers > 1) ? 's' : '');
+                                $output .= html_writer::end_tag('div');
+                                $output .= html_writer::start_tag('div');
+                                    $output .= html_writer::tag('span', $host->nbconnected);
+                                    $output .= get_string('connecteduser', 'block_orange_thematics_menu',
+                                            ($host->nbconnected > 1) ? 's' : '');
+                                $output .= html_writer::end_tag('div');
+                                $output .= html_writer::start_tag('div');
+                                    $output .= html_writer::tag('span', $host->nbinprogressmooc);
+                                    $output .= get_string('moocinprogress', 'block_orange_thematics_menu',
+                                            ($host->nbinprogressmooc > 1) ? 's' : '');
+                                $output .= html_writer::end_tag('div');
+                                $output .= html_writer::start_tag('div');
+                                    $output .= html_writer::tag('span', $host->nbfuturemooc);
+                                    $output .= get_string('moocfuture', 'block_orange_thematics_menu',
+                                            ($host->nbfuturemooc > 1) ? 's' : '');
+                                $output .= html_writer::end_tag('div');
                             $output .= html_writer::end_tag('div');
                         $output .= html_writer::end_tag('div');
                     $output .= html_writer::end_tag('div');
                 $output .= html_writer::end_tag('div');
-            $output .= html_writer::end_tag('div');
 
-            // Bottom.
-            $output .= html_writer::start_tag('div', array('class' => 'orange-thematics-menu-bottom'));
-                $output .= html_writer::start_tag('div', array('class' => 'row'));
-                    $output .= html_writer::start_tag('div',
-                            array('class' => 'col-xs-6 orange-thematics-menu-bottom-cell orange-thematics-menu-button text-left'));
-                        (!empty($host->available)) ? $btnclass = "" : $btnclass = "disabled";
-                        $output .= '<a class="btn btn-default '. $btnclass .'" href="' . $host->url . '">' . 
-                                get_string('gotothematic', 'block_orange_thematics_menu').'</a>';
-                    $output .= html_writer::end_tag('div');
-                    $output .= html_writer::start_tag('div',
-                            array('class' => 'col-xs-6 orange-thematics-menu-bottom-cell orange-thematics-menu-nbmoocs text-right'));
-                    if (!empty($host->available)) {
-                        $output .= html_writer::tag('span', $host->nbmoocs);
-                        $output .= get_string('mooc', 'block_orange_thematics_menu', ($host->nbmoocs > 1) ? 's' : '');
-                    }
+                // Bottom.
+                $output .= html_writer::start_tag('div', array('class' => 'orange-thematics-menu-bottom'));
+                    $output .= html_writer::start_tag('div', array('class' => 'row'));
+                        $output .= html_writer::start_tag('div',
+                                array('class' => 'col-xs-6 orange-thematics-menu-bottom-cell orange-thematics-menu-button text-left'));
+                            (!empty($host->available)) ? $btnclass = "" : $btnclass = "disabled";
+                            $output .= '<a class="btn btn-default '. $btnclass .'" href="' . $host->url . '">' . 
+                                    get_string('gotothematic', 'block_orange_thematics_menu').'</a>';
+                        $output .= html_writer::end_tag('div');
+                        $output .= html_writer::start_tag('div',
+                                array('class' => 'col-xs-6 orange-thematics-menu-bottom-cell orange-thematics-menu-nbmoocs text-right'));
+                        if (!empty($host->available)) {
+                            $output .= html_writer::tag('span', $host->nbmoocs);
+                            $output .= get_string('mooc', 'block_orange_thematics_menu', ($host->nbmoocs > 1) ? 's' : '');
+                        }
+                        $output .= html_writer::end_tag('div');
                     $output .= html_writer::end_tag('div');
                 $output .= html_writer::end_tag('div');
-            $output .= html_writer::end_tag('div');
 
+            $output .= '</a>';
         $output .= html_writer::end_tag('div');
 
         return $output;

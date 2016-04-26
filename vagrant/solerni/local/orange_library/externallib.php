@@ -75,6 +75,19 @@ class local_orange_library_external extends external_api {
     }
 
     /**
+     * Define function parameters
+     *
+     * @return \external_function_parameters
+     */
+    public static function get_profile_fields_parameters() {
+        return new external_function_parameters(
+            array(
+                'username' => new external_value(PARAM_TEXT, 'user name')
+            )
+        );
+    }
+
+    /**
      * Define expected function return
      *
      * @return \external_multiple_structure

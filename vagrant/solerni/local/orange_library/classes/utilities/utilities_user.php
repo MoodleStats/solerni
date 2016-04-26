@@ -112,7 +112,7 @@ class utilities_user {
         }
 
         // Forum preferences stored in user record.
-        $userparameters = array('maildigest', 'autosubscribe', 'trackforums', 'mailformat');
+        $userparameters = array('maildigest', 'autosubscribe', 'trackforums', 'mailformat', 'timecreated');
         foreach ($userparameters as $userparameter) {
             $userdata[] = array ('type' => 'profile', 'name' => $userparameter, 'value' => $user->{$userparameter});
         }
@@ -145,7 +145,7 @@ class utilities_user {
      * @return int
      */
 
-    public function get_nbconnectedusers() {
+    static public function get_nbconnectedusers() {
         global $CFG, $DB;
 
         $timetoshowusers = 300; // Seconds default.
@@ -176,7 +176,7 @@ class utilities_user {
      *
      * @return int
      */
-    public function get_nbusers() {
+    static public function get_nbusers() {
         global $DB;
         // Timecreated = 0 if user has been deleted.
         $sql = "SELECT count(*) as count
