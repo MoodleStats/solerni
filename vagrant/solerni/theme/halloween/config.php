@@ -160,7 +160,7 @@ $THEME->layouts = array(
     'admin' => array(
         'file' => 'default.php',
         'regions' => array('side-pre'),
-        'defaultregion' => 'side-pre',
+        'defaultregion' => '',
         'options' => array('fluid' => true),
     ),
     // My dashboard page.

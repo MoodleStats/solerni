@@ -41,7 +41,7 @@ function block_orange_course_dashboard_get_overviews($courses) {
         }
         foreach ($batches as $courses) {
             foreach ($modules as $fname) {
-                    $fname($courses, $htmlarray);
+                $fname($courses, $htmlarray);
             }
         }
     }
@@ -118,6 +118,9 @@ function block_orange_course_dashboard_get_sorted_courses($limit = 0) {
 
     $courses = enrol_get_my_courses();
     $site = get_site();
+    $sortedcourses = array();
+    $counter = 0;
+    $order = array(); // No order for now in Solerni
 
     if (array_key_exists($site->id, $courses)) {
         unset($courses[$site->id]);
@@ -131,13 +134,8 @@ function block_orange_course_dashboard_get_sorted_courses($limit = 0) {
         }
     }
 
-    // TODO : delete order.
-    $order = array();
-
-    $sortedcourses = array();
-    $counter = 0;
     // Get courses in sort order into list.
-    foreach ($order as $key => $cid) {
+    foreach ($order as $cid) {
         if (($counter >= $limit) && ($limit != 0)) {
             break;
         }
@@ -148,6 +146,7 @@ function block_orange_course_dashboard_get_sorted_courses($limit = 0) {
             $counter++;
         }
     }
+
     // Append unsorted courses if limit allows.
     foreach ($courses as $c) {
         if (($limit != 0) && ($counter >= $limit)) {
@@ -159,12 +158,5 @@ function block_orange_course_dashboard_get_sorted_courses($limit = 0) {
         }
     }
 
-    // From list extract site courses for overview.
-    $sitecourses = array();
-    foreach ($sortedcourses as $key => $course) {
-        if ($course->id > 0) {
-            $sitecourses[$key] = $course;
-        }
-    }
-    return array($sortedcourses, $sitecourses, count($courses));
+    return array($sortedcourses, count($courses));
 }

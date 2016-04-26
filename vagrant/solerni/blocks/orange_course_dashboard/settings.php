@@ -23,6 +23,7 @@
  */
 defined('MOODLE_INTERNAL') || die;
 
+// Config in site admin/plugins/blocks/Orange Course Dashboard
 if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configtext('block_orange_course_dashboard/defaultmaxcourses',
                         new lang_string('defaultmaxcourses', 'block_orange_course_dashboard'),

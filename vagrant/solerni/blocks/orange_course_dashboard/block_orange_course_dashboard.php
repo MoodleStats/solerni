@@ -52,22 +52,15 @@ class block_orange_course_dashboard extends block_base {
         $this->content = new stdClass();
         $this->content->text = '';
         $this->content->footer = '';
-
-        list($sortedcourses, $sitecourses, $totalcourses) =
-                block_orange_course_dashboard_get_sorted_courses($config->defaultmaxcourses);
-
         $renderer = $this->page->get_renderer('block_orange_course_dashboard');
 
+        list($sortedcourses, $totalcourses) =
+                block_orange_course_dashboard_get_sorted_courses($config->defaultmaxcourses);
+
         if ($totalcourses) {
-            // We present to the user the list of follow MOOCs.
-            $overviews = block_orange_course_dashboard_get_overviews($sitecourses);
-            if (empty($sortedcourses)) {
-                $this->content->text .= get_string('nocourses', 'my');
-            } else {
-                // For each course, build category cache.
-                $this->content->text .= $renderer->course_overview($sortedcourses, $overviews);
-                $this->content->text .= $renderer->hidden_courses($totalcourses - count($sortedcourses));
-            }
+            // We present to the user the list of followed MOOCs.
+            $this->content->text .= $renderer->course_overview($sortedcourses);
+            $this->content->text .= $renderer->hidden_courses($totalcourses - count($sortedcourses));
         } else {
             // Set default to 4.
             if ($config->defaultmaxrecommendations == 0) {
@@ -82,6 +75,7 @@ class block_orange_course_dashboard extends block_base {
                 $this->content->text .= $renderer->course_norecommendation();
             }
         }
+
         return $this->content;
     }
 

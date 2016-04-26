@@ -23,12 +23,6 @@
  */
 defined('MOODLE_INTERNAL') || die;
 
-use local_orange_library\badges\badges_object;
-use local_orange_library\utilities\utilities_image;
-use local_orange_library\utilities\utilities_object;
-use local_orange_library\utilities\utilities_course;
-use local_orange_library\subscription_button\subscription_button_object;
-
 require_once($CFG->dirroot.'/theme/halloween/renderers/core_course_renderer.php');
 
 class block_orange_course_dashboard_renderer extends plugin_renderer_base {
@@ -101,10 +95,9 @@ class block_orange_course_dashboard_renderer extends plugin_renderer_base {
      * @param array $overviews list of course overviews
      * @return string html to be displayed in orange_course_dashboard block
      */
-    public function course_overview($courses, $overviews) {
+    public function course_overview($courses) {
         global $PAGE;
 
-        $html = '';
         $config = get_config('block_orange_course_dashboard');
 
         $courseordernumber = 0;
@@ -113,7 +106,8 @@ class block_orange_course_dashboard_renderer extends plugin_renderer_base {
         if ($this->page->user_is_editing() && (count($courses) > 1)) {
                 $userediting = true;
         }
-        $html .= html_writer::start_tag('h2', array('class' => ''));
+
+        $html = html_writer::start_tag('h2', array('class' => ''));
         $html .= get_string('titlefollowedcourses', 'block_orange_course_dashboard');
         $html .= html_writer::end_tag('h2');
             $html .= html_writer::start_tag('div', array('class' => 'block_orange_course_dashboard'));
@@ -142,18 +136,6 @@ class block_orange_course_dashboard_renderer extends plugin_renderer_base {
             }
             $html .= $this->output->box('', 'flush');
             $html .= html_writer::end_tag('div');
-
-            if (!empty($config->showchildren) && ($course->id > 0)) {
-                // List children here.
-                if ($children = block_orange_course_dashboard_get_child_shortnames($course->id)) {
-                    $html .= html_writer::tag('span', $children, array('class' => 'coursechildren'));
-                }
-            }
-
-            // Hidden for Solerni V2.0 .
-            //if (isset($overviews[$course->id])) {
-            //    $html .= $this->activity_display($course->id, $overviews[$course->id]);
-            //}
 
             $html .= $this->output->box('', 'flush');
             $html .= $this->output->box_end();
