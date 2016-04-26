@@ -26,7 +26,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 use local_orange_library\utilities\utilities_image;
-use local_orange_library\utilities\utilities_user;
 
 class block_orange_thematics_menu_renderer extends plugin_renderer_base {
 

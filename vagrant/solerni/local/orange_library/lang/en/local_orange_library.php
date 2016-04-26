@@ -88,11 +88,13 @@ $string['orangeinvitationconfigmissing'] = "The configuration of 'MOOC URLs acce
 
 $string['today'] = "tda, ";
 $string['yesterday'] = "yda, ";
+
 // Cron Tasks.
 $string['orange_library_mnet_task'] = "Update MNET keys";
 $string['orange_library_mnet_mail'] = '<p>Hello {$a->firstname} {$a->lastname},</p>
 <p>This is the cron task for MNet Key check on <b>{$a->sitename}</b>';
 $string['orange_library_mnet_mail_subject'] = "MNet Key Check";
+$string['orange_library_thematic_task'] = "Update Thematics information";
 
 // Course menu item.
 $string['coursemenulearn'] = "Learn";
