@@ -236,6 +236,17 @@ $string['webservicesheading']       = 'Paramétrer la communication entre les in
 $string['webservicesheadingdesc']   = '';
 $string['webservicestoken']         = 'Jeton de sécurité';
 $string['webservicestokendesc']     = 'Insérez ici le jeton de sécurité délivré sur la HOME MNET pour le RESAC Web Service';
+$string['webservicestokenthematic'] = 'Jeton de sécurité pour {$a}';
+$string['webservicestokenthematicdesc'] = 'Insérez ici le jeton de sécurité délivré sur {$a} pour le RESAC Web Service';
+
+// Homepage settings page
+$string['homepagesettings']         = 'Homepage';
+$string['homepageheading']          = 'Paramètres pour la page d\'accueil';
+$string['homepageheadingdesc']      = '';
+$string['homepageillustration']     = 'Illustration';
+$string['homepageillustrationdesc'] = 'Illustration de la thématique';
+$string['homepagelogo']             = 'Logo';
+$string['homepagelogodesc']         = 'Logo de la thématique';
 
 // Search filters.
 $string['catalog_page_title']       = 'Catalogue';
@@ -327,6 +338,9 @@ $string['contact_email_body']       = 'La requête suivante a été réalisée v
 // Page badges/mybadges.php.
 $string['nobadgesfaq'] = 'Vous n’avez pas encore obtenu de badge.<br/>
 <strong><a href="{$a}">Consultez les FAQ</a></strong> afin de découvrir le fonctionnement des badges. ';
+
+// Home Solerni
+$string['hometitle'] = 'Qu\'allez-vous apprendre aujourd\'hui ?';
 
 //Page en savoir plus
 $string['more_info']               = 'Besoin d\informations complémentaires';

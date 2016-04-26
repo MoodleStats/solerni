@@ -15,33 +15,27 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * orange library cron task.
+ * 'Orange Thematics Menu block' caps.
  *
- * @package    orange_library
- * @subpackage utilities
- * @copyright  2015 Orange
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    block_orange_thematics_menu
+ * @copyright  2016 Orange
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$tasks = array(
-    array(
-        'classname' => '\local_orange_library\task\orange_library_mnet_task',
-        'blocking' => 0,
-        'minute' => '30',
-        'hour' => '23',
-        'day' => '*',
-        'dayofweek' => '*',
-        'month' => '*'
+$capabilities = array(
+
+    'block/orange_thematics_menu:addinstance' => array(
+        'riskbitmask' => RISK_SPAM | RISK_XSS,
+
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_BLOCK,
+        'archetypes' => array(
+            'editingteacher' => CAP_ALLOW,
+            'manager' => CAP_ALLOW
+        ),
+
+        'clonepermissionsfrom' => 'moodle/site:manageblocks'
     ),
-    array(
-        'classname' => '\local_orange_library\task\orange_library_thematic_task',
-        'blocking' => 0,
-        'minute' => '*/10',
-        'hour' => '*',
-        'day' => '*',
-        'dayofweek' => '*',
-        'month' => '*'
-    )
 );

@@ -15,33 +15,18 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * orange library cron task.
+ * Strings for component 'Orange Thematics Menu block', language 'fr'
  *
- * @package    orange_library
- * @subpackage utilities
- * @copyright  2015 Orange
+ * @package    block_orange_thematics_menu
+ * @copyright  2016 Orange
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
-$tasks = array(
-    array(
-        'classname' => '\local_orange_library\task\orange_library_mnet_task',
-        'blocking' => 0,
-        'minute' => '30',
-        'hour' => '23',
-        'day' => '*',
-        'dayofweek' => '*',
-        'month' => '*'
-    ),
-    array(
-        'classname' => '\local_orange_library\task\orange_library_thematic_task',
-        'blocking' => 0,
-        'minute' => '*/10',
-        'hour' => '*',
-        'day' => '*',
-        'dayofweek' => '*',
-        'month' => '*'
-    )
-);
+$string['orange_thematics_menu:addinstance'] = 'Ajouter un block menu thématique';
+$string['pluginname'] = 'Orange Thematics Menu';
+$string['gotothematic'] = 'J\'y vais';
+$string['mooc'] = ' Mooc{$a}';
+$string['moocinprogress'] = ' MOOC{$a} en cours';
+$string['moocfuture'] = ' MOOC{$a} à venir';
+$string['registereduser'] = ' inscrit{$a}';
+$string['connecteduser'] = ' membres en ligne{$a}';
