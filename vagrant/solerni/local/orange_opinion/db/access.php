@@ -15,23 +15,25 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Lang strings.
- * @package block_orange_list_bestforumng
- * @copyright  2016 Orange
+ * Capabilities for Orange_opinion plugin.
+ *
+ * @package    local
+ * @subpackage orange_opinion
+ * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Orange List Of Best Forumng';
+defined('MOODLE_INTERNAL') || die();
 
-$string['orange_list_bestforumng:addinstance'] = 'Add a new block Orange List Of Best Forumng';
+$capabilities = array(
+    'local/orange_opinion:edit' => array(
+        'riskbitmask'  => RISK_CONFIG,
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes' => array(
+        'manager' => CAP_ALLOW,
+        )
+    )
+);
 
-$string['title'] = 'Forums MOOCs {$a}';
-$string['intro'] = 'Sign up for MOOCs to participate in the discussions, it\'s free!';
 
-$string['discussion'] = ' discussion{$a}';
-$string['questionunregistered'] = 'You are not registered ? ';
-$string['questionregistered'] = 'You are registered ? ';
-$string['answerunregistered'] = 'Find out more about the Mooc';
-$string['answerregistered'] = 'Enter into the discussion space';
-$string['responses'] = '<strong>responses</strong>';
-$string['linebestdiscussion'] = 'The most active discussion : ';

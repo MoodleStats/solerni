@@ -247,61 +247,61 @@ class format_flexpage extends format_base {
             $courseformatoptions = array(
                 'courseenddate' => array(
                     'default' => get_config('enddate', 'format_flexpage'),
-                    'type' => PARAM_INT,
+                    'type' => PARAM_INT
                 ),
                 'coursethematics' => array(
                     'default' => get_config('workingtime', 'format_flexpage'),
-                    'type' => PARAM_SEQUENCE,
+                    'type' => PARAM_SEQUENCE
                 ),
                 'coursepicture' => array(
                     'default' => get_config('picture', 'format_flexpage'),
-                    'type' => PARAM_CLEANFILE,
+                    'type' => PARAM_CLEANFILE
                 ),
                 'coursereplay' => array(
                     'default' => get_config('coursereplay', 'format_flexpage'),
-                    'type' => PARAM_INT,
+                    'type' => PARAM_INT
                 ),
                 'courseduration' => array(
                     'default' => get_config('duration', 'format_flexpage'),
-                    'type' => PARAM_INT,
+                    'type' => PARAM_INT
                 ),
                 'courseworkingtime' => array(
                     'default' => get_config('workingtime', 'format_flexpage'),
-                    'type' => PARAM_INT,
+                    'type' => PARAM_INT
                 ),
                 'coursebadge' => array(
                     'default' => get_config('badge', 'format_flexpage'),
-                    'type' => PARAM_INT,
+                    'type' => PARAM_INT
                 ),
                 'coursecertification' => array(
                     'default' => get_config('certification', 'format_flexpage'),
-                    'type' => PARAM_INT,
+                    'type' => PARAM_INT
                 ),
                 'courseprice' => array(
                     'default' => get_config('price', 'format_flexpage'),
-                    'type' => PARAM_INT,
+                    'type' => PARAM_INT
                 ),
                 'courselanguage' => array(
                     'default' => get_config('language', 'format_flexpage'),
-                    'type' => PARAM_INT,
+                    'type' => PARAM_INT
                 ),
 
                 'coursesubtitle' => array(
                     'default' => get_config('coursesubtitle', 'format_flexpage'),
-                    'type' => PARAM_INT,
+                    'type' => PARAM_INT
                 ),
                 'courseregistration' => array(
                     'default' => get_config('registration', 'format_flexpage'),
-                    'type' => PARAM_INT,
+                    'type' => PARAM_INT
                 ),
 
                 'courseprerequesites' => array(
                     'default' => get_config('prerequesites', 'format_flexpage'),
-                    'type' => PARAM_RAW,
+                    'type' => PARAM_RAW
                 ),
                 'courseteachingteam' => array(
                     'default' => get_config('teachingteam', 'format_flexpage'),
-                    'type' => PARAM_RAW,
+                    'type' => PARAM_RAW
                 ),
                 'coursecontactemail' => array(
                     'default' => get_config('contactemail', 'format_flexpage'),
@@ -312,10 +312,14 @@ class format_flexpage extends format_base {
                     'default' => get_config('thumbnailtext', 'format_flexpage'),
                     'type' => PARAM_TEXT
                 ),
+                'paragraphheader' => array(
+                    'type' => PARAM_SEQUENCE
+                ),
                 'coursevideoplayer' => array(
                     'default' => get_config('videoplayer', 'format_flexpage'),
                     'type' => PARAM_RAW
                 ),
+
                 //Paragraph descriptions for find out more page
                 'paragraph1' => array(
                     'default' => get_config('paragraph1', 'format_flexpage'),
@@ -624,7 +628,7 @@ class format_flexpage extends format_base {
                     )
                 ),
                 'courseteachingteam' => array(
-                    'label' => get_string('teachingteam', 'format_flexpage'),
+                    'name' => get_string('teachingteam', 'format_flexpage'),
                     'help' => 'teachingteam',
                     'help_component' => 'format_flexpage',
                     'element_type' => 'htmleditor'
@@ -654,6 +658,10 @@ class format_flexpage extends format_base {
                     'help' => 'thumbnailtext',
                     'help_component' => 'format_flexpage',
                     'element_type' => 'text'
+                ),
+                'paragraphheader' => array(
+                    'label' => get_string('paragraphheader', 'format_flexpage'),
+                    'element_type' => 'header'
                 ),
                 'coursevideoplayer' => array(
                     'label' => get_string('videoplayer', 'format_flexpage'),

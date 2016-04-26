@@ -15,23 +15,25 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Lang strings.
- * @package block_orange_list_bestforumng
+ * To add the Orange_opinion links to the administration block
+ *
+ * @package    local
+ * @subpackage orange_opinion
  * @copyright  2016 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Orange Liste des Meilleurs Forumng';
+defined('MOODLE_INTERNAL') || die;
 
-$string['orange_list_bestforumng:addinstance'] = 'Ajouter un block Orange Liste des Meilleurs Forumng';
+$orangeplugin = 'local_orange_opinion';
+$orangelistopinionurl = '/local/orange_opinion/index.php?sesskey=' . sesskey().'&action=opinion_list';
 
-$string['title'] = 'Forums des MOOCs {$a}';
-$string['intro'] = 'Inscrivez-vous aux MOOCs pour pouvoir participer aux discussions, c\'est gratuit !';
+if ($hassiteconfig or has_capability('local/orange_opinion:edit', context_system::instance())) {
 
-$string['discussion'] = ' discussion{$a}';
-$string['questionunregistered'] = 'Vous n\'êtes pas inscrit ? ';
-$string['questionregistered'] = 'Vous êtes inscrit ? ';
-$string['answerunregistered'] = 'En savoir plus sur le Mooc';
-$string['answerregistered'] = 'Accéder à l\'espace de discussion du Mooc';
-$string['responses'] = '<strong>réponses</strong>';
-$string['linebestdiscussion'] = 'Discussion la plus active : ';
+    $ADMIN->add('root', new admin_category('opinion', get_string('opinionlink', $orangeplugin)));
+
+    $ADMIN->add('opinion', new admin_externalpage('orange_opinion_level2', get_string('opinionlinklist', $orangeplugin),
+        new moodle_url($orangelistopinionurl),
+        array('local/orange_opinion:edit')
+        ));
+}

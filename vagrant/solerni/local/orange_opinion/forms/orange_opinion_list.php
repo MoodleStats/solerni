@@ -15,23 +15,29 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Lang strings.
- * @package block_orange_list_bestforumng
+ * To manage opinion
+ *
+ * @package    local
+ * @subpackage orange_opinion
  * @copyright  2016 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Orange Liste des Meilleurs Forumng';
+require_once($CFG->libdir . '/formslib.php');
 
-$string['orange_list_bestforumng:addinstance'] = 'Ajouter un block Orange Liste des Meilleurs Forumng';
+/**
+ * Form to select the ingredients to deploy
+ *
+ * @package local
+ * @subpackage orange_opinion
+ * @copyright 2016 ORANGE
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+class orange_opinion_list extends moodleform implements renderable {
 
-$string['title'] = 'Forums des MOOCs {$a}';
-$string['intro'] = 'Inscrivez-vous aux MOOCs pour pouvoir participer aux discussions, c\'est gratuit !';
+    public function definition() {
 
-$string['discussion'] = ' discussion{$a}';
-$string['questionunregistered'] = 'Vous n\'êtes pas inscrit ? ';
-$string['questionregistered'] = 'Vous êtes inscrit ? ';
-$string['answerunregistered'] = 'En savoir plus sur le Mooc';
-$string['answerregistered'] = 'Accéder à l\'espace de discussion du Mooc';
-$string['responses'] = '<strong>réponses</strong>';
-$string['linebestdiscussion'] = 'Discussion la plus active : ';
+        $mform = & $this->_form;
+
+    }
+}

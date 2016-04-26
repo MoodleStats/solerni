@@ -24,6 +24,7 @@ class RoleUpdateCapabilityContext extends MooshCommand
         $this->addArgument('value'); // CAP_INHERIT=0, CAP_ALLOW=1, CAP_PREVENT=-1, CAP_PROHIBIT=-1000
         $this->addArgument('context'); // "block"
         $this->addArgument('contextname'); // name of block
+        $this->addOption('i|id:','context id (courseid...)');
     }
 
     public function execute()
@@ -37,7 +38,17 @@ class RoleUpdateCapabilityContext extends MooshCommand
             switch ($arguments[3]) {
             case 'block':
                 $instances = $DB->get_records('block_instances', array('blockname'=>$arguments[4], 'parentcontextid' => \context_system::instance()->id));
-
+                break;
+            case 'block_in_course' :
+                if ($this->expandedOptions['id']) {
+                    $id = $this->expandedOptions['id'];
+                    $instances = $DB->get_records('block_instances', array('blockname'=>$arguments[4], 'parentcontextid' => \context_course::instance($id)->id));
+                    break;
+                }
+                else
+                    echo "Add --id option for 'course' context\n";
+            }
+            if($arguments[3] == 'block' || $arguments[3] == 'block_in_course') {
                 if(count($instances)){
                     foreach ($instances as $instance) {
                         $context = context_block::instance($instance->id /* blockid */, MUST_EXIST);
@@ -47,8 +58,6 @@ class RoleUpdateCapabilityContext extends MooshCommand
                 }
                 else
                     echo "There is no instance of block '" . $arguments[4] . "' with parentcontextid " . \context_system::instance()->id . "\n";
-
-                break;
             }
         } else if(count($arguments) == 4) {
             $contextid = $arguments[3];

@@ -364,7 +364,7 @@ function main () {
 	execute_moosh_command "moosh block-manage hide search_forums"
 	execute_moosh_command "moosh block-manage hide section_links"
 	execute_moosh_command "moosh block-manage hide selfcompletion"
-	execute_moosh_command "moosh block-manage hide site_main_menu"
+	execute_moosh_command "moosh block-manage show site_main_menu"
 	execute_moosh_command "moosh block-manage hide social_activities"
 	execute_moosh_command "moosh block-manage hide tag_flickr"
 	execute_moosh_command "moosh block-manage hide tag_youtube"
@@ -408,6 +408,17 @@ function main () {
 	execute_moosh_command "moosh plugin-uninstall qtype_essay"
 	execute_moosh_command "moosh plugin-uninstall qtype_multianswer"
 	execute_moosh_command "moosh plugin-uninstall qtype_randomsamatch"
+
+        # hide block main menu for solerni_utilisateur, solerni_apprenant, solerni_power_apprenant, solerni_animateur, solerni_client, guest
+	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_utilisateur moodle/block:view prevent block_in_course site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_apprenant moodle/block:view prevent block_in_course site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_power_apprenant moodle/block:view prevent block_in_course site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_animateur moodle/block:view prevent block_in_course site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_client moodle/block:view prevent block_in_course site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx --id 1 guest moodle/block:view prevent block_in_course site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_teacher moodle/block:view allow block_in_course site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_course_creator moodle/block:view allow block_in_course site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_marketing moodle/block:view allow block_in_course site_main_menu"
 }
 
 main "$@"
