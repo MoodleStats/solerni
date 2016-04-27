@@ -36,14 +36,15 @@ function xml_from_piwik($url) {
   return ($xmlresponse);
 }
 
-function sendmail_to_admin_piwik($course,$event,$pass,$xmlaccount,$xmlaccess) {
+function sendmail_to_admin_piwik($course,$event,$pass,$xmlaccount,$xmlaccess,$xmldashboard) {
     global $CFG, $DB;
     $site = get_site();
     $contact = core_user::get_support_user();
     $user = $DB->get_record('user', array('id' => $event->userid));
     $srtsuccess = 'ok';
     $userpiwik = $course->shortname;
-    if (($xmlaccount->success['message'] == $srtsuccess) && ($xmlaccess->success['message'] == $srtsuccess)) {
+    $xmldashboard = intval($xmldashboard);
+    if (($xmlaccount->success['message'] == $srtsuccess) && ($xmlaccess->success['message'] == $srtsuccess) && (is_int($xmldashboard) == true)) {
         $message = get_string('content_piwik_success', 'local_orange_event_course_created');
         $key = array('{$a->username}', '{$a->coursename}', '{$a->sitename}', '{$a->userpiwik}', '{$a->passwordpiwik}');
         $value = array($user->username, $course->fullname, $site->fullname, $userpiwik, $pass);
