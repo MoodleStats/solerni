@@ -405,14 +405,14 @@ function main () {
 	execute_moosh_command "moosh plugin-uninstall qtype_essay"
 	execute_moosh_command "moosh plugin-uninstall qtype_multianswer"
 	execute_moosh_command "moosh plugin-uninstall qtype_randomsamatch"
-	
-        # Webservice activation for all PTF (#us_501
+
+        # Webservice activation for all PTF (#us_501)
         # Web Services Activation On Home
 	execute_moosh_command "moosh config-set enablewebservices 1"
 	# Activate REST
 	execute_moosh_command "moosh config-set webserviceprotocols rest"
 	#Import Role
-	execute_moosh_command "moosh role-import api_user /opt/solerni/conf/moosh/customer_thematic/${CUSTOMER_THEMATIC_KEY}/users_roles/solerniapiuser.xml"
+	execute_moosh_command "moosh role-import api_user /opt/solerni/conf/moosh/customer_thematic/default/users_roles/solerniapiuser.xml"
 	# Create API User
 	execute_moosh_command "moosh user-create --password apiuser01! --email solerniapiuser@orange.fr --firstname 'API' --lastname 'User' --city 'Paris' --country 'FR' 'api_user'"
 
