@@ -287,6 +287,7 @@ $string['coursestartdate']          = "Début le";
 $string['courseenddate']            = "Fin le";
 $string['coursebadge']              = "Badgeant";
 $string['coursenobadge']            = "Non badgeant";
+$string['courseduration']           = "semaine(s)";
 
 // Frontpage frontend.
 $string['ifreelyregister']          = "Je m'inscris gratuitement";
