@@ -58,21 +58,7 @@ class block_orange_badges extends block_base {
     }
 
     public function specialization() {
-        global $PAGE;
-
-        // If we are on the dashboard (My) then we customized the output for Solerni.
-        if (isset($PAGE->url) && !empty($PAGE->url)) {
-            $ismypage = ($PAGE->url->compare(new moodle_url('/my/index.php'), URL_MATCH_BASE) ||
-                $PAGE->url->compare(new moodle_url('/my/indexsys.php'), URL_MATCH_BASE));
-
-            if ($ismypage) {
-                $this->title = get_string('titledashboard', 'block_orange_badges');
-            } else {
-                $this->title = get_string('titlemooc', 'block_orange_badges');
-            }
-        } else {
-            $this->title = get_string('titledashboard', 'block_orange_badges');
-        }
+        $this->title = "";
     }
 
     public function get_content() {
@@ -95,11 +81,6 @@ class block_orange_badges extends block_base {
         $this->content = new stdClass();
         $this->content->text = '';
 
-        if (empty($CFG->enablebadges)) {
-            $this->content->text .= get_string('badgesdisabled', 'badges');
-            return $this->content;
-        }
-
         $courseid = $this->page->course->id;
         if ($courseid == SITEID) {
             $courseid = null;
@@ -115,13 +96,8 @@ class block_orange_badges extends block_base {
             $badges = badges_get_badges(BADGE_TYPE_COURSE, $courseid, '', '', 0, $this->config->numberofbadges, $USER->id);
         }
 
-        // All badges or Mooc badges.
-        if ($badges) {
-            $output = $this->page->get_renderer('block_orange_badges');
-            $this->content->text = $output->print_badges_list($badges, $USER->id, true);
-        } else {
-            $this->content->text .= get_string('nothingtodisplay', 'block_orange_badges');
-        }
+        $output = $this->page->get_renderer('block_orange_badges');
+        $this->content->text = $output->print_badges_list($badges, $USER->id, true);
 
         return $this->content;
     }
