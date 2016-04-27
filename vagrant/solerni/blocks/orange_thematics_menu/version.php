@@ -15,33 +15,16 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * orange library cron task.
+ * Version details
  *
- * @package    orange_library
- * @subpackage utilities
- * @copyright  2015 Orange
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    block_orange_thematics_menu
+ * @copyright  2016 Orange
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$tasks = array(
-    array(
-        'classname' => '\local_orange_library\task\orange_library_mnet_task',
-        'blocking' => 0,
-        'minute' => '30',
-        'hour' => '23',
-        'day' => '*',
-        'dayofweek' => '*',
-        'month' => '*'
-    ),
-    array(
-        'classname' => '\local_orange_library\task\orange_library_thematic_task',
-        'blocking' => 0,
-        'minute' => '*/10',
-        'hour' => '*',
-        'day' => '*',
-        'dayofweek' => '*',
-        'month' => '*'
-    )
-);
+$plugin->version   = 2016042001;        // The current plugin version (Date: YYYYMMDDXX)
+$plugin->requires  = 2014051200;        // Moodle 2.7.
+$plugin->component = 'block_orange_thematics_menu'; // Full name of the plugin (used for diagnostics).
+$plugin->dependencies = array('local_orange_library' => 2016041401);

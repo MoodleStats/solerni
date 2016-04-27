@@ -24,6 +24,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2016040601;        // The current plugin version (Date: YYYYMMDDXX)
+$plugin->version   = 2016042601;        // The current plugin version (Date: YYYYMMDDXX)
 $plugin->requires  = 2014050800;        // Requires this Moodle version
 $plugin->component = 'local_orange_event_user_loggedin';   // Full name of the plugin (used for diagnostics).

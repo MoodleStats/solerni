@@ -361,4 +361,62 @@ class utilities_network {
         // END TEST.
         return email_to_user($user, $supportuser, $subject, $message, $messagehtml);
     }
+
+    /**
+     * Get informations of the current Thematic.
+     *
+     * @return array $userdata
+     */
+    static public function get_thematic_info() {
+        global $CFG, $PAGE;
+
+        $userdata = array();
+
+        // Get total number of Moocs on the thematic.
+        $filter = new \stdclass();
+        $nbmooc = utilities_course::get_courses_catalogue_count($filter);
+        $userdata[] = array ('type' => 'int', 'name' => 'nbmoocs', 'value' => $nbmooc);
+
+        // Get number of Moocs in progress.
+        $filter->statusid[0] = 1;
+        $nbinprogressmooc = utilities_course::get_courses_catalogue_count($filter);
+        $userdata[] = array ('type' => 'int', 'name' => 'nbinprogressmooc', 'value' => $nbinprogressmooc);
+
+        // Get number of Moocs to be started.
+        $filter->statusid[0] = 2;
+        $nbfuturemooc = utilities_course::get_courses_catalogue_count($filter);
+        $userdata[] = array ('type' => 'int', 'name' => 'nbfuturemooc', 'value' => $nbfuturemooc);
+
+        // Get illustration.
+        if (theme_utilities::is_theme_settings_exists_and_nonempty('homepageillustration')) {
+            $context = \context_system::instance();
+            $file = utilities_image::get_moodle_stored_file($context, 'theme_halloween', 'homepageillustration');
+            // Image size : in small screen, one item.
+            $illustrationurl = utilities_image::get_resized_url(null,
+                    array('w' => 664, 'h' => 354, 'scale' => true), $file);
+            $userdata[] = array ('type' => 'url', 'name' => 'illustration', 'value' => $illustrationurl);
+        }
+
+        // Get logo.
+        if (theme_utilities::is_theme_settings_exists_and_nonempty('homepagelogo')) {
+            $context = \context_system::instance();
+            $file = utilities_image::get_moodle_stored_file($context, 'theme_halloween', 'homepagelogo');
+            $logourl = utilities_image::get_resized_url(null,
+                    array('w' => 100, 'h' => 100, 'scale' => true), $file);
+            // In case an error occurs we have a moodle_url as return.
+            if (is_a ( $logourl , 'moodle_url')) {
+                error_log("Thematic logo error");
+            } else {
+                $userdata[] = array ('type' => 'url', 'name' => 'logo', 'value' => $logourl);
+            }
+        }
+
+        // Number of registered users.
+        $userdata[] = array ('type' => 'int', 'name' => 'nbusers', 'value' => utilities_user::get_nbusers());
+
+        // Number of connected users.
+        $userdata[] = array ('type' => 'int', 'name' => 'nbconnected', 'value' => utilities_user::get_nbconnectedusers());
+
+        return $userdata;
+    }
 }

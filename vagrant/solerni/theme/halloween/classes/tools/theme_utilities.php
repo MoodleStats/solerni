@@ -18,6 +18,7 @@ namespace theme_halloween\tools;
 use local_orange_library\extended_course\extended_course_object;
 use local_orange_library\utilities\utilities_course;
 use theme_halloween\tools\log_and_session_utilities;
+use local_orange_library\utilities\utilities_network;
 use html_writer;
 
 class theme_utilities {
@@ -134,7 +135,7 @@ class theme_utilities {
 
         $pageswithoutbreadcrumbs = array('login');
 
-        if(in_array($PAGE->pagelayout, $pageswithoutbreadcrumbs)) {
+        if (in_array($PAGE->pagelayout, $pageswithoutbreadcrumbs)) {
             return false;
         }
 
@@ -151,7 +152,7 @@ class theme_utilities {
 
         $pageswithoutpageblocktitle = array('admin', 'mydashboard');
 
-        if(in_array($PAGE->pagelayout, $pageswithoutpageblocktitle)) {
+        if (in_array($PAGE->pagelayout, $pageswithoutpageblocktitle)) {
             return false;
         }
 
@@ -187,9 +188,10 @@ class theme_utilities {
                     $return->pageblockdesc = $filtermultilang->filter($PAGE->theme->settings->logintext);
                 } else {
                     $return->pageblockdesc = get_string('not_registered_yet', 'theme_halloween');
-                    $return->pageblockdesc .=  ' ';
+                    $return->pageblockdesc .= ' ';
                     $return->pageblockdesc .= \html_writer::tag('a', get_string('i_do_register', 'theme_halloween'),
-                        array('class' => 'tag-platform-subscription', 'href' => log_and_session_utilities::get_register_form_url()));
+                        array('class' => 'tag-platform-subscription',
+                            'href' => log_and_session_utilities::get_register_form_url()));
                 }
                 break;
 
@@ -204,15 +206,20 @@ class theme_utilities {
                     $return->pageblockdesc = $filtermultilang->filter($PAGE->theme->settings->signuptext);
                 } else {
                     $return->pageblockdesc = get_string('already_registered', 'theme_halloween');
-                    $return->pageblockdesc .=  ' ';
+                    $return->pageblockdesc .= ' ';
                     $return->pageblockdesc .= \html_writer::tag('a', get_string('i_do_login', 'theme_halloween'),
                         array('class' => 'tag-platform-subscription', 'href' => $CFG->wwwroot . '/login/index.php'));
                 }
                 break;
 
-            case 'my-index':
-                $return->pageblocktitleh1 = $PAGE->title;
-                $return->pageblockdesc = '';
+            case 'site-index':
+                if (utilities_network::is_platform_uses_mnet() && utilities_network::is_home()) {
+                    $return->pageblocktitleh1 = get_string('hometitle', 'theme_halloween');
+                    $return->pageblockdesc = ' ';
+                } else {
+                    $return->pageblocktitleh1 = $PAGE->title;
+                    $return->pageblockdesc = '';
+                }
                 break;
 
             default:
