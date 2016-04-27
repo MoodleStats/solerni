@@ -297,6 +297,7 @@ $string['coursestartdate']          = "Starts on";
 $string['courseenddate']            = "Ending on";
 $string['coursebadge']              = "Badges available";
 $string['coursenobadge']            = "No badges";
+$string['courseduration']           = "week(s)";
 
 // Frontpage frontend.
 $string['ifreelyregister']          = "I freely register";
