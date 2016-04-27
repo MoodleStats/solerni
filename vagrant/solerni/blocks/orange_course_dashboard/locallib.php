@@ -29,12 +29,11 @@ use local_orange_library\utilities\utilities_course;
  * @param bool $showallcourses if set true all courses will be visible.
  * @return array list of courses, or sorted courses if an order is provided.
  */
-function block_orange_course_dashboard_get_sorted_courses($limit = 0, $order = false) {
+function block_orange_course_dashboard_get_user_courses($limit = 0, $order = false) {
     global $USER;
 
     $courses = enrol_get_my_courses();
     $site = get_site();
-    $counter = 0;
 
     if (array_key_exists($site->id, $courses)) {
         unset($courses[$site->id]);
@@ -53,7 +52,8 @@ function block_orange_course_dashboard_get_sorted_courses($limit = 0, $order = f
     }
 
     // We have a order => sort it.
-    // @todo: make it a specific function
+    // @todo: make it a specific function.
+    $counter = 0;
     $sortedcourses = array();
     foreach ($order as $cid) {
         if (($counter >= $limit) && ($limit != 0)) {

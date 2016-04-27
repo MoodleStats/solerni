@@ -53,7 +53,7 @@ class block_orange_course_dashboard extends block_base {
         $renderer = $this->page->get_renderer('block_orange_course_dashboard');
 
         $sortedcourses =
-            block_orange_course_dashboard_get_sorted_courses($this->config->defaultmaxcourses);
+            block_orange_course_dashboard_get_user_courses($this->config->defaultmaxcourses);
 
         // We have courses and no manual override.
         if (count($sortedcourses) && !$this->config->forcednoavailabalemooc) {
