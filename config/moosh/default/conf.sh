@@ -301,8 +301,7 @@ function main () {
 	# Page contact
 	execute_moosh_command "moosh config-set footerlistscolumn2link2 ${CUSTOMER_HTTP_BASE_URL}/contact/ theme_halloween"
 
-	# Settings PF Name
-	execute_moosh_command "moosh course-config-set course 1 fullname \"${CUSTOMER_NAME} ${CUSTOMER_THEMATIC}\""
+	# Settings PF Name shortname
 	execute_moosh_command "moosh course-config-set course 1 shortname ${CUSTOMER_THEMATIC}"
 
 	# block_orange_action (#us_458)
