@@ -35,6 +35,8 @@ use local_orange_library\utilities\utilities_image;
 /**
  * Checks whether the current page is the My home page or the my edition page.
  *
+ * @todo: make this test part of a library (factor for blocks on my page).
+ *
  * @return bool True when on the My home page or the admin template edition (indexsys).
  */
 function block_orange_action_on_my_page() {

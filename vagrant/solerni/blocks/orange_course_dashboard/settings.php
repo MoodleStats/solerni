@@ -28,22 +28,13 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configtext('block_orange_course_dashboard/defaultmaxcourses',
                         new lang_string('defaultmaxcourses', 'block_orange_course_dashboard'),
                         new lang_string('defaultmaxcoursesdesc', 'block_orange_course_dashboard'), 10, PARAM_INT));
-    $settings->add(new admin_setting_configtext('block_orange_course_dashboard/defaultmaxrecommendations',
-                        new lang_string('defaultmaxrecommendations', 'block_orange_course_dashboard'),
-                        new lang_string('defaultmaxrecommendationsdesc', 'block_orange_course_dashboard'), 4, PARAM_INT));
-    $settings->add(new admin_setting_configcheckbox('block_orange_course_dashboard/showchildren',
-                        new lang_string('showchildren', 'block_orange_course_dashboard'),
-                        new lang_string('showchildrendesc', 'block_orange_course_dashboard'), 1, PARAM_INT));
     $settings->add(new admin_setting_configtext('block_orange_course_dashboard/catalogurl',
                         new lang_string('definecatalogurl', 'block_orange_course_dashboard'),
                         new lang_string('definecatalogurldesc', 'block_orange_course_dashboard'), '', PARAM_URL));
     $settings->add(new admin_setting_configtext('block_orange_course_dashboard/mymoocsurl',
                         new lang_string('definemymoocsurl', 'block_orange_course_dashboard'),
                         new lang_string('definemymoocsurldesc', 'block_orange_course_dashboard'), '/moocs/mymoocs.php', PARAM_URL));
-    $settings->add(new admin_setting_configcheckbox('block_orange_course_dashboard/hideblockheader',
-                        new lang_string('hideblockheader', 'block_orange_course_dashboard'),
-                        new lang_string('hideblockheaderdesc', 'block_orange_course_dashboard'), 1, PARAM_INT));
     $settings->add(new admin_setting_configcheckbox('block_orange_course_dashboard/forcednoavailabalemooc',
                         new lang_string('forcednoavailabalemooc', 'block_orange_course_dashboard'),
-                        new lang_string('forcednoavailabalemoocdesc', 'block_orange_course_dashboard'), 1, PARAM_INT));
+                        new lang_string('forcednoavailabalemoocdesc', 'block_orange_course_dashboard'), 0));
 }
