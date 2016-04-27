@@ -342,5 +342,8 @@ $string['nobadgesfaq'] = 'Vous n’avez pas encore obtenu de badge.<br/>
 // Home Solerni
 $string['hometitle'] = 'Qu\'allez-vous apprendre aujourd\'hui ?';
 
-//Page en savoir plus
+// Page en savoir plus
 $string['more_info']               = 'Besoin d\informations complémentaires';
+
+// Page forum
+$string['forumnavbar']             = 'Espace de discussion';
