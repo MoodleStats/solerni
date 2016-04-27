@@ -186,7 +186,7 @@ function main () {
 	# Manage blocks for 'my' page (Dashboard)
 	execute_moosh_command "moosh block-add system 0 orange_action my-index content -10"
 	execute_moosh_command "moosh block-add system 0 orange_course_dashboard my-index content -9"
-	# moosh block-add system 0 <block forum> my-index content -8
+        execute_moosh_command "moosh block-add system 0 orange_emerging_messages my-index content -8"
 	execute_moosh_command "moosh block-add system 0 orange_badges my-index content -7"
 	execute_moosh_command "moosh block-add system 0 private_files my-index content -6"
 
@@ -301,8 +301,7 @@ function main () {
 	# Page contact
 	execute_moosh_command "moosh config-set footerlistscolumn2link2 ${CUSTOMER_HTTP_BASE_URL}/contact/ theme_halloween"
 
-	# Settings PF Name
-	execute_moosh_command "moosh course-config-set course 1 fullname \"${CUSTOMER_NAME} ${CUSTOMER_THEMATIC}\""
+	# Settings PF Name shortname
 	execute_moosh_command "moosh course-config-set course 1 shortname ${CUSTOMER_THEMATIC}"
 
 	# block_orange_action (#us_458)
@@ -406,14 +405,14 @@ function main () {
 	execute_moosh_command "moosh plugin-uninstall qtype_essay"
 	execute_moosh_command "moosh plugin-uninstall qtype_multianswer"
 	execute_moosh_command "moosh plugin-uninstall qtype_randomsamatch"
-	
-        # Webservice activation for all PTF (#us_501
+
+        # Webservice activation for all PTF (#us_501)
         # Web Services Activation On Home
 	execute_moosh_command "moosh config-set enablewebservices 1"
 	# Activate REST
 	execute_moosh_command "moosh config-set webserviceprotocols rest"
 	#Import Role
-	execute_moosh_command "moosh role-import api_user /opt/solerni/conf/moosh/customer_thematic/${CUSTOMER_THEMATIC_KEY}/users_roles/solerniapiuser.xml"
+	execute_moosh_command "moosh role-import api_user /opt/solerni/conf/moosh/customer_thematic/default/users_roles/solerniapiuser.xml"
 	# Create API User
 	execute_moosh_command "moosh user-create --password apiuser01! --email solerniapiuser@orange.fr --firstname 'API' --lastname 'User' --city 'Paris' --country 'FR' 'api_user'"
 

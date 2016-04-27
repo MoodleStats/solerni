@@ -24,96 +24,12 @@
 use local_orange_library\utilities\utilities_course;
 
 /**
- * Display overview for courses on the dashboard
- *
- * @param array $courses courses for which overview needs to be shown
- * @return array html overview
- */
-function block_orange_course_dashboard_get_overviews($courses) {
-    $htmlarray = array();
-    if ($modules = get_plugin_list_with_function('mod', 'print_overview')) {
-        // Split courses list into batches with no more than MAX_MODINFO_CACHE_SIZE courses in one batch.
-        // Otherwise we exceed the cache limit in get_fast_modinfo() and rebuild it too often.
-        if (defined('MAX_MODINFO_CACHE_SIZE') && MAX_MODINFO_CACHE_SIZE > 0 && count($courses) > MAX_MODINFO_CACHE_SIZE) {
-            $batches = array_chunk($courses, MAX_MODINFO_CACHE_SIZE, true);
-        } else {
-            $batches = array($courses);
-        }
-        foreach ($batches as $courses) {
-            foreach ($modules as $fname) {
-                    $fname($courses, $htmlarray);
-            }
-        }
-    }
-    return $htmlarray;
-}
-
-/**
- * Returns shortname of activities in course
- *
- * @param int $courseid id of course for which activity shortname is needed
- * @return string|bool list of child shortname
- */
-function block_orange_course_dashboard_get_child_shortnames($courseid) {
-    global $DB;
-    $ctxselect = context_helper::get_preload_record_columns_sql('ctx');
-    $sql = "SELECT c.id, c.shortname, $ctxselect
-    FROM {enrol} e
-    JOIN {course} c ON (c.id = e.customint1)
-    JOIN {context} ctx ON (ctx.instanceid = e.customint1)
-    WHERE e.courseid = :courseid AND e.enrol = :method AND ctx.contextlevel = :contextlevel ORDER BY e.sortorder";
-    $params = array('method' => 'meta', 'courseid' => $courseid, 'contextlevel' => CONTEXT_COURSE);
-
-    if ($results = $DB->get_records_sql($sql, $params)) {
-        $shortnames = array();
-        // Preload the context we will need it to format the category name shortly.
-        foreach ($results as $res) {
-            context_helper::preload_from_record($res);
-            $context = context_course::instance($res->id);
-            $shortnames[] = format_string($res->shortname, true, $context);
-        }
-        $total = count($shortnames);
-        $suffix = '';
-        if ($total > 10) {
-            $shortnames = array_slice($shortnames, 0, 10);
-            $diff = $total - count($shortnames);
-            if ($diff > 1) {
-                $suffix = get_string('shortnamesufixprural', 'block_course_overview', $diff);
-            } else {
-                $suffix = get_string('shortnamesufixsingular', 'block_course_overview', $diff);
-            }
-        }
-        $shortnames = get_string('shortnameprefix', 'block_course_overview', implode('; ', $shortnames));
-        $shortnames .= $suffix;
-    }
-
-    return isset($shortnames) ? $shortnames : false;
-}
-
-/**
- * Return sorted list of recommended courses
- *
- * @param int maxcourses to retreive.
- * @return array list of sorted courses and count of courses.
- */
-function block_orange_course_dashboard_get_recommended_courses($maxcourses = 0) {
-    $utilitiescourse = new utilities_course();
-    $courses = $utilitiescourse->get_courses_recommended(array('limit' => $maxcourses));
-    $coursedetails = array();
-    foreach ($courses as $course) {
-        $coursedetails[$course->id] = $utilitiescourse->solerni_get_course_infos($course);
-    }
-
-    return array($courses, $coursedetails, count($courses));
-}
-
-/**
  * Return sorted list of user courses
  *
  * @param bool $showallcourses if set true all courses will be visible.
- * @return array list of sorted courses and count of courses.
+ * @return array list of courses, or sorted courses if an order is provided.
  */
-function block_orange_course_dashboard_get_sorted_courses($limit = 0) {
+function block_orange_course_dashboard_get_user_courses($limit = 0, $order = false) {
     global $USER;
 
     $courses = enrol_get_my_courses();
@@ -131,13 +47,15 @@ function block_orange_course_dashboard_get_sorted_courses($limit = 0) {
         }
     }
 
-    // TODO : delete order.
-    $order = array();
+    if (!$order) {
+        return $courses;
+    }
 
-    $sortedcourses = array();
+    // We have a order => sort it.
+    // @todo: make it a specific function.
     $counter = 0;
-    // Get courses in sort order into list.
-    foreach ($order as $key => $cid) {
+    $sortedcourses = array();
+    foreach ($order as $cid) {
         if (($counter >= $limit) && ($limit != 0)) {
             break;
         }
@@ -148,23 +66,6 @@ function block_orange_course_dashboard_get_sorted_courses($limit = 0) {
             $counter++;
         }
     }
-    // Append unsorted courses if limit allows.
-    foreach ($courses as $c) {
-        if (($limit != 0) && ($counter >= $limit)) {
-            break;
-        }
-        if (!in_array($c->id, $order)) {
-            $sortedcourses[$c->id] = $c;
-            $counter++;
-        }
-    }
 
-    // From list extract site courses for overview.
-    $sitecourses = array();
-    foreach ($sortedcourses as $key => $course) {
-        if ($course->id > 0) {
-            $sitecourses[$key] = $course;
-        }
-    }
-    return array($sortedcourses, $sitecourses, count($courses));
+    return $sortedcourses;
 }
