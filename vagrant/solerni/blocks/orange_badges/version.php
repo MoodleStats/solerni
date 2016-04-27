@@ -22,10 +22,11 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  *
  * orange 2016020500 : block_badges fork (2015051100)
+ * orange 2016042500 : design
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2016020501;        // The current plugin version (Date: YYYYMMDDXX).
+$plugin->version   = 2016042500;        // The current plugin version (Date: YYYYMMDDXX).
 $plugin->requires  = 2015050500;        // Requires this Moodle version.
 $plugin->component = 'block_orange_badges';
