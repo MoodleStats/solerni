@@ -307,9 +307,6 @@ function main () {
 	# block_orange_action (#us_458)
 	execute_moosh_command "moosh config-set hideblockheader 1 block_orange_action"
 
-	# defaulthomepage = Dashboard (#us_380)
-	execute_moosh_command "moosh config-set defaulthomepage 1"
-
 	# Disable Oauth2 authentication method
 	execute_moosh_command "moosh auth-manage disable googleoauth2"
 
@@ -408,6 +405,17 @@ function main () {
 	execute_moosh_command "moosh plugin-uninstall qtype_essay"
 	execute_moosh_command "moosh plugin-uninstall qtype_multianswer"
 	execute_moosh_command "moosh plugin-uninstall qtype_randomsamatch"
+	
+        # Webservice activation for all PTF (#us_501
+        # Web Services Activation On Home
+	execute_moosh_command "moosh config-set enablewebservices 1"
+	# Activate REST
+	execute_moosh_command "moosh config-set webserviceprotocols rest"
+	#Import Role
+	execute_moosh_command "moosh role-import api_user /opt/solerni/conf/moosh/customer_thematic/${CUSTOMER_THEMATIC_KEY}/users_roles/solerniapiuser.xml"
+	# Create API User
+	execute_moosh_command "moosh user-create --password apiuser01! --email solerniapiuser@orange.fr --firstname 'API' --lastname 'User' --city 'Paris' --country 'FR' 'api_user'"
+
 
         # hide block main menu for solerni_utilisateur, solerni_apprenant, solerni_power_apprenant, solerni_animateur, solerni_client, guest
 	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_utilisateur moodle/block:view prevent block_in_course site_main_menu"

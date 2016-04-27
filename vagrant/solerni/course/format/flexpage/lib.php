@@ -628,7 +628,7 @@ class format_flexpage extends format_base {
                     )
                 ),
                 'courseteachingteam' => array(
-                    'name' => get_string('teachingteam', 'format_flexpage'),
+                    'label' => get_string('teachingteam', 'format_flexpage'),
                     'help' => 'teachingteam',
                     'help_component' => 'format_flexpage',
                     'element_type' => 'htmleditor'
@@ -644,6 +644,7 @@ class format_flexpage extends format_base {
                     'element_type' => 'duration',
                     'element_attributes' => array(
                     'defaultunit' => 86400,
+                    'units' => array(3600, 86400),
                     'optional' => false
                     )
                 ),

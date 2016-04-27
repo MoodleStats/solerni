@@ -27,6 +27,7 @@ use local_orange_library\badges\badges_object;
 use local_orange_library\utilities\utilities_object;
 use local_orange_library\utilities\utilities_image;
 use local_orange_library\utilities\utilities_course;
+use local_orange_library\utilities\utilities_network;
 use local_orange_library\subscription_button\subscription_button_object;
 use local_orange_library\extended_course\extended_course_object;
 
@@ -45,6 +46,12 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
      * @return string
      */
     public function frontpage_available_courses() {
+        
+        // In Solerni Home, no mooc to display
+        if (utilities_network::is_platform_uses_mnet() && utilities_network::is_home()) {
+            return null;
+        }
+
         global $CFG;
         require_once($CFG->libdir. '/coursecatlib.php');
 
