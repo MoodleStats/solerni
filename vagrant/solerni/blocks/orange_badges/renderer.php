@@ -144,20 +144,20 @@ class block_orange_badges_renderer extends plugin_renderer_base {
             $output .= html_writer::end_tag('div');
         $output .= html_writer::end_tag('div');
 
+        $content = "";
         // Create empty content.
         if (empty($CFG->enablebadges)) {
-            $output .= get_string('badgesdisabled', 'badges');
-            return $output;
-        }
-
-        if (!$badges) {
-            $output .= get_string('nothingtodisplay', 'block_orange_badges');
-            return $output;
+            $content .= get_string('badgesdisabled', 'badges');
+        } else if (!$badges) {
+            $content .= get_string('nothingtodisplay', 'block_orange_badges');
+        } else if (!is_null($items)) {
+            // Create badge list.
+            $content = html_writer::alist($items, array('class' => 'orange-badge'));
         }
 
         $output .= html_writer::start_tag('div', array('class' => 'row'));
             $output .= html_writer::start_tag('div', array('class' => 'col-md-12 orange-badges'));
-                $output .= html_writer::alist($items, array('class' => 'orange-badge'));
+                $output .= $content;
             $output .= html_writer::end_tag('div');
         $output .= html_writer::end_tag('div');
         return $output;
