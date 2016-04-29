@@ -28,7 +28,7 @@ $string['welcome_enrolment_message_inscription'] = 'Vous vous êtes inscrit au M
 $string['welcome_enrolment_message_notstarted'] = 'Le cours n\'a pas commencé : il débutera le {$a} prochain.. Nous vous enverrons une notification quelques jours avant le début des cours afin de vous rappeler la date de début du MOOC. A très bientôt.';
 $string['welcome_enrolment_message_started'] = 'Le cours est ouvert : vous pouvez y accéder dès à présent. Bon MOOC !';
 $string['content_piwik_success'] = '<p>Bonjour <span class="txt18BNoir">{$a->username}</span>,</p>
-<p>Suite à la création un nouveau mooc {$a->coursename} sur la plateforme {$a->sitename} , un nouveau compte et segment Piwik ont été automatiquement créés avec succes.</p>
+<p>Suite à la création un nouveau mooc {$a->coursename} sur la plateforme {$a->sitename} , un nouveau compte et site Piwik ont été automatiquement créés avec succes.</p>
 <p>Les nouveaux identifiants de connexion à Piwik sont :</p>
 <ul>
    <li>nom d\'utilisateur : {$a->userpiwik}</li>

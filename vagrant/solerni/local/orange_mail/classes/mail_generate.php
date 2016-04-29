@@ -37,13 +37,13 @@ class mail_generate {
         mail_object::generate('newpasswordtext', 'text');
         mail_object::generate('newpasswordtext', 'html');
 
-        // Mail sent after user registration.
+        // Mail sent after user registration for public platform.
         mail_object::generate('contentuseraccountemail', 'text');
         mail_object::generate('contentuseraccountemail', 'html');
 
-        // Welcome message.
-        mail_object::generate('contentwelcomeemail', 'text');
-        mail_object::generate('contentwelcomeemail', 'html');
+        // Mail sent after user registration for private platform.
+        mail_object::generate('contentuseraccountemailprivate', 'text');
+        mail_object::generate('contentuseraccountemailprivate', 'html');
 
         // Reset password.
         mail_object::generate('emailresetconfirmation', 'text');
@@ -68,6 +68,14 @@ class mail_generate {
         // New User by CSV import.
         mail_object::generate('newusernewpasswordtext', 'text');
         mail_object::generate('newusernewpasswordtext', 'html');
+
+        // Mail for Badges.
+        mail_object::generate('badgemessagebody', 'text');
+        mail_object::generate('badgemessagebody', 'html');
+
+        // Mail for email change confirmation.
+        mail_object::generate('emailupdatemessage', 'text');
+        mail_object::generate('emailupdatemessage', 'html');
 
         return true;
     }

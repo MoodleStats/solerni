@@ -56,6 +56,8 @@ $string['brand_secondary']              = '@brand-secondary';
 $string['brand_secondarydesc']          = '';
 $string['brand_tertiary']               = '@brand-tertiary';
 $string['brand_tertiarydesc']           = '';
+$string['brand_contrasted']             = '@brand-contrasted';
+$string['brand_contrasteddesc']         = '';
 $string['brand_success']                = '@brand-success';
 $string['brand_successdesc']            = '';
 $string['brand_info']                   = '@brand-info';
@@ -74,24 +76,22 @@ $string['orange_purple']                = '@orange-purple';
 $string['orange_purpledesc']            = '';
 $string['orange_pink']                  = '@orange-pink';
 $string['orange_pinkdesc']              = '';
-$string['orange_light_1']               = '@gray-lighter';
-$string['orange_light_1desc']           = '@orange-light-1';
+$string['orange_light_1']               = '@orange-light-1';
+$string['orange_light_1desc']           = '';
 $string['orange_light_2']               = '@orange-light-2';
 $string['orange_light_2desc']           = '';
-$string['orange_light_3']               = '@gray-light';
-$string['orange_light_3desc']           = '@orange-light-3';
+$string['orange_light_3']               = '@orange-light-3';
+$string['orange_light_3desc']           = '';
 $string['orange_light_4']               = '@orange-light-4';
 $string['orange_light_4desc']           = '';
-$string['orange_mid_1']                 = '@gray';
-$string['orange_mid_1desc']             = '@orange-mid-1';
+$string['orange_mid_1']                 = '@orange-mid-1';
+$string['orange_mid_1desc']             = '';
 $string['orange_mid_2']                 = '@orange-mid-2';
 $string['orange_mid_2desc']             = '';
-$string['orange_dark_1']                = '@gray-dark';
-$string['orange_dark_1desc']            = '@orange-dark-1';
+$string['orange_dark_1']                = '@orange-dark-1';
+$string['orange_dark_1desc']            = '';
 $string['orange_dark_2']                = '@orange-dark-2';
 $string['orange_dark_2desc']            = '';
-$string['orange_dark_3']                = '@gray-darker';
-$string['orange_dark_3desc']            = '@orange-dark-3';
 
 // Footer Branding Settings.
 $string['footerbrandsettings']          = 'Footer Branding';
@@ -227,7 +227,7 @@ $string['signupformfooterdesc']     = '';
 
 // Signup frontend page.
 $string['create_account']           = 'Créer mon compte';
-$string['policyaccept']             = 'J\'ai lu et j\'accepte les <a class="js-target-blank" href="{$a}" target="_blank">conditions générales d\'utilisation</a>';
+$string['policyaccept']             = 'J\'ai lu et j\'accepte les <a class="js-target-blank" href="{$a}" target="_blank">Conditions Générales d\'Utilisation</a>';
 $string['missingusername']          = 'Le {$a} ne peut pas etre vide';
 
 // Webservices settings page
@@ -236,11 +236,24 @@ $string['webservicesheading']       = 'Paramétrer la communication entre les in
 $string['webservicesheadingdesc']   = '';
 $string['webservicestoken']         = 'Jeton de sécurité';
 $string['webservicestokendesc']     = 'Insérez ici le jeton de sécurité délivré sur la HOME MNET pour le RESAC Web Service';
+$string['webservicestokenthematic'] = 'Jeton de sécurité pour {$a}';
+$string['webservicestokenthematicdesc'] = 'Insérez ici le jeton de sécurité délivré sur {$a} pour le RESAC Web Service';
+
+// Homepage settings page
+$string['homepagesettings']         = 'Homepage';
+$string['homepageheading']          = 'Paramètres pour la page d\'accueil';
+$string['homepageheadingdesc']      = '';
+$string['homepageillustration']     = 'Illustration';
+$string['homepageillustrationdesc'] = 'Illustration de la thématique';
+$string['homepagelogo']             = 'Logo';
+$string['homepagelogodesc']         = 'Logo de la thématique';
 
 // Search filters.
 $string['catalog_page_title']       = 'Catalogue';
 $string['filterstatustitle']        = 'Statuts';
 $string['filterstatusall']          = 'Tous les MOOCs';
+$string['filterstatusallmoocs']          = 'Tous';
+
 
 $string['filterstatusregistrationcomplete']   = 'MOOC complet';
 $string['filterstatusregistrationopen']       = 'Enregistrement ouvert';
@@ -271,6 +284,8 @@ $string['loginoauth']               = 'Se connecter avec {$a}';
 $string['or']                       = 'ou';
 $string['username']                 = 'Pseudo';
 $string['invalidlogin']             = 'La connexion a échouée. Veuillez vérifier votre {$a} et votre mot de passe.';
+$string['invalidemail']             = 'Identifiant invalide';
+$string['invalidpassword']          = 'Mot de passe invalide';
 
 // Register page.
 $string['already_registered']       = 'Déjà inscrit ?';
@@ -283,6 +298,7 @@ $string['coursestartdate']          = "Début le";
 $string['courseenddate']            = "Fin le";
 $string['coursebadge']              = "Badgeant";
 $string['coursenobadge']            = "Non badgeant";
+$string['courseduration']           = "semaine(s)";
 
 // Frontpage frontend.
 $string['ifreelyregister']          = "Je m'inscris gratuitement";
@@ -323,3 +339,9 @@ $string['contact_email_body']       = 'La requête suivante a été réalisée v
 // Page badges/mybadges.php.
 $string['nobadgesfaq'] = 'Vous n’avez pas encore obtenu de badge.<br/>
 <strong><a href="{$a}">Consultez les FAQ</a></strong> afin de découvrir le fonctionnement des badges. ';
+
+// Home Solerni
+$string['hometitle'] = 'Qu\'allez-vous apprendre aujourd\'hui ?';
+
+//Page en savoir plus
+$string['more_info']               = 'Besoin d\informations complémentaires';

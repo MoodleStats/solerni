@@ -37,7 +37,8 @@ function set_registration_status($extendedcourse) {
     if (utilities_object::is_before($extendedcourse->enrolstartdate)) {
 
         mooc_registration_not_open($extendedcourse);
-    } else if ($extendedcourse->enrolledusers >= $extendedcourse->maxregisteredusers && $extendedcourse->maxregisteredusers!=0) {
+    } else if ($extendedcourse->enrolledusersself >= $extendedcourse->maxregisteredusers &&
+            $extendedcourse->maxregisteredusers != 0) {
 
         mooc_registration_open_complete($extendedcourse);
     } else if (utilities_object::is_after($extendedcourse->enrolenddate)) {

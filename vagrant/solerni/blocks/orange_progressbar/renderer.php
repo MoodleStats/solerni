@@ -29,13 +29,13 @@ class block_orange_progressbar_renderer extends plugin_renderer_base {
     /**
      * Construct progress bar 
      *
-     * @param nbactivities in the course
-     * @param nbactivitiescompleted completed in the course
+     * @param nbactivity in the course
+     * @param nbactivitycompleted completed in the course
      * @param details of all activities
      * @return string html of the simple progress bar
      */
-    public function display_progress($nbactivities, $nbactivitiescompleted, $details = null) {
-        $progress = round($nbactivitiescompleted / $nbactivities * 100);
+    public function display_progress($nbactivity, $nbactivitycompleted, $details = null) {
+        $progress = round($nbactivitycompleted / $nbactivity * 100);
 
         $output = html_writer::start_tag('div', array('class' => 'progress'));
         $output .= html_writer::start_tag('div', array('class' => 'progress-bar',
@@ -57,7 +57,7 @@ class block_orange_progressbar_renderer extends plugin_renderer_base {
             $output .= html_writer::tag('h3', get_string('progres_detail', 'block_orange_progressbar'));
 
             $currentmodule = '';
-            foreach ($details as $key => $detailsbytype) {
+            foreach ($details as $detailsbytype) {
                 foreach ($detailsbytype as $detail) {
                     if ($detail->modname != $currentmodule) {
                         $output .= html_writer::tag('h4', $detail->modnametext);

@@ -46,8 +46,8 @@ $string['new_session']          = 'new_session';
 // Extended course object.
 $string['english']              = 'English';
 $string['french']               = 'French';
-$string['duration_default']     = 'Less than four weeks';
-$string['workingtime_default']  = 'Less than one hour';
+$string['duration_default']     = 0;
+$string['workingtime_default']  = 0;
 $string['prerequesites_default'] = 'No prerequisites';
 $string['subtitle']             = ' subtitles';
 $string['subtitle_default']     = 'subtitles';
@@ -85,3 +85,19 @@ $string['blockmissing'] = 'Block "{$a}" missing.';
 $string['startenrolmentdatemissing'] = "The enrolment start date is missing on Self Enrol method";
 $string['endenrolmentdatemissing'] = "The enrolment end date is missing on Self Enrol method";
 $string['orangeinvitationconfigmissing'] = "The configuration of 'MOOC URLs access' enrolment method need to be save once";
+
+$string['today'] = "tda, ";
+$string['yesterday'] = "yda, ";
+
+// Cron Tasks.
+$string['orange_library_mnet_task'] = "Update MNET keys";
+$string['orange_library_mnet_mail'] = '<p>Hello {$a->firstname} {$a->lastname},</p>
+<p>This is the cron task for MNet Key check on <b>{$a->sitename}</b>';
+$string['orange_library_mnet_mail_subject'] = "MNet Key Check";
+$string['orange_library_thematic_task'] = "Update Thematics information";
+
+// Course menu item.
+$string['coursemenulearn'] = "Learn";
+$string['coursemenulearnmore'] = "News";
+$string['coursemenuforum'] = "Forum";
+$string['coursemenushare'] = "Resource";

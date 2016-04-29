@@ -30,6 +30,12 @@
  * @return array
  */
 function get_user_last_message($USER) {
+
+    if (!class_exists('local_mail_message')) {
+        global $CFG;
+        require_once($CFG->dirroot.'/local/mail/message.class.php');
+    }
+
     $query['limit'] = 1;
     $lastmsg = local_mail_message::search_index ($USER->id, 'inbox', 0, $query);
 

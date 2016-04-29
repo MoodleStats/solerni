@@ -24,8 +24,9 @@
 
 $string['no_activities_monitored'] = 'Pas d\'activités suivies.';
 $string['completion_not_enabled'] = 'Le suivi d\'achèvement n\'est pas activé pour ce cours.';
-$string['pluginname'] = 'Barre de progression simple';
-$string['config_default_title'] = 'Barre de progression';
+$string['pluginname'] = 'Barre de progression Orange';
+$string['config_default_title'] = 'Barre de progression Orange';
+$string['block_title'] = 'Barre de progression';
 $string['overview'] = 'Votre progression';
 $string['overviewbutton'] = 'Voir le détail';
 $string['progres_detail'] = 'Détails des activités';

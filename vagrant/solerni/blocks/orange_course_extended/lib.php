@@ -40,7 +40,7 @@ function block_orange_course_extended_pluginfile($course, $cm, $context, $filear
     }
 
     require_login(0, false);
-    if ($filearea != 'coursepicture') {
+    if ($filearea != ('coursepicture')) {
         return false;
     }
 

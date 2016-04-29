@@ -40,7 +40,7 @@ class block_orange_listforumng extends block_base {
      * @return void
      */
     public function init() {
-        Global $PAGE;
+        global $PAGE;
         $this->title = get_string('pluginname', 'block_orange_listforumng');
         $this->renderer = $PAGE->get_renderer('block_orange_listforumng');
     }
@@ -55,7 +55,8 @@ class block_orange_listforumng extends block_base {
     }
 
     public function specialization() {
-        $this->title = isset($this->config->title) ? format_string($this->config->title) : format_string(get_string('newlistforumnglock', 'block_orange_listforumng'));
+        $this->title = isset($this->config->title) ?
+                format_string($this->config->title) : format_string(get_string('newlistforumnglock', 'block_orange_listforumng'));
     }
 
     /**
@@ -88,7 +89,7 @@ class block_orange_listforumng extends block_base {
      * @return string
      */
     public function get_content() {
-        global $USER, $COURSE, $CFG, $OUTPUT, $DB;
+        global $USER, $CFG;
 
         // If content has already been generated, don't waste time generating it again.
         if ($this->content !== null) {
@@ -97,11 +98,15 @@ class block_orange_listforumng extends block_base {
         $this->content = new stdClass;
         $this->content->text = '';
         $this->content->footer = '';
-        $blockinstancesonpage = array();
 
         // Guests do not have any progress. Don't show them the block.
-        if (!isloggedin() or isguestuser()) {
+        if ((!block_orange_listforumng_on_forum_index_page()) && (!isloggedin() or isguestuser())) {
             return $this->content;
+        }
+
+        $title = "";
+        if (block_orange_listforumng_on_forum_index_page()) {
+            $title = get_string('titleforum', 'block_orange_listforumng', $CFG->solerni_thematic);
         }
 
         // Check if user is in group for block.
@@ -112,8 +117,6 @@ class block_orange_listforumng extends block_base {
         ) {
             return $this->content;
         }
-
-        $renderer = $this->page->get_renderer('block_orange_listforumng');
 
         $listforumngid = array();
         if (isset($this->config)) {
@@ -129,7 +132,7 @@ class block_orange_listforumng extends block_base {
             $this->content->text = $this->renderer->display_noforumng_affected();
         } else {
             $listforumngdisplay = block_orange_listforumng_get_bylistforumngid($listforumngid);
-            $this->content->text = $this->renderer->display_listforumng($listforumngdisplay);
+            $this->content->text = $this->renderer->display_listforumng($listforumngdisplay, $title);
         }
 
         return $this->content;

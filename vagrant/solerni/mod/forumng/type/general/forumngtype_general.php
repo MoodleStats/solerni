@@ -169,7 +169,8 @@ class forumngtype_general extends forumngtype {
         }
 
         // Show Alert info.
-        if ($forum->has_reporting_email()) {
+        // ORANGE : add control if user is connected
+        if ($forum->has_reporting_email() && isloggedin()) {
             print $out->box(get_string('alert_intro', 'forumng'), 'generalbox', 'forumng-reportingon');
         }
 
@@ -324,12 +325,14 @@ class forumngtype_general extends forumngtype {
         // Link back to forum
         print $discussion->display_link_back_to_forum();
 
-        // Display discussion features (row of buttons)
-        print $discussion->display_forumngfeature_discussions();
+        // Orange : control about user if he is not logged        .
+        if (isloggedin()) {
+            // Display discussion features (row of buttons)
+            print $discussion->display_forumngfeature_discussions();
 
-        // Display the subscription options to this disucssion if available
-        print $discussion->display_subscribe_options();
-
+            // Display the subscription options to this disucssion if available
+            print $discussion->display_subscribe_options();
+        }
         // Atom/RSS links
         print $discussion->display_feed_links();
 

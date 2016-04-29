@@ -64,7 +64,7 @@ class mail_test {
     }
 
 
-    static public function user_account_mail($user, $modetext=false) {
+    static public function user_account_mail_public($user, $modetext=false) {
         global $CFG;
 
         $profileurl = "$CFG->wwwroot/user/view.php?id=" . $user->id;
@@ -88,7 +88,7 @@ class mail_test {
         }
 
         $subject = get_string('subjectuseraccountemail', 'local_orange_event_user_loggedin');
-        $subject = '(M2)' . str_replace('{$a->sitename}', format_string($site->fullname), $subject);
+        $subject = '(M2)' . str_replace('{$a->customername}', ucfirst($CFG->solerni_customer_name), $subject);
 
         if ($modetext) {
             $user->mailformat = 0;
@@ -99,8 +99,7 @@ class mail_test {
         email_to_user($user, $contact, $subject, $messagetext, $messagehtml);
     }
 
-
-    static public function user_welcome_mail($user, $modetext=false) {
+    static public function user_account_mail_private($user, $modetext=false) {
         global $CFG;
 
         $profileurl = "$CFG->wwwroot/user/view.php?id=" . $user->id;
@@ -108,8 +107,8 @@ class mail_test {
         $siteurl = $CFG->wwwroot;
         $site  = get_site();
 
-        // Send welcome message.
-        $message = get_string('contentwelcomeemail', 'local_orange_event_user_loggedin');
+        // Send account email reminder.
+        $message = get_string('contentuseraccountemailprivate', 'local_orange_event_user_loggedin');
         $key = array('{$a->fullname}', '{$a->email}', '{$a->sitename}', '{$a->siteurl}', '{$a->profileurl}');
         $value = array(fullname($user), $user->email, format_string($site->fullname),
             $siteurl, $profileurl);
@@ -123,8 +122,8 @@ class mail_test {
             $messagetext = html_to_text($messagehtml);
         }
 
-        $subject = get_string('subjectwelcomeemail', 'local_orange_event_user_loggedin');
-        $subject = '(M3)' . str_replace('{$a->sitename}', format_string($site->fullname), $subject);
+        $subject = get_string('subjectuseraccountemailprivate', 'local_orange_event_user_loggedin');
+        $subject = '(M2)' . str_replace('{$a->customername}', ucfirst($CFG->solerni_customer_name), $subject);
 
         if ($modetext) {
             $user->mailformat = 0;
@@ -133,7 +132,6 @@ class mail_test {
         }
 
         email_to_user($user, $contact, $subject, $messagetext, $messagehtml);
-
     }
 
     static public function send_password_change_confirmation_email($user, $modetext=false) {
@@ -262,8 +260,6 @@ class mail_test {
         $message = html_to_text($messagehtml);
         $subject = '(M7)' . get_string('informationmessage', 'enrol_orangenextsession', format_string($course->fullname));
 
-        $context = context_course::instance($instance->courseid, MUST_EXIST);
-
         if ($modetext) {
             $user->mailformat = 0;
         } else {
@@ -320,7 +316,7 @@ class mail_test {
     // Mail M9 to M13 in Forum NG plugin.
 
     static public function setnew_password_and_mail($user, $modetext=false) {
-        global $CFG, $DB;
+        global $CFG;
 
         // We try to send the mail in language the user understands,
         // unfortunately the filter_string() does not support alternative langs yet
@@ -362,4 +358,30 @@ class mail_test {
 
     // Mail M15 solerni contact form.
 
+    // Mail M16 Badge.
+
+    static public function emailupdatemessage($user, $modetext=false) {
+        global $CFG;
+
+        $site  = get_site();
+
+        $a = new stdClass();
+        $a->url = $CFG->wwwroot . '/user/emailupdate.php?key=' . 'dummy' . '&id=' . $user->id;
+        $a->site = format_string($site->fullname, true, array('context' => context_course::instance(SITEID)));
+        $a->fullname = fullname($user, true);
+
+        $emailupdatemessage = get_string('emailupdatemessage', 'auth', $a);
+        $emailupdatetitle = '(M17)' . get_string('emailupdatetitle', 'auth', $a);
+
+        if ($modetext) {
+            $user->mailformat = 0;
+        } else {
+            $user->mailformat = 1;
+        }
+
+        // Email confirmation directly rather than using messaging so they will definitely get an email.
+        $supportuser = core_user::get_support_user();
+
+        return email_to_user($user, $supportuser, $emailupdatetitle, html_to_text($emailupdatemessage), $emailupdatemessage);
+    }
 }

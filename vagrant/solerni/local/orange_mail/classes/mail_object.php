@@ -23,6 +23,7 @@ defined('MOODLE_INTERNAL') || die();
 
 use theme_halloween\settings\options;
 use theme_halloween\tools\theme_utilities;
+use local_orange_library\utilities\utilities_network;
 require_once(dirname(__FILE__) . '/Emogrifier.php');
 
 
@@ -37,7 +38,7 @@ class mail_object {
      * @return string (content of mail template)
      */
     public static function get_mail($content, $mailtype, $footertype) {
-        global $CFG, $USER;
+        global $CFG;
         $imageurl = new moodle_url('/local/orange_mail/pix/mail/');
 
         $site  = get_site();
@@ -50,6 +51,11 @@ class mail_object {
         $b->siteurl = $CFG->wwwroot;
         $b->catalogurl = $CFG->wwwroot . '/catalog/';
         $b->profilurl = $CFG->wwwroot . '/user/profile.php';
+        if ((utilities_network::is_platform_uses_mnet()) && (utilities_network::is_thematic())) {
+            $b->servicename = ucfirst($CFG->solerni_customer_name) . ' ' . ucfirst($CFG->solerni_thematic);
+        } else {
+            $b->servicename = ucfirst($CFG->solerni_customer_name);
+        }
 
         $b->solernimailsignature = get_string('solernimailsignature', 'local_orange_mail');
         $b->solernimailsignaturetext = get_string('solernimailsignaturetext', 'local_orange_mail');

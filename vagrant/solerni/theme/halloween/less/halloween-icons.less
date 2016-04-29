@@ -1,277 +1,462 @@
 .icon-halloween {
-    display:            block;
+    display:            inline-block;
     height:             @s-small-icon-size;
     width:              @s-small-icon-size;
     background-repeat:  no-repeat;
     overflow:           hidden;
     text-indent:        100%;
     white-space:        nowrap;
-    background-image:   url([[pix:theme|sprite-halloween-mobile]]);
+    background-image:   url([[pix:theme|halloween-sprite-sheet]]);
 
-    @media (min-width: @screen-sm-min) {
-        height:             @s-standard-icon-size;
-        width:              @s-standard-icon-size;
-        background-image:      url([[pix:theme|sprite-halloween-media]]);
+    &.social {
+        @media (min-width: @screen-sm-min) {
+            height:             @s-standard-icon-size;
+            width:              @s-standard-icon-size;
+            background-image:      url([[pix:theme|halloween-sprite-sheet]]);
+        }
     }
 }
 
+// Facebook icon
 .icon-halloween--facebook {
-    background-position: 0px -62px;
-
+    background-position: 0px -65px;
+    
     @media (min-width: @screen-sm-min) {
-        background-position: 0px -74px;
+        background-position: 0px -319px;
     }
 
     .u-inverse & {
-        background-position: 0 0;
+        background-position: 0px -34px;
+        
+        @media (min-width: @screen-sm-min) {
+            background-position: 0px -282px;
+        }
     }
 }
 
 .icon-halloween--facebook-share {
-    background-position: 0px -91px;
+    background-position: 0px -161px;
 
     @media (min-width: @screen-sm-min) {
-        background-position: 0px -111px;
-    }
-
-    .u-inverse & {
-        background-position: 0 0;
+        background-position: 0px -430px;
     }
 }
 
 .icon-halloween--facebook:hover {
-    background-position: 0px -31px;
-
+    background-position: 0px -127px;
+    
     @media (min-width: @screen-sm-min) {
-        background-position: 0px -37px;
-    }
-}
-
-.icon-halloween--twitter {
-    background-position: -31px -62px;
-
-    @media (min-width: @screen-sm-min) {
-        background-position: -37px -74px;
+        background-position: 0px -393px;
     }
 
     .u-inverse & {
-        background-position: -31px 0;
-
+        background-position: 0px -96px;
+        
         @media (min-width: @screen-sm-min) {
-            background-position: -37px 0;
+            background-position: 0px -356px;
+        }
+    }
+}
+
+// Twitter icon
+.icon-halloween--twitter {
+    background-position: -31px -65px;
+    
+    @media (min-width: @screen-sm-min) {
+        background-position: -37px -319px;
+    }
+
+    .u-inverse & {
+        background-position: -31px -34px;
+        
+        @media (min-width: @screen-sm-min) {
+            background-position: -37px -282px;
         }
     }
 }
 
 .icon-halloween--twitter-share {
-    background-position: -31px -91px;
+    background-position: -31px -161px;
 
     @media (min-width: @screen-sm-min) {
-        background-position: -37px -111px;
+        background-position: -37px -430px;
     }
 
 }
 
 .icon-halloween--twitter:hover {
-    background-position: -31px -31px;
-
+    background-position: -31px -127px;
+    
     @media (min-width: @screen-sm-min) {
-        background-position: -37px -37px;
-    }
-}
-
-.icon-halloween--dailymotion {
-    background-position: -62px -62px;
-
-    @media (min-width: @screen-sm-min) {
-        background-position: -74px -74px;
+        background-position: -37px -393px;
     }
 
     .u-inverse & {
-        background-position: -62px 0;
-
+        background-position: -31px -96px;
+        
         @media (min-width: @screen-sm-min) {
-            background-position: -74px 0;
+            background-position: -37px -356px;
         }
     }
+
+}
+
+// Dailymotion icon
+.icon-halloween--dailymotion {
+    background-position: -62px -65px;
+    
+    @media (min-width: @screen-sm-min) {
+        background-position: -74px -319px;
+    }
+
+    .u-inverse & {
+        background-position: -62px -34px;
+        
+        @media (min-width: @screen-sm-min) {
+            background-position: -74px -282px;
+        }
+    }
+
 }
 
 .icon-halloween--dailymotion-share {
-    background-position: -62px -91px;
+    background-position: -62px -161px;
 
     @media (min-width: @screen-sm-min) {
-        background-position: -74px -111px;
+        background-position: -74px -430px;
     }
 
 }
 
 .icon-halloween--dailymotion:hover {
-    background-position: -62px -31px;
-
+    background-position: -62px -127px;
+    
     @media (min-width: @screen-sm-min) {
-        background-position: -74px -37px;
-    }
-}
-
-.icon-halloween--blog {
-    background-position: -93px -62px;
-
-    @media (min-width: @screen-sm-min) {
-        background-position: -111px -74px;
+        background-position: -74px -393px;
     }
 
     .u-inverse & {
-        background-position: -93px 0;
-
+        background-position: -62px -96px;
+        
         @media (min-width: @screen-sm-min) {
-            background-position: -111px 0;
+            background-position: -74px -356px;
+        }
+    }
+}
+
+// Blog icon
+.icon-halloween--blog {
+    background-position: -93px -65px;
+    
+    @media (min-width: @screen-sm-min) {
+        background-position: -111px -319px;
+    }
+
+    .u-inverse & {
+        background-position: -93px -34px;
+        
+        @media (min-width: @screen-sm-min) {
+            background-position: -111px -282px;
         }
     }
 }
 
 .icon-halloween--blog-share {
-    background-position: -93px -93px;
+    background-position: -93px -161px;
 
     @media (min-width: @screen-sm-min) {
-        background-position: -111px -111px;
+        background-position: -111px -430px;
     }
 
 }
 
 .icon-halloween--blog:hover {
-    background-position: -93px -31px;
-
+    background-position: -93px -127px;
+    
     @media (min-width: @screen-sm-min) {
-        background-position: -111px -37px;
-    }
-
-}
-
-.icon-halloween--email {
-    background-position: -124px -62px;
-
-    @media (min-width: @screen-sm-min) {
-        background-position: -148px -74px;
+        background-position: -111px -393px;
     }
 
     .u-inverse & {
-        background-position: -124px 0;
+        background-position: -93px -96px;
+        
         @media (min-width: @screen-sm-min) {
-            background-position: -148px 0;
+            background-position: -111px -356px;
         }
     }
-}
-
-.icon-halloween--email-share {
-    background-position: -124px -93px;
-
-    @media (min-width: @screen-sm-min) {
-        background-position: -148px -111px;
-    }
 
 }
 
-.icon-halloween--email:hover {
-    background-position:-124px -31px;
-
-    @media (min-width: @screen-sm-min) {
-        background-position: -148px -37px;
-    }
-}
-
-
+// Google+ icon
 .icon-halloween--googleplus {
-    background-position:-155px -62px;
+    background-position:-124px -65px;
 
     @media (min-width: @screen-sm-min) {
-        background-position: -185px -74px;
+        background-position: -148px -319px;
     }
 
     .u-inverse & {
-        background-position: -155px 0;
+        background-position: -124px -34px;
 
         @media (min-width: @screen-sm-min) {
-            background-position: -185px 0;
+            background-position: -148px -282px;
         }
     }
 }
 
 .icon-halloween--googleplus-share {
-    background-position: -155px -93px;
+    background-position: -124px -161px;
 
     @media (min-width: @screen-sm-min) {
-        background-position: -185px -111px;
+        background-position: -148px -430px;
     }
 
 }
 
 .icon-halloween--googleplus:hover {
-    background-position: -155px -31px;
+    background-position: -124px -127px;
 
     @media (min-width: @screen-sm-min) {
-        background-position: -185px -37px;
-    }
-}
-
-
-.icon-halloween--linkedin {
-    background-position:-186px -62px;
-
-    @media (min-width: @screen-sm-min) {
-        background-position: -222px -74px;
+        background-position: -148px -393px;
     }
 
     .u-inverse & {
-        background-position: -186px 0;
+        background-position: -124px -96px;
 
         @media (min-width: @screen-sm-min) {
-            background-position: -222px 0;
+            background-position: -148px -356px;
+        }
+    }
+}
+
+// Linkedin
+.icon-halloween--linkedin {
+    background-position:-155px -65px;
+
+    @media (min-width: @screen-sm-min) {
+        background-position: -185px -319px;
+    }
+
+    .u-inverse & {
+        background-position: -155px -34px;
+
+        @media (min-width: @screen-sm-min) {
+            background-position: -185px -282px;
         }
     }
 }
 
 .icon-halloween--linkedin-share {
-    background-position: -186px -93px;
+    background-position: -155px -161px;
 
     @media (min-width: @screen-sm-min) {
-        background-position: -222px -111px;
+        background-position: -185px -430px;
     }
 
 }
 
 .icon-halloween--linkedin:hover {
-    background-position: -186px -31px;
+    background-position: -155px -127px;
 
     @media (min-width: @screen-sm-min) {
-        background-position: -222px -37px;
-    }
-}
-
-
-.icon-halloween--viadeo {
-    background-position:-217px -62px;
-
-    @media (min-width: @screen-sm-min) {
-        background-position: -259px -74px;
+        background-position: -185px -393px;
     }
 
     .u-inverse & {
-        background-position: -217px 0;
+        background-position: -155px 96;
 
         @media (min-width: @screen-sm-min) {
-            background-position: -259px 0;
+            background-position: -185px -356px;
         }
     }
 }
 
-.icon-halloween--viadeo:hover {
-    background-position: -217px -31px;
+// Viadeo icon
+.icon-halloween--viadeo {
+    background-position:-186px -65px;
 
     @media (min-width: @screen-sm-min) {
-        background-position: -259px -37px;
+        background-position: -222px -319px;
+    }
+
+    .u-inverse & {
+        background-position: -186px -34px;
+
+        @media (min-width: @screen-sm-min) {
+            background-position: -222px -282px;
+        }
     }
 }
 
+.icon-halloween--viadeo-share {
+    background-position: -186px -161px;
+
+    @media (min-width: @screen-sm-min) {
+        background-position: -222px -430px;
+    }
+
+}
+
+.icon-halloween--viadeo:hover {
+    background-position: -186px -127px;
+
+    @media (min-width: @screen-sm-min) {
+        background-position: -222px -393px;
+    }
+
+    .u-inverse & {
+        background-position: -186px -96px;
+
+        @media (min-width: @screen-sm-min) {
+            background-position: -222px -356px;
+        }
+    }
+
+}
+
+// Email icon
+.icon-halloween--email {
+    background-position:-218px -65px;
+
+    @media (min-width: @screen-sm-min) {
+        background-position: -259px -319px;
+    }
+
+    .u-inverse & {
+        background-position: -218px -34px;
+
+        @media (min-width: @screen-sm-min) {
+            background-position: -259px -282px;
+        }
+    }
+}
+
+.icon-halloween--email-share {
+    background-position: -218px -97px;
+
+    @media (min-width: @screen-sm-min) {
+        background-position: -259px -357px;
+    }
+
+}
+
+.icon-halloween--email:hover {
+    background-position: -218px -97px;
+
+    @media (min-width: @screen-sm-min) {
+        background-position: -259px -357px;
+    }
+
+    .u-inverse & {
+        background-position: -218px -97px;
+
+        @media (min-width: @screen-sm-min) {
+            background-position: -259px -357px;
+        }
+    }
+}
+
+// Calendar icon
+.icon-halloween--calendar {
+    background-position:0px -220px;
+
+    @media (min-width: @screen-sm-min) {
+        background-position: 0px -220px;
+    }
+
+    .u-inverse & {
+        background-position: 0px -220px;
+
+        @media (min-width: @screen-sm-min) {
+            background-position: 0px -220px;
+        }
+    }
+}
+    // Sequence icon
+
+.icon-halloween--sequence {
+    background-position:-31px -220px;
+
+    @media (min-width: @screen-sm-min) {
+        background-position: -31px -220px;
+    }
+
+    .u-inverse & {
+        background-position: -31px -220px;
+
+        @media (min-width: @screen-sm-min) {
+            background-position: -31px -220px;
+        }
+    }
+}
+    // time icon
+
+.icon-halloween--time {
+    background-position:-62px -220px;
+
+    @media (min-width: @screen-sm-min) {
+        background-position: -62px -220px;
+    }
+
+    .u-inverse & {
+        background-position: -62px -220px;
+
+        @media (min-width: @screen-sm-min) {
+            background-position: -62px -220px;
+        }
+    }
+}
+    // Certificate icon
+
+.icon-halloween--certificate {
+    background-position:-93px -220px;
+
+    @media (min-width: @screen-sm-min) {
+        background-position: -93px -220px;
+    }
+
+    .inactive & {
+        background-position: -93px -251px;
+
+        @media (min-width: @screen-sm-min) {
+            background-position: -93px -251px;
+        }
+    }
+}
+    // Badge icon
+
+.icon-halloween--badge {
+    background-position:-124px -220px;
+
+    @media (min-width: @screen-sm-min) {
+        background-position: -124px -220px;
+    }
+
+    .inactive & {
+        background-position: -124px -251px;
+
+        @media (min-width: @screen-sm-min) {
+            background-position: -124px -251px;
+        }
+    }
+}
+    // Price icon
+
+.icon-halloween--price {
+    background-position:-155px -220px;
+
+    @media (min-width: @screen-sm-min) {
+        background-position: -155px -220px;
+    }
+
+    .inactive & {
+        background-position: -155px -251px;
+
+        @media (min-width: @screen-sm-min) {
+            background-position: -155px -251px;
+        }
+    }
+}
 .glyphicon-class {
     display: block;
     font-size: 12px;

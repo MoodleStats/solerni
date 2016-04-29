@@ -27,6 +27,8 @@
 require_once(dirname(__FILE__) . '/../../config.php');
 require_once($CFG->dirroot.'/blocks/orange_progressbar/lib.php');
 
+require_login(null, false);
+
 // Gather form data.
 $id       = required_param('progressbarid', PARAM_INT);
 $courseid = required_param('courseid', PARAM_INT);

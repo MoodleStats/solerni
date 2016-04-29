@@ -16,6 +16,7 @@
 
 require_once($CFG->dirroot . '/course/moodleform_mod.php');
 require_once($CFG->dirroot . '/mod/forumng/mod_forumng.php');
+require_once($CFG->dirroot.'/blocks/orange_listforumng/lib.php');
 
 /**
  * Listforumng block config form class
@@ -27,16 +28,19 @@ require_once($CFG->dirroot . '/mod/forumng/mod_forumng.php');
 
 class block_orange_listforumng_edit_form extends block_edit_form {
     protected function specific_definition($mform) {
-        global $CFG, $COURSE, $DB, $OUTPUT;
+        global $COURSE, $DB;
 
         $turnallon = optional_param('turnallon', 0, PARAM_INT);
 
-        // Fields for editing HTML block title and contents.
-        $mform->addElement('header', 'configheader', get_string('blocksettings', 'block'));
+        // No title if in forum page : title is defined in lang file.
+        if (!block_orange_listforumng_on_forum_index_page()) {
+            // Fields for editing HTML block title and contents.
+            $mform->addElement('header', 'configheader', get_string('blocksettings', 'block'));
 
-        // Set listforumng block instance title.
-        $mform->addElement('text', 'config_title', get_string('pluginname', 'block_orange_listforumng'));
-        $mform->setType('config_title', PARAM_TEXT);
+            // Set listforumng block instance title.
+            $mform->addElement('text', 'config_title', get_string('title', 'block_orange_listforumng'));
+            $mform->setType('config_title', PARAM_TEXT);
+        }
 
         // Get course section information.
         $allforums = block_orange_listforumng_get_all($COURSE->id);
@@ -46,32 +50,18 @@ class block_orange_listforumng_edit_form extends block_edit_form {
         $mform->addElement('header', 'section', format_string($sectionname));
         $mform->setExpanded('section');
 
-        // Output the form elements for each forum.
-        foreach ($allforums as $courseid => $forums) {
-            // Start box.
-            $attributes = array('class' => 'progressConfigBox');
-            $moduleboxstart = html_writer::start_tag('div', $attributes);
-            $mform->addElement('html', $moduleboxstart);
+        $course = $DB->get_record('course', array('id' => $COURSE->id), '*', MUST_EXIST);
+        $text = get_string('course', 'block_orange_listforumng') . $course->fullname;
+        $attributes = array('class' => 'progressConfigModuleTitle');
+        $moduletitle = html_writer::tag('div', $text, $attributes);
 
-            // Icon, course icon and name.
-            $course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
+        $mform->addElement('html', $moduletitle);
 
-            $icon = $OUTPUT->pix_icon('i/course', '');
-
-            $text = $course->fullname;
-
-            $attributes = array('class' => 'progressConfigModuleTitle');
-
-            $moduletitle = html_writer::tag('div', $icon. " " . $text, $attributes);
-
-            $mform->addElement('html', $moduletitle);
-
-            foreach ($forums as $forum) {
-
-                // Allow monitoring turned on or off.
-                $mform->addElement('advcheckbox', 'config_forumng_'.$forum['id'], null, $forum["name"]);
-                $mform->setDefault('config_forumng_'.$forum['id'], $turnallon);
-            }
+        foreach ($allforums as $forum) {
+            // Allow monitoring turned on or off.
+            $mform->addElement('advcheckbox',
+                    'config_forumng_'.$forum->id, null, $forum->name);
+            $mform->setDefault('config_forumng_'.$forum->id, $turnallon);
         }
 
     }

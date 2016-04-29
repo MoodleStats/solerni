@@ -36,7 +36,6 @@ require_once($CFG->libdir . '/formslib.php');
 class orange_rules_list extends moodleform implements renderable {
 
     public function definition() {
-        global $DB;
 
         $mform = & $this->_form;
 

@@ -15,6 +15,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace theme_halloween\tools;
+use local_orange_library\extended_course\extended_course_object;
+use local_orange_library\utilities\utilities_course;
+use theme_halloween\tools\log_and_session_utilities;
+use local_orange_library\utilities\utilities_network;
+use html_writer;
 
 class theme_utilities {
 
@@ -55,10 +60,21 @@ class theme_utilities {
         return false;
     }
 
+    /**
+     *
+     * Returns true if the settings exists in the $PAGE object
+     * and that it is truly not empty (i.e. not a empty tag),
+     * otherwise, return false.
+     *
+     * @global type $PAGE
+     * @param string $setting
+     * @return boolean
+     */
     private static function is_theme_setting_exists($setting) {
         global $PAGE;
+
         if (property_exists($PAGE->theme->settings, $setting)) {
-            return !empty($PAGE->theme->settings->$setting);
+            return !empty(strip_tags($PAGE->theme->settings->$setting));
         }
 
         return false;
@@ -108,4 +124,159 @@ class theme_utilities {
             require_once($CFG->dirroot . '/local/analytics/lib.php');
         }
     }
+
+    /**
+     *  Identifying helper for page layout without breadcrumb
+     *
+     * @return bool
+     */
+    public static function is_layout_uses_breadcrumbs() {
+        global $PAGE;
+
+        $pageswithoutbreadcrumbs = array('login');
+
+        if (in_array($PAGE->pagelayout, $pageswithoutbreadcrumbs)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     *  Identifying helper for page layout without breadcrumb
+     *
+     * @return bool
+     */
+    public static function is_layout_uses_page_block_title() {
+        global $PAGE;
+
+        $pageswithoutpageblocktitle = array('admin', 'mydashboard');
+
+        if (in_array($PAGE->pagelayout, $pageswithoutpageblocktitle)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Returns the titles for the page
+     * meta_title, meta_desc, pageblocktitleh1, pageblockdesc
+     *
+     *
+     * @return object
+     */
+    public static function define_page_titles_and_desc() {
+
+        global $PAGE, $CFG;
+
+        require_once($CFG->dirroot . '/filter/multilang/filter.php');
+        $filtermultilang = new \filter_multilang($PAGE->context, array());
+
+        $return = new \stdClass;
+
+        switch ($PAGE->pagetype) {
+
+            case 'login-index':
+                if (theme_utilities::is_theme_settings_exists_and_nonempty('logintitle')) {
+                    $return->pageblocktitleh1 = $filtermultilang->filter($PAGE->theme->settings->logintitle);
+                } else {
+                    $return->pageblocktitleh1 = get_string('login');
+                }
+
+                if (theme_utilities::is_theme_settings_exists_and_nonempty('logintext')) {
+                    $return->pageblockdesc = $filtermultilang->filter($PAGE->theme->settings->logintext);
+                } else {
+                    $return->pageblockdesc = get_string('not_registered_yet', 'theme_halloween');
+                    $return->pageblockdesc .= ' ';
+                    $return->pageblockdesc .= \html_writer::tag('a', get_string('i_do_register', 'theme_halloween'),
+                        array('class' => 'tag-platform-subscription',
+                            'href' => log_and_session_utilities::get_register_form_url()));
+                }
+                break;
+
+            case 'login-signup':
+                if (theme_utilities::is_theme_settings_exists_and_nonempty('signuptitle')) {
+                    $return->pageblocktitleh1 = $filtermultilang->filter($PAGE->theme->settings->signuptitle);
+                } else {
+                    $return->pageblocktitleh1 = get_string('signup');
+                }
+
+                if (theme_utilities::is_theme_settings_exists_and_nonempty('signuptext')) {
+                    $return->pageblockdesc = $filtermultilang->filter($PAGE->theme->settings->signuptext);
+                } else {
+                    $return->pageblockdesc = get_string('already_registered', 'theme_halloween');
+                    $return->pageblockdesc .= ' ';
+                    $return->pageblockdesc .= \html_writer::tag('a', get_string('i_do_login', 'theme_halloween'),
+                        array('class' => 'tag-platform-subscription', 'href' => $CFG->wwwroot . '/login/index.php'));
+                }
+                break;
+
+            case 'site-index':
+                if (utilities_network::is_platform_uses_mnet() && utilities_network::is_home()) {
+                    $return->pageblocktitleh1 = get_string('hometitle', 'theme_halloween');
+                    $return->pageblockdesc = ' ';
+                } else {
+                    $return->pageblocktitleh1 = $PAGE->title;
+                    $return->pageblockdesc = '';
+                }
+                break;
+
+            default:
+                $return->pageblocktitleh1 = $PAGE->title;
+                $return->pageblockdesc = '';
+                break;
+        }
+
+        return $return;
+
+    }
+
+      /**
+     * Display button for "Find out more" page
+     *
+     * @return string $output
+     */
+    public function display_button ($buttonsetting, $containersetting, $courseid) {
+
+        global $COURSE;
+
+        $context = \context_course::instance($courseid);
+        $extendedcourse = new extended_course_object();
+        $extendedcourse->get_extended_course($COURSE, $context);
+        if($buttonsetting) {
+            $cssbutton = ' '.$buttonsetting;
+        }
+        if($containersetting) {
+            $csscontainer = ' '.$containersetting;
+        }
+
+        // Display first line.
+        $output = html_writer::start_tag('div', array('class' => 'row'. $csscontainer));
+        $output .= html_writer::tag('div', $extendedcourse->displaybutton, array('class' => $cssbutton));
+
+                // If next session link shoulfd be display.
+        if ($extendedcourse->registrationstatus == utilities_course::MOOCREGISTRATIONCOMPLETE) {
+                    $output .= html_writer::tag('a', get_string('nextsessionlink', 'block_orange_action'),
+                array('class' => '', 'href' => $extendedcourse->newsessionurl ));
+        }
+
+        $output .= html_writer::end_tag('div');
+
+
+        return $output;
+    }
+
+       /**
+     * Display line for "Find out more" page
+     *
+     * @return string $output
+     */
+    public function display_line ($containersetting) {
+        
+        $output = html_writer::tag('div', '', array('class' => "col-xs-12 fullwidth-line ". $containersetting));
+
+        return $output;
+    }
+
 }

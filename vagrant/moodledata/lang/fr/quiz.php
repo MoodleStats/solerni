@@ -173,7 +173,7 @@ $string['comments'] = 'Commentaires';
 $string['completedon'] = 'Terminé le';
 $string['completionattemptsexhausted'] = 'Ou toutes les tentatives terminées';
 $string['completionattemptsexhausted_help'] = 'Marquer le test comme terminé lorsque l\'étudiant a épuisé le nombre maximal de tentatives.';
-$string['completionpass'] = 'Requiert une note';
+$string['completionpass'] = 'Requiert la note de passage';
 $string['completionpass_help'] = 'Si ce réglage est activé, l\'activité est considérée comme terminée lorsque l\'étudiant reçoit une note suffisante, cette note étant définie dans le carnet de notes.';
 $string['configadaptive'] = 'Si cette option est activée, le participant pourra donner plusieurs réponses à une question lors de la même tentative du test.';
 $string['configattemptsallowed'] = 'La restriction du nombre des tentatives des participants est autorisée.';
@@ -475,7 +475,7 @@ $string['missingcorrectanswer'] = 'La réponse correcte doit être indiquée';
 $string['missingitemtypename'] = 'Nom manquant';
 $string['missingquestion'] = 'La question n\'existe plus.';
 $string['modulename'] = 'Test';
-$string['modulename_help'] = 'Le module d\'activité test permet à l\'enseignant de créer des tests comportant des questions de divers types, notamment des questions à choix multiples, vrai-faux, de correspondances, à réponses courtes ou calculées.
+$string['modulename_help'] = 'Le module d\'activité test permet à l\'enseignant de créer des tests comportant des questions de divers types, notamment des questions à choix multiple, vrai-faux, d\'appariement, à réponses courtes ou calculées.
 
 L\'enseignant peut autoriser plusieurs tentatives pour un test, les questions étant mélangées ou choisies aléatoirement dans une banque de questions. Une limite de temps peut être fixée.
 
@@ -492,7 +492,7 @@ Les tests peuvent notamment être utilisés :
 * pour l\'auto-évaluation.';
 $string['modulenameplural'] = 'Tests';
 $string['moveselectedonpage'] = 'Déplacer les questions sélectionnées vers la page {$a}';
-$string['multichoice'] = 'Choix multiples';
+$string['multichoice'] = 'Choix multiple';
 $string['multipleanswers'] = 'Veuillez choisir au moins une réponse.';
 $string['multiplier'] = 'Coefficient';
 $string['mustbesubmittedby'] = 'Cette tentative doit être envoyée avant {$a}.';
@@ -726,7 +726,7 @@ $string['replace'] = 'Remplacer';
 $string['replacementoptions'] = 'Options de remplacement';
 $string['report'] = 'Rapports';
 $string['reportanalysis'] = 'Analyse des éléments';
-$string['reportattemptsfrom'] = 'Tentatives depuis';
+$string['reportattemptsfrom'] = 'Tentatives des';
 $string['reportattemptsthatare'] = 'Tentatives qui sont';
 $string['reportdisplayoptions'] = 'Options d\'affichage';
 $string['reportfullstat'] = 'Statistiques détaillées';
@@ -742,10 +742,10 @@ $string['reports'] = 'Rapports';
 $string['reportshowonly'] = 'Afficher selon les tentatives';
 $string['reportshowonlyfinished'] = 'Afficher au plus une tentative terminée par utilisateur ({$a})';
 $string['reportsimplestat'] = 'Statistique simple';
-$string['reportusersall'] = 'Tous les utilisateurs qui ont effectué le test';
-$string['reportuserswith'] = 'Les utilisateurs inscrits qui ont effectué le test';
-$string['reportuserswithorwithout'] = 'Les utilisateurs inscrits qui ont ou n\'ont pas effectué le test';
-$string['reportuserswithout'] = 'Les utilisateurs inscrits qui n\'ont pas effectué le test';
+$string['reportusersall'] = 'utilisateurs ayant effectué le test';
+$string['reportuserswith'] = 'utilisateurs inscrits ayant effectué le test';
+$string['reportuserswithorwithout'] = 'utilisateurs inscrits (ayant ou non effectué le test)';
+$string['reportuserswithout'] = 'utilisateurs inscrits n\'ayant pas effectué le test';
 $string['reportwhattoinclude'] = 'Informations à inclure dans le rapport';
 $string['requirepassword'] = 'Nécessite une clef';
 $string['requirepassword_help'] = 'Si vous spécifiez ici un mot de passe, les participants devront le saisir avant de pouvoir faire le test.';
@@ -847,7 +847,7 @@ $string['shufflequestions_help'] = 'Si ce réglage est activé, à chaque tentat
 
 Ceci permet de rendre plus difficile le partage des réponses entre étudiants, mais rend également plus difficile les discussions entre les étudiants et vous sur une question déterminée.';
 $string['shufflewithin'] = 'Mélanger les éléments des questions';
-$string['shufflewithin_help'] = 'Si cette option est activée, les propositions de réponses aux questions seront mélangées aléatoirement à chaque nouvelle tentative du test, à condition que l\'option correspondant ait également été activée dans les paramètres de la question. Le réglage ne s\'applique qu\'aux questions qui comportent des propositions de réponses, telles que les questions à choix multiples ou les questions d\'appariement.';
+$string['shufflewithin_help'] = 'Si cette option est activée, les propositions de réponses aux questions seront mélangées aléatoirement à chaque nouvelle tentative du test, à condition que l\'option correspondant ait également été activée dans les paramètres de la question. Le réglage ne s\'applique qu\'aux questions qui comportent des propositions de réponses, telles que les questions à choix multiple ou les questions d\'appariement.';
 $string['singleanswer'] = 'Veuillez choisir une réponse.';
 $string['sortage'] = 'Trier par date';
 $string['sortalpha'] = 'Trier par nom';

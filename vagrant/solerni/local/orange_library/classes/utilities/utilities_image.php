@@ -82,7 +82,7 @@ class utilities_image {
         if ($file) {
             $downloadimage = true;
             $localfilepath = $remotefolder.$file->get_filename();
-            if (file_exists($localfilepath)) {
+            if (file_exists($localfilepath) && filesize($localfilepath)) {
                 if ($file->get_timecreated() < strtotime('+'.$opts['cache_http_minutes'].' minutes')) {
                     $downloadimage = false;
                 }
@@ -96,7 +96,7 @@ class utilities_image {
             list($filename) = explode('?', $finfo['basename']);
             $localfilepath = $remotefolder.$filename;
             $downloadimage = true;
-            if (file_exists($localfilepath)) {
+            if (file_exists($localfilepath) && filesize($localfilepath)) {
                 if (filemtime($localfilepath) < strtotime('+'.$opts['cache_http_minutes'].' minutes')) {
                     $downloadimage = false;
                 }
@@ -212,31 +212,25 @@ class utilities_image {
     }
 
     /**
-     * Returns a moodle url object from Moodle File Storage
+     * Check and returns a moodle url object from Moodle File Storage.
      *
      * @param stored_file $storedfile
-     * @return moodle_url
+     * @return string
      */
-    public static function get_moodle_url_from_stored_file($storedfile) {
+    public static function get_moodle_url_from_stored_file($storedfile, $forcedownload = false) {
 
-        if (!is_a($storedfile, 'stored_file')) {
+        if (!is_a($storedfile, 'stored_file') || $storedfile->get_filename() == ".") {
             return false;
         }
 
-        if ($storedfile->get_filename() == ".") {
-            return false;
-        }
-
-        $url = \moodle_url::make_pluginfile_url(
+        return \moodle_url::make_pluginfile_url(
             $storedfile->get_contextid(),
             $storedfile->get_component(),
             $storedfile->get_filearea(),
-            $storedfile->get_itemid(),
+            ($storedfile->get_itemid()) ? $storedfile->get_itemid() : NULL,
             $storedfile->get_filepath(),
-            $storedfile->get_filename()
+            $storedfile->get_filename(),
+            $forcedownload
         );
-
-        return $url;
     }
-
 }

@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version  = 2016010600;
+$plugin->version  = 2016030800;
 $plugin->requires = 2014051200;   // Requires Moodle 2.7 or later.
 $plugin->maturity = MATURITY_RC;  // This version's maturity level.
 $plugin->component = 'enrol_orangeinvitation';      // Full name of the plugin (used for diagnostics)

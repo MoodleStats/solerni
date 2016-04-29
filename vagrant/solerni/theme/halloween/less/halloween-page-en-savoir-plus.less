@@ -1,0 +1,302 @@
+/*
+ * This file include Solerni CSS specific code :
+ * keeps code that is not lengthy enough to be into a specific file
+ */
+/*
+ * Element LESS template as model :
+
+.classname {
+    permanent_property: value;
+
+    @media (min-width: @screen-sm-min) {
+        sm-specific_property: value;
+        (remove @media block if unused)
+    }
+
+    @media (min-width: @screen-md-min) {
+        md-specific_property: value;
+}
+
+    @media (min-width: @screen-lg-min) {
+        lg-specific_property: value;
+    }
+}
+
+*/
+
+/* en savoir plus */
+.zigzag .row {
+    padding-bottom: @s-triple-md-margin;
+    padding-top:    @s-triple-md-margin;
+}
+
+.zigzag .h2 {
+    line-height:    1; 
+    margin-top:     0;
+    margin-bottom:  @s-double-md-margin;
+}
+
+.zigzag .description-text {
+    font-weight:    bold;  
+}
+
+.zigzag .description-text-right {
+    padding-left:   @s-triple-md-margin;       
+}
+
+.zigzag .description-text-left {
+    padding-right:   @s-triple-md-margin;       
+}
+
+.bg-white {
+    background:     @brand-tertiary;
+}
+
+.bg-yellow {
+    background:     @orange-yellow;
+}
+.bg-blue {
+    background:     @orange-blue;
+}
+
+.bg-green {
+    background:     @orange-green;
+}
+
+.bg-purple {
+    background:     @orange-purple;
+}
+
+.bg-pink {
+    background:     @orange-pink;
+}
+
+.bg-red {
+    background:     @brand-danger;
+}
+
+.bg-orange {
+    background:     @brand-secondary;
+}
+
+.bg-graydarker {
+    background:     @orange-dark-2;
+}
+
+.bg-graydark {
+    background:     @orange-dark-1;
+}
+
+.bg-gray {
+    background:     @orange-mid-1;
+}
+
+.bg-graylight {
+    background:     @orange-light-3;
+}
+
+.bg-graylighter {
+    background:     @orange-light-1;
+}
+
+.list-3-items .row {
+    background:     @orange-light-2;
+    padding-bottom: @s-triple-md-margin;
+    padding-top:    @s-triple-md-margin;
+    
+    .items-block {
+        background: @brand-tertiary;
+        border:     10px solid @orange-light-2;
+        padding-left: 0;
+        padding-right: 0;
+
+        .images-mask {
+            width: 100%;
+            height: 275px;
+            overflow: hidden;
+        }
+    }
+        
+    .items-block > img {
+	width: 100%;
+	height: 275px;
+	transition: all 1s;
+	-moz-transition: all 1s;
+	-webkit-transition: all 1s;
+	-o-transition: all 1s;
+    }
+    
+    .items-block:hover img {
+	transform:          scale(1.2);
+	-ms-transform:      scale(1.2);
+	-webkit-transform:  scale(1.2);
+	-o-transform:       scale(1.2);
+	-moz-transform:     scale(1.2);
+    }
+       
+    .items-block:hover {
+        background: @gray-light;
+    }
+}
+
+.margin-bottom-md {
+     margin-bottom: @grid-gutter-width;
+}
+
+.subscription-banner {
+    text-align:         center;
+    padding-bottom:     @s-double-md-margin;
+    padding-top:        @s-double-md-margin;
+    background-color:   @component-active-bg;
+}
+
+.text-centered {
+    text-align:     center;
+    padding-top:    @s-medium-md-margin;
+    padding-bottom: @s-triple-md-margin;
+}
+
+.information-text {
+    height: 70px;
+    padding-top:    @s-double-md-margin;
+    padding-bottom: @s-double-md-margin;
+}
+
+.item-centered {
+    text-align:     center;
+}
+.icons-map {
+        padding-top:   @s-triple-md-margin;
+        padding-bottom: @s-triple-md-margin;
+
+    .secondary-line+.secondary-line {
+        margin-top: (@s-triple-md-margin - @s-small-md-margin); //40px
+        
+    }
+}
+.icon-map  {
+    float:              left;
+    font-weight:        bold;
+    display:            inline-block; 
+    width:              100%;
+    margin-top: @s-small-md-margin;
+    
+    .centeredicon {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-left: @s-small-xs-margin;  
+
+    }
+
+    img {
+        width:      @font-size-h2;
+        height:     @font-size-h2;
+
+    }    
+}
+
+.icon-map .movetext {
+    float:          right;
+    width: calc(~'100% - 50px');
+}
+
+.icon-map .unselectedtext {
+    color: @gray;
+}
+
+.icon-map .logo-image {
+
+    .centertext {
+        display:    block;
+        float:      left;      
+    }
+
+}
+
+.icon-map .textcentered {
+    float:          right;
+//    line-height:    @s-double-md-margin;
+    margin-left: @s-small-xs-margin;
+}
+
+.icon-map .bigtext {
+    color:          @brand-primary;
+    font-size:      @font-size-h2;
+    //margin-left: @s-small-xs-margin;
+}
+.grey {
+    color: @orange-mid-1;
+}
+
+.page_mooc_block .btn{
+    display: block;
+}
+
+.bottom-space {
+    padding-bottom: @s-triple-md-margin;
+}
+
+.bottom-line-space {
+    margin-bottom: @s-double-md-margin;
+}
+
+/* Block icons map */
+.block_orange_iconsmap {
+    
+    border: 0;
+    
+    .header {
+        border: 0;
+    }
+    
+    .content {
+        border: 0;
+        padding: 0;
+    }
+}
+
+/* Block seprator line */
+.block_orange_separator_line {
+    
+    border: 0;
+    
+    .header {
+        border: 0;
+    }
+    
+    .content {
+        border: 0;
+        padding: 0;
+    }
+}
+
+/* Block social sharing */
+.block_orange_social_sharing {
+    
+    border: 0;
+    
+    .header {
+        border: 0;
+    }
+    
+    .content {
+        border: 0;
+        padding: 0;
+    }
+}
+
+/* Block orange paragraph list */
+.block_orange_paragraph_list {
+    
+    border: 0;
+    
+    .header {
+        border: 0;
+    }
+    
+    .content {
+        border: 0;
+        padding: 0;
+    }
+}

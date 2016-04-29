@@ -27,6 +27,7 @@ use local_orange_library\badges\badges_object;
 use local_orange_library\utilities\utilities_object;
 use local_orange_library\utilities\utilities_image;
 use local_orange_library\utilities\utilities_course;
+use local_orange_library\utilities\utilities_network;
 use local_orange_library\subscription_button\subscription_button_object;
 use local_orange_library\extended_course\extended_course_object;
 
@@ -45,6 +46,12 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
      * @return string
      */
     public function frontpage_available_courses() {
+        
+        // In Solerni Home, no mooc to display
+        if (utilities_network::is_platform_uses_mnet() && utilities_network::is_home()) {
+            return null;
+        }
+
         global $CFG;
         require_once($CFG->libdir. '/coursecatlib.php');
 
@@ -479,7 +486,7 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
             5 => get_string('filterstatusnotstarted', 'theme_halloween'),
             4 => get_string('filterstatusclosed', 'theme_halloween'),
 
-            0 => get_string('filterstatusregistrationcomplete', 'theme_halloween'),
+            0 => get_string('filterstatusallmoocs', 'theme_halloween'),
         );
 
         foreach ($labels as $key => $label) {
@@ -514,19 +521,21 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
             $moocslist .= get_string('nocourses', 'my');
         }
 
-        $buttons = html_writer::start_tag('div', array('class' => ''));
+        $buttons = html_writer::start_tag('ul', array('class' => 'nav nav-tabs orange-nav-tabs', 'role' => 'tablist'));
         foreach ($labels as $key => $label) {
             if($filter == $key) {
-                $arrayclass = array('class' => 'btn btn-default btn-lg btn-primary');
+                $arrayclass = array('class' => 'active', 'role' => 'presentation');
             } else {
-                $arrayclass = array('class' => 'btn btn-default btn-lg');
+                $arrayclass = array('role' => 'presentation');
             }
-            $buttons .= html_writer::link($url.'?filter=' . $key, $label . " (" . $nbcourses[$key] . ")", $arrayclass);
+            $buttons .= html_writer::start_tag('li', $arrayclass);
+                $buttons .= html_writer::link($url.'?filter=' . $key, $label . " (" . $nbcourses[$key] . ")", array('class' => 'orange-nav-tabs-link'));
+            $buttons .= html_writer::end_tag('li');
         }
-        $buttons .= html_writer::end_tag('div');
+        $buttons .= html_writer::end_tag('ul');
 
-        $title = html_writer::start_tag('h2', array('class' => ''));
-        $title .= get_string('titlefollowedcourses', 'block_orange_course_dashboard');
+        $title = html_writer::start_tag('h2');
+            $title .= get_string('titlefollowedcourses', 'block_orange_course_dashboard');
         $title .= html_writer::end_tag('h2');
 
         return $title . $buttons . $moocslist;

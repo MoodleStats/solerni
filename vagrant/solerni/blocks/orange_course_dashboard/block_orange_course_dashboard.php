@@ -33,7 +33,7 @@ class block_orange_course_dashboard extends block_base {
      * Block initialization
      */
     public function init() {
-            $this->title   = get_string('pluginname', 'block_orange_course_dashboard');
+        $this->title   = get_string('pluginname', 'block_orange_course_dashboard');
     }
 
     /**
@@ -42,47 +42,38 @@ class block_orange_course_dashboard extends block_base {
      * @return stdClass contents of block
      */
     public function get_content() {
-        global $USER, $CFG, $DB;
 
         if ($this->content !== null) {
             return $this->content;
         }
 
-        $config = get_config('block_orange_course_dashboard');
-
         $this->content = new stdClass();
         $this->content->text = '';
         $this->content->footer = '';
-
-        list($sortedcourses, $sitecourses, $totalcourses) =
-                block_orange_course_dashboard_get_sorted_courses($config->defaultmaxcourses);
-
         $renderer = $this->page->get_renderer('block_orange_course_dashboard');
 
-        if ($totalcourses) {
-            // We present to the user the list of follow MOOCs.
-            $overviews = block_orange_course_dashboard_get_overviews($sitecourses);
-            if (empty($sortedcourses)) {
-                $this->content->text .= get_string('nocourses', 'my');
-            } else {
-                // For each course, build category cache.
-                $this->content->text .= $renderer->course_overview($sortedcourses, $overviews);
-                $this->content->text .= $renderer->hidden_courses($totalcourses - count($sortedcourses));
-            }
+        $sortedcourses =
+            block_orange_course_dashboard_get_user_courses($this->config->defaultmaxcourses);
+
+        // We have courses and no manual override.
+        if (count($sortedcourses) && !$this->config->forcednoavailabalemooc) {
+            $title = get_string('titlefollowedcourses', 'block_orange_course_dashboard');
+            $condition = (count($sortedcourses) > $this->config->defaultmaxcourses);
+            $btntitle = get_string('titlefollowedcourses', 'block_orange_course_dashboard');
+            $btnurl = (empty($this->config->mymoocsurl)) ?
+                    new moodle_url('/moocs/mymoocs.php') :
+                    new moodle_url($this->config->mymoocsurl);
+            $this->content->text .= $renderer->block_orange_course_dashboard_heading($title, $btntitle, $btnurl, $condition);
+            $this->content->text .= $renderer->block_orange_course_dashboard_render_courses_list($sortedcourses);
         } else {
-            // Set default to 4.
-            if ($config->defaultmaxrecommendations == 0) {
-                $config->defaultmaxrecommendations = 4;
-            }
-            list($recommendedcourses, $recommendedcoursesdetails, $totalrecommendedcourses) =
-                    block_orange_course_dashboard_get_recommended_courses($config->defaultmaxrecommendations);
-            // We display recommandation to the user.
-            if ($totalrecommendedcourses && !$this->hide_recommendation()) {
-                $this->content->text .= $renderer->course_recommendation($recommendedcourses, $recommendedcoursesdetails);
-            } else {
-                $this->content->text .= $renderer->course_norecommendation();
-            }
+            $this->content->text .= $renderer->block_orange_course_dashboard_heading(get_string('nomooctodisplay', 'block_orange_course_dashboard'));
+            $this->content->text .= $renderer->block_orange_course_dashboard_render_nocourses();
         }
+
+        if ($this->config->catalogurl) {
+            $this->content->text .= $renderer->block_orange_course_dashboard_render_footer($this->config->catalogurl);
+        }
+
         return $this->content;
     }
 
@@ -92,7 +83,7 @@ class block_orange_course_dashboard extends block_base {
      * @return boolean
      */
     public function has_config() {
-            return true;
+        return true;
     }
 
     /**
@@ -101,7 +92,7 @@ class block_orange_course_dashboard extends block_base {
      * @return array
      */
     public function applicable_formats() {
-            return array('my-index' => true);
+        return array('my-index' => true);
     }
 
     /**
@@ -110,18 +101,8 @@ class block_orange_course_dashboard extends block_base {
      * @return bool if true then header will be visible.
      */
     public function hide_header() {
-            $config = get_config('block_orange_course_dashboard');
-            return !empty($config->hideblockheader);
+        // Funny. The config must be set here or is uncomplete.
+        $this->config = get_config('block_orange_course_dashboard');
+        return true;
     }
-
-    /**
-     * Force recommendation to be hidden
-     *
-     * @return bool if true then no recommendation displayed.
-     */
-    public function hide_recommendation() {
-            $config = get_config('block_orange_course_dashboard');
-            return !empty($config->forcednoavailabalemooc);
-    }
-
 }

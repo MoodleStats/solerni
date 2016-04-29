@@ -31,7 +31,7 @@ require_once($CFG->dirroot.'/blocks/orange_last_message/locallib.php');
 class block_orange_last_message extends block_base {
 
     public function init() {
-        Global $PAGE;
+        global $PAGE;
         $this->title = get_string('title', 'block_orange_last_message');
         $this->renderer = $PAGE->get_renderer('block_orange_last_message');
     }
@@ -60,7 +60,7 @@ class block_orange_last_message extends block_base {
     }
 
     public function get_content() {
-        Global $USER;
+        global $USER;
 
         if ($this->content !== null) {
             return $this->content;

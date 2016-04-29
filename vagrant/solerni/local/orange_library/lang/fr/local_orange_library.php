@@ -48,8 +48,8 @@ $string['new_session']          = 'nouvelle session';
 // Extended course object.
 $string['english']              = 'Anglais';
 $string['french']               = 'Français';
-$string['duration_default']     = 'Moins de 4 semaines';
-$string['workingtime_default']  = 'Moins d\'une heure';
+$string['duration_default']     = 0;
+$string['workingtime_default']  = 0;
 $string['prerequesites_default'] = 'Pas de prérequis';
 $string['subtitle']             = 'Sous-titres';
 $string['subtitle_default']     = 'Sous-titres';
@@ -87,3 +87,19 @@ $string['blockmissing'] = 'Bloc "{$a}" manquant.';
 $string['startenrolmentdatemissing'] = "La date de début d'inscription n'est pas renseignée dans la méthode 'auto-inscription'";
 $string['endenrolmentdatemissing'] = "La date de fin d'inscription n'est pas renseignée dans la méthode 'auto-inscription'";
 $string['orangeinvitationconfigmissing'] = "Vous devez enregistrer au moins une fois la configuration de la méthode d'inscription 'URLs d'accès au cours'";
+
+$string['today'] = "auj, ";
+$string['yesterday'] = "hier, ";
+
+// Cron Tasks.
+$string['orange_library_mnet_task'] = "Mise à jour des clés MNET";
+$string['orange_library_mnet_mail'] = '<p>Bonjour  {$a->firstname}  {$a->lastname},</p>
+<p>Je suis la tâche automatisée de vérification de la validité des clés MNet pour <b>{$a->sitename}</b>';
+$string['orange_library_mnet_mail_subject'] = "Test de validité des clés MNet ";
+$string['orange_library_thematic_task'] = "Mise à jour des informations des thématiques";
+
+// Course menu item.
+$string['coursemenulearn'] = "Apprendre";
+$string['coursemenulearnmore'] = "Actualités";
+$string['coursemenuforum'] = "Forum";
+$string['coursemenushare'] = "Ressource";

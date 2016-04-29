@@ -147,6 +147,10 @@ class mod_forumng_post {
         if (isguestuser()) {
             return false;
         }
+        // ORANGE : The user not connected cannot flag
+        if (!isloggedin()) {
+            return false;
+        }
         return true;
     }
 
@@ -1769,6 +1773,11 @@ WHERE
             return false;
         }
 
+        // ORANGE : The user not connected cannot alert
+        if (!isloggedin()) {
+            return false;
+        }
+
         // If not site level or forum level reporting email has been set
         if (!$this->get_forum()->has_reporting_email()) {
             $whynot = 'alert_turnedoff';
@@ -2250,7 +2259,9 @@ WHERE
             $options[self::OPTION_VIEW_FULL_NAMES] = has_capability(
                 'moodle/site:viewfullnames', $this->get_forum()->get_context());
         }
-        if (!array_key_exists(self::OPTION_TIME_ZONE, $options)) {
+        // ORANGE : add control isloggedin for user not connected in front page
+        $options[self::OPTION_TIME_ZONE] = "99";
+        if (!array_key_exists(self::OPTION_TIME_ZONE, $options) && isloggedin()) {
             // Default to current user timezone
             $options[self::OPTION_TIME_ZONE] = $USER->timezone;
         }

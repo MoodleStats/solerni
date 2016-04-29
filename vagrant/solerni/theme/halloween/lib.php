@@ -77,7 +77,10 @@ function theme_halloween_pluginfile($course, $cm, $context, $filearea, $args, $f
     if (!$theme) {
         $theme = theme_config::load('halloween');
     }
-    if ($context->contextlevel == CONTEXT_SYSTEM && ($filearea === 'loginlogo')) {
+    if ($context->contextlevel == CONTEXT_SYSTEM && 
+            ($filearea === 'loginlogo' ||
+             $filearea === 'homepageillustration' ||
+             $filearea === 'homepage')) {
         return $theme->setting_file_serve($filearea, $args, $forcedownload, $options);
     } else {
         send_file_not_found();
@@ -160,11 +163,15 @@ function theme_halloween_redirect_if_wantsurl() {
     }
 
     // Those page are redirection free.
-    if( strpos('/enrol/index.php', $PAGE->url->get_path()) !== false
-        || strpos('/user/policy.php', $PAGE->url->get_path()) !== false
-        || strpos('/logout.php', $PAGE->url->get_path()) !== false) {
+    $specialurls = array('/enrol/index.php', '/user/policy.php', '/logout.php',
+        '/change_password.php');
+
+    foreach ($specialurls as $urlfragment) {
+        if (strpos($PAGE->url->get_path(), $urlfragment !== false)) {
             return;
+        }
     }
+
 
     // Loop detector. It means the system has redirected the user,
     // or the user has clicked something different,
