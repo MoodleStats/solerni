@@ -154,11 +154,10 @@ class block_orange_iconsmap_renderer extends plugin_renderer_base {
     public function display_certificate ($extendedcourse) {
 
         $display = " inactive";
-        $certificatetext = get_string("certification_default", 'local_orange_library');
-        if ($extendedcourse->badge) {
-            $certificatetext = get_string("certification", 'local_orange_library');
+        if ($extendedcourse->certification) {
             $display = "";
         }
+        $certificatetext = get_string("certification", 'local_orange_library');
         $output = html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-4'.$display));
             $output .= html_writer::start_tag('div', array('class' => 'icon-map'));
 
@@ -168,9 +167,16 @@ class block_orange_iconsmap_renderer extends plugin_renderer_base {
                 $output .= html_writer::end_tag('div');
 
                 $output .= html_writer::start_tag('div');
+                if ($extendedcourse->certification) {
                     $output .= html_writer::start_tag('div', array('class' => 'movetext'));
                         $output .= html_writer::tag('span', $certificatetext);
                     $output .= html_writer::end_tag('div');
+                }
+                else {
+                    $output .= html_writer::start_tag('div', array('class' => 'movetext unselectedtext'));
+                        $output .= html_writer::tag('span', $certificatetext);
+                    $output .= html_writer::end_tag('div');
+                }
                 $output .= html_writer::end_tag('div');
 
             $output .= html_writer::end_tag('div');
@@ -198,9 +204,16 @@ class block_orange_iconsmap_renderer extends plugin_renderer_base {
                 $output .= html_writer::end_tag('div');
 
                 $output .= html_writer::start_tag('div');
+                if ($extendedcourse->badge) {
                     $output .= html_writer::start_tag('div', array('class' => 'movetext'));
                         $output .= html_writer::tag('span', get_string("badge", 'local_orange_library'));
                     $output .= html_writer::end_tag('div');
+                }
+                else {
+                    $output .= html_writer::start_tag('div', array('class' => 'movetext unselectedtext'));
+                        $output .= html_writer::tag('span', get_string("badge", 'local_orange_library'));
+                    $output .= html_writer::end_tag('div');
+                }
                 $output .= html_writer::end_tag('div');
 
             $output .= html_writer::end_tag('div');

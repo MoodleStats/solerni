@@ -38,13 +38,12 @@ class local_orange_event_course_created_observer {
      */
 
     public static function course_created(\core\event\course_created $event) {
-        
         if ($event->courseid == 1) {
             return false;
         }
         global $CFG, $DB;
         $contact = core_user::get_support_user();
-        $user = $DB->get_record('user', array('id' => $event->userid));
+        $user= $DB->get_record('user', array('id' => $event->userid));
         // values usefull for call UsersManager.addUser method.
         $course = $DB->get_record('course', array('id' => $event->courseid));
         $category = $DB->get_record('course_categories', array('id' => $course->category));
@@ -53,6 +52,7 @@ class local_orange_event_course_created_observer {
         $module = 'module=API';
         $method = '&method=UsersManager.addUser';
         $userpiwik = '&userLogin='.$course->shortname;
+        $logindashboard = '&login='.$course->shortname;
         $pass = substr(md5($userpiwik),0,8);  
         $password = '&password='.$pass;
         $email = '&email='.$course->shortname.'@yopmail.com';
@@ -60,7 +60,10 @@ class local_orange_event_course_created_observer {
         // values usefull for call UsersManager.setUserAccess method.
         $methodaccessuser = '&method=UsersManager.setUserAccess';
         $access = '&access=view';
-       
+        $methoddashboarduser = '&method=Dashboard.addDashboards';
+        $namedashboard = '&name=Dashboard of '.$course->shortname;
+        //$layout = '&layout={\"config\":{\"layout\":\"33-33-33\"},\"columns\":[[{\"uniqueId\":\"widgetVisitsSummarygetEvolutionGraphcolumnsArray\",\"parameters\":{\"module\":\"VisitsSummary\",\"action\":\"getEvolutionGraph\",\"columns\":[\"nb_visits\",\"nb_uniq_visitors\",\"nb_users\"],\"widget\":1,\"columns_to_display\":[\"nb_visits\",\"nb_uniq_visitors\",\"nb_users\"],\"rows\":[],\"rows_to_display\":[],\"isFooterExpandedInDashboard\":true,\"evolution_day_last_n\":30},\"isHidden\":false},{\"uniqueId\":\"widgetLivewidget\",\"parameters\":{\"module\":\"Live\",\"action\":\"widget\",\"widget\":1},\"isHidden\":false},{\"uniqueId\":\"widgetVisitorInterestgetNumberOfVisitsPerVisitDuration\",\"parameters\":{\"module\":\"VisitorInterest\",\"action\":\"getNumberOfVisitsPerVisitDuration\",\"widget\":1},\"isHidden\":false}],[{\"uniqueId\":\"widgetReferrersgetWebsites\",\"parameters\":{\"module\":\"Referrers\",\"action\":\"getWebsites\",\"widget\":1},\"isHidden\":false},{\"uniqueId\":\"widgetVisitTimegetVisitInformationPerServerTime\",\"parameters\":{\"module\":\"VisitTime\",\"action\":\"getVisitInformationPerServerTime\",\"widget\":1},\"isHidden\":false}],[{\"uniqueId\":\"widgetUserCountryMapvisitorMap\",\"parameters\":{\"module\":\"UserCountryMap\",\"action\":\"visitorMap\",\"widget\":1},\"isHidden\":false},{\"uniqueId\":\"widgetDevicesDetectiongetBrowsers\",\"parameters\":{\"module\":\"DevicesDetection\",\"action\":\"getBrowsers\",\"widget\":1},\"isHidden\":false},{\"uniqueId\":\"widgetReferrersgetSearchEngines\",\"parameters\":{\"module\":\"Referrers\",\"action\":\"getSearchEngines\",\"widget\":1},\"isHidden\":false}]]}';
+        $layout = '&layout={"config":{"layout":"33-33-33"},"columns":[[{"uniqueId":"widgetVisitsSummarygetEvolutionGraphcolumnsArray","parameters":{"module":"VisitsSummary","action":"getEvolutionGraph","columns":["nb_visits","nb_uniq_visitors","nb_users"],"widget":1,"columns_to_display":["nb_visits","nb_uniq_visitors","nb_users"],"rows":[],"rows_to_display":[],"isFooterExpandedInDashboard":true,"evolution_day_last_n":30},"isHidden":false},{"uniqueId":"widgetLivewidget","parameters":{"module":"Live","action":"widget","widget":1},"isHidden":false},{"uniqueId":"widgetVisitorInterestgetNumberOfVisitsPerVisitDuration","parameters":{"module":"VisitorInterest","action":"getNumberOfVisitsPerVisitDuration","widget":1},"isHidden":false}],[{"uniqueId":"widgetReferrersgetWebsites","parameters":{"module":"Referrers","action":"getWebsites","widget":1},"isHidden":false},{"uniqueId":"widgetVisitTimegetVisitInformationPerServerTime","parameters":{"module":"VisitTime","action":"getVisitInformationPerServerTime","widget":1},"isHidden":false}],[{"uniqueId":"widgetUserCountryMapvisitorMap","parameters":{"module":"UserCountryMap","action":"visitorMap","widget":1},"isHidden":false},{"uniqueId":"widgetDevicesDetectiongetBrowsers","parameters":{"module":"DevicesDetection","action":"getBrowsers","widget":1},"isHidden":false},{"uniqueId":"widgetReferrersgetSearchEngines","parameters":{"module":"Referrers","action":"getSearchEngines","widget":1},"isHidden":false}]]}';
         // values usefull for call addSite.
         $methodaddsite ='&method=SitesManager.addSite';
         $sitename ='&siteName='.$course->shortname;
@@ -93,16 +96,20 @@ class local_orange_event_course_created_observer {
         // We retreive idsite from piwik_site table.
         $idsite = $DB->get_record_sql('SELECT piwik_siteid FROM {piwik_site} WHERE courseid = ?', array($event->courseid));
         $piwiksiteid = '&idSites='.$idsite->piwik_siteid;
-        // We call again API Piwik in order to create an account.
+        // We call again API Piwik in order to create an account with an access and dashboard
         $urlaccount = $url.'?'.$module.$method.$userpiwik.$password.$email.$tokenauth;
-        $urluseraccess = $url.'?'.$module.$methodaccessuser.$userpiwik.$access.$piwiksiteid.$tokenauth;  
-        debugging('urlaccount: '.$urlaccount, DEBUG_DEVELOPER);
+        $urluseraccess = $url.'?'.$module.$methodaccessuser.$userpiwik.$access.$piwiksiteid.$tokenauth;
+        $urluserdashboard = $url.'?'.$module.$methoddashboarduser.$logindashboard.$namedashboard.$layout.$tokenauth;
+        // debugging('urlaccount: '.$urlaccount, DEBUG_DEVELOPER);
+        debugging('urluserdashboard: '.$urluserdashboard, DEBUG_DEVELOPER);
         debugging('urluseraccess: '.$urluseraccess, DEBUG_DEVELOPER);
-        
+        debugging('urlaccount: '.$urlaccount, DEBUG_DEVELOPER);
         $xmlaccount = xml_from_piwik($urlaccount);
         $xmlaccess = xml_from_piwik($urluseraccess);
+        $xmldashboard = xml_from_piwik($urluserdashboard);
+        
         
         // We test xml Piwik responses to kwow if siteid and user are correctly created and send mail.
-        $return = sendmail_to_admin_piwik($course,$event,$pass,$xmlaccount,$xmlaccess);
+        $return = sendmail_to_admin_piwik($course,$event,$pass,$xmlaccount,$xmlaccess,$xmldashboard);
     }
 }

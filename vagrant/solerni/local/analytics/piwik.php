@@ -60,11 +60,13 @@ function analytics_trackurl() {
     }
 
     $trackurl .= "'";
+
     return $trackurl;
 }
 
 function insert_analytics_tracking() {
     global $DB,$COURSE, $USER, $CFG ;
+
     if (class_exists('local_analytics_dimensions')) {
         $dimensions = new local_analytics_dimensions($COURSE, $USER, $CFG);
         $trackdimensions = "
@@ -76,16 +78,18 @@ function insert_analytics_tracking() {
     } else {
        $trackdimensions  = '';
     }
+
     $trackuser = ($USER->id != 0) ? "_paq.push(['setUserId', '" . get_string('user', 'local_analytics') . '_' . md5($USER->id) . "']);" : '';
     $enabled = get_config('local_analytics', 'enabled');
     $imagetrack = get_config('local_analytics', 'imagetrack');
     $siteurl = get_config('local_analytics', 'siteurl');
     $siteid = get_config('local_analytics', 'siteid');
-    $siteidcourseid = $DB->get_record_sql('SELECT piwik_siteid FROM {piwik_site} WHERE courseid = ?', array($COURSE->id));
-    $siteidforcourseid= $siteidcourseid->piwik_siteid;
     $trackadmin = get_config('local_analytics', 'trackadmin');
     $cleanurl = get_config('local_analytics', 'cleanurl');
     $location = "additionalhtml".get_config('local_analytics', 'location');
+    if ($siteidcourseid = $DB->get_record_sql('SELECT piwik_siteid FROM {piwik_site} WHERE courseid = ?', array($COURSE->id))) {
+        $siteidforcourseid = $siteidcourseid->piwik_siteid;
+    }
 
     $CFG->$location .= "<!-- Start first tracker Piwik Code -->";
 
@@ -112,9 +116,9 @@ function insert_analytics_tracking() {
     _paq.push(['enableLinkTracking']);
     (function() {
       var u='//".$siteurl."/';
-      _paq.push(['setTrackerUrl', u+'piwik.php']); 
+      _paq.push(['setTrackerUrl', u+'piwik.php']);
       _paq.push(['setSiteId', ".$siteid."]);
-      
+
       var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
     g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
     })();
@@ -125,15 +129,25 @@ function insert_analytics_tracking() {
     }
 
     $CFG->$location .= "<!-- End first tracker Piwik Code -->";
-    if ($COURSE->id != 1) { 
+    if ($COURSE->id != 1 && $siteidcourseid) {
         $CFG->$location .= '<script type="text/javascript">$( document ).ready(function() {
-            var piwik2Tracker = Piwik.getTracker();
-            piwik2Tracker.setSiteId('.$siteidforcourseid.' );
-            piwik2Tracker.trackPageView();});</script>';
-    } 
-    
+            function sendTrackPagePiwik() {
+                var piwik2Tracker = Piwik.getTracker();
+                piwik2Tracker.setSiteId('.$siteidforcourseid.');
+                piwik2Tracker.trackPageView();
+            }
+            // We dont know if Piwik is loaded yet.
+            checkPiwik = setTimeout(function() {
+                if(Piwik) {
+                    window.clearTimeout(checkPiwik);
+                    sendTrackPagePiwik();
+                }
+            }, 500);
+        });</script>';
+    }
+
 }
-//_paq.push(['setSiteId', ".$siteid."]); 
+//_paq.push(['setSiteId', ".$siteid."]);
 insert_analytics_tracking();
 
 if (debugging() && ($CFG->debugdisplay)) {
