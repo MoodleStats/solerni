@@ -84,6 +84,8 @@ function main () {
 	# defaulthomepage = Dashboard for thematics only (#us_380)
 	execute_moosh_command "moosh config-set defaulthomepage 1"
 
+        # Settings Thematic Name
+        execute_moosh_command "moosh course-config-set course 1 fullname \"${CUSTOMER_NAME} ${CUSTOMER_THEMATIC}\""
 }
 
 main "$@"
