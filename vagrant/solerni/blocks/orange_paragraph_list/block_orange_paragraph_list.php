@@ -110,13 +110,10 @@ class block_orange_paragraph_list extends block_base {
             $resizedimgurl = array();
 
             for ($i=0; $i<=10; $i++) {
-                $property = 'paragraph' .($i+1).'picture';
-                $file = utilities_image::get_moodle_stored_file($context, 'format_flexpage', $property);
+                $file = utilities_image::get_moodle_stored_file($context, 'format_flexpage', 'paragraphpicture', ($i+1));
                 if ($file) {
-                    $imgurl[$i] = utilities_image::get_moodle_url_from_stored_file($file);
-                    $resizedimgurl[$i] = utilities_image::get_resized_url($imgurl[$i], array('w' => 400, 'h' => 250, 'scale' => true));
+                    $resizedimgurl[$i] = utilities_image::get_resized_url($file, array('w' => 400, 'h' => 250, 'scale' => true));
                 }
-
             }
             $findoutmore->get_find_out_more($COURSE);
 
