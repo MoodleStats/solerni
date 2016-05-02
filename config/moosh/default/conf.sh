@@ -398,14 +398,6 @@ function main () {
 	execute_moosh_command "moosh block-add system 0 orange_social_sharing mooc-view content -7"
 	execute_moosh_command "moosh block-add system 0 orange_paragraph_list mooc-view content -6"
 
-	# Reduce quiz question type qtype (#us_478)
-	execute_moosh_command "moosh plugin-uninstall qtype_calculatedmulti"
-	execute_moosh_command "moosh plugin-uninstall qtype_calculatedsimple"
-	execute_moosh_command "moosh plugin-uninstall qtype_calculated"
-	execute_moosh_command "moosh plugin-uninstall qtype_essay"
-	execute_moosh_command "moosh plugin-uninstall qtype_multianswer"
-	execute_moosh_command "moosh plugin-uninstall qtype_randomsamatch"
-
         # Webservice activation for all PTF (#us_501)
         # Web Services Activation On Home
 	execute_moosh_command "moosh config-set enablewebservices 1"
@@ -427,6 +419,14 @@ function main () {
 	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_teacher moodle/block:view allow block_in_course site_main_menu"
 	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_course_creator moodle/block:view allow block_in_course site_main_menu"
 	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_marketing moodle/block:view allow block_in_course site_main_menu"
+
+	# Disable some quiz question type qtype (#us_478)
+	execute_moosh_command "moosh qtype-manage disable calculatedmulti"
+	execute_moosh_command "moosh qtype-manage disable calculatedsimple"
+	execute_moosh_command "moosh qtype-manage disable calculated"
+	execute_moosh_command "moosh qtype-manage disable essay"
+	execute_moosh_command "moosh qtype-manage disable multianswer"
+	execute_moosh_command "moosh qtype-manage disable randomsamatch"
 }
 
 main "$@"

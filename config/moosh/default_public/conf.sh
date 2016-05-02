@@ -77,7 +77,7 @@ function main () {
 	init
 
 	# Enable OAuth2 (googleoauth2) auth plugin (#us_13 and #us_23)
-	execute_moosh_command "moosh auth-manage enable googleoauth2"
+	execute_moosh_command "moosh auth-manage disable googleoauth2"
 
 	# unenrolself is only for students in public PF
 	execute_moosh_command "moosh role-update-capability solerni_apprenant enrol/self:unenrolself allow 1"
