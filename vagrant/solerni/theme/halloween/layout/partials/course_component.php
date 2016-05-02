@@ -31,7 +31,7 @@ if ( $courseinfos ) :
 
     if (!empty($courseinfos->imgurl)) {
         $courseimageurl = $imageutilities->get_resized_url($courseinfos->file,
-                                 array('w' => 490, 'h' => 357, 'scale' => false)/*, $courseinfos->file*/);
+                                 array('w' => 490, 'h' => 357, 'scale' => false));
     }
     if (!empty($customer->urlimg)) {
         $courseurlimage = $imageutilities->get_resized_url($customer->urlimg,

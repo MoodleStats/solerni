@@ -45,14 +45,14 @@ class block_orange_horizontal_numbers_renderer extends plugin_renderer_base {
         $output .= html_writer::end_tag('div');
 
         $output .= html_writer::start_tag('div', array('class' => 'row'));
-            $output .= html_writer::start_tag('div', array('class' => 'orange-horizontal-numbers-title'));
+            $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 orange-horizontal-numbers-title'));
                 $output .= html_writer::tag('h1', get_string('title', 'block_orange_horizontal_numbers', $CFG->solerni_thematic));
                 $output .= html_writer::tag('span', get_string('intro', 'block_orange_horizontal_numbers'));
             $output .= html_writer::end_tag('div');
         $output .= html_writer::end_tag('div');
 
         $output .= html_writer::start_tag('div', array('class' => 'row'));
-            $output .= html_writer::start_tag('div', array('class' => 'orange-horizontal-numbers-line'));
+            $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 orange-horizontal-numbers-line'));
             $output .= html_writer::end_tag('div');
         $output .= html_writer::end_tag('div');
 
@@ -81,12 +81,12 @@ class block_orange_horizontal_numbers_renderer extends plugin_renderer_base {
         $output .= html_writer::end_tag('div');
 
         $output .= html_writer::start_tag('div', array('class' => 'row'));
-            $output .= html_writer::start_tag('div', array('class' => 'orange-horizontal-numbers-line2'));
+            $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 orange-horizontal-numbers-line2'));
             $output .= html_writer::end_tag('div');
         $output .= html_writer::end_tag('div');
 
         $output .= html_writer::start_tag('div', array('class' => 'row'));
-            $output .= html_writer::start_tag('div', array('class' => 'orange-horizontal-numbers-link'));
+            $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 orange-horizontal-numbers-link'));
                 $output .= html_writer::tag('span',
                         get_string('tofaq', 'block_orange_horizontal_numbers', $CFG->wwwroot . '/static/faq.html'));
             $output .= html_writer::end_tag('div');
