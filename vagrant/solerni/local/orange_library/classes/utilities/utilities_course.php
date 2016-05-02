@@ -578,7 +578,7 @@ class utilities_course {
      * @param int $courseid
      * @return int $categoryid
      */
-    public function get_categoryid_by_courseid($courseid) {
+    static public function get_categoryid_by_courseid($courseid) {
 
         global $DB;
         $categoryid = null;
@@ -588,6 +588,25 @@ class utilities_course {
         }
 
         return $categoryid;
+    }
+
+
+    /**
+     * Get the category id from course id.
+     *
+     * @param int $courseid
+     * @return int $categoryid
+     */
+    static public function get_categoryname_by_categoryid($categoryid) {
+
+        global $DB;
+        $categoryname = "";
+        $category = $DB->get_record('course_categories', array('id' => $categoryid), 'id, name');
+        if ($category) { // Should always exist, but just in case ...
+            $categoryname = $category->name;
+        }
+
+        return $categoryname;
     }
 
     /**
@@ -648,15 +667,8 @@ class utilities_course {
         }
 
         if ($course) {
-            $descriptionpages = $DB->get_records('descriptionpage', array('course' => $course->id));
-            // To avoid having an error page when the description page is not setup.
-            if ($descriptionpages != null) {
-                $url = $CFG->wwwroot . '/mod/descriptionpage/view.php?courseid=' . $course->id;
-            } else {
-                $url = $CFG->wwwroot;
-            }
+                $url = $CFG->wwwroot . '/mooc/view.php?courseid=' . $course->id;
         }
-
         return $url;
     }
 

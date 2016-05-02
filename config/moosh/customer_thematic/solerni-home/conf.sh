@@ -76,24 +76,17 @@ function execute_moosh_command () {
 function main () {
 	init
 
-	# Web Services Activation On Home
-	execute_moosh_command "moosh config-set enablewebservices 1"
-
-	# Activate REST
-	execute_moosh_command "moosh config-set webserviceprotocols rest"
-
-	#Import Role
-	execute_moosh_command "moosh role-import api_user /opt/solerni/conf/moosh/customer_thematic/${CUSTOMER_THEMATIC_KEY}/users_roles/solerniapiuser.xml"
-
-	# Create API User
-	execute_moosh_command "moosh user-create --password apiuser01! --email solerniapiuser@orange.fr --firstname 'API' --lastname 'User' --city 'Paris' --country 'FR' 'api_user'"
-
 	# Settings PF Name
 	execute_moosh_command "moosh course-config-set course 1 fullname \"${CUSTOMER_THEMATIC}\""
 
 	# Prevent course creator to create course in HOME PF
 	execute_moosh_command "moosh role-update-capability solerni_course_creator moodle/course:create prevent 1"
 
+	# defaulthomepage = Site (#us_501)
+	execute_moosh_command "moosh config-set defaulthomepage 0"
+	execute_moosh_command "moosh config-set frontpage ''"
+	execute_moosh_command "moosh config-set frontpageloggedin ''"
+	execute_moosh_command "moosh block-add system 0 orange_thematics_menu site-index content -10"
 }
 
 main "$@"

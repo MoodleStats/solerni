@@ -236,6 +236,17 @@ $string['webservicesheading']       = 'Configure communication between RESAC ins
 $string['webservicesheadingdesc']   = '';
 $string['webservicestoken']         = 'Security token';
 $string['webservicestokendesc']     = 'Insert the HOME MNET token generated for RESAC Web Service';
+$string['webservicestokenthematic'] = 'Security token for {$a}';
+$string['webservicestokenthematicdesc'] = 'Insert the {$a} token generated for RESAC Web Service';
+
+// Homepage settings page
+$string['homepagesettings']         = 'Homepage';
+$string['homepageheading']          = 'Parameters for homepage';
+$string['homepageheadingdesc']      = '';
+$string['homepageillustration']     = 'Illustration';
+$string['homepageillustrationdesc'] = 'Thematic illustration';
+$string['homepagelogo']             = 'Logo';
+$string['homepagelogodesc']         = 'Thematic logo';
 
 // Search filters.
 $string['catalog_page_title']       = 'Catalog';
@@ -286,6 +297,7 @@ $string['coursestartdate']          = "Starts on";
 $string['courseenddate']            = "Ending on";
 $string['coursebadge']              = "Badges available";
 $string['coursenobadge']            = "No badges";
+$string['courseduration']           = "week(s)";
 
 // Frontpage frontend.
 $string['ifreelyregister']          = "I freely register";
@@ -326,6 +338,9 @@ $string['contact_email_body']       = 'The following request has been issued usi
 // Page badges/mybadges.php.
 $string['nobadgesfaq'] = 'There are no badges available.<br/>
 <strong><a href="{$a}">Consult FAQ</a></strong> to understand how badges work.';
+
+// Home Solerni
+$string['hometitle'] = 'What will you learn today ?';
 
 //Page en savoir plus
 $string['more_info']               = 'more info';

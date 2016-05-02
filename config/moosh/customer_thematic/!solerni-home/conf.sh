@@ -80,6 +80,12 @@ function main () {
 	execute_moosh_command "moosh block-add system 0 orange_horizontal_numbers forum-index content -10"
 	execute_moosh_command "moosh block-add system 0 orange_listforumng forum-index content -8"
 	execute_moosh_command "moosh block-add system 0 orange_list_bestforumng forum-index content -4"
+
+	# defaulthomepage = Dashboard for thematics only (#us_380)
+	execute_moosh_command "moosh config-set defaulthomepage 1"
+
+        # Settings Thematic Name
+        execute_moosh_command "moosh course-config-set course 1 fullname \"${CUSTOMER_NAME} ${CUSTOMER_THEMATIC}\""
 }
 
 main "$@"

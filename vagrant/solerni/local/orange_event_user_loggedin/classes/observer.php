@@ -191,7 +191,6 @@ class local_orange_event_user_loggedin_observer {
 
         require_once($CFG->dirroot.'/user/profile/lib.php');
         profile_save_data($localuser);
-        user_update_user($user, false, false);
-
+        user_update_user($localuser, false, false);
     }
 }

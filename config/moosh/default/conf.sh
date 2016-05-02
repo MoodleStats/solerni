@@ -186,7 +186,7 @@ function main () {
 	# Manage blocks for 'my' page (Dashboard)
 	execute_moosh_command "moosh block-add system 0 orange_action my-index content -10"
 	execute_moosh_command "moosh block-add system 0 orange_course_dashboard my-index content -9"
-	# moosh block-add system 0 <block forum> my-index content -8
+        execute_moosh_command "moosh block-add system 0 orange_emerging_messages my-index content -8"
 	execute_moosh_command "moosh block-add system 0 orange_badges my-index content -7"
 	execute_moosh_command "moosh block-add system 0 private_files my-index content -6"
 
@@ -301,15 +301,11 @@ function main () {
 	# Page contact
 	execute_moosh_command "moosh config-set footerlistscolumn2link2 ${CUSTOMER_HTTP_BASE_URL}/contact/ theme_halloween"
 
-	# Settings PF Name
-	execute_moosh_command "moosh course-config-set course 1 fullname \"${CUSTOMER_NAME} ${CUSTOMER_THEMATIC}\""
+	# Settings PF Name shortname
 	execute_moosh_command "moosh course-config-set course 1 shortname ${CUSTOMER_THEMATIC}"
 
 	# block_orange_action (#us_458)
 	execute_moosh_command "moosh config-set hideblockheader 1 block_orange_action"
-
-	# defaulthomepage = Dashboard (#us_380)
-	execute_moosh_command "moosh config-set defaulthomepage 1"
 
 	# Disable Oauth2 authentication method
 	execute_moosh_command "moosh auth-manage disable googleoauth2"
@@ -365,7 +361,7 @@ function main () {
 	execute_moosh_command "moosh block-manage hide search_forums"
 	execute_moosh_command "moosh block-manage hide section_links"
 	execute_moosh_command "moosh block-manage hide selfcompletion"
-	execute_moosh_command "moosh block-manage hide site_main_menu"
+	execute_moosh_command "moosh block-manage show site_main_menu"
 	execute_moosh_command "moosh block-manage hide social_activities"
 	execute_moosh_command "moosh block-manage hide tag_flickr"
 	execute_moosh_command "moosh block-manage hide tag_youtube"
@@ -402,13 +398,35 @@ function main () {
 	execute_moosh_command "moosh block-add system 0 orange_social_sharing mooc-view content -7"
 	execute_moosh_command "moosh block-add system 0 orange_paragraph_list mooc-view content -6"
 
-	# Reduce quiz question type qtype (#us_478)
-	execute_moosh_command "moosh plugin-uninstall qtype_calculatedmulti"
-	execute_moosh_command "moosh plugin-uninstall qtype_calculatedsimple"
-	execute_moosh_command "moosh plugin-uninstall qtype_calculated"
-	execute_moosh_command "moosh plugin-uninstall qtype_essay"
-	execute_moosh_command "moosh plugin-uninstall qtype_multianswer"
-	execute_moosh_command "moosh plugin-uninstall qtype_randomsamatch"
+        # Webservice activation for all PTF (#us_501)
+        # Web Services Activation On Home
+	execute_moosh_command "moosh config-set enablewebservices 1"
+	# Activate REST
+	execute_moosh_command "moosh config-set webserviceprotocols rest"
+	#Import Role
+	execute_moosh_command "moosh role-import api_user /opt/solerni/conf/moosh/default/users_roles/solerniapiuser.xml"
+	# Create API User
+	execute_moosh_command "moosh user-create --password apiuser01! --email solerniapiuser@orange.fr --firstname 'API' --lastname 'User' --city 'Paris' --country 'FR' 'api_user'"
+
+
+        # hide block main menu for solerni_utilisateur, solerni_apprenant, solerni_power_apprenant, solerni_animateur, solerni_client, guest
+	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_utilisateur moodle/block:view prevent block_in_course site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_apprenant moodle/block:view prevent block_in_course site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_power_apprenant moodle/block:view prevent block_in_course site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_animateur moodle/block:view prevent block_in_course site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_client moodle/block:view prevent block_in_course site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx --id 1 guest moodle/block:view prevent block_in_course site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_teacher moodle/block:view allow block_in_course site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_course_creator moodle/block:view allow block_in_course site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_marketing moodle/block:view allow block_in_course site_main_menu"
+
+	# Disable some quiz question type qtype (#us_478)
+	execute_moosh_command "moosh qtype-manage disable calculatedmulti"
+	execute_moosh_command "moosh qtype-manage disable calculatedsimple"
+	execute_moosh_command "moosh qtype-manage disable calculated"
+	execute_moosh_command "moosh qtype-manage disable essay"
+	execute_moosh_command "moosh qtype-manage disable multianswer"
+	execute_moosh_command "moosh qtype-manage disable randomsamatch"
 }
 
 main "$@"
