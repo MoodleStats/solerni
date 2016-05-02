@@ -1041,7 +1041,7 @@ class format_flexpage extends format_base {
 
         $saved = file_save_draft_area_files($data->coursepicture, $context->id, 'format_flexpage',
         'coursepicture', 0, array('subdirs' => 0, 'maxfiles' => 1));
-        print_object($data->paragraph1picture);
+        
         $saved = file_save_draft_area_files($data->paragraph1picture, $context->id, 'format_flexpage',
         'paragraph1picture', 0, array('subdirs' => 0, 'maxfiles' => 1));
 
