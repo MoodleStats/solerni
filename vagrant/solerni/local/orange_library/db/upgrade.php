@@ -50,7 +50,7 @@ function xmldb_local_orange_library_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2016041400, 'local', 'orange_library');
     }
 
-    if ($oldversion < 2016042602) {
+    if ($oldversion < 2016042701) {
         // Define table thematic_info to be created.
         $table = new xmldb_table('thematic_info');
 
@@ -79,7 +79,7 @@ function xmldb_local_orange_library_upgrade($oldversion) {
         }
 
         // Local savepoint reached.
-        upgrade_plugin_savepoint(true, 2016042602, 'local', 'orange_library');
+        upgrade_plugin_savepoint(true, 2016042701, 'local', 'orange_library');
     }
 
     return true;
