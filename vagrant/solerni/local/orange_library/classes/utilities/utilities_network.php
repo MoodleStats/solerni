@@ -392,7 +392,7 @@ class utilities_network {
      * @return object $host
      */
     static public function update_thematic_info($host) {
-        global $DB;
+        global $CFG, $DB;
 
         // If we are on Home Solerni.
         if (self::is_platform_uses_mnet() && self::is_home()) {
@@ -406,24 +406,24 @@ class utilities_network {
             foreach ($infos as $field) {
                 $host->{$field['name']} = $field['value'];
             }
-
-            // In case image have not be set on thematic.
-            if (empty($host->logo)) {
-                $host->logo = $CFG->wwwroot . "/blocks/orange_thematics_menu/pix/defaultlogo.png";
-            }
-            if (empty($host->illustration)) {
-                $host->illustration = $CFG->wwwroot . "/blocks/orange_thematics_menu/pix/defaultillustration.jpg";
-            }
         }
 
-        // Resize image to store a local copy.
-        $host->illustration = utilities_image::get_resized_url($host->illustration,
-                array('w' => 664, 'h' => 354, 'scale' => false));
+        // In case image have not be set on thematic.
+        if (empty($host->logo)) {
+            $host->logo = $CFG->wwwroot . "/blocks/orange_thematics_menu/pix/defaultlogo.png";
+        }
+        if (empty($host->illustration)) {
+            $host->illustration = $CFG->wwwroot . "/blocks/orange_thematics_menu/pix/defaultillustration.jpg";
+        }
 
         if (!$host->available) {
             error_log('Error in retreiving thematic information for : ' . $host->id);
             return $host;
         }
+
+        // Resize image to store a local copy.
+        $host->illustration = utilities_image::get_resized_url($host->illustration,
+                array('w' => 664, 'h' => 354, 'scale' => false));
 
         if ($thematic = $DB->get_record('thematic_info', array('hostid' => $host->id), '*', IGNORE_MULTIPLE)) {
             $thematic->available        = $host->available;
@@ -484,8 +484,8 @@ class utilities_network {
             $context = \context_system::instance();
             $file = utilities_image::get_moodle_stored_file($context, 'theme_halloween', 'homepageillustration');
             // Image size : in small screen, one item.
-            $illustrationurl = utilities_image::get_resized_url(null,
-                    array('w' => 664, 'h' => 354, 'scale' => true), $file);
+            $illustrationurl = utilities_image::get_resized_url($file,
+                    array('w' => 664, 'h' => 354, 'scale' => true));
             $data[] = array ('type' => 'url', 'name' => 'illustration', 'value' => $illustrationurl);
         }
 
@@ -493,8 +493,8 @@ class utilities_network {
         if (theme_utilities::is_theme_settings_exists_and_nonempty('homepagelogo')) {
             $context = \context_system::instance();
             $file = utilities_image::get_moodle_stored_file($context, 'theme_halloween', 'homepagelogo');
-            $logourl = utilities_image::get_resized_url(null,
-                    array('w' => 100, 'h' => 100, 'scale' => true), $file);
+            $logourl = utilities_image::get_resized_url($file,
+                    array('w' => 100, 'h' => 100, 'scale' => true));
             // In case an error occurs we have a moodle_url as return.
             if (is_a ( $logourl , 'moodle_url')) {
                 error_log("Thematic logo error");

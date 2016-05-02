@@ -30,8 +30,8 @@ if ( $courseinfos ) :
     $customerurl = new moodle_url('/course/index.php', array('categoryid' => $course->category));
 
     if (!empty($courseinfos->imgurl)) {
-        $courseimageurl = $imageutilities->get_resized_url($courseinfos->imgurl,
-                                 array('w' => 490, 'h' => 357, 'scale' => false));
+        $courseimageurl = $imageutilities->get_resized_url($courseinfos->file,
+                                 array('w' => 490, 'h' => 357, 'scale' => false)/*, $courseinfos->file*/);
     }
     if (!empty($customer->urlimg)) {
         $courseurlimage = $imageutilities->get_resized_url($customer->urlimg,

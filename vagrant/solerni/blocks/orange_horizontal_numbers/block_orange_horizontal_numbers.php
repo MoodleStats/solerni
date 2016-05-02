@@ -117,8 +117,8 @@ class block_orange_horizontal_numbers extends block_base {
         if (theme_utilities::is_theme_settings_exists_and_nonempty('homepageillustration')) {
             $context = \context_system::instance();
             $file = utilities_image::get_moodle_stored_file($context, 'theme_halloween', 'homepageillustration');
-            $illustrationurl = utilities_image::get_resized_url(null,
-                    array('w' => 1160, 'h' => 500, 'scale' => true), $file);
+            $illustrationurl = utilities_image::get_resized_url($file,
+                    array('w' => 1160, 'h' => 500, 'scale' => true));
         } else {
             $illustrationurl = $CFG->wwwroot . "/blocks/orange_thematics_menu/pix/defaultlogo.png";
         }

@@ -77,7 +77,10 @@
                 font-size:          @font-size-large;
 
                 div {
-                    padding-bottom: @s-double-xs-margin;
+                    padding-bottom: @s-medium-xs-margin;
+                    @media (min-width: @screen-md-min) {
+                        padding-bottom: @s-medium-md-margin;
+                    }
 
                     span {
                         color: @brand-contrasted;
