@@ -55,7 +55,7 @@
             
             .orange-thematics-menu-image {
                 padding-rigth:        @s-small-xs-margin;
-                background-color:   @brand-tertiary;
+                background-color:     @brand-tertiary;
 
                 img {
                     width:      100%;
@@ -77,7 +77,10 @@
                 font-size:          @font-size-large;
 
                 div {
-                    padding-bottom: @s-double-xs-margin;
+                    padding-bottom: @s-medium-xs-margin;
+                    @media (min-width: @screen-md-min) {
+                        padding-bottom: @s-medium-md-margin;
+                    }
 
                     span {
                         color: @brand-contrasted;

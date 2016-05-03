@@ -28,12 +28,9 @@ use local_orange_library\utilities\utilities_object;
 use local_orange_library\utilities\utilities_image;
 use local_orange_library\utilities\utilities_course;
 use local_orange_library\utilities\utilities_network;
-use local_orange_library\subscription_button\subscription_button_object;
 use local_orange_library\extended_course\extended_course_object;
 
 require_once($CFG->dirroot . '/course/renderer.php');
-require_once($CFG->dirroot.'/blocks/orange_course_dashboard/locallib.php');
-
 
 class theme_halloween_core_course_renderer extends core_course_renderer {
 
@@ -46,7 +43,7 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
      * @return string
      */
     public function frontpage_available_courses() {
-        
+
         // In Solerni Home, no mooc to display
         if (utilities_network::is_platform_uses_mnet() && utilities_network::is_home()) {
             return null;
@@ -471,6 +468,8 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
     /**
      * Construct contents of Mymoocs page
      *
+     * @todo remove logic from the renderer. Move it into the my moocs page.
+     *
      * @param integer $filter
      *               0 : all moocs
      *               1 : moocs closed
@@ -479,24 +478,22 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
      * @return string html to be displayed in page mymoocs
      */
     public function print_my_moocs($filter = utilities_course::MOOCRUNNING) {
-        global $PAGE;
+
         $url ="";
         $labels = array (
             6 => get_string('filterstatusrunning', 'theme_halloween'),
             5 => get_string('filterstatusnotstarted', 'theme_halloween'),
             4 => get_string('filterstatusclosed', 'theme_halloween'),
-
             0 => get_string('filterstatusallmoocs', 'theme_halloween'),
         );
 
         foreach ($labels as $key => $label) {
             $nbcourses[$key] = 0;
         }
-        list($sortedcourses, $sitecourses, $totalcourses) = block_orange_course_dashboard_get_sorted_courses();
 
         $moocslist = "";
-        $utilitiescourse = new utilities_course();
-        foreach ($sitecourses as $key => $course) {
+
+        foreach ( utilities_course::get_ordered_user_courses() as $key => $course) {
             $context = context_course::instance($course->id);
             $extendedcourse = new extended_course_object();
             $extendedcourse->get_extended_course($course, $context);

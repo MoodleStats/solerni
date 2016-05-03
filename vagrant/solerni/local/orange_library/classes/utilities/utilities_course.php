@@ -1085,4 +1085,45 @@ class utilities_course {
 
         return '';
     }
+
+    public static function get_ordered_user_courses($limit = 0, $order = false) {
+    global $USER;
+
+    $courses = enrol_get_my_courses();
+    $site = get_site();
+
+    if (array_key_exists($site->id, $courses)) {
+        unset($courses[$site->id]);
+    }
+
+    foreach ($courses as $c) {
+        if (isset($USER->lastcourseaccess[$c->id])) {
+            $courses[$c->id]->lastaccess = $USER->lastcourseaccess[$c->id];
+        } else {
+            $courses[$c->id]->lastaccess = 0;
+        }
+    }
+
+    if (!$order) {
+        return $courses;
+    }
+
+    // We have a order => sort it.
+    // @todo: make it a specific function.
+    $counter = 0;
+    $sortedcourses = array();
+    foreach ($order as $cid) {
+        if (($counter >= $limit) && ($limit != 0)) {
+            break;
+        }
+
+        // Make sure user is still enroled.
+        if (isset($courses[$cid])) {
+            $sortedcourses[$cid] = $courses[$cid];
+            $counter++;
+        }
+    }
+
+    return $sortedcourses;
+}
 }

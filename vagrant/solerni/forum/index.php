@@ -55,6 +55,8 @@ $PAGE->set_url('/forum/index.php', $params);
 $PAGE->set_pagelayout('base');
 $PAGE->set_pagetype('forum-index');
 $PAGE->blocks->add_region('content');
+$loginsite  = get_string("forumnavbar", "theme_halloween");
+$PAGE->navbar->add($loginsite);
 
 // Toggle the editing state and switches.
 if ($PAGE->user_allowed_editing()) {

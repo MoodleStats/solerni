@@ -174,6 +174,7 @@ $string['user_menu_dashboard']          = 'Mon tableau de bord';
 $string['user_menu_profile']            = 'Mon profil';
 $string['user_menu_email']              = 'Ma messagerie';
 $string['user_menu_logout']             = 'Déconnexion';
+$string['user_menu_preferences']        = 'Mes préférences';
 $string['administration']               = 'Administration';
 $string['skip_to_main']                 = 'Aller au contenu';
 $string['skip_to_nav']                  = 'Aller à la navigation';
@@ -343,5 +344,8 @@ $string['nobadgesfaq'] = 'Vous n’avez pas encore obtenu de badge.<br/>
 // Home Solerni
 $string['hometitle'] = 'Qu\'allez-vous apprendre aujourd\'hui ?';
 
-//Page en savoir plus
+// Page en savoir plus
 $string['more_info']               = 'Besoin d\informations complémentaires';
+
+// Page forum
+$string['forumnavbar']             = 'Espace de discussion';

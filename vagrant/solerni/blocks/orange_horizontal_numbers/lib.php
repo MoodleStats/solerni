@@ -18,39 +18,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Get the number of users connected at the service
- *
- * @return int
- */
-
-function block_orange_horizontal_numbers_get_nbconnectedusers() {
-    global $CFG, $DB;
-
-    $timetoshowusers = 300; // Seconds default.
-    if (isset($CFG->block_online_users_timetosee)) {
-        $timetoshowusers = $CFG->block_online_users_timetosee * 60;
-    }
-    $now = time();
-    $timefrom = 100 * floor(($now - $timetoshowusers) / 100); // Round to nearest 100 seconds for better query cache.
-
-    $params['now'] = $now;
-    $params['timefrom'] = $timefrom;
-
-    $csql = "SELECT COUNT(u.id) as nb
-        FROM {user} u
-        WHERE u.lastaccess > :timefrom
-        AND u.lastaccess <= :now
-        AND u.deleted = 0";
-
-    if ($usercount = $DB->get_record_sql($csql, $params)) {
-        return $usercount->nb;
-    }
-
-    return 0;
-}
-
-
-/**
  * Get the numbers of posts in the service
  *
  * @return int
@@ -69,28 +36,6 @@ function block_orange_horizontal_numbers_get_nbposts() {
         return $nbposts->count;
     }
 
-    return 0;
-}
-
-
-/**
- * Get the numbers of users enrolled in the service
- *
- * @return int
- */
-
-function block_orange_horizontal_numbers_get_nbusers() {
-    global $DB;
-    // Timecreated = 0 if user has been deleted.
-    $sql = "SELECT count(*) as count
-        FROM {user}
-        WHERE timecreated <> 0
-        AND confirmed = 1
-        AND suspended = 0";
-
-    if ($nbusers = $DB->get_record_sql($sql)) {
-        return $nbusers->count;
-    }
     return 0;
 }
 
