@@ -427,6 +427,9 @@ function main () {
 	execute_moosh_command "moosh qtype-manage disable essay"
 	execute_moosh_command "moosh qtype-manage disable multianswer"
 	execute_moosh_command "moosh qtype-manage disable randomsamatch"
+
+        # Admin Block : change settings pagetypepattern=* to make it visible
+	execute_moosh_command "moosh block-update system 0 'settings' 'pagetypepattern' '*'"
 }
 
 main "$@"
