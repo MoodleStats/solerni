@@ -139,7 +139,17 @@
         }
 
         .is-logged .btn {
-            border: 0;
+            border:     0;
+
+            @media (min-width:  @screen-md-min) {
+                min-width:  200px;
+                text-align: left;
+
+                .caret {
+                    float:      right;
+                    margin-top: 5px;
+                }
+            }
         }
     }
 

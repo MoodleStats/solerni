@@ -16,23 +16,16 @@
 
 /**
  * Lang strings.
- * @package block_orange_transverse_discussion
+ * @package block_orange_opinion
  * @copyright  2016 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Orange Transverse Discussion';
+$string['pluginname'] = 'Orange Opinion';
 
-$string['orange_transverse_discussion:addinstance'] = 'Ajouter un block Orange Transverse Discussion';
+$string['orange_opinion:addinstance'] = 'Add a new block Orange Opinion';
 
-$string['title'] = 'Les forums';
-$string['intro'] = 'Apprenez et échangez avec les membres de la communauté';
-$string['linkforum'] = 'Forums {$a}';
+$string['title'] = 'They participate and they love';
 
-$string['titlebanner'] = 'Dernier sujet actif sur les forums {$a}';
-$string['forumname'] = 'Forum : ';
-$string['discussionname'] = 'Discussion : ';
-$string['createdby'] = 'Créée par ';
-$string['lineresponsebegin'] = 'A reçu ';
-$string['lineresponseend'] = ' réponse{$a}';
-$string['linkdiscuss'] = 'Participer à la discussion';
+$string['followedmooc'] = 'has followed the MOOC(s) : {$a}';
+

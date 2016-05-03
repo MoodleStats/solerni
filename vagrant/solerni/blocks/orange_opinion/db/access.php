@@ -15,24 +15,24 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Lang strings.
- * @package block_orange_transverse_discussion
- * @copyright  2016 Orange
+ * Orange Opinion capability setup
+ *
+ * @package    block_orange_opinion
+ * @copyright  Orange 2016
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Orange Transverse Discussion';
+defined('MOODLE_INTERNAL') or die("Direct access to this location is not allowed.");
 
-$string['orange_transverse_discussion:addinstance'] = 'Ajouter un block Orange Transverse Discussion';
-
-$string['title'] = 'Les forums';
-$string['intro'] = 'Apprenez et échangez avec les membres de la communauté';
-$string['linkforum'] = 'Forums {$a}';
-
-$string['titlebanner'] = 'Dernier sujet actif sur les forums {$a}';
-$string['forumname'] = 'Forum : ';
-$string['discussionname'] = 'Discussion : ';
-$string['createdby'] = 'Créée par ';
-$string['lineresponsebegin'] = 'A reçu ';
-$string['lineresponseend'] = ' réponse{$a}';
-$string['linkdiscuss'] = 'Participer à la discussion';
+$capabilities = array (
+    'block/orange_opinion:addinstance' => array(
+        'riskbitmask' => RISK_PERSONAL,
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_BLOCK,
+        'archetypes' => array(
+            'editingteacher' => CAP_ALLOW,
+            'manager'        => CAP_ALLOW
+        ),
+        'clonepermissionsfrom' => 'moodle/site:manageblocks'
+    ),
+);
