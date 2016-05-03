@@ -3,6 +3,8 @@
 # The directory where this script is located
 BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
+MODE=PROD
+
 function init () {
 	local parent_directory="$(dirname `pwd`)"
 	local env_moosh_file=$parent_directory/conf/env_moosh.cfg
@@ -14,6 +16,27 @@ function init () {
 		log_error "- Unable to load file '${env_moosh_file}'"
 		exit 1
 	fi
+}
+
+function check_usage () {
+	while true; do
+
+		if [ -z "$1" ]; then
+			break
+		fi
+
+		case $1 in
+			-dev|--development)
+				MODE=DEV
+				shift
+				;;
+			*)
+				shift
+				;;
+		esac
+
+		shift
+	done
 }
 
 function log_action () {
@@ -58,7 +81,9 @@ function execute_moosh_command () {
 		log_error "+ $(<$moosh_temp_stderr)"
 		if [ $? == 0 ]; then
 			log_error "- ERROR: the moosh command returns the code 0 but writes in stderr"
-			exit -1
+			if [ "$MODE" == "PROD" ]; then
+				exit -1
+			fi
 		fi
 	fi
 
@@ -75,6 +100,10 @@ function execute_moosh_command () {
 
 function main () {
 	init
+
+	# Check usage mode : 
+	# DEV or PROD (Default)
+	check_usage $@
 
 	# add conf for external logs (#us_289)
 	execute_moosh_command "moosh config-set enabled_stores logstore_standard,logstore_database tool_log"
