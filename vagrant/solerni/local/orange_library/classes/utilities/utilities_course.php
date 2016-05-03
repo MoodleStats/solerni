@@ -833,20 +833,8 @@ class utilities_course {
             }
         }
 
-        if (has_capability('mod/descriptionpage:addinstance', $context)) {
-            // Check descriptionpage module.
-            $descriptionpages = $DB->get_records('descriptionpage', array('course' => $courseid));
-            $modname = get_string('modulename', 'mod_descriptionpage');
-            if (empty($descriptionpages)) {
-                $error[] = get_string('moddescriptionpagemissing', 'local_orange_library', $modname);
-            }
-            if (count($descriptionpages) > 1) {
-                $error[] = get_string('moddescriptionpagemultiple', 'local_orange_library', $modname);
-            }
-        }
-
         // Check mandatory blocks.
-        $neededblocks = array ( 'orange_course_extended', 'orange_progressbar');
+        $neededblocks = array ('orange_progressbar');
         foreach ($neededblocks as $block) {
             if (has_capability('block/'.$block.':addinstance', $context)) {
                 $extendedcourseblock = $DB->get_records('block_instances',

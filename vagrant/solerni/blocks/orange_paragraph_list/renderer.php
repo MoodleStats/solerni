@@ -34,24 +34,31 @@ class block_orange_paragraph_list_renderer extends plugin_renderer_base {
     public function display_on_course_page ($course, $findoutmore, $imgurl) {
 
         $output = html_writer::start_tag('div', array('class' => 'zigzag'));
-
+        $i = 0;
         if ($findoutmore->paragraphtitle) {
-            foreach ($findoutmore->paragraphtitle as $key => $value) {
-                if ($findoutmore->paragraphtitle[$key] != '') {
-                    if ($key % 2 == 1) {
+            foreach ($findoutmore->paragraphtitle as $value) {
+                if ($findoutmore->paragraphtitle[$i] != '') {
+                    if (isset($imgurl[$i])) {
+                        $img = $imgurl[$i];
+                    }
+                    else {
+                        $img = "";
+                    }
+                    if ($i % 2 == 1) {
                         $output .= $this->display_left_text(
-                                $findoutmore->paragraphtitle[$key],
-                                $findoutmore->paragraphdescription[$key],
-                                $imgurl[$key],
-                                $findoutmore->paragraphbgcolor[$key]);
+                                $findoutmore->paragraphtitle[$i],
+                                $findoutmore->paragraphdescription[$i],
+                                $img,
+                                $findoutmore->paragraphbgcolor[$i]);
                     } else {
                         $output .= $this->display_right_text(
-                                $findoutmore->paragraphtitle[$key],
-                                $findoutmore->paragraphdescription[$key],
-                                $imgurl[$key],
-                                $findoutmore->paragraphbgcolor[$key]);
+                                $findoutmore->paragraphtitle[$i],
+                                $findoutmore->paragraphdescription[$i],
+                                $img,
+                                $findoutmore->paragraphbgcolor[$i]);
                     }
                 }
+                $i++;
             }
         }
         $output .= html_writer::end_tag('div');
