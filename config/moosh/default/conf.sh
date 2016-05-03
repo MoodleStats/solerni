@@ -430,6 +430,8 @@ function main () {
         # Delete block_orange_course_extended
         execute_moosh_command "moosh block-delete course all orange_course_extended course-view-*"
         
+        # Admin Block : change settings pagetypepattern=* to make it visible
+	execute_moosh_command "moosh block-update system 0 'settings' 'pagetypepattern' '*'"
 }
 
 main "$@"
