@@ -109,7 +109,7 @@ class local_orange_library_external extends external_api {
      */
     public static function get_thematic_info() {
 
-        return utilities_network::get_thematic_info();
+        return utilities_network::retreive_local_thematic_info();
     }
 
     /**

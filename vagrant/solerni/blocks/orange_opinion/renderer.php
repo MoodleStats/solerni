@@ -40,9 +40,9 @@ class block_orange_opinion_renderer extends plugin_renderer_base {
 
         $output = "";
 
-        $output .= html_writer::start_tag('div', array('class' => 'row orange-opinion-header'));
-            $output .= html_writer::start_tag('div');
-                $output .= html_writer::tag('h2', get_string('title', 'block_orange_opinion'));
+        $output .= html_writer::start_tag('div', array('class' => 'row'));
+            $output .= html_writer::start_tag('div', array('class' => 'col-xs-12'));
+                $output .= html_writer::tag('H2', get_string('title', 'block_orange_opinion'));
             $output .= html_writer::end_tag('div');
         $output .= html_writer::end_tag('div');
 
@@ -52,7 +52,7 @@ class block_orange_opinion_renderer extends plugin_renderer_base {
                 $output .= html_writer::start_tag('div', array('class' => 'col-xs-1 u-vertical-align'));
                     $output .= html_writer::link("#carousel-opinion",
                         "<span class='glyphicon glyphicon-chevron-left'></span>",
-                        array('class' => 'left carousel-control', 'data-slide' => 'prev'));
+                        array('class' => 'left carousel-control orange-opinion-chevron-left', 'data-slide' => 'prev'));
                 $output .= html_writer::end_tag('div');
 
                 $output .= html_writer::start_tag('div', array('class' => 'col-xs-10 orange-opinion-carousel-outline'));
@@ -88,7 +88,7 @@ class block_orange_opinion_renderer extends plugin_renderer_base {
                 $output .= html_writer::start_tag('div', array('class' => 'col-xs-1 u-vertical-align'));
                     $output .= html_writer::link("#carousel-opinion",
                         "<span class='glyphicon glyphicon-chevron-right'></span>",
-                        array('class' => 'right carousel-control', 'data-slide' => 'next'));
+                        array('class' => 'right carousel-control orange-opinion-chevron-right', 'data-slide' => 'next'));
                 $output .= html_writer::end_tag('div');
 
             $output .= html_writer::end_tag('div');
@@ -108,11 +108,11 @@ class block_orange_opinion_renderer extends plugin_renderer_base {
 
         $output = "";
 
-        $output .= html_writer::start_tag('div', array('id' => 'toto', 'class' => 'orange-opinion-carousel-content'));
+        $output .= html_writer::start_tag('div');
 
             $output .= html_writer::start_tag('div', array('class' => 'orange-opinion-text'));
 
-                $output .= html_writer::start_tag('div', array('class' => 'orange-opinion-title'));
+                $output .= html_writer::start_tag('div', array('class' => 'orange-opinion-title bold'));
                     $output .= html_writer::tag('span', format_text($opinion->title . ' (slide ' . $ind . '/' . $total . ')'));
                 $output .= html_writer::end_tag('div');
 
@@ -147,9 +147,9 @@ class block_orange_opinion_renderer extends plugin_renderer_base {
 
         for ($number = 0; $number < $nbslides; $number++) {
             if ($number == 0) {
-                $output .= html_writer::start_tag('li', array('class' => 'active', 'data-target' => '#carousel-opinion', 'data-slide-to' => '0'));
+                $output .= html_writer::start_tag('li', array('class' => 'orange-opinion-dot active ', 'data-target' => '#carousel-opinion', 'data-slide-to' => '0'));
             } else {
-                $output .= html_writer::start_tag('li', array('data-target' => '#carousel-opinion', 'data-slide-to' => $number));
+                $output .= html_writer::start_tag('li', array('data-target' => '#carousel-opinion', 'data-slide-to' => $number, 'class' => 'orange-opinion-dot'));
             }
 
             $output .= html_writer::end_tag('li');

@@ -27,6 +27,8 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once(dirname(__FILE__) . '/../../config.php');
 require_once($CFG->dirroot.'/blocks/orange_horizontal_numbers/lib.php');
+use theme_halloween\tools\theme_utilities;
+use local_orange_library\utilities\utilities_image;
 
 /**
  * Orange Horizontal Numbers block class
@@ -89,6 +91,8 @@ class block_orange_horizontal_numbers extends block_base {
      * @return string
      */
     public function get_content() {
+        global $CFG;
+
         // If content has already been generated, don't waste time generating it again.
         if ($this->content !== null) {
             return $this->content;
@@ -101,16 +105,25 @@ class block_orange_horizontal_numbers extends block_base {
             return $this->content;
         }
 
-        $nbuserssonnected = block_orange_horizontal_numbers_get_nbconnectedusers();
+        $nbuserssonnected = local_orange_library\utilities\utilities_user::get_nbconnectedusers();
 
         $lastuser = block_orange_horizontal_numbers_get_lastregistered();
 
         $nbposts = block_orange_horizontal_numbers_get_nbposts();
 
-        $nbusersregistred = block_orange_horizontal_numbers_get_nbusers();
+        $nbusersregistred = local_orange_library\utilities\utilities_user::get_nbusers();
 
+        // Get thematic illustration.
+        if (theme_utilities::is_theme_settings_exists_and_nonempty('homepageillustration')) {
+            $context = \context_system::instance();
+            $file = utilities_image::get_moodle_stored_file($context, 'theme_halloween', 'homepageillustration');
+            $illustrationurl = utilities_image::get_resized_url($file,
+                    array('w' => 1160, 'h' => 500, 'scale' => true));
+        } else {
+            $illustrationurl = $CFG->wwwroot . "/blocks/orange_thematics_menu/pix/defaultlogo.png";
+        }
         $this->content->text = $this->renderer->display_horizontal_numbers(
-                $nbuserssonnected, $nbposts, $nbusersregistred, $lastuser);
+                $nbuserssonnected, $nbposts, $nbusersregistred, $lastuser, $illustrationurl);
 
         return $this->content;
     }

@@ -25,6 +25,7 @@
 
 namespace local_orange_library\task;
 use local_orange_library\utilities\utilities_network;
+use local_orange_library\utilities\utilities_image;
 require_once($CFG->dirroot.'/blocks/orange_thematics_menu/lib.php');
 
 defined('MOODLE_INTERNAL') || die();
@@ -42,23 +43,22 @@ class orange_library_thematic_task extends \core\task\scheduled_task {
     }
 
     /**
-     * Do the job.
+     * Retreive information about local or remote thématic and cache data in DB.
      * Throw exceptions on errors (the job will be retried).
      */
     public function execute() {
-        // This task should only run on Home in case of Mnet configuration
-        if (!utilities_network::is_platform_uses_mnet() ||
-                (utilities_network::is_platform_uses_mnet() && utilities_network::is_thematic())) {
-            return false;
-        }
-        
-        $hosts = utilities_network::get_hosts();
 
-        foreach ($hosts as $host) {
-            $host = block_orange_thematics_menu_get_infos($host);
-            
-            // TODO - store in DB;
+        // This task should only run on Home in case of Mnet configuration.
+        if (utilities_network::is_platform_uses_mnet() && utilities_network::is_home()) {
+            $hosts = utilities_network::get_hosts();
+
+            foreach ($hosts as $host) {
+                utilities_network::update_thematic_info($host);
+            }
+        } else {
+            $host = new \stdclass();
+            $host->id = 1;
+            utilities_network::update_thematic_info($host);
         }
     }
-
 }

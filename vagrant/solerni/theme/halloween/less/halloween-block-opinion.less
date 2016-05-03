@@ -17,26 +17,13 @@
 /* Block Orange Opinion */
 .block_orange_opinion {
 
-    .orange-opinion-header {
-        position:   relative;
-        overflow:   hidden;
-
-        h2 {
-            margin-top:     @s-triple-md-margin;
-            margin-bottom:  @s-triple-md-margin;
-        }
-
-        h3 {
-            margin-top:     0;
-            margin-bottom:  @s-triple-md-margin;
-        }
-    }
+    background-color: @brand-info;
     
     .orange-opinion-carousel {
         padding-bottom: 20px;
 
         .orange-opinion-carousel-outline {
-            outline:    black 1px solid;
+            background-color: @brand-tertiary;
         }
     }
 
@@ -44,17 +31,12 @@
         display:    flex;
     }
 
-    
     .orange-opinion-text {
-        
-        width:          100%;
 
         .orange-opinion-title {
             padding-top:    @s-medium-md-margin;
             padding-bottom: @s-medium-md-margin;
             border-bottom:  1px solid @orange-mid-1;
-            font-family:    @font-family-titles;
-            font-weight:    bold;
             font-size:      @font-size-h3;
         }
 
@@ -72,4 +54,21 @@
             font-size:      @font-size-base;
         }
     }            
+
+    .orange-opinion-dot {
+        height:         10px;
+        width:          10px;
+        border-radius:  50%;
+    }
+
+    .orange-opinion-chevron-left {
+        left:       50%;
+        background: transparent;
+    }
+
+    .orange-opinion-chevron-right {
+        right:      50%;
+        background: transparent;
+    }
+
 }        

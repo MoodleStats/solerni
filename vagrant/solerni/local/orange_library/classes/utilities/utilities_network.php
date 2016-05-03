@@ -362,61 +362,209 @@ class utilities_network {
         return email_to_user($user, $supportuser, $subject, $message, $messagehtml);
     }
 
+
+    /**
+     * Get informations of a Thematic.
+     *
+     * @params host $host
+     * @return object $host
+     */
+    static public function get_thematic_info($host) {
+        global $DB;
+
+        // Try to find entry in DB cache.
+        if ($thematic = $DB->get_record('thematic_info', array('hostid' => $host->id), '*', IGNORE_MULTIPLE)) {
+            foreach ($thematic as $key => $value) {
+                $host->{$key} = $value;
+            }
+
+            return $host;
+        } else {
+            // No entry, we need to update the data.
+            return self::update_thematic_info($host);
+        }
+    }
+
+    /**
+     * update informations of a Thematic.
+     *
+     * @params host $host
+     * @return object $host
+     */
+    static public function update_thematic_info($host) {
+        global $CFG, $DB;
+
+        // If we are on Home Solerni.
+        if (self::is_platform_uses_mnet() && self::is_home()) {
+            $host = self::retreive_remote_thematic_info($host);
+        }
+
+        if ((!self::is_platform_uses_mnet()) ||
+            (self::is_platform_uses_mnet() && self::is_thematic())) {
+            // If we are on Solerni Thematic or simple installation.
+            $infos = self::retreive_local_thematic_info($host);
+            foreach ($infos as $field) {
+                $host->{$field['name']} = $field['value'];
+            }
+        }
+
+        // In case image have not be set on thematic.
+        if (empty($host->logo)) {
+            $host->logo = $CFG->wwwroot . "/blocks/orange_thematics_menu/pix/defaultlogo.png";
+        }
+        if (empty($host->illustration)) {
+            $host->illustration = $CFG->wwwroot . "/blocks/orange_thematics_menu/pix/defaultillustration.jpg";
+        }
+
+        if (!$host->available) {
+            error_log('Error in retreiving thematic information for : ' . $host->id);
+            return $host;
+        }
+
+        // Resize image to store a local copy.
+        $host->illustration = utilities_image::get_resized_url($host->illustration,
+                array('w' => 664, 'h' => 354, 'scale' => false));
+
+        if ($thematic = $DB->get_record('thematic_info', array('hostid' => $host->id), '*', IGNORE_MULTIPLE)) {
+            $thematic->available        = $host->available;
+            $thematic->nbmooc           = $host->nbmooc;
+            $thematic->nbinprogressmooc = $host->nbinprogressmooc;
+            $thematic->nbfuturemooc     = $host->nbfuturemooc;
+            $thematic->nbuser           = $host->nbuser;
+            $thematic->nbconnected      = $host->nbconnected;
+            $thematic->illustration     = $host->illustration;
+            $thematic->logo             = $host->logo;
+            $thematic->timeupdated      = time();
+            $DB->update_record('thematic_info', $thematic);
+        } else {
+            $thematic = new \stdClass();
+            $thematic->hostid           = $host->id;
+            $thematic->available        = $host->available;
+            $thematic->nbmooc           = $host->nbmooc;
+            $thematic->nbinprogressmooc = $host->nbinprogressmooc;
+            $thematic->nbfuturemooc     = $host->nbfuturemooc;
+            $thematic->nbuser           = $host->nbuser;
+            $thematic->nbconnected      = $host->nbconnected;
+            $thematic->illustration     = $host->illustration;
+            $thematic->logo             = $host->logo;
+            $thematic->timeupdated      = time();
+            $DB->insert_record('thematic_info', $thematic);
+        }
+
+        return $host;
+    }
+
     /**
      * Get informations of the current Thematic.
      *
-     * @return array $userdata
+     * @return array $data
      */
-    static public function get_thematic_info() {
+    static public function retreive_local_thematic_info() {
         global $CFG, $PAGE;
 
-        $userdata = array();
+        $data = array();
 
         // Get total number of Moocs on the thematic.
         $filter = new \stdclass();
         $nbmooc = utilities_course::get_courses_catalogue_count($filter);
-        $userdata[] = array ('type' => 'int', 'name' => 'nbmoocs', 'value' => $nbmooc);
+        $data[] = array ('type' => 'int', 'name' => 'nbmooc', 'value' => $nbmooc);
 
         // Get number of Moocs in progress.
         $filter->statusid[0] = 1;
         $nbinprogressmooc = utilities_course::get_courses_catalogue_count($filter);
-        $userdata[] = array ('type' => 'int', 'name' => 'nbinprogressmooc', 'value' => $nbinprogressmooc);
+        $data[] = array ('type' => 'int', 'name' => 'nbinprogressmooc', 'value' => $nbinprogressmooc);
 
         // Get number of Moocs to be started.
         $filter->statusid[0] = 2;
         $nbfuturemooc = utilities_course::get_courses_catalogue_count($filter);
-        $userdata[] = array ('type' => 'int', 'name' => 'nbfuturemooc', 'value' => $nbfuturemooc);
+        $data[] = array ('type' => 'int', 'name' => 'nbfuturemooc', 'value' => $nbfuturemooc);
 
         // Get illustration.
         if (theme_utilities::is_theme_settings_exists_and_nonempty('homepageillustration')) {
             $context = \context_system::instance();
             $file = utilities_image::get_moodle_stored_file($context, 'theme_halloween', 'homepageillustration');
             // Image size : in small screen, one item.
-            $illustrationurl = utilities_image::get_resized_url(null,
-                    array('w' => 664, 'h' => 354, 'scale' => true), $file);
-            $userdata[] = array ('type' => 'url', 'name' => 'illustration', 'value' => $illustrationurl);
+            $illustrationurl = utilities_image::get_resized_url($file,
+                    array('w' => 664, 'h' => 354, 'scale' => true));
+            $data[] = array ('type' => 'url', 'name' => 'illustration', 'value' => $illustrationurl);
         }
 
         // Get logo.
         if (theme_utilities::is_theme_settings_exists_and_nonempty('homepagelogo')) {
             $context = \context_system::instance();
             $file = utilities_image::get_moodle_stored_file($context, 'theme_halloween', 'homepagelogo');
-            $logourl = utilities_image::get_resized_url(null,
-                    array('w' => 100, 'h' => 100, 'scale' => true), $file);
+            $logourl = utilities_image::get_resized_url($file,
+                    array('w' => 100, 'h' => 100, 'scale' => true));
             // In case an error occurs we have a moodle_url as return.
             if (is_a ( $logourl , 'moodle_url')) {
                 error_log("Thematic logo error");
             } else {
-                $userdata[] = array ('type' => 'url', 'name' => 'logo', 'value' => $logourl);
+                $data[] = array ('type' => 'url', 'name' => 'logo', 'value' => $logourl);
             }
         }
 
         // Number of registered users.
-        $userdata[] = array ('type' => 'int', 'name' => 'nbusers', 'value' => utilities_user::get_nbusers());
+        $data[] = array ('type' => 'int', 'name' => 'nbuser', 'value' => utilities_user::get_nbusers());
 
         // Number of connected users.
-        $userdata[] = array ('type' => 'int', 'name' => 'nbconnected', 'value' => utilities_user::get_nbconnectedusers());
+        $data[] = array ('type' => 'int', 'name' => 'nbconnected', 'value' => utilities_user::get_nbconnectedusers());
 
-        return $userdata;
+        // Data available.
+        $data[] = array ('type' => 'int', 'name' => 'available', 'value' => true);
+
+        return $data;
+    }
+
+    /**
+     * retreive informations of a remote Thematic.
+     *
+     * @params host $host
+     * @return object $host
+     */
+    static public function retreive_remote_thematic_info($host) {
+        global $CFG, $PAGE;
+
+        $host->available = false;
+        // Check that Webservice is activated.
+        if (!theme_utilities::is_theme_settings_exists_and_nonempty('webservicestoken'.$host->id)) {
+            error_log('Resac WebService not configurated - Cannot get thematic informations');
+            return $host;
+        }
+
+        require_once($CFG->libdir . '/filelib.php'); // Include moodle curl class.
+        $token = $PAGE->theme->settings->{"webservicestoken{$host->id}"};
+        $serverurl = new \moodle_url($host->url . '/webservice/rest/server.php',
+                array('wstoken' => $token,
+                    'wsfunction' => 'local_orange_library_get_thematic_info',
+                    'moodlewsrestformat' => 'json'));
+        $curl = new \curl;
+        $thematic = json_decode($curl->post(
+                htmlspecialchars_decode($serverurl->__toString())));
+
+        if ($thematic && is_object($thematic) && $thematic->errorcode) {
+            error_log('Resac Get Thematic Info Request Returned An Error. Message: '
+                    . $thematic->message);
+            $thematic = false;
+        }
+
+        if (empty($thematic)) {
+            return $host;
+        }
+
+        foreach ($thematic as $field) {
+            $host->{$field->name} = $field->value;
+        }
+
+        // In case image have not be set on thematics.
+        if (empty($host->logo)) {
+            $host->logo = $CFG->wwwroot . "/blocks/orange_thematics_menu/pix/defaultlogo.png";
+        }
+        if (empty($host->illustration)) {
+            $host->illustration = $CFG->wwwroot . "/blocks/orange_thematics_menu/pix/defaultillustration.jpg";
+        }
+
+        $host->available = true;
+
+        return $host;
     }
 }

@@ -75,10 +75,7 @@ class block_orange_opinion extends block_base {
      */
     public function applicable_formats() {
         return array(
-            'course-view'    => false,
-            'site'           => true,
-            'mod'            => false,
-            'my'             => false
+            'site-index' => true
         );
     }
 
