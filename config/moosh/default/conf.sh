@@ -429,8 +429,7 @@ function main () {
 
         # Delete block_orange_course_extended
         execute_moosh_command "moosh block-delete course all orange_course_extended course-view-*"
-        execute_moosh_command "moosh block-add course all orange_course_extended course-view-* content -10"
-
+        
 }
 
 main "$@"
