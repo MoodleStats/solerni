@@ -21,7 +21,7 @@
  * @copyright  Orange 2015
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-require_once($CFG->dirroot.'/blocks/orange_course_dashboard/locallib.php');
+use local_orange_library\utilities\utilities_course;
 
 class block_orange_course_dashboard extends block_base {
     /**
@@ -53,7 +53,7 @@ class block_orange_course_dashboard extends block_base {
         $renderer = $this->page->get_renderer('block_orange_course_dashboard');
 
         $sortedcourses =
-            block_orange_course_dashboard_get_user_courses($this->config->defaultmaxcourses);
+            utilities_course::get_ordered_user_courses($this->config->defaultmaxcourses);
 
         // We have courses and no manual override.
         if (count($sortedcourses) && !$this->config->forcednoavailabalemooc) {
