@@ -652,22 +652,22 @@ class utilities_course {
      * Returns "description page" url of a course
      *
      * @global type $CFG
-     * @param type $course
+     * @param  int $courseid
      * @return string
      *
      */
-    public function get_description_page_url($course = null) {
+    public function get_description_page_url($courseid = null) {
 
         global $CFG, $DB;
         $url = '#';
 
-        if (!$course) {
+        if (!$courseid) {
             global $COURSE;
-            $course = $COURSE;
+            $courseid = $COURSE->id;
         }
 
-        if ($course) {
-                $url = $CFG->wwwroot . '/mooc/view.php?courseid=' . $course->id;
+        if ($courseid) {
+                $url = $CFG->wwwroot . '/mooc/view.php?courseid=' . $courseid;
         }
         return $url;
     }

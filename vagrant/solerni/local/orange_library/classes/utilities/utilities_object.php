@@ -201,4 +201,17 @@ class utilities_object {
         // The date is another day.
         return userdate($date, '%d %b %Y');
     }
+
+    /**
+     * return plural or singular depending testvalue
+     * @param int $testvalue
+     * @param int $pluginname
+     * @param int $singulars
+     * @param int $plural
+     * @return string
+     */
+    public static function get_string_plural($testvalue, $pluginname, $singular, $plural) {
+
+        return ($testvalue > 1) ? get_string($plural, $pluginname) : get_string($singular, $pluginname);
+    }
 }
