@@ -51,7 +51,7 @@ class block_orange_listforumng extends block_base {
      * @return bool
      */
     public function has_config() {
-        return true;
+        return false;
     }
 
     public function specialization() {
