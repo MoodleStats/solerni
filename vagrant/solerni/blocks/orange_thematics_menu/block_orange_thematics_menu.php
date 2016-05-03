@@ -42,12 +42,7 @@ class block_orange_thematics_menu extends block_base {
      * @return array
      */
     public function applicable_formats() {
-        return array(
-            'course-view'    => false,
-            'site'           => true,
-            'mod'            => false,
-            'my'             => false
-        );
+        return array('site-index'     => true);
     }
 
     /**

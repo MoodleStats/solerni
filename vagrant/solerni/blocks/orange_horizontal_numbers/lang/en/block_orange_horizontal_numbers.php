@@ -34,4 +34,4 @@ $string['tofaq'] = 'Learn more about forums ? <a href=\'{$a}\'>Go to our F.A.Q.<
 $string['nbposts'] = 'posted Messages';
 $string['nbusers'] = 'registered';
 $string['lastuserregistered'] = 'last registered';
-$string['nbusersconnected'] = 'users connected Now';
+$string['nbusersconnected'] = 'users connected<br />Now';
