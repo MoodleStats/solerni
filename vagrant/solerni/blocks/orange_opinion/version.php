@@ -14,25 +14,16 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+
 /**
- * Lang strings.
- * @package block_orange_transverse_discussion
- * @copyright  2016 Orange
+ * Orange Opinion block version details
+ *
+ * @package    block_orange_opinion
+ * @copyright  Orange 2016
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Orange Transverse Discussion';
-
-$string['orange_transverse_discussion:addinstance'] = 'Ajouter un block Orange Transverse Discussion';
-
-$string['title'] = 'Les forums';
-$string['intro'] = 'Apprenez et échangez avec les membres de la communauté';
-$string['linkforum'] = 'Forums {$a}';
-
-$string['titlebanner'] = 'Dernier sujet actif sur les forums {$a}';
-$string['forumname'] = 'Forum : ';
-$string['discussionname'] = 'Discussion : ';
-$string['createdby'] = 'Créée par ';
-$string['lineresponsebegin'] = 'A reçu ';
-$string['lineresponseend'] = ' réponse{$a}';
-$string['linkdiscuss'] = 'Participer à la discussion';
+$plugin->version   = 2016050200;
+$plugin->requires  = 2015051104;
+$plugin->maturity  = MATURITY_STABLE;
+$plugin->component = 'block_orange_opinion';

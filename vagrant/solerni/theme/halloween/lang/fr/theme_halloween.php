@@ -174,6 +174,7 @@ $string['user_menu_dashboard']          = 'Mon tableau de bord';
 $string['user_menu_profile']            = 'Mon profil';
 $string['user_menu_email']              = 'Ma messagerie';
 $string['user_menu_logout']             = 'Déconnexion';
+$string['user_menu_preferences']        = 'Mes préférences';
 $string['administration']               = 'Administration';
 $string['skip_to_main']                 = 'Aller au contenu';
 $string['skip_to_nav']                  = 'Aller à la navigation';

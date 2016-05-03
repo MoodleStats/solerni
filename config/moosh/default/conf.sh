@@ -437,7 +437,6 @@ function main () {
 	# Create API User
 	execute_moosh_command "moosh user-create --password apiuser01! --email solerniapiuser@orange.fr --firstname 'API' --lastname 'User' --city 'Paris' --country 'FR' 'api_user'"
 
-
         # hide block main menu for solerni_utilisateur, solerni_apprenant, solerni_power_apprenant, solerni_animateur, solerni_client, guest
 	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_utilisateur moodle/block:view prevent block_in_course site_main_menu"
 	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_apprenant moodle/block:view prevent block_in_course site_main_menu"
@@ -456,6 +455,12 @@ function main () {
 	execute_moosh_command "moosh qtype-manage disable essay"
 	execute_moosh_command "moosh qtype-manage disable multianswer"
 	execute_moosh_command "moosh qtype-manage disable randomsamatch"
+
+        # Delete block_orange_course_extended
+        execute_moosh_command "moosh block-delete course all orange_course_extended course-view-*"
+        
+        # Admin Block : change settings pagetypepattern=* to make it visible
+	execute_moosh_command "moosh block-update system 0 'settings' 'pagetypepattern' '*'"
 }
 
 main "$@"

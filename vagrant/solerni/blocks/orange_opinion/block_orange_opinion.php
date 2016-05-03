@@ -16,26 +16,23 @@
 
 
 /**
- * Orange Emerging Messages block definition
+ * Orange Opinion block definition
  *
- * @package    block_orange_emerging_messages
- * @copyright  Orange 2015
+ * @package    block_orange_opinion
+ * @copyright  Orange 2016
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 require_once(dirname(__FILE__) . '/../../config.php');
-require_once($CFG->dirroot.'/local/orange_library/classes/forumng/forumng_object.php');
-require_once($CFG->dirroot.'/blocks/orange_emerging_messages/lib.php');
-
 
 /**
- * Emerging Messages block class
- * @copyright  Orange 2015
+ * Orange Opinion block class
+ * @copyright  Orange 2016
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class block_orange_emerging_messages extends block_base {
+class block_orange_opinion extends block_base {
 
     /**
      * Sets the block title
@@ -44,8 +41,8 @@ class block_orange_emerging_messages extends block_base {
      */
     public function init() {
         Global $PAGE;
-        $this->title = get_string('pluginname', 'block_orange_emerging_messages');
-        $this->renderer = $PAGE->get_renderer('block_orange_emerging_messages');
+        $this->title = get_string('pluginname', 'block_orange_opinion');
+        $this->renderer = $PAGE->get_renderer('block_orange_opinion');
     }
 
     /**
@@ -58,9 +55,7 @@ class block_orange_emerging_messages extends block_base {
     }
 
     public function specialization() {
-
-        $this->title = isset($this->config->title) ?
-            format_string($this->config->title) : '';
+        $this->title = "";
     }
 
     /**
@@ -70,7 +65,7 @@ class block_orange_emerging_messages extends block_base {
      */
 
     public function instance_allow_multiple() {
-        return !block_orange_emerging_messages_on_my_page();
+        return false;
     }
 
     /**
@@ -80,10 +75,7 @@ class block_orange_emerging_messages extends block_base {
      */
     public function applicable_formats() {
         return array(
-            'course-view'    => true,
-            'site'           => false,
-            'mod'            => false,
-            'my'             => false
+            'site-index' => true
         );
     }
 
@@ -93,8 +85,7 @@ class block_orange_emerging_messages extends block_base {
      * @return string
      */
     public function get_content() {
-        global $USER, $COURSE;
-
+        global $DB;
         // If content has already been generated, don't waste time generating it again.
         if ($this->content !== null) {
             return $this->content;
@@ -103,32 +94,13 @@ class block_orange_emerging_messages extends block_base {
         $this->content->text = '';
         $this->content->footer = '';
 
-        // Guests do not have any progress. Don't show them the block.
-        if (!isloggedin() or isguestuser()) {
+        if (empty($this->instance)) {
             return $this->content;
         }
 
-        // Check if user is in group for block.
-        if (
-            !empty($this->config->group) &&
-            !has_capability('moodle/site:accessallgroups', $this->context) &&
-            !groups_is_member($this->config->group, $USER->id)
-        ) {
-            return $this->content;
-        }
+        $opinions = $DB->get_records('orange_opinion', array('suspended' => 0), 'timemodified', '*', 0 , 6);
 
-        if (!isset($this->config->nbdisplaypost)) {
-            $nbdisplaypost = intval(get_string('nbdisplaypostdefault', 'block_orange_emerging_messages'));
-        } else {
-            $nbdisplaypost = $this->config->nbdisplaypost;
-        }
-
-        $listposts = block_orange_emerging_messages_get_user_posts($COURSE->id, $USER->id, $nbdisplaypost);
-        $listdiscussions = block_orange_emerging_messages_get_last_discussions($COURSE->id, $nbdisplaypost);
-        $listbestposts = block_orange_emerging_messages_get_best_messages($COURSE->id, $nbdisplaypost);
-
-        $this->content->text = $this->renderer->display_emerging_messages(
-                $COURSE, $listposts->posts, $listdiscussions->posts, $listbestposts->posts);
+        $this->content->text .= $this->renderer->display_carousel($opinions);
 
         return $this->content;
     }
