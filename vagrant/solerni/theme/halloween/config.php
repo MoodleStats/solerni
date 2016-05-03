@@ -227,6 +227,11 @@ $THEME->layouts = array(
         'file' => 'secure.php',
         'regions' => array('side-pre'),
         'defaultregion' => 'side-pre'
+    ),
+    // The Forum thematic page.
+    'forum' => array(
+        'file' => 'default.php',
+        'regions' => array(),
     )
 );
 

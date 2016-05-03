@@ -231,7 +231,7 @@ $string['create_account']           = 'Create my account';
 $string['policyaccept']             = 'I have read and agree to the <a class="js-target-blank" href="{$a}" target="_blank">Terms and Conditions</a>';
 $string['missingusername']          = 'Your {$a} cannot be empty';
 
-// Webservices settings page
+// Webservices settings page.
 $string['webservicessettings']      = 'MNET/RESAC';
 $string['webservicesheading']       = 'Configure communication between RESAC instances';
 $string['webservicesheadingdesc']   = '';
@@ -240,7 +240,7 @@ $string['webservicestokendesc']     = 'Insert the HOME MNET token generated for 
 $string['webservicestokenthematic'] = 'Security token for {$a}';
 $string['webservicestokenthematicdesc'] = 'Insert the {$a} token generated for RESAC Web Service';
 
-// Homepage settings page
+// Homepage settings page.
 $string['homepagesettings']         = 'Homepage';
 $string['homepageheading']          = 'Parameters for homepage';
 $string['homepageheadingdesc']      = '';
@@ -308,7 +308,7 @@ $string['seecatalog']               = "See the catalogue";
 $string['lastbadge']                = 'Last badge obtained:';
 $string['mybadges']                 = 'My badges';
 
-// Contact page
+// Contact page.
 $string['contact_us']               = 'Contact us';
 $string['contact_page_title']       = 'Contact us';
 $string['contact_request_type']     = 'Your enquiry is about';
@@ -340,11 +340,12 @@ $string['contact_email_body']       = 'The following request has been issued usi
 $string['nobadgesfaq'] = 'There are no badges available.<br/>
 <strong><a href="{$a}">Consult FAQ</a></strong> to understand how badges work.';
 
-// Home Solerni
+// Home Solerni.
 $string['hometitle'] = 'What will you learn today ?';
 
-// Page en savoir plus
+// Page en savoir plus.
 $string['more_info']               = 'more info';
 
-// Page forum
+// Page forum.
 $string['forumnavbar']             = 'Discussion space';
+$string['forum_page_title']        = 'Discussion space';

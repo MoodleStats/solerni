@@ -150,7 +150,7 @@ class theme_utilities {
     public static function is_layout_uses_page_block_title() {
         global $PAGE;
 
-        $pageswithoutpageblocktitle = array('admin', 'mydashboard');
+        $pageswithoutpageblocktitle = array('admin', 'mydashboard', 'forum');
 
         if (in_array($PAGE->pagelayout, $pageswithoutpageblocktitle)) {
             return false;

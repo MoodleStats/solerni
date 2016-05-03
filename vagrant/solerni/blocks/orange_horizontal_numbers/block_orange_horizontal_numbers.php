@@ -26,9 +26,10 @@
 defined('MOODLE_INTERNAL') || die();
 
 require_once(dirname(__FILE__) . '/../../config.php');
-require_once($CFG->dirroot.'/blocks/orange_horizontal_numbers/lib.php');
+require_once($CFG->dirroot.'/local/orange_library/classes/forumng/forumng_object.php');
 use theme_halloween\tools\theme_utilities;
 use local_orange_library\utilities\utilities_image;
+use local_orange_library\utilities\utilities_network;
 
 /**
  * Orange Horizontal Numbers block class
@@ -105,13 +106,22 @@ class block_orange_horizontal_numbers extends block_base {
             return $this->content;
         }
 
-        $nbuserssonnected = local_orange_library\utilities\utilities_user::get_nbconnectedusers();
+        // Get calculated data in cache (CRON).
+        $host = new \stdclass();
+        $host->id = 1; // Current host.
+        $host = utilities_network::get_thematic_info($host);
 
-        $lastuser = block_orange_horizontal_numbers_get_lastregistered();
+        if (!empty($host->available)) {
+            $nbuserssonnected = (int)$host->nbconnected;
+            $nbusersregistred = (int)$host->nbuser;
+            $nbposts = (int)$host->nbpost;
+        } else {
+            $nbuserssonnected = local_orange_library\utilities\utilities_user::get_nbconnectedusers();
+            $nbusersregistred = local_orange_library\utilities\utilities_user::get_nbusers();
+            $nbposts = \forumng_object::get_nbposts();
+        }
 
-        $nbposts = block_orange_horizontal_numbers_get_nbposts();
-
-        $nbusersregistred = local_orange_library\utilities\utilities_user::get_nbusers();
+        $lastuser = local_orange_library\utilities\utilities_user::get_lastregistered();
 
         // Get thematic illustration.
         if (theme_utilities::is_theme_settings_exists_and_nonempty('homepageillustration')) {
