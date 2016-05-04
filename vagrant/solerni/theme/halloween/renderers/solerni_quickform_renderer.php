@@ -23,6 +23,9 @@ class HalloweenMoodleQuickForm_Renderer extends MoodleQuickForm_Renderer {
 
         global $CFG;
 
+        // Standard frontend element to represent a required field
+        $this->_requiredElement = '<span class="form-required-field">*</span>';
+
         HTML_QuickForm::registerElementType('helpblock', $CFG->libdir . '/form/helpblock.php', 'MoodleQuickForm_helpblock');
         HTML_QuickForm::registerElementType('inverseadvcheckbox', $CFG->libdir . '/form/inverseadvcheckbox.php', 'MoodleQuickForm_inverseadvcheckbox');
         HTML_QuickForm::registerElementType('inversecheckbox', $CFG->libdir . '/form/inversecheckbox.php', 'MoodleQuickForm_inversecheckbox');
@@ -37,7 +40,7 @@ class HalloweenMoodleQuickForm_Renderer extends MoodleQuickForm_Renderer {
                 . ' fitem_{type} {emptylabel} '
                 . '<!-- BEGIN error --> has-error<!-- END error -->" '
                 . '{aria-live}><label>{label}'
-                . '<!-- BEGIN required --> <span class="form-required-field">*</span><!-- END required -->'
+                . '<!-- BEGIN required -->{req}<!-- END required -->'
                 . '</label><div>{element}'
                 . '<!-- BEGIN error --><div class="help-block small">{error}</div><!-- END error -->'
                 . '</div></div>',
@@ -71,12 +74,12 @@ class HalloweenMoodleQuickForm_Renderer extends MoodleQuickForm_Renderer {
                 . '<!-- BEGIN required --> required<!-- END required --> fitem_{type} {emptylabel} '
                 . '<!-- BEGIN error --> has-error<!-- END error -->" {aria-live}>'
                 . '<!-- BEGIN error --><p class="text-warning">{error}</p><!-- END error -->'
-                . '{element}<label>{label}</label></div>',
+                . '{element}<label>{label}<!-- BEGIN required -->{req}<!-- END required --></label></div>',
 
             'inversecheckbox' =>"\n\t\t".'<div id="{id}" class="fitem-legacy form-group {advanced}'
                 . '<!-- BEGIN required --> required<!-- END required --> fitem_{type} {emptylabel}'
                 . '<!-- BEGIN error --> has-error<!-- END error -->" {aria-live}>'
-                . '{element}<label>{label}</label>'
+                . '{element}<label>{label}<!-- BEGIN required -->{req}<!-- END required --></label>'
                 . '<!-- BEGIN error --><div class="help-block small">{error}</div><!-- END error -->'
                 . '</div>',
 
@@ -84,6 +87,36 @@ class HalloweenMoodleQuickForm_Renderer extends MoodleQuickForm_Renderer {
 
             'nodisplay'=>''
         );
+    }
+
+    /**
+     * Overriden function to define a new required html element
+     * and add requiredNote at the top of the form.
+     */
+    function startForm(&$form){
+        $form->_reqHTML = $this->_requiredElement;
+        $form->setRequiredNote(get_string('somefieldsrequired', 'form', $form->_reqHTML));
+        parent::startForm($form);
+        if ($form->isFrozen()){
+            $this->_formTemplate = "\n<div class=\"mform frozen\">\n{content}\n</div>";
+        } else {
+            $this->_formTemplate = "\n<form{attributes}>\n\t"
+                    . "<div style=\"display: none;\">{hidden}</div>"
+                    . "\n{collapsebtns}\n"
+                    .  "<div class=\"row\"><div class=\"col-xs-12 has-required\">"
+                    . $form->getRequiredNote()
+                    . "</div></div>"
+                    . "{content}\n</form>";
+            $this->_hiddenHtml .= $form->_pageparams;
+        }
+    }
+
+    /**
+     * Overriden function to remove the requiredNote from form footer.
+     */
+    function finishForm(&$form) {
+        $form->_required = false; // set it to false so we don't output _requiredNote twice.
+        parent::finishForm($form);
     }
 }
 
