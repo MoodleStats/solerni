@@ -32,29 +32,33 @@ class utilities_image {
      * the original URL of image
      * If the moodle file object is given it is use in priority to access the file
      *
-     * @param url $image (mandatory)
+     * @param url or moodle stored_file $image (mandatory)
      *        array $opts (optional)
      *              'scale' => resize image with possible 'deformation'
      *              'crop' => resize image with croping
      *              'output-filename' => keep filename
      *              'w' => new width
      *              'h' => new height
-     *        moodle file object $file (optional)
      * @return $newImageUrl
      */
-    public static function get_resized_url($image = null, $opts = null, $file = null) {
-
+    public static function get_resized_url($image, $opts = null) {
         global $CFG;
 
-        if (!$image && !$file) {
-            return false;
+        // If image parameter not set then send a default image.
+        if (!$image) {
+            $image = $CFG->wwwroot . 'theme/halloween/pix/logo-orange.png';
         }
 
-        if ((!$image && $file) && !$image = self::get_moodle_url_from_stored_file($file)) {
-            return false;
+        // If image is a stored_file Moodle, the get Moodle URL.
+        if (is_a($image , 'stored_file')) {
+            $file = $image;
+            if (!$image = self::get_moodle_url_from_stored_file($file)) {
+                $image = $CFG->wwwroot . 'theme/halloween/pix/logo-orange.png';
+            }
         }
 
         $imagepath = urldecode($image);
+        $purl = parse_url($imagepath);
 
         // Start configuration.
         $cachefolder = $CFG->solerni_images_directory.'/';
@@ -69,74 +73,22 @@ class utilities_image {
         $cachefolder = $opts['cacheFolder'];
         $remotefolder = $opts['remoteFolder'];
 
-        $pathtoconvert = 'convert'; // This could be something like /usr/bin/convert or /opt/local/share/bin/convert.
-
-        // You shouldn't need to configure anything else beyond this point.
-
-        $purl = parse_url($imagepath);
-        $finfo = pathinfo($imagepath);
-        $ext = $finfo['extension'];
-
-        // Check for remote image.
-        // First try to use the moodle file object.
-        if ($file) {
-            $downloadimage = true;
-            $localfilepath = $remotefolder.$file->get_filename();
-            if (file_exists($localfilepath) && filesize($localfilepath)) {
-                if ($file->get_timecreated() < strtotime('+'.$opts['cache_http_minutes'].' minutes')) {
-                    $downloadimage = false;
-                }
-            }
-            if ($downloadimage == true) {
-                $file->copy_content_to($localfilepath);
-            }
-            $imagepath = $localfilepath;
+        // Update original in cache if needed.
+        if (isset($file)) {
+            $imagepath = self::update_original_in_cache($file, $remotefolder, $opts['cache_http_minutes']);
         } else if (isset($purl['scheme']) && ($purl['scheme'] == 'http' || $purl['scheme'] == 'https')) {
-            // Grab the image, and cache it so we have something to work with.
-            list($filename) = explode('?', $finfo['basename']);
-            $localfilepath = $remotefolder.$filename;
-            $downloadimage = true;
-            if (file_exists($localfilepath) && filesize($localfilepath)) {
-                if (filemtime($localfilepath) < strtotime('+'.$opts['cache_http_minutes'].' minutes')) {
-                    $downloadimage = false;
-                }
-            }
-            if ($downloadimage == true) {
-                $img = file_get_contents($imagepath);
-                file_put_contents($localfilepath, $img);
-            }
-            $imagepath = $localfilepath;
+            $imagepath = self::update_original_in_cache($imagepath, $remotefolder, $opts['cache_http_minutes']);
         }
 
-        // We try to access the image. If an error occurs we return the original url.
+        // We try to access the image in cache. If an error occurs we return the original url.
         if (file_exists($imagepath) == false) {
             return $image;
         }
 
-        if (isset($opts['w'])) {
-            $w = $opts['w'];
-        }
-        if (isset($opts['h'])) {
-            $h = $opts['h'];
-        }
+        // Get path to resized image.
+        $newpath = self::get_image_newpath($imagepath, $cachefolder, $opts);
 
-        $filename = md5_file($imagepath);
-
-        // If the user has requested an explicit output-filename, do not use the cache directory.
-        if (false !== $opts['output-filename']) {
-            $newpath = $opts['output-filename'];
-        } else {
-            if (!empty($w) and !empty($h)) {
-                $newpath = $cachefolder.$filename.'_w'.$w.'_h'.$h.
-                        (isset($opts['crop']) && $opts['crop'] == true ? "_cp" : "").
-                        (isset($opts['scale']) && $opts['scale'] == true ? "_sc" : "").'.'.$ext;
-            } else if (!empty($w)) {
-                $newpath = $cachefolder.$filename.'_w'.$w.'.'.$ext;
-            } else if (!empty($h)) {
-                $newpath = $cachefolder.$filename.'_h'.$h.'.'.$ext;
-            }
-        }
-
+        // Check that the resize image in cache is not older than original image.
         $create = true;
         if (file_exists($newpath) == true) {
             $create = false;
@@ -147,52 +99,151 @@ class utilities_image {
             }
         }
 
+        // We have to create the resize image in cache.
         if ($create == true) {
-            if (!empty($w) && !empty($h)) {
-
-                list($width, $height) = getimagesize($imagepath);
-                $resize = $w;
-
-                if ($width > $height) {
-                    $resize = $w;
-                    if (true === $opts['crop']) {
-                        $resize = "x".$h;
-                    }
-                } else {
-                    $resize = "x".$h;
-                    if (true === $opts['crop']) {
-                        $resize = $w;
-                    }
-                }
-
-                if (true === $opts['scale']) {
-                    $cmd = $pathtoconvert ." ". escapeshellarg($imagepath) ." -resize ". escapeshellarg($resize) .
-                    " -quality ". escapeshellarg($opts['quality']) . " " . escapeshellarg($newpath);
-                } else {
-                    $cmd = $pathtoconvert." ". escapeshellarg($imagepath) ." -resize ". escapeshellarg($resize) .
-                    " -size ". escapeshellarg($w ."x". $h) .
-                    " xc:". escapeshellarg($opts['canvas-color']) .
-                    " +swap -gravity center -composite -quality ". escapeshellarg($opts['quality'])." ".escapeshellarg($newpath);
-                }
-
-            } else if (!empty($w)) {
-                $cmd = $pathtoconvert." " . escapeshellarg($imagepath) .
-                " -resize ". $w ."".
-                " -quality ". escapeshellarg($opts['quality']) ." ". escapeshellarg($newpath);
-            } else if (!empty($h)) {
-                $cmd = $pathtoconvert." " . escapeshellarg($imagepath) .
-                " -resize ". 'x'. $h ."".
-                " -quality ". escapeshellarg($opts['quality']) ." ". escapeshellarg($newpath);
+            if (self::resize_from_original($imagepath, $newpath, $opts)) {
+                return $CFG->wwwroot . $CFG->solerni_image_base_url . '/' . str_replace($cachefolder, '', $newpath);
             }
+            return $image;
+        }
 
-            $c = exec($cmd, $output, $returncode);
-            if ($returncode != 0) {
-                return $image;
+        return $CFG->wwwroot . $CFG->solerni_image_base_url . '/' . str_replace($cachefolder, '', $newpath);
+    }
+
+    /**
+     * Get new image new pathname.
+     *
+     * @param path to original image $imagepath
+     * @param path to cache folder image $newpath
+     * @param options $options
+     * @return path to image
+     */
+    private static function get_image_newpath($imagepath, $cachefolder, $options) {
+        if (isset($options['w'])) {
+            $w = $options['w'];
+        }
+        if (isset($options['h'])) {
+            $h = $options['h'];
+        }
+
+        $finfo = pathinfo($imagepath);
+        $ext = $finfo['extension'];
+
+        $filename = md5_file($imagepath);
+
+        // If the user has requested an explicit output-filename, do not use the cache directory.
+        if (false !== $options['output-filename']) {
+            $newpath = $options['output-filename'];
+        } else {
+            if (!empty($w) and !empty($h)) {
+                $newpath = $cachefolder.$filename.'_w'.$w.'_h'.$h.
+                        (isset($options['crop']) && $options['crop'] == true ? "_cp" : "").
+                        (isset($options['scale']) && $options['scale'] == true ? "_sc" : "").'.'.$ext;
+            } else if (!empty($w)) {
+                $newpath = $cachefolder.$filename.'_w'.$w.'.'.$ext;
+            } else if (!empty($h)) {
+                $newpath = $cachefolder.$filename.'_h'.$h.'.'.$ext;
             }
         }
 
-        // Return cache file path.
-        return $CFG->wwwroot . $CFG->solerni_image_base_url . '/' . str_replace($cachefolder, '', $newpath);
+        return $newpath;
+    }
+
+    /**
+     * Resize Image.
+     *
+     * @param path to original image $imagepath
+     * @param path to new image $newpath
+     * @param options $options
+     * @return boolean
+     */
+    private static function resize_from_original($imagepath, $newpath, $options) {
+
+        $pathtoconvert = 'convert'; // This could be something like /usr/bin/convert or /opt/local/share/bin/convert.
+
+        if (isset($options['w'])) {
+            $w = $options['w'];
+        }
+        if (isset($options['h'])) {
+            $h = $options['h'];
+        }
+        if (!empty($w) && !empty($h)) {
+
+            list($width, $height) = getimagesize($imagepath);
+            $resize = $w;
+
+            if ($width > $height) {
+                $resize = $w;
+                if (true === $options['crop']) {
+                    $resize = "x".$h;
+                }
+            } else {
+                $resize = "x".$h;
+                if (true === $options['crop']) {
+                    $resize = $w;
+                }
+            }
+
+            if (true === $options['scale']) {
+                $cmd = $pathtoconvert ." ". escapeshellarg($imagepath) ." -resize ". escapeshellarg($resize) .
+                " -quality ". escapeshellarg($options['quality']) . " " . escapeshellarg($newpath);
+            } else {
+                $cmd = $pathtoconvert." ". escapeshellarg($imagepath) ." -resize ". escapeshellarg($resize) .
+                " -size ". escapeshellarg($w ."x". $h) .
+                " xc:". escapeshellarg($options['canvas-color']) .
+                " +swap -gravity center -composite -quality ". escapeshellarg($options['quality'])." ".escapeshellarg($newpath);
+            }
+
+        } else if (!empty($w)) {
+            $cmd = $pathtoconvert." " . escapeshellarg($imagepath) .
+            " -resize ". $w ."".
+            " -quality ". escapeshellarg($options['quality']) ." ". escapeshellarg($newpath);
+        } else if (!empty($h)) {
+            $cmd = $pathtoconvert." " . escapeshellarg($imagepath) .
+            " -resize ". 'x'. $h ."".
+            " -quality ". escapeshellarg($options['quality']) ." ". escapeshellarg($newpath);
+        }
+
+        $c = exec($cmd, $output, $returncode);
+
+        return ($returncode == 0);
+    }
+
+    /**
+     * Update image in cache original folder if needed
+     *
+     * @param url or moodle stored_file $image (mandatory)
+     * @param folder of original image $remotefolder
+     * @param cache expiration delay in minute $cache_expire_minute
+     * @return path to image 
+     */
+    private static function update_original_in_cache($image, $remotefolder, $cacheexpireminute) {
+        $downloadimage = true;
+        if (is_a($image , 'stored_file')) {
+            $localfilepath = $remotefolder.$image->get_filename();
+            if (file_exists($localfilepath) && filesize($localfilepath) &&
+                ($image->get_timecreated() < strtotime('+'.$cacheexpireminute.' minutes'))) {
+                $downloadimage = false;
+            }
+            if ($downloadimage == true) {
+                $image->copy_content_to($localfilepath);
+            }
+        } else {
+            // Grab the image, and cache it so we have something to work with.
+            $finfo = pathinfo($image);
+            list($filename) = explode('?', $finfo['basename']);
+            $localfilepath = $remotefolder.$filename;
+            $downloadimage = true;
+            if (file_exists($localfilepath) && filesize($localfilepath) &&
+                (filemtime($localfilepath) < strtotime('+'.$cacheexpireminute.' minutes'))) {
+                $downloadimage = false;
+            }
+            if ($downloadimage == true) {
+                $img = file_get_contents($image);
+                file_put_contents($localfilepath, $img);
+            }
+        }
+        return $localfilepath;
     }
 
     /**
@@ -203,12 +254,16 @@ class utilities_image {
      * @param type $fileareaname
      * @return stored_file object
      */
-    public static function get_moodle_stored_file($context, $pluginname, $fileareaname) {
+    public static function get_moodle_stored_file($context, $pluginname, $fileareaname, $itemid = 0) {
 
         $fs = get_file_storage();
-        $files = $fs->get_area_files($context->id, $pluginname, $fileareaname);
-
-        return array_pop($files);
+        $files = $fs->get_area_files($context->id, $pluginname, $fileareaname, $itemid);
+        foreach ($files as $file) {
+            if ($file->is_directory()) {
+                continue;
+            }
+            return $file;
+        }
     }
 
     /**
@@ -227,7 +282,7 @@ class utilities_image {
             $storedfile->get_contextid(),
             $storedfile->get_component(),
             $storedfile->get_filearea(),
-            ($storedfile->get_itemid()) ? $storedfile->get_itemid() : NULL,
+            ($storedfile->get_itemid()) ? $storedfile->get_itemid() : null,
             $storedfile->get_filepath(),
             $storedfile->get_filename(),
             $forcedownload

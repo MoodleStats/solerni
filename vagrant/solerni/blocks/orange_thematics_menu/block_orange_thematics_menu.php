@@ -23,7 +23,6 @@
  */
 
 use local_orange_library\utilities\utilities_network;
-require_once($CFG->dirroot.'/blocks/orange_thematics_menu/lib.php');
 
 class block_orange_thematics_menu extends block_base {
     public function init() {
@@ -43,12 +42,7 @@ class block_orange_thematics_menu extends block_base {
      * @return array
      */
     public function applicable_formats() {
-        return array(
-            'course-view'    => false,
-            'site'           => true,
-            'mod'            => false,
-            'my'             => false
-        );
+        return array('site-index'     => true);
     }
 
     /**
@@ -79,7 +73,7 @@ class block_orange_thematics_menu extends block_base {
         $output = html_writer::start_tag('div', array('class' => 'row'));
         $this->content->text .= $output;
         foreach ($hosts as $host) {
-            $host = block_orange_thematics_menu_get_infos($host);
+            $host = utilities_network::get_thematic_info($host);
             if (isloggedin() and !isguestuser()) {
                 $host->url = $host->jump;
             }

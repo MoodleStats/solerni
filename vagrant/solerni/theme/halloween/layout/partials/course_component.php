@@ -30,7 +30,7 @@ if ( $courseinfos ) :
     $customerurl = new moodle_url('/course/index.php', array('categoryid' => $course->category));
 
     if (!empty($courseinfos->imgurl)) {
-        $courseimageurl = $imageutilities->get_resized_url($courseinfos->imgurl,
+        $courseimageurl = $imageutilities->get_resized_url($courseinfos->file,
                                  array('w' => 490, 'h' => 357, 'scale' => false));
     }
     if (!empty($customer->urlimg)) {
@@ -89,7 +89,7 @@ if ( $courseinfos ) :
                     </div>
                     <div class="col-sm-12 midwidth-line"></div>
                     <div class="col-sm-12 thumbnail-text">
-                        <a class="link-secondary" href="<?php echo $utilitiescourse->get_description_page_url($course); ?>">
+                        <a class="link-secondary" href="<?php echo $utilitiescourse->get_description_page_url($course->id); ?>">
                             <?php echo get_string('coursefindoutmore', 'theme_halloween'); ?>
                         </a>
                     </div>

@@ -45,7 +45,7 @@ $formaction = log_and_session_utilities::define_login_form_action(); ?>
             </li>
             <li>
                 <a href="<?php echo $formaction['host'] ?>/user/preferences.php">
-                    <?php echo get_string('preferences'); ?>
+                    <?php echo get_string('user_menu_preferences', 'theme_halloween'); ?>
                 </a>
             </li>
             <li>

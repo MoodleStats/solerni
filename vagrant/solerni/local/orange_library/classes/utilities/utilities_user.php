@@ -190,4 +190,26 @@ class utilities_user {
         }
         return 0;
     }
+
+    /**
+     * Get the last user registered at the service
+     *
+     * @return object User
+     */
+    static public function get_lastregistered() {
+        global $DB;
+        // Timecreated = 0 if user has been deleted.
+        $sql = "SELECT *
+            FROM {user}
+            WHERE timecreated <> 0
+            AND confirmed = 1
+            AND suspended = 0
+            ORDER BY timecreated DESC
+            LIMIT 1";
+
+        if ($userobject = $DB->get_record_sql($sql)) {
+            return $userobject;
+        }
+        return null;
+    }
 }

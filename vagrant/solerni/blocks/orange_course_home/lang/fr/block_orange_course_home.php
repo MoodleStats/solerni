@@ -29,6 +29,7 @@ $string['definecatalogurl'] = 'URL du catalogue';
 $string['definecatalogurldesc'] = 'URL utilisée pour le lien \'Catalogue\'; Si l\'URL est vide le lien sera masqué.';
 $string['displaycatalog'] = 'Catalogue {$a}';
 $string['orange_course_home:addinstance'] = 'Ajouter un bloc \'Liste des cours\'';
+$string['orange_course_home:myaddinstance'] = 'Ajouter un bloc \'Liste des cours\' sur mon dashboard';
 $string['defaultmaxcourses'] = 'Nombre maximum de cours affiché par défaut';
 $string['defaultmaxcoursesdesc'] = 'Nombre maximum de cours affiché dans la liste des cours de la plateforme, la valeur 0 entraîne l\'affichage de tous les cours.';
 $string['pluginname'] = 'Liste des cours - Accueil';

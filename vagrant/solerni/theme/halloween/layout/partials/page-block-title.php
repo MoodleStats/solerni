@@ -36,7 +36,9 @@ if ($oncoursepage = utilities_course::is_on_course_page()) {
 <!-- page block title -->
 <div class="row">
     <div class="col-xs-12 page-block-title">
+        <?php if ($titles->pageblocktitleh1) : ?>
         <h1><?php echo $titles->pageblocktitleh1; ?></h1>
+        <?php endif; ?>
         <?php if ($titles->pageblockdesc) : ?>
             <p><?php echo $titles->pageblockdesc; ?></p>
         <?php endif; ?>

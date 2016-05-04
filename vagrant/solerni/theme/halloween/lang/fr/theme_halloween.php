@@ -174,6 +174,7 @@ $string['user_menu_dashboard']          = 'Mon tableau de bord';
 $string['user_menu_profile']            = 'Mon profil';
 $string['user_menu_email']              = 'Ma messagerie';
 $string['user_menu_logout']             = 'Déconnexion';
+$string['user_menu_preferences']        = 'Mes préférences';
 $string['administration']               = 'Administration';
 $string['skip_to_main']                 = 'Aller au contenu';
 $string['skip_to_nav']                  = 'Aller à la navigation';
@@ -230,7 +231,7 @@ $string['create_account']           = 'Créer mon compte';
 $string['policyaccept']             = 'J\'ai lu et j\'accepte les <a class="js-target-blank" href="{$a}" target="_blank">Conditions Générales d\'Utilisation</a>';
 $string['missingusername']          = 'Le {$a} ne peut pas etre vide';
 
-// Webservices settings page
+// Webservices settings page.
 $string['webservicessettings']      = 'MNET/RESAC';
 $string['webservicesheading']       = 'Paramétrer la communication entre les instances du RESAC';
 $string['webservicesheadingdesc']   = '';
@@ -239,7 +240,7 @@ $string['webservicestokendesc']     = 'Insérez ici le jeton de sécurité déli
 $string['webservicestokenthematic'] = 'Jeton de sécurité pour {$a}';
 $string['webservicestokenthematicdesc'] = 'Insérez ici le jeton de sécurité délivré sur {$a} pour le RESAC Web Service';
 
-// Homepage settings page
+// Homepage settings page.
 $string['homepagesettings']         = 'Homepage';
 $string['homepageheading']          = 'Paramètres pour la page d\'accueil';
 $string['homepageheadingdesc']      = '';
@@ -308,7 +309,7 @@ $string['seecatalog']               = "Voir le catalogue";
 $string['lastbadge']                = 'Dernier badge obtenu:';
 $string['mybadges']                 = 'Mes badges';
 
-// Contact page
+// Contact page.
 $string['contact_us']               = 'Nous contacter';
 $string['contact_page_title']       = 'Nous contacter';
 $string['contact_request_type']     = 'Votre demande concerne';
@@ -340,8 +341,12 @@ $string['contact_email_body']       = 'La requête suivante a été réalisée v
 $string['nobadgesfaq'] = 'Vous n’avez pas encore obtenu de badge.<br/>
 <strong><a href="{$a}">Consultez les FAQ</a></strong> afin de découvrir le fonctionnement des badges. ';
 
-// Home Solerni
+// Home Solerni.
 $string['hometitle'] = 'Qu\'allez-vous apprendre aujourd\'hui ?';
 
-//Page en savoir plus
+// Page en savoir plus.
 $string['more_info']               = 'Besoin d\informations complémentaires';
+
+// Page forum.
+$string['forumnavbar']             = 'Espace de discussion';
+$string['forum_page_title']        = 'Espace de discussion';

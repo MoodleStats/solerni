@@ -609,4 +609,25 @@ class forumng_object {
         return $courseforums;
     }
 
+    /**
+     * Get the numbers of posts in the service
+     *
+     * @return int
+     */
+    public static function get_nbposts() {
+        global $DB;
+
+        $csql = 'SELECT count(p.id) as count
+                FROM {forumng_posts} p
+                JOIN {forumng_discussions} d ON d.id = p.discussionid
+                WHERE p.deleted=0
+                AND d.deleted=0';
+
+        if ($nbposts = $DB->get_record_sql($csql)) {
+            return $nbposts->count;
+        }
+
+        return 0;
+    }
+
 }

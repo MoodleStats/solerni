@@ -23,7 +23,7 @@
 
 $string['pluginname'] = 'Orange Transverse Discussion';
 
-$string['orange_list_bestforumng:addinstance'] = 'Ajouter un block Orange Transverse Discussion';
+$string['orange_transverse_discussion:addinstance'] = 'Ajouter un block Orange Transverse Discussion';
 
 $string['title'] = 'Les forums';
 $string['intro'] = 'Apprenez et échangez avec les membres de la communauté';

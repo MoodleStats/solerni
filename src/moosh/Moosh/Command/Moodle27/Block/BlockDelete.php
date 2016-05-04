@@ -26,8 +26,6 @@ class BlockDelete extends MooshCommand
 
     public function execute()
     {
-        global $DB;
-
         $mode = $this->arguments[0];
         $id = $this->arguments[1];
         $blocktype = $this->arguments[2]; // name of the block (in English)
@@ -39,8 +37,18 @@ class BlockDelete extends MooshCommand
                 self::blockDelete($context->id /* categorycontextid */,$blocktype,$pagetypepattern);
                 break;
             case 'course':
-                $context = context_course::instance($id /* courseid */, MUST_EXIST);
-                self::blockDelete($context->id,$blocktype,$pagetypepattern);
+                if ($id == "all"){
+                    $courselist = get_courses();
+                    foreach ($courselist as $course) {
+                        $context = context_course::instance($course->id /* courseid */, MUST_EXIST);
+                        self::blockDelete($context->id,$blocktype,$pagetypepattern);
+                        echo "debug: courseid=$course->id \n";
+                    }
+                }
+                else {
+                    $context = context_course::instance($id /* courseid */, MUST_EXIST);
+                    self::blockDelete($context->id,$blocktype,$pagetypepattern);
+                }
                 break;
 
             case 'categorycourses':
@@ -62,18 +70,23 @@ class BlockDelete extends MooshCommand
             case 'context':
                 self::blockDelete($id,$blocktype,$pagetypepattern);
                 break;
+
         }
 
     }
 
     private function blockDelete($contextid,$blocktype,$pagetypepattern){
-        global $CFG,$DB;
+        global $DB;
+        $paramarray = array('blockname' => $blocktype, 'pagetypepattern' => $pagetypepattern, 'parentcontextid' => $contextid);
+        if ($contextid != "all") {
+            $paramarray = array('blockname' => $blocktype, 'pagetypepattern' => $pagetypepattern);
 
+        }
         //Only delete if already exist.
-        $block_instances = $DB->get_records('block_instances', array('blockname' => $blocktype, 'pagetypepattern' => $pagetypepattern, 'parentcontextid' => $contextid));
+        $block_instances = $DB->get_records('block_instances', $paramarray);
         $nb_blocks = count($block_instances);
         if ($nb_blocks) {
-            $DB->delete_records('block_instances', array('blockname' => $blocktype, 'pagetypepattern' => $pagetypepattern, 'parentcontextid' => $contextid));
+            $DB->delete_records('block_instances', $paramarray);
             if($nb_blocks == 1)
                 echo $nb_blocks . " block '" . $blocktype . "' was deleted\n";
             else
