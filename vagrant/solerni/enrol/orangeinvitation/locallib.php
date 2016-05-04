@@ -116,7 +116,7 @@ function check_course_redirection ($cookie=null, $enrolinvitationtoken=null, $co
 
     $courseutilities = new utilities_course();
     $course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
-    $findoutmoreurl = $courseutilities->get_description_page_url($course);
+    $findoutmoreurl = $courseutilities->get_description_page_url($course->id);
 
     $context = context_course::instance($courseid, MUST_EXIST);
 
