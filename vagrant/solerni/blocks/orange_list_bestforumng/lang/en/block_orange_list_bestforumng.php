@@ -28,10 +28,14 @@ $string['orange_list_bestforumng:addinstance'] = 'Add a new block Orange List Of
 $string['title'] = 'Forums MOOCs {$a}';
 $string['intro'] = 'Sign up for MOOCs to participate in the discussions, it\'s free!';
 
-$string['discussion'] = ' discussion{$a}';
+$string['discussion'] = ' discussion';
+$string['discussions'] = ' discussions';
 $string['questionunregistered'] = 'You are not registered ? ';
 $string['questionregistered'] = 'You are registered ? ';
 $string['answerunregistered'] = 'Find out more about the Mooc';
 $string['answerregistered'] = 'Enter into the discussion space';
+$string['response'] = '<strong>response</strong>';
 $string['responses'] = '<strong>responses</strong>';
 $string['linebestdiscussion'] = 'The most active discussion : ';
+$string['registered'] = ' registered';
+$string['registeredplural'] = ' registered';
