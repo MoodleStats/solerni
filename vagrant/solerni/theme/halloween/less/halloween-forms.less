@@ -204,10 +204,16 @@ input.o-checkbox[type="checkbox"]:disabled:checked + label:after {
 }
 
 .form-required-field {
-    color: @brand-secondary;
+    display:        inline-block;
+    padding-left:   .2em;
+    color:          @brand-secondary;
 }
 
 .fdescription.required,
 .has-required {
     margin: @s-medium-md-margin 0;
+
+    .form-required-field {
+        padding-left: 0;
+    }
 }
