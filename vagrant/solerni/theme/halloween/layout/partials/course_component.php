@@ -89,7 +89,7 @@ if ( $courseinfos ) :
                     </div>
                     <div class="col-sm-12 midwidth-line"></div>
                     <div class="col-sm-12 thumbnail-text">
-                        <a class="link-secondary" href="<?php echo $utilitiescourse->get_description_page_url($course->id); ?>">
+                        <a class="link-secondary" href="<?php echo utilities_course::get_course_findoutmore_url($course->id); ?>">
                             <?php echo get_string('coursefindoutmore', 'theme_halloween'); ?>
                         </a>
                     </div>

@@ -37,8 +37,7 @@ class block_orange_emerging_messages_renderer extends plugin_renderer_base {
         $output = "";
 
         // Get link acces forum of course.
-        $courseutilities = new utilities_course();
-        $courselinkforum = $courseutilities->get_course_url_page_forum($course->id);
+        $courselinkforum = utilities_course::get_course_url_page_forum($course->id);
 
         $output .= html_writer::start_tag('div', array('class' => 'row'));
 
@@ -104,7 +103,7 @@ class block_orange_emerging_messages_renderer extends plugin_renderer_base {
      * Display list of lasts posts of user
      *
      * @param $listpost array contains posts
-     * @return string html 
+     * @return string html
      */
     public function display_emerging_discus_and_post($listpost) {
         $output = "";
@@ -151,7 +150,7 @@ class block_orange_emerging_messages_renderer extends plugin_renderer_base {
 
 
     /**
-     * Display list of best posts 
+     * Display list of best posts
      *
      * @param $listpost array contains posts
      * @return string html

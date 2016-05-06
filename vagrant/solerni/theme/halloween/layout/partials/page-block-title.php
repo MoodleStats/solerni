@@ -37,12 +37,21 @@ if ($oncoursepage = utilities_course::is_on_course_page()) {
 <div class="row">
     <div class="col-xs-12 page-block-title">
         <?php if ($titles->pageblocktitleh1) : ?>
-        <h1><?php echo $titles->pageblocktitleh1; ?></h1>
+        <h1>
+            <?php if ($oncoursepage) : ?>
+                <a class="page-block-title__link" href="<?php echo $titles->pageblockurl; ?>" title="">
+            <?php endif; ?>
+                <?php echo $titles->pageblocktitleh1; ?>
+            <?php if ($oncoursepage) : ?>
+                </a>
+            <?php endif; ?>
+        </h1>
         <?php endif; ?>
         <?php if ($titles->pageblockdesc) : ?>
             <p><?php echo $titles->pageblockdesc; ?></p>
         <?php endif; ?>
         <?php if ($oncoursepage) : ?>
+            <!-- Course navigation -->
             <ul class="nav nav-tabs orange-nav-tabs" role="tablist">
             <?php if (!empty($learnmorelink)) : ?>
                 <li role="presentation" <?php echo $learnmorelinkactive ?>>
