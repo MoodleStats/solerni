@@ -55,3 +55,5 @@ $string['searchbyemail'] = 'Search by e-mail address';
 $string['invalidemail'] = 'Invalid e-mail address';
 $string['setpasswordinstructions'] = '<p>Please enter and repeat your new password below, then click "Save changes". <br />Your new password will be saved, and you will be logged in.</p>';
 $string['resetrecordexpired'] = '<p>The password reset link you used is more than {$a} minutes old and has expired. Please initiate a new password reset.</p>';
+$string['lastsiteaccess'] = 'First login';
+$string['firstsiteaccess'] = 'Last login';
