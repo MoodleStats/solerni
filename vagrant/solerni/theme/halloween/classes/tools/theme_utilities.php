@@ -193,7 +193,7 @@ class theme_utilities {
 
                 if (theme_utilities::is_theme_settings_exists_and_nonempty('logintext')) {
                     $return->pageblockdesc .= $filtermultilang->filter($PAGE->theme->settings->logintext);
-                } else {
+                } elseif(!$CFG->solerni_isprivate) {
                     $return->pageblockdesc .= get_string('not_registered_yet', 'theme_halloween');
                     $return->pageblockdesc .= ' ';
                     $return->pageblockdesc .= \html_writer::tag('a', get_string('i_do_register', 'theme_halloween'),
@@ -211,7 +211,7 @@ class theme_utilities {
 
                 if (theme_utilities::is_theme_settings_exists_and_nonempty('signuptext')) {
                     $return->pageblockdesc .= $filtermultilang->filter($PAGE->theme->settings->signuptext);
-                } else {
+                } elseif(!$CFG->solerni_isprivate) {
                     $return->pageblockdesc .= get_string('already_registered', 'theme_halloween');
                     $return->pageblockdesc .= ' ';
                     $return->pageblockdesc .= \html_writer::tag('a', get_string('i_do_login', 'theme_halloween'),
