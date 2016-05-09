@@ -3,6 +3,7 @@
  * moosh - Moodle Shell
  *
  * @copyright  2012 onwards Tomasz Muras
+ * @modifed by orange 03/05/16
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -57,8 +58,41 @@ class BlockAdd extends MooshCommand
             break;
 
         case 'course':
-            $context = context_course::instance($id /* courseid */, MUST_EXIST);
-            self::blockAdd($context->id,$blocktype,$pagetypepattern,$region,$weight,$showinsubcontexts);
+            if ($id == "all"){
+                $courselist = get_courses();
+                foreach ($courselist as $course) {
+                    $context = context_course::instance($course->id /* courseid */, MUST_EXIST);
+                    //Only add if don't already exist.
+                    $block_instances = $DB->get_records('block_instances', array('blockname'=>$blocktype,
+                        'pagetypepattern' => $pagetypepattern, 'parentcontextid' => $context->id));
+
+                    if (!count($block_instances)) {
+                        self::blockAdd($context->id,$blocktype,$pagetypepattern,$region,$weight,$showinsubcontexts);
+                    }
+
+                    foreach ($block_instances as $block_instance) {
+
+                        if($block_instance->defaultweight == $weight && $block_instance->defaultregion == $region) {
+                            echo "Block '" . $blocktype . "' already exist on page '" . $pagetypepattern . "' with contextid "
+                                . $context->id . " and a weight of " . $block_instance->defaultweight .
+                                " in the region " . $region . "\n";
+                            continue;
+                        }
+
+                        $block_instance->defaultregion = $region;
+                        $block_instance->defaultweight = $weight;
+                        $DB->update_record('block_instances', $block_instance);
+                        echo "Block '" . $blocktype . "' updated on page '" . $pagetypepattern . "' with contextid "
+                                . $context->id . " and the weight of " . $block_instance->defaultweight .
+                                " in the region " . $region . "\n";
+                    }
+
+                }
+            }
+            else {
+                $context = context_course::instance($id /* courseid */, MUST_EXIST);
+                self::blockAdd($context->id,$blocktype,$pagetypepattern,$region,$weight,$showinsubcontexts);
+            }
             break;
 
         case 'categorycourses':

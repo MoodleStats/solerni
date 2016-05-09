@@ -48,15 +48,23 @@ if (isloggedin()) {
     $context = context_system::instance();
 }
 
+
 // Start setting up the page.
 $params = array();
 $PAGE->set_context($context);
 $PAGE->set_url('/forum/index.php', $params);
-$PAGE->set_pagelayout('base');
+$PAGE->set_pagelayout('forum');
 $PAGE->set_pagetype('forum-index');
+$PAGE->set_title($SITE->shortname . ' : ' . get_string('forum_page_title', 'theme_halloween'));
 $PAGE->blocks->add_region('content');
 $loginsite  = get_string("forumnavbar", "theme_halloween");
 $PAGE->navbar->add($loginsite);
+
+// This page is not available on Solerni HOME
+if (local_orange_library\utilities\utilities_network::is_platform_uses_mnet() && 
+        local_orange_library\utilities\utilities_network::is_home()) {
+    redirect($CFG->wwwroot);
+}
 
 // Toggle the editing state and switches.
 if ($PAGE->user_allowed_editing()) {

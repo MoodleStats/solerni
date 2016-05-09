@@ -3,6 +3,8 @@
 # The directory where this script is located
 BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
+MODE=PROD
+
 function init () {
 	local parent_directory="$(dirname `pwd`)"
 	local env_moosh_file=$parent_directory/conf/env_moosh.cfg
@@ -15,6 +17,28 @@ function init () {
 		exit 1
 	fi
 }
+
+function check_usage () {
+	while true; do
+
+		if [ -z "$1" ]; then
+			break
+		fi
+
+		case $1 in
+			-dev|--development)
+				MODE=DEV
+				shift
+				;;
+			*)
+				shift
+				;;
+		esac
+
+		shift
+	done
+}
+
 
 function log_action () {
 	tput setaf 3;
@@ -58,7 +82,9 @@ function execute_moosh_command () {
 		log_error "+ $(<$moosh_temp_stderr)"
 		if [ $? == 0 ]; then
 			log_error "- ERROR: the moosh command returns the code 0 but writes in stderr"
-			exit -1
+			if [ "$MODE" == "PROD" ]; then
+				exit -1
+			fi
 		fi
 	fi
 
@@ -75,6 +101,10 @@ function execute_moosh_command () {
 
 function main () {
 	init
+
+	# Check usage mode : 
+	# DEV or PROD (Default)
+	check_usage $@
 
 	# Enable OAuth2 (googleoauth2) auth plugin (#us_13 and #us_23)
 	execute_moosh_command "moosh auth-manage disable googleoauth2"

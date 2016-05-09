@@ -82,5 +82,21 @@ function xmldb_local_orange_library_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2016042701, 'local', 'orange_library');
     }
 
+    if ($oldversion < 2016050300) {
+        // Define table thematic_info to be upgraded.
+        $table = new xmldb_table('thematic_info');
+
+        // Adding fields to table.
+        $field = new xmldb_field('nbpost', XMLDB_TYPE_INTEGER, '10', null, null, null, null);
+
+        // Conditionally launch add field referencefileid.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Local savepoint reached.
+        upgrade_plugin_savepoint(true, 2016050300, 'local', 'orange_library');
+    }
+
     return true;
 }

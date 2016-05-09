@@ -23,7 +23,7 @@ if ($oncoursepage = utilities_course::is_on_course_page()) {
     $forumlink = utilities_course::get_mooc_forum_menu($COURSE->id);
     $learnlink = utilities_course::get_mooc_learn_menu($COURSE->id);
 
-    $sharelinkactive = utilities_course::is_active_tab("share", $SCRIPT, $COURSE->id);
+    $sharelinkactive = utilities_course::is_active_tab("share", $ME, $COURSE->id);
     $learnmorelinkactive = utilities_course::is_active_tab("learnmore", $SCRIPT, $COURSE->id);
     $forumlinkactive = utilities_course::is_active_tab("forum", $ME, $COURSE->id);
     $learnlinkactive = utilities_course::is_active_tab("learn", $ME, $COURSE->id);

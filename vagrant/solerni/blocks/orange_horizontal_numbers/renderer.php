@@ -53,36 +53,36 @@ class block_orange_horizontal_numbers_renderer extends plugin_renderer_base {
         $output .= html_writer::end_tag('div');
 
         $output .= html_writer::start_tag('div', array('class' => 'row'));
-            $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 orange-horizontal-numbers-line'));
+            $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 fullwidth-line'));
             $output .= html_writer::end_tag('div');
         $output .= html_writer::end_tag('div');
 
         $output .= html_writer::start_tag('div', array('class' => 'row orange-horizontal-numbers-details'));
 
             $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-sm-6 col-md-3'));
-                $output .= html_writer::tag('h2', $nbposts);
-                $output .= html_writer::tag('span', utilities_object::get_string_plural($nbposts, 'block_orange_horizontal_numbers', 'nbpost', 'nbpostplural'));
+                $output .= html_writer::tag('div', $nbposts, array('class' => 'h2 text-contrasted text-oneline'));
+                $output .= html_writer::tag('span', utilities_object::get_string_plural($nbposts, 'block_orange_horizontal_numbers', 'nbpost', 'nbpostplural'), array('class' => 'slrn-bold text-oneline'));
             $output .= html_writer::end_tag('div');
 
             $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-sm-6 col-md-3'));
-                $output .= html_writer::tag('h2', $nbusers);
-                $output .= html_writer::tag('span', utilities_object::get_string_plural($nbusers, 'block_orange_horizontal_numbers', 'nbuser', 'nbuserplural'));
+                $output .= html_writer::tag('div', $nbusers, array('class' => 'h2 text-contrasted text-oneline'));
+                $output .= html_writer::tag('span', utilities_object::get_string_plural($nbusers, 'block_orange_horizontal_numbers', 'nbuser', 'nbuserplural'), array('class' => 'slrn-bold text-oneline'));
             $output .= html_writer::end_tag('div');
 
             $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-sm-6 col-md-3'));
-                $output .= html_writer::tag('h2', $nbuserssonnected);
-                $output .= html_writer::tag('span', utilities_object::get_string_plural($nbuserssonnected, 'block_orange_horizontal_numbers', 'nbuserconnected', 'nbuserconnectedplural'));
+                $output .= html_writer::tag('div', $nbuserssonnected, array('class' => 'h2 text-contrasted text-oneline'));
+                $output .= html_writer::tag('span', utilities_object::get_string_plural($nbuserssonnected, 'block_orange_horizontal_numbers', 'nbuserconnected', 'nbuserconnectedplural'), array('class' => 'slrn-bold text-oneline'));
             $output .= html_writer::end_tag('div');
 
             $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-sm-6 col-md-3'));
-                $output .= html_writer::tag('h3', fullname($lastuser));
-                $output .= html_writer::tag('span', get_string('lastuserregistered', 'block_orange_horizontal_numbers'));
+                $output .= html_writer::tag('div', fullname($lastuser), array('class' => 'h3 text-contrasted text-oneline'));
+                $output .= html_writer::tag('span', get_string('lastuserregistered', 'block_orange_horizontal_numbers'), array('class' => 'slrn-bold text-oneline'));
             $output .= html_writer::end_tag('div');
 
         $output .= html_writer::end_tag('div');
 
         $output .= html_writer::start_tag('div', array('class' => 'row'));
-            $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 orange-horizontal-numbers-line2'));
+            $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 fullwidth-line'));
             $output .= html_writer::end_tag('div');
         $output .= html_writer::end_tag('div');
 

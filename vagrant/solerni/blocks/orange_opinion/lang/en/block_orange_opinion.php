@@ -15,12 +15,17 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- *
- * Orange Thematics Menu renderer.
- *
- * @package    block_orange_thematics_menu
+ * Lang strings.
+ * @package block_orange_opinion
  * @copyright  2016 Orange
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+$string['pluginname'] = 'Orange Opinion';
+
+$string['orange_opinion:addinstance'] = 'Add a new block Orange Opinion';
+
+$string['title'] = 'They participate and they love';
+
+$string['followedmooc'] = 'has followed the MOOC(s) : {$a}';
+

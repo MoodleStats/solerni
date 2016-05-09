@@ -15,17 +15,16 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Orange library & utilities
- *
- * @package     local
- * @subpackage  orange_library
- * @copyright   2015 Orange
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * Lang strings.
+ * @package block_orange_opinion
+ * @copyright  2016 Orange
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+$string['pluginname'] = 'Orange Opinion';
 
-defined('MOODLE_INTERNAL') || die();
+$string['orange_opinion:addinstance'] = 'Ajouter un block Orange Opinion';
 
-$plugin->version   = 2016050300;                // The current module version (Date: YYYYMMDDXX).
-$plugin->requires  = 2014051207;                // Requires this Moodle version Moodle 2.7.7.
-$plugin->component = 'local_orange_library';    // Full name of the plugin (used for diagnostics).
+$string['title'] = 'Ils participent et ils adorent';
+
+$string['followedmooc'] = 'a participé au(x) MOOC(s) : {$a}';

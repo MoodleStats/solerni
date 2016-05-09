@@ -54,7 +54,7 @@ class block_orange_emerging_messages extends block_base {
      * @return bool
      */
     public function has_config() {
-        return true;
+        return false;
     }
 
     public function specialization() {

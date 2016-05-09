@@ -37,4 +37,4 @@ $string['nbuser'] = 'registered';
 $string['nbuserplural'] = 'registered';
 $string['lastuserregistered'] = 'last registered';
 $string['nbuserconnected'] = 'user connected Now';
-$string['nbuserconnectedplural'] = 'users connected Now';
+$string['nbuserconnectedplural'] = 'users connected<br />Now';

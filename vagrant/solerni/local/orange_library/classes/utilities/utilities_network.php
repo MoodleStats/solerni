@@ -25,6 +25,7 @@ use theme_halloween\tools\theme_utilities;
 require_once($CFG->dirroot . '/local/orange_mail/classes/mail_test.php');
 require_once($CFG->dirroot . '/lib/classes/user.php');
 require_once($CFG->dirroot . '/local/orange_mail/classes/mail_object.php');
+require_once($CFG->dirroot.'/local/orange_library/classes/forumng/forumng_object.php');
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -431,6 +432,7 @@ class utilities_network {
             $thematic->nbinprogressmooc = $host->nbinprogressmooc;
             $thematic->nbfuturemooc     = $host->nbfuturemooc;
             $thematic->nbuser           = $host->nbuser;
+            $thematic->nbpost           = $host->nbpost;
             $thematic->nbconnected      = $host->nbconnected;
             $thematic->illustration     = $host->illustration;
             $thematic->logo             = $host->logo;
@@ -444,6 +446,7 @@ class utilities_network {
             $thematic->nbinprogressmooc = $host->nbinprogressmooc;
             $thematic->nbfuturemooc     = $host->nbfuturemooc;
             $thematic->nbuser           = $host->nbuser;
+            $thematic->nbpost           = $host->nbpost;
             $thematic->nbconnected      = $host->nbconnected;
             $thematic->illustration     = $host->illustration;
             $thematic->logo             = $host->logo;
@@ -508,6 +511,9 @@ class utilities_network {
 
         // Number of connected users.
         $data[] = array ('type' => 'int', 'name' => 'nbconnected', 'value' => utilities_user::get_nbconnectedusers());
+
+        // Number of posts.
+        $data[] = array ('type' => 'int', 'name' => 'nbpost', 'value' => \forumng_object::get_nbposts());
 
         // Data available.
         $data[] = array ('type' => 'int', 'name' => 'available', 'value' => true);

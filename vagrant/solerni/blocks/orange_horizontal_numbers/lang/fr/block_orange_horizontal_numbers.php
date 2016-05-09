@@ -36,5 +36,5 @@ $string['nbpostplural'] = 'messages postés';
 $string['nbuser'] = 'membre';
 $string['nbuserplural'] = 'membres';
 $string['lastuserregistered'] = 'dernier inscrit';
-$string['nbuserconnected'] = 'personne connectée en ce moment';
-$string['nbuserconnectedplural'] = 'personnes connectées en ce moment';
+$string['nbuserconnected'] = 'personne connectée<br />en ce moment';
+$string['nbuserconnectedplural'] = 'personnes connectées<br />en ce moment';

@@ -720,8 +720,6 @@ class utilities_course {
             $idpage = $DB->get_record_sql($sql, array($courseid));
         }
 
-
-
         if ($idpage != null) {
             return $idpage->subpagepattern;
         } else {
@@ -833,20 +831,8 @@ class utilities_course {
             }
         }
 
-        if (has_capability('mod/descriptionpage:addinstance', $context)) {
-            // Check descriptionpage module.
-            $descriptionpages = $DB->get_records('descriptionpage', array('course' => $courseid));
-            $modname = get_string('modulename', 'mod_descriptionpage');
-            if (empty($descriptionpages)) {
-                $error[] = get_string('moddescriptionpagemissing', 'local_orange_library', $modname);
-            }
-            if (count($descriptionpages) > 1) {
-                $error[] = get_string('moddescriptionpagemultiple', 'local_orange_library', $modname);
-            }
-        }
-
         // Check mandatory blocks.
-        $neededblocks = array ( 'orange_course_extended', 'orange_progressbar');
+        $neededblocks = array ('orange_progressbar');
         foreach ($neededblocks as $block) {
             if (has_capability('block/'.$block.':addinstance', $context)) {
                 $extendedcourseblock = $DB->get_records('block_instances',
@@ -876,15 +862,45 @@ class utilities_course {
      * @return url
      */
     public static function get_mooc_share_menu($courseid) {
-        global $DB;
+        $idpage = self::get_mooc_share_menu_page_id($courseid);
 
-        $folder = $DB->get_record('folder', array('course' => $courseid), '*', IGNORE_MISSING);
-
-        if ($folder) {
-            return new \moodle_url('/mod/folder/view.php', array('f' => $folder->id));
+        if ($idpage != null) {
+            return new \moodle_url('/course/view.php', array('id' => $courseid, 'pageid' => $idpage));
         } else {
             return null;
         }
+    }
+
+    /**
+     * Get the page id for course menu "PARTAGER"
+     *
+     * @param course id $courseid
+     * @return pageid
+     */
+    public static function get_mooc_share_menu_page_id($courseid) {
+        global $CFG, $DB;
+        $idpage = null;
+
+        if (!$courseid) {
+            global $COURSE;
+            $courseid = $COURSE->id;
+        }
+
+        if ($courseid) {
+            $sql = "SELECT DISTINCT(i.subpagepattern) FROM {modules} m
+                        LEFT JOIN {course_modules} cm ON m.id = cm.module
+                        LEFT JOIN {block_flexpagemod} f on f.cmid = cm.id
+                        LEFT JOIN {block_instances} i ON i.id=f.instanceid
+                        WHERE cm.course= ? AND m.name='folder' AND cm.visible=1 AND i.pagetypepattern LIKE 'course-view%' LIMIT 1";
+
+            $idpage = $DB->get_record_sql($sql, array($courseid));
+        }
+
+        if ($idpage != null) {
+            return $idpage->subpagepattern;
+        }
+
+        return null;
     }
 
     /**
@@ -900,7 +916,7 @@ class utilities_course {
         if (!$coursemodule = $DB->get_field_sql("SELECT cm.id
                                                  FROM {course_modules} cm
                                                  JOIN {modules} md ON md.id = cm.module
-                                                WHERE cm.course = :course AND md.name='oublog'", $params, IGNORE_MISSING)) {
+                                                WHERE cm.course = :course AND md.name='oublog' LIMIT 1", $params, IGNORE_MISSING)) {
             return null;
         }
 
@@ -1003,9 +1019,11 @@ class utilities_course {
         global $DB, $USER, $COURSE;
 
         // If we access the forum page of the MOOC then we should not store the id.
+        // If we access the share page of the MOOC then we should not store the id.
         $utilitiescourse = new utilities_course();
         $idpageforum = $utilitiescourse->get_course_id_page_forum($COURSE->id);
-        if (!empty($pageid) && ($pageid != $idpageforum)) {
+        $idpageshare = self::get_mooc_share_menu_page_id($COURSE->id);
+        if (!empty($pageid) && ($pageid != $idpageforum) && ($pageid != $idpageshare)) {
             $currentpage = $DB->get_record('last_page_viewed',
                     array('courseid' => $COURSE->id, 'userid' => $USER->id), '*', IGNORE_MISSING);
             if ($currentpage) {
@@ -1064,11 +1082,13 @@ class utilities_course {
      */
     public static function is_active_tab($tabid, $script, $courseid) {
         $forumurl = self::get_mooc_forum_menu($courseid);
+        $shareurl = self::get_mooc_share_menu($courseid);
 
         switch ($tabid) {
             case "learn":
                 if ((strpos($script, "/course/view") !== false) &&
-                    (is_null($forumurl) || (strpos($script, $forumurl->out_as_local_url(false)) === false))) {
+                    (is_null($forumurl) || (strpos($script, $forumurl->out_as_local_url(false)) === false)) &&
+                    (is_null($shareurl) || (strpos($script, $shareurl->out_as_local_url(false)) === false))) {
                     return 'class="active"';
                 }
             break;
@@ -1089,8 +1109,11 @@ class utilities_course {
             break;
 
             case "share":
-                if (strpos($script, "/mod/folder") !== false) {
-                    return 'class="active"';
+                if (!is_null($shareurl)) {
+                    if ((strpos($script, $shareurl->out_as_local_url(false)) !== false) ||
+                        (strpos($script, "/mod/folder") !== false)) {
+                        return 'class="active"';
+                    }
                 }
             break;
         }
