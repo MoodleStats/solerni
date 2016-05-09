@@ -357,3 +357,6 @@ $string['more_info']               = 'Besoin d\informations complémentaires';
 // Page forum.
 $string['forumnavbar']             = 'Espace de discussion';
 $string['forum_page_title']        = 'Espace de discussion';
+
+// Course
+$string['course_edited_by']         = 'Cours édité par {$a}';

@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 use local_orange_library\utilities\utilities_course;
+use local_orange_library\utilities\utilities_image;
+
 global $COURSE, $SCRIPT, $ME;
 
 if ($oncoursepage = utilities_course::is_on_course_page()) {
@@ -32,6 +34,13 @@ if ($oncoursepage = utilities_course::is_on_course_page()) {
     if (empty($sharelinkactive) && empty($forumlinkactive) && empty($learnmorelinkactive)) {
         $learnlinkactive = 'class="active"';
     }
+
+    // Load the customer logo
+    $customer = utilities_course::solerni_course_get_customer_infos($COURSE->category);
+    if($customer) {
+        $customerlogoresizedurl = utilities_image::get_resized_url($customer->urlimg,
+            array ('scale' => 'true', 'h' => 60));
+    }
 } ?>
 <!-- page block title -->
 <div class="row">
@@ -39,6 +48,10 @@ if ($oncoursepage = utilities_course::is_on_course_page()) {
         <?php if ($titles->pageblocktitleh1) : ?>
         <h1>
             <?php if ($oncoursepage) : ?>
+                <?php if (isset($customerlogoresizedurl)): ?>
+                    <img class="pull-right" src="<?php echo $customerlogoresizedurl; ?>"
+                         alt=" <?php echo get_string('course_edited_by', 'theme_halloween', $customer->name); ?>">
+                <?php endif; ?>
                 <a class="page-block-title__link" href="<?php echo $titles->pageblockurl; ?>" title="">
             <?php endif; ?>
                 <?php echo $titles->pageblocktitleh1; ?>

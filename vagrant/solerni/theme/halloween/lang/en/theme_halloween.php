@@ -342,7 +342,7 @@ $string['contact_email_subject']    = 'Solerni - Support request';
 $string['contact_email_body']       = 'The following request has been issued using the contact form of the platform %s';
 
 // Page badges/mybadges.php.
-$string['nobadgesfaq'] = 'There are no badges available.<br/>
+$string['nobadgesfaq']              = 'There are no badges available.<br/>
 <strong><a href="{$a}">Consult FAQ</a></strong> to understand how badges work.';
 
 // Home Solerni.
@@ -354,3 +354,6 @@ $string['more_info']               = 'more info';
 // Page forum.
 $string['forumnavbar']             = 'Discussion space';
 $string['forum_page_title']        = 'Discussion space';
+
+// Course
+$string['course_edited_by']         = 'Course edited by {$a}';

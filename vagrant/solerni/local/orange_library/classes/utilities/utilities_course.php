@@ -48,16 +48,21 @@ class utilities_course {
     const MOOCRUNNING               = 6;
 
     /**
-     * Get all Solerni informations for a course
-     * using flexpage format (imply that we use the blocks/orange_course_extended)
+     * Get customer informations (customer is a category, extended with
+     * an image.
      *
-     * @global type $DB
-     * @param type $course
-     * @return extended_course_object
+     * @global type $CFG
+     * @param int $catid
+     * @return object $customer
      */
-    public static function solerni_course_get_customer_infos($catid) {
-
+    public static function solerni_course_get_customer_infos($catid=null) {
         global $CFG;
+
+        if (!$catid) {
+            global $COURSE;
+            $catid = $COURSE->category;
+        }
+
         require_once($CFG->dirroot . '/local/orange_customers/lib.php');
         $customer = customer_get_customerbycategoryid($catid);
 
@@ -68,8 +73,8 @@ class utilities_course {
      * Get all Solerni informations for a course
      * using flexpage format (imply that we use the blocks/orange_course_extended)
      *
-     * @global type $DB
-     * @param type $course
+     * @global global object $DB
+     * @param moodle_course $course
      * @return extended_course_object
      */
     public static function solerni_get_course_infos($course) {
@@ -673,7 +678,7 @@ class utilities_course {
     }
 
     public static function get_course_home_url($courseid = null) {
-        
+
         return self::get_course_findoutmore_url($courseid);
     }
 
