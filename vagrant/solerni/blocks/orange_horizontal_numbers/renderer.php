@@ -23,6 +23,7 @@
  */
 
 defined('MOODLE_INTERNAL') || die;
+use local_orange_library\utilities\utilities_object;
 
 class block_orange_horizontal_numbers_renderer extends plugin_renderer_base {
 
@@ -60,17 +61,17 @@ class block_orange_horizontal_numbers_renderer extends plugin_renderer_base {
 
             $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-sm-6 col-md-3'));
                 $output .= html_writer::tag('h2', $nbposts);
-                $output .= html_writer::tag('span', get_string('nbposts', 'block_orange_horizontal_numbers'));
+                $output .= html_writer::tag('span', utilities_object::get_string_plural($nbposts, 'block_orange_horizontal_numbers', 'nbpost', 'nbpostplural'));
             $output .= html_writer::end_tag('div');
 
             $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-sm-6 col-md-3'));
                 $output .= html_writer::tag('h2', $nbusers);
-                $output .= html_writer::tag('span', get_string('nbusers', 'block_orange_horizontal_numbers'));
+                $output .= html_writer::tag('span', utilities_object::get_string_plural($nbusers, 'block_orange_horizontal_numbers', 'nbuser', 'nbuserplural'));
             $output .= html_writer::end_tag('div');
 
             $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-sm-6 col-md-3'));
                 $output .= html_writer::tag('h2', $nbuserssonnected);
-                $output .= html_writer::tag('span', get_string('nbusersconnected', 'block_orange_horizontal_numbers'));
+                $output .= html_writer::tag('span', utilities_object::get_string_plural($nbuserssonnected, 'block_orange_horizontal_numbers', 'nbuserconnected', 'nbuserconnectedplural'));
             $output .= html_writer::end_tag('div');
 
             $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-sm-6 col-md-3'));
