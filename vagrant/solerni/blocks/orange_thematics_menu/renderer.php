@@ -26,6 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 use local_orange_library\utilities\utilities_image;
+use local_orange_library\utilities\utilities_object;
 
 class block_orange_thematics_menu_renderer extends plugin_renderer_base {
 
@@ -61,23 +62,19 @@ class block_orange_thematics_menu_renderer extends plugin_renderer_base {
                                 $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 icon-thematic'));
                                     $output .= html_writer::start_tag('div');
                                         $output .= html_writer::tag('span', $host->nbuser);
-                                        $output .= get_string('registereduser', 'block_orange_thematics_menu',
-                                                ($host->nbuser > 1) ? 's' : '');
+                                        $output .= utilities_object::get_string_plural($host->nbuser, 'block_orange_thematics_menu', 'registereduser', 'registereduserplurial');
                                     $output .= html_writer::end_tag('div');
                                     $output .= html_writer::start_tag('div');
                                         $output .= html_writer::tag('span', $host->nbconnected);
-                                        $output .= get_string('connecteduser', 'block_orange_thematics_menu',
-                                                ($host->nbconnected > 1) ? 's' : '');
+                                        $output .= utilities_object::get_string_plural($host->nbconnected, 'block_orange_thematics_menu', 'connecteduser', 'connecteduserplurial');
                                     $output .= html_writer::end_tag('div');
                                     $output .= html_writer::start_tag('div');
                                         $output .= html_writer::tag('span', $host->nbinprogressmooc);
-                                        $output .= get_string('moocinprogress', 'block_orange_thematics_menu',
-                                                ($host->nbinprogressmooc > 1) ? 's' : '');
+                                        $output .= utilities_object::get_string_plural($host->nbinprogressmooc, 'block_orange_thematics_menu', 'moocinprogress', 'moocinprogressplurial');
                                     $output .= html_writer::end_tag('div');
                                     $output .= html_writer::start_tag('div');
                                         $output .= html_writer::tag('span', $host->nbfuturemooc);
-                                        $output .= get_string('moocfuture', 'block_orange_thematics_menu',
-                                                ($host->nbfuturemooc > 1) ? 's' : '');
+                                        $output .= utilities_object::get_string_plural($host->nbfuturemooc, 'block_orange_thematics_menu', 'moocfuture', 'moocfutureplurial');
                                     $output .= html_writer::end_tag('div');
                                 $output .= html_writer::end_tag('div');
                         $output .= html_writer::end_tag('div');
@@ -98,7 +95,7 @@ class block_orange_thematics_menu_renderer extends plugin_renderer_base {
                                 array('class' => 'col-xs-6 orange-thematics-menu-bottom-cell orange-thematics-menu-nbmoocs text-right'));
                         if (!empty($host->available)) {
                             $output .= html_writer::tag('span', $host->nbmooc);
-                            $output .= get_string('mooc', 'block_orange_thematics_menu', ($host->nbmooc > 1) ? 's' : '');
+                            $output .= utilities_object::get_string_plural($host->nbmooc, 'block_orange_thematics_menu', 'mooc', 'moocplurial');
                         }
                         $output .= html_writer::end_tag('div');
                     $output .= html_writer::end_tag('div');
