@@ -47,8 +47,8 @@ if ($oncoursepage = utilities_course::is_on_course_page()) {
     <div class="col-xs-12 page-block-title">
         <?php if ($titles->pageblocktitleh1) : ?>
         <?php if (isset($customerlogoresizedurl)): ?>
-            <img class="pull-right" src="<?php echo $customerlogoresizedurl; ?>"
-                         alt=" <?php echo get_string('course_edited_by', 'theme_halloween', $customer->name); ?>">
+            <img class="pull-right page-block-title__img" src="<?php echo $customerlogoresizedurl; ?>"
+                 alt=" <?php echo get_string('course_edited_by', 'theme_halloween', $customer->name); ?>">
         <?php endif; ?>
         <h1>
             <?php if ($oncoursepage) : ?>
