@@ -212,6 +212,6 @@ class utilities_object {
      */
     public static function get_string_plural($testvalue, $pluginname, $singular, $plural) {
 
-        return ($testvalue > 1) ? get_string($plural, $pluginname) : get_string($singular, $pluginname);
+        return ((int) $testvalue > 1) ? get_string($plural, $pluginname) : get_string($singular, $pluginname);
     }
 }

@@ -40,7 +40,7 @@ class invitation_manager {
 
     /**
      *
-     * @param type $courseid 
+     * @param type $courseid
      */
     public function __construct($courseid, $instancemustexist = true) {
         $this->courseid = $courseid;
@@ -53,7 +53,7 @@ class invitation_manager {
      * @global object $PAGE
      * @param int $courseid
      * @param boolean $mustexist when set, an exception is thrown if no instance is found
-     * @return type 
+     * @return type
      */
     public function get_invitation_instance($courseid, $mustexist = false) {
         global $PAGE, $CFG, $DB;
@@ -85,7 +85,7 @@ class invitation_manager {
 
 }
 /**
- * This function manage the redirection to a course if the access has been  
+ * This function manage the redirection to a course if the access has been
  * done using the enrolment URL to the course => a cookie is set in this case
  * @param cookie or token/courseid/enrol
  * @return array
@@ -114,9 +114,8 @@ function check_course_redirection ($cookie=null, $enrolinvitationtoken=null, $co
         $message = get_string('expiredtoken', 'enrol_orangeinvitation');
     }
 
-    $courseutilities = new utilities_course();
     $course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
-    $findoutmoreurl = $courseutilities->get_description_page_url($course->id);
+    $findoutmoreurl = utilities_course::get_course_findoutmore_url($course->id);
 
     $context = context_course::instance($courseid, MUST_EXIST);
 

@@ -31,7 +31,10 @@ $string['intro'] = 'Venez échanger avec d\'autres passionné(e)s sur les sujets
     agrandissez votre réseau en vous connectant avec d\'autres utilisateurs de la communauté Solerni.';
 $string['tofaq'] = 'En savoir plus sur le fonctionnement des forums ? <a href=\'{$a}\'>Parcourez notre F.A.Q.</a>';
 
-$string['nbposts'] = 'messages postés';
-$string['nbusers'] = 'membres';
+$string['nbpost'] = 'message posté';
+$string['nbpostplural'] = 'messages postés';
+$string['nbuser'] = 'membre';
+$string['nbuserplural'] = 'membres';
 $string['lastuserregistered'] = 'dernier inscrit';
-$string['nbusersconnected'] = 'personne connectées<br />en ce moment';
+$string['nbuserconnected'] = 'personne connectée<br />en ce moment';
+$string['nbuserconnectedplural'] = 'personnes connectées<br />en ce moment';

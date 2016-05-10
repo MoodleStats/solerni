@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 use local_orange_library\utilities\utilities_course;
+use local_orange_library\utilities\utilities_image;
+
 global $COURSE, $SCRIPT, $ME;
 
 if ($oncoursepage = utilities_course::is_on_course_page()) {
@@ -32,17 +34,37 @@ if ($oncoursepage = utilities_course::is_on_course_page()) {
     if (empty($sharelinkactive) && empty($forumlinkactive) && empty($learnmorelinkactive)) {
         $learnlinkactive = 'class="active"';
     }
+
+    // Load the customer logo
+    $customer = utilities_course::solerni_course_get_customer_infos($COURSE->category);
+    if($customer) {
+        $customerlogoresizedurl = utilities_image::get_resized_url($customer->urlimg,
+            array ('scale' => 'true', 'h' => 60));
+    }
 } ?>
 <!-- page block title -->
 <div class="row">
     <div class="col-xs-12 page-block-title">
         <?php if ($titles->pageblocktitleh1) : ?>
-        <h1><?php echo $titles->pageblocktitleh1; ?></h1>
+        <?php if (isset($customerlogoresizedurl)): ?>
+            <img class="pull-right page-block-title__img" src="<?php echo $customerlogoresizedurl; ?>"
+                 alt=" <?php echo get_string('course_edited_by', 'theme_halloween', $customer->name); ?>">
+        <?php endif; ?>
+        <h1>
+            <?php if ($oncoursepage) : ?>
+                <a class="page-block-title__link" href="<?php echo $titles->pageblockurl; ?>" title="">
+            <?php endif; ?>
+                <?php echo $titles->pageblocktitleh1; ?>
+            <?php if ($oncoursepage) : ?>
+                </a>
+            <?php endif; ?>
+        </h1>
         <?php endif; ?>
         <?php if ($titles->pageblockdesc) : ?>
             <p><?php echo $titles->pageblockdesc; ?></p>
         <?php endif; ?>
         <?php if ($oncoursepage) : ?>
+            <!-- Course navigation -->
             <ul class="nav nav-tabs orange-nav-tabs" role="tablist">
             <?php if (!empty($learnmorelink)) : ?>
                 <li role="presentation" <?php echo $learnmorelinkactive ?>>
