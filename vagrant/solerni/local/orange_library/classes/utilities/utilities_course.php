@@ -1009,13 +1009,21 @@ class utilities_course {
      * @return boolean
      */
     public static function is_on_course_page() {
-        global $COURSE;
-
+        global $COURSE, $SCRIPT;
+        
+        $courseid = $COURSE->id;
+        
+        // For Moodle we are on a MOOC but for for Solerni.
+        if ($SCRIPT == "/user/view.php" ||
+            $SCRIPT == "/local/mail/compose.php") {
+            $courseid = 1;
+        }
+        
         if(optional_param('moocid', 0, PARAM_INT)) {
             $ismooc = true;
         }
 
-        return ($COURSE->id > 1 || isset($ismooc));
+        return ($courseid > 1 || isset($ismooc));
     }
 
     /**
