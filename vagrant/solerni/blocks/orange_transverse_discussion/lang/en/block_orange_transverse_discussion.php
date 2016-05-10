@@ -34,5 +34,6 @@ $string['forumname'] = 'Forum : ';
 $string['discussionname'] = 'Discussion : ';
 $string['createdby'] = 'Created by ';
 $string['lineresponsebegin'] = 'Has received ';
-$string['lineresponseend'] = ' response{$a}';
+$string['response'] = ' response';
+$string['responseplural'] = ' responses';
 $string['linkdiscuss'] = 'Join the discussion';
