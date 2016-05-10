@@ -1019,7 +1019,7 @@ class utilities_course {
             $courseid = 1;
         }
         
-        if(optional_param('moocid', 0, PARAM_INT)) {
+        if (optional_param('courseid', 0, PARAM_INT)) {
             $ismooc = true;
         }
 
