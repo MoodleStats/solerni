@@ -26,6 +26,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use local_orange_library\utilities\utilities_course;
+
 function analytics_trackurl() {
     global $DB, $PAGE, $COURSE, $SITE;
     $pageinfo = get_context_info_array($PAGE->context->id);
@@ -129,12 +131,17 @@ function insert_analytics_tracking() {
     }
 
     $CFG->$location .= "<!-- End first tracker Piwik Code -->";
-    if ($COURSE->id != 1 && $siteidcourseid) {
+    if(utilities_course::is_on_course_page() && $siteidcourseid) {
         $CFG->$location .= '<script type="text/javascript">$( document ).ready(function() {
             function sendTrackPagePiwik() {
                 var piwik2Tracker = Piwik.getTracker();
                 piwik2Tracker.setSiteId('.$siteidforcourseid.');
+                piwik2Tracker.setCustomVariable(1, \'moocName\', \''. $dimensions->get_dimensions1().'\', \'page\');
+                piwik2Tracker.setCustomVariable(2, \'moocSubscription\', \''. $dimensions->get_dimensions2().'\', \'page\');
+                piwik2Tracker.setCustomVariable(3, \'customerName\', \''. $dimensions->get_dimensions3().'\', \'page\');
+                piwik2Tracker.setCustomVariable(4, \'thematicName\', \''. $dimensions->get_dimensions4().'\', \'page\');
                 piwik2Tracker.trackPageView();
+                
             }
             // We dont know if Piwik is loaded yet.
             checkPiwik = setTimeout(function() {
