@@ -21,6 +21,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace local_orange_library\utilities;
+use theme_halloween\tools\theme_utilities;
+use local_orange_library\utilities\utilities_network;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -211,5 +213,84 @@ class utilities_user {
             return $userobject;
         }
         return null;
+    }
+
+    /**
+     * Delete user on a Thematic. Call by a webservice from Solerni Home to delete
+     * Mnet user on thematics
+     * This function MUST NOT be used to delete a user on Solerni Home
+     *
+     * @return array $result : command status
+     */
+    static public function del_user_on_thematic($username, $email) {
+        global $DB;
+
+        $result = true;
+
+        // The user should be a mnet user .
+        $user = $DB->get_record_sql("SELECT *
+            FROM {user} u
+            WHERE u.username= :username AND u.email = :email AND u.mnethostid > 1",
+            array('username' => $username, 'email' => $email), IGNORE_MISSING);
+
+        // If user exist delete it.
+        // User will not exist if the user never jump to this thematic.
+        if ($user) {
+            delete_user($user);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Delete user on remote Thematic.
+     *
+     * @params host $host
+     * @params user $user
+     * @return int $status
+     */
+    static private function del_user_on_remote_thematic($host, $user) {
+        global $CFG, $PAGE;
+
+        // Check that Webservice is activated.
+        if (!theme_utilities::is_theme_settings_exists_and_nonempty('webservicestoken'.$host->id)) {
+            error_log('Resac WebService not configurated - Cannot delete user');
+            return $host;
+        }
+
+        require_once($CFG->libdir . '/filelib.php'); // Include moodle curl class.
+        $token = $PAGE->theme->settings->{"webservicestoken{$host->id}"};
+        $serverurl = new \moodle_url($host->url . '/webservice/rest/server.php',
+                array('wstoken' => $token,
+                    'wsfunction' => 'local_orange_library_del_user_on_thematic',
+                    'moodlewsrestformat' => 'json'));
+        $curl = new \curl;
+        $result = json_decode($curl->post(
+                htmlspecialchars_decode($serverurl->__toString()),
+                array('username' => $user->username, 'email' => $user->email)));
+
+        if ($result && is_object($result) && $result->errorcode) {
+            error_log('Resac Delete User Request Returned An Error. Message: '
+                    . $result->message);
+            return false;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Propagate a user delete action on remote thematics.
+     *
+     * @params host $host
+     * @return int $status
+     */
+    static public function propagate_del_user($user) {
+        $hosts = utilities_network::get_hosts();
+
+        foreach ($hosts as $host) {
+            $result = self::del_user_on_remote_thematic($host, $user);
+        }
+
+        return true;
     }
 }
