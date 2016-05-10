@@ -1011,7 +1011,11 @@ class utilities_course {
     public static function is_on_course_page() {
         global $COURSE;
 
-        return (isset(optional_param('courseid', '', PARAM_INT)) || $COURSE->id > 1);
+        if(optional_param('courseid', '', PARAM_INT)) {
+             $ismooc = true;
+         }
+ 
+         return ($COURSE->id > 1 || isset($ismooc));
     }
 
     /**
