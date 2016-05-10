@@ -32,7 +32,7 @@ class block_orange_list_bestforumng_renderer extends plugin_renderer_base {
      * Display all blocks with data of best forumng in thematic
      *
      * @param $listcourseforuminfo
-     * @return string html 
+     * @return string html
      */
     public function display_list_bestforumng($listcourseforuminfo) {
 
@@ -60,11 +60,11 @@ class block_orange_list_bestforumng_renderer extends plugin_renderer_base {
      * Display block with data of best forumng in course
      *
      * @param object $course Moodle course object
-     * @param object $extendedcourse 
+     * @param object $extendedcourse
      * @param object $lastpost mod_forum_post object
-     * @param int $nbdiscussions 
+     * @param int $nbdiscussions
      * @param string $courseimageurl url of image resized
-     * @return string html 
+     * @return string html
      */
     public function display_list_bestforumng_course($course, $extendedcourse, $lastpost, $nbdiscussions, $courseimageurl) {
         global $CFG, $OUTPUT;
@@ -135,18 +135,14 @@ class block_orange_list_bestforumng_renderer extends plugin_renderer_base {
                 $output .= html_writer::end_tag('div');
 
                 $output .= html_writer::start_tag('div', array('class' => 'row baner-text'));
-
-                    $courseutilities = new utilities_course();
-                    $courselinkdescript = new moodle_url($courseutilities->get_description_page_url($course->id));
                     $output .= html_writer::start_tag('div', array('class' => 'col-xs-12'));
                         $output .= html_writer::tag('span', get_string('questionunregistered', 'block_orange_list_bestforumng'));
-                        $output .= html_writer::link($courselinkdescript,
+                        $output .= html_writer::link(new moodle_url(utilities_course::get_course_home_url($course->id)),
                                                      get_string('answerunregistered', 'block_orange_list_bestforumng'));
                     $output .= html_writer::end_tag('div');
 
                     // Get link acces forum of course.
-                    $courseutilities = new utilities_course();
-                    $courselinkdescript = $courseutilities->get_course_url_page_forum($course->id);
+                    $courselinkdescript = utilities_course::get_course_url_page_forum($course->id);
                     if (!is_null($courselinkdescript)) {
                         $output .= html_writer::start_tag('div', array('class' => 'col-xs-12'));
                             $output .= html_writer::tag('span', get_string('questionregistered', 'block_orange_list_bestforumng'));

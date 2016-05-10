@@ -41,12 +41,12 @@ select.singleselect:focus {
     border-color: @orange-mid-2;
 }
 
-select.form-control {
-    height: 45px;
+select {
+    height: 45px !important; // Branded padding needs a bigger select height.
 }
 
 select[multiple] {
-    height: auto;
+    height: auto  !important; // Because select specificity, see rule above.
 }
 
 .help-block {

@@ -46,14 +46,14 @@ class utilities_image {
 
         // If image parameter not set then send a default image.
         if (!$image) {
-            $image = $CFG->wwwroot . 'theme/halloween/pix/logo-orange.png';
+            $image = $CFG->wwwroot . '/theme/halloween/pix/logo-orange.png';
         }
 
         // If image is a stored_file Moodle, the get Moodle URL.
         if (is_a($image , 'stored_file')) {
             $file = $image;
             if (!$image = self::get_moodle_url_from_stored_file($file)) {
-                $image = $CFG->wwwroot . 'theme/halloween/pix/logo-orange.png';
+                $image = $CFG->wwwroot . '/theme/halloween/pix/logo-orange.png';
             }
         }
 
@@ -215,7 +215,7 @@ class utilities_image {
      * @param url or moodle stored_file $image (mandatory)
      * @param folder of original image $remotefolder
      * @param cache expiration delay in minute $cache_expire_minute
-     * @return path to image 
+     * @return path to image
      */
     private static function update_original_in_cache($image, $remotefolder, $cacheexpireminute) {
         $downloadimage = true;

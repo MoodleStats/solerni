@@ -182,14 +182,13 @@ $string['skip_to_nav']              = 'To page navigation';
 // Login settings.
 $string['loginsettings']            = 'Login page';
 $string['loginheading']             = 'Login page settings';
-$string['loginheadingdesc']         = 'The upper part of the login page allows for editorial modifications (logo, title,'
-                                        . ' text area). Your can change the default settings here. To remove an item, '
-                                        . 'just remove the content from the field before saving. You could also modify'
-                                        . ' the labels of the login form and add block-level help to them.';
-
-
-$string['loginlogo']                = 'Logo';
-$string['loginlogodesc']            = '';
+$string['loginheadingdesc']         = 'The upper part of the login page allows for editorial modifications . Your can '
+                                        . 'change the default settings. To remove an item, just remove the content from '
+                                        . 'the field before saving. You could also modify the labels of the login form '
+                                        . 'and add block-level help to them.'
+                                        . ' Note: on public instances, the logintext field is automatically generated '
+                                        . 'when the field is empty. Therefore it is not possible to delete the logintext'
+                                        . ' message on public instances (but you could modify it).';
 $string['logintitle']               = 'Title';
 $string['logintitledesc']           = '';
 $string['logintext']                = 'Instructions';
@@ -208,7 +207,13 @@ $string['forgotten']                = 'Forgotten ?';
 // Signup settings page.
 $string['signupsettings']           = 'Signup page';
 $string['signupheading']            = 'Signup page settings';
-$string['signupheadingdesc']        = 'This page allows for editorial modification on the signup page.';
+$string['signupheadingdesc']        = 'The upper part of the signup page allows for editorial modifications . Your can '
+                                        . 'change the default settings. To remove an item, just remove the content from '
+                                        . 'the field before saving. You could also modify the labels of the login form '
+                                        . 'and add block-level help to them.'
+                                        . ' Note: on public instances, the signuptext field is automatically generated '
+                                        . 'when the field is empty. Therefore it is not possible to delete the logintext'
+                                        . ' message on public instances (but you could modify it).';
 $string['signuptitle']              = 'Title';
 $string['signuptitledesc']          = '';
 $string['signuptext']               = 'Instructions';
@@ -337,7 +342,7 @@ $string['contact_email_subject']    = 'Solerni - Support request';
 $string['contact_email_body']       = 'The following request has been issued using the contact form of the platform %s';
 
 // Page badges/mybadges.php.
-$string['nobadgesfaq'] = 'There are no badges available.<br/>
+$string['nobadgesfaq']              = 'There are no badges available.<br/>
 <strong><a href="{$a}">Consult FAQ</a></strong> to understand how badges work.';
 
 // Home Solerni.
@@ -349,3 +354,6 @@ $string['more_info']               = 'more info';
 // Page forum.
 $string['forumnavbar']             = 'Discussion space';
 $string['forum_page_title']        = 'Discussion space';
+
+// Course
+$string['course_edited_by']         = 'Course edited by {$a}';

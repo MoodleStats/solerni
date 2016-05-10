@@ -48,16 +48,21 @@ class utilities_course {
     const MOOCRUNNING               = 6;
 
     /**
-     * Get all Solerni informations for a course
-     * using flexpage format (imply that we use the blocks/orange_course_extended)
+     * Get customer informations (customer is a category, extended with
+     * an image.
      *
-     * @global type $DB
-     * @param type $course
-     * @return extended_course_object
+     * @global type $CFG
+     * @param int $catid
+     * @return object $customer
      */
-    public static function solerni_course_get_customer_infos($catid) {
-
+    public static function solerni_course_get_customer_infos($catid=null) {
         global $CFG;
+
+        if (!$catid) {
+            global $COURSE;
+            $catid = $COURSE->category;
+        }
+
         require_once($CFG->dirroot . '/local/orange_customers/lib.php');
         $customer = customer_get_customerbycategoryid($catid);
 
@@ -68,8 +73,8 @@ class utilities_course {
      * Get all Solerni informations for a course
      * using flexpage format (imply that we use the blocks/orange_course_extended)
      *
-     * @global type $DB
-     * @param type $course
+     * @global global object $DB
+     * @param moodle_course $course
      * @return extended_course_object
      */
     public static function solerni_get_course_infos($course) {
@@ -616,7 +621,7 @@ class utilities_course {
      * @param   $user object - if empty, we will use current $USER
      * @return  (bool)
      */
-    public function can_user_view_course($course, $user = null) {
+    public static function can_user_view_course($course, $user = null) {
 
         // Use global $USER if no user.
         if (!$user) {
@@ -656,7 +661,7 @@ class utilities_course {
      * @return string
      *
      */
-    public function get_description_page_url($courseid = null) {
+    public static function get_course_findoutmore_url($courseid = null) {
 
         global $CFG, $DB;
         $url = '#';
@@ -672,6 +677,11 @@ class utilities_course {
         return $url;
     }
 
+    public static function get_course_home_url($courseid = null) {
+
+        return self::get_course_findoutmore_url($courseid);
+    }
+
     /**
      * Returns "forum page" url of a course
      *
@@ -680,10 +690,8 @@ class utilities_course {
      * @return string
      *
      */
-    public function get_course_url_page_forum($courseid = null) {
-        global $CFG;
-
-        $idpage = $this->get_course_id_page_forum($courseid);
+    public static function get_course_url_page_forum($courseid = null) {
+        $idpage = self::get_course_id_page_forum($courseid);
 
         if (!$idpage) {
             return null;
@@ -700,7 +708,7 @@ class utilities_course {
      * @return id
      *
      */
-    public function get_course_id_page_forum($courseid = null) {
+    public static function get_course_id_page_forum($courseid = null) {
 
         global $CFG, $DB;
         $idpage = null;
@@ -930,11 +938,8 @@ class utilities_course {
      * @return url
      */
     public static function get_mooc_forum_menu($courseid) {
-        global $CFG;
 
-        $utilitiescourse = new utilities_course();
-
-        return $utilitiescourse->get_course_url_page_forum($courseid);
+        return self::get_course_url_page_forum($courseid);
     }
 
     /**
@@ -1006,7 +1011,11 @@ class utilities_course {
     public static function is_on_course_page() {
         global $COURSE;
 
-        return ($COURSE->id > 1);
+        if(optional_param('moocid', 0, PARAM_INT)) {
+            $ismooc = true;
+        }
+
+        return ($COURSE->id > 1 || isset($ismooc));
     }
 
     /**
