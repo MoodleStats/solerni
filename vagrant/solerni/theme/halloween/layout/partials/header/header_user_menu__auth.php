@@ -17,7 +17,11 @@
 use local_orange_library\utilities\utilities_user;
 use theme_halloween\tools\log_and_session_utilities;
 $youvegotmail = utilities_user::user_have_new_mail($USER);
-$formaction = log_and_session_utilities::define_login_form_action(); ?>
+$formaction = log_and_session_utilities::define_login_form_action();
+if (!utilities_user::is_user_mnet($USER)) {
+    $formaction['host'] = $CFG->wwwroot; 
+}
+?>
 
 <div class="action-area is-logged">
     <a title="email" href="<?php echo $CFG->wwwroot ?>/local/mail/view.php?t=inbox" class="header-email-icon icon-halloween icon-halloween--email">

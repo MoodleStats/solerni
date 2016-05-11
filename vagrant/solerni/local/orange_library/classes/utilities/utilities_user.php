@@ -42,6 +42,10 @@ class utilities_user {
         }
     }
 
+    static public function is_user_mnet($user) {
+        return ($user->mnethostid > 1);
+    }
+
     static public function is_user_course_admin($user, $course) {
         // Check user right inside the course.
     }
