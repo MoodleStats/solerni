@@ -95,9 +95,14 @@
         }
     }
 
-    // Dropdown button inside the u-inverse footer
-    & .list-link .dropdown .btn {
+    // Dropdown button with no border (i.e. inside the u-inverse footer)
+    & .dropdown--no-border {
         border: 0;
+
+        .btn,
+        .dropdown-menu {
+            border: 0;
+        }
     }
 
     & .fullwidth-line {
