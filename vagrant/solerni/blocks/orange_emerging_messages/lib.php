@@ -85,17 +85,12 @@ function block_orange_emerging_messages_on_my_page() {
  * cut text after N characters, the last character don't must be
  * @param $msg
  * @param $limitchar nb char maximum
- * @param $limitlengthword  The lenght of the last word must be greater or equal to $limitlengthword
  * @return string
  */
-function cut_message($msg, $limitchar = 150, $limitlengthword = 3) {
+function cut_message($msg, $limitchar = 150) {
 
     // Delete Image in message and replace by [IMAGE].
-    while (stripos($msg, "<img src") !== false) {
-        $posbegining = stripos($msg, "<img src");
-        $posend = stripos($msg, ">", $posbegining);
-        $msg = substr($msg, 0, $posbegining) . "[IMAGE]" . substr($msg, $posend + 1);
-    }
+    $msg = preg_replace('/<img src(.*?)>/is', '[IMAGE]', $msg);
 
     // No strip_tags in the function trim_text to keep the 'strongs' characters.
     // Add ellipses even text not cut and underligne last word and ellipse.
