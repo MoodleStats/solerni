@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 require_once("$CFG->dirroot/local/orange_mail/mail_init.php");
 
 $string['emailconfirmation'] = mail_init::init('emailconfirmation','html');
-$string['emailconfirmationsubject'] = 'Confirmation of your e-mail address on {$a}';
+$string['emailconfirmationsubject'] = 'Confirmation of your email address on {$a}';
 $string['emailconfirmsent'] = '<h2>Votre inscription a été enregistrée, il ne reste plus qu’à valider votre compte.</h2><p>Pour valider définitivement votre inscription, cliquez sur le lien contenu dans le mail que nous venons de vous envoyer à l’adresse <strong>{$a}</strong></p>
 <ul><li>si vous ne recevez pas notre mail, veuillez vérifier si celui-ci n’est pas bloqué dans vos courriers indésirables.</li>
 <li>Si c’est le cas, merci d’ajouter cette adresse noreply@solerni.com dans votre carnet d’adresses.</li>
@@ -55,3 +55,4 @@ $string['searchbyemail'] = 'Search by e-mail address';
 $string['invalidemail'] = 'Invalid e-mail address';
 $string['setpasswordinstructions'] = '<p>Please enter and repeat your new password below, then click "Save changes". <br />Your new password will be saved, and you will be logged in.</p>';
 $string['resetrecordexpired'] = '<p>The password reset link you used is more than {$a} minutes old and has expired. Please initiate a new password reset.</p>';
+$string['emailresetconfirmationsubject'] = '{$a} password reset request';

@@ -26,10 +26,10 @@
 $string['pluginname'] = 'Solerni Mail';
 $string['orange_mail:config'] = 'Configure Orange mail plugin';
 $string['mailsetting'] = 'Settings';
-$string['mailgenerate'] = 'Generate templates e-mail';
-$string['mailgeneratestatus'] = 'E-mail\'s templates generation completed. You need to purge caches to take into account these new templates.';
-$string['mailtest'] = 'Send test e-mails';
-$string['mailteststatus'] = 'Tests e-mails send.';
+$string['mailgenerate'] = 'Generate templates email';
+$string['mailgeneratestatus'] = 'Email\'s templates generation completed. You need to purge caches to take into account these new templates.';
+$string['mailtest'] = 'Send test emails';
+$string['mailteststatus'] = 'Tests emails send.';
 $string['pluginname_desc'] = 'This plugin allow to configure mails sent by Solerni.';
 $string['orange_mail'] = 'Orange mail';
 $string['css'] = 'Mail CSS';
@@ -58,16 +58,16 @@ $string['followus'] = '"Follow us" section';
 $string['followus_desc'] = '"Follow us" section';
 $string['followustext'] = '"Follow us" section';
 $string['followustext_desc'] = '"Follow us" section';
-$string['contactemail'] = 'Solerni contact e-mail';
-$string['contactemail_desc'] = 'Solerni contact e-mail. This e-mail is used for mails sent by the platform but also by the contact form.';
-$string['supportemail'] = 'Solerni support e-mail';
-$string['supportemail_desc'] = 'Solerni support e-mail. This e-mail is used for mails sent by the platform but also by the contact form.';
-$string['marketemail'] = 'Solerni marketing e-mail';
-$string['marketemail_desc'] = 'Solerni markerting e-mail. This e-mail is used for mails sent by the platform but also by the contact form.';
-$string['partneremail'] = 'Solerni partnership e-mail';
-$string['partneremail_desc'] = 'Solerni partnership e-mail. This e-mail is used for mails sent by the platform but also by the contact form.';
-$string['noreplyemail'] = 'E-mail No Reply Solerni';
-$string['noreplyemail_desc'] = 'E-mail No Reply Solerni. This e-mail is used for mails sent by the platform but also by the contact form.';
+$string['contactemail'] = 'Solerni contact email';
+$string['contactemail_desc'] = 'Solerni contact email. This email is used for mails sent by the platform but also by the contact form.';
+$string['supportemail'] = 'Solerni support email';
+$string['supportemail_desc'] = 'Solerni support email. This email is used for mails sent by the platform but also by the contact form.';
+$string['marketemail'] = 'Solerni marketing email';
+$string['marketemail_desc'] = 'Solerni markerting email. This email is used for mails sent by the platform but also by the contact form.';
+$string['partneremail'] = 'Solerni partnership email';
+$string['partneremail_desc'] = 'Solerni partnership email. This email is used for mails sent by the platform but also by the contact form.';
+$string['noreplyemail'] = 'Email No Reply Solerni';
+$string['noreplyemail_desc'] = 'Email No Reply Solerni. This email is used for mails sent by the platform but also by the contact form.';
 $string['heading_general'] = 'General';
 $string['heading_htmltemplate'] = 'Mail HTML template';
 $string['heading_texttemplate'] = 'Mail text template';
@@ -88,7 +88,7 @@ $string['helptext'] = 'You can use these variables on the templates. These varia
         . '<br />The variables {$a->xxx} are treated by Moodle during the mail sent process. These variables depends on each mail.';
 $string['helphtml'] = 'You can use these variables on the templates. These variables will be replaced by the content during the template generation..'
         . '<ul>'
-        . '<li>{$b->imageurl} : directory for images used in e-mails</li>'
+        . '<li>{$b->imageurl} : directory for images used in emails</li>'
         . '<li>{$b->sitename} : site name</li>'
         . '<li>{$b->siteurl} : site url</li>'
         . '<li>{$b->catalogurl} : catalog url</li>'
@@ -108,80 +108,91 @@ $string['solernimailsignature'] = '<span class="txt18BNoir">The {$b->servicename
         . 'Learning is always better together<br/> <a href="{$b->siteurl}" class="lientxt18orange">{$b->siteurl}</a>';
 $string['solernimailsignaturetext'] = 'The {$b->servicename} Team
 Learning is always better together {$b->siteurl}';
-$string['solernimailfootertext'] = 'This is an automatic message, please do not reply to it directly. If you have any questions, write to us at {$b->contactemail}.
-To ensure that you never miss our e-mail, add this address {$b->noreplyemail} to your address book.';
+
+$string['solernimailfootertext'] = 'This is an automatic message, please do not reply to it directly. If you have any questions, send us a message at {$b->contactemail}.
+To make sure you receive our emails, please add the address {$b->noreplyemail} to your contacts.';
 $string['solernimailfooterhtml'] = '<p>This is an automatic message, please do not reply to it directly.<br />
-    If you have any questions, write to us at <a href="mailto:{$b->contactemail}" class="lientxt14orange">{$b->contactemail}</a>.<br />
-To ensure that you never miss our e-mail, add this address <a href="mailto:{$b->noreplyemail}" class="lientxt14orange">{$b->noreplyemail}</a> to your address book.</p>';
-$string['solernimailfooterinscriptiontext'] = 'You have received this e-mail because your e-mail address was used to sign up to our site {$a->sitename}. This is an automatic message, please do not reply to it directly. If you have any questions, write to us at {$b->contactemail}.
-To ensure that you never miss our e-mail, add this address {$b->noreplyemail} to your address book.';
-$string['solernimailfooterinscriptionhtml'] = '<p>You have received this e-mail because your e-mail address was used to sign up to our site <a href="{$b->siteurl}" class="lientxt14orange">{$b->sitename}</a>.</p>
+    If you have any questions, send us a messsage at <a href="mailto:{$b->contactemail}" class="lientxt14orange">{$b->contactemail}</a>.<br />
+To make sure you receive our emails, please add the address <a href="mailto:{$b->noreplyemail}" class="lientxt14orange">{$b->noreplyemail}</a> to your contacts.</p>';
+$string['solernimailfooterinscriptiontext'] = 'You have received this email because your email address was used to sign up to our website {$a->sitename}. If you dit not sign up to {$b->sitename}, simmply ignore this email and your account will be deleted automatically. This is an automatic message, please do not reply to it directly. If you have any questions, send us a message at {$b->contactemail}.
+To make sure you receive our emails, please add the address {$b->noreplyemail} to your contacts.';
+$string['solernimailfooterinscriptionhtml'] = '<p>You have received this email because your email address was used to sign up to our website <a href="{$b->siteurl}" class="lientxt14orange">{$b->sitename}</a>. If you dit not sign up to {$b->sitename}, simmply ignore this email and your account will be deleted automatically. </p>
     <p>This is an automatic message, please do not reply to it directly.<br />
-    If you have any questions, write to us at <a href="mailto:{$b->contactemail}" class="lientxt14orange">{$b->contactemail}</a>.<br />
-To ensure that you never miss our e-mail, add this address <a href="mailto:{$b->noreplyemail}" class="lientxt14orange">{$b->noreplyemail}</a> to your address book.</p>';
+    If you have any questions, send us a message at <a href="mailto:{$b->contactemail}" class="lientxt14orange">{$b->contactemail}</a>.<br />
+To make sure you receive our emails, please add the address <a href="mailto:{$b->noreplyemail}" class="lientxt14orange">{$b->noreplyemail}</a> to your contacts.</p>';
 $string['solernimailfollowus'] = 'Follow us';
 
 // Original Moodle email strings.
+// Mail M1.
 $string['newpasswordtext'] = '<p>Hello <span class="txt18BNoir">{$a->firstname} {$a->lastname}</span>,</p>
 
-<p>Your account password at \'{$a->sitename}\' has been reset
+<p>Your account password at {$a->sitename} has been reset
 and you have been issued with a new temporary password.</p>
 
-Your current login information is now:<br />
+<p>Your current login information is now:<br />
    username: <span class="txt18BNoir">{$a->username}</span><br />
-   password: {$a->newpassword}<br />
+   temporary password: {$a->newpassword}</p>
 
-<p>Please go to this page to change your password:
-   <a href="{$a->link}" class="lientxt18orange">{$a->link}</a></p>
+<p>Please click on the following link to personalize your password:
+   <a href="{$a->link}" class="lientxt18orange">Peronnalize my password</a></p>
 
-<p>In most mail programs, this should appear as a blue link
-which you can just click on.  If that doesn\'t work,
-then cut and paste the address into the address
-line at the top of your web browser window.</p>';
+<p>If that doesn\'t work, cut and paste the link below into the address
+line at the top of your web browser window: <a href="{$a->link}" class="lientxt18orange">{$a->link}</a></p>';
+
+// Mail M2 public.
 $string['contentuseraccountemail'] = '<p>Hello <span class="txt18BNoir">{$a->fullname}</span>,<br /><br />
-Welcome to <strong>{$b->servicename}</strong>, your new collaborative learning platform.<p>
-<p>Your login details to access your {$b->servicename} account are:</p>
-<ul>
-    <li>E-mail address: <a href="mailto:{$a->email}" class="lientxt18orange">{$a->email}</a></li>
-    <li>Password : only know to you</li>
-</ul>
+Welcome to <span class="txt18BNoir">{$b->servicename}</span>, your new collaborative learning platform.<p>
+<p>Your login details to access your {$b->servicename} account are:<ul>
+    <li>Email address: <a href="mailto:{$a->email}" class="lientxt18orange">{$a->email}</a></li>
+    <li>Password: only known to you</li>
+</ul></p>
 <p>Your login details can be used to connect to all {$b->servicename} collaborative learning sites.</p>
 <p>You can therefore connect to any theme, and browse from one theme to another.</p>
-<p>See you very soon on {$b->servicename}.</p>';
+<p>See you soon on {$b->servicename}.</p>';
 $string['contentuseraccountemailprivate'] = '<p>Hello <span class="txt18BNoir">{$a->fullname}</span>,<br /><br />
-Welcome to <strong>{$b->servicename}</strong>, your new collaborative learning platform.<p>
-<p>Your login details to access your {$b->servicename} account are:</p>
-<ul>
-    <li>E-mail address: <a href="mailto:{$a->email}" class="lientxt18orange">{$a->email}</a></li>
-    <li>Password : only know to you</li>
-</ul>
-<p>See you very soon on {$b->servicename}.</p>';
+Welcome to <span class="txt18BNoir">{$b->servicename}</span>, your new collaborative learning platform.<p>
+<p>Your login details to access your {$b->servicename} account are:<ul>
+    <li>Email address: <a href="mailto:{$a->email}" class="lientxt18orange">{$a->email}</a></li>
+    <li>Password: only known to you</li>
+</ul></p>
+<p>See you soon on {$b->servicename}.</p>';
+
+// Mail M4 public.
 $string['emailresetconfirmation'] = '<p>Hello <span class="txt18BNoir">{$a->firstname} {$a->lastname}</span>,</p>
 
 <p>You have requested a password reset. If you did not request this reset, please ignore this message.</p>
 
-Your username is : <span class="txt18BNoir">{$a->username}</span>
-<br />
-<p><a href="{$a->link}" class="lientxt18orange">Click on the link to reset your password</a>';
-$string['emailconfirmation'] = '<p>Hello <span class="txt18BNoir">{$a->firstname}</span>,</p>
+<p>Your username is : <span class="txt18BNoir">{$a->username}</span></p>
+<p>Please click on the link below to reset your password:<br />
+<a href="{$a->link}" class="lientxt18orange">reset my password</a></p>
+<p>If that doesn\'t work, cut and paste the link below into the address line at the top of your web browser window:<br />
+<a href="{$a->link}" class="lientxt18orange">{$a->link}</a></p>';
 
-<p>We have received a registration request from you using your e-mail address.</p>
+// Mail M5.
+$string['emailconfirmation'] = '<p>Hello <span class="txt18BNoir">{$a->firstname}</span>,</p>
+<p>We have received a registration request from you using your email address.</p>
 <p>To confirm this request, please click the following link:<br />
 <a href="{$a->link}" class="lientxt18orange">confirm my registration</a></p>
-<p>If the button does not work, copy and paste the following link to your browser\'s address bar :  <a href="{$a->link}" class="lientxt18orange">{$a->link}</a></p>';
+<p>If that doesn\'t work, cut and paste the link below into the address line at the top of your web browser window :<br/>
+<a href="{$a->link}" class="lientxt18orange">{$a->link}</a></p>
+<p>See you soon on {$b->servicename}.</p>';
 
+// Mail M6.
 $string['welcometocoursetext'] = '<p>Hello,</p>
-<p>We would like to confirm your registration for Mooc <span class="txt18BNoir">{$a->coursename}</span>.</p>
+<p>Thanks for signing up to the "<span class="txt18BNoir">{$a->coursename}</span>" MOOC.</p>
+<p>We hope you have a great time on this new learning course
+ on <span class="txt18BNoir">{$b->sitename}</span>, your collaborative learning platform.</p>
+<p>See you soon on {$b->servicename}.</p>';
 
-<p>We hope you really enjoy this new training course
- on {$b->sitename}, your collaborative French MOOC platform.</p>';
-
+// Mail M7.
 $string['informationmessagetext'] = '<p>Hello <span class="txt18BNoir">{$a->fullname}</span>,</p>
+<p>Thanks for signing up to alerts for the next <a href="{$a->learnmoreurl}" class="lientxt18orange">{$a->coursename}</a> MOOC session.</p>
+<p>Your request has been received.</p>';
 
-<p>Thanks for your interest for the course <span class="txt18BNoir">{$a->coursename}</span>. You will be informed when a new session will start.</p>';
-
+// Mail M8.
 $string['defaultemailmsg'] = '<p>Hello <span class="txt18BNoir">{$a->fullname}</span>,
-          <p>Your account has been deleted from Solerni.<br />Thank you for using Solerni!</p>';
+<p>This email is to confirm that your <span class="txt18BNoir">{$b->servicename}</span> platform account has been deleted.<br />
+Thank you for using <span class="txt18BNoir">{$b->servicename}</span>!</p>';
 
 $string['newusernewpasswordtext'] = '<p>Dear <span class="txt18BNoir">{$a->firstname}</span>,</p>
 <p>Your user account has been created on {$a->sitename}, your new collaborative company learning platform, on which you have been invited to follow one or more online courses.</p>
@@ -195,7 +206,7 @@ $string['newusernewpasswordtext'] = '<p>Dear <span class="txt18BNoir">{$a->first
    <a href="{$a->link}" class="lientxt18orange">{$a->link}</a><br />
 and personalise your password.</p>
 <p>if the link does not work, copy and paste the URL to your browser\'s address bar.</p>
-<p>You have received this e-mail because your company wanted to automatically register you on our platform.</p>
+<p>You have received this email because your company wanted to automatically register you on our platform.</p>
 <p>See you soon on {$a->sitename}</p>';
 
 $string['badgemessagebody'] = '<p>Hello,</p>

@@ -634,3 +634,5 @@ $string['gradingscale'] = 'Echelle de notation';
 $string['lockedtitle'] = 'Cette discussion est maintenant fermée';
 $string['autolockedmessage'] = 'Cette discussion a été fermée automatiquement car le temps maximum d\'ouverture auorisé est écoulé.';
 $string['alert_intro'] = 'Vous pouvez utiliser le lien d\'alerte pour attirer l\'attention d\'un modérateur sur un message.';
+// Orange - 2016.05.12
+$string['deletedforumpostintro'] = '<p>Bonjour <span class="txt18BNoir">{$a->fullname}</span>,</p>';

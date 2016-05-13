@@ -23,6 +23,9 @@ defined('MOODLE_INTERNAL') || die();
 
 use theme_halloween\settings\options;
 use theme_halloween\tools\theme_utilities;
+use local_orange_library\utilities\utilities_course;
+require_once($CFG->dirroot . '/local/orange_mail/classes/mail_object.php');
+require_once($CFG->dirroot . '/mod/forumng/mod_forumng.php');
 
 /**
  * All functions in this class are copy of Moodle code or Plugins code.
@@ -248,6 +251,7 @@ class mail_test {
         $a->coursename = format_string($course->fullname);
         $a->profileurl = "$CFG->wwwroot/user/view.php?id=$user->id&course=$course->id";
         $a->fullname = fullname($user);
+        $a->learnmoreurl = utilities_course::get_course_findoutmore_url($instance->courseid);
 
         if (trim($instance->customtext1) !== '') {
             $messagehtml = $instance->customtext1;
@@ -273,6 +277,7 @@ class mail_test {
     static public function send_email_deletion($user, $modetext=false) {
 
         $supportuser = core_user::get_support_user();
+        $site = get_site();
         $message = get_config('local_eledia_makeanonymous', 'emailmsg');
 
         $a = new stdClass();
@@ -299,7 +304,7 @@ class mail_test {
 
         $subject = '(M8)' . get_config('local_eledia_makeanonymous', 'emailsubject');
         if (trim($subject) !== '') {
-            $subject = '(M8)' . get_string('defaultemailsubject', 'local_eledia_makeanonymous');
+            $subject = '(M8)' . get_string('defaultemailsubject', 'local_eledia_makeanonymous', format_string($site->fullname));
         }
 
         if ($modetext) {
@@ -314,6 +319,63 @@ class mail_test {
     }
 
     // Mail M9 to M13 in Forum NG plugin.
+    static public function forum_delete_post($user, $modetext=false) {
+        global $SITE, $USER;
+        
+        $supportuser = core_user::get_support_user();
+
+        $postid = 1;
+        $post = mod_forumng_post::get_from_id($postid, 0);
+        $discussion = $post->get_discussion();
+        $forum = $post->get_forum();
+        $course = $forum->get_course();
+
+        // Set up page
+        $pagename = get_string(true ? 'deletepost' : 'undeletepost', 'forumng',
+        $post->get_effective_subject(true));
+        $pageparams = array('p'=>$postid);
+        $url = new moodle_url('/mod/forumng/deletepost.php', $pageparams);
+        $out = $discussion->init_page($url, $pagename);
+        $messagepost = $post->display(true, array(mod_forumng_post::OPTION_NO_COMMANDS => true,
+                mod_forumng_post::OPTION_SINGLE_POST => true));
+        
+        // Set up the email.
+        $includepost = true;
+        $user = $post->get_user();
+        $from = $SITE->fullname;
+        $subject = get_string('deletedforumpost', 'forumng');
+
+        // Orange - 2016.05.12 - Add intro text
+        $a = new stdClass();
+        $a->fullname = fullname($user);
+        $a->pseudo = $USER->username;
+        $a->subject = $discussion->get_subject();
+        $a->forum = $forum->get_name();
+        $a->course = $course->fullname;
+        $a->deleteurl = $discussion->get_moodle_url()->out(true);
+        $messagehtml = get_string('deletedforumpostintro', 'forumng', $a);
+        $messagehtml .= get_string('emailcontenthtml', 'forumng', $a); 
+        // Always enable HTML version
+
+        // Include the copy of the post in the email to the author.
+        if ($includepost) {
+            $messagehtml .= $messagepost;
+            $message =  $post->display(false, array(mod_forumng_post::OPTION_NO_COMMANDS => true,
+                mod_forumng_post::OPTION_SINGLE_POST => true));
+        }
+
+        if ($modetext) {
+            $user->mailformat = 0;
+        } else {
+            $user->mailformat = 1;
+        }
+
+        // Send an email to the author of the post.
+        if (!email_to_user($user, $supportuser, $subject, mail_object::get_mail($message, 'text', ''),
+                mail_object::get_mail($messagehtml, 'html', ''))) {
+            print_error(get_string('emailerror', 'forumng'));
+        }
+    }
 
     static public function setnew_password_and_mail($user, $modetext=false) {
         global $CFG;

@@ -279,23 +279,23 @@ $string['olderversions'] = 'Anciennes versions (la plus récente en premier)';
 $string['deleteemailpostbutton'] = 'Supprimer et notifier';
 $string['deleteandemail'] = 'Supprimer et notifier l\'auteur par courriel';
 $string['emailmessage'] = 'Message';
-$string['emailcontentplain'] = 'Ceci est une notification pour vous informer que votre message sur le forum avec les détails suivants a été supprimé par \'{$a->firstname} {$a->lastname}\':
+$string['emailcontentplain'] = 'Ceci est une notification pour vous informer que votre message posté sur le forum avec les détails suivants a été supprimé par \'{$a->firstname} {$a->lastname}\':
 
 Sujet : {$a->subject}
 Forum : {$a->forum}
-Espace de cours : {$a->course}
+Cours : {$a->course}
 
 Cliquez sur {$a->deleteurl} pour voir la discussion';
-$string['emailcontenthtml'] = 'Ceci est une notification pour vous informer que votre message sur le forum avec les détails suivants a été supprimé par \'{$a->firstname} {$a->lastname}\':<br />
-<br />
-Sujet : {$a->subject}<br />
-Forum : {$a->forum}<br />
-Espace de cours : {$a->course}<br/>
-<br/>
-<a href="{$a->deleteurl}" title="voir le message supprimé">Voir la discussion</a>';
+$string['emailcontenthtml'] = '<p>Ceci est une notification pour vous informer que votre message posté sur le forum avec les détails suivants a été supprimé par \'{$a->pseudo}\':</p>
+<p>
+<span class="txt18BNoir">Sujet :</span> {$a->subject}<br />
+<span class="txt18BNoir">Forum :</span> {$a->forum}<br />
+<span class="txt18BNoir">Cours :</span> {$a->course}<br/>
+</p>
+<p><a href="{$a->deleteurl}" title="voir le message supprimé" class="lientxt18orange">Voir la discussion</a></p>';
 $string['copytoself'] = 'S\'envoyer une copie';
 $string['includepost'] = 'Inclure le message';
-$string['deletedforumpost'] = 'Votre message a été supprimé';
+$string['deletedforumpost'] = 'Votre message a été supprimé d\'un forum';
 $string['emailerror'] = 'Il y a eu une erreur lors de l\envoi du courriel';
 $string['sendanddelete'] = 'Envoyer et effacer';
 $string['deletepostbutton'] = 'Effacer';
@@ -515,7 +515,7 @@ $string['reportingemail'] = 'Courriel de contact pour le signalement de messages
 $string['reportingemail_help'] = 'Si cette adresse mail est fournie, alors un lien "Signaler" apparaît à côté de chaque message. Les utilisateurs peuvent cliquer sur le lien pour rapporter des messages offensifs. Les informations seront envoyées à cette adresse.<br>Si cette adresse mail n\'est pas renseignée, la fonction de rapport ne sera pas disponible (à moins qu\'une adresse spécifique au niveau du site a été fournie).';
 $string['configreportunacceptable'] = 'Adresse mail pour le rapport des messages signalés comme offensants. Si aucune adresse e-mail n\'est renseignée, la fonction "Signaler" sera désactivée, à moins qu\'elle ne le soit au niveau d\'un forum.';
 $string['alert_info'] = 'La fonction "Signaler" permet d\'envoyer ce message au modérateur qui pourra juger de son contenu. <strong>Veuillez utiliser ce lien uniquement si vous pensez que le message enfreint les règles relatives à l\'utilisation du forum</strong>.';
-$string['alert_reasons'] = 'Raison du signalement';
+$string['alert_reasons'] = '<p>Raison du signalement :</p>';
 $string['alert_condition1'] = 'Contenu abusif';
 $string['alert_condition2'] = 'Contenu assimilé à du harcèlement moral';
 $string['alert_condition3'] = 'Contenu choquant (pornographie, ...)';
@@ -531,11 +531,13 @@ $string['alert_submit'] = "Envoyer le rapport";
 $string['error_sendalert'] = 'Une erreur s\'est produite lors de l\'envoi de votre rapport {$a}. Le rapport n\'a pas été envoyé.';
 $string['error_portfoliosave'] = 'Une erreur s\'est produite pendant la sauvegarde vers Mon dossier.';
 $string['alert_pagename'] = 'Signaler un message comme incorrect';
-$string['alert_emailsubject'] = 'Alerte F{$a->postid}: {$a->coursename} {$a->forumname}';
-$string['alert_emailpreface'] = 'Un message sur le forum a été signalé par {$a->fullname} ({$a->username},
-{$a->email}) {$a->url}';
+$string['alert_emailsubject'] = 'Un messsage sur le forum a été signalé';
+$string['alert_emailpreface'] = '<p>Bonjour,</p>
+<p>Un message sur le forum a été signalé par <span class="txt18BNoir">{$a->fullname}</span> ({$a->username},
+<a href="mailto:{$a->email}" class="lientxt18orange">{$a->email}</a>)</p><p>Pour accéder au message, veuillez cliquer sur le lien suivant :<br/>
+<a href="{$a->url}" class="lientxt18orange">{$a->url}</a></p>';
 $string['alert_feedback'] = 'Votre rapport a été envoyé avec succès. Il va être traité par un membre de l\'équipe.';
-$string['alert_emailappendix'] = 'Vous recevez cette notification suite à une utilisation de votre adresse mail sur le forumNG pour signaler un courriel inadapté.';
+$string['alert_emailappendix'] = '<p>Vous recevez cette notification suite à une utilisation de votre adresse mail sur le forum pour signaler un message inadapté.</p>';
 $string['alert_note'] = 'Note : Ce courriel a également été envoyé à {$a}';
 $string['alert_notcurrentpost'] = 'Ce message a déjà été supprimé.';
 $string['alert_turnedoff'] = 'La fonction "Signaler" n\'est pas disponible.';
@@ -691,13 +693,13 @@ $string['extra_emails'] = 'Adresse courriel des autres destinataires';
 $string['extra_emails_help'] = 'Entrez une ou plusieurs adresses séparées par des espaces ou des points-virgules.';
 $string['skipstickydiscussions'] = 'Passer les discussions collées en tête de liste';
 $string['emailauthor'] = 'Auteur du courriel';
-$string['emaileditedcontenthtml'] = 'Votre message ayant les caractéristiques ci-dessous a été modifié par \'{$a->editinguser}\':<br />
-<br />
-Sujet : {$a->subject}<br />
-Forum : {$a->forum}<br />
-Module : {$a->course}<br/>
-<br/>
-<a href="{$a->editurl}" title="voir la discussion modifiée">Voir la discussion</a>';
+$string['emaileditedcontenthtml'] = '<p>Bonjour,</p><p>Ceci est une notification pour vous informer que votre message sur le forum avec les détails suivants a été modifié par \'{$a->pseudo}\':</p>
+<p>
+<span class="txt18BNoir">Sujet :</span> {$a->subject}<br />
+<span class="txt18BNoir">Forum :</span> {$a->forum}<br />
+<span class="txt18BNoir">Module :</span> {$a->course}<br/>
+<p>
+<a href="{$a->editurl}" title="voir la discussion modifiée" class="lientxt18orange">Voir la discussion</a>';
 $string['emailauthor_help'] = 'Envoyer un courriel à l’auteur du message pour l\'informer que vous avez modifié son message';
 $string['editedforumpost'] = 'Votre message a été modifié';
 

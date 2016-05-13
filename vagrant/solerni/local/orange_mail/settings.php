@@ -129,6 +129,12 @@ ul.forumng-commands a {
 	font-size: 16px;
 	text-decoration: underline;
 }
+div.forumng-post {
+        border: 1px solid #AAA;
+        padding: 0.5em;
+        margin-top: 1em;
+        margin-bottom: 1em;
+}
 </style>', PARAM_RAW, '50', '10'));
 
     $page->add(new admin_setting_configtextarea('local_orangemail/header',
