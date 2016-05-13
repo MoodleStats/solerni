@@ -74,7 +74,7 @@ class block_orange_thematics_menu_renderer extends plugin_renderer_base {
                                     $output .= html_writer::end_tag('div');
                                     $output .= html_writer::start_tag('div');
                                         $output .= html_writer::tag('span', $host->nbfuturemooc);
-                                        $output .= utilities_object::get_string_plural($host->nbfuturemooc, 'block_orange_thematics_menu', 'moocfuture', 'moocfutureplurial');
+                                        $output .= utilities_object::get_string_plural($host->nbfuturemooc, 'block_orange_thematics_menu', 'moocfuture', 'moocfutureplural');
                                     $output .= html_writer::end_tag('div');
                                 $output .= html_writer::end_tag('div');
                         $output .= html_writer::end_tag('div');
