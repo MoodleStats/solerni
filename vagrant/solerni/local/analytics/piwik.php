@@ -26,6 +26,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use local_orange_library\utilities\utilities_course;
+
 function analytics_trackurl() {
     global $DB, $PAGE, $COURSE, $SITE;
     $pageinfo = get_context_info_array($PAGE->context->id);
@@ -78,8 +80,8 @@ function insert_analytics_tracking() {
     } else {
        $trackdimensions  = '';
     }
-
-    $trackuser = ($USER->id != 0) ? "_paq.push(['setUserId', '" . get_string('user', 'local_analytics') . '_' . md5($USER->id) . "']);" : '';
+    $usermd5 = get_string('user', 'local_analytics') . '_' . md5($USER->id);
+    $trackuser = ($USER->id != 0) ? "_paq.push(['setUserId', '". $usermd5 . "']);" : '';
     $enabled = get_config('local_analytics', 'enabled');
     $imagetrack = get_config('local_analytics', 'imagetrack');
     $siteurl = get_config('local_analytics', 'siteurl');
@@ -118,7 +120,7 @@ function insert_analytics_tracking() {
       var u='//".$siteurl."/';
       _paq.push(['setTrackerUrl', u+'piwik.php']);
       _paq.push(['setSiteId', ".$siteid."]);
-
+          
       var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
     g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
     })();
@@ -129,12 +131,18 @@ function insert_analytics_tracking() {
     }
 
     $CFG->$location .= "<!-- End first tracker Piwik Code -->";
-    if ($COURSE->id != 1 && $siteidcourseid) {
+    if(utilities_course::is_on_course_page() && $siteidcourseid) {
         $CFG->$location .= '<script type="text/javascript">$( document ).ready(function() {
             function sendTrackPagePiwik() {
                 var piwik2Tracker = Piwik.getTracker();
                 piwik2Tracker.setSiteId('.$siteidforcourseid.');
+                piwik2Tracker.setCustomVariable(1, \'moocName\', \''. $dimensions->get_dimensions1().'\', \'page\');
+                piwik2Tracker.setCustomVariable(2, \'moocSubscription\', \''. $dimensions->get_dimensions2().'\', \'page\');
+                piwik2Tracker.setCustomVariable(3, \'customerName\', \''. $dimensions->get_dimensions3().'\', \'page\');
+                piwik2Tracker.setCustomVariable(4, \'thematicName\', \''. $dimensions->get_dimensions4().'\', \'page\');
+                piwik2Tracker.setUserId(\''.$usermd5.'\');  
                 piwik2Tracker.trackPageView();
+                
             }
             // We dont know if Piwik is loaded yet.
             checkPiwik = setTimeout(function() {

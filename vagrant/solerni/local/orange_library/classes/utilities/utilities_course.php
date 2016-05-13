@@ -48,16 +48,21 @@ class utilities_course {
     const MOOCRUNNING               = 6;
 
     /**
-     * Get all Solerni informations for a course
-     * using flexpage format (imply that we use the blocks/orange_course_extended)
+     * Get customer informations (customer is a category, extended with
+     * an image.
      *
-     * @global type $DB
-     * @param type $course
-     * @return extended_course_object
+     * @global type $CFG
+     * @param int $catid
+     * @return object $customer
      */
-    public static function solerni_course_get_customer_infos($catid) {
-
+    public static function solerni_course_get_customer_infos($catid=null) {
         global $CFG;
+
+        if (!$catid) {
+            global $COURSE;
+            $catid = $COURSE->category;
+        }
+
         require_once($CFG->dirroot . '/local/orange_customers/lib.php');
         $customer = customer_get_customerbycategoryid($catid);
 
@@ -68,8 +73,8 @@ class utilities_course {
      * Get all Solerni informations for a course
      * using flexpage format (imply that we use the blocks/orange_course_extended)
      *
-     * @global type $DB
-     * @param type $course
+     * @global global object $DB
+     * @param moodle_course $course
      * @return extended_course_object
      */
     public static function solerni_get_course_infos($course) {
@@ -673,7 +678,7 @@ class utilities_course {
     }
 
     public static function get_course_home_url($courseid = null) {
-        
+
         return self::get_course_findoutmore_url($courseid);
     }
 
@@ -1004,13 +1009,19 @@ class utilities_course {
      * @return boolean
      */
     public static function is_on_course_page() {
-        global $COURSE;
-
-        if(optional_param('moocid', 0, PARAM_INT)) {
-            $ismooc = true;
+        global $COURSE, $SCRIPT;
+        
+        // For Moodle we are on a MOOC but not for Solerni.
+        if ($SCRIPT == "/user/view.php" ||
+            $SCRIPT == "/local/mail/compose.php") {
+            return false;
+        }
+        
+        if (optional_param('courseid', 0, PARAM_INT)) {
+            return true;
         }
 
-        return ($COURSE->id > 1 || isset($ismooc));
+        return ($COURSE->id > 1);
     }
 
     /**
@@ -1126,43 +1137,43 @@ class utilities_course {
     }
 
     public static function get_ordered_user_courses($limit = 0, $order = false) {
-    global $USER;
+        global $USER;
 
-    $courses = enrol_get_my_courses();
-    $site = get_site();
+        $courses = enrol_get_my_courses();
+        $site = get_site();
 
-    if (array_key_exists($site->id, $courses)) {
-        unset($courses[$site->id]);
-    }
-
-    foreach ($courses as $c) {
-        if (isset($USER->lastcourseaccess[$c->id])) {
-            $courses[$c->id]->lastaccess = $USER->lastcourseaccess[$c->id];
-        } else {
-            $courses[$c->id]->lastaccess = 0;
-        }
-    }
-
-    if (!$order) {
-        return $courses;
-    }
-
-    // We have a order => sort it.
-    // @todo: make it a specific function.
-    $counter = 0;
-    $sortedcourses = array();
-    foreach ($order as $cid) {
-        if (($counter >= $limit) && ($limit != 0)) {
-            break;
+        if (array_key_exists($site->id, $courses)) {
+            unset($courses[$site->id]);
         }
 
-        // Make sure user is still enroled.
-        if (isset($courses[$cid])) {
-            $sortedcourses[$cid] = $courses[$cid];
-            $counter++;
+        foreach ($courses as $c) {
+            if (isset($USER->lastcourseaccess[$c->id])) {
+                $courses[$c->id]->lastaccess = $USER->lastcourseaccess[$c->id];
+            } else {
+                $courses[$c->id]->lastaccess = 0;
+            }
         }
-    }
 
-    return $sortedcourses;
-}
+        if (!$order) {
+            return $courses;
+        }
+
+        // We have a order => sort it.
+        // @todo: make it a specific function.
+        $counter = 0;
+        $sortedcourses = array();
+        foreach ($order as $cid) {
+            if (($counter >= $limit) && ($limit != 0)) {
+                break;
+            }
+
+            // Make sure user is still enroled.
+            if (isset($courses[$cid])) {
+                $sortedcourses[$cid] = $courses[$cid];
+                $counter++;
+            }
+        }
+
+        return $sortedcourses;
+    }
 }

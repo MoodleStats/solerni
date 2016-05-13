@@ -58,6 +58,6 @@ $string['emailmsg_desc'] = 'A custom welcome message may be added as plain text 
 The following placeholders may be included in the message:
     User\'s name {$a->fullname}
     User\'s email {$a->email}';
-$string['defaultemailmsg'] = mail_init::init('defaultemailmsg','html');
+$string['defaultemailmsg'] = mail_init::init('defaultemailmsg', 'html');
 $string['enabledemail'] = 'Enabled email';
 $string['enabledemail_desc'] = 'Enable plateform to send mail to confirm user deletion';

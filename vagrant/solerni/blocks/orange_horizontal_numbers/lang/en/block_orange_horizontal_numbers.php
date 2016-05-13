@@ -31,7 +31,10 @@ $string['intro'] = 'Come talk with other enthusiasts on the topics that interest
         . 'by connecting with other users Solerni community..';
 $string['tofaq'] = 'Learn more about forums ? <a href=\'{$a}\'>Go to our F.A.Q.</a>';
 
-$string['nbposts'] = 'posted Messages';
-$string['nbusers'] = 'registered';
+$string['nbpost'] = 'posted Message';
+$string['nbpostplural'] = 'posted Messages';
+$string['nbuser'] = 'registered';
+$string['nbuserplural'] = 'registered';
 $string['lastuserregistered'] = 'last registered';
-$string['nbusersconnected'] = 'users connected<br />Now';
+$string['nbuserconnected'] = 'user connected Now';
+$string['nbuserconnectedplural'] = 'users connected<br />Now';

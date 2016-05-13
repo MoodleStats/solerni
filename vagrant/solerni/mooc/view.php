@@ -45,6 +45,7 @@ $edit   = optional_param('edit', null, PARAM_BOOL);    // Turn editing on and of
 
 //$PAGE->set_context($context);
 $PAGE->set_url($url);
+$PAGE->set_pagelayout('course');
 $PAGE->set_pagetype('mooc-view');
 $PAGE->blocks->add_region('content');
 $course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);

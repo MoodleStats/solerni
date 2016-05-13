@@ -105,9 +105,11 @@ class utilities_object {
      * @param int $length in characters to trim to
      * @param bool $ellipses if ellipses (...) are to be added
      * @param bool $striphtml if html tags are to be stripped
+     * @param bool $ellipsesallways if ellipses (...) are to be added even if the text is not cut
+     * @param bool $underline if last word and ellipses are underligned
      * @return string
      */
-    public static function trim_text($input, $length, $ellipses = true, $striphtml = true) {
+    public static function trim_text($input, $length, $ellipses = true, $striphtml = true, $ellipsesallways = false, $underline = false) {
         // Strip tags, if desired.
         if ($striphtml) {
             $input = strip_tags($input);
@@ -115,7 +117,16 @@ class utilities_object {
 
         // No need to trim, already shorter than trim length.
         if (strlen($input) <= $length) {
-            return $input;
+            if ($ellipsesallways) {
+                if ($underline) {
+                    $pos = strripos($input, " " );
+                    return substr($input, 0, $pos) . " <u>" . substr($input, $pos) . "...</u>";
+                } else {
+                    return $input .= '...';
+                }
+            } else {
+                return $input;
+            }
         }
 
         // Find last space within length.
@@ -124,7 +135,12 @@ class utilities_object {
 
         // Add ellipses (...).
         if ($ellipses) {
-            $trimmedtext .= '...';
+            if ($underline) {
+                $pos = strripos($trimmedtext, " " );
+                $trimmedtext = substr($trimmedtext, 0, $pos) . " <u>" . substr($trimmedtext, $pos) . "...</u>";
+            } else {
+                $trimmedtext .= '...';
+            }
         }
 
         return $trimmedtext;
@@ -212,6 +228,6 @@ class utilities_object {
      */
     public static function get_string_plural($testvalue, $pluginname, $singular, $plural) {
 
-        return ($testvalue > 1) ? get_string($plural, $pluginname) : get_string($singular, $pluginname);
+        return ((int) $testvalue > 1) ? get_string($plural, $pluginname) : get_string($singular, $pluginname);
     }
 }

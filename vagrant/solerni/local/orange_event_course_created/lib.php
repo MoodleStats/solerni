@@ -44,13 +44,13 @@ function sendmail_to_admin_piwik($course,$event,$pass,$xmlaccount,$xmlaccess,$xm
     $srtsuccess = 'ok';
     $userpiwik = $course->shortname;
     $xmldashboard = intval($xmldashboard);
+    $key = array('{$a->username}', '{$a->coursename}', '{$a->sitename}', '{$a->userpiwik}', '{$a->passwordpiwik}','{$a->emailcontact}', '{$a->firstname}','{$a->lastname}');
+    $value = array($user->username, $course->fullname, $site->fullname, $userpiwik, $pass,$CFG->supportemail,$user->firstname,$user->lastname);
     if (($xmlaccount->success['message'] == $srtsuccess) && ($xmlaccess->success['message'] == $srtsuccess) && (is_int($xmldashboard) == true)) {
         $message = get_string('content_piwik_success', 'local_orange_event_course_created');
-        $key = array('{$a->username}', '{$a->coursename}', '{$a->sitename}', '{$a->userpiwik}', '{$a->passwordpiwik}');
-        $value = array($user->username, $course->fullname, $site->fullname, $userpiwik, $pass);
         $message = str_replace($key, $value, $message);
         $subject = get_string('subject_piwik_success', 'local_orange_event_course_created');
-        $subject = str_replace('{$a->sitename}', format_string($site->fullname), $subject);
+        $subject = str_replace($key, $value, $subject);
         email_to_user($user, $contact, $subject, mail_object::get_mail($message, 'text', ''), mail_object::get_mail($message, 'html', ''));
         return true;
     } 

@@ -41,7 +41,6 @@ class block_orange_listforumng extends block_base {
      */
     public function init() {
         global $PAGE;
-        $this->title = get_string('pluginname', 'block_orange_listforumng');
         $this->renderer = $PAGE->get_renderer('block_orange_listforumng');
     }
 
@@ -55,8 +54,6 @@ class block_orange_listforumng extends block_base {
     }
 
     public function specialization() {
-        $this->title = isset($this->config->title) ?
-                format_string($this->config->title) : format_string(get_string('newlistforumnglock', 'block_orange_listforumng'));
     }
 
     /**
@@ -77,7 +74,7 @@ class block_orange_listforumng extends block_base {
     public function applicable_formats() {
         return array(
             'course-view'    => true,
-            'site'           => true,
+            'site-index'     => true,
             'mod'            => false,
             'my'             => true
         );
@@ -107,6 +104,8 @@ class block_orange_listforumng extends block_base {
         $title = "";
         if (block_orange_listforumng_on_forum_index_page()) {
             $title = get_string('titleforum', 'block_orange_listforumng', $CFG->solerni_thematic);
+        } else {
+            $title = $this->config->title;
         }
 
         // Check if user is in group for block.

@@ -42,8 +42,10 @@ $string['headtablenbposts'] = 'Post';
 $string['headtablelastpost'] = 'Last post';
 $string['from'] = 'From ';
 
-$string['messages'] = 'message';
-$string['discussions'] = 'discussion';
+$string['message'] = ' message';
+$string['discussion'] = ' discussion';
+$string['messageplural'] = ' messages';
+$string['discussionplural'] = ' discussions';
 
 $string['assignforum'] = "Forums assignment";
 $string['no_forumng_affected'] = "No forum is assigned to this list.";

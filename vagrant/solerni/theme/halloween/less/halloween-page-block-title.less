@@ -4,18 +4,21 @@
 
 /* page block title */
 .page-block-title  {
+
+    padding-top: @s-triple-md-margin;
+
     & h1,
     & .h1 {
-        margin-top:     @s-triple-md-margin;
+        margin-top:     0;
         margin-bottom:  @s-double-md-margin;
 
         & + p {
-            margin-bottom:     @s-triple-md-margin;
+            margin-bottom: @s-triple-md-margin;
         }
     }
 
     .page-block-title__link {
-        text-decoration:none;
+        text-decoration: none;
     }
 
     .orange-nav-tabs {
@@ -26,8 +29,13 @@
         }
 
         .orange-nav-tabs-link {
-            text-decoration: none;
-            font-family: @font-family-titles;
+            text-decoration:    none;
+            font-family:        @font-family-titles;
         }
+    }
+
+    .page-block-title__img {
+        height: (@font-size-h1 * @line-height-titles);
+        width:  auto;
     }
 }
