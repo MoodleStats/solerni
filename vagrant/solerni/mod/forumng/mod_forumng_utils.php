@@ -297,13 +297,14 @@ class mod_forumng_utils {
      */
     public static function get_username_fields($includemailfields=false) {
         // Get core user name fields, for use with fullname etc.
+        // Orange - 2016.05.13 - Add mnethostid field.
         $namefields = get_all_user_name_fields();
         return $includemailfields
             ?  array('id', 'username', 'picture', 'url',
                 'imagealt', 'email', 'maildisplay', 'mailformat', 'maildigest',
-                'emailstop', 'deleted', 'auth', 'timezone', 'lang', 'idnumber') + $namefields
+                'emailstop', 'deleted', 'auth', 'timezone', 'lang', 'idnumber', 'mnethostid') + $namefields
             :   array('id', 'username', 'picture', 'url',
-                'imagealt', 'idnumber', 'email') + $namefields;
+                'imagealt', 'idnumber', 'email', 'mnethostid') + $namefields;
     }
 
     /**

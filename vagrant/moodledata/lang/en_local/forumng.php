@@ -22,7 +22,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['digestmailsubject'] = '{$a}: forum daily digest';
+$string['digestmailsubject'] = 'Daily summary of posts on "{$a}"';
 $string['deletedforumpost'] = 'Forum post deleted';
 $string['emailcontentplain'] = 'This is a notification to advise you that your forum post with the
  following details has been deleted by \'{$a->firstname} {$a->lastname}\':
@@ -54,5 +54,6 @@ following details has been edited by \'{$a->pseudo}\':</p>
 <span class="txt18BNoir">Module:</span> {$a->course}<br/>
 </p>
 <a href="{$a->editurl}" title="view deleted post" class="lientxt18orange">View the discussion</a>';
-
-
+$string['digestmailheader'] = '<p>hello <span class="txt18BNoir">{$a->user}</span>,</p><p>This is your daily summary of new posts on "{$a->sitename}".</p>
+<p>To change your notification preferences, goto the preferences section of your account : {$a->userprefs}</p>';
+$string['digestmailprefs'] = 'My preferences';

@@ -49,9 +49,10 @@ $string['subscription'] = 'Mode d\'abonnement';
 $string['subscription_help'] = 'Vous pouvez abonner tout le monde de façon imposée, ou de les abonner par défaut, la différence est que dans ce dernier cas, les utilisateurs peuvent choisir de se désabonner.<br>Ces options incluent tous les participants aux cours (étudiants et enseignants). Les utilisateurs qui n\'appartiennent pas au cours (comme l\'administrateur) peuvent quand même s\'abonner.';
 $string['configtrackreadposts'] = 'Mettre sur \'Oui\' pour permettre à l\'utilisateur de suivre la lecture du message.';
 $string['forums'] = 'Forums';
-$string['digestmailheader'] = 'Ceci est votre résumé quotidien des nouveaux messages de forum de {$a->sitename}. Pour modifier vos préférences de notification, allez à {$a->userprefs}.';
-$string['digestmailprefs'] = 'Votre profil';
-$string['digestmailsubject'] = '{$a} : résumé quotidien du forum';
+$string['digestmailheader'] = '<p>Bonjour <span class="txt18BNoir">{$a->user}</span>,</p><p>Ceci est votre résumé quotidien des nouveaux messages postés sur "{$a->sitename}".</p>
+<p>Si vous souhaitez modifier vos préférences de notification, rendez-vous dans la section préférences de votre compte : {$a->userprefs}</p>';
+$string['digestmailprefs'] = 'Mes préférences';
+$string['digestmailsubject'] = 'Résumé quotidien des messages postés sur "{$a}"';
 $string['unsubscribe'] = 'Se désabonner de ce forum';
 $string['unsubscribeall'] = 'Se désabonner de tous les forums';
 $string['postmailinfo'] = 'Ceci est la copie du message de forum posté sur le site {$a}.<br>Pour ajouter une réponse au message depuis {$a}, cliquez sur le lien suivant :';

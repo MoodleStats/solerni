@@ -25,6 +25,7 @@ $string['forward'] = 'Transférer par courriel';
 $string['forward_intro'] = 'Introduction optionnelle';
 $string['forward_email'] = 'Adresse du destinataire';
 $string['forward_ccme'] = 'Recevoir une copie';
+$string['forward_mail_subject'] = 'Ce fil de discussion peut vous intéresser : {$a}';
 $string['forward_preface'] = '<p>Ces messages du forum vous ont été envoyés par {$a->name}.</p>';
 $string['forward_done'] = 'Le courriel a bien été envoyé.';
 $string['forward_info_selected'] = 'Les messages sélectionnés (voir en bas du formulaire) seront envoyés à l\'adresse ou aux adresses indiquées. Le courriel sera envoyé sous votre nom <strong>{$a->fullname}</strong> depuis votre adresse de courriel <strong>{$a->email}</strong>.';

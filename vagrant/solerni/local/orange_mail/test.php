@@ -65,7 +65,7 @@ foreach ($langs as $lang => $value) {
         if (isset($instanceself)) {
             //mail_test::email_welcome_message($instanceself, $USER); // M6.
             //mail_test::email_information_message($instanceself, $USER);  // M7.
-            mail_test::forum_delete_post($USER);
+            //mail_test::forum_delete_post($USER);  // M9.
         }
         //mail_test::send_email_deletion($USER);  // M8.
         /*
@@ -74,7 +74,12 @@ foreach ($langs as $lang => $value) {
          * 
          */
     }
-
+    // For ForumNG daily Cron
+    force_current_language("en");
+    require_once($CFG->dirroot . '/mod/forumng/mod_forumng_cron.php');
+    //\mod_forumng_cron::email_digest();
+    \mod_forumng_cron::email_normal();
+        
     if ($sendtextemail) {
         //mail_test::reset_password_and_mail($USER, true);   // M1.
         //mail_test::user_account_mail_public($USER, true);  // M2 public.
@@ -84,8 +89,9 @@ foreach ($langs as $lang => $value) {
         if (isset($instanceself)) {
             //mail_test::email_welcome_message($instanceself, $USER, true); // M6.
             //mail_test::email_information_message($instanceself, $USER, true);  // M7.
+            //mail_test::forum_delete_post($USER, true);  // M9.
         }
-        mail_test::send_email_deletion($USER, true); // M8.
+        //mail_test::send_email_deletion($USER, true); // M8.
         /*
         mail_test::setnew_password_and_mail($USER, true); // M14.
         mail_test::emailupdatemessage($USER, true);
