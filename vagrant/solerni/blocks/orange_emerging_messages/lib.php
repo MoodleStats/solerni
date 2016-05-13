@@ -25,6 +25,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+use local_orange_library\utilities\utilities_object;
+
 function block_orange_emerging_messages_get_user_posts($courseid, $userid, $npdisplayed) {
     global $DB;
 
@@ -83,48 +85,15 @@ function block_orange_emerging_messages_on_my_page() {
  * cut text after N characters, the last character don't must be
  * @param $msg
  * @param $limitchar nb char maximum
- * @param $limitlengthword  The lenght of the last word must be greater or equal to $limitlengthword
  * @return string
  */
-function cut_message($msg, $limitchar = 150, $limitlengthword = 3) {
+function cut_message($msg, $limitchar = 150) {
 
-    $msg = str_replace("<p>", " ", $msg);
-    $msg = str_replace("</p>", "", $msg);
-    $msg = str_replace("<br>", " ", $msg);
-    $msg = str_replace("  ", " ", $msg);
-    $msg = trim($msg);
+    // Delete Image in message and replace by [IMAGE].
+    $msg = preg_replace('/<img src(.*?)>/is', '[IMAGE]', $msg);
 
-    // Delete Image in message.
-    while (stripos($msg, "<img src") !== false) {
-        $posbegining = stripos($msg, "<img src");
-        $posend = stripos($msg, ">", $posbegining);
-        $msg = substr($msg, 0, $posbegining) . "[IMAGE]" . substr($msg, $posend + 1);
-    }
-
-    $atext = explode(" ", $msg);
-    $lenghtstring = 0;
-    $i = 0;
-    $indacceptable = 0;
-    while ( $i < count($atext) && $lenghtstring < $limitchar) {
-        $lenghtstring += strlen($atext[$i]) + 1;
-        if (strlen($atext[$i]) >= $limitlengthword && $lenghtstring < $limitchar) {
-            $indacceptable = $i;
-        }
-        $i++;
-    }
-
-    if ($indacceptable != 0) {
-        return implode(" ", array_slice($atext, 0, $indacceptable)) . " <u>" . $atext[$indacceptable] . "...</u>";
-    } else {
-        if (strlen($msg) <= $limitchar) {
-            return implode(" ", array_slice($atext, 0, count($atext) - 1)) . " <u>" . $atext[count($atext) - 1] . "...</u>";
-        } else {
-            if (count($atext) > 1) {
-                return implode(" ", array_slice($atext, 0, $i - 2)) . " <u>" . $atext[$i - 2] . "...</u>";
-            } else {
-                return " <u>...</u>";  // One word and too long.
-            }
-        }
-    }
+    // No strip_tags in the function trim_text to keep the 'strongs' characters.
+    // Add ellipses even text not cut and underligne last word and ellipse.
+    return utilities_object::trim_text(strip_tags($msg, '<b><i><strong><em>'), $limitchar, true, false, true, true);
 
 }
