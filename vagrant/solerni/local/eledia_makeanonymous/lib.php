@@ -103,7 +103,11 @@ function make_anonymous($user, $useroldemail='') {
     $DB->update_record('user', $updateuser);
     // Send an email to user.
     if (get_config('local_eledia_makeanonymous', 'enabledemail')) {
-        if (!empty($useroldemail)) {
+        if (!empty($useroldemail) &&
+            ((local_orange_library\utilities\utilities_network::is_platform_uses_mnet() &&
+              local_orange_library\utilities\utilities_network::is_home()) ||
+             (!local_orange_library\utilities\utilities_network::is_platform_uses_mnet()))
+           ) {
             send_email_deletion($user, $useroldemail);
         }
     }
