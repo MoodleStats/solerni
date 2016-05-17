@@ -19,12 +19,12 @@ if [[ $do_instance =~ ^(u|U)$ ]]; then
         php admin/cli/upgrade.php --non-interactive
         echo
         echo "Mooshing ... [ $i ]"
-        bash /opt/solerni/conf/moosh/default/conf.sh -dev;
+        bash /opt/solerni/conf/moosh/default/conf.sh -dev -s;
         if [ "$i" = "solerni" ]
             then
                 echo
                 echo "Mooshing... [ MNET HOME $i ]"
-                bash /opt/solerni/conf/moosh/customer_thematic/solerni-home/conf.sh -dev
+                bash /opt/solerni/conf/moosh/customer_thematic/solerni-home/conf.sh -dev -s
         fi
     done
 fi
