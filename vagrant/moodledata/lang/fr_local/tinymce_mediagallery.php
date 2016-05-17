@@ -24,5 +24,5 @@
 
 $string['mediagallery:desc'] = 'Bibliothèque multimédia';
 $string['pluginname'] = 'Insertion de bibliothèques multimédia';
-$string['select_desc'] = 'Selectionner la bibliothèque multimédia que vous souhaitez insérer ci-dessous. A noter, les utilisateurs seront peut-être dans l\'incapacité de voir la bibliothèque si des options de visibilité ou des permissions les empêchent de la voir.';
-$string['title'] = 'Selectionner une bibliothèque multimédia';
+$string['select_desc'] = 'Sélectionner la bibliothèque multimédia que vous souhaitez insérer ci-dessous. A noter, les utilisateurs seront peut-être dans l\'incapacité de voir la bibliothèque si des options de visibilité ou des permissions les empêchent de la voir.';
+$string['title'] = 'Sélectionner une bibliothèque multimédia';
