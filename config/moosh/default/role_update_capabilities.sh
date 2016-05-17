@@ -649,6 +649,10 @@ function main () {
 
 	# As we can't hide forum activity, we delete capability for solerni_teacher
 	execute_moosh_command "moosh role-update-capability solerni_teacher mod/forum:addinstance prevent 1"
+
+	# solerni_course_creator need more capabilities to finish course restore
+	execute_moosh_command "moosh role-update-capability solerni_course_creator moodle/question:managecategory allow 1"
+	execute_moosh_command "moosh role-update-capability solerni_course_creator moodle/question:add allow 1"
 }
 
 main "$@"

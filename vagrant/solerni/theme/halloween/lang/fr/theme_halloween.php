@@ -183,13 +183,13 @@ $string['skip_to_nav']                  = 'Aller à la navigation';
 $string['loginsettings']                = 'Page de connexion';
 $string['loginheading']                 = 'Administration de la page de connexion';
 $string['loginheadingdesc']             = 'La partie supérieure de la page de connexion est modifiable  afin d\'en ajuster'
-                                            . ' l\'éditorial (logo, titre, zone de texte).  Vous pouvez modifier les '
-                                            . 'valeurs par défaut sur cette page. Pour supprimer un élément, il suffit'
-                                            . ' de supprimer le contenu du champ avant de sauvegarder. Il est également'
-                                            . ' possible de modifier les labels des champs du formulaire et d\'y adjoindre'
-                                            . ' un texte d\'accompagnement.';
-$string['loginlogo']                    = 'Logo';
-$string['loginlogodesc']                = '';
+                                            . ' l\'éditorial.  Vous pouvez modifier les  valeurs par défaut sur cette page. '
+                                            . 'Pour supprimer un élément, il suffit de supprimer le contenu du champ avant '
+                                            . 'de sauvegarder. Il est également possible de modifier les labels des champs '
+                                            . 'du formulaire et d\'y adjoindre un texte d\'accompagnement. '
+                                            . 'Note: pour les instances publiques, le champ logintext est généré automatiquement'
+                                            . ' quand le champ est vide. Il n\'est donc pas possible de supprimer ce texte '
+                                            . 'sur les instances publiques (mais on peut le modifier).';
 $string['logintitle']                   = 'Titre';
 $string['logintitledesc']               = '';
 $string['logintext']                    = 'Instructions';
@@ -208,7 +208,14 @@ $string['forgotten']                    = 'Oublié ?';
 // Signup settings page.
 $string['signupsettings']           = 'Page d\'inscription';
 $string['signupheading']            = 'Page d\'inscription';
-$string['signupheadingdesc']        = 'Il est possible de modifier l\'éditorial de la page d\'inscription.';
+$string['signupheadingdesc']        = 'La partie supérieure de la page d\'inscription est modifiable  afin d\'en ajuster'
+                                            . ' l\'éditorial.  Vous pouvez modifier les  valeurs par défaut sur cette page. '
+                                            . 'Pour supprimer un élément, il suffit de supprimer le contenu du champ avant '
+                                            . 'de sauvegarder. Il est également possible de modifier les labels des champs '
+                                            . 'du formulaire et d\'y adjoindre un texte d\'accompagnement. '
+                                            . 'Note: pour les instances publiques, le champ signuptext est généré automatiquement'
+                                            . ' quand le champ est vide. Il n\'est donc pas possible de supprimer ce texte '
+                                            . 'sur les instances publiques (mais on peut le modifier).';
 $string['signuptitle']              = 'Titre';
 $string['signuptitledesc']          = '';
 $string['signuptext']               = 'Instructions';
@@ -231,7 +238,7 @@ $string['create_account']           = 'Créer mon compte';
 $string['policyaccept']             = 'J\'ai lu et j\'accepte les <a class="js-target-blank" href="{$a}" target="_blank">Conditions Générales d\'Utilisation</a>';
 $string['missingusername']          = 'Le {$a} ne peut pas etre vide';
 
-// Webservices settings page
+// Webservices settings page.
 $string['webservicessettings']      = 'MNET/RESAC';
 $string['webservicesheading']       = 'Paramétrer la communication entre les instances du RESAC';
 $string['webservicesheadingdesc']   = '';
@@ -240,7 +247,7 @@ $string['webservicestokendesc']     = 'Insérez ici le jeton de sécurité déli
 $string['webservicestokenthematic'] = 'Jeton de sécurité pour {$a}';
 $string['webservicestokenthematicdesc'] = 'Insérez ici le jeton de sécurité délivré sur {$a} pour le RESAC Web Service';
 
-// Homepage settings page
+// Homepage settings page.
 $string['homepagesettings']         = 'Homepage';
 $string['homepageheading']          = 'Paramètres pour la page d\'accueil';
 $string['homepageheadingdesc']      = '';
@@ -309,7 +316,7 @@ $string['seecatalog']               = "Voir le catalogue";
 $string['lastbadge']                = 'Dernier badge obtenu:';
 $string['mybadges']                 = 'Mes badges';
 
-// Contact page
+// Contact page.
 $string['contact_us']               = 'Nous contacter';
 $string['contact_page_title']       = 'Nous contacter';
 $string['contact_request_type']     = 'Votre demande concerne';
@@ -341,11 +348,15 @@ $string['contact_email_body']       = 'La requête suivante a été réalisée v
 $string['nobadgesfaq'] = 'Vous n’avez pas encore obtenu de badge.<br/>
 <strong><a href="{$a}">Consultez les FAQ</a></strong> afin de découvrir le fonctionnement des badges. ';
 
-// Home Solerni
+// Home Solerni.
 $string['hometitle'] = 'Qu\'allez-vous apprendre aujourd\'hui ?';
 
-// Page en savoir plus
+// Page en savoir plus.
 $string['more_info']               = 'Besoin d\informations complémentaires';
 
-// Page forum
+// Page forum.
 $string['forumnavbar']             = 'Espace de discussion';
+$string['forum_page_title']        = 'Espace de discussion';
+
+// Course
+$string['course_edited_by']         = 'Cours édité par {$a}';

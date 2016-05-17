@@ -41,7 +41,7 @@
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6, p {
     color:          @brand-primary;
-    line-height:    1.5; // 63px, 42px, 36px, 31px, 15px, 13px and 20px baseline
+    line-height:    @line-height-titles; // 63px, 42px, 36px, 31px, 15px, 13px and 20px baseline
     margin:         .5em 0;
 }
 
@@ -364,6 +364,10 @@ th, td {
     color: @brand-tertiary;
 }
 
+.text-contrasted {
+    color: @brand-contrasted;
+}
+
 /* breadcrumbs */
 .breadcrumb {
     margin:         0;
@@ -411,4 +415,15 @@ th, td {
 /* Weirdly, Moodle CSS for maincontent use 1px height ? */
 #maincontent {
     display: inline;
+}
+
+/* Change for page userprofile, original CSS in moodle/userprofile.less */
+.userprofile {
+    border: 0;
+}
+
+/* Flexpage */
+.flexpage_prev_next {
+    padding:    @s-double-md-margin 0;
+    overflow:   hidden;
 }

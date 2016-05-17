@@ -52,6 +52,11 @@ endif; ?>
 <!-- login form -->
 <div class="row login-box">
     <div class="loginpanel col-xs-12 col-md-8 col-md-offset-2">
+        <?php if ($errormsg) : ?>
+        <div class="alert alert-danger">
+            <?php echo $errormsg; ?>
+        </div>
+        <?php endif; ?>
         <form action="<?php echo $formaction['host']; ?>/login/index.php"
               method="POST" id="login" <?php echo $autocomplete;
               if ($errormsg) : ?> class="has-error"<?php endif; ?> >

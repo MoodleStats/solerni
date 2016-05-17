@@ -29,6 +29,7 @@
         <FIELD NAME="nbfuturemooc" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Number of Moocs to come"/>
         <FIELD NAME="nbuser" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Number of users"/>
         <FIELD NAME="nbconnected" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Number of users connected"/>
+        <FIELD NAME="nbpost" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Number of posts"/>
         <FIELD NAME="illustration" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" COMMENT="URL of thematic illustration"/>
         <FIELD NAME="logo" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" COMMENT="URL of thematic logo"/>
         <FIELD NAME="timeupdated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Time of row insertion"/>

@@ -63,27 +63,14 @@ class block_orange_listforumng_edit_form extends block_edit_form {
                     'config_forumng_'.$forum->id, null, $forum->name);
             $mform->setDefault('config_forumng_'.$forum->id, $turnallon);
         }
-
     }
 
     public function set_data($defaults) {
-        if (!$this->block->user_can_edit() && !empty($this->block->config->title)) {
-            // If a title has been set but the user cannot edit it format it nicely.
-            $title = $this->block->config->title;
-            $defaults->config_title = format_string($title, true, $this->page->context);
-            // Remove the title from the config so that parent::set_data doesn't set it.
-            unset($this->block->config->title);
-        }
-
         parent::set_data($defaults);
         // Restore $text.
         if (!isset($this->block->config)) {
             $this->block->config = new stdClass();
         }
 
-        if (isset($title)) {
-            // Reset the preserved title.
-            $this->block->config->title = $title;
-        }
     }
 }

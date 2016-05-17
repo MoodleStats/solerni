@@ -150,7 +150,8 @@ class theme_utilities {
     public static function is_layout_uses_page_block_title() {
         global $PAGE;
 
-        $pageswithoutpageblocktitle = array('admin', 'mydashboard');
+        $pageswithoutpageblocktitle = array('admin', 'mydashboard',
+            'forum', 'course');
 
         if (in_array($PAGE->pagelayout, $pageswithoutpageblocktitle)) {
             return false;
@@ -161,33 +162,40 @@ class theme_utilities {
 
     /**
      * Returns the titles for the page
-     * meta_title, meta_desc, pageblocktitleh1, pageblockdesc
+     * meta_title, meta_desc, pageblocktitleh1, pageblockdesc, pageblockurl
+     *
      *
      *
      * @return object
      */
     public static function define_page_titles_and_desc() {
 
-        global $PAGE, $CFG;
+        global $PAGE, $CFG, $COURSE;
 
         require_once($CFG->dirroot . '/filter/multilang/filter.php');
         $filtermultilang = new \filter_multilang($PAGE->context, array());
 
+        // Object definition
         $return = new \stdClass;
+        $return->pageblockmetatitle = '';
+        $return->pageblockmetadesc = '';
+        $return->pageblocktitleh1 = '';
+        $return->pageblockdesc = '';
+        $return->pageblockurl = '';
 
         switch ($PAGE->pagetype) {
 
             case 'login-index':
                 if (theme_utilities::is_theme_settings_exists_and_nonempty('logintitle')) {
-                    $return->pageblocktitleh1 = $filtermultilang->filter($PAGE->theme->settings->logintitle);
+                    $return->pageblocktitleh1 .= $filtermultilang->filter($PAGE->theme->settings->logintitle);
                 } else {
-                    $return->pageblocktitleh1 = get_string('login');
+                    $return->pageblocktitleh1 .= get_string('login');
                 }
 
                 if (theme_utilities::is_theme_settings_exists_and_nonempty('logintext')) {
-                    $return->pageblockdesc = $filtermultilang->filter($PAGE->theme->settings->logintext);
-                } else {
-                    $return->pageblockdesc = get_string('not_registered_yet', 'theme_halloween');
+                    $return->pageblockdesc .= $filtermultilang->filter($PAGE->theme->settings->logintext);
+                } elseif(!$CFG->solerni_isprivate) {
+                    $return->pageblockdesc .= get_string('not_registered_yet', 'theme_halloween');
                     $return->pageblockdesc .= ' ';
                     $return->pageblockdesc .= \html_writer::tag('a', get_string('i_do_register', 'theme_halloween'),
                         array('class' => 'tag-platform-subscription',
@@ -197,15 +205,15 @@ class theme_utilities {
 
             case 'login-signup':
                 if (theme_utilities::is_theme_settings_exists_and_nonempty('signuptitle')) {
-                    $return->pageblocktitleh1 = $filtermultilang->filter($PAGE->theme->settings->signuptitle);
+                    $return->pageblocktitleh1 .= $filtermultilang->filter($PAGE->theme->settings->signuptitle);
                 } else {
-                    $return->pageblocktitleh1 = get_string('signup');
+                    $return->pageblocktitleh1 .= get_string('signup');
                 }
 
                 if (theme_utilities::is_theme_settings_exists_and_nonempty('signuptext')) {
-                    $return->pageblockdesc = $filtermultilang->filter($PAGE->theme->settings->signuptext);
-                } else {
-                    $return->pageblockdesc = get_string('already_registered', 'theme_halloween');
+                    $return->pageblockdesc .= $filtermultilang->filter($PAGE->theme->settings->signuptext);
+                } elseif(!$CFG->solerni_isprivate) {
+                    $return->pageblockdesc .= get_string('already_registered', 'theme_halloween');
                     $return->pageblockdesc .= ' ';
                     $return->pageblockdesc .= \html_writer::tag('a', get_string('i_do_login', 'theme_halloween'),
                         array('class' => 'tag-platform-subscription', 'href' => $CFG->wwwroot . '/login/index.php'));
@@ -214,17 +222,31 @@ class theme_utilities {
 
             case 'site-index':
                 if (utilities_network::is_platform_uses_mnet() && utilities_network::is_home()) {
-                    $return->pageblocktitleh1 = get_string('hometitle', 'theme_halloween');
-                    $return->pageblockdesc = ' ';
+                    $return->pageblocktitleh1 .= get_string('hometitle', 'theme_halloween');
+                    $return->pageblockdesc .= ' ';
                 } else {
-                    $return->pageblocktitleh1 = $PAGE->title;
-                    $return->pageblockdesc = '';
+                    $return->pageblocktitleh1 .= $PAGE->title;
+                    $return->pageblockdesc .= '';
                 }
                 break;
 
             default:
-                $return->pageblocktitleh1 = $PAGE->title;
-                $return->pageblockdesc = '';
+
+                if(utilities_course::is_on_course_page()) {
+                    $return->pageblockurl .= utilities_course::get_course_home_url();
+                    // If the page title don't have the mooc name, add it.
+                    if (strpos($PAGE->title, $COURSE->fullname) === false) {
+                        $return->pageblocktitleh1 .= $COURSE->fullname;
+                    }
+
+                }
+
+                if ($PAGE->title && $return->pageblocktitleh1) {
+                    $return->pageblocktitleh1 .=  ': ';
+                }
+
+                $return->pageblocktitleh1 .= $PAGE->title;
+                $return->pageblockdesc .= '';
                 break;
         }
 
@@ -237,7 +259,7 @@ class theme_utilities {
      *
      * @return string $output
      */
-    public function display_button ($buttonsetting, $containersetting, $courseid) {
+    public function display_button($buttonsetting, $containersetting, $courseid) {
 
         global $COURSE;
 
@@ -268,12 +290,12 @@ class theme_utilities {
     }
 
        /**
-     * Display line for "Find out more" page
+     * Display a separation line
      *
      * @return string $output
      */
-    public function display_line ($containersetting) {
-        
+    public function display_line($containersetting) {
+
         $output = html_writer::tag('div', '', array('class' => "col-xs-12 fullwidth-line ". $containersetting));
 
         return $output;

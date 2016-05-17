@@ -472,6 +472,9 @@ function main () {
         
         # Admin Block : change settings pagetypepattern=* to make it visible
 	execute_moosh_command "moosh block-update system 0 'settings' 'pagetypepattern' '*'"
+
+        # Navigation Block : change settings pagetypepattern=course-view-* to make it visible only in course pages
+	execute_moosh_command "moosh block-update system 0 'navigation' 'pagetypepattern' 'course-view-*'"
 }
 
 main "$@"
