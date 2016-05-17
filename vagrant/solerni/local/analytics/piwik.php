@@ -80,8 +80,8 @@ function insert_analytics_tracking() {
     } else {
        $trackdimensions  = '';
     }
-
-    $trackuser = ($USER->id != 0) ? "_paq.push(['setUserId', '" . get_string('user', 'local_analytics') . '_' . md5($USER->id) . "']);" : '';
+    $usermd5 = get_string('user', 'local_analytics') . '_' . md5($USER->id);
+    $trackuser = ($USER->id != 0) ? "_paq.push(['setUserId', '". $usermd5 . "']);" : '';
     $enabled = get_config('local_analytics', 'enabled');
     $imagetrack = get_config('local_analytics', 'imagetrack');
     $siteurl = get_config('local_analytics', 'siteurl');
@@ -120,7 +120,7 @@ function insert_analytics_tracking() {
       var u='//".$siteurl."/';
       _paq.push(['setTrackerUrl', u+'piwik.php']);
       _paq.push(['setSiteId', ".$siteid."]);
-
+          
       var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
     g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
     })();
@@ -140,6 +140,7 @@ function insert_analytics_tracking() {
                 piwik2Tracker.setCustomVariable(2, \'moocSubscription\', \''. $dimensions->get_dimensions2().'\', \'page\');
                 piwik2Tracker.setCustomVariable(3, \'customerName\', \''. $dimensions->get_dimensions3().'\', \'page\');
                 piwik2Tracker.setCustomVariable(4, \'thematicName\', \''. $dimensions->get_dimensions4().'\', \'page\');
+                piwik2Tracker.setUserId(\''.$usermd5.'\');  
                 piwik2Tracker.trackPageView();
                 
             }

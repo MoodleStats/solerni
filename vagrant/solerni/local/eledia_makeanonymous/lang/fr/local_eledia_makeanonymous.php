@@ -55,6 +55,6 @@ $string['emailsubject_desc'] = 'Sujet affiché dans le mail';
 $string['defaultemailsubject'] = 'Votre compte {$a} a été supprimé';
 $string['emailmsg'] = 'Message du mail';
 $string['emailmsg_desc'] = 'Message affiché dans le mail';
-$string['defaultemailmsg'] = mail_init::init('defaultemailmsg','html');
+$string['defaultemailmsg'] = mail_init::init('defaultemailmsg', 'html');
 $string['enabledemail'] = 'Activé l\'envoi de mail';
 $string['enabledemail_desc'] = 'Active l\envoi de mail à l\'utilisateur';

@@ -15,17 +15,14 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Orange library & utilities
+ * Strings for mediagallery editor plugin.
  *
- * @package     local
- * @subpackage  orange_library
- * @copyright   2015 Orange
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   tinymce_mediagallery
+ * @copyright 2014 NetSpot Pty Ltd
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-
-defined('MOODLE_INTERNAL') || die();
-
-$plugin->version   = 2016051000;                // The current module version (Date: YYYYMMDDXX).
-$plugin->requires  = 2014051207;                // Requires this Moodle version Moodle 2.7.7.
-$plugin->component = 'local_orange_library';    // Full name of the plugin (used for diagnostics).
+$string['mediagallery:desc'] = 'Media gallery';
+$string['pluginname'] = 'Insert Media gallery';
+$string['select_desc'] = 'Select the gallery you want to insert below. Note, users may not be able to see the gallery if any of its visiblity options and/or the users permissions prevent them from seeing it.';
+$string['title'] = 'Select a Media gallery';

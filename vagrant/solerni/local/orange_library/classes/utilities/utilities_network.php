@@ -208,6 +208,8 @@ class utilities_network {
      */
     static public function renew_mnet_key() {
         global $CFG, $DB;
+        
+        $error = false;
 
         if (!isset($CFG->mnet_key_autorenew)) {
             set_config('mnet_key_autorenew', 0); // Not activated as a default.
@@ -226,6 +228,7 @@ class utilities_network {
         if (self::mnet_key_havetorenew($mnet) || $force) {
             if ($force) {
                 $content = "<p>Enter key Renew process (force mode)</p>";
+                $error = true;
             } else {
                 $content = "<p>Enter key Renew process (regular mode)</p>";
             }
@@ -273,13 +276,14 @@ class utilities_network {
                     }
                 } else {
                     $content .= "<p>". 'Failed renewing key with '.$peer->wwwroot. "</p>";
+                    $error = true;
                 }
             }
         }
         set_config('mnet_autorenew_haveto', 0);
 
         $user = \core_user::get_user_by_username('admin');
-        self::send_mnet_key_check_status($user, $content);
+        self::send_mnet_key_check_status($user, $content, $error);
     }
 
     /**
@@ -335,32 +339,29 @@ class utilities_network {
      * @params mail content $content
      * @return none
      */
-    static public function send_mnet_key_check_status($user, $content='') {
+    static public function send_mnet_key_check_status($user, $content='', $error) {
         global $CFG;
 
-        $site  = get_site();
-        $supportuser = \core_user::get_support_user();
+        if ((isset($CFG->mnet_status_mail) && ($CFG->mnet_status_mail)) || $error) {
+            $site  = get_site();
+            $supportuser = \core_user::get_support_user();
 
-        $a = new \stdClass();
-        $a->firstname   = $user->firstname;
-        $a->lastname    = $user->lastname;
-        $a->sitename    = format_string($site->fullname);
+            $a = new \stdClass();
+            $a->firstname   = $user->firstname;
+            $a->lastname    = $user->lastname;
+            $a->sitename    = format_string($site->fullname);
 
-        $messagehtml = get_string('orange_library_mnet_mail', 'local_orange_library', $a);
-        $messagehtml .= "<p>" . $content . "</p>";
-        $messagehtml = \mail_object::get_mail($messagehtml, 'html', '');
-        $message = html_to_text($messagehtml);
+            $messagehtml = get_string('orange_library_mnet_mail', 'local_orange_library', $a);
+            $messagehtml .= "<p>" . $content . "</p>";
+            $messagehtml = \mail_object::get_mail($messagehtml, 'html', '');
+            $message = html_to_text($messagehtml);
 
-        $subject  = format_string($site->fullname) .': '. get_string('orange_library_mnet_mail_subject', 'local_orange_library');
+            $subject  = format_string($site->fullname) .': '. get_string('orange_library_mnet_mail_subject', 'local_orange_library');
 
-        $user->mailformat = 1;
+            $user->mailformat = 1;
 
-        // FOR TEST PERIOD.
-        $leperf = \core_user::get_noreply_user();
-        $leperf->email = "stephane.leperf@orange.com";
-        email_to_user($leperf, $supportuser, $subject, $message, $messagehtml);
-        // END TEST.
-        return email_to_user($user, $supportuser, $subject, $message, $messagehtml);
+            return email_to_user($user, $supportuser, $subject, $message, $messagehtml);
+        }
     }
 
 

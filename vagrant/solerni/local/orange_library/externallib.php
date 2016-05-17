@@ -139,4 +139,36 @@ class local_orange_library_external extends external_api {
             )
         );
     }
+
+
+    /**
+     * Request user deletion from home to Thematic
+     */
+    public static function del_user_on_thematic($username, $email) {
+
+        return utilities_user::del_user_on_thematic($username, $email);
+    }
+
+    /**
+     * Define function parameters
+     *
+     * @return \external_function_parameters
+     */
+    public static function del_user_on_thematic_parameters() {
+        return new external_function_parameters(
+            array(
+                'username' => new external_value(PARAM_TEXT, 'user name'),
+                'email' => new external_value(PARAM_TEXT, 'email')
+            )
+        );
+    }
+
+    /**
+     * Define expected function return
+     *
+     * @return \external_multiple_structure
+     */
+    public static function del_user_on_thematic_returns() {
+        return new external_value(PARAM_INT, 'Command status');
+    }
 }

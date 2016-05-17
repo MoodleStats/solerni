@@ -69,8 +69,12 @@ if ($enabled && !is_siteadmin() && !isguestuser()) {
                 if ($user->id == $USER->id ) {
                     // Orange 2016.02.15 Get user language before delete.
                     $currentlang = current_language();
-                    
+
                     delete_user($user);
+
+                    // Orange - 2016.05.09 - Delete user on thematics.
+                    local_orange_library\utilities\utilities_user::propagate_del_user($user);
+
                     // Auths, in sequence.
                     $authsequence = get_enabled_auth_plugins();
                     foreach ($authsequence as $authname) {
@@ -81,7 +85,7 @@ if ($enabled && !is_siteadmin() && !isguestuser()) {
                     require_logout();
                     // Orange 2016.02.15 Set user language.
                     force_current_language($currentlang);
-                    
+
                     $PAGE->set_heading(format_string(get_string('deleteaccount', 'local_goodbye')));
                     echo $OUTPUT->header(get_string('deleteaccount', 'local_goodbye'));
                     echo $OUTPUT->notification(get_string('useraccountdeleted', 'local_goodbye'), 'notifysuccess');

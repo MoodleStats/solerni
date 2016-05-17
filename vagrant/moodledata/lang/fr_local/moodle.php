@@ -83,6 +83,5 @@ $string['setpasswordinstructions'] = '<p>Veuillez saisir et répéter votre nouv
 $string['resetrecordexpired'] = '<p>Le lien de réinitialisation de mot de passe que vous avez utilisé a été généré il y a {$a} minutes, il n\'est plus valide. Veuillez effectuer une nouvelle demande de réinitialisation de mot de passe.</p>';
 $string['changedpassword'] = 'Réinitialisation de votre mot de passe';
 $string['emailresetconfirmationsubject'] = 'Réinitialisation de votre mot de passe sur {$a}';
-
-
-
+$string['lastsiteaccess'] = 'Dernière connexion';
+$string['firstsiteaccess'] = 'Première connexion';
