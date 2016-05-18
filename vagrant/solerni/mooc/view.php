@@ -23,46 +23,28 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-use local_orange_library\utilities\utilities_course;
-use local_orange_library\extended_course\extended_course_object;
 use theme_halloween\tools\theme_utilities;
 
 require_once(dirname(dirname(__FILE__)) . '/config.php');
-require_once($CFG->dirroot.'/blocks/course_overview/locallib.php');
-require_once($CFG->dirroot.'/blocks/orange_action/block_orange_action.php');
-require_once($CFG->dirroot.'/blocks/orange_social_sharing/block_orange_social_sharing.php');
-require_once($CFG->dirroot.'/blocks/orange_iconsmap/block_orange_iconsmap.php');
-require_once($CFG->dirroot.'/blocks/orange_separator_line/block_orange_separator_line.php');
-require_once($CFG->dirroot.'/blocks/orange_action/renderer.php');
-require_once($CFG->dirroot.'/blocks/orange_paragraph_list/block_orange_paragraph_list.php');
 
-$filter = optional_param('filter', utilities_course::MOOCRUNNING, PARAM_INT);
-
+$courseid = optional_param('courseid', 0, PARAM_INT); // Course ID.
 $url = new moodle_url('/mooc/view.php');
-$courseid = optional_param('courseid', 0, PARAM_INT); // Course Module ID.
-// TODO Add sesskey check to edit
-$edit   = optional_param('edit', null, PARAM_BOOL);    // Turn editing on and off.
-
-//$PAGE->set_context($context);
 $PAGE->set_url($url);
 $PAGE->set_pagelayout('course');
 $PAGE->set_pagetype('mooc-view');
 $PAGE->blocks->add_region('content');
 $course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
 $PAGE->set_course($course);
-$context = \context_course::instance($course->id);
-$PAGE->set_context($context);
-//$extendedcourse = new extended_course_object();
-//$extendedcourse->get_extended_course($course, $context);
-$themeutilities = new theme_utilities();
+$PAGE->set_context(\context_course::instance($course->id));
+$PAGE->set_title(get_string('pagetitle', 'block_orange_iconsmap') . $course->fullname);
 
 echo $OUTPUT->header();
 echo $OUTPUT->custom_block_region('content');
-echo $themeutilities->display_button('page_mooc_block', 'bottom-space', $courseid);
-echo $themeutilities->display_line('bottom-line-space');
-echo '<div class = "bottom-space">';
-echo '<span>'.get_string('more_info', 'theme_halloween').'  </span>';
-echo '<a href= '.$CFG->wwwroot . '/contact/'.'>'.get_string('contact_us', 'theme_halloween').'</a>';
-echo '</div>';
+echo theme_utilities::display_subscription_button($course, 'block_orange_subscription_button');
+echo theme_utilities::display_line('block_orange_line');
+
+if (theme_utilities::is_theme_settings_exists_and_nonempty(array('footerlistscolumn2anchor2', 'footerlistscolumn2link2'), 'all')) {
+    echo theme_utilities::display_need_more_infos('page_view_more_contact');
+}
 
 echo $OUTPUT->footer();
