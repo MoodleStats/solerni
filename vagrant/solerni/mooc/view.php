@@ -51,8 +51,9 @@ $course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
 $PAGE->set_course($course);
 $context = \context_course::instance($course->id);
 $PAGE->set_context($context);
-//$extendedcourse = new extended_course_object();
-//$extendedcourse->get_extended_course($course, $context);
+$extendedcourse = new extended_course_object();
+$extendedcourse->get_extended_course($course, $context);
+//print_object($extendedcourse);
 $themeutilities = new theme_utilities();
 
 echo $OUTPUT->header();
