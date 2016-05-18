@@ -255,48 +255,72 @@ class theme_utilities {
     }
 
       /**
-     * Display button for "Find out more" page
+     * Display button for Page en Savoir Plus
      *
      * @return string $output
      */
-    public function display_button($buttonsetting, $containersetting, $courseid) {
+    public static function display_subscription_button($course, $buttonsetting ='', $containersetting = '') {
 
-        global $COURSE;
-
-        $context = \context_course::instance($courseid);
+        $context = \context_course::instance($course->id);
         $extendedcourse = new extended_course_object();
-        $extendedcourse->get_extended_course($COURSE, $context);
-        if($buttonsetting) {
-            $cssbutton = ' '.$buttonsetting;
-        }
-        if($containersetting) {
-            $csscontainer = ' '.$containersetting;
-        }
+        $extendedcourse->get_extended_course($course, $context);
+        $cssbutton = ($buttonsetting) ? $buttonsetting : '';
+        $csscontainer = ($containersetting) ? ' ' . $containersetting : '';
 
         // Display first line.
-        $output = html_writer::start_tag('div', array('class' => 'row'. $csscontainer));
-        $output .= html_writer::tag('div', $extendedcourse->displaybutton, array('class' => $cssbutton));
+        $output = html_writer::start_tag('div', array('class' => 'row' . $csscontainer));
+            $output .= html_writer::tag('div', $extendedcourse->displaybutton, array('class' => $cssbutton));
 
                 // If next session link shoulfd be display.
-        if ($extendedcourse->registrationstatus == utilities_course::MOOCREGISTRATIONCOMPLETE) {
-                    $output .= html_writer::tag('a', get_string('nextsessionlink', 'block_orange_action'),
-                array('class' => '', 'href' => $extendedcourse->newsessionurl ));
-        }
-
+            if ($extendedcourse->registrationstatus == utilities_course::MOOCREGISTRATIONCOMPLETE) {
+                        $output .= html_writer::tag('a', get_string('nextsessionlink', 'block_orange_action'),
+                    array('class' => '', 'href' => $extendedcourse->newsessionurl ));
+            }
         $output .= html_writer::end_tag('div');
-
 
         return $output;
     }
 
-       /**
+    /**
      * Display a separation line
      *
      * @return string $output
      */
-    public function display_line($containersetting) {
+    public static function display_line($containersetting) {
+    $csscontainer = ($containersetting) ? $containersetting : '';
 
-        $output = html_writer::tag('div', '', array('class' => "col-xs-12 fullwidth-line ". $containersetting));
+    $output = html_writer::start_tag('div', array('class' => 'row'));
+        if($csscontainer) {
+            $output .= html_writer::start_tag('div', array('class' => $csscontainer));
+        }
+        $output .= html_writer::tag('div', '',
+                array('class' => "col-xs-12 fullwidth-line"));
+        if($csscontainer) {
+            $output .= html_writer::end_tag('div');
+        }
+    $output .= html_writer::end_tag('div');
+
+    return $output;
+    }
+
+    public static function display_need_more_infos($containersetting) {
+        $csscontainer = ($containersetting) ? $containersetting : '';
+        global $PAGE;
+        $contactlink = $PAGE->theme->settings->footerlistscolumn2link2;
+
+        $output = html_writer::start_tag('div', array('class' => 'row'));
+        if($csscontainer) {
+            $output .= html_writer::start_tag('div', array('class' => $csscontainer));
+        }
+            $output .= html_writer::tag('div', get_string('more_info', 'theme_halloween'),
+                    array('class' => 'pull-left page_view_more_contact__text'));
+            $output .= html_writer::link($contactlink, get_string('contact_us', 'theme_halloween'),
+                    array('title' => get_string('contact_us', 'theme_halloween'),
+                        'class' => 'pull-left page_view_more_contact__link'));
+            if($csscontainer) {
+                $output .= html_writer::end_tag('div');
+            }
+        $output .= html_writer::end_tag('div');
 
         return $output;
     }
