@@ -991,7 +991,13 @@ class format_flexpage_renderer extends plugin_renderer_base {
             if (is_null($label)) {
                 $label = get_string("{$type}page", 'format_flexpage', format_string($page->get_name()));
             }
-            $attributes = array_merge(array('id' => "format_flexpage_{$type}_page"), $attributes);
+            // @orange: add typical bootstrap button classes.
+            $attributes = array_merge(
+                array(
+                    'id'    => "format_flexpage_{$type}_page",
+                    'class' => 'btn btn-default'
+                ),
+                $attributes);
             return html_writer::link($page->get_url(), $label, $attributes);
         }
         return '';
@@ -1004,13 +1010,8 @@ class format_flexpage_renderer extends plugin_renderer_base {
      * @return string
      */
     public function navigation_button($type, course_format_flexpage_model_page $page = null, $label = null) {
-        global $PAGE;
-
         $link = $this->navigation_link($type, $page, $label);
-        if (!empty($link)) {
-            // This will render the link as a button
-            $PAGE->requires->js_init_call("(function(Y) { Y.use('yui2-button', function(Y) { new Y.YUI2.widget.Button(\"format_flexpage_{$type}_page\"); }) })");
-        }
+        // Do not render the link as a button (modif. @orange).
         return $link;
     }
 }

@@ -81,6 +81,5 @@ $string['again'] = 'vérification';
 $string['setpassword'] = 'Définir un nouveau mot de passe';
 $string['setpasswordinstructions'] = '<p>Veuillez saisir et répéter votre nouveau mot de passe ci-dessous, puis cliquer sur « Enregistrer ».<br />Votre nouveau mot de passe sera alors enregistré et vous serez connecté.</p>';
 $string['resetrecordexpired'] = '<p>Le lien de réinitialisation de mot de passe que vous avez utilisé a été généré il y a {$a} minutes, il n\'est plus valide. Veuillez effectuer une nouvelle demande de réinitialisation de mot de passe.</p>';
-
-
-
+$string['lastsiteaccess'] = 'Dernière connexion';
+$string['firstsiteaccess'] = 'Première connexion';

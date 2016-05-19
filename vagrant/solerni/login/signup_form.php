@@ -33,8 +33,6 @@ class login_signup_form extends moodleform {
 
         $mform = $this->_form;
         $mform->addElement('halloweenhtml', '<div class="inner-panel">');
-            $mform->addElement('halloweenhtml', '<div class="form-group '
-                    . 'bold">Tous les champs sont obligatoires.</div>');
             $mform->addElement('halloweenhtml', '<div class="row form-group-line">');
                 // Name, surname.
                 $namefields = useredit_get_required_name_fields();

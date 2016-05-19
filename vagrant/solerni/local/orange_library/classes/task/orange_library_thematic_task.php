@@ -26,7 +26,6 @@
 namespace local_orange_library\task;
 use local_orange_library\utilities\utilities_network;
 use local_orange_library\utilities\utilities_image;
-require_once($CFG->dirroot.'/blocks/orange_thematics_menu/lib.php');
 
 defined('MOODLE_INTERNAL') || die();
 

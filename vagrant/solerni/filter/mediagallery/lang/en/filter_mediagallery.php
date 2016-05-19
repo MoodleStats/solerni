@@ -15,12 +15,13 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Strings for component 'filter_mediagallery'
  *
- * Orange Thematics Menu renderer.
- *
- * @package    block_orange_thematics_menu
- * @copyright  2016 Orange
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    filter_mediagallery
+ * @copyright  2014 NetSpot Pty Ltd {@link http://netspot.com.au}
+ * @author     Adam Olley <adam.olley@netspot.com.au>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+$string['filtername'] = 'Media collection embed';
+$string['gallerymissing'] = 'The gallery embedded here has been removed.';

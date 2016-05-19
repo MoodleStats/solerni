@@ -41,7 +41,7 @@
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6, p {
     color:          @brand-primary;
-    line-height:    1.5; // 63px, 42px, 36px, 31px, 15px, 13px and 20px baseline
+    line-height:    @line-height-titles; // 63px, 42px, 36px, 31px, 15px, 13px and 20px baseline
     margin:         .5em 0;
 }
 
@@ -103,14 +103,13 @@ input[type="checkbox"] {
     @media (min-width:  @screen-xs-min) {
         padding:    (@s-medium-md-margin / 2) @s-medium-md-margin;
     }
-
  }
 
  .header-dropdown .dropdown-menu a {
      font-weight:   bold;
  }
 
- .btn .caret {
+ .btn--content-variable .caret {
      margin-left: @s-triple-md-margin;
  }
 
@@ -292,34 +291,6 @@ img.icon {
     text-align:     center;
 }
 
-.icon-map  {
-    float:          left;
-    font-weight:    bold;
-
-    .centered {
-        vertical-align: middle;
-    }
-
-    img {
-        width:      @font-size-h2;
-        height:     @font-size-h2;
-
-    }
-}
-
-.icon-map .logo-image {
-
-    .centertext {
-        display:    block;
-        float:      left;
-    }
-}
-
-.icon-map .textcentered{
-    float:          right;
-    line-height:    @s-double-md-margin;
-}
-
 // Footer version control display
 .version-control {
     font-size:  (@font-size-base * 0.8);
@@ -348,20 +319,6 @@ th, td {
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
     font-size: (@font-size-base * 0.875);
-}
-
-/* texts modifiers */
-
-.text-secondary {
-    color: @brand-secondary;
-}
-
-.text-orange {
-    color: @brand-orange;
-}
-
-.text-tertiary {
-    color: @brand-tertiary;
 }
 
 /* breadcrumbs */
@@ -411,4 +368,15 @@ th, td {
 /* Weirdly, Moodle CSS for maincontent use 1px height ? */
 #maincontent {
     display: inline;
+}
+
+/* Change for page userprofile, original CSS in moodle/userprofile.less */
+.userprofile {
+    border: 0;
+}
+
+/* Flexpage */
+.flexpage_prev_next {
+    padding:    @s-double-md-margin 0;
+    overflow:   hidden;
 }

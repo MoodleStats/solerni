@@ -46,14 +46,14 @@ class utilities_image {
 
         // If image parameter not set then send a default image.
         if (!$image) {
-            $image = $CFG->wwwroot . 'theme/halloween/pix/logo-orange.png';
+            $image = $CFG->wwwroot . '/theme/halloween/pix/logo-orange.png';
         }
 
         // If image is a stored_file Moodle, the get Moodle URL.
-        if (is_a ( $image , 'stored_file')) {
+        if (is_a($image , 'stored_file')) {
             $file = $image;
             if (!$image = self::get_moodle_url_from_stored_file($file)) {
-                $image = $CFG->wwwroot . 'theme/halloween/pix/logo-orange.png';
+                $image = $CFG->wwwroot . '/theme/halloween/pix/logo-orange.png';
             }
         }
 
@@ -106,7 +106,7 @@ class utilities_image {
             }
             return $image;
         }
- 
+
         return $CFG->wwwroot . $CFG->solerni_image_base_url . '/' . str_replace($cachefolder, '', $newpath);
     }
 
@@ -215,16 +215,15 @@ class utilities_image {
      * @param url or moodle stored_file $image (mandatory)
      * @param folder of original image $remotefolder
      * @param cache expiration delay in minute $cache_expire_minute
-     * @return path to image 
+     * @return path to image
      */
     private static function update_original_in_cache($image, $remotefolder, $cacheexpireminute) {
         $downloadimage = true;
-        if (is_a ( $image , 'stored_file')) {
+        if (is_a($image , 'stored_file')) {
             $localfilepath = $remotefolder.$image->get_filename();
-            if (file_exists($localfilepath) && filesize($localfilepath)) {
-                if ($image->get_timecreated() < strtotime('+'.$cacheexpireminute.' minutes')) {
-                    $downloadimage = false;
-                }
+            if (file_exists($localfilepath) && filesize($localfilepath) &&
+                ($image->get_timecreated() < strtotime('+'.$cacheexpireminute.' minutes'))) {
+                $downloadimage = false;
             }
             if ($downloadimage == true) {
                 $image->copy_content_to($localfilepath);
@@ -235,10 +234,9 @@ class utilities_image {
             list($filename) = explode('?', $finfo['basename']);
             $localfilepath = $remotefolder.$filename;
             $downloadimage = true;
-            if (file_exists($localfilepath) && filesize($localfilepath)) {
-                if (filemtime($localfilepath) < strtotime('+'.$cacheexpireminute.' minutes')) {
-                    $downloadimage = false;
-                }
+            if (file_exists($localfilepath) && filesize($localfilepath) &&
+                (filemtime($localfilepath) < strtotime('+'.$cacheexpireminute.' minutes'))) {
+                $downloadimage = false;
             }
             if ($downloadimage == true) {
                 $img = file_get_contents($image);

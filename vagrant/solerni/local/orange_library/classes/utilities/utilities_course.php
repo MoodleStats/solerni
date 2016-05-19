@@ -48,16 +48,21 @@ class utilities_course {
     const MOOCRUNNING               = 6;
 
     /**
-     * Get all Solerni informations for a course
-     * using flexpage format (imply that we use the blocks/orange_course_extended)
+     * Get customer informations (customer is a category, extended with
+     * an image.
      *
-     * @global type $DB
-     * @param type $course
-     * @return extended_course_object
+     * @global type $CFG
+     * @param int $catid
+     * @return object $customer
      */
-    public static function solerni_course_get_customer_infos($catid) {
-
+    public static function solerni_course_get_customer_infos($catid=null) {
         global $CFG;
+
+        if (!$catid) {
+            global $COURSE;
+            $catid = $COURSE->category;
+        }
+
         require_once($CFG->dirroot . '/local/orange_customers/lib.php');
         $customer = customer_get_customerbycategoryid($catid);
 
@@ -68,8 +73,8 @@ class utilities_course {
      * Get all Solerni informations for a course
      * using flexpage format (imply that we use the blocks/orange_course_extended)
      *
-     * @global type $DB
-     * @param type $course
+     * @global global object $DB
+     * @param moodle_course $course
      * @return extended_course_object
      */
     public static function solerni_get_course_infos($course) {
@@ -616,7 +621,7 @@ class utilities_course {
      * @param   $user object - if empty, we will use current $USER
      * @return  (bool)
      */
-    public function can_user_view_course($course, $user = null) {
+    public static function can_user_view_course($course, $user = null) {
 
         // Use global $USER if no user.
         if (!$user) {
@@ -652,24 +657,29 @@ class utilities_course {
      * Returns "description page" url of a course
      *
      * @global type $CFG
-     * @param type $course
+     * @param  int $courseid
      * @return string
      *
      */
-    public function get_description_page_url($course = null) {
+    public static function get_course_findoutmore_url($courseid = null) {
 
         global $CFG, $DB;
         $url = '#';
 
-        if (!$course) {
+        if (!$courseid) {
             global $COURSE;
-            $course = $COURSE;
+            $courseid = $COURSE->id;
         }
 
-        if ($course) {
-                $url = $CFG->wwwroot . '/mooc/view.php?courseid=' . $course->id;
+        if ($courseid) {
+                $url = $CFG->wwwroot . '/mooc/view.php?courseid=' . $courseid;
         }
         return $url;
+    }
+
+    public static function get_course_home_url($courseid = null) {
+
+        return self::get_course_findoutmore_url($courseid);
     }
 
     /**
@@ -680,10 +690,8 @@ class utilities_course {
      * @return string
      *
      */
-    public function get_course_url_page_forum($courseid = null) {
-        global $CFG;
-
-        $idpage = $this->get_course_id_page_forum($courseid);
+    public static function get_course_url_page_forum($courseid = null) {
+        $idpage = self::get_course_id_page_forum($courseid);
 
         if (!$idpage) {
             return null;
@@ -700,7 +708,7 @@ class utilities_course {
      * @return id
      *
      */
-    public function get_course_id_page_forum($courseid = null) {
+    public static function get_course_id_page_forum($courseid = null) {
 
         global $CFG, $DB;
         $idpage = null;
@@ -719,8 +727,6 @@ class utilities_course {
 
             $idpage = $DB->get_record_sql($sql, array($courseid));
         }
-
-
 
         if ($idpage != null) {
             return $idpage->subpagepattern;
@@ -864,15 +870,45 @@ class utilities_course {
      * @return url
      */
     public static function get_mooc_share_menu($courseid) {
-        global $DB;
+        $idpage = self::get_mooc_share_menu_page_id($courseid);
 
-        $folder = $DB->get_record('folder', array('course' => $courseid), '*', IGNORE_MISSING);
-
-        if ($folder) {
-            return new \moodle_url('/mod/folder/view.php', array('f' => $folder->id));
+        if ($idpage != null) {
+            return new \moodle_url('/course/view.php', array('id' => $courseid, 'pageid' => $idpage));
         } else {
             return null;
         }
+    }
+
+    /**
+     * Get the page id for course menu "PARTAGER"
+     *
+     * @param course id $courseid
+     * @return pageid
+     */
+    public static function get_mooc_share_menu_page_id($courseid) {
+        global $CFG, $DB;
+        $idpage = null;
+
+        if (!$courseid) {
+            global $COURSE;
+            $courseid = $COURSE->id;
+        }
+
+        if ($courseid) {
+            $sql = "SELECT DISTINCT(i.subpagepattern) FROM {modules} m
+                        LEFT JOIN {course_modules} cm ON m.id = cm.module
+                        LEFT JOIN {block_flexpagemod} f on f.cmid = cm.id
+                        LEFT JOIN {block_instances} i ON i.id=f.instanceid
+                        WHERE cm.course= ? AND m.name='folder' AND cm.visible=1 AND i.pagetypepattern LIKE 'course-view%' LIMIT 1";
+
+            $idpage = $DB->get_record_sql($sql, array($courseid));
+        }
+
+        if ($idpage != null) {
+            return $idpage->subpagepattern;
+        }
+
+        return null;
     }
 
     /**
@@ -888,7 +924,7 @@ class utilities_course {
         if (!$coursemodule = $DB->get_field_sql("SELECT cm.id
                                                  FROM {course_modules} cm
                                                  JOIN {modules} md ON md.id = cm.module
-                                                WHERE cm.course = :course AND md.name='oublog'", $params, IGNORE_MISSING)) {
+                                                WHERE cm.course = :course AND md.name='oublog' LIMIT 1", $params, IGNORE_MISSING)) {
             return null;
         }
 
@@ -902,11 +938,8 @@ class utilities_course {
      * @return url
      */
     public static function get_mooc_forum_menu($courseid) {
-        global $CFG;
 
-        $utilitiescourse = new utilities_course();
-
-        return $utilitiescourse->get_course_url_page_forum($courseid);
+        return self::get_course_url_page_forum($courseid);
     }
 
     /**
@@ -976,7 +1009,17 @@ class utilities_course {
      * @return boolean
      */
     public static function is_on_course_page() {
-        global $COURSE;
+        global $COURSE, $SCRIPT;
+        
+        // For Moodle we are on a MOOC but not for Solerni.
+        if ($SCRIPT == "/user/view.php" ||
+            $SCRIPT == "/local/mail/compose.php") {
+            return false;
+        }
+        
+        if (optional_param('courseid', 0, PARAM_INT)) {
+            return true;
+        }
 
         return ($COURSE->id > 1);
     }
@@ -991,9 +1034,11 @@ class utilities_course {
         global $DB, $USER, $COURSE;
 
         // If we access the forum page of the MOOC then we should not store the id.
+        // If we access the share page of the MOOC then we should not store the id.
         $utilitiescourse = new utilities_course();
         $idpageforum = $utilitiescourse->get_course_id_page_forum($COURSE->id);
-        if (!empty($pageid) && ($pageid != $idpageforum)) {
+        $idpageshare = self::get_mooc_share_menu_page_id($COURSE->id);
+        if (!empty($pageid) && ($pageid != $idpageforum) && ($pageid != $idpageshare)) {
             $currentpage = $DB->get_record('last_page_viewed',
                     array('courseid' => $COURSE->id, 'userid' => $USER->id), '*', IGNORE_MISSING);
             if ($currentpage) {
@@ -1052,11 +1097,13 @@ class utilities_course {
      */
     public static function is_active_tab($tabid, $script, $courseid) {
         $forumurl = self::get_mooc_forum_menu($courseid);
+        $shareurl = self::get_mooc_share_menu($courseid);
 
         switch ($tabid) {
             case "learn":
                 if ((strpos($script, "/course/view") !== false) &&
-                    (is_null($forumurl) || (strpos($script, $forumurl->out_as_local_url(false)) === false))) {
+                    (is_null($forumurl) || (strpos($script, $forumurl->out_as_local_url(false)) === false)) &&
+                    (is_null($shareurl) || (strpos($script, $shareurl->out_as_local_url(false)) === false))) {
                     return 'class="active"';
                 }
             break;
@@ -1077,8 +1124,11 @@ class utilities_course {
             break;
 
             case "share":
-                if (strpos($script, "/mod/folder") !== false) {
-                    return 'class="active"';
+                if (!is_null($shareurl)) {
+                    if ((strpos($script, $shareurl->out_as_local_url(false)) !== false) ||
+                        (strpos($script, "/mod/folder") !== false)) {
+                        return 'class="active"';
+                    }
                 }
             break;
         }
@@ -1087,43 +1137,43 @@ class utilities_course {
     }
 
     public static function get_ordered_user_courses($limit = 0, $order = false) {
-    global $USER;
+        global $USER;
 
-    $courses = enrol_get_my_courses();
-    $site = get_site();
+        $courses = enrol_get_my_courses();
+        $site = get_site();
 
-    if (array_key_exists($site->id, $courses)) {
-        unset($courses[$site->id]);
-    }
-
-    foreach ($courses as $c) {
-        if (isset($USER->lastcourseaccess[$c->id])) {
-            $courses[$c->id]->lastaccess = $USER->lastcourseaccess[$c->id];
-        } else {
-            $courses[$c->id]->lastaccess = 0;
-        }
-    }
-
-    if (!$order) {
-        return $courses;
-    }
-
-    // We have a order => sort it.
-    // @todo: make it a specific function.
-    $counter = 0;
-    $sortedcourses = array();
-    foreach ($order as $cid) {
-        if (($counter >= $limit) && ($limit != 0)) {
-            break;
+        if (array_key_exists($site->id, $courses)) {
+            unset($courses[$site->id]);
         }
 
-        // Make sure user is still enroled.
-        if (isset($courses[$cid])) {
-            $sortedcourses[$cid] = $courses[$cid];
-            $counter++;
+        foreach ($courses as $c) {
+            if (isset($USER->lastcourseaccess[$c->id])) {
+                $courses[$c->id]->lastaccess = $USER->lastcourseaccess[$c->id];
+            } else {
+                $courses[$c->id]->lastaccess = 0;
+            }
         }
-    }
 
-    return $sortedcourses;
-}
+        if (!$order) {
+            return $courses;
+        }
+
+        // We have a order => sort it.
+        // @todo: make it a specific function.
+        $counter = 0;
+        $sortedcourses = array();
+        foreach ($order as $cid) {
+            if (($counter >= $limit) && ($limit != 0)) {
+                break;
+            }
+
+            // Make sure user is still enroled.
+            if (isset($courses[$cid])) {
+                $sortedcourses[$cid] = $courses[$cid];
+                $counter++;
+            }
+        }
+
+        return $sortedcourses;
+    }
 }

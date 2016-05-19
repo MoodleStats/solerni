@@ -62,7 +62,7 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
             }
         }
 
-        $content = '<div class="dropdown">';
+        $content = '<div class="dropdown dropdown--no-border">';
         foreach ($menu->get_children() as $item) {
             $content .= $this->halloween_render_lang_menu_item($item, 1);
         }
@@ -108,20 +108,6 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
             $content .= '<li><a href="' . $url . '"' . $classes . '>' . $currenttitle . '</a></li>';
         }
         return $content;
-    }
-
-    /*
-     * Echo header user menu
-     * @isdummy
-     */
-    public function halloween_user_menu() {
-        global $CFG;
-        if ( isloggedin() ) {
-            include($CFG->partialsdir . '/header_user_menu__auth.php' );
-        } else {
-            include( $CFG->partialsdir . '/header_user_menu__no_auth.php' );
-            echo $this->halloween_lang_menu();
-        }
     }
 
     /*
@@ -421,10 +407,10 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
                 // We hide the preference messaging link (we used default value).
                 case get_string('messaging', 'message') :
                     break;
-                
+
                 // We hide the preference badge link on thematics.
                 case get_string('preferences', 'badges') :
-                    if ((utilities_network::is_platform_uses_mnet() && utilities_network::is_home()) || 
+                    if ((utilities_network::is_platform_uses_mnet() && utilities_network::is_home()) ||
                             (!utilities_network::is_platform_uses_mnet())){
                         $html .= html_writer::tag('li', $this->render($node));
                     }

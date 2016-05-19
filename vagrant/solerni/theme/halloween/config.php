@@ -134,9 +134,7 @@ $THEME->layouts = array(
     // Main course page.
     'course' => array(
         'file' => 'default.php',
-        'regions' => array('side-pre'),
-        'defaultregion' => 'side-pre',
-        'options' => array('langmenu' => true),
+        'regions' => array()
     ),
     'coursecategory' => array(
         'file' => 'default.php',
@@ -227,6 +225,11 @@ $THEME->layouts = array(
         'file' => 'secure.php',
         'regions' => array('side-pre'),
         'defaultregion' => 'side-pre'
+    ),
+    // The Forum thematic page.
+    'forum' => array(
+        'file' => 'default.php',
+        'regions' => array(),
     )
 );
 

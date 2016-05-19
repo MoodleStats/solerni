@@ -29,6 +29,7 @@ $string['definecatalogurl'] = 'Catalog URL';
 $string['definecatalogurldesc'] = 'URL used for the link \'Catalog\'; If URL is empty the link will be hidden.';
 $string['displaycatalog'] = 'Catalog {$a}';
 $string['orange_course_home:addinstance'] = 'Add a new course home block';
+$string['orange_course_home:myaddinstance'] = 'Add a new course home block on my dashboard';
 $string['defaultmaxcourses'] = 'Default maximum courses';
 $string['defaultmaxcoursesdesc'] = 'Maximum courses which should be displayed on home course block, 0 will show all courses';
 $string['pluginname'] = 'Orange Course Home';

@@ -33,7 +33,7 @@ $string['lastdiscussions'] = 'Last posts';
 $string['bestposts'] = 'Best posts';
 $string['nouserposts'] = "You have no messages posted in the forums.";
 $string['nodiscussions'] = "No discussions have been initiated.";
-$string['nobestposts'] = "The messages are not rated yet";
+$string['nobestposts'] = "The messages are not rated yet.";
 $string['rate'] = 'Rate : ';
 $string['linkdiscus'] = 'all discussions spaces';
 

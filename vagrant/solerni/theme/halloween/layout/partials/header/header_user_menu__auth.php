@@ -17,7 +17,12 @@
 use local_orange_library\utilities\utilities_user;
 use theme_halloween\tools\log_and_session_utilities;
 $youvegotmail = utilities_user::user_have_new_mail($USER);
-$formaction = log_and_session_utilities::define_login_form_action(); ?>
+if (!utilities_user::is_user_mnet($USER)) {
+    $formaction['host'] = $CFG->wwwroot;
+} else {
+    $formaction = log_and_session_utilities::define_login_form_action();
+}
+?>
 
 <div class="action-area is-logged">
     <a title="email" href="<?php echo $CFG->wwwroot ?>/local/mail/view.php?t=inbox" class="header-email-icon icon-halloween icon-halloween--email">
@@ -27,7 +32,7 @@ $formaction = log_and_session_utilities::define_login_form_action(); ?>
         <?php endif; ?>
     </a>
     <div class="dropdown header-dropdown">
-        <button class="btn btn-default" type="button" data-toggle="dropdown"
+        <button class="btn btn-default btn--content-variable" type="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
                 <?php echo $USER->firstname . ' ' . $USER->lastname; ?>
                 <span class="caret"></span>

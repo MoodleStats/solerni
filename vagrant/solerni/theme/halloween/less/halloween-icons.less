@@ -8,13 +8,15 @@
     white-space:        nowrap;
     background-image:   url([[pix:theme|halloween-sprite-sheet]]);
 
-    & {
-        @media (min-width: @screen-md-min) {
+    @media (min-width: @screen-md-min) {
             height:             @s-standard-icon-size;
             width:              @s-standard-icon-size;
-            background-image:      url([[pix:theme|halloween-sprite-sheet]]);
         }
-    }
+}
+
+.icon-halloween--small {
+    height:             @s-small-icon-size;
+    width:              @s-small-icon-size;
 }
 
 // Facebook icon
@@ -359,68 +361,24 @@
 // Calendar icon
 .icon-halloween--calendar {
     background-position:0px -220px;
-
-    @media (min-width: @screen-sm-min) {
-        background-position: 0px -220px;
-    }
-
-    .u-inverse & {
-        background-position: 0px -220px;
-
-        @media (min-width: @screen-sm-min) {
-            background-position: 0px -220px;
-        }
-    }
 }
     // Sequence icon
 
 .icon-halloween--sequence {
     background-position:-31px -220px;
-
-    @media (min-width: @screen-sm-min) {
-        background-position: -31px -220px;
-    }
-
-    .u-inverse & {
-        background-position: -31px -220px;
-
-        @media (min-width: @screen-sm-min) {
-            background-position: -31px -220px;
-        }
-    }
 }
     // time icon
 
 .icon-halloween--time {
-    background-position:-62px -220px;
-
-    @media (min-width: @screen-sm-min) {
-        background-position: -62px -220px;
-    }
-
-    .u-inverse & {
-        background-position: -62px -220px;
-
-        @media (min-width: @screen-sm-min) {
-            background-position: -62px -220px;
-        }
-    }
+    background-position:-62px -219px;
 }
     // Certificate icon
 
 .icon-halloween--certificate {
     background-position:-93px -220px;
 
-    @media (min-width: @screen-sm-min) {
-        background-position: -93px -220px;
-    }
-
     .inactive & {
         background-position: -93px -251px;
-
-        @media (min-width: @screen-sm-min) {
-            background-position: -93px -251px;
-        }
     }
 }
     // Badge icon
@@ -428,16 +386,8 @@
 .icon-halloween--badge {
     background-position:-124px -220px;
 
-    @media (min-width: @screen-sm-min) {
-        background-position: -124px -220px;
-    }
-
     .inactive & {
         background-position: -124px -251px;
-
-        @media (min-width: @screen-sm-min) {
-            background-position: -124px -251px;
-        }
     }
 }
     // Price icon
@@ -445,18 +395,11 @@
 .icon-halloween--price {
     background-position:-155px -220px;
 
-    @media (min-width: @screen-sm-min) {
-        background-position: -155px -220px;
-    }
-
     .inactive & {
         background-position: -155px -251px;
-
-        @media (min-width: @screen-sm-min) {
-            background-position: -155px -251px;
-        }
     }
 }
+
 .glyphicon-class {
     display: block;
     font-size: 12px;
