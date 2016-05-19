@@ -321,7 +321,7 @@ class mail_test {
     // Mail M9 to M13 in Forum NG plugin.
     static public function forum_delete_post($user, $modetext=false) {
         global $SITE, $USER;
-        
+
         $supportuser = core_user::get_support_user();
 
         $postid = 1;
@@ -330,22 +330,22 @@ class mail_test {
         $forum = $post->get_forum();
         $course = $forum->get_course();
 
-        // Set up page
+        // Set up page.
         $pagename = get_string(true ? 'deletepost' : 'undeletepost', 'forumng',
         $post->get_effective_subject(true));
-        $pageparams = array('p'=>$postid);
+        $pageparams = array('p' => $postid);
         $url = new moodle_url('/mod/forumng/deletepost.php', $pageparams);
         $out = $discussion->init_page($url, $pagename);
         $messagepost = $post->display(true, array(mod_forumng_post::OPTION_NO_COMMANDS => true,
                 mod_forumng_post::OPTION_SINGLE_POST => true));
-        
+
         // Set up the email.
         $includepost = true;
         $user = $post->get_user();
         $from = $SITE->fullname;
         $subject = get_string('deletedforumpost', 'forumng');
 
-        // Orange - 2016.05.12 - Add intro text
+        // Orange - 2016.05.12 - Add intro text.
         $a = new stdClass();
         $a->fullname = fullname($user);
         $a->pseudo = $USER->username;
@@ -354,13 +354,12 @@ class mail_test {
         $a->course = $course->fullname;
         $a->deleteurl = $discussion->get_moodle_url()->out(true);
         $messagehtml = get_string('deletedforumpostintro', 'forumng', $a);
-        $messagehtml .= get_string('emailcontenthtml', 'forumng', $a); 
-        // Always enable HTML version
+        $messagehtml .= get_string('emailcontenthtml', 'forumng', $a);
 
         // Include the copy of the post in the email to the author.
         if ($includepost) {
             $messagehtml .= $messagepost;
-            $message =  $post->display(false, array(mod_forumng_post::OPTION_NO_COMMANDS => true,
+            $message = $post->display(false, array(mod_forumng_post::OPTION_NO_COMMANDS => true,
                 mod_forumng_post::OPTION_SINGLE_POST => true));
         }
 
@@ -377,6 +376,7 @@ class mail_test {
         }
     }
 
+    // Mail M14 import user bu CSV.
     static public function setnew_password_and_mail($user, $modetext=false) {
         global $CFG;
 
@@ -411,7 +411,7 @@ class mail_test {
             $user->mailformat = 1;
         }
 
-        $subject = '(M14)' . format_string($site->fullname) .': '. (string)new lang_string('newusernewpasswordsubj', '', $a, $lang);
+        $subject = '(M14)' . (string)new lang_string('newusernewpasswordsubj', '', $a, $lang);
 
         // Directly email rather than using the messaging system to ensure its not routed to a popup or jabber.
         return email_to_user($user, $supportuser, $subject, $message, $messagehtml);

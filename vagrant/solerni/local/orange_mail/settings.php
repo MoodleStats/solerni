@@ -215,7 +215,7 @@ div.forumng-post {
     $page->add(new admin_setting_configtextarea('local_orangemail/footerinscription',
             new lang_string('footerinscription', 'local_orange_mail'),
             new lang_string('footerinscription_desc', 'local_orange_mail'), '  <tr>
-    <td height="230" bgcolor="#000000"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+    <td height="220" bgcolor="#000000"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
         <tr>
           <td class="txt14blanc">{$b->solernimailfooterinscriptionhtml}</td>
         </tr>

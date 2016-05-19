@@ -79,7 +79,7 @@ function send_email($data, $contacts) {
     $supportuser = core_user::get_support_user();
 
     $mail = get_mailer();
-    $messagetext = sprintf(get_string('contact_email_body', 'theme_halloween'), $SITE->fullname) . '\n';
+    $messagetext = get_string('contact_email_body', 'theme_halloween', $SITE->fullname) . '\n';
     $messagetext .= get_string('contact_request_type', 'theme_halloween') . " : " . $requestname . '\n';
     if ($data->civilityid == 1) {
         $messagetext .= get_string('contact_civility', 'theme_halloween') . " : " .
@@ -98,7 +98,7 @@ function send_email($data, $contacts) {
     }
     $messagetext .= get_string('contact_question', 'theme_halloween') . " : " . $data->question. '\n';
 
-    $messagehtml = "<p>" . sprintf(get_string('contact_email_body', 'theme_halloween'), $SITE->fullname). "</p>";
+    $messagehtml = "<p>" . get_string('contact_email_body', 'theme_halloween', $SITE->fullname). "</p>";
     $messagehtml .= "<p>" .get_string('contact_request_type', 'theme_halloween') . " : " . $requestname. "</p>";
     if ($data->civilityid == 1) {
         $messagehtml .= "<p>" .get_string('contact_civility', 'theme_halloween') . " : " .
@@ -127,7 +127,45 @@ function send_email($data, $contacts) {
     $mail->addAddress($tomail);
     $mail->isHTML(true);
     $mail->Encoding = 'quoted-printable';
-    $mail->Body = mail_object::get_mail($messagehtml, 'html', '') ;
+    $mail->Body = mail_object::get_mail($messagehtml, 'html', '');
+    $mail->AltBody = "\n" . mail_object::get_mail($messagetext, 'text', '') . "\n";
+    if ($mail->send()) {
+        if (!empty($mail->SMTPDebug)) {
+            echo '</pre>';
+        }
+        return true;
+    } else {
+        if (!empty($mail->SMTPDebug)) {
+            echo '</pre>';
+        }
+        return false;
+    }
+}
+
+function send_email_copy($data, $contacts) {
+    global $USER, $CFG, $SITE;
+
+    $supportuser = core_user::get_support_user();
+
+    $mail = get_mailer();
+
+    $a = new stdclass();
+    $a->fullname = $data->firstname . " " . $data->lastname;
+    $a->sitename = $SITE->fullname;
+    $messagehtml = get_string('contact_email_body_copy', 'theme_halloween', $a);
+    $messagetext = html_to_text($messagehtml);
+
+    if (!empty($mail->SMTPDebug)) {
+        echo '<pre>' . "\n";
+    }
+    $mail->Sender = $supportuser->email;
+    $mail->From     = $supportuser->email;
+    $mail->FromName = fullname($supportuser, true);
+    $mail->Subject = get_string('contact_email_subject_copy', 'theme_halloween', $a);
+    $mail->addAddress($data->email);
+    $mail->isHTML(true);
+    $mail->Encoding = 'quoted-printable';
+    $mail->Body = mail_object::get_mail($messagehtml, 'html', '');
     $mail->AltBody = "\n" . mail_object::get_mail($messagetext, 'text', '') . "\n";
     if ($mail->send()) {
         if (!empty($mail->SMTPDebug)) {
@@ -150,6 +188,7 @@ if ($mform->is_cancelled()) {
 } else if ($fromform = $mform->get_data()) {
     echo $OUTPUT->header();
     // Send email.
+    send_email_copy($fromform, $contacts);
     if (send_email($fromform, $contacts)) {
         echo $OUTPUT->notification(get_string('contact_email_sent', 'theme_halloween'), 'notifysuccess');
     } else {

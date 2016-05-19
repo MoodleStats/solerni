@@ -75,6 +75,8 @@ $string['helptext'] = 'Vous pouvez utiliser les variables suivantes dans les tem
         . '<ul>'
         . '<li>{$b->sitename} : nom du site</li>'
         . '<li>{$b->siteurl} : url du site</li>'
+        . '<li>{$b->customer} : nom du client</li>'
+        . '<li>{$b->thematic} : nom de la thématique</li>'
         . '<li>{$b->catalogurl} : url du catalogue</li>'
         . '<li>{$b->profilurl} : url de la page profil</li>'
         . '<li>{$b->facebook} : url de la page Facebook de Solerni</li>'
@@ -91,6 +93,8 @@ $string['helphtml'] = 'Vous pouvez utiliser les variables suivantes dans les tem
         . '<li>{$b->imageurl} : répertoire des images pour les emails</li>'
         . '<li>{$b->sitename} : nom du site</li>'
         . '<li>{$b->siteurl} : url du site</li>'
+        . '<li>{$b->customer} : nom du client</li>'
+        . '<li>{$b->thematic} : nom de la thématique</li>'
         . '<li>{$b->catalogurl} : url du catalogue</li>'
         . '<li>{$b->profilurl} : url de la page profil</li>'
         . '<li>{$b->facebook} : url de la page Facebook de Solerni</li>'
@@ -105,9 +109,9 @@ $string['helphtml'] = 'Vous pouvez utiliser les variables suivantes dans les tem
 
 // Mail template strings.
 $string['solernimailsignature'] = '<span class="txt18BNoir">L’équipe de {$b->servicename}</span><br />'
-        . 'Apprendre c’est toujours mieux ensemble<br /> <a href="{$b->siteurl}" class="lientxt18orange">{$b->siteurl}</a>';
+        . 'Apprendre c’est toujours mieux ensemble<br /> <a href="{$b->siteurl}" class="lientxt18orange">{$b->sitename}</a>';
 $string['solernimailsignaturetext'] = 'L’équipe de {$b->servicename}
-Apprendre c’est toujours mieux ensemble {$b->siteurl}';
+Apprendre c’est toujours mieux ensemble {$b->sitename}';
 
 $string['solernimailfootertext'] = 'Ce message vous est envoyé automatiquement, merci de ne pas y répondre directement.
               Si vous avez des questions écrivez-nous à {$b->contactemail}.
@@ -123,6 +127,14 @@ $string['solernimailfooterinscriptionhtml'] = '<p>Vous recevez cet email car vot
             <p>Ce message vous est envoyé automatiquement, merci de ne pas y répondre directement.<br />
               Si vous avez des questions écrivez-nous à <a href="mailto:{$b->contactemail}" class="lientxt14orange">{$b->contactemail}</a>.<br />
               Afin de bien recevoir nos emails, ajoutez cette adresse <a href="mailto:{$b->noreplyemail}" class="lientxt14orange">{$b->noreplyemail}</a> dans votre carnet d\'adresses.</p>';
+$string['solernimailfooterinscriptionprivatetext'] = 'Vous recevez cet email car votre entreprise a souhaité vous inscrire automatiquement sur notre plateforme.
+            Ce message vous est envoyé automatiquement, merci de ne pas y répondre directement.
+              Si vous avez des questions écrivez-nous à {$b->contactemail}.
+              Afin de bien recevoir nos emails, ajoutez cette adresse {$b->noreplyemail} dans votre carnet d\'adresses.';
+$string['solernimailfooterinscriptionprivatehtml'] = '<p>Vous recevez cet email car votre entreprise a souhaité vous inscrire automatiquement sur notre plateforme.
+            <p>Ce message vous est envoyé automatiquement, merci de ne pas y répondre directement.<br />
+              Si vous avez des questions écrivez-nous à <a href="mailto:{$b->contactemail}" class="lientxt14orange">{$b->contactemail}</a>.<br />
+              Afin de bien recevoir nos emails, ajoutez cette adresse <a href="mailto:{$b->noreplyemail}" class="lientxt14orange">{$b->noreplyemail}</a> dans votre carnet d\'adresses.</p>';
 $string['solernimailfollowus'] = 'Suivez-nous';
 
 
@@ -130,7 +142,7 @@ $string['solernimailfollowus'] = 'Suivez-nous';
 // Mail M1.
 $string['newpasswordtext'] = '<p>Bonjour <span class="txt18BNoir">{$a->firstname} {$a->lastname}</span>,</p>
 
-<p>Le mot de passe de votre compte sur {$a->sitename} a été remplacé par un nouveau mot de passe temporaire. Ce mot de passe temporaire devra être personnalisé à votre prochaine connexion.</p>
+<p>Le mot de passe de votre compte {$b->servicename} a été remplacé par un nouveau mot de passe temporaire. Ce mot de passe temporaire devra être personnalisé à votre prochaine connexion.</p>
 
 Les informations pour vous connecter sont désormais :<br />
 
@@ -141,11 +153,13 @@ Les informations pour vous connecter sont désormais :<br />
 <p>Nous vous invitons à vous connecter dès maintenant en cliquant sur le lien ci-après afin de personnaliser votre mot de passe sans attendre :
     <a href="{$a->link}" class="lientxt18orange">personnaliser mon mot de passe</a></p>
 
-<p>Si celui-ci ne fonctionne pas, vous pouvez copier-coller le lien dans la barre d\'adresse de votre navigateur : <a href="{$a->link}" class="lientxt18orange">{$a->link}</a></p>';
+<p>Si celui-ci ne fonctionne pas, vous pouvez copier-coller le lien dans la barre d\'adresse de votre navigateur : <a href="{$a->link}" class="lientxt18orange">{$a->link}</a></p>
+<p>A bientôt sur {$b->servicename}.</p>';
+
 // Mail M2 public.
 $string['contentuseraccountemail'] = '<p>Bonjour <span class="txt18BNoir">{$a->fullname}</span>,<br /><br />
-Bienvenue sur <span class="txt18BNoir">{$b->servicename}</span>, votre nouvelle plateforme d\'apprentissage collaborative.</p>
-<p>Vos identifiants de connexion pour accéder à votre compte {$b->servicename} sont:<ul>
+Bienvenue sur <span class="txt18BNoir">{$b->sitename}</span>, votre nouvelle plateforme d\'apprentissage collaborative.</p>
+<p>Vos identifiants de connexion pour accéder à votre compte {$b->sitename} sont:<ul>
     <li>Email : <a href="mailto:{$a->email}" class="lientxt18orange">{$a->email}</a></li>
     <li>Mot de passe : vous seul le connaissez</li>
 </ul></p>
@@ -167,7 +181,8 @@ $string['emailresetconfirmation'] = '<p>Bonjour <span class="txt18BNoir">{$a->fi
 <p>Veuillez cliquer sur le lien ci-après pour réinitialiser votre mot de passe :<br />
 <a href="{$a->link}" class="lientxt18orange">réinitialiser mon mot de passe</a></p>
 <p>Si ce dernier ne fonctionne pas, vous pouvez copier-coller le lien suivant dans la barre d\'adresse de votre navigateur :<br />
-<a href="{$a->link}" class="lientxt18orange">{$a->link}</a></p>';
+<a href="{$a->link}" class="lientxt18orange">{$a->link}</a></p>
+<p>A bientôt sur {$b->servicename}.</p>';
 
 // Mail M5.
 $string['emailconfirmation'] = '<p>Bonjour <span class="txt18BNoir">{$a->firstname}</span>,</p>
@@ -192,28 +207,63 @@ $string['informationmessagetext'] = '<p>Bonjour <span class="txt18BNoir">{$a->fu
 
 // Mail M8.
 $string['defaultemailmsg'] = '<p>Bonjour <span class="txt18BNoir">{$a->fullname}</span>,</p>
-<p>Nous vous informons que votre compte a bien été supprimé de notre plateforme <span class="txt18BNoir">{$b->servicename}</span>.<br />
-Merci d\'avoir utilisé <span class="txt18BNoir">{$b->servicename}</span> !</p>';
+<p>Nous vous informons que votre compte a bien été supprimé de notre plateforme <span class="txt18BNoir">{$b->sitename}</span>.</p>
+</p>Merci d\'avoir utilisé <span class="txt18BNoir">{$b->sitename}</span> !</p>';
 
+// Mail M14 public.
 $string['newusernewpasswordtext'] = '<p>Bonjour <span class="txt18BNoir">{$a->firstname}</span>,</p>
-<p>Votre compte utilisateur a été créé sur {$a->sitename}, votre nouvelle plateforme d\'apprentissage collaborative d\'entreprise, sur laquelle vous êtes  invité(e)  à suivre une ou plusieurs formations en ligne.</p>
+<p>Solerni, votre plateforme d\'apprentissage collaborative, évolue et change d\'adresse par la même occasion.</p>
+<p><span class="txt18BNoir">Comment accéder à la nouvelle version {$a->sitename} ?</span></p>
+<p>Pour accéder à la nouvelle version et découvrir nos dernier MOOCs, vous devez désormais vous rendre sur {$a->sitename} et utiliser les identifiants suivants :<br />
+<ul>
+   <li>nom d\'utilisateur : {$a->username}</li>
+   <li>mot de passe       : {$a->newpassword}</li>
+</ul>
+</p>
+<p><span class="txt18BNoir">Attention : </span>ce mot de passe est provisoire, vous devrez  le changer à votre première connexion.</p>
+<p>Vos nouveaux identifiants vous permettent de vous connecter sur l\'ensemble des sites d\'apprentissage thématiques proposés par {$b->servicename}.</p>
+<p>Vous pouvez donc vous connecter à partir de n\'importe quelle thématique avec vos nouveaux identifiants et naviguer librement d\'une thématique à une autre.</p>
+<p><span class="txt18BNoir">Que devient l\'ancienne version solerni.org ?</span></p>
+<p>L\'ancienne version <a href="http://solerni.org" class="lientxt18orange">solerni.org</a> reste accessible avec vos identifiants habituels pour y consulter vos MOOCs archivés.</p>
+<p></p>
+<p>Connectez-vous dès maintenant  sur {$a->sitename} en cliquant sur le lien suivant afin de personnaliser votre mot de passe :<br />
+   <a href="{$a->link}" class="lientxt18orange">personnaliser mon mot de passe</a>
+</p>
+<p>Si le lien ne fonctionne pas, vous pouvez copier-coller le lien ci-après dans la barre d\'adresse de votre navigateur : <br />
+   <a href="{$a->link}" class="lientxt18orange">{$a->link}</a>
+</p>
+
+<p>A très bientôt sur {$b->servicename}</p>';
+
+// Mail M14 private.
+$string['newusernewpasswordtext_private'] = '<p>Bonjour <span class="txt18BNoir">{$a->firstname}</span>,</p>
+<p>Votre compte utilisateur a été créé sur {$a->sitename}, votre nouvelle plateforme d\'apprentissage collaborative d\'entreprise, sur laquelle vous êtes invité(e) à suivre une ou plusieurs formations en ligne.</p>
 <p>Vos identifiants de connexion sont :</p>
 <ul>
    <li>nom d\'utilisateur : {$a->username}</li>
    <li>mot de passe       : {$a->newpassword}</li>
 </ul>
-<p><strong>Attention : </strong>ce mot de passe est provisoire, vous devrez  le changer à votre 1ere connexion.</p>
-<p>Connectez-vous dès maintenant  sur {$a->sitename}  en cliquant sur le lien suivant :<br />
-   <a href="{$a->link}" class="lientxt18orange">{$a->link}</a><br />
-afin de personnaliser votre mot de passe.</p>
-<p>Si le lien ne fonctionne pas, copiez-collez le lien dans la barre d\'adresse de votre navigateur.</p>
-<p>Vous recevez cet email car votre entreprise a souhaité vous inscrire automatiquement sur notre plateforme.</p>
-<p>A très bientôt sur {$a->sitename}</p>';
+<p><span class="txt18BNoir">Attention : </span>ce mot de passe est provisoire, vous devrez  le changer à votre première connexion.</p>
+<p>Connectez-vous dès maintenant  sur {$a->sitename} en cliquant sur le lien suivant afin de personnaliser votre mot de passe :<br />
+   <a href="{$a->link}" class="lientxt18orange">personnaliser mon mot de passe</a>
+</p>
+<p>Si le lien ne fonctionne pas, vous pouvez copier-coller le lien ci-après dans la barre d\'adresse de votre navigateur : <br />
+   <a href="{$a->link}" class="lientxt18orange">{$a->link}</a>
+</p>
+<p>A très bientôt sur {$b->servicename}</p>';
 
-$string['badgemessagebody'] = '<p>Bonjour,</p>
-<p>Vous venez d’obtenir le badge « %badgename% »!</p>
-<p>Pour retrouver tous les détails de votre badge, rendez-vous sur la page {$a}.</p>';
+// Mail M16 badge.
+$string['messagebody'] = '<p>Bonjour,</p>
+<p>Vous venez d’obtenir le badge « %badgename% ».</p>
+<p>Pour retrouver tous les détails de votre badge, rendez-vous sur la page "{$a}" accessible depuis votre tableau de bord.</p>
+<p>A très bientôt sur {$b->servicename}</p>';
 
+// Mail M17.
 $string['emailupdatemessage'] = '<p>Bonjour <span class="txt18BNoir">{$a->fullname}</span>,</p>
-<p>Vous avez demandé la modification de votre adresse email pour votre compte utilisateur sur {$a->site}. Veuillez cliquer sur l\'URL ci-dessous afin de confirmer la modification.</p>
-<a href="{$a->url}" class="lientxt18orange">{$a->url}</a>';
+<p>Vous avez demandé la modification de votre adresse email pour votre compte utilisateur sur {$a->site}.</p>
+<p>Afin de valider cette demande nous vous invitons à cliquer sur le lien suivant.<br />
+<a href="{$a->url}" class="lientxt18orange">confirmer le changement de mon adresse email</a>
+</p>
+<p>Si celui-ci ne fonctionne pas, vous pouvez copier-coller le lien ci-après dans la barre d\'adresse de votre navigateur :<br />
+   <a href="{$a->url}" class="lientxt18orange">{$a->url}</a>
+</p>';

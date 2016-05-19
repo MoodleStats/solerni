@@ -55,5 +55,6 @@ following details has been edited by \'{$a->pseudo}\':</p>
 </p>
 <a href="{$a->editurl}" title="view deleted post" class="lientxt18orange">View the discussion</a>';
 $string['digestmailheader'] = '<p>hello <span class="txt18BNoir">{$a->user}</span>,</p><p>This is your daily summary of new posts on "{$a->sitename}".</p>
-<p>To change your notification preferences, goto the preferences section of your account : {$a->userprefs}</p>';
+<p>To change your notification preferences, goto the <span class="txt18BNoir">preferences</span> section of your account : {$a->userprefs}</p>';
 $string['digestmailprefs'] = 'My preferences';
+$string['emailnormalheader'] = '<p>Hello,</p><p>This is a notification to inform you that a new message has been posted on "{$a}".</p>';

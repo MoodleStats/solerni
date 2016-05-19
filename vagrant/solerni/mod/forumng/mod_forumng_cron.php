@@ -17,8 +17,8 @@
 require_once(dirname(__FILE__).'/mod_forumng.php');
 require_once(dirname(__FILE__).'/mod_forumng_mail_list.php');
 require_once(dirname(__FILE__).'/mod_forumng_digest_list.php');
+// Orange - 2016.05.18 - include instead of require needed.
 include_once($CFG->dirroot . '/local/orange_mail/classes/mail_object.php');
-//require_once($CFG->dirroot . '/theme/halloween/classes/tools/log_and_session_utilities.php');
 use theme_halloween\tools\log_and_session_utilities;
 
 /**
@@ -537,7 +537,6 @@ $mainquery", $mainparams);
                 $headerdata->userprefs = $CFG->wwwroot . '/user/edit.php?id=' .
                     $user->id . '&amp;course=' . $course->id;
             } else {
-                //$dummy = new log_and_session_utilities();
                 $home = log_and_session_utilities::define_login_form_action();
                 $headerdata->userprefs = $home['host'] . '/user/edit.php?id=' .
                     $user->id . '&amp;course=' . $course->id;
@@ -662,8 +661,8 @@ $mainquery", $mainparams);
             // we don't go through email_to_user at all.
             if ($subscriber->emailstop || $subscriber->deleted ||
                 $subscriber->auth=='nologin' ||
-                //(($digest && !$subscriber->maildigest) ||
-                //(!$digest && $subscriber->maildigest)) ||
+                (($digest && !$subscriber->maildigest) ||
+                (!$digest && $subscriber->maildigest)) ||
                 over_bounce_threshold($subscriber)) {
                 unset($subscribers[$subscriber->id]);
                 continue;
@@ -808,11 +807,11 @@ $mainquery", $mainparams);
             if ($ishtml) {
                 $mail->IsHTML(true);
                 $mail->Encoding = 'quoted-printable';
-                $mail->Body    =  mail_object::get_mail($html, 'html', '');
-                $mail->AltBody =  "\n" . mail_object::get_mail($text, 'text', '') . "\n";
+                $mail->Body    = mail_object::get_mail($html, 'html', '');
+                $mail->AltBody = "\n" . mail_object::get_mail($text, 'text', '') . "\n";
             } else {
                 $mail->IsHTML(false);
-                $mail->Body =  "\n" . mail_object::get_mail($text, 'text', '') . "\n";
+                $mail->Body = "\n" . mail_object::get_mail($text, 'text', '') . "\n";
             }
 
             foreach ($batch as $user) {

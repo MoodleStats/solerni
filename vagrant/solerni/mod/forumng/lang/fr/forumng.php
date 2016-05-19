@@ -636,3 +636,4 @@ $string['autolockedmessage'] = 'Cette discussion a été fermée automatiquement
 $string['alert_intro'] = 'Vous pouvez utiliser le lien d\'alerte pour attirer l\'attention d\'un modérateur sur un message.';
 // Orange - 2016.05.12
 $string['deletedforumpostintro'] = '<p>Bonjour <span class="txt18BNoir">{$a->fullname}</span>,</p>';
+$string['emailnormalheader'] = '<p>Bonjour,</p><p>Ceci est une notification pour vous informer qu\'un nouveau message a été posté dans "{$a}".</p>';
