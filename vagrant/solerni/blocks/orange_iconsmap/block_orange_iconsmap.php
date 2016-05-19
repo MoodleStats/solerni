@@ -24,8 +24,9 @@
  */
 
 defined('MOODLE_INTERNAL') || die();
-require_once($CFG->dirroot.'/blocks/orange_iconsmap/lib.php');
+
 require_once($CFG->dirroot . '/blocks/moodleblock.class.php');
+use local_orange_library\extended_course\extended_course_object;
 
 class block_orange_iconsmap extends block_base {
 
@@ -99,13 +100,14 @@ class block_orange_iconsmap extends block_base {
         if ($this->content !== null) {
             return $this->content;
         }
+
+        $extendedcourse = new extended_course_object();
+        $extendedcourse->get_extended_course($COURSE, $context);
+
         $this->content = new stdClass;
         $this->content->text = '';
         $this->content->footer = '';
-
-        if (block_orange_iconsmap_is_on_course_page()) {
-            $this->content->text = $this->renderer->display_on_course_page($COURSE, $context);
-        }
+        $this->content->text = $this->renderer->display_on_course_page($COURSE, $extendedcourse);
 
         return $this->content;
     }

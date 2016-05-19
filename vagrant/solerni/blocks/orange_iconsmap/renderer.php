@@ -17,14 +17,13 @@
 /**
  * Orange Icons Map
  *
+ *
  * @package    block_orange_iconsmap
  * @copyright  Orange 2016
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die;
-
-use local_orange_library\extended_course\extended_course_object;
 
 class block_orange_iconsmap_renderer extends plugin_renderer_base {
 
@@ -33,150 +32,83 @@ class block_orange_iconsmap_renderer extends plugin_renderer_base {
      *
      * @return string $output
      */
-    public function display_on_course_page ($course, $context) {
+    public function display_on_course_page($course, $extendedcourse) {
 
-        $extendedcourse = new extended_course_object();
-        $extendedcourse->get_extended_course($course, $context);
-
-        $output = html_writer::start_tag('div', array('class' => 'row icons-map'));
+        $output = html_writer::start_tag('div', array('class' => 'icons-map-rows'));
             // Display first line.
-            $output .= html_writer::start_tag('div', array('class' => 'row secondary-line'));
+            $output .= html_writer::start_tag('div', array('class' => 'row icons-map-row'));
                 // Display begin and end date.
-                $output .= $this->display_date($course, $extendedcourse);
+                $output .= $this->display_iconmap('calendar', $extendedcourse, $course);
                 // Display sequences number.
-                $output .= $this->display_duration($extendedcourse);
+                $output .= $this->display_iconmap('sequence', $extendedcourse);
                 // Display working time.
-                $output .= $this->display_working_time($extendedcourse);
+                $output .= $this->display_iconmap('time', $extendedcourse);
             $output .= html_writer::end_tag('div');
-            $output .= html_writer::start_tag('div', array('class' => 'row secondary-line'));
+
+            $output .= html_writer::start_tag('div', array('class' => 'row icons-map-row'));
                 // Display certification.
-                $output .= $this->display_certificate($extendedcourse);
+                $customcss = (!$extendedcourse->certification) ? ' inactive' : '';
+                $output .= $this->display_iconmap('certificate', $extendedcourse, null, $customcss);
                 // Display Badges.
-                $output .= $this->display_badge($extendedcourse);
+                $customcss = (!$extendedcourse->badge) ? ' inactive' : '';
+                $output .= $this->display_iconmap('badge', $extendedcourse, null, $customcss);
                 // Display price.
-                $output .= $this->display_price($extendedcourse);
+                $customcss = (!$extendedcourse->price) ? ' inactive' : '';
+                $output .= $this->display_iconmap('price', $extendedcourse, null, $customcss);
             $output .= html_writer::end_tag('div');
+
         $output .= html_writer::end_tag('div');
 
         return $output;
     }
 
-    /**
-     * Display begin and end date
-     *
-     * @return $output
-     */
-    public function display_date ($course, $extendedcourse) {
+    public function display_iconmap($name, $extendedcourse, $course = null, $customcss = '') {
 
-        $output = html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-4'));
-            $output .= html_writer::start_tag('div', array('class' => 'icon-map'));
-
-                $output .= html_writer::start_tag('div');
-                    $output .= html_writer::tag('span', "",
-                            array('class' => 'centeredicon icon-halloween icon-halloween--calendar'));
-                $output .= html_writer::end_tag('div');
-
-                $output .= html_writer::start_tag('div');
-                    $output .= html_writer::tag('div',
-                            date("d-m-Y", $course->startdate).get_string('to', 'block_orange_iconsmap'),
-                            array('class' => 'movetext'));
-                    $enddate = $extendedcourse->enddate;
-                    $output .= html_writer::tag('div', date("d-m-Y", $enddate), array('class' => 'movetext'));
-                $output .= html_writer::end_tag('div');
-
-            $output .= html_writer::end_tag('div');
-        $output .= html_writer::end_tag('div');
-
-        return $output;
-    }
-
-    /**
-     * Display number of sequences
-     *
-     * @return $output
-     */
-    public function display_duration ($extendedcourse) {
-
-        $output = html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-4'));
-            $output .= html_writer::start_tag('div', array('class' => 'icon-map'));
-
-                $output .= html_writer::start_tag('div');
-                    $output .= html_writer::tag('span', "",
-                            array('class' => 'centeredicon icon-halloween icon-halloween--sequence'));
-                $output .= html_writer::end_tag('div');
-
-                $output .= html_writer::start_tag('div');
-                    $output .= html_writer::start_tag('div', array('class' => 'movetext'));
-                        $output .= html_writer::tag('span', $extendedcourse->duration, array('class' => 'bigtext'));
-                        $output .= html_writer::tag('span', get_string('weeks', 'block_orange_iconsmap'));
-                    $output .= html_writer::end_tag('div');
-                $output .= html_writer::end_tag('div');
-
-            $output .= html_writer::end_tag('div');
-        $output .= html_writer::end_tag('div');
-
-        return $output;
-    }
-
-
-    /**
-     * Display the working time
-     *
-     * @return $output
-     */
-    public function display_working_time ($extendedcourse) {
-
-        $output = html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-4'));
-            $output .= html_writer::start_tag('div', array('class' => 'icon-map'));
-
-                $output .= html_writer::start_tag('div');
-                    $output .= html_writer::tag('span', "", array('class' => 'centeredicon icon-halloween icon-halloween--time'));
-                $output .= html_writer::end_tag('div');
-
-                $output .= html_writer::start_tag('div');
-                    $output .= html_writer::start_tag('div', array('class' => 'movetext'));
-                        $output .= html_writer::tag('span', $extendedcourse->workingtime."H", array('class' => 'bigtext'));
-                        $output .= html_writer::tag('span', '/'.get_string('weeks', 'block_orange_iconsmap'));
-                    $output .= html_writer::end_tag('div');
-                $output .= html_writer::end_tag('div');
-
-            $output .= html_writer::end_tag('div');
-        $output .= html_writer::end_tag('div');
-
-        return $output;
-    }
-
-    /**
-     * Display certificate
-     *
-     * @return $output
-     */
-    public function display_certificate ($extendedcourse) {
-
-        $display = " inactive";
-        if ($extendedcourse->certification) {
-            $display = "";
+        if (!$name) {
+            return false;
         }
-        $certificatetext = get_string("certification", 'local_orange_library');
-        $output = html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-4'.$display));
+
+        $output = html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-4' . $customcss));
             $output .= html_writer::start_tag('div', array('class' => 'icon-map'));
 
-                $output .= html_writer::start_tag('div');
-                    $output .= html_writer::tag('span', "",
-                            array('class' => 'centeredicon icon-halloween icon-halloween--certificate'));
-                $output .= html_writer::end_tag('div');
+                $output .= html_writer::tag('span', '',
+                        array('class' => 'icon-halloween icon-halloween--small
+                            icon-halloween--' . $name . ' icon-map-media'));
 
-                $output .= html_writer::start_tag('div');
-                if ($extendedcourse->certification) {
-                    $output .= html_writer::start_tag('div', array('class' => 'movetext'));
-                        $output .= html_writer::tag('span', $certificatetext);
-                    $output .= html_writer::end_tag('div');
+                $output .= html_writer::start_tag('div', array('class' => 'icon-map-body bold'));
+
+                switch ($name) {
+                    case 'calendar':
+                        $output .= html_writer::tag('div',
+                            date("d-m-Y", $course->startdate) . get_string('to', 'block_orange_iconsmap'),
+                            array());
+                        $output .= html_writer::tag('div', date("d-m-Y", $extendedcourse->enddate), array('class' => 'movetext'));
+                    break;
+                    case 'sequence':
+                        $output .= html_writer::tag('span', $extendedcourse->duration, array('class' => 'h2 orange-typical-line-height'));
+                        $output .= get_string('weeks', 'block_orange_iconsmap');
+                    break;
+                    case 'time':
+                        $output .= html_writer::tag('span', $extendedcourse->workingtime . "H", array('class' => 'h2 orange-typical-line-height'));
+                        $output .= get_string('weeks', 'block_orange_iconsmap');
+                    break;
+                    case 'certificate':
+                        $output .= html_writer::tag('span', get_string("certification", 'local_orange_library'),
+                                array('class' => 'orange-typical-line-height'));
+                    break;
+                    case 'badge':
+                        $output .= html_writer::tag('span', get_string("badge", 'local_orange_library'),
+                                array('class' => 'orange-typical-line-height'));
+                    break;
+                    case 'price':
+                        $content = ($extendedcourse->price)
+                            ? $extendedcourse->price
+                            : get_string("price_default", 'local_orange_library');
+                        $output .= html_writer::tag('span', $content,
+                                array('class' => 'orange-typical-line-height'));
+                    break;
                 }
-                else {
-                    $output .= html_writer::start_tag('div', array('class' => 'movetext unselectedtext'));
-                        $output .= html_writer::tag('span', $certificatetext);
-                    $output .= html_writer::end_tag('div');
-                }
+
                 $output .= html_writer::end_tag('div');
 
             $output .= html_writer::end_tag('div');
@@ -184,72 +116,4 @@ class block_orange_iconsmap_renderer extends plugin_renderer_base {
 
         return $output;
     }
-
-    /**
-     * Display badge
-     *
-     * @return $output
-     */
-    public function display_badge ($extendedcourse) {
-
-        $display = " inactive";
-        if ($extendedcourse->badge) {
-            $display = "";
-        }
-        $output = html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-4'.$display));
-            $output .= html_writer::start_tag('div', array('class' => 'icon-map'));
-
-                $output .= html_writer::start_tag('div');
-                    $output .= html_writer::tag('span', "", array('class' => 'centeredicon icon-halloween icon-halloween--badge'));
-                $output .= html_writer::end_tag('div');
-
-                $output .= html_writer::start_tag('div');
-                if ($extendedcourse->badge) {
-                    $output .= html_writer::start_tag('div', array('class' => 'movetext'));
-                        $output .= html_writer::tag('span', get_string("badge", 'local_orange_library'));
-                    $output .= html_writer::end_tag('div');
-                }
-                else {
-                    $output .= html_writer::start_tag('div', array('class' => 'movetext unselectedtext'));
-                        $output .= html_writer::tag('span', get_string("badge", 'local_orange_library'));
-                    $output .= html_writer::end_tag('div');
-                }
-                $output .= html_writer::end_tag('div');
-
-            $output .= html_writer::end_tag('div');
-        $output .= html_writer::end_tag('div');
-
-        return $output;
-    }
-
-    /**
-     * Display price
-     *
-     * @return $output
-     */
-    public function display_price ($extendedcourse) {
-
-        $textprice = get_string("price_default", 'local_orange_library');
-        if ($extendedcourse->price) {
-            $textprice = $extendedcourse->price;
-        }
-        $output = html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-4'));
-            $output .= html_writer::start_tag('div', array('class' => 'icon-map'));
-
-                $output .= html_writer::start_tag('div');
-                    $output .= html_writer::tag('span', "", array('class' => 'centeredicon icon-halloween icon-halloween--price'));
-                $output .= html_writer::end_tag('div');
-
-                $output .= html_writer::start_tag('div');
-                    $output .= html_writer::start_tag('div', array('class' => 'movetext'));
-                        $output .= html_writer::tag('span', $textprice);
-                    $output .= html_writer::end_tag('div');
-                $output .= html_writer::end_tag('div');
-
-            $output .= html_writer::end_tag('div');
-        $output .= html_writer::end_tag('div');
-
-        return $output;
-    }
-
 }

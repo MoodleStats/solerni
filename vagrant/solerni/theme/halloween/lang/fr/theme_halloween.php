@@ -352,7 +352,7 @@ $string['nobadgesfaq'] = 'Vous n’avez pas encore obtenu de badge.<br/>
 $string['hometitle'] = 'Qu\'allez-vous apprendre aujourd\'hui ?';
 
 // Page en savoir plus.
-$string['more_info']               = 'Besoin d\informations complémentaires';
+$string['more_info']               = 'Besoin d\'informations complémentaires ?';
 
 // Page forum.
 $string['forumnavbar']             = 'Espace de discussion';
