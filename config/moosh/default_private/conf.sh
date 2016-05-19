@@ -4,14 +4,19 @@
 BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 MODE=PROD
+TRACE=1 
 
 function init () {
 	local parent_directory="$(dirname `pwd`)"
 	local env_moosh_file=$parent_directory/conf/env_moosh.cfg
-	log_action "> Loading Moosh environment '${env_moosh_file}'..."
+	if [ $TRACE -eq 1 ]; then
+		log_action "> Loading Moosh environment '${env_moosh_file}'..."
+	fi
 	if [ -f $env_moosh_file ]; then
 		. ${env_moosh_file}
-		log_ok "- OK"
+		if [ $TRACE -eq 1 ]; then
+			log_ok "- OK"
+		fi
 	else
 		log_error "- Unable to load file '${env_moosh_file}'"
 		exit 1
@@ -28,7 +33,9 @@ function check_usage () {
 		case $1 in
 			-dev|--development)
 				MODE=DEV
-				shift
+				;;
+			-s| --silence)
+				TRACE=0
 				;;
 			*)
 				shift
@@ -64,7 +71,9 @@ function log_ok () {
 }
 
 function execute_moosh_command () {
-	log_action "> Executing Moosh command '$1'..."
+	if [ $TRACE -eq 1 ]; then
+		log_action "> Executing Moosh command '$1'..."
+	fi
 	local moosh_temp_stdout="/tmp/moosh-default-${INSTANCE_KEY}-default-private-stdout-temp-`date '+%d%m%Y%H%M%S%N'`"
 	local moosh_temp_stderr="/tmp/moosh-default-${INSTANCE_KEY}-default-private-stderr-temp-`date '+%d%m%Y%H%M%S%N'`"
 
@@ -73,7 +82,7 @@ function execute_moosh_command () {
 	sed -i '/^$/d' $moosh_temp_stdout
 	sed -i '/^$/d' $moosh_temp_stderr
 
-	if [ -s $moosh_temp_stdout ]; then
+	if [ -s $moosh_temp_stdout ] && [ $TRACE -eq 1 ]; then
 		log_info "+ $(<$moosh_temp_stdout)"
 	fi
 
@@ -91,7 +100,9 @@ function execute_moosh_command () {
 		log_error "- ERROR: the moosh command returns the code $?"
 		exit -1
 	else
-		log_ok "- OK"
+		if [ $TRACE -eq 1 ]; then
+			log_ok "- OK"
+		fi
 	fi
 
 	rm ${moosh_temp_stdout}
