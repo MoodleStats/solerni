@@ -55,10 +55,11 @@ class post_selector extends \forumngfeature_post_selector {
     }
 
     public function apply($discussion, $all, $selected, $formdata) {
-        global $COURSE, $USER, $CFG;
+        global $COURSE, $USER, $CFG, $SITE;
 
         // Begin with standard text.
-        $a = (object)array('name' => fullname($USER, true));
+        // Orange - 2016.05.13 - Add parameters for the mail
+        $a = (object)array('name' => fullname($USER, true), 'discussion' => $discussion->get_subject(), 'fullname' => $SITE->fullname);
 
         $allhtml = "\n";
 
@@ -69,7 +70,6 @@ class post_selector extends \forumngfeature_post_selector {
         // Include intro if specified.
         if (!preg_match('~^(<br[^>]*>|<p>|</p>|\s)*$~', $formdata->message['text'])) {
             $alltext .= "\n" . \mod_forumng_cron::EMAIL_DIVIDER . "\n";
-            $allhtml .= '<hr size="1" noshade="noshade" />';
 
             // Add intro.
             $message = trusttext_strip($formdata->message['text']);
@@ -79,7 +79,6 @@ class post_selector extends \forumngfeature_post_selector {
 
         // Get list of all post ids in discussion order.
         $alltext .= "\n" . \mod_forumng_cron::EMAIL_DIVIDER . "\n";
-        $allhtml .= '<hr size="1" noshade="noshade" />';
         $poststext = '';
         $postshtml = '';
         $discussion->build_selected_posts_email(
@@ -88,7 +87,8 @@ class post_selector extends \forumngfeature_post_selector {
         $allhtml .= $postshtml;
 
         $emails = preg_split('~[; ]+~', $formdata->email);
-        $subject = $formdata->subject;
+        // Orange - 2016.05.13 - Add subject string.
+        $subject = get_string('forward_mail_subject', 'forumngfeature_forward', $discussion->get_subject());
         foreach ($emails as $email) {
             $fakeuser = (object)array(
                 'email' => $email,

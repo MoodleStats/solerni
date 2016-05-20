@@ -26,5 +26,5 @@
 defined('MOODLE_INTERNAL') || die();
 require_once("$CFG->dirroot/local/orange_mail/mail_init.php");
 
-$string['messagebody'] = mail_init::init('badgemessagebody','html');
+$string['messagebody'] = mail_init::init('messagebody','html');
 $string['messagesubject'] = 'Congratulations! You just earned a badge!';

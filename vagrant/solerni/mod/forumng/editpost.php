@@ -80,7 +80,8 @@ function send_edit_email($formdata, $post) {
 
     // Set up the email.
     $user = $post->get_user();
-    $from = $SITE->fullname;
+    // Orange - 2015.05.12 - Replace from (original $SITE->fullname).
+    $from = core_user::get_support_user();
     $subject = get_string('editedforumpost', 'forumng');
     $messagetext = $formdata->emailmessage['text'];
 
@@ -325,6 +326,8 @@ try {
         $emailmessage = new stdClass();
         $emailmessage->subject = $post->get_effective_subject(true);
         $emailmessage->editinguser = fullname($USER);
+        // Orange - 20160512 - pseudo is required
+        $emailmessage->pseudo = $USER->username;
         $emailmessage->course = $COURSE->fullname;
         $emailmessage->forum = $forum->get_name();
         $emailmessage->editurl = $CFG->wwwroot . '/mod/forumng/discuss.php?'

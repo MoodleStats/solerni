@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 require_once("$CFG->dirroot/local/orange_mail/mail_init.php");
 
 $string['emailconfirmation'] = mail_init::init('emailconfirmation','html');
-$string['emailconfirmationsubject'] = 'Confirmation de l’ouverture du compte sur {$a}';
+$string['emailconfirmationsubject'] = 'Confirmation de votre adresse email sur {$a}';
 $string['emailconfirmsent'] = '<h2>Votre inscription a été enregistrée, il ne reste plus qu’à valider votre compte.</h2><p>Pour valider définitivement votre inscription, cliquez sur le lien contenu dans le mail que nous venons de vous envoyer à l’adresse <strong>{$a}</strong></p>
 <ul><li>si vous ne recevez pas notre mail, veuillez vérifier si celui-ci n’est pas bloqué dans vos courriers indésirables.</li>
 <li>Si c’est le cas, merci d’ajouter cette adresse noreply@solerni.com dans votre carnet d’adresses.</li>
@@ -63,7 +63,7 @@ $string['username'] = 'Pseudo';
 $string['usernameemail'] = 'Pseudo/adresse e-mail';
 $string['usernameemailmatch'] = 'Le pseudo et l\'adresse e-mail donnés ne correspondent pas au même utilisateur';
 $string['usernameoremail'] = 'Veuillez indiquer soit le pseudo, soit l\'adresse e-mail';
-$string['newusernewpasswordsubj'] = 'Création de votre compte utilisateur';
+$string['newusernewpasswordsubj'] = 'Création de votre nouveau compte utilisateur sur {$a->sitename}';
 $string['newusernewpasswordtext'] = mail_init::init('newusernewpasswordtext','html');
 $string['commentscount'] = 'Commentaires ({$a})';
 $string['emailresetconfirmation'] = mail_init::init('emailresetconfirmation','html');
@@ -81,5 +81,7 @@ $string['again'] = 'vérification';
 $string['setpassword'] = 'Définir un nouveau mot de passe';
 $string['setpasswordinstructions'] = '<p>Veuillez saisir et répéter votre nouveau mot de passe ci-dessous, puis cliquer sur « Enregistrer ».<br />Votre nouveau mot de passe sera alors enregistré et vous serez connecté.</p>';
 $string['resetrecordexpired'] = '<p>Le lien de réinitialisation de mot de passe que vous avez utilisé a été généré il y a {$a} minutes, il n\'est plus valide. Veuillez effectuer une nouvelle demande de réinitialisation de mot de passe.</p>';
+$string['changedpassword'] = 'Réinitialisation de votre mot de passe';
+$string['emailresetconfirmationsubject'] = 'Réinitialisation de votre mot de passe sur {$a}';
 $string['lastsiteaccess'] = 'Dernière connexion';
 $string['firstsiteaccess'] = 'Première connexion';

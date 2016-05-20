@@ -930,3 +930,6 @@ $string['forumng:viewallratings'] = 'View all raw ratings given by individuals';
 $string['forumngcrontaskemails'] = 'Forumng email sending job';
 $string['forumngcrontaskdaily'] = 'Forumng daily maintenance job';
 $string['forumngcrontaskdigest'] = 'Forumng email digest job';
+// Orange - 2016.05.12
+$string['deletedforumpostintro'] = '<p>Hello <span class="txt18BNoir">{$a->fullname}</span>,</p>';
+$string['emailnormalheader'] = '<p>Hello,</p><p>This is a notification to inform you that a new message has been posted on "{$a}".</p>';

@@ -339,7 +339,13 @@ $string['contact_requestid_invalid'] = 'Select a valid entry';
 $string['contact_email_sent']       = 'Your request has been sent';
 $string['contact_email_notsent']    = 'An error occurs, your request has not been sent';
 $string['contact_email_subject']    = 'Solerni - Support request';
-$string['contact_email_body']       = 'The following request has been issued using the contact form of the platform %s';
+$string['contact_email_body']       = 'The following request has been issued using the contact form of the platform {$a}';
+$string['contact_email_subject_copy'] = 'Your enquiry about {$a->sitename} has been received';
+$string['contact_email_body_copy']  = '<p>Dear <span class="txt18BNoir">{$a->fullname}</span>,</p>
+<p>We have received your message and would like to thank you for getting in touch with {$a->sitename}.</p>
+<p>Our support staff is going to process your enquiry and will get back to you as soon as possible.</p>
+<p>Kind regards,</p>
+<p>See you soon on {$b->servicename}</p>';
 
 // Page badges/mybadges.php.
 $string['nobadgesfaq']              = 'There are no badges available.<br/>
