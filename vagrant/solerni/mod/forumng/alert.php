@@ -79,7 +79,7 @@ if ($mform->is_cancelled()) {
 // If the alert form has been submitted successfully, send the email.
 if ($fromform = $mform->get_data()) {
 
-    $alltext = get_string('alert_emailpreface', 'forumng', $customdata)."\n\n";
+    $alltext = get_string('alert_emailpreface', 'forumng', $customdata)."<br />";
 
     // Print the reasons for reporting
     $alltext .= get_string('alert_reasons', 'forumng', $customdata);

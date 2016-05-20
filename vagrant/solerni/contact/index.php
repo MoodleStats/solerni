@@ -56,7 +56,7 @@ $USER->editing = false;
 $courserenderer = $PAGE->get_renderer('core', 'course');
 
 function send_email($data, $contacts) {
-    global $DB, $USER, $CFG, $SITE;
+    global $DB, $CFG, $SITE;
 
     if ($data->requestid > 0) {
         if ($foundcourse = $DB->get_record('course', array('id' => $data->requestid))) {
@@ -143,7 +143,7 @@ function send_email($data, $contacts) {
 }
 
 function send_email_copy($data, $contacts) {
-    global $USER, $CFG, $SITE;
+    global $SITE;
 
     $supportuser = core_user::get_support_user();
 
