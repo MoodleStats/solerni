@@ -1,7 +1,7 @@
 categoryname,categorysortorder,datatype,shortname,name,description,descriptionformat,sortorder,required,locked,visible,forceunique,signup,defaultdata,defaultdataformat,param1,param2,param3,param4,param5
 Solerni,0,inverseadvcheckbox,donneespersonnelles,<span class="multilang" lang="en">I accept that my personal informations can be used for commercial purposes</span><span class="multilang" lang="fr">J'accepte que mes informations personnelles soient utilisées à des fins commerciales</span>,,,0,0,,1,,1,0,,,,,,
 Solerni,0,menu,sexe,<span class="multilang" lang="en">Gender</span><span class="multilang" lang="fr">Sexe</span>,,,2,1,0,2,0,2,<span class="multilang" lang="en">I do not wish to say</span><span class="multilang" lang="fr">Je ne veux pas le dire</span>,0,<span class="multilang" lang="en">Female</span><span class="multilang" lang="fr">Féminin</span>\n<span class="multilang" lang="en">Male</span><span class="multilang" lang="fr">Masculin</span>\n<span class="multilang" lang="en">I do not wish to say</span><span class="multilang" lang="fr">Je ne veux pas le dire</span>,,,,
-Solerni,0,datetime,ddn,<span class="multilang" lang="en">Date of birth</span><span class="multilang" lang="fr">Date de naissance</span>,,,3,0,0,2,0,0,,,1900,2015,,,
+Solerni,0,datetime,ddn,<span class="multilang" lang="en">Date of birth</span><span class="multilang" lang="fr">Date de naissance</span>,,,3,0,0,2,0,0,01/01/1970,,1900,2015,,,
 Solerni,0,text,twitter,Twitter,,,4,0,0,2,0,0,,,30,255,0,,_blank
 Solerni,0,text,facebook,Facebook,,,5,0,0,2,0,0,,,30,255,0,,_blank
 Solerni,0,text,linkedin,LinkedIn,,,6,0,0,2,0,0,,,30,255,0,,_blank
