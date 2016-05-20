@@ -24,7 +24,7 @@
  */
 
 defined('MOODLE_INTERNAL') || die();
-require_once($CFG->dirroot . '/local/orange_customers/lib.php');
+use local_orange_library\utilities\utilities_piwik;
 
 /**
  * Event observer for local_orange_customers.
@@ -39,17 +39,17 @@ class local_orange_customers_observer {
      */
 
     public static function customer_created(\core\event\course_category_created $event) {
-        global $DB;
-
+        global $CFG;
+        
         $category = (object)$event->get_record_snapshot('course_categories', $event->objectid);
-        $customer = new stdClass();
-        $customer->name = $category->name;
-        $customer->categoryid = $category->id;
-
-        $DB->insert_record('orange_customers', $customer, false);
+        self::orange_customer_created($category);
+        if (!$CFG->solerni_isprivate) {
+            
+        self::piwik_segment_created($category);}
 
     }
 
+    
     /**
      * Triggered via course_category_updated event.
      *
@@ -86,5 +86,35 @@ class local_orange_customers_observer {
         $DB->execute("DELETE FROM {orange_customers} WHERE categoryid = ". $event->objectid );
 
     }
+    
+    private static function orange_customer_created($category){
+    global $DB;
+ 
+    $customer = new stdClass();
+    $customer->name = $category->name;
+    $customer->categoryid = $category->id;
 
+    $DB->insert_record('orange_customers', $customer, false);
+    }
+
+
+    private static function piwik_segment_created($category){
+    global $CFG;
+    
+    $tokenauth = '&token_auth='.$CFG->piwik_token_admin;
+    $url = $CFG->piwik_internal_url;
+    $module = 'module=API';
+    $methodsegment = '&method=SegmentEditor.add';
+    $name = '&name='.$category->name;
+    $definition = '&definition=customVariablePageValue3=='.$category->name;
+    $login1 = '&login=admin';
+    $login2 = '&login=marketing';
+    $idsite = '&idSite=1';
+    $autoarchive = '&autoArchive=0';
+    $enabledallusers = '&enabledAllUsers=0';
+    $urlsegment1 = $url.'?'.$module.$methodsegment.$name.$definition.$idsite.$autoarchive.$enabledallusers.$login1.$tokenauth;
+    $urlsegment2 = $url.'?'.$module.$methodsegment.$name.$definition.$idsite.$autoarchive.$enabledallusers.$login2.$tokenauth;
+    $xmlaccount = utilities_piwik::xml_from_piwik($urlsegment1);
+    $xmlaccount = utilities_piwik::xml_from_piwik($urlsegment2);
+    }
 }
