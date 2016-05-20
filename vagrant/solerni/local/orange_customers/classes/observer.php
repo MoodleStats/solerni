@@ -43,8 +43,7 @@ class local_orange_customers_observer {
         
         $category = (object)$event->get_record_snapshot('course_categories', $event->objectid);
         self::orange_customer_created($category);
-        if (!$CFG->solerni_isprivate) {
-            
+        if (!$CFG->solerni_isprivate) {   
         self::piwik_segment_created($category);}
 
     }
