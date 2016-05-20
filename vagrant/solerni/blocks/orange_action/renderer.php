@@ -25,6 +25,7 @@
 defined('MOODLE_INTERNAL') || die;
 use local_orange_library\utilities\utilities_course;
 use local_orange_library\utilities\utilities_image;
+use local_orange_library\utilities\utilities_object;
 
 class block_orange_action_renderer extends plugin_renderer_base {
 
@@ -152,10 +153,10 @@ class block_orange_action_renderer extends plugin_renderer_base {
             $output .= html_writer::start_tag('div', array('class' => 'row'));
                 // First cell.
                 $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-8 orange-action-banner-cell text-container'));
-                    $output .= html_writer::tag('h1', $course->fullname, array('class' => 'text-oneline'));
+                    $output .= html_writer::tag('h1', utilities_object::trim_text($course->fullname, 27), array('class' => 'text-oneline'));
                     // Course summary if present.
                     if ($course->summary) {
-                        $output .= html_writer::tag('div', html_to_text($course->summary), array('class' => 'summary h3'));
+                        $output .= html_writer::tag('div', utilities_object::trim_text(html_to_text($course->summary), 43), array('class' => 'summary h3'));
                     }
                     // Number of enrolled users.
                     $output .= html_writer::start_tag('div', array('class' => 'metadata'));

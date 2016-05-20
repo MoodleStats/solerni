@@ -26,8 +26,8 @@
 require_once(dirname(__FILE__) . '/../../config.php');
 require_once($CFG->dirroot.'/blocks/orange_action/lib.php');
 require_once($CFG->dirroot.'/calendar/lib.php');
-// Adding requirement to avoid  Class 'block_base' not found.
-require_once($CFG->dirroot . '/blocks/moodleblock.class.php');
+
+use local_orange_library\utilities\utilities_course;
 
 /**
  * @todo: separate the renderer calls from the lib.php inside the renderer
@@ -110,18 +110,17 @@ class block_orange_action extends block_base {
         $this->content->text = '';
         $this->content->footer = '';
 
+        // @todo Course Dashboard
         if (block_orange_action_on_course_dashboard_page()) {
             $this->content->text = $this->renderer->display_on_course_dashboard();
         }
 
-        if (block_orange_action_on_forum_index_page()) {
-            $this->content->text = $this->renderer->display_on_forum_index();
-        }
-
-        if (block_orange_action_on_course_page()) {
+        // Page En Savoir Plus
+        if (utilities_course::is_on_course_page()) {
              $this->content->text = block_orange_action_get_course($COURSE->id);
         }
 
+        // User Dashboard
         if (block_orange_action_on_my_page()) {
             // Read course id from block config. In priority we take the course.
             if (!empty($this->config->coursetopush)) {
