@@ -2088,10 +2088,17 @@ WHERE
 
         // Navigation bar (breadcrumbs)
         if (!$digest) {
+            // Orange - 2016.05.17 - Add introduction text
+            if ($discussionemail) {
+                $html .= get_string('emailnormalheader', 'forumng', format_string($discussionsubject, true));
+            } else {
+                $html .= get_string('emailnormalheader', 'forumng', format_string($forum->get_name(), true));
+            }
+
             $text .= $forum->get_course()->shortname . ' -> ';
             $html .= "<div class='forumng-email-navbar'><a target='_blank' " .
               "href='$CFG->wwwroot/course/view.php?id=$course->id'>" .
-              "$course->shortname</a> &raquo; ";
+              "$course->shortname</a> > ";
 
             $text .= format_string($forum->get_name(), true);
             $html .= "<a target='_blank' " .
@@ -2102,7 +2109,7 @@ WHERE
             // Makes a query :(
             if ($discussionsubject = $discussion->get_subject(true)) {
                 $text .= ' -> ' . format_string($discussionsubject, true);
-                $html .= " &raquo; <a target='_blank' " .
+                $html .= " > <a target='_blank' " .
                     "href='$CFG->wwwroot/mod/forumng/discuss.php?" .
                     $discussion->get_link_params(mod_forumng::PARAM_HTML) . "'>" .
                     format_string($discussionsubject, true).'</a>';
@@ -2134,7 +2141,7 @@ WHERE
         // Now we need to display the parent post (if any, and if not in digest)
         if ($this->postfields->parentpostid && !$digest) {
             // Print the 'In reply to' heading
-            $html .= '<h2>' . get_string('inreplyto', 'forumng') . '</h2>';
+            $html .= '<p class="txt18BNoir">' . get_string('inreplyto', 'forumng') . '</p>';
 
             $text .= "\n" . mod_forumng_cron::EMAIL_DIVIDER;
             $text .= get_string('inreplyto', 'forumng'). ":\n\n";
@@ -2161,8 +2168,7 @@ WHERE
             $text .= ": $CFG->wwwroot/mod/forumng/subscribe.php?" .
                 $this->get_forum()->get_link_params(mod_forumng::PARAM_PLAIN) . "\n";
 
-            $html .= "<hr size='1' noshade='noshade' />" .
-                "<div class='forumng-email-unsubscribe'>" .
+            $html .= "<div class='forumng-email-unsubscribe'>" .
                 "<a href='$CFG->wwwroot/mod/forumng/subscribe.php?" .
                 $this->get_forum()->get_link_params(mod_forumng::PARAM_HTML) . "'>" .
                 get_string('unsubscribe', 'forumng'). '</a></div>';

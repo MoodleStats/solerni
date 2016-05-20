@@ -15,16 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol_self', language 'en'.
- *
- * @package    enrol_self
- * @copyright  2010 Petr Skoda  {@link http://skodak.org}
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * Lang strings.
+ * @package forumngfeature
+ * @subpackage forward
+ * @copyright 2011 The Open University
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-defined('MOODLE_INTERNAL') || die();
-
-require_once("$CFG->dirroot/local/orange_mail/mail_init.php");
-
-$string['welcometocoursetext'] = mail_init::init('welcometocoursetext','html');
-$string['welcometocourse'] = 'Confirmation of sign-up to the "{$a}" MOOC';
+$string['forward_preface'] = '<p>Hello,</p><p><span class="txt18BNoir">{$a->name}</span> wanted to forward you these posts from the "{$a->discussion}" discussion, available on the <span class="txt18BNoir">{$a->fullname}</span> forum.</p>';
