@@ -52,6 +52,7 @@ class mod_forumng_forward_form extends moodleform {
                 get_string('forward_ccme', 'forumngfeature_forward'));
 
         // Email subject
+        /* Orange - 2016.05.13 - Disabled
         $mform->addElement('text', 'subject', get_string('subject', 'forumng'),
             array('size'=>48));
         $mform->setType('subject', PARAM_TEXT);
@@ -59,7 +60,8 @@ class mod_forumng_forward_form extends moodleform {
                 'maxlength', 255, 'client');
         $mform->addRule('subject', get_string('required'), 'required', null, 'client');
         $mform->setDefault('subject', $this->_customdata->subject);
-
+        */
+        
         // Email message
         $mform->addElement('editor', 'message',
             get_string('forward_intro', 'forumngfeature_forward'), array('cols'=>50, 'rows'=> 15));

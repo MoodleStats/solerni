@@ -79,30 +79,30 @@ if ($mform->is_cancelled()) {
 // If the alert form has been submitted successfully, send the email.
 if ($fromform = $mform->get_data()) {
 
-    $alltext = get_string('alert_emailpreface', 'forumng', $customdata)."\n\n";
+    $alltext = get_string('alert_emailpreface', 'forumng', $customdata)."<br />";
 
     // Print the reasons for reporting
-    $alltext .= get_string('alert_reasons', 'forumng', $customdata)."\n";
+    $alltext .= get_string('alert_reasons', 'forumng', $customdata);
     if (!empty($fromform->alert_condition1)) {
-        $alltext .= '* '.get_string('alert_condition1', 'forumng')."\n";
+        $alltext .= '* '.get_string('alert_condition1', 'forumng')."<br />";
     }
     if (!empty($fromform->alert_condition2)) {
-        $alltext .= '* '.get_string('alert_condition2', 'forumng')."\n";
+        $alltext .= '* '.get_string('alert_condition2', 'forumng')."<br />";
     }
     if (!empty($fromform->alert_condition3)) {
-        $alltext .= '* '.get_string('alert_condition3', 'forumng')."\n";
+        $alltext .= '* '.get_string('alert_condition3', 'forumng')."<br />";
     }
     if (!empty($fromform->alert_condition4)) {
-        $alltext .= '* '.get_string('alert_condition4', 'forumng')."\n";
+        $alltext .= '* '.get_string('alert_condition4', 'forumng')."<br />";
     }
     if (!empty($fromform->alert_condition5)) {
-        $alltext .= '* '.get_string('alert_condition5', 'forumng')."\n";
+        $alltext .= '* '.get_string('alert_condition5', 'forumng')."<br />";
     }
     if (!empty($fromform->alert_condition6)) {
-        $alltext .= '* '.get_string('alert_condition6', 'forumng')."\n";
+        $alltext .= '* '.get_string('alert_condition6', 'forumng')."<br />";
     }
     if (!empty($fromform->alert_conditionmore)) {
-        $alltext .= "\n".$fromform->alert_conditionmore."\n";
+        $alltext .= "<p>".$fromform->alert_conditionmore."</p>";
     }
 
     $recipients = $forum->get_reportingemails();
@@ -119,8 +119,8 @@ if ($fromform = $mform->get_data()) {
         $alltext .= get_string('alert_emailappendix', 'forumng' );
 
         if (!email_to_user($fakeuser, $from, $subject, 
-                mail_object::get_mail($alltext, 'text', ''), 
-                mail_object::get_mail(text_to_html($alltext), 'html', ''))) {
+                mail_object::get_mail(html_to_text($alltext), 'text', ''), 
+                mail_object::get_mail($alltext, 'html', ''))) {
             print_error('error_sendalert', 'forumng', $url, $fakeuser->email);
         }
     }

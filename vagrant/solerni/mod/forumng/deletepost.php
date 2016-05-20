@@ -133,12 +133,25 @@ if ($email) {
         $copyself = (isset($submitted->copyself))? true : false;
         $includepost = (isset($submitted->includepost))? true : false;
         $user = $post->get_user();
-        $from = $SITE->fullname;
+        
+        // Orange - 2015.05.12 - Replace from (original $SITE->fullname).
+        $from = core_user::get_support_user();
+
         $subject = get_string('deletedforumpost', 'forumng');
         $message = html_to_text($messagetext);
 
+        // Orange - 2016.05.12 - Add intro text
+        $a = new stdClass();
+        $a->fullname = fullname($user);
+        $a->pseudo = $USER->username;
+        $a->subject = $discussion->get_subject();
+        $a->forum = $forum->get_name();
+        $a->course = $course->fullname;
+        $a->url = $discussion->get_moodle_url()->out(true);
+        $messagehtml = get_string('deletedforumpostintro', 'forumng', $a);
+
         // Always enable HTML version
-        $messagehtml = $out->deletion_email(text_to_html($messagetext));
+        $messagehtml .= $out->deletion_email(text_to_html($messagetext));
 
         // Include the copy of the post in the email to the author.
         if ($includepost) {
@@ -177,7 +190,7 @@ if ($email) {
                         'mailformat' => 1,
                         'id' => -1
                 );
-                if (!email_to_user($fakeuser, $from, $subject, '', $messagehtml)) {
+                if (!email_to_user($fakeuser, $from, $subject, '', mail_object::get_mail($messagehtml, 'html', ''))) {
                     print_error(get_string('emailerror', 'forumng'));
                 }
             }
@@ -198,6 +211,8 @@ if ($email) {
     // prepare the object for the get_string
     $emailmessage = new stdClass;
     $emailmessage->subject = $post->get_effective_subject(true);
+    // Orange - 2016.05.12 - Pseudo instead of name
+    $emailmessage->pseudo = $USER->username;
     $emailmessage->firstname = $USER->firstname;
     $emailmessage->lastname = $USER->lastname;
     $emailmessage->course = $COURSE->fullname;

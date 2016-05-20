@@ -25,6 +25,7 @@ $string['forward'] = 'Forward by email';
 $string['forward_intro'] = 'Optional introduction';
 $string['forward_email'] = 'Email address of recipient';
 $string['forward_ccme'] = 'Copy to your own email';
+$string['forward_mail_subject'] = 'This thread may be of interest to you : {$a}';
 $string['forward_preface'] = '<p>These forum posts were sent to you on behalf of {$a->name}.</p>';
 $string['forward_done'] = 'The email has been sent.';
 $string['forward_info_selected'] = 'The selected posts (shown below this form) will be emailed to the address or addresses you enter here. The email will be sent under your name <strong>{$a->fullname}</strong> from your email address <strong>{$a->email}</strong>.';
