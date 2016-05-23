@@ -37,8 +37,7 @@ $course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
 $PAGE->set_course($course);
 $PAGE->set_context(\context_course::instance($course->id));
 $PAGE->set_title(get_string('pagetitle', 'block_orange_iconsmap') . $course->fullname);
-$context = \context_course::instance($course->id);
-$PAGE->set_context($context);
+
 $extendedcourse = new extended_course_object();
 $extendedcourse->get_extended_course($course, $context);
 //print_object($extendedcourse);

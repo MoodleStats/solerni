@@ -22,7 +22,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace extended_course_mock;
+namespace orange_library_extended_course;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -33,7 +33,7 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright 2014 The Open University
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class extended_course extends \orange_library\extended_course\extended_course {
+class mock_extended_course extends \orange_library\extended_course\extended_course {
     /**
      * The database table this grade object is stored in
      * @var string $table
@@ -270,9 +270,18 @@ class extended_course extends \orange_library\extended_course\extended_course {
      * @var string $newsessionurl
      */
     public $newsessionurl;
-public $coursebadge = array ();
-public $coursecertification = array ();
+    public $coursebadge = array ();
+    public $coursecertification = array ();
 
+    /**
+     * Constructs with item details.
+     *
+     * @param \stdClass $course Optional course param (otherwise uses $SITE)
+     * @param int $userid Userid for modinfo (if used)
+     */
+    public function __construct($course = null, $userid = 0) {
+        $this->mock_factory($structure);
+    }
 public function set_array ($id, $courseid, $format, $sectionid, $name, $value){
     return array ("id" => $id,
             "courseid" => $courseid,
@@ -565,71 +574,68 @@ public function set_array ($id, $courseid, $format, $sectionid, $name, $value){
      *
      * @param \stdClass $structure Structure object
      */
-    public function mock_factory($structure) {
+    public function mock_factory($course) {
 
-            $this->set_coursebadge(400,2,"flexpage",0,"coursebadge",1 );
-            $this->set_coursecertification(401,2,"flexpage",0,"coursecertification",1 );
-            $this->set_coursecontactemail(402,2,"flexpage",0,"coursecontactemail","contact@email.com" );
-            $this->set_courseduration(403,2,"flexpage",0,"courseduration",3024000 );
-            $this->set_courseinactivitydelay(404,2,"flexpage",0,"courseinactivitydelay",7 );
-            $this->set_courselanguage(405,2,"flexpage",0,"courselanguage",0 );
-            $this->set_coursemaxregisteredusers(406,2,"flexpage",0,"coursemaxregisteredusers",1 );
-            $this->set_coursepicture(407,2,"flexpage",0,"coursepicture",381002270 );
-            $this->set_courseprerequesites(408,2,"flexpage",0,"courseprerequesites","<p>Prérequis</p>" );
-            $this->set_courseprice(409,2,"flexpage",0,"courseprice",1 );
-            $this->set_courseregistration(410,2,"flexpage",0,"courseregistration",0 );
-            $this->set_coursereplay(411,2,"flexpage",0,"coursereplay",0 );
-            $this->set_coursesubtitle(412,2,"flexpage",0,"coursesubtitle",1 );
-            $this->set_courseteachingteam(413,2,"flexpage",0,"courseteachingteam","<p>Équipe pédagogique</p>" );
-            $this->set_coursethematics(414,2,"flexpage",0,"coursethematics",1 );
-            $this->set_coursethumbnailtext(415,2,"flexpage",0,"coursethumbnailtext","cours a venir / ouvert et places dispo" );
-            $this->set_coursevideo(416,2,"flexpage",0,"coursevideo",0 );
-            $this->set_coursevideoplayer(417,2,"flexpage",0,"coursevideoplayer",'<iframe width="560" height="315" src="https://www.youtube.com/embed/bNfYUsDSrOs?rel=0" frameborder="0" allowfullscreen></iframe>' );
-            $this->set_courseworkingtime(418,2,"flexpage",0,"courseworkingtime",7200 );
-            $this->set_description1(419,2,"flexpage",0,"description1","Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." );
-            $this->set_description2(420,2,"flexpage",0,"description2","Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." );
-            $this->set_description3(421,2,"flexpage",0,"description3","Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." );
-            $this->set_description4(422,2,"flexpage",0,"description4","Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." );
-            $this->set_description5(423,2,"flexpage",0,"description5","Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." );
-            $this->set_description6(424,2,"flexpage",0,"description6","Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." );
-            $this->set_description7(425,2,"flexpage",0,"description7","Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." );
-            $this->set_description8(426,2,"flexpage",0,"description8","Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." );
-            $this->set_description9(427,2,"flexpage",0,"description9","Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." );
-            $this->set_description10(428,2,"flexpage",0,"description10","Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." );
-            $this->set_paragraph1(429,2,"flexpage",0,"paragraph1","Titre Paragraphe 1" );
-            $this->set_paragraph2(430,2,"flexpage",0,"paragraph2","Titre Paragraphe 2" );
-            $this->set_paragraph3(431,2,"flexpage",0,"paragraph3","Titre Paragraphe 3" );
-            $this->set_paragraph4(432,2,"flexpage",0,"paragraph4","Titre Paragraphe 4" );
-            $this->set_paragraph5(433,2,"flexpage",0,"paragraph5","Titre Paragraphe 5" );
-            $this->set_paragraph6(434,2,"flexpage",0,"paragraph6","Titre Paragraphe 6" );
-            $this->set_paragraph7(435,2,"flexpage",0,"paragraph7","Titre Paragraphe 7" );
-            $this->set_paragraph8(436,2,"flexpage",0,"paragraph8","Titre Paragraphe 8" );
-            $this->set_paragraph9(437,2,"flexpage",0,"paragraph9","Titre Paragraphe 9" );
-            $this->set_paragraph10(438,2,"flexpage",0,"paragraph10","Titre Paragraphe 10" );
-            $this->set_paragraph1bgcolor(439,2,"flexpage",0,"paragraph1bgcolor","bg-green" );
-            $this->set_paragraph2bgcolor(440,2,"flexpage",0,"paragraph2bgcolor","bg-graylighter" );
-            $this->set_paragraph3bgcolor(441,2,"flexpage",0,"paragraph3bgcolor","bg-red" );
-            $this->set_paragraph4bgcolor(442,2,"flexpage",0,"paragraph4bgcolor","bg-graylighter" );
-            $this->set_paragraph5bgcolor(443,2,"flexpage",0,"paragraph5bgcolor","bg-yellow" );
-            $this->set_paragraph6bgcolor(444,2,"flexpage",0,"paragraph6bgcolor","bg-graylighter" );
-            $this->set_paragraph7bgcolor(445,2,"flexpage",0,"paragraph7bgcolor","bg-blue" );
-            $this->set_paragraph8bgcolor(446,2,"flexpage",0,"paragraph8bgcolor","bg-graylighter" );
-            $this->set_paragraph9bgcolor(447,2,"flexpage",0,"paragraph9bgcolor","bg-pink" );
-            $this->set_paragraph10bgcolor(448,2,"flexpage",0,"paragraph10bgcolor","bg-graylighter" );
-            $this->set_paragraph1picture(449,2,"flexpage",0,"paragraph1picture",181464878 );
-            $this->set_paragraph2picture(450,2,"flexpage",0,"paragraph2picture",435990855 );
-            $this->set_paragraph3picture(451,2,"flexpage",0,"paragraph3picture",257556141 );
-            $this->set_paragraph4picture(452,2,"flexpage",0,"paragraph4picture",972257379 );
-            $this->set_paragraph5picture(453,2,"flexpage",0,"paragraph5picture",25516927 );
-            $this->set_paragraph6picture(454,2,"flexpage",0,"paragraph6picture",635357878 );
-            $this->set_paragraph7picture(455,2,"flexpage",0,"paragraph7picture",396585880 );
-            $this->set_paragraph8picture(456,2,"flexpage",0,"paragraph8picture",412869366 );
-            $this->set_paragraph9picture(457,2,"flexpage",0,"paragraph9picture",653207731 );
-            $this->set_paragraph10picture(458,2,"flexpage",0,"paragraph10picture",730279675 );
-            $this->set_paragraphheader(459,2,"flexpage",0,"paragraphheader","" );
-
-
-
+        $this->set_coursebadge(400, $course->id, "flexpage", 0, "coursebadge", 1 );
+        $this->set_coursecertification(401, $course->id, "flexpage", 0,"coursecertification",1 );
+        $this->set_coursecontactemail(402, $course->id, "flexpage", 0,"coursecontactemail","contact@email.com" );
+        $this->set_courseduration(403, $course->id, "flexpage", 0,"courseduration",3024000 );
+        $this->set_courseinactivitydelay(404, $course->id, "flexpage", 0,"courseinactivitydelay",7 );
+        $this->set_courselanguage(405, $course->id, "flexpage", 0,"courselanguage",0 );
+        $this->set_coursemaxregisteredusers(406, $course->id, "flexpage", 0,"coursemaxregisteredusers",1 );
+        $this->set_coursepicture(407, $course->id, "flexpage", 0,"coursepicture",381002270 );
+        $this->set_courseprerequesites(408, $course->id, "flexpage", 0,"courseprerequesites","<p>Prérequis</p>" );
+        $this->set_courseprice(409, $course->id, "flexpage", 0,"courseprice",1 );
+        $this->set_courseregistration(410, $course->id, "flexpage", 0,"courseregistration",0 );
+        $this->set_coursereplay(411, $course->id, "flexpage", 0,"coursereplay",0 );
+        $this->set_coursesubtitle(412, $course->id, "flexpage", 0,"coursesubtitle",1 );
+        $this->set_courseteachingteam(413, $course->id, "flexpage", 0,"courseteachingteam","<p>Équipe pédagogique</p>" );
+        $this->set_coursethematics(414, $course->id, "flexpage", 0,"coursethematics",1 );
+        $this->set_coursethumbnailtext(415, $course->id, "flexpage", 0,"coursethumbnailtext","cours a venir / ouvert et places dispo" );
+        $this->set_coursevideo(416, $course->id, "flexpage", 0,"coursevideo", 0 );
+        $this->set_coursevideoplayer(417, $course->id, "flexpage", 0,"coursevideoplayer",'<iframe width="560" height="315" src="https://www.youtube.com/embed/bNfYUsDSrOs?rel=0" frameborder="0" allowfullscreen></iframe>' );
+        $this->set_courseworkingtime(418, $course->id, "flexpage", 0,"courseworkingtime",7200 );
+        $this->set_description1(419, $course->id, "flexpage", 0,"description1","Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." );
+        $this->set_description2(420, $course->id, "flexpage", 0,"description2","Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." );
+        $this->set_description3(421, $course->id, "flexpage", 0,"description3","Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." );
+        $this->set_description4(422, $course->id, "flexpage", 0,"description4","Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." );
+        $this->set_description5(423, $course->id, "flexpage", 0,"description5","Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." );
+        $this->set_description6(424, $course->id, "flexpage", 0,"description6","Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." );
+        $this->set_description7(425, $course->id, "flexpage", 0,"description7","Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." );
+        $this->set_description8(426, $course->id, "flexpage", 0,"description8","Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." );
+        $this->set_description9(427, $course->id, "flexpage", 0,"description9","Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." );
+        $this->set_description10(428, $course->id, "flexpage", 0,"description10","Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." );
+        $this->set_paragraph1(429, $course->id, "flexpage", 0,"paragraph1","Titre Paragraphe 1" );
+        $this->set_paragraph2(430, $course->id, "flexpage", 0,"paragraph2","Titre Paragraphe 2" );
+        $this->set_paragraph3(431, $course->id, "flexpage", 0,"paragraph3","Titre Paragraphe 3" );
+        $this->set_paragraph4(432, $course->id, "flexpage", 0,"paragraph4","Titre Paragraphe 4" );
+        $this->set_paragraph5(433, $course->id, "flexpage", 0,"paragraph5","Titre Paragraphe 5" );
+        $this->set_paragraph6(434, $course->id, "flexpage", 0,"paragraph6","Titre Paragraphe 6" );
+        $this->set_paragraph7(435, $course->id, "flexpage", 0,"paragraph7","Titre Paragraphe 7" );
+        $this->set_paragraph8(436, $course->id, "flexpage", 0, "paragraph8","Titre Paragraphe 8" );
+        $this->set_paragraph9(437, $course->id, "flexpage", 0, "paragraph9","Titre Paragraphe 9" );
+        $this->set_paragraph10(438, $course->id, "flexpage", 0, "paragraph10","Titre Paragraphe 10" );
+        $this->set_paragraph1bgcolor(439, $course->id, "flexpage", 0, "paragraph1bgcolor","bg-green" );
+        $this->set_paragraph2bgcolor(440, $course->id, "flexpage", 0, "paragraph2bgcolor","bg-graylighter" );
+        $this->set_paragraph3bgcolor(441, $course->id, "flexpage", 0, "paragraph3bgcolor","bg-red" );
+        $this->set_paragraph4bgcolor(442, $course->id, "flexpage", 0, "paragraph4bgcolor","bg-graylighter" );
+        $this->set_paragraph5bgcolor(443, $course->id, "flexpage", 0, "paragraph5bgcolor","bg-yellow" );
+        $this->set_paragraph6bgcolor(444, $course->id, "flexpage", 0, "paragraph6bgcolor","bg-graylighter" );
+        $this->set_paragraph7bgcolor(445, $course->id, "flexpage", 0, "paragraph7bgcolor","bg-blue" );
+        $this->set_paragraph8bgcolor(446, $course->id, "flexpage", 0, "paragraph8bgcolor","bg-graylighter" );
+        $this->set_paragraph9bgcolor(447, $course->id, "flexpage", 0, "paragraph9bgcolor","bg-pink" );
+        $this->set_paragraph10bgcolor(448, $course->id, "flexpage", 0, "paragraph10bgcolor","bg-graylighter" );
+        $this->set_paragraph1picture(449, $course->id, "flexpage", 0, "paragraph1picture",181464878 );
+        $this->set_paragraph2picture(450, $course->id, "flexpage", 0, "paragraph2picture",435990855 );
+        $this->set_paragraph3picture(451, $course->id, "flexpage", 0, "paragraph3picture",257556141 );
+        $this->set_paragraph4picture(452, $course->id, "flexpage", 0, "paragraph4picture",972257379 );
+        $this->set_paragraph5picture(453, $course->id, "flexpage", 0, "paragraph5picture",25516927 );
+        $this->set_paragraph6picture(454, $course->id, "flexpage", 0, "paragraph6picture",635357878 );
+        $this->set_paragraph7picture(455, $course->id, "flexpage", 0, "paragraph7picture",396585880 );
+        $this->set_paragraph8picture(456, $course->id, "flexpage", 0, "paragraph8picture",412869366 );
+        $this->set_paragraph9picture(457, $course->id, "flexpage", 0, "paragraph9picture",653207731 );
+        $this->set_paragraph10picture(458, $course->id, "flexpage", 0, "paragraph10picture",730279675 );
+        $this->set_paragraphheader(459, $course->id, "flexpage", 0, "paragraphheader","" );
 
         $this->save_extended_course_value($id, 1, 'flexpage', 0, 'table', "course_format_options");
         $this->save_extended_course_value($id++, $coursebadge->courseid, $coursebadge->format, $coursebadge->sectionid, $coursebadge->name, $coursebadge->value);
@@ -694,92 +700,6 @@ public function set_array ($id, $courseid, $format, $sectionid, $name, $value){
         $this->save_extended_course_value($id++, $paragraph9picture->courseid, $paragraph9picture->format, $paragraph9picture->sectionid, $paragraph9picture->name, $paragraph9picture->value);
         $this->save_extended_course_value($id++, $paragraphheader->courseid, $paragraphheader->format, $paragraphheader->sectionid, $paragraphheader->name, $paragraphheader->value);
 
-
-
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'picture', 381002270);
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'replay', "Rejouable");
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'duration', 5);
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'workingtime', 1);
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'badge', 1);
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'certification', 1);
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'price', "Mooc gratuit<br>certification en option");
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'language', "Français");
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'subtitle', 1);
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'registration', 0);
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'registrationcompany', 7);
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'maxregisteredusers', 1000);
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'registrationstartdate', 1462377425);
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'registrationenddate', 1467496800);
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'prerequesites', "<p>Prérequis</p>");
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'teachingteam', "<p>Équipe pédagogique</p>");
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'enrolurl', "http://10.194.54.237/enrol/orangeinvitation/enrol.php?enrolinvitationtoken=92a0490d5105b109df86074dc430e3e6&id=2&id2=1");
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'unenrolurl', array
-        (
-            "scheme" => "http",
-            "host" => "solerni",
-            "port" => "",
-            "user" => "",
-            "pass"=> "",
-            "path" => '/enrol/self/unenrolself.php',
-            "slashargument" => "",
-            "anchor"=> "",
-            "params" => Array
-                (
-                    "enrolid" => 3
-                )
-
-        ));
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'coursestatus', 6);
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'registrationstatustext', "Inscription ouverte");
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'replay', "Rejouable");
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'statuslink', array
-        (
-            "scheme" => "http",
-            "host" => "solerni",
-            "port" => "",
-            "user" => "",
-            "pass"=> "",
-            "path" => '/enrol/self/unenrolself.php',
-            "slashargument" => "",
-            "anchor"=> "",
-            "params" => Array
-                (
-                    "enrolid" => 3
-                )
-
-        ));
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'statustext', "En cours");
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'coursestatustext', "En cours");
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'registrationstatus', 1);
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'registrationstatustext', "Inscription ouverte");
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'thumbnailtext', "cours a venir / ouvert et places dispo");
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'enrolledusers', 2);
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'enrolledusersself', 2);
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'enrolstartdate', 1434618300);
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'enrolenddate', 1468832700);
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'displaybutton', '<a class="btn btn-success" href="http://solerni/course/view.php?id=2" data-mooc-name="a venir ouvert et places dispos">Accéder au cours</a>');
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'videoplayer', '<iframe width="560" height="315" src="https://www.youtube.com/embed/bNfYUsDSrOs?rel=0" frameborder="0" allowfullscreen></iframe>');
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'inactivitydelay', 7);
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'contactemail', "contact@email.com");
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'newsessionurl', 'http://10.194.54.237/enrol/orangeinvitation/enrol.php?enrolinvitationtoken=92a0490d5105b109df86074dc430e3e6&id=2&id2=2');
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'moocurl', Array
-        (
-            "scheme" => "http",
-            "host" => "solerni",
-            "port" => "",
-            "user" => "",
-            "pass" => "",
-            "path" => "/course/view.php",
-            "slashargument" => "",
-            "anchor" => "",
-            "params" => Array
-                (
-                    "id"=> 2
-                )
-
-        ));
-        $this->save_extended_course_value($id++, 1, 'flexpage', 0, 'statuslinktext', '');
-
     }
 
     private function save_extended_course_value($id, $courseid, $format, $sectionid, $name, $value){
@@ -787,69 +707,4 @@ public function set_array ($id, $courseid, $format, $sectionid, $name, $value){
         $DB->insert_record('course_format_options', $record);
     }
 
-    public function is_available($not, \core_availability\info $info, $grabthelot, $userid) {
-        return $not ? !$this->available : $this->available;
-    }
-
-    public function is_available_for_all($not = false) {
-        return $not ? $this->forallnot : $this->forall;
-    }
-
-    public function get_description($full, $not, \core_availability\info $info) {
-        $fulltext = $full ? '[FULL]' : '';
-        $nottext = $not ? '!' : '';
-        return $nottext . $fulltext . $this->message;
-    }
-
-    public function get_standalone_description(
-            $full, $not, \core_availability\info $info) {
-        // Override so that we can spot that this function is used.
-        return 'SA: ' . $this->get_description($full, $not, $info);
-    }
-
-    public function update_dependency_id($table, $oldid, $newid) {
-        if ($table === $this->dependtable && (int)$oldid === (int)$this->dependid) {
-            $this->dependid = $newid;
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    protected function get_debug_string() {
-        return ($this->available ? 'y' : 'n') . ',' . $this->message;
-    }
-
-    public function is_applied_to_user_lists() {
-        return $this->filter;
-    }
-
-    public function filter_user_list(array $users, $not, \core_availability\info $info,
-            \core_availability\capability_checker $checker) {
-        $result = array();
-        foreach ($users as $id => $user) {
-            $match = in_array($id, $this->filter);
-            if ($not) {
-                $match = !$match;
-            }
-            if ($match) {
-                $result[$id] = $user;
-            }
-        }
-        return $result;
-    }
-
-    public function get_user_list_sql($not, \core_availability\info $info, $onlyactive) {
-        global $DB;
-        // The data for this condition is not really stored in the database,
-        // so we return SQL that contains the hard-coded user list.
-        list ($enrolsql, $enrolparams) =
-                get_enrolled_sql($info->get_context(), '', 0, $onlyactive);
-        $condition = $not ? 'NOT' : '';
-        list ($matchsql, $matchparams) = $DB->get_in_or_equal($this->filter, SQL_PARAMS_NAMED);
-        $sql = "SELECT userids.id
-                  FROM ($enrolsql) userids
-                 WHERE $condition (userids.id $matchsql)";
-        return array($sql, array_merge($enrolparams, $matchparams));
-    }
 }
