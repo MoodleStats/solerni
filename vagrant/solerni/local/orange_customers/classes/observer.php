@@ -61,7 +61,6 @@ class local_orange_customers_observer {
         if ((!$CFG->solerni_isprivate) && ($customer === true)) {
             self::piwik_segment_created($category);
         }
-        
     }
 
     /**
@@ -83,8 +82,8 @@ class local_orange_customers_observer {
         $customer->categoryid = $category->id;
         $DB->insert_record('orange_customers', $customer, false);
     }
-    
-     private static function orange_customer_updated($category) {
+
+    private static function orange_customer_updated($category) {
         global $DB;
 
         $customer = customer_get_customerbycategoryid($category->id);
