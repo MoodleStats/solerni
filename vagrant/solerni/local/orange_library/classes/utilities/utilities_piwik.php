@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -16,16 +15,36 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'badges', language 'fr', branch 'MOODLE_28_STABLE'
- *
- * @package   badges
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
+ * @package     local
+ * @subpackage  orange_library
+ * @copyright  2015 Orange
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+namespace local_orange_library\utilities;
+
 
 defined('MOODLE_INTERNAL') || die();
-require_once("$CFG->dirroot/local/orange_mail/mail_init.php");
 
-$string['badgesearned'] = 'Nombre total de badges obtenus : {$a}';
-$string['messagesubject'] = 'Félicitations ! Vous avez obtenu un badge !';
-$string['messagebody'] = mail_init::init('messagebody','html');
+class utilities_piwik {
+
+     /**
+     * Call API
+     * @param string $url
+     * @return xml object
+     */
+    static public function xml_from_piwik($url) {   
+        $ch = curl_init();
+        $timeout = 20;
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        if ($response === false) {
+            return false;
+        }
+        $xmlresponse = new \SimpleXMLElement($response);
+        return ($xmlresponse);
+    }
+}
+   

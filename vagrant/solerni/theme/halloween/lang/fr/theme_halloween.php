@@ -342,7 +342,13 @@ $string['contact_requestid_invalid'] = 'Votre choix n\'est pas valide';
 $string['contact_email_sent']       = 'Votre demande a été transmise';
 $string['contact_email_notsent']    = 'Une erreur est survenue, votre demande n\'a pas été transmise';
 $string['contact_email_subject']    = 'Solerni - Demande de support';
-$string['contact_email_body']       = 'La requête suivante a été réalisée via le formulaire de contact de la plateforme %s';
+$string['contact_email_body']       = 'La requête suivante a été réalisée via le formulaire de contact de la plateforme {$a}';
+$string['contact_email_subject_copy'] = 'Votre demande d\'information sur {$a->sitename} a bien été enregistrée';
+$string['contact_email_body_copy']  = '<p>Bonjour <span class="txt18BNoir">{$a->fullname}</span>,</p>
+<p>Nous avons bien reçu votre demande d\'information et nous vous remercions de l\'attention que vous portez à {$a->sitename}.</p>
+<p>Un membre de notre équipe Support va traiter votre demande et vous recontactera au plus vite.</p>
+<p>Cordialement,</p>
+<p>A très bientôt sur {$b->servicename}</p>';
 
 // Page badges/mybadges.php.
 $string['nobadgesfaq'] = 'Vous n’avez pas encore obtenu de badge.<br/>

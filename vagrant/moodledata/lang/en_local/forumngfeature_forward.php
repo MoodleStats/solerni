@@ -15,21 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Theme More version file.
- *
- * @package    theme_halloween
- * @copyright  2014 Bas Brands
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * Lang strings.
+ * @package forumngfeature
+ * @subpackage forward
+ * @copyright 2011 The Open University
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-defined('MOODLE_INTERNAL') || die;
-
-
-$plugin->version   = 2016051900;
-$plugin->requires  = 2014051200;
-$plugin->release  = 2014051300;
-$plugin->maturity  = MATURITY_BETA;
-$plugin->component = 'theme_halloween';
-$plugin->dependencies = array(
-    'theme_bootstrap'  => 2015062200
-);
+$string['forward_preface'] = '<p>Hello,</p><p><span class="txt18BNoir">{$a->name}</span> wanted to forward you these posts from the "{$a->discussion}" discussion, available on the <span class="txt18BNoir">{$a->fullname}</span> forum.</p>';

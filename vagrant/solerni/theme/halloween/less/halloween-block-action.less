@@ -47,9 +47,11 @@
             display:    none;
             position:   absolute;
             height:     100%;
+            width:      100%;
             top:        0;
             left:       50%;
             transform:  translateX(-50%);
+            text-align: center;
 
             iframe {
                 height: 100%;
@@ -61,6 +63,7 @@
 
         padding-top:    @s-double-md-margin;
         padding-bottom: @s-double-md-margin;
+        padding-left:   (@grid-gutter-width / 2);
 
         .row {
             display:    table;

@@ -24,7 +24,8 @@
 defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
-    $settings->add(new admin_setting_heading('generalconfig', new lang_string('generalconfig', 'block_orange_action'), ''));
+    $settings->add(new admin_setting_heading('generalconfig',
+            new lang_string('generalconfig', 'block_orange_action'), ''));
 
     $settings->add(new admin_setting_configcheckbox('block_orange_action/hideblockheader',
                         new lang_string('hideblockheader', 'block_orange_action'),
