@@ -43,11 +43,14 @@ class block_orange_transverse_discussion_renderer extends plugin_renderer_base {
         $output = html_writer::start_tag('div', array('class' => 'row'));
 
             $output .= html_writer::start_tag('div', array('class' => 'col-md-8 orange-transverse-discussion-title'));
-                $output .= html_writer::tag('span', get_string('title', 'block_orange_transverse_discussion'), array('class' => 'h2'));
-                $output .= html_writer::end_tag('span');
-                $output .= html_writer::empty_tag('br');
-                $output .= html_writer::tag('span', get_string('intro', 'block_orange_transverse_discussion'), array('class' => 'h3'));
-                $output .= html_writer::end_tag('span');
+                $output .= html_writer::start_tag('div');
+                    $output .= html_writer::tag('span', get_string('title', 'block_orange_transverse_discussion'), array('class' => 'h2'));
+                    $output .= html_writer::end_tag('span');
+                $output .= html_writer::end_tag('div');
+                $output .= html_writer::start_tag('div');
+                    $output .= html_writer::tag('span', get_string('intro', 'block_orange_transverse_discussion'), array('class' => 'h3'));
+                    $output .= html_writer::end_tag('span');
+                $output .= html_writer::end_tag('div');
             $output .= html_writer::end_tag('div');
 
             $output .= html_writer::start_tag('div', array('class' => 'col-md-4 text-right'));
@@ -61,7 +64,7 @@ class block_orange_transverse_discussion_renderer extends plugin_renderer_base {
             $output .= html_writer::start_tag('div', array('class' => 'col-md-5 text-left'));
                 // TODO : image à modifier.
                 $imgurl = $CFG->wwwroot. '/blocks/orange_transverse_discussion/pix/tmp-partie-forum.png';
-                $output .= html_writer::empty_tag('img', array('src' => $imgurl, 'class' => 'col-xs-12 essentiels-image img-responsive'));
+                $output .= html_writer::empty_tag('img', array('src' => $imgurl, 'class' => 'essentiels-image img-responsive'));
             $output .= html_writer::end_tag('div');
 
             $output .= html_writer::start_tag('div', array('class' => 'col-md-7 text-left orange-transverse-discussion-info'));
@@ -72,12 +75,14 @@ class block_orange_transverse_discussion_renderer extends plugin_renderer_base {
                 $output .= html_writer::end_tag('div');
 
                 $output .= html_writer::start_tag('div', array('class' => 'row info-item'));
-                    $output .= html_writer::tag('span', '<strong>' . get_string('forumname', 'block_orange_transverse_discussion') . '</strong>');
-                    $output .= html_writer::tag('span', $discussion->get_forum()->get_name());
-                    $output .= html_writer::empty_tag('br');
-                    $output .= html_writer::tag('span', '<strong>' . get_string('discussionname', 'block_orange_transverse_discussion') . '</strong>');
-                    $output .= html_writer::tag('span', $discussion->get_subject());
-                    $output .= html_writer::empty_tag('br');
+                    $output .= html_writer::start_tag('div');
+                        $output .= html_writer::tag('span', '<strong>' . get_string('forumname', 'block_orange_transverse_discussion') . '</strong>');
+                        $output .= html_writer::tag('span', $discussion->get_forum()->get_name());
+                    $output .= html_writer::end_tag('div');
+                    $output .= html_writer::start_tag('div');
+                        $output .= html_writer::tag('span', '<strong>' . get_string('discussionname', 'block_orange_transverse_discussion') . '</strong>');
+                        $output .= html_writer::tag('span', $discussion->get_subject());
+                    $output .= html_writer::end_tag('div');
                 $output .= html_writer::end_tag('div');
 
                 $output .= html_writer::start_tag('div', array('class' => 'row info-separator'));
@@ -89,17 +94,19 @@ class block_orange_transverse_discussion_renderer extends plugin_renderer_base {
                     $output .= html_writer::start_tag('div', array('class' => 'col-md-1 info-picture'));
                         $output .= $OUTPUT->user_picture($firstposter, array('class' => ''));
                     $output .= html_writer::end_tag('div');
+
                     $output .= html_writer::start_tag('div', array('class' => 'col-md-11'));
-                        $output .= html_writer::tag('span', get_string('createdby', 'block_orange_transverse_discussion'));
-                        $output .= html_writer::link(new moodle_url('/user/profile.php', array('id' => $firstposter->id)),
+                        $output .= html_writer::start_tag('div');
+                            $output .= html_writer::tag('span', get_string('createdby', 'block_orange_transverse_discussion'));
+                            $output .= html_writer::link(new moodle_url('/user/profile.php', array('id' => $firstposter->id)),
                                 '<strong>' . fullname($firstposter) . '</strong>');
+                        $output .= html_writer::end_tag('div');
 
-                        $output .= html_writer::empty_tag('br');
-
-                        $output .= html_writer::tag('span', get_string('lineresponsebegin', 'block_orange_transverse_discussion'));
-                        $output .= html_writer::tag('span', '<strong>' . $discussion->get_num_posts() . '</strong>', array('class' => 'text-orange'));
-                        $output .= html_writer::tag('span', '<strong>' . utilities_object::get_string_plural($discussion->get_num_posts(), 'block_orange_transverse_discussion', 'response', 'responseplural') . '</strong>');
-
+                        $output .= html_writer::start_tag('div');
+                            $output .= html_writer::tag('span', get_string('lineresponsebegin', 'block_orange_transverse_discussion'));
+                            $output .= html_writer::tag('span', '<strong>' . $discussion->get_num_posts() . '</strong>', array('class' => 'text-orange'));
+                            $output .= html_writer::tag('span', '<strong>' . utilities_object::get_string_plural($discussion->get_num_posts(), 'block_orange_transverse_discussion', 'response', 'responseplural') . '</strong>');
+                        $output .= html_writer::end_tag('div');
                     $output .= html_writer::end_tag('div');
                 $output .= html_writer::end_tag('div');
 
