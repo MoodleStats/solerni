@@ -73,7 +73,8 @@ class block_orange_list_bestforumng_renderer extends plugin_renderer_base {
         $output .= html_writer::start_tag('div', array('class' => 'u-inverse'));
             $output .= html_writer::start_tag('div', array('class' => 'row u-row-table'));
                 $output .= html_writer::start_tag('div', array('class' => 'col-xs-9 orange-listbestforumng-titlecourse'));
-                    $output .= html_writer::tag('h4', $course->fullname);
+                    $output .= html_writer::tag('span', $course->fullname, array('class' => 'h4'));
+                    $output .= html_writer::end_tag('span');
                 $output .= html_writer::end_tag('div');
 
                 $output .= html_writer::start_tag('div', array('class' => 'col-xs-3 text-right u-vertical-align'));
