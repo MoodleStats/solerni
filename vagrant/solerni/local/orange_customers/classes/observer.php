@@ -57,18 +57,9 @@ class local_orange_customers_observer {
         global $DB;
 
         $category = (object)$event->get_record_snapshot('course_categories', $event->objectid);
-
-        $customer = customer_get_customerbycategoryid($category->id);
-
-        if ($customer === false) {
-            $customer = new stdClass();
-            $customer->name = $category->name;
-            $customer->categoryid = $category->id;
-            $DB->insert_record('orange_customers', $customer, false);
-        } else {
-            $DB->execute("UPDATE {orange_customers}
-        		          SET name = '". str_replace("'", "\'", $category->name) . "'
-        		          WHERE categoryid = ". $category->id );
+        self::orange_customer_created($category);
+        if ((!$CFG->solerni_isprivate) && ($customer === true)) {
+            self::piwik_segment_created($category);
         }
     }
 
@@ -92,6 +83,22 @@ class local_orange_customers_observer {
         $DB->insert_record('orange_customers', $customer, false);
     }
 
+    private static function orange_customer_updated($category) {
+        global $DB;
+
+        $customer = customer_get_customerbycategoryid($category->id);
+
+        if ($customer === false) {
+            $customer = new stdClass();
+            $customer->name = $category->name;
+            $customer->categoryid = $category->id;
+            $DB->insert_record('orange_customers', $customer, false);
+        } else {
+            $DB->execute("UPDATE {orange_customers}
+        		          SET name = '". str_replace("'", "\'", $category->name) . "'
+        		          WHERE categoryid = ". $category->id );
+        }
+    }
 
     private static function piwik_segment_created($category) {
         global $CFG;
