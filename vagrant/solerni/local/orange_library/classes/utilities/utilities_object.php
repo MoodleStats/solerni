@@ -224,10 +224,22 @@ class utilities_object {
      * @param int $pluginname
      * @param int $singulars
      * @param int $plural
+     * @param mixed $a Value or null
      * @return string
      */
-    public static function get_string_plural($testvalue, $pluginname, $singular, $plural) {
+    public static function get_string_plural($testvalue, $pluginname, $singular, $plural, $a=null) {
 
-        return ((int) $testvalue > 1) ? get_string($plural, $pluginname) : get_string($singular, $pluginname);
+        return ((int) $testvalue > 1) ? get_string($plural, $pluginname, $a) : get_string($singular, $pluginname, $a);
     }
+
+    /**
+     * Is the current page is the frontpage
+     * @return boolean
+     */
+    public static function is_frontpage() {
+        global $PAGE;
+
+        return ($PAGE->pagetype == 'site-index') ;
+    }
+
 }

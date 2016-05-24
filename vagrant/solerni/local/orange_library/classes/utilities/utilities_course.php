@@ -736,17 +736,6 @@ class utilities_course {
     }
 
     /**
-     * Very simple function to check if we are inside the frontpage course (id=1)
-     *
-     * @param: $course
-     * @return boolean
-     */
-    public static function is_frontpage_course($course) {
-
-        return ($course->id == 1);
-    }
-
-    /**
      *
      * @param type $extendedcourse
      * @return type

@@ -16,6 +16,8 @@
 
 use local_orange_library\utilities\utilities_course;
 use local_orange_library\utilities\utilities_image;
+use local_orange_library\utilities\utilities_object;
+use local_orange_library\utilities\utilities_network;
 
 global $COURSE, $SCRIPT, $ME;
 
@@ -41,16 +43,41 @@ if ($oncoursepage = utilities_course::is_on_course_page()) {
         $customerlogoresizedurl = utilities_image::get_resized_url($customer->urlimg,
             array ('scale' => 'true', 'h' => 60));
     }
-} ?>
+}
+
+$onthematicfrontpage = false;
+// This page is not available on Solerni HOME
+if (local_orange_library\utilities\utilities_network::is_platform_uses_mnet() &&
+        !local_orange_library\utilities\utilities_network::is_home() &&
+        local_orange_library\utilities\utilities_network::is_thematic() &&
+        local_orange_library\utilities\utilities_object::is_frontpage()) {
+    $nbusersconnected = local_orange_library\utilities\utilities_user::get_nbconnectedusers();
+    $nbusersregistred = local_orange_library\utilities\utilities_user::get_nbusers();
+    $onthematicfrontpage = true;
+}
+
+?>
 <!-- page block title -->
 <div class="row">
     <div class="col-xs-12 page-block-title">
-        <?php if ($titles->pageblocktitleh1) : ?>
-        <?php if (isset($customerlogoresizedurl)): ?>
-            <img class="pull-right page-block-title__img" src="<?php echo $customerlogoresizedurl; ?>"
-                 alt=" <?php echo get_string('course_edited_by', 'theme_halloween', $customer->name); ?>">
+
+        <?php if($onthematicfrontpage) : ?>
+        <?php echo "<div class='page-block-lineinfo-thematic-frontpage'>" .
+            get_string('lineinfobegin', 'theme_halloween') .
+            "<span class='text-bold page-block-lineinfo-color'>" . $nbusersregistred . "</span>" .
+        utilities_object::get_string_plural($nbusersregistred, 'theme_halloween', 'registered', 'registeredplural') .
+            "<span class='text-bold page-block-lineinfo-color'>" . $nbusersconnected . "</span>" .
+        utilities_object::get_string_plural($nbusersconnected, 'theme_halloween', 'connected', 'connectedplural') .
+                "</div>";
+        ?>
         <?php endif; ?>
-        <h1>
+
+        <?php if ($titles->pageblocktitleh1 && !$onthematicfrontpage) : ?>
+            <?php if (isset($customerlogoresizedurl)): ?>
+                <img class="pull-right page-block-title__img" src="<?php echo $customerlogoresizedurl; ?>"
+                     alt=" <?php echo get_string('course_edited_by', 'theme_halloween', $customer->name); ?>">
+            <?php endif; ?>
+            <h1>
             <?php if ($oncoursepage) : ?>
                 <a class="page-block-title__link" href="<?php echo $titles->pageblockurl; ?>" title="">
             <?php endif; ?>
@@ -58,7 +85,7 @@ if ($oncoursepage = utilities_course::is_on_course_page()) {
             <?php if ($oncoursepage) : ?>
                 </a>
             <?php endif; ?>
-        </h1>
+            </h1>
         <?php endif; ?>
         <?php if ($titles->pageblockdesc) : ?>
             <p><?php echo $titles->pageblockdesc; ?></p>
