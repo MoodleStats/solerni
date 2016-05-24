@@ -45,7 +45,6 @@ if ($oncoursepage = utilities_course::is_on_course_page()) {
     }
 }
 
-$onthematicfrontpage = false;
 // This page is not available on Solerni HOME
 if (local_orange_library\utilities\utilities_network::is_platform_uses_mnet() &&
         !local_orange_library\utilities\utilities_network::is_home() &&
@@ -61,18 +60,16 @@ if (local_orange_library\utilities\utilities_network::is_platform_uses_mnet() &&
 <div class="row">
     <div class="col-xs-12 page-block-title">
 
-        <?php if($onthematicfrontpage) : ?>
+        <?php if(isset($onthematicfrontpage)) : ?>
         <?php echo "<div class='page-block-lineinfo-thematic-frontpage'>" .
             get_string('lineinfobegin', 'theme_halloween') .
-            "<span class='text-bold page-block-lineinfo-color'>" . $nbusersregistred . "</span>" .
+            "<span class='text-bold text-secondary'>" . $nbusersregistred . "</span>" .
         utilities_object::get_string_plural($nbusersregistred, 'theme_halloween', 'registered', 'registeredplural') .
-            "<span class='text-bold page-block-lineinfo-color'>" . $nbusersconnected . "</span>" .
+            "<span class='text-bold text-secondary'>" . $nbusersconnected . "</span>" .
         utilities_object::get_string_plural($nbusersconnected, 'theme_halloween', 'connected', 'connectedplural') .
                 "</div>";
         ?>
-        <?php endif; ?>
-
-        <?php if ($titles->pageblocktitleh1 && !$onthematicfrontpage) : ?>
+        <?php elseif ($titles->pageblocktitleh1) : ?>
             <?php if (isset($customerlogoresizedurl)): ?>
                 <img class="pull-right page-block-title__img" src="<?php echo $customerlogoresizedurl; ?>"
                      alt=" <?php echo get_string('course_edited_by', 'theme_halloween', $customer->name); ?>">
@@ -87,6 +84,7 @@ if (local_orange_library\utilities\utilities_network::is_platform_uses_mnet() &&
             <?php endif; ?>
             </h1>
         <?php endif; ?>
+
         <?php if ($titles->pageblockdesc) : ?>
             <p><?php echo $titles->pageblockdesc; ?></p>
         <?php endif; ?>
