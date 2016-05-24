@@ -52,12 +52,12 @@ $string['email_desc'] = 'You can inform users by email';
 $string['mailerror'] = 'the mail can\'t be sent';
 $string['emailsubject'] = 'mail subject';
 $string['emailsubject_desc'] = 'Subject shown on sent mail';
-$string['defaultemailsubject'] = 'Your account has been deleted from Solerni';
+$string['defaultemailsubject'] = 'Your {$a} account has been deleted';
 $string['emailmsg'] = 'mail message';
 $string['emailmsg_desc'] = 'A custom welcome message may be added as plain text or Moodle-auto format, including HTML tags and multi-lang tags.
 The following placeholders may be included in the message:
     User\'s name {$a->fullname}
     User\'s email {$a->email}';
-$string['defaultemailmsg'] = mail_init::init('defaultemailmsg','html');
+$string['defaultemailmsg'] = mail_init::init('defaultemailmsg', 'html');
 $string['enabledemail'] = 'Enabled email';
 $string['enabledemail_desc'] = 'Enable plateform to send mail to confirm user deletion';

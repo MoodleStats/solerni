@@ -21,6 +21,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 namespace local_orange_library\utilities;
+use theme_halloween\tools\theme_utilities;
+use local_orange_library\utilities\utilities_network;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -29,7 +31,7 @@ class utilities_user {
     const USERLOGGED                = 0;
     const USERENROLLED              = 1;
     const USERUNENROLLED            = 2;
-    const USERUNLOGGED            = 3;
+    const USERUNLOGGED              = 3;
     const PRIVATEPF                 = 4;
 
     static public function is_user_site_admin($user) {
@@ -38,6 +40,10 @@ class utilities_user {
                 return true;
             }
         }
+    }
+
+    static public function is_user_mnet($user) {
+        return ($user->mnethostid > 1);
     }
 
     static public function is_user_course_admin($user, $course) {
@@ -97,6 +103,7 @@ class utilities_user {
 
         $userdata = array();
 
+        // Profile fields to synchronized.
         if ($user = $DB->get_record('user', array('username' => $username))) {
             if ($fields = $DB->get_records('user_info_field')) {
                 foreach ($fields as $field) {
@@ -104,9 +111,23 @@ class utilities_user {
                     require_once($CFG->dirroot.'/user/profile/field/'.$field->datatype.'/field.class.php');
                     $newfield = 'profile_field_'.$field->datatype;
                     $formfield = new $newfield($field->id, $user->id);
-                    $userdata[] = array ('name' => 'profile_field_'.$field->shortname, 'value' => $formfield->data);
+                    $userdata[] = array ('type' => 'profile', 'name' => 'profile_field_'.$field->shortname,
+                        'value' => $formfield->data);
                 }
             }
+        }
+
+        // Forum preferences stored in user record.
+        $userparameters = array('maildigest', 'autosubscribe', 'trackforums', 'mailformat', 'timecreated');
+        foreach ($userparameters as $userparameter) {
+            $userdata[] = array ('type' => 'profile', 'name' => $userparameter, 'value' => $user->{$userparameter});
+        }
+
+        // Preferences to synchronized.
+        $preferences = array('badgeprivacysetting');
+        foreach ($preferences as $preference) {
+            $userdata[] = array ('type' => 'preference', 'name' => $preference,
+                'value' => get_user_preferences($preference, 1, $user));
         }
 
         return $userdata;
@@ -122,5 +143,158 @@ class utilities_user {
 
         $url = $home->url . "/user/edit.php?returnto=profile";
         return $url;
+    }
+
+    /**
+     * Get the number of users connected at the service
+     *
+     * @return int
+     */
+
+    static public function get_nbconnectedusers() {
+        global $CFG, $DB;
+
+        $timetoshowusers = 300; // Seconds default.
+        if (isset($CFG->block_online_users_timetosee)) {
+            $timetoshowusers = $CFG->block_online_users_timetosee * 60;
+        }
+        $now = time();
+        $timefrom = 100 * floor(($now - $timetoshowusers) / 100); // Round to nearest 100 seconds for better query cache.
+
+        $params['now'] = $now;
+        $params['timefrom'] = $timefrom;
+
+        $csql = "SELECT COUNT(u.id) as nb
+            FROM {user} u
+            WHERE u.lastaccess > :timefrom
+            AND u.lastaccess <= :now
+            AND u.deleted = 0";
+
+        if ($usercount = $DB->get_record_sql($csql, $params)) {
+            return $usercount->nb;
+        }
+
+        return 0;
+    }
+
+    /**
+     * Get the numbers of users enrolled in the service
+     *
+     * @return int
+     */
+    static public function get_nbusers() {
+        global $DB;
+        // Timecreated = 0 if user has been deleted.
+        $sql = "SELECT count(*) as count
+            FROM {user}
+            WHERE timecreated <> 0
+            AND confirmed = 1
+            AND suspended = 0";
+
+        if ($nbusers = $DB->get_record_sql($sql)) {
+            return $nbusers->count;
+        }
+        return 0;
+    }
+
+    /**
+     * Get the last user registered at the service
+     *
+     * @return object User
+     */
+    static public function get_lastregistered() {
+        global $DB;
+        // Timecreated = 0 if user has been deleted.
+        $sql = "SELECT *
+            FROM {user}
+            WHERE timecreated <> 0
+            AND confirmed = 1
+            AND suspended = 0
+            ORDER BY timecreated DESC
+            LIMIT 1";
+
+        if ($userobject = $DB->get_record_sql($sql)) {
+            return $userobject;
+        }
+        return null;
+    }
+
+    /**
+     * Delete user on a Thematic. Call by a webservice from Solerni Home to delete
+     * Mnet user on thematics
+     * This function MUST NOT be used to delete a user on Solerni Home
+     *
+     * @return array $result : command status
+     */
+    static public function del_user_on_thematic($username, $email) {
+        global $DB;
+
+        $result = true;
+
+        // The user should be a mnet user .
+        $user = $DB->get_record_sql("SELECT *
+            FROM {user} u
+            WHERE u.username= :username AND u.email = :email AND u.mnethostid > 1",
+            array('username' => $username, 'email' => $email), IGNORE_MISSING);
+
+        // If user exist delete it.
+        // User will not exist if the user never jump to this thematic.
+        if ($user) {
+            delete_user($user);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Delete user on remote Thematic.
+     *
+     * @params host $host
+     * @params user $user
+     * @return int $status
+     */
+    static private function del_user_on_remote_thematic($host, $user) {
+        global $CFG, $PAGE;
+
+        // Check that Webservice is activated.
+        if (!theme_utilities::is_theme_settings_exists_and_nonempty('webservicestoken'.$host->id)) {
+            error_log('Resac WebService not configurated - Cannot delete user');
+            return $host;
+        }
+
+        require_once($CFG->libdir . '/filelib.php'); // Include moodle curl class.
+        $token = $PAGE->theme->settings->{"webservicestoken{$host->id}"};
+        $serverurl = new \moodle_url($host->url . '/webservice/rest/server.php',
+                array('wstoken' => $token,
+                    'wsfunction' => 'local_orange_library_del_user_on_thematic',
+                    'moodlewsrestformat' => 'json'));
+        $curl = new \curl;
+        $result = json_decode($curl->post(
+                htmlspecialchars_decode($serverurl->__toString()),
+                array('username' => $user->username, 'email' => $user->email)));
+
+        if ($result && is_object($result) && $result->errorcode) {
+            error_log('Resac Delete User Request Returned An Error. Message: '
+                    . $result->message);
+            return false;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Propagate a user delete action on remote thematics.
+     *
+     * @params host $host
+     * @return int $status
+     */
+    static public function propagate_del_user($user) {
+        $hosts = utilities_network::get_hosts();
+
+        foreach ($hosts as $host) {
+            $result = self::del_user_on_remote_thematic($host, $user);
+        }
+
+        return true;
     }
 }

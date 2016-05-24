@@ -23,7 +23,6 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once(dirname(__FILE__) . '/mail_object.php');
 
-
 class mail_generate {
 
     /**
@@ -32,18 +31,19 @@ class mail_generate {
      * @return true
      */
     static public function generate() {
+        global $CFG;
 
         // Mail for new password.
         mail_object::generate('newpasswordtext', 'text');
         mail_object::generate('newpasswordtext', 'html');
 
-        // Mail sent after user registration.
+        // Mail sent after user registration for public platform.
         mail_object::generate('contentuseraccountemail', 'text');
         mail_object::generate('contentuseraccountemail', 'html');
 
-        // Welcome message.
-        mail_object::generate('contentwelcomeemail', 'text');
-        mail_object::generate('contentwelcomeemail', 'html');
+        // Mail sent after user registration for private platform.
+        mail_object::generate('contentuseraccountemailprivate', 'text');
+        mail_object::generate('contentuseraccountemailprivate', 'html');
 
         // Reset password.
         mail_object::generate('emailresetconfirmation', 'text');
@@ -66,12 +66,17 @@ class mail_generate {
         mail_object::generate('defaultemailmsg', 'html');
 
         // New User by CSV import.
-        mail_object::generate('newusernewpasswordtext', 'text');
-        mail_object::generate('newusernewpasswordtext', 'html');
+        // For this email we have a different wording for private instance.
+        mail_object::generate('newusernewpasswordtext', 'text', 'inscription', $CFG->solerni_isprivate);
+        mail_object::generate('newusernewpasswordtext', 'html', 'inscription', $CFG->solerni_isprivate);
 
         // Mail for Badges.
-        mail_object::generate('badgemessagebody', 'text');
-        mail_object::generate('badgemessagebody', 'html');
+        mail_object::generate('messagebody', 'text');
+        mail_object::generate('messagebody', 'html');
+
+        // Mail for email change confirmation.
+        mail_object::generate('emailupdatemessage', 'text');
+        mail_object::generate('emailupdatemessage', 'html');
 
         return true;
     }

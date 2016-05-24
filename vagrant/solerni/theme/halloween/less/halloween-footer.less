@@ -6,12 +6,28 @@
 /*
  * List Links (as in footer)
  * */
+
+.footer {
+
+    padding-top: @s-double-md-margin;
+
+    .footer-article {
+        margin-top:     (@s-small-md-margin * -1.5);
+
+        h2 {
+            margin-top:     0;
+            line-height:    1;
+        }
+    }
+}
+
 .list-link {
     margin: 0;
     padding: 0;
 }
 
     .link-item {
+        margin-top:     0;
         margin-bottom:  @s-triple-xs-margin;
         text-align:     center;
 
@@ -22,7 +38,6 @@
     }
 
     .link-item:first-child {
-        padding:            @s-small-xs-margin 0;
         background-color:   @gray-before-light-plus;
         color:              @brand-primary;
 

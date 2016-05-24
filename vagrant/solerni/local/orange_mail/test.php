@@ -57,31 +57,35 @@ $langs = get_string_manager()->get_list_of_translations();
 foreach ($langs as $lang => $value) {
     force_current_language($lang);
     if ($sendhtmlemail) {
-        mail_test::reset_password_and_mail($USER);
-        mail_test::user_account_mail($USER);
-        mail_test::user_welcome_mail($USER);
-        mail_test::send_password_change_confirmation_email($USER);
-        mail_test::send_confirmation_email($USER);
-        mail_test::send_email_deletion($USER);
-        if (count($instances) != 0) {
-            mail_test::email_welcome_message($instanceself, $USER);
-            mail_test::email_information_message($instanceself, $USER);
+        mail_test::reset_password_and_mail($USER);   // M1.
+        mail_test::user_account_mail_public($USER);  // M2 public.
+        mail_test::user_account_mail_private($USER); // M2 private.
+        mail_test::send_password_change_confirmation_email($USER); // M4.
+        mail_test::send_confirmation_email($USER);   // M5.
+        if (isset($instanceself)) {
+            mail_test::email_welcome_message($instanceself, $USER);      // M6.
+            mail_test::email_information_message($instanceself, $USER);  // M7.
+            mail_test::forum_delete_post($USER);    // M9.
         }
-        mail_test::setnew_password_and_mail($USER);
+        mail_test::send_email_deletion($USER);      // M8.
+        mail_test::setnew_password_and_mail($USER); // M14.
+        mail_test::emailupdatemessage($USER);       // M17.
     }
 
     if ($sendtextemail) {
-        mail_test::reset_password_and_mail($USER, true);
-        mail_test::user_account_mail($USER, true);
-        mail_test::user_welcome_mail($USER, true);
-        mail_test::send_password_change_confirmation_email($USER, true);
-        mail_test::send_confirmation_email($USER, true);
-        mail_test::send_email_deletion($USER, true);
-        if (count($instances) != 0) {
-            mail_test::email_welcome_message($instanceself, $USER, true);
-            mail_test::email_information_message($instanceself, $USER, true);
+        mail_test::reset_password_and_mail($USER, true);   // M1.
+        mail_test::user_account_mail_public($USER, true);  // M2 public.
+        mail_test::user_account_mail_private($USER, true); // M2 private.
+        mail_test::send_password_change_confirmation_email($USER, true); // M4.
+        mail_test::send_confirmation_email($USER, true);   // M5.
+        if (isset($instanceself)) {
+            mail_test::email_welcome_message($instanceself, $USER, true);      // M6.
+            mail_test::email_information_message($instanceself, $USER, true);  // M7.
+            mail_test::forum_delete_post($USER, true);    // M9.
         }
-        mail_test::setnew_password_and_mail($USER, true);
+        mail_test::send_email_deletion($USER, true);      // M8.
+        mail_test::setnew_password_and_mail($USER, true); // M14.
+        mail_test::emailupdatemessage($USER, true);       // M17.
     }
 }
 force_current_language($currentlang);

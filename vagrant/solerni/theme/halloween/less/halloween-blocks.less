@@ -35,7 +35,6 @@
 
 .block .block_tree .tree_item.branch {
     background-position:    100% 50%;
-    x-padding-left:           @s-small-xs-margin;
     padding-right:          @s-double-xs-margin;
     margin:                 0;
 }
@@ -106,57 +105,7 @@
     width: 100%;
 }
 
-/*
- * Blocks Orange course extended
- */
-.block .essentiels-image {
-    width:          100%;
-    max-width:      100%;
-    height:         auto;
-    margin-bottom:  @padding-base-vertical;
-}
-
-.block .essentiels-icon {
-    content:        "";
-    position:       absolute;
-    width:          24px;
-    height:         24px;
-    top:            -3px;
-    left:           -15%;
-    pointer-events: none;
-    background:     transparent url([[pix:block_orange_course_extended|sprites_solerni]]) no-repeat 0 0 scroll;
-}
-
-.block .essentiels__date {
-    background-position: -210px -88px;
-}
-.block .essentiels__duration {
-    background-position: -210px -113px;
-}
-.block .essentiels__price {
-    background-position: -210px -139px;
-}
-.block .essentiels__certification {
-    background-position: -210px -164px;
-}
-.block .essentiels__language {
-    background-position: -210px -189px;
-}
-.block .essentiels__video {
-    background-position: -210px -214px;
-}
-.block .essentiels__subscription {
-    background-position: -210px -239px;
-}
-.block .essentiels__subscribers {
-    background-position: -207px -299px;
-}
-
-.block_orange_course_extended .content {
-    padding: 0;
-}
-
-.block .border_bottom{
+.block .border_bottom {
     border-bottom:  1px solid @gray-light;
 }
 
@@ -164,6 +113,7 @@
     font-weight: bold;
     font-family: @font-family-titles;
 }
+
 .block .unlist {
     margin-top: @s-small-xs-margin;
 }
@@ -196,15 +146,11 @@
     font-size:      @font-size-base;
 }
 
-.block .tree_item span {
-    font-family:    @font-family-titles;
-    font-weight:    bold;
-}
-
 .block .tree_item a:hover,
 .block .tree_item a:active,
 .block .tree_item a:focus,
-.block .active_tree_node > a {
+.block .active_tree_node > a,
+.block .active_tree_node > a > span {
     color: @brand-secondary;
 }
 
@@ -213,11 +159,46 @@
     font-weight: 200;
 }
 
-.block .contains_branch .branch a {
+.block .contains_branch .branch > a,
+.block .contains_branch .branch > span {
     font-family: @font-family-titles;
     font-weight: 800;
 }
 
 .block_navigation .block_tree .active_tree_node {
     font-family: @font-family-titles;
+}
+
+/*
+ * Orange Block Reset
+ */
+[class^="block_orange"] {
+
+    border:         0;
+    margin-bottom:  0;
+    overflow:     hidden; // Avoid accidental spacing between blocks
+    padding-top:    @s-triple-md-margin;
+
+    .header {
+        border:     0;
+    }
+
+    .orange-block-heading {
+        padding: 0 @s-medium-md-margin;
+    }
+
+    .content {
+        border:     0;
+        padding:    0;
+        position:   static;
+
+        h2, .h2 {
+            margin-top:     0;
+            margin-bottom:  @s-triple-md-margin;
+        }
+    }
+
+    .orange-block-footer {
+        padding: @s-triple-md-margin @s-medium-md-margin;
+    }
 }

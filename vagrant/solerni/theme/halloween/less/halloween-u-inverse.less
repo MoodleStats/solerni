@@ -3,7 +3,6 @@
  * This class should tell to any child element that it should adopt
  * an inversed layout between background and foreground.
   * */
-
 .u-inverse {
     background-color:   @brand-primary;
     color:              @brand-tertiary;
@@ -50,13 +49,13 @@
         }
     }
 
-    & h1, & h2, & h3, & h4, & h5, & h6,
+    & h1, & h2, & h4, & h5, & h6,
     & .h1, & .h2, & .h3, & .h4, & .h5, & .h6 {
         color: @brand-secondary;
     }
 
-    & p,
-    & .p  {
+    & p, & h3,
+    & .p, & .h3  {
         color: @brand-tertiary;
     }
 
@@ -96,9 +95,14 @@
         }
     }
 
-    // Dropdown button inside the u-inverse footer
-    & .list-link .dropdown .btn {
+    // Dropdown button with no border (i.e. inside the u-inverse footer)
+    & .dropdown--no-border {
         border: 0;
+
+        .btn,
+        .dropdown-menu {
+            border: 0;
+        }
     }
 
     & .fullwidth-line {
@@ -114,6 +118,7 @@
     .resac-navigation .navigation-item {
         background-color: @brand-primary;
 
+        &:hover,
         &.active {
             color: @brand-secondary;
         }

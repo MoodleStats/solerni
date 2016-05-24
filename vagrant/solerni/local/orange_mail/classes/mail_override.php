@@ -178,7 +178,7 @@ class mail_override {
             $user->mailformat = 1;
         }
 
-        $subject = format_string($site->fullname) .': '. (string)new lang_string('newusernewpasswordsubj', '', $a, $lang);
+        $subject = (string)new lang_string('newusernewpasswordsubj', '', $a, $lang);
 
         // Directly email rather than using the messaging system to ensure its not routed to a popup or jabber.
         return email_to_user($user, $supportuser, $subject, $message, $messagehtml);

@@ -23,6 +23,9 @@ defined('MOODLE_INTERNAL') || die();
 
 use theme_halloween\settings\options;
 use theme_halloween\tools\theme_utilities;
+use local_orange_library\utilities\utilities_course;
+require_once($CFG->dirroot . '/local/orange_mail/classes/mail_object.php');
+require_once($CFG->dirroot . '/mod/forumng/mod_forumng.php');
 
 /**
  * All functions in this class are copy of Moodle code or Plugins code.
@@ -64,7 +67,7 @@ class mail_test {
     }
 
 
-    static public function user_account_mail($user, $modetext=false) {
+    static public function user_account_mail_public($user, $modetext=false) {
         global $CFG;
 
         $profileurl = "$CFG->wwwroot/user/view.php?id=" . $user->id;
@@ -88,7 +91,7 @@ class mail_test {
         }
 
         $subject = get_string('subjectuseraccountemail', 'local_orange_event_user_loggedin');
-        $subject = '(M2)' . str_replace('{$a->sitename}', format_string($site->fullname), $subject);
+        $subject = '(M2)' . str_replace('{$a->customername}', ucfirst($CFG->solerni_customer_name), $subject);
 
         if ($modetext) {
             $user->mailformat = 0;
@@ -99,8 +102,7 @@ class mail_test {
         email_to_user($user, $contact, $subject, $messagetext, $messagehtml);
     }
 
-
-    static public function user_welcome_mail($user, $modetext=false) {
+    static public function user_account_mail_private($user, $modetext=false) {
         global $CFG;
 
         $profileurl = "$CFG->wwwroot/user/view.php?id=" . $user->id;
@@ -108,8 +110,8 @@ class mail_test {
         $siteurl = $CFG->wwwroot;
         $site  = get_site();
 
-        // Send welcome message.
-        $message = get_string('contentwelcomeemail', 'local_orange_event_user_loggedin');
+        // Send account email reminder.
+        $message = get_string('contentuseraccountemailprivate', 'local_orange_event_user_loggedin');
         $key = array('{$a->fullname}', '{$a->email}', '{$a->sitename}', '{$a->siteurl}', '{$a->profileurl}');
         $value = array(fullname($user), $user->email, format_string($site->fullname),
             $siteurl, $profileurl);
@@ -123,8 +125,8 @@ class mail_test {
             $messagetext = html_to_text($messagehtml);
         }
 
-        $subject = get_string('subjectwelcomeemail', 'local_orange_event_user_loggedin');
-        $subject = '(M3)' . str_replace('{$a->sitename}', format_string($site->fullname), $subject);
+        $subject = get_string('subjectuseraccountemailprivate', 'local_orange_event_user_loggedin');
+        $subject = '(M2)' . str_replace('{$a->customername}', ucfirst($CFG->solerni_customer_name), $subject);
 
         if ($modetext) {
             $user->mailformat = 0;
@@ -133,7 +135,6 @@ class mail_test {
         }
 
         email_to_user($user, $contact, $subject, $messagetext, $messagehtml);
-
     }
 
     static public function send_password_change_confirmation_email($user, $modetext=false) {
@@ -250,6 +251,7 @@ class mail_test {
         $a->coursename = format_string($course->fullname);
         $a->profileurl = "$CFG->wwwroot/user/view.php?id=$user->id&course=$course->id";
         $a->fullname = fullname($user);
+        $a->learnmoreurl = utilities_course::get_course_findoutmore_url($instance->courseid);
 
         if (trim($instance->customtext1) !== '') {
             $messagehtml = $instance->customtext1;
@@ -275,6 +277,7 @@ class mail_test {
     static public function send_email_deletion($user, $modetext=false) {
 
         $supportuser = core_user::get_support_user();
+        $site = get_site();
         $message = get_config('local_eledia_makeanonymous', 'emailmsg');
 
         $a = new stdClass();
@@ -301,7 +304,7 @@ class mail_test {
 
         $subject = '(M8)' . get_config('local_eledia_makeanonymous', 'emailsubject');
         if (trim($subject) !== '') {
-            $subject = '(M8)' . get_string('defaultemailsubject', 'local_eledia_makeanonymous');
+            $subject = '(M8)' . get_string('defaultemailsubject', 'local_eledia_makeanonymous', format_string($site->fullname));
         }
 
         if ($modetext) {
@@ -316,7 +319,64 @@ class mail_test {
     }
 
     // Mail M9 to M13 in Forum NG plugin.
+    static public function forum_delete_post($user, $modetext=false) {
+        global $SITE, $USER;
 
+        $supportuser = core_user::get_support_user();
+
+        $postid = 1;
+        $post = mod_forumng_post::get_from_id($postid, 0);
+        $discussion = $post->get_discussion();
+        $forum = $post->get_forum();
+        $course = $forum->get_course();
+
+        // Set up page.
+        $pagename = get_string(true ? 'deletepost' : 'undeletepost', 'forumng',
+        $post->get_effective_subject(true));
+        $pageparams = array('p' => $postid);
+        $url = new moodle_url('/mod/forumng/deletepost.php', $pageparams);
+        $out = $discussion->init_page($url, $pagename);
+        $messagepost = $post->display(true, array(mod_forumng_post::OPTION_NO_COMMANDS => true,
+                mod_forumng_post::OPTION_SINGLE_POST => true));
+
+        // Set up the email.
+        $includepost = true;
+        $user = $post->get_user();
+        $from = $SITE->fullname;
+        $subject = get_string('deletedforumpost', 'forumng');
+
+        // Orange - 2016.05.12 - Add intro text.
+        $a = new stdClass();
+        $a->fullname = fullname($user);
+        $a->pseudo = $USER->username;
+        $a->subject = $discussion->get_subject();
+        $a->forum = $forum->get_name();
+        $a->course = $course->fullname;
+        $a->deleteurl = $discussion->get_moodle_url()->out(true);
+        $messagehtml = get_string('deletedforumpostintro', 'forumng', $a);
+        $messagehtml .= get_string('emailcontenthtml', 'forumng', $a);
+
+        // Include the copy of the post in the email to the author.
+        if ($includepost) {
+            $messagehtml .= $messagepost;
+            $message = $post->display(false, array(mod_forumng_post::OPTION_NO_COMMANDS => true,
+                mod_forumng_post::OPTION_SINGLE_POST => true));
+        }
+
+        if ($modetext) {
+            $user->mailformat = 0;
+        } else {
+            $user->mailformat = 1;
+        }
+
+        // Send an email to the author of the post.
+        if (!email_to_user($user, $supportuser, $subject, mail_object::get_mail($message, 'text', ''),
+                mail_object::get_mail($messagehtml, 'html', ''))) {
+            print_error(get_string('emailerror', 'forumng'));
+        }
+    }
+
+    // Mail M14 import user bu CSV.
     static public function setnew_password_and_mail($user, $modetext=false) {
         global $CFG;
 
@@ -351,7 +411,7 @@ class mail_test {
             $user->mailformat = 1;
         }
 
-        $subject = '(M14)' . format_string($site->fullname) .': '. (string)new lang_string('newusernewpasswordsubj', '', $a, $lang);
+        $subject = '(M14)' . (string)new lang_string('newusernewpasswordsubj', '', $a, $lang);
 
         // Directly email rather than using the messaging system to ensure its not routed to a popup or jabber.
         return email_to_user($user, $supportuser, $subject, $message, $messagehtml);
@@ -360,4 +420,30 @@ class mail_test {
 
     // Mail M15 solerni contact form.
 
+    // Mail M16 Badge.
+
+    static public function emailupdatemessage($user, $modetext=false) {
+        global $CFG;
+
+        $site  = get_site();
+
+        $a = new stdClass();
+        $a->url = $CFG->wwwroot . '/user/emailupdate.php?key=' . 'dummy' . '&id=' . $user->id;
+        $a->site = format_string($site->fullname, true, array('context' => context_course::instance(SITEID)));
+        $a->fullname = fullname($user, true);
+
+        $emailupdatemessage = get_string('emailupdatemessage', 'auth', $a);
+        $emailupdatetitle = '(M17)' . get_string('emailupdatetitle', 'auth', $a);
+
+        if ($modetext) {
+            $user->mailformat = 0;
+        } else {
+            $user->mailformat = 1;
+        }
+
+        // Email confirmation directly rather than using messaging so they will definitely get an email.
+        $supportuser = core_user::get_support_user();
+
+        return email_to_user($user, $supportuser, $emailupdatetitle, html_to_text($emailupdatemessage), $emailupdatemessage);
+    }
 }

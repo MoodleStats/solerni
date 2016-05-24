@@ -21,6 +21,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 use theme_halloween\settings\options;
+use local_orange_library\utilities\utilities_network;
 
 defined('MOODLE_INTERNAL') || die;
 
@@ -158,14 +159,6 @@ $name = 'theme_halloween/loginheading';
 $heading = get_string('loginheading', 'theme_halloween');
 $information = get_string('loginheadingdesc', 'theme_halloween');
 $setting = new admin_setting_heading($name, $heading, $information);
-$temp->add($setting);
-
-// Login logo.
-$name = 'theme_halloween/loginlogo';
-$title = get_string('loginlogo', 'theme_halloween');
-$description = get_string('loginlogodesc', 'theme_halloween');
-$setting = new admin_setting_configstoredfile($name, $title, $description, 'loginlogo');
-$setting->set_updatedcallback('theme_reset_all_caches');
 $temp->add($setting);
 
 // Login Title.
@@ -320,24 +313,10 @@ $setting = new admin_setting_configtextarea($name, $title, $description, $defaul
 $setting->set_updatedcallback('theme_reset_all_caches');
 $temp->add($setting);
 
-// Signup Form Bottom Helper Text.
-$name = 'theme_halloween/signupformfooter';
-$title = get_string('signupformfooter', 'theme_halloween');
-$description = get_string('signupformfooterdesc', 'theme_halloween');
-$default = ($CFG->solerni_isprivate) ?
-        '<span lang="fr" class="multilang"><div><strong>Un problème ?</strong>'
-        . '<p>Contactez notre support (voir email d\'instructions reçu)</p></div></span>'
-        . '<span lang="en" class="multilang"><div><strong>Any problem ?</strong>'
-        . '<p>Contact our support (see your instruction email)</p></div></span>' :
-        '<span lang="fr" class="multilang"></span><span lang="en" class="multilang"></span>';
-$setting = new admin_setting_configtextarea($name, $title, $description, $default);
-$setting->set_updatedcallback('theme_reset_all_caches');
-$temp->add($setting);
-
 $ADMIN->add('theme_halloween', $temp);
 
 /*
- * Signup : Settings
+ * Webservice : Settings
  */
 $temp = new admin_settingpage('theme_halloween_webservices', get_string('webservicessettings',
         'theme_halloween'));
@@ -347,12 +326,58 @@ $information = get_string('webservicesheadingdesc', 'theme_halloween');
 $setting = new admin_setting_heading($name, $heading, $information);
 $temp->add($setting);
 
-// MNET token
+// Webservice token for Home.
 $name = 'theme_halloween/webservicestoken';
 $title = get_string('webservicestoken', 'theme_halloween');
 $description = get_string('webservicestokendesc', 'theme_halloween');
 $default = '';
 $setting = new admin_setting_configtext($name, $title, $description, $default);
+$temp->add($setting);
+
+// Webservice token for Thematic.
+if (utilities_network::is_home()) {
+    $hosts = utilities_network::get_hosts();
+    foreach ($hosts as $host) {
+        $name = 'theme_halloween/webservicestoken' . $host->id;
+        $title = get_string('webservicestokenthematic', 'theme_halloween', $host->name);
+        $description = get_string('webservicestokenthematicdesc', 'theme_halloween', $host->name);
+        $default = '';
+        $setting = new admin_setting_configtext($name, $title, $description, $default);
+        $temp->add($setting);
+    }
+}
+
+$ADMIN->add('theme_halloween', $temp);
+
+/*
+ * Homepage : Settings
+ */
+$temp = new admin_settingpage('theme_halloween_homepage', get_string('homepagesettings',
+        'theme_halloween'));
+$name = 'theme_halloween/homepageheading';
+$heading = get_string('homepageheading', 'theme_halloween');
+$information = get_string('homepageheadingdesc', 'theme_halloween');
+$setting = new admin_setting_heading($name, $heading, $information);
+$temp->add($setting);
+
+// Thematic illustration.
+$name = 'theme_halloween/homepageillustration';
+$title = get_string('homepageillustration', 'theme_halloween');
+$description = get_string('homepageillustrationdesc', 'theme_halloween');
+$default = '';
+$setting = new admin_setting_configstoredfile($name, $title, $description, 'homepageillustration', 0,
+    array('maxfiles' => 1, 'accepted_types' => array('image')));
+$setting->set_updatedcallback('theme_reset_all_caches');
+$temp->add($setting);
+
+// Thematic logo.
+$name = 'theme_halloween/homepagelogo';
+$title = get_string('homepagelogo', 'theme_halloween');
+$description = get_string('homepagelogodesc', 'theme_halloween');
+$default = '';
+$setting = new admin_setting_configstoredfile($name, $title, $description, 'homepagelogo', 0,
+    array('maxfiles' => 1, 'accepted_types' => array('image')));
+$setting->set_updatedcallback('theme_reset_all_caches');
 $temp->add($setting);
 
 $ADMIN->add('theme_halloween', $temp);

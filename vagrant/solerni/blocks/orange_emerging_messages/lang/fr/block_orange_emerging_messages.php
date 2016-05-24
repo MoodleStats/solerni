@@ -21,22 +21,20 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Messages Importants';
-$string['titleblock'] = '(Titre du bloc)';
+$string['pluginname'] = 'Orange Emerging messages';
 
-$string['title'] = 'Titre du block';
+$string['title'] = 'Espace de discussion';
 $string['nbdisplaypostdefault'] = '3';
 $string['nbdisplaypost'] = 'Nombre de messages affichés';
 $string['settings'] = "Paramètres";
 
-$string['typetop'] = 'Type des messages à afficher';
-$string['mylastposts'] = 'Derniers messages de l\'utilisateur';
-$string['lastdiscussions'] = 'Dernières discussions';
-$string['bestposts'] = 'Messages les mieux notés';
+$string['mylastposts'] = 'Mes derniers messages';
+$string['lastdiscussions'] = 'Derniers messages';
+$string['bestposts'] = 'Meilleurs messages';
 $string['nouserposts'] = "Vous n'avez posté aucun message dans les forums.";
 $string['nodiscussions'] = "Aucune discussion n'a été amorcé.";
-$string['nobestposts'] = "Les messages ne sont pas encore notés";
+$string['nobestposts'] = "Les messages ne sont pas encore notés.";
+$string['rate'] = 'Note : ';
+$string['linkdiscus'] = 'Tous les espaces de discussions';
 
-
-$string['orange_emerging_messages:myaddinstance'] = 'Ajouter un nouveau block Messages Importants à ma Page';
 $string['orange_emerging_messages:addinstance'] = 'Ajouter un block Messages Importants';

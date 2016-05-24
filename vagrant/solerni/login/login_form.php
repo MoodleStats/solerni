@@ -30,11 +30,6 @@ $autocomplete =  (!$CFG->loginpasswordautocomplete) ? 'autocomplete="off"' : '';
 // otherwise, log with MNET upon the "home" platform.
 $formaction = log_and_session_utilities::define_login_form_action($locallog); ?>
 
-<div class="row login-header">
-    <div class="page-header text-center">
-        <?php require($CFG->partialsdir . '/login/login_header.php'); ?>
-    </div>
-</div>
 <?php if (!$CFG->solerni_isprivate) :
     require_once($CFG->dirroot . '/auth/googleoauth2/lib.php');
     $oauthbuttons = auth_googleoauth2_render_buttons();
@@ -56,64 +51,71 @@ $formaction = log_and_session_utilities::define_login_form_action($locallog); ?>
 endif; ?>
 <!-- login form -->
 <div class="row login-box">
-    <div class="loginpanel col-md-6 col-md-offset-3">
+    <div class="loginpanel col-xs-12 col-md-8 col-md-offset-2">
         <?php if ($errormsg) : ?>
-            <!-- alert box -->
-            <div class="loginerrors alert" role="alert">
-                <p id="loginerrormessage" class="text-danger text-center">
-                    <?php echo $OUTPUT->error_text($errormsg); ?>
-                </p>
-            </div>
+        <div class="alert alert-danger">
+            <?php echo $errormsg; ?>
+        </div>
         <?php endif; ?>
         <form action="<?php echo $formaction['host']; ?>/login/index.php"
               method="POST" id="login" <?php echo $autocomplete;
               if ($errormsg) : ?> class="has-error"<?php endif; ?> >
-            <?php if ( $formaction['isthematic']) :?>
-                <input type="hidden" name="mnetorigin" value="<?php echo $CFG->wwwroot; ?>">
-            <?php endif; ?>
-            <!--<?php if (isset($SESSION->wantsurl) && !empty($SESSION->wantsurl)): ?>
-                <input type="hidden" name="mnetredirect" value="<?php echo $SESSION->wantsurl; ?>">
-            <?php endif; ?>-->
-            <div class="form-group">
-                <?php $usernamelabel = (theme_utilities::is_theme_settings_exists_and_nonempty('loginusername')) ?
-                        $filtermultilang->filter($PAGE->theme->settings->loginusername) :
-                        get_string('username', 'theme_halloween'); ?>
-                <label for="username">
-                    <?php echo $usernamelabel; ?>
-                </label>
-                <input class="form-control" type="text" name="username" id="username"
-                       value="<?php p($frm->username) ?>" />
-              <?php if (theme_utilities::is_theme_settings_exists_and_nonempty('loginusernamesub')) : ?>
-                    <p class="help-block small"><?php echo $filtermultilang->filter($PAGE->theme->settings->loginusernamesub); ?></p>
+            <div class="inner-panel">
+                <?php if ( $formaction['isthematic']) :?>
+                    <input type="hidden" name="mnetorigin" value="<?php echo $CFG->wwwroot; ?>">
                 <?php endif; ?>
-            </div>
-            <div class="form-group">
-                <?php $passwordlabel = (theme_utilities::is_theme_settings_exists_and_nonempty('loginpassword')) ?
-                        $filtermultilang->filter($PAGE->theme->settings->loginpassword) :
-                        get_string('password'); ?>
-                <label for="password">
-                    <?php echo $passwordlabel; ?>
-                </label>
-                <div class="password-wrapper">
-                    <input class="form-control" type="password" name="password" id="password" size="15"
-                           value="" <?php echo $autocomplete; ?> />
-                    <a class="btn btn-warning login-forgot" href="forgot_password.php">
-                        <?php print_string('forgotten', 'theme_halloween') ?>
-                    </a>
-                </div>
-                <?php if (theme_utilities::is_theme_settings_exists_and_nonempty('loginpasswordsub')) : ?>
-                    <p class="help-block small"><?php echo $filtermultilang->filter($PAGE->theme->settings->loginpasswordsub); ?></p>
-                <?php endif; ?>
-            </div>
-            <?php if ($CFG->rememberusername and $CFG->rememberusername == 2) : ?>
-                <div class="form-group text-right">
-                    <input class="o-checkbox" type="checkbox" name="rememberusername" id="rememberusername"
-                           value="1" <?php if ($frm->username) { echo 'checked="checked"'; } ?> />
-                    <label for="rememberusername">
-                        <?php print_string('rememberusername', 'theme_halloween') ?>
+                <div class="form-group">
+                    <?php $usernamelabel = (theme_utilities::is_theme_settings_exists_and_nonempty('loginusername')) ?
+                            $filtermultilang->filter($PAGE->theme->settings->loginusername) :
+                            get_string('username', 'theme_halloween'); ?>
+                    <label for="username">
+                        <?php echo $usernamelabel; ?>
                     </label>
+                    <input class="form-control" type="text" name="username" id="username"
+                           value="<?php p($frm->username) ?>" required/>
+                    <?php if (!$errormsg && theme_utilities::is_theme_settings_exists_and_nonempty('loginusernamesub')) {
+                        $emailhelper = $filtermultilang->filter($PAGE->theme->settings->loginusernamesub);
+                    } elseif ($errormsg) {
+                        $emailhelper = get_string('invalidemail', 'theme_halloween');
+                    } ?>
+                    <?php if (isset($emailhelper)) : ?>
+                        <p class="help-block small"><?php echo $emailhelper; ?></p>
+                    <?php endif; ?>
                 </div>
-            <?php endif; ?>
+
+                <div class="form-group">
+                    <?php $passwordlabel = (theme_utilities::is_theme_settings_exists_and_nonempty('loginpassword')) ?
+                            $filtermultilang->filter($PAGE->theme->settings->loginpassword) :
+                            get_string('password'); ?>
+                    <label for="password">
+                        <?php echo $passwordlabel; ?>
+                    </label>
+                    <div class="password-wrapper">
+                        <input class="form-control" type="password" name="password" id="password" size="15"
+                               value="" <?php echo $autocomplete; ?> required />
+                        <a class="forgot-password-link pull-right form-helper-link" href="<?php echo $formaction['host'] ?>/login/forgot_password.php">
+                            <?php print_string('forgotten', 'theme_halloween') ?>
+                        </a>
+                    </div>
+                    <?php if (!$errormsg && theme_utilities::is_theme_settings_exists_and_nonempty('loginpasswordsub')) {
+                        $passwordwderror = $filtermultilang->filter($PAGE->theme->settings->loginpasswordsub);
+                    } elseif ($errormsg) {
+                        $passwordwderror =get_string('invalidpassword', 'theme_halloween');
+                    } ?>
+                    <?php if (isset($passwordwderror)) : ?>
+                        <p class="help-block small"><?php echo $passwordwderror; ?></p>
+                    <?php endif; ?>
+                </div>
+                <?php if ($CFG->rememberusername and $CFG->rememberusername == 2) : ?>
+                    <div class="form-group">
+                        <input class="o-checkbox" type="checkbox" name="rememberusername" id="rememberusername"
+                               value="1" <?php if ($frm->username) { echo 'checked="checked"'; } ?> />
+                        <label for="rememberusername">
+                            <?php print_string('rememberusername', 'theme_halloween') ?>
+                        </label>
+                    </div>
+                <?php endif; ?>
+            </div>
             <div class="form-group">
                 <input type="submit" class="btn btn-engage btn-block" id="id_submitbutton" value="<?php print_string("login") ?>" />
             </div>

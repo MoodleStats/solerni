@@ -103,7 +103,11 @@ function make_anonymous($user, $useroldemail='') {
     $DB->update_record('user', $updateuser);
     // Send an email to user.
     if (get_config('local_eledia_makeanonymous', 'enabledemail')) {
-        if (!empty($useroldemail)) {
+        if (!empty($useroldemail) &&
+            ((local_orange_library\utilities\utilities_network::is_platform_uses_mnet() &&
+              local_orange_library\utilities\utilities_network::is_home()) ||
+             (!local_orange_library\utilities\utilities_network::is_platform_uses_mnet()))
+           ) {
             send_email_deletion($user, $useroldemail);
         }
     }
@@ -161,6 +165,7 @@ function anonymize_task() {
  */
 function send_email_deletion($user, $useroldemail) {
     $supportuser = core_user::get_support_user();
+    $site = get_site();
     $message = get_config('local_eledia_makeanonymous', 'emailmsg');
 
     // Otherwise email_to_user() method block email.
@@ -192,7 +197,8 @@ function send_email_deletion($user, $useroldemail) {
 
     $subject = get_config('local_eledia_makeanonymous', 'emailsubject');
     if (trim($subject) == '') {
-        $subject = get_string('defaultemailsubject', 'local_eledia_makeanonymous');
+        // Orange - 2016.05.12 - Add PTF name on subject
+        $subject = get_string('defaultemailsubject', 'local_eledia_makeanonymous', format_string($site->fullname));
     }
 
     if (! email_to_user($user, $supportuser, $subject, $messagetext, $messagehtml)) {

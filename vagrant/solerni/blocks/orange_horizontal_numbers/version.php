@@ -23,7 +23,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$plugin->version   = 20160219;
+$plugin->version   = 2016050301;
 $plugin->requires  = 2015051104;
 $plugin->maturity  = MATURITY_STABLE;
 $plugin->component = 'block_orange_horizontal_numbers';
+$plugin->dependencies = array('local_orange_library' => 2016042602);

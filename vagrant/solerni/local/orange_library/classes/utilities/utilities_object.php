@@ -76,14 +76,40 @@ class utilities_object {
     }
 
     /**
+     * trasform duration format to week format
+     * @param type $extendedcourse
+     * @return type
+     */
+    public static function duration_to_week($duration) {
+
+        $secondsinaminute = 60;
+        $secondsinanhour = 60 * $secondsinaminute;
+        $secondsinaday = 24 * $secondsinanhour;
+        $secondsinaweek = 7 * $secondsinaday;
+
+        $weeks = floor($duration / $secondsinaweek);
+        $text = 0;
+
+        if ($weeks > 0) {
+            $text = $weeks;
+        } else {
+            $text = 1;
+        }
+
+        return $text;
+    }
+
+    /**
      * trims text to a space then adds ellipses if desired
      * @param string $input text to trim
      * @param int $length in characters to trim to
      * @param bool $ellipses if ellipses (...) are to be added
      * @param bool $striphtml if html tags are to be stripped
+     * @param bool $ellipsesallways if ellipses (...) are to be added even if the text is not cut
+     * @param bool $underline if last word and ellipses are underligned
      * @return string
      */
-    public static function trim_text($input, $length, $ellipses = true, $striphtml = true) {
+    public static function trim_text($input, $length, $ellipses = true, $striphtml = true, $ellipsesallways = false, $underline = false) {
         // Strip tags, if desired.
         if ($striphtml) {
             $input = strip_tags($input);
@@ -91,7 +117,16 @@ class utilities_object {
 
         // No need to trim, already shorter than trim length.
         if (strlen($input) <= $length) {
-            return $input;
+            if ($ellipsesallways) {
+                if ($underline) {
+                    $pos = strripos($input, " " );
+                    return substr($input, 0, $pos) . " <u>" . substr($input, $pos) . "...</u>";
+                } else {
+                    return $input .= '...';
+                }
+            } else {
+                return $input;
+            }
         }
 
         // Find last space within length.
@@ -100,7 +135,12 @@ class utilities_object {
 
         // Add ellipses (...).
         if ($ellipses) {
-            $trimmedtext .= '...';
+            if ($underline) {
+                $pos = strripos($trimmedtext, " " );
+                $trimmedtext = substr($trimmedtext, 0, $pos) . " <u>" . substr($trimmedtext, $pos) . "...</u>";
+            } else {
+                $trimmedtext .= '...';
+            }
         }
 
         return $trimmedtext;
@@ -156,6 +196,38 @@ class utilities_object {
         }
         return $return;
     }
+
+    /**
+     * format date for forum
+     * @param string $date date
+     * @return string
+     */
+    public static function get_formatted_date_forum($date) {
+
+        // The date is today.
+        if (date('Y-m-d', $date) == date('Y-m-d')) {
+            return get_string('today', 'local_orange_library') . userdate($date, '%H:%M');
+        }
+
+        // The date is yesterday.
+        if (date('Y-m-d', $date) == date('Y-m-d', mktime(0, 0, 0, date("m")  , date("d") - 1, date("Y")))) {
+            return get_string('yesterday', 'local_orange_library') . userdate($date, '%H:%M');
+        }
+
+        // The date is another day.
+        return userdate($date, '%d %b %Y');
+    }
+
+    /**
+     * return plural or singular depending testvalue
+     * @param int $testvalue
+     * @param int $pluginname
+     * @param int $singulars
+     * @param int $plural
+     * @return string
+     */
+    public static function get_string_plural($testvalue, $pluginname, $singular, $plural) {
+
+        return ((int) $testvalue > 1) ? get_string($plural, $pluginname) : get_string($singular, $pluginname);
+    }
 }
-
-

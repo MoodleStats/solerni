@@ -252,7 +252,7 @@ $string['configfullnamedisplay'] = 'Ce réglage définit comment les noms sont a
 
 Pour la plupart des sites monolingues, le réglage le plus efficace est le réglage « Prénom Nom », mais vous pouvez choisir par exemple de cacher les noms de familles. Vous pouvez utiliser ici les variables prédéfinies suivantes : firstname, lastname, firstnamephonetic, lastnamephonetic, middlename, et alternatename.';
 $string['configgeoipfile'] = 'Emplacement du fichier binaire GeoIP City. Ce fichier ne fait pas partie de la distribution de Moodle. Il doit être obtenu séparément chez <a href="http://www.maxmind.com/">MaxMind</a>. Vous pouvez soit en acheter une version commerciale, soit utiliser la version gratuite. Téléchargez simplement le fichier <a href="http://www.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz" >http://www.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz</a> et décompressez-le dans le dossier « {$a} » sur votre serveur.';
-$string['configgetremoteaddrconf'] = 'Si votre serveur est situé derrière un proxy inverse, vous pouvez utiliser ce réglage pour indiquer les entêtes HTTP dont on peut être sûr qu\'ils contiennent l\'adresse IP distante. Les entêtes sont lues dans l\'ordre indiqué, la première disponible étant utilisée.';
+$string['configgetremoteaddrconf'] = 'Si votre serveur est situé derrière un proxy inverse, vous pouvez utiliser ce réglage pour indiquer les entêtes HTTP dont on peut être sûr qu\'elles contiennent l\'adresse IP distante. Les entêtes sont lues dans l\'ordre indiqué, la première disponible étant utilisée.';
 $string['configgradebookroles'] = 'Ce réglage permet de configurer les rôles apparaissant dans le carnet de notes. Pour être mentionnés dans le carnet de notes d\'un cours, les utilisateurs doivent avoir au moins l\'un de ces rôles dans ce cours.';
 $string['configgradeexport'] = 'Sélectionnez les formats d\'exportation privilégiés du carnet de notes. Les sélections mettront en place et utiliseront ensuite un champ « dernière exportation » pour chaque note. Par exemple, cela permettra d\'identifier des notes exportées comme « nouvelles » ou « modifiées ». Si vous n\'êtes pas sûr à ce sujet, ne cochez rien.';
 $string['confighiddenuserfields'] = 'Veuillez sélectionner quelles informations vous désirez cacher aux autres utilisateurs du cours que les administrateurs/enseignants. Vous pourrez ainsi améliorer la protection des données des étudiants. Il est possible de sélectionner plusieurs champs.';
@@ -271,7 +271,7 @@ $string['configlocale'] = 'Indiquer un environnement <em>locale</em> pour l\'aff
 $string['configloginhttps'] = 'Cette option permet à Moodle d\'utiliser le protocole https sécurisé uniquement pour la page de connexion, ce qui fournit une connexion sécurisée. Moodle revient ensuite au protocole normal http pour gagner en vitesse. ATTENTION ! Ce réglage requiert l\'activation du protocole https sur le serveur web. Sans cela, vous risquez de NE PLUS POUVOIR ACCÉDER À VOTRE SITE.';
 $string['configloglifetime'] = 'Ce champ permet de spécifier la durée de conservation des historiques des utilisateurs. Il est conseillé de choisir une durée aussi longue que possible. Si votre plateforme est très fréquentée et que la performance se dégrade, il peut être judicieux de diminuer cette durée. Les valeurs inférieures à 30 ne sont pas recommandées, car les statistiques ne fonctionneraient alors pas correctement.';
 $string['configlookahead'] = 'Jours à anticiper';
-$string['configmaxbytes'] = 'Taille maximale des fichiers déposés dans la plateforme, en octets. Cette valeur est limitée par les réglages PHP post_max_size et upload_max_filesize, ainsi que par le réglage Apache LimitRequestBody. Le réglage maxbytes limite quant à lui la taille au niveau des cours. Si vous choisissez « Limite serveur », le maximum alloué par le serveur sera utilisé.';
+$string['configmaxbytes'] = 'Ce réglage détermine la taille maximale pour un fichier à déposer dans la plateforme. Cette valeur est limitée par les réglages PHP post_max_size et upload_max_filesize, ainsi que par le réglage Apache LimitRequestBody. Elle limite quant à elle la taille maximale pour un fichier à déposer au niveau des cours. Si vous choisissez « Limite serveur », le maximum alloué par le serveur sera utilisé.';
 $string['configmaxconsecutiveidentchars'] = 'Les mots de passe ne doivent pas comporter plus que ce nombre de caractères identiques consécutifs. Indiquez 0 pour désactiver ce contrôle.';
 $string['configmaxeditingtime'] = 'Ce paramètre indique la durée pendant laquelle les utilisateurs ont la possibilité de modifier un message, un article de glossaire, etc. qu\'ils ont écrit. Habituellement, 30 minutes est une bonne valeur.';
 $string['configmaxevents'] = 'Nombre d\'événements à anticiper';
@@ -314,8 +314,8 @@ $string['configproxyport'] = 'Si le serveur requiert l\'utilisation d\'un proxy,
 $string['configproxytype'] = 'Type de proxy web (PHP5 et son extension cURL sont requis pour le support de SOCKS5).';
 $string['configproxyuser'] = 'Nom d\'utilisateur requis pour accéder à Internet au travers du proxy, si nécessaire. Laisser vide dans le cas contraire (l\'extension cURL de PHP est requise).';
 $string['configquarantinedir'] = 'Si vous désirez que clam AV déplace les fichiers infectés vers un dossier de quarantaine, spécifiez ici son chemin d\'accès. Le serveur web doit pouvoir écrire dans ce dossier. Si vous laissez ce champ vide ou si vous spécifiez un dossier inexistant ou sans droit d\'écriture, les fichiers infectés seront détruits. Ne pas écrire la barre oblique finale.';
-$string['configrecaptchaprivatekey'] = 'Chaîne de caractères utilisée pour communiquer entre votre serveur Moodle et le serveur recaptcha.net. Vous pouvez obtenir une telle clef pour votre site en visitant http://www.google.com/recaptcha';
-$string['configrecaptchapublickey'] = 'Chaîne de caractères utilisée pour afficher l\'élément reCAPTCHA dans le formulaire d\'enregistrement. Cette chaîne est générée par http://www.google.com/recaptcha';
+$string['configrecaptchaprivatekey'] = 'Chaîne de caractères (clef privée) utilisée pour communiquer entre votre serveur Moodle et le serveur recaptcha.net. Les clefs reCAPTCHA peuvent être obtenues de <a target="_blank" href="https://www.google.com/recaptcha">Google reCAPTCHA</a>.';
+$string['configrecaptchapublickey'] = 'Chaîne de caractères (clef publique) utilisée pour afficher l\'élément reCAPTCHA dans le formulaire d\'enregistrement. Les clefs reCAPTCHA peuvent être obtenues de <a target="_blank" href="https://www.google.com/recaptcha">Google reCAPTCHA</a>.';
 $string['configrequestcategoryselection'] = 'Permettre le choix d\'une catégorie lors de la demande d\'un cours';
 $string['configrequestedstudentname'] = 'Terme utilisé pour « étudiant » dans les cours demandés';
 $string['configrequestedstudentsname'] = 'Terme utilisé pour « étudiants » dans les cours demandés';
@@ -406,7 +406,7 @@ $string['cronwarningcli'] = 'Le script de maintenance cli/cron.php n\'a pas ét�
 $string['ctyperequired'] = 'L\'installation de l\'extension ctype de PHP est maintenant requise par Moodle, afin d\'améliorer les performances du site et d\'offrir la compatibilité multilingue.';
 $string['curlcache'] = 'Durée du cache cURL';
 $string['curlrequired'] = 'L\'installation de l\'extension cURL de PHP est maintenant requise par Moodle, afin de pouvoir communiquer avec les dépôts de documents de Moodle.';
-$string['curltimeoutkbitrate'] = 'Bande passante à utiliser pour le calcul des timeout de cURL (kbps)';
+$string['curltimeoutkbitrate'] = 'Bande passante à utiliser pour le calcul des timeouts de cURL (kbps)';
 $string['curltimeoutkbitrate_help'] = 'Ce réglage est utilisé pour calculer un timeout adéquat durant les grosses requêtes cURL. Pour ce calcul, une requête HTTP HEAD est effectuée pour déterminer la taille du téléchargement. La valeur 0 désactive cette requête.';
 $string['currenttheme'] = 'Thème actuel';
 $string['customcheck'] = 'Autres contrôles';
@@ -897,8 +897,8 @@ $string['questioncwqpfsok'] = 'Il n\'y a dans vos tests aucune question aléatoi
 $string['questiontype'] = 'Type de question';
 $string['questiontypes'] = 'Types de question';
 $string['quizattemptsupgradedmessage'] = 'Une mise à jour majeure des questions était comprise dans Moodle 2.1. Il était alors possible de retarder cette mise à niveau. Avant de passer à Moodle 2.7, cette mise à jour est désormais obligatoire.';
-$string['recaptchaprivatekey'] = 'Clef privée ReCAPTCHA';
-$string['recaptchapublickey'] = 'Clef publique ReCAPTCHA';
+$string['recaptchaprivatekey'] = 'Clef secrète ReCAPTCHA';
+$string['recaptchapublickey'] = 'Clef de site ReCAPTCHA';
 $string['register'] = 'Enregistrer votre site';
 $string['registermoodleorg'] = 'Lors de l\'enregistrement de votre site';
 $string['registermoodleorgli1'] = 'Vous êtes inscrit à une liste de diffusion à bas trafic diffusant des notifications importantes, comme des alertes de sécurité et les nouvelles versions de Moodle.';
@@ -1015,7 +1015,7 @@ $string['taskautomatedbackup'] = 'Sauvegardes automatiques';
 $string['taskbackupcleanup'] = 'Nettoyage des tables de sauvegarde et les historiques';
 $string['taskbadgescron'] = 'Décernement des badges';
 $string['taskblogcron'] = 'Synchronisation des blogs externes';
-$string['taskcachecleanup'] = 'Suppression des entrées échues des caches';
+$string['taskcachecleanup'] = 'Suppression des éléments en cache échus';
 $string['taskcachecron'] = 'Traitement en tâche de fond des caches';
 $string['taskcalendarcron'] = 'Envoi des notifications de calendrier';
 $string['taskcheckforupdates'] = 'Recherche des mises à jour';

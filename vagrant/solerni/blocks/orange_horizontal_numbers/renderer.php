@@ -23,6 +23,7 @@
  */
 
 defined('MOODLE_INTERNAL') || die;
+use local_orange_library\utilities\utilities_object;
 
 class block_orange_horizontal_numbers_renderer extends plugin_renderer_base {
 
@@ -35,45 +36,62 @@ class block_orange_horizontal_numbers_renderer extends plugin_renderer_base {
      * @param $lastusers object user last user conected
      * @return string html 
      */
-    public function display_horizontal_numbers($nbuserssonnected = 0, $nbposts = 0, $nbusers = 0, $lastuser = null) {
+    public function display_horizontal_numbers($nbuserssonnected = 0, $nbposts = 0, $nbusers = 0, $lastuser = null, $illustration) {
         global $CFG;
         $output = "";
 
-        $el1 = new html_table_cell();
-        $el1->text = $nbposts;
-        $el1->attributes['class'] = 'tdvalue';
+        $output .= html_writer::start_tag('div', array('class' => 'row text-center'));
+            $output .= html_writer::empty_tag('img', array(
+                'src' => $illustration, 'class' => 'orange-horizontal-numbers-illustration img-responsive'));
+        $output .= html_writer::end_tag('div');
 
-        $el2 = new html_table_cell();
-        $el2->text = get_string('nbposts', 'block_orange_horizontal_numbers');
-        $el2->attributes['class'] = 'tdtext';
+        $output .= html_writer::start_tag('div', array('class' => 'row'));
+            $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 orange-horizontal-numbers-title'));
+                $output .= html_writer::tag('h1', get_string('title', 'block_orange_horizontal_numbers', $CFG->solerni_thematic));
+                $output .= html_writer::tag('span', get_string('intro', 'block_orange_horizontal_numbers'));
+            $output .= html_writer::end_tag('div');
+        $output .= html_writer::end_tag('div');
 
-        $el3 = new html_table_cell();
-        $el3->text = $nbusers;
-        $el3->attributes['class'] = 'tdvalue';
+        $output .= html_writer::start_tag('div', array('class' => 'row'));
+            $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 fullwidth-line'));
+            $output .= html_writer::end_tag('div');
+        $output .= html_writer::end_tag('div');
 
-        $el4 = new html_table_cell();
-        $el4->text = get_string('nbusers', 'block_orange_horizontal_numbers');
-        $el4->attributes['class'] = 'tdtext';
+        $output .= html_writer::start_tag('div', array('class' => 'row orange-horizontal-numbers-details'));
 
-        $el5 = new html_table_cell();
-        $el5->text = fullname($lastuser);
-        $el5->attributes['class'] = 'tdvalue';
+            $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-sm-6 col-md-3'));
+                $output .= html_writer::tag('div', $nbposts, array('class' => 'h2 text-contrasted text-oneline'));
+                $output .= html_writer::tag('span', utilities_object::get_string_plural($nbposts, 'block_orange_horizontal_numbers', 'nbpost', 'nbpostplural'), array('class' => 'slrn-bold text-oneline'));
+            $output .= html_writer::end_tag('div');
 
-        $el6 = new html_table_cell();
-        $el6->text = get_string('lastuserregistered', 'block_orange_horizontal_numbers');
-        $el6->attributes['class'] = 'tdtext';
+            $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-sm-6 col-md-3'));
+                $output .= html_writer::tag('div', $nbusers, array('class' => 'h2 text-contrasted text-oneline'));
+                $output .= html_writer::tag('span', utilities_object::get_string_plural($nbusers, 'block_orange_horizontal_numbers', 'nbuser', 'nbuserplural'), array('class' => 'slrn-bold text-oneline'));
+            $output .= html_writer::end_tag('div');
 
-        $el7 = new html_table_cell();
-        $el7->text = $nbuserssonnected;
-        $el7->attributes['class'] = 'tdvalue';
+            $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-sm-6 col-md-3'));
+                $output .= html_writer::tag('div', $nbuserssonnected, array('class' => 'h2 text-contrasted text-oneline'));
+                $output .= html_writer::tag('span', utilities_object::get_string_plural($nbuserssonnected, 'block_orange_horizontal_numbers', 'nbuserconnected', 'nbuserconnectedplural'), array('class' => 'slrn-bold text-oneline'));
+            $output .= html_writer::end_tag('div');
 
-        $el8 = new html_table_cell();
-        $el8->text = get_string('nbusersconnected', 'block_orange_horizontal_numbers');
-        $el8->attributes['class'] = 'tdtext';
+            $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-sm-6 col-md-3'));
+                $output .= html_writer::tag('div', fullname($lastuser), array('class' => 'h3 text-contrasted text-oneline'));
+                $output .= html_writer::tag('span', get_string('lastuserregistered', 'block_orange_horizontal_numbers'), array('class' => 'slrn-bold text-oneline'));
+            $output .= html_writer::end_tag('div');
 
-        $table = new html_table();
-        $table->data = array(new html_table_row(array($el1, $el2, $el3, $el4, $el5, $el6, $el7, $el8)));
-        $output .= html_writer::table($table);
+        $output .= html_writer::end_tag('div');
+
+        $output .= html_writer::start_tag('div', array('class' => 'row'));
+            $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 fullwidth-line'));
+            $output .= html_writer::end_tag('div');
+        $output .= html_writer::end_tag('div');
+
+        $output .= html_writer::start_tag('div', array('class' => 'row'));
+            $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 orange-horizontal-numbers-link'));
+                $output .= html_writer::tag('span',
+                        get_string('tofaq', 'block_orange_horizontal_numbers', $CFG->wwwroot . '/static/faq.html'));
+            $output .= html_writer::end_tag('div');
+        $output .= html_writer::end_tag('div');
 
         return $output;
     }

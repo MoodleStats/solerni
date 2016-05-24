@@ -74,8 +74,8 @@
 
 //** Global textual link color.
 @link-color:            @brand-primary;  // For accessibility purpose
-@link-hover-color:      @brand-secondary;
-@link-active-color:     @brand-secondary;
+@link-hover-color:      @brand-contrasted;
+@link-active-color:     @brand-contrasted;
 @link-visited-color:    @brand-primary;
 
 //== Typography
@@ -96,8 +96,8 @@
 @font-family-base:        @font-family-sans-serif;
 
 @font-size-base:          16px;
-@font-size-large:         ceil((@font-size-base * 1.125)); // ~18px
-@font-size-small:         ceil((@font-size-base * 0.75)); // ~12px
+@font-size-large:         ceil((@font-size-base * 1.125));  // ~18px
+@font-size-small:         ceil((@font-size-base * 0.875));   // ~14px
 
 @font-size-h1:            floor((@font-size-base * 2.75));      // ~44px
 @font-size-h2:            floor((@font-size-base * 2.625));     // ~42px
@@ -108,6 +108,7 @@
 
 //** Unit-less `line-height` for use in components like buttons.
 @line-height-base:        1.25; // 20/16
+@line-height-titles:      1.5;
 //** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
 @line-height-computed:    floor((@font-size-base * @line-height-base)); // ~20px
 
@@ -133,6 +134,8 @@
 
 @s-standard-icon-size:      36px;
 @s-small-icon-size:         30px;
+
+@typical-height-orange:      40px;
 
 //-- Iconography
 //
@@ -611,19 +614,19 @@
 //## Define colors for form feedback states and, by default, alerts.
 
 @state-success-text:             @brand-success;
-@state-success-bg:               @brand-tertiary;
+@state-success-bg:               @orange-green;
 @state-success-border:           @state-success-text;
 
 @state-info-text:                @brand-info;
-@state-info-bg:                  @brand-tertiary;
+@state-info-bg:                  @brand-info;
 @state-info-border:              @state-info-text;
 
 @state-warning-text:             @brand-warning;
-@state-warning-bg:               @brand-tertiary;
+@state-warning-bg:               @brand-warning;
 @state-warning-border:           @state-warning-text;
 
 @state-danger-text:              @brand-danger;
-@state-danger-bg:                @brand-tertiary;
+@state-danger-bg:                @brand-danger;
 @state-danger-border:            @state-danger-text;
 
 
@@ -898,8 +901,8 @@
 //
 //##
 
-@breadcrumb-padding-vertical:   8px;
-@breadcrumb-padding-horizontal: 15px;
+@breadcrumb-padding-vertical:   0;
+@breadcrumb-padding-horizontal: 0;
 //** Breadcrumb background color
 @breadcrumb-bg:                 @brand-tertiary;
 //** Breadcrumb text color

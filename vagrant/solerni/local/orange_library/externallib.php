@@ -67,7 +67,7 @@ class local_orange_library_external extends external_api {
     }
 
     /**
-     * Returns User profile fields from from library utilities_user
+     * Returns User profile fields from library utilities_user
      */
     public static function get_profile_fields($username) {
 
@@ -96,10 +96,79 @@ class local_orange_library_external extends external_api {
         return new external_multiple_structure(
             new external_single_structure(
                 array(
-                    'name'   => new external_value(PARAM_TEXT, 'profile field name'),
-                    'value'  => new external_value(PARAM_TEXT, 'profile field value')
+                    'type'   => new external_value(PARAM_TEXT, 'profile field or preference'),
+                    'name'   => new external_value(PARAM_TEXT, 'field name'),
+                    'value'  => new external_value(PARAM_TEXT, 'field value')
                 )
             )
         );
+    }
+
+    /**
+     * Returns Thematic information from library utilities_network
+     */
+    public static function get_thematic_info() {
+
+        return utilities_network::retreive_local_thematic_info();
+    }
+
+    /**
+     * Define function parameters
+     *
+     * @return \external_function_parameters
+     */
+    public static function get_thematic_info_parameters() {
+        return new external_function_parameters(
+            array()
+        );
+    }
+
+    /**
+     * Define expected function return
+     *
+     * @return \external_multiple_structure
+     */
+    public static function get_thematic_info_returns() {
+        return new external_multiple_structure(
+            new external_single_structure(
+                array(
+                    'type'   => new external_value(PARAM_TEXT, 'information type'),
+                    'name'   => new external_value(PARAM_TEXT, 'information name'),
+                    'value'  => new external_value(PARAM_TEXT, 'information value')
+                )
+            )
+        );
+    }
+
+
+    /**
+     * Request user deletion from home to Thematic
+     */
+    public static function del_user_on_thematic($username, $email) {
+
+        return utilities_user::del_user_on_thematic($username, $email);
+    }
+
+    /**
+     * Define function parameters
+     *
+     * @return \external_function_parameters
+     */
+    public static function del_user_on_thematic_parameters() {
+        return new external_function_parameters(
+            array(
+                'username' => new external_value(PARAM_TEXT, 'user name'),
+                'email' => new external_value(PARAM_TEXT, 'email')
+            )
+        );
+    }
+
+    /**
+     * Define expected function return
+     *
+     * @return \external_multiple_structure
+     */
+    public static function del_user_on_thematic_returns() {
+        return new external_value(PARAM_INT, 'Command status');
     }
 }

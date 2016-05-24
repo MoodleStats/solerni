@@ -23,6 +23,7 @@ defined('MOODLE_INTERNAL') || die();
 
 use theme_halloween\settings\options;
 use theme_halloween\tools\theme_utilities;
+use local_orange_library\utilities\utilities_network;
 require_once(dirname(__FILE__) . '/Emogrifier.php');
 
 
@@ -50,13 +51,25 @@ class mail_object {
         $b->siteurl = $CFG->wwwroot;
         $b->catalogurl = $CFG->wwwroot . '/catalog/';
         $b->profilurl = $CFG->wwwroot . '/user/profile.php';
+        $b->customer = ucfirst($CFG->solerni_customer_name);
+        $b->thematic = ucfirst($CFG->solerni_thematic);
+        if ((utilities_network::is_platform_uses_mnet()) && (utilities_network::is_thematic())) {
+            $b->servicename = ucfirst($CFG->solerni_customer_name) . ' ' . ucfirst($CFG->solerni_thematic);
+        } else {
+            $b->servicename = ucfirst($CFG->solerni_customer_name);
+        }
 
         $b->solernimailsignature = get_string('solernimailsignature', 'local_orange_mail');
         $b->solernimailsignaturetext = get_string('solernimailsignaturetext', 'local_orange_mail');
         $b->solernimailfootertext = get_string('solernimailfootertext', 'local_orange_mail');
         $b->solernimailfooterhtml = get_string('solernimailfooterhtml', 'local_orange_mail');
-        $b->solernimailfooterinscriptiontext = get_string('solernimailfooterinscriptiontext', 'local_orange_mail');
-        $b->solernimailfooterinscriptionhtml = get_string('solernimailfooterinscriptionhtml', 'local_orange_mail');
+        if ($CFG->solerni_isprivate) {
+            $b->solernimailfooterinscriptiontext = get_string('solernimailfooterinscriptionprivatetext', 'local_orange_mail');
+            $b->solernimailfooterinscriptionhtml = get_string('solernimailfooterinscriptionprivatehtml', 'local_orange_mail');
+        } else {
+            $b->solernimailfooterinscriptiontext = get_string('solernimailfooterinscriptiontext', 'local_orange_mail');
+            $b->solernimailfooterinscriptionhtml = get_string('solernimailfooterinscriptionhtml', 'local_orange_mail');
+        }
         $b->solernimailfollowus = get_string('solernimailfollowus', 'local_orange_mail');
 
         $config->contactemail ? $b->contactemail = $config->contactemail : $b->contactemail = "contact@solerni.com";
@@ -171,9 +184,10 @@ class mail_object {
      * @param stringid : language id
      * @param mailtype : 'html' or 'text'
      * @param footertype : '' or 'inscription'
+     * @param private : boolean, indicate if we have a specific content for private platform
      * @return nothing
      */
-    static public function generate ($stringid, $mailtype, $footertype='') {
+    static public function generate ($stringid, $mailtype, $footertype='', $private=false) {
 
         $currentlang = current_language();
 
@@ -182,7 +196,11 @@ class mail_object {
             force_current_language($lang);
 
             // Get original mail language string.
-            $string = get_string($stringid, 'local_orange_mail');
+            if ($private) {
+                $string = get_string($stringid . '_private', 'local_orange_mail');
+            } else {
+                $string = get_string($stringid, 'local_orange_mail');
+            }
 
             $string = self::get_mail($string, $mailtype, $footertype);
 

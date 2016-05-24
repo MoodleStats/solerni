@@ -35,14 +35,31 @@ $functions = array(
         'classname'     => 'local_orange_library_external',
         'methodname'    => 'get_profile_fields',
         'classpath'     => 'local/orange_library/externallib.php',
-        'description'   => 'Allows to get the profile fields of a user from MNET HOME to external hosts',
+        'description'   => 'Allows to get the profile fields of a user from MNET HOME',
         'type'          => 'read'
+    ),
+    'local_orange_library_get_thematic_info' => array(
+        'classname'     => 'local_orange_library_external',
+        'methodname'    => 'get_thematic_info',
+        'classpath'     => 'local/orange_library/externallib.php',
+        'description'   => 'Allows to get informations form from MNET Thematic',
+        'type'          => 'read'
+    ),
+    'local_orange_library_del_user_on_thematic' => array(
+        'classname'     => 'local_orange_library_external',
+        'methodname'    => 'del_user_on_thematic',
+        'classpath'     => 'local/orange_library/externallib.php',
+        'description'   => 'Allows to delete a user from MNET Home to MNET Thematic',
+        'type'          => 'write'
     )
 );
 
 $services = array(
     'MNET RESAC' => array(
-            'functions'         => array('local_orange_library_get_resac_hosts', 'local_orange_library_get_profile_fields'),
+            'functions'         => array('local_orange_library_get_resac_hosts',
+                'local_orange_library_get_profile_fields',
+                'local_orange_library_get_thematic_info',
+                'local_orange_library_del_user_on_thematic'),
             'restricted_users'  => 0,
             'enabled'           => 1
     )

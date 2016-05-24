@@ -145,8 +145,12 @@ par l\'étudiant <a href="{$a->attendee_url}">{$a->attendee}</a> pour le cours 
 
 <p>{$a->course_short}: <a href="{$a->course_url}">{$a->course}</a></p>
 
+<<<<<<< HEAD
 <p>dans le planning intitulé "<em>{$a->module}</em>" sur le site : <a href="{$a->site_url}">{$a->site}</a>.</p>';
 =======
+=======
+<p>dans le planning intitulé « <em>{$a->module}</em> » sur le site : <a href="{$a->site_url}">{$a->site}</a>.</p>';
+>>>>>>> 615f22133d351be42aea197cd139b4bc0c3a5d6a
 $string['email_applied_plain'] = 'Un rendez-vous a été pris le {$a->date} à {$a->time},
 par l\'étudiant {$a->attendee} pour le cours :
 

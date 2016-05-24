@@ -33,7 +33,7 @@ if ($hassiteconfig) {
 
     $page->add(new admin_setting_configtext('local_orangemail/contactemail',
             new lang_string('contactemail', 'local_orange_mail'),
-            new lang_string('contactemail_desc', 'local_orange_mail'), 'contact@solerni.com', PARAM_NOTAGS));
+            new lang_string('contactemail_desc', 'local_orange_mail'), 'contact@solerni.fr', PARAM_NOTAGS));
 
     $page->add(new admin_setting_configtext('local_orangemail/supportemail',
             new lang_string('supportemail', 'local_orange_mail'),
@@ -49,7 +49,7 @@ if ($hassiteconfig) {
 
     $page->add(new admin_setting_configtext('local_orangemail/noreplyemail',
             new lang_string('noreplyemail', 'local_orange_mail'),
-            new lang_string('noreplyemail_desc', 'local_orange_mail'), 'noreply@solerni.com', PARAM_NOTAGS));
+            new lang_string('noreplyemail_desc', 'local_orange_mail'), 'noreply@solerni.fr', PARAM_NOTAGS));
 
 
     $page->add(new admin_setting_heading('htmltemplate',
@@ -129,6 +129,12 @@ ul.forumng-commands a {
 	font-size: 16px;
 	text-decoration: underline;
 }
+div.forumng-post {
+        border: 1px solid #AAA;
+        padding: 0.5em;
+        margin-top: 1em;
+        margin-bottom: 1em;
+}
 </style>', PARAM_RAW, '50', '10'));
 
     $page->add(new admin_setting_configtextarea('local_orangemail/header',
@@ -139,7 +145,7 @@ ul.forumng-commands a {
             <td width="70" >
                 <a href="{$b->siteurl}"><img src="{$b->imageurl}logo.png" width="62" height="54" alt="{$b->sitename}"
                 title="{$b->sitename}" /></a>
-            </td><td class="txt22BBlanc" align="left">{$b->sitename}</td>
+            </td><td class="txt22BBlanc" align="left">{$b->servicename}</td>
         </tr>
       </table></td>
   </tr>
@@ -209,7 +215,7 @@ ul.forumng-commands a {
     $page->add(new admin_setting_configtextarea('local_orangemail/footerinscription',
             new lang_string('footerinscription', 'local_orange_mail'),
             new lang_string('footerinscription_desc', 'local_orange_mail'), '  <tr>
-    <td height="230" bgcolor="#000000"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+    <td height="220" bgcolor="#000000"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
         <tr>
           <td class="txt14blanc">{$b->solernimailfooterinscriptionhtml}</td>
         </tr>

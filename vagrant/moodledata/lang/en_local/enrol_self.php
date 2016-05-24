@@ -27,3 +27,4 @@ defined('MOODLE_INTERNAL') || die();
 require_once("$CFG->dirroot/local/orange_mail/mail_init.php");
 
 $string['welcometocoursetext'] = mail_init::init('welcometocoursetext','html');
+$string['welcometocourse'] = 'Confirmation of sign-up to the "{$a}" MOOC';

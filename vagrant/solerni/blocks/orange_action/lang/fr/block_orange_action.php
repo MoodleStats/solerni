@@ -26,8 +26,7 @@ $string['pluginname'] = 'Orange action';
 $string['config_default_title'] = 'Orange action';
 $string['hideblockheader'] = 'Masquer le titre';
 $string['hideblockheaderdesc'] = 'Permet de masquer le titre du bloc';
-$string['enrolleduser'] = '{$a} inscrit';
-$string['enrolledusers'] = '{$a} inscrits';
+$string['enrolledusers'] = '{$a->number} inscrit{$a->plural}';
 $string['nextsessionlink'] = 'Je souhaite être averti de la prochaine session.';
 $string['coursetopush'] = 'Cours à mettre en avant';
 $string['coursetopush_help'] = 'Sélectionner le cours qui sera mis en avant sur le dashboard des utilisateurs (Seuls les cours non terminés sont présentés).';
@@ -39,7 +38,7 @@ $string['generalconfig'] = "Configuration générale du bloc";
 $string['myconfig'] = "Configuration du bloc";
 $string['myconfigdesc'] = "Sélectionner le cours et/ou l'événement qui seront mis en avant. Si un cours et un événement sont sélectionnés, seul le cours sera affiché sur la page my.";
 $string['gotocalendar'] = "Accéder à l'événement";
-
+$string['gotosequence'] = "Accéder à la séquence";
 
 // For capabilities.
 $string['orange_action:addinstance'] = 'Ajouter un bloc Orange Action';

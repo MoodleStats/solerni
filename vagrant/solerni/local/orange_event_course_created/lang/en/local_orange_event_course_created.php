@@ -22,18 +22,18 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Orange Evt course_created';
-$string['welcome_enrolment_message_inscription'] = 'You enrol on the MOOC {$a}.';
-$string['welcome_enrolment_message_notstarted'] = 'This MOOC is not started : it will start on {$a}.. We will send you a reminder few days before the MOOC start. See you soon.';
-$string['welcome_enrolment_message_started'] = 'The MOOC is open : you can start now. Good MOOC !';
-$string['content_piwik_fail'] = 'The creation of Solerni course  didn\'t generate a new Piwik account or Piwik segment. Please contact the manager of Solerni statistics';
-$string['content_piwik_success'] = '<p>Hello <span class="txt18BNoir">{$a->username}</span>,</p>
-<p>The creation of new course \'{$a->coursename}\'on platform {$a->sitename} generated automatically a new account and Segment Piwik.</p>
-<p>Please find bebow Your Piwik login details :</p>
+$string['pluginname'] = 'Orange Event course_created';
+$string['content_piwik_success'] = '<p>Hello <strong>{$a->firstname} {$a->lastname}</strong>,</p>
+<p>The creation of new course \'{$a->coursename}\' on platform {$a->sitename} has generated automatically a new account on Piwik, our web analytics platform.</p><br/>
+<p>Please find below your Piwik login details:</p>
 <ul>
-   <li>user name : {$a->userpiwik}</li>
-   <li>password  : {$a->passwordpiwik}</li>
+   <li>user name: {$a->userpiwik}</li>
+   <li>password: {$a->passwordpiwik}</li>
 </ul>
-<p><strong>Remarque : </strong>This password can be changed at any time on Piwik by the new account</p>';
-$string['subject_piwik_success'] = '{$a->sitename} - Creations of Piwik account and segment';
-$string['subject_piwik_fail'] = '{$a->sitename} - Fail to create an account and/or segment on piwik';
+<br/>
+<p><i>Please note: This password can be changed at any time on Piwik by the new account.</i></p>';
+$string['content_piwik_fail'] = '<p>Hello <strong>{$a->firstname} {$a->lastname}</strong>,</p>
+<p>Sorry but a technical problem prevented the automatic creation of your account access to web data MOOC \'{$a->coursename}\'on the Piwik platform.</p><br/>
+<p>Please contact our support at {$a->emailcontact} to finish creating your account.</p>';
+$string['subject_piwik_success'] = '{$a->coursename}: Creation of your Piwik account';
+$string['subject_piwik_fail'] = '{$a->coursename}: Failed to create your account on Piwik';

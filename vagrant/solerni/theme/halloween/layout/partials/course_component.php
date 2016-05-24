@@ -23,13 +23,14 @@
  */
 use local_orange_library\utilities\utilities_object;
 use local_orange_library\utilities\utilities_user;
+use local_orange_library\utilities\utilities_course;
 global $PAGE;
 
 if ( $courseinfos ) :
     $customerurl = new moodle_url('/course/index.php', array('categoryid' => $course->category));
 
     if (!empty($courseinfos->imgurl)) {
-        $courseimageurl = $imageutilities->get_resized_url($courseinfos->imgurl,
+        $courseimageurl = $imageutilities->get_resized_url($courseinfos->file,
                                  array('w' => 490, 'h' => 357, 'scale' => false));
     }
     if (!empty($customer->urlimg)) {
@@ -37,10 +38,13 @@ if ( $courseinfos ) :
                                  array('w' => 40, 'h' => 40, 'scale' => false));
     }
 ?>
+
     <div class="col-sm-12 col-md-6">
-        <div class="thumbnail">
+        <div class="thumbnail hover">
             <div class="thumbnail-slide">
-                <img src="<?php echo $courseimageurl; ?>" class="img-thumbnail img-responsive">
+                <?php if (!empty($courseimageurl)) : ?>
+                    <img src="<?php echo $courseimageurl; ?>" class="img-thumbnail img-responsive">
+                <?php endif; ?>
                 <div class="caption">
                     <h4><?php echo $coursename; ?></h4>
                     <?php if ($customerurl && $customer && $customer->name) : ?>
@@ -58,29 +62,37 @@ if ( $courseinfos ) :
                 </div>
                 <?php endif; ?>
                  <div class="caption caption-hover">
-                    <?php if ( $course->startdate) : ?>
-                    <div class="bold col-sm-10"><?php echo get_string('coursestartdate', 'theme_halloween') .
-                                    " " . date("d.m.Y", $course->startdate); ?></div>
-                    <?php endif; ?>
+
                     <?php if ( $courseinfos->price != get_string('price_case1', 'local_orange_library')) : ?>
-                    <div class="glyphicon glyphicon-euro col-sm-1"></div>
+                    <div class="bottom-line-space glyphicon glyphicon-euro col-sm-1"></div>
                     <?php endif; ?>
                     <?php if ( $badges->count_badges($course->id)) : ?>
-                    <div class="glyphicon glyphicon-star col-sm-1"></div>
+                    <div class="bottom-line-space glyphicon glyphicon-star col-sm-11"></div>
                     <?php endif; ?>
-                    <p class="small bold col-sm-12 thumbnail-text">
-                        <?php echo $courseinfos->duration;?>
-                    </p>
-                    <p class="col-sm-12 thumbnail-text">
+                    <?php if ( $course->startdate) : ?>
+                    <div class="bold col-sm-12"><?php echo get_string('coursestartdate', 'theme_halloween') .
+                                    " " . date("d.m.Y", $course->startdate); ?></div>
+                    <?php endif; ?>
+
+                    <div class="glyphicon glyphicon-calendar col-sm-1"></div>
+                    <div class="bold col-sm-11">
+                        <?php echo $courseinfos->duration. ' '.get_string('courseduration', 'theme_halloween');?>
+                    </div>
+                    <div class="col-sm-12 bottom-line-space thumbnail-text">
+                        <a class="link-primary" href="<?php echo $customerurl; ?>">
+                            <?php echo get_string('courseproposedby', 'theme_halloween').' '.utilities_course::get_categoryname_by_categoryid($course->category);?>
+                        </a></div>
+                    <div class="col-sm-12 bottom-line-space thumbnail-text">
                     <?php // @todo adapt length depending on viewport width ?
                     echo utilities_object::trim_text( $chelper->get_course_formatted_summary($course,
                         array('overflowdiv' => false, 'noclean' => true, 'para' => false)), 155); ?>
-                    </p>
-                    <p class="col-sm-12 thumbnail-text">
-                        <a class="link-secondary" href="<?php echo $utilitiescourse->get_description_page_url($course); ?>">
+                    </div>
+                    <div class="col-sm-12 midwidth-line"></div>
+                    <div class="col-sm-12 thumbnail-text">
+                        <a class="link-secondary" href="<?php echo utilities_course::get_course_findoutmore_url($course->id); ?>">
                             <?php echo get_string('coursefindoutmore', 'theme_halloween'); ?>
                         </a>
-                    </p>
+                    </div>
                 </div>
             </div>
             <div class="thumbnail-status-box u-inverse text-center">
@@ -98,6 +110,7 @@ if ( $courseinfos ) :
                     <?php endif; ?>
         </div>
     </div>
+
 <?php else : ?>
     <?php if(utilities_user::is_user_site_admin($user)) : ?>
     <div class="col-xs-12 col-md-6">

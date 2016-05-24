@@ -28,4 +28,4 @@ require_once("$CFG->dirroot/local/orange_mail/mail_init.php");
 
 $string['badgesearned'] = 'Nombre total de badges obtenus : {$a}';
 $string['messagesubject'] = 'Félicitations ! Vous avez obtenu un badge !';
-$string['messagebody'] = mail_init::init('badgemessagebody','html');
+$string['messagebody'] = mail_init::init('messagebody','html');

@@ -56,6 +56,8 @@ $string['brand_secondary']              = '@brand-secondary';
 $string['brand_secondarydesc']          = '';
 $string['brand_tertiary']               = '@brand-tertiary';
 $string['brand_tertiarydesc']           = '';
+$string['brand_contrasted']             = '@brand-contrasted';
+$string['brand_contrasteddesc']         = '';
 $string['brand_success']                = '@brand-success';
 $string['brand_successdesc']            = '';
 $string['brand_info']                   = '@brand-info';
@@ -74,24 +76,22 @@ $string['orange_purple']                = '@orange-purple';
 $string['orange_purpledesc']            = '';
 $string['orange_pink']                  = '@orange-pink';
 $string['orange_pinkdesc']              = '';
-$string['orange_light_1']               = '@gray-lighter';
-$string['orange_light_1desc']           = '@orange-light-1';
+$string['orange_light_1']               = '@orange-light-1';
+$string['orange_light_1desc']           = '';
 $string['orange_light_2']               = '@orange-light-2';
 $string['orange_light_2desc']           = '';
-$string['orange_light_3']               = '@gray-light';
-$string['orange_light_3desc']           = '@orange-light-3';
+$string['orange_light_3']               = '@orange-light-3';
+$string['orange_light_3desc']           = '';
 $string['orange_light_4']               = '@orange-light-4';
 $string['orange_light_4desc']           = '';
-$string['orange_mid_1']                 = '@gray';
-$string['orange_mid_1desc']             = '@orange-mid-1';
+$string['orange_mid_1']                 = '@orange-mid-1';
+$string['orange_mid_1desc']             = '';
 $string['orange_mid_2']                 = '@orange-mid-2';
 $string['orange_mid_2desc']             = '';
-$string['orange_dark_1']                = '@gray-dark';
-$string['orange_dark_1desc']            = '@orange-dark-1';
+$string['orange_dark_1']                = '@orange-dark-1';
+$string['orange_dark_1desc']            = '';
 $string['orange_dark_2']                = '@orange-dark-2';
 $string['orange_dark_2desc']            = '';
-$string['orange_dark_3']                = '@gray-darker';
-$string['orange_dark_3desc']            = '@orange-dark-3';
 
 // Footer branding area settings.
 $string['footerbrandsettings']      = 'Footer Branding';
@@ -174,6 +174,7 @@ $string['user_menu_dashboard']      = 'My dashboard';
 $string['user_menu_profile']        = 'My profile';
 $string['user_menu_email']          = 'My emails';
 $string['user_menu_logout']         = 'Log out';
+$string['user_menu_preferences']    = 'My preferences';
 $string['administration']           = 'Administration';
 $string['skip_to_main']             = 'To main content';
 $string['skip_to_nav']              = 'To page navigation';
@@ -181,14 +182,13 @@ $string['skip_to_nav']              = 'To page navigation';
 // Login settings.
 $string['loginsettings']            = 'Login page';
 $string['loginheading']             = 'Login page settings';
-$string['loginheadingdesc']         = 'The upper part of the login page allows for editorial modifications (logo, title,'
-                                        . ' text area). Your can change the default settings here. To remove an item, '
-                                        . 'just remove the content from the field before saving. You could also modify'
-                                        . ' the labels of the login form and add block-level help to them.';
-
-
-$string['loginlogo']                = 'Logo';
-$string['loginlogodesc']            = '';
+$string['loginheadingdesc']         = 'The upper part of the login page allows for editorial modifications . Your can '
+                                        . 'change the default settings. To remove an item, just remove the content from '
+                                        . 'the field before saving. You could also modify the labels of the login form '
+                                        . 'and add block-level help to them.'
+                                        . ' Note: on public instances, the logintext field is automatically generated '
+                                        . 'when the field is empty. Therefore it is not possible to delete the logintext'
+                                        . ' message on public instances (but you could modify it).';
 $string['logintitle']               = 'Title';
 $string['logintitledesc']           = '';
 $string['logintext']                = 'Instructions';
@@ -207,7 +207,13 @@ $string['forgotten']                = 'Forgotten ?';
 // Signup settings page.
 $string['signupsettings']           = 'Signup page';
 $string['signupheading']            = 'Signup page settings';
-$string['signupheadingdesc']        = 'This page allows for editorial modification on the signup page.';
+$string['signupheadingdesc']        = 'The upper part of the signup page allows for editorial modifications . Your can '
+                                        . 'change the default settings. To remove an item, just remove the content from '
+                                        . 'the field before saving. You could also modify the labels of the login form '
+                                        . 'and add block-level help to them.'
+                                        . ' Note: on public instances, the signuptext field is automatically generated '
+                                        . 'when the field is empty. Therefore it is not possible to delete the logintext'
+                                        . ' message on public instances (but you could modify it).';
 $string['signuptitle']              = 'Title';
 $string['signuptitledesc']          = '';
 $string['signuptext']               = 'Instructions';
@@ -227,20 +233,32 @@ $string['signupformfooterdesc']     = '';
 
 // Signup frontend page.
 $string['create_account']           = 'Create my account';
-$string['policyaccept']             = 'I have read and agree to the <a class="js-target-blank" href="{$a}" target="_blank">terms and conditions</a>';
+$string['policyaccept']             = 'I have read and agree to the <a class="js-target-blank" href="{$a}" target="_blank">Terms and Conditions</a>';
 $string['missingusername']          = 'Your {$a} cannot be empty';
 
-// Webservices settings page
+// Webservices settings page.
 $string['webservicessettings']      = 'MNET/RESAC';
 $string['webservicesheading']       = 'Configure communication between RESAC instances';
 $string['webservicesheadingdesc']   = '';
 $string['webservicestoken']         = 'Security token';
 $string['webservicestokendesc']     = 'Insert the HOME MNET token generated for RESAC Web Service';
+$string['webservicestokenthematic'] = 'Security token for {$a}';
+$string['webservicestokenthematicdesc'] = 'Insert the {$a} token generated for RESAC Web Service';
+
+// Homepage settings page.
+$string['homepagesettings']         = 'Homepage';
+$string['homepageheading']          = 'Parameters for homepage';
+$string['homepageheadingdesc']      = '';
+$string['homepageillustration']     = 'Illustration';
+$string['homepageillustrationdesc'] = 'Thematic illustration';
+$string['homepagelogo']             = 'Logo';
+$string['homepagelogodesc']         = 'Thematic logo';
 
 // Search filters.
 $string['catalog_page_title']       = 'Catalog';
 $string['filterstatustitle']        = 'Status';
 $string['filterstatusall']          = 'All MOOCs';
+$string['filterstatusallmoocs']          = 'All';
 
 $string['filterstatusregistrationcomplete']   = 'Mooc complete';
 $string['filterstatusregistrationopen']       = 'Registration open';
@@ -271,6 +289,8 @@ $string['loginoauth']               = 'Log in with {$a}';
 $string['or']                       = 'or';
 $string['username']                 = 'Nickname';
 $string['invalidlogin']             = 'Connection failed. Please check your {$a} and your password.';
+$string['invalidemail']             = 'Invalid login';
+$string['invalidpassword']          = 'Invalid password';
 
 // Register page.
 $string['already_registered']       = 'Already registered?';
@@ -283,6 +303,7 @@ $string['coursestartdate']          = "Starts on";
 $string['courseenddate']            = "Ending on";
 $string['coursebadge']              = "Badges available";
 $string['coursenobadge']            = "No badges";
+$string['courseduration']           = "week(s)";
 
 // Frontpage frontend.
 $string['ifreelyregister']          = "I freely register";
@@ -292,7 +313,7 @@ $string['seecatalog']               = "See the catalogue";
 $string['lastbadge']                = 'Last badge obtained:';
 $string['mybadges']                 = 'My badges';
 
-// Contact page
+// Contact page.
 $string['contact_us']               = 'Contact us';
 $string['contact_page_title']       = 'Contact us';
 $string['contact_request_type']     = 'Your enquiry is about';
@@ -318,8 +339,27 @@ $string['contact_requestid_invalid'] = 'Select a valid entry';
 $string['contact_email_sent']       = 'Your request has been sent';
 $string['contact_email_notsent']    = 'An error occurs, your request has not been sent';
 $string['contact_email_subject']    = 'Solerni - Support request';
-$string['contact_email_body']       = 'The following request has been issued using the contact form of the platform %s';
+$string['contact_email_body']       = 'The following request has been issued using the contact form of the platform {$a}';
+$string['contact_email_subject_copy'] = 'Your enquiry about {$a->sitename} has been received';
+$string['contact_email_body_copy']  = '<p>Dear <span class="txt18BNoir">{$a->fullname}</span>,</p>
+<p>We have received your message and would like to thank you for getting in touch with {$a->sitename}.</p>
+<p>Our support staff is going to process your enquiry and will get back to you as soon as possible.</p>
+<p>Kind regards,</p>
+<p>See you soon on {$b->servicename}</p>';
 
 // Page badges/mybadges.php.
-$string['nobadgesfaq'] = 'There are no badges available.<br/>
+$string['nobadgesfaq']              = 'There are no badges available.<br/>
 <strong><a href="{$a}">Consult FAQ</a></strong> to understand how badges work.';
+
+// Home Solerni.
+$string['hometitle'] = 'What will you learn today ?';
+
+// Page en savoir plus.
+$string['more_info']               = 'more info';
+
+// Page forum.
+$string['forumnavbar']             = 'Discussion space';
+$string['forum_page_title']        = 'Discussion space';
+
+// Course
+$string['course_edited_by']         = 'Course edited by {$a}';

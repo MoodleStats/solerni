@@ -48,12 +48,12 @@ if ($ADMIN->fulltree) {
     $condifmodeditdefaults = get_string('condifmodeditdefaults', 'admin');
     $displayselectexplain = get_string('displayselectexplain', 'descriptionpage');
     $displayselect = get_string('displayselect', 'descriptionpage');
-    $settings->add(new admin_setting_heading('pagemodeditdefaults', $modeditdefaults, $condifmodeditdefaults));
+   // $settings->add(new admin_setting_heading('pagemodeditdefaults', $modeditdefaults, $condifmodeditdefaults));
 
-    $settings->add(new admin_setting_configcheckbox('descriptionpage/printheading',
-        get_string('printheading', 'descriptionpage'), get_string('printheadingexplain', 'descriptionpage'), 1));
-    $settings->add(new admin_setting_configcheckbox('descriptionpage/printintro',
-        get_string('printintro', 'descriptionpage'), get_string('printintroexplain', 'descriptionpage'), 0));
+    //$settings->add(new admin_setting_configcheckbox('descriptionpage/printheading',
+     //   get_string('printheading', 'descriptionpage'), get_string('printheadingexplain', 'descriptionpage'), 1));
+    //$settings->add(new admin_setting_configcheckbox('descriptionpage/printintro',
+    //    get_string('printintro', 'descriptionpage'), get_string('printintroexplain', 'descriptionpage'), 0));
     $settings->add(new admin_setting_configselect('descriptionpage/display',
         $displayselect, $displayselectexplain, RESOURCELIB_DISPLAY_OPEN, $displayoptions));
     $settings->add(new admin_setting_configtext('descriptionpage/popupwidth',

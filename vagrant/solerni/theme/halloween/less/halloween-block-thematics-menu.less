@@ -1,0 +1,114 @@
+/*
+ * Orange Thematics Menu CSS.
+ */
+
+.block_orange_thematics_menu {
+    
+    background-color:   @brand-yellow;
+    padding-top:        @s-triple-md-margin;
+    
+    .orange-thematics-menu-item:hover .orange-thematics-middle .orange-thematics-menu-numbers {
+        visibility: visible;
+        opacity:    1;
+    }
+    .orange-thematics-menu-item {
+        
+        padding-bottom:     @s-triple-md-margin;
+        position:           relative;
+        
+        .orange-thematics-menu-top {
+            
+            overflow: hidden;
+
+            .icon-thematic  {
+                float:          left;
+                font-weight:    bold;
+                font-family:    @font-family-titles;
+                font-size:      @font-size-h4;
+                padding:        @s-double-xs-margin;
+                padding-left:   @s-triple-xs-margin;
+
+                img {
+                    width:      @font-size-h2;
+                    height:     @font-size-h2;
+                }
+
+                span {
+                    padding-left: @s-double-xs-margin;
+                }
+            }
+        }
+
+        .orange-thematics-middle {
+            position: relative;
+            
+            .orange-thematics-menu-image {
+                padding-rigth:        @s-small-xs-margin;
+                background-color:     @brand-tertiary;
+
+                img {
+                    width:      100%;
+                }
+
+            }
+
+            .orange-thematics-menu-numbers {
+                padding:            @s-double-xs-margin;
+                padding-right:      0;
+                background-color:   @brand-tertiary;
+                visibility:         hidden;
+                opacity:            0;
+                position:           absolute;
+                top: 0; left: 0; right: 0; bottom: 0;
+                transition:         opacity 250ms ease-in 500ms;
+                font-weight:        bold;
+                font-family:        @font-family-titles;
+                font-size:          @font-size-large;
+
+                div {
+                    padding-bottom: @s-medium-xs-margin;
+                    @media (min-width: @screen-md-min) {
+                        padding-bottom: @s-medium-md-margin;
+                    }
+
+                    span {
+                        color: @brand-contrasted;
+                    }
+
+                    div {
+                        color: @brand-primary;
+                    }
+                }
+
+            }
+        }
+
+
+        .orange-thematics-menu-bottom {
+            padding:            @s-double-xs-margin;
+            background-color:   @brand-tertiary;
+
+            .row {
+                display: table;
+                width: 100%;
+            }
+            
+            .orange-thematics-menu-bottom-cell {
+                @media (min-width: @screen-md-min) {
+                    display: table-cell;
+                    float: none;
+                }
+            }
+            
+            .orange-thematics-menu-nbmoocs {
+                background-color:   @brand-tertiary;
+                vertical-align:     middle; 
+                padding-right:      0;
+                
+                span {
+                    color: @brand-contrasted;
+                }
+            }
+        }
+    }
+}

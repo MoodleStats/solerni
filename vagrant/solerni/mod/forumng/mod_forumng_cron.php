@@ -17,7 +17,9 @@
 require_once(dirname(__FILE__).'/mod_forumng.php');
 require_once(dirname(__FILE__).'/mod_forumng_mail_list.php');
 require_once(dirname(__FILE__).'/mod_forumng_digest_list.php');
-require_once($CFG->dirroot . '/local/orange_mail/classes/mail_object.php');
+// Orange - 2016.05.18 - include instead of require needed.
+include_once($CFG->dirroot . '/local/orange_mail/classes/mail_object.php');
+use theme_halloween\tools\log_and_session_utilities;
 
 /**
  * Utility class handling all cron tasks.
@@ -530,8 +532,17 @@ $mainquery", $mainparams);
             // Get header text
             $headerdata = new object();
             $headerdata->sitename = format_string($course->fullname, true);
-            $headerdata->userprefs = $CFG->wwwroot . '/user/edit.php?id=' .
-                $user->id . '&amp;course=' . $course->id;
+            // Orange - 2016.05.12 - Define link base on MNET use.
+            if ($user->mnethostid == 1) {
+                $headerdata->userprefs = $CFG->wwwroot . '/user/edit.php?id=' .
+                    $user->id . '&amp;course=' . $course->id;
+            } else {
+                $home = log_and_session_utilities::define_login_form_action();
+                $headerdata->userprefs = $home['host'] . '/user/edit.php?id=' .
+                    $user->id . '&amp;course=' . $course->id;
+            }            
+            // Orange - 2016.05.13 - add user name.
+            $headerdata->user = fullname($user);
 
             $userdigests[$user->id]->text = get_string('digestmailheader',
                 'forumng', $headerdata) . "\n\n";
@@ -539,12 +550,12 @@ $mainquery", $mainparams);
             // Get header HTML
             //$html = "<body id='forumng-email'>\n";
             $html = "";
-            $headerdata->userprefs = '<a target="_blank" href="' .
+            $headerdata->userprefs = '<a target="_blank" class="lientxt18orange" href="' .
                 $headerdata->userprefs . '">' .
                 get_string('digestmailprefs', 'forumng') . '</a>';
             $html .= '<div class="forumng-emailheader"><p>' .
                 get_string('digestmailheader', 'forumng', $headerdata).
-                '</p></div><hr size="1" noshade="noshade" />';
+                '</p></div>';
             $userdigests[$user->id]->html = $html;
 
             // Get email subject
@@ -565,25 +576,24 @@ $mainquery", $mainparams);
             $text = "\n \n";
             $text .= '=====================================================================';
             $text .= "\n \n";
-            $text .= "$course->shortname -> $strforums -> " .
+            $text .= "$course->shortname -> $strforums > " .
                     format_string($forum->get_name(), true);
             if ($discussion->get_subject(false) !== $forum->get_name()) {
-                $text  .= " -> " . format_string($discussion->get_subject(false), true);
+                $text  .= " > " . format_string($discussion->get_subject(false), true);
             }
             $text .= "\n";
 
             // HTML mode
-            $html = '<hr size="1" noshade="noshade" />';
-            $html .= "<div class='forumng-breadcrumbs'>" .
+            $html = "<div class='forumng-breadcrumbs'>" .
                     "<a target='_blank' href='$CFG->wwwroot/course/view.php?" .
-                    "id=$course->id'>$course->shortname</a> -> " .
+                    "id=$course->id'>$course->shortname</a> > " .
                     "<a target='_blank' href='$CFG->wwwroot/mod/forumng/index.php?" .
-                    "id=$course->id'>$strforums</a> -> " .
+                    "id=$course->id'>$strforums</a> > " .
                     "<a target='_blank' href='$CFG->wwwroot/mod/forumng/view.php?" .
                     $forum->get_link_params(mod_forumng::PARAM_HTML) . "'>" .
                     format_string($forum->get_name(), true)."</a>";
             if ($discussion->get_subject(false) !== $forum->get_name()) {
-                $html .= " -> <a target='_blank' href='$CFG->wwwroot/mod/forumng/discuss.php?" .
+                $html .= " > <a target='_blank' href='$CFG->wwwroot/mod/forumng/discuss.php?" .
                         $discussion->get_link_params(mod_forumng::PARAM_HTML) . "'>" .
                         format_string($discussion->get_subject(false), true) . "</a>";
             }
@@ -613,8 +623,9 @@ $mainquery", $mainparams);
         global $CFG;
 
         // Loop around all digests and send them out
+        // Orange - 2016.05.13 - Change From.
         foreach ($userdigests as $digest) {
-            self::email_send($digest->user, $CFG->noreplyaddress,
+            self::email_send($digest->user, core_user::get_support_user(),
                 $digest->subject, $digest->text, $digest->html);
         }
 
@@ -796,11 +807,11 @@ $mainquery", $mainparams);
             if ($ishtml) {
                 $mail->IsHTML(true);
                 $mail->Encoding = 'quoted-printable';
-                $mail->Body    =  mail_object::get_mail($html, 'html', '');
-                $mail->AltBody =  "\n" . mail_object::get_mail($text, 'text', '') . "\n";
+                $mail->Body    = mail_object::get_mail($html, 'html', '');
+                $mail->AltBody = "\n" . mail_object::get_mail($text, 'text', '') . "\n";
             } else {
                 $mail->IsHTML(false);
-                $mail->Body =  "\n" . mail_object::get_mail($text, 'text', '') . "\n";
+                $mail->Body = "\n" . mail_object::get_mail($text, 'text', '') . "\n";
             }
 
             foreach ($batch as $user) {
