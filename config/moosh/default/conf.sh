@@ -475,6 +475,21 @@ function main () {
 
         # Navigation Block : change settings pagetypepattern=course-view-* to make it visible only in course pages
 	execute_moosh_command "moosh block-update system 0 'navigation' 'pagetypepattern' 'course-view-*'"
+
+	# Activation emoticon, glossary, urltolink, emailprotect Filter (#us_217)
+	execute_moosh_command "moosh filter-manage -c on emoticon"
+	execute_moosh_command "moosh filter-manage -c on glossary"
+	execute_moosh_command "moosh filter-manage -c on urltolink"
+	execute_moosh_command "moosh filter-manage -c on emailprotect"
+
+	# Activation place buttons in tinyMCE toolbar (#us_217)
+        #FIXME : can't use 'execute_moosh_command' function (the newline is misinterpreted)
+        moosh config-set customtoolbar "wrap,formatselect,wrap,bold,italic,wrap,bullist,numlist,wrap,link,unlink,wrap,image,moodleemoticon,wrap,code
+ 
+            undo,redo,wrap,underline,strikethrough,sub,sup,wrap,justifyleft,justifycenter,justifyright,wrap,outdent,indent,wrap,forecolor,backcolor,wrap,ltr,rtl
+ 
+            fontselect,fontsizeselect,wrap,search,replace,wrap,nonbreaking,charmap,table,wrap,code,cleanup,removeformat,pastetext,pasteword,wrap,mediagallery,wrap,fullscreen
+            " editor_tinymce
 }
 
 main "$@"
