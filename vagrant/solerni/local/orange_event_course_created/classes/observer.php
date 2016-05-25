@@ -101,6 +101,7 @@ class local_orange_event_course_created_observer {
         $urlaccount = $url.'?'.$module.$method.$userpiwik.$password.$email.$tokenauth;
         $urluseraccess = $url.'?'.$module.$methodaccessuser.$userpiwik.$access.$piwiksiteid.$tokenauth;
         $urluserdashboard = $url.'?'.$module.$methoddashboarduser.$logindashboard.$namedashboard.$layout.$tokenauth;
+        $urlaccessformarket = $url.'?'.$module.$methodaccessuser.'&userLogin=market'.$access.$piwiksiteid.$tokenauth;
         // debugging('urlaccount: '.$urlaccount, DEBUG_DEVELOPER);
         // debugging('urluserdashboard: '.$urluserdashboard, DEBUG_DEVELOPER);
         // debugging('urluseraccess: '.$urluseraccess, DEBUG_DEVELOPER);
@@ -108,9 +109,9 @@ class local_orange_event_course_created_observer {
         $xmlaccount = xml_from_piwik($urlaccount);
         $xmlaccess = xml_from_piwik($urluseraccess);
         $xmldashboard = xml_from_piwik($urluserdashboard);
-        
+        $xmlaccessmarket = xml_from_piwik($urlaccessformarket);
         
         // We test xml Piwik responses to kwow if siteid and user are correctly created and send mail.
-        $return = sendmail_to_admin_piwik($course,$event,$pass,$xmlaccount,$xmlaccess,$xmldashboard);
+        $return = sendmail_to_admin_piwik($course,$event,$pass,$xmlaccount,$xmlaccess,$xmldashboard,$xmlaccessmarket);
     }
 }
