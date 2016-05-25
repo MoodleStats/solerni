@@ -36,7 +36,7 @@ function xml_from_piwik($url) {
   return ($xmlresponse);
 }
 
-function sendmail_to_admin_piwik($course,$event,$pass,$xmlaccount,$xmlaccess,$xmldashboard) {
+function sendmail_to_admin_piwik($course,$event,$pass,$xmlaccount,$xmlaccess,$xmldashboard, $xmlaccessmarket) {
     global $CFG, $DB;
     $site = get_site();
     $contact = core_user::get_support_user();
@@ -46,7 +46,7 @@ function sendmail_to_admin_piwik($course,$event,$pass,$xmlaccount,$xmlaccess,$xm
     $xmldashboard = intval($xmldashboard);
     $key = array('{$a->username}', '{$a->coursename}', '{$a->sitename}', '{$a->userpiwik}', '{$a->passwordpiwik}','{$a->emailcontact}', '{$a->firstname}','{$a->lastname}');
     $value = array($user->username, $course->fullname, $site->fullname, $userpiwik, $pass,$CFG->supportemail,$user->firstname,$user->lastname);
-    if (($xmlaccount->success['message'] == $srtsuccess) && ($xmlaccess->success['message'] == $srtsuccess) && (is_int($xmldashboard) == true)) {
+    if (($xmlaccount->success['message'] == $srtsuccess) && ($xmlaccess->success['message'] == $srtsuccess) && ($xmlaccessmarket->success['message'] == $srtsuccess) && (is_int($xmldashboard) == true)) {
         $message = get_string('content_piwik_success', 'local_orange_event_course_created');
         $message = str_replace($key, $value, $message);
         $subject = get_string('subject_piwik_success', 'local_orange_event_course_created');
