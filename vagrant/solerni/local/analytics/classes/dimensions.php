@@ -96,7 +96,7 @@ class local_analytics_dimensions {
                 get_string('not_set', 'local_analytics');
         }
         if ($this->iscourse) {
-            return utilities_course::get_customer($course->category);
+            return utilities_course::get_customer($course->category)->name;
         } else {
             get_string('not_set', 'local_analytics');
         }
