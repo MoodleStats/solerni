@@ -116,8 +116,6 @@ class local_orange_customers_observer {
         $enabledallusers = '&enabledAllUsers=0';
         $urlsegment1 = $url.'?'.$module.$methodsegment.$name.$definition.$idsite.$autoarchive.$enabledallusers.$login1.$tokenauth;
         $urlsegment2 = $url.'?'.$module.$methodsegment.$name.$definition.$idsite.$autoarchive.$enabledallusers.$login2.$tokenauth;
-        error_log($urlsegment2);
-        error_log($urlsegment1);
         $xmlaccount1 = utilities_piwik::xml_from_piwik($urlsegment1);
         $xmlaccount2 = utilities_piwik::xml_from_piwik($urlsegment2);
         if ((is_int($xmlaccount1) === false)|| (is_int($xmlaccount2)) === false) {
