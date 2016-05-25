@@ -39,7 +39,7 @@ class block_orange_action_renderer extends plugin_renderer_base {
     }
 
     /**
-     * Display Event for my page (loggedin user dashboard)
+     * Display Event for my page (user dashboard)
      *
      * @todo factorize code with the course version
      *
@@ -91,18 +91,6 @@ class block_orange_action_renderer extends plugin_renderer_base {
      * @return message
      */
     public function display_on_course_dashboard () {
-        $output = html_writer::start_tag('div');
-        $output .= html_writer::end_tag('div');
-
-        return $output;
-    }
-
-    /**
-     * Display for forum index page
-     *
-     * @return message
-     */
-    public function display_on_forum_index () {
         $output = html_writer::start_tag('div');
         $output .= html_writer::end_tag('div');
 
