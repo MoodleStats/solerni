@@ -59,12 +59,13 @@ class orange_customers_form extends moodleform implements renderable {
                 'accepted_types' => 'web_image'
         );
 
-        $mform->addElement('filemanager', 'logo', get_string('customerlogo', 'local_orange_customers'), null, $optionsfilemanager);
-        $mform->addHelpButton('logo', 'customerlogo', 'local_orange_customers');
+        $mform->addElement('filemanager', 'logo_filemanager', get_string('customerlogo', 'local_orange_customers'),
+                null, $optionsfilemanager);
+        $mform->addHelpButton('logo_filemanager', 'customerlogo', 'local_orange_customers');
 
-        $mform->addElement('filemanager', 'picture', get_string('customerpicture', 'local_orange_customers'),
+        $mform->addElement('filemanager', 'picture_filemanager', get_string('customerpicture', 'local_orange_customers'),
                            null, $optionsfilemanager);
-        $mform->addHelpButton('picture', 'customerpicture', 'local_orange_customers');
+        $mform->addHelpButton('picture_filemanager', 'customerpicture', 'local_orange_customers');
 
         $mform->addElement('hidden', 'id', 0);
         $mform->setType('id', PARAM_RAW);

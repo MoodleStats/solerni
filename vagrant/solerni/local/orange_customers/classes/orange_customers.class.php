@@ -71,8 +71,6 @@ class orange_customers  {
             $toform->name = $tobemodified->name;
             $toform->summary = $tobemodified->summary;
             $toform->description = $tobemodified->description;
-            $toform->logo = $tobemodified->logo;
-            $toform->picture = $tobemodified->picture;
         }
 
         $this->renderable = new orange_customers_form();
