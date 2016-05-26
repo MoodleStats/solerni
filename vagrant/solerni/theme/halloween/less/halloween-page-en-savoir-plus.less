@@ -24,16 +24,44 @@
 
 */
 
-/* Zig Zag Articles */
-.zigzag-row {
-    padding-bottom: @s-triple-md-margin;
-    padding-top:    @s-triple-md-margin;
+/* Moodle Block orange_paragraph_list */
+
+.block_orange_paragraph_list {
+    padding-top: 0;
 }
 
-.zigzag-row .h2 {
-    line-height:    1;
-    margin-top:     0;
-    margin-bottom:  @s-double-md-margin;
+.zigzag-row {
+
+    .zigzag-row__text {
+        padding-bottom: @s-triple-md-margin;
+        padding-top:    @s-triple-md-margin;
+    }
+
+    .h2 {
+        margin-top:     0;
+        margin-bottom:  @s-double-md-margin;
+    }
+
+}
+
+    // Beware, this @media is max-width setting (only for small screen devices).
+    @media (max-width:  @screen-md-min) {
+
+        .zigzag-row__image + .zigzag-row__text,
+        .zigzag-row__text + .zigzag-row__image {
+            padding-top: @s-medium-md-margin;
+        }
+
+        .row .zigzag-row__text:first-child {
+            padding-top: @s-medium-md-margin;
+        }
+
+        .zigzag-row__text p,
+        .zigzag-row__text h2,
+        .zigzag-row__text .h2 {
+            padding-left:   @s-medium-md-margin;
+            padding-right:  @s-medium-md-margin;
+        }
 }
 
 /* list-3-items block */
