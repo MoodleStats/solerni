@@ -72,7 +72,8 @@ function block_orange_listforumng_get_bylistforumngid($listforumngid) {
         $discussionname = "-";
         $picture = "";
         $lastpostdate = array();
-        foreach ($listdiscus->get_normal_discussions() as $discus) {
+        $listalldiscussions = array_merge($listdiscus->get_sticky_discussions(), $listdiscus->get_normal_discussions());
+        foreach ($listalldiscussions as $discus) {
             $nbposts += $discus->get_num_posts();
             $lastpostid = $discus->get_last_post_id();
             if ($postunread == false && ($discus->get_num_unread_posts() != 0 || $discus->get_num_unread_posts() != "")) {
