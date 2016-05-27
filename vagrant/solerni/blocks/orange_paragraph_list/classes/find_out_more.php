@@ -102,7 +102,7 @@ class find_out_more {
         $defaults = array('w' => 580, 'h' => 430, 'scale' => true);
         for ($i = 1 ; $i <= $this->nbitems; $i++) {
 
-            $file = utilities_image::get_moodle_stored_file(\context_course::instance($this->course->id), 'format_flexpage', 'paragraphpicture', ($i));
+            $file = utilities_image::get_moodle_stored_file(\context_course::instance($this->course->id), 'format_flexpage', 'paragraphpicture', $i);
             if ($file) {
                 $this->resizedimgurl[$i] = utilities_image::get_resized_url($file, $defaults);
             } else {
