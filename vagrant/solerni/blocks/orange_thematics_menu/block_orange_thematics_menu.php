@@ -32,6 +32,13 @@ class block_orange_thematics_menu extends block_base {
         $this->renderer = $PAGE->get_renderer('block_orange_thematics_menu');
     }
 
+    public function html_attributes() {
+        $attributes = parent::html_attributes();
+        $attributes['class'] = $attributes['class'] . ' bg-yellow';
+
+        return $attributes;
+    }
+
     public function has_config() {
         return false;
     }
@@ -57,8 +64,9 @@ class block_orange_thematics_menu extends block_base {
     public function get_content() {
 
         // Bloc only for MNet plateforme.
-        if (!utilities_network::is_platform_uses_mnet() ||
-                (utilities_network::is_platform_uses_mnet() && utilities_network::is_thematic())) {
+        if (    !utilities_network::is_platform_uses_mnet()
+                || (utilities_network::is_platform_uses_mnet() && utilities_network::is_thematic())
+                || ! ($hosts = utilities_network::get_hosts())) {
             return false;
         }
 
@@ -66,20 +74,18 @@ class block_orange_thematics_menu extends block_base {
             return $this->content;
         }
 
-        $hosts = utilities_network::get_hosts();
-
         $this->content = new stdClass();
         $this->content->text = "";
+
         $output = html_writer::start_tag('div', array('class' => 'row'));
-        $this->content->text .= $output;
-        foreach ($hosts as $host) {
-            $host = utilities_network::get_thematic_info($host);
-            if (isloggedin() and !isguestuser()) {
-                $host->url = $host->jump;
+            foreach ($hosts as $host) {
+                $host = utilities_network::get_thematic_info($host);
+                if (isloggedin() and !isguestuser()) {
+                    $host->url = $host->jump;
+                }
+                $this->content->text .= $this->renderer->menu_item($host);
             }
-            $this->content->text .= $this->renderer->menu_item($host);
-        }
-        $output = html_writer::end_tag('div');
+        $output .= html_writer::end_tag('div');
         $this->content->text .= $output;
 
         return $this->content->text;
