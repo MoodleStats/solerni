@@ -24,7 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2016050301;        // The current plugin version (Date: YYYYMMDDXX)
+$plugin->version   = 2016052700;        // The current plugin version (Date: YYYYMMDDXX)
 $plugin->requires  = 2014051200;        // Moodle 2.7.
 $plugin->component = 'block_orange_thematics_menu'; // Full name of the plugin (used for diagnostics).
 $plugin->dependencies = array('local_orange_library' => 2016041401);
