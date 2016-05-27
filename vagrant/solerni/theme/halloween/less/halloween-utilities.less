@@ -28,6 +28,23 @@ and open the template in the editor.
     vertical-align: middle;
 }
 
+/* margins modifiers */
+
+.small-bottom-margin {
+    margin-bottom: @s-small-md-margin; // 10px
+}
+
+.medium-bottom-margin {
+    margin-bottom: @s-medium-md-margin; // 20px
+}
+
+.double-bottom-margin {
+    margin-bottom: @s-double-md-margin; // 30px
+}
+
+.triple-bottom-margin {
+    margin-bottom: @s-triple-md-margin; // 50px
+}
 
 /* texts modifiers */
 
@@ -48,6 +65,11 @@ and open the template in the editor.
 }
 
  /* backgrounds modifiers */
+
+.bg-primary {
+    background:     @brand-primary;
+}
+
 .bg-white {
     background:     @brand-tertiary;
 }
@@ -98,4 +120,8 @@ and open the template in the editor.
 
 .bg-graylighter {
     background:     @orange-light-1;
+}
+
+.text-oneline {
+    line-height:    1 !important;
 }

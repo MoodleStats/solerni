@@ -18,6 +18,7 @@ use local_orange_library\utilities\utilities_user;
 use theme_halloween\tools\theme_utilities;
 require_once($CFG->dirroot . '/filter/multilang/filter.php');
 $filtermultilang = new filter_multilang($PAGE->context, array()); ?>
+
 <div class="container">
     <footer class="footer row" role="contentinfo">
         <div class="col-xs-12 col-md-4">
