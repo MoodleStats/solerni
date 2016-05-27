@@ -33,7 +33,7 @@ $string['content_piwik_success'] = '<p>Bonjour <strong>{$a->firstname} {$a->last
 </ul>
 <br/>
 <p><i>Remarque : Vous pouvez personnaliser votre mot de passe sur la plateforme Piwik</i></p>';
-$string['content_piwik_fail'] = '<p>Bonjour <strong>{$a->username}</strong</p>
+$string['content_piwik_fail'] = '<p>Hello <strong>{$a->firstname} {$a->lastname}</strong>,</p>
 <p>Nous sommes désolés mais un problème technique a empêché la création automatique de votre compte d’accès aux données web du MOOC "{$a->coursename}" sur la plateforme Piwik</p>
 <br/>
 <p>Veuillez s’il vous plait contacter notre support à l’adresse e-mail ci-contre {$a->emailcontact} afin de finaliser la création de votre compte.</p>';

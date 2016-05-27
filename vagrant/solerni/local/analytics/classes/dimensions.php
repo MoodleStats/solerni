@@ -8,6 +8,8 @@
  */
 defined('MOODLE_INTERNAL') || die();
 
+use local_orange_library\utilities\utilities_course;
+
 class local_analytics_dimensions {
 
     private $dimensions1;
@@ -24,7 +26,7 @@ class local_analytics_dimensions {
         $this->isuserlogged = $this->set_isuserlogged($user);
         $this->dimensions1 = $this->set_dimensions1($course);
         $this->dimensions2 = $this->set_dimensions2($course, $user);
-        $this->dimensions3 = $this->set_dimensions3($cfg);
+        $this->dimensions3 = $this->set_dimensions3($course, $cfg);
         $this->dimensions4 = $this->set_dimensions4($cfg);
         $this->dimensions5 = $this->set_dimensions5();
 
@@ -87,11 +89,18 @@ class local_analytics_dimensions {
      * Set dimensions3 to platform customer name
      * or to translated string if value is not set
      */
-    private function set_dimensions3($cfg) {
-        return ($cfg->solerni_customer_name) ?
+    private function set_dimensions3($course, $cfg) {
+        if ($cfg->solerni_isprivate) {
+            return ($cfg->solerni_customer_name) ?
                 $cfg->solerni_customer_name :
                 get_string('not_set', 'local_analytics');
-
+        }
+        if ($this->iscourse) {
+            return utilities_course::get_customer($course->category)->name;
+        } else {
+            get_string('not_set', 'local_analytics');
+        }
+            
     }
 
     public function get_dimensions3() {

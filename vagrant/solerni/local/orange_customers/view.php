@@ -56,7 +56,8 @@ if ($id) {
     $customer->picture = 0;
 }
 
-$url = new moodle_url('/local/orange_customers/view.php', array('sesskey' => $USER->sesskey, 'id' => $id, 'categoryname' => $categoryname));
+$url = new moodle_url('/local/orange_customers/view.php',
+        array('sesskey' => $USER->sesskey, 'id' => $id, 'categoryname' => $categoryname));
 $url->param('action', $action);
 $PAGE->set_url($url);
 $PAGE->set_context($context);
@@ -90,8 +91,8 @@ if ($editform->is_cancelled()) {
     $data = file_postupdate_standard_editor($data, 'summary', $editoroptions, $context);
     $data = file_postupdate_standard_editor($data, 'description', $editoroptions, $context);
 
-    $draftitemidl = file_get_submitted_draft_itemid('logo');
-    $draftitemidp = file_get_submitted_draft_itemid('picture');
+    $draftitemidl = file_get_submitted_draft_itemid('logo_filemanager');
+    $draftitemidp = file_get_submitted_draft_itemid('picture_filemanager');
 
     file_save_draft_area_files($draftitemidl, $context->id, 'local_orange_customers', 'logo', $data->id, $optionsfilemanager );
     file_save_draft_area_files($draftitemidp, $context->id, 'local_orange_customers', 'picture', $data->id, $optionsfilemanager );

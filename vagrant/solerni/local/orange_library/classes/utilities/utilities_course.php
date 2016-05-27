@@ -35,7 +35,7 @@ use course_in_list;
 require_once($CFG->dirroot . '/cohort/lib.php');
 require_once($CFG->dirroot . '/lib/coursecatlib.php'); // TODO : use course_in_list not working.
 require_once($CFG->libdir.'/outputcomponents.php');
-
+ 
 class utilities_course {
 
     const MOOCREGISTRATIONCOMPLETE  = 0;
@@ -736,17 +736,6 @@ class utilities_course {
     }
 
     /**
-     * Very simple function to check if we are inside the frontpage course (id=1)
-     *
-     * @param: $course
-     * @return boolean
-     */
-    public static function is_frontpage_course($course) {
-
-        return ($course->id == 1);
-    }
-
-    /**
      *
      * @param type $extendedcourse
      * @return type
@@ -1176,4 +1165,13 @@ class utilities_course {
 
         return $sortedcourses;
     }
+    
+     public static function get_customer($categoryid) {
+         global $CFG;
+         require_once($CFG->dirroot . '/local/orange_customers/lib.php');
+         
+         return customer_get_customerbycategoryid($categoryid);
+    }
+    
 }
+
