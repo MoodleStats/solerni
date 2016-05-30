@@ -58,9 +58,9 @@ if (!utilities_user::is_user_mnet($USER)) {
                     <?php echo get_string('user_menu_email', 'theme_halloween'); ?>
                 </a>
             </li>
-            <?php if (utilities_user::is_user_site_admin($USER)) : ?>
+            <?php if (utilities_user::is_user_site_admin($USER) || has_capability('local/orange_customers:edit',\context_system::instance())) : ?>
             <li>
-                <a href="<?php echo $CFG->wwwroot ?>/admin/index.php">
+                <a href="<?php echo $CFG->wwwroot ?>/?redirect=0">
                     <?php echo get_string('administration', 'theme_halloween'); ?>
                 </a>
             </li>

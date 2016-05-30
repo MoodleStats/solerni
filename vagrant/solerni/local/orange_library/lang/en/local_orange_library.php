@@ -101,3 +101,6 @@ $string['coursemenulearn'] = "Learn";
 $string['coursemenulearnmore'] = "News";
 $string['coursemenuforum'] = "Forum";
 $string['coursemenushare'] = "Resource";
+
+// Capability.
+$string['orange_library:viewadmin']    = 'Viewing Administration item in main menu';

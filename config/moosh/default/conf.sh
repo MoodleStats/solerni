@@ -354,9 +354,6 @@ function main () {
 	execute_moosh_command "moosh config-set defaultmaxrecommendations 0 block_orange_course_dashboard"
 	execute_moosh_command "moosh config-set mymoocsurl '/moocs/mymoocs.php' block_orange_course_dashboard"
 
-	# Delete Main Menu block in frontpage (course=1)
-	execute_moosh_command "moosh block-delete course 1 site_main_menu site-index"
-
 	# local_goodbye : delete value to keep default text (#us_442)
 	execute_moosh_command "moosh config-set farewell "" local_goodbye"
 
@@ -388,7 +385,7 @@ function main () {
 	execute_moosh_command "moosh block-manage hide course_list"
 	execute_moosh_command "moosh block-manage hide course_list"
 	execute_moosh_command "moosh block-manage hide course_overview"
-	execute_moosh_command "moosh block-manage hide course_summary"
+	execute_moosh_command "moosh block-manage hide course_summary"main
 	execute_moosh_command "moosh block-manage hide feedback"
 	execute_moosh_command "moosh block-manage hide login"
 	execute_moosh_command "moosh block-manage hide mentees"
@@ -448,17 +445,6 @@ function main () {
 	# Create API User
 	execute_moosh_command "moosh user-create --password apiuser01! --email solerniapiuser@orange.fr --firstname 'API' --lastname 'User' --city 'Paris' --country 'FR' 'api_user'"
 
-        # hide block main menu for solerni_utilisateur, solerni_apprenant, solerni_power_apprenant, solerni_animateur, solerni_client, guest
-	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_utilisateur moodle/block:view prevent block_in_course site_main_menu"
-	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_apprenant moodle/block:view prevent block_in_course site_main_menu"
-	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_power_apprenant moodle/block:view prevent block_in_course site_main_menu"
-	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_animateur moodle/block:view prevent block_in_course site_main_menu"
-	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_client moodle/block:view prevent block_in_course site_main_menu"
-	execute_moosh_command "moosh role-update-capability-ctx --id 1 guest moodle/block:view prevent block_in_course site_main_menu"
-	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_teacher moodle/block:view allow block_in_course site_main_menu"
-	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_course_creator moodle/block:view allow block_in_course site_main_menu"
-	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_marketing moodle/block:view allow block_in_course site_main_menu"
-
 	# Disable some quiz question type qtype (#us_478)
 	execute_moosh_command "moosh qtype-manage disable calculatedmulti"
 	execute_moosh_command "moosh qtype-manage disable calculatedsimple"
@@ -490,6 +476,23 @@ function main () {
  
             fontselect,fontsizeselect,wrap,search,replace,wrap,nonbreaking,charmap,table,wrap,code,cleanup,removeformat,pastetext,pasteword,wrap,mediagallery,wrap,fullscreen
             " editor_tinymce
+
+	# Add Main Menu block in frontpage (course=1)
+	execute_moosh_command "moosh block-add course 1 site_main_menu site-index side-pre 1"
+
+        # hide block main menu for solerni_utilisateur, solerni_apprenant, solerni_power_apprenant, solerni_animateur, solerni_client, guest
+	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_utilisateur moodle/block:view prevent block_in_course site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_apprenant moodle/block:view prevent block_in_course site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_power_apprenant moodle/block:view prevent block_in_course site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_animateur moodle/block:view prevent block_in_course site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_client moodle/block:view prevent block_in_course site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx --id 1 guest moodle/block:view prevent block_in_course site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_teacher moodle/block:view allow block_in_course site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_course_creator moodle/block:view allow block_in_course site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_marketing moodle/block:view allow block_in_course site_main_menu"
+
+        # Delete activity forum in frontpage (course=1)
+        execute_moosh_command "moosh activity-delete --name forum course 1"
 }
 
 main "$@"
