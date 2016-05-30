@@ -75,9 +75,9 @@ class block_orange_thematics_menu extends block_base {
         }
 
         $this->content = new stdClass();
-        $this->content->text = "";
+        $this->content->footer = '';
 
-        $output = html_writer::start_tag('div', array('class' => 'row'));
+        $this->content->text = html_writer::start_tag('div', array('class' => 'row'));
             foreach ($hosts as $host) {
                 $host = utilities_network::get_thematic_info($host);
                 if (isloggedin() and !isguestuser()) {
@@ -85,9 +85,9 @@ class block_orange_thematics_menu extends block_base {
                 }
                 $this->content->text .= $this->renderer->menu_item($host);
             }
-        $output .= html_writer::end_tag('div');
-        $this->content->text .= $output;
 
-        return $this->content->text;
+        $this->content->text .= html_writer::end_tag('div');
+
+        return $this->content;
     }
 }
