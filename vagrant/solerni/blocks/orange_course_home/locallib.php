@@ -32,7 +32,7 @@ use local_orange_library\utilities\utilities_course;
 function block_orange_course_home_get_courses($maxcourses = 3) {
     if (empty($maxcourses)) {
         return array(array(), 0);
-    }    
+    }
     $utilitiescourse = new utilities_course();
 
     // We ask for one course more to detect if we have the Catalog button to display.

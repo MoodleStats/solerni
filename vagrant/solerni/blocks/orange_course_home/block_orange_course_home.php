@@ -51,9 +51,7 @@ class block_orange_course_home extends block_base {
         $this->content = new stdClass();
         $this->content->text = '';
         $this->content->footer = '';
-
         $site  = get_site();
-
         $renderer = $this->page->get_renderer('block_orange_course_home');
 
         list($courses, $catalogbutton) = block_orange_course_home_get_courses($config->defaultmaxcourses);
@@ -65,7 +63,9 @@ class block_orange_course_home extends block_base {
 
         $this->content->text .= $renderer->display_courses($courses, format_string($site->fullname));
         if ($catalogbutton) {
-            $this->content->text .= $renderer->display_catalogbutton(format_string($site->fullname), $config->catalogurl);
+            if ($config->catalogurl) {
+                $this->content->text .= $renderer->display_catalogbutton(format_string($site->fullname), $config->catalogurl);
+            }
         }
 
         return $this->content;
@@ -87,5 +87,21 @@ class block_orange_course_home extends block_base {
      */
     public function hide_header() {
         return true;
+    }
+
+    /**
+     * Locations where block can be displayed
+     *
+     * @return array
+     */
+    public function applicable_formats() {
+        return array('site-index' => true);
+    }
+
+    public function html_attributes() {
+        $attributes = parent::html_attributes();
+        $attributes['class'] .= ' bg-graylight';
+
+        return $attributes;
     }
 }
