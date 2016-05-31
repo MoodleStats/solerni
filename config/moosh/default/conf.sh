@@ -477,19 +477,19 @@ function main () {
             fontselect,fontsizeselect,wrap,search,replace,wrap,nonbreaking,charmap,table,wrap,code,cleanup,removeformat,pastetext,pasteword,wrap,mediagallery,wrap,fullscreen
             " editor_tinymce
 
-	# Add Main Menu block in frontpage (course=1)
-	execute_moosh_command "moosh block-add course 1 site_main_menu site-index side-pre 1"
+	# Add Main Menu block in /forum page (forum-index)
+        execute_moosh_command "moosh block-add system 0 site_main_menu forum-index side-pre -8"
 
-        # hide block main menu for solerni_utilisateur, solerni_apprenant, solerni_power_apprenant, solerni_animateur, solerni_client, guest
-	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_utilisateur moodle/block:view prevent block_in_course site_main_menu"
-	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_apprenant moodle/block:view prevent block_in_course site_main_menu"
-	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_power_apprenant moodle/block:view prevent block_in_course site_main_menu"
-	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_animateur moodle/block:view prevent block_in_course site_main_menu"
-	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_client moodle/block:view prevent block_in_course site_main_menu"
-	execute_moosh_command "moosh role-update-capability-ctx --id 1 guest moodle/block:view prevent block_in_course site_main_menu"
-	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_teacher moodle/block:view allow block_in_course site_main_menu"
-	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_course_creator moodle/block:view allow block_in_course site_main_menu"
-	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_marketing moodle/block:view allow block_in_course site_main_menu"
+        # hide block main menu for solerni_utilisateur, solerni_apprenant, solerni_power_apprenant, solerni_animateur, solerni_client, guest, solerni_marketing
+	execute_moosh_command "moosh role-update-capability-ctx solerni_utilisateur moodle/block:view prevent block site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx solerni_apprenant moodle/block:view prevent block site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx solerni_power_apprenant moodle/block:view prevent block site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx solerni_animateur moodle/block:view prevent block site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx solerni_client moodle/block:view prevent block site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx guest moodle/block:view prevent block site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx solerni_teacher moodle/block:view allow block site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx solerni_course_creator moodle/block:view allow block site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx solerni_marketing moodle/block:view prevent block site_main_menu"
 
         # Delete activity forum in frontpage (course=1)
         execute_moosh_command "moosh activity-delete --name forum course 1"
