@@ -253,6 +253,8 @@ $string['homepageillustration']     = 'Illustration';
 $string['homepageillustrationdesc'] = 'Thematic illustration';
 $string['homepagelogo']             = 'Logo';
 $string['homepagelogodesc']         = 'Thematic logo';
+$string['homepagevideo']            = 'Video';
+$string['homepagevideodesc']        = 'Solerni video presentation';
 
 // Search filters.
 $string['catalog_page_title']       = 'Catalog';
