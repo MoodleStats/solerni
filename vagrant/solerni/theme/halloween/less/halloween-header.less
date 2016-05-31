@@ -53,9 +53,25 @@
 /*
  * Resac Nav
  */
+
+.resac-navigation {
+    height:         auto;
+    min-height:     auto;
+    margin-bottom:  0;
+    border:         0;
+
+    .navbar-toggle {
+        border:         0;
+        padding:        @s-small-md-margin (@s-small-md-margin + 5);
+        margin-right:   0;
+        margin-top:     3px; // Magic number = (container heigt (40) - element height (34)) / 2).
+    }
+}
+
 .resac-navigation .list-group {
     margin:     0;
     padding:    0;
+    overflow:   hidden;
 }
 
     .resac-navigation .list-group-item {

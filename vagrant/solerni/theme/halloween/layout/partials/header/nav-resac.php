@@ -22,11 +22,21 @@ $resacs = utilities_network::get_hosts_from_mnethome();
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
-            <nav class="resac-navigation clearfix">
-                <ul class="list-group pull-left resac-home">
+            <nav class="resac-navigation navbar navbar-default">
+                <button type="button" class="navbar-toggle collapsed"
+                        data-toggle="collapse"
+                        data-target="#resac-navigation-hosts"
+                        aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <ul class="list-group pull-left">
                     <?php echo $OUTPUT->resac_nav_items($homeresac); ?>
                 </ul>
-                <ul class="list-group pull-right resac-hosts">
+                <ul id="resac-navigation-hosts"
+                    class="list-group pull-right resac-hosts collapse navbar-collapse">
                     <?php echo $OUTPUT->resac_nav_items($resacs, true); ?>
                 </ul>
             </nav>
