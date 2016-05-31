@@ -38,13 +38,16 @@ class block_orange_course_home_renderer extends plugin_renderer_base {
         global $PAGE;
 
         $html = html_writer::tag('h2', get_string('titlecoursehome', 'block_orange_course_home'));
-        $html .= html_writer::tag('p', get_string('subtitlecoursehome', 'block_orange_course_home', $sitename));
+        $html .= html_writer::tag('div', get_string('subtitlecoursehome', 'block_orange_course_home', $sitename),
+                array('class' => 'h3 text-oneline'));
 
-        // Display each recommended course.
         $renderer = $PAGE->get_renderer('core', 'course');
-        foreach ($courses as $course) {
-            $html .= $renderer->render_halloween_mooc_component(null, $course);
-        }
+
+        $html .= html_writer::start_tag('div', array('class' => 'row courses-list'));
+            foreach ($courses as $course) {
+                $html .= $renderer->render_halloween_mooc_component(null, $course);
+            }
+        $html .= html_writer::end_tag('div');
 
         return $html;
     }
@@ -56,16 +59,15 @@ class block_orange_course_home_renderer extends plugin_renderer_base {
      * @param url $catalogurl URL of catalog
      * @return string html to be displayed in orange_course_home block
      */
-    public function display_catalogbutton($sitename, $catalogurl="") {
+    public function display_catalogbutton($sitename, $catalogurl) {
 
-        $html = "";
-        if (!empty($catalogurl)) {
-            $html .= html_writer::start_tag('div', array('class' => 'col-sm-12'));
-            $html .= html_writer::link(new moodle_url($catalogurl),
-                    get_string('displaycatalog', 'block_orange_course_home', $sitename),
-                    array('class' => 'btn btn-default btn-block'));
+        $html = html_writer::start_tag('div', array('class' => 'row orange-block-footer'));
+            $html .= html_writer::start_tag('div', array('class' => 'col-xs-12'));
+                $html .= html_writer::link(new moodle_url($catalogurl),
+                        get_string('displaycatalog', 'block_orange_course_home', $sitename),
+                        array('class' => 'btn btn-default btn-block'));
             $html .= html_writer::end_tag('div');
-        }
+        $html .= html_writer::end_tag('div');
 
         return $html;
     }
@@ -78,7 +80,8 @@ class block_orange_course_home_renderer extends plugin_renderer_base {
     public function display_nocourse() {
 
         $html = html_writer::tag('h2', get_string('titlecoursehome', 'block_orange_course_home'));
-        $html .= html_writer::tag('p', get_string('nomooctodisplay', 'block_orange_course_home'));
+        $html .= html_writer::tag('div', get_string('nomooctodisplay', 'block_orange_course_home'),
+                array('class' => 'h3 text-oneline orange-coursehome-subtitle'));
 
         return $html;
     }

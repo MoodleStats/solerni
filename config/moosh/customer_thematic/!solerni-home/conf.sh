@@ -126,6 +126,12 @@ function main () {
 
         # Settings Thematic Name
         execute_moosh_command "moosh course-config-set course 1 fullname \"${CUSTOMER_NAME} ${CUSTOMER_THEMATIC}\""
+
+        # No default moodle blocks on frontpage
+	execute_moosh_command "moosh config-set frontpage ''"
+
+        # Bloc setup for frontpage
+	execute_moosh_command "moosh block-add system 0 orange_course_home site-index content -10"
 }
 
 main "$@"
