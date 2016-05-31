@@ -43,9 +43,6 @@ class block_orange_iconsmap_renderer extends plugin_renderer_base {
                 $output .= $this->display_iconmap('sequence', $extendedcourse);
                 // Display working time.
                 $output .= $this->display_iconmap('time', $extendedcourse);
-            $output .= html_writer::end_tag('div');
-
-            $output .= html_writer::start_tag('div', array('class' => 'row icons-map-row'));
                 // Display certification.
                 $customcss = (!$extendedcourse->certification) ? ' inactive' : '';
                 $output .= $this->display_iconmap('certificate', $extendedcourse, null, $customcss);
@@ -68,7 +65,7 @@ class block_orange_iconsmap_renderer extends plugin_renderer_base {
             return false;
         }
 
-        $output = html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-4' . $customcss));
+        $output = html_writer::start_tag('div', array('class' => 'col-xs-12 col-sm-6 col-md-4 ' . $customcss));
             $output .= html_writer::start_tag('div', array('class' => 'icon-map'));
 
                 $output .= html_writer::tag('span', '',

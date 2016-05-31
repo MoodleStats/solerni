@@ -110,7 +110,7 @@ function execute_moosh_command () {
 }
 
 function main () {
-	# Check usage mode : 
+	# Check usage mode :
 	# DEV or PROD (Default)
 	check_usage $@
 
@@ -354,8 +354,10 @@ function main () {
 	execute_moosh_command "moosh config-set defaultmaxrecommendations 0 block_orange_course_dashboard"
 	execute_moosh_command "moosh config-set mymoocsurl '/moocs/mymoocs.php' block_orange_course_dashboard"
 
-	# Delete Main Menu block in frontpage (course=1)
+	# Delete Block Main Menu on frontpage (course=1)
 	execute_moosh_command "moosh block-delete course 1 site_main_menu site-index"
+        # Delete Block Calendar on frontpage (course=1)
+	execute_moosh_command "moosh block-delete course 1 calendar_month site-index"
 
 	# local_goodbye : delete value to keep default text (#us_442)
 	execute_moosh_command "moosh config-set farewell "" local_goodbye"
@@ -469,7 +471,7 @@ function main () {
 
         # Delete block_orange_course_extended
         execute_moosh_command "moosh block-delete course all orange_course_extended course-view-*"
-        
+
         # Admin Block : change settings pagetypepattern=* to make it visible
 	execute_moosh_command "moosh block-update system 0 'settings' 'pagetypepattern' '*'"
 
@@ -485,9 +487,9 @@ function main () {
 	# Activation place buttons in tinyMCE toolbar (#us_217)
         #FIXME : can't use 'execute_moosh_command' function (the newline is misinterpreted)
         moosh config-set customtoolbar "wrap,formatselect,wrap,bold,italic,wrap,bullist,numlist,wrap,link,unlink,wrap,image,moodleemoticon,wrap,code
- 
+
             undo,redo,wrap,underline,strikethrough,sub,sup,wrap,justifyleft,justifycenter,justifyright,wrap,outdent,indent,wrap,forecolor,backcolor,wrap,ltr,rtl
- 
+
             fontselect,fontsizeselect,wrap,search,replace,wrap,nonbreaking,charmap,table,wrap,code,cleanup,removeformat,pastetext,pasteword,wrap,mediagallery,wrap,fullscreen
             " editor_tinymce
 }

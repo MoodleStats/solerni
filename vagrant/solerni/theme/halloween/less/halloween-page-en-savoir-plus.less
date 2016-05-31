@@ -112,7 +112,10 @@
     padding-left:   @s-triple-md-margin;
 
     .icons-map-row:first-child {
-        margin-bottom: (@s-medium-md-margin * 2);
+
+        @media (min-width: @screen-md-min) {
+              margin-bottom: (@s-medium-md-margin * 2);
+        }
     }
 }
 
@@ -121,6 +124,12 @@
         overflow:       hidden;
         height:         @typical-height-orange;
         padding-left:   (@s-small-icon-size + (@grid-gutter-width / 2));
+        margin-bottom:  @s-medium-md-margin;
+
+          @media (min-width: @screen-md-min) {
+              margin-bottom: @s-double-md-margin;
+          }
+
 
         .icon-map-media,
         .icon-map-body {
@@ -129,9 +138,13 @@
 
         .icon-map-media {
             position:   absolute;
-            top:        50%;
+            top:        calc(~'50% -' (@s-medium-md-margin / 2));
             left:       (@grid-gutter-width / 2);
             transform:  translateY(-50%);
+
+            @media (min-width: @screen-md-min) {
+                top: calc(~'50% -' (@s-double-md-margin / 2));
+            }
         }
 
         .orange-typical-line-height {
