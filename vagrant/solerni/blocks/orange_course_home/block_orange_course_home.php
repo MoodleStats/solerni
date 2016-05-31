@@ -62,10 +62,8 @@ class block_orange_course_home extends block_base {
         }
 
         $this->content->text .= $renderer->display_courses($courses, format_string($site->fullname));
-        if ($catalogbutton) {
-            if ($config->catalogurl) {
-                $this->content->text .= $renderer->display_catalogbutton(format_string($site->fullname), $config->catalogurl);
-            }
+        if ($catalogbutton && $config->catalogurl) {
+            $this->content->text .= $renderer->display_catalogbutton(format_string($site->fullname), $config->catalogurl);
         }
 
         return $this->content;

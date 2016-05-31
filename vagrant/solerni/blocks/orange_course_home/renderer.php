@@ -39,7 +39,7 @@ class block_orange_course_home_renderer extends plugin_renderer_base {
 
         $html = html_writer::tag('h2', get_string('titlecoursehome', 'block_orange_course_home'));
         $html .= html_writer::tag('div', get_string('subtitlecoursehome', 'block_orange_course_home', $sitename),
-                array('class' => 'h3 text-oneline orange-coursehome-subtitle'));
+                array('class' => 'h3 text-oneline'));
 
         $renderer = $PAGE->get_renderer('core', 'course');
 
