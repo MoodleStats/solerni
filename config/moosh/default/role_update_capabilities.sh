@@ -653,6 +653,11 @@ function main () {
 	# solerni_course_creator need more capabilities to finish course restore
 	execute_moosh_command "moosh role-update-capability solerni_course_creator moodle/question:managecategory allow 1"
 	execute_moosh_command "moosh role-update-capability solerni_course_creator moodle/question:add allow 1"
+
+	# By default user can't see other user's email in profil  (#us_368)
+	execute_moosh_command "moosh role-update-capability solerni_utilisateur moodle/site:viewuseridentity prevent 1"
+	execute_moosh_command "moosh role-update-capability solerni_apprenant moodle/site:viewuseridentity prevent 1"
+	execute_moosh_command "moosh role-update-capability solerni_power_apprenant moodle/site:viewuseridentity prevent 1"
 }
 
 main "$@"
