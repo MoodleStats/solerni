@@ -654,9 +654,9 @@ function main () {
 	execute_moosh_command "moosh role-update-capability solerni_course_creator moodle/question:managecategory allow 1"
 	execute_moosh_command "moosh role-update-capability solerni_course_creator moodle/question:add allow 1"
 
-	# moodle/site:viewadmin : New capability to display "Administration" item in menu
-	execute_moosh_command "moosh role-update-capability solerni_course_creator local/orange_customers:edit allow 1"
-	execute_moosh_command "moosh role-update-capability solerni_marketing local/orange_customers:edit allow 1"
+	# local/orange_library:viewadmin : New capability to display "Administration" item in menu
+	execute_moosh_command "moosh role-update-capability solerni_course_creator local/orange_library:viewadmin allow 1"
+	execute_moosh_command "moosh role-update-capability solerni_marketing local/orange_library:viewadmin allow 1"
 }
 
 main "$@"

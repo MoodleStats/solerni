@@ -385,7 +385,7 @@ function main () {
 	execute_moosh_command "moosh block-manage hide course_list"
 	execute_moosh_command "moosh block-manage hide course_list"
 	execute_moosh_command "moosh block-manage hide course_overview"
-	execute_moosh_command "moosh block-manage hide course_summary"main
+	execute_moosh_command "moosh block-manage hide course_summary"
 	execute_moosh_command "moosh block-manage hide feedback"
 	execute_moosh_command "moosh block-manage hide login"
 	execute_moosh_command "moosh block-manage hide mentees"

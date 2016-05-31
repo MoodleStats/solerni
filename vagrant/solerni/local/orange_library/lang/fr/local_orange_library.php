@@ -105,4 +105,4 @@ $string['coursemenuforum'] = "Forum";
 $string['coursemenushare'] = "Ressource";
 
 // Capability.
-$string['orange_library:viewadmin']    = 'Permet de voir l\item Administration dans le menu principal';
+$string['orange_library:viewadmin']    = 'Permet de voir l\'item Administration dans le menu principal';
