@@ -654,6 +654,10 @@ function main () {
 	execute_moosh_command "moosh role-update-capability solerni_course_creator moodle/question:managecategory allow 1"
 	execute_moosh_command "moosh role-update-capability solerni_course_creator moodle/question:add allow 1"
 
+	# local/orange_library:viewadmin : New capability to display "Administration" item in menu
+	execute_moosh_command "moosh role-update-capability solerni_course_creator local/orange_library:viewadmin allow 1"
+	execute_moosh_command "moosh role-update-capability solerni_marketing local/orange_library:viewadmin allow 1"
+
 	# By default user can't see other user's email in profil  (#us_368)
 	execute_moosh_command "moosh role-update-capability solerni_utilisateur moodle/site:viewuseridentity prevent 1"
 	execute_moosh_command "moosh role-update-capability solerni_apprenant moodle/site:viewuseridentity prevent 1"
