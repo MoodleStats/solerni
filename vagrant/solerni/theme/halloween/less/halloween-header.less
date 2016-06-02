@@ -1,9 +1,4 @@
 /*
- * Rules and mixins related to header
- */
-
-
-/*
  * Header Logo
   * */
 
@@ -115,22 +110,20 @@
     height: 0;
 }
 
-    .skip-links a {
-        display:    inline-block;
-        overflow:   hidden;
-        height:     0;
+.skip-links a {
+    display:    inline-block;
+    overflow:   hidden;
+    height:     0;
+}
+
+.skip-links a:focus {
+    height: auto;
+    color:  @brand-primary;
+
+    .u-inverse & {
+        color:  @brand-tertiary;
     }
-
-    .skip-links a:focus {
-        height: auto;
-        color:  @brand-primary;
-
-        .u-inverse & {
-            color:  @brand-tertiary;
-        }
-    }
-
-.header{}
+}
 
     .action-area {
         position:   absolute;
@@ -145,7 +138,11 @@
         & > .icon-halloween,
         & > .dropdown {
             display:        inline-block;
-            vertical-align: middle;
+            vertical-align: bottom;
+
+            @media (min-width:  @screen-sm-min) {
+                vertical-align: middle;
+            }
         }
 
         & .icon-halloween {
@@ -199,7 +196,28 @@
 .header-dropdown .cross {
      display:       none;
      margin-left:   @s-small-xs-margin;
-     font-size:     12px;
+     font-size:     13px; // totally magic
+}
+
+/* Careful, this is max-width. This is mobile specific and contradictory
+ * with normal dropdown menu. */
+@media (max-width:  @screen-sm-min) {
+
+    .header-dropdown.open .btn {
+        position:           relative;
+        padding-bottom:     (@s-double-xs-margin * 2);
+        padding-right:      @s-double-xs-margin;
+        top:                (@s-double-xs-margin + @s-small-xs-margin);
+        left:               (@s-double-xs-margin + 2);
+        border-color:       @brand-tertiary;
+        background-color:   @brand-tertiary;
+        color:              @brand-primary;
+        margin-left:        (@s-double-xs-margin * -1); // hacky for keeping icon email at the correct distance.
+    }
+
+    .dropdown-menu {
+        border-top: 0;
+    }
 }
 
 .header-dropdown.open .cross {
@@ -236,7 +254,5 @@
             background-color:   @brand-tertiary;
         }
     }
-
-
 }
 

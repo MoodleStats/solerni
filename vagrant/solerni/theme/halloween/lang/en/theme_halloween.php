@@ -178,6 +178,7 @@ $string['user_menu_preferences']    = 'My preferences';
 $string['administration']           = 'Administration';
 $string['skip_to_main']             = 'To main content';
 $string['skip_to_nav']              = 'To page navigation';
+$string['user_menu_mobile_button']  = 'Menu';
 
 // Login settings.
 $string['loginsettings']            = 'Login page';
