@@ -57,6 +57,7 @@
 .resac-navigation {
     height:         auto;
     min-height:     auto;
+    overflow:       hidden;
     margin-bottom:  0;
     border:         0;
 
@@ -69,36 +70,37 @@
 }
 
 .resac-navigation .list-group {
+    border:     0;
     margin:     0;
     padding:    0;
     overflow:   hidden;
 }
 
-    .resac-navigation .list-group-item {
-        display:    inline-block;
-        border:     0;
-        padding:    0;
+.resac-navigation .list-group-item {
+    display:    inline-block;
+    border:     0;
+    padding:    0;
+}
+
+.resac-navigation .navigation-item {
+    display:            block;
+    text-decoration:    none;
+    padding:            10px 15px;
+    font-weight:        bold;
+    font-family:        @font-family-titles;
+
+    &::first-letter {
+        text-transform: uppercase;
     }
+}
 
-    .resac-navigation .navigation-item {
-        display:            block;
-        text-decoration:    none;
-        padding:            10px 15px;
-        font-weight:        bold;
-        font-family:        @font-family-titles;
+.resac-home .list-group-item .navigation-item {
+    margin-left: -15px;
+}
 
-        &::first-letter {
-            text-transform: uppercase;
-        }
-    }
-
-        .resac-home .list-group-item .navigation-item {
-            margin-left: -15px;
-        }
-
-        .resac-hosts .list-group-item:last-child .navigation-item {
-            margin-right: -15px;
-        }
+.resac-hosts .list-group-item:last-child .navigation-item {
+    margin-right: -15px;
+}
 
     .resac-navigation .navigation-item:hover,
     .resac-navigation .navigation-item.active {
@@ -147,11 +149,7 @@
         }
 
         & .icon-halloween {
-            margin-right: @s-medium-xs-margin;
-
-            @media (min-width:  @screen-sm-min) {
-                margin-right: @s-medium-md-margin;
-            }
+            margin-right: @s-medium-md-margin;
         }
 
         .is-logged .btn {
@@ -192,3 +190,53 @@
     text-indent:        0;
     text-align:         center;
 }
+
+ /* Header Dropdown */
+ .btn--content-variable .caret {
+     margin-left: @s-triple-md-margin;
+ }
+
+.header-dropdown .cross {
+     display:       none;
+     margin-left:   @s-small-xs-margin;
+     font-size:     12px;
+}
+
+.header-dropdown.open .cross {
+     display: inline-block;
+}
+
+.header-dropdown .dropdown-menu {
+    width:  calc(~'100vw + 2px');
+    left:   calc(~'-100vw + 100% - 1px + '@s-small-xs-margin);
+    top:    calc(~'100% + 25px'); // 25px is the header padding-bottom
+
+    @media (min-width:  @screen-sm-min) {
+        width:  100%;
+        left:   0;
+        top:    100%;
+    }
+
+    /* Careful, this is max-width. This is mobile specific and contradictory
+     * with normal dropdown menu. */
+    @media (max-width:  @screen-sm-min) {
+
+        li {
+            border-bottom: 1px solid @gray;
+        }
+
+        li:last-of-type {
+            border-bottom-width:    0;
+            box-shadow:             0 2px 8px @gray;
+        }
+
+        a,
+        .pseudo-a {
+            color:              @brand-primary !important;
+            background-color:   @brand-tertiary;
+        }
+    }
+
+
+}
+

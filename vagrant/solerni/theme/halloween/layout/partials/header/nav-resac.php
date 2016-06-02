@@ -32,7 +32,7 @@ $resacs = utilities_network::get_hosts_from_mnethome();
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <ul class="list-group pull-left">
+                <ul class="list-group pull-left resac-home">
                     <?php echo $OUTPUT->resac_nav_items($homeresac); ?>
                 </ul>
                 <ul id="resac-navigation-hosts"

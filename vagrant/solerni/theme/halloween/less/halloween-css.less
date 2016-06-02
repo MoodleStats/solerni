@@ -2,6 +2,7 @@
  * This file include Solerni CSS specific code :
  * keeps code that is not lengthy enough to be into a specific file
  */
+
 /*
  * Element LESS template as model :
 
@@ -21,7 +22,6 @@
         lg-specific_property: value;
     }
 }
-
 */
 
 // Probably never use, but we never know.
@@ -95,27 +95,21 @@ input[type="checkbox"] {
      width:     100%;
  }
 
- .dropdown-menu > li > a {
+ .dropdown-menu > li > a,
+ .dropdown-menu > li > .pseudo-a {
      padding:           @s-double-xs-margin @s-small-xs-margin;
      line-height:       1;
      text-decoration:   none;
 
-    @media (min-width:  @screen-xs-min) {
+    @media (min-width:  @screen-sm-min) {
         padding:    (@s-medium-md-margin / 2) @s-medium-md-margin;
     }
- }
-
- .header-dropdown .dropdown-menu a {
-     font-weight:   bold;
- }
-
- .btn--content-variable .caret {
-     margin-left: @s-triple-md-margin;
  }
 
 /*
  * Line (as in footer)
  * */
+
 .fullwidth-line {
     border-bottom-color: @orange-light-4;
     border-bottom-style: solid;
