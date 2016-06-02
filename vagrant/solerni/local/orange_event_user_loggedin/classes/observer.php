@@ -25,6 +25,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 use local_orange_library\utilities\utilities_network;
+use local_orange_library\utilities\utilities_user;
 use theme_halloween\tools\theme_utilities;
 require_once($CFG->dirroot.'/user/lib.php');
 
@@ -47,10 +48,10 @@ class local_orange_event_user_loggedin_observer {
 
         if (isset($user[$event->objectid])) {
             // In case of Mnet configuration we have to synchronize user profile.
-            if ((utilities_network::is_platform_uses_mnet()) 
-                    && (utilities_network::is_thematic() 
+            if ((utilities_network::is_platform_uses_mnet())
+                    && (utilities_network::is_thematic()
                     && theme_utilities::is_theme_settings_exists_and_nonempty('webservicestoken'))) {
-                self::update_profile_fields($user[$event->objectid]);
+                utilities_user::update_profile_fields($user[$event->objectid], false);
             }
 
             // Detect if it is the first connexion of the user, Then send welcome email.
@@ -141,58 +142,5 @@ class local_orange_event_user_loggedin_observer {
         $subject = str_replace('{$a->customername}', ucfirst($CFG->solerni_customer_name), $subject);
 
         email_to_user($user, $contact, $subject, $messagetext, $messagehtml);
-    }
-
-    /**
-     * Update user profile fields on thematic.
-     *
-     * @param user $user
-     */
-    private static function update_profile_fields($user) {
-
-        // Check that Webservice is activated.
-        if (!theme_utilities::is_theme_settings_exists_and_nonempty('webservicestoken')) {
-            error_log('Resac WebService not configurated - Cannot update profile');
-            return false;
-        }
-
-        global $CFG, $DB, $PAGE;
-        require_once($CFG->libdir . '/filelib.php'); // Include moodle curl class.
-
-        $token = $PAGE->theme->settings->webservicestoken;
-        $homemnet = utilities_network::get_home();
-        $serverurl = new \moodle_url($homemnet->url . '/webservice/rest/server.php',
-                array('wstoken' => $token,
-                    'wsfunction' => 'local_orange_library_get_profile_fields',
-                    'moodlewsrestformat' => 'json'));
-        $curl = new \curl;
-        $profile = json_decode($curl->post(
-                htmlspecialchars_decode($serverurl->__toString()),
-                array('username' => $user->username)));
-
-        if ($profile && is_object($profile) && $profile->errorcode) {
-            error_log('Resac Update Profile Curl Request Returned An Error. Message: '
-                    . $profile->message);
-            $profile = false;
-        }
-
-        if (empty($profile)) {
-            return false;
-        }
-
-        $localuser = $DB->get_record('user', array('id' => $user->id));
-        foreach ($profile as $field) {
-            if ($field->type == 'profile') {
-                $localuser->{$field->name} = $field->value;
-            } else if ($field->type == 'preference') {
-                set_user_preference($field->name, $field->value, $user);
-            } else {
-                error_log('Resac Update Profile, unsupported data type : ' . $field->type);
-            }
-        }
-
-        require_once($CFG->dirroot.'/user/profile/lib.php');
-        profile_save_data($localuser);
-        user_update_user($localuser, false, false);
     }
 }
