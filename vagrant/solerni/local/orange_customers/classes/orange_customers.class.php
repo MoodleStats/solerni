@@ -140,6 +140,7 @@ class orange_customers  {
                         $file->get_itemid(),
                         $file->get_filepath(),
                         $file->get_filename());
+                $imgurl->param('rev', time());
 
                 // We keep only the last (there are a filename).
                 $urlimg = "<img src='{$imgurl}'/>";

@@ -48,9 +48,11 @@ class local_orange_event_user_loggedin_observer {
 
         if (isset($user[$event->objectid])) {
             // In case of Mnet configuration we have to synchronize user profile.
+            // Nothing to do for local account.
             if ((utilities_network::is_platform_uses_mnet())
                     && (utilities_network::is_thematic()
-                    && theme_utilities::is_theme_settings_exists_and_nonempty('webservicestoken'))) {
+                    && theme_utilities::is_theme_settings_exists_and_nonempty('webservicestoken'))
+                    && $user[$event->objectid]->mnethostid != 1 ) {
                 utilities_user::update_profile_fields($user[$event->objectid], false);
             }
 
