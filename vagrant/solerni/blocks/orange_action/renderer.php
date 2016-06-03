@@ -173,7 +173,7 @@ class block_orange_action_renderer extends plugin_renderer_base {
      * @return message
      */
     public function display_on_thematic_homepage($title, $subtitle) {
-        global $OUTPUT, $PAGE;
+        global $OUTPUT, $PAGE, $CFG;
 
         // Media.
         $output = html_writer::start_tag('div', array('class' => 'orange-action-media'));
