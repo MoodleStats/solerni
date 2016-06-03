@@ -63,7 +63,7 @@ class find_out_more {
      * @param moodle_course $course
      * @param int $nbitems
      */
-    function __construct($course, $nbitems) {
+    public function __construct($course, $nbitems) {
         $this->course = $course;
         $this->nbitems = $nbitems;
     }
@@ -100,7 +100,7 @@ class find_out_more {
     protected function set_find_out_more($extendedcourseflexpagevalue) {
 
         $defaults = array('w' => 580, 'h' => 430, 'scale' => true);
-        for ($i = 1 ; $i <= $this->nbitems; $i++) {
+        for ($i = 1; $i <= $this->nbitems; $i++) {
 
             $file = utilities_image::get_moodle_stored_file(
                         \context_course::instance($this->course->id),
@@ -110,7 +110,7 @@ class find_out_more {
             if ($file) {
                 $this->resizedimgurl[$i] = utilities_image::get_resized_url($file, $defaults);
             } else {
-                $this->resizedimgurl[$i] = utilities_image::get_resized_url(null, $defaults); // get a default image.
+                $this->resizedimgurl[$i] = utilities_image::get_resized_url(null, $defaults); // Get a default image.
             }
 
             switch ($extendedcourseflexpagevalue->name) {
