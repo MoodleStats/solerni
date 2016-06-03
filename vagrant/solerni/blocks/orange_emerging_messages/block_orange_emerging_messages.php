@@ -141,7 +141,7 @@ class block_orange_emerging_messages extends block_base {
 
     public function html_attributes() {
         $attributes = parent::html_attributes();
-        $attributes['class'] .= ' bg-orange expanded';
+        $attributes['class'] .= ' bg-yellow expanded';
 
         return $attributes;
     }
