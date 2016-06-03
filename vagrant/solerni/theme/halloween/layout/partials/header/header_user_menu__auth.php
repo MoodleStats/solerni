@@ -38,7 +38,7 @@ if (!utilities_user::is_user_mnet($USER)) {
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false">
-                <span class="hidden-xs bold">
+                <span class="hidden-xs">
                     <?php echo $USER->firstname . ' ' . $USER->lastname; ?>
                     <span class="caret"></span>
                 </span>
@@ -48,7 +48,7 @@ if (!utilities_user::is_user_mnet($USER)) {
                 </span>
         </button>
         <ul class="dropdown-menu list-unstyled list-link" aria-labelledby="dLabel">
-            <li class="visible-xs">
+            <li class="visible-xs bold">
                 <div class="pseudo-a">
                     <?php echo $USER->firstname . ' ' . $USER->lastname; ?>
                 </div>

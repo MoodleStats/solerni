@@ -208,11 +208,16 @@
         padding-bottom:     (@s-double-xs-margin * 2);
         padding-right:      @s-double-xs-margin;
         top:                (@s-double-xs-margin + @s-small-xs-margin);
-        left:               (@s-double-xs-margin + 2);
+        left:               @s-small-xs-margin;
         border-color:       @brand-tertiary;
         background-color:   @brand-tertiary;
         color:              @brand-primary;
-        margin-left:        (@s-double-xs-margin * -1); // hacky for keeping icon email at the correct distance.
+        margin-left:        (@s-small-xs-margin * -1); // hacky for keeping icon email at the correct distance.
+
+        &:hover,
+        &:focus {
+            border-color:   @brand-tertiary;
+        }
     }
 
     .dropdown-menu {
@@ -225,14 +230,16 @@
 }
 
 .header-dropdown .dropdown-menu {
-    width:  calc(~'100vw + 2px');
-    left:   calc(~'-100vw + 100% - 1px + '@s-small-xs-margin);
+    width:  calc(~'100vw');
+    left:   calc(~'-100vw + 100% + '(@s-small-xs-margin));
     top:    calc(~'100% + 25px'); // 25px is the header padding-bottom
+    border: 0;
 
     @media (min-width:  @screen-sm-min) {
         width:  100%;
         left:   0;
         top:    100%;
+        border: 1px solid rgba(0, 0, 0, 0.15);
     }
 
     /* Careful, this is max-width. This is mobile specific and contradictory
