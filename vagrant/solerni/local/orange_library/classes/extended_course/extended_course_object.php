@@ -296,9 +296,6 @@ class extended_course_object {
 
         $extendedcourseflexpagevalues = $DB->get_records('course_format_options',
                 array('courseid' => $course->id));
-        //echo $extendedcourseflexpagevalues;
-        print_object($extendedcourseflexpagevalues);
-        print_object($course);
         foreach ($extendedcourseflexpagevalues as $extendedcourseflexpagevalue) {
             if ($extendedcourseflexpagevalue->format == "flexpage") {
                 $this->factory($extendedcourseflexpagevalue, $course, $context);

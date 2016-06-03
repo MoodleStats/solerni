@@ -21,8 +21,9 @@
  * @copyright 2016 Orange
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-namespace local_orange_library_tests_fixtures_mock_extended_course;
-use \local_orange_library\extended_course;
+
+namespace local_orange_library_tests_fixtures_mock_find_out_more;
+use \local_orange_library\find_out_more;
 defined('MOODLE_INTERNAL') || die();
 
 /**
@@ -32,7 +33,7 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright 2014 The Open University
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class mock_extended_course extends \local_orange_library\extended_course\extended_course_object {
+class mock_find_out_more extends \local_orange_library\find_out_more\find_out_more_object {
     /**
      * The database table this grade object is stored in
      * @var string $table
@@ -343,16 +344,16 @@ class mock_extended_course extends \local_orange_library\extended_course\extende
         $this->add_record($course->id, 'flexpage', 0, 'paragraph8', "Titre Paragraphe 8");
         $this->add_record($course->id, 'flexpage', 0, 'paragraph9', "Titre Paragraphe 9");
         $this->add_record($course->id, 'flexpage', 0, 'paragraph10', "Titre Paragraphe 10");
-        $this->add_record($course->id, 'flexpage', 0, 'paragraph1bgcolor', "bg-green");
-        $this->add_record($course->id, 'flexpage', 0, 'paragraph2bgcolor', "bg-graylighter");
-        $this->add_record($course->id, 'flexpage', 0, 'paragraph3bgcolor', "bg-red");
-        $this->add_record($course->id, 'flexpage', 0, 'paragraph4bgcolor', "bg-graylighter");
-        $this->add_record($course->id, 'flexpage', 0, 'paragraph5bgcolor', "bg-yellow");
-        $this->add_record($course->id, 'flexpage', 0, 'paragraph6bgcolor', "bg-graylighter");
-        $this->add_record($course->id, 'flexpage', 0, 'paragraph7bgcolor', "bg-blue");
-        $this->add_record($course->id, 'flexpage', 0, 'paragraph8bgcolor', "bg-graylighter");
-        $this->add_record($course->id, 'flexpage', 0, 'paragraph9bgcolor', "bg-pink");
-        $this->add_record($course->id, 'flexpage', 0, 'paragraph10bgcolor', "bg-graylighter");
+        $this->add_record($course->id, 'flexpage', 0, 'paragraph1bgcolor', 'bg-green');
+        $this->add_record($course->id, 'flexpage', 0, 'paragraph2bgcolor', 'bg-graylighter');
+        $this->add_record($course->id, 'flexpage', 0, 'paragraph3bgcolor', 'bg-red');
+        $this->add_record($course->id, 'flexpage', 0, 'paragraph4bgcolor', 'bg-graylighter');
+        $this->add_record($course->id, 'flexpage', 0, 'paragraph5bgcolor', 'bg-yellow');
+        $this->add_record($course->id, 'flexpage', 0, 'paragraph6bgcolor', 'bg-graylighter');
+        $this->add_record($course->id, 'flexpage', 0, 'paragraph7bgcolor', 'bg-blue');
+        $this->add_record($course->id, 'flexpage', 0, 'paragraph8bgcolor', 'bg-graylighter');
+        $this->add_record($course->id, 'flexpage', 0, 'paragraph9bgcolor', 'bg-pink');
+        $this->add_record($course->id, 'flexpage', 0, 'paragraph10bgcolor', 'bg-graylighter');
         $this->add_record($course->id, 'flexpage', 0, 'paragraph1picture', 181464878);
         $this->add_record($course->id, 'flexpage', 0, 'paragraph2picture', 435990855);
         $this->add_record($course->id, 'flexpage', 0, 'paragraph3picture', 257556141);
