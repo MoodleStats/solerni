@@ -9,22 +9,42 @@
 
 .footer {
 
-    padding-top: @s-double-md-margin;
+    padding-top:    @s-double-md-margin;
+    margin-bottom:  @s-triple-md-margin;
+    margin-bottom:  0;
 
     .footer-article {
-        margin-top:     (@s-small-md-margin * -1.5);
+
+        padding-bottom: @s-medium-md-margin;
+        padding-left:   @s-small-md-margin;
+        padding-right:  @s-small-md-margin;
+
+        @media (min-width: @screen-md-min) {
+            padding:    0;
+            margin-top: (@s-small-md-margin * -1.5);
+        }
 
         h2 {
             margin-top:     0;
             line-height:    1;
         }
     }
+
+    .list-link {
+        margin:     0;
+        padding:    0;
+    }
+
+    .footer__lang-menu {
+        text-align: center;
+
+        @media (min-width: @screen-md-min) {
+            text-align: left;
+        }
+    }
 }
 
-.list-link {
-    margin: 0;
-    padding: 0;
-}
+
 
     .link-item {
         margin-top:     0;
@@ -44,7 +64,6 @@
         @media (min-width: @screen-md-min) {
             background-color:   transparent;
         }
-
     }
 
     .link-item:last-child,
@@ -74,8 +93,8 @@
   * */
 
 .list-social {
-   padding-top:     @font-size-base;
-   padding-bottom:  @font-size-base;
+   padding-top:     @s-medium-md-margin;
+   padding-bottom:  @s-medium-md-margin;
    margin-bottom:   0;
    margin-left:     0;
    margin-right:    0;
@@ -83,10 +102,10 @@
 }
 
 div[role="main"] .list-social {
-  padding-top:      @font-size-base; // Override because bootstrap specificity
-  padding-bottom:   @font-size-base;
-  padding-left:     0;
-  padding-right:    0;
+    padding-top:      @s-medium-md-margin; // Override because bootstrap specificity
+    padding-bottom:   @s-medium-md-margin;
+    padding-left:     0;
+    padding-right:    0;
 }
 
     .social-item {
@@ -99,8 +118,12 @@ div[role="main"] .list-social {
         }
     }
 
-    .social-item:first-child {
-        margin-right: @font-size-base;
+    .social-item__title {
+        font-size: 0;
+
+        @media (min-width:  @screen-md-min) {
+            font-size: @font-size-h6;
+        }
     }
 
     .social-item:last-child {

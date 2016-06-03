@@ -57,18 +57,9 @@ class local_orange_customers_observer {
         global $DB;
 
         $category = (object)$event->get_record_snapshot('course_categories', $event->objectid);
-
-        $customer = customer_get_customerbycategoryid($category->id);
-
-        if ($customer === false) {
-            $customer = new stdClass();
-            $customer->name = $category->name;
-            $customer->categoryid = $category->id;
-            $DB->insert_record('orange_customers', $customer, false);
-        } else {
-            $DB->execute("UPDATE {orange_customers}
-        		          SET name = '". str_replace("'", "\'", $category->name) . "'
-        		          WHERE categoryid = ". $category->id );
+        self::orange_customer_created($category);
+        if ((!$CFG->solerni_isprivate) && ($customer === true)) {
+            self::piwik_segment_created($category);
         }
     }
 
@@ -92,6 +83,22 @@ class local_orange_customers_observer {
         $DB->insert_record('orange_customers', $customer, false);
     }
 
+    private static function orange_customer_updated($category) {
+        global $DB;
+
+        $customer = customer_get_customerbycategoryid($category->id);
+
+        if ($customer === false) {
+            $customer = new stdClass();
+            $customer->name = $category->name;
+            $customer->categoryid = $category->id;
+            $DB->insert_record('orange_customers', $customer, false);
+        } else {
+            $DB->execute("UPDATE {orange_customers}
+        		          SET name = '". str_replace("'", "\'", $category->name) . "'
+        		          WHERE categoryid = ". $category->id );
+        }
+    }
 
     private static function piwik_segment_created($category) {
         global $CFG;
@@ -103,7 +110,7 @@ class local_orange_customers_observer {
         $name = '&name='.$category->name;
         $definition = '&definition=customVariablePageValue3=='.$category->name;
         $login1 = '&login=admin';
-        $login2 = '&login=marketing';
+        $login2 = '&login=market';
         $idsite = '&idSite=1';
         $autoarchive = '&autoArchive=0';
         $enabledallusers = '&enabledAllUsers=0';
@@ -112,7 +119,7 @@ class local_orange_customers_observer {
         $xmlaccount1 = utilities_piwik::xml_from_piwik($urlsegment1);
         $xmlaccount2 = utilities_piwik::xml_from_piwik($urlsegment2);
         if ((is_int($xmlaccount1) === false)|| (is_int($xmlaccount2)) === false) {
-            error_log('problem to crate a piwik segment for this customer');
+            error_log('problem to create a piwik segment for this customer');
         }
     }
 }

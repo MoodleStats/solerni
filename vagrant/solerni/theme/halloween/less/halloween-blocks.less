@@ -176,8 +176,9 @@
 
     border:         0;
     margin-bottom:  0;
-    overflow:     hidden; // Avoid accidental spacing between blocks
+    //overflow:       hidden; // Avoid accidental spacing between blocks.
     padding-top:    @s-triple-md-margin;
+    position:       relative;
 
     .header {
         border:     0;
@@ -190,15 +191,37 @@
     .content {
         border:     0;
         padding:    0;
-        position:   static;
 
         h2, .h2 {
             margin-top:     0;
+            margin-bottom:  @s-medium-md-margin;
+        }
+
+        h2 + h3,
+        .h2 + .h3 {
             margin-bottom:  @s-triple-md-margin;
         }
+
     }
 
     .orange-block-footer {
         padding: @s-triple-md-margin @s-medium-md-margin;
+    }
+}
+
+/* Custom backgrounds. Classes starting with bg- have a automatic 100% background */
+[class*="bg-"] {
+
+    position: relative;
+
+    &:before {
+        content:            "";
+        position:           absolute;
+        background-color:   inherit;
+        top:                0;
+        left:               50%;
+        bottom:             0;
+        width:              100vw;
+        transform:          translateX(-50%);
     }
 }

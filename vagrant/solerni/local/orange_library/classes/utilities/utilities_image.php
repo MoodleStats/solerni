@@ -41,7 +41,7 @@ class utilities_image {
      *              'h' => new height
      * @return $newImageUrl
      */
-    public static function get_resized_url($image, $opts = null) {
+    public static function get_resized_url($image = null, $opts) {
         global $CFG;
 
         // If image parameter not set then send a default image.

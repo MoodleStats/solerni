@@ -23,11 +23,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-use local_orange_library\utilities\utilities_array;
-require_once($CFG->dirroot.'/blocks/orange_social_sharing/lib.php');
-
 defined('MOODLE_INTERNAL') || die();
-
 
 class block_orange_social_sharing_renderer extends plugin_renderer_base {
 
@@ -39,37 +35,34 @@ class block_orange_social_sharing_renderer extends plugin_renderer_base {
      * @return string $text
      */
     public function get_text() {
-        Global $PAGE;
+        global $PAGE, $CFG;
+        require_once($CFG->dirroot.'/blocks/orange_social_sharing/lib.php');
 
-        $shareonarray = block_orange_social_sharing_shareonarray();
-        $socialclassarray = block_orange_social_sharing_socialclassarray();
-        $socialurlarray = block_orange_social_sharing_socialurlarray();
+        $shareonarray       = block_orange_social_sharing_shareonarray();
+        $socialclassarray   = block_orange_social_sharing_socialclassarray();
+        $socialurlarray     = block_orange_social_sharing_socialurlarray();
 
-        $title = get_string('sharetitle', 'block_orange_social_sharing');
+        $title              = get_string('sharetitle', 'block_orange_social_sharing');
 
         $count = $shareonarray->count;
-        $text = html_writer::start_tag('div');
-        $text .= html_writer::start_tag('ul', array('class' => "list-unstyled list-social"));
+        $text = html_writer::start_tag('ul', array('class' => "list-unstyled list-social text-oneline"));
+            $text .= html_writer::tag("li", $title , array('class' => "social-item h7 hidden-xs"));
+                for ($i = 1; $i <= $count; $i++) {
+                    $shareonarray->setCurrent($i);
+                    $socialclassarray->setCurrent($i);
+                    $socialurlarray->setCurrent($i);
 
-        $text .= html_writer::tag("li", $title , array('class' => "social-item h7 hidden-xs"));
-
-        for ($i = 1; $i <= $count; $i++) {
-            $shareonarray->setCurrent($i);
-            $socialclassarray->setCurrent($i);
-            $socialurlarray->setCurrent($i);
-
-            $text .= html_writer::start_tag('li', array('class' => 'social-item'));
-
-            $text .= html_writer::tag('a', " ",
-                    array('class' => 'icon-halloween social icon-halloween--'.$socialclassarray->getCurrent(),
-                    'href' => $socialurlarray->getCurrent().$PAGE->url, 'target' => '_blank'));
-            $text .= html_writer::end_tag('li');
-
-        }
+                    $text .= html_writer::start_tag('li', array('class' => 'social-item'));
+                        $text .= html_writer::link(
+                                $socialurlarray->getCurrent().$PAGE->url,
+                                $socialclassarray->getCurrent(),
+                                array('class' => 'icon-halloween social icon-halloween--' . $socialclassarray->getCurrent(),
+                                      'target' => '_blank')
+                        );
+                    $text .= html_writer::end_tag('li');
+                }
         $text .= html_writer::end_tag('ul');
-        $text .= html_writer::end_tag('div');
 
         return $text;
-
     }
 }

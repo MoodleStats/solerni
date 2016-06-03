@@ -40,6 +40,21 @@ $string['myconfigdesc'] = "Sélectionner le cours et/ou l'événement qui seront
 $string['gotocalendar'] = "Accéder à l'événement";
 $string['gotosequence'] = "Accéder à la séquence";
 
+$string['titledefault'] = '<span lang="fr" class="multilang">Titre</span><span lang="en" class="multilang">Title</span>';
+$string['subtitledefault'] = '<span lang="fr" class="multilang">Sous-titre</span><span lang="en" class="multilang">Subtitle</span>';
+
+$string['homepagebuttonmore'] = "En savoir plus sur Solerni";
+
+$string['title'] = 'Titre';
+$string['title_help'] = 'Entrez le texte principal qui sera affiché en gros caractères sous la vidéo.  Format :<br/>
+&lt;span  lang="fr" class="multilang"><strong><i>Titre</i></strong>&lt;/span&gt;<br/>
+&lt;span  lang="en" class="multilang"><strong><i>Title</i></strong>&lt;/span&gt;';
+
+$string['subtitle'] = 'Sous-titre';
+$string['subtitle_help'] = 'Entrez le texte qui sera affiché sous le titre. Format :<br/>
+&lt;span  lang="fr" class="multilang"><strong><i>Sous-titre</i></strong>&lt;/span&gt;<br/>
+&lt;span  lang="en" class="multilang"><strong><i>Subtitle</i></strong>&lt;/span&gt;';
+
 // For capabilities.
 $string['orange_action:addinstance'] = 'Ajouter un bloc Orange Action';
 $string['orange_action:myaddinstance'] = 'Ajouter un bloc Orange Action sur mon dashboard';

@@ -255,6 +255,8 @@ $string['homepageillustration']     = 'Illustration';
 $string['homepageillustrationdesc'] = 'Illustration de la thématique';
 $string['homepagelogo']             = 'Logo';
 $string['homepagelogodesc']         = 'Logo de la thématique';
+$string['homepagevideo']            = 'Vidéo';
+$string['homepagevideo']            = 'Vidéo de présentation de Solerni';
 
 // Search filters.
 $string['catalog_page_title']       = 'Catalogue';
@@ -366,3 +368,10 @@ $string['forum_page_title']        = 'Espace de discussion';
 
 // Course
 $string['course_edited_by']         = 'Cours édité par {$a}';
+
+// Home Thematic
+$string['lineinfobegin'] = 'Vous êtes ';
+$string['registered'] = ' inscrit dont ';
+$string['registeredplural'] = ' inscrits dont ';
+$string['connected'] = '  membre connecté en ce moment';
+$string['connectedplural'] = '  membres connectés en ce moment';

@@ -40,6 +40,22 @@ $string['myconfigdesc'] = "Select the course or the event to be pushed. If both 
 $string['gotocalendar'] = "Access the event";
 $string['gotosequence'] = "Go to the sequence";
 
+$string['titledefault'] = '<span lang="fr" class="multilang">Titre</span><span lang="en" class="multilang">Title</span>';
+$string['subtitledefault'] = '<span lang="fr" class="multilang">Sous-titre</span><span lang="en" class="multilang">Subtitle</span>';
+
+$string['homepagebuttonmore'] = "Learn more about Solerni";
+
+$string['title'] = 'Title';
+$string['title_help'] = 'Enter the main text to be displayed in large characters under the video. Format :<br/>
+&lt;span  lang="fr" class="multilang"><strong><i>Titre</i></strong>&lt;/span&gt;<br/>
+&lt;span  lang="en" class="multilang"><strong><i>Title</i></strong>&lt;/span&gt;';
+
+
+$string['subtitle'] = 'Subtitle';
+$string['subtitle_help'] = 'Enter the text to be displayed under the title. Format :<br/>
+&lt;span  lang="fr" class="multilang"><strong><i>Sous-titre</i></strong>&lt;/span&gt;<br/>
+&lt;span  lang="en" class="multilang"><strong><i>Subtitle</i></strong>&lt;/span&gt;';
+
 // For capabilities.
 $string['orange_action:addinstance'] = 'Add a new Orange Action block';
 $string['orange_action:myaddinstance'] = 'Add a new Orange Action block to My home page';

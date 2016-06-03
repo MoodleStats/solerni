@@ -23,7 +23,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$plugin->version   = 2016042100;
+$plugin->version   = 2016052500;
 $plugin->requires  = 2015051104;
 $plugin->maturity  = MATURITY_STABLE;
 $plugin->component = 'block_orange_paragraph_list';

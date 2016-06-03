@@ -380,5 +380,16 @@ $setting = new admin_setting_configstoredfile($name, $title, $description, 'home
 $setting->set_updatedcallback('theme_reset_all_caches');
 $temp->add($setting);
 
+
+// Thematic video (Video of Solerni Presentation).
+$name = 'theme_halloween/homepagevideo';
+$title = get_string('homepagevideo', 'theme_halloween');
+$description = get_string('homepagevideodesc', 'theme_halloween');
+$default = '';
+$setting = new admin_setting_configtextarea($name, $title, $description, $default);
+$setting->set_updatedcallback('theme_reset_all_caches');
+$temp->add($setting);
+
+
 $ADMIN->add('theme_halloween', $temp);
 

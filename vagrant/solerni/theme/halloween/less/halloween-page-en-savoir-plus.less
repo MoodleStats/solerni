@@ -24,21 +24,49 @@
 
 */
 
-/* Zig Zag Articles */
+/* Moodle Block orange_paragraph_list */
+
+.block_orange_paragraph_list {
+    padding-top: 0;
+}
+
 .zigzag-row {
-    padding-bottom: @s-triple-md-margin;
-    padding-top:    @s-triple-md-margin;
+
+    .zigzag-row__text {
+        padding-bottom: @s-triple-md-margin;
+        padding-top:    @s-triple-md-margin;
+    }
+
+    .h2 {
+        margin-top:     0;
+        margin-bottom:  @s-double-md-margin;
+    }
+
 }
 
-.zigzag-row .h2 {
-    line-height:    1;
-    margin-top:     0;
-    margin-bottom:  @s-double-md-margin;
+    // Beware, this @media is max-width setting (only for small screen devices).
+    @media (max-width:  @screen-md-min) {
+
+        .zigzag-row__image + .zigzag-row__text,
+        .zigzag-row__text + .zigzag-row__image {
+            padding-top: @s-medium-md-margin;
+        }
+
+        .row .zigzag-row__text:first-child {
+            padding-top: @s-medium-md-margin;
+        }
+
+        .zigzag-row__text p,
+        .zigzag-row__text h2,
+        .zigzag-row__text .h2 {
+            padding-left:   @s-medium-md-margin;
+            padding-right:  @s-medium-md-margin;
+        }
 }
 
-/* Something */
+/* list-3-items block */
 
-.list-3-items .row {
+.list-3-items {
     background:     @orange-light-2;
     padding-bottom: @s-triple-md-margin;
     padding-top:    @s-triple-md-margin;
@@ -78,37 +106,16 @@
     }
 }
 
-.margin-bottom-md {
-     margin-bottom: @grid-gutter-width;
-}
-
-.subscription-banner {
-    text-align:         center;
-    padding-bottom:     @s-double-md-margin;
-    padding-top:        @s-double-md-margin;
-    background-color:   @component-active-bg;
-}
-
-.text-centered {
-    text-align:     center;
-    padding-top:    @s-medium-md-margin;
-    padding-bottom: @s-triple-md-margin;
-}
-
-.information-text {
-    height: 70px;
-    padding-top:    @s-double-md-margin;
-    padding-bottom: @s-double-md-margin;
-}
-
 /* (Key Data Course) called Icons Map */
 
 .icons-map-rows {
-    padding-top:    @s-triple-md-margin;
     padding-left:   @s-triple-md-margin;
 
     .icons-map-row:first-child {
-        margin-bottom: (@s-medium-md-margin * 2);
+
+        @media (min-width: @screen-md-min) {
+              margin-bottom: (@s-medium-md-margin * 2);
+        }
     }
 }
 
@@ -117,6 +124,12 @@
         overflow:       hidden;
         height:         @typical-height-orange;
         padding-left:   (@s-small-icon-size + (@grid-gutter-width / 2));
+        margin-bottom:  @s-medium-md-margin;
+
+          @media (min-width: @screen-md-min) {
+              margin-bottom: @s-double-md-margin;
+          }
+
 
         .icon-map-media,
         .icon-map-body {
@@ -125,9 +138,13 @@
 
         .icon-map-media {
             position:   absolute;
-            top:        50%;
+            top:        calc(~'50% -' (@s-medium-md-margin / 2));
             left:       (@grid-gutter-width / 2);
             transform:  translateY(-50%);
+
+            @media (min-width: @screen-md-min) {
+                top: calc(~'50% -' (@s-double-md-margin / 2));
+            }
         }
 
         .orange-typical-line-height {
@@ -139,10 +156,12 @@
         color: @gray;
     }
 
+/* big large button at the botton of the page */
 .block_orange_subscription_button .btn {
     display: block;
 }
 
+/* footer of the page with contact info */
 .page_view_more_contact {
     overflow:       hidden; // content is floated
     padding-top:    @s-double-md-margin;
@@ -151,4 +170,9 @@
 
 .page_view_more_contact__text {
     margin-right: @s-medium-md-margin;
+}
+
+/* specific override */
+.block_orange_social_sharing {
+    padding-top: 0;
 }

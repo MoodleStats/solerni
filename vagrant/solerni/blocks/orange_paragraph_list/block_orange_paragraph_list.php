@@ -23,30 +23,26 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once(dirname(__FILE__) . '/../../config.php');
-// Adding requirement to avoid  Class 'block_base' not found.
-require_once($CFG->dirroot . '/blocks/moodleblock.class.php');
-use local_orange_library\utilities\utilities_image;
-use local_orange_library\utilities\utilities_course;
-use local_orange_library\find_out_more\find_out_more_object;
+defined('MOODLE_INTERNAL') || die();
+
+use block_orange_paragraph_list\find_out_more;
 
 class block_orange_paragraph_list extends block_base {
 
     /**
-     * Sets the block title
+     * Instance constructor.
      *
      * @return void
      */
     public function init() {
-        Global $PAGE;
+        global $PAGE;
 
         $this->title = get_string('config_default_title', 'block_orange_paragraph_list');
         $this->renderer = $PAGE->get_renderer('block_orange_paragraph_list');
+        $this->defaultnbitems = 10;
     }
 
     /**
-     *  we have global config/settings data
-     *
      * @return bool
      */
     public function has_config() {
@@ -55,8 +51,6 @@ class block_orange_paragraph_list extends block_base {
 
 
     /**
-     * Controls whether multiple instances of the block are allowed on a page
-     *
      * @return bool
      */
     public function instance_allow_multiple() {
@@ -64,8 +58,6 @@ class block_orange_paragraph_list extends block_base {
     }
 
     /**
-     * Controls whether the block is configurable
-     *
      * @return bool
      */
     public function instance_allow_config() {
@@ -73,8 +65,6 @@ class block_orange_paragraph_list extends block_base {
     }
 
     /**
-     * Defines where the block can be added
-     *
      * @return array
      */
     public function applicable_formats() {
@@ -82,14 +72,19 @@ class block_orange_paragraph_list extends block_base {
             'course-view'    => true,
             'site'           => false,
             'mod'            => false,
-            'my'             => true
+            'my'             => false
         );
     }
 
     /**
-     * Creates the blocks main content
+     * Creates the blocks main content.
      *
-     * @return string
+     * @todo: I don't think we need to instanciate something (find_out_more)
+     * for just one iteration.
+     *
+     * @global $COURSE
+     * 
+     * @return string <DOM fragment>
      */
     public function get_content() {
         global $COURSE;
@@ -102,23 +97,10 @@ class block_orange_paragraph_list extends block_base {
         $this->content->text = '';
         $this->content->footer = '';
 
-        $findoutmore = new find_out_more_object();
+        $findoutmore = new find_out_more($COURSE, $this->defaultnbitems);
+        $findoutmore->get_find_out_more();
 
-        if (utilities_course::is_on_course_page()) {
-            $context = context_course::instance($COURSE->id);
-            $imgurl = array();
-            $resizedimgurl = array();
-
-            for ($i=0; $i<=10; $i++) {
-                $file = utilities_image::get_moodle_stored_file($context, 'format_flexpage', 'paragraphpicture', ($i+1));
-                if ($file) {
-                    $resizedimgurl[$i] = utilities_image::get_resized_url($file, array('w' => 400, 'h' => 250, 'scale' => true));
-                }
-            }
-            $findoutmore->get_find_out_more($COURSE);
-
-            $this->content->text = $this->renderer->display_on_course_page($COURSE, $findoutmore, $resizedimgurl);
-        }
+        $this->content->text = $this->renderer->render_paragraph_list($findoutmore);
 
         return $this->content;
     }

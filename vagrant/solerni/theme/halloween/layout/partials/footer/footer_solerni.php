@@ -18,9 +18,10 @@ use local_orange_library\utilities\utilities_user;
 use theme_halloween\tools\theme_utilities;
 require_once($CFG->dirroot . '/filter/multilang/filter.php');
 $filtermultilang = new filter_multilang($PAGE->context, array()); ?>
+
 <div class="container">
     <footer class="footer row" role="contentinfo">
-        <div class="col-xs-12 col-md-4">
+        <div class="col-xs-12 col-md-4 footer__left">
         <?php if (theme_utilities::is_theme_settings_exists_and_nonempty(array('footerbrandtitle', 'footerbrandchapo', 'footerbrandarticle', 'footerbrandanchor', 'footerbrandurl'), 'atleastone')) : ?>
             <article class="default-article footer-article">
                 <?php if (theme_utilities::is_theme_settings_exists_and_nonempty('footerbrandtitle')) : ?>
@@ -38,8 +39,9 @@ $filtermultilang = new filter_multilang($PAGE->context, array()); ?>
             </article>
         <?php endif; ?>
         </div>
-        <div class="col-xs-12 col-md-4">
-            <div class="col-xs-12 col-md-7 pull-right">
+        <div class="col-xs-12 col-sm-6 col-md-4 footer__central">
+            <div class="hidden-xs col-md-4"></div>
+            <div class="col-xs-12 col-md-8">
                 <ul class="list-unstyled list-link" role="navigation">
                    <li class="link-item h6">
                         <?php if (theme_utilities::is_theme_settings_exists_and_nonempty('footerlistscolumn1title')) {
@@ -77,8 +79,8 @@ $filtermultilang = new filter_multilang($PAGE->context, array()); ?>
                 </ul>
             </div>
         </div>
-        <div class="col-xs-12 col-md-4">
-            <div class="col-xs-12 col-md-6">
+        <div class="col-xs-12 col-sm-6 col-md-2 footer__right">
+            <div class="col-xs-12">
                 <ul class="list-unstyled list-link" role="navigation">
                     <li class="link-item h6">
                         <?php if (theme_utilities::is_theme_settings_exists_and_nonempty('footerlistscolumn2title')) {
@@ -113,11 +115,11 @@ $filtermultilang = new filter_multilang($PAGE->context, array()); ?>
                     <?php endif; ?>
                 </ul>
             </div>
-            <div class="col-xs-12 col-md-6">
-                <div class="list-unstyled list-link">
-                    <div class="link-item h6"><?php echo get_string('international', 'theme_halloween'); ?></div>
-                    <?php echo $OUTPUT->halloween_lang_menu(); ?>
-                </div>
+        </div>
+        <div class="col-xs-12 col-md-1 footer__lang-menu">
+            <div class="list-unstyled list-link">
+                <div class="link-item h6"><?php echo get_string('international', 'theme_halloween'); ?></div>
+                <?php echo $OUTPUT->halloween_lang_menu(); ?>
             </div>
         </div>
         <div class="col-xs-12 version-control text-right">

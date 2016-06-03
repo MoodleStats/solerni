@@ -253,6 +253,8 @@ $string['homepageillustration']     = 'Illustration';
 $string['homepageillustrationdesc'] = 'Thematic illustration';
 $string['homepagelogo']             = 'Logo';
 $string['homepagelogodesc']         = 'Thematic logo';
+$string['homepagevideo']            = 'Video';
+$string['homepagevideodesc']        = 'Solerni video presentation';
 
 // Search filters.
 $string['catalog_page_title']       = 'Catalog';
@@ -363,3 +365,11 @@ $string['forum_page_title']        = 'Discussion space';
 
 // Course
 $string['course_edited_by']         = 'Course edited by {$a}';
+
+// Home Thematic
+$string['lineinfobegin'] = 'You are ';
+$string['registered'] = ' registered including ';
+$string['registeredplural'] = ' registered including ';
+
+$string['connected'] = ' member connected now';
+$string['connectedplural'] = ' members connected now';
