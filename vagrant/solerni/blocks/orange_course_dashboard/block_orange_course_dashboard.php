@@ -105,4 +105,11 @@ class block_orange_course_dashboard extends block_base {
         $this->config = get_config('block_orange_course_dashboard');
         return true;
     }
+
+    public function html_attributes() {
+        $attributes = parent::html_attributes();
+        $attributes['class'] .= ' bg-graylight expanded';
+
+        return $attributes;
+    }
 }
