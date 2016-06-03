@@ -14,18 +14,27 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+
 /**
- * Orange library & utilities
- *
  * @package     local
  * @subpackage  orange_library
- * @copyright   2015 Orange
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @copyright   2016 Orange
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2016060300;                // The current module version (Date: YYYYMMDDXX).
-$plugin->requires  = 2014051207;                // Requires this Moodle version Moodle 2.7.7.
-$plugin->component = 'local_orange_library';    // Full name of the plugin (used for diagnostics).
+$capabilities = array(
+
+    'local/orange_library:viewadmin' => array(
+
+        'captype' => 'read',
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes' => array(
+            'manager' => CAP_ALLOW
+        )
+    )
+
+);
+
+

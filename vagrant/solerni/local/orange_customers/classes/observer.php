@@ -110,7 +110,7 @@ class local_orange_customers_observer {
         $name = '&name='.$category->name;
         $definition = '&definition=customVariablePageValue3=='.$category->name;
         $login1 = '&login=admin';
-        $login2 = '&login=marketing';
+        $login2 = '&login=market';
         $idsite = '&idSite=1';
         $autoarchive = '&autoArchive=0';
         $enabledallusers = '&enabledAllUsers=0';
@@ -119,7 +119,7 @@ class local_orange_customers_observer {
         $xmlaccount1 = utilities_piwik::xml_from_piwik($urlsegment1);
         $xmlaccount2 = utilities_piwik::xml_from_piwik($urlsegment2);
         if ((is_int($xmlaccount1) === false)|| (is_int($xmlaccount2)) === false) {
-            error_log('problem to crate a piwik segment for this customer');
+            error_log('problem to create a piwik segment for this customer');
         }
     }
 }

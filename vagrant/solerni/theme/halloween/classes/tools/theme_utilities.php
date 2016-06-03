@@ -245,8 +245,13 @@ class theme_utilities {
                     $return->pageblocktitleh1 .=  ': ';
                 }
 
-                $return->pageblocktitleh1 .= $PAGE->title;
-                $return->pageblockdesc .= '';
+                // For static page, the title is on the HTML content page.
+                if (substr($PAGE->pagetype,0,6) == "static") {
+                    $return->pageblocktitleh1 = '';
+                } else {
+                    $return->pageblocktitleh1 .= $PAGE->title;
+                    $return->pageblockdesc .= '';
+                }
                 break;
         }
 
