@@ -167,4 +167,39 @@ class block_orange_action_renderer extends plugin_renderer_base {
         return $output;
     }
 
+    /**
+     * Display for Thematic Homepage
+     *
+     * @return message
+     */
+    public function display_on_thematic_homepage($title, $subtitle) {
+        global $OUTPUT, $PAGE;
+
+        // Media.
+        $output = html_writer::start_tag('div', array('class' => 'orange-action-media'));
+            $output .= html_writer::start_tag('div', array('class' => 'action-media-video embed-responsive embed-responsive-16by9'));
+                $output .= $PAGE->theme->settings->homepagevideo;
+            $output .= html_writer::end_tag('div');
+        $output .= '</div>';
+
+        // Banner.
+        $output .= html_writer::start_tag('div', array('class' => 'orange-action-banner u-inverse'));
+            $output .= html_writer::start_tag('div', array('class' => 'row'));
+                // First cell.
+                $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-8 orange-action-banner-cell text-container'));
+                    $output .= html_writer::tag('h1', format_text($title), array('class' => 'text-oneline'));
+                    $output .= html_writer::tag('div', format_text($subtitle), array('class' => 'summary h3'));
+                $output .= html_writer::end_tag('div');
+
+                // Second cell.
+                $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-4 orange-action-banner-cell button-container'));
+                    $output .= html_writer::tag('a', get_string('homepagebuttonmore', 'block_orange_action'),
+                        array('class' => 'btn btn-default', 'href' => $CFG->wwwroot . '/static/a-propos.html'));
+                $output .= html_writer::end_tag('div');
+            $output .= html_writer::end_tag('div');
+        $output .= html_writer::end_tag('div');
+
+        return $output;
+    }
+
 }

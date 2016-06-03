@@ -255,6 +255,8 @@ $string['homepageillustration']     = 'Illustration';
 $string['homepageillustrationdesc'] = 'Illustration de la thématique';
 $string['homepagelogo']             = 'Logo';
 $string['homepagelogodesc']         = 'Logo de la thématique';
+$string['homepagevideo']            = 'Vidéo';
+$string['homepagevideo']            = 'Vidéo de présentation de Solerni';
 
 // Search filters.
 $string['catalog_page_title']       = 'Catalogue';

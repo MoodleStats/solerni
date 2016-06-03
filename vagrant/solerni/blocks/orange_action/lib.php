@@ -42,7 +42,7 @@ use local_orange_library\utilities\utilities_image;
 function block_orange_action_on_my_page() {
     global $SCRIPT;
 
-    return $SCRIPT == ('/my/index.php' || '/my/indexsys.php');
+    return ($SCRIPT == '/my/index.php') || ($SCRIPT == '/my/indexsys.php');
 }
 
 /**
@@ -77,6 +77,17 @@ function block_orange_action_on_course_dashboard_page() {
 }
 
 /**
+ * Checks whether the current page is thematic homepage.
+ *
+ * @return bool True when on a thematic homepage.
+ */
+function block_orange_action_on_thematic_homepage() {
+
+    return (local_orange_library\utilities\utilities_object::is_frontpage() &&
+        local_orange_library\utilities\utilities_network::is_thematic());
+}
+
+/**
  *
  * Check conditions and get course information and content from course id.
  *
@@ -101,7 +112,7 @@ function block_orange_action_get_course($courseid) {
     $imgurl = "";
     foreach ($course->get_course_overviewfiles() as $file) {
         if ($file->is_valid_image()) {
-           $imgurl = utilities_image::get_moodle_url_from_stored_file($file);
+            $imgurl = utilities_image::get_moodle_url_from_stored_file($file);
         }
     }
 
@@ -176,16 +187,16 @@ function block_orange_action_get_event($eventid) {
 
     $query = "SELECT * FROM {event} WHERE id = ? AND timestart >= ? LIMIT 1";
 
-     if (!$event = $DB->get_records_sql($query, array( $eventid, time()))) {
+    if (!$event = $DB->get_records_sql($query, array( $eventid, time()))) {
         error_log('Invalid event id: ' . $eventid . ' Cannot get content for block_orange_action.');
         return false;
-     }
+    }
 
     $event = array_shift($event);
     $hrefparams['view'] = 'day';
     $eventurl = calendar_get_link_href(new moodle_url(CALENDAR_URL . 'view.php', $hrefparams),
             0, 0, 0, $event->timestart);
-    // Image par défaut
+    // Image par défaut.
     $imgurl = $CFG->dirroot.'/blocks/orange_action/pix/default.jpg';
 
     return $PAGE->get_renderer('block_orange_action')->display_event_on_my_page($event, $imgurl, $eventurl);
