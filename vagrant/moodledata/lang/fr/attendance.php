@@ -30,6 +30,7 @@ $string['acronym'] = 'Acronyme';
 $string['add'] = 'Ajouter';
 $string['addmultiplesessions'] = 'Ajouter plusieurs sessions';
 $string['addsession'] = 'Ajouter une session';
+$string['adduser'] = 'Ajouter un utilisateur';
 $string['Afull'] = 'Absent';
 $string['all'] = 'Tout';
 $string['allcourses'] = 'Tous les cours';
@@ -44,6 +45,7 @@ $string['attendance:export'] = 'Rapport d\'exportation';
 $string['attendanceforthecourse'] = 'Présence pour le cours';
 $string['attendancegrade'] = 'Note de présence';
 $string['attendance:manageattendances'] = 'Gérer les présences';
+$string['attendance:managetemporaryusers'] = 'Gestion des  utilisateurs temporaires';
 $string['attendancenotset'] = 'Vous devez renseigner votre présence';
 $string['attendancenotstarted'] = 'La prise de présence n\'a pas encore commencé pour ce cours';
 $string['attendancepercent'] = 'Pourcentage de présence';
@@ -64,10 +66,13 @@ $string['cannottakeforgroup'] = 'Vous ne pouvez pas saisir les présences pour l
 $string['changeattendance'] = 'Modifier la présence';
 $string['changeduration'] = 'Modifier la durée';
 $string['changesession'] = 'Modifier la session';
+$string['checkweekdays'] = 'Sélectionnez la semaine qui tombe dans la plage de dates de la session sélectionnée.';
 $string['column'] = 'Colonne';
 $string['columns'] = 'Colonnes';
 $string['commonsession'] = 'Commune';
 $string['commonsessions'] = 'Communes';
+$string['confirmdeletehiddensessions'] = 'Voulez-vous vraiment supprimer {$a->count} sessions programmées avant la date de début du cours ({$a->date}) ?';
+$string['confirmdeleteuser'] = 'Voulez-vous vraiment supprimer l\'utilisateur « {$a->filename} » ({$a->email}) ? <br/> Tous leurs registres de présence seront définitivement supprimés.';
 $string['copyfrom'] = 'Copier les données de présence de';
 $string['countofselected'] = 'Nombre de sélections';
 $string['createmultiplesessions'] = 'Créer plusieurs sessions';
@@ -82,10 +87,13 @@ $string['days'] = 'Jour';
 $string['defaultdisplaymode'] = 'Mode d\'affichage par défaut';
 $string['defaults'] = 'Valeurs par défaut';
 $string['delete'] = 'Supprimer';
+$string['deletedgroup'] = 'Le groupe associé à cette session a été supprimé';
+$string['deletehiddensessions'] = 'Supprimer toutes les sessions masquées';
 $string['deletelogs'] = 'Supprimer les données de présence';
 $string['deleteselected'] = 'Supprimer la sélection';
 $string['deletesession'] = 'Supprimer la session';
 $string['deletesessions'] = 'Supprimer toutes les sessions';
+$string['deleteuser'] = 'Supprimer l\'utilisateur';
 $string['deletingsession'] = 'Supprimer la session pour le cours';
 $string['deletingstatus'] = 'Supprimer le staut pour le cours';
 $string['description'] = 'Description';
@@ -98,7 +106,10 @@ $string['downloadtext'] = 'Télécharger en format texte';
 $string['duration'] = 'Durée (heure - minute)';
 $string['Eacronym'] = 'E';
 $string['editsession'] = 'Éditer la session';
+$string['edituser'] = 'Modifier l\'utilisateur';
 $string['Efull'] = 'Excusé';
+$string['emptyacronym'] = 'Le champ Acronyme ne peut rester vide. L\'enregistrement n\'a pas eu lieu.';
+$string['emptydescription'] = 'Le champ Description ne peut rester vide. L\'enregistrement n\'a pas eu lieu.';
 $string['endofperiod'] = 'Fin de la période';
 $string['endtime'] = 'Heure de fin de session';
 $string['enrolmentend'] = 'Fin d\'inscription de l\'utilisateur {$a}';
@@ -117,6 +128,7 @@ $string['eventstatusupdated'] = 'Statut mise à jour';
 $string['eventtaken'] = 'Statut de présence renseigné';
 $string['eventtakenbystudent'] = 'Statut de présence renseigné par l\'étudiant';
 $string['export'] = 'Exportation';
+$string['from'] = 'De :';
 $string['gradebookexplanation'] = 'Noter dans le carnet de notes';
 $string['gradebookexplanation_help'] = 'Le module de présence affiche votre note de fréquentation basée sur le nombre de points que vous avez accumulés à ce jour et le nombre de points qui auraient pu être gagnés à ce jour, il ne comprend pas les périodes des cours qui n\'ont pas encore eu lieu. Dans le carnet de notes, votre note de présence est calculée en pourcentage de présence en cours avec le nombre de points qui peuvent être gagnés pendant toute la durée du cours, y compris pour les périodes cours à venir. Ainsi, la note de présence affichée dans le module de présence et la note affichée dans le carnet de notes peut avoir un nombre de points différent, mais elles auront le même pourcentage.
 
@@ -124,6 +136,7 @@ Par exemple, si vous avez gagné 8 des 10 points à ce jour (80% de participatio
 $string['gridcolumns'] = 'Colonnes de la grille';
 $string['groupsession'] = 'Groupe';
 $string['hiddensessions'] = 'Sessions masquées';
+$string['hiddensessionsdeleted'] = 'Toutes les sessions masquées ont été supprimées';
 $string['hiddensessions_help'] = 'Les sessions sont masquées si la date du début du cours est postérieure à la date des sessions.
 
 Vous pouvez utiliser cette fonction pour cacher d\'anciennes sessions au lieu de les supprimer. Mais rappelez-vous que seules les sessions visibles sont prises en compte dans le carnet de notes.';
@@ -132,11 +145,14 @@ $string['includeall'] = 'Sélectionner toutes les sessions';
 $string['includenottaken'] = 'Inclure les sessions non renseignées';
 $string['includeremarks'] = 'Inclure des remarques';
 $string['indetail'] = 'Détails...';
+$string['invalidaction'] = 'Vous devez choisir une action a effectuer';
 $string['invalidsessionenddate'] = 'La date de fin de session ne peut être antérieure à la date de début de session.';
+$string['invalidsessionendtime'] = 'L\'heure de fin doit être postérieure à l\'heure de début';
 $string['jumpto'] = 'Aller à';
 $string['Lacronym'] = 'R';
 $string['Lfull'] = 'Retard';
 $string['lowgrade'] = 'Note faible';
+$string['mergeuser'] = 'Fusionner l\'utilisateur';
 $string['modulename'] = 'Présence';
 $string['modulename_help'] = 'Le module d\'activité présence permet à un enseignant d\'enregistrer les présences aux cours et permet aux étudiants de visualiser leurs présences.
 
@@ -146,9 +162,12 @@ Les rapports sont disponibles pour la classe entière ou individuellement pour c
 $string['modulenameplural'] = 'Présences';
 $string['months'] = 'Mois';
 $string['moreattendance'] = 'Les présences ont bien été enregistrées';
+$string['mustselectusers'] = 'Vous devez sélectionner des utilisateurs à exporter';
 $string['myvariables'] = 'Mes Variables';
 $string['newdate'] = 'Nouvelle date';
 $string['newduration'] = 'Nouvelle durée';
+$string['newstatusset'] = 'Nouvelle série de statuts';
+$string['noattendanceusers'] = 'Impossible d\'exporter les données puisqu\'il n\'y a aucun utilisateur inscrit dans ce cours.';
 $string['noattforuser'] = 'Aucun enregistrement de présence pour l\'utilisateur';
 $string['nodescription'] = 'Session régulière de cours';
 $string['nogroups'] = 'Vous ne pouvez pas ajouter de sessions de groupes. Il n\'y a pas de groupes définis dans ce cours.';
@@ -161,16 +180,61 @@ $string['nosessiondayselected'] = 'Pas de jour de session sélectionné';
 $string['nosessionexists'] = 'Aucune session n\'existe pour ce cours';
 $string['nosessionsselected'] = 'Pas de session sélectionnée';
 $string['notfound'] = 'Aucune activité Présence dans ce cours !';
+$string['notmember'] = 'non membre';
 $string['noupgradefromthisversion'] = 'Le module de présence « Attendance » ne peut pas mettre à niveau l\'ancienne version « attforblock » vous avez installée. Veuillez supprimer l\'ancien module « attforblock » ou mettre à niveau vers la dernière version avant d\'installer le nouveau module de présence « Attendance »';
 $string['olddate'] = 'Ancienne date';
+$string['onlyselectedusers'] = 'Exportation d\'utilisateurs spécifiques';
 $string['Pacronym'] = 'P';
+$string['participant'] = 'Participant';
+$string['percentage'] = 'Pourcentage';
 $string['Pfull'] = 'Présent';
 $string['pluginadministration'] = 'Administration de Présence';
 $string['pluginname'] = 'Présence';
+$string['points'] = 'Points';
+$string['priorto'] = 'La date de la session est antérieure à la date de début du cours ({$a}). Les nouvelles sessions programmées avant cette date seront par conséquent cachées (non accessibles). Vous pouvez changer la date de début du cours à tout moment (voir les paramètres de cours) afin d\'avoir accès à des sessions antérieures. <br> Merci de changer la date de la session ou cliquez simplement sur le bouton « Ajouter une session » pour confirmer.';
 $string['remark'] = 'Remarques pour : {$a}';
 $string['remarks'] = 'Remarques';
+$string['repeatasfollows'] = 'ciRépéter la session au-dessus de la manière suivante';
+$string['repeatevery'] = 'Répéter tous les';
+$string['repeaton'] = 'Répéter le';
+$string['repeatuntil'] = 'Répéter juqu\'au';
 $string['report'] = 'Rapport';
 $string['required'] = 'Requis*';
+$string['requiredentries'] = 'Les enregistrements de l\'utilisateur temporaire remplacent les enregistrements de présence du participant fusionné';
+$string['requiredentry'] = 'Aide sur la fusion d\'utilisateur temporaire';
+$string['requiredentry_help'] = '<p align="center"><b>Présence</b></p>
+<p align="left"><strong>Fusion de comptes</strong></p>
+<p align="left">
+<table border="2" cellpadding="4">
+<tr>
+<th>Participant</th>
+<th>Utilisateur temporaire</th>
+<th>Action</th>
+</tr>
+<tr>
+<td>Données de présence</td>
+<td>Données de présence</td>
+<td>L\'utilisateur temporaire remplace le Participant</td>
+</tr>
+<tr>
+<td>Pas de données de présence</td>
+<td>Données de présence</td>
+<td>La présence de l\'utilisateur temporaire sera transférée au Participant</td>
+</tr>
+<tr>
+<td>Données de présence</td>
+<td>Pas de données de présence</td>
+<td>L\'utilisateur temporaire sera supprimé</td>
+</tr>
+<tr>
+<td>Pas de données de présence</td>
+<td>Pas de données de présence</td>
+<td>L\'utilisateur temporaire sera supprimé</td>
+</tr>
+</table>
+
+</p>
+<p align="left"><strong>L\'utilisateur temporaire sera supprimé dans tous les cas après l\'action de fusion.</strong></p>';
 $string['resetdescription'] = 'Rappelez-vous que la suppression des données sur la fréquentation va effacer ces informations de base de données. Vous pouvez simplement cacher les anciennes sessions en changeant la date de début du cours !';
 $string['resetstatuses'] = 'Restaurer les statuts par défaut';
 $string['restoredefaults'] = 'Restaurer les valeurs par défaut';
@@ -184,6 +248,7 @@ $string['sessiondate'] = 'Date de session';
 $string['sessiondays'] = 'Jours de session';
 $string['sessiondeleted'] = 'Session supprimée avec succès';
 $string['sessionexist'] = 'Session non ajoutée (existe déjà) !';
+$string['sessiongenerated'] = 'Une session a été générée avec succès';
 $string['session_help'] = 'Session';
 $string['sessions'] = 'Sessions';
 $string['sessionscompleted'] = 'Sessions terminées';
@@ -199,6 +264,7 @@ $string['sessiontype_help'] = 'Il existe deux types de sessions : communes et d
 * En mode « Groupes séparés » vous pouvez seulement ajouter des sessions de groupes.';
 $string['sessiontypeshort'] = 'Type';
 $string['sessionupdated'] = 'Session enregistrée avec succès';
+$string['setallstatuses'] = 'Mettre le statut suivant pour tous les utilisateurs';
 $string['setallstatusesto'] = 'Mettre le statut de tous les utilisateurs sur « {$a} »';
 $string['set_by_student'] = 'Renseigné par l\'étudiant';
 $string['settings'] = 'Paramètres';
@@ -210,6 +276,7 @@ $string['startofperiod'] = 'Début de la période';
 $string['status'] = 'Statut';
 $string['statusdeleted'] = 'Statut supprimé';
 $string['statuses'] = 'Statuts';
+$string['statusset'] = 'Série de statut {$a}';
 $string['strftimedm'] = '%d.%m';
 $string['strftimedmy'] = '%d.%m.%Y';
 $string['strftimedmyhm'] = '%d.%m.%Y %H.%M';
@@ -221,9 +288,28 @@ $string['studentscanmark'] = 'Permettre aux étudiants de renseigner eux-mêmes 
 $string['studentscanmark_help'] = 'Cette option permet aux étudiants de renseigner eux-mêmes leur statut de présence';
 $string['submitattendance'] = 'Envoyer le statut de présence';
 $string['tablerenamefailed'] = 'Le renommage de la table de l\'ancien module attforblock par attendance a échoué.';
+$string['tactions'] = 'Action';
 $string['takeattendance'] = 'Prendre les présences';
+$string['tcreated'] = 'Créé';
+$string['tempaddform'] = 'Ajouter un utilisateur temporaire';
+$string['tempexists'] = 'Il y a déjà un utilisateur temporaire avec le même courriel';
+$string['temptable'] = 'Liste des utilisateurs temporaires';
+$string['tempuser'] = 'Utilisateur temporaire';
+$string['tempusermerge'] = 'Fusionner l\'utilisateur temporaire';
+$string['tempusers'] = 'Utilisateurs temporaires';
+$string['tempusersedit'] = 'Modifier l\'utilisateur temporaire';
+$string['tempuserslist'] = 'Utilisateurs temporaires';
 $string['thiscourse'] = 'Ce cours';
+$string['time'] = 'Horaire';
+$string['timeahead'] = 'Les sessions multiples qui excèdent 1 année ne peuvent pas être crées, merci d\'ajuster les dates de début et de fin.';
+$string['to'] = 'à :';
+$string['tuseremail'] = 'Courriel';
+$string['tusername'] = 'Nom complet';
+$string['unknowngroup'] = 'Groupe inconnu';
 $string['update'] = 'Enregistrer';
+$string['userexists'] = 'Il y a déjà un utilisateur inscrit avec le même courriel';
+$string['users'] = 'Utilisateurs à exporter';
+$string['usestatusset'] = 'Série de statuts';
 $string['variable'] = 'Variable';
 $string['variablesupdated'] = 'Variables mises à jour';
 $string['versionforprinting'] = 'Version pour impression';

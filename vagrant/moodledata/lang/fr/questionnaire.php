@@ -83,6 +83,7 @@ Les étudiants ne pourront pas répondre au questionnaire après cette date. Si 
 $string['closeson'] = 'Ce questionnaire est disponible jusqu\'au {$a}';
 $string['completionsubmit'] = 'L\'étudiant doit soumettre ce questionnaire pour compléter l\'activité';
 $string['confalts'] = '- OU - <br />Page de confirmation';
+$string['configmaxsections'] = 'Sections maximales de feedback';
 $string['configusergraph'] = 'Afficher les graphiques pour les « Tests de personnalité »';
 $string['configusergraphlong'] = 'Utiliser la bibliothèque <a href="http://www.rgraph.net/">Rgraph</a> pour afficher les graphiques illustrant le feedback des tests de personnalité.';
 $string['confirmdelallresp'] = 'Voulez-vous vraiment supprimer TOUTES les réponses à ce questionnaire&nbsp;?';
@@ -101,6 +102,7 @@ $string['createcontent'] = 'Définir un nouveau contenu';
 $string['createcontent_help'] = 'Choisir l\'un des boutons radio de la liste. Défaut : "Créer un nouveau questionnaire".';
 $string['createcontent_link'] = 'mod/questionnaire/mod#Content_Options';
 $string['createnew'] = 'Créer un nouveau questionnaire';
+$string['crontask'] = 'Nettoyage du questionnaire';
 $string['date'] = 'Date';
 $string['dateformatting'] = '<em>Utilisez le format jour-mois-année, par exemple pour le 14 mars 1945:&nbsp; </em><span class = monospace>14-3-1945</monospace>';
 $string['date_help'] = 'Utilisez ce type de question si vous voulez que la réponse soit donnée sous forme d\'une date correctement formatée.';
@@ -174,9 +176,9 @@ $string['feedbacknotes_help'] = 'Le texte entré ici sera affiché à la fin du 
 $string['feedbackoptions'] = 'Options de feedback';
 $string['feedbackoptions_help'] = 'Les options de feedback sont disponibles seulement si votre questionnaire contient des questions des types suivants et si ces questions sont paramétrées comme indiqué :
 Boutons radio, Liste déroulante ou Échelle de Likert.
-Ces questions doivent être paramétrées comme "Réponse obligatoire", leur nom de question ne doit pas être vide et chaque choix dans le champ des réponses possibles doit avoir une valeur numérique.';
-$string['feedbackremovequestionfromsection'] = '---';
-$string['feedbackremovesection'] = '---';
+Ces questions doivent être paramétrées comme « Réponse obligatoire », leur nom de question ne doit pas être vide et chaque choix dans le champ des réponses possibles doit avoir une valeur numérique.';
+$string['feedbackremovequestionfromsection'] = 'Cette question fait partie de la section de feedback [{$a}]';
+$string['feedbackremovesection'] = 'Retirer cette question supprimera définitivement la section du feedback [{$a}]';
 $string['feedbackreport'] = 'Rapport de feedback';
 $string['feedbackscore'] = 'Score du feedback';
 $string['feedbackscoreboundary'] = 'Limite de score du feedback';
