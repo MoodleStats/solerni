@@ -17,16 +17,17 @@
 /**
  * Version details
  *
- * @package    local_orange_event_user_loggedin
+ * @package    local_orange_event_user_updated
  * @copyright  2015 Orange
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once("$CFG->dirroot/local/orange_mail/mail_init.php");
+// List of observers.
+$observers = array(
 
-$string['pluginname'] = 'Orange Event user_loggedin';
-$string['local_orange_event_user_loggedin'] = 'Orange Event user_loggedin';
-$string['subjectuseraccountemail'] = 'Reminder of your {$a->customername} login details';
-$string['contentuseraccountemail'] = mail_init::init('contentuseraccountemail', 'html');
-$string['subjectuseraccountemailprivate'] = 'Reminder of your {$a->customername} login details';
-$string['contentuseraccountemailprivate'] = mail_init::init('contentuseraccountemailprivate', 'html');
+    array(
+        'eventname'   => '\core\event\user_updated',
+        'callback'    => 'local_orange_event_user_updated_observer::user_updated',
+    )
+
+);
