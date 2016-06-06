@@ -80,7 +80,10 @@ class PeerAdd extends MooshCommand
             // WARNING : 503 Service Unavailable + dmlwriteexception when IP doesn't exist
             try{
                 $res1 = $mnet_peer->bootstrap($wwwroot, null, $application);
-
+                
+                // In some case during Moosh Script this parameter is NULL, then set it to current timestamp
+                if ($mnet_peer->public_key_expires == null) $mnet_peer->public_key_expires = time();
+                
                 $mnet_peer->commit();
                 $host = $DB->get_record('mnet_host', array('wwwroot' => $wwwroot));
 
