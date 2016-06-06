@@ -34,7 +34,7 @@ use course_in_list;
 
 require_once($CFG->dirroot . '/cohort/lib.php');
 require_once($CFG->dirroot . '/lib/coursecatlib.php'); // TODO : use course_in_list not working.
-require_once($CFG->libdir . '/outputcomponents.php');
+require_once($CFG->libdir.'/outputcomponents.php');
 
 class utilities_course {
 
@@ -333,7 +333,7 @@ class utilities_course {
      * List of found course ids is cached for 10 minutes. Cache may be purged prior
      * to this when somebody edits courses or categories, however it is very
      * difficult to keep track of all possible changes that may affect list of courses.
-     *
+     *US527
      * @param array $options options for retrieving children
      *    - recursive - return courses from subcategories as well. Use with care,
      *      this may be a huge list!
@@ -366,7 +366,7 @@ class utilities_course {
             $wherethematic = self::catalogue_filter_thematic($filter->thematicsid);
         }
 
-        // Filter en status.
+        // Filter en status.US527
         $wherestatus = array();
         if (isset($filter->statusid) && is_array($filter->statusid)) {
             $wherestatus = self::catalogue_filter_status($filter->statusid);
@@ -1125,7 +1125,19 @@ class utilities_course {
         return '';
     }
 
-    public static function get_ordered_user_courses($limit = 0, $order = false) {
+    /**
+     * Returns an array containing the courses the user has subscribed.
+     *
+     * The length of the array could be constrained by setting a limit number.
+     * The courses could be orderered.
+     *
+     * @global moodle_user $USER
+     * @param int $limit
+     * @param array $order
+     *
+     * @return array of moodle_course
+     */
+    public static function get_ordered_user_courses($limit = null, $order = false) {
         global $USER;
 
         $courses = enrol_get_my_courses();
@@ -1143,33 +1155,30 @@ class utilities_course {
             }
         }
 
-        if (!$order) {
-            return $courses;
+        if ($order) {
+            $counter = 0;
+            $sortedcourses = array();
+            foreach ($order as $cid) {
+                // Make sure user is still enroled.
+                if (isset($courses[$cid])) {
+                    $sortedcourses[$cid] = $courses[$cid];
+                    $counter++;
+                }
+            }
+            $courses = $sortedcourses;
         }
 
-        // We have a order => sort it.
-        // @todo: make it a specific function.
-        $counter = 0;
-        $sortedcourses = array();
-        foreach ($order as $cid) {
-            if (($counter >= $limit) && ($limit != 0)) {
-                break;
-            }
+        $return['courses'] = array_slice($courses, 0, $limit);
+        $return['havemore'] = (count($courses) > $limit);
 
-            // Make sure user is still enroled.
-            if (isset($courses[$cid])) {
-                $sortedcourses[$cid] = $courses[$cid];
-                $counter++;
-            }
-        }
-
-        return $sortedcourses;
+        return $return;
     }
 
-    public static function get_customer($categoryid) {
-        global $CFG;
-        require_once($CFG->dirroot . '/local/orange_customers/lib.php');
+     public static function get_customer($categoryid) {
+         global $CFG;
+         require_once($CFG->dirroot . '/local/orange_customers/lib.php');
 
-        return customer_get_customerbycategoryid($categoryid);
+         return customer_get_customerbycategoryid($categoryid);
     }
+
 }

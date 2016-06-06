@@ -33,7 +33,7 @@ class block_orange_course_dashboard extends block_base {
      * Block initialization
      */
     public function init() {
-        $this->title   = get_string('pluginname', 'block_orange_course_dashboard');
+        $this->title = get_string('pluginname', 'block_orange_course_dashboard');
     }
 
     /**
@@ -52,19 +52,18 @@ class block_orange_course_dashboard extends block_base {
         $this->content->footer = '';
         $renderer = $this->page->get_renderer('block_orange_course_dashboard');
 
-        $sortedcourses =
+        $mycourses =
             utilities_course::get_ordered_user_courses($this->config->defaultmaxcourses);
 
         // We have courses and no manual override.
-        if (count($sortedcourses) && !$this->config->forcednoavailabalemooc) {
+        if (count($mycourses['courses']) && !$this->config->forcednoavailabalemooc) {
             $title = get_string('titlefollowedcourses', 'block_orange_course_dashboard');
-            $condition = (count($sortedcourses) > $this->config->defaultmaxcourses);
             $btntitle = get_string('titlefollowedcourses', 'block_orange_course_dashboard');
             $btnurl = (empty($this->config->mymoocsurl)) ?
                     new moodle_url('/moocs/mymoocs.php') :
                     new moodle_url($this->config->mymoocsurl);
-            $this->content->text .= $renderer->block_orange_course_dashboard_heading($title, $btntitle, $btnurl, $condition);
-            $this->content->text .= $renderer->block_orange_course_dashboard_render_courses_list($sortedcourses);
+            $this->content->text .= $renderer->block_orange_course_dashboard_heading($title, $btntitle, $btnurl, $mycourses['havemore']);
+            $this->content->text .= $renderer->block_orange_course_dashboard_render_courses_list($mycourses['courses']);
         } else {
             $this->content->text .= $renderer->block_orange_course_dashboard_heading(get_string('nomooctodisplay', 'block_orange_course_dashboard'));
             $this->content->text .= $renderer->block_orange_course_dashboard_render_nocourses();
