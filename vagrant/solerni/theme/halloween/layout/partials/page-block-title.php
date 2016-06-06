@@ -42,7 +42,10 @@ if ($oncoursepage = utilities_course::is_on_course_page()) {
     if($customer) {
         $customerlogoresizedurl = utilities_image::get_resized_url($customer->urlimg,
             array ('scale' => 'true', 'h' => 60));
+        $customerurl = new moodle_url('/course/index.php',
+                array('categoryid' => $COURSE->category));
     }
+
 }
 
 // This page is not available on Solerni HOME
@@ -71,8 +74,10 @@ if (local_orange_library\utilities\utilities_network::is_platform_uses_mnet() &&
         ?>
         <?php elseif ($titles->pageblocktitleh1) : ?>
             <?php if (isset($customerlogoresizedurl)): ?>
-                <img class="pull-right page-block-title__img" src="<?php echo $customerlogoresizedurl; ?>"
-                     alt=" <?php echo get_string('course_edited_by', 'theme_halloween', $customer->name); ?>">
+                <a href="<?php echo $customerurl; ?>">
+                    <img class="pull-right page-block-title__img" src="<?php echo $customerlogoresizedurl; ?>"
+                         alt=" <?php echo get_string('course_edited_by', 'theme_halloween', $customer->name); ?>">
+                </a>
             <?php endif; ?>
             <h1>
             <?php if ($oncoursepage) : ?>
