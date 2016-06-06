@@ -149,7 +149,7 @@ class theme_halloween_core_user_myprofile_renderer extends core_user\output\mypr
                 if ((strpos($content, "http://" ) !== 0) && (strpos($content, "https://" ) !== 0)) {
                     $content = "http://" . $content;
                 }
-                $content = \html_writer::link(new moodle_url($content), $content, array('target' => '_new'));
+                $content = \html_writer::link($content, $content, array('target' => '_new'));
             } else if (($node->name == "mnet") && ($node->classes == "remoteuserinfo")) {
                 // Replace link to home by link to edit profile on MNET home.
                 // Link only available on "my profile".

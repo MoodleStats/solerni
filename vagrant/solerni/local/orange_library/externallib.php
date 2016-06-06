@@ -69,9 +69,9 @@ class local_orange_library_external extends external_api {
     /**
      * Returns User profile fields from library utilities_user
      */
-    public static function get_profile_fields($username) {
+    public static function get_profile_fields($username, $host, $mode) {
 
-        return utilities_user::get_user_profile_fields($username);
+        return utilities_user::get_user_profile_fields($username, $host, $mode);
     }
 
     /**
@@ -82,7 +82,9 @@ class local_orange_library_external extends external_api {
     public static function get_profile_fields_parameters() {
         return new external_function_parameters(
             array(
-                'username' => new external_value(PARAM_TEXT, 'user name')
+                'username' => new external_value(PARAM_TEXT, 'user name'),
+                'host' => new external_value(PARAM_URL, 'remote host'),
+                'mode' => new external_value(PARAM_NUMBER, 'Sync mode: 1 is full mode and 0 simple mode'),
             )
         );
     }
@@ -169,6 +171,38 @@ class local_orange_library_external extends external_api {
      * @return \external_multiple_structure
      */
     public static function del_user_on_thematic_returns() {
+        return new external_value(PARAM_INT, 'Command status');
+    }
+
+
+    /**
+     * Request user update from home to Thematic
+     */
+    public static function update_user_on_thematic($username, $email) {
+
+        return utilities_user::update_user_on_thematic($username, $email);
+    }
+
+    /**
+     * Define function parameters
+     *
+     * @return \external_function_parameters
+     */
+    public static function update_user_on_thematic_parameters() {
+        return new external_function_parameters(
+            array(
+                'username' => new external_value(PARAM_TEXT, 'user name'),
+                'email' => new external_value(PARAM_TEXT, 'email')
+            )
+        );
+    }
+
+    /**
+     * Define expected function return
+     *
+     * @return \external_multiple_structure
+     */
+    public static function update_user_on_thematic_returns() {
         return new external_value(PARAM_INT, 'Command status');
     }
 }

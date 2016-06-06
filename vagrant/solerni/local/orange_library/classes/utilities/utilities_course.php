@@ -333,7 +333,7 @@ class utilities_course {
      * List of found course ids is cached for 10 minutes. Cache may be purged prior
      * to this when somebody edits courses or categories, however it is very
      * difficult to keep track of all possible changes that may affect list of courses.
-     *
+     *US527
      * @param array $options options for retrieving children
      *    - recursive - return courses from subcategories as well. Use with care,
      *      this may be a huge list!
@@ -366,7 +366,7 @@ class utilities_course {
             $wherethematic = self::catalogue_filter_thematic($filter->thematicsid);
         }
 
-        // Filter en status.
+        // Filter en status.US527
         $wherestatus = array();
         if (isset($filter->statusid) && is_array($filter->statusid)) {
             $wherestatus = self::catalogue_filter_status($filter->statusid);
@@ -1182,4 +1182,3 @@ class utilities_course {
     }
 
 }
-

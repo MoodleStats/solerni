@@ -98,7 +98,7 @@ class block_orange_course_home extends block_base {
 
     public function html_attributes() {
         $attributes = parent::html_attributes();
-        $attributes['class'] .= ' bg-graylight';
+        $attributes['class'] .= ' bg-graylight expanded';
 
         return $attributes;
     }

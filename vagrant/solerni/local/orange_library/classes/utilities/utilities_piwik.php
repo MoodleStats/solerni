@@ -27,12 +27,12 @@ defined('MOODLE_INTERNAL') || die();
 
 class utilities_piwik {
 
-     /**
+    /**
      * Call API
      * @param string $url
      * @return xml object
      */
-    static public function xml_from_piwik($url) {   
+    static public function xml_from_piwik($url) {
         $ch = curl_init();
         $timeout = 20;
         curl_setopt($ch, CURLOPT_URL, $url);

@@ -51,6 +51,13 @@ $functions = array(
         'classpath'     => 'local/orange_library/externallib.php',
         'description'   => 'Allows to delete a user from MNET Home to MNET Thematic',
         'type'          => 'write'
+    ),
+    'local_orange_library_update_user_on_thematic' => array(
+        'classname'     => 'local_orange_library_external',
+        'methodname'    => 'update_user_on_thematic',
+        'classpath'     => 'local/orange_library/externallib.php',
+        'description'   => 'Allows to update a user from MNET Home to MNET Thematic',
+        'type'          => 'write'
     )
 );
 
@@ -59,7 +66,8 @@ $services = array(
             'functions'         => array('local_orange_library_get_resac_hosts',
                 'local_orange_library_get_profile_fields',
                 'local_orange_library_get_thematic_info',
-                'local_orange_library_del_user_on_thematic'),
+                'local_orange_library_del_user_on_thematic',
+                'local_orange_library_update_user_on_thematic'),
             'restricted_users'  => 0,
             'enabled'           => 1
     )

@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['checklist'] = 'Liste des tâches';
-$string['checklist:addinstance'] = 'Ajouter le bloc Liste des tâches à ma page Moodle';
+$string['checklist:addinstance'] = 'Ajouter le bloc Liste des tâches à mon Tableau de bord';
 $string['checklist:myaddinstance'] = 'Ajouter un nouveau bloc Liste des tâches';
 $string['checklistoverview'] = 'Vue d\'ensemble des listes de tâches';
 $string['choosechecklist'] = 'Choisir la Liste des tâches';

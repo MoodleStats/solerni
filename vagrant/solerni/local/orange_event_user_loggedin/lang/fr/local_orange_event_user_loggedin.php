@@ -24,8 +24,8 @@
 
 require_once("$CFG->dirroot/local/orange_mail/mail_init.php");
 
-$string['pluginname'] = 'Orange Evt user_loggedin';
-$string['local_orange_event_user_loggedin'] = 'Orange Evt user_loggedin';
+$string['pluginname'] = 'Orange Event user_loggedin';
+$string['local_orange_event_user_loggedin'] = 'Orange Event user_loggedin';
 $string['subjectuseraccountemail'] = 'Rappel de vos identifiants {$a->customername}';
 $string['contentuseraccountemail'] = mail_init::init('contentuseraccountemail', 'html');
 $string['subjectuseraccountemailprivate'] = 'Rappel de vos identifiants {$a->customername}';
