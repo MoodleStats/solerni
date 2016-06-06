@@ -22,5 +22,5 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Orange Evt user_updated';
-$string['local_orange_event_user_loggedin'] = 'Orange Evt user_updated';
+$string['pluginname'] = 'Orange Event user_updated';
+$string['local_orange_event_user_loggedin'] = 'Orange Event user_updated';

@@ -151,9 +151,13 @@ class theme_utilities {
         global $PAGE;
 
         $pageswithoutpageblocktitle = array('admin', 'mydashboard',
-            'forum', 'course');
+            'forum', 'course', 'static-');
 
         if (in_array($PAGE->pagelayout, $pageswithoutpageblocktitle)) {
+            return false;
+        }
+
+        if (in_array(substr($PAGE->pagetype,0,7), $pageswithoutpageblocktitle)) {
             return false;
         }
 
@@ -245,13 +249,8 @@ class theme_utilities {
                     $return->pageblocktitleh1 .=  ': ';
                 }
 
-                // For static page, the title is on the HTML content page.
-                if (substr($PAGE->pagetype,0,6) == "static") {
-                    $return->pageblocktitleh1 = '';
-                } else {
-                    $return->pageblocktitleh1 .= $PAGE->title;
-                    $return->pageblockdesc .= '';
-                }
+                $return->pageblocktitleh1 .= $PAGE->title;
+                $return->pageblockdesc .= '';
                 break;
         }
 
