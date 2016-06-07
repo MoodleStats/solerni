@@ -501,6 +501,10 @@ function main () {
 
         # Add length of time to keep logs
         execute_moosh_command "moosh config-set loglifetime 365 logstore_standard"
+
+        # schedule the task logstore_standard\task\cleanup_task
+        execute_moosh_command "moosh scheduledtask-set '\logstore_standard\task\cleanup_task' 0 1 '*' '*' 2 0 0"
+
 }
 
 main "$@"
