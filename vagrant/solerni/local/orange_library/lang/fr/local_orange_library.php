@@ -43,8 +43,6 @@ $string['enrolled_users']       = 'utilisateurs enregistrés';
 $string['unsubscribe']          = 'me désinscrire';
 $string['new_session']          = 'nouvelle session';
 
-
-
 // Extended course object.
 $string['english']              = 'Anglais';
 $string['french']               = 'Français';
@@ -99,6 +97,7 @@ $string['orange_library_mnet_mail_subject'] = "Test de validité des clés MNet 
 $string['orange_library_thematic_task'] = "Mise à jour des informations des thématiques";
 
 // Course menu item.
+$string['coursemenudashboard'] = "Accueil";
 $string['coursemenulearn'] = "Apprendre";
 $string['coursemenulearnmore'] = "Actualités";
 $string['coursemenuforum'] = "Forum";

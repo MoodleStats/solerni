@@ -150,14 +150,23 @@ class theme_utilities {
     public static function is_layout_uses_page_block_title() {
         global $PAGE;
 
-        $pageswithoutpageblocktitle = array('admin', 'mydashboard',
-            'forum', 'course', 'static-');
+        $pagelayoutswithoutpageblocktitle = array('admin', 'mydashboard',
+            'forum', 'basenotitle');
 
-        if (in_array($PAGE->pagelayout, $pageswithoutpageblocktitle)) {
+        $pagetypeswithoutpageblocktitle = array();
+
+        // Check for pagetype static-*.
+        if (strpos($PAGE->pagetype, 'static-')) {
             return false;
         }
 
-        if (in_array(substr($PAGE->pagetype,0,7), $pageswithoutpageblocktitle)) {
+        // Check pagelayouts.
+        if (in_array($PAGE->pagelayout, $pagelayoutswithoutpageblocktitle)) {
+            return false;
+        }
+
+        // Check pagetypes.
+        if (in_array($PAGE->pagetype, $pagetypeswithoutpageblocktitle)) {
             return false;
         }
 

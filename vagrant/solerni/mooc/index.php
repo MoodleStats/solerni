@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * En Savoir Plus Page: general information for the mooc and means to subscribe.
+ * Course Dashboard
  *
  * @package    core
  * @subpackage moocs
@@ -27,16 +27,19 @@ use theme_halloween\tools\theme_utilities;
 
 require_once(dirname(dirname(__FILE__)) . '/config.php');
 
+require_login();
+// require course subscription
+
 $courseid = optional_param('courseid', 0, PARAM_INT); // Course ID.
-$url = new moodle_url('/mooc/view.php');
+$url = new moodle_url('/mooc/index.php');
 $PAGE->set_url($url);
-$PAGE->set_pagelayout('basenotitle');
-$PAGE->set_pagetype('mooc-view');
+$PAGE->set_pagelayout('base');
+$PAGE->set_pagetype('mooc-index');
 $PAGE->blocks->add_region('content');
 $course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
 $PAGE->set_course($course);
 $PAGE->set_context(\context_course::instance($course->id));
-$PAGE->set_title(get_string('pagetitle', 'block_orange_iconsmap') . $course->fullname);
+$PAGE->set_title(get_string('moocdashboard', 'theme_halloween') . $course->fullname);
 
 echo $OUTPUT->header();
 echo $OUTPUT->custom_block_region('content');
