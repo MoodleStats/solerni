@@ -1,0 +1,137 @@
+/********************************************************/
+/********************  classic tab  *********************/
+/********************************************************/
+
+.nav > li > a {
+    cursor: pointer;
+}
+
+// Give the tabs something to sit on
+.nav-tabs {
+    margin:     0 0 @s-small-xs-margin 0;
+    text-align: center;
+
+    @media (min-width: @screen-md-min) {
+        margin-bottom: @s-double-md-margin;
+    }
+
+    @media (min-width: @screen-sm-min) {
+       text-align:left;
+    }
+
+    > li {
+        + li {
+            @media (min-width: @screen-sm-min) {
+                margin-left: (@grid-gutter-width / 2);
+            }
+        }
+
+        // Actual tabs (as links)
+        > a {
+            padding:            1rem 2rem;
+            font-weight:        bold;
+            font-size:          1.6rem;
+            text-decoration:    none;
+            font-family:        @font-family-titles;
+            border:             2px solid transparent;
+
+            &:hover ,
+            &:focus {
+                color:              @nav-tabs-link-hover-color;
+                background-color:   @nav-tabs-link-hover-bg;
+            }
+            &:active,
+            &:active:hover {
+                color:              @nav-tabs-border-color;
+                text-decoration:    underline;
+                background-color:   @nav-tabs-link-hover-color;
+                border-color:       transparent;
+            }
+        }
+
+        // Active state, and its :hover to override normal :hover
+        &.active > a {
+            &,
+            &:hover {
+                outline:none;
+                border-width: 2px;
+            }
+        }
+
+        // Active state, and its :hover to override normal :hover
+        &.active > a {
+            &:focus {
+                border-width: 2px;
+                outline-style: dotted;
+                outline-offset: -6px;
+                outline-width: 1px;
+            }
+        }
+
+        margin-bottom:  10px;
+        display:        inline-block;
+        float:          none;
+
+        &.active a,
+        &.active a:hover,
+        &.active a:focus {
+            border-bottom-color:    @nav-tabs-border-color;
+        }
+
+
+        @media (min-width: @screen-sm-min) {
+            float:          left;
+            margin-bottom:  -2px;
+
+            &.active a,
+            &.active a:hover,
+            &.active a:focus {
+                border-bottom-color: transparent;
+            }
+        }
+
+    }
+
+    border-bottom-width: 2px;
+}
+
+// Pills
+// -------------------------
+.nav-pills {
+  > li {
+    + li {
+      margin-left: (@grid-gutter-width / 4);
+    }
+
+    // Active state
+    &,
+    &.active {
+        > a {
+          font-weight: bold;
+
+          &:hover {
+              color:            @nav-pills-active-link-hover-color;
+              background-color: @nav-pills-active-link-hover-bg;
+          }
+          &:focus {
+              outline:none;
+              background-color: @brand-orange;
+              color:            @brand-orange-white;
+          }
+        }
+    }
+  }
+}
+
+.tab-content {
+    border-style: solid;
+    border-width: 2px;
+    border-color: @gray-base;
+    border-color: rgba(0, 0, 0, 0) @gray-base @gray-base @gray-base;
+    padding: 1em;
+}
+
+.tab-content-clear {
+    border: none;
+    padding: 1em;
+}
