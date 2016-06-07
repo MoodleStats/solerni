@@ -34,7 +34,7 @@ class block_orange_thematics_menu extends block_base {
 
     public function html_attributes() {
         $attributes = parent::html_attributes();
-        $attributes['class'] = $attributes['class'] . ' bg-yellow';
+        $attributes['class'] .= ' bg-yellow expanded';
 
         return $attributes;
     }

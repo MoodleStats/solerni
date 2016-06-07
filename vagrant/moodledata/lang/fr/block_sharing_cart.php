@@ -35,6 +35,7 @@ $string['confirm_restore'] = 'Souhaitez-vous coller cet élément dans le cours 
 $string['confirm_userdata'] = 'Souhaitez-vous inclure les données utilisateurs dans la copie de cette activité ?';
 $string['copyhere'] = 'Coller ici';
 $string['forbidden'] = 'Vous n\'avez pas l\'autorisation d\'accéder à cet élément';
+$string['invalidoperation'] = 'Une opération invalide a été détectée';
 $string['movedir'] = 'Déplacer dans un dossier';
 $string['notarget'] = 'Cible non trouvée';
 $string['pluginname'] = 'Panier d\'activités';
@@ -42,6 +43,12 @@ $string['recordnotfound'] = 'Impossible de trouver l\'élément';
 $string['requireajax'] = 'Le panier d\'activités nécessite l\'activation d\'AJAX';
 $string['requirejs'] = 'Le JavaScript de votre navigateur doit être activé pour pouvoir utiliser le panier d\'activités';
 $string['restore'] = 'Coller dans le cours';
+$string['settings:userdata_copyable_modtypes'] = 'Type de module avec données utilisateur copiables';
+$string['settings:userdata_copyable_modtypes_desc'] = 'Lors de la copie d\'une activité dans le partage de panier, une boîte de dialogue affiche une option si une copie d\'une activité comprend les données utilisateur ou non, si ce type de module est coché ci-dessus et qu\'un opérateur a les capacités <strong>moodle/backup:userinfo</strong>, <strong>moodle/backup:anonymise</strong> et <strong>moodle/restore:userinfo</strong> (par défaut, seul le rôle de gestionnaire a ces capacités.)';
+$string['settings:workaround_qtypes'] = 'Solution pour les types de questions';
+$string['settings:workaround_qtypes_desc'] = 'La solution pour la restauration de question sera effectuée si son type de question est cochée.
+Cependant, lorsque les questions à restaurer existent déjà, ces données seront incompatibles, cette solution de contournement va essayer de faire un autre doublon au lieu de réutiliser les données existantes.
+Cette solution peut être utile pour éviter certaines erreurs de restauration, telles que <i>error_question_match_sub_missing_in_db</i>.';
 $string['sharing_cart'] = 'Panier d\'activités';
 $string['sharing_cart:addinstance'] = 'Ajouter le bloc panier d\'activités';
 $string['sharing_cart_help'] = '<h2 class="helpheading">Aide</h2>
@@ -53,3 +60,4 @@ $string['sharing_cart_help'] = '<h2 class="helpheading">Aide</h2>
 <dt>Créer des répertoires au sein du panier d\'activités</dt>
 <dd>Cliquez sur l\'icône "Déplacer dans un dossier" de l\'élément que vous souhaitez déplacer.  Si vous n\'avez pas de dossier sur le panier, vous serez invité à saisir le nom du nouveau dossier à créer.  Si vous avez déjà des dossiers sur votre panier, vous pouvez sélectionner un dossier existant dans la liste déroulante.   Pour basculer sur le champ de saisie d\'un nouveau nom de dossier, cliquez sur l\'icône "Modifier". icon.</dd>
 </dl>';
+$string['unexpectederror'] = 'Une erreur inattendue est survenue';

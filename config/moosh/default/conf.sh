@@ -498,6 +498,9 @@ function main () {
 
         # Delete activity forum in frontpage (course=1)
         execute_moosh_command "moosh activity-delete --name forum course 1"
+
+        # Add length of time to keep logs
+        execute_moosh_command "moosh config-set loglifetime 365 logstore_standard"
 }
 
 main "$@"

@@ -84,7 +84,7 @@ class block_orange_course_dashboard_renderer extends plugin_renderer_base {
 
         if ($condition && $url && $btntitle) {
             $firstcolumn = 'col-xs-8';
-            $secondcolumn = 'col-xs-8';
+            $secondcolumn = 'col-xs-4';
         } else {
             $firstcolumn = 'col-xs-12';
             $secondcolumn = '';
@@ -95,8 +95,8 @@ class block_orange_course_dashboard_renderer extends plugin_renderer_base {
                 $html .= html_writer::tag('h2', $title);
             $html .= html_writer::end_tag('div');
             if ($secondcolumn) {
-                $html .= html_writer::start_tag('div', array('class' => $secondcolumn . ' col-xs-4 text-right u-vertical-align'));
-                    $html .= html_writer::tag('a', $btntitle, array('class' => 'btn btn-default',
+                $html .= html_writer::start_tag('div', array('class' => $secondcolumn . ' col-xs-4 text-right u-top-align'));
+                    $html .= html_writer::tag('a', $btntitle, array('class' => 'btn btn-default btn--orange-block-heading-action',
                         'href' => $url));
                 $html .= html_writer::end_tag('div');
             }

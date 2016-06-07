@@ -1,9 +1,4 @@
 /*
- * Rules and mixins related to header
- */
-
-
-/*
  * Header Logo
   * */
 
@@ -53,36 +48,54 @@
 /*
  * Resac Nav
  */
+
+.resac-navigation {
+    height:         auto;
+    min-height:     auto;
+    overflow:       hidden;
+    margin-bottom:  0;
+    border:         0;
+
+    .navbar-toggle {
+        border:         0;
+        padding:        @s-small-md-margin (@s-small-md-margin + 5);
+        margin-right:   0;
+        margin-top:     3px; // Magic number = (container heigt (40) - element height (34)) / 2).
+    }
+}
+
 .resac-navigation .list-group {
+    border:     0;
     margin:     0;
+    padding:    0;
+    overflow:   hidden;
+}
+
+.resac-navigation .list-group-item {
+    display:    inline-block;
+    border:     0;
     padding:    0;
 }
 
-    .resac-navigation .list-group-item {
-        display:    inline-block;
-        border:     0;
-        padding:    0;
+.resac-navigation .navigation-item {
+    display:            block;
+    text-decoration:    none;
+    padding:            10px 15px;
+    font-weight:        bold;
+    font-family:        @font-family-titles;
+
+    &::first-letter {
+        text-transform: uppercase;
     }
+}
 
-    .resac-navigation .navigation-item {
-        display:            block;
-        text-decoration:    none;
-        padding:            10px 15px;
-        font-weight:        bold;
-        font-family:        @font-family-titles;
+.resac-home .list-group-item .navigation-item {
+    margin-left: -15px;
+}
 
-        &::first-letter {
-            text-transform: uppercase;
-        }
-    }
-
-        .resac-home .list-group-item .navigation-item {
-            margin-left: -15px;
-        }
-
-        .resac-hosts .list-group-item:last-child .navigation-item {
-            margin-right: -15px;
-        }
+.resac-hosts .list-group-item:last-child .navigation-item {
+    margin-right: -15px;
+}
 
     .resac-navigation .navigation-item:hover,
     .resac-navigation .navigation-item.active {
@@ -97,22 +110,20 @@
     height: 0;
 }
 
-    .skip-links a {
-        display:    inline-block;
-        overflow:   hidden;
-        height:     0;
+.skip-links a {
+    display:    inline-block;
+    overflow:   hidden;
+    height:     0;
+}
+
+.skip-links a:focus {
+    height: auto;
+    color:  @brand-primary;
+
+    .u-inverse & {
+        color:  @brand-tertiary;
     }
-
-    .skip-links a:focus {
-        height: auto;
-        color:  @brand-primary;
-
-        .u-inverse & {
-            color:  @brand-tertiary;
-        }
-    }
-
-.header{}
+}
 
     .action-area {
         position:   absolute;
@@ -127,15 +138,15 @@
         & > .icon-halloween,
         & > .dropdown {
             display:        inline-block;
-            vertical-align: middle;
+            vertical-align: bottom;
+
+            @media (min-width:  @screen-sm-min) {
+                vertical-align: middle;
+            }
         }
 
         & .icon-halloween {
-            margin-right: @s-medium-xs-margin;
-
-            @media (min-width:  @screen-sm-min) {
-                margin-right: @s-medium-md-margin;
-            }
+            margin-right: @s-medium-md-margin;
         }
 
         .is-logged .btn {
@@ -176,3 +187,79 @@
     text-indent:        0;
     text-align:         center;
 }
+
+ /* Header Dropdown */
+ .btn--content-variable .caret {
+     margin-left: @s-triple-md-margin;
+ }
+
+.header-dropdown .cross {
+     display:       none;
+     margin-left:   @s-small-xs-margin;
+     font-size:     13px; // totally magic
+}
+
+/* Careful, this is max-width. This is mobile specific and contradictory
+ * with normal dropdown menu. */
+@media (max-width:  @screen-sm-min) {
+
+    .header-dropdown.open .btn {
+        position:           relative;
+        padding-bottom:     (@s-double-xs-margin * 2);
+        padding-right:      @s-double-xs-margin;
+        top:                (@s-double-xs-margin + @s-small-xs-margin);
+        left:               @s-small-xs-margin;
+        border-color:       @brand-tertiary;
+        background-color:   @brand-tertiary;
+        color:              @brand-primary;
+        margin-left:        (@s-small-xs-margin * -1); // hacky for keeping icon email at the correct distance.
+
+        &:hover,
+        &:focus {
+            border-color:   @brand-tertiary;
+        }
+    }
+
+    .dropdown-menu {
+        border-top: 0;
+    }
+}
+
+.header-dropdown.open .cross {
+     display: inline-block;
+}
+
+.header-dropdown .dropdown-menu {
+    width:  calc(~'100vw');
+    left:   calc(~'-100vw + 100% + '(@s-small-xs-margin));
+    top:    calc(~'100% + 25px'); // 25px is the header padding-bottom
+    border: 0;
+
+    @media (min-width:  @screen-sm-min) {
+        width:  100%;
+        left:   0;
+        top:    100%;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+    }
+
+    /* Careful, this is max-width. This is mobile specific and contradictory
+     * with normal dropdown menu. */
+    @media (max-width:  @screen-sm-min) {
+
+        li {
+            border-bottom: 1px solid @gray;
+        }
+
+        li:last-of-type {
+            border-bottom-width:    0;
+            box-shadow:             0 2px 8px @gray;
+        }
+
+        a,
+        .pseudo-a {
+            color:              @brand-primary !important;
+            background-color:   @brand-tertiary;
+        }
+    }
+}
+

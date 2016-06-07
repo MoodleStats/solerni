@@ -208,7 +208,7 @@ class utilities_network {
      */
     static public function renew_mnet_key() {
         global $CFG, $DB;
-        
+
         $error = false;
 
         if (!isset($CFG->mnet_key_autorenew)) {
