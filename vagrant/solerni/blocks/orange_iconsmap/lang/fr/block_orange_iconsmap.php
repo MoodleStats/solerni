@@ -25,8 +25,8 @@
 $string['pluginname'] = 'Orange Champ d icones';
 $string['default_title'] = 'Orange Champ d icones';
 $string['to'] = " au";
-$string['weeks'] = " semaine(s)";
-$string['week'] = " semaine";
+$string['weeks'] = "semaine(s)";
+$string['week'] = "semaine";
 $string['slash'] = " / ";
 $string['pagetitle'] = 'En savoir plus sur : ';
 

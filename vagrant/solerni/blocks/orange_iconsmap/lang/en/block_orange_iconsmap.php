@@ -25,8 +25,8 @@
 $string['pluginname'] = 'Orange Icons Map';
 $string['default_title'] = 'Orange Icons Map';
 $string['to'] = " to";
-$string['weeks'] = " week(s)";
-$string['week'] = " week";
+$string['weeks'] = "week(s)";
+$string['week'] = "week";
 $string['slash'] = " / ";
 
 $string['pagetitle'] = 'Learn more about: ';
