@@ -412,10 +412,11 @@ class format_flexpage extends format_base {
                     'help_component' => 'format_flexpage',
                     'element_type' => 'duration',
                     'element_attributes' => array(
-                    'defaultunit' => 86400,
-                    'units' => array(3600, 86400),
-                    'optional' => true
+                    'options' => array(
+                        'defaultunit' => 3600,
+                        'optional' => false
                         )
+                    )
                 ),
                 'courseprice' => array(
                     'label' => get_string('price', 'format_flexpage'),
@@ -490,10 +491,12 @@ class format_flexpage extends format_base {
                     'help' => 'duration',
                     'help_component' => 'format_flexpage',
                     'element_type' => 'duration',
+
                     'element_attributes' => array(
-                    'defaultunit' => 86400,
-                    'units' => array(3600, 86400),
-                    'optional' => false
+                    'options' => array(
+                        'defaultunit' => 604800,
+                        'optional' => false
+                        )
                     )
                 ),
                 'coursecontactemail' => array(

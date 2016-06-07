@@ -35,7 +35,7 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
      *
      * @return string
      */
-    protected function halloween_render_lang_menu(custom_menu $menu) {
+    protected function   halloween_render_lang_menu(custom_menu $menu) {
         global $CFG;
         $addlangmenu = true;
         $langs = get_string_manager()->get_list_of_translations();
@@ -83,8 +83,13 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
             $menutitle = $currenttitle;
             $submenucount++;
             if ($menunode->get_url() !== null) {
-                $url = $menunode->get_url();
-            } else {
+                if($_SERVER['QUERY_STRING']) {
+                    $query_string = explode("&", $_SERVER['QUERY_STRING']);
+                    $url = $menunode->get_url(). "&".$query_string[(count($query_string)-1)];
+                } else {
+                    $url = $menunode->get_url();
+                }
+             } else {
                 $url = '#cm_submenu_'.$submenucount;
             }
             $content .= '<button id="dLabel" class="btn btn-default " type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
@@ -97,7 +102,12 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
             $content .= '</ul>';
         } else {
             if ($menunode->get_url() !== null) {
-                $url = $menunode->get_url();
+                if($_SERVER['QUERY_STRING']) {
+                    $query_string = explode("&", $_SERVER['QUERY_STRING']);
+                    $url = $menunode->get_url(). "&".$query_string[(count($query_string)-1)];
+                } else {
+                    $url = $menunode->get_url();
+                }
             } else {
                 $url = '#';
             }
