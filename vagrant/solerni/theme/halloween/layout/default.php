@@ -106,7 +106,10 @@ echo $OUTPUT->doctype() ?>
             </div>
         </div>
     <?php endif; ?>
-    <?php if (utilities_object::is_frontpage()) : ?>
+    <?php if (utilities_object::is_frontpage()
+        && utilities_network::is_platform_uses_mnet()
+        && utilities_network::is_thematic()):
+    ?>
         <!-- frontpage block title -->
         <div class="container">
             <?php require_once($CFG->partialsdir . '/frontpage-block-title.php'); ?>
