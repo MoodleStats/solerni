@@ -135,7 +135,7 @@ class block_orange_horizontal_numbers extends block_base {
             $context = \context_system::instance();
             $file = utilities_image::get_moodle_stored_file($context, 'theme_halloween', 'homepageillustration');
             $illustrationurl = utilities_image::get_resized_url($file,
-                    array('w' => 1160, 'h' => 500, 'scale' => true));
+                array('w' => 1160, 'h' => 500, 'scale' => true));
         } else {
             $illustrationurl = $CFG->wwwroot . "/blocks/orange_thematics_menu/pix/defaultlogo.png";
         }
