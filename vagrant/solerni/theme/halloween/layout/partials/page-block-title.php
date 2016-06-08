@@ -16,8 +16,6 @@
 
 use local_orange_library\utilities\utilities_course;
 use local_orange_library\utilities\utilities_image;
-use local_orange_library\utilities\utilities_object;
-use local_orange_library\utilities\utilities_network;
 
 global $COURSE, $SCRIPT, $ME;
 
@@ -34,6 +32,14 @@ if ($oncoursepage = utilities_course::is_on_course_page()) {
     $forumlinkactive = utilities_course::is_active_tab("forum", $ME, $COURSE->id);
     $learnlinkactive = utilities_course::is_active_tab("learn", $ME, $COURSE->id);
 
+    // By Default we set the LEARN tab active in case we are in a module activity.
+    if (empty($sharelinkactive)
+        && empty($forumlinkactive)
+        && empty($learnmorelinkactive)
+        && empty($coursedashboardlinkactive)) {
+            $learnlinkactive = 'class="active"';
+    }
+
     // Load the customer logo
     $customer = utilities_course::solerni_course_get_customer_infos($COURSE->category);
     if($customer) {
@@ -42,34 +48,12 @@ if ($oncoursepage = utilities_course::is_on_course_page()) {
         $customerurl = new moodle_url('/course/index.php',
                 array('categoryid' => $COURSE->category));
     }
-
 }
-
-// This page is not available on Solerni HOME
-if (local_orange_library\utilities\utilities_network::is_platform_uses_mnet() &&
-        !local_orange_library\utilities\utilities_network::is_home() &&
-        local_orange_library\utilities\utilities_network::is_thematic() &&
-        local_orange_library\utilities\utilities_object::is_frontpage()) {
-    $nbusersconnected = local_orange_library\utilities\utilities_user::get_nbconnectedusers();
-    $nbusersregistred = local_orange_library\utilities\utilities_user::get_nbusers();
-    $onthematicfrontpage = true;
-}
-
 ?>
 <!-- page block title -->
 <div class="row">
     <div class="col-xs-12 page-block-title">
-
-        <?php if(isset($onthematicfrontpage)) : ?>
-        <?php echo "<div class='page-block-lineinfo-thematic-frontpage'>" .
-            get_string('lineinfobegin', 'theme_halloween') .
-            "<span class='text-bold text-secondary'>" . $nbusersregistred . "</span>" .
-        utilities_object::get_string_plural($nbusersregistred, 'theme_halloween', 'registered', 'registeredplural') .
-            "<span class='text-bold text-secondary'>" . $nbusersconnected . "</span>" .
-        utilities_object::get_string_plural($nbusersconnected, 'theme_halloween', 'connected', 'connectedplural') .
-                "</div>";
-        ?>
-        <?php elseif ($titles->pageblocktitleh1) : ?>
+        <?php if ($titles->pageblocktitleh1) : ?>
             <?php if (isset($customerlogoresizedurl)): ?>
                 <a href="<?php echo $customerurl; ?>">
                     <img class="pull-right page-block-title__img" src="<?php echo $customerlogoresizedurl; ?>"
@@ -137,5 +121,3 @@ if (local_orange_library\utilities\utilities_network::is_platform_uses_mnet() &&
         <?php endif; ?>
     </div>
 </div>
-
-

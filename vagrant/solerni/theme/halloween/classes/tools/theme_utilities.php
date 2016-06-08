@@ -151,7 +151,7 @@ class theme_utilities {
         global $PAGE;
 
         $pagelayoutswithoutpageblocktitle = array('admin', 'mydashboard',
-            'forum', 'basenotitle');
+            'forum', 'basenotitle', 'frontpage');
 
         $pagetypeswithoutpageblocktitle = array();
 
