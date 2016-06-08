@@ -178,6 +178,7 @@ $string['user_menu_preferences']    = 'My preferences';
 $string['administration']           = 'Administration';
 $string['skip_to_main']             = 'To main content';
 $string['skip_to_nav']              = 'To page navigation';
+$string['user_menu_mobile_button']  = 'Menu';
 
 // Login settings.
 $string['loginsettings']            = 'Login page';
@@ -253,6 +254,8 @@ $string['homepageillustration']     = 'Illustration';
 $string['homepageillustrationdesc'] = 'Thematic illustration';
 $string['homepagelogo']             = 'Logo';
 $string['homepagelogodesc']         = 'Thematic logo';
+$string['homepagevideo']            = 'Video';
+$string['homepagevideodesc']        = 'Solerni video presentation';
 
 // Search filters.
 $string['catalog_page_title']       = 'Catalog';
@@ -363,3 +366,11 @@ $string['forum_page_title']        = 'Discussion space';
 
 // Course
 $string['course_edited_by']         = 'Course edited by {$a}';
+
+// Home Thematic
+$string['lineinfobegin'] = 'You are ';
+$string['registered'] = ' registered including ';
+$string['registeredplural'] = ' registered including ';
+
+$string['connected'] = ' member connected now';
+$string['connectedplural'] = ' members connected now';

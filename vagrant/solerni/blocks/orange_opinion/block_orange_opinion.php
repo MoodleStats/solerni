@@ -104,4 +104,17 @@ class block_orange_opinion extends block_base {
 
         return $this->content;
     }
+
+    /**
+     * Extension bg-color
+     *
+     * @return array
+     */
+
+    public function html_attributes() {
+        $attributes = parent::html_attributes();
+        $attributes['class'] .= ' bg-blue expanded';
+
+        return $attributes;
+    }
 }

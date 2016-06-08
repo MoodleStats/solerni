@@ -43,5 +43,17 @@ class block_orange_action_edit_form extends block_edit_form {
             $mform->addElement('html', '<span class="bottom-space">' . get_string('eventtopush_help', 'block_orange_action') . "</span>");
             $mform->addElement('select', 'config_eventtopush', get_string('eventtopush', 'block_orange_action'), $events);
         }
+
+        // The config for text in HomePage Thematic.
+        if (block_orange_action_on_thematic_homepage()) {
+
+            $mform->addElement('html', '<span class="bottom-space">' . get_string('title_help', 'block_orange_action') . "</span>");
+            $mform->addElement('textarea', 'config_title', get_string('title', 'block_orange_action'));
+            $mform->setDefault('config_title', get_string('titledefault', 'block_orange_action'));
+
+            $mform->addElement('html', '<span class="bottom-space">' . get_string('subtitle_help', 'block_orange_action') . "</span>");
+            $mform->addElement('textarea', 'config_subtitle', get_string('subtitle', 'block_orange_action'));
+            $mform->setDefault('config_subtitle', get_string('subtitledefault', 'block_orange_action'));
+        }
     }
 }

@@ -66,10 +66,10 @@ function block_orange_social_sharing_socialclassarray() {
 function block_orange_social_sharing_socialurlarray() {
 
     $socialurlarray = new utilities_array();
-        $socialurlarray->add(get_string('urlshareonfacebook', 'block_orange_social_sharing'));
-        $socialurlarray->add(get_string('urlshareontwitter', 'block_orange_social_sharing'));
-        $socialurlarray->add(get_string('urlshareonlinkedin', 'block_orange_social_sharing'));
-        $socialurlarray->add(get_string('urlshareongoogleplus', 'block_orange_social_sharing'));
+    $socialurlarray->add(get_string('urlshareonfacebook', 'block_orange_social_sharing'));
+    $socialurlarray->add(get_string('urlshareontwitter', 'block_orange_social_sharing'));
+    $socialurlarray->add(get_string('urlshareonlinkedin', 'block_orange_social_sharing'));
+    $socialurlarray->add(get_string('urlshareongoogleplus', 'block_orange_social_sharing'));
 
     return $socialurlarray;
 }

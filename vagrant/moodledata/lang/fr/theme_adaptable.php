@@ -283,8 +283,6 @@ $string['fontcolordesc'] = 'Configurer la couleur de police du thème. Utiliser 
 $string['fontdesc'] = 'Vous pouvez choisir la <a href="https://www.google.com/fonts" target="_blank">Google Fonts</a> que vous souhaitez utiliser dans le thème. Sélectionner le sous-ensemble souhaité (latin toujours inclus) et saisir l\'épaisseur de police ou la police ne sera pas affichée.';
 $string['fontheadercolor'] = 'Couleur de police de l\'en-tête';
 $string['fontheadercolordesc'] = 'Configurer la couleur de police des en-têtes du thème. Utiliser le code HTML hexadécimal.';
-$string['fontheadercustom'] = 'Nom de police d\'en-tête personnalisée';
-$string['fontheadercustomdesc'] = 'Saisir le nom de la police d\'en-tête personnalisée si vous avez choisi personnalisé comme nom de police';
 $string['fontheadername'] = 'Police d\'en-tête';
 $string['fontheadernamedesc'] = 'Sélectionner la police par défaut ou la police <a href="https://www.google.com/fonts" target="_blank">Google Fonts</a> utilisée dans les en-têtes de bloc et les textes.';
 $string['fontheaderweight'] = 'Epaisseur de la police des en-têtes';
@@ -313,8 +311,6 @@ $string['fonttitleweightcoursedesc'] = 'Configurer l\'épaisseur de la police du
 $string['fonttitleweightdesc'] = 'Configurer l\'épaisseur de la police du titre dusite. Saisir une valeur entre 100 et 900 selon la police choisie.';
 $string['fontweight'] = 'Epaisseur de la police principale';
 $string['fontweightdesc'] = 'Epaisseur de la police utilisée dans le site. Saisir une valeur entre 100 et 900 selon la police choisie.';
-$string['footerbackgroundcolor'] = 'Couleur d\'arrière-plan du pied de page';
-$string['footerbackgroundcolordesc'] = 'Couleur d\'arrière-plan du pied de page. Utiliser le code HTML hexadécimal.';
 $string['footerbkcolor'] = 'Couleur d\'arrière-plan du pied de page';
 $string['footerbkcolordesc'] = 'Configurer la couleur d\'arrière-plan du pied de page';
 $string['footerblocksplacement'] = 'Emplacement des blocs de pied de page';

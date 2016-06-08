@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die;
 if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configtext('block_orange_course_dashboard/defaultmaxcourses',
                         new lang_string('defaultmaxcourses', 'block_orange_course_dashboard'),
-                        new lang_string('defaultmaxcoursesdesc', 'block_orange_course_dashboard'), 10, PARAM_INT));
+                        new lang_string('defaultmaxcoursesdesc', 'block_orange_course_dashboard'), 3, PARAM_INT));
     $settings->add(new admin_setting_configtext('block_orange_course_dashboard/catalogurl',
                         new lang_string('definecatalogurl', 'block_orange_course_dashboard'),
                         new lang_string('definecatalogurldesc', 'block_orange_course_dashboard'), '', PARAM_URL));

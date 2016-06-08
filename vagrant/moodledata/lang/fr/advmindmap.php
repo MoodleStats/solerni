@@ -25,12 +25,12 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['advmindmap'] = 'Advance Mindmap';
-$string['advmindmap:addinstance'] = 'Ajouter une session Advance Mindmap';
+$string['advmindmap'] = 'Carte mentale avancée';
+$string['advmindmap:addinstance'] = 'Ajouter une session Carte mentale avancée';
 $string['advmindmapfieldset'] = 'Exemple de champ personnalisé';
 $string['advmindmap:givecomment'] = 'Commenter';
-$string['advmindmapintro'] = 'Introduction à Advance Mindmap';
-$string['advmindmapname'] = 'Nom Advance Mindmap';
+$string['advmindmapintro'] = 'Introduction à la Carte mentale avancée';
+$string['advmindmapname'] = 'Nom de la Carte mentale avancée';
 $string['advmindmap:submit'] = 'Soumettre';
 $string['advmindmap:view'] = 'Afficher';
 $string['advmindmap:viewother'] = 'Afficher autre';
@@ -38,8 +38,8 @@ $string['class'] = 'Classe';
 $string['classno'] = 'Numéro de classe';
 $string['copylink'] = '(Ctrl+C pour copier)';
 $string['coursemisconf'] = 'Le cours est mal configuré';
-$string['detail'] = 'Advance Mindmap';
-$string['detail_help'] = '<div class="indent">
+$string['detail'] = 'Carte mentale avancée';
+$string['detail_help'] = 'Carte mentale avancée<div class="indent">
 <p>Une carte mentale est un diagramme utilisé pour représenter des mots, des idées, des tâches, ou d\'autres éléments liés et organisés autour d\'une idée ou notion clé centrale.</p>
 <table class="advmindmap_help_table">
 <tbody>
@@ -69,7 +69,7 @@ $string['detail_help'] = '<div class="indent">
 </tr>
 </tbody>
 </table>
-<p>(Le Module Mindmap a été développé originalement par <a href="http://ekpenso.com">ekpenso.com</a>. It is then modified by <a href="http://www.cite.hku.hk">CITE</a>.)</p>
+<p>(Le Module Mindmap (Carte mentale) a été développé originalement par <a href="http://ekpenso.com">ekpenso.com</a>. It is then modified by <a href="http://www.cite.hku.hk">CITE</a>.)</p>
 </div>';
 $string['editable'] = 'Modifiable';
 $string['editingbyuser'] = 'Cette carte mentale de groupe est/a été modifiée par <span style="font-weight:bold;">{$a}</span> dans la dernière heure et est donc verrouillée.';
@@ -77,8 +77,8 @@ $string['errorcannotunlockadvmindmap'] = 'Impossible de déverrouiller la carte 
 $string['errorcannotviewgroupmindmap'] = 'Vous n\'avez pas la permission de voir la carte mentale d\'un autre groupe.';
 $string['errorcannotviewusermindmap'] = 'Vous n\'avez pas la permission de voir la carte mentale d\'un autre utilisateur.';
 $string['errorincorrectcmid'] = 'L\'identifiant du module de cours est incorrect.';
-$string['errorinvalidadvmindmap'] = 'Session carte mentale incorrecte.';
-$string['errorinvalidauthor'] = 'L\'auteur Carte Mentale n\'est pas un utilisateur valide.';
+$string['errorinvalidadvmindmap'] = 'Session Carte mentale avancée incorrecte.';
+$string['errorinvalidauthor'] = 'L\'auteur de la carte mentale n\'est pas un utilisateur valide.';
 $string['errornostudentincourse'] = 'Pas d\'étudiants dans ce cours.';
 $string['errornotingroup'] = 'Ceci est une carte mentale de groupe mais vous n\'êtes dans aucun groupe et n\'avez pas l\'autorisation de voir les cartes mentales des autres groupes.';
 $string['errornouseringroup'] = 'Pas d\'utilisateurs dans ce groupe.';
@@ -86,19 +86,19 @@ $string['eventmindmapunlocked'] = 'Une carte mentale a été déverrouillée.';
 $string['eventmindmapupdated'] = 'Une carte mentale a été mise à jour.';
 $string['groupmembers'] = 'Membres du groupe';
 $string['groupname'] = 'Nom du groupe';
-$string['instances'] = 'Sessions Carte Mentale';
+$string['instances'] = 'Sessions Carte mentale avancée';
 $string['invalidgroupmodefordummygroups'] = 'Quand l\'option groupes d\'exemple est sélectionnée, le réglages mode de groupes doit être « Aucun groupe »';
-$string['invalidid'] = 'L\'identifiant advmindmap est incorrect';
+$string['invalidid'] = 'L\'identifiant Carte mentale avancée est incorrect';
 $string['ismember'] = '(✔ vous êtes membre du groupe)';
 $string['largeconvas'] = 'Élargir la zone d\'édition';
 $string['lastupdated'] = 'Dernière modification';
 $string['lockedbyyou'] = 'Cette carte mentale de groupe est verrouillée par vous, cliquez sur ce bouton pour déverrouiller et retourner au cours :';
-$string['modulename'] = 'Carte Mentale';
-$string['modulenameplural'] = 'Cartes Mentales';
+$string['modulename'] = 'Carte mentale avancée';
+$string['modulenameplural'] = 'Cartes mentales avancées';
 $string['notavailable'] = 'Pas encore accessible';
 $string['numdummygroups'] = 'Nombre de groupes d\'exemple';
-$string['pluginadministration'] = 'Administration Carte Mentale';
-$string['pluginname'] = 'Carte Mentale';
+$string['pluginadministration'] = 'Administration Carte mentale avancée';
+$string['pluginname'] = 'Carte mentale avancée';
 $string['print'] = 'Imprimer :';
 $string['removeinstances'] = 'Effacer toutes les sessions de cartes mentales';
 $string['smallconvas'] = 'Réduire la zone d\'édition';

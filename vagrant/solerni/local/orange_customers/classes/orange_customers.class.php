@@ -71,8 +71,6 @@ class orange_customers  {
             $toform->name = $tobemodified->name;
             $toform->summary = $tobemodified->summary;
             $toform->description = $tobemodified->description;
-            $toform->logo = $tobemodified->logo;
-            $toform->picture = $tobemodified->picture;
         }
 
         $this->renderable = new orange_customers_form();
@@ -142,6 +140,7 @@ class orange_customers  {
                         $file->get_itemid(),
                         $file->get_filepath(),
                         $file->get_filename());
+                $imgurl->param('rev', time());
 
                 // We keep only the last (there are a filename).
                 $urlimg = "<img src='{$imgurl}'/>";

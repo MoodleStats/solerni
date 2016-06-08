@@ -150,7 +150,7 @@ $THEME->layouts = array(
     // The site home page.
     'frontpage' => array(
         'file' => 'default.php',
-        'regions' => array('side-pre', 'main'),
+        'regions' => array('main'),
         'defaultregion' => 'main',
         'options' => array('nonavbar' => true)
     ),
@@ -229,7 +229,8 @@ $THEME->layouts = array(
     // The Forum thematic page.
     'forum' => array(
         'file' => 'default.php',
-        'regions' => array()
+        'regions' => array('side-pre'),
+        'defaultregion' => 'side-pre'
     )
 );
 

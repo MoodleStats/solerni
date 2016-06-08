@@ -12,8 +12,7 @@
 }
 
 .block .content {
-    position:   relative;
-    top:        1px;
+    position:   relative; // Not sure we need that. Maybe for nav. blocks ?
     padding:    0 @s-double-xs-margin;
 }
 
@@ -176,8 +175,9 @@
 
     border:         0;
     margin-bottom:  0;
-    overflow:     hidden; // Avoid accidental spacing between blocks
+    //overflow:       hidden; // Avoid accidental spacing between blocks.
     padding-top:    @s-triple-md-margin;
+    position:       relative;
 
     .header {
         border:     0;
@@ -185,20 +185,47 @@
 
     .orange-block-heading {
         padding: 0 @s-medium-md-margin;
+
+        .btn--orange-block-heading-action {
+            margin-top: @s-small-xs-margin;
+        }
     }
 
     .content {
         border:     0;
         padding:    0;
-        position:   static;
 
         h2, .h2 {
             margin-top:     0;
             margin-bottom:  @s-triple-md-margin;
         }
+
+        h2 + h3,
+        .h2 + .h3 {
+            margin-top:     (@s-double-md-margin * -1);
+            margin-bottom:  @s-triple-md-margin;
+        }
+
     }
 
     .orange-block-footer {
         padding: @s-triple-md-margin @s-medium-md-margin;
+    }
+}
+
+/* Custom backgrounds. Classes starting with bg- have a automatic 100% background */
+[class*="bg-"].expanded {
+
+    position: relative;
+
+    &:before {
+        content:            "";
+        position:           absolute;
+        background-color:   inherit;
+        top:                0;
+        left:               50%;
+        bottom:             0;
+        width:              100vw;
+        transform:          translateX(-50%);
     }
 }

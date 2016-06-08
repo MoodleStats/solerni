@@ -73,8 +73,8 @@
         .orange-action-banner-cell {
 
             @media (min-width: @screen-md-min) {
-                display: table-cell;
-                float: none;
+                display:    table-cell;
+                float:      none;
             }
         }
 
@@ -105,10 +105,12 @@
         }
 
         .button-container {
-             text-align:    center;
-             padding:      0 @s-double-md-margin;
+            text-align: left;
+            padding:      @s-double-md-margin @s-double-md-margin 0 @s-triple-md-margin;
 
             @media (min-width: @screen-md-min) {
+                padding:      @s-double-md-margin @s-double-md-margin 0;
+                text-align:    center;
                 border-left:    1px solid @orange-mid-2;
                 vertical-align: middle;
             }

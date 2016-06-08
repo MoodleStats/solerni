@@ -84,7 +84,7 @@ class block_orange_action extends block_base {
     public function applicable_formats() {
         return array(
             'course-view'    => true,
-            'site'           => false,
+            'site-index'     => true,
             'mod'            => false,
             'my'             => true
         );
@@ -110,24 +110,32 @@ class block_orange_action extends block_base {
         $this->content->text = '';
         $this->content->footer = '';
 
-        // @todo Course Dashboard
+        // @todo Course Dashboard.
         if (block_orange_action_on_course_dashboard_page()) {
             $this->content->text = $this->renderer->display_on_course_dashboard();
         }
 
-        // Page En Savoir Plus
+        // Page En Savoir Plus.
         if (utilities_course::is_on_course_page()) {
              $this->content->text = block_orange_action_get_course($COURSE->id);
         }
 
-        // User Dashboard
+        // User Dashboard.
         if (block_orange_action_on_my_page()) {
             // Read course id from block config. In priority we take the course.
             if (!empty($this->config->coursetopush)) {
                 $this->content->text = block_orange_action_get_course($this->config->coursetopush);
-            } elseif (!empty($this->config->eventtopush)) {
+            } else if (!empty($this->config->eventtopush)) {
                 $this->content->text = block_orange_action_get_event($this->config->eventtopush);
             }
+        }
+
+        // Homepage thematic.
+        if (block_orange_action_on_thematic_homepage()) {
+            $title = (!empty($this->config->title)) ? $this->config->title : format_text(get_string('titledefault', 'block_orange_action'));
+            $subtitle = (!empty($this->config->subtitle)) ? $this->config->subtitle : format_text(get_string('subtitledefault', 'block_orange_action'));
+
+            $this->content->text = $this->renderer->display_on_thematic_homepage($title, $subtitle);
         }
 
         return $this->content;

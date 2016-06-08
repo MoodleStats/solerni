@@ -58,18 +58,8 @@ class block_orange_social_sharing extends block_base{
      * @return string $this->content
      */
     public function get_content() {
-        global $COURSE;
-
         $this->content = new stdClass();
-        $course = $COURSE;
-        $this->content->text  = html_writer::start_tag('ul');
-        $this->content->text .= html_writer::start_tag('li');
-        $this->content->text .= html_writer::link('span', $course->fullname);
-        $this->content->text .= html_writer::end_tag('li');
-        $this->content->text .= html_writer::end_tag('ul');
-
-        $text = $this->renderer->get_text();
-        $this->content->text = $text;
+        $this->content->text = $this->renderer->get_text();
 
         return $this->content;
     }

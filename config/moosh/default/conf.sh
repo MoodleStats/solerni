@@ -110,7 +110,7 @@ function execute_moosh_command () {
 }
 
 function main () {
-	# Check usage mode : 
+	# Check usage mode :
 	# DEV or PROD (Default)
 	check_usage $@
 
@@ -354,8 +354,10 @@ function main () {
 	execute_moosh_command "moosh config-set defaultmaxrecommendations 0 block_orange_course_dashboard"
 	execute_moosh_command "moosh config-set mymoocsurl '/moocs/mymoocs.php' block_orange_course_dashboard"
 
-	# Delete Main Menu block in frontpage (course=1)
+	# Delete Block Main Menu on frontpage (course=1)
 	execute_moosh_command "moosh block-delete course 1 site_main_menu site-index"
+        # Delete Block Calendar on frontpage (course=1)
+	execute_moosh_command "moosh block-delete course 1 calendar_month site-index"
 
 	# local_goodbye : delete value to keep default text (#us_442)
 	execute_moosh_command "moosh config-set farewell "" local_goodbye"
@@ -448,17 +450,6 @@ function main () {
 	# Create API User
 	execute_moosh_command "moosh user-create --password apiuser01! --email solerniapiuser@orange.fr --firstname 'API' --lastname 'User' --city 'Paris' --country 'FR' 'api_user'"
 
-        # hide block main menu for solerni_utilisateur, solerni_apprenant, solerni_power_apprenant, solerni_animateur, solerni_client, guest
-	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_utilisateur moodle/block:view prevent block_in_course site_main_menu"
-	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_apprenant moodle/block:view prevent block_in_course site_main_menu"
-	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_power_apprenant moodle/block:view prevent block_in_course site_main_menu"
-	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_animateur moodle/block:view prevent block_in_course site_main_menu"
-	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_client moodle/block:view prevent block_in_course site_main_menu"
-	execute_moosh_command "moosh role-update-capability-ctx --id 1 guest moodle/block:view prevent block_in_course site_main_menu"
-	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_teacher moodle/block:view allow block_in_course site_main_menu"
-	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_course_creator moodle/block:view allow block_in_course site_main_menu"
-	execute_moosh_command "moosh role-update-capability-ctx --id 1 solerni_marketing moodle/block:view allow block_in_course site_main_menu"
-
 	# Disable some quiz question type qtype (#us_478)
 	execute_moosh_command "moosh qtype-manage disable calculatedmulti"
 	execute_moosh_command "moosh qtype-manage disable calculatedsimple"
@@ -469,12 +460,51 @@ function main () {
 
         # Delete block_orange_course_extended
         execute_moosh_command "moosh block-delete course all orange_course_extended course-view-*"
-        
+
         # Admin Block : change settings pagetypepattern=* to make it visible
 	execute_moosh_command "moosh block-update system 0 'settings' 'pagetypepattern' '*'"
 
         # Navigation Block : change settings pagetypepattern=course-view-* to make it visible only in course pages
 	execute_moosh_command "moosh block-update system 0 'navigation' 'pagetypepattern' 'course-view-*'"
+
+	# Activation emoticon, glossary, urltolink, emailprotect Filter (#us_217)
+	execute_moosh_command "moosh filter-manage -c on emoticon"
+	execute_moosh_command "moosh filter-manage -c on glossary"
+	execute_moosh_command "moosh filter-manage -c on urltolink"
+	execute_moosh_command "moosh filter-manage -c on emailprotect"
+
+	# Activation place buttons in tinyMCE toolbar (#us_217)
+        #FIXME : can't use 'execute_moosh_command' function (the newline is misinterpreted)
+        moosh config-set customtoolbar "wrap,formatselect,wrap,bold,italic,wrap,bullist,numlist,wrap,link,unlink,wrap,image,moodleemoticon,wrap,code
+
+            undo,redo,wrap,underline,strikethrough,sub,sup,wrap,justifyleft,justifycenter,justifyright,wrap,outdent,indent,wrap,forecolor,backcolor,wrap,ltr,rtl
+
+            fontselect,fontsizeselect,wrap,search,replace,wrap,nonbreaking,charmap,table,wrap,code,cleanup,removeformat,pastetext,pasteword,wrap,mediagallery,wrap,fullscreen
+            " editor_tinymce
+
+	# Add Main Menu block in /forum page (forum-index)
+        execute_moosh_command "moosh block-add system 0 site_main_menu forum-index side-pre -8"
+
+        # hide block main menu for solerni_utilisateur, solerni_apprenant, solerni_power_apprenant, solerni_animateur, solerni_client, guest, solerni_marketing
+	execute_moosh_command "moosh role-update-capability-ctx solerni_utilisateur moodle/block:view prevent block site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx solerni_apprenant moodle/block:view prevent block site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx solerni_power_apprenant moodle/block:view prevent block site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx solerni_animateur moodle/block:view prevent block site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx solerni_client moodle/block:view prevent block site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx guest moodle/block:view prevent block site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx solerni_teacher moodle/block:view allow block site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx solerni_course_creator moodle/block:view allow block site_main_menu"
+	execute_moosh_command "moosh role-update-capability-ctx solerni_marketing moodle/block:view prevent block site_main_menu"
+
+        # Delete activity forum in frontpage (course=1)
+        execute_moosh_command "moosh activity-delete --name forum course 1"
+
+        # Add length of time to keep logs
+        execute_moosh_command "moosh config-set loglifetime 365 logstore_standard"
+
+        # schedule the task logstore_standard\task\cleanup_task
+        execute_moosh_command "moosh scheduledtask-set '\logstore_standard\task\cleanup_task' 0 1 '*' '*' 2 0 0"
+
 }
 
 main "$@"

@@ -3860,7 +3860,8 @@ WHERE
         }
         $buttontext = $this->display_search_form();
         $PAGE->set_button($buttontext);
-
+        // Orange - 20160531 - Add layout for generic forum (with side-pre region).
+        $PAGE->set_pagelayout('incourse');
         return mod_forumng_utils::get_renderer();
     }
 

@@ -25,19 +25,34 @@ if (!utilities_user::is_user_mnet($USER)) {
 ?>
 
 <div class="action-area is-logged">
-    <a title="email" href="<?php echo $CFG->wwwroot ?>/local/mail/view.php?t=inbox" class="header-email-icon icon-halloween icon-halloween--email">
+    <a title="email" href="<?php echo $CFG->wwwroot ?>/local/mail/view.php?t=inbox"
+       class="header-email-icon icon-halloween icon-halloween--email">
         email
         <?php if ($youvegotmail) : ?>
             <span class="email-notification"><?php echo $youvegotmail; ?></span>
         <?php endif; ?>
     </a>
     <div class="dropdown header-dropdown">
-        <button class="btn btn-default btn--content-variable" type="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-                <?php echo $USER->firstname . ' ' . $USER->lastname; ?>
-                <span class="caret"></span>
+        <button class="btn btn-default btn--content-variable"
+                type="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false">
+                <span class="hidden-xs">
+                    <?php echo $USER->firstname . ' ' . $USER->lastname; ?>
+                    <span class="caret"></span>
+                </span>
+                <span class="visible-xs">
+                    <?php echo get_string('user_menu_mobile_button', 'theme_halloween'); ?>
+                    <span class="cross">X</span>
+                </span>
         </button>
         <ul class="dropdown-menu list-unstyled list-link" aria-labelledby="dLabel">
+            <li class="visible-xs bold">
+                <div class="pseudo-a">
+                    <?php echo $USER->firstname . ' ' . $USER->lastname; ?>
+                </div>
+            </li>
             <li>
                 <a href="<?php echo $CFG->wwwroot ?>/my/index.php">
                     <?php echo get_string('user_menu_dashboard', 'theme_halloween'); ?>
@@ -58,7 +73,7 @@ if (!utilities_user::is_user_mnet($USER)) {
                     <?php echo get_string('user_menu_email', 'theme_halloween'); ?>
                 </a>
             </li>
-            <?php if (utilities_user::is_user_site_admin($USER)) : ?>
+            <?php if (utilities_user::is_user_site_admin($USER) || has_capability('local/orange_library:viewadmin',\context_system::instance())) : ?>
             <li>
                 <a href="<?php echo $CFG->wwwroot ?>/admin/index.php">
                     <?php echo get_string('administration', 'theme_halloween'); ?>

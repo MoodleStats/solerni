@@ -60,14 +60,14 @@ class block_orange_transverse_discussion_renderer extends plugin_renderer_base {
             $output .= html_writer::end_tag('div');
         $output .= html_writer::end_tag('div');
 
-        $output .= html_writer::start_tag('div', array('class' => 'row'));
-            $output .= html_writer::start_tag('div', array('class' => 'col-md-5 text-left'));
+        $output .= html_writer::start_tag('div', array('class' => 'row orange-transverse-discussion-box'));
+            $output .= html_writer::start_tag('div', array('class' => 'col-md-5'));
                 // TODO : image à modifier.
                 $imgurl = $CFG->wwwroot. '/blocks/orange_transverse_discussion/pix/tmp-partie-forum.png';
                 $output .= html_writer::empty_tag('img', array('src' => $imgurl, 'class' => 'essentiels-image img-responsive'));
             $output .= html_writer::end_tag('div');
 
-            $output .= html_writer::start_tag('div', array('class' => 'col-md-7 text-left orange-transverse-discussion-info'));
+            $output .= html_writer::start_tag('div', array('class' => 'col-md-7 orange-transverse-discussion-info'));
 
                 $output .= html_writer::start_tag('div', array('class' => 'row u-inverse info-titlebanner'));
                     $output .= html_writer::tag('span', get_string('titlebanner', 'block_orange_transverse_discussion', $CFG->solerni_thematic), array('class' => 'h5'));

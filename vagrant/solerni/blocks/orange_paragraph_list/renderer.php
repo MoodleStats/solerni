@@ -29,38 +29,69 @@ class block_orange_paragraph_list_renderer extends plugin_renderer_base {
     /**
      * Display for "Find out more" page
      *
-     * @return message
+     * @return html string
      */
-    public function display_on_course_page ($course, $findoutmore, $imgurl) {
+    public function render_paragraph_list($findoutmore) {
+
+        // No flexpage content. Get out.
+        if (!$findoutmore->paragraphtitle) {
+            return '';
+        }
 
         $output = html_writer::start_tag('div', array('class' => 'zigzag'));
-        $i = 0;
-        if ($findoutmore->paragraphtitle) {
-            foreach ($findoutmore->paragraphtitle as $value) {
-                if ($findoutmore->paragraphtitle[$i] != '') {
-                    if (isset($imgurl[$i])) {
-                        $img = $imgurl[$i];
-                    }
-                    else {
-                        $img = "";
-                    }
-                    if ($i % 2 == 1) {
-                        $output .= $this->display_left_text(
-                                $findoutmore->paragraphtitle[$i],
-                                $findoutmore->paragraphdescription[$i],
-                                $img,
-                                $findoutmore->paragraphbgcolor[$i]);
-                    } else {
-                        $output .= $this->display_right_text(
-                                $findoutmore->paragraphtitle[$i],
-                                $findoutmore->paragraphdescription[$i],
-                                $img,
-                                $findoutmore->paragraphbgcolor[$i]);
-                    }
-                }
-                $i++;
+
+        foreach ($findoutmore->paragraphtitle as $index => $value) {
+            if(!$value || !$findoutmore->paragraphdescription[$index]) {
+                continue; // we skip the row if we do not have title & text.
             }
+            $output .= $this->render_paragraph_row($findoutmore, $index);
         }
+
+        $output .= html_writer::end_tag('div');
+
+        return $output;
+    }
+
+    private function render_paragraph_row($findoutmore, $index) {
+
+        $textvalues = array('title' => $findoutmore->paragraphtitle[$index],
+                            'text' => $findoutmore->paragraphdescription[$index]);
+        $imgvalues = array('url' => $findoutmore->resizedimgurl[$index]);
+
+        $odd = ($index % 2) ? true : false;
+        $zigzagclass = ($odd) ? ' zig' : ' zag';
+        $zigzagclass = $zigzagclass . ' expanded ' . $findoutmore->paragraphbgcolor[$index];
+
+        $output = html_writer::start_tag('div', array('class' => 'zigzag-row' . $zigzagclass));
+            $output .= html_writer::start_tag('div', array('class' => 'row'));
+
+            if ($odd) {
+                $output .= $this->render_paragraph_cell_image($imgvalues, $odd);
+                $output .= $this->render_paragraph_cell_text($textvalues, $odd);
+            } else {
+                $output .= $this->render_paragraph_cell_text($textvalues, $odd);
+                $output .= $this->render_paragraph_cell_image($imgvalues, $odd);
+            }
+
+            $output .= html_writer::end_tag('div');
+        $output .= html_writer::end_tag('div');
+
+        return $output;
+    }
+
+    /**
+     * Render html for paragraph cell
+     *
+     * @return message
+     */
+    private function render_paragraph_cell_text($textvalues, $odd) {
+        $customclasses = ($odd) ? 'col-md-offset-1 col-md-5' : 'col-md-5';
+
+        $output = html_writer::start_tag('div', array('class' => 'col-xs-12 zigzag-row__text ' . $customclasses));
+            $output .= html_writer::tag('h2', $textvalues['title'] ,
+                                        array('class' => 'h2 text-oneline'));
+            $output .= html_writer::tag('p', $textvalues['text'],
+                                        array('class' => 'thumbnail-text'));
         $output .= html_writer::end_tag('div');
 
         return $output;
@@ -71,50 +102,11 @@ class block_orange_paragraph_list_renderer extends plugin_renderer_base {
      *
      * @return message
      */
-    public function display_right_text ($paragraphtitle, $paragraphdescription, $imgurl, $bgcolor) {
+    private function render_paragraph_cell_image($imgvalues, $odd) {
+        $customclasses = ($odd) ? 'col-md-6' : 'col-md-6 col-md-offset-1';
 
-        $output = html_writer::start_tag('div', array('class' => 'row '.$bgcolor));
-
-            $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-6'));
-                $output .= html_writer::empty_tag('img', array('src' => $imgurl, 'class' => 'img-responsive'));
-            $output .= html_writer::end_tag('div');
-
-            $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-6 description-text-right'));
-                $output .= html_writer::start_tag('p', array('class' => 'h2'));
-                    $output .= $paragraphtitle;
-                $output .= html_writer::end_tag('p');
-                $output .= html_writer::start_tag('p', array('class' => 'h7 description-text'));
-                    $output .= $paragraphdescription;
-                $output .= html_writer::end_tag('p');
-            $output .= html_writer::end_tag('div');
-
-        $output .= html_writer::end_tag('div');
-
-        return $output;
-    }
-
-    /**
-     * Display for "Find out more" page
-     *
-     * @return message
-     */
-    public function display_left_text ($paragraphtitle, $paragraphdescription, $imgurl, $bgcolor) {
-
-        $output = html_writer::start_tag('div', array('class' => 'row '.$bgcolor));
-
-            $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-6 description-text-left'));
-                $output .= html_writer::start_tag('p', array('class' => 'h2'));
-                    $output .= $paragraphtitle;
-                $output .= html_writer::end_tag('p');
-                $output .= html_writer::start_tag('p', array('class' => 'h7 description-text'));
-                    $output .= $paragraphdescription;
-                $output .= html_writer::end_tag('p');
-            $output .= html_writer::end_tag('div');
-
-            $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-6'));
-                $output .= html_writer::empty_tag('img', array('src' => $imgurl, 'class' => 'img-responsive'));
-            $output .= html_writer::end_tag('div');
-
+        $output = html_writer::start_tag('div', array('class' => 'col-xs-12 zigzag-row__image ' . $customclasses));
+            $output .= html_writer::empty_tag('img', array('src' => $imgvalues['url'], 'class' => 'img-responsive'));
         $output .= html_writer::end_tag('div');
 
         return $output;

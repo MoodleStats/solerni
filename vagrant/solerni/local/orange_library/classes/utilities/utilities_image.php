@@ -41,7 +41,7 @@ class utilities_image {
      *              'h' => new height
      * @return $newImageUrl
      */
-    public static function get_resized_url($image, $opts = null) {
+    public static function get_resized_url($image = null, $opts) {
         global $CFG;
 
         // If image parameter not set then send a default image.
@@ -278,7 +278,7 @@ class utilities_image {
             return false;
         }
 
-        return \moodle_url::make_pluginfile_url(
+        $url = \moodle_url::make_pluginfile_url(
             $storedfile->get_contextid(),
             $storedfile->get_component(),
             $storedfile->get_filearea(),
@@ -287,5 +287,8 @@ class utilities_image {
             $storedfile->get_filename(),
             $forcedownload
         );
+        $url->param('rev', time());
+
+        return $url;
     }
 }
