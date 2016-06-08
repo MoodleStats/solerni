@@ -27,6 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once(dirname(__FILE__) . '/../../config.php');
 require_once($CFG->dirroot.'/local/orange_library/classes/forumng/forumng_object.php');
+
 use theme_halloween\tools\theme_utilities;
 use local_orange_library\utilities\utilities_image;
 use local_orange_library\utilities\utilities_network;
@@ -44,7 +45,8 @@ class block_orange_horizontal_numbers extends block_base {
      * @return void
      */
     public function init() {
-        Global $PAGE;
+        global $PAGE;
+
         $this->title = get_string('pluginname', 'block_orange_horizontal_numbers');
         $this->renderer = $PAGE->get_renderer('block_orange_horizontal_numbers');
     }
@@ -58,22 +60,26 @@ class block_orange_horizontal_numbers extends block_base {
         return false;
     }
 
+    /**
+     * Set instance title
+     *
+     * @return void;
+     */
     public function specialization() {
         $this->title = "";
     }
 
     /**
-     * Controls whether multiple instances of the block are allowed on a page
+     * Controls whether multiple instances of the block are allowed on a page.
      *
      * @return bool
      */
-
     public function instance_allow_multiple() {
         return false;
     }
 
     /**
-     * Defines where the block can be added
+     * Defines where the block can be added.
      *
      * @return array
      */
@@ -98,6 +104,7 @@ class block_orange_horizontal_numbers extends block_base {
         if ($this->content !== null) {
             return $this->content;
         }
+
         $this->content = new stdClass;
         $this->content->text = '';
         $this->content->footer = '';
@@ -107,9 +114,9 @@ class block_orange_horizontal_numbers extends block_base {
         }
 
         // Get calculated data in cache (CRON).
-        $host = new \stdclass();
-        $host->id = 1; // Current host.
-        $host = utilities_network::get_thematic_info($host);
+        $currenthost = new \stdclass();
+        $currenthost->id = 1;
+        $host = utilities_network::get_thematic_info($currenthost);
 
         if (!empty($host->available)) {
             $nbuserssonnected = (int)$host->nbconnected;
@@ -132,8 +139,9 @@ class block_orange_horizontal_numbers extends block_base {
         } else {
             $illustrationurl = $CFG->wwwroot . "/blocks/orange_thematics_menu/pix/defaultlogo.png";
         }
+
         $this->content->text = $this->renderer->display_horizontal_numbers(
-                $nbuserssonnected, $nbposts, $nbusersregistred, $lastuser, $illustrationurl);
+                $illustrationurl, $nbuserssonnected, $nbposts, $nbusersregistred, $lastuser);
 
         return $this->content;
     }

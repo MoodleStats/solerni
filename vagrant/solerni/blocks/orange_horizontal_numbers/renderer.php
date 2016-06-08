@@ -23,6 +23,7 @@
  */
 
 defined('MOODLE_INTERNAL') || die;
+
 use local_orange_library\utilities\utilities_object;
 
 class block_orange_horizontal_numbers_renderer extends plugin_renderer_base {
@@ -34,13 +35,14 @@ class block_orange_horizontal_numbers_renderer extends plugin_renderer_base {
      * @param $nbposts int nb posts
      * @param $nbusers int nb users enrolled in pf
      * @param $lastusers object user last user conected
-     * @return string html 
+     * @return string html
      */
-    public function display_horizontal_numbers($nbuserssonnected = 0, $nbposts = 0, $nbusers = 0, $lastuser = null, $illustration) {
+    public function display_horizontal_numbers($illustration, $nbuserssonnected = 0,
+            $nbposts = 0, $nbusers = 0, $lastuser = null) {
+        
         global $CFG;
-        $output = "";
 
-        $output .= html_writer::start_tag('div', array('class' => 'row text-center'));
+        $output = html_writer::start_tag('div', array('class' => 'row text-center'));
             $output .= html_writer::empty_tag('img', array(
                 'src' => $illustration, 'class' => 'orange-horizontal-numbers-illustration img-responsive'));
         $output .= html_writer::end_tag('div');
