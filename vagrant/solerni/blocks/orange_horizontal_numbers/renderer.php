@@ -39,12 +39,14 @@ class block_orange_horizontal_numbers_renderer extends plugin_renderer_base {
      */
     public function display_horizontal_numbers($illustration, $nbuserssonnected = 0,
             $nbposts = 0, $nbusers = 0, $lastuser = null) {
-        
+
         global $CFG;
 
-        $output = html_writer::start_tag('div', array('class' => 'row text-center'));
-            $output .= html_writer::empty_tag('img', array(
-                'src' => $illustration, 'class' => 'orange-horizontal-numbers-illustration img-responsive'));
+        $output = html_writer::start_tag('div', array('class' => 'row'));
+            $output = html_writer::start_tag('div', array('class' => 'col-xs-12'));
+                $output .= html_writer::empty_tag('img', array(
+                    'src' => $illustration, 'class' => 'img-responsive'));
+            $output .= html_writer::end_tag('div');
         $output .= html_writer::end_tag('div');
 
         $output .= html_writer::start_tag('div', array('class' => 'row'));

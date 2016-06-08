@@ -137,7 +137,7 @@ class block_orange_horizontal_numbers extends block_base {
             $illustrationurl = utilities_image::get_resized_url($file,
                 array('w' => 1160, 'h' => 500, 'scale' => true));
         } else {
-            $illustrationurl = $CFG->wwwroot . "/blocks/orange_thematics_menu/pix/defaultlogo.png";
+            $illustrationurl = $CFG->wwwroot . "/blocks/orange_horizontal_numbers/pix/defaultillustration.png";
         }
 
         $this->content->text = $this->renderer->display_horizontal_numbers(
