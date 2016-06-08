@@ -48,14 +48,13 @@ if (isloggedin()) {
     $context = context_system::instance();
 }
 
-
 // Start setting up the page.
 $params = array();
 $PAGE->set_context($context);
 $PAGE->set_url('/forum/index.php', array());
 $PAGE->set_pagelayout('basenotitle');
 $PAGE->set_pagetype('forum-index');
-$PAGE->set_title(get_string('forum_page_title', 'theme_halloween') . $SITE->fullname);
+$PAGE->set_title(get_string('forum_page_title', 'theme_halloween') . ' - ' . $SITE->fullname);
 $PAGE->blocks->add_region('content');
 $loginsite  = get_string("forumnavbar", "theme_halloween");
 $PAGE->navbar->add($loginsite);
