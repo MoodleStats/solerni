@@ -125,6 +125,11 @@ $THEME->layouts = array(
         'file' => 'default.php',
         'regions' => array()
     ),
+    // Base but no page block title.
+    'basenotitle' => array(
+        'file' => 'default.php',
+        'regions' => array()
+    ),
     // Standard layout with blocks, this is recommended for most pages with general information.
     'standard' => array(
         'file' => 'default.php',

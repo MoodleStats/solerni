@@ -376,3 +376,6 @@ $string['registered'] = ' inscrit dont ';
 $string['registeredplural'] = ' inscrits dont ';
 $string['connected'] = '  membre connecté en ce moment';
 $string['connectedplural'] = '  membres connectés en ce moment';
+
+// Mooc Dashboard
+$string['moocdashboard'] = 'Tableau de bord : ';

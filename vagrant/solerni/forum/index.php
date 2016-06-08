@@ -52,9 +52,9 @@ if (isloggedin()) {
 // Start setting up the page.
 $PAGE->set_context($context);
 $PAGE->set_url('/forum/index.php', array());
-$PAGE->set_pagelayout('standard');
+$PAGE->set_pagelayout('basenotitle');
 $PAGE->set_pagetype('forum-index');
-$PAGE->set_title(get_string('forum_page_title', 'theme_halloween') . ' - ' . $SITE->shortname);
+$PAGE->set_title(get_string('forum_page_title', 'theme_halloween') . ' - ' . $SITE->fullname);
 $PAGE->blocks->add_region('content');
 $loginsite = get_string("forumnavbar", "theme_halloween");
 $PAGE->navbar->add($loginsite);
