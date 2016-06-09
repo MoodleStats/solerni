@@ -125,6 +125,11 @@ $THEME->layouts = array(
         'file' => 'default.php',
         'regions' => array()
     ),
+    // Base but no page block title.
+    'basenotitle' => array(
+        'file' => 'default.php',
+        'regions' => array()
+    ),
     // Standard layout with blocks, this is recommended for most pages with general information.
     'standard' => array(
         'file' => 'default.php',
@@ -223,12 +228,6 @@ $THEME->layouts = array(
     // The pagelayout used for safebrowser and securewindow.
     'secure' => array(
         'file' => 'secure.php',
-        'regions' => array('side-pre'),
-        'defaultregion' => 'side-pre'
-    ),
-    // The Forum thematic page.
-    'forum' => array(
-        'file' => 'default.php',
         'regions' => array('side-pre'),
         'defaultregion' => 'side-pre'
     )
