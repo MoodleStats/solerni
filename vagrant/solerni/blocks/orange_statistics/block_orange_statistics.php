@@ -31,12 +31,6 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class block_orange_statistics extends block_base {
-
-    /**
-     * Sets the block title
-     *
-     * @return void
-     */
     public function init() {
         $this->title = get_string('config_default_title', 'block_orange_statistics');
     }
@@ -87,14 +81,8 @@ class block_orange_statistics extends block_base {
     
     public function instance_allow_multiple() {
         return false;
-    }
-  
-    
-    
-    
-    
-    
-    
+    } 
+       
 }
 
 

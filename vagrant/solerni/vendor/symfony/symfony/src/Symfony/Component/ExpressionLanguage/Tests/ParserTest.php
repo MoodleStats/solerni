@@ -29,6 +29,17 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @expectedException        \Symfony\Component\ExpressionLanguage\SyntaxError
+     * @expectedExceptionMessage Variable "foo" is not valid around position 1.
+     */
+    public function testParseWithZeroInNames()
+    {
+        $lexer = new Lexer();
+        $parser = new Parser(array());
+        $parser->parse($lexer->tokenize('foo'), array(0));
+    }
+
+    /**
      * @dataProvider getParseData
      */
     public function testParse($node, $expression, $names = array())
@@ -136,6 +147,12 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     '3', Node\GetAttrNode::ARRAY_CALL),
                 'foo.bar().foo().baz[3]',
                 array('foo'),
+            ),
+
+            array(
+                new Node\NameNode('foo'),
+                'bar',
+                array('foo' => 'bar'),
             ),
         );
     }
