@@ -127,7 +127,7 @@ class theme_halloween_core_user_myprofile_renderer extends core_user\output\mypr
         }
         if (is_object($node->url)) {
             if ($node->name == "editprofile") {
-                $header = \html_writer::link($node->url, $node->title, array('class' => 'btn btn-primary btn-sm pull-right'));
+                $header = \html_writer::link($node->url, $node->title, array('class' => 'btn btn-primary pull-right'));
             } else {
                 $header = \html_writer::link($node->url, $node->title);
             }
@@ -158,7 +158,7 @@ class theme_halloween_core_user_myprofile_renderer extends core_user\output\mypr
                 if ($ismyprofile) {
                     $editprofileurl = utilities_user::get_edituserprofile_url();
                     $content = \html_writer::link($editprofileurl, get_string('editmyprofile'),
-                            array('class' => 'btn btn-primary btn-sm pull-right'));
+                            array('class' => 'btn btn-primary pull-right'));
                     $header = "";
                 } else {
                     $content = "";
@@ -172,14 +172,25 @@ class theme_halloween_core_user_myprofile_renderer extends core_user\output\mypr
                 // Add target to link.
                 $content = str_replace("<a href=", "<a target='_new' href=", $content);
             }
-            if (!empty($content)) {
-                $return = \html_writer::tag('b', $header);
-                $return .= \html_writer::tag('div', $content, array ('style' => 'padding-bottom:10px;'));
 
-                if ($classes) {
-                    $return = \html_writer::tag('div', $return, array('class' => 'contentnode ' . $classes));
+            if (!empty($content)) {
+                if ($node->name == "custom_field_donneespersonnelles") {
+                    $return = \html_writer::tag('b', $content . " " . $header);
+                    $return = \html_writer::tag('div', $return, array ('style' => 'padding-bottom:10px;'));
+                    if ($classes) {
+                        $return = \html_writer::tag('div', $return, array('class' => 'contentnode ' . $classes));
+                    } else {
+                        $return = \html_writer::tag('div', $return, array('class' => 'contentnode'));
+                    }
                 } else {
-                    $return = \html_writer::tag('div', $return, array('class' => 'contentnode'));
+                    $return = \html_writer::tag('b', $header);
+                    $return .= \html_writer::tag('div', $content, array ('style' => 'padding-bottom:10px;'));
+
+                    if ($classes) {
+                        $return = \html_writer::tag('div', $return, array('class' => 'contentnode ' . $classes));
+                    } else {
+                        $return = \html_writer::tag('div', $return, array('class' => 'contentnode'));
+                    }
                 }
             }
         } else {
