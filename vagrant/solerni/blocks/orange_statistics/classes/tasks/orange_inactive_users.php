@@ -28,10 +28,11 @@ class inactive_users  {
 
     public static function retreive_inactive_users() {
         global $DB;
+        echo 'tot';
         $course_id = $DB->get_recordset_sql("SELECT DISTINCT courseid
                                         FROM {user_lastaccess}"
                                         );
-        print_objet($course_id);
+        print_object($course_id);
     }
 }
         //foreach ($course_id as $idcourse) {
