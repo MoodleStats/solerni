@@ -3,8 +3,7 @@
  */
 
 .block_orange_listforumng {
-    
-    background-color:   @orange-mid-1;
+
     padding-bottom:     @s-medium-md-margin;
 
     .orange-listforumng-title-noforumpage {
@@ -20,6 +19,7 @@
         background-color:   @brand-tertiary;
 
         .orange-listforumng-item {
+            margin-left: 0;
             padding-top:    @s-medium-md-margin;
             padding-bottom: @s-medium-md-margin;
             border-bottom: 1px solid @orange-mid-1;
@@ -27,6 +27,9 @@
             .orange-listforumng-item-status {
                 padding-left:    @s-medium-md-margin;
             }
+        }
+        .orange-listforumng-item:hover {
+            background-color: @orange-light-3;
         }
     }
 }
