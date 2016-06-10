@@ -35,7 +35,7 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
      *
      * @return string
      */
-    protected function   halloween_render_lang_menu(custom_menu $menu) {
+    protected function halloween_render_lang_menu(custom_menu $menu) {
         global $CFG;
         $addlangmenu = true;
         $langs = get_string_manager()->get_list_of_translations();
@@ -58,7 +58,17 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
             }
             $this->language = $menu->add($currentlang, new moodle_url('#'), $strlang, 10000);
             foreach ($langs as $langtype => $langname) {
-                $this->language->add($langname, new moodle_url($this->page->url, array('lang' => $langtype)), $langname);
+                $queryarray = array('lang' => $langtype);
+                if ($_SERVER['QUERY_STRING']) {
+                    $query_string = explode("&", $_SERVER['QUERY_STRING']);
+                    foreach($query_string as $value) {
+                        $values = explode("=", $value);
+                        if(stripos($values[0], 'lang') === false) {
+                            $queryarray[$values[0]] = $values[1];
+                        }
+                    }
+                }
+                $this->language->add($langname, new moodle_url($this->page->url, $queryarray), $langname);
             }
         }
 
@@ -79,13 +89,20 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
         static $submenucount = 0;
         $content = '';
         $currenttitle = str_replace(array('(fr)', '(en)', '&lrm;'), '',  ($menunode->get_text()));
+
         if ($menunode->has_children()) {
             $menutitle = $currenttitle;
             $submenucount++;
             if ($menunode->get_url() !== null) {
+
                 if($_SERVER['QUERY_STRING']) {
                     $query_string = explode("&", $_SERVER['QUERY_STRING']);
-                    $url = $menunode->get_url(). "&".$query_string[(count($query_string)-1)];
+                    foreach($query_string as $value) {
+                        if((stripos($menunode->get_url(), $value) === false) && (stripos($menutitle, $value) === false)) {
+                            $url = $menunode->get_url(). "&".$query_string[(count($query_string)-1)];
+                        }
+                        else {$url = $menunode->get_url();}
+                    }
                 } else {
                     $url = $menunode->get_url();
                 }
@@ -102,14 +119,9 @@ class theme_halloween_core_renderer extends theme_bootstrap_core_renderer {
             $content .= '</ul>';
         } else {
             if ($menunode->get_url() !== null) {
-                if($_SERVER['QUERY_STRING']) {
-                    $query_string = explode("&", $_SERVER['QUERY_STRING']);
-                    $url = $menunode->get_url(). "&".$query_string[(count($query_string)-1)];
-                } else {
-                    $url = $menunode->get_url();
-                }
+                $url = $menunode->get_url();
             } else {
-                $url = '#';
+                $url = '#'."\n";
             }
             $classes = '';
             if ( $menutitle == $currenttitle ) {
