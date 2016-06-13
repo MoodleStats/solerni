@@ -285,11 +285,6 @@ class format_flexpage extends format_base {
                     'default' => get_config('language', 'format_flexpage'),
                     'type' => PARAM_INT
                 ),
-
-                'coursesubtitle' => array(
-                    'default' => get_config('coursesubtitle', 'format_flexpage'),
-                    'type' => PARAM_INT
-                ),
                 'courseregistration' => array(
                     'default' => get_config('registration', 'format_flexpage'),
                     'type' => PARAM_INT
@@ -440,13 +435,6 @@ class format_flexpage extends format_base {
                 'coursecertification' => array(
                     'label' => get_string('certification', 'format_flexpage'),
                     'help' => 'certification',
-                    'help_component' => 'format_flexpage',
-                    'element_type' => 'advcheckbox'
-                ),
-
-                'coursesubtitle' => array(
-                    'label' => get_string('subtitle', 'format_flexpage'),
-                    'help' => 'subtitle',
                     'help_component' => 'format_flexpage',
                     'element_type' => 'advcheckbox'
                 ),
