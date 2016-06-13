@@ -501,6 +501,14 @@ function main () {
 
         # Add length of time to keep logs
         execute_moosh_command "moosh config-set loglifetime 365 logstore_standard"
+
+        # schedule the task logstore_standard\task\cleanup_task
+        execute_moosh_command "moosh scheduledtask-set '\logstore_standard\task\cleanup_task' 0 1 '*' '*' 2 0 0"
+
+        # change configuration for tinyMCE Editor (#us_217) + correction bug http (#us_272)
+        execute_moosh_command "moosh config-set formats 1 filter_urltolink"
+        execute_moosh_command "moosh config-set glossary_linkentries 1"
+
 }
 
 main "$@"

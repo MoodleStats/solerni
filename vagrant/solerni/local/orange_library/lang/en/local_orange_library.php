@@ -97,6 +97,7 @@ $string['orange_library_mnet_mail_subject'] = "MNet Key Check";
 $string['orange_library_thematic_task'] = "Update Thematics information";
 
 // Course menu item.
+$string['coursemenudashboard'] = "Home";
 $string['coursemenulearn'] = "Learn";
 $string['coursemenulearnmore'] = "News";
 $string['coursemenuforum'] = "Forum";

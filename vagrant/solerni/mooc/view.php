@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Displays user my moocs page
+ * En Savoir Plus Page: general information for the mooc and means to subscribe.
  *
  * @package    core
  * @subpackage moocs
@@ -30,7 +30,7 @@ require_once(dirname(dirname(__FILE__)) . '/config.php');
 $courseid = optional_param('courseid', 0, PARAM_INT); // Course ID.
 $url = new moodle_url('/mooc/view.php');
 $PAGE->set_url($url);
-$PAGE->set_pagelayout('course');
+$PAGE->set_pagelayout('basenotitle');
 $PAGE->set_pagetype('mooc-view');
 $PAGE->blocks->add_region('content');
 $course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);

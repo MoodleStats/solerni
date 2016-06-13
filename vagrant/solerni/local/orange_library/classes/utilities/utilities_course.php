@@ -852,6 +852,10 @@ class utilities_course {
 
     }
 
+    public static function get_mooc_dashboard_menu($courseid) {
+        return new \moodle_url('/mooc/index.php', array('courseid' => $courseid));
+    }
+
     /**
      * Get the URL for course menu "PARTAGER"
      *
@@ -1089,6 +1093,12 @@ class utilities_course {
         $shareurl = self::get_mooc_share_menu($courseid);
 
         switch ($tabid) {
+            case "coursedashboard":
+                if (strpos($script, "/mooc/index.php") !== false) {
+                    return 'class="active"';
+                }
+            break;
+
             case "learn":
                 if ((strpos($script, "/course/view") !== false) &&
                     (is_null($forumurl) || (strpos($script, $forumurl->out_as_local_url(false)) === false)) &&
