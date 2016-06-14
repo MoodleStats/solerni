@@ -114,8 +114,7 @@ echo $OUTPUT->doctype() ?>
         <div class="container">
             <?php require_once($CFG->partialsdir . '/frontpage-block-title.php'); ?>
         </div>
-    <?php endif; ?>
-    <?php if (theme_utilities::is_layout_uses_page_block_title()) : ?>
+    <?php elseif (theme_utilities::is_layout_uses_page_block_title()) : ?>
         <!-- page block title -->
         <div class="container">
             <?php require_once($CFG->partialsdir . '/page-block-title.php'); ?>
