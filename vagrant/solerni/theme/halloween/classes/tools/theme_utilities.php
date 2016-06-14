@@ -151,12 +151,12 @@ class theme_utilities {
         global $PAGE;
 
         $pagelayoutswithoutpageblocktitle = array('admin', 'mydashboard',
-            'forum', 'basenotitle', 'frontpage');
+            'forum', 'basenotitle');
 
         $pagetypeswithoutpageblocktitle = array();
 
         // Check for pagetype static-*.
-        if (strpos($PAGE->pagetype, 'static-')) {
+        if (strpos($PAGE->pagetype, 'static-') !== false) {
             return false;
         }
 

@@ -3,48 +3,52 @@
  */
 
 .block_orange_horizontal_numbers {
-    
+
     padding: 0;
 
-    .orange-horizontal-numbers-illustration {
-        
-        padding-bottom:     @s-double-xs-margin;
-        @media (min-width:  @screen-md-min) {
-            padding-bottom: @s-double-md-margin;
-        }
+    .row {
+        padding-bottom: @s-triple-md-margin;
     }
-    
-    .orange-horizontal-numbers-title {
 
-        padding-bottom:     @s-triple-xs-margin;
+    .orange-horizontal-numbers__mainbody {
+        padding-bottom: 0;
+
         @media (min-width:  @screen-md-min) {
             padding-bottom: @s-triple-md-margin;
         }
+    }
 
-        h1 {
-                padding-bottom:    @s-double-xs-margin;
+    .orange-horizontal-numbers__item {
+        text-align:     center;
+        padding-bottom:  @s-triple-md-margin;
+
+        @media (min-width:  @screen-sm-min) {
+            text-align: left;
         }
-    }
-    
-    .orange-horizontal-numbers-details {
-        padding-top:     @s-triple-md-margin;
-        padding-bottom:     @s-triple-md-margin;
-        
-        div.h2 {
-            margin: 0;
-            padding: 0;
-            padding-bottom: @s-small-md-margin;
+
+        @media (min-width:  @screen-md-min) {
+            padding-bottom: 0;
         }
-        
-        div.h3 {
-            margin: 0;
-            padding: 0;
-            padding-bottom: @s-small-md-margin;
-        }
+
     }
-    
-    .orange-horizontal-numbers-link {
-        padding-top:        @s-double-md-margin;
-        padding-bottom:     @s-medium-md-margin;
+
+    .orange-horizontal-numbers__title {
+        line-height:    1.2;
+        margin-top:     0;
+        margin-bottom:  @s-triple-md-margin;
     }
+
+    .orange-horizontal-numbers__number,
+    .orange-horizontal-numbers__user {
+        margin-bottom:  @s-small-xs-margin;
+    }
+
+    .orange-horizontal-numbers__number {
+        font-size:      @font-size-h2;
+    }
+
+    .orange-horizontal-numbers__user {
+         font-size:      @font-size-h3;
+    }
+
 }

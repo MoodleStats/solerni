@@ -315,7 +315,9 @@ class extended_course_object {
         }
         $this->enrolledusers = count_enrolled_users($context);
 
+        if ($instanceself) {
         $this->enrolledusersself = $enrolment->count_enrolled_users_by_instance($instanceself);
+        }
 
         $this->enrolstartdate = $enrolment->get_enrolment_startdate($course);
 
@@ -440,7 +442,7 @@ class extended_course_object {
     private function set_workingtime($extendedcourseflexpagevalue) {
         $this->workingtime = get_string('workingtime_default', 'local_orange_library');
         if ($extendedcourseflexpagevalue->value != 0) {
-            $this->workingtime = utilities_object::duration_to_week($extendedcourseflexpagevalue->value);
+            $this->workingtime = utilities_object::duration_to_time($extendedcourseflexpagevalue->value);
         }
     }
 

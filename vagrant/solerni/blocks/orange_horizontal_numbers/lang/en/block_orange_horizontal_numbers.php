@@ -26,9 +26,9 @@ $string['pluginname'] = 'Orange Horizontal Numbers';
 $string['orange_horizontal_numbers:addinstance'] = 'Add a new block Orange Horizontal Numbers';
 
 $string['title'] = 'Welcome to the discussion space Solerni {$a}';
-$string['intro'] = 'Come talk with other enthusiasts on the topics that interest you.<br/>'
-        . 'Enrich your knowledge, share your expertise and expand your network '
-        . 'by connecting with other users Solerni community..';
+$string['intro'] = 'Come talk with other enthusiasts on the topics that interest you.';
+$string['intro2'] = 'Enrich your knowledge, share your expertise and expand your network '
+        . 'by connecting with other users Solerni community.';
 $string['tofaq'] = 'Learn more about forums ? <a href=\'{$a}\'>Go to our F.A.Q.</a>';
 
 $string['nbpost'] = 'posted Message';
@@ -36,5 +36,6 @@ $string['nbpostplural'] = 'posted Messages';
 $string['nbuser'] = 'registered';
 $string['nbuserplural'] = 'registered';
 $string['lastuserregistered'] = 'last registered';
-$string['nbuserconnected'] = 'user connected Now';
-$string['nbuserconnectedplural'] = 'users connected<br />Now';
+$string['nbuserconnected'] = 'user connected';
+$string['nbuserconnectedplural'] = 'users connected';
+$string['nbusernow'] = "now";
