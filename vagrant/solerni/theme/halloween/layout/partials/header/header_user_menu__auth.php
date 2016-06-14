@@ -26,13 +26,16 @@ if (!utilities_user::is_user_mnet($USER)) {
 ?>
 
 <div class="action-area is-logged">
-    <a title="email" href="<?php echo $CFG->wwwroot ?>/local/mail/view.php?t=inbox"
-       class="header-email-icon icon-halloween icon-halloween--email">
-        email
-        <?php if ($youvegotmail) : ?>
-            <span class="email-notification"><?php echo $youvegotmail; ?></span>
-        <?php endif; ?>
-    </a>
+    <?php if (!utilities_network::is_platform_uses_mnet()
+            || (utilities_network::is_platform_uses_mnet() && utilities_network::is_thematic())) : ?>
+        <a title="email" href="<?php echo $CFG->wwwroot ?>/local/mail/view.php?t=inbox"
+           class="header-email-icon icon-halloween icon-halloween--email">
+            email
+            <?php if ($youvegotmail) : ?>
+                <span class="email-notification"><?php echo $youvegotmail; ?></span>
+            <?php endif; ?>
+        </a>
+    <?php endif; ?>
     <div class="dropdown header-dropdown">
         <button class="btn btn-default btn--content-variable"
                 type="button"

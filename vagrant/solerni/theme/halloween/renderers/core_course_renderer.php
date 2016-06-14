@@ -492,8 +492,8 @@ class theme_halloween_core_course_renderer extends core_course_renderer {
         }
 
         $moocslist = "";
-
-        foreach ( utilities_course::get_ordered_user_courses() as $key => $course) {
+    
+        foreach ( utilities_course::get_ordered_user_courses()['courses'] as $key => $course) {
             $context = context_course::instance($course->id);
             $extendedcourse = new extended_course_object();
             $extendedcourse->get_extended_course($course, $context);
