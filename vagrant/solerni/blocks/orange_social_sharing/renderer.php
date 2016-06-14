@@ -35,7 +35,7 @@ class block_orange_social_sharing_renderer extends plugin_renderer_base {
      * @return string $text
      */
     public function get_text() {
-        global $PAGE, $CFG;
+        global $PAGE, $CFG, $COURSE;
         require_once($CFG->dirroot.'/blocks/orange_social_sharing/lib.php');
 
         $shareonarray       = block_orange_social_sharing_shareonarray();
@@ -52,15 +52,15 @@ class block_orange_social_sharing_renderer extends plugin_renderer_base {
             $socialclassarray->setCurrent($i);
             $socialurlarray->setCurrent($i);
 
-            $text .= html_writer::start_tag('li', array('class' => 'social-item'));
-                $text .= html_writer::link(
-                        $socialurlarray->getCurrent().$PAGE->url,
-                        $socialclassarray->getCurrent(),
-                        array('class' => 'icon-halloween social icon-halloween--' . $socialclassarray->getCurrent(),
-                              'target' => '_blank')
-                );
-            $text .= html_writer::end_tag('li');
-        }
+                    $text .= html_writer::start_tag('li', array('class' => 'social-item'));
+                        $text .= html_writer::link(
+                                $socialurlarray->getCurrent()."http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],
+                                $socialclassarray->getCurrent(),
+                                array('class' => 'icon-halloween social icon-halloween--' . $socialclassarray->getCurrent(),
+                                      'target' => '_blank')
+                        );
+                    $text .= html_writer::end_tag('li');
+                }
         $text .= html_writer::end_tag('ul');
 
         return $text;

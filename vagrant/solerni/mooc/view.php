@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Displays user my moocs page
+ * En Savoir Plus Page: general information for the mooc and means to subscribe.
  *
  * @package    core
  * @subpackage moocs
@@ -31,7 +31,7 @@ use local_orange_library\extended_course\extended_course_object;
 $courseid = optional_param('courseid', 0, PARAM_INT); // Course ID.
 $url = new moodle_url('/mooc/view.php');
 $PAGE->set_url($url);
-$PAGE->set_pagelayout('course');
+$PAGE->set_pagelayout('basenotitle');
 $PAGE->set_pagetype('mooc-view');
 $PAGE->blocks->add_region('content');
 $course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);

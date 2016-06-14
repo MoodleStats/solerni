@@ -39,7 +39,7 @@ class block_orange_paragraph_list_renderer extends plugin_renderer_base {
         }
 
         $output = html_writer::start_tag('div', array('class' => 'zigzag'));
-
+        ksort($findoutmore->paragraphtitle,SORT_NATURAL);
         foreach ($findoutmore->paragraphtitle as $index => $value) {
             if (!$value || !$findoutmore->paragraphdescription[$index]) {
                 continue; // We skip the row if we do not have title & text.
@@ -60,7 +60,7 @@ class block_orange_paragraph_list_renderer extends plugin_renderer_base {
 
         $odd = ($index % 2) ? true : false;
         $zigzagclass = ($odd) ? ' zig' : ' zag';
-        $zigzagclass = $zigzagclass . ' ' . $findoutmore->paragraphbgcolor[$index];
+        $zigzagclass = $zigzagclass . ' expanded ' . $findoutmore->paragraphbgcolor[$index];
 
         $output = html_writer::start_tag('div', array('class' => 'zigzag-row' . $zigzagclass));
             $output .= html_writer::start_tag('div', array('class' => 'row'));

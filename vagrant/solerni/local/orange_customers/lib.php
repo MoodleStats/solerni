@@ -99,6 +99,7 @@ function customer_get_customerbycategoryid($categoryid) {
                         $file->get_itemid(),
                         $file->get_filepath(),
                         $file->get_filename());
+        $customer->urlimg->param('rev', time());
         $customer->fileimg = $file;
     }
 
@@ -111,6 +112,7 @@ function customer_get_customerbycategoryid($categoryid) {
                         $file->get_itemid(),
                         $file->get_filepath(),
                         $file->get_filename());
+        $customer->urlpicture->param('rev', time());
         $customer->filepicture = $file;
     }
 

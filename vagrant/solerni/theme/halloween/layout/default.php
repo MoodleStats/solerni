@@ -20,6 +20,7 @@
 require_once($CFG->dirroot.'/course/format/flexpage/locallib.php');
 use theme_halloween\tools\theme_utilities;
 use local_orange_library\utilities\utilities_network;
+use local_orange_library\utilities\utilities_object;
 
 theme_halloween_redirect_if_wantsurl();
 
@@ -105,7 +106,15 @@ echo $OUTPUT->doctype() ?>
             </div>
         </div>
     <?php endif; ?>
-    <?php if (theme_utilities::is_layout_uses_page_block_title()) : ?>
+    <?php if (utilities_object::is_frontpage()
+        && utilities_network::is_platform_uses_mnet()
+        && utilities_network::is_thematic()):
+    ?>
+        <!-- frontpage block title -->
+        <div class="container">
+            <?php require_once($CFG->partialsdir . '/frontpage-block-title.php'); ?>
+        </div>
+    <?php elseif (theme_utilities::is_layout_uses_page_block_title()) : ?>
         <!-- page block title -->
         <div class="container">
             <?php require_once($CFG->partialsdir . '/page-block-title.php'); ?>

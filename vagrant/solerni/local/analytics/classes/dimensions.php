@@ -95,8 +95,8 @@ class local_analytics_dimensions {
                 $cfg->solerni_customer_name :
                 get_string('not_set', 'local_analytics');
         }
-        if ($this->iscourse) {
-            return utilities_course::get_customer($course->category)->name;
+        if ($this->iscourse && ($customer = utilities_course::get_customer($course->category))) {
+            return $customer->name;
         } else {
             get_string('not_set', 'local_analytics');
         }

@@ -239,7 +239,7 @@ class utilities_object {
     public static function is_frontpage() {
         global $PAGE;
 
-        return ($PAGE->pagetype == 'site-index') ;
+        return ($PAGE->pagetype == 'site-index');
     }
 
 }

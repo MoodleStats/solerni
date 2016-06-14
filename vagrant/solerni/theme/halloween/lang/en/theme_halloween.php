@@ -178,6 +178,7 @@ $string['user_menu_preferences']    = 'My preferences';
 $string['administration']           = 'Administration';
 $string['skip_to_main']             = 'To main content';
 $string['skip_to_nav']              = 'To page navigation';
+$string['user_menu_mobile_button']  = 'Menu';
 
 // Login settings.
 $string['loginsettings']            = 'Login page';
@@ -370,6 +371,8 @@ $string['course_edited_by']         = 'Course edited by {$a}';
 $string['lineinfobegin'] = 'You are ';
 $string['registered'] = ' registered including ';
 $string['registeredplural'] = ' registered including ';
-
 $string['connected'] = ' member connected now';
 $string['connectedplural'] = ' members connected now';
+
+// Mooc Dashboard
+$string['moocdashboard'] = 'Tableau de bord: ';

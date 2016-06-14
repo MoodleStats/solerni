@@ -15,7 +15,7 @@
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
       </KEYS>
-      <INDEXES>        
+      <INDEXES>
 	<INDEX NAME="usercourse" UNIQUE="true" FIELDS="userid, courseid"/>
       </INDEXES>
     </TABLE>
@@ -39,8 +39,8 @@
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
       </KEYS>
-      <INDEXES>        
-	<INDEX NAME="usercourse" UNIQUE="true" FIELDS="userid, courseid"/>
+      <INDEXES>
+	<INDEX NAME="usercourse" UNIQUE="true" FIELDS="hostid, timeupdated"/>
       </INDEXES>
     </TABLE>
   </TABLES>

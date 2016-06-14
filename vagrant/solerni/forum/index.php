@@ -15,7 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Forum -- a forum page 
+ * Forum -- a forum landing page for the Moodle instance.
+ *
  *
  * - this page is completed with any blocks by moosh
  * - if user has capability moodle/block:edit , he can manage the blocks
@@ -32,8 +33,8 @@ redirect_if_major_upgrade_required();
 
 // TODO Add sesskey check to edit
 $edit   = optional_param('edit', null, PARAM_BOOL);    // Turn editing on and off.
-
 $hassiteconfig = has_capability('moodle/site:config', context_system::instance());
+
 if ($hassiteconfig && moodle_needs_upgrading()) {
     redirect(new moodle_url('/admin/index.php'));
 }
@@ -48,22 +49,20 @@ if (isloggedin()) {
     $context = context_system::instance();
 }
 
-
 // Start setting up the page.
-$params = array();
 $PAGE->set_context($context);
-$PAGE->set_url('/forum/index.php', $params);
-$PAGE->set_pagelayout('forum');
+$PAGE->set_url('/forum/index.php', array());
+$PAGE->set_pagelayout('basenotitle');
 $PAGE->set_pagetype('forum-index');
-$PAGE->set_title($SITE->shortname . ' : ' . get_string('forum_page_title', 'theme_halloween'));
+$PAGE->set_title(get_string('forum_page_title', 'theme_halloween') . ' - ' . $SITE->fullname);
 $PAGE->blocks->add_region('content');
-$loginsite  = get_string("forumnavbar", "theme_halloween");
+$loginsite = get_string("forumnavbar", "theme_halloween");
 $PAGE->navbar->add($loginsite);
 
 // This page is not available on Solerni HOME
-if (local_orange_library\utilities\utilities_network::is_platform_uses_mnet() && 
-        local_orange_library\utilities\utilities_network::is_home()) {
-    redirect($CFG->wwwroot);
+if (local_orange_library\utilities\utilities_network::is_platform_uses_mnet()
+    && local_orange_library\utilities\utilities_network::is_home()) {
+        redirect($CFG->wwwroot);
 }
 
 // Toggle the editing state and switches.
@@ -97,5 +96,4 @@ if ($PAGE->user_allowed_editing()) {
 
 echo $OUTPUT->header();
 echo $OUTPUT->custom_block_region('content');
-
 echo $OUTPUT->footer();

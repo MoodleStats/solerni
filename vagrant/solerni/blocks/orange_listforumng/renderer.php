@@ -56,15 +56,13 @@ class block_orange_listforumng_renderer extends plugin_renderer_base {
         $output .= html_writer::start_tag('div', array('class' => 'row orange-listforumng-content'));
 
         foreach ($listforumngdisplay as $forumng) {
-            $output .= html_writer::start_tag('div', array('class' => 'row boxhover orange-listforumng-item u-row-table'));
-                // Read / unread.
+            $output .= html_writer::start_tag('div', array('class' => 'row u-row-table orange-listforumng-item'));
 
                 $output .= html_writer::start_tag('div', array('class' => 'col-md-6 text-left u-vertical-align'));
-
                     $output .= html_writer::start_tag('div', array('class' => 'row u-row-table'));
-                        $output .= html_writer::start_tag('div',
-                                array('class' => 'col-md-1 text-right orange-listforumng-item-status u-vertical-align'));
+                        $output .= html_writer::start_tag('div', array('class' => 'col-md-1 text-right orange-listforumng-item-status u-vertical-align'));
 
+                        // Read / unread.
                         if ($forumng['postunread']) {
                             $output .= html_writer::start_tag('span', array('class' => 'text-left glyphicon glyphicon-arrow-right'));
                         } else {
@@ -74,14 +72,17 @@ class block_orange_listforumng_renderer extends plugin_renderer_base {
 
                         $output .= html_writer::end_tag('div');
 
-                        // Forum : Title, description and date created.
-                        $output .= html_writer::start_tag('div',
-                                array('class' => 'col-md-11 text-left u-vertical-align'));
-                            $output .= html_writer::link($CFG->wwwroot. "/mod/forumng/view.php?&id=" . $forumng['instance'],
-                                    '<strong>' . $forumng['name'] . '</strong>');
-                            $output .= html_writer::empty_tag('br');
-                            $output .= html_writer::tag('span', utilities_object::trim_text($forumng['intro'], 100));
-                            $output .= html_writer::end_tag('span');
+                        // Forum : Title and description.
+                        $output .= html_writer::start_tag('div', array('class' => 'col-md-11 text-left u-vertical-align'));
+                            $output .= html_writer::start_tag('div');
+                                $output .= html_writer::link($CFG->wwwroot. "/mod/forumng/view.php?&id=" . $forumng['instance'],
+                                        '<strong>' . $forumng['name'] . '</strong>');
+                            $output .= html_writer::end_tag('div');
+
+                            $output .= html_writer::start_tag('div');
+                                $output .= html_writer::tag('span', utilities_object::trim_text($forumng['intro'], 100));
+                                $output .= html_writer::end_tag('span');
+                            $output .= html_writer::end_tag('div');
                         $output .= html_writer::end_tag('div');
 
                     $output .= html_writer::end_tag('div');
@@ -89,40 +90,56 @@ class block_orange_listforumng_renderer extends plugin_renderer_base {
 
                 // Nb disucssions and nb posts.
                 $output .= html_writer::start_tag('div', array('class' => 'col-md-2 text-left text-bold u-vertical-align'));
-                    $output .= html_writer::tag('span', $forumng['nbdiscus'], array('class' => 'text-orange'));
-                    $output .= html_writer::end_tag('span');
-                    $output .= html_writer::tag('span', utilities_object::get_string_plural($forumng['nbdiscus'], 'block_orange_listforumng', 'discussion', 'discussionplural'));
-                    $output .= html_writer::end_tag('span');
-                    $output .= html_writer::empty_tag('br');
-                    $output .= html_writer::tag('span', $forumng['nbposts'], array('class' => 'text-orange'));
-                    $output .= html_writer::end_tag('span');
-                    $output .= html_writer::tag('span', utilities_object::get_string_plural($forumng['nbposts'], 'block_orange_listforumng', 'message', 'messageplural'));
-                    $output .= html_writer::end_tag('span');
+
+                    $output .= html_writer::start_tag('div');
+                        $output .= html_writer::tag('span', $forumng['nbdiscus'], array('class' => 'text-orange'));
+                        $output .= html_writer::end_tag('span');
+                        $output .= html_writer::tag('span', utilities_object::get_string_plural($forumng['nbdiscus'], 'block_orange_listforumng', 'discussion', 'discussionplural'));
+                        $output .= html_writer::end_tag('span');
+                    $output .= html_writer::end_tag('div');
+
+                    $output .= html_writer::start_tag('div');
+                        $output .= html_writer::tag('span', $forumng['nbposts'], array('class' => 'text-orange'));
+                        $output .= html_writer::end_tag('span');
+                        $output .= html_writer::tag('span', utilities_object::get_string_plural($forumng['nbposts'], 'block_orange_listforumng', 'message', 'messageplural'));
+                        $output .= html_writer::end_tag('span');
+                    $output .= html_writer::end_tag('div');
+
                 $output .= html_writer::end_tag('div');
 
                 $output .= html_writer::start_tag('div', array('class' => 'col-md-4 text-left u-vertical-align'));
+
                     $output .= html_writer::start_tag('div', array('class' => 'row'));
                         // User picture.
-                        $output .= html_writer::start_tag('div', array('class' => 'col-md-2 text-left'));
+                        $output .= html_writer::start_tag('div', array('class' => 'col-md-2'));
                             $output .= html_writer::tag('span', $forumng['picture']);
                             $output .= html_writer::end_tag('span');
                         $output .= html_writer::end_tag('div');
 
                         // Last post : name of discusssion, name of user, date created.
-                        $output .= html_writer::start_tag('div', array('class' => 'col-md-10 text-left'));
-                            $output .= html_writer::tag('span', utilities_object::trim_text($forumng['discussionname'], 30), array('class' => 'text-bold'));
-                            $output .= html_writer::end_tag('span');
-                            $output .= html_writer::empty_tag('br');
-                            $output .= html_writer::tag('span',
-                                    get_string('from', 'block_orange_listforumng') . $forumng['usernamelastpost']);
-                            $output .= html_writer::end_tag('span');
-                            $output .= html_writer::empty_tag('br');
-                            $output .= html_writer::tag('span', $forumng['datelastpost']);
-                            $output .= html_writer::end_tag('span');
-                            $output .= html_writer::empty_tag('br');
-                        $output .= html_writer::end_tag('div');
+                        if ($forumng['nbdiscus'] > 0) {
+                            $output .= html_writer::start_tag('div', array('class' => 'col-md-12'));
+                                $output .= html_writer::start_tag('div');
+                                    $output .= html_writer::tag('span', utilities_object::trim_text($forumng['discussionname'], 30), array('class' => 'text-bold'));
+                                    $output .= html_writer::end_tag('span');
+                                $output .= html_writer::end_tag('div');
+
+                                $output .= html_writer::start_tag('div');
+                                    $output .= html_writer::tag('span',
+                                            get_string('from', 'block_orange_listforumng') . $forumng['usernamelastpost']);
+                                    $output .= html_writer::end_tag('span');
+                                $output .= html_writer::end_tag('div');
+
+                                $output .= html_writer::start_tag('div');
+                                    $output .= html_writer::tag('span', $forumng['datelastpost']);
+                                    $output .= html_writer::end_tag('span');
+                                $output .= html_writer::end_tag('div');
+
+                            $output .= html_writer::end_tag('div');
+                        }
 
                     $output .= html_writer::end_tag('div');
+
                 $output .= html_writer::end_tag('div');
 
             $output .= html_writer::end_tag('div');

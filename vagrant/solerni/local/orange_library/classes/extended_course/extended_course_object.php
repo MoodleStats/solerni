@@ -461,7 +461,7 @@ class extended_course_object {
     private function set_workingtime($extendedcourseflexpagevalue) {
         $this->workingtime = get_string('workingtime_default', 'local_orange_library');
         if ($extendedcourseflexpagevalue->value != 0) {
-            $this->workingtime = utilities_object::duration_to_week($extendedcourseflexpagevalue->value);
+            $this->workingtime = utilities_object::duration_to_time($extendedcourseflexpagevalue->value);
         }
     }
 
