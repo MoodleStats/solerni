@@ -59,7 +59,9 @@ class block_orange_horizontal_numbers_renderer extends plugin_renderer_base {
         $output .= html_writer::end_tag('div');
 
         $output .= html_writer::start_tag('div', array('class' => 'row'));
-            $output .= html_writer::tag('div', '', array('class' => 'col-xs-12 fullwidth-line'));
+            $output .= html_writer::start_tag('div', array('class' => 'col-xs-12'));
+                $output .= html_writer::tag('div', '', array('class' => 'fullwidth-line'));
+            $output .= html_writer::end_tag('div');
         $output .= html_writer::end_tag('div');
 
         $output .= html_writer::start_tag('div', array('class' => 'row orange-horizontal-numbers__mainbody u-row-table'));
@@ -88,7 +90,9 @@ class block_orange_horizontal_numbers_renderer extends plugin_renderer_base {
         $output .= html_writer::end_tag('div');
 
         $output .= html_writer::start_tag('div', array('class' => 'row'));
-            $output .= html_writer::tag('div', '', array('class' => 'col-xs-12 fullwidth-line'));
+            $output .= html_writer::start_tag('div', array('class' => 'col-xs-12'));
+                $output .= html_writer::tag('div', '', array('class' => 'fullwidth-line'));
+            $output .= html_writer::end_tag('div');
         $output .= html_writer::end_tag('div');
 
         $output .= html_writer::start_tag('div', array('class' => 'row'));
