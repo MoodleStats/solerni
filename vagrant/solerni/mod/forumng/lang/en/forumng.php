@@ -450,9 +450,9 @@ scroll to the bottom and click &lsquo;Confirm selection&rsquo;.';
 $string['setimportant'] = 'Mark posts as important';// Used by moderators, highlight important posts.
 $string['important'] = 'Important post'; // alt text for important icon
 $string['flaggeddiscussions'] = 'Flagged discussions';
-$string['flaggeddiscussionslink'] = '{$a} flagged discussions';
+$string['flaggeddiscussionslink'] = '{$a} flagged discussion(s)';
 $string['flaggedposts'] = 'Flagged posts';
-$string['flaggedpostslink'] = '{$a} flagged posts';
+$string['flaggedpostslink'] = '{$a} flagged post(s)';
 $string['post'] = 'Post';
 $string['author'] = 'Author';
 $string['clearflag'] = 'Remove flag';
