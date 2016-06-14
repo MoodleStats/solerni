@@ -83,10 +83,12 @@ class block_orange_iconsmap_renderer extends plugin_renderer_base {
                     break;
                     case 'sequence':
                         $output .= html_writer::tag('span', $extendedcourse->duration, array('class' => 'h2 orange-typical-line-height'));
+                        $output .= get_string('slash', 'block_orange_iconsmap');
                         $output .= get_string('weeks', 'block_orange_iconsmap');
                     break;
                     case 'time':
-                        $output .= html_writer::tag('span', $extendedcourse->workingtime . "H", array('class' => 'h2 orange-typical-line-height'));
+                        $output .= html_writer::tag('span', $extendedcourse->workingtime, array('class' => 'h2 orange-typical-line-height'));
+                        $output .= get_string('slash', 'block_orange_iconsmap');
                         $output .= get_string('weeks', 'block_orange_iconsmap');
                     break;
                     case 'certificate':

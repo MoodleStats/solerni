@@ -285,11 +285,6 @@ class format_flexpage extends format_base {
                     'default' => get_config('language', 'format_flexpage'),
                     'type' => PARAM_INT
                 ),
-
-                'coursesubtitle' => array(
-                    'default' => get_config('coursesubtitle', 'format_flexpage'),
-                    'type' => PARAM_INT
-                ),
                 'courseregistration' => array(
                     'default' => get_config('registration', 'format_flexpage'),
                     'type' => PARAM_INT
@@ -412,10 +407,11 @@ class format_flexpage extends format_base {
                     'help_component' => 'format_flexpage',
                     'element_type' => 'duration',
                     'element_attributes' => array(
-                    'defaultunit' => 86400,
-                    'units' => array(3600, 86400),
-                    'optional' => true
+                    'options' => array(
+                        'defaultunit' => 3600,
+                        'optional' => false
                         )
+                    )
                 ),
                 'courseprice' => array(
                     'label' => get_string('price', 'format_flexpage'),
@@ -439,13 +435,6 @@ class format_flexpage extends format_base {
                 'coursecertification' => array(
                     'label' => get_string('certification', 'format_flexpage'),
                     'help' => 'certification',
-                    'help_component' => 'format_flexpage',
-                    'element_type' => 'advcheckbox'
-                ),
-
-                'coursesubtitle' => array(
-                    'label' => get_string('subtitle', 'format_flexpage'),
-                    'help' => 'subtitle',
                     'help_component' => 'format_flexpage',
                     'element_type' => 'advcheckbox'
                 ),
@@ -490,10 +479,12 @@ class format_flexpage extends format_base {
                     'help' => 'duration',
                     'help_component' => 'format_flexpage',
                     'element_type' => 'duration',
+
                     'element_attributes' => array(
-                    'defaultunit' => 86400,
-                    'units' => array(3600, 86400),
-                    'optional' => false
+                    'options' => array(
+                        'defaultunit' => 604800,
+                        'optional' => false
+                        )
                     )
                 ),
                 'coursecontactemail' => array(
