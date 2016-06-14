@@ -1006,6 +1006,7 @@ class utilities_course {
 
         // For Moodle we are on a MOOC but not for Solerni.
         if ($SCRIPT == "/user/view.php" ||
+            $SCRIPT == "/enrol/self/unenrolself.php" ||
             $SCRIPT == "/local/mail/compose.php") {
             return false;
         }
