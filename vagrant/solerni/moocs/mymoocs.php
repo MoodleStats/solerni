@@ -43,6 +43,7 @@ $title = get_string('titlefollowedcourses', 'block_orange_course_dashboard');
 $PAGE->set_title($title);
 $PAGE->set_heading($title);
 $PAGE->set_pagelayout('mydashboard');
+$PAGE->set_pagetype('moocs-mymoocs');
 
 echo $OUTPUT->header();
 

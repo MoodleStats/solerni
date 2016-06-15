@@ -119,8 +119,7 @@ function block_orange_action_get_course($courseid) {
     // Get Solerni extended informations for the course.
     $extendedcourse = new extended_course_object();
     $extendedcourse->get_extended_course($course, $context);
-
-    if ($extendedcourse->coursestatus === utilities_course::MOOCCLOSED) {
+    if (($extendedcourse->coursestatus === utilities_course::MOOCCLOSED) && ($PAGE->pagetype != 'mooc-view')) {
         return false;
     }
 

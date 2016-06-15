@@ -237,19 +237,10 @@ class enrol_orangenextsession_plugin extends enrol_plugin {
 
         $context = context_course::instance($instance->courseid, MUST_EXIST);
 
-        $rusers = array();
-        if (!empty($CFG->coursecontact)) {
-            $croles = explode(',', $CFG->coursecontact);
-            $rusers = get_role_users($croles, $context, true, '', 'r.sortorder ASC, u.lastname ASC');
-        }
-        if ($rusers) {
-            $contact = reset($rusers);
-        } else {
-            $contact = core_user::get_support_user();
-        }
+        $supportuser = core_user::get_support_user();
 
         // Directly emailing welcome message rather than using messaging.
-        email_to_user($user, $contact, $subject, $message, $messagehtml);
+        email_to_user($user, $supportuser, $subject, $message, $messagehtml);
     }
 
     /**
