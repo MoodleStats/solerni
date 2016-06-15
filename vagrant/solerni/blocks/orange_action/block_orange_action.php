@@ -110,7 +110,7 @@ class block_orange_action extends block_base {
         $this->content->text = '';
         $this->content->footer = '';
 
-        // @todo Course Dashboard.
+        /*@todo Course Dashboard.*/
         if (block_orange_action_on_course_dashboard_page()) {
             $this->content->text = $this->renderer->display_on_course_dashboard();
         }
@@ -132,8 +132,10 @@ class block_orange_action extends block_base {
 
         // Homepage thematic.
         if (block_orange_action_on_thematic_homepage()) {
-            $title = (!empty($this->config->title)) ? $this->config->title : format_text(get_string('titledefault', 'block_orange_action'));
-            $subtitle = (!empty($this->config->subtitle)) ? $this->config->subtitle : format_text(get_string('subtitledefault', 'block_orange_action'));
+            $title = (!empty($this->config->title)) ?
+                    $this->config->title : format_text(get_string('titledefault', 'block_orange_action'));
+            $subtitle = (!empty($this->config->subtitle)) ?
+                    $this->config->subtitle : format_text(get_string('subtitledefault', 'block_orange_action'));
 
             $this->content->text = $this->renderer->display_on_thematic_homepage($title, $subtitle);
         }
