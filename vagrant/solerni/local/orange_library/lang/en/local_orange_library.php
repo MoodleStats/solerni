@@ -41,7 +41,7 @@ $string['mooc_open_date']       = 'Available on {$a}';
 $string['acces_to_archive']     = 'Access to course archive';
 $string['enrolled_users']       = 'enrolled users';
 $string['unsubscribe']          = 'unsubscribe';
-$string['new_session']          = 'new_session';
+$string['new_session']          = 'I like to be notified of the next session';
 
 // Extended course object.
 $string['english']              = 'English';

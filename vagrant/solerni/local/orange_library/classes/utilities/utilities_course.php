@@ -736,54 +736,6 @@ class utilities_course {
     }
 
     /**
-     *
-     * @param type $extendedcourse
-     * @return type
-     */
-    private function incoming_unsubscribe($extendedcourse) {
-
-        $extendedcourse->statuslink = $extendedcourse->unenrolurl;
-        $extendedcourse->statustext = get_string('status_default', 'local_orange_library');
-        return $extendedcourse;
-    }
-
-    /**
-     * course running + unsubscription link + button active
-     * @param type $extendedcourse
-     * @return type
-     */
-    private function running_unsubscribe($extendedcourse) {
-
-        $extendedcourse->statuslink = $extendedcourse->unenrolurl;
-        $extendedcourse->statustext = get_string('status_running', 'local_orange_library');
-        return $extendedcourse;
-    }
-
-    /**
-     * new session state + registration closed + button disabled state
-     * @param type $extendedcourse
-     * @return type
-     */
-    private function new_session($extendedcourse) {
-
-        $extendedcourse->statuslink = get_string('new_session', 'local_orange_library');
-        $extendedcourse->statustext = get_string('registration_closed', 'local_orange_library');
-        return $extendedcourse;
-    }
-
-    /**
-     * subscription closed and button disabled state
-     * @param type $extendedcourse
-     * @return type
-     */
-    private function subscription_closed($extendedcourse) {
-
-        $extendedcourse->statuslink = "#";
-        $extendedcourse->statustext = get_string('registration_closed', 'local_orange_library');
-        return $extendedcourse;
-    }
-
-    /**
      * Check the course configuration for the mandatory params.
      *
      * @return string (HTML content of error message

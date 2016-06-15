@@ -155,10 +155,11 @@ class block_orange_action_renderer extends plugin_renderer_base {
                 // Second cell.
                 $output .= html_writer::start_tag('div', array('class' => 'col-xs-12 col-md-4 orange-action-banner-cell button-container'));
                     $output .= $extendedcourse->displaybutton;
-                    // If next session link should be display.
-                    if ($extendedcourse->registrationstatus == utilities_course::MOOCREGISTRATIONCOMPLETE) {
-                                $output .= html_writer::tag('a', get_string('nextsessionlink', 'block_orange_action'),
-                            array('href' => $extendedcourse->newsessionurl ));
+                    // If status link should be display.
+                    if ($extendedcourse->statuslink != "#") {
+                        $output .= html_writer::start_tag('p', array('class' => 'status-link'));
+                            $output .= html_writer::tag('a', $extendedcourse->statuslinktext, array('href' => $extendedcourse->statuslink ));
+                        $output .= html_writer::end_tag('p');
                     }
                 $output .= html_writer::end_tag('div');
             $output .= html_writer::end_tag('div');

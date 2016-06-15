@@ -145,9 +145,7 @@ function check_course_redirection ($cookie=null, $enrolinvitationtoken=null, $co
                 $instanceself = array_pop($instances);
                 // Test that the user is not already enrolled; Already done in can_self_enrol but
                 // wrong error message.
-                if ($DB->get_record('user_enrolments', array('userid' => $USER->id, 'enrolid' => $instanceself->id))) {
-                    // If we need to display a specific message.
-                } else {
+                if (!$DB->get_record('user_enrolments', array('userid' => $USER->id, 'enrolid' => $instanceself->id))) {
                     $enrolstatus = $selfenrol->can_self_enrol($instanceself);
                     if (true === $enrolstatus) {
                         $selfenrol->enrol_self($instanceself);
@@ -186,9 +184,7 @@ function check_course_redirection ($cookie=null, $enrolinvitationtoken=null, $co
                     $waitlistenrol = new enrol_orangenextsession_plugin();
                     $instancewaitlist = array_pop($instancewaitlist);
                     $enrolstatus = $waitlistenrol->enrol_orangenextsession($instancewaitlist);
-                    if (true === $enrolstatus) {
-                        // If we need to display a specific message.
-                    } else {
+                    if ($enrolstatus !== true) {
                         $message = $enrolstatus;
                     }
                     $courseurl = $findoutmoreurl;

@@ -37,6 +37,7 @@ $action = optional_param('id2', null, PARAM_INT);
 setcookie ( 'MoodleEnrolToken', rc4encrypt($enrolinvitationtoken.'-'.$id.'-'.(int)$action), time() + 3600, '/');
 
 require_login();
+$PAGE->set_context(\context_course::instance($id));
 
 // Check if param token exist.
 if (!empty($enrolinvitationtoken)) {
