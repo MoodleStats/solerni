@@ -210,7 +210,7 @@ function controller_mooc_incoming_registration_not_available($context, $course, 
  * @return $extendedcourse
  * */
 function controller_mooc_running_registration_available($context, $course, &$extendedcourse) {
-    global $CFG;
+    global $CFG, $PAGE;
 
     $userstatus = utilities_user::get_user_status($context);
 
@@ -398,7 +398,7 @@ function subscription_closed($course, &$extendedcourse) {
 function course_running_button_enabled($course, &$extendedcourse) {
     global $PAGE, $CFG;
 
-    if (empty($CFG->solerni_isprivate)) {
+    if (empty($CFG->solerni_isprivate) && ($PAGE->pagetype == 'moocs-mymoocs')) {
         $extendedcourse->statuslink = $extendedcourse->unenrolurl;
         $extendedcourse->statuslinktext = get_string('unsubscribe', 'local_orange_library');
     } else {
