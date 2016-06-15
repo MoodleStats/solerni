@@ -155,7 +155,8 @@ class enrollment_object {
         global $DB, $USER;
 
         $instance = $this->get_orangenextsession_enrolment($course);
-        if ($DB->record_exists('user_enrol_nextsession', array('userid' => $USER->id, 'instanceid' => $instance->id))) {
+
+        if ($instance && $DB->record_exists('user_enrol_nextsession', array('userid' => $USER->id, 'instanceid' => $instance->id))) {
             return true;
         }
 

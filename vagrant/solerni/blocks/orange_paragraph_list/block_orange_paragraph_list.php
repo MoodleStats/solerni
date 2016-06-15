@@ -83,7 +83,7 @@ class block_orange_paragraph_list extends block_base {
      * for just one iteration.
      *
      * @global $COURSE
-     * 
+     *
      * @return string <DOM fragment>
      */
     public function get_content() {
@@ -105,7 +105,7 @@ class block_orange_paragraph_list extends block_base {
         return $this->content;
     }
 
-        /**
+    /**
      * Sets block header to be hidden
      *
      * @return bool if true then header will be visible.

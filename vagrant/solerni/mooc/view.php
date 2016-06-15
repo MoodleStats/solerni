@@ -26,6 +26,7 @@
 use theme_halloween\tools\theme_utilities;
 
 require_once(dirname(dirname(__FILE__)) . '/config.php');
+use local_orange_library\extended_course\extended_course_object;
 
 $courseid = optional_param('courseid', 0, PARAM_INT); // Course ID.
 $url = new moodle_url('/mooc/view.php');
@@ -37,6 +38,11 @@ $course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
 $PAGE->set_course($course);
 $PAGE->set_context(\context_course::instance($course->id));
 $PAGE->set_title(get_string('pagetitle', 'block_orange_iconsmap') . $course->fullname);
+
+$extendedcourse = new extended_course_object();
+$extendedcourse->get_extended_course($course);
+
+$themeutilities = new theme_utilities();
 
 echo $OUTPUT->header();
 echo $OUTPUT->custom_block_region('content');

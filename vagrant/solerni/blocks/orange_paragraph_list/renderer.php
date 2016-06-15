@@ -39,10 +39,10 @@ class block_orange_paragraph_list_renderer extends plugin_renderer_base {
         }
 
         $output = html_writer::start_tag('div', array('class' => 'zigzag'));
-
+        ksort($findoutmore->paragraphtitle,SORT_NATURAL);
         foreach ($findoutmore->paragraphtitle as $index => $value) {
-            if(!$value || !$findoutmore->paragraphdescription[$index]) {
-                continue; // we skip the row if we do not have title & text.
+            if (!$value || !$findoutmore->paragraphdescription[$index]) {
+                continue; // We skip the row if we do not have title & text.
             }
             $output .= $this->render_paragraph_row($findoutmore, $index);
         }
@@ -65,13 +65,13 @@ class block_orange_paragraph_list_renderer extends plugin_renderer_base {
         $output = html_writer::start_tag('div', array('class' => 'zigzag-row' . $zigzagclass));
             $output .= html_writer::start_tag('div', array('class' => 'row'));
 
-            if ($odd) {
-                $output .= $this->render_paragraph_cell_image($imgvalues, $odd);
-                $output .= $this->render_paragraph_cell_text($textvalues, $odd);
-            } else {
-                $output .= $this->render_paragraph_cell_text($textvalues, $odd);
-                $output .= $this->render_paragraph_cell_image($imgvalues, $odd);
-            }
+        if ($odd) {
+            $output .= $this->render_paragraph_cell_image($imgvalues, $odd);
+            $output .= $this->render_paragraph_cell_text($textvalues, $odd);
+        } else {
+            $output .= $this->render_paragraph_cell_text($textvalues, $odd);
+            $output .= $this->render_paragraph_cell_image($imgvalues, $odd);
+        }
 
             $output .= html_writer::end_tag('div');
         $output .= html_writer::end_tag('div');
