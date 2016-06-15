@@ -22,8 +22,6 @@
     <TABLE NAME="thematic_info" COMMENT="Store information about thematics">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="User ID"/>
-        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Course ID"/>
         <FIELD NAME="hostid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Host ID"/>
         <FIELD NAME="available" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" COMMENT="Thematic availability"/>
         <FIELD NAME="nbmooc" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Number of Moocs"/>
