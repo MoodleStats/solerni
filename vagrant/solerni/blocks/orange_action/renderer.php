@@ -165,9 +165,8 @@ class block_orange_action_renderer extends plugin_renderer_base {
                     $output .= $extendedcourse->displaybutton;
                     // If status link should be display.
                     if ($extendedcourse->statuslink != "#") {
-                        $output .= html_writer::start_tag('p', array('class' => 'status-link'));
-                            $output .= html_writer::tag('a', $extendedcourse->statuslinktext, array('href' => $extendedcourse->statuslink ));
-                        $output .= html_writer::end_tag('p');
+                        $output .= html_writer::tag('a', $extendedcourse->statuslinktext,
+                                array('class' => 'status-link', 'href' => $extendedcourse->statuslink ));
                     }
                 $output .= html_writer::end_tag('div');
             $output .= html_writer::end_tag('div');
