@@ -284,10 +284,9 @@ class theme_utilities {
         $output = html_writer::start_tag('div', array('class' => 'row' . $csscontainer));
             $output .= html_writer::tag('div', $extendedcourse->displaybutton, array('class' => $cssbutton));
 
-                // If next session link shoulfd be display.
-            if ($extendedcourse->registrationstatus == utilities_course::MOOCREGISTRATIONCOMPLETE) {
-                        $output .= html_writer::tag('a', get_string('nextsessionlink', 'block_orange_action'),
-                    array('class' => '', 'href' => $extendedcourse->newsessionurl ));
+            if ($extendedcourse->statuslink != "#") {
+                $output .= html_writer::tag('a', $extendedcourse->statuslinktext, 
+                        array('class' => 'status-link', 'href' => $extendedcourse->statuslink ));
             }
         $output .= html_writer::end_tag('div');
 
