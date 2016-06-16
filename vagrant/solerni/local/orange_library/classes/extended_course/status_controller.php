@@ -210,7 +210,7 @@ function controller_mooc_incoming_registration_not_available($context, $course, 
  * @return $extendedcourse
  * */
 function controller_mooc_running_registration_available($context, $course, &$extendedcourse) {
-    global $CFG;
+    global $CFG, $PAGE;
 
     $userstatus = utilities_user::get_user_status($context);
 
@@ -357,13 +357,12 @@ function running_unsubscribe($course, &$extendedcourse) {
  * */
 function new_session($course, &$extendedcourse) {
     global $PAGE;
-    $pagetype = $PAGE->pagetype;
 
     // Check if user is not already enrol for next session.
     $enrolmentobject = new enrollment_object();
     $enrolstatus = $enrolmentobject->is_enrol_orangenextsession($course);
 
-    if ((!$enrolstatus) && ($pagetype == 'mod-descriptionpage-view')) {
+    if ((!$enrolstatus) && ($PAGE->pagetype == 'mooc-view')) {
         $extendedcourse->statuslink = $extendedcourse->newsessionurl;
         $extendedcourse->statuslinktext = get_string('new_session', 'local_orange_library');
 
@@ -399,7 +398,7 @@ function subscription_closed($course, &$extendedcourse) {
 function course_running_button_enabled($course, &$extendedcourse) {
     global $PAGE, $CFG;
 
-    if (empty($CFG->solerni_isprivate)) {
+    if (empty($CFG->solerni_isprivate) && ($PAGE->pagetype == 'moocs-mymoocs')) {
         $extendedcourse->statuslink = $extendedcourse->unenrolurl;
         $extendedcourse->statuslinktext = get_string('unsubscribe', 'local_orange_library');
     } else {

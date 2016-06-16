@@ -27,7 +27,6 @@ $string['config_default_title'] = 'Orange action';
 $string['hideblockheader'] = 'Masquer le titre';
 $string['hideblockheaderdesc'] = 'Permet de masquer le titre du bloc';
 $string['enrolledusers'] = '{$a->number} inscrit{$a->plural}';
-$string['nextsessionlink'] = 'Je souhaite être averti de la prochaine session.';
 $string['coursetopush'] = 'Cours à mettre en avant';
 $string['coursetopush_help'] = 'Sélectionner le cours qui sera mis en avant sur le dashboard des utilisateurs (Seuls les cours non terminés sont présentés).';
 $string['eventtopush'] = 'Evénement à mettre en avant';
