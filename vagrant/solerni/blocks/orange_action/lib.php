@@ -101,7 +101,7 @@ function block_orange_action_get_course($courseid) {
     global $CFG, $DB, $PAGE;
 
     if (!$course = $DB->get_record('course', array('id' => $courseid))) {
-        error_log('Invalid course id: ' . $courseid . ' Cannot get content for block_orange_action.');
+        debugging('Invalid course id: ' . $courseid . ' Cannot get content for block_orange_action.', DEBUG_DEVELOPER);
         return false;
     }
 
@@ -119,8 +119,7 @@ function block_orange_action_get_course($courseid) {
     // Get Solerni extended informations for the course.
     $extendedcourse = new extended_course_object();
     $extendedcourse->get_extended_course($course, $context);
-
-    if ($extendedcourse->coursestatus === utilities_course::MOOCCLOSED) {
+    if (($extendedcourse->coursestatus === utilities_course::MOOCCLOSED) && ($PAGE->pagetype != 'mooc-view')) {
         return false;
     }
 
@@ -188,7 +187,7 @@ function block_orange_action_get_event($eventid) {
     $query = "SELECT * FROM {event} WHERE id = ? AND timestart >= ? LIMIT 1";
 
     if (!$event = $DB->get_records_sql($query, array( $eventid, time()))) {
-        error_log('Invalid event id: ' . $eventid . ' Cannot get content for block_orange_action.');
+        debugging('Invalid event id: ' . $eventid . ' Cannot get content for block_orange_action.', DEBUG_DEVELOPER);
         return false;
     }
 

@@ -47,10 +47,10 @@ class block_orange_social_sharing_renderer extends plugin_renderer_base {
         $count = $shareonarray->count;
         $text = html_writer::start_tag('ul', array('class' => "list-unstyled list-social text-oneline"));
             $text .= html_writer::tag("li", $title , array('class' => "social-item h7 hidden-xs"));
-                for ($i = 1; $i <= $count; $i++) {
-                    $shareonarray->setCurrent($i);
-                    $socialclassarray->setCurrent($i);
-                    $socialurlarray->setCurrent($i);
+        for ($i = 1; $i <= $count; $i++) {
+            $shareonarray->setCurrent($i);
+            $socialclassarray->setCurrent($i);
+            $socialurlarray->setCurrent($i);
 
                     $text .= html_writer::start_tag('li', array('class' => 'social-item'));
                         $text .= html_writer::link(

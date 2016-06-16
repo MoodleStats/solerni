@@ -220,8 +220,9 @@ class utilities_image {
     private static function update_original_in_cache($image, $remotefolder, $cacheexpireminute) {
         $downloadimage = true;
         if (is_a($image , 'stored_file')) {
-            $localfilepath = $remotefolder.$image->get_filename();
+            $localfilepath = $remotefolder.$image->get_contenthash()."_".$image->get_filename();
             if (file_exists($localfilepath) && filesize($localfilepath) &&
+                (filemtime($localfilepath) >= $image->get_timecreated()) &&
                 ($image->get_timecreated() < strtotime('+'.$cacheexpireminute.' minutes'))) {
                 $downloadimage = false;
             }
