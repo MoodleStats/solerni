@@ -5,7 +5,7 @@
 
 .u-row-table {
 
-    @media (min-width: @screen-md-min) {
+    @media (min-width: @screen-md-min) { // can't remember why we use a media query on a utility ??
         display: table;
         width: 100%;
 
@@ -14,7 +14,16 @@
             float: none;
         }
     }
+}
 
+.u-row-table-no-breakpoint {
+    display: table;
+    width: 100%;
+
+    [class^="col-"] {
+        display: table-cell;
+        float: none;
+    }
 }
 
 .u-vertical-align {
