@@ -22,10 +22,13 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Orange Statistics';
-$string['config_default_title'] = 'Block statisticss';
+$string['pluginname'] = 'Statistics block';
+$string['config_default_title'] = 'Statistics';
+$string['overviewbutton'] = 'Your progress';
 
 // For capabilities.
 $string['orange_statistics:overview'] = 'Overview of statistics';
 $string['orange_statistics:addinstance'] = 'Add a new statistic block';
 $string['orange_statistics:myaddinstance'] = 'Add a statistic block to My home page';
+// Cron Tasks.
+$string['orange_inactive_users'] = "orange_inactive_users";

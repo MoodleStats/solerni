@@ -27,19 +27,10 @@ defined('MOODLE_INTERNAL') || die();
 
 $tasks = array(
     array(
-        'classname' => '\local_orange_library\task\orange_library_mnet_task',
+        'classname' => '\block_orange_statistics\task\orange_inactive_users',
         'blocking' => 0,
         'minute' => '30',
         'hour' => '23',
-        'day' => '*',
-        'dayofweek' => '*',
-        'month' => '*'
-    ),
-    array(
-        'classname' => '\local_orange_library\task\orange_library_thematic_task',
-        'blocking' => 0,
-        'minute' => '*/10',
-        'hour' => '*',
         'day' => '*',
         'dayofweek' => '*',
         'month' => '*'

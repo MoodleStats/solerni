@@ -23,22 +23,29 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-class inactive_users  {
-    
+namespace block_orange_statistics\task;
+use local_orange_library\utilities\utilities_network;
 
-    public static function retreive_inactive_users() {
-        global $DB;
-        echo 'tot';
-        $course_id = $DB->get_recordset_sql("SELECT DISTINCT courseid
-                                        FROM {user_lastaccess}"
-                                        );
-        print_object($course_id);
+defined('MOODLE_INTERNAL') || die();
+
+
+class inactive_users_task extends \core\task\scheduled_task {
+
+    /**
+     * Get a descriptive name for this task (shown to admins).
+     *
+     * @return string
+     */
+    public function get_name() {
+        return get_string('orange_inactive_users', 'block_orange_statistics');
     }
+
+    /**
+     * Do the job.
+     * Throw exceptions on errors (the job will be retried).
+     */
+    public function execute() {
+        ;
+    }
+
 }
-        //foreach ($course_id as $idcourse) {
-            //$courseinactivitydelay= get_recordset_sql("SELECT value FROM {course_format_options WHERE name = ?" , array($) }"
-        //}
-          //  $users = $DB->get_recordset_sql("SELECT *
-                                           // FROM {user_lastaccess} WHERE courseid = ?" , array($idcourse);
-         //   foreach ($users)
-                      //  $user->timeaccess

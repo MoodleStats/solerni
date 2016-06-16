@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="local/orange_event_course_created" VERSION="2016032420" COMMENT="XMLDB file for Moodle course created"
+<XMLDB PATH="blocks/orange_statistics" VERSION="2016061420" COMMENT="XMLDB file for Moodle user dropout"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../../lib/xmldb/xmldb.xsd"
 >
   <TABLES>
-    <TABLE NAME="piwik_site" COMMENT="match between piwik site and solerni course id">
+    <TABLE NAME="user_dropout" COMMENT="store user dropout">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-        <FIELD NAME="piwik_siteid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="id of piwik site"/>
-        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Course ID"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="id of user"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="id of course"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
       </KEYS>
       <INDEXES>        
-	<INDEX NAME="piwik_siteid" UNIQUE="true" FIELDS="piwik_siteid"/>
-        <INDEX NAME="courseid" UNIQUE="true" FIELDS="courseid"/>
+	<INDEX NAME="userid" UNIQUE="false" FIELDS="userid"/>
+        <INDEX NAME="courseid" UNIQUE="false" FIELDS="courseid"/>
       </INDEXES>
     </TABLE>
   </TABLES>

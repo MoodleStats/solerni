@@ -22,7 +22,10 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['config_default_title'] = 'Block statisticss';
+$string['pluginname'] = 'Bloc statistique';
+$string['config_default_title'] = 'Statistiques';
+$string['overviewbutton'] = 'Voir le détail';
+
 
 
 // For capabilities.
@@ -30,3 +33,6 @@ $string['orange_statistics:overview'] = 'Détail de la statistique dans le cours
 $string['orange_statistics:addinstance'] = 'Rajouter un bloc statistics';
 $string['orange_statistics:myaddinstance'] = 'Rajouter un bloc statistic sur mon dashboard';
 $string['pluginname'] = 'Orange Statistics';
+
+// Cron Tasks.
+$string['orange_inactive_users'] = "apprenant ayant decrochés";
