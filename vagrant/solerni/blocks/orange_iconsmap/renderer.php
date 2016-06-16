@@ -74,37 +74,38 @@ class block_orange_iconsmap_renderer extends plugin_renderer_base {
 
                 $output .= html_writer::start_tag('div', array('class' => 'icon-map-body bold'));
 
-                switch ($name) {
-                    case 'calendar':
-                        $output .= html_writer::tag('div',
-                            date("d-m-Y", $course->startdate) . get_string('to', 'block_orange_iconsmap'),
-                            array());
-                        $output .= html_writer::tag('div', date("d-m-Y", $extendedcourse->enddate), array('class' => 'movetext'));
-                    break;
-                    case 'sequence':
-                        $output .= html_writer::tag('span', $extendedcourse->duration, array('class' => 'h2 orange-typical-line-height'));
-                        $output .= get_string('weeks', 'block_orange_iconsmap');
-                    break;
-                    case 'time':
-                        $output .= html_writer::tag('span', $extendedcourse->workingtime . "H", array('class' => 'h2 orange-typical-line-height'));
-                        $output .= get_string('weeks', 'block_orange_iconsmap');
-                    break;
-                    case 'certificate':
-                        $output .= html_writer::tag('span', get_string("certification", 'local_orange_library'),
-                                array('class' => 'orange-typical-line-height'));
-                    break;
-                    case 'badge':
-                        $output .= html_writer::tag('span', get_string("badge", 'local_orange_library'),
-                                array('class' => 'orange-typical-line-height'));
-                    break;
-                    case 'price':
-                        $content = ($extendedcourse->price)
-                            ? $extendedcourse->price
-                            : get_string("price_default", 'local_orange_library');
-                        $output .= html_writer::tag('span', $content,
-                                array('class' => 'orange-typical-line-height'));
-                    break;
-                }
+        switch ($name) {
+            case 'calendar':
+                $output .= html_writer::tag('div',
+                    date("d-m-Y", $course->startdate) . get_string('to', 'block_orange_iconsmap'),
+                    array());
+                $output .= html_writer::tag('div', date("d-m-Y", $extendedcourse->enddate), array('class' => 'movetext'));
+            break;
+            case 'sequence':
+                $output .= html_writer::tag('span', $extendedcourse->duration, array('class' => 'h2 orange-typical-line-height'));
+                $output .= " / ".get_string('sequence', 'block_orange_iconsmap');
+            break;
+            case 'time':
+                $output .= html_writer::tag('span', $extendedcourse->workingtime . "H",
+                        array('class' => 'h2 orange-typical-line-height'));
+                $output .= " / ".get_string('weeks', 'block_orange_iconsmap');
+            break;
+            case 'certificate':
+                $output .= html_writer::tag('span', get_string("certification", 'local_orange_library'),
+                        array('class' => 'orange-typical-line-height'));
+            break;
+            case 'badge':
+                $output .= html_writer::tag('span', get_string("badge", 'local_orange_library'),
+                        array('class' => 'orange-typical-line-height'));
+            break;
+            case 'price':
+                $content = ($extendedcourse->price) ?
+                    $extendedcourse->price :
+                    get_string("price_default", 'local_orange_library');
+                $output .= html_writer::tag('span', $content,
+                        array('class' => 'orange-typical-line-height'));
+            break;
+        }
 
                 $output .= html_writer::end_tag('div');
 

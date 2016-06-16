@@ -371,6 +371,8 @@ $string['course_edited_by']         = 'Course edited by {$a}';
 $string['lineinfobegin'] = 'You are ';
 $string['registered'] = ' registered including ';
 $string['registeredplural'] = ' registered including ';
-
 $string['connected'] = ' member connected now';
 $string['connectedplural'] = ' members connected now';
+
+// Mooc Dashboard
+$string['moocdashboard'] = 'Tableau de bord: ';

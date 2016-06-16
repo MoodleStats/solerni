@@ -137,4 +137,17 @@ class block_orange_listforumng extends block_base {
 
         return $this->content;
     }
+
+    /**
+     * Extension bg-color
+     *
+     * @return array
+     */
+
+    public function html_attributes() {
+        $attributes = parent::html_attributes();
+        $attributes['class'] .= ' bg-gray expanded';
+
+        return $attributes;
+    }
 }

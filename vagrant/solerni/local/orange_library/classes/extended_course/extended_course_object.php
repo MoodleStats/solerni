@@ -62,7 +62,7 @@ class extended_course_object {
      * The status of a course.
      * @var int $status
      */
-    public $status;
+   // public $status;
 
     /**
      * The picture of a course.
@@ -116,7 +116,7 @@ class extended_course_object {
      * The video of a course.
      * @var boolean $video
      */
-    public $video;
+    //public $video;
 
     /**
      * The subtitle of a course.
@@ -194,7 +194,7 @@ class extended_course_object {
      * The $statuslinktext of a course.
      * @var text $statuslinktext
      */
-    public $statuslinktext;
+    //public $statuslinktext;
     /**
      * The $statustext of a course.
      * @var text $statustext
@@ -294,19 +294,37 @@ class extended_course_object {
 
         global $DB;
 
+        $extendedcourseflexpagevalues = $DB->get_records('course_format_options',
+                array('courseid' => $course->id));
+        foreach ($extendedcourseflexpagevalues as $extendedcourseflexpagevalue) {
+            if ($extendedcourseflexpagevalue->format == "flexpage") {
+                $this->factory($extendedcourseflexpagevalue, $course, $context);
+            }
+        }
+
+    }
+
+    /**
+     * Create a new ExtendedCourse based on the flexpage values and course values
+     *
+     * @param $extendedcourseflexpagevalue
+     * @param $course
+     * @param $context
+     *
+     * @return EntityBody
+     * @throws InvalidArgumentException if the $resource arg is not a resource or string
+     */
+    private function factory($extendedcourseflexpagevalue, $course, $context) {
+
         $utilitiescourse = new utilities_course();
         $categoryid = $utilitiescourse->get_categoryid_by_courseid($course->id);
         $customer = customer_get_customerbycategoryid($categoryid);
         $enrolment = new enrollment_object();
         $instanceorangeinvitation = $enrolment->get_orangeinvitation_enrolment($course);
         $instanceself = $enrolment->get_self_enrolment($course);
-        $extendedcourseflexpagevalues = $DB->get_records('course_format_options',
-                array('courseid' => $course->id));
-        foreach ($extendedcourseflexpagevalues as $extendedcourseflexpagevalue) {
-            if ($extendedcourseflexpagevalue->format == "flexpage") {
-                $this->set_extended_course($extendedcourseflexpagevalue, $course, $context);
-            }
-        }
+
+        $this->set_extended_course($extendedcourseflexpagevalue, $course, $context);
+
         if (!$context) {
             $context = \context_course::instance($course->id);
         }
@@ -315,7 +333,9 @@ class extended_course_object {
         }
         $this->enrolledusers = count_enrolled_users($context);
 
-        $this->enrolledusersself = $enrolment->count_enrolled_users_by_instance($instanceself);
+        if ($instanceself) {
+            $this->enrolledusersself = $enrolment->count_enrolled_users_by_instance($instanceself);
+        }
 
         $this->enrolstartdate = $enrolment->get_enrolment_startdate($course);
 
@@ -343,6 +363,7 @@ class extended_course_object {
         $this->coursestatus = set_course_status($course, $context, $this);
 
     }
+
 
     /**
      *  Set the extended course values from the extended course flexpage values.
@@ -440,7 +461,7 @@ class extended_course_object {
     private function set_workingtime($extendedcourseflexpagevalue) {
         $this->workingtime = get_string('workingtime_default', 'local_orange_library');
         if ($extendedcourseflexpagevalue->value != 0) {
-            $this->workingtime = utilities_object::duration_to_week($extendedcourseflexpagevalue->value);
+            $this->workingtime = utilities_object::duration_to_time($extendedcourseflexpagevalue->value);
         }
     }
 
