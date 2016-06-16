@@ -23,13 +23,12 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace block_orange_statistics\task;
-use local_orange_library\utilities\utilities_network;
+namespace blocks_orange_statistics\task;
 
 defined('MOODLE_INTERNAL') || die();
 
 
-class inactive_users_task extends \core\task\scheduled_task {
+class orange_inactive_users_task extends \core\task\scheduled_task {
 
     /**
      * Get a descriptive name for this task (shown to admins).
