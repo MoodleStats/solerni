@@ -244,8 +244,8 @@ and personalise your password.</p>
 
 // Mail M16 badge.
 $string['messagebody'] = '<p>Hello,</p>
-<p>You have been awarded the badge "%badgename%".</p>
-<p>To find all the details of your badge, please visit the "{$a}" page, accessible from your dashboard.</p>
+<p>You have been awarded the badge <span class="lientxt18orange">%badgelink%</span>.</p>
+<p>To find all the details of your badge, please visit the {$a} page, accessible from your dashboard.</p>
 <p>See you soon on {$b->servicename}</p>';
 
 // Mail M17.
