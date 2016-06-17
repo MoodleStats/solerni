@@ -20,11 +20,11 @@ class inactive_users_testcase extends advanced_testcase {
     public static function test_retreive_inactive_users() {
         global $DB;
         
-        //penser truncate table de la nouvelle table
-        
-        //Création de la nouvelle table mdl_user_drop
-        //create table 
-        
+        $dataobject = new stdClass();
+        $currentdate = new DateTime(gmdate('Y-m-d H:i:s', time()));
+        $tablename = 'user_dropout';
+        //$DB->query('TRUNCATE TABLE '.$tablename);
+  
         //jeu de données
         $lastaccess =new stdClass();
         $lastaccess->id = 1;
@@ -69,20 +69,20 @@ class inactive_users_testcase extends advanced_testcase {
         $courses = $DB->get_records_sql("SELECT DISTINCT courseid
                                         FROM {user_lastaccess}")
                                         ;
-        foreach($courses as $course) {
-          print_r($course->courseid) ;
-          echo "\n"; 
-          $courseinactivitydelay= $DB->get_record_sql("SELECT value FROM {course_format_options} WHERE name = 'courseinactivitydelay' and courseid =?", array($course->courseid));
-          print_r($courseinactivitydelay->value);
-          echo "\n"; 
-          $users = $DB->get_records_sql("SELECT userid, timeaccess FROM {user_lastaccess} where courseid  =?", array($course->courseid));
-          foreach ($users as $user) {
-              if  ($user->timeaccess+86400*($courseinactivitydelay->value)<time()) {
-              print_object($user);
-              $delay= ($user->timeaccess+86400*($courseinactivitydelay->value));
-              $DB->insert_record(user_dropout, $dataobject, $returnid=true, $bulk=false);
-              }
-          }
-         }
+        foreach ($courses as $course) {
+            $courseinactivitydelay = $DB->get_record_sql("SELECT value FROM {course_format_options} WHERE name = 'courseinactivitydelay' and courseid =?", array($course->courseid));
+            $users = $DB->get_records_sql("SELECT userid, timeaccess FROM {user_lastaccess} where courseid  =?", array($course->courseid));
+            foreach ($users as $user) {
+                $timecalc = $user->timeaccess + 86400 * ($courseinactivitydelay->value);
+                $potentialdate = new DateTime(gmdate('Y-m-d H:i:s', $timecalc));
+                $interval = $potentialdate->diff($currentdate);
+                if (($interval->invert) == 0) {
+                    $dataobject->userid = $user->userid;
+                    $dataobject->courseid = $course->courseid;
+                    $dataobject->days = $interval->days;
+                    $DB->insert_record('user_dropout', $dataobject, $returnid = true, $bulk = false);
+                }
+            }
+        }
     }
 }

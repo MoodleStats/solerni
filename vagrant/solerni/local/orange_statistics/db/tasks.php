@@ -15,36 +15,24 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * orange library MNET cron task.
+ * orange library cron task.
  *
  * @package    orange_library
  * @subpackage utilities
- * @copyright  2016 Orange
+ * @copyright  2015 Orange
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace blocks_orange_statistics\task;
-
 defined('MOODLE_INTERNAL') || die();
 
-
-class orange_inactive_users_task extends \core\task\scheduled_task {
-
-    /**
-     * Get a descriptive name for this task (shown to admins).
-     *
-     * @return string
-     */
-    public function get_name() {
-        return get_string('orange_inactive_users', 'block_orange_statistics');
-    }
-
-    /**
-     * Do the job.
-     * Throw exceptions on errors (the job will be retried).
-     */
-    public function execute() {
-        ;
-    }
-
-}
+$tasks = array(
+    array(
+        'classname' => '\local_orange_statistics\task\orange_inactive_users_task',
+        'blocking' => 0,
+        'minute' => '30',
+        'hour' => '2',
+        'day' => '*',
+        'dayofweek' => '*',
+        'month' => '*'
+    )
+);

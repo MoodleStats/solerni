@@ -15,24 +15,16 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * orange library cron task.
+ * Orange Progress Bar block French language translation
  *
- * @package    orange_library
- * @subpackage utilities
- * @copyright  2015 Orange
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    local_orange_statistics
+ * @copyright  Orange 2016
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+$string['pluginname'] = 'Local statistique';
+$string['config_default_title'] = 'Statistiques';
+$string['overviewbutton'] = 'Voir le détail';
 
-$tasks = array(
-    array(
-        'classname' => '\block_orange_statistics\task\orange_inactive_users',
-        'blocking' => 0,
-        'minute' => '30',
-        'hour' => '23',
-        'day' => '*',
-        'dayofweek' => '*',
-        'month' => '*'
-    )
-);
+// Cron Tasks.
+$string['orange_inactive_users'] = "apprenant ayant decrochés";

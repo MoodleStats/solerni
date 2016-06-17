@@ -38,8 +38,6 @@ class block_orange_statistics extends block_base {
     public function get_content() {
         global $USER, $COURSE, $CFG, $OUTPUT, $DB;
         
-        
-     
     if ($this->content !== null) {
         return $this->content;
     }
