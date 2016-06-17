@@ -58,18 +58,18 @@ class utilities_object {
         $text = "";
 
         if ($weeks > 0) {
-            $text = $weeks." ".get_string('week', 'block_orange_course_extended'). " ".$text;
+            $text = $weeks." ".get_string('week', 'local_orange_library'). " ".$text;
         } else if ($days > 0) {
-            $text = $days." ".get_string('day', 'block_orange_course_extended'). " ".$text;
+            $text = $days." ".get_string('day', 'local_orange_library'). " ".$text;
         }
         if ($hours > 0) {
-            $text = $hours." ".get_string('hour', 'block_orange_course_extended'). " ".$text;
+            $text = $hours." ".get_string('hour', 'local_orange_library'). " ".$text;
         }
         if ($minutes > 0) {
-            $text = $minutes." ".get_string('minute', 'block_orange_course_extended'). " ".$text;
+            $text = $minutes." ".get_string('minute', 'local_orange_library'). " ".$text;
         }
         if ($seconds > 0) {
-            $text = $seconds." ".get_string('second', 'block_orange_course_extended'). " ".$text;
+            $text = $seconds." ".get_string('second', 'local_orange_library'). " ".$text;
         }
 
         return $text;
@@ -170,11 +170,8 @@ class utilities_object {
      * @return boolean
      */
     public static function is_before($date) {
-
         $return = false;
-        $datetime = new \DateTime;
-        $curentdate = $datetime->getTimestamp();
-        if ($date > $curentdate) {
+        if (date('d', $date) > date('d')) {
             $return = true;
         }
         return $return;
@@ -189,9 +186,7 @@ class utilities_object {
      */
     public static function is_after($date) {
         $return = false;
-        $datetime = new \DateTime;
-        $curentdate = $datetime->getTimestamp();
-        if ($date < $curentdate) {
+        if (date('d', $date) < date('d')) {
             $return = true;
         }
         return $return;

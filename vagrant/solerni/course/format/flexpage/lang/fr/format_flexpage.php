@@ -215,6 +215,9 @@ $string['certification_help'] = 'le cours est-il certifiant ?';
 $string['coursethematics'] = 'Thèmes du cours';
 $string['coursethematics_help'] = 'liste des différents thèmes du cours, choisissez un ou plusieurs thèmes.';
 
+$string['coursesequence'] = 'Nombre de séquences';
+$string['coursesequence_help'] = 'Nombre de séquences du cours.';
+
 $string['startdate'] = 'Date de début';
 $string['enddate'] = 'Date de fin';
 $string['enddate_default'] = "0";

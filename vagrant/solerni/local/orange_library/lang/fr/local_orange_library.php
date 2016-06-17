@@ -88,6 +88,11 @@ $string['orangeinvitationconfigmissing'] = "Vous devez enregistrer au moins une 
 
 $string['today'] = "auj, ";
 $string['yesterday'] = "hier, ";
+$string['weeks'] = "sem";
+$string['day'] = "jour";
+$string['hour'] = "H";
+$string['minute'] = "min";
+$string['second'] = "sec";
 
 // Cron Tasks.
 $string['orange_library_mnet_task'] = "Mise à jour des clés MNET";
