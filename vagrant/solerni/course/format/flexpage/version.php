@@ -36,7 +36,7 @@
  * orange 2016022300 : add 2 different messages when delete activity or block
  */
 
-$plugin->version      = 2016022300; //fork 2016012600
+$plugin->version      = 2016062000; //fork 2016012600
 $plugin->requires     = 2014051203;
 $plugin->component    = 'format_flexpage';
 $plugin->release      = '2.9.3 (Build: 20160204)';
