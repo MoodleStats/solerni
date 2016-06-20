@@ -37,8 +37,9 @@ class mail_object {
      * @param footertype : '' or 'inscription'
      * @return string (content of mail template)
      */
-    public static function get_mail($content, $mailtype, $footertype) {
+    public static function get_mail($content, $mailtype, $footertype, $private=false) {
         global $CFG;
+
         $imageurl = new moodle_url('/local/orange_mail/pix/mail/');
 
         $site  = get_site();
@@ -63,7 +64,7 @@ class mail_object {
         $b->solernimailsignaturetext = get_string('solernimailsignaturetext', 'local_orange_mail');
         $b->solernimailfootertext = get_string('solernimailfootertext', 'local_orange_mail');
         $b->solernimailfooterhtml = get_string('solernimailfooterhtml', 'local_orange_mail');
-        if ($CFG->solerni_isprivate) {
+        if ($private) {
             $b->solernimailfooterinscriptiontext = get_string('solernimailfooterinscriptionprivatetext', 'local_orange_mail');
             $b->solernimailfooterinscriptionhtml = get_string('solernimailfooterinscriptionprivatehtml', 'local_orange_mail');
         } else {
@@ -202,7 +203,7 @@ class mail_object {
                 $string = get_string($stringid, 'local_orange_mail');
             }
 
-            $string = self::get_mail($string, $mailtype, $footertype);
+            $string = self::get_mail($string, $mailtype, $footertype, $private);
 
             // Store the template in config. Used afterwards by mail_init class.
             set_config('mail_'.$stringid.'_'.$lang.'_'. $mailtype, $string, 'local_orangemail');

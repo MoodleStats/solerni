@@ -254,8 +254,8 @@ $string['newusernewpasswordtext_private'] = '<p>Bonjour <span class="txt18BNoir"
 
 // Mail M16 badge.
 $string['messagebody'] = '<p>Bonjour,</p>
-<p>Vous venez d’obtenir le badge « %badgename% ».</p>
-<p>Pour retrouver tous les détails de votre badge, rendez-vous sur la page "{$a}" accessible depuis votre tableau de bord.</p>
+<p>Vous venez d’obtenir le badge <span class="lientxt18orange">%badgelink%</span>.</p>
+<p>Pour retrouver tous les détails de votre badge, rendez-vous sur la page {$a} accessible depuis votre tableau de bord.</p>
 <p>A très bientôt sur {$b->servicename}</p>';
 
 // Mail M17.
