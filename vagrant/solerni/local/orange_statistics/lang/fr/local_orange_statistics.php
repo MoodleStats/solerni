@@ -22,9 +22,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Local statistique';
-$string['config_default_title'] = 'Statistiques';
-$string['overviewbutton'] = 'Voir le détail';
+$string['pluginname'] = 'back statistiques';
+
 
 // Cron Tasks.
-$string['orange_inactive_users'] = "apprenant ayant decrochés";
+$string['orange_inactive_users'] = "apprenants ayant decrochés";

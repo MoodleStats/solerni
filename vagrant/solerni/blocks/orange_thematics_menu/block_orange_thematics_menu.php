@@ -85,7 +85,6 @@ class block_orange_thematics_menu extends block_base {
                 }
                 $this->content->text .= $this->renderer->menu_item($host);
             }
-
         $this->content->text .= html_writer::end_tag('div');
 
         return $this->content;

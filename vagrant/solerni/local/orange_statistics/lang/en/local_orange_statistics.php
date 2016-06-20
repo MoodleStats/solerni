@@ -22,8 +22,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Statistics local';
-$string['config_default_title'] = 'Statistics';
+$string['pluginname'] = 'Statistics back';
 
 // Cron Tasks.
 $string['orange_inactive_users'] = "orange_inactive_users";

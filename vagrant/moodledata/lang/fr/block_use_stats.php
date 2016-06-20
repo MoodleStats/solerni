@@ -54,7 +54,6 @@ $string['ignored'] = 'Module/Activité ignoré(e) par le suivi';
 $string['lastcompiled'] = 'Dernier enregistrement du journal compilé';
 $string['modulename'] = 'Suivi d\'activité';
 $string['noavailablelogs'] = 'Pas d\'enregistrement disponible';
-$string['onthisMoodlefrom'] = 'sur ce site Moodle depuis';
 $string['pluginname'] = 'Mesure d\'activité';
 $string['showdetails'] = 'Montrer les détails';
 $string['timeelapsed'] = 'Temps écoulé';

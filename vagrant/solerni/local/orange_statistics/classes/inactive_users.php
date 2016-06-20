@@ -13,23 +13,32 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+namespace local_orange_statistics;
+defined('MOODLE_INTERNAL') || die();
+
+
 class inactive_users  {
 
     public static function retreive_inactive_users() {
         global $DB;
-
-        $dataobject = new stdClass();
-        $currentdate = new DateTime(gmdate('Y-m-d H:i:s', time()));
-        $tablename = 'user_dropout';
-        $DB->query('TRUNCATE TABLE '.$tablename);
+        $dataobject = new \stdClass();
+        $currentdate = new \DateTime(gmdate('Y-m-d H:i:s', time()));
+        $tablename = 'mdl_user_dropout';
+        if ($DB->get_manager()->table_exists('user_dropout')) {
+            $DB->execute('TRUNCATE TABLE '.$tablename);
+        }
         $courses = $DB->get_records_sql("SELECT DISTINCT courseid FROM {user_lastaccess}");
 
         foreach ($courses as $course) {
             $courseinactivitydelay = $DB->get_record_sql("SELECT value FROM {course_format_options} WHERE name = 'courseinactivitydelay' and courseid =?", array($course->courseid));
+            if (!$courseinactivitydelay) {
+                $courseinactivitydelay = new \stdClass();
+                $courseinactivitydelay->value = 7;
+            }
             $users = $DB->get_records_sql("SELECT userid, timeaccess FROM {user_lastaccess} where courseid  =?", array($course->courseid));
             foreach ($users as $user) {
                 $timecalc = $user->timeaccess + 86400 * ($courseinactivitydelay->value);
-                $potentialdate = new DateTime(gmdate('Y-m-d H:i:s', $timecalc));
+                $potentialdate = new \DateTime(gmdate('Y-m-d H:i:s', $timecalc));
                 $interval = $potentialdate->diff($currentdate);
                 if (($interval->invert) == 0) {
                     $dataobject->userid = $user->userid;
