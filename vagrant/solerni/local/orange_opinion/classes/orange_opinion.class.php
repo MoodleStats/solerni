@@ -167,7 +167,7 @@ class orange_opinion  {
         foreach ($opinions as $opinion) {
             $buttons = array();
             if (has_capability('local/orange_opinion:edit', $sitecontext)) {
-                    $msgpopup = get_string('confirmdeleteopinion', 'local_orange_opinion', $opinion->username);
+                    $msgpopup = get_string('confirmdeleteopinion', 'local_orange_opinion', strip_tags($opinion->username));
                     $buttons[] = html_writer::link( new moodle_url('index.php',
                                                     array('action' => 'opinion_delete', 'id' => $opinion->id, 'sesskey' => sesskey())),
                                                     html_writer::empty_tag('img',

@@ -184,7 +184,7 @@ class orange_thematics {
 
                 // If thematic is not associated to a course, we can show the button delete.
                 if (!in_array($thematic->id, $listidthematic)) {
-                    $msgpopup = get_string('confirmdeletethematic', 'local_orange_thematics', $thematic->name);
+                    $msgpopup = get_string('confirmdeletethematic', 'local_orange_thematics', strip_tags($thematic->name));
                     $buttons[] = html_writer::link( new moodle_url('index.php',
                             array('action' => 'thematics_delete', 'id' => $thematic->id,
                                     'sesskey' => sesskey())),
