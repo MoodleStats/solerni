@@ -47,9 +47,8 @@ $string['defineopinionheader'] = 'Manage the opinions';
 $string['opinionlink'] = 'Opinions';
 $string['opinionlinklist'] = 'List of opinions';
 
-$string['confirmdeleteopinion'] = 'Are you sure you want to delete the opinion of <b>{$a}</b> ?';
+$string['confirmdeleteopinion'] = 'Are you sure you want to delete the opinion of {$a} ?';
 
 $string['suspendopinion'] = 'Hidden this opinion';
 $string['unsuspendopinion'] = 'Show this opinion';
-
 $string['orange_opinion:edit'] = 'Edit opinions';

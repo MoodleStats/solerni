@@ -47,7 +47,7 @@ $string['defineopinionheader'] = 'Gestion des témoignages';
 $string['opinionlink'] = 'Témoignages';
 $string['opinionlinklist'] = 'Liste des témoignages';
 
-$string['confirmdeleteopinion'] = 'Etes-vous sur de vouloir supprimer le témoignage de <b>{$a}</b> ?';
+$string['confirmdeleteopinion'] = 'Etes-vous sur de vouloir supprimer le témoignage de {$a} ?';
 
 $string['suspendopinion'] = 'Masquer le témoignage';
 $string['unsuspendopinion'] = 'Montrer le témoignage';

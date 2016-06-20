@@ -32,7 +32,7 @@ $string['thematicname_help'] = 'Vous devez spécifier le libellé de la thémati
 		&lt;span class="multilang" lang="en"&gt;My thematic&lt;/span&gt;';
 $string['definethematicsheader'] = 'Gestion des thématiques';
 $string['actionthematics_list'] = 'Liste des thématiques';
-$string['confirmdeletethematic'] = 'Etes-vous sur de vouloir supprimer la thématique <b>{$a}</b> ?';
+$string['confirmdeletethematic'] = 'Etes-vous sur de vouloir supprimer la thématique : {$a} ?';
 $string['thematiciddeleted'] = 'La thématique {$a} a été supprimée.';
 $string['impossiblethematicdeleted'] = 'Impossible de supprimer la thématique {$a}. Elle est associée à un cours.';
 
