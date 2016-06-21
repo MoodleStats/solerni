@@ -32,7 +32,7 @@ $string['thematicname_help'] = 'You must specify the label of the thematic for t
 		&lt;span class="multilang" lang="en"&gt;My thematic&lt;/span&gt;';
 $string['definethematicsheader'] = 'Managing thematics';
 $string['actionthematics_list'] = 'List of thematics';
-$string['confirmdeletethematic'] = 'Are you sure you want to delete the thematic <b>{$a}</b> ?';
+$string['confirmdeletethematic'] = 'Are you sure you want to delete the thematic : {$a} ?';
 $string['thematicdeleted'] = 'The thematic {$a} has been deleted.';
 $string['impossiblethematicdeleted'] = 'Impossible to delete the thematic {$a}. It is associated to a course.';
 

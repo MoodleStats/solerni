@@ -220,6 +220,9 @@ $string['certification_help'] = 'Certification_help';
 $string['coursethematics'] = 'Thematics';
 $string['coursethematics_help'] = 'List of possibles thematics. Choose one or more thematics';
 
+$string['coursesequence'] = 'Sequence';
+$string['coursesequence_help'] = 'List of possibles Sequences. Choose one sequence';
+
 $string['startdate'] = 'Start date';
 $string['enddate'] = 'End date';
 $string['enddate_default'] = "0";

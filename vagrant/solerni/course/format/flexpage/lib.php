@@ -253,6 +253,10 @@ class format_flexpage extends format_base {
                     'default' => get_config('workingtime', 'format_flexpage'),
                     'type' => PARAM_SEQUENCE
                 ),
+                'coursesequence' => array(
+                    'default' => get_config('coursesequence', 'format_flexpage'),
+                    'type' => PARAM_SEQUENCE
+                ),
                 'coursepicture_filemanager' => array(
                     'default' => get_config('picture', 'format_flexpage'),
                     'type' => PARAM_FILE
@@ -366,6 +370,10 @@ class format_flexpage extends format_base {
                             'bg-graylight' => get_string('graylight', 'format_flexpage'),
                             'bg-graylighter' => get_string('graylighter', 'format_flexpage')
                         );
+            $sequencesarray = array();
+            for ($i=0; $i<=99; $i++) {
+                $sequencesarray[$i] = ($i+1)."";
+            }
             $courseformatoptionsedit = array(
                 'courseenddate' => array(
                     'label' => get_string('enddate', 'format_flexpage'),
@@ -382,6 +390,13 @@ class format_flexpage extends format_base {
                     'element_attributes' => array(
                         $listthematics
                      )
+                ),
+                'coursesequence' => array(
+                    'label' => get_string('coursesequence', 'format_flexpage'),
+                    'help' => 'coursesequence',
+                    'help_component' => 'format_flexpage',
+                    'element_type' => 'select',
+                    'element_attributes' => array($sequencesarray)
                 ),
                 'coursepicture_filemanager' => array(
                     'label' => get_string('picture', 'format_flexpage'),

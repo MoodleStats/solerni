@@ -284,6 +284,12 @@ class extended_course_object {
     public $newsessionurl;
 
     /**
+     * The $new session url of a course.
+     * @var string $newsessionurl
+     */
+    public $nbsequence;
+
+    /**
      *  Get the extended course values from the extended course flexpage values.
      *
      * @param object $course
@@ -384,6 +390,9 @@ class extended_course_object {
                 break;
             case 'courseduration':
                 $this->set_duration($extendedcourseflexpagevalue);
+                break;
+            case 'coursesequence':
+                $this->nbsequence = $extendedcourseflexpagevalue->value;
                 break;
             case 'courseworkingtime':
                 $this->set_workingtime($extendedcourseflexpagevalue);
