@@ -509,6 +509,9 @@ function main () {
         execute_moosh_command "moosh config-set formats 1 filter_urltolink"
         execute_moosh_command "moosh config-set glossary_linkentries 1"
 
+        # delete moodle block private_files and add orange_private_files (#us_581)
+	execute_moosh_command "moosh block-delete system 0 private_files my-index"
+	execute_moosh_command "moosh block-add system 0 orange_private_files my-index content -6"
 }
 
 main "$@"
