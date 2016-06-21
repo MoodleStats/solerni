@@ -482,9 +482,6 @@ function main () {
             fontselect,fontsizeselect,wrap,search,replace,wrap,nonbreaking,charmap,table,wrap,code,cleanup,removeformat,pastetext,pasteword,wrap,mediagallery,wrap,fullscreen
             " editor_tinymce
 
-	# Add Main Menu block in /forum page (forum-index)
-        execute_moosh_command "moosh block-add system 0 site_main_menu forum-index side-pre -8"
-
         # hide block main menu for solerni_utilisateur, solerni_apprenant, solerni_power_apprenant, solerni_animateur, solerni_client, guest, solerni_marketing
 	execute_moosh_command "moosh role-update-capability-ctx solerni_utilisateur moodle/block:view prevent block site_main_menu"
 	execute_moosh_command "moosh role-update-capability-ctx solerni_apprenant moodle/block:view prevent block site_main_menu"

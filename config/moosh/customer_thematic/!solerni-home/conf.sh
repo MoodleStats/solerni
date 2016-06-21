@@ -140,6 +140,9 @@ function main () {
 	execute_moosh_command "moosh block-add system 0 orange_course_home site-index content -7"
 	execute_moosh_command "moosh block-add system 0 orange_transverse_discussion site-index content -2"
 	execute_moosh_command "moosh block-add system 0 orange_opinion site-index content 7"
+
+	# Add Main Menu block in /forum page (forum-index)
+        execute_moosh_command "moosh block-add system 0 site_main_menu forum-index content -1"
 }
 
 main "$@"
