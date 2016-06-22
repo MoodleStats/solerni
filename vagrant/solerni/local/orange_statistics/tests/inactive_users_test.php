@@ -17,7 +17,7 @@
 
 class inactive_users_testcase extends advanced_testcase {
     
-    public static function test_retreive_inactive_users() {
+    public static function test_retrieve_inactive_users() {
         
         global $DB;
         $dataobject = new \stdClass();

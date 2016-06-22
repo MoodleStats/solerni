@@ -44,7 +44,7 @@ class orange_inactive_users_task extends \core\task\scheduled_task {
      * Throw exceptions on errors (the job will be retried).
      */
     public function execute() {
-        inactive_users::retreive_inactive_users();
+        inactive_users::retrieve_inactive_users();
     }
 
 }

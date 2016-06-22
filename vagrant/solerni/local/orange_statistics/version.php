@@ -16,7 +16,7 @@
 
 
 /**
- * Orange Progress Bar block version details
+ * Orange local orange_statistics version details
  *
  * @package    local_orange_statistics
  * @copyright  Orange 2016

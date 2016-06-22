@@ -26,4 +26,4 @@ $string['pluginname'] = 'back statistiques';
 
 
 // Cron Tasks.
-$string['orange_inactive_users'] = "apprenants ayant decrochés";
+$string['orange_inactive_users'] = "apprenants ayant decroché";

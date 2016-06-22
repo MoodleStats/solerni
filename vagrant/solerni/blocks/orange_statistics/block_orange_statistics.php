@@ -47,6 +47,9 @@ class block_orange_statistics extends block_base {
     $this->content->footer = 'Footer here...';
     $blockinstancesonpage = array();
     
+    // print
+    $nbreusersdropout = $DB->get_records_sql("SELECT count(*) FROM {user_dropout} where courseid  =?", array($course->courseid));
+    
     if (has_capability('block/orange_statistics:overview', $this->context)) {
         
         $courseid = $COURSE->id;
@@ -54,6 +57,7 @@ class block_orange_statistics extends block_base {
 
         $url = new moodle_url('/blocks/orange_statistics/overview.php', array('courseid' =>$courseid));
         $label = get_string('overviewbutton', 'block_orange_statistics');
+        
         $options = array('class' => 'overviewButton');
         $this->content->text .= $OUTPUT->single_button($url, $label, 'post', $options);
     }

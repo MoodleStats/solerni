@@ -19,7 +19,7 @@ defined('MOODLE_INTERNAL') || die();
 
 class inactive_users  {
 
-    public static function retreive_inactive_users() {
+    public static function retrieve_inactive_users() {
         global $DB;
         $dataobject = new \stdClass();
         $currentdate = new \DateTime(gmdate('Y-m-d H:i:s', time()));
