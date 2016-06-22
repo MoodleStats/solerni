@@ -24,14 +24,14 @@
 
 $string['pluginname'] = 'Bloc statistiques';
 $string['config_default_title'] = 'Statistiques';
-$string['overviewbutton'] = 'Apprenants ayant décrochés';
+$string['overviewbutton'] = 'Apprenants ayant décroché';
 
 
 
 // For capabilities.
 $string['orange_statistics:overview'] = 'Détail de la statistique dans le cours';
-$string['orange_statistics:addinstance'] = 'Rajouter un bloc statistique';
-$string['orange_statistics:myaddinstance'] = 'Rajouter un bloc statistique sur mon dashboard';
+$string['orange_statistics:addinstance'] = 'Rajouter un bloc statistiques';
+$string['orange_statistics:myaddinstance'] = 'Rajouter un bloc statistiques sur mon dashboard';
 $string['pluginname'] = 'Orange Statistics';
 
 // Cron Tasks.
