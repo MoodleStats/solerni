@@ -1,0 +1,53 @@
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+
+/* Block Orange Private Files */
+.block_orange_private_files {
+    background-color:   @brand-blue;
+
+    .orange-private-files-footer {
+        padding-bottom: @s-triple-md-margin;
+    }
+
+    .orange-private-files-item {
+        position:          relative;
+        background-color:   @brand-orange-white;
+        padding: @s-medium-md-margin;
+        margin:   @s-small-xs-margin;
+        text-decoration: none;
+
+        .orange-private-files-item__icon {
+            margin-right:   @s-double-xs-margin;
+            margin-bottom:   @s-double-xs-margin;
+            height: 36px;
+            width:  36px;
+        }
+        .orange-private-files-item__filename {
+            a.link {
+                text-decoration-line: none;
+            }
+        }
+        .orange-private-files-item__folder {
+            margin-bottom:   @s-double-xs-margin;
+        }
+    }
+
+    .orange-private-files-item:hover {
+        background-color:   @gray-light;
+    }
+}
+
+
