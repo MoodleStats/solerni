@@ -234,7 +234,7 @@ $string['newusernewpasswordtext_private'] = '<p>Dear <span class="txt18BNoir">{$
    <li>user name : {$a->username}</li>
    <li>password : {$a->newpassword}</li>
 </ul>
-<p><strong>Please note :</strong> this is a temporary password, tou must change it when you connect for the first time.</p>
+<p><strong>Please note :</strong> this is a temporary password, you must change it when you connect for the first time.</p>
 <p>Click on the following link, to connect to {$a->sitename} now :<br />
    <a href="{$a->link}" class="lientxt18orange">{$a->link}</a><br />
 and personalise your password.</p>
