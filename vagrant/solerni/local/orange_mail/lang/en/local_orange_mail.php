@@ -143,7 +143,7 @@ and you have been issued with a new temporary password.</p>
    username: <span class="txt18BNoir">{$a->username}</span><br />
    temporary password: {$a->newpassword}</p>
 <p>Please click on the following link to personalize your password:
-   <a href="{$a->link}" class="lientxt18orange">Peronnalize my password</a></p>
+   <a href="{$a->link}" class="lientxt18orange">Personalize my password</a></p>
 <p>If that doesn\'t work, cut and paste the link below into the address
 line at the top of your web browser window: <a href="{$a->link}" class="lientxt18orange">{$a->link}</a></p>
 <p>See you soon on {$b->servicename}.</p>';
