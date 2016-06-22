@@ -482,9 +482,6 @@ function main () {
             fontselect,fontsizeselect,wrap,search,replace,wrap,nonbreaking,charmap,table,wrap,code,cleanup,removeformat,pastetext,pasteword,wrap,mediagallery,wrap,fullscreen
             " editor_tinymce
 
-	# Add Main Menu block in /forum page (forum-index)
-        execute_moosh_command "moosh block-add system 0 site_main_menu forum-index side-pre -8"
-
         # hide block main menu for solerni_utilisateur, solerni_apprenant, solerni_power_apprenant, solerni_animateur, solerni_client, guest, solerni_marketing
 	execute_moosh_command "moosh role-update-capability-ctx solerni_utilisateur moodle/block:view prevent block site_main_menu"
 	execute_moosh_command "moosh role-update-capability-ctx solerni_apprenant moodle/block:view prevent block site_main_menu"
@@ -506,9 +503,13 @@ function main () {
         execute_moosh_command "moosh scheduledtask-set '\logstore_standard\task\cleanup_task' 0 1 '*' '*' 2 0 0"
 
         # change configuration for tinyMCE Editor (#us_217) + correction bug http (#us_272)
-        execute_moosh_command "moosh config-set formats 1 filter_urltolink"
         execute_moosh_command "moosh config-set glossary_linkentries 1"
+        execute_moosh_command "moosh config-set formats '1' filter_urltolink"
+        execute_moosh_command "moosh config-set embedimages 0 filter_urltolink" 
 
+        # delete moodle block private_files and add orange_private_files (#us_581)
+	execute_moosh_command "moosh block-delete system 0 private_files my-index"
+	execute_moosh_command "moosh block-add system 0 orange_private_files my-index content -6"
 }
 
 main "$@"

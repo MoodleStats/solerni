@@ -118,9 +118,9 @@ To make sure you receive our emails, please add the address {$b->noreplyemail} t
 $string['solernimailfooterhtml'] = '<p>This is an automatic message, please do not reply to it directly.<br />
     If you have any questions, send us a messsage at <a href="mailto:{$b->contactemail}" class="lientxt14orange">{$b->contactemail}</a>.<br />
 To make sure you receive our emails, please add the address <a href="mailto:{$b->noreplyemail}" class="lientxt14orange">{$b->noreplyemail}</a> to your contacts.</p>';
-$string['solernimailfooterinscriptiontext'] = 'You have received this email because your email address was used to sign up to our website {$a->sitename}. If you dit not sign up to {$b->sitename}, simmply ignore this email and your account will be deleted automatically. This is an automatic message, please do not reply to it directly. If you have any questions, send us a message at {$b->contactemail}.
+$string['solernimailfooterinscriptiontext'] = 'You have received this email because your email address was used to sign up to our website {$a->sitename}. If you dit not sign up to {$b->sitename}, simply ignore this email and your account will be deleted automatically. This is an automatic message, please do not reply to it directly. If you have any questions, send us a message at {$b->contactemail}.
 To make sure you receive our emails, please add the address {$b->noreplyemail} to your contacts.';
-$string['solernimailfooterinscriptionhtml'] = '<p>You have received this email because your email address was used to sign up to our website <a href="{$b->siteurl}" class="lientxt14orange">{$b->sitename}</a>. If you dit not sign up to {$b->sitename}, simmply ignore this email and your account will be deleted automatically. </p>
+$string['solernimailfooterinscriptionhtml'] = '<p>You have received this email because your email address was used to sign up to our website <a href="{$b->siteurl}" class="lientxt14orange">{$b->sitename}</a>. If you dit not sign up to {$b->sitename}, simply ignore this email and your account will be deleted automatically. </p>
     <p>This is an automatic message, please do not reply to it directly.<br />
     If you have any questions, send us a message at <a href="mailto:{$b->contactemail}" class="lientxt14orange">{$b->contactemail}</a>.<br />
 To make sure you receive our emails, please add the address <a href="mailto:{$b->noreplyemail}" class="lientxt14orange">{$b->noreplyemail}</a> to your contacts.</p>';
@@ -143,7 +143,7 @@ and you have been issued with a new temporary password.</p>
    username: <span class="txt18BNoir">{$a->username}</span><br />
    temporary password: {$a->newpassword}</p>
 <p>Please click on the following link to personalize your password:
-   <a href="{$a->link}" class="lientxt18orange">Peronnalize my password</a></p>
+   <a href="{$a->link}" class="lientxt18orange">Personalize my password</a></p>
 <p>If that doesn\'t work, cut and paste the link below into the address
 line at the top of your web browser window: <a href="{$a->link}" class="lientxt18orange">{$a->link}</a></p>
 <p>See you soon on {$b->servicename}.</p>';

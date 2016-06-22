@@ -79,7 +79,7 @@ $string['allowcommentsmax'] = 'Autoriser les commentaires (si sélectionné pour
 $string['logincomments'] = 'Oui, pour les utilisateurs connectés';
 $string['permalink'] = 'Permalien';
 $string['publiccomments'] = 'Oui, de tout le monde (anonymes compris)';
-$string['publiccomments_info'] = 'Si une personne non connectée poste un commentaire, vous recevrez une notification par email et pourrez l\'approuver ou le rejeter. Cette validation est nécessaire pour lutter contre les spams.';
+$string['publiccomments_info'] = 'Si une personne non connectée poste un commentaire, vous recevrez une notification par e-mail et pourrez l\'approuver ou le rejeter. Cette validation est nécessaire pour lutter contre les spams.';
 $string['error_grouppubliccomments'] = 'Vous ne pouvez pas autoriser les commentaires publics sur un blog de groupe.';
 $string['nocomments'] = 'Les commentaires ne sont pas autorisés';
 $string['visibility'] = 'Qui peut lire cela ?';
@@ -294,7 +294,7 @@ $string['moderated_restrictpost_info'] = 'Voulez-vous restreindre les commentair
 $string['moderated_restrictblog_info'] = 'Voulez-vous restreindre les commentaires sur tous vos billets de façon à ce que seules les personnes connectées puissent saisir des commentaires ?';
 $string['moderated_emailsubject'] = 'Commentaires en attente d\'approbation sur : {$a->blog} ({$a->commenter})';
 $string['moderated_emailhtml'] =
-'<p>(Ceci est un email généré automatiquement. Veuillez ne pas répondre.)</p>
+'<p>(Ceci est un e-mail généré automatiquement. Veuillez ne pas répondre.)</p>
 <p>Quelqu\'un a ajouté un commentaire sur votre billet de blog : {$a->postlink}</p>
 <p>Vous devez <strong>approuver le commentaire</strong> pour qu\'il soit rendu public.</p>
 <p>Le système ne connait pas l\'identité des commentateurs et les commentaires 
@@ -326,7 +326,7 @@ Si vous recevez trop de messages de ce type, vous pouvez restreindre l\'ajout de
 <li><a href=\'{$a->restrictbloglink}\'>{$a->restrictblogtext}</a></li>
 </ul>';
 $string['moderated_emailtext'] =
-'Ceci est un email généré automatiquement. Veuillez ne pas répondre.
+'Ceci est un e-mail généré automatiquement. Veuillez ne pas répondre.
 Quelqu\'un a ajouté un commentaire sur votre billet de blog : 
 {$a->postlink}
 Vous devez approuver le commentaire pour qu\'il soit rendu public.
@@ -370,7 +370,7 @@ $string['pluginname'] = 'OU Blog';
 // Help strings.
 $string['allowcomments_help'] = '&lsquo;Oui, pour les utilisateurs connectés&rsquo; autorise l\'ajout de commentaires par les utilisateurs qui ont accès à ce billet.
 
-&lsquo;Oui, de tout le monde&rsquo; autorise l\'ajout de commentaires par les utilisateurs connectés et par le public général. Vous recevrez des emails pour approuver ou rejeter les commentaires des utilisateurs non connectés.
+&lsquo;Oui, de tout le monde&rsquo; autorise l\'ajout de commentaires par les utilisateurs connectés et par le public général. Vous recevrez des e-mails pour approuver ou rejeter les commentaires des utilisateurs non connectés.
 
 &lsquo;Non&rsquo; interdit l\'ajout de commentaires sur un billet.';
 $string['individualblogs_help'] = '
@@ -449,8 +449,8 @@ Les blogs de ce serveur seront affichés en plus de ceux du site local quand vou
 $string['remotetoken'] = 'Jeton d\'import du serveur distant';
 $string['configremotetoken'] = 'Jeton utilisateur du Web Service OUBlog sur le serveur distant à importer.';
 
-$string['reportingemail'] = 'Adresses email à notifier';
-$string['reportingemail_help'] = 'Ce paramètre définit les adresses email de ceux qui seront informés des problèmes sur les billets ou des commentaires dans OUBlog.
+$string['reportingemail'] = 'Adresses e-mail à notifier';
+$string['reportingemail_help'] = 'Ce paramètre définit les adresses e-mail de ceux qui seront informés des problèmes sur les billets ou des commentaires dans OUBlog.
 Elles doivent être séparées par des virgules.';
 $string['postalert'] = 'Alerter à propos d\'un billet';
 $string['commentalert'] = 'Alerter à propos d\'un commentaire';
@@ -495,17 +495,17 @@ Sujet : {$a->subject}<br />
 Cours : {$a->course}<br />
 <br />
 <a href={$a->deleteurl} title="afficher le billet effacé">Voir le billet effacé</a>';
-$string['deleteemailpostbutton'] = 'Effacer et envoyer un email';
-$string['deleteandemail'] = 'Effacer et envoyer un email';
+$string['deleteemailpostbutton'] = 'Effacer et envoyer un e-mail';
+$string['deleteandemail'] = 'Effacer et envoyer un e-mail';
 $string['emailmessage'] = 'Message';
 $string['cancel'] = 'Annuler';
-$string['deleteemailpostdescription'] = 'Cliquer sur \'Effacer\' pour supprimer le billet, ou cliquer sur \'Effacer et envoyer un email\' pour supprimer le billet et envoyer par email une notification personnalisée à l’auteur.';
+$string['deleteemailpostdescription'] = 'Cliquer sur \'Effacer\' pour supprimer le billet, ou cliquer sur \'Effacer et envoyer un e-mail\' pour supprimer le billet et envoyer par e-mail une notification personnalisée à l’auteur.';
 $string['copytoself'] = 'Recevoir une copie';
 $string['includepost'] = 'Inclure le billet';
 $string['deletedblogpost'] = 'Billet sans titre.';
-$string['emailerror'] = 'Une erreur s\'est produite lors de l\'envoi de l\'email';
+$string['emailerror'] = 'Une erreur s\'est produite lors de l\'envoi de l\'e-mail';
 $string['sendanddelete'] = 'Envoyer et effacer';
-$string['extra_emails'] = 'Adresses email des autres destinataires';
+$string['extra_emails'] = 'Adresses e-mail des autres destinataires';
 $string['extra_emails_help'] = 'Saisissez une ou plusieurs adresse(s) séparées par des espaces ou des points-virgules.';
 
 // Import pages.
