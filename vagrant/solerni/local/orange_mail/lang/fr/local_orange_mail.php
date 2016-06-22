@@ -27,50 +27,50 @@ $string['pluginname'] = 'Solerni Mail';
 $string['orange_mail:config'] = 'Configuration du plugin Orange mail';
 $string['mailsetting'] = 'Configuration';
 $string['mailgenerate'] = 'Génération des modèles';
-$string['mailgeneratestatus'] = 'Génération des modèles de mails terminée. Vous devez purger les caches afin que ces nouveaux modèles soient pris en compte.';
-$string['mailtest'] = 'Envoi d\'emails de test';
-$string['mailteststatus'] = 'Envoi des emails de test terminé.';
-$string['pluginname_desc'] = 'Ce plugin permet de configurer les emails envoyés par Solerni.';
+$string['mailgeneratestatus'] = 'Génération des modèles des e-mails terminée. Vous devez purger les caches afin que ces nouveaux modèles soient pris en compte.';
+$string['mailtest'] = 'Envoi d\'e-mails de test';
+$string['mailteststatus'] = 'Envoi des e-mails de test terminé.';
+$string['pluginname_desc'] = 'Ce plugin permet de configurer les e-mails envoyés par Solerni.';
 $string['orange_mail'] = 'Orange mail';
-$string['css'] = 'CSS inclu dans l\'email';
-$string['css_desc'] = 'CSS inclus dans tous les emails. Il doit commencer par <STYLE> et terminer par </STYLE>';
-$string['header'] = 'Entête du mail';
-$string['header_desc'] = 'Entête du mail (partie contenant le logo Orange).';
-$string['contentstart'] = 'Avant le contenu du mail';
-$string['contentstart_desc'] = 'Code HTML placé avant le contenu du mail';
-$string['contentend'] = 'Après le contenu du mail';
-$string['contentend_desc'] = 'Code HTML placé après le contenu du mail';
-$string['headertext'] = 'Mail Header';
-$string['headertext_desc'] = 'Mail Header';
-$string['footer'] = 'Mail Footer';
-$string['footer_desc'] = 'Mail Footer';
-$string['footertext'] = 'Mail Footer';
-$string['footertext_desc'] = 'Mail Footer';
-$string['footerinscription'] = 'Mail Footer Inscription';
-$string['footerinscription_desc'] = 'Mail Footer Inscription';
-$string['footerinscriptiontext'] = 'Mail Footer Inscription';
-$string['footerinscriptiontext_desc'] = 'Mail Footer Inscription';
-$string['signature'] = 'Mail Signature';
-$string['signature_desc'] = 'Mail Signature';
-$string['signaturetext'] = 'Mail Signature';
-$string['signaturetext_desc'] = 'Mail Signature';
-$string['followus'] = 'Add "Follow us" section to mail';
-$string['followus_desc'] = 'Add "Follow us" section based on the template settings';
-$string['followustext'] = 'Add "Follow us" section to mail';
-$string['followustext_desc'] = 'Add "Follow us" section based on the template settings';
-$string['contactemail'] = 'Email de contact Solerni';
-$string['contactemail_desc'] = 'Email de contact Solerni. Cet email est utilisé pour les mails envoyés par la plateforme mais aussi pour le formulaire de contact.';
-$string['supportemail'] = 'Email de support Solerni';
-$string['supportemail_desc'] = 'Email de support Solerni. Cet email est utilisé pour les mails envoyés par la plateforme mais aussi pour le formulaire de contact.';
-$string['marketemail'] = 'Email marketing Solerni';
-$string['marketemail_desc'] = 'Email marketing Solerni. Cet email est utilisé pour les mails envoyés par la plateforme mais aussi pour le formulaire de contact.';
-$string['partneremail'] = 'Email de partenariat Solerni';
-$string['partneremail_desc'] = 'Email de partenariat Solerni. Cet email est utilisé pour les mails envoyés par la plateforme mais aussi pour le formulaire de contact.';
-$string['noreplyemail'] = 'Email No Reply Solerni';
-$string['noreplyemail_desc'] = 'Email No Reply Solerni. Cet email est utilisé pour les mails envoyés par la plateforme mais aussi pour le formulaire de contact.';
+$string['css'] = 'CSS inclu dans l\'e-mail';
+$string['css_desc'] = 'CSS inclus dans tous les e-mails. Il doit commencer par <STYLE> et terminer par </STYLE>';
+$string['header'] = 'Entête de l\'e-mail';
+$string['header_desc'] = 'Entête de l\'e-mail (partie contenant le logo Orange).';
+$string['contentstart'] = 'Avant le contenu de l\'e-mail';
+$string['contentstart_desc'] = 'Code HTML placé avant le contenu de l\'e-mail';
+$string['contentend'] = 'Après le contenu de l\'e-mail';
+$string['contentend_desc'] = 'Code HTML placé après le contenu de l\'e-mail';
+$string['headertext'] = 'E-mail Header';
+$string['headertext_desc'] = 'E-mail Header';
+$string['footer'] = 'E-mail Footer';
+$string['footer_desc'] = 'E-mail Footer';
+$string['footertext'] = 'E-mail Footer';
+$string['footertext_desc'] = 'E-mail Footer';
+$string['footerinscription'] = 'E-mail Footer Inscription';
+$string['footerinscription_desc'] = 'E-mail Footer Inscription';
+$string['footerinscriptiontext'] = 'E-mail Footer Inscription';
+$string['footerinscriptiontext_desc'] = 'E-mail Footer Inscription';
+$string['signature'] = 'E-mail Signature';
+$string['signature_desc'] = 'E-mail Signature';
+$string['signaturetext'] = 'E-mail Signature';
+$string['signaturetext_desc'] = 'E-mail Signature';
+$string['followus'] = 'Ajouter une section "Follow us" à l\'e-mail';
+$string['followus_desc'] = 'Ajouter une section "Follow us" basée sur le template';
+$string['followustext'] = 'Ajouter une section "Follow us" à l\'e-mail';
+$string['followustext_desc'] = 'Ajouter une section "Follow us" basée sur le template';
+$string['contactemail'] = 'E-mail de contact Solerni';
+$string['contactemail_desc'] = 'E-mail de contact Solerni. Cet e-mail est utilisé pour les e-mails envoyés par la plateforme mais aussi pour le formulaire de contact.';
+$string['supportemail'] = 'E-mail de support Solerni';
+$string['supportemail_desc'] = 'E-mail de support Solerni. Cet e-mail est utilisé pour les e-mails envoyés par la plateforme mais aussi pour le formulaire de contact.';
+$string['marketemail'] = 'E-mail marketing Solerni';
+$string['marketemail_desc'] = 'E-mail marketing Solerni. Cet e-mail est utilisé pour les e-mails envoyés par la plateforme mais aussi pour le formulaire de contact.';
+$string['partneremail'] = 'E-mail de partenariat Solerni';
+$string['partneremail_desc'] = 'E-mail de partenariat Solerni. Cet e-mail est utilisé pour les e-mails envoyés par la plateforme mais aussi pour le formulaire de contact.';
+$string['noreplyemail'] = 'E-mail No Reply Solerni';
+$string['noreplyemail_desc'] = 'E-mail No Reply Solerni. Cet e-mail est utilisé pour les e-mails envoyés par la plateforme mais aussi pour le formulaire de contact.';
 $string['heading_general'] = 'Général';
-$string['heading_htmltemplate'] = 'Modèle HTML du mail';
-$string['heading_texttemplate'] = 'Modèle texte du mail';
+$string['heading_htmltemplate'] = 'Modèle HTML de l\'e-mail';
+$string['heading_texttemplate'] = 'Modèle texte de l\'e-mail';
 $string['helptext'] = 'Vous pouvez utiliser les variables suivantes dans les templates. Ces variables seront remplacées par du contenu lors de la génération des modèles.'
         . '<ul>'
         . '<li>{$b->sitename} : nom du site</li>'
@@ -87,10 +87,10 @@ $string['helptext'] = 'Vous pouvez utiliser les variables suivantes dans les tem
         . '<li>{$b->dailymotion} : url de la chaîne Dailymotion de Solerni</li>'
         . '<li>{$b->servicename} : Solerni pour la Home ou Solerni - nom de la thématique</li>'
         . '</ul>'
-        . '<br />Les variables en {$a->xxx} seront traitées par Moodle lors de l\'envoi du mail. Leur nombre varie en fonction de chaque mail.';
+        . '<br />Les variables en {$a->xxx} seront traitées par Moodle lors de l\'envoi de l\'e-mail. Leur nombre varie en fonction de chaque mail.';
 $string['helphtml'] = 'Vous pouvez utiliser les variables suivantes dans les templates. Ces variables seront remplacées par du contenu lors de la génération des modèles.'
         . '<ul>'
-        . '<li>{$b->imageurl} : répertoire des images pour les emails</li>'
+        . '<li>{$b->imageurl} : répertoire des images pour les e-mails</li>'
         . '<li>{$b->sitename} : nom du site</li>'
         . '<li>{$b->siteurl} : url du site</li>'
         . '<li>{$b->customer} : nom du client</li>'
@@ -105,7 +105,7 @@ $string['helphtml'] = 'Vous pouvez utiliser les variables suivantes dans les tem
         . '<li>{$b->dailymotion} : url de la chaîne Dailymotion de Solerni</li>'
         . '<li>{$b->servicename} : Solerni pour la Home ou Solerni - nom de la thématique</li>'
         . '</ul>'
-        . '<br />Les variables en {$a->xxx} seront traitées par Moodle lors de l\'envoi du mail. Leur nombre varie en fonction de chaque mail.';
+        . '<br />Les variables en {$a->xxx} seront traitées par Moodle lors de l\'envoi de l\e-mail. Leur nombre varie en fonction de chaque mail.';
 
 // Mail template strings.
 $string['solernimailsignature'] = '<span class="txt18BNoir">L’équipe de {$b->servicename}</span><br />'
@@ -115,26 +115,26 @@ Apprendre c’est toujours mieux ensemble {$b->sitename}';
 
 $string['solernimailfootertext'] = 'Ce message vous est envoyé automatiquement, merci de ne pas y répondre directement.
               Si vous avez des questions écrivez-nous à {$b->contactemail}.
-              Afin de bien recevoir nos emails, ajoutez cette adresse {$b->noreplyemail} dans votre carnet d\'adresses.';
+              Afin de bien recevoir nos e-mails, ajoutez cette adresse {$b->noreplyemail} dans votre carnet d\'adresses.';
 $string['solernimailfooterhtml'] = '<p>Ce message vous est envoyé automatiquement, merci de ne pas y répondre directement.<br />
               Si vous avez des questions écrivez-nous à <a href="mailto:{$b->contactemail}" class="lientxt14orange">{$b->contactemail}</a>.<br />
-              Afin de bien recevoir nos emails, ajoutez cette adresse <a href="mailto:{$b->noreplyemail}" class="lientxt14orange">{$b->noreplyemail}</a> dans votre carnet d\'adresses.</p>';
-$string['solernimailfooterinscriptiontext'] = 'Vous recevez cet email car votre adresse email a été utilisée sur notre site {$b->sitename}. Si vous ne vous êtes pas inscrit à {$b->sitename}, veuillez simplement ignorer ce message et votre compte sera supprimé automatiquement.
+              Afin de bien recevoir nos e-mails, ajoutez cette adresse <a href="mailto:{$b->noreplyemail}" class="lientxt14orange">{$b->noreplyemail}</a> dans votre carnet d\'adresses.</p>';
+$string['solernimailfooterinscriptiontext'] = 'Vous recevez cet e-mail car votre adresse e-mail a été utilisée sur notre site {$b->sitename}. Si vous ne vous êtes pas inscrit à {$b->sitename}, veuillez simplement ignorer ce message et votre compte sera supprimé automatiquement.
             Ce message vous est envoyé automatiquement, merci de ne pas y répondre directement.
               Si vous avez des questions écrivez-nous à {$b->contactemail}.
-              Afin de bien recevoir nos emails, ajoutez cette adresse {$b->noreplyemail} dans votre carnet d\'adresses.';
-$string['solernimailfooterinscriptionhtml'] = '<p>Vous recevez cet email car votre adresse email a été utilisée sur notre site <a href="{$b->siteurl}" class="lientxt14orange">{$b->sitename}</a>. Si vous ne vous êtes pas inscrit à {$b->sitename}, veuillez simplement ignorer ce message et votre compte sera supprimé automatiquement.</p>
+              Afin de bien recevoir nos e-mails, ajoutez cette adresse {$b->noreplyemail} dans votre carnet d\'adresses.';
+$string['solernimailfooterinscriptionhtml'] = '<p>Vous recevez cet e-mail car votre adresse e-mail a été utilisée sur notre site <a href="{$b->siteurl}" class="lientxt14orange">{$b->sitename}</a>. Si vous ne vous êtes pas inscrit à {$b->sitename}, veuillez simplement ignorer ce message et votre compte sera supprimé automatiquement.</p>
             <p>Ce message vous est envoyé automatiquement, merci de ne pas y répondre directement.<br />
               Si vous avez des questions écrivez-nous à <a href="mailto:{$b->contactemail}" class="lientxt14orange">{$b->contactemail}</a>.<br />
-              Afin de bien recevoir nos emails, ajoutez cette adresse <a href="mailto:{$b->noreplyemail}" class="lientxt14orange">{$b->noreplyemail}</a> dans votre carnet d\'adresses.</p>';
-$string['solernimailfooterinscriptionprivatetext'] = 'Vous recevez cet email car votre entreprise a souhaité vous inscrire automatiquement sur notre plateforme.
+              Afin de bien recevoir nos e-mails, ajoutez cette adresse <a href="mailto:{$b->noreplyemail}" class="lientxt14orange">{$b->noreplyemail}</a> dans votre carnet d\'adresses.</p>';
+$string['solernimailfooterinscriptionprivatetext'] = 'Vous recevez cet e-mail car votre entreprise a souhaité vous inscrire automatiquement sur notre plateforme.
             Ce message vous est envoyé automatiquement, merci de ne pas y répondre directement.
               Si vous avez des questions écrivez-nous à {$b->contactemail}.
-              Afin de bien recevoir nos emails, ajoutez cette adresse {$b->noreplyemail} dans votre carnet d\'adresses.';
-$string['solernimailfooterinscriptionprivatehtml'] = '<p>Vous recevez cet email car votre entreprise a souhaité vous inscrire automatiquement sur notre plateforme.
+              Afin de bien recevoir nos e-mails, ajoutez cette adresse {$b->noreplyemail} dans votre carnet d\'adresses.';
+$string['solernimailfooterinscriptionprivatehtml'] = '<p>Vous recevez cet e-mail car votre entreprise a souhaité vous inscrire automatiquement sur notre plateforme.
             <p>Ce message vous est envoyé automatiquement, merci de ne pas y répondre directement.<br />
               Si vous avez des questions écrivez-nous à <a href="mailto:{$b->contactemail}" class="lientxt14orange">{$b->contactemail}</a>.<br />
-              Afin de bien recevoir nos emails, ajoutez cette adresse <a href="mailto:{$b->noreplyemail}" class="lientxt14orange">{$b->noreplyemail}</a> dans votre carnet d\'adresses.</p>';
+              Afin de bien recevoir nos e-mails, ajoutez cette adresse <a href="mailto:{$b->noreplyemail}" class="lientxt14orange">{$b->noreplyemail}</a> dans votre carnet d\'adresses.</p>';
 $string['solernimailfollowus'] = 'Suivez-nous';
 
 
@@ -160,7 +160,7 @@ Les informations pour vous connecter sont désormais :<br />
 $string['contentuseraccountemail'] = '<p>Bonjour <span class="txt18BNoir">{$a->fullname}</span>,<br /><br />
 Bienvenue sur <span class="txt18BNoir">{$b->sitename}</span>, votre nouvelle plateforme d\'apprentissage collaborative.</p>
 <p>Vos identifiants de connexion pour accéder à votre compte {$b->sitename} sont:<ul>
-    <li>Email : <a href="mailto:{$a->email}" class="lientxt18orange">{$a->email}</a></li>
+    <li>E-mail : <a href="mailto:{$a->email}" class="lientxt18orange">{$a->email}</a></li>
     <li>Mot de passe : vous seul le connaissez</li>
 </ul></p>
 <p>Vos identifiants vous permettent de vous connecter sur l\'ensemble des sites d\'apprentissage collaboratif proposés par {$b->servicename}.</p>
@@ -169,7 +169,7 @@ Bienvenue sur <span class="txt18BNoir">{$b->sitename}</span>, votre nouvelle pla
 $string['contentuseraccountemailprivate'] = '<p>Bonjour <span class="txt18BNoir">{$a->fullname}</span>,<br /><br />
 Bienvenue sur <span class="txt18BNoir">{$b->servicename}</span>, votre nouvelle plateforme d\'apprentissage collaborative.</p>
 <p>Vos identifiants de connexion pour accéder à votre compte {$b->servicename} sont:<ul>
-    <li>Email : <a href="mailto:{$a->email}" class="lientxt18orange">{$a->email}</a></li>
+    <li>E-mail : <a href="mailto:{$a->email}" class="lientxt18orange">{$a->email}</a></li>
     <li>Mot de passe : vous seul le connaissez</li>
 </ul></p>
 <p>A bientôt sur {$b->servicename}.</p>';
@@ -186,7 +186,7 @@ $string['emailresetconfirmation'] = '<p>Bonjour <span class="txt18BNoir">{$a->fi
 
 // Mail M5.
 $string['emailconfirmation'] = '<p>Bonjour <span class="txt18BNoir">{$a->firstname}</span>,</p>
-<p>Nous avons reçu une demande d’inscription de votre part avec votre adresse email.</p>
+<p>Nous avons reçu une demande d’inscription de votre part avec votre adresse e-mail.</p>
 <p>Afin de valider cette demande nous vous invitons à cliquer sur le lien suivant :<br />
 <a href="{$a->link}" class="lientxt18orange">valider mon inscription</a></p>
 <p>Si celui-ci ne fonctionne pas, vous pouvez copier-coller le lien ci-après dans la barre d’adresse de votre navigateur :<br/>
@@ -260,9 +260,9 @@ $string['messagebody'] = '<p>Bonjour,</p>
 
 // Mail M17.
 $string['emailupdatemessage'] = '<p>Bonjour <span class="txt18BNoir">{$a->fullname}</span>,</p>
-<p>Vous avez demandé la modification de votre adresse email pour votre compte utilisateur sur {$a->site}.</p>
+<p>Vous avez demandé la modification de votre adresse e-mail pour votre compte utilisateur sur {$a->site}.</p>
 <p>Afin de valider cette demande nous vous invitons à cliquer sur le lien suivant.<br />
-<a href="{$a->url}" class="lientxt18orange">confirmer le changement de mon adresse email</a>
+<a href="{$a->url}" class="lientxt18orange">confirmer le changement de mon adresse e-mail</a>
 </p>
 <p>Si celui-ci ne fonctionne pas, vous pouvez copier-coller le lien ci-après dans la barre d\'adresse de votre navigateur :<br />
    <a href="{$a->url}" class="lientxt18orange">{$a->url}</a>

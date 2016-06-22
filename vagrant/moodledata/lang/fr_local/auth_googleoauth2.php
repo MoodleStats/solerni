@@ -98,7 +98,7 @@ L\'utilisateur existe déjà sur Solerni, connectez-vous avec votre login et mot
 $string['oauth2displaybuttons'] = 'Afficher les boutons sur la page de login';
 $string['oauth2displaybuttonshelp'] = 'Afficher les boutons de logo Google/Facebook/... en haut de la page. Si vous voulez positionner vous-même ces boutons, vous pouvez garder cette option non cochée et ajouter vous-même le code suivant:
 {$a}';
-$string['emailaddressmustbeverified'] = 'Votre adresse email n\'est pas vérifiée par la méthode d\'authentification que vous avez sélectionnée. Vous avez sans doute oublié de cliquer sur le lien "vérifier mon adresse email" que Google ou Facebook vous a envoyé lors de votre inscription à leur service.';
+$string['emailaddressmustbeverified'] = 'Votre adresse e-mail n\'est pas vérifiée par la méthode d\'authentification que vous avez sélectionnée. Vous avez sans doute oublié de cliquer sur le lien "vérifier mon adresse e-mail" que Google ou Facebook vous a envoyé lors de votre inscription à leur service.';
 $string['auth_sign-in_with'] = '{$a->providername}';
 $string['moreproviderlink'] = 'S’authentifier avec un autre service.';
 $string['signinwithanaccount'] = 'S\'authentifier avec:';
@@ -106,11 +106,11 @@ $string['noaccountyet'] = 'Vous n\'avez plus la permission d\'utiliser ce site. 
 $string['unknownfirstname'] = 'Nom inconnu';
 $string['unknownlastname'] = 'Prénom inconnu';
 $string['linkedin_failure'] = 'Désolé, l\'authentification de votre compte ne peut aboutir.<br/>
-Si vous aviez créé un compte en vous inscrivant avec votre adresse email, veuillez continuer à vous identifier avec cette même adresse email.<br/>
+Si vous aviez créé un compte en vous inscrivant avec votre adresse e-mail, veuillez continuer à vous identifier avec cette même adresse e-mail.<br/>
 Si vous aviez créé un compte en vous inscrivant avec un compte Facebook, Linkedin ou Google +, veuillez continuer à vous identifier en utilisant le bouton de connexion correspondant.<br/>';
 $string['google_failure'] = 'Désolé, l\'authentification de votre compte ne peut aboutir.<br/>
-Si vous aviez créé un compte en vous inscrivant avec votre adresse email, veuillez continuer à vous identifier avec cette même adresse email.<br/>
+Si vous aviez créé un compte en vous inscrivant avec votre adresse e-mail, veuillez continuer à vous identifier avec cette même adresse e-mail.<br/>
 Si vous aviez créé un compte en vous inscrivant avec un compte Facebook, Linkedin ou Google +, veuillez continuer à vous identifier en utilisant le bouton de connexion correspondant.<br/>';
 $string['facebook_failure'] = 'Désolé, l\'authentification de votre compte ne peut aboutir.<br/>
-Si vous aviez créé un compte en vous inscrivant avec votre adresse email, veuillez continuer à vous identifier avec cette même adresse email.<br/>
+Si vous aviez créé un compte en vous inscrivant avec votre adresse e-mail, veuillez continuer à vous identifier avec cette même adresse e-mail.<br/>
 Si vous aviez créé un compte en vous inscrivant avec un compte Facebook, Linkedin ou Google +, veuillez continuer à vous identifier en utilisant le bouton de connexion correspondant.<br/>';
