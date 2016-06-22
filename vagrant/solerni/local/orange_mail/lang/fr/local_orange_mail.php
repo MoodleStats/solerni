@@ -214,7 +214,7 @@ $string['defaultemailmsg'] = '<p>Bonjour <span class="txt18BNoir">{$a->fullname}
 $string['newusernewpasswordtext'] = '<p>Bonjour <span class="txt18BNoir">{$a->firstname}</span>,</p>
 <p>Solerni, votre plateforme d\'apprentissage collaborative, évolue et change d\'adresse par la même occasion.</p>
 <p><span class="txt18BNoir">Comment accéder à la nouvelle version {$a->sitename} ?</span></p>
-<p>Pour accéder à la nouvelle version et découvrir nos dernier MOOCs, vous devez désormais vous rendre sur {$a->sitename} et utiliser les identifiants suivants :<br />
+<p>Pour accéder à la nouvelle version et découvrir nos derniers MOOCs, vous devez désormais vous rendre sur {$a->sitename} et utiliser les identifiants suivants :<br />
 <ul>
    <li>nom d\'utilisateur : {$a->username}</li>
    <li>mot de passe       : {$a->newpassword}</li>
