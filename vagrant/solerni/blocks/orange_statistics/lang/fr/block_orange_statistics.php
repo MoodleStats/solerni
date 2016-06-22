@@ -35,4 +35,4 @@ $string['orange_statistics:myaddinstance'] = 'Rajouter un bloc statistique sur m
 $string['pluginname'] = 'Orange Statistics';
 
 // Cron Tasks.
-$string['orange_inactive_users'] = "apprenant ayant decrochés";
+$string['orange_inactive_users'] = "apprenant ayant decroché";
