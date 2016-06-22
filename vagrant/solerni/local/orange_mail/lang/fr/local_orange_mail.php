@@ -163,7 +163,7 @@ Bienvenue sur <span class="txt18BNoir">{$b->sitename}</span>, votre nouvelle pla
     <li>Email : <a href="mailto:{$a->email}" class="lientxt18orange">{$a->email}</a></li>
     <li>Mot de passe : vous seul le connaissez</li>
 </ul></p>
-<p>Vos identifiants vous permettent de vous connecter sur l\'ensemble des sites d\'apprentissage collaboratif proposé par {$b->servicename}.</p>
+<p>Vos identifiants vous permettent de vous connecter sur l\'ensemble des sites d\'apprentissage collaboratif proposés par {$b->servicename}.</p>
 <p>Vous pouvez donc vous connecter à partir de n\'importe quelle thématique et naviguer librement d\'une thématique à une autre.</p>
 <p>A bientôt sur {$b->servicename}.</p>';
 $string['contentuseraccountemailprivate'] = '<p>Bonjour <span class="txt18BNoir">{$a->fullname}</span>,<br /><br />
